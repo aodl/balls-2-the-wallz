@@ -56,11 +56,12 @@ All local IC commands must use `DFX_IDENTITY=codex_local`. These setup steps do 
 
 The integration runner does not use dfx or an identity. It validates/downloads the exact PocketIC and upstream ICP-ledger artifacts declared in `tools/s09-artifacts.json` to `~/dtr-s09-artifacts`, builds with Rust 1.94.1 and committed locks, creates fresh in-process PocketIC instances, and terminates them after the test.
 
-Run it with the same Python 3.11 Playwright environment and any already documented local browser-library path:
+Run it with the same Python 3.11 Playwright environment. If this host uses the reviewed user-local shared-library bundle instead of system browser packages, retain its documented `LD_LIBRARY_PATH` for the command:
 
 ```sh
-/path/outside/checkout/browser-venv/bin/python -B \
+LD_LIBRARY_PATH=/path/to/user-local/browser-libs \
+  /path/outside/checkout/browser-venv/bin/python -B \
   tools/verify_s09_local.py --output .work/s09/final
 ```
 
-The output contains sanitized commands, versions, exit codes and hashes. The browser snapshot contains a disposable local root key and certificate, not an identity or wallet secret; it remains uncommitted under `.work/`. Do not reuse that root as a production trust anchor.
+The runner starts one pinned PocketIC server, points every fresh test instance at it, and terminates only that owned server process group before browser verification. The output contains sanitized commands, versions, exit codes and hashes. The browser snapshot contains a disposable local root key and certificate, not an identity or wallet secret; it remains uncommitted under `.work/`. Do not reuse that root as a production trust anchor.

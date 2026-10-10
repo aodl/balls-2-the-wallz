@@ -199,11 +199,22 @@ fn required_path(name: &str) -> PathBuf {
 }
 
 fn instance() -> PocketIc {
-    PocketIcBuilder::new()
+    let builder = PocketIcBuilder::new()
         .with_nns_subnet()
-        .with_application_subnet()
-        .with_server_binary(required_path("POCKET_IC_BIN"))
-        .build()
+        .with_application_subnet();
+    if let Ok(server_url) = std::env::var("POCKET_IC_SERVER_URL") {
+        builder
+            .with_server_url(
+                server_url
+                    .parse()
+                    .unwrap_or_else(|error| panic!("invalid POCKET_IC_SERVER_URL: {error}")),
+            )
+            .build()
+    } else {
+        builder
+            .with_server_binary(required_path("POCKET_IC_BIN"))
+            .build()
+    }
 }
 
 fn wat_bytes(bytes: &[u8]) -> String {
