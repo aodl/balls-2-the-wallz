@@ -30,6 +30,14 @@ class TestPlan(unittest.TestCase):
         self.assertGreaterEqual(dict((name,timeout) for name,_,_,_,timeout in checks)['runtime-lab-wasm'],600)
         self.assertEqual(BLOCKED_EXIT_CHECKS,{'observer-http-webcrypto'})
         self.assertNotIn('cargo-tests',BLOCKED_EXIT_CHECKS)
+    def test_component_modes_are_disjoint(self):
+        out=Path('/tmp/check-output')
+        modes={mode:{name for name,_,_,_,_ in planned_checks(mode,out)} for mode in ('source','native','wasm','browser')}
+        self.assertIn('cargo-tests',modes['native'])
+        self.assertIn('runtime-lab-wasm',modes['wasm'])
+        self.assertEqual(modes['browser'],{'observer-http-webcrypto'})
+        self.assertTrue(all(not (modes[left]&modes[right]) for left in modes for right in modes if left<right))
+        self.assertEqual(set().union(*modes.values()),{name for name,_,_,_,_ in planned_checks('all',out)})
     def test_unimplemented_requirements_remain_blocked(self):
         ids={name for name,_ in blocked_requirements()}
         self.assertIn('pocketic-integration',ids)

@@ -2,6 +2,7 @@
 """Repository-aware, bounded checks. Exit 0=pass, 1=failure, 2=blocked; no silent skips."""
 import argparse
 import datetime
+import hashlib
 import json
 import os
 import platform
@@ -94,7 +95,7 @@ def run_one(name,command,outdir,kind='normal',requires=(),timeout=90,allow_block
     return row
 
 def planned_checks(mode,outdir):
-    checks=[
+    source=[
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),
       ('protocol-fixtures',[sys.executable,'-B','tools/reference_fixtures.py','--check'],'normal',(),120),
       ('life-reference',[sys.executable,'-B','tools/life_reference.py','--check'],'normal',(),120),
@@ -112,7 +113,7 @@ def planned_checks(mode,outdir):
       ('docs-links',[sys.executable,'-B','tools/check_docs.py'],'normal',(),120),
       ('python-tool-tests',[sys.executable,'-B','-m','unittest','discover','-s','tools','-p','test_*.py','-v'],'python-tests',(),300),
     ]
-    if mode=='all':checks += [
+    native=[
       ('cargo-lock',['cargo','metadata','--format-version','1','--no-deps','--locked','--offline'],'normal',('cargo',),120),
       ('cargo-tests',['cargo','test','--workspace','--locked','--offline'],'rust-tests',('cargo',),900),
       ('native-vectors',[sys.executable,'-B','tools/verify_native.py'],'normal',('cargo',),300),
@@ -120,17 +121,42 @@ def planned_checks(mode,outdir):
       ('portable-rust-tests',['cargo','test','--manifest-path','native/Cargo.toml','--workspace','--locked','--offline'],'rust-tests',('cargo',),900),
       ('native-public-game',[sys.executable,'-B','tools/verify_portable_native.py'],'normal',('cargo','node'),300),
       ('native-public-host',[sys.executable,'-B','tools/verify_host_native.py'],'normal',('cargo','node'),300),
-      ('runtime-lab-lock',['cargo','metadata','--manifest-path','canisters/runtime-lab/Cargo.toml','--format-version','1','--no-deps','--locked','--offline'],'normal',('cargo',),120),
-      ('runtime-lab-wasm',['cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline'],'normal',('cargo',),900),
-      ('runtime-lab-format',['cargo','fmt','--manifest-path','canisters/runtime-lab/Cargo.toml','--all','--','--check'],'normal',('cargo',),300),
-      ('runtime-lab-clippy',['cargo','clippy','--manifest-path','canisters/runtime-lab/Cargo.toml','--target','wasm32-unknown-unknown','--all-targets','--locked','--offline','--','-D','warnings'],'normal',('cargo',),900),
       ('portable-format',['cargo','fmt','--manifest-path','native/Cargo.toml','--all','--','--check'],'normal',('cargo',),300),
       ('portable-clippy',['cargo','clippy','--manifest-path','native/Cargo.toml','--workspace','--all-targets','--locked','--offline','--','-D','warnings'],'normal',('cargo',),900),
       ('cargo-format',['cargo','fmt','--all','--','--check'],'normal',('cargo',),300),
       ('cargo-clippy',['cargo','clippy','--workspace','--all-targets','--locked','--offline','--','-D','warnings'],'normal',('cargo',),900),
+    ]
+    wasm=[
+      ('runtime-lab-lock',['cargo','metadata','--manifest-path','canisters/runtime-lab/Cargo.toml','--format-version','1','--no-deps','--locked','--offline'],'normal',('cargo',),120),
+      ('runtime-lab-wasm',['cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline'],'normal',('cargo',),900),
+      ('runtime-lab-format',['cargo','fmt','--manifest-path','canisters/runtime-lab/Cargo.toml','--all','--','--check'],'normal',('cargo',),300),
+      ('runtime-lab-clippy',['cargo','clippy','--manifest-path','canisters/runtime-lab/Cargo.toml','--target','wasm32-unknown-unknown','--all-targets','--locked','--offline','--','-D','warnings'],'normal',('cargo',),900),
+    ]
+    browser=[
       ('observer-http-webcrypto',[sys.executable,'-B','tools/verify_observer_http.py','--output',str(outdir/'browser-http')],'normal',(),240),
     ]
-    return checks
+    groups={'source':source,'native':native,'wasm':wasm,'browser':browser}
+    if mode=='all':return source+native+wasm+browser
+    return groups[mode]
+
+def git_revision():
+    try:
+        process=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,text=True,capture_output=True,timeout=8)
+        if process.returncode==0:return process.stdout.strip()
+    except (OSError,subprocess.TimeoutExpired):pass
+    return None
+
+def tested_artifacts(checks):
+    """Record only build artifacts that a named passing check actually produced."""
+    passed={row['id'] for row in checks if row['status']=='PASS'}
+    candidates=[]
+    if 'runtime-lab-wasm' in passed:
+        candidates.append(ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm')
+    artifacts=[]
+    for path in candidates:
+        if path.is_file():
+            artifacts.append({'path':str(path.relative_to(ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'size':path.stat().st_size})
+    return artifacts
 
 def blocked_requirements():
     return [
@@ -143,17 +169,18 @@ def blocked_requirements():
     ]
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('mode',choices=['doctor','source','all']);parser.add_argument('--output',type=Path,default=ROOT/'.work/verification');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('mode',choices=['doctor','source','native','wasm','browser','all']);parser.add_argument('--output',type=Path,default=ROOT/'.work/verification');args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True);environment=doctor();(args.output/'environment.json').write_text(json.dumps(environment,indent=2)+'\n')
     if args.mode=='doctor':
         print(json.dumps(environment,indent=2));return 0 if all(environment['tools'][tool]['available'] for tool in ('node','python3','cargo','rustc'))else 2
-    report={'schema_version':1,'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'mode':args.mode,'archived_not_release_requirements':['arena-lab-v4','cross-language-private-cursor-bytes'],'checks':[],'overall':'IN_PROGRESS'}
+    report={'schema_version':1,'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'git_revision':git_revision(),'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'mode':args.mode,'archived_not_release_requirements':['arena-lab-v4','cross-language-private-cursor-bytes'],'checks':[],'tested_artifacts':[],'overall':'IN_PROGRESS'}
     destination=args.output/'verification.json'
     for name,command,kind,requires,timeout in planned_checks(args.mode,args.output):
         allow_blocked_exit=name in BLOCKED_EXIT_CHECKS
         report['checks'].append(run_one(name,command,args.output,kind,requires,timeout,allow_blocked_exit));destination.write_text(json.dumps(report,indent=2)+'\n');print(name,report['checks'][-1]['status'],flush=True)
     if args.mode=='all':
         for name,reason in blocked_requirements():report['checks'].append({'id':name,'status':'BLOCKED','exit_code':None,'reason':reason})
+    report['tested_artifacts']=tested_artifacts(report['checks'])
     states=[row['status'] for row in report['checks']];report['overall']='FAIL' if 'FAIL' in states else 'BLOCKED' if 'BLOCKED' in states else 'PASS'
     destination.write_text(json.dumps(report,indent=2)+'\n');print('OVERALL',report['overall']);return 1 if report['overall']=='FAIL' else 2 if report['overall']=='BLOCKED' else 0
 if __name__=='__main__':raise SystemExit(main())
