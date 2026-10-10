@@ -1,37 +1,37 @@
 {
   "schema_version": 1,
-  "checkpoint_id": "S08",
-  "name": "DTR/BTZ Linux tooling and native validation",
+  "checkpoint_id": "S09",
+  "name": "DTR/BTZ local authoritative IC slice",
   "date": "2026-10-10",
   "predecessor": {
-    "checkpoint_id": "S07",
-    "archive": "DTR_BTZ_S07_Offline_Observer_and_Replay.zip",
-    "sha256": "469bcda15e3d763879b05ce2197b9b0fb23351b68d352010c952072eeea2837a",
-    "baseline_commit": "8adbdab4fd375e27ebf4e540a2e44ba68426c6c8",
-    "baseline_tag": "s07-source-baseline"
+    "checkpoint_id": "S08",
+    "reviewed_commit": "7e55ceed322dcb9268382522c696a74e86e8f5f3",
+    "s07_baseline_commit": "8adbdab4fd375e27ebf4e540a2e44ba68426c6c8",
+    "s07_baseline_tag": "s07-source-baseline"
   },
-  "implementation_scope": "Executed source/native public-output and own-recovery conformance, runtime-lab Wasm build, and local-HTTP browser Web Crypto; local authoritative IC integration remains BLOCKED",
+  "implementation_scope": "Executed one disposable-local upstream-ledger/archive to runtime-lab to certified browser-observer path with upgrade and recovery evidence",
   "delivery_complete": true,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
-    "evidence/S08/verification-summary.json",
-    "evidence/S08/environment.json",
-    "evidence/S08/browser/http/results.json"
+    "evidence/S09/verification-summary.json",
+    "evidence/S09/runtime-lab.generated.did"
   ],
   "manifest": null,
   "release_archive_created": false,
   "baseline_manifest": "FILES.sha256",
-  "next_checkpoint": "S09-local-authoritative-ic-slice",
+  "next_checkpoint": "production-boundary-hardening",
   "open_decision_register": "docs/DECISIONS.md",
   "limitations": [
-    "FILES.sha256 remains the imported S07 archive manifest; no S08 release ZIP or manifest was generated.",
-    "The runtime-lab locked Wasm build is not generated-Candid, authorization, trap, upgrade or recertification evidence.",
-    "No PocketIC ledger/index/archive read, source-completeness proof or checkpoint assignment test has executed.",
-    "The local HTTP observer verifies pinned content but not an IC certificate or network identity.",
-    "Dependency vulnerability/license audit and independent byte-reproducible Wasm comparison remain unexecuted.",
-    "No deployment, wallet access, token transfer, payout, production controller change, real cycle measurement or capacity proof occurred."
+    "FILES.sha256 remains the imported S07 archive manifest; no S09 release ZIP or manifest was generated.",
+    "The ledger path is a bounded contiguous full-ledger correctness baseline, not production scalability or cost evidence; no index path is claimed.",
+    "The source anchor commits decoded ledger content and continuity but is not represented as the native ledger block hash.",
+    "The disposable PocketIC root is trusted only through an explicit local harness step; production network-root policy remains open.",
+    "Canister-range delegation was verified where emitted by the local topology; broader production topology coverage remains open.",
+    "Independent byte-reproducible Wasm comparison, real cycle telemetry, production capacity and settlement remain unexecuted.",
+    "Cargo audit reports informational unmaintained warnings for paste and serde_cbor; no known vulnerability advisory was found.",
+    "No deployment, wallet access, token transfer, payout, production controller change or mainnet call occurred."
   ],
   "implementation_versions": {
     "source_seal": 1,
