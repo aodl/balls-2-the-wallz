@@ -2,6 +2,7 @@
 import {decodeCanonical} from '../../packages/runtime/canonical.mjs';
 import {sha256Web} from '../../packages/client/verification.mjs';
 import {cmp, validRat, rat} from '../../packages/kernels/btz/math.mjs';
+import {projectAnimationEvents} from '../../packages/kernels/btz/animation-projection.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
@@ -106,6 +107,31 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   model.matches(final);
   return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,
     bytes:initialBytes.length+finalBytes.length+renderBytes.length};
+}
+/** The native host intentionally publishes no render artifact. Derive the
+ * existing compact presentation from its authenticated predecessor and audit
+ * events, then apply the same endpoint validation as recorded playback. */
+export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,publication){
+  check(publication.version===6&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
+  const events=publication.artifacts.find(a=>a.kind==='events');
+  check(events&&await sha256Web(eventBytes)===events.sha256,'authenticated audit artifact');
+  const initial=snapshot(initialBytes),final=snapshot(finalBytes),projected=projectAnimationEvents(initial,eventBytes),h=publication.head,s=h.seal;
+  const p={version:1,format:FORMAT,initial_state_hash:await sha256Web(initialBytes),source_events_hash:await sha256Web(eventBytes),
+    receipts:projected.receipts,events:projected.events};
+  check(s&&p.version===1&&p.format===FORMAT,'derived animation version');
+  check(p.initial_state_hash===await sha256Web(initialBytes)&&p.initial_state_hash===s.previous_state,'derived animation predecessor');
+  check(await sha256Web(finalBytes)===h.state_hash,'derived final snapshot hash');
+  check(p.source_events_hash===events.sha256,'derived audit binding');
+  check(Array.isArray(p.events)&&p.events.length<=MAX_EVENTS&&Array.isArray(p.receipts)&&p.receipts.length<=4096,'derived animation structure');
+  check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'derived snapshot timeline');
+  const model=new BtzView(initial);let prior=initial.time,seq=-1;
+  for(const e of p.events){
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'derived animation event order/range');
+    seq=e.sequence;prior=e.time;model.apply(e);
+  }
+  model.matches(final);
+  return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,
+    bytes:initialBytes.length+finalBytes.length+eventBytes.length};
 }
 export class SegmentPlayer {
   constructor(segment){this.segment=segment;this.view=new BtzView(segment.initial);this.index=0;this.time=segment.start;}

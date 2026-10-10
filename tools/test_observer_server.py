@@ -21,6 +21,9 @@ class ObserverServerTests(unittest.TestCase):
     def test_module_mime(self):
         status,headers,_=self.get('/apps/btz-observer/app.mjs');self.assertEqual(status,200);self.assertEqual(headers['Content-type'],'text/javascript')
     def test_records(self):self.assertEqual(self.get('/apps/btz-observer/recordings/index.json')[0],200)
+    def test_local_certificate_snapshot_is_disabled_by_default(self):
+        for path in ['/s09-local/metadata.json','/s09-assets/ic-certificate.mjs']:
+            with self.subTest(path=path):self.assertEqual(self.get(path)[0],404)
     def test_sensitive_paths(self):
         for path in ['/CHECKPOINT.json','/.git/config','/tools/check.py','/evidence/S06/verification/verification.json','/native/Cargo.toml']:
             with self.subTest(path=path):self.assertEqual(self.get(path)[0],404)

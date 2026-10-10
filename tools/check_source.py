@@ -59,10 +59,9 @@ def main():
     for api in lab_exports:
         if api not in (ROOT/'canisters/arena-lab/arena-lab.did').read_text():raise ValueError('declared laboratory interface method absent')
     runtime=(ROOT/'canisters/runtime-lab/src/lib.rs').read_text()
-    runtime_exports=re.findall(r'#[[]ic_cdk::(?:query|update)[]]\s*fn\s+(\w+)',runtime)
-    if set(runtime_exports)!={'lab_status','observation','artifact_chunk','apply'}:raise ValueError('runtime laboratory export drift')
-    if runtime.count('authorized()?')!=1 or 'is_controller'not in runtime:raise ValueError('runtime laboratory guard inventory')
-    if re.search(r'\basync\b|\.await\b',runtime):raise ValueError('async boundary introduced into runtime laboratory')
+    runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
+    if set(runtime_exports)!={'lab_status','controller_work','observation','artifact_chunk','apply','sync_ledger','ledger_hint','test_trap_after_root_write'}:raise ValueError('runtime laboratory export drift')
+    if runtime.count('authorized()?')!=3 or 'is_controller'not in runtime:raise ValueError('runtime laboratory guard inventory')
     if 'certified_data_set'not in runtime or 'data_certificate()'not in runtime:raise ValueError('runtime certification inventory')
     for path in (ROOT/'packages/client').glob('*.mjs'):
         if 'node:'in path.read_text():raise ValueError('Node-only import in browser client')

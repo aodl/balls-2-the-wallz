@@ -19,7 +19,7 @@ NODE_COUNTS=re.compile(r'^(?:#|ℹ)\s+(tests|pass|fail|skipped|cancelled) (\d+)$
 RUST_COUNTS=re.compile(r'test result: ok\. (\d+) passed; (\d+) failed; (\d+) ignored;')
 # Only these repository-owned wrappers document exit 2 as a missing-prerequisite result.
 # Compiler, test, argparse and arbitrary external exits are failures by default.
-BLOCKED_EXIT_CHECKS={'observer-http-webcrypto'}
+BLOCKED_EXIT_CHECKS={'observer-http-webcrypto','s09-local-authoritative-slice'}
 
 def counts_for(kind,text):
     if kind=='node-tests':return {key:int(value) for key,value in NODE_COUNTS.findall(text)}
@@ -136,8 +136,11 @@ def planned_checks(mode,outdir):
     browser=[
       ('observer-http-webcrypto',[sys.executable,'-B','tools/verify_observer_http.py','--output',str(outdir/'browser-http')],'normal',(),240),
     ]
-    groups={'source':source,'native':native,'wasm':wasm,'browser':browser}
-    if mode=='all':return source+native+wasm+browser
+    integration=[
+      ('s09-local-authoritative-slice',[sys.executable,'-B','tools/verify_s09_local.py','--output',str(outdir/'s09-local')],'normal',('cargo','node','npm'),1200),
+    ]
+    groups={'source':source,'native':native,'wasm':wasm,'browser':browser,'integration':integration}
+    if mode=='all':return source+native+wasm+browser+integration
     return groups[mode]
 
 def git_revision():
@@ -161,17 +164,15 @@ def tested_artifacts(checks):
 
 def blocked_requirements():
     return [
-        ('pocketic-integration','Runtime-lab trap, lost-acknowledgement, authorization, upgrade and pinned ledger/archive integration have not executed in PocketIC.'),
-        ('runtime-lab-upgrade-and-rollback','Authorization, atomic rollback, upgrade recovery and recertification have not executed against the current Wasm.'),
-        ('dependency-audit','The introduced S09 dependency graph has not yet received a recorded vulnerability/license review.'),
         ('reproducible-wasm','An independent byte-reproducible Wasm comparison remains unexecuted.'),
-        ('authoritative-ledger-ingestion','No current runtime-lab authoritative ledger/archive ingestion has executed.'),
-        ('certificate-verification','No real IC certificate identity/delegation/freshness verification has executed.'),
+        ('production-ledger-scalability','The bounded full-ledger scan is a local correctness baseline, not production index/archive scalability or cost evidence.'),
+        ('production-network-certificate-policy','The tested root is confined to one disposable PocketIC instance; production endpoint/root policy remains unimplemented.'),
+        ('financial-and-settlement-integration','Admission, payouts, wallets, real ICP and settlement remain intentionally unimplemented.'),
         ('capacity-and-cost','Target-subnet capacity and measured cycle telemetry remain unverified; PocketIC cannot satisfy this gate.'),
     ]
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('mode',choices=['doctor','source','native','wasm','browser','all']);parser.add_argument('--output',type=Path,default=ROOT/'.work/verification');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('mode',choices=['doctor','source','native','wasm','browser','integration','all']);parser.add_argument('--output',type=Path,default=ROOT/'.work/verification');args=parser.parse_args()
     args.output.mkdir(parents=True,exist_ok=True);environment=doctor();(args.output/'environment.json').write_text(json.dumps(environment,indent=2)+'\n')
     if args.mode=='doctor':
         print(json.dumps(environment,indent=2));return 0 if all(environment['tools'][tool]['available'] for tool in ('node','python3','cargo','rustc'))else 2

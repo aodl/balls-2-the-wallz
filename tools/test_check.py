@@ -28,22 +28,23 @@ class TestPlan(unittest.TestCase):
         self.assertNotIn('generate-lockfile',commands)
         self.assertIn('observer-http-webcrypto',[name for name,_,_,_,_ in checks])
         self.assertGreaterEqual(dict((name,timeout) for name,_,_,_,timeout in checks)['runtime-lab-wasm'],600)
-        self.assertEqual(BLOCKED_EXIT_CHECKS,{'observer-http-webcrypto'})
+        self.assertEqual(BLOCKED_EXIT_CHECKS,{'observer-http-webcrypto','s09-local-authoritative-slice'})
         self.assertNotIn('cargo-tests',BLOCKED_EXIT_CHECKS)
     def test_component_modes_are_disjoint(self):
         out=Path('/tmp/check-output')
-        modes={mode:{name for name,_,_,_,_ in planned_checks(mode,out)} for mode in ('source','native','wasm','browser')}
+        modes={mode:{name for name,_,_,_,_ in planned_checks(mode,out)} for mode in ('source','native','wasm','browser','integration')}
         self.assertIn('cargo-tests',modes['native'])
         self.assertIn('runtime-lab-wasm',modes['wasm'])
         self.assertIn('runtime-lab-candid',modes['wasm'])
         self.assertEqual(modes['browser'],{'observer-http-webcrypto'})
+        self.assertEqual(modes['integration'],{'s09-local-authoritative-slice'})
         self.assertTrue(all(not (modes[left]&modes[right]) for left in modes for right in modes if left<right))
         self.assertEqual(set().union(*modes.values()),{name for name,_,_,_,_ in planned_checks('all',out)})
     def test_unimplemented_requirements_remain_blocked(self):
         ids={name for name,_ in blocked_requirements()}
-        self.assertIn('pocketic-integration',ids)
-        self.assertIn('authoritative-ledger-ingestion',ids)
-        self.assertIn('certificate-verification',ids)
+        self.assertNotIn('pocketic-integration',ids)
+        self.assertIn('production-ledger-scalability',ids)
+        self.assertIn('financial-and-settlement-integration',ids)
         self.assertIn('capacity-and-cost',ids)
         self.assertNotIn('probe-candid-wasm',ids)
 if __name__=='__main__':unittest.main()

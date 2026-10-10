@@ -70,11 +70,12 @@ def setup_offline(page):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--mode',choices=['offline','http'],default='http')
+    p.add_argument('--trust',choices=['offline','local'],default='offline')
     p.add_argument('--url',default='http://127.0.0.1:8080/apps/btz-observer/')
     p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser',default=shutil.which('chromium'))
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
-    report={'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'mode':a.mode,'overall':'IN_PROGRESS','checks':[],
-      'qualification':('Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.' if a.mode=='offline' else 'Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.')}
+    report={'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'mode':a.mode,'trust':a.trust,'overall':'IN_PROGRESS','checks':[],
+      'qualification':('Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.' if a.mode=='offline' else ('Local HTTP with native browser Web Crypto and standard-library verification of a genuine certificate from the configured disposable PocketIC instance.' if a.trust=='local' else 'Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.'))}
     dest=a.output/'results.json'
     def record(name,status,details=''):
         report['checks'].append({'name':name,'status':status,'details':details});dest.write_text(json.dumps(report,indent=2)+'\n');print(name,status,flush=True)
@@ -98,11 +99,15 @@ def main():
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
                     raise
-            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>1)
-            assert 'Not IC-certified' in page.locator('.trust').inner_text()
+            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>(.1 if a.trust=='local' else 1))
+            if a.trust=='local':
+                assert 'Local IC / test-network certified' in page.locator('.trust').inner_text()
+                assert page.locator('#verification-label').inner_text()=='IC certificate + catalog + artifacts'
+                record('browser-standard-certificate-verification','PASS')
+            else:assert 'Not IC-certified' in page.locator('.trust').inner_text()
             assert page.locator('#balls').inner_text()!='0'
             record('startup-and-moving-playhead','PASS')
-            before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(180)
+            before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(100 if a.trust=='local' else 180)
             assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before
             record('canvas-pixels-change-during-playback','PASS')
             page.locator('#pause').click();page.wait_for_timeout(220)
@@ -116,17 +121,18 @@ def main():
             page.screenshot(path=str(a.output/'mobile.png'),full_page=True)
             record('desktop-and-mobile-layout','PASS','1400×1100 and 390×844 viewports; no horizontal overflow.')
             page.set_viewport_size({'width':1400,'height':1100})
-            page.locator('#network-pause').check();page.wait_for_timeout(700)
-            available=page.locator('#available').inner_text()
-            page.locator('#speed').select_option('2');page.locator('#pause').click()
-            wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='STALLED')
-            assert page.locator('#available').inner_text()==available
-            assert page.locator('#playhead').inner_text()==available
-            page.wait_for_timeout(250);assert page.locator('#playhead').inner_text()==available
-            record('buffer-exhaustion-stops-at-verified-head','PASS')
-            page.locator('#network-pause').uncheck()
-            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>float(available))
-            record('download-recovery-resumes','PASS')
+            if a.trust=='offline':
+                page.locator('#network-pause').check();page.wait_for_timeout(700)
+                available=page.locator('#available').inner_text()
+                page.locator('#speed').select_option('2');page.locator('#pause').click()
+                wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='STALLED')
+                assert page.locator('#available').inner_text()==available
+                assert page.locator('#playhead').inner_text()==available
+                page.wait_for_timeout(250);assert page.locator('#playhead').inner_text()==available
+                record('buffer-exhaustion-stops-at-verified-head','PASS')
+                page.locator('#network-pause').uncheck()
+                wait_until(page,lambda:float(page.locator('#playhead').inner_text())>float(available))
+                record('download-recovery-resumes','PASS')
             # Reduced-motion preference starts a new independent document paused.
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)
@@ -164,6 +170,18 @@ def main():
                 requests=page.evaluate('window.__fixtureRequests')
                 assert all(r['method']=='GET' and r['url'].startswith('./recordings/') for r in requests)
                 record('read-only-local-request-surface','PASS',f'{len(requests)} fixture requests; GET only.')
+            elif a.trust=='local':
+                failed=context.new_page()
+                def corrupt_certificate(route):
+                    response=route.fetch();body=bytearray(response.body());body[len(body)//2]^=1
+                    route.fulfill(response=response,body=bytes(body))
+                failed.route('**/s09-local/certificate.cbor',corrupt_certificate)
+                failed.goto(a.url,timeout=10000)
+                wait_until(failed,lambda:failed.locator('body').get_attribute('data-phase')=='ERROR')
+                assert 'Local IC / test-network certified' in failed.locator('.trust').inner_text()
+                assert 'Offline' not in failed.locator('.trust').inner_text()
+                record('certificate-failure-is-fail-closed','PASS','Tampered certificate stopped playback without offline fallback.');failed.close()
+                record('native-browser-webcrypto','PASS',str(page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'")))
             else:
                 record('native-browser-webcrypto','PASS',str(page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'")))
             assert not errors,errors

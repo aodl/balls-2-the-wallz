@@ -1,6 +1,6 @@
 import {PlayoutClock} from '../../packages/client/playout.mjs';
-import {PublicationSequence} from '../../packages/client/verification.mjs';
-import {BtzView,SegmentPlayer,snapshot,prepareSegment,timeNumber} from './model.mjs';
+import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication} from '../../packages/client/verification.mjs';
+import {BtzView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
 import {readBytes,validateIndex,loadEntry} from './transport.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
 const COLORS=['#425365','#57d4b7','#709cf2','#c58df5','#ecb966'];
@@ -22,6 +22,47 @@ async function start(recording){
     const w=snapshot(entry.state);if(timeNumber(w.time)!==0||entry.ticket.publication.head.segment_id!==null)throw new Error('recording requires a genesis snapshot');
     s.sequence.accept(entry.ticket);s.previousState=entry.state;s.root=entry.ticket.root_hash;
     visible=new BtzView(w);s.ready=true;$('pause').disabled=false;$('restart').disabled=false;
+  }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
+}
+function localMetadata(value){
+  const keys=['version','trust','network','canister_id','root_key_sha256','logical_start','logical_end','tick_seconds'];
+  if(!value||Object.keys(value).sort().join(',')!==keys.sort().join(',')||value.version!==1||value.trust!=='local-ic-test-certificate'
+    ||value.network!=='pocketic-local'||typeof value.canister_id!=='string'||!/^[0-9a-f]{64}$/.test(value.root_key_sha256)
+    ||!Number.isSafeInteger(value.logical_start)||!Number.isSafeInteger(value.logical_end)||value.logical_start<0||value.logical_end<=value.logical_start
+    ||value.logical_end>2048||!Number.isFinite(value.tick_seconds)||value.tick_seconds<.05||value.tick_seconds>10)throw new Error('local IC snapshot metadata');
+  return value;
+}
+async function localArtifact(ticket,kind,signal){
+  const assembler=new ArtifactAssembler(ticket,kind),bytes=await readBytes(`/s09-local/${kind}.bin`,1048576,signal);
+  if(bytes.length!==assembler.descriptor.length)throw new Error('local IC artifact length');
+  for(let n=0;n<assembler.descriptor.chunks.length;n++)await assembler.accept(n,bytes.slice(n*16384,Math.min(bytes.length,(n+1)*16384)));
+  return assembler.finish();
+}
+async function startLocal(recording){
+  session?.abort.abort();const s={mode:'local',recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:2,bytes:0,
+    queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:recording.logical_start,
+      target:Math.min(8,recording.logical_end-recording.logical_start),low:Math.min(2,(recording.logical_end-recording.logical_start)/2),max_frame_delta:1})};
+  session=s;visible=null;visibleTime=recording.logical_start;lastFrame=null;$('error').hidden=true;
+  $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
+  $('timeline').min=recording.logical_start;$('timeline').max=recording.logical_end;$('pause').disabled=true;$('restart').disabled=true;
+  try{
+    const abort=signal(s),[catalogBytes,certificate,rootKey,initial]=await Promise.all([
+      readBytes('/s09-local/catalog.bin',65536,abort),readBytes('/s09-local/certificate.cbor',262144,abort),
+      readBytes('/s09-local/root-key.der',1024,abort),readBytes('/s09-local/initial-state.bin',1048576,abort),
+    ]);if(!active(s))return;
+    if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured local root fingerprint mismatch');
+    const {localCertificateVerifier}=await import('/s09-assets/ic-certificate.mjs');
+    const ticket=await verifyCertificatePublication(catalogBytes,certificate,{
+      canister_id:recording.canister_id,network:recording.network,now_ns:BigInt(Date.now())*1000000n,
+      max_age_ns:300000000000n,max_future_ns:30000000000n,
+    },localCertificateVerifier(rootKey,{network:recording.network,maxAgeInMinutes:5}));if(!active(s))return;
+    s.sequence.accept(ticket);
+    const [state,events]=await Promise.all([localArtifact(ticket,'state',abort),localArtifact(ticket,'events',abort)]);if(!active(s))return;
+    const segment=await prepareDerivedSegment(initial,state,events,ticket.publication);if(!active(s))return;
+    if(segment.start!==recording.logical_start||segment.end!==recording.logical_end)throw new Error('local IC snapshot timeline');
+    s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes=segment.bytes;
+    s.previousState=state;s.root=ticket.root_hash;visible=new BtzView(segment.initial);s.ready=true;
+    $('pause').disabled=false;$('restart').disabled=false;
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
 }
 async function pump(now){
@@ -52,9 +93,9 @@ function updateHud(){
   $('buffer').textContent=state.buffer.toFixed(2);$('rate').textContent=state.rate.toFixed(3)+'×';
   $('timeline').value=state.playhead;$('buffer-meter').value=state.buffer;
   $('segments').textContent=`${Math.max(0,(s?.entry??1)-1)} / ${s?.recording.segments??0}`;
-  $('root').textContent=s?.root??'—';$('verification-label').textContent=s?.ready?'Hash-checked local content':'Waiting for hashes';
+  $('root').textContent=s?.root??'—';$('verification-label').textContent=s?.ready?(s.mode==='local'?'IC certificate + catalog + artifacts':'Hash-checked local content'):'Waiting for verification';
   $('pause').textContent=paused?'Resume playback':'Pause playback';
-  $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':p==='COMPLETE'?'End of finite recording. Restart to replay.':'Finite recording · staged local delivery.';
+  $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':p==='COMPLETE'?'End of finite recording. Restart to replay.':s?.mode==='local'?'Authenticated local snapshot · finite playback.':'Finite recording · staged local delivery.';
   $('balls').textContent=visible?.balls.size??0;$('cannons').textContent=visible?.cannons.size??0;
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
@@ -112,20 +153,30 @@ function frame(now){
   void pump(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
 $('pause').addEventListener('click',()=>{paused=!paused;lastFrame=null;updateHud();});
-$('restart').addEventListener('click',()=>{if(session)void start(session.recording);});
+$('restart').addEventListener('click',()=>{if(session)void (session.mode==='local'?startLocal(session.recording):start(session.recording));});
 $('recording').addEventListener('change',()=>{const r=catalog.recordings.find(r=>r.id===$('recording').value);if(r)void start(r);});
 $('speed').addEventListener('change',()=>{const n=Number($('speed').value);if([.5,1,2].includes(n))speed=n;});
 $('network-pause').addEventListener('change',()=>{deliveryPaused=$('network-pause').checked;updateHud();});
-$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;$('error').hidden=true;if(!s.ready){void start(s.recording);return;}s.error=null;s.nextDue=0;updateHud();});
+$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;$('error').hidden=true;if(!s.ready){void (s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.nextDue=0;updateHud();});
 document.addEventListener('visibilitychange',()=>{lastFrame=null;});
 new ResizeObserver(draw).observe(canvas);
 async function bootstrap(){
 bootError=null;$('error').hidden=true;
 try{
   if(!ctx||!globalThis.crypto?.subtle)throw new Error('Canvas and Web Crypto require a supported browser on localhost or HTTPS.');
+  const params=new URLSearchParams(location.search);
+  if(params.get('mode')==='local'){
+    $('trust-title').textContent='Local IC / test-network certified';$('trust-detail').textContent='Pinned PocketIC root, canister identity, certificate time, catalog and artifact hashes.';
+    $('integrity-help').textContent='Standard IC certificate verification binds this flat catalog to the configured local canister and root. No root is fetched from the endpoint.';
+    $('network-help').textContent='Valueless PocketIC test records only. No ICP, wallet or production network.';
+    const metadata=localMetadata(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await readBytes('/s09-local/metadata.json',65536,AbortSignal.timeout(10000)))));
+    const recording={...metadata,id:'local-ic',title:'Certified local ledger slice',description:'Pinned upstream test ledger → runtime-lab → authenticated committed BTZ artifacts.',segments:1,roots:['local-predecessor','local-commit']};
+    catalog={recordings:[recording]};const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
+    $('recording').replaceChildren(option);$('recording').value=recording.id;$('recording').disabled=true;await startLocal(recording);return;
+  }
   catalog=validateIndex(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await readBytes('./recordings/index.json',65536,AbortSignal.timeout(10000)))));
   $('recording').replaceChildren();for(const r of catalog.recordings){const o=document.createElement('option');o.value=r.id;o.textContent=r.title;$('recording').append(o);}
-  const requested=new URLSearchParams(location.search).get('recording'),r=catalog.recordings.find(r=>r.id===requested)??catalog.recordings[0];
+  const requested=params.get('recording'),r=catalog.recordings.find(r=>r.id===requested)??catalog.recordings[0];
   $('recording').value=r.id;$('recording').disabled=false;await start(r);
 }catch(e){bootError=e;showError(e);updateHud();}
 }
