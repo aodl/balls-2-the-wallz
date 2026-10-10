@@ -63,3 +63,9 @@ Reviewed official [stable-memory skill](https://skills.internetcomputer.org/skil
 Applied narrowly: durable regions rather than heap-only upgrade state; setting a small certified-data digest during replicated mutation; retrieving the certificate on query; re-establishing certification after upgrade; and checking identity/delegation/freshness through a real client certificate library. The new laboratory uses inherited candidate pins and source calls, not executed API compatibility evidence.
 
 Explicit-version documentation fetches for `ic-cdk 0.20.3` certification functions failed during this session. Official skill/API pages supplied the reviewed interface names; compilation, generated Candid and actual certificate behavior remain blocked. No unrelated web result was used as a technical source. No remote bootstrap script was run, no compiler was downloaded and no root key was fetched from a replica.
+
+## S08 Linux execution update — 2026-10-10
+
+The S04/S05 paragraphs above are historical review records. S08 resolved the current runtime laboratory with `ic-cdk 0.20.3`, `candid 0.10.28`, `serde 1.0.228`, `serde_json 1.0.145`, `sha2 0.10.9` and `ic-stable-structures 0.7.2`; Cargo selected `candid 0.10.28` because `ic-cdk 0.20.3` requires `^0.10.28`. The generated lockfile is committed and the locked `wasm32-unknown-unknown` build plus Clippy pass on Rust 1.94.1.
+
+This execution establishes compiler/API compatibility for that build only. Generated Candid comparison, PocketIC authorization/trap/upgrade behavior, real ledger/archive calls, certificate verification and cycle measurements remain blocked named gates. The official stable-memory and canister-security material was reviewed without running a remote skill installer.

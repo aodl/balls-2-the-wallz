@@ -1,4 +1,4 @@
-//! These are real native tests but remain UNEXECUTED until Cargo is available.
+//! Native replay and interruption/recovery tests executed by the locked workspace gate.
 use btz_native::{Cursor, Input};
 use dtr_wire::{decode, hash, unhex};
 use serde_json::Value;

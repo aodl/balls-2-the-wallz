@@ -1,34 +1,37 @@
 {
   "schema_version": 1,
-  "checkpoint_id": "S07",
-  "name": "DTR/BTZ bounded offline observer",
-  "date": "2026-09-20",
+  "checkpoint_id": "S08",
+  "name": "DTR/BTZ Linux tooling and native validation",
+  "date": "2026-10-10",
   "predecessor": {
-    "checkpoint_id": "S06",
-    "archive": "DTR_BTZ_S06_Simplification_and_Stable_Publication.zip",
-    "sha256": "dc1f45938cb96f3356652319169f7fa8acc80c7f93a8575399d483d3217b9666"
+    "checkpoint_id": "S07",
+    "archive": "DTR_BTZ_S07_Offline_Observer_and_Replay.zip",
+    "sha256": "469bcda15e3d763879b05ce2197b9b0fb23351b68d352010c952072eeea2837a",
+    "baseline_commit": "8adbdab4fd375e27ebf4e540a2e44ba68426c6c8",
+    "baseline_tag": "s07-source-baseline"
   },
-  "implementation_scope": "Executed_read_only_offline_observer_and_replay_conformance; browser_HTTP_and_native_IC_remain_BLOCKED",
+  "implementation_scope": "Executed source/native public-output and own-recovery conformance, runtime-lab Wasm build, and local-HTTP browser Web Crypto; local authoritative IC integration remains BLOCKED",
   "delivery_complete": true,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
-    "evidence/S07/verification/verification.json",
-    "evidence/S07/browser/offline/results.json",
-    "evidence/S07/browser/http/results.json"
+    "evidence/S08/verification-summary.json",
+    "evidence/S08/environment.json",
+    "evidence/S08/browser/http/results.json"
   ],
-  "manifest": "FILES.sha256",
-  "next_checkpoint": "S08",
+  "manifest": null,
+  "release_archive_created": false,
+  "baseline_manifest": "FILES.sha256",
+  "next_checkpoint": "S09-local-authoritative-ic-slice",
   "open_decision_register": "docs/DECISIONS.md",
   "limitations": [
-    "Recovered from the verified S06 ZIP; no unavailable earlier S07 source or test results were assumed.",
-    "Browser fixture-document mode executes actual Chromium UI but uses in-memory fetch and a host SHA-256 adapter; HTTP, native browser Web Crypto and CSP integration are blocked by browser navigation policy.",
-    "All root pins are local recording metadata, not IC certificates or proof of game-rule correctness.",
-    "Rust/Cargo remain unavailable; native gameplay, Wasm, stable-memory recovery and IC certificates remain unverified.",
-    "Production ledger/archive authority, checkpoint timing fairness, payout obligations, real metrics and capacity remain open.",
-    "Finite local recordings only. No real inputs, custom recordings, wallet or deployment service.",
-    "S06 whole-image persistence and native optimization limitations remain unchanged."
+    "FILES.sha256 remains the imported S07 archive manifest; no S08 release ZIP or manifest was generated.",
+    "The runtime-lab locked Wasm build is not generated-Candid, authorization, trap, upgrade or recertification evidence.",
+    "No PocketIC ledger/index/archive read, source-completeness proof or checkpoint assignment test has executed.",
+    "The local HTTP observer verifies pinned content but not an IC certificate or network identity.",
+    "Dependency vulnerability/license audit and independent byte-reproducible Wasm comparison remain unexecuted.",
+    "No deployment, wallet access, token transfer, payout, production controller change, real cycle measurement or capacity proof occurred."
   ],
   "implementation_versions": {
     "source_seal": 1,

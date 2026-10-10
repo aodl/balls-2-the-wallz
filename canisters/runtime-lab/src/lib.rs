@@ -1,4 +1,4 @@
-//! S06 source-only runtime/certification laboratory. Controller-supplied SYNTHETIC inputs only.
+//! Current runtime/certification laboratory. Controller-supplied SYNTHETIC inputs only.
 //! No ledger/archive calls, transfers, payout, timers, or production admission authority.
 #![forbid(unsafe_code)]
 use btz_native::{host::BtzHostKernel, world::World};

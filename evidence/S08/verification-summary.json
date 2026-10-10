@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S08",
+  "started_utc": "2026-10-10T16:04:14.450302+00:00",
+  "command": "DFX_IDENTITY=codex_local LD_LIBRARY_PATH=/home/codexdev/playwright-libs-s08/usr/lib/x86_64-linux-gnu /home/codexdev/dtr-s08-playwright/bin/python -B tools/check.py all --output .work/s08/final2",
+  "exit_code": 2,
+  "overall": "BLOCKED",
+  "totals": {
+    "pass": 32,
+    "fail": 0,
+    "blocked": 6
+  },
+  "executed_counts": {
+    "node_tests": {
+      "tests": 1315,
+      "pass": 1315,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "python_tool_tests": 67,
+    "root_rust_tests": {
+      "passed": 38,
+      "failed": 0,
+      "ignored": 0
+    },
+    "native_workspace_rust_tests": {
+      "passed": 16,
+      "failed": 0,
+      "ignored": 0
+    },
+    "independent_native_vectors": 445,
+    "portable_public_comparisons": 151,
+    "host_public_and_recovery_checks": 8,
+    "browser_http_checks": 9
+  },
+  "passing_checks": [
+    "observer-recordings",
+    "protocol-fixtures",
+    "life-reference",
+    "btz-reference",
+    "spawn-reference",
+    "impact-reference",
+    "btz-full-traces",
+    "numeric-reference",
+    "coordinator-vectors",
+    "observation-v6-reference",
+    "observation-reference",
+    "portable-cursors",
+    "node-tests",
+    "source-structure",
+    "docs-links",
+    "python-tool-tests",
+    "cargo-lock",
+    "cargo-tests",
+    "native-vectors",
+    "portable-lock",
+    "portable-rust-tests",
+    "native-public-game",
+    "native-public-host",
+    "runtime-lab-lock",
+    "runtime-lab-wasm",
+    "runtime-lab-format",
+    "runtime-lab-clippy",
+    "portable-format",
+    "portable-clippy",
+    "cargo-format",
+    "cargo-clippy",
+    "observer-http-webcrypto"
+  ],
+  "blocked_checks": [
+    {
+      "id": "probe-candid-wasm",
+      "reason": "The frozen interface probe has no generated-Candid comparison; it is not revived as a product host."
+    },
+    {
+      "id": "pocketic-integration",
+      "reason": "Runtime-lab trap, lost-acknowledgement, authorization, upgrade and pinned ledger/archive integration have not executed in PocketIC."
+    },
+    {
+      "id": "runtime-lab-candid-and-upgrade",
+      "reason": "The Wasm build is not generated-Candid, authorization, atomic rollback, upgrade recovery or recertification evidence."
+    },
+    {
+      "id": "dependency-audit-and-reproducible-wasm",
+      "reason": "Committed locks and locked builds pass; vulnerability/license audit and independent byte-reproducible Wasm comparison remain unexecuted."
+    },
+    {
+      "id": "live-ledger-wallet",
+      "reason": "No deployed-canister capability, authoritative ledger/archive read or live-wallet memo test was performed."
+    },
+    {
+      "id": "certification-and-cost",
+      "reason": "Content verification exists, but real IC certificate identity/delegation/freshness checks, target-subnet capacity and measured cycle telemetry remain unverified."
+    }
+  ],
+  "qualification": "Reviewed summary of the final S08 run. Raw logs remain under .work/s08/final2 and are intentionally not committed. Runtime-lab Wasm success does not establish Candid, certificate, authorization, upgrade, ledger or production correctness. No release archive or Wasm hash is claimed."
+}

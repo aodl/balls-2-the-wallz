@@ -50,3 +50,9 @@ Public catalogs contain no pending cursor. Content verification checks bounded, 
 Mutable transport buffers are copied before async hashing, catalogs are frozen, and anti-rollback/chain checks precede continued observation. An offline root stored beside a file remains only a local integrity aid. Anyone who controls both can rewrite both. Certified data proves what the canister published, not that the deployed rules, controller policy or input cutoff is fair.
 
 S05 still has whole-image serialization, latest-only catalogs and no real cycle-drain measurement. Early controller checks do not make malicious ingress free. All resource/admission claims remain bounded reference limits; no public-money or availability guarantee is added.
+
+## S08 execution update
+
+The root, native and current runtime-lab dependency graphs now have generated, committed lockfiles. Rust tests, native public-output and own-state recovery, formatting, Clippy and the runtime-lab Wasm build pass on the pinned Rust 1.94.1 toolchain. These results retire the earlier compiler/API uncertainty for the exercised builds but do not constitute a vulnerability/license audit or byte-reproducible Wasm proof.
+
+The observer's real loopback-HTTP gate passes with its production CSP and browser-native Web Crypto. It still authenticates only locally pinned recording content, not an IC canister certificate. PocketIC authorization/trap/upgrade recovery, authoritative ledger/index/archive reads, standard certificate verification and measured resource limits remain explicit blocked gates.

@@ -62,3 +62,10 @@ See [ADR 0005](adr/0005-atomic-host-and-bounded-publication.md), [coordinator](s
 - D-040: reviewed pinned standard dependencies are permitted; offline execution capability does not define product dependencies. One current IC lab, not multiple production candidates.
 
 See [current contract](specs/SIMPLIFICATION_V6.md). Old private snapshots and archived sources remain evidence, not permanent implementation obligations.
+
+## S08 execution record
+
+- D-028/D-033's S06 supersession is now exercised: native public outcomes and native-own recovery pass; private cross-language cursor bytes remain optional diagnostics.
+- The inherited Rust 1.94.1 candidate is retained after successful locked root/native tests, Clippy, formatting and runtime-lab Wasm compilation.
+- The current runtime-lab remains the sole host candidate. Wasm compilation does not promote generated Candid, PocketIC upgrades, ledger authority or certificate verification to PASS.
+- Real local HTTP/browser-native Web Crypto replaces the S07 placeholder on this host without weakening CSP or browser sandbox policy. Offline fixture mode remains separate evidence.

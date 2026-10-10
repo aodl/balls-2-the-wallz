@@ -1,8 +1,8 @@
-# DTR / Balls 2 The Wallz — S07
+# DTR / Balls 2 The Wallz — S08
 
 A **read-only, locally served browser observer**, built on the verified S06 coordinator, publication v6 and compact animation contract. The recordings are finite deterministic outputs of the existing BTZ v3 reference kernel—not hand-scripted gameplay.
 
-**Offline replay, not IC-certified. No wallet, payment, deployment or real funds. Native/IC promotion remains BLOCKED.**
+**Offline replay, not IC-certified. No wallet, payment, deployment or real funds. Native conformance now passes; IC integration and production promotion remain BLOCKED.**
 
 ## Start the observer
 
@@ -12,10 +12,10 @@ For the pinned Rust toolchain, user-scoped Python option and one-time locked dep
 
 ```sh
 # First, verify the pristine extracted package.
-python3 -B tools/verify_checkpoint.py
+python3.11 -B tools/verify_checkpoint.py
 
 # Serve only allowlisted observer files and their source-module dependencies.
-python3 -B tools/serve_observer.py --port 8080
+python3.11 -B tools/serve_observer.py --port 8080
 ```
 
 Open **http://127.0.0.1:8080/apps/btz-observer/**. Stop the server with Ctrl+C. Opening the HTML directly through `file://` is not supported.
@@ -27,21 +27,20 @@ The contribution panel shows **unmeasured**, not invented cycles or ETH-equivale
 ## Verify
 
 ```sh
-python3 -B tools/check.py source
+python3.11 -B tools/check.py source
 node tools/build_observer_recordings.mjs --check
-python3 -B tools/check.py all
+python3.11 -B tools/check.py all
 
-# With the pinned Playwright test dependency and its Chromium installed, while the server is running:
-python3 -B tools/browser_observer.py --mode http \
-  --url http://127.0.0.1:8080/apps/btz-observer/
+# With the pinned Playwright test dependency and its Chromium installed:
+python3.11 -B tools/verify_observer_http.py --output .work/browser-http
 
 # Isolated, network-free Chromium fixture-document tests:
-python3 -B tools/browser_observer.py --mode offline
+python3.11 -B tools/browser_observer.py --mode offline
 ```
 
 The complete gate reports unimplemented IC integration requirements as BLOCKED. It is not an overall deployment pass.
 
-**Browser evidence qualification:** the S07 environment blocked Chromium navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`; that remains historical evidence, not an assumption about the current host. Fixture-mode tests inject the unchanged UI/modules into an isolated document and do not establish HTTP loading, production CSP, native browser Web Crypto or IC certificates. HTTP mode must be executed separately without disabling browser security policy.
+**Browser evidence qualification:** the S07 environment blocked Chromium navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`; that remains historical evidence, not an assumption about the current host. S08 executes HTTP mode against the loopback server with the production static-page CSP and browser-native Web Crypto. Neither HTTP nor fixture mode establishes IC certificates.
 
 ## Current source boundary
 
@@ -54,8 +53,8 @@ The complete gate reports unimplemented IC integration requirements as BLOCKED. 
 | Existing `packages/client/` | Unchanged catalog/chunk verification and adaptive presentation clock. |
 | Existing kernels/coordinator | Unchanged game, accounting, input and publication rules. |
 
-This checkpoint adds no backend, new runtime, custom crypto framework or canister laboratory. The original verbose audit stream remains available beside the compact render projection.
+This checkpoint adds no gameplay, backend, new runtime, custom crypto framework or canister laboratory. It validates and minimally repairs the existing native/runtime implementations. The original verbose audit stream remains available beside the compact render projection.
 
-Read [checkpoint report](checkpoints/S07_REPORT.md), [observer contract](docs/specs/OBSERVER_V7.md), [status](STATUS.md), [verification](evidence/S07/verification/verification.json) and [offline browser results](evidence/S07/browser/offline/results.json). Screenshots: [desktop](evidence/S07/browser/offline/desktop.png), [mobile](evidence/S07/browser/offline/mobile.png).
+Read the [S08 checkpoint report](checkpoints/S08_REPORT.md), [observer contract](docs/specs/OBSERVER_V7.md), [status](STATUS.md), [verification summary](evidence/S08/verification-summary.json) and [HTTP browser results](evidence/S08/browser/http/results.json). Screenshots: [desktop](evidence/S08/browser/http/desktop.png), [mobile](evidence/S08/browser/http/mobile.png).
 
 The S06 [simplification contract](docs/specs/SIMPLIFICATION_V6.md) remains in force for runtime, publication and private implementation freedom.

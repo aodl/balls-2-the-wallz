@@ -85,17 +85,17 @@ Not a permanent release requirement: JavaScript and Rust resuming from identical
 
 The native game/host runners now default to public output comparisons plus native-own interruption/recovery. `--legacy-cursors` on the Python native wrappers opts into the older bidirectional private-byte diagnostics. Existing JS private fixtures remain useful regression tests, not a promise to preserve those bytes forever.
 
-The actual native checks remain BLOCKED: Cargo/rustc are unavailable. Source inventory and JS success are not native conformance. There is no fabricated lockfile, Wasm or native run.
+S08 executes the actual native checks with committed lockfiles and Rust 1.94.1. Public-output equality and each native implementation's own recovery pass; the optional legacy private-cursor diagnostics remain outside the release obligation.
 
 Planned production upgrades should occur at completed segment boundaries where practical. Recovery may recompute an unpublished segment from its retained starting state and seal rather than translate another implementation's internal queue. Input deduplication, scores and committed history must still be preserved. Actual production migration/recomputation behavior is not implemented here.
 
 ## 6. One current service candidate
 
-`canisters/runtime-lab` is the only current IC host candidate. Its source now targets stable-root/publication version 6 and rejects an old v5 root rather than inventing an untested migration. It remains synthetic, controller-only, uncompiled and not a production payment service.
+`canisters/runtime-lab` is the only current IC host candidate. Its source targets stable-root/publication version 6 and rejects an old v5 root rather than inventing an untested migration. S08 compiles it to Wasm with locked dependencies; it remains synthetic, controller-only and not a production payment service.
 
 `canisters/arena-lab`, the generic chunk-store experiment and the old independent journal/inbox demonstrations are frozen diagnostics. They remain in the self-contained checkpoint for evidence and reference, not as alternative production platforms to support. The separate interface probe remains a diagnostic tool, not a deployed game component.
 
-No compiled native/publication equivalence, certificate, ledger/archive, retention, upgrade or cycle evidence is implied by source edits. The current native publication source has no BTZ render projection; that optional view is presently JS-only.
+The S08 native/publication public-output gates pass. This does not imply certificate, ledger/archive, retention, upgrade or cycle evidence. The current native publication source has no BTZ render projection; that optional view is presently JS-only.
 
 ## 7. Dependencies are not prohibited by an offline environment
 

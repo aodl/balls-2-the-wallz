@@ -1,6 +1,6 @@
 {
-  "name": "dtr-suite-s07",
-  "version": "0.7.0",
+  "name": "dtr-suite-s08",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,8 +10,8 @@
     "test": "node --test tests/js/*.test.mjs",
     "memo": "node tools/command.mjs memo",
     "replay": "node tools/command.mjs replay",
-    "verify": "python3 -B tools/verify_checkpoint.py",
-    "observer": "python3 -B tools/serve_observer.py",
+    "verify": "python3.11 -B tools/verify_checkpoint.py",
+    "observer": "python3.11 -B tools/serve_observer.py",
     "observer:check-recordings": "node tools/build_observer_recordings.mjs --check"
   }
 }

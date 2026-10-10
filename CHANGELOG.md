@@ -1,3 +1,7 @@
+# S08 — Linux tooling and native validation
+
+Imported and verified the unchanged S07 archive; established its Git baseline; added repeatable user-scoped Linux setup and real lockfiles; repaired minimal Rust compiler/lint defects; executed source, native public-output/own-recovery, Wasm, formatting and Clippy gates; and ran the observer through real local HTTP with pinned Playwright/Chromium and browser-native Web Crypto. Added bounded verification orchestration and small separate CI jobs. No gameplay, IC integration, deployment or financial behavior was added.
+
 # S06 — Simplification
 
 Stable committed-publication identity; bounded retained downloads; one typed coordinator path; optional compact BTZ animation; public-only default native gates with legacy cursor diagnostics opt-in; dependency policy correction. Game v3 roots unchanged. Actual native/IC execution remains blocked.

@@ -1,6 +1,6 @@
-> Scope update: see [the S06 canister boundary](../README.md). This source remains uncompiled; no deployment is authorized.
+> Scope update: see [the S08 canister boundary](../README.md). This source builds to Wasm locally; no deployment is authorized.
 
-# S05 runtime laboratory — SOURCE ONLY / DO NOT SEND ICP
+# Current runtime laboratory — SYNTHETIC INPUT ONLY / DO NOT SEND ICP
 
 This is a controller-only, synthetic-input canister using the generic native coordinator and the BTZ adapter. It is not the production arena. No live-ledger/source verification, Event Horizon call, timer, transfer, payout, balances endpoint or mainnet deployment is implemented here.
 
@@ -12,6 +12,6 @@ All authorization, revision checks, deserialization, computation and serializati
 
 `observation` returns canonical public bytes and the IC certificate supplied by the system API. `artifact_chunk` requires the matching publication root and exposes no pending cursor. Public queries read the small root and one requested output chunk, not the hidden full host image.
 
-The source calls the real certification APIs, but **no Wasm, generated Candid, actual certificate, IC signature verifier, upgrade test or cycle measurement has executed**. The browser adapter remains fail-closed without a real certificate-verification dependency. The no-await image write is bounded but still inefficient whole-image serialization, not a production capacity proof.
+The source calls the real certification APIs and its locked Wasm build passes. **No generated-Candid comparison, actual certificate, IC signature verifier, PocketIC upgrade test or cycle measurement has executed.** The browser adapter remains fail-closed without a real certificate-verification dependency. The no-await image write is bounded but still inefficient whole-image serialization, not a production capacity proof.
 
-Candidate inherited dependency pins are exact. No Cargo.lock or compiled artifacts are invented. See the S05 verification gates and publication/coordinator specs before any authorized local-only integration work.
+Dependency pins and the generated Cargo lock are committed. Build artifacts remain ignored. See the S05 verification gates and publication/coordinator specs before any authorized local-only integration work.

@@ -1,17 +1,17 @@
-# Current status — S07
+# Current status — S08
 
-**Source, local HTTP-server and isolated Chromium observer conformance. Production promotion: BLOCKED.**
+**Linux source, native, Wasm-build and local-HTTP observer validation complete. Production promotion: BLOCKED.**
 
-The verified S06 source was recovered from its ZIP. No lost S07 implementation or unverifiable previous test result was reused. The observer has been reconstructed on the existing runtime/kernel and its own verification evidence is retained.
+The supplied S07 archive matched SHA-256 `469bcda15e3d763879b05ce2197b9b0fb23351b68d352010c952072eeea2837a`, and its untouched checkpoint verifier passed before Git initialization or testing. The imported baseline is commit `8adbdab4fd375e27ebf4e540a2e44ba68426c6c8`, tagged `s07-source-baseline`; historical S07 evidence is unchanged.
 
-Delivered: four deterministic finite recordings; responsive Canvas observer; segment/chunk integrity and predecessor checks; exact end-state visual conformance; bounded buffering; download and playback pause/retry controls; stale-load fencing; actual isolated Chromium rendering/control tests; loopback-only allowlisted server.
+This host executes the source suite with Python 3.11.14 and Node 24.15.0, and the repository-pinned Rust 1.94.1 toolchain with rustfmt, Clippy and `wasm32-unknown-unknown`. Real lockfiles now cover the root workspace, `native/`, and `canisters/runtime-lab/`. The current runtime-lab builds to Wasm, but that build alone is not Candid, certificate, upgrade or production evidence.
 
-Unchanged: BTZ v3 gameplay/accounting/audit codecs, host/coordinator v5, publication v6, compact animation v1, private implementation freedom and the S06 simplification scope. No new runtime, canister, financial layer or external dependency was added.
+Public-output and recovery gates pass without changing BTZ v3 goldens: 1,315 Node tests, 67 Python tooling tests, 38 root Rust tests, 16 native-workspace Rust tests, 445 independent native vectors, 151 portable public comparisons and eight host public/recovery checks. Life remains the second-kernel boundary test. Formatting and Clippy pass for all three active Rust workspaces.
 
-Executed Node tests use real Node Web Crypto. Chromium offline tests use fixture fetch and a host SHA-256 bridge: actual UI execution, **not HTTP/Web Crypto/CSP integration**. Direct Chromium navigation returns ERR_BLOCKED_BY_ADMINISTRATOR; its integration gate remains BLOCKED.
+The observer now passes nine real loopback-HTTP Chromium checks with the production static-page CSP and browser-native Web Crypto. Playwright 1.63.0 and Chromium 153.0.8010.12 are recorded. The previous `ERR_BLOCKED_BY_ADMINISTRATOR` result remains valid historical S07 evidence, not a restriction of this host.
 
-Rust/Cargo, Wasm, PocketIC, native recovery, live ledger/archive authority, source-to-epoch fairness, IC certificate verification, actual cycle telemetry, settlement and measured deployment capacity remain unverified or unimplemented. Existing authored native/IC code may contain defects.
+`tools/check.py all` reports **32 PASS, 6 BLOCKED, zero FAIL; overall BLOCKED (exit 2)**. The remaining named gates are generated Candid/probe comparison, PocketIC trap/upgrade/ledger integration, runtime-lab authorization and upgrade evidence, dependency audit plus byte-reproducible Wasm, live ledger/wallet behavior, and real certificate/cost/capacity evidence. No mainnet call, deployment, wallet access, token transfer or controller change was performed.
 
-See [report](checkpoints/S07_REPORT.md), [current observer contract](docs/specs/OBSERVER_V7.md), [source/full gate](evidence/S07/verification/verification.json), [offline browser gate](evidence/S07/browser/offline/results.json) and [blocked HTTP browser attempt](evidence/S07/browser/http/results.json).
+See the [S08 report](checkpoints/S08_REPORT.md), [reviewed verification summary](evidence/S08/verification-summary.json), [environment record](evidence/S08/environment.json), and [HTTP browser result](evidence/S08/browser/http/results.json). Raw command output remains under `.work/s08/` and is intentionally outside Git.
 
-Next: execute existing native public-output/recovery gates and the single current IC host in a toolchain-capable environment; resolve real input/certificate boundaries before live observation or monetary settlement. Do not compensate for blocked integration by adding another framework. The offline observer is now a concrete consumer for that future integration.
+Next bounded task: Task 2's local-only authoritative IC slice, beginning with generated Candid and PocketIC behavior against pinned synthetic ledger/index/archive canisters. Repository extraction and financial operation remain out of scope.
