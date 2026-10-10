@@ -16,6 +16,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 NODE_COUNTS=re.compile(r'^(?:#|ℹ)\s+(tests|pass|fail|skipped|cancelled) (\d+)$',re.M)
 RUST_COUNTS=re.compile(r'test result: ok\. (\d+) passed; (\d+) failed; (\d+) ignored;')
+# Only these repository-owned wrappers document exit 2 as a missing-prerequisite result.
+# Compiler, test, argparse and arbitrary external exits are failures by default.
+BLOCKED_EXIT_CHECKS={'observer-http-webcrypto'}
 
 def counts_for(kind,text):
     if kind=='node-tests':return {key:int(value) for key,value in NODE_COUNTS.findall(text)}
@@ -25,8 +28,10 @@ def counts_for(kind,text):
         return {'passed':sum(int(passed) for passed,_,_ in rows),'failed':sum(int(failed) for _,failed,_ in rows),'ignored':sum(int(ignored) for _,_,ignored in rows)}
     return {}
 
-def classify(exit_code,text,kind='normal'):
-    if exit_code is None or exit_code==2:return 'BLOCKED'
+def classify(exit_code,text,kind='normal',allow_blocked_exit=False):
+    """Classify process evidence; exit 2 is BLOCKED only for designated wrappers."""
+    if exit_code is None:return 'BLOCKED'
+    if exit_code==2 and allow_blocked_exit:return 'BLOCKED'
     if exit_code!=0:return 'FAIL'
     counts=counts_for(kind,text)
     if kind=='node-tests':
@@ -63,7 +68,7 @@ def doctor():
         tools[name]=row
     return {'platform':platform.platform(),'python':sys.version.split()[0],'tools':tools,'network':'No network installer is run by this tool.'}
 
-def run_one(name,command,outdir,kind='normal',requires=(),timeout=90):
+def run_one(name,command,outdir,kind='normal',requires=(),timeout=90,allow_blocked_exit=False):
     log=outdir/'logs'/f'{name}.log';log.parent.mkdir(parents=True,exist_ok=True)
     missing=[tool for tool in requires if not shutil.which(tool)]
     if missing:
@@ -79,8 +84,9 @@ def run_one(name,command,outdir,kind='normal',requires=(),timeout=90):
     except OSError as error:
         log.write_text(str(error)+'\n');code=127;reason=str(error)
     text=log.read_text(errors='replace')
-    status=classify(code,text,kind)
+    status=classify(code,text,kind,allow_blocked_exit)
     row={'id':name,'command':command,'status':status,'exit_code':code,'log':str(log.relative_to(outdir)),'elapsed_seconds':round(time.monotonic()-started,3),'timeout_seconds':timeout}
+    if allow_blocked_exit:row['exit_contract']='project-wrapper-exit-2-is-blocked'
     counts=counts_for(kind,text)
     if counts:row['counts']=counts
     if reason:row['reason']=reason
@@ -144,7 +150,8 @@ def main():
     report={'schema_version':1,'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'mode':args.mode,'archived_not_release_requirements':['arena-lab-v4','cross-language-private-cursor-bytes'],'checks':[],'overall':'IN_PROGRESS'}
     destination=args.output/'verification.json'
     for name,command,kind,requires,timeout in planned_checks(args.mode,args.output):
-        report['checks'].append(run_one(name,command,args.output,kind,requires,timeout));destination.write_text(json.dumps(report,indent=2)+'\n');print(name,report['checks'][-1]['status'],flush=True)
+        allow_blocked_exit=name in BLOCKED_EXIT_CHECKS
+        report['checks'].append(run_one(name,command,args.output,kind,requires,timeout,allow_blocked_exit));destination.write_text(json.dumps(report,indent=2)+'\n');print(name,report['checks'][-1]['status'],flush=True)
     if args.mode=='all':
         for name,reason in blocked_requirements():report['checks'].append({'id':name,'status':'BLOCKED','exit_code':None,'reason':reason})
     states=[row['status'] for row in report['checks']];report['overall']='FAIL' if 'FAIL' in states else 'BLOCKED' if 'BLOCKED' in states else 'PASS'

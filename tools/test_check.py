@@ -1,9 +1,14 @@
-import unittest
+import sys,tempfile,unittest
 from pathlib import Path
-from check import blocked_requirements,classify,planned_checks
+from check import BLOCKED_EXIT_CHECKS,blocked_requirements,classify,planned_checks,run_one
 class TestEvidenceClassification(unittest.TestCase):
     def test_missing_tool_is_not_pass(self):self.assertEqual(classify(None,''),'BLOCKED')
-    def test_explicit_blocked_exit_is_blocked(self):self.assertEqual(classify(2,'BLOCKED: dependency unavailable'),'BLOCKED')
+    def test_argparse_usage_exit_is_failure(self):self.assertEqual(classify(2,'usage: tool [-h]\ntool: error: required arguments'),'FAIL')
+    def test_designated_wrapper_blocked_exit_is_blocked(self):self.assertEqual(classify(2,'BLOCKED: dependency unavailable',allow_blocked_exit=True),'BLOCKED')
+    def test_real_argparse_usage_failure_is_not_blocked(self):
+        with tempfile.TemporaryDirectory() as directory:
+            row=run_one('usage',[sys.executable,'-c','import argparse;p=argparse.ArgumentParser();p.add_argument("required");p.parse_args()'],Path(directory))
+        self.assertEqual(row['exit_code'],2);self.assertEqual(row['status'],'FAIL')
     def test_nonzero_exit_is_failure(self):self.assertEqual(classify(1,'# tests 1\n# pass 1\n','node-tests'),'FAIL')
     def test_zero_tests_is_failure(self):self.assertEqual(classify(0,'# tests 0\n# pass 0\n','node-tests'),'FAIL')
     def test_ignored_node_test_is_failure(self):self.assertEqual(classify(0,'# tests 2\n# pass 1\n# skipped 1\n','node-tests'),'FAIL')
@@ -23,6 +28,8 @@ class TestPlan(unittest.TestCase):
         self.assertNotIn('generate-lockfile',commands)
         self.assertIn('observer-http-webcrypto',[name for name,_,_,_,_ in checks])
         self.assertGreaterEqual(dict((name,timeout) for name,_,_,_,timeout in checks)['runtime-lab-wasm'],600)
+        self.assertEqual(BLOCKED_EXIT_CHECKS,{'observer-http-webcrypto'})
+        self.assertNotIn('cargo-tests',BLOCKED_EXIT_CHECKS)
     def test_unimplemented_requirements_remain_blocked(self):
         ids={name for name,_ in blocked_requirements()}
         self.assertIn('pocketic-integration',ids)
