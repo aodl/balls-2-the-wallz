@@ -26,6 +26,8 @@ impl Fraction {
     }
     pub fn numerator(self) -> i128 { self.numerator }
     pub fn denominator(self) -> i128 { self.denominator }
+    // This is intentionally fallible checked arithmetic, unlike std::ops::Add.
+    #[allow(clippy::should_implement_trait)]
     pub fn add(self, other: Self) -> Result<Self, Error> {
         let a = self.numerator.checked_mul(other.denominator).ok_or(Error::Overflow)?;
         let b = other.numerator.checked_mul(self.denominator).ok_or(Error::Overflow)?;
@@ -101,8 +103,11 @@ pub fn heading(angle: u16, speed: u16) -> Result<(i32, i32), Error> {
 
 fn neighbors(cell: usize, width: usize, height: usize) -> Vec<usize> {
     let x = cell % width; let y = cell / width; let mut out = Vec::with_capacity(4);
-    if y > 0 { out.push(cell - width); } if x > 0 { out.push(cell - 1); }
-    if x + 1 < width { out.push(cell + 1); } if y + 1 < height { out.push(cell + width); } out
+    if y > 0 { out.push(cell - width); }
+    if x > 0 { out.push(cell - 1); }
+    if x + 1 < width { out.push(cell + 1); }
+    if y + 1 < height { out.push(cell + width); }
+    out
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CutSearch {

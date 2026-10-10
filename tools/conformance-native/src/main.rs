@@ -1,5 +1,5 @@
-mod spawn_vectors;
 //! Native byte-vector emitter. Tooling compares these lines with independently generated fixtures.
+mod spawn_vectors;
 use btz_protocol::{Command,encode,numeric};use dtr_core::{ResumableKernel,Seal};use life_conformance::{Board,Cursor};
 fn hex(b:&[u8])->String{b.iter().map(|x|format!("{x:02x}")).collect()}
 fn main(){

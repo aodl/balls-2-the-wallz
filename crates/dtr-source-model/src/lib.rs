@@ -20,7 +20,7 @@ impl Wakeup{
     pub fn hint(&mut self,authorised:bool){if authorised{self.dirty=true;}}
     pub fn acquire(&mut self,now:u64)->Result<Option<Lease>,SourceError>{
         if self.active.is_some_and(|a|now<a.until){return Ok(None);}
-        let due=self.last_attempt.map_or(true,|t|now.saturating_sub(t)>=self.fallback);
+        let due=self.last_attempt.is_none_or(|t|now.saturating_sub(t)>=self.fallback);
         if now<self.not_before||(!self.dirty&&!due&&self.active.is_none()){return Ok(None);}
         let generation=self.generation.checked_add(1).ok_or(SourceError::Overflow)?;
         let until=now.checked_add(self.lease).ok_or(SourceError::Overflow)?;
