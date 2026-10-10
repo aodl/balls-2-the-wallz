@@ -6,7 +6,7 @@ Status: executed JS reference; matching native source and IC laboratory authored
 
 ## Responsibility and authority
 
-The host connects four operations: `ingest`, `seal`, `step`, `publish`. Inputs are already-classified payload bytes with absolute source positions. The API is trusted internal infrastructure, not a public proof of payment. The IC laboratory restricts all mutations to controllers and labels its source synthetic. Production must replace that supply path with actual authenticated replicated ledger/archive reads and completeness validation.
+The host connects four operations: `ingest`, `seal`, `step`, `publish`. Inputs are already-classified payload bytes with absolute source positions. The API is trusted internal infrastructure, not a public proof of payment. S09's runtime-lab ledger mode obtains and classifies inputs through its configured replicated ledger/archive calls and disables generic external `Ingest`; controller-driven synthetic mode remains a separate test path. This local slice is not public payment admission or production scalability evidence.
 
 A source page has at most 256 positions, including irrelevant records represented by null. Null consumes its position; omission would be a gap. At most 4,096 selected payloads (each <=1,024 bytes) are retained. A proposed page is rejected whole on capacity, gap, malformed payload or stale revision; the cursor does not move.
 

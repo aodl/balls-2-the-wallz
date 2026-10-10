@@ -1,6 +1,6 @@
 # BTZ payment protocol, provisional wire version 1
 
-**Implemented:** pure Rust/JavaScript memo codecs and a JavaScript normalized-payment classifier. **Not implemented:** a payment-accepting canister, wallet transaction execution, real pricing, or refunds/payouts. No payment destination is published by this checkpoint.
+**Implemented:** pure Rust/JavaScript memo codecs, the JavaScript classifier, and one local-only runtime-lab adapter exercised with valueless records from a pinned upstream ICP ledger Wasm. **Not implemented:** public payment admission, wallet transaction execution, refunds/payouts or production destination publication.
 
 ## Eight bytes, two commands
 
@@ -18,7 +18,7 @@ The **legacy numeric memo** is the unsigned big-endian interpretation of the sam
 
 ## Observed ledger fields
 
-The pinned ICP implementation's ICRC path sets `memo = 0` and carries the supplied blob in `icrc1_memo` [R3](../IC_REFERENCES.md). Therefore:
+The pinned ICP implementation exposes legacy `memo` plus optional `icrc1_memo` fields [R3](../IC_REFERENCES.md). S09 exercises legacy direct transfers; the exact typed response retains both fields and applies these rules:
 
 | Observed fields | Behavior |
 |---|---|
@@ -27,7 +27,7 @@ The pinned ICP implementation's ICRC path sets `memo = 0` and carries the suppli
 | Blob present and legacy nonzero | Reject mixed fields, even if one interpretation looks valid. |
 | Empty/malformed blob | Reject; never fall back to a numeric interpretation. |
 
-These are strict rules against the selected interface contract, not a promise that every wallet exposes either field correctly.
+These are strict rules against the selected interface contract, not a promise that every wallet exposes either field correctly. S09 does not claim an executed ICRC-1 wallet path.
 
 ## Account and authority
 
@@ -43,4 +43,4 @@ Underfunded/invalid/capacity-failed **game** operations retain incoming ICP, wit
 
 ## Supported paths and gates
 
-Legacy direct-transfer and ICRC-1 direct-transfer are the two targeted paths. No named wallet has been compatibility-certified. Before accepting money, test exact memo preservation, account identity/subaccounts, repeated identical transfers and ledger deduplication, fees, source delivery, and prominent no-refund warnings using test funds. Never experiment with potentially lossy memos using real ICP.
+Legacy direct-transfer and ICRC-1 direct-transfer are the two targeted paths. S09 executes only legacy direct-transfer against the local upstream artifact, including destination, amount, memo and funding-account validation. No named wallet has been compatibility-certified. Before accepting money, test exact memo preservation, account identity/subaccounts, repeated identical transfers and ledger deduplication, fees, source delivery, and prominent no-refund warnings using test funds. Never experiment with potentially lossy memos using real ICP.

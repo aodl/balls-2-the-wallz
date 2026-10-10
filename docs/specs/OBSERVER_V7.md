@@ -2,6 +2,14 @@
 
 20 September 2026. Current observer specification; it supplements, not replaces, the S06 simplification contract. No BTZ v3 state, event, score, price, memo, input-seal or publication-v6 rule changes.
 
+## S09 local-certified supplement
+
+The original offline mode below remains unchanged and explicitly labelled `Offline pinned replay`. S09 adds a separate `?mode=local` path labelled `Local IC / test-network certified`. Its harness supplies a genuine certificate and root from the exact disposable PocketIC instance, plus the intended canister ID. The browser uses exact `@icp-sdk/core` 6.1.0 to verify the BLS signature, NNS delegation/canister range, certificate time and certified-data path. It never fetches or substitutes a root from the served endpoint.
+
+The certified datum is the existing flat publication-catalog SHA-256. Catalog schema/manifest checks and chunk/full-artifact hashes remain unchanged. Native publications have no render artifact, so local mode deterministically derives the existing `btz-animation-1` event projection from the authenticated predecessor state and original audit artifact, then checks the final visible state. This derived view does not change state, event, score or seal roots.
+
+Local snapshot transport is bounded and allowlisted. Authentication failure visibly stops playback and never selects offline trust. Latest-only runtime-lab retention means an unavailable predecessor requires explicit snapshot resynchronization; S09 does not add an archive service. This is local test-network evidence, not mainnet endpoint/root policy or production hosting evidence.
+
 ## Purpose and trust
 
 Demonstrate the architectural result in a browser: autonomous, committed simulation can look continuously dynamic while observers have no authority over gameplay. This stage is deliberately finite and local. There are no browser command controls, wallet calls, ledger queries, payouts or simulated certificates.
@@ -58,7 +66,7 @@ Pausing downloads prevents new requests; a request already in flight may complet
 
 ## UI and unsupported convenience cases
 
-The prominent trust banner always says offline replay and not IC-certified. Cannon/ball/cell statistics reflect the playhead. They are not an end-of-day payout leaderboard. Contribution metrics show unavailable values; no cycles or ETH denominator is fabricated.
+The prominent trust banner says either offline pinned replay/not IC-certified or local IC/test-network certified. The selection is explicit in the URL; failure cannot change modes. Cannon/ball/cell statistics reflect the playhead. They are not an end-of-day payout leaderboard. Contribution metrics show unavailable values; no cycles or ETH denominator is fabricated.
 
 Reduced-motion preferences start playback paused; keyboard controls, visible focus, an alert region, text territory summary and responsive desktop/mobile layouts are included. This is not a comprehensive accessibility certification, nor evidence across all browser engines.
 
@@ -68,7 +76,7 @@ The observer does not support uploaded arbitrary recordings, seeking into undown
 
 `serve_observer.py` binds loopback only and serves a narrow allowlist of public application/modules/recordings. It disables directory listings, blocks traversal/out-of-scope files, permits no write API, and supplies no-store, nosniff and restrictive CSP headers. It is a development server, not an IC asset deployment. Production hosting/certification remains a separate task.
 
-The HTTP browser mode loads the actual page and expects browser-native Web Crypto and CSP. In this environment navigation is blocked by the managed browser policy. That attempt returns BLOCKED. The policy is not altered.
+The HTTP browser mode loads the actual page and expects browser-native Web Crypto and CSP. S08 established that the current approved browser can execute it on loopback. S09 additionally executes standard-library certificate verification in that real HTTP mode. Historical S07 browser-policy evidence remains unchanged.
 
 The **offline browser mode** uses an isolated Chromium document. It injects the original HTML/CSS (with loading links and CSP removed for the fixture document), maps the unchanged ES-module source to in-memory data URLs, supplies fetch responses from local fixtures and bridges SHA-256 to Python hashlib. The fixture transport is also where corruption/delay injections live; the production app has no hidden corruption control or mocked crypto fallback.
 

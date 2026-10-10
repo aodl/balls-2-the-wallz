@@ -2,7 +2,7 @@
 
 # Committed publication and observation v5
 
-Status: executed producer, browser-compatible content verifier and playout tests; native producer and IC certification endpoint source authored but uncompiled. No real IC certificate or BLS-verification test has executed.
+Status update (S09): publication v6 is the current catalog. The native producer and current IC endpoint compile and execute in PocketIC. A Rust agent and Chromium using `@icp-sdk/core` 6.1.0 verify genuine local certificates, delegation/canister range, configured root, time and the flat catalog certified-data path. This is deliberately local-network evidence; production root/endpoint policy remains unimplemented. The historical v5 contract below remains useful compatibility context.
 
 ## Small initial representation
 

@@ -54,9 +54,9 @@ Old downloads remain valid while their catalog is retained, even after a new seg
 
 The window is a bounded in-memory reference cache. It is not a durable multi-segment archive; after process loss it may start from the current committed snapshot and clients resynchronize. No upload state machine, content-addressed object-store framework or orphan collector was added. Persisted retention in the IC host remains an implementation gate.
 
-### Authentication remains a separate gate
+### Authentication remains a separate production gate
 
-The executed demonstration uses `offline-pinned-content`. This proves integrity relative to a supplied root, not its IC authenticity. `verifyCertificatePublication` still requires an external real certificate verifier and fails when it is absent. Signature/delegation/root-key verification has not been implemented or tested in this environment.
+The offline demonstration uses `offline-pinned-content`. This proves integrity relative to a supplied root, not its IC authenticity. S09's separate local mode supplies `verifyCertificatePublication` with exact `@icp-sdk/core` 6.1.0 and a root deliberately exported from the same disposable PocketIC instance. Real signature, delegation/canister-range, root-key, time and certified-data-path checks execute in Rust and Chromium. Production endpoint/root trust, availability and mainnet behavior remain separate gates.
 
 Clients reject mixed v5/v6 sequences until explicit resynchronization. v6 sequencing uses committed segment height, predecessor links and stable catalog digest, not ingestion or private revision counters. The old v5 codec/fixtures remain explicitly named historical adapters; they are not the default protocol.
 
@@ -91,11 +91,11 @@ Planned production upgrades should occur at completed segment boundaries where p
 
 ## 6. One current service candidate
 
-`canisters/runtime-lab` is the only current IC host candidate. Its source targets stable-root/publication version 6 and rejects an old v5 root rather than inventing an untested migration. S08 compiles it to Wasm with locked dependencies; it remains synthetic, controller-only and not a production payment service.
+`canisters/runtime-lab` is the only current IC host candidate. Its source targets stable-root/publication version 6 and rejects malformed/old durable roots rather than inventing an untested migration. It retains controller-only synthetic mode and adds a trusted-configuration ledger mode confined to `pocketic-local`; generic `apply(Ingest)` is disabled in ledger mode. S09 executes install, authorization, traps, ignored client replies, upgrades at idle/sealed/partial/ready boundaries, an upstream ledger archive, fallback discovery and recertification. It is still not a production payment service.
 
 `canisters/arena-lab`, the generic chunk-store experiment and the old independent journal/inbox demonstrations are frozen diagnostics. They remain in the self-contained checkpoint for evidence and reference, not as alternative production platforms to support. The separate interface probe remains a diagnostic tool, not a deployed game component.
 
-The S08 native/publication public-output gates pass. This does not imply certificate, ledger/archive, retention, upgrade or cycle evidence. The current native publication source has no BTZ render projection; that optional view is presently JS-only.
+The S08 native/publication public-output gates remain required. S09's local slice demonstrates the named certificate, ledger/archive and upgrade behaviors only. It does not establish production retention, finality, capacity or cycle cost. The current native publication source has no BTZ render artifact; the existing JS projection is derived in the browser from authenticated predecessor state and audit events.
 
 ## 7. Dependencies are not prohibited by an offline environment
 

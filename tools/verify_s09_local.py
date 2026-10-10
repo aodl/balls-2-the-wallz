@@ -47,6 +47,7 @@ def main():
     parser.add_argument('--output',type=Path,default=ROOT/'.work/s09/final')
     args=parser.parse_args()
     if sys.version_info<(3,11):parser.error('Python 3.11 or later is required')
+    args.output=args.output.resolve()
     args.output.mkdir(parents=True,exist_ok=True)
     report={'schema_version':1,'checkpoint':'S09','git_revision':None,'overall':'IN_PROGRESS','checks':[],'tools':{},'tested_artifacts':[]}
     destination=args.output/'results.json'

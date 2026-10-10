@@ -51,3 +51,16 @@ Run the complete HTTP gate with the virtual environment's interpreter:
 Playwright's bundled browser still needs host shared libraries. Install system packages only with explicit approval; a missing library is a BLOCKED environment result, not permission to use sudo automatically.
 
 All local IC commands must use `DFX_IDENTITY=codex_local`. These setup steps do not deploy to any network.
+
+## S09 disposable PocketIC slice
+
+The integration runner does not use dfx or an identity. It validates/downloads the exact PocketIC and upstream ICP-ledger artifacts declared in `tools/s09-artifacts.json` to `~/dtr-s09-artifacts`, builds with Rust 1.94.1 and committed locks, creates fresh in-process PocketIC instances, and terminates them after the test.
+
+Run it with the same Python 3.11 Playwright environment and any already documented local browser-library path:
+
+```sh
+/path/outside/checkout/browser-venv/bin/python -B \
+  tools/verify_s09_local.py --output .work/s09/final
+```
+
+The output contains sanitized commands, versions, exit codes and hashes. The browser snapshot contains a disposable local root key and certificate, not an identity or wallet secret; it remains uncommitted under `.work/`. Do not reuse that root as a production trust anchor.

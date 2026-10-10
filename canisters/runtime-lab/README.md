@@ -1,17 +1,25 @@
-> Scope update: see [the S08 canister boundary](../README.md). This source builds to Wasm locally; no deployment is authorized.
+# Current runtime laboratory — local test infrastructure / do not send ICP
 
-# Current runtime laboratory — SYNTHETIC INPUT ONLY / DO NOT SEND ICP
+`runtime-lab` is the only current IC host. It uses the existing native coordinator and BTZ adapter and publishes the unchanged v6 flat catalog. It is not a production arena, payment destination, wallet, payout service or mainnet deployment.
 
-This is a controller-only, synthetic-input canister using the generic native coordinator and the BTZ adapter. It is not the production arena. No live-ledger/source verification, Event Horizon call, timer, transfer, payout, balances endpoint or mainnet deployment is implemented here.
+The five initialization arguments are genesis state, synthetic source ID, source cursor, logical start and an optional `LedgerConfig`. Without the option it retains the controller-only synthetic path. With the option it requires network `pocketic-local` and fixes the trusted ledger principal, recipient account, page bound, fallback interval and optional hint caller. Ledger-fed mode rejects generic `apply(Ingest)` so an external caller cannot bypass source validation.
 
-`apply` takes a revision and a bounded canonical coordinator action. `ingest` is controller-supplied test data, **not a trusted claim that a payment happened**. `seal` fixes the complete currently supplied prefix. Publication and inbox retirement share the same saved coordinator image.
+The ledger path calls the pinned ICP ledger's typed `query_blocks` method and only follows bounded `get_blocks` callbacks supplied by that ledger. It validates operation shape, account identifiers, direct funding account, configured destination, transferred amount and numeric/blob memo rules before constructing the existing `BTZPAY02` envelope. Mint, burn, approve, self/outbound and unrelated records advance the contiguous source cursor without creating game inputs. Delegated transfers and conflicting/invalid memos cannot issue commands. Gaps, overlaps, malformed/rejected replies and out-of-range archive responses retain the cursor for retry.
 
-Memory 0 is the version-5 small root; memory 1 holds bounded chunks. Slot 0 is the hidden coordinator image, slots 1/2/3 are committed state/events/scores. Each artifact is capped at 1 MiB. The small root is capped at 64 KiB. This schema is a NEW canister laboratory, not an automatic migration from arena-lab v4.
+Hints contain no ledger data and grant no authority. They set one durable dirty bit and coalesce. A one-shot fallback timer re-arms only after its bounded scan returns, so missed intervals do not queue an unbounded timer burst. Source identity, cursor, generation and nonce fence every await. Upgrade invalidates any old lease and reinstalls certification and scheduling state.
 
-All authorization, revision checks, deserialization, computation and serialization happen before stable writes. Writes and certified-data replacement have no await boundary. Any late failure must trap to roll back; an ordinary error reply is not rollback. Upgrade verifies the existing image and output artifacts and restores the certified-data root; it never reinitializes genesis on error.
+`apply` remains controller-only for seal/step/publish and synthetic tests. Sealing uses the verified cursor visible to the controller and records the actual source watermark; it does not claim a fair production wall-clock cutoff. `controller_work` is controller-only. Public `lab_status` exposes mode and watermark but not pending input bytes or the private work cursor.
 
-`observation` returns canonical public bytes and the IC certificate supplied by the system API. `artifact_chunk` requires the matching publication root and exposes no pending cursor. Public queries read the small root and one requested output chunk, not the hidden full host image.
+Memory 0 contains the bounded root and memory 1 bounded chunks. Slot 0 is the hidden coordinator image; slots 1/2/3 are committed state/events/scores. Each artifact is capped at 1 MiB and the root at 64 KiB. Publication/input retirement and certified-data replacement occur in one update message. Upgrade validates the host and every committed artifact, restores certified data, and traps on incompatible durable bytes instead of installing genesis. The `test-hooks` feature adds one trap-after-write endpoint for rollback tests; the normal Wasm does not export it.
 
-The source calls the real certification APIs and its locked Wasm build passes. **No generated-Candid comparison, actual certificate, IC signature verifier, PocketIC upgrade test or cycle measurement has executed.** The browser adapter remains fail-closed without a real certificate-verification dependency. The no-await image write is bounded but still inefficient whole-image serialization, not a production capacity proof.
+`observation` returns the flat canonical publication and the system certificate. `artifact_chunk` requires the current catalog root. The S09 harness verifies this with exact standard agent libraries in Rust and Chromium using a root deliberately obtained from the same disposable PocketIC instance. No client automatically fetches or trusts a replacement root.
 
-Dependency pins and the generated Cargo lock are committed. Build artifacts remain ignored. See the S05 verification gates and publication/coordinator specs before any authorized local-only integration work.
+Run the complete local slice from a Python 3.11 Playwright environment:
+
+```sh
+python -B tools/verify_s09_local.py --output .work/s09/final
+```
+
+The command checksum-validates pinned PocketIC/upstream ledger artifacts outside the checkout, builds normal and test-hook Wasm separately, runs install/authorization/trap/upgrade/ledger/archive/fallback/recovery/native-equivalence/certificate tests, then runs the existing observer through loopback HTTP and browser-native Web Crypto. Raw results stay under `.work/`.
+
+This establishes only the named local correctness behaviors. Full-ledger scan cost, production index strategy, endpoint/root policy, mainnet finality, cycle capacity, reproducible Wasm, wallets, real funds and settlement remain open gates.

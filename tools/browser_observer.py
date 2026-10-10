@@ -99,7 +99,8 @@ def main():
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
                     raise
-            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>(.1 if a.trust=='local' else 1))
+            if a.trust=='local':page.locator('#speed').select_option('0.5')
+            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>(.05 if a.trust=='local' else 1))
             if a.trust=='local':
                 assert 'Local IC / test-network certified' in page.locator('.trust').inner_text()
                 assert page.locator('#verification-label').inner_text()=='IC certificate + catalog + artifacts'
@@ -108,7 +109,7 @@ def main():
             assert page.locator('#balls').inner_text()!='0'
             record('startup-and-moving-playhead','PASS')
             before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(100 if a.trust=='local' else 180)
-            assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before
+            assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before,'canvas pixels did not advance'
             record('canvas-pixels-change-during-playback','PASS')
             page.locator('#pause').click();page.wait_for_timeout(220)
             start=page.locator('#playhead').inner_text();page.wait_for_timeout(250)
