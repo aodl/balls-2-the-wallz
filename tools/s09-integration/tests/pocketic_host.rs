@@ -121,6 +121,76 @@ struct Archives {
     archives: Vec<Archive>,
 }
 
+#[derive(Clone, CandidType)]
+struct FaultTimestamp {
+    timestamp_nanos: u64,
+}
+
+#[derive(Clone, CandidType)]
+struct FaultTransaction {
+    memo: u64,
+    icrc1_memo: Option<Vec<u8>>,
+    operation: Option<FaultOperation>,
+    created_at_time: FaultTimestamp,
+}
+
+#[derive(Clone, CandidType)]
+#[allow(dead_code)]
+enum FaultOperation {
+    Mint { to: Vec<u8>, amount: FaultTokens },
+}
+
+#[derive(Clone, CandidType)]
+struct FaultTokens {
+    e8s: u64,
+}
+
+#[derive(Clone, CandidType)]
+struct FaultBlock {
+    parent_hash: Option<Vec<u8>>,
+    transaction: FaultTransaction,
+    timestamp: FaultTimestamp,
+}
+
+#[derive(Clone, CandidType)]
+struct FaultBlockRange {
+    blocks: Vec<FaultBlock>,
+}
+
+#[derive(Clone, CandidType)]
+#[allow(dead_code)]
+enum FaultArchiveError {
+    Other {
+        error_code: u64,
+        error_message: String,
+    },
+}
+
+type FaultArchiveResult = Result<FaultBlockRange, FaultArchiveError>;
+candid::define_function!(FaultArchiveCallback : (FaultGetBlocksArgs) -> (FaultArchiveResult) query);
+
+#[derive(Clone, CandidType)]
+struct FaultGetBlocksArgs {
+    start: u64,
+    length: u64,
+}
+
+#[derive(Clone, CandidType)]
+struct FaultArchivedRange {
+    start: u64,
+    length: u64,
+    callback: FaultArchiveCallback,
+}
+
+#[derive(Clone, CandidType)]
+struct FaultQueryResponse {
+    chain_length: u64,
+    certificate: Option<Vec<u8>>,
+    blocks: Vec<FaultBlock>,
+    first_block_index: u64,
+    archived_blocks: Vec<FaultArchivedRange>,
+}
+
 fn required_path(name: &str) -> PathBuf {
     let path = std::env::var_os(name).unwrap_or_else(|| panic!("{name} is required"));
     let path = PathBuf::from(path);
@@ -134,6 +204,56 @@ fn instance() -> PocketIc {
         .with_application_subnet()
         .with_server_binary(required_path("POCKET_IC_BIN"))
         .build()
+}
+
+fn wat_bytes(bytes: &[u8]) -> String {
+    bytes.iter().map(|byte| format!("\\{byte:02x}")).collect()
+}
+
+fn fixture_wasm(replies: &[(&str, Vec<u8>)], traps: &[&str]) -> Vec<u8> {
+    let mut offset = 0usize;
+    let mut data = String::new();
+    let mut functions = String::new();
+    for (index, (method, reply)) in replies.iter().enumerate() {
+        data.push_str(&format!(
+            "(data (i32.const {offset}) \"{}\")",
+            wat_bytes(reply)
+        ));
+        functions.push_str(&format!(
+            "(func $reply{index} (export \"canister_query {method}\") i32.const {offset} i32.const {} call $append call $reply)",
+            reply.len()
+        ));
+        offset += reply.len();
+    }
+    for (index, method) in traps.iter().enumerate() {
+        let message = b"intentional test-ledger rejection";
+        data.push_str(&format!(
+            "(data (i32.const {offset}) \"{}\")",
+            wat_bytes(message)
+        ));
+        functions.push_str(&format!(
+            "(func $trap{index} (export \"canister_query {method}\") i32.const {offset} i32.const {} call $trap)",
+            message.len()
+        ));
+        offset += message.len();
+    }
+    wat::parse_str(format!(
+        "(module (import \"ic0\" \"msg_reply_data_append\" (func $append (param i32 i32))) (import \"ic0\" \"msg_reply\" (func $reply)) (import \"ic0\" \"trap\" (func $trap (param i32 i32))) (memory (export \"memory\") 1) {data} {functions})"
+    ))
+    .unwrap()
+}
+
+fn fault_block() -> FaultBlock {
+    FaultBlock {
+        parent_hash: Some(vec![0; 32]),
+        transaction: FaultTransaction {
+            memo: 0,
+            icrc1_memo: None,
+            operation: None,
+            created_at_time: FaultTimestamp { timestamp_nanos: 1 },
+        },
+        timestamp: FaultTimestamp { timestamp_nanos: 1 },
+    }
 }
 
 fn controller() -> Principal {
@@ -167,6 +287,37 @@ fn deploy_synthetic(pic: &PocketIc, wasm: &[u8]) -> Principal {
     .unwrap();
     pic.install_canister(id, wasm.to_vec(), init, Some(owner));
     id
+}
+
+fn deploy_fault_source(pic: &PocketIc, wasm: &[u8], ledger: Principal) -> Principal {
+    let runtime = create_controlled(pic);
+    let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
+    let init = encode_args((
+        initial_world(),
+        "00".repeat(32),
+        0u64,
+        0u64,
+        Some(LedgerConfig {
+            network: "pocketic-local".into(),
+            ledger,
+            recipient_account: recipient.as_bytes().to_vec(),
+            page_limit: 4,
+            fallback_seconds: 3600,
+            hint_principal: None,
+        }),
+    ))
+    .unwrap();
+    pic.install_canister(runtime, wasm.to_vec(), init, Some(controller()));
+    runtime
+}
+
+fn install_fixture(pic: &PocketIc, id: Principal, replies: &[(&str, Vec<u8>)], traps: &[&str]) {
+    pic.install_canister(
+        id,
+        fixture_wasm(replies, traps),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
 }
 
 fn create_controlled(pic: &PocketIc) -> Principal {
@@ -606,6 +757,149 @@ fn upgrades_preserve_idle_sealed_and_ready_boundaries() {
     assert_eq!(recovered.phase.as_deref(), Some("ready"));
     assert_eq!(recovered.ready_manifest, ready_hash);
     assert_eq!(observation(&pic, ready).publication, ready_publication);
+}
+
+#[test]
+fn fault_ledger_pages_never_skip_the_contiguous_cursor() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let pic = instance();
+
+    let short_ledger = create_controlled(&pic);
+    let short = FaultQueryResponse {
+        chain_length: 4,
+        certificate: None,
+        blocks: vec![fault_block()],
+        first_block_index: 0,
+        archived_blocks: vec![],
+    };
+    install_fixture(
+        &pic,
+        short_ledger,
+        &[("query_blocks", candid::encode_one(short).unwrap())],
+        &[],
+    );
+    let short_runtime = deploy_fault_source(&pic, &wasm, short_ledger);
+    let short_status: Status = update_result(
+        &pic,
+        short_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(short_status.source.verified_source_watermark, Some(1));
+    assert!(
+        short_status.source.hint_pending,
+        "short prefix must not jump to tip"
+    );
+
+    let gap_ledger = create_controlled(&pic);
+    let gap = FaultQueryResponse {
+        chain_length: 4,
+        certificate: None,
+        blocks: vec![fault_block()],
+        first_block_index: 1,
+        archived_blocks: vec![],
+    };
+    install_fixture(
+        &pic,
+        gap_ledger,
+        &[("query_blocks", candid::encode_one(gap).unwrap())],
+        &[],
+    );
+    let gap_runtime = deploy_fault_source(&pic, &wasm, gap_ledger);
+    let gap_status: Status = update_result(
+        &pic,
+        gap_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(gap_status.source.verified_source_watermark, Some(0));
+    assert!(gap_status.source.last_error.unwrap().contains("contiguous"));
+
+    let malformed_ledger = create_controlled(&pic);
+    install_fixture(
+        &pic,
+        malformed_ledger,
+        &[("query_blocks", vec![0xde, 0xad])],
+        &[],
+    );
+    let malformed_runtime = deploy_fault_source(&pic, &wasm, malformed_ledger);
+    let malformed_status: Status = update_result(
+        &pic,
+        malformed_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(malformed_status.source.verified_source_watermark, Some(0));
+    assert!(
+        malformed_status
+            .source
+            .last_error
+            .unwrap()
+            .contains("decode")
+    );
+
+    let rejecting_ledger = create_controlled(&pic);
+    install_fixture(&pic, rejecting_ledger, &[], &["query_blocks"]);
+    let rejecting_runtime = deploy_fault_source(&pic, &wasm, rejecting_ledger);
+    let rejecting_status: Status = update_result(
+        &pic,
+        rejecting_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(rejecting_status.source.verified_source_watermark, Some(0));
+    assert!(
+        rejecting_status
+            .source
+            .last_error
+            .unwrap()
+            .contains("rejected")
+    );
+
+    let incomplete_archive = create_controlled(&pic);
+    let routed = FaultQueryResponse {
+        chain_length: 4,
+        certificate: None,
+        blocks: vec![],
+        first_block_index: 0,
+        archived_blocks: vec![FaultArchivedRange {
+            start: 0,
+            length: 2,
+            callback: FaultArchiveCallback(candid::Func {
+                principal: incomplete_archive,
+                method: "get_blocks".into(),
+            }),
+        }],
+    };
+    let empty_archive: FaultArchiveResult = Ok(FaultBlockRange { blocks: vec![] });
+    install_fixture(
+        &pic,
+        incomplete_archive,
+        &[
+            ("query_blocks", candid::encode_one(routed).unwrap()),
+            ("get_blocks", candid::encode_one(empty_archive).unwrap()),
+        ],
+        &[],
+    );
+    let archive_runtime = deploy_fault_source(&pic, &wasm, incomplete_archive);
+    let archive_status: Status = update_result(
+        &pic,
+        archive_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(archive_status.source.verified_source_watermark, Some(0));
+    assert!(archive_status.source.last_error.unwrap().contains("empty"));
 }
 
 #[test]

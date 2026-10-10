@@ -666,6 +666,9 @@ ic_cdk::export_candid!();
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use ic_ledger_types::{AccountIdentifier, DEFAULT_SUBACCOUNT};
+
     #[test]
     fn print_generated_candid() {
         let generated = super::__export_service();
@@ -677,5 +680,44 @@ mod tests {
             candid_parser::utils::CandidSource::Text(include_str!("../runtime-lab.did")),
         )
         .expect("generated and declared Candid differ semantically");
+    }
+
+    #[test]
+    fn scan_lease_fences_every_await_identity() {
+        let ledger = Principal::from_slice(&[1]);
+        let recipient = AccountIdentifier::new(&Principal::from_slice(&[2]), &DEFAULT_SUBACCOUNT);
+        let (state, _) = SourceState::configured(
+            LedgerConfig {
+                network: source::LOCAL_NETWORK.into(),
+                ledger,
+                recipient_account: recipient.as_bytes().to_vec(),
+                page_limit: 4,
+                fallback_seconds: 60,
+                hint_principal: None,
+            },
+            7,
+        )
+        .unwrap();
+        let SourceState::Ledger(mut source) = state else {
+            panic!("expected ledger source")
+        };
+        source.in_flight = true;
+        source.scan_nonce = 9;
+        let lease = ScanLease {
+            ledger,
+            generation: source.generation,
+            nonce: 9,
+            cursor: 7,
+            page_limit: 4,
+        };
+        assert!(lease_matches(&source, &lease));
+        source.generation += 1;
+        assert!(!lease_matches(&source, &lease));
+        source.generation -= 1;
+        source.scan_nonce += 1;
+        assert!(!lease_matches(&source, &lease));
+        source.scan_nonce -= 1;
+        source.cursor += 1;
+        assert!(!lease_matches(&source, &lease));
     }
 }
