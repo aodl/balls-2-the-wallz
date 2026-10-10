@@ -1,6 +1,6 @@
 import json,tempfile,unittest,zipfile
 from pathlib import Path
-from package_checkpoint import package
+from package_checkpoint import excluded,package
 class TestPackaging(unittest.TestCase):
  def setUp(self):
   self.temp=tempfile.TemporaryDirectory();self.base=Path(self.temp.name);self.root=self.base/'source';self.root.mkdir();(self.root/'CHECKPOINT.json').write_text(json.dumps({'checkpoint_id':'S01'}));(self.root/'README.md').write_text('source\n')
@@ -12,6 +12,13 @@ class TestPackaging(unittest.TestCase):
  def test_build_cache_excluded(self):
   p=self.root/'target/debug';p.mkdir(parents=True);(p/'temporary').write_text('not source');package(self.root,self.base/'a.zip')
   with zipfile.ZipFile(self.base/'a.zip')as z:self.assertFalse(any('target/'in n for n in z.namelist()))
+ def test_local_environment_directories_excluded(self):
+  p=self.root/'.venv/bin';p.mkdir(parents=True);(p/'placeholder.txt').write_text('not a dependency')
+  package(self.root,self.base/'a.zip')
+  with zipfile.ZipFile(self.base/'a.zip')as z:self.assertFalse(any('/.venv/'in n for n in z.namelist()))
+ def test_secret_shaped_paths_are_excluded_without_reading(self):
+  for path in ['.env','.env.local','identity.pem','nested/wallet.key','id_ed25519']:
+   with self.subTest(path=path):self.assertTrue(excluded(Path(path)))
  def test_symlink_rejected(self):
   (self.root/'alias').symlink_to('README.md')
   with self.assertRaisesRegex(ValueError,'symlink'):package(self.root,self.base/'a.zip')

@@ -3,12 +3,18 @@
 import argparse, hashlib, json, shutil, tempfile, zipfile
 from pathlib import Path
 from verify_checkpoint import verify
-EXCLUDE={'target','node_modules','.git','.dfx','.work','__pycache__'}
+EXCLUDE_DIRS={'target','node_modules','.git','.dfx','.work','__pycache__','.venv','venv'}
+SECRET_NAMES={'identity.pem','identity.json','id_rsa','id_ed25519'}
+SECRET_SUFFIXES={'.pem','.key'}
+def excluded(relative):
+    if any(part in EXCLUDE_DIRS for part in relative.parts):return True
+    name=relative.name
+    return name=='.env' or name.startswith('.env.') or name in SECRET_NAMES or relative.suffix in SECRET_SUFFIXES
 def selected(root):
     root=root.resolve()
     for path in sorted(root.rglob('*')):
         relative=path.relative_to(root)
-        if any(part in EXCLUDE for part in relative.parts):continue
+        if excluded(relative):continue
         if path.is_symlink():raise ValueError('symlink not permitted: '+str(relative))
         if path.is_file()and relative.as_posix()!='FILES.sha256'and path.suffix!='.pyc':yield path,relative
 

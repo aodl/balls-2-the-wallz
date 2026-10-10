@@ -1,6 +1,13 @@
 /target/
 **/target/
 /node_modules/
+/.venv/
+/venv/
+/.python-version
+.env
+.env.*
+*.pem
+*.key
 /.work/
 __pycache__/
 *.pyc

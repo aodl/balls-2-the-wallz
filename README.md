@@ -8,6 +8,8 @@ A **read-only, locally served browser observer**, built on the verified S06 coor
 
 Node 22.16+ and Python 3.11+ run the source tools. A modern browser on localhost (or HTTPS) supplies Canvas, Web Crypto, ES modules and BigInt. No npm installation is needed to view the bundled recordings.
 
+For the pinned Rust toolchain, user-scoped Python option and one-time locked dependency fetch, see [Linux setup](docs/operations/LINUX_SETUP.md).
+
 ```sh
 # First, verify the pristine extracted package.
 python3 -B tools/verify_checkpoint.py
@@ -29,7 +31,7 @@ python3 -B tools/check.py source
 node tools/build_observer_recordings.mjs --check
 python3 -B tools/check.py all
 
-# With an already installed Playwright + Chromium, while the server is running:
+# With the pinned Playwright test dependency and its Chromium installed, while the server is running:
 python3 -B tools/browser_observer.py --mode http \
   --url http://127.0.0.1:8080/apps/btz-observer/
 
@@ -37,9 +39,9 @@ python3 -B tools/browser_observer.py --mode http \
 python3 -B tools/browser_observer.py --mode offline
 ```
 
-The complete gate deliberately reports BLOCKED for unexecuted native/IC and browser-HTTP integration. It is not an overall deployment pass.
+The complete gate reports unimplemented IC integration requirements as BLOCKED. It is not an overall deployment pass.
 
-**Browser evidence qualification:** this environment blocks Chromium navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`. The executed offline browser tests inject the unchanged UI/modules into an isolated document, supply recording responses in memory and delegate SHA-256 to Python hashlib. They establish actual Chromium application/layout/control behavior, **not HTTP loading, production CSP enforcement, native browser Web Crypto or IC certificates**. Those are separate gates. No browser policy was changed and no browser was downloaded.
+**Browser evidence qualification:** the S07 environment blocked Chromium navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`; that remains historical evidence, not an assumption about the current host. Fixture-mode tests inject the unchanged UI/modules into an isolated document and do not establish HTTP loading, production CSP, native browser Web Crypto or IC certificates. HTTP mode must be executed separately without disabling browser security policy.
 
 ## Current source boundary
 
