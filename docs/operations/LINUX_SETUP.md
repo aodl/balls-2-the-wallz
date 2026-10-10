@@ -34,4 +34,20 @@ Dependency resolution is a deliberate maintenance operation. If a manifest chang
 
 Browser tests use the exact dependency in `tools/browser-requirements.txt` and its matching Playwright Chromium build. Install them in a user-scoped virtual environment outside the checkout. Do not install OS packages or alter browser policy without explicit approval.
 
+```sh
+python3.11 -m venv /path/outside/checkout/browser-venv
+/path/outside/checkout/browser-venv/bin/pip install --require-hashes \
+  -r tools/browser-requirements.txt
+/path/outside/checkout/browser-venv/bin/python -m playwright install chromium
+```
+
+Run the complete HTTP gate with the virtual environment's interpreter:
+
+```sh
+/path/outside/checkout/browser-venv/bin/python -B \
+  tools/verify_observer_http.py --output .work/browser-http
+```
+
+Playwright's bundled browser still needs host shared libraries. Install system packages only with explicit approval; a missing library is a BLOCKED environment result, not permission to use sudo automatically.
+
 All local IC commands must use `DFX_IDENTITY=codex_local`. These setup steps do not deploy to any network.

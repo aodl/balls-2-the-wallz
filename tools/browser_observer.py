@@ -9,6 +9,17 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 APP=ROOT/'apps/btz-observer'
 
+def wait_until(page,predicate,timeout=10000):
+    deadline=time.monotonic()+timeout/1000
+    last=None
+    while time.monotonic()<deadline:
+        try:
+            if predicate():return
+        except Exception as error:last=error
+        page.wait_for_timeout(50)
+    if last:raise TimeoutError(f'condition not met within {timeout}ms: {last}')
+    raise TimeoutError(f'condition not met within {timeout}ms')
+
 def module_url(path,cache):
     path=path.resolve()
     if not path.is_relative_to(ROOT):raise ValueError('module escaped repository')
@@ -62,7 +73,7 @@ def main():
     p.add_argument('--url',default='http://127.0.0.1:8080/apps/btz-observer/')
     p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser',default=shutil.which('chromium'))
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
-    report={'checkpoint':'S07','mode':a.mode,'overall':'IN_PROGRESS','checks':[],
+    report={'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'mode':a.mode,'overall':'IN_PROGRESS','checks':[],
       'qualification':('Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.' if a.mode=='offline' else 'Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.')}
     dest=a.output/'results.json'
     def record(name,status,details=''):
@@ -73,7 +84,7 @@ def main():
         report['overall']='BLOCKED';record('browser-tooling','BLOCKED','Playwright not installed; no installer run.');return 2
     with sync_playwright() as pw:
         try:
-            browser=pw.chromium.launch(executable_path=a.browser,headless=True,args=['--no-sandbox'])
+            browser=pw.chromium.launch(executable_path=a.browser,headless=True,chromium_sandbox=True)
         except Exception as e:
             report['overall']='BLOCKED';record('browser-launch','BLOCKED',str(e));return 2
         report['browser_version']=browser.version;report['playwright_version']=importlib.metadata.version('playwright')
@@ -87,7 +98,7 @@ def main():
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
                     raise
-            page.wait_for_function("Number(document.querySelector('#playhead').textContent)>1",timeout=10000)
+            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>1)
             assert 'Not IC-certified' in page.locator('.trust').inner_text()
             assert page.locator('#balls').inner_text()!='0'
             record('startup-and-moving-playhead','PASS')
@@ -108,44 +119,44 @@ def main():
             page.locator('#network-pause').check();page.wait_for_timeout(700)
             available=page.locator('#available').inner_text()
             page.locator('#speed').select_option('2');page.locator('#pause').click()
-            page.wait_for_function("document.body.dataset.phase==='STALLED'",timeout=10000)
+            wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='STALLED')
             assert page.locator('#available').inner_text()==available
             assert page.locator('#playhead').inner_text()==available
             page.wait_for_timeout(250);assert page.locator('#playhead').inner_text()==available
             record('buffer-exhaustion-stops-at-verified-head','PASS')
             page.locator('#network-pause').uncheck()
-            page.wait_for_function('(n)=>Number(document.querySelector("#playhead").textContent)>n',arg=float(available),timeout=10000)
+            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>float(available))
             record('download-recovery-resumes','PASS')
             # Reduced-motion preference starts a new independent document paused.
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)
             else:second.goto(a.url,timeout=10000)
-            second.wait_for_function("document.body.dataset.phase==='PAUSED'",timeout=10000)
+            wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED')
             assert second.locator('#playhead').inner_text()=='0.00'
             record('reduced-motion-starts-paused','PASS');second.locator('#network-pause').check();second.wait_for_timeout(800);second.close()
             if a.mode=='offline':
                 # Deterministic fault injection in test transport ONLY, never in product source.
                 page.locator('#pause').click();page.locator('#network-pause').check()
                 page.locator('#recording').select_option('admission')
-                page.wait_for_function("document.querySelector('#scenario-title').textContent==='New arrivals' && !document.querySelector('#pause').disabled")
+                wait_until(page,lambda:page.locator('#scenario-title').inner_text()=='New arrivals' and page.locator('#pause').is_enabled())
                 page.evaluate("window.__fixtureFault={match:'admission/001/state-0.bin',kind:'corrupt'}")
                 page.locator('#network-pause').uncheck()
-                page.wait_for_function("document.body.dataset.phase==='ERROR'",timeout=10000)
+                wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='ERROR')
                 assert 'integrity' in page.locator('#error-text').inner_text()
                 assert page.locator('#segments').inner_text()=='0 / 12'
                 assert page.locator('#available').inner_text()=='0.00'
                 page.screenshot(path=str(a.output/'corruption.png'),full_page=True)
                 record('corruption-never-enters-buffer','PASS')
                 page.locator('#retry').click()
-                page.wait_for_function("Number(document.querySelector('#available').textContent)>=2",timeout=10000)
+                wait_until(page,lambda:float(page.locator('#available').inner_text())>=2)
                 record('explicit-retry-preserves-sequence','PASS')
                 page.locator('#network-pause').check();page.evaluate('window.__fixtureDelay=250')
                 page.locator('#recording').select_option('dense')
                 page.locator('#recording').select_option('near-impact')
-                page.wait_for_function("document.querySelector('#scenario-title').textContent==='Mutual destruction' && !document.querySelector('#pause').disabled",timeout=10000)
+                wait_until(page,lambda:page.locator('#scenario-title').inner_text()=='Mutual destruction' and page.locator('#pause').is_enabled())
                 page.evaluate('window.__fixtureDelay=0');page.locator('#network-pause').uncheck()
                 if page.locator('#pause').inner_text()=='Resume playback':page.locator('#pause').click()
-                page.wait_for_function("document.body.dataset.phase==='COMPLETE'",timeout=10000)
+                wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='COMPLETE')
                 assert page.locator('#balls').inner_text()=='0' and page.locator('#cannons').inner_text()=='0'
                 assert page.locator('#playhead').inner_text()=='4.00'
                 page.wait_for_timeout(250);assert page.locator('#playhead').inner_text()=='4.00'
