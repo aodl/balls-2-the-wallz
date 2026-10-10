@@ -1,6 +1,6 @@
-import sys,tempfile,unittest
+import hashlib,sys,tempfile,unittest
 from pathlib import Path
-from check import BLOCKED_EXIT_CHECKS,blocked_requirements,classify,planned_checks,run_one
+from check import BLOCKED_EXIT_CHECKS,blocked_requirements,classify,planned_checks,run_one,snapshot_artifact,tested_artifacts
 class TestEvidenceClassification(unittest.TestCase):
     def test_missing_tool_is_not_pass(self):self.assertEqual(classify(None,''),'BLOCKED')
     def test_argparse_usage_exit_is_failure(self):self.assertEqual(classify(2,'usage: tool [-h]\ntool: error: required arguments'),'FAIL')
@@ -21,6 +21,14 @@ class TestPythonEvidence(unittest.TestCase):
     def test_empty_suite_is_not_pass(self):self.assertEqual(classify(0,'Ran 0 tests in 0.000s\n\nOK\n','python-tests'),'FAIL')
     def test_skipped_suite_is_not_pass(self):self.assertEqual(classify(0,'Ran 2 tests in 0.001s\n\nOK (skipped=1)\n','python-tests'),'FAIL')
     def test_ran_suite_is_pass(self):self.assertEqual(classify(0,'Ran 3 tests in 0.001s\n\nOK\n','python-tests'),'PASS')
+class TestArtifactEvidence(unittest.TestCase):
+    def test_snapshot_survives_later_file_replacement(self):
+        work=Path(__file__).resolve().parents[1]/'.work';work.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=work) as directory:
+            path=Path(directory)/'artifact.wasm';path.write_bytes(b'normal')
+            artifact=snapshot_artifact(path);path.write_bytes(b'test-hooks')
+        self.assertEqual(artifact['sha256'],hashlib.sha256(b'normal').hexdigest())
+        self.assertEqual(tested_artifacts([{'tested_artifacts':[artifact]}]),[artifact])
 class TestPlan(unittest.TestCase):
     def test_all_uses_existing_locks_and_real_browser_gate(self):
         checks=planned_checks('all',Path('/tmp/check-output'))

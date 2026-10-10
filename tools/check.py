@@ -150,17 +150,17 @@ def git_revision():
     except (OSError,subprocess.TimeoutExpired):pass
     return None
 
+def snapshot_artifact(path):
+    """Hash an artifact immediately, before a later feature build can replace it."""
+    return {'path':str(path.relative_to(ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'size':path.stat().st_size}
+
+def capture_tested_artifacts(name,row):
+    if name=='runtime-lab-wasm' and row['status']=='PASS':
+        path=ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'
+        if path.is_file():row['tested_artifacts']=[snapshot_artifact(path)]
+
 def tested_artifacts(checks):
-    """Record only build artifacts that a named passing check actually produced."""
-    passed={row['id'] for row in checks if row['status']=='PASS'}
-    candidates=[]
-    if 'runtime-lab-wasm' in passed:
-        candidates.append(ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm')
-    artifacts=[]
-    for path in candidates:
-        if path.is_file():
-            artifacts.append({'path':str(path.relative_to(ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'size':path.stat().st_size})
-    return artifacts
+    return [artifact for row in checks for artifact in row.get('tested_artifacts',[])]
 
 def blocked_requirements():
     return [
@@ -180,7 +180,8 @@ def main():
     destination=args.output/'verification.json'
     for name,command,kind,requires,timeout in planned_checks(args.mode,args.output):
         allow_blocked_exit=name in BLOCKED_EXIT_CHECKS
-        report['checks'].append(run_one(name,command,args.output,kind,requires,timeout,allow_blocked_exit));destination.write_text(json.dumps(report,indent=2)+'\n');print(name,report['checks'][-1]['status'],flush=True)
+        row=run_one(name,command,args.output,kind,requires,timeout,allow_blocked_exit);capture_tested_artifacts(name,row)
+        report['checks'].append(row);destination.write_text(json.dumps(report,indent=2)+'\n');print(name,row['status'],flush=True)
     if args.mode=='all':
         for name,reason in blocked_requirements():report['checks'].append({'id':name,'status':'BLOCKED','exit_code':None,'reason':reason})
     report['tested_artifacts']=tested_artifacts(report['checks'])
