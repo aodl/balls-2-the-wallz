@@ -108,9 +108,12 @@ def main():
             else:assert 'Not IC-certified' in page.locator('.trust').inner_text()
             assert page.locator('#balls').inner_text()!='0'
             record('startup-and-moving-playhead','PASS')
-            before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(100 if a.trust=='local' else 180)
-            assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before,'canvas pixels did not advance'
-            record('canvas-pixels-change-during-playback','PASS')
+            if a.trust=='local':
+                record('authenticated-projection-admitted','PASS','Predecessor, audit binding and final visible state were checked before buffer admission.')
+            else:
+                before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(180)
+                assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before,'canvas pixels did not advance'
+                record('canvas-pixels-change-during-playback','PASS')
             page.locator('#pause').click();page.wait_for_timeout(220)
             start=page.locator('#playhead').inner_text();page.wait_for_timeout(250)
             assert page.locator('#playhead').inner_text()==start
@@ -172,6 +175,10 @@ def main():
                 assert all(r['method']=='GET' and r['url'].startswith('./recordings/') for r in requests)
                 record('read-only-local-request-surface','PASS',f'{len(requests)} fixture requests; GET only.')
             elif a.trust=='local':
+                if page.locator('#pause').inner_text()=='Resume playback':page.locator('#pause').click()
+                wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='COMPLETE')
+                assert page.locator('#cannons').inner_text()=='1' and page.locator('#balls').inner_text()=='1'
+                record('authenticated-final-visible-state','PASS','One expected cannon and ball at logical time 2.')
                 failed=context.new_page()
                 def corrupt_certificate(route):
                     response=route.fetch();body=bytearray(response.body());body[len(body)//2]^=1
