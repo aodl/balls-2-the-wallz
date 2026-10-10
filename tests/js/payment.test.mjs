@@ -1,0 +1,15 @@
+import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';
+import{canonicalAccount,crc32}from'../../packages/protocol/account.mjs';import{classifyPayment}from'../../packages/source/payment.mjs';
+const fixture=p=>JSON.parse(readFileSync(new URL('../fixtures/'+p,import.meta.url),'utf8'));const a=fixture('accounts.json'),p=fixture('payments.json');
+test('CRC32 standard check vector',()=>assert.equal(crc32(new TextEncoder().encode('123456789')),0xcbf43926));
+test('account canonicalization',()=>assert.equal(canonicalAccount(a.alice.toUpperCase()),a.alice));
+test('account checksum and lengths checked',()=>{assert.throws(()=>canonicalAccount('00'.repeat(32)));assert.throws(()=>canonicalAccount(a.alice+'00'));});
+test('legacy and blob payments classify identically',()=>assert.deepEqual(classifyPayment(p.legacy,a.recipient),classifyPayment(p.icrc,a.recipient)));
+test('transfer amount excludes fee without subtracting it',()=>assert.equal(classifyPayment(p.legacy,a.recipient).amount_e8s,'1000000000'));
+test('wrong destination has no gameplay effect',()=>assert.equal(classifyPayment({...p.legacy,to:a.other},a.recipient).reason,'OTHER_DESTINATION'));
+test('self transfer cannot manufacture a purchase',()=>assert.equal(classifyPayment({...p.legacy,from:a.recipient},a.recipient).reason,'SELF_TRANSFER'));
+test('delegated allowance spender cannot command funding account',()=>assert.equal(classifyPayment({...p.legacy,spender:a.bob},a.recipient).reason,'DELEGATED_TRANSFER_UNSUPPORTED'));
+test('invalid memo retained as rejection candidate not an exception',()=>assert.equal(classifyPayment({...p.legacy,memo:'0'},a.recipient).reason,'INVALID_MEMO'));
+for(const kind of['Mint','Burn','Approve'])test(`ignore ${kind}`,()=>assert.equal(classifyPayment({kind},a.recipient).outcome,'ignored'));
+test('unknown operation fails closed for adapter review',()=>assert.throws(()=>classifyPayment({kind:'FutureType'},a.recipient)));
+test('malformed wire amount halts rather than rejecting money blindly',()=>assert.throws(()=>classifyPayment({...p.legacy,amount_e8s:'1.0'},a.recipient)));

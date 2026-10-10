@@ -1,0 +1,220 @@
+TAP version 13
+# Subtest: observer dense: every recorded segment verifies, chains and reconstructs
+ok 1 - observer dense: every recorded segment verifies, chains and reconstructs
+  ---
+  duration_ms: 101.526917
+  type: 'test'
+  ...
+# Subtest: observer admission: every recorded segment verifies, chains and reconstructs
+ok 2 - observer admission: every recorded segment verifies, chains and reconstructs
+  ---
+  duration_ms: 33.79779
+  type: 'test'
+  ...
+# Subtest: observer severance: every recorded segment verifies, chains and reconstructs
+ok 3 - observer severance: every recorded segment verifies, chains and reconstructs
+  ---
+  duration_ms: 9.140004
+  type: 'test'
+  ...
+# Subtest: observer near-impact: every recorded segment verifies, chains and reconstructs
+ok 4 - observer near-impact: every recorded segment verifies, chains and reconstructs
+  ---
+  duration_ms: 8.808755
+  type: 'test'
+  ...
+# Subtest: observer admission: visible world agrees with full audit at every event boundary
+ok 5 - observer admission: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 3.859096
+  type: 'test'
+  ...
+# Subtest: observer near-impact: visible world agrees with full audit at every event boundary
+ok 6 - observer near-impact: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 1.430613
+  type: 'test'
+  ...
+# Subtest: observer duel: visible world agrees with full audit at every event boundary
+ok 7 - observer duel: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 1.01104
+  type: 'test'
+  ...
+# Subtest: observer severance: visible world agrees with full audit at every event boundary
+ok 8 - observer severance: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 1.187937
+  type: 'test'
+  ...
+# Subtest: observer corner: visible world agrees with full audit at every event boundary
+ok 9 - observer corner: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 1.657753
+  type: 'test'
+  ...
+# Subtest: observer wall-bounce: visible world agrees with full audit at every event boundary
+ok 10 - observer wall-bounce: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 1.433155
+  type: 'test'
+  ...
+# Subtest: observer dense: visible world agrees with full audit at every event boundary
+ok 11 - observer dense: visible world agrees with full audit at every event boundary
+  ---
+  duration_ms: 26.503014
+  type: 'test'
+  ...
+# Subtest: observer rejects predecessor before admitting playback
+ok 12 - observer rejects predecessor before admitting playback
+  ---
+  duration_ms: 4.791374
+  type: 'test'
+  ...
+# Subtest: observer rejects audit binding before admitting playback
+ok 13 - observer rejects audit binding before admitting playback
+  ---
+  duration_ms: 2.539857
+  type: 'test'
+  ...
+# Subtest: observer rejects version before admitting playback
+ok 14 - observer rejects version before admitting playback
+  ---
+  duration_ms: 2.372546
+  type: 'test'
+  ...
+# Subtest: observer rejects out-of-range event before admitting playback
+ok 15 - observer rejects out-of-range event before admitting playback
+  ---
+  duration_ms: 1.97722
+  type: 'test'
+  ...
+# Subtest: observer rejects unknown event before admitting playback
+ok 16 - observer rejects unknown event before admitting playback
+  ---
+  duration_ms: 2.051429
+  type: 'test'
+  ...
+# Subtest: observer rejects descending sequence before admitting playback
+ok 17 - observer rejects descending sequence before admitting playback
+  ---
+  duration_ms: 2.265037
+  type: 'test'
+  ...
+# Subtest: observer rejects missing topology before admitting playback
+ok 18 - observer rejects missing topology before admitting playback
+  ---
+  duration_ms: 2.654827
+  type: 'test'
+  ...
+# Subtest: snapshot rejects non-finite visual time
+ok 19 - snapshot rejects non-finite visual time
+  ---
+  duration_ms: 0.873646
+  type: 'test'
+  ...
+# Subtest: snapshot rejects unknown territory owner
+ok 20 - snapshot rejects unknown territory owner
+  ---
+  duration_ms: 0.679705
+  type: 'test'
+  ...
+# Subtest: unknown event fails closed
+ok 21 - unknown event fails closed
+  ---
+  duration_ms: 0.426448
+  type: 'test'
+  ...
+# Subtest: altered final state is rejected by its hash
+ok 22 - altered final state is rejected by its hash
+  ---
+  duration_ms: 2.031752
+  type: 'test'
+  ...
+# Subtest: reader rejects declared oversize before reading
+ok 23 - reader rejects declared oversize before reading
+  ---
+  duration_ms: 0.846294
+  type: 'test'
+  ...
+# Subtest: reader bounds chunked bodies without a length header
+ok 24 - reader bounds chunked bodies without a length header
+  ---
+  duration_ms: 0.262015
+  type: 'test'
+  ...
+# Subtest: reader rejects network error without returning partial bytes
+ok 25 - reader rejects network error without returning partial bytes
+  ---
+  duration_ms: 0.111565
+  type: 'test'
+  ...
+# Subtest: reader applies no-credentials, no-cache and no-redirect policy
+ok 26 - reader applies no-credentials, no-cache and no-redirect policy
+  ---
+  duration_ms: 0.130208
+  type: 'test'
+  ...
+# Subtest: entry rejects corrupted state chunk
+ok 27 - entry rejects corrupted state chunk
+  ---
+  duration_ms: 2.825293
+  type: 'test'
+  ...
+# Subtest: entry rejects catalog with wrong root
+ok 28 - entry rejects catalog with wrong root
+  ---
+  duration_ms: 1.026067
+  type: 'test'
+  ...
+# Subtest: index rejects path traversal
+ok 29 - index rejects path traversal
+  ---
+  duration_ms: 0.308827
+  type: 'test'
+  ...
+# Subtest: index rejects duplicate name
+ok 30 - index rejects duplicate name
+  ---
+  duration_ms: 0.18336
+  type: 'test'
+  ...
+# Subtest: index rejects unbounded recording
+ok 31 - index rejects unbounded recording
+  ---
+  duration_ms: 0.072306
+  type: 'test'
+  ...
+# Subtest: index rejects false certification
+ok 32 - index rejects false certification
+  ---
+  duration_ms: 0.050577
+  type: 'test'
+  ...
+# Subtest: index rejects bad root
+ok 33 - index rejects bad root
+  ---
+  duration_ms: 0.047426
+  type: 'test'
+  ...
+# Subtest: index rejects invalid speed
+ok 34 - index rejects invalid speed
+  ---
+  duration_ms: 0.042846
+  type: 'test'
+  ...
+# Subtest: render artifact cannot be substituted even with plausible semantics
+ok 35 - render artifact cannot be substituted even with plausible semantics
+  ---
+  duration_ms: 1.98068
+  type: 'test'
+  ...
+1..35
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 287.938218

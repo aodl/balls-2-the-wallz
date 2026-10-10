@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-09-20T10:14:18.669030+00:00",
+  "system": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "tools": {
+    "python3": "/opt/pyvenv/bin/python3",
+    "node": "/opt/nvm/versions/node/v22.16.0/bin/node",
+    "npm": "/opt/nvm/versions/node/v22.16.0/bin/npm",
+    "git": "/usr/bin/git",
+    "jq": "/usr/bin/jq",
+    "rustc": null,
+    "cargo": null,
+    "rustup": null,
+    "icp": null,
+    "dfx": null,
+    "pocket-ic": null,
+    "docker": null,
+    "moc": null,
+    "didc": null,
+    "wasm-tools": null
+  },
+  "versions": {
+    "python3": "Python 3.13.5",
+    "node": "v22.16.0",
+    "npm": "10.9.2",
+    "git": "git version 2.47.3"
+  },
+  "network": "npm registry DNS EAI_AGAIN observed; web research available via separate tool",
+  "qualification": "Presence is not compatibility; Node differs from reference CI pin."
+}

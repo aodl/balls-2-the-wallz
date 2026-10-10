@@ -1,0 +1,44 @@
+test_actual_node_execution (test_check.TestEvidenceClassification.test_actual_node_execution) ... ok
+test_actual_rust_execution (test_check.TestEvidenceClassification.test_actual_rust_execution) ... ok
+test_ignored_node_test_is_failure (test_check.TestEvidenceClassification.test_ignored_node_test_is_failure) ... ok
+test_missing_tool_is_not_pass (test_check.TestEvidenceClassification.test_missing_tool_is_not_pass) ... ok
+test_nonzero_exit_is_failure (test_check.TestEvidenceClassification.test_nonzero_exit_is_failure) ... ok
+test_rust_all_ignored_is_failure (test_check.TestEvidenceClassification.test_rust_all_ignored_is_failure) ... ok
+test_rust_empty_filter_is_failure (test_check.TestEvidenceClassification.test_rust_empty_filter_is_failure) ... ok
+test_zero_tests_is_failure (test_check.TestEvidenceClassification.test_zero_tests_is_failure) ... ok
+test_empty_suite_is_not_pass (test_check.TestPythonEvidence.test_empty_suite_is_not_pass) ... ok
+test_ran_suite_is_pass (test_check.TestPythonEvidence.test_ran_suite_is_pass) ... ok
+test_skipped_suite_is_not_pass (test_check.TestPythonEvidence.test_skipped_suite_is_not_pass) ... ok
+test_corruption_and_lock_are_not_reset (test_chunked_demo.ChunkedDemoTests.test_corruption_and_lock_are_not_reset) ... ok
+test_lost_acknowledgement_restart (test_chunked_demo.ChunkedDemoTests.test_lost_acknowledgement_restart) ... ok
+test_partial_chunk_restart (test_chunked_demo.ChunkedDemoTests.test_partial_chunk_restart) ... ok
+test_prepublication_restart (test_chunked_demo.ChunkedDemoTests.test_prepublication_restart) ... ok
+test_corrupted_local_journal_is_not_silently_reset (test_demo.DemoTests.test_corrupted_local_journal_is_not_silently_reset) ... ok
+test_mismatched_scenario_and_existing_lock_fail_closed (test_demo.DemoTests.test_mismatched_scenario_and_existing_lock_fail_closed) ... ok
+test_restart_during_capture_matches_uninterrupted_process (test_demo.DemoTests.test_restart_during_capture_matches_uninterrupted_process) ... ok
+test_restart_inside_exhaustive_spawn_matches_fresh_process (test_demo.DemoTests.test_restart_inside_exhaustive_spawn_matches_fresh_process) ... ok
+test_build_cache_excluded (test_package.TestPackaging.test_build_cache_excluded) ... ok
+test_complete_fresh_extraction (test_package.TestPackaging.test_complete_fresh_extraction) ... ok
+test_manifest_not_self_referential (test_package.TestPackaging.test_manifest_not_self_referential) ... ok
+test_output_inside_source_rejected (test_package.TestPackaging.test_output_inside_source_rejected) ... ok
+test_repeated_packaging_is_identical (test_package.TestPackaging.test_repeated_packaging_is_identical) ... ok
+test_symlink_rejected (test_package.TestPackaging.test_symlink_rejected) ... ok
+test_absolute_path (test_verify_checkpoint.CheckpointVerifierTests.test_absolute_path) ... ok
+test_backslash_path (test_verify_checkpoint.CheckpointVerifierTests.test_backslash_path) ... ok
+test_dot_component (test_verify_checkpoint.CheckpointVerifierTests.test_dot_component) ... ok
+test_duplicate_entry (test_verify_checkpoint.CheckpointVerifierTests.test_duplicate_entry) ... ok
+test_empty_manifest (test_verify_checkpoint.CheckpointVerifierTests.test_empty_manifest) ... ok
+test_invalid_hash (test_verify_checkpoint.CheckpointVerifierTests.test_invalid_hash) ... ok
+test_manifest_self_reference (test_verify_checkpoint.CheckpointVerifierTests.test_manifest_self_reference) ... ok
+test_missing_file (test_verify_checkpoint.CheckpointVerifierTests.test_missing_file) ... ok
+test_missing_manifest (test_verify_checkpoint.CheckpointVerifierTests.test_missing_manifest) ... ok
+test_modified_file (test_verify_checkpoint.CheckpointVerifierTests.test_modified_file) ... ok
+test_parent_traversal (test_verify_checkpoint.CheckpointVerifierTests.test_parent_traversal) ... ok
+test_symlink_file (test_verify_checkpoint.CheckpointVerifierTests.test_symlink_file) ... ok
+test_unlisted_file (test_verify_checkpoint.CheckpointVerifierTests.test_unlisted_file) ... ok
+test_valid_payload (test_verify_checkpoint.CheckpointVerifierTests.test_valid_payload) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 2.352s
+
+OK

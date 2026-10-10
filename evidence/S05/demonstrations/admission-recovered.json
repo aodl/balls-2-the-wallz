@@ -1,0 +1,16 @@
+{
+  "checkpoint": "S05",
+  "scenario": "admission",
+  "status": "COMMITTED",
+  "phase": "idle",
+  "revision": 10,
+  "actions_this_process": 0,
+  "ingest_head": "2",
+  "retired_to": "2",
+  "pending_inputs": 0,
+  "manifest_hash": "454e0297fffc76d28632fd36ab095be6df13b901abec2fa84b49beb2b4ea76c2",
+  "publication_hash": "09c71a90e6e78749efbd234be4ef8afac44413bc9d5dbf6f060340057c3c4172",
+  "observer_verification": "offline-pinned-content",
+  "source": "synthetic test inputs; no network, ledger verification, IC certificate or transfers",
+  "cycles_consumed": null
+}

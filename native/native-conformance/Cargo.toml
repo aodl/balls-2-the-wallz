@@ -1,0 +1,13 @@
+[package]
+name = "native-conformance-v4"
+default-run = "native-conformance-v4"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+dtr-host = { path = "../dtr-host" }
+dtr-wire = { path = "../dtr-wire" }
+btz-native = { path = "../btz-native" }
+serde_json.workspace = true

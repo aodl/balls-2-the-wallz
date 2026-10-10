@@ -1,0 +1,3 @@
+// Proposed DTR receiver contract, NOT a claim about the unpublished Event Horizon API.
+// No per-payment claims. Sender allowlist limits wake-up costs; fallback polling is independent.
+service : { ledger_hint : () -> (); }

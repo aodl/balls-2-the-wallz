@@ -1,0 +1,17 @@
+[package]
+name = "btz-native"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+dtr-host = { path = "../dtr-host" }
+dtr-wire = { path = "../dtr-wire" }
+btz-mechanics = { path = "../../kernels/btz-mechanics" }
+btz-protocol = { path = "../../crates/btz-protocol" }
+serde.workspace = true
+serde_json.workspace = true
+num-bigint.workspace = true
+num-rational.workspace = true
+num-traits.workspace = true

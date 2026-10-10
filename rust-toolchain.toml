@@ -1,0 +1,6 @@
+# Candidate pin inherited from the supplied Jupiter suite, not a claim of a local build.
+[toolchain]
+channel = "1.94.1"
+components = ["rustfmt", "clippy"]
+targets = ["wasm32-unknown-unknown"]
+profile = "minimal"

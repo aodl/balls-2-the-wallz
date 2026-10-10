@@ -1,0 +1,418 @@
+{
+  "checkpoint": "S03",
+  "method": "Single-run local Node reference; elapsed includes snapshots; sampled maxima at 127-unit intervals, not proven maxima. Work units are not IC instructions.",
+  "cycles_consumed": null,
+  "eth_equivalent": null,
+  "results": [
+    {
+      "name": "admission",
+      "initial_balls": 0,
+      "cells": 96,
+      "logical_ticks": "2",
+      "identical_outputs": true,
+      "work_reduction_percent": 31.14,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 1233,
+          "slices": 10,
+          "sampled_max_snapshot_bytes": 11841,
+          "state_bytes": 1067,
+          "event_bytes": 3664,
+          "score_bytes": 282,
+          "local_elapsed_ms": 8.761,
+          "state_hash": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+          "event_hash": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+          "score_hash": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 10,
+              "denominator_bits": 6
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 14,
+              "denominator_bits": 10
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 849,
+          "slices": 7,
+          "sampled_max_snapshot_bytes": 11839,
+          "state_bytes": 1067,
+          "event_bytes": 3664,
+          "score_bytes": 282,
+          "local_elapsed_ms": 3.754,
+          "state_hash": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+          "event_hash": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+          "score_hash": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 10,
+              "denominator_bits": 6
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 14,
+              "denominator_bits": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "near-impact",
+      "initial_balls": 2,
+      "cells": 18,
+      "logical_ticks": "1",
+      "identical_outputs": true,
+      "work_reduction_percent": 19.57,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 92,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 1886,
+          "state_bytes": 511,
+          "event_bytes": 815,
+          "score_bytes": 279,
+          "local_elapsed_ms": 0.921,
+          "state_hash": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+          "event_hash": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+          "score_hash": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 8,
+              "denominator_bits": 6
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 8,
+              "denominator_bits": 6
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 74,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 1884,
+          "state_bytes": 511,
+          "event_bytes": 815,
+          "score_bytes": 279,
+          "local_elapsed_ms": 0.369,
+          "state_hash": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+          "event_hash": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+          "score_hash": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 8,
+              "denominator_bits": 6
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 8,
+              "denominator_bits": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "duel",
+      "initial_balls": 2,
+      "cells": 18,
+      "logical_ticks": "4",
+      "identical_outputs": true,
+      "work_reduction_percent": 19.15,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 94,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 1809,
+          "state_bytes": 507,
+          "event_bytes": 742,
+          "score_bytes": 275,
+          "local_elapsed_ms": 0.421,
+          "state_hash": "ad05c19a401b91968dd7e2430d85db9493642829904eb882f0069a7b69293830",
+          "event_hash": "d4aac03dd7c0e4bb936a7577ea7ddea42a0896f96dd8bcd88d4c2ad56019102c",
+          "score_hash": "68fb2cb78c9936286990f988740e7c3613d98671622a915310cf5f6d9a6b62cc",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 5,
+              "denominator_bits": 2
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 5,
+              "denominator_bits": 2
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 76,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 1807,
+          "state_bytes": 507,
+          "event_bytes": 742,
+          "score_bytes": 275,
+          "local_elapsed_ms": 0.354,
+          "state_hash": "ad05c19a401b91968dd7e2430d85db9493642829904eb882f0069a7b69293830",
+          "event_hash": "d4aac03dd7c0e4bb936a7577ea7ddea42a0896f96dd8bcd88d4c2ad56019102c",
+          "score_hash": "68fb2cb78c9936286990f988740e7c3613d98671622a915310cf5f6d9a6b62cc",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 5,
+              "denominator_bits": 2
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 5,
+              "denominator_bits": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "severance",
+      "initial_balls": 2,
+      "cells": 15,
+      "logical_ticks": "1",
+      "identical_outputs": true,
+      "work_reduction_percent": 14.71,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 102,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 2004,
+          "state_bytes": 691,
+          "event_bytes": 748,
+          "score_bytes": 276,
+          "local_elapsed_ms": 0.667,
+          "state_hash": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+          "event_hash": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+          "score_hash": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 8,
+              "denominator_bits": 5
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 4,
+              "denominator_bits": 3
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 87,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 2002,
+          "state_bytes": 691,
+          "event_bytes": 748,
+          "score_bytes": 276,
+          "local_elapsed_ms": 0.469,
+          "state_hash": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+          "event_hash": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+          "score_hash": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 8,
+              "denominator_bits": 5
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 4,
+              "denominator_bits": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "corner",
+      "initial_balls": 2,
+      "cells": 9,
+      "logical_ticks": "1",
+      "identical_outputs": true,
+      "work_reduction_percent": 12.5,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 72,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 2000,
+          "state_bytes": 683,
+          "event_bytes": 754,
+          "score_bytes": 276,
+          "local_elapsed_ms": 0.394,
+          "state_hash": "cb845588aa802035e02a7b076e3b8415acea1eefcbf4347f620f010d009649f6",
+          "event_hash": "ce6c3b1d5b897ca1bb9509775ec09c98b3a8d59b9ed1f3100cabe9226641220e",
+          "score_hash": "893080e19b98bac42843ce9dc620d509b6bbc6ddd721d20e75a93d5258d6d093",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 5,
+              "denominator_bits": 3
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 6,
+              "denominator_bits": 5
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 63,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 1998,
+          "state_bytes": 683,
+          "event_bytes": 754,
+          "score_bytes": 276,
+          "local_elapsed_ms": 0.661,
+          "state_hash": "cb845588aa802035e02a7b076e3b8415acea1eefcbf4347f620f010d009649f6",
+          "event_hash": "ce6c3b1d5b897ca1bb9509775ec09c98b3a8d59b9ed1f3100cabe9226641220e",
+          "score_hash": "893080e19b98bac42843ce9dc620d509b6bbc6ddd721d20e75a93d5258d6d093",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 5,
+              "denominator_bits": 3
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 6,
+              "denominator_bits": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wall-bounce",
+      "initial_balls": 1,
+      "cells": 25,
+      "logical_ticks": "8",
+      "identical_outputs": true,
+      "work_reduction_percent": 70.18,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 285,
+          "slices": 3,
+          "sampled_max_snapshot_bytes": 3110,
+          "state_bytes": 588,
+          "event_bytes": 1870,
+          "score_bytes": 152,
+          "local_elapsed_ms": 0.883,
+          "state_hash": "85edfd989c5396b10b976d1565513ba6d9c7239f898c7ec69cf0a6612ce75462",
+          "event_hash": "996bdcf41ebfe1412d27fd9271610bfe1f2bdf168c8a03353be13acd32acecc0",
+          "score_hash": "59ba7a0bc60466ed1742dee06ec59a30f47e153491688e457851abe32338f3d9",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 8,
+              "denominator_bits": 1
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 85,
+          "slices": 1,
+          "sampled_max_snapshot_bytes": 3022,
+          "state_bytes": 588,
+          "event_bytes": 1870,
+          "score_bytes": 152,
+          "local_elapsed_ms": 0.925,
+          "state_hash": "85edfd989c5396b10b976d1565513ba6d9c7239f898c7ec69cf0a6612ce75462",
+          "event_hash": "996bdcf41ebfe1412d27fd9271610bfe1f2bdf168c8a03353be13acd32acecc0",
+          "score_hash": "59ba7a0bc60466ed1742dee06ec59a30f47e153491688e457851abe32338f3d9",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 8,
+              "denominator_bits": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dense",
+      "initial_balls": 32,
+      "cells": 128,
+      "logical_ticks": "4",
+      "identical_outputs": true,
+      "work_reduction_percent": 73.67,
+      "modes": [
+        {
+          "mode": "full-area/full-cut-search",
+          "abstract_work_units": 27106,
+          "slices": 214,
+          "sampled_max_snapshot_bytes": 44644,
+          "state_bytes": 4129,
+          "event_bytes": 39928,
+          "score_bytes": 299,
+          "local_elapsed_ms": 107.917,
+          "state_hash": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+          "event_hash": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+          "score_hash": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 28,
+              "denominator_bits": 20
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 28,
+              "denominator_bits": 20
+            }
+          ]
+        },
+        {
+          "mode": "cached-area/local-cut-precheck",
+          "abstract_work_units": 7138,
+          "slices": 57,
+          "sampled_max_snapshot_bytes": 44648,
+          "state_bytes": 4129,
+          "event_bytes": 39928,
+          "score_bytes": 299,
+          "local_elapsed_ms": 44.511,
+          "state_hash": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+          "event_hash": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+          "score_hash": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699",
+          "credit_bits": [
+            {
+              "account": "0101010101010101010101010101010101010101010101010101010101010101",
+              "numerator_bits": 28,
+              "denominator_bits": 20
+            },
+            {
+              "account": "0202020202020202020202020202020202020202020202020202020202020202",
+              "numerator_bits": 28,
+              "denominator_bits": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

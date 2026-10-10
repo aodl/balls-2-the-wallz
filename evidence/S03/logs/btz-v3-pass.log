@@ -1,0 +1,748 @@
+TAP version 13
+# Subtest: spawn-000: exhaustive placement agrees with independent masked union-find
+ok 1 - spawn-000: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 5.582771
+  type: 'test'
+  ...
+# Subtest: spawn-001: exhaustive placement agrees with independent masked union-find
+ok 2 - spawn-001: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 5.078787
+  type: 'test'
+  ...
+# Subtest: spawn-002: exhaustive placement agrees with independent masked union-find
+ok 3 - spawn-002: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 8.680423
+  type: 'test'
+  ...
+# Subtest: spawn-003: exhaustive placement agrees with independent masked union-find
+ok 4 - spawn-003: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.872019
+  type: 'test'
+  ...
+# Subtest: spawn-004: exhaustive placement agrees with independent masked union-find
+ok 5 - spawn-004: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.45102
+  type: 'test'
+  ...
+# Subtest: spawn-005: exhaustive placement agrees with independent masked union-find
+ok 6 - spawn-005: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 11.350899
+  type: 'test'
+  ...
+# Subtest: spawn-006: exhaustive placement agrees with independent masked union-find
+ok 7 - spawn-006: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.572652
+  type: 'test'
+  ...
+# Subtest: spawn-007: exhaustive placement agrees with independent masked union-find
+ok 8 - spawn-007: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.247829
+  type: 'test'
+  ...
+# Subtest: spawn-008: exhaustive placement agrees with independent masked union-find
+ok 9 - spawn-008: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.264282
+  type: 'test'
+  ...
+# Subtest: spawn-009: exhaustive placement agrees with independent masked union-find
+ok 10 - spawn-009: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.273573
+  type: 'test'
+  ...
+# Subtest: spawn-010: exhaustive placement agrees with independent masked union-find
+ok 11 - spawn-010: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.05449
+  type: 'test'
+  ...
+# Subtest: spawn-011: exhaustive placement agrees with independent masked union-find
+ok 12 - spawn-011: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 11.801947
+  type: 'test'
+  ...
+# Subtest: spawn-012: exhaustive placement agrees with independent masked union-find
+ok 13 - spawn-012: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.601875
+  type: 'test'
+  ...
+# Subtest: spawn-013: exhaustive placement agrees with independent masked union-find
+ok 14 - spawn-013: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.186142
+  type: 'test'
+  ...
+# Subtest: spawn-014: exhaustive placement agrees with independent masked union-find
+ok 15 - spawn-014: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.120436
+  type: 'test'
+  ...
+# Subtest: spawn-015: exhaustive placement agrees with independent masked union-find
+ok 16 - spawn-015: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.685418
+  type: 'test'
+  ...
+# Subtest: spawn-016: exhaustive placement agrees with independent masked union-find
+ok 17 - spawn-016: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.23451
+  type: 'test'
+  ...
+# Subtest: spawn-017: exhaustive placement agrees with independent masked union-find
+ok 18 - spawn-017: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.826115
+  type: 'test'
+  ...
+# Subtest: spawn-018: exhaustive placement agrees with independent masked union-find
+ok 19 - spawn-018: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.491108
+  type: 'test'
+  ...
+# Subtest: spawn-019: exhaustive placement agrees with independent masked union-find
+ok 20 - spawn-019: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.127459
+  type: 'test'
+  ...
+# Subtest: spawn-020: exhaustive placement agrees with independent masked union-find
+ok 21 - spawn-020: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.811552
+  type: 'test'
+  ...
+# Subtest: spawn-021: exhaustive placement agrees with independent masked union-find
+ok 22 - spawn-021: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.035304
+  type: 'test'
+  ...
+# Subtest: spawn-022: exhaustive placement agrees with independent masked union-find
+ok 23 - spawn-022: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.160439
+  type: 'test'
+  ...
+# Subtest: spawn-023: exhaustive placement agrees with independent masked union-find
+ok 24 - spawn-023: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 9.468609
+  type: 'test'
+  ...
+# Subtest: spawn-024: exhaustive placement agrees with independent masked union-find
+ok 25 - spawn-024: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.650017
+  type: 'test'
+  ...
+# Subtest: spawn-025: exhaustive placement agrees with independent masked union-find
+ok 26 - spawn-025: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.835019
+  type: 'test'
+  ...
+# Subtest: spawn-026: exhaustive placement agrees with independent masked union-find
+ok 27 - spawn-026: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.879894
+  type: 'test'
+  ...
+# Subtest: spawn-027: exhaustive placement agrees with independent masked union-find
+ok 28 - spawn-027: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.69963
+  type: 'test'
+  ...
+# Subtest: spawn-028: exhaustive placement agrees with independent masked union-find
+ok 29 - spawn-028: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.710743
+  type: 'test'
+  ...
+# Subtest: spawn-029: exhaustive placement agrees with independent masked union-find
+ok 30 - spawn-029: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.315948
+  type: 'test'
+  ...
+# Subtest: spawn-030: exhaustive placement agrees with independent masked union-find
+ok 31 - spawn-030: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.434283
+  type: 'test'
+  ...
+# Subtest: spawn-031: exhaustive placement agrees with independent masked union-find
+ok 32 - spawn-031: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.372197
+  type: 'test'
+  ...
+# Subtest: spawn-032: exhaustive placement agrees with independent masked union-find
+ok 33 - spawn-032: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.665161
+  type: 'test'
+  ...
+# Subtest: spawn-033: exhaustive placement agrees with independent masked union-find
+ok 34 - spawn-033: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.833411
+  type: 'test'
+  ...
+# Subtest: spawn-034: exhaustive placement agrees with independent masked union-find
+ok 35 - spawn-034: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.149392
+  type: 'test'
+  ...
+# Subtest: spawn-035: exhaustive placement agrees with independent masked union-find
+ok 36 - spawn-035: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.987289
+  type: 'test'
+  ...
+# Subtest: spawn-036: exhaustive placement agrees with independent masked union-find
+ok 37 - spawn-036: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.467743
+  type: 'test'
+  ...
+# Subtest: spawn-037: exhaustive placement agrees with independent masked union-find
+ok 38 - spawn-037: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.807032
+  type: 'test'
+  ...
+# Subtest: spawn-038: exhaustive placement agrees with independent masked union-find
+ok 39 - spawn-038: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.307778
+  type: 'test'
+  ...
+# Subtest: spawn-039: exhaustive placement agrees with independent masked union-find
+ok 40 - spawn-039: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.803386
+  type: 'test'
+  ...
+# Subtest: spawn-040: exhaustive placement agrees with independent masked union-find
+ok 41 - spawn-040: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.469904
+  type: 'test'
+  ...
+# Subtest: spawn-041: exhaustive placement agrees with independent masked union-find
+ok 42 - spawn-041: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 14.883551
+  type: 'test'
+  ...
+# Subtest: spawn-042: exhaustive placement agrees with independent masked union-find
+ok 43 - spawn-042: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.624679
+  type: 'test'
+  ...
+# Subtest: spawn-043: exhaustive placement agrees with independent masked union-find
+ok 44 - spawn-043: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.240469
+  type: 'test'
+  ...
+# Subtest: spawn-044: exhaustive placement agrees with independent masked union-find
+ok 45 - spawn-044: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.972624
+  type: 'test'
+  ...
+# Subtest: spawn-045: exhaustive placement agrees with independent masked union-find
+ok 46 - spawn-045: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.826771
+  type: 'test'
+  ...
+# Subtest: spawn-046: exhaustive placement agrees with independent masked union-find
+ok 47 - spawn-046: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.045907
+  type: 'test'
+  ...
+# Subtest: spawn-047: exhaustive placement agrees with independent masked union-find
+ok 48 - spawn-047: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 41.640247
+  type: 'test'
+  ...
+# Subtest: spawn-048: exhaustive placement agrees with independent masked union-find
+ok 49 - spawn-048: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.499681
+  type: 'test'
+  ...
+# Subtest: spawn-049: exhaustive placement agrees with independent masked union-find
+ok 50 - spawn-049: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.886167
+  type: 'test'
+  ...
+# Subtest: spawn-050: exhaustive placement agrees with independent masked union-find
+ok 51 - spawn-050: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.95623
+  type: 'test'
+  ...
+# Subtest: spawn-051: exhaustive placement agrees with independent masked union-find
+ok 52 - spawn-051: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.676815
+  type: 'test'
+  ...
+# Subtest: spawn-052: exhaustive placement agrees with independent masked union-find
+ok 53 - spawn-052: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.399769
+  type: 'test'
+  ...
+# Subtest: spawn-053: exhaustive placement agrees with independent masked union-find
+ok 54 - spawn-053: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 8.225369
+  type: 'test'
+  ...
+# Subtest: spawn-054: exhaustive placement agrees with independent masked union-find
+ok 55 - spawn-054: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.789467
+  type: 'test'
+  ...
+# Subtest: spawn-055: exhaustive placement agrees with independent masked union-find
+ok 56 - spawn-055: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.111976
+  type: 'test'
+  ...
+# Subtest: spawn-056: exhaustive placement agrees with independent masked union-find
+ok 57 - spawn-056: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.86162
+  type: 'test'
+  ...
+# Subtest: spawn-057: exhaustive placement agrees with independent masked union-find
+ok 58 - spawn-057: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.982415
+  type: 'test'
+  ...
+# Subtest: spawn-058: exhaustive placement agrees with independent masked union-find
+ok 59 - spawn-058: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.129252
+  type: 'test'
+  ...
+# Subtest: spawn-059: exhaustive placement agrees with independent masked union-find
+ok 60 - spawn-059: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 12.62174
+  type: 'test'
+  ...
+# Subtest: spawn-060: exhaustive placement agrees with independent masked union-find
+ok 61 - spawn-060: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.454824
+  type: 'test'
+  ...
+# Subtest: spawn-061: exhaustive placement agrees with independent masked union-find
+ok 62 - spawn-061: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.706726
+  type: 'test'
+  ...
+# Subtest: spawn-062: exhaustive placement agrees with independent masked union-find
+ok 63 - spawn-062: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.713545
+  type: 'test'
+  ...
+# Subtest: spawn-063: exhaustive placement agrees with independent masked union-find
+ok 64 - spawn-063: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.73326
+  type: 'test'
+  ...
+# Subtest: spawn-064: exhaustive placement agrees with independent masked union-find
+ok 65 - spawn-064: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.190103
+  type: 'test'
+  ...
+# Subtest: spawn-065: exhaustive placement agrees with independent masked union-find
+ok 66 - spawn-065: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 32.454514
+  type: 'test'
+  ...
+# Subtest: spawn-066: exhaustive placement agrees with independent masked union-find
+ok 67 - spawn-066: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.827845
+  type: 'test'
+  ...
+# Subtest: spawn-067: exhaustive placement agrees with independent masked union-find
+ok 68 - spawn-067: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.222245
+  type: 'test'
+  ...
+# Subtest: spawn-068: exhaustive placement agrees with independent masked union-find
+ok 69 - spawn-068: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 5.155713
+  type: 'test'
+  ...
+# Subtest: spawn-069: exhaustive placement agrees with independent masked union-find
+ok 70 - spawn-069: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.754623
+  type: 'test'
+  ...
+# Subtest: spawn-070: exhaustive placement agrees with independent masked union-find
+ok 71 - spawn-070: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.05424
+  type: 'test'
+  ...
+# Subtest: spawn-071: exhaustive placement agrees with independent masked union-find
+ok 72 - spawn-071: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 8.356676
+  type: 'test'
+  ...
+# Subtest: all-neutral bootstrap creates one live cannon, nine cells and chosen heading
+ok 73 - all-neutral bootstrap creates one live cannon, nine cells and chosen heading
+  ---
+  duration_ms: 8.015303
+  type: 'test'
+  ...
+# Subtest: two joins in one sealed batch rebuild eligibility and never reuse ordinals
+ok 74 - two joins in one sealed batch rebuild eligibility and never reuse ordinals
+  ---
+  duration_ms: 27.059401
+  type: 'test'
+  ...
+# Subtest: same-account join then fire obeys existing-cannon pricing, not another join
+ok 75 - same-account join then fire obeys existing-cannon pricing, not another join
+  ---
+  duration_ms: 1.531172
+  type: 'test'
+  ...
+# Subtest: full-board single-owner fallback steals exactly nine cells without disconnection
+ok 76 - full-board single-owner fallback steals exactly nine cells without disconnection
+  ---
+  duration_ms: 2.159087
+  type: 'test'
+  ...
+# Subtest: live/live frontiers take precedence over interior fallback
+ok 77 - live/live frontiers take precedence over interior fallback
+  ---
+  duration_ms: 1.716551
+  type: 'test'
+  ...
+# Subtest: underfunded and impossible joins retain funds but consume no cannon ordinal
+ok 78 - underfunded and impossible joins retain funds but consume no cannon ordinal
+  ---
+  duration_ms: 0.649547
+  type: 'test'
+  ...
+# Subtest: MOVE without a cannon cannot accidentally create one
+ok 79 - MOVE without a cannon cannot accidentally create one
+  ---
+  duration_ms: 0.494413
+  type: 'test'
+  ...
+# Subtest: lifetime ordinal exhaustion fails closed, despite vacant board
+ok 80 - lifetime ordinal exhaustion fails closed, despite vacant board
+  ---
+  duration_ms: 0.393512
+  type: 'test'
+  ...
+# Subtest: maximum cannon count gives a retained capacity rejection
+ok 81 - maximum cannon count gives a retained capacity rejection
+  ---
+  duration_ms: 5.065127
+  type: 'test'
+  ...
+# Subtest: near-time opposite strikes annihilate causally at the second arrival
+ok 82 - near-time opposite strikes annihilate causally at the second arrival
+  ---
+  duration_ms: 9.16023
+  type: 'test'
+  ...
+# Subtest: exact inclusive fuse deadline admits opposite arrival before expiry
+ok 83 - exact inclusive fuse deadline admits opposite arrival before expiry
+  ---
+  duration_ms: 0.830559
+  type: 'test'
+  ...
+# Subtest: one coordinate unit too late does not undo the earlier committed capture
+ok 84 - one coordinate unit too late does not undo the earlier committed capture
+  ---
+  duration_ms: 0.995908
+  type: 'test'
+  ...
+# Subtest: outside spatial tolerance does not match even inside time window
+ok 85 - outside spatial tolerance does not match even inside time window
+  ---
+  duration_ms: 1.177922
+  type: 'test'
+  ...
+# Subtest: pending wall effects survive an exact checkpoint without late mutation of old output
+ok 86 - pending wall effects survive an exact checkpoint without late mutation of old output
+  ---
+  duration_ms: 4.035388
+  type: 'test'
+  ...
+# Subtest: checkpoint MOVE can protect a target before its pending strike expires
+ok 87 - checkpoint MOVE can protect a target before its pending strike expires
+  ---
+  duration_ms: 1.384562
+  type: 'test'
+  ...
+# Subtest: neutral capture is immediate and cannot arm an opposing-player fuse
+ok 88 - neutral capture is immediate and cannot arm an opposing-player fuse
+  ---
+  duration_ms: 0.623147
+  type: 'test'
+  ...
+# Subtest: tie pairing preserves one-to-one matches with unequal ball counts
+ok 89 - tie pairing preserves one-to-one matches with unequal ball counts
+  ---
+  duration_ms: 0.972893
+  type: 'test'
+  ...
+# Subtest: strike matcher never pairs same-side records
+ok 90 - strike matcher never pairs same-side records
+  ---
+  duration_ms: 0.233351
+  type: 'test'
+  ...
+# Subtest: fused severance preserves earned credits and neutralizes dead anchor
+ok 91 - fused severance preserves earned credits and neutralizes dead anchor
+  ---
+  duration_ms: 4.107586
+  type: 'test'
+  ...
+# Subtest: duel: optimized and full-scan modes produce identical canonical outputs
+ok 92 - duel: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 3.280914
+  type: 'test'
+  ...
+# Subtest: severance: optimized and full-scan modes produce identical canonical outputs
+ok 93 - severance: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.189899
+  type: 'test'
+  ...
+# Subtest: corner: optimized and full-scan modes produce identical canonical outputs
+ok 94 - corner: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.243139
+  type: 'test'
+  ...
+# Subtest: wall-bounce: optimized and full-scan modes produce identical canonical outputs
+ok 95 - wall-bounce: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 2.02159
+  type: 'test'
+  ...
+# Subtest: dense: optimized and full-scan modes produce identical canonical outputs
+ok 96 - dense: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 73.026604
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 0: interruptions and input-free segmentation preserve final bytes
+ok 97 - v3 mixed workload 0: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.44987
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 1: interruptions and input-free segmentation preserve final bytes
+ok 98 - v3 mixed workload 1: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.83936
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 2: interruptions and input-free segmentation preserve final bytes
+ok 99 - v3 mixed workload 2: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.742935
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 3: interruptions and input-free segmentation preserve final bytes
+ok 100 - v3 mixed workload 3: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 12.486567
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 4: interruptions and input-free segmentation preserve final bytes
+ok 101 - v3 mixed workload 4: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.129616
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 5: interruptions and input-free segmentation preserve final bytes
+ok 102 - v3 mixed workload 5: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.791127
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 6: interruptions and input-free segmentation preserve final bytes
+ok 103 - v3 mixed workload 6: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 15.263513
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 7: interruptions and input-free segmentation preserve final bytes
+ok 104 - v3 mixed workload 7: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 16.038868
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 8: interruptions and input-free segmentation preserve final bytes
+ok 105 - v3 mixed workload 8: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 13.492379
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 9: interruptions and input-free segmentation preserve final bytes
+ok 106 - v3 mixed workload 9: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.688686
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 10: interruptions and input-free segmentation preserve final bytes
+ok 107 - v3 mixed workload 10: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.330321
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 11: interruptions and input-free segmentation preserve final bytes
+ok 108 - v3 mixed workload 11: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.693146
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 12: interruptions and input-free segmentation preserve final bytes
+ok 109 - v3 mixed workload 12: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.966141
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 13: interruptions and input-free segmentation preserve final bytes
+ok 110 - v3 mixed workload 13: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.082325
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 14: interruptions and input-free segmentation preserve final bytes
+ok 111 - v3 mixed workload 14: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.662147
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 15: interruptions and input-free segmentation preserve final bytes
+ok 112 - v3 mixed workload 15: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.642908
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 16: interruptions and input-free segmentation preserve final bytes
+ok 113 - v3 mixed workload 16: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.090089
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 17: interruptions and input-free segmentation preserve final bytes
+ok 114 - v3 mixed workload 17: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.329724
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 18: interruptions and input-free segmentation preserve final bytes
+ok 115 - v3 mixed workload 18: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.080859
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 19: interruptions and input-free segmentation preserve final bytes
+ok 116 - v3 mixed workload 19: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.451419
+  type: 'test'
+  ...
+# Subtest: v2 state is not silently reinterpreted as v3
+ok 117 - v2 state is not silently reinterpreted as v3
+  ---
+  duration_ms: 0.464539
+  type: 'test'
+  ...
+# Subtest: pending strike corruption and cursor checksum mismatch fail closed
+ok 118 - pending strike corruption and cursor checksum mismatch fail closed
+  ---
+  duration_ms: 1.039363
+  type: 'test'
+  ...
+# Subtest: bounded search admissions have a distinct reason from exhaustive absence
+ok 119 - bounded search admissions have a distinct reason from exhaustive absence
+  ---
+  duration_ms: 0.968176
+  type: 'test'
+  ...
+# Subtest: one outstanding strike per ball bounds rapid corner-fire effects
+ok 120 - one outstanding strike per ball bounds rapid corner-fire effects
+  ---
+  duration_ms: 16.072659
+  type: 'test'
+  ...
+# Subtest: rejoining after extinction keeps accrued score and creates a younger ordinal
+ok 121 - rejoining after extinction keeps accrued score and creates a younger ordinal
+  ---
+  duration_ms: 1.479335
+  type: 'test'
+  ...
+# Subtest: global ball cap is enforced before expensive spawn
+ok 122 - global ball cap is enforced before expensive spawn
+  ---
+  duration_ms: 2.558398
+  type: 'test'
+  ...
+# Subtest: fully occupied fixture masks cannot sacrifice a cannon or ball to force a join
+ok 123 - fully occupied fixture masks cannot sacrifice a cannon or ball to force a join
+  ---
+  duration_ms: 0.710108
+  type: 'test'
+  ...
+1..123
+# tests 123
+# suites 0
+# pass 123
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 845.519234

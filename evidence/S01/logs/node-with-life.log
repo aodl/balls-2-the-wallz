@@ -1,0 +1,718 @@
+TAP version 13
+# Subtest: Life Python reference empty budget=1
+ok 1 - Life Python reference empty budget=1
+  ---
+  duration_ms: 14.817506
+  type: 'test'
+  ...
+# Subtest: Life Python reference empty budget=7
+ok 2 - Life Python reference empty budget=7
+  ---
+  duration_ms: 1.498071
+  type: 'test'
+  ...
+# Subtest: Life Python reference empty budget=1000000
+ok 3 - Life Python reference empty budget=1000000
+  ---
+  duration_ms: 0.45923
+  type: 'test'
+  ...
+# Subtest: Life Python reference isolated budget=1
+ok 4 - Life Python reference isolated budget=1
+  ---
+  duration_ms: 0.693023
+  type: 'test'
+  ...
+# Subtest: Life Python reference isolated budget=7
+ok 5 - Life Python reference isolated budget=7
+  ---
+  duration_ms: 0.471262
+  type: 'test'
+  ...
+# Subtest: Life Python reference isolated budget=1000000
+ok 6 - Life Python reference isolated budget=1000000
+  ---
+  duration_ms: 0.448025
+  type: 'test'
+  ...
+# Subtest: Life Python reference block budget=1
+ok 7 - Life Python reference block budget=1
+  ---
+  duration_ms: 27.090172
+  type: 'test'
+  ...
+# Subtest: Life Python reference block budget=7
+ok 8 - Life Python reference block budget=7
+  ---
+  duration_ms: 1.316391
+  type: 'test'
+  ...
+# Subtest: Life Python reference block budget=1000000
+ok 9 - Life Python reference block budget=1000000
+  ---
+  duration_ms: 0.774999
+  type: 'test'
+  ...
+# Subtest: Life Python reference blinker budget=1
+ok 10 - Life Python reference blinker budget=1
+  ---
+  duration_ms: 58.753607
+  type: 'test'
+  ...
+# Subtest: Life Python reference blinker budget=7
+ok 11 - Life Python reference blinker budget=7
+  ---
+  duration_ms: 7.80008
+  type: 'test'
+  ...
+# Subtest: Life Python reference blinker budget=1000000
+ok 12 - Life Python reference blinker budget=1000000
+  ---
+  duration_ms: 0.676634
+  type: 'test'
+  ...
+# Subtest: Life Python reference three-color-birth budget=1
+ok 13 - Life Python reference three-color-birth budget=1
+  ---
+  duration_ms: 0.891115
+  type: 'test'
+  ...
+# Subtest: Life Python reference three-color-birth budget=7
+ok 14 - Life Python reference three-color-birth budget=7
+  ---
+  duration_ms: 0.338581
+  type: 'test'
+  ...
+# Subtest: Life Python reference three-color-birth budget=1000000
+ok 15 - Life Python reference three-color-birth budget=1000000
+  ---
+  duration_ms: 0.154632
+  type: 'test'
+  ...
+# Subtest: Life Python reference edge-no-wrap budget=1
+ok 16 - Life Python reference edge-no-wrap budget=1
+  ---
+  duration_ms: 2.844495
+  type: 'test'
+  ...
+# Subtest: Life Python reference edge-no-wrap budget=7
+ok 17 - Life Python reference edge-no-wrap budget=7
+  ---
+  duration_ms: 1.097404
+  type: 'test'
+  ...
+# Subtest: Life Python reference edge-no-wrap budget=1000000
+ok 18 - Life Python reference edge-no-wrap budget=1000000
+  ---
+  duration_ms: 0.301774
+  type: 'test'
+  ...
+# Subtest: Life Python reference mixed budget=1
+ok 19 - Life Python reference mixed budget=1
+  ---
+  duration_ms: 148.018065
+  type: 'test'
+  ...
+# Subtest: Life Python reference mixed budget=7
+ok 20 - Life Python reference mixed budget=7
+  ---
+  duration_ms: 13.743844
+  type: 'test'
+  ...
+# Subtest: Life Python reference mixed budget=1000000
+ok 21 - Life Python reference mixed budget=1000000
+  ---
+  duration_ms: 0.445499
+  type: 'test'
+  ...
+# Subtest: Life Python reference max-owner budget=1
+ok 22 - Life Python reference max-owner budget=1
+  ---
+  duration_ms: 2.040068
+  type: 'test'
+  ...
+# Subtest: Life Python reference max-owner budget=7
+ok 23 - Life Python reference max-owner budget=7
+  ---
+  duration_ms: 0.329442
+  type: 'test'
+  ...
+# Subtest: Life Python reference max-owner budget=1000000
+ok 24 - Life Python reference max-owner budget=1000000
+  ---
+  duration_ms: 0.475148
+  type: 'test'
+  ...
+# Subtest: zero work leaves cursor byte-identical
+ok 25 - zero work leaves cursor byte-identical
+  ---
+  duration_ms: 0.560515
+  type: 'test'
+  ...
+# Subtest: all safe-point interrupts replay identically
+ok 26 - all safe-point interrupts replay identically
+  ---
+  duration_ms: 72.337939
+  type: 'test'
+  ...
+# Subtest: snapshots reject tampering against trusted digest
+ok 27 - snapshots reject tampering against trusted digest
+  ---
+  duration_ms: 0.388921
+  type: 'test'
+  ...
+# Subtest: snapshots reject unsupported version even with matching local hash
+ok 28 - snapshots reject unsupported version even with matching local hash
+  ---
+  duration_ms: 0.154545
+  type: 'test'
+  ...
+# Subtest: state codec rejects trailing and truncated bytes
+ok 29 - state codec rejects trailing and truncated bytes
+  ---
+  duration_ms: 0.238347
+  type: 'test'
+  ...
+# Subtest: generation overflow detected before simulation
+ok 30 - generation overflow detected before simulation
+  ---
+  duration_ms: 0.164785
+  type: 'test'
+  ...
+# Subtest: bounds reject zero, huge boards and too many generations
+ok 31 - bounds reject zero, huge boards and too many generations
+  ---
+  duration_ms: 0.127374
+  type: 'test'
+  ...
+# Subtest: completed step idempotent and consumes no work
+ok 32 - completed step idempotent and consumes no work
+  ---
+  duration_ms: 0.118991
+  type: 'test'
+  ...
+# Subtest: 50 reproducible mixed work schedules agree
+ok 33 - 50 reproducible mixed work schedules agree
+  ---
+  duration_ms: 53.62923
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/0
+ok 34 - memo fixture angle/0
+  ---
+  duration_ms: 3.158925
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/1
+ok 35 - memo fixture angle/1
+  ---
+  duration_ms: 0.443856
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/16384
+ok 36 - memo fixture angle/16384
+  ---
+  duration_ms: 0.359306
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/32768
+ok 37 - memo fixture angle/32768
+  ---
+  duration_ms: 0.222445
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/49152
+ok 38 - memo fixture angle/49152
+  ---
+  duration_ms: 1.632606
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/65535
+ok 39 - memo fixture angle/65535
+  ---
+  duration_ms: 0.211031
+  type: 'test'
+  ...
+# Subtest: memo fixture move/0
+ok 40 - memo fixture move/0
+  ---
+  duration_ms: 0.290546
+  type: 'test'
+  ...
+# Subtest: memo fixture move/1
+ok 41 - memo fixture move/1
+  ---
+  duration_ms: 0.16957
+  type: 'test'
+  ...
+# Subtest: memo fixture move/65535
+ok 42 - memo fixture move/65535
+  ---
+  duration_ms: 0.362241
+  type: 'test'
+  ...
+# Subtest: memo fixture move/65536
+ok 43 - memo fixture move/65536
+  ---
+  duration_ms: 0.828658
+  type: 'test'
+  ...
+# Subtest: memo fixture move/123456789
+ok 44 - memo fixture move/123456789
+  ---
+  duration_ms: 0.296514
+  type: 'test'
+  ...
+# Subtest: memo fixture move/4294967295
+ok 45 - memo fixture move/4294967295
+  ---
+  duration_ms: 0.14767
+  type: 'test'
+  ...
+# Subtest: every u16 angle roundtrips
+ok 46 - every u16 angle roundtrips
+  ---
+  duration_ms: 150.425813
+  type: 'test'
+  ...
+# Subtest: invalid memo 
+ok 47 - invalid memo 
+  ---
+  duration_ms: 0.478369
+  type: 'test'
+  ...
+# Subtest: invalid memo 00
+ok 48 - invalid memo 00
+  ---
+  duration_ms: 0.096957
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a110000
+ok 49 - invalid memo 42545a110000
+  ---
+  duration_ms: 0.068285
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a110000000000
+ok 50 - invalid memo 42545a110000000000
+  ---
+  duration_ms: 0.063179
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545b1100000000
+ok 51 - invalid memo 42545b1100000000
+  ---
+  duration_ms: 0.072677
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a1300000000
+ok 52 - invalid memo 42545a1300000000
+  ---
+  duration_ms: 0.06817
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a2100000000
+ok 53 - invalid memo 42545a2100000000
+  ---
+  duration_ms: 0.057394
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a1100010000
+ok 54 - invalid memo 42545a1100010000
+  ---
+  duration_ms: 0.067288
+  type: 'test'
+  ...
+# Subtest: blob and legacy conflict always rejects
+ok 55 - blob and legacy conflict always rejects
+  ---
+  duration_ms: 0.518111
+  type: 'test'
+  ...
+# Subtest: malformed blob does not fall back
+ok 56 - malformed blob does not fall back
+  ---
+  duration_ms: 0.170632
+  type: 'test'
+  ...
+# Subtest: u64 memo Number is unsafe, decimal output is string
+ok 57 - u64 memo Number is unsafe, decimal output is string
+  ---
+  duration_ms: 0.218283
+  type: 'test'
+  ...
+# Subtest: invalid angle input -1
+ok 58 - invalid angle input -1
+  ---
+  duration_ms: 0.173589
+  type: 'test'
+  ...
+# Subtest: invalid angle input 65536
+ok 59 - invalid angle input 65536
+  ---
+  duration_ms: 0.076163
+  type: 'test'
+  ...
+# Subtest: invalid angle input NaN
+ok 60 - invalid angle input NaN
+  ---
+  duration_ms: 0.058185
+  type: 'test'
+  ...
+# Subtest: invalid angle input Infinity
+ok 61 - invalid angle input Infinity
+  ---
+  duration_ms: 0.055555
+  type: 'test'
+  ...
+# Subtest: invalid angle input 1.5
+ok 62 - invalid angle input 1.5
+  ---
+  duration_ms: 0.051133
+  type: 'test'
+  ...
+# Subtest: invalid angle input 01
+ok 63 - invalid angle input 01
+  ---
+  duration_ms: 0.054739
+  type: 'test'
+  ...
+# Subtest: invalid angle input true
+ok 64 - invalid angle input true
+  ---
+  duration_ms: 0.044068
+  type: 'test'
+  ...
+# Subtest: invalid move width
+ok 65 - invalid move width
+  ---
+  duration_ms: 0.073434
+  type: 'test'
+  ...
+# Subtest: CRC32 standard check vector
+ok 66 - CRC32 standard check vector
+  ---
+  duration_ms: 0.928754
+  type: 'test'
+  ...
+# Subtest: account canonicalization
+ok 67 - account canonicalization
+  ---
+  duration_ms: 0.592607
+  type: 'test'
+  ...
+# Subtest: account checksum and lengths checked
+ok 68 - account checksum and lengths checked
+  ---
+  duration_ms: 0.598875
+  type: 'test'
+  ...
+# Subtest: legacy and blob payments classify identically
+ok 69 - legacy and blob payments classify identically
+  ---
+  duration_ms: 1.225042
+  type: 'test'
+  ...
+# Subtest: transfer amount excludes fee without subtracting it
+ok 70 - transfer amount excludes fee without subtracting it
+  ---
+  duration_ms: 0.273865
+  type: 'test'
+  ...
+# Subtest: wrong destination has no gameplay effect
+ok 71 - wrong destination has no gameplay effect
+  ---
+  duration_ms: 2.624111
+  type: 'test'
+  ...
+# Subtest: self transfer cannot manufacture a purchase
+ok 72 - self transfer cannot manufacture a purchase
+  ---
+  duration_ms: 0.258661
+  type: 'test'
+  ...
+# Subtest: delegated allowance spender cannot command funding account
+ok 73 - delegated allowance spender cannot command funding account
+  ---
+  duration_ms: 0.159406
+  type: 'test'
+  ...
+# Subtest: invalid memo retained as rejection candidate not an exception
+ok 74 - invalid memo retained as rejection candidate not an exception
+  ---
+  duration_ms: 0.328372
+  type: 'test'
+  ...
+# Subtest: ignore Mint
+ok 75 - ignore Mint
+  ---
+  duration_ms: 0.50359
+  type: 'test'
+  ...
+# Subtest: ignore Burn
+ok 76 - ignore Burn
+  ---
+  duration_ms: 0.133572
+  type: 'test'
+  ...
+# Subtest: ignore Approve
+ok 77 - ignore Approve
+  ---
+  duration_ms: 0.128914
+  type: 'test'
+  ...
+# Subtest: unknown operation fails closed for adapter review
+ok 78 - unknown operation fails closed for adapter review
+  ---
+  duration_ms: 0.157351
+  type: 'test'
+  ...
+# Subtest: malformed wire amount halts rather than rejecting money blindly
+ok 79 - malformed wire amount halts rather than rejecting money blindly
+  ---
+  duration_ms: 0.116586
+  type: 'test'
+  ...
+# Subtest: Python canonical seal golden bytes
+ok 80 - Python canonical seal golden bytes
+  ---
+  duration_ms: 2.55157
+  type: 'test'
+  ...
+# Subtest: Python seal SHA256 agrees
+ok 81 - Python seal SHA256 agrees
+  ---
+  duration_ms: 1.219419
+  type: 'test'
+  ...
+# Subtest: incomplete cursor cannot seal inputs
+ok 82 - incomplete cursor cannot seal inputs
+  ---
+  duration_ms: 1.806089
+  type: 'test'
+  ...
+# Subtest: empty epochs still have canonical commitment
+ok 83 - empty epochs still have canonical commitment
+  ---
+  duration_ms: 0.584584
+  type: 'test'
+  ...
+# Subtest: invalid inputs 101,101
+ok 84 - invalid inputs 101,101
+  ---
+  duration_ms: 0.25136
+  type: 'test'
+  ...
+# Subtest: invalid inputs 102,101
+ok 85 - invalid inputs 102,101
+  ---
+  duration_ms: 0.126493
+  type: 'test'
+  ...
+# Subtest: invalid inputs 99
+ok 86 - invalid inputs 99
+  ---
+  duration_ms: 0.266834
+  type: 'test'
+  ...
+# Subtest: invalid inputs 110
+ok 87 - invalid inputs 110
+  ---
+  duration_ms: 0.123434
+  type: 'test'
+  ...
+# Subtest: payload change changes root
+ok 88 - payload change changes root
+  ---
+  duration_ms: 0.486139
+  type: 'test'
+  ...
+# Subtest: seal cannot move logical time backwards
+ok 89 - seal cannot move logical time backwards
+  ---
+  duration_ms: 0.567772
+  type: 'test'
+  ...
+# Subtest: successor checks source interval and previous hashes
+ok 90 - successor checks source interval and previous hashes
+  ---
+  duration_ms: 0.837444
+  type: 'test'
+  ...
+# Subtest: direct prefix planned
+ok 91 - direct prefix planned
+  ---
+  duration_ms: 1.583155
+  type: 'test'
+  ...
+# Subtest: short prefix advances only returned blocks
+ok 92 - short prefix advances only returned blocks
+  ---
+  duration_ms: 0.588723
+  type: 'test'
+  ...
+# Subtest: empty prefix never jumps to chain tip
+ok 93 - empty prefix never jumps to chain tip
+  ---
+  duration_ms: 0.305827
+  type: 'test'
+  ...
+# Subtest: no data and unspecified first index retries
+ok 94 - no data and unspecified first index retries
+  ---
+  duration_ms: 0.256447
+  type: 'test'
+  ...
+# Subtest: archive prefix can precede local suffix
+ok 95 - archive prefix can precede local suffix
+  ---
+  duration_ms: 0.247995
+  type: 'test'
+  ...
+# Subtest: overlapping archive/local ranges rejected
+ok 96 - overlapping archive/local ranges rejected
+  ---
+  duration_ms: 0.386038
+  type: 'test'
+  ...
+# Subtest: holes are not skipped
+ok 97 - holes are not skipped
+  ---
+  duration_ms: 0.158638
+  type: 'test'
+  ...
+# Subtest: past request window rejected
+ok 98 - past request window rejected
+  ---
+  duration_ms: 0.153693
+  type: 'test'
+  ...
+# Subtest: malicious route shape rejected
+ok 99 - malicious route shape rejected
+  ---
+  duration_ms: 0.51146
+  type: 'test'
+  ...
+# Subtest: stale chain length rejected
+ok 100 - stale chain length rejected
+  ---
+  duration_ms: 0.512947
+  type: 'test'
+  ...
+# Subtest: at tip does not invent work
+ok 101 - at tip does not invent work
+  ---
+  duration_ms: 0.211579
+  type: 'test'
+  ...
+# Subtest: replay/gap 9 rejected
+ok 102 - replay/gap 9 rejected
+  ---
+  duration_ms: 0.165572
+  type: 'test'
+  ...
+# Subtest: replay/gap 11 rejected
+ok 103 - replay/gap 11 rejected
+  ---
+  duration_ms: 0.082636
+  type: 'test'
+  ...
+# Subtest: failure on final row produces no partial state transition
+ok 104 - failure on final row produces no partial state transition
+  ---
+  duration_ms: 0.228332
+  type: 'test'
+  ...
+# Subtest: oversized response rejected before classification
+ok 105 - oversized response rejected before classification
+  ---
+  duration_ms: 0.207509
+  type: 'test'
+  ...
+# Subtest: descending exclusive index pages accepted only as hints
+ok 106 - descending exclusive index pages accepted only as hints
+  ---
+  duration_ms: 1.265696
+  type: 'test'
+  ...
+# Subtest: index ambiguity 9,9 rejected
+ok 107 - index ambiguity 9,9 rejected
+  ---
+  duration_ms: 0.175872
+  type: 'test'
+  ...
+# Subtest: index ambiguity 4,9 rejected
+ok 108 - index ambiguity 4,9 rejected
+  ---
+  duration_ms: 1.121783
+  type: 'test'
+  ...
+# Subtest: index ambiguity 10,9 rejected
+ok 109 - index ambiguity 10,9 rejected
+  ---
+  duration_ms: 0.090075
+  type: 'test'
+  ...
+# Subtest: fallback works with zero notifications
+ok 110 - fallback works with zero notifications
+  ---
+  duration_ms: 4.01273
+  type: 'test'
+  ...
+# Subtest: a thousand hints coalesce
+ok 111 - a thousand hints coalesce
+  ---
+  duration_ms: 0.480718
+  type: 'test'
+  ...
+# Subtest: hint arriving during await survives successful completion
+ok 112 - hint arriving during await survives successful completion
+  ---
+  duration_ms: 0.479895
+  type: 'test'
+  ...
+# Subtest: late callback cannot release replacement generation
+ok 113 - late callback cannot release replacement generation
+  ---
+  duration_ms: 0.192528
+  type: 'test'
+  ...
+# Subtest: lease expires even before a replacement is acquired
+ok 114 - lease expires even before a replacement is acquired
+  ---
+  duration_ms: 0.309234
+  type: 'test'
+  ...
+# Subtest: failed operation becomes dirty for retry
+ok 115 - failed operation becomes dirty for retry
+  ---
+  duration_ms: 0.201896
+  type: 'test'
+  ...
+# Subtest: unauthorized hints do not force polling
+ok 116 - unauthorized hints do not force polling
+  ---
+  duration_ms: 0.22246
+  type: 'test'
+  ...
+# Subtest: minimum spacing prevents notification scan storm
+ok 117 - minimum spacing prevents notification scan storm
+  ---
+  duration_ms: 0.145827
+  type: 'test'
+  ...
+# Subtest: u64 overflow fails before state mutation
+ok 118 - u64 overflow fails before state mutation
+  ---
+  duration_ms: 0.63035
+  type: 'test'
+  ...
+1..118
+# tests 118
+# suites 0
+# pass 118
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 516.241032

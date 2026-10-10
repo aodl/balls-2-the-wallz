@@ -1,0 +1,13 @@
+{
+  "mode": "offline synthetic conformance; no IC certification",
+  "results": [
+    {
+      "name": "mixed",
+      "interrupts": 39,
+      "state_hash": "72d22707cf81202cd4d85b6d7412cef67f6e29478718cffb779b6cd0589dabd4",
+      "event_hash": "e21097a25f3c0a3059f58a064ab816558b4e3f0f9bfba62930b4226189564ccd",
+      "score_hash": "0177160ac81e3291da6198b4b01bc4289bcd8b3acf92e356b98e29f176b5972a",
+      "matches_reference": true
+    }
+  ]
+}

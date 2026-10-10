@@ -1,0 +1,16 @@
+{
+  "checkpoint": "S05",
+  "scenario": "life",
+  "status": "INTERRUPTED",
+  "phase": "running",
+  "revision": 2,
+  "actions_this_process": 2,
+  "ingest_head": "5",
+  "retired_to": "0",
+  "pending_inputs": 4,
+  "manifest_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "publication_hash": "6170caac13f292b1380591ae4b6b2c48e43886990a2c58d15cc37423be4b5729",
+  "observer_verification": "offline-pinned-content",
+  "source": "synthetic test inputs; no network, ledger verification, IC certificate or transfers",
+  "cycles_consumed": null
+}

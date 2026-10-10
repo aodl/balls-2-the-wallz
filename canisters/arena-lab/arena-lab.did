@@ -1,0 +1,19 @@
+// Candidate interface. Generated-Candid comparison is a mandatory, unexecuted gate.
+type LabStatus = record {
+  version : nat32;
+  revision : nat64;
+  state_hash : text;
+  cursor_hash : opt text;
+  ready : bool;
+  certified : bool;
+  synthetic_inputs_only : bool;
+};
+type StatusResult = variant { Ok : LabStatus; Err : text };
+type BytesResult = variant { Ok : vec nat8; Err : text };
+service : (vec nat8) -> {
+  lab_status : () -> (StatusResult) query;
+  committed_chunk : (nat8, nat16) -> (BytesResult) query;
+  prepare : (nat64, nat64, vec nat8) -> (StatusResult);
+  advance : (nat64, nat32) -> (StatusResult);
+  publish : (nat64, text) -> (StatusResult);
+}

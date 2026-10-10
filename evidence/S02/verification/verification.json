@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S02",
+  "started_utc": "2026-09-20T11:36:53.531688+00:00",
+  "mode": "all",
+  "checks": [
+    {
+      "id": "protocol-fixtures",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/reference_fixtures.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/protocol-fixtures.log",
+      "elapsed_seconds": 0.619
+    },
+    {
+      "id": "life-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/life_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/life-reference.log",
+      "elapsed_seconds": 0.616
+    },
+    {
+      "id": "btz-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/btz_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/btz-reference.log",
+      "elapsed_seconds": 0.62
+    },
+    {
+      "id": "node-tests",
+      "command": [
+        "node",
+        "--test",
+        "/mnt/data/dtr-suite-S02/tests/js/btz.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/canonical.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/inbox.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/journal.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/life.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/memo.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/payment.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/runtime.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/seal.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/source.test.mjs",
+        "/mnt/data/dtr-suite-S02/tests/js/wakeup.test.mjs"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/node-tests.log",
+      "elapsed_seconds": 1.878,
+      "counts": {
+        "tests": 578,
+        "pass": 578,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/check_source.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/source-structure.log",
+      "elapsed_seconds": 1.227
+    },
+    {
+      "id": "docs-links",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/check_docs.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/docs-links.log",
+      "elapsed_seconds": 0.618
+    },
+    {
+      "id": "python-tool-tests",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/python-tool-tests.log",
+      "elapsed_seconds": 1.121
+    },
+    {
+      "id": "cargo-lock",
+      "command": [
+        "cargo",
+        "generate-lockfile",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-lock.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "cargo-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-tests.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "native-vectors",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/verify_native.py"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/native-vectors.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "cargo-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-format.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "cargo-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-clippy.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "probe-candid-wasm",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "Probe dependency lock/build and generated Candid comparison not executed; Rust/IC toolchain unavailable in current environment."
+    },
+    {
+      "id": "pocketic-integration",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "Integration harness and pinned ledger/archive Wasm fixtures remain to be wired; no PocketIC execution claimed."
+    },
+    {
+      "id": "live-ledger-wallet",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "No deployed-canister capability or live-wallet memo test performed."
+    },
+    {
+      "id": "certification-and-cost",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "No certificate verifier, target-subnet capacity or actual cycle-burn instrumentation implemented in this checkpoint."
+    }
+  ],
+  "overall": "BLOCKED"
+}

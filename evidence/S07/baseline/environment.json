@@ -1,0 +1,49 @@
+{
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5",
+  "tools": {
+    "node": {
+      "available": true,
+      "path": "/opt/nvm/versions/node/v22.16.0/bin/node",
+      "version": "v22.16.0",
+      "exit_code": 0
+    },
+    "npm": {
+      "available": true,
+      "path": "/opt/nvm/versions/node/v22.16.0/bin/npm",
+      "version": "10.9.2",
+      "exit_code": 0
+    },
+    "python3": {
+      "available": true,
+      "path": "/opt/pyvenv/bin/python3",
+      "version": "Python 3.13.5",
+      "exit_code": 0
+    },
+    "cargo": {
+      "available": false,
+      "path": null
+    },
+    "rustc": {
+      "available": false,
+      "path": null
+    },
+    "dfx": {
+      "available": false,
+      "path": null
+    },
+    "icp": {
+      "available": false,
+      "path": null
+    },
+    "pocket-ic": {
+      "available": false,
+      "path": null
+    },
+    "docker": {
+      "available": false,
+      "path": null
+    }
+  },
+  "network": "No network installer is run by this tool."
+}

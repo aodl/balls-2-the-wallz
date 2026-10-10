@@ -1,0 +1,1 @@
+{"events":[{"ball":1,"ball_state":{"cell":2,"id":1,"owner":1,"vx":0,"vy":1024,"x0":{"$integer":"2560"},"y0":{"$integer":"-1536"}},"from_cell":2,"kind":"motion","sequence":0,"time":[{"$integer":"3"},{"$integer":"2"}],"vertex_blocked":false}],"receipts":[],"version":3}

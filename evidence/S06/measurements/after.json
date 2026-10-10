@@ -1,0 +1,139 @@
+{
+  "instrumentation": "Counters added only to canonical encoder/decoder in an isolated copy; original source retained unchanged; outputs compared byte-for-byte.",
+  "rows": [
+    {
+      "scenario": "life",
+      "budget": 127,
+      "work_units": 36,
+      "advance_calls": 1,
+      "output_bytes": 343,
+      "direct_kernel_encoding": {
+        "encodes": 1,
+        "encoded_bytes": 269,
+        "decodes": 0,
+        "decoded_bytes": 0
+      },
+      "coordinator_advance_encoding": {
+        "encodes": 3,
+        "encoded_bytes": 6970,
+        "decodes": 0,
+        "decoded_bytes": 0
+      },
+      "direct_kernel_ms": 0.84,
+      "coordinator_advance_ms": 0.77,
+      "qualification": "Instrumented JS copy; direct run excludes restore, includes result encoding; coordinator measured advance only, excluding setup/publish/status/snapshot. Timings are single-run diagnostics, not Wasm, cycles or capacity."
+    },
+    {
+      "scenario": "life",
+      "budget": 100000,
+      "work_units": 36,
+      "advance_calls": 1,
+      "output_bytes": 343,
+      "direct_kernel_encoding": {
+        "encodes": 1,
+        "encoded_bytes": 269,
+        "decodes": 0,
+        "decoded_bytes": 0
+      },
+      "coordinator_advance_encoding": {
+        "encodes": 3,
+        "encoded_bytes": 6970,
+        "decodes": 0,
+        "decoded_bytes": 0
+      },
+      "direct_kernel_ms": 0.16,
+      "coordinator_advance_ms": 0.43,
+      "qualification": "Instrumented JS copy; direct run excludes restore, includes result encoding; coordinator measured advance only, excluding setup/publish/status/snapshot. Timings are single-run diagnostics, not Wasm, cycles or capacity."
+    },
+    {
+      "scenario": "admission",
+      "budget": 127,
+      "work_units": 849,
+      "advance_calls": 7,
+      "output_bytes": 5013,
+      "direct_kernel_encoding": {
+        "encodes": 151,
+        "encoded_bytes": 24499,
+        "decodes": 4,
+        "decoded_bytes": 384
+      },
+      "coordinator_advance_encoding": {
+        "encodes": 165,
+        "encoded_bytes": 185092,
+        "decodes": 4,
+        "decoded_bytes": 384
+      },
+      "direct_kernel_ms": 4.94,
+      "coordinator_advance_ms": 9.09,
+      "qualification": "Instrumented JS copy; direct run excludes restore, includes result encoding; coordinator measured advance only, excluding setup/publish/status/snapshot. Timings are single-run diagnostics, not Wasm, cycles or capacity."
+    },
+    {
+      "scenario": "admission",
+      "budget": 100000,
+      "work_units": 849,
+      "advance_calls": 1,
+      "output_bytes": 5013,
+      "direct_kernel_encoding": {
+        "encodes": 151,
+        "encoded_bytes": 24499,
+        "decodes": 4,
+        "decoded_bytes": 384
+      },
+      "coordinator_advance_encoding": {
+        "encodes": 153,
+        "encoded_bytes": 45847,
+        "decodes": 4,
+        "decoded_bytes": 384
+      },
+      "direct_kernel_ms": 2.52,
+      "coordinator_advance_ms": 3.01,
+      "qualification": "Instrumented JS copy; direct run excludes restore, includes result encoding; coordinator measured advance only, excluding setup/publish/status/snapshot. Timings are single-run diagnostics, not Wasm, cycles or capacity."
+    },
+    {
+      "scenario": "dense",
+      "budget": 127,
+      "work_units": 7138,
+      "advance_calls": 57,
+      "output_bytes": 44356,
+      "direct_kernel_encoding": {
+        "encodes": 7,
+        "encoded_bytes": 45256,
+        "decodes": 2,
+        "decoded_bytes": 450
+      },
+      "coordinator_advance_encoding": {
+        "encodes": 121,
+        "encoded_bytes": 4964806,
+        "decodes": 2,
+        "decoded_bytes": 450
+      },
+      "direct_kernel_ms": 27.59,
+      "coordinator_advance_ms": 183.78,
+      "qualification": "Instrumented JS copy; direct run excludes restore, includes result encoding; coordinator measured advance only, excluding setup/publish/status/snapshot. Timings are single-run diagnostics, not Wasm, cycles or capacity."
+    },
+    {
+      "scenario": "dense",
+      "budget": 100000,
+      "work_units": 7138,
+      "advance_calls": 1,
+      "output_bytes": 44356,
+      "direct_kernel_encoding": {
+        "encodes": 7,
+        "encoded_bytes": 45256,
+        "decodes": 2,
+        "decoded_bytes": 450
+      },
+      "coordinator_advance_encoding": {
+        "encodes": 9,
+        "encoded_bytes": 189858,
+        "decodes": 2,
+        "decoded_bytes": 450
+      },
+      "direct_kernel_ms": 17.48,
+      "coordinator_advance_ms": 21.42,
+      "qualification": "Instrumented JS copy; direct run excludes restore, includes result encoding; coordinator measured advance only, excluding setup/publish/status/snapshot. Timings are single-run diagnostics, not Wasm, cycles or capacity."
+    }
+  ],
+  "source_checkpoint": "S06",
+  "node": "v22.16.0"
+}

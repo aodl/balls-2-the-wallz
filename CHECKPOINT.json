@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "S07",
+  "name": "DTR/BTZ bounded offline observer",
+  "date": "2026-09-20",
+  "predecessor": {
+    "checkpoint_id": "S06",
+    "archive": "DTR_BTZ_S06_Simplification_and_Stable_Publication.zip",
+    "sha256": "dc1f45938cb96f3356652319169f7fa8acc80c7f93a8575399d483d3217b9666"
+  },
+  "implementation_scope": "Executed_read_only_offline_observer_and_replay_conformance; browser_HTTP_and_native_IC_remain_BLOCKED",
+  "delivery_complete": true,
+  "promotion_gate": "BLOCKED",
+  "software_release_eligible": false,
+  "real_funds_authorized": false,
+  "verification_reports": [
+    "evidence/S07/verification/verification.json",
+    "evidence/S07/browser/offline/results.json",
+    "evidence/S07/browser/http/results.json"
+  ],
+  "manifest": "FILES.sha256",
+  "next_checkpoint": "S08",
+  "open_decision_register": "docs/DECISIONS.md",
+  "limitations": [
+    "Recovered from the verified S06 ZIP; no unavailable earlier S07 source or test results were assumed.",
+    "Browser fixture-document mode executes actual Chromium UI but uses in-memory fetch and a host SHA-256 adapter; HTTP, native browser Web Crypto and CSP integration are blocked by browser navigation policy.",
+    "All root pins are local recording metadata, not IC certificates or proof of game-rule correctness.",
+    "Rust/Cargo remain unavailable; native gameplay, Wasm, stable-memory recovery and IC certificates remain unverified.",
+    "Production ledger/archive authority, checkpoint timing fairness, payout obligations, real metrics and capacity remain open.",
+    "Finite local recordings only. No real inputs, custom recordings, wallet or deployment service.",
+    "S06 whole-image persistence and native optimization limitations remain unchanged."
+  ],
+  "implementation_versions": {
+    "source_seal": 1,
+    "btz_memo": 1,
+    "life_board": 1,
+    "journal_model": 2,
+    "btz_reference": 3,
+    "native_btz_target": 3,
+    "portable_cursor": 3,
+    "chunk_storage_model": 4,
+    "arena_lab": 4,
+    "atomic_coordinator": 5,
+    "publication_catalog": 6,
+    "client_verification": 6,
+    "runtime_lab": 6,
+    "animation_projection": 1,
+    "observer_recording": 1,
+    "observer_model": 1
+  }
+}

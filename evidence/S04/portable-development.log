@@ -1,0 +1,1294 @@
+TAP version 13
+# Subtest: independent exact accounting 0
+ok 1 - independent exact accounting 0
+  ---
+  duration_ms: 3.3598
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 1
+ok 2 - independent exact accounting 1
+  ---
+  duration_ms: 0.216716
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 2
+ok 3 - independent exact accounting 2
+  ---
+  duration_ms: 0.176476
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 3
+ok 4 - independent exact accounting 3
+  ---
+  duration_ms: 0.117196
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 4
+ok 5 - independent exact accounting 4
+  ---
+  duration_ms: 0.315655
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 5
+ok 6 - independent exact accounting 5
+  ---
+  duration_ms: 0.177337
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 6
+ok 7 - independent exact accounting 6
+  ---
+  duration_ms: 0.108664
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 7
+ok 8 - independent exact accounting 7
+  ---
+  duration_ms: 0.160822
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 8
+ok 9 - independent exact accounting 8
+  ---
+  duration_ms: 0.304579
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 9
+ok 10 - independent exact accounting 9
+  ---
+  duration_ms: 0.367153
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 10
+ok 11 - independent exact accounting 10
+  ---
+  duration_ms: 0.217087
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 11
+ok 12 - independent exact accounting 11
+  ---
+  duration_ms: 0.104057
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 12
+ok 13 - independent exact accounting 12
+  ---
+  duration_ms: 0.084517
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 13
+ok 14 - independent exact accounting 13
+  ---
+  duration_ms: 0.081824
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 14
+ok 15 - independent exact accounting 14
+  ---
+  duration_ms: 0.111788
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 15
+ok 16 - independent exact accounting 15
+  ---
+  duration_ms: 0.08592
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 16
+ok 17 - independent exact accounting 16
+  ---
+  duration_ms: 0.083436
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 17
+ok 18 - independent exact accounting 17
+  ---
+  duration_ms: 0.81677
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 18
+ok 19 - independent exact accounting 18
+  ---
+  duration_ms: 0.090546
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 19
+ok 20 - independent exact accounting 19
+  ---
+  duration_ms: 0.07341
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 20
+ok 21 - independent exact accounting 20
+  ---
+  duration_ms: 0.071227
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 21
+ok 22 - independent exact accounting 21
+  ---
+  duration_ms: 0.066911
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 22
+ok 23 - independent exact accounting 22
+  ---
+  duration_ms: 0.06634
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 23
+ok 24 - independent exact accounting 23
+  ---
+  duration_ms: 0.069725
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 24
+ok 25 - independent exact accounting 24
+  ---
+  duration_ms: 0.0666
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 25
+ok 26 - independent exact accounting 25
+  ---
+  duration_ms: 0.067201
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 26
+ok 27 - independent exact accounting 26
+  ---
+  duration_ms: 0.063426
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 27
+ok 28 - independent exact accounting 27
+  ---
+  duration_ms: 0.064827
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 28
+ok 29 - independent exact accounting 28
+  ---
+  duration_ms: 0.096335
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 29
+ok 30 - independent exact accounting 29
+  ---
+  duration_ms: 0.114222
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 30
+ok 31 - independent exact accounting 30
+  ---
+  duration_ms: 0.124047
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 31
+ok 32 - independent exact accounting 31
+  ---
+  duration_ms: 0.082935
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 32
+ok 33 - independent exact accounting 32
+  ---
+  duration_ms: 0.070797
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 33
+ok 34 - independent exact accounting 33
+  ---
+  duration_ms: 0.069345
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 34
+ok 35 - independent exact accounting 34
+  ---
+  duration_ms: 0.09921
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 35
+ok 36 - independent exact accounting 35
+  ---
+  duration_ms: 0.071257
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 36
+ok 37 - independent exact accounting 36
+  ---
+  duration_ms: 0.068383
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 37
+ok 38 - independent exact accounting 37
+  ---
+  duration_ms: 0.067421
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 38
+ok 39 - independent exact accounting 38
+  ---
+  duration_ms: 0.067592
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 39
+ok 40 - independent exact accounting 39
+  ---
+  duration_ms: 0.116926
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 40
+ok 41 - independent exact accounting 40
+  ---
+  duration_ms: 0.071888
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 41
+ok 42 - independent exact accounting 41
+  ---
+  duration_ms: 0.069304
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 42
+ok 43 - independent exact accounting 42
+  ---
+  duration_ms: 0.070476
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 43
+ok 44 - independent exact accounting 43
+  ---
+  duration_ms: 0.071878
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 44
+ok 45 - independent exact accounting 44
+  ---
+  duration_ms: 0.132349
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 45
+ok 46 - independent exact accounting 45
+  ---
+  duration_ms: 0.07327
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 46
+ok 47 - independent exact accounting 46
+  ---
+  duration_ms: 0.0732
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 47
+ok 48 - independent exact accounting 47
+  ---
+  duration_ms: 0.073631
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 48
+ok 49 - independent exact accounting 48
+  ---
+  duration_ms: 0.071628
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 49
+ok 50 - independent exact accounting 49
+  ---
+  duration_ms: 0.110377
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 50
+ok 51 - independent exact accounting 50
+  ---
+  duration_ms: 0.081043
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 51
+ok 52 - independent exact accounting 51
+  ---
+  duration_ms: 0.07333
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 52
+ok 53 - independent exact accounting 52
+  ---
+  duration_ms: 0.074683
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 53
+ok 54 - independent exact accounting 53
+  ---
+  duration_ms: 0.073461
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 54
+ok 55 - independent exact accounting 54
+  ---
+  duration_ms: 0.084647
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 55
+ok 56 - independent exact accounting 55
+  ---
+  duration_ms: 0.088083
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 56
+ok 57 - independent exact accounting 56
+  ---
+  duration_ms: 0.11271
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 57
+ok 58 - independent exact accounting 57
+  ---
+  duration_ms: 0.080611
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 58
+ok 59 - independent exact accounting 58
+  ---
+  duration_ms: 0.09953
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 59
+ok 60 - independent exact accounting 59
+  ---
+  duration_ms: 0.149926
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 60
+ok 61 - independent exact accounting 60
+  ---
+  duration_ms: 0.121223
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 61
+ok 62 - independent exact accounting 61
+  ---
+  duration_ms: 0.11246
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 62
+ok 63 - independent exact accounting 62
+  ---
+  duration_ms: 0.090266
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 63
+ok 64 - independent exact accounting 63
+  ---
+  duration_ms: 0.07962
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 64
+ok 65 - independent exact accounting 64
+  ---
+  duration_ms: 0.07958
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 65
+ok 66 - independent exact accounting 65
+  ---
+  duration_ms: 0.077627
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 66
+ok 67 - independent exact accounting 66
+  ---
+  duration_ms: 0.078388
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 67
+ok 68 - independent exact accounting 67
+  ---
+  duration_ms: 0.081012
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 68
+ok 69 - independent exact accounting 68
+  ---
+  duration_ms: 0.184227
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 69
+ok 70 - independent exact accounting 69
+  ---
+  duration_ms: 0.091127
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 70
+ok 71 - independent exact accounting 70
+  ---
+  duration_ms: 0.081613
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 71
+ok 72 - independent exact accounting 71
+  ---
+  duration_ms: 0.084207
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 72
+ok 73 - independent exact accounting 72
+  ---
+  duration_ms: 0.079751
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 73
+ok 74 - independent exact accounting 73
+  ---
+  duration_ms: 0.081743
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 74
+ok 75 - independent exact accounting 74
+  ---
+  duration_ms: 0.084247
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 75
+ok 76 - independent exact accounting 75
+  ---
+  duration_ms: 0.082033
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 76
+ok 77 - independent exact accounting 76
+  ---
+  duration_ms: 0.104658
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 77
+ok 78 - independent exact accounting 77
+  ---
+  duration_ms: 0.134893
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 78
+ok 79 - independent exact accounting 78
+  ---
+  duration_ms: 0.08642
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 79
+ok 80 - independent exact accounting 79
+  ---
+  duration_ms: 0.081844
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 80
+ok 81 - independent exact accounting 80
+  ---
+  duration_ms: 0.081062
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 81
+ok 82 - independent exact accounting 81
+  ---
+  duration_ms: 0.082965
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 82
+ok 83 - independent exact accounting 82
+  ---
+  duration_ms: 0.084598
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 83
+ok 84 - independent exact accounting 83
+  ---
+  duration_ms: 0.082614
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 84
+ok 85 - independent exact accounting 84
+  ---
+  duration_ms: 0.09329
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 85
+ok 86 - independent exact accounting 85
+  ---
+  duration_ms: 0.095244
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 86
+ok 87 - independent exact accounting 86
+  ---
+  duration_ms: 0.1127
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 87
+ok 88 - independent exact accounting 87
+  ---
+  duration_ms: 0.095684
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 88
+ok 89 - independent exact accounting 88
+  ---
+  duration_ms: 0.085048
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 89
+ok 90 - independent exact accounting 89
+  ---
+  duration_ms: 0.086411
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 90
+ok 91 - independent exact accounting 90
+  ---
+  duration_ms: 0.108324
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 91
+ok 92 - independent exact accounting 91
+  ---
+  duration_ms: 0.093901
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 92
+ok 93 - independent exact accounting 92
+  ---
+  duration_ms: 0.153541
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 93
+ok 94 - independent exact accounting 93
+  ---
+  duration_ms: 0.116145
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 94
+ok 95 - independent exact accounting 94
+  ---
+  duration_ms: 0.121804
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 95
+ok 96 - independent exact accounting 95
+  ---
+  duration_ms: 0.092229
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 96
+ok 97 - independent exact accounting 96
+  ---
+  duration_ms: 0.089615
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 97
+ok 98 - independent exact accounting 97
+  ---
+  duration_ms: 0.091288
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 98
+ok 99 - independent exact accounting 98
+  ---
+  duration_ms: 0.094492
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 99
+ok 100 - independent exact accounting 99
+  ---
+  duration_ms: 0.090296
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 100
+ok 101 - independent exact accounting 100
+  ---
+  duration_ms: 0.09281
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 101
+ok 102 - independent exact accounting 101
+  ---
+  duration_ms: 0.488676
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 102
+ok 103 - independent exact accounting 102
+  ---
+  duration_ms: 0.138649
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 103
+ok 104 - independent exact accounting 103
+  ---
+  duration_ms: 0.106621
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 104
+ok 105 - independent exact accounting 104
+  ---
+  duration_ms: 0.098889
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 105
+ok 106 - independent exact accounting 105
+  ---
+  duration_ms: 0.097977
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 106
+ok 107 - independent exact accounting 106
+  ---
+  duration_ms: 0.09982
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 107
+ok 108 - independent exact accounting 107
+  ---
+  duration_ms: 0.136716
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 108
+ok 109 - independent exact accounting 108
+  ---
+  duration_ms: 0.118158
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 109
+ok 110 - independent exact accounting 109
+  ---
+  duration_ms: 0.113311
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 110
+ok 111 - independent exact accounting 110
+  ---
+  duration_ms: 0.097667
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 111
+ok 112 - independent exact accounting 111
+  ---
+  duration_ms: 0.10006
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 112
+ok 113 - independent exact accounting 112
+  ---
+  duration_ms: 0.88921
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 113
+ok 114 - independent exact accounting 113
+  ---
+  duration_ms: 0.156736
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 114
+ok 115 - independent exact accounting 114
+  ---
+  duration_ms: 0.099479
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 115
+ok 116 - independent exact accounting 115
+  ---
+  duration_ms: 0.092008
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 116
+ok 117 - independent exact accounting 116
+  ---
+  duration_ms: 0.255855
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 117
+ok 118 - independent exact accounting 117
+  ---
+  duration_ms: 0.103736
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 118
+ok 119 - independent exact accounting 118
+  ---
+  duration_ms: 0.097166
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 119
+ok 120 - independent exact accounting 119
+  ---
+  duration_ms: 0.120501
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 120
+ok 121 - independent exact accounting 120
+  ---
+  duration_ms: 0.100311
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 121
+ok 122 - independent exact accounting 121
+  ---
+  duration_ms: 0.093391
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 122
+ok 123 - independent exact accounting 122
+  ---
+  duration_ms: 0.092229
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 123
+ok 124 - independent exact accounting 123
+  ---
+  duration_ms: 0.090997
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 124
+ok 125 - independent exact accounting 124
+  ---
+  duration_ms: 0.118348
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 125
+ok 126 - independent exact accounting 125
+  ---
+  duration_ms: 0.203226
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 126
+ok 127 - independent exact accounting 126
+  ---
+  duration_ms: 0.103305
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 127
+ok 128 - independent exact accounting 127
+  ---
+  duration_ms: 0.098418
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 128
+ok 129 - independent exact accounting 128
+  ---
+  duration_ms: 0.095474
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 129
+ok 130 - independent exact accounting 129
+  ---
+  duration_ms: 0.094413
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 130
+ok 131 - independent exact accounting 130
+  ---
+  duration_ms: 0.095284
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 131
+ok 132 - independent exact accounting 131
+  ---
+  duration_ms: 0.096044
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 132
+ok 133 - independent exact accounting 132
+  ---
+  duration_ms: 0.130516
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 133
+ok 134 - independent exact accounting 133
+  ---
+  duration_ms: 0.110075
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 134
+ok 135 - independent exact accounting 134
+  ---
+  duration_ms: 0.103516
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 135
+ok 136 - independent exact accounting 135
+  ---
+  duration_ms: 0.100351
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 136
+ok 137 - independent exact accounting 136
+  ---
+  duration_ms: 0.0998
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 137
+ok 138 - independent exact accounting 137
+  ---
+  duration_ms: 0.102444
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 138
+ok 139 - independent exact accounting 138
+  ---
+  duration_ms: 0.098849
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 139
+ok 140 - independent exact accounting 139
+  ---
+  duration_ms: 0.144107
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 140
+ok 141 - independent exact accounting 140
+  ---
+  duration_ms: 0.133821
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 141
+ok 142 - independent exact accounting 141
+  ---
+  duration_ms: 0.116645
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 142
+ok 143 - independent exact accounting 142
+  ---
+  duration_ms: 0.105038
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 143
+ok 144 - independent exact accounting 143
+  ---
+  duration_ms: 0.103797
+  type: 'test'
+  ...
+# Subtest: portable cursor 0 admission/commands
+ok 145 - portable cursor 0 admission/commands
+  ---
+  duration_ms: 7.24322
+  type: 'test'
+  ...
+# Subtest: portable cursor 1 admission/spawn/enumerate
+ok 146 - portable cursor 1 admission/spawn/enumerate
+  ---
+  duration_ms: 3.802968
+  type: 'test'
+  ...
+# Subtest: portable cursor 2 admission/spawn/candidate
+ok 147 - portable cursor 2 admission/spawn/candidate
+  ---
+  duration_ms: 3.094942
+  type: 'test'
+  ...
+# Subtest: portable cursor 3 admission/spawn/owner
+ok 148 - portable cursor 3 admission/spawn/owner
+  ---
+  duration_ms: 3.473281
+  type: 'test'
+  ...
+# Subtest: portable cursor 4 admission/spawn/flood
+ok 149 - portable cursor 4 admission/spawn/flood
+  ---
+  duration_ms: 3.636347
+  type: 'test'
+  ...
+# Subtest: portable cursor 5 admission/spawn/verify
+ok 150 - portable cursor 5 admission/spawn/verify
+  ---
+  duration_ms: 2.790102
+  type: 'test'
+  ...
+# Subtest: portable cursor 6 admission/search
+ok 151 - portable cursor 6 admission/search
+  ---
+  duration_ms: 1.749866
+  type: 'test'
+  ...
+# Subtest: portable cursor 7 admission/area
+ok 152 - portable cursor 7 admission/area
+  ---
+  duration_ms: 1.499789
+  type: 'test'
+  ...
+# Subtest: portable cursor 8 admission/batch
+ok 153 - portable cursor 8 admission/batch
+  ---
+  duration_ms: 1.552178
+  type: 'test'
+  ...
+# Subtest: portable cursor 9 admission/resolve
+ok 154 - portable cursor 9 admission/resolve
+  ---
+  duration_ms: 1.825089
+  type: 'test'
+  ...
+# Subtest: portable cursor 10 admission/expire
+ok 155 - portable cursor 10 admission/expire
+  ---
+  duration_ms: 1.535823
+  type: 'test'
+  ...
+# Subtest: portable cursor 11 admission/topology/balls
+ok 156 - portable cursor 11 admission/topology/balls
+  ---
+  duration_ms: 1.656325
+  type: 'test'
+  ...
+# Subtest: portable cursor 12 admission/topology/neutral
+ok 157 - portable cursor 12 admission/topology/neutral
+  ---
+  duration_ms: 1.937969
+  type: 'test'
+  ...
+# Subtest: portable cursor 13 admission/done
+ok 158 - portable cursor 13 admission/done
+  ---
+  duration_ms: 1.259436
+  type: 'test'
+  ...
+# Subtest: portable cursor 14 near-impact/commands
+ok 159 - portable cursor 14 near-impact/commands
+  ---
+  duration_ms: 1.412007
+  type: 'test'
+  ...
+# Subtest: portable cursor 15 near-impact/search
+ok 160 - portable cursor 15 near-impact/search
+  ---
+  duration_ms: 0.674767
+  type: 'test'
+  ...
+# Subtest: portable cursor 16 near-impact/area
+ok 161 - portable cursor 16 near-impact/area
+  ---
+  duration_ms: 1.034157
+  type: 'test'
+  ...
+# Subtest: portable cursor 17 near-impact/batch
+ok 162 - portable cursor 17 near-impact/batch
+  ---
+  duration_ms: 0.734136
+  type: 'test'
+  ...
+# Subtest: portable cursor 18 near-impact/resolve
+ok 163 - portable cursor 18 near-impact/resolve
+  ---
+  duration_ms: 0.812153
+  type: 'test'
+  ...
+# Subtest: portable cursor 19 near-impact/expire
+ok 164 - portable cursor 19 near-impact/expire
+  ---
+  duration_ms: 0.824893
+  type: 'test'
+  ...
+# Subtest: portable cursor 20 near-impact/topology/neutral
+ok 165 - portable cursor 20 near-impact/topology/neutral
+  ---
+  duration_ms: 0.714677
+  type: 'test'
+  ...
+# Subtest: portable cursor 21 near-impact/done
+ok 166 - portable cursor 21 near-impact/done
+  ---
+  duration_ms: 0.53119
+  type: 'test'
+  ...
+# Subtest: portable cursor 22 duel/commands
+ok 167 - portable cursor 22 duel/commands
+  ---
+  duration_ms: 0.707857
+  type: 'test'
+  ...
+# Subtest: portable cursor 23 duel/search
+ok 168 - portable cursor 23 duel/search
+  ---
+  duration_ms: 0.594575
+  type: 'test'
+  ...
+# Subtest: portable cursor 24 duel/area
+ok 169 - portable cursor 24 duel/area
+  ---
+  duration_ms: 1.383504
+  type: 'test'
+  ...
+# Subtest: portable cursor 25 duel/batch
+ok 170 - portable cursor 25 duel/batch
+  ---
+  duration_ms: 0.697641
+  type: 'test'
+  ...
+# Subtest: portable cursor 26 duel/resolve
+ok 171 - portable cursor 26 duel/resolve
+  ---
+  duration_ms: 1.05609
+  type: 'test'
+  ...
+# Subtest: portable cursor 27 duel/expire
+ok 172 - portable cursor 27 duel/expire
+  ---
+  duration_ms: 0.77657
+  type: 'test'
+  ...
+# Subtest: portable cursor 28 duel/topology/neutral
+ok 173 - portable cursor 28 duel/topology/neutral
+  ---
+  duration_ms: 0.795308
+  type: 'test'
+  ...
+# Subtest: portable cursor 29 duel/done
+ok 174 - portable cursor 29 duel/done
+  ---
+  duration_ms: 0.548015
+  type: 'test'
+  ...
+# Subtest: portable cursor 30 severance/commands
+ok 175 - portable cursor 30 severance/commands
+  ---
+  duration_ms: 0.862198
+  type: 'test'
+  ...
+# Subtest: portable cursor 31 severance/search
+ok 176 - portable cursor 31 severance/search
+  ---
+  duration_ms: 1.044914
+  type: 'test'
+  ...
+# Subtest: portable cursor 32 severance/area
+ok 177 - portable cursor 32 severance/area
+  ---
+  duration_ms: 0.608437
+  type: 'test'
+  ...
+# Subtest: portable cursor 33 severance/batch
+ok 178 - portable cursor 33 severance/batch
+  ---
+  duration_ms: 0.73686
+  type: 'test'
+  ...
+# Subtest: portable cursor 34 severance/resolve
+ok 179 - portable cursor 34 severance/resolve
+  ---
+  duration_ms: 0.932134
+  type: 'test'
+  ...
+# Subtest: portable cursor 35 severance/expire
+ok 180 - portable cursor 35 severance/expire
+  ---
+  duration_ms: 0.753034
+  type: 'test'
+  ...
+# Subtest: portable cursor 36 severance/topology/flood
+ok 181 - portable cursor 36 severance/topology/flood
+  ---
+  duration_ms: 0.69096
+  type: 'test'
+  ...
+# Subtest: portable cursor 37 severance/topology/transfer
+ok 182 - portable cursor 37 severance/topology/transfer
+  ---
+  duration_ms: 0.62401
+  type: 'test'
+  ...
+# Subtest: portable cursor 38 severance/topology/balls
+ok 183 - portable cursor 38 severance/topology/balls
+  ---
+  duration_ms: 0.678542
+  type: 'test'
+  ...
+# Subtest: portable cursor 39 severance/topology/neutral
+ok 184 - portable cursor 39 severance/topology/neutral
+  ---
+  duration_ms: 1.005284
+  type: 'test'
+  ...
+# Subtest: portable cursor 40 severance/done
+ok 185 - portable cursor 40 severance/done
+  ---
+  duration_ms: 0.520303
+  type: 'test'
+  ...
+# Subtest: portable cursor 41 corner/commands
+ok 186 - portable cursor 41 corner/commands
+  ---
+  duration_ms: 0.672663
+  type: 'test'
+  ...
+# Subtest: portable cursor 42 corner/search
+ok 187 - portable cursor 42 corner/search
+  ---
+  duration_ms: 0.592312
+  type: 'test'
+  ...
+# Subtest: portable cursor 43 corner/area
+ok 188 - portable cursor 43 corner/area
+  ---
+  duration_ms: 0.613534
+  type: 'test'
+  ...
+# Subtest: portable cursor 44 corner/batch
+ok 189 - portable cursor 44 corner/batch
+  ---
+  duration_ms: 0.94279
+  type: 'test'
+  ...
+# Subtest: portable cursor 45 corner/resolve
+ok 190 - portable cursor 45 corner/resolve
+  ---
+  duration_ms: 0.716078
+  type: 'test'
+  ...
+# Subtest: portable cursor 46 corner/expire
+ok 191 - portable cursor 46 corner/expire
+  ---
+  duration_ms: 1.138675
+  type: 'test'
+  ...
+# Subtest: portable cursor 47 corner/topology/flood
+ok 192 - portable cursor 47 corner/topology/flood
+  ---
+  duration_ms: 0.685773
+  type: 'test'
+  ...
+# Subtest: portable cursor 48 corner/topology/transfer
+ok 193 - portable cursor 48 corner/topology/transfer
+  ---
+  duration_ms: 0.623549
+  type: 'test'
+  ...
+# Subtest: portable cursor 49 corner/topology/balls
+ok 194 - portable cursor 49 corner/topology/balls
+  ---
+  duration_ms: 0.596739
+  type: 'test'
+  ...
+# Subtest: portable cursor 50 corner/topology/neutral
+ok 195 - portable cursor 50 corner/topology/neutral
+  ---
+  duration_ms: 0.628126
+  type: 'test'
+  ...
+# Subtest: portable cursor 51 corner/done
+ok 196 - portable cursor 51 corner/done
+  ---
+  duration_ms: 0.482136
+  type: 'test'
+  ...
+# Subtest: portable cursor 52 wall-bounce/commands
+ok 197 - portable cursor 52 wall-bounce/commands
+  ---
+  duration_ms: 1.05562
+  type: 'test'
+  ...
+# Subtest: portable cursor 53 wall-bounce/search
+ok 198 - portable cursor 53 wall-bounce/search
+  ---
+  duration_ms: 0.760685
+  type: 'test'
+  ...
+# Subtest: portable cursor 54 wall-bounce/area
+ok 199 - portable cursor 54 wall-bounce/area
+  ---
+  duration_ms: 1.434321
+  type: 'test'
+  ...
+# Subtest: portable cursor 55 wall-bounce/batch
+ok 200 - portable cursor 55 wall-bounce/batch
+  ---
+  duration_ms: 0.732984
+  type: 'test'
+  ...
+# Subtest: portable cursor 56 wall-bounce/resolve
+ok 201 - portable cursor 56 wall-bounce/resolve
+  ---
+  duration_ms: 0.798823
+  type: 'test'
+  ...
+# Subtest: portable cursor 57 wall-bounce/expire
+ok 202 - portable cursor 57 wall-bounce/expire
+  ---
+  duration_ms: 0.970081
+  type: 'test'
+  ...
+# Subtest: portable cursor 58 wall-bounce/done
+ok 203 - portable cursor 58 wall-bounce/done
+  ---
+  duration_ms: 0.756249
+  type: 'test'
+  ...
+# Subtest: portable cursor 59 dense/commands
+ok 204 - portable cursor 59 dense/commands
+  ---
+  duration_ms: 35.564865
+  type: 'test'
+  ...
+# Subtest: portable cursor 60 dense/search
+ok 205 - portable cursor 60 dense/search
+  ---
+  duration_ms: 33.718014
+  type: 'test'
+  ...
+# Subtest: portable cursor 61 dense/area
+ok 206 - portable cursor 61 dense/area
+  ---
+  duration_ms: 34.646523
+  type: 'test'
+  ...
+# Subtest: portable cursor 62 dense/batch
+ok 207 - portable cursor 62 dense/batch
+  ---
+  duration_ms: 38.084891
+  type: 'test'
+  ...
+# Subtest: portable cursor 63 dense/resolve
+ok 208 - portable cursor 63 dense/resolve
+  ---
+  duration_ms: 32.557346
+  type: 'test'
+  ...
+# Subtest: portable cursor 64 dense/expire
+ok 209 - portable cursor 64 dense/expire
+  ---
+  duration_ms: 30.488425
+  type: 'test'
+  ...
+# Subtest: portable cursor 65 dense/topology/flood
+ok 210 - portable cursor 65 dense/topology/flood
+  ---
+  duration_ms: 39.045608
+  type: 'test'
+  ...
+# Subtest: portable cursor 66 dense/topology/transfer
+ok 211 - portable cursor 66 dense/topology/transfer
+  ---
+  duration_ms: 35.292275
+  type: 'test'
+  ...
+# Subtest: portable cursor 67 dense/topology/balls
+ok 212 - portable cursor 67 dense/topology/balls
+  ---
+  duration_ms: 30.335078
+  type: 'test'
+  ...
+# Subtest: portable cursor 68 dense/topology/neutral
+ok 213 - portable cursor 68 dense/topology/neutral
+  ---
+  duration_ms: 28.997875
+  type: 'test'
+  ...
+# Subtest: portable cursor 69 dense/done
+ok 214 - portable cursor 69 dense/done
+  ---
+  duration_ms: 9.944718
+  type: 'test'
+  ...
+1..214
+# tests 214
+# suites 0
+# pass 214
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 568.121673

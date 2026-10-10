@@ -1,0 +1,1546 @@
+TAP version 13
+# Subtest: spawn-000: exhaustive placement agrees with independent masked union-find
+ok 1 - spawn-000: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.783453
+  type: 'test'
+  ...
+# Subtest: spawn-001: exhaustive placement agrees with independent masked union-find
+ok 2 - spawn-001: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.000665
+  type: 'test'
+  ...
+# Subtest: spawn-002: exhaustive placement agrees with independent masked union-find
+ok 3 - spawn-002: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.740055
+  type: 'test'
+  ...
+# Subtest: spawn-003: exhaustive placement agrees with independent masked union-find
+ok 4 - spawn-003: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.500033
+  type: 'test'
+  ...
+# Subtest: spawn-004: exhaustive placement agrees with independent masked union-find
+ok 5 - spawn-004: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.334791
+  type: 'test'
+  ...
+# Subtest: spawn-005: exhaustive placement agrees with independent masked union-find
+ok 6 - spawn-005: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.641437
+  type: 'test'
+  ...
+# Subtest: spawn-006: exhaustive placement agrees with independent masked union-find
+ok 7 - spawn-006: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.61153
+  type: 'test'
+  ...
+# Subtest: spawn-007: exhaustive placement agrees with independent masked union-find
+ok 8 - spawn-007: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.274901
+  type: 'test'
+  ...
+# Subtest: spawn-008: exhaustive placement agrees with independent masked union-find
+ok 9 - spawn-008: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.991593
+  type: 'test'
+  ...
+# Subtest: spawn-009: exhaustive placement agrees with independent masked union-find
+ok 10 - spawn-009: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.191839
+  type: 'test'
+  ...
+# Subtest: spawn-010: exhaustive placement agrees with independent masked union-find
+ok 11 - spawn-010: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.79568
+  type: 'test'
+  ...
+# Subtest: spawn-011: exhaustive placement agrees with independent masked union-find
+ok 12 - spawn-011: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 12.886848
+  type: 'test'
+  ...
+# Subtest: spawn-012: exhaustive placement agrees with independent masked union-find
+ok 13 - spawn-012: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.543096
+  type: 'test'
+  ...
+# Subtest: spawn-013: exhaustive placement agrees with independent masked union-find
+ok 14 - spawn-013: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.330844
+  type: 'test'
+  ...
+# Subtest: spawn-014: exhaustive placement agrees with independent masked union-find
+ok 15 - spawn-014: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.033856
+  type: 'test'
+  ...
+# Subtest: spawn-015: exhaustive placement agrees with independent masked union-find
+ok 16 - spawn-015: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.732148
+  type: 'test'
+  ...
+# Subtest: spawn-016: exhaustive placement agrees with independent masked union-find
+ok 17 - spawn-016: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.90916
+  type: 'test'
+  ...
+# Subtest: spawn-017: exhaustive placement agrees with independent masked union-find
+ok 18 - spawn-017: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.904402
+  type: 'test'
+  ...
+# Subtest: spawn-018: exhaustive placement agrees with independent masked union-find
+ok 19 - spawn-018: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.479031
+  type: 'test'
+  ...
+# Subtest: spawn-019: exhaustive placement agrees with independent masked union-find
+ok 20 - spawn-019: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.941128
+  type: 'test'
+  ...
+# Subtest: spawn-020: exhaustive placement agrees with independent masked union-find
+ok 21 - spawn-020: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.865473
+  type: 'test'
+  ...
+# Subtest: spawn-021: exhaustive placement agrees with independent masked union-find
+ok 22 - spawn-021: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.507912
+  type: 'test'
+  ...
+# Subtest: spawn-022: exhaustive placement agrees with independent masked union-find
+ok 23 - spawn-022: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.758418
+  type: 'test'
+  ...
+# Subtest: spawn-023: exhaustive placement agrees with independent masked union-find
+ok 24 - spawn-023: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 10.147919
+  type: 'test'
+  ...
+# Subtest: spawn-024: exhaustive placement agrees with independent masked union-find
+ok 25 - spawn-024: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.439551
+  type: 'test'
+  ...
+# Subtest: spawn-025: exhaustive placement agrees with independent masked union-find
+ok 26 - spawn-025: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.967799
+  type: 'test'
+  ...
+# Subtest: spawn-026: exhaustive placement agrees with independent masked union-find
+ok 27 - spawn-026: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.205303
+  type: 'test'
+  ...
+# Subtest: spawn-027: exhaustive placement agrees with independent masked union-find
+ok 28 - spawn-027: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.000311
+  type: 'test'
+  ...
+# Subtest: spawn-028: exhaustive placement agrees with independent masked union-find
+ok 29 - spawn-028: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.783973
+  type: 'test'
+  ...
+# Subtest: spawn-029: exhaustive placement agrees with independent masked union-find
+ok 30 - spawn-029: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 5.163595
+  type: 'test'
+  ...
+# Subtest: spawn-030: exhaustive placement agrees with independent masked union-find
+ok 31 - spawn-030: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.466672
+  type: 'test'
+  ...
+# Subtest: spawn-031: exhaustive placement agrees with independent masked union-find
+ok 32 - spawn-031: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.243834
+  type: 'test'
+  ...
+# Subtest: spawn-032: exhaustive placement agrees with independent masked union-find
+ok 33 - spawn-032: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.698801
+  type: 'test'
+  ...
+# Subtest: spawn-033: exhaustive placement agrees with independent masked union-find
+ok 34 - spawn-033: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.777397
+  type: 'test'
+  ...
+# Subtest: spawn-034: exhaustive placement agrees with independent masked union-find
+ok 35 - spawn-034: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.852736
+  type: 'test'
+  ...
+# Subtest: spawn-035: exhaustive placement agrees with independent masked union-find
+ok 36 - spawn-035: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 5.454011
+  type: 'test'
+  ...
+# Subtest: spawn-036: exhaustive placement agrees with independent masked union-find
+ok 37 - spawn-036: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.521975
+  type: 'test'
+  ...
+# Subtest: spawn-037: exhaustive placement agrees with independent masked union-find
+ok 38 - spawn-037: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.216753
+  type: 'test'
+  ...
+# Subtest: spawn-038: exhaustive placement agrees with independent masked union-find
+ok 39 - spawn-038: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.706072
+  type: 'test'
+  ...
+# Subtest: spawn-039: exhaustive placement agrees with independent masked union-find
+ok 40 - spawn-039: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.141268
+  type: 'test'
+  ...
+# Subtest: spawn-040: exhaustive placement agrees with independent masked union-find
+ok 41 - spawn-040: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.193999
+  type: 'test'
+  ...
+# Subtest: spawn-041: exhaustive placement agrees with independent masked union-find
+ok 42 - spawn-041: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 11.793724
+  type: 'test'
+  ...
+# Subtest: spawn-042: exhaustive placement agrees with independent masked union-find
+ok 43 - spawn-042: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.50565
+  type: 'test'
+  ...
+# Subtest: spawn-043: exhaustive placement agrees with independent masked union-find
+ok 44 - spawn-043: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.187349
+  type: 'test'
+  ...
+# Subtest: spawn-044: exhaustive placement agrees with independent masked union-find
+ok 45 - spawn-044: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.544284
+  type: 'test'
+  ...
+# Subtest: spawn-045: exhaustive placement agrees with independent masked union-find
+ok 46 - spawn-045: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.022485
+  type: 'test'
+  ...
+# Subtest: spawn-046: exhaustive placement agrees with independent masked union-find
+ok 47 - spawn-046: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.173237
+  type: 'test'
+  ...
+# Subtest: spawn-047: exhaustive placement agrees with independent masked union-find
+ok 48 - spawn-047: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 39.193474
+  type: 'test'
+  ...
+# Subtest: spawn-048: exhaustive placement agrees with independent masked union-find
+ok 49 - spawn-048: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.985302
+  type: 'test'
+  ...
+# Subtest: spawn-049: exhaustive placement agrees with independent masked union-find
+ok 50 - spawn-049: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.020378
+  type: 'test'
+  ...
+# Subtest: spawn-050: exhaustive placement agrees with independent masked union-find
+ok 51 - spawn-050: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.197761
+  type: 'test'
+  ...
+# Subtest: spawn-051: exhaustive placement agrees with independent masked union-find
+ok 52 - spawn-051: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.845729
+  type: 'test'
+  ...
+# Subtest: spawn-052: exhaustive placement agrees with independent masked union-find
+ok 53 - spawn-052: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.69323
+  type: 'test'
+  ...
+# Subtest: spawn-053: exhaustive placement agrees with independent masked union-find
+ok 54 - spawn-053: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 8.070786
+  type: 'test'
+  ...
+# Subtest: spawn-054: exhaustive placement agrees with independent masked union-find
+ok 55 - spawn-054: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.527934
+  type: 'test'
+  ...
+# Subtest: spawn-055: exhaustive placement agrees with independent masked union-find
+ok 56 - spawn-055: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.585538
+  type: 'test'
+  ...
+# Subtest: spawn-056: exhaustive placement agrees with independent masked union-find
+ok 57 - spawn-056: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.262567
+  type: 'test'
+  ...
+# Subtest: spawn-057: exhaustive placement agrees with independent masked union-find
+ok 58 - spawn-057: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.349453
+  type: 'test'
+  ...
+# Subtest: spawn-058: exhaustive placement agrees with independent masked union-find
+ok 59 - spawn-058: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.951454
+  type: 'test'
+  ...
+# Subtest: spawn-059: exhaustive placement agrees with independent masked union-find
+ok 60 - spawn-059: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 12.674328
+  type: 'test'
+  ...
+# Subtest: spawn-060: exhaustive placement agrees with independent masked union-find
+ok 61 - spawn-060: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.456857
+  type: 'test'
+  ...
+# Subtest: spawn-061: exhaustive placement agrees with independent masked union-find
+ok 62 - spawn-061: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.169272
+  type: 'test'
+  ...
+# Subtest: spawn-062: exhaustive placement agrees with independent masked union-find
+ok 63 - spawn-062: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.470779
+  type: 'test'
+  ...
+# Subtest: spawn-063: exhaustive placement agrees with independent masked union-find
+ok 64 - spawn-063: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.393403
+  type: 'test'
+  ...
+# Subtest: spawn-064: exhaustive placement agrees with independent masked union-find
+ok 65 - spawn-064: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.119897
+  type: 'test'
+  ...
+# Subtest: spawn-065: exhaustive placement agrees with independent masked union-find
+ok 66 - spawn-065: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 26.593587
+  type: 'test'
+  ...
+# Subtest: spawn-066: exhaustive placement agrees with independent masked union-find
+ok 67 - spawn-066: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.655427
+  type: 'test'
+  ...
+# Subtest: spawn-067: exhaustive placement agrees with independent masked union-find
+ok 68 - spawn-067: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.89548
+  type: 'test'
+  ...
+# Subtest: spawn-068: exhaustive placement agrees with independent masked union-find
+ok 69 - spawn-068: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 7.159746
+  type: 'test'
+  ...
+# Subtest: spawn-069: exhaustive placement agrees with independent masked union-find
+ok 70 - spawn-069: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.162599
+  type: 'test'
+  ...
+# Subtest: spawn-070: exhaustive placement agrees with independent masked union-find
+ok 71 - spawn-070: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.51812
+  type: 'test'
+  ...
+# Subtest: spawn-071: exhaustive placement agrees with independent masked union-find
+ok 72 - spawn-071: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 10.430123
+  type: 'test'
+  ...
+# Subtest: all-neutral bootstrap creates one live cannon, nine cells and chosen heading
+ok 73 - all-neutral bootstrap creates one live cannon, nine cells and chosen heading
+  ---
+  duration_ms: 9.826506
+  type: 'test'
+  ...
+# Subtest: two joins in one sealed batch rebuild eligibility and never reuse ordinals
+ok 74 - two joins in one sealed batch rebuild eligibility and never reuse ordinals
+  ---
+  duration_ms: 29.150062
+  type: 'test'
+  ...
+# Subtest: same-account join then fire obeys existing-cannon pricing, not another join
+ok 75 - same-account join then fire obeys existing-cannon pricing, not another join
+  ---
+  duration_ms: 1.553927
+  type: 'test'
+  ...
+# Subtest: full-board single-owner fallback steals exactly nine cells without disconnection
+ok 76 - full-board single-owner fallback steals exactly nine cells without disconnection
+  ---
+  duration_ms: 1.568268
+  type: 'test'
+  ...
+# Subtest: live/live frontiers take precedence over interior fallback
+ok 77 - live/live frontiers take precedence over interior fallback
+  ---
+  duration_ms: 2.094319
+  type: 'test'
+  ...
+# Subtest: underfunded and impossible joins retain funds but consume no cannon ordinal
+ok 78 - underfunded and impossible joins retain funds but consume no cannon ordinal
+  ---
+  duration_ms: 0.676727
+  type: 'test'
+  ...
+# Subtest: MOVE without a cannon cannot accidentally create one
+ok 79 - MOVE without a cannon cannot accidentally create one
+  ---
+  duration_ms: 0.466541
+  type: 'test'
+  ...
+# Subtest: lifetime ordinal exhaustion fails closed, despite vacant board
+ok 80 - lifetime ordinal exhaustion fails closed, despite vacant board
+  ---
+  duration_ms: 0.506461
+  type: 'test'
+  ...
+# Subtest: maximum cannon count gives a retained capacity rejection
+ok 81 - maximum cannon count gives a retained capacity rejection
+  ---
+  duration_ms: 4.48963
+  type: 'test'
+  ...
+# Subtest: near-time opposite strikes annihilate causally at the second arrival
+ok 82 - near-time opposite strikes annihilate causally at the second arrival
+  ---
+  duration_ms: 6.690741
+  type: 'test'
+  ...
+# Subtest: exact inclusive fuse deadline admits opposite arrival before expiry
+ok 83 - exact inclusive fuse deadline admits opposite arrival before expiry
+  ---
+  duration_ms: 0.874155
+  type: 'test'
+  ...
+# Subtest: one coordinate unit too late does not undo the earlier committed capture
+ok 84 - one coordinate unit too late does not undo the earlier committed capture
+  ---
+  duration_ms: 0.976819
+  type: 'test'
+  ...
+# Subtest: outside spatial tolerance does not match even inside time window
+ok 85 - outside spatial tolerance does not match even inside time window
+  ---
+  duration_ms: 1.140785
+  type: 'test'
+  ...
+# Subtest: pending wall effects survive an exact checkpoint without late mutation of old output
+ok 86 - pending wall effects survive an exact checkpoint without late mutation of old output
+  ---
+  duration_ms: 2.393549
+  type: 'test'
+  ...
+# Subtest: checkpoint MOVE can protect a target before its pending strike expires
+ok 87 - checkpoint MOVE can protect a target before its pending strike expires
+  ---
+  duration_ms: 1.451332
+  type: 'test'
+  ...
+# Subtest: neutral capture is immediate and cannot arm an opposing-player fuse
+ok 88 - neutral capture is immediate and cannot arm an opposing-player fuse
+  ---
+  duration_ms: 0.646852
+  type: 'test'
+  ...
+# Subtest: tie pairing preserves one-to-one matches with unequal ball counts
+ok 89 - tie pairing preserves one-to-one matches with unequal ball counts
+  ---
+  duration_ms: 0.941786
+  type: 'test'
+  ...
+# Subtest: strike matcher never pairs same-side records
+ok 90 - strike matcher never pairs same-side records
+  ---
+  duration_ms: 0.191768
+  type: 'test'
+  ...
+# Subtest: fused severance preserves earned credits and neutralizes dead anchor
+ok 91 - fused severance preserves earned credits and neutralizes dead anchor
+  ---
+  duration_ms: 4.261868
+  type: 'test'
+  ...
+# Subtest: duel: optimized and full-scan modes produce identical canonical outputs
+ok 92 - duel: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.524413
+  type: 'test'
+  ...
+# Subtest: severance: optimized and full-scan modes produce identical canonical outputs
+ok 93 - severance: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.978365
+  type: 'test'
+  ...
+# Subtest: corner: optimized and full-scan modes produce identical canonical outputs
+ok 94 - corner: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.075437
+  type: 'test'
+  ...
+# Subtest: wall-bounce: optimized and full-scan modes produce identical canonical outputs
+ok 95 - wall-bounce: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.907248
+  type: 'test'
+  ...
+# Subtest: dense: optimized and full-scan modes produce identical canonical outputs
+ok 96 - dense: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 66.387935
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 0: interruptions and input-free segmentation preserve final bytes
+ok 97 - v3 mixed workload 0: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 13.648473
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 1: interruptions and input-free segmentation preserve final bytes
+ok 98 - v3 mixed workload 1: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.783094
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 2: interruptions and input-free segmentation preserve final bytes
+ok 99 - v3 mixed workload 2: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.752214
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 3: interruptions and input-free segmentation preserve final bytes
+ok 100 - v3 mixed workload 3: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.3019
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 4: interruptions and input-free segmentation preserve final bytes
+ok 101 - v3 mixed workload 4: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 14.179696
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 5: interruptions and input-free segmentation preserve final bytes
+ok 102 - v3 mixed workload 5: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.6474
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 6: interruptions and input-free segmentation preserve final bytes
+ok 103 - v3 mixed workload 6: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.027478
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 7: interruptions and input-free segmentation preserve final bytes
+ok 104 - v3 mixed workload 7: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.434123
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 8: interruptions and input-free segmentation preserve final bytes
+ok 105 - v3 mixed workload 8: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.964259
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 9: interruptions and input-free segmentation preserve final bytes
+ok 106 - v3 mixed workload 9: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.372262
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 10: interruptions and input-free segmentation preserve final bytes
+ok 107 - v3 mixed workload 10: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.101696
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 11: interruptions and input-free segmentation preserve final bytes
+ok 108 - v3 mixed workload 11: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.056198
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 12: interruptions and input-free segmentation preserve final bytes
+ok 109 - v3 mixed workload 12: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.140161
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 13: interruptions and input-free segmentation preserve final bytes
+ok 110 - v3 mixed workload 13: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.634814
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 14: interruptions and input-free segmentation preserve final bytes
+ok 111 - v3 mixed workload 14: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 11.517829
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 15: interruptions and input-free segmentation preserve final bytes
+ok 112 - v3 mixed workload 15: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.438656
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 16: interruptions and input-free segmentation preserve final bytes
+ok 113 - v3 mixed workload 16: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.185548
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 17: interruptions and input-free segmentation preserve final bytes
+ok 114 - v3 mixed workload 17: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.69201
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 18: interruptions and input-free segmentation preserve final bytes
+ok 115 - v3 mixed workload 18: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.028706
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 19: interruptions and input-free segmentation preserve final bytes
+ok 116 - v3 mixed workload 19: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.959797
+  type: 'test'
+  ...
+# Subtest: v2 state is not silently reinterpreted as v3
+ok 117 - v2 state is not silently reinterpreted as v3
+  ---
+  duration_ms: 0.461454
+  type: 'test'
+  ...
+# Subtest: pending strike corruption and cursor checksum mismatch fail closed
+ok 118 - pending strike corruption and cursor checksum mismatch fail closed
+  ---
+  duration_ms: 1.159543
+  type: 'test'
+  ...
+# Subtest: bounded search admissions have a distinct reason from exhaustive absence
+ok 119 - bounded search admissions have a distinct reason from exhaustive absence
+  ---
+  duration_ms: 0.91719
+  type: 'test'
+  ...
+# Subtest: one outstanding strike per ball bounds rapid corner-fire effects
+ok 120 - one outstanding strike per ball bounds rapid corner-fire effects
+  ---
+  duration_ms: 16.232308
+  type: 'test'
+  ...
+# Subtest: rejoining after extinction keeps accrued score and creates a younger ordinal
+ok 121 - rejoining after extinction keeps accrued score and creates a younger ordinal
+  ---
+  duration_ms: 1.348918
+  type: 'test'
+  ...
+# Subtest: global ball cap is enforced before expensive spawn
+ok 122 - global ball cap is enforced before expensive spawn
+  ---
+  duration_ms: 3.87014
+  type: 'test'
+  ...
+# Subtest: fully occupied fixture masks cannot sacrifice a cannon or ball to force a join
+ok 123 - fully occupied fixture masks cannot sacrifice a cannon or ball to force a join
+  ---
+  duration_ms: 0.570298
+  type: 'test'
+  ...
+# Subtest: impact-000: exact causal outcome and scores match independent closed-form oracle
+ok 124 - impact-000: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.314831
+  type: 'test'
+  ...
+# Subtest: impact-001: exact causal outcome and scores match independent closed-form oracle
+ok 125 - impact-001: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.198325
+  type: 'test'
+  ...
+# Subtest: impact-002: exact causal outcome and scores match independent closed-form oracle
+ok 126 - impact-002: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.61636
+  type: 'test'
+  ...
+# Subtest: impact-003: exact causal outcome and scores match independent closed-form oracle
+ok 127 - impact-003: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.731854
+  type: 'test'
+  ...
+# Subtest: impact-004: exact causal outcome and scores match independent closed-form oracle
+ok 128 - impact-004: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.710221
+  type: 'test'
+  ...
+# Subtest: impact-005: exact causal outcome and scores match independent closed-form oracle
+ok 129 - impact-005: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.341087
+  type: 'test'
+  ...
+# Subtest: impact-006: exact causal outcome and scores match independent closed-form oracle
+ok 130 - impact-006: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.353098
+  type: 'test'
+  ...
+# Subtest: impact-007: exact causal outcome and scores match independent closed-form oracle
+ok 131 - impact-007: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.777422
+  type: 'test'
+  ...
+# Subtest: impact-008: exact causal outcome and scores match independent closed-form oracle
+ok 132 - impact-008: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.665725
+  type: 'test'
+  ...
+# Subtest: impact-009: exact causal outcome and scores match independent closed-form oracle
+ok 133 - impact-009: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.204545
+  type: 'test'
+  ...
+# Subtest: impact-010: exact causal outcome and scores match independent closed-form oracle
+ok 134 - impact-010: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.361732
+  type: 'test'
+  ...
+# Subtest: impact-011: exact causal outcome and scores match independent closed-form oracle
+ok 135 - impact-011: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.350514
+  type: 'test'
+  ...
+# Subtest: impact-012: exact causal outcome and scores match independent closed-form oracle
+ok 136 - impact-012: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.609414
+  type: 'test'
+  ...
+# Subtest: impact-013: exact causal outcome and scores match independent closed-form oracle
+ok 137 - impact-013: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.637262
+  type: 'test'
+  ...
+# Subtest: impact-014: exact causal outcome and scores match independent closed-form oracle
+ok 138 - impact-014: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.732494
+  type: 'test'
+  ...
+# Subtest: impact-015: exact causal outcome and scores match independent closed-form oracle
+ok 139 - impact-015: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.580996
+  type: 'test'
+  ...
+# Subtest: impact-016: exact causal outcome and scores match independent closed-form oracle
+ok 140 - impact-016: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.30389
+  type: 'test'
+  ...
+# Subtest: impact-017: exact causal outcome and scores match independent closed-form oracle
+ok 141 - impact-017: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.039135
+  type: 'test'
+  ...
+# Subtest: impact-018: exact causal outcome and scores match independent closed-form oracle
+ok 142 - impact-018: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.5627
+  type: 'test'
+  ...
+# Subtest: impact-019: exact causal outcome and scores match independent closed-form oracle
+ok 143 - impact-019: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.199266
+  type: 'test'
+  ...
+# Subtest: impact-020: exact causal outcome and scores match independent closed-form oracle
+ok 144 - impact-020: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.380138
+  type: 'test'
+  ...
+# Subtest: impact-021: exact causal outcome and scores match independent closed-form oracle
+ok 145 - impact-021: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.403363
+  type: 'test'
+  ...
+# Subtest: impact-022: exact causal outcome and scores match independent closed-form oracle
+ok 146 - impact-022: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.113847
+  type: 'test'
+  ...
+# Subtest: impact-023: exact causal outcome and scores match independent closed-form oracle
+ok 147 - impact-023: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.173918
+  type: 'test'
+  ...
+# Subtest: impact-024: exact causal outcome and scores match independent closed-form oracle
+ok 148 - impact-024: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.584298
+  type: 'test'
+  ...
+# Subtest: impact-025: exact causal outcome and scores match independent closed-form oracle
+ok 149 - impact-025: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.768732
+  type: 'test'
+  ...
+# Subtest: impact-026: exact causal outcome and scores match independent closed-form oracle
+ok 150 - impact-026: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.845668
+  type: 'test'
+  ...
+# Subtest: impact-027: exact causal outcome and scores match independent closed-form oracle
+ok 151 - impact-027: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.744106
+  type: 'test'
+  ...
+# Subtest: impact-028: exact causal outcome and scores match independent closed-form oracle
+ok 152 - impact-028: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.582963
+  type: 'test'
+  ...
+# Subtest: impact-029: exact causal outcome and scores match independent closed-form oracle
+ok 153 - impact-029: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.648175
+  type: 'test'
+  ...
+# Subtest: impact-030: exact causal outcome and scores match independent closed-form oracle
+ok 154 - impact-030: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.902083
+  type: 'test'
+  ...
+# Subtest: impact-031: exact causal outcome and scores match independent closed-form oracle
+ok 155 - impact-031: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.164875
+  type: 'test'
+  ...
+# Subtest: impact-032: exact causal outcome and scores match independent closed-form oracle
+ok 156 - impact-032: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.10873
+  type: 'test'
+  ...
+# Subtest: impact-033: exact causal outcome and scores match independent closed-form oracle
+ok 157 - impact-033: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.14844
+  type: 'test'
+  ...
+# Subtest: impact-034: exact causal outcome and scores match independent closed-form oracle
+ok 158 - impact-034: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.613549
+  type: 'test'
+  ...
+# Subtest: impact-035: exact causal outcome and scores match independent closed-form oracle
+ok 159 - impact-035: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.815953
+  type: 'test'
+  ...
+# Subtest: impact-036: exact causal outcome and scores match independent closed-form oracle
+ok 160 - impact-036: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.64694
+  type: 'test'
+  ...
+# Subtest: impact-037: exact causal outcome and scores match independent closed-form oracle
+ok 161 - impact-037: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.277908
+  type: 'test'
+  ...
+# Subtest: impact-038: exact causal outcome and scores match independent closed-form oracle
+ok 162 - impact-038: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.338569
+  type: 'test'
+  ...
+# Subtest: impact-039: exact causal outcome and scores match independent closed-form oracle
+ok 163 - impact-039: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.694971
+  type: 'test'
+  ...
+# Subtest: impact-040: exact causal outcome and scores match independent closed-form oracle
+ok 164 - impact-040: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.211378
+  type: 'test'
+  ...
+# Subtest: impact-041: exact causal outcome and scores match independent closed-form oracle
+ok 165 - impact-041: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.917877
+  type: 'test'
+  ...
+# Subtest: impact-042: exact causal outcome and scores match independent closed-form oracle
+ok 166 - impact-042: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.473569
+  type: 'test'
+  ...
+# Subtest: impact-043: exact causal outcome and scores match independent closed-form oracle
+ok 167 - impact-043: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.323664
+  type: 'test'
+  ...
+# Subtest: impact-044: exact causal outcome and scores match independent closed-form oracle
+ok 168 - impact-044: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.127879
+  type: 'test'
+  ...
+# Subtest: impact-045: exact causal outcome and scores match independent closed-form oracle
+ok 169 - impact-045: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.616614
+  type: 'test'
+  ...
+# Subtest: impact-046: exact causal outcome and scores match independent closed-form oracle
+ok 170 - impact-046: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.69619
+  type: 'test'
+  ...
+# Subtest: impact-047: exact causal outcome and scores match independent closed-form oracle
+ok 171 - impact-047: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.863972
+  type: 'test'
+  ...
+# Subtest: impact-048: exact causal outcome and scores match independent closed-form oracle
+ok 172 - impact-048: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.946576
+  type: 'test'
+  ...
+# Subtest: impact-049: exact causal outcome and scores match independent closed-form oracle
+ok 173 - impact-049: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.727296
+  type: 'test'
+  ...
+# Subtest: impact-050: exact causal outcome and scores match independent closed-form oracle
+ok 174 - impact-050: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.763441
+  type: 'test'
+  ...
+# Subtest: impact-051: exact causal outcome and scores match independent closed-form oracle
+ok 175 - impact-051: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.593425
+  type: 'test'
+  ...
+# Subtest: impact-052: exact causal outcome and scores match independent closed-form oracle
+ok 176 - impact-052: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.511422
+  type: 'test'
+  ...
+# Subtest: impact-053: exact causal outcome and scores match independent closed-form oracle
+ok 177 - impact-053: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.14216
+  type: 'test'
+  ...
+# Subtest: impact-054: exact causal outcome and scores match independent closed-form oracle
+ok 178 - impact-054: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.160218
+  type: 'test'
+  ...
+# Subtest: impact-055: exact causal outcome and scores match independent closed-form oracle
+ok 179 - impact-055: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.655322
+  type: 'test'
+  ...
+# Subtest: impact-056: exact causal outcome and scores match independent closed-form oracle
+ok 180 - impact-056: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.159978
+  type: 'test'
+  ...
+# Subtest: impact-057: exact causal outcome and scores match independent closed-form oracle
+ok 181 - impact-057: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.548448
+  type: 'test'
+  ...
+# Subtest: impact-058: exact causal outcome and scores match independent closed-form oracle
+ok 182 - impact-058: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.688829
+  type: 'test'
+  ...
+# Subtest: impact-059: exact causal outcome and scores match independent closed-form oracle
+ok 183 - impact-059: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.640146
+  type: 'test'
+  ...
+# Subtest: impact-060: exact causal outcome and scores match independent closed-form oracle
+ok 184 - impact-060: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.27691
+  type: 'test'
+  ...
+# Subtest: impact-061: exact causal outcome and scores match independent closed-form oracle
+ok 185 - impact-061: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.605353
+  type: 'test'
+  ...
+# Subtest: impact-062: exact causal outcome and scores match independent closed-form oracle
+ok 186 - impact-062: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.412938
+  type: 'test'
+  ...
+# Subtest: impact-063: exact causal outcome and scores match independent closed-form oracle
+ok 187 - impact-063: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.752585
+  type: 'test'
+  ...
+# Subtest: impact-064: exact causal outcome and scores match independent closed-form oracle
+ok 188 - impact-064: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.148811
+  type: 'test'
+  ...
+# Subtest: impact-065: exact causal outcome and scores match independent closed-form oracle
+ok 189 - impact-065: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.21528
+  type: 'test'
+  ...
+# Subtest: impact-066: exact causal outcome and scores match independent closed-form oracle
+ok 190 - impact-066: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.457705
+  type: 'test'
+  ...
+# Subtest: impact-067: exact causal outcome and scores match independent closed-form oracle
+ok 191 - impact-067: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.192536
+  type: 'test'
+  ...
+# Subtest: impact-068: exact causal outcome and scores match independent closed-form oracle
+ok 192 - impact-068: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.988596
+  type: 'test'
+  ...
+# Subtest: impact-069: exact causal outcome and scores match independent closed-form oracle
+ok 193 - impact-069: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.589894
+  type: 'test'
+  ...
+# Subtest: impact-070: exact causal outcome and scores match independent closed-form oracle
+ok 194 - impact-070: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.722713
+  type: 'test'
+  ...
+# Subtest: impact-071: exact causal outcome and scores match independent closed-form oracle
+ok 195 - impact-071: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.897697
+  type: 'test'
+  ...
+# Subtest: impact-072: exact causal outcome and scores match independent closed-form oracle
+ok 196 - impact-072: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 6.13595
+  type: 'test'
+  ...
+# Subtest: impact-073: exact causal outcome and scores match independent closed-form oracle
+ok 197 - impact-073: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.714688
+  type: 'test'
+  ...
+# Subtest: impact-074: exact causal outcome and scores match independent closed-form oracle
+ok 198 - impact-074: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.694047
+  type: 'test'
+  ...
+# Subtest: impact-075: exact causal outcome and scores match independent closed-form oracle
+ok 199 - impact-075: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.630738
+  type: 'test'
+  ...
+# Subtest: impact-076: exact causal outcome and scores match independent closed-form oracle
+ok 200 - impact-076: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.887424
+  type: 'test'
+  ...
+# Subtest: impact-077: exact causal outcome and scores match independent closed-form oracle
+ok 201 - impact-077: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.487766
+  type: 'test'
+  ...
+# Subtest: impact-078: exact causal outcome and scores match independent closed-form oracle
+ok 202 - impact-078: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.727835
+  type: 'test'
+  ...
+# Subtest: impact-079: exact causal outcome and scores match independent closed-form oracle
+ok 203 - impact-079: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.790191
+  type: 'test'
+  ...
+# Subtest: impact-080: exact causal outcome and scores match independent closed-form oracle
+ok 204 - impact-080: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.511493
+  type: 'test'
+  ...
+# Subtest: impact-081: exact causal outcome and scores match independent closed-form oracle
+ok 205 - impact-081: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 6.526121
+  type: 'test'
+  ...
+# Subtest: impact-082: exact causal outcome and scores match independent closed-form oracle
+ok 206 - impact-082: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.769664
+  type: 'test'
+  ...
+# Subtest: impact-083: exact causal outcome and scores match independent closed-form oracle
+ok 207 - impact-083: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.863415
+  type: 'test'
+  ...
+# Subtest: impact-084: exact causal outcome and scores match independent closed-form oracle
+ok 208 - impact-084: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.69357
+  type: 'test'
+  ...
+# Subtest: impact-085: exact causal outcome and scores match independent closed-form oracle
+ok 209 - impact-085: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.191998
+  type: 'test'
+  ...
+# Subtest: impact-086: exact causal outcome and scores match independent closed-form oracle
+ok 210 - impact-086: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.70748
+  type: 'test'
+  ...
+# Subtest: impact-087: exact causal outcome and scores match independent closed-form oracle
+ok 211 - impact-087: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.589202
+  type: 'test'
+  ...
+# Subtest: impact-088: exact causal outcome and scores match independent closed-form oracle
+ok 212 - impact-088: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.1887
+  type: 'test'
+  ...
+# Subtest: impact-089: exact causal outcome and scores match independent closed-form oracle
+ok 213 - impact-089: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.442783
+  type: 'test'
+  ...
+# Subtest: impact-090: exact causal outcome and scores match independent closed-form oracle
+ok 214 - impact-090: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.930142
+  type: 'test'
+  ...
+# Subtest: impact-091: exact causal outcome and scores match independent closed-form oracle
+ok 215 - impact-091: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.907999
+  type: 'test'
+  ...
+# Subtest: impact-092: exact causal outcome and scores match independent closed-form oracle
+ok 216 - impact-092: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.172996
+  type: 'test'
+  ...
+# Subtest: impact-093: exact causal outcome and scores match independent closed-form oracle
+ok 217 - impact-093: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.239103
+  type: 'test'
+  ...
+# Subtest: impact-094: exact causal outcome and scores match independent closed-form oracle
+ok 218 - impact-094: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.681167
+  type: 'test'
+  ...
+# Subtest: impact-095: exact causal outcome and scores match independent closed-form oracle
+ok 219 - impact-095: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.865194
+  type: 'test'
+  ...
+# Subtest: impact-096: exact causal outcome and scores match independent closed-form oracle
+ok 220 - impact-096: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.022721
+  type: 'test'
+  ...
+# Subtest: impact-097: exact causal outcome and scores match independent closed-form oracle
+ok 221 - impact-097: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.129972
+  type: 'test'
+  ...
+# Subtest: impact-098: exact causal outcome and scores match independent closed-form oracle
+ok 222 - impact-098: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.611496
+  type: 'test'
+  ...
+# Subtest: impact-099: exact causal outcome and scores match independent closed-form oracle
+ok 223 - impact-099: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.605157
+  type: 'test'
+  ...
+# Subtest: impact-100: exact causal outcome and scores match independent closed-form oracle
+ok 224 - impact-100: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.064086
+  type: 'test'
+  ...
+# Subtest: impact-101: exact causal outcome and scores match independent closed-form oracle
+ok 225 - impact-101: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.654478
+  type: 'test'
+  ...
+# Subtest: impact-102: exact causal outcome and scores match independent closed-form oracle
+ok 226 - impact-102: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.628408
+  type: 'test'
+  ...
+# Subtest: impact-103: exact causal outcome and scores match independent closed-form oracle
+ok 227 - impact-103: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.478002
+  type: 'test'
+  ...
+# Subtest: impact-104: exact causal outcome and scores match independent closed-form oracle
+ok 228 - impact-104: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.262207
+  type: 'test'
+  ...
+# Subtest: impact-105: exact causal outcome and scores match independent closed-form oracle
+ok 229 - impact-105: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.504642
+  type: 'test'
+  ...
+# Subtest: impact-106: exact causal outcome and scores match independent closed-form oracle
+ok 230 - impact-106: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.053868
+  type: 'test'
+  ...
+# Subtest: impact-107: exact causal outcome and scores match independent closed-form oracle
+ok 231 - impact-107: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.714978
+  type: 'test'
+  ...
+# Subtest: impact-108: exact causal outcome and scores match independent closed-form oracle
+ok 232 - impact-108: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.059546
+  type: 'test'
+  ...
+# Subtest: impact-109: exact causal outcome and scores match independent closed-form oracle
+ok 233 - impact-109: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.263183
+  type: 'test'
+  ...
+# Subtest: impact-110: exact causal outcome and scores match independent closed-form oracle
+ok 234 - impact-110: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.156412
+  type: 'test'
+  ...
+# Subtest: impact-111: exact causal outcome and scores match independent closed-form oracle
+ok 235 - impact-111: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.310313
+  type: 'test'
+  ...
+# Subtest: impact-112: exact causal outcome and scores match independent closed-form oracle
+ok 236 - impact-112: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.587403
+  type: 'test'
+  ...
+# Subtest: impact-113: exact causal outcome and scores match independent closed-form oracle
+ok 237 - impact-113: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.892602
+  type: 'test'
+  ...
+# Subtest: impact-114: exact causal outcome and scores match independent closed-form oracle
+ok 238 - impact-114: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.552675
+  type: 'test'
+  ...
+# Subtest: impact-115: exact causal outcome and scores match independent closed-form oracle
+ok 239 - impact-115: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.512014
+  type: 'test'
+  ...
+# Subtest: impact-116: exact causal outcome and scores match independent closed-form oracle
+ok 240 - impact-116: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.927599
+  type: 'test'
+  ...
+# Subtest: impact-117: exact causal outcome and scores match independent closed-form oracle
+ok 241 - impact-117: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.608739
+  type: 'test'
+  ...
+# Subtest: impact-118: exact causal outcome and scores match independent closed-form oracle
+ok 242 - impact-118: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.597232
+  type: 'test'
+  ...
+# Subtest: impact-119: exact causal outcome and scores match independent closed-form oracle
+ok 243 - impact-119: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.56561
+  type: 'test'
+  ...
+# Subtest: impact-120: exact causal outcome and scores match independent closed-form oracle
+ok 244 - impact-120: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.606572
+  type: 'test'
+  ...
+# Subtest: impact-121: exact causal outcome and scores match independent closed-form oracle
+ok 245 - impact-121: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.126864
+  type: 'test'
+  ...
+# Subtest: impact-122: exact causal outcome and scores match independent closed-form oracle
+ok 246 - impact-122: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.683177
+  type: 'test'
+  ...
+# Subtest: impact-123: exact causal outcome and scores match independent closed-form oracle
+ok 247 - impact-123: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.708008
+  type: 'test'
+  ...
+# Subtest: impact-124: exact causal outcome and scores match independent closed-form oracle
+ok 248 - impact-124: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.501067
+  type: 'test'
+  ...
+# Subtest: impact-125: exact causal outcome and scores match independent closed-form oracle
+ok 249 - impact-125: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 5.009221
+  type: 'test'
+  ...
+# Subtest: impact-126: exact causal outcome and scores match independent closed-form oracle
+ok 250 - impact-126: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.554914
+  type: 'test'
+  ...
+# Subtest: impact-127: exact causal outcome and scores match independent closed-form oracle
+ok 251 - impact-127: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.898978
+  type: 'test'
+  ...
+# Subtest: impact-128: exact causal outcome and scores match independent closed-form oracle
+ok 252 - impact-128: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.672929
+  type: 'test'
+  ...
+# Subtest: impact-129: exact causal outcome and scores match independent closed-form oracle
+ok 253 - impact-129: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.028453
+  type: 'test'
+  ...
+# Subtest: impact-130: exact causal outcome and scores match independent closed-form oracle
+ok 254 - impact-130: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.063515
+  type: 'test'
+  ...
+# Subtest: impact-131: exact causal outcome and scores match independent closed-form oracle
+ok 255 - impact-131: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.151464
+  type: 'test'
+  ...
+# Subtest: credit values beyond signed 128 bits remain exact in the reference
+ok 256 - credit values beyond signed 128 bits remain exact in the reference
+  ---
+  duration_ms: 0.562035
+  type: 'test'
+  ...
+1..256
+# tests 256
+# suites 0
+# pass 256
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1187.714352

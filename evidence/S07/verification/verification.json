@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S07",
+  "started_utc": "2026-09-20T17:22:41.431585+00:00",
+  "mode": "all",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "observer-recordings",
+      "command": [
+        "node",
+        "tools/build_observer_recordings.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-recordings.log",
+      "elapsed_seconds": 0.972
+    },
+    {
+      "id": "protocol-fixtures",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/reference_fixtures.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/protocol-fixtures.log",
+      "elapsed_seconds": 0.719
+    },
+    {
+      "id": "life-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/life_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/life-reference.log",
+      "elapsed_seconds": 0.669
+    },
+    {
+      "id": "btz-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/btz_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/btz-reference.log",
+      "elapsed_seconds": 0.768
+    },
+    {
+      "id": "spawn-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/spawn_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/spawn-reference.log",
+      "elapsed_seconds": 0.87
+    },
+    {
+      "id": "impact-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/impact_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/impact-reference.log",
+      "elapsed_seconds": 0.668
+    },
+    {
+      "id": "btz-full-traces",
+      "command": [
+        "node",
+        "tools/btz_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/btz-full-traces.log",
+      "elapsed_seconds": 0.165
+    },
+    {
+      "id": "numeric-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/numeric_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/numeric-reference.log",
+      "elapsed_seconds": 0.666
+    },
+    {
+      "id": "coordinator-vectors",
+      "command": [
+        "node",
+        "tools/coordinator_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/coordinator-vectors.log",
+      "elapsed_seconds": 0.27
+    },
+    {
+      "id": "observation-v6-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/observation_reference.py",
+        "--version",
+        "6",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-v6-reference.log",
+      "elapsed_seconds": 0.668
+    },
+    {
+      "id": "observation-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/observation_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-reference.log",
+      "elapsed_seconds": 0.771
+    },
+    {
+      "id": "portable-cursors",
+      "command": [
+        "node",
+        "tools/portable_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-cursors.log",
+      "elapsed_seconds": 0.221
+    },
+    {
+      "id": "node-tests",
+      "command": [
+        "node",
+        "--test",
+        "/mnt/data/dtr-suite-S07/tests/js/animation-v1.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/btz-v3.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/btz.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/canonical.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/coordinator-simplified.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/coordinator-vectors.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/coordinator.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/inbox.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/input-canonical.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/journal.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/life.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/memo.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/observation-reference.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/observation-v6-reference.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/observation-v6.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/observation.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/observer-v7.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/payment.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/playout.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/portable-v4.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/runtime.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/seal.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/source.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/storage-v4.test.mjs",
+        "/mnt/data/dtr-suite-S07/tests/js/wakeup.test.mjs"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/node-tests.log",
+      "elapsed_seconds": 5.875,
+      "counts": {
+        "tests": 1315,
+        "pass": 1315,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/check_source.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/source-structure.log",
+      "elapsed_seconds": 2.283
+    },
+    {
+      "id": "docs-links",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/check_docs.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/docs-links.log",
+      "elapsed_seconds": 0.67
+    },
+    {
+      "id": "python-tool-tests",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/python-tool-tests.log",
+      "elapsed_seconds": 5.165
+    },
+    {
+      "id": "cargo-lock",
+      "command": [
+        "cargo",
+        "generate-lockfile",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-lock.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "cargo-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-tests.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "native-vectors",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/verify_native.py"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/native-vectors.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "portable-lock",
+      "command": [
+        "cargo",
+        "generate-lockfile",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/portable-lock.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "portable-rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/portable-rust-tests.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "native-public-game",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/verify_portable_native.py"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/native-public-game.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "native-public-host",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/verify_host_native.py"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/native-public-host.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "runtime-lab-lock",
+      "command": [
+        "cargo",
+        "generate-lockfile",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/runtime-lab-lock.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "runtime-lab-wasm",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/runtime-lab-wasm.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "runtime-lab-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/runtime-lab-format.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "portable-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/portable-format.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "portable-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/portable-clippy.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "cargo-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-format.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "cargo-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "BLOCKED",
+      "exit_code": null,
+      "log": "logs/cargo-clippy.log",
+      "reason": "BLOCKED: missing tool(s): cargo"
+    },
+    {
+      "id": "probe-candid-wasm",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "Probe dependency lock/build and generated Candid comparison not executed; Rust/IC toolchain unavailable in current environment."
+    },
+    {
+      "id": "pocketic-integration",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "Current runtime laboratory source is wired to stable structures but actual upgrade/trap tests and pinned ledger/archive Wasm fixtures remain to be executed; no PocketIC execution claimed."
+    },
+    {
+      "id": "runtime-lab-candid-and-upgrade",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "New runtime laboratory is uncompiled. Generated Candid, authorization, atomic stable-image publication, trap rollback and upgrade recertification must execute in PocketIC."
+    },
+    {
+      "id": "dependency-and-reproducible-build",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "No generated native/laboratory Cargo.lock, dependency vulnerability/license audit or reproducible Wasm evidence exists."
+    },
+    {
+      "id": "observer-http-webcrypto",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "Offline Chromium fixture tests are separate evidence. HTTP navigation, browser-native Web Crypto, production CSP, and live-certified timeline delivery have not passed in this environment."
+    },
+    {
+      "id": "live-ledger-wallet",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "No deployed-canister capability or live-wallet memo test performed."
+    },
+    {
+      "id": "certification-and-cost",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "reason": "Executed content/catalog verification and a fail-closed certificate dependency contract are present; real IC BLS/delegation/root-key verification, actual lab certificates, target-subnet capacity and measured cycle telemetry remain unverified."
+    }
+  ],
+  "overall": "BLOCKED"
+}

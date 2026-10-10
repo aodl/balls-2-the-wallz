@@ -1,0 +1,12 @@
+// Declared source interface. Generated-Candid equivalence has NOT executed.
+type Status = record { version : nat32; revision : nat64; publication_hash : text; synthetic_inputs_only : bool };
+type Observation = record { publication : blob; certificate : opt blob };
+type StatusResult = variant { Ok : Status; Err : text };
+type ObservationResult = variant { Ok : Observation; Err : text };
+type ChunkResult = variant { Ok : blob; Err : text };
+service : (blob, text, nat64, nat64) -> {
+  lab_status : () -> (StatusResult) query;
+  observation : () -> (ObservationResult) query;
+  artifact_chunk : (text, nat8, nat16) -> (ChunkResult) query;
+  apply : (nat64, blob) -> (StatusResult);
+}

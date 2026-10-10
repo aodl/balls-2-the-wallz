@@ -1,0 +1,17 @@
+{
+  "name": "dtr-suite-s07",
+  "version": "0.7.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "scripts": {
+    "test": "node --test tests/js/*.test.mjs",
+    "memo": "node tools/command.mjs memo",
+    "replay": "node tools/command.mjs replay",
+    "verify": "python3 -B tools/verify_checkpoint.py",
+    "observer": "python3 -B tools/serve_observer.py",
+    "observer:check-recordings": "node tools/build_observer_recordings.mjs --check"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "checkpoint": "S07",
+  "mode": "http",
+  "overall": "BLOCKED",
+  "checks": [
+    {
+      "name": "http-navigation",
+      "status": "BLOCKED",
+      "details": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:8765/apps/btz-observer/\nCall log:\n  - navigating to \"http://127.0.0.1:8765/apps/btz-observer/\", waiting until \"load\"\n"
+    }
+  ],
+  "qualification": "Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.",
+  "browser_version": "144.0.7559.96",
+  "playwright_version": "1.57.0",
+  "uncaught_page_errors": []
+}

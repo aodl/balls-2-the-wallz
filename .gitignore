@@ -1,0 +1,8 @@
+/target/
+**/target/
+/node_modules/
+/.work/
+__pycache__/
+*.pyc
+/.dfx/
+/canisters/interface-probe/.dfx/

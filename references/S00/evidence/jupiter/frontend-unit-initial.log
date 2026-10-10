@@ -1,0 +1,1168 @@
+TAP version 13
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/advanced-memo-builder.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/advanced-memo-builder.test.mjs
+not ok 1 - canisters/frontend/web/test/advanced-memo-builder.test.mjs
+  ---
+  duration_ms: 56.844105
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/advanced-memo-builder.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: renderAmountBarChart uses caller-provided formatting and escapes labels
+ok 2 - renderAmountBarChart uses caller-provided formatting and escapes labels
+  ---
+  duration_ms: 1.258567
+  type: 'test'
+  ...
+# Subtest: renderAmountBarChart returns an escaped empty chart when all amounts are zero
+ok 3 - renderAmountBarChart returns an escaped empty chart when all amounts are zero
+  ---
+  duration_ms: 0.231711
+  type: 'test'
+  ...
+# Subtest: renderLineChart supports negative projection balances with a zero axis
+ok 4 - renderLineChart supports negative projection balances with a zero axis
+  ---
+  duration_ms: 0.433438
+  type: 'test'
+  ...
+# Subtest: renderLineChart can show all x-axis labels when explicitly requested
+ok 5 - renderLineChart can show all x-axis labels when explicitly requested
+  ---
+  duration_ms: 0.631981
+  type: 'test'
+  ...
+# Subtest: renderAmountBarChart can show all x-axis labels when explicitly requested
+ok 6 - renderAmountBarChart can show all x-axis labels when explicitly requested
+  ---
+  duration_ms: 0.304091
+  type: 'test'
+  ...
+# Subtest: default ticks use a regular nth-label cadence
+ok 7 - default ticks use a regular nth-label cadence
+  ---
+  duration_ms: 1.234569
+  type: 'test'
+  ...
+# Subtest: monthly default ticks prefer every other label when all labels would crowd
+ok 8 - monthly default ticks prefer every other label when all labels would crowd
+  ---
+  duration_ms: 0.440742
+  type: 'test'
+  ...
+# Subtest: amount bar chart reserves headroom so max bars do not overlap the y-axis label
+ok 9 - amount bar chart reserves headroom so max bars do not overlap the y-axis label
+  ---
+  duration_ms: 1.136457
+  type: 'test'
+  ...
+# Subtest: time-scaled line chart spaces points by elapsed bucket time
+ok 10 - time-scaled line chart spaces points by elapsed bucket time
+  ---
+  duration_ms: 1.013355
+  type: 'test'
+  ...
+# Subtest: time-scaled line chart can use an explicit x-domain and tick buckets
+ok 11 - time-scaled line chart can use an explicit x-domain and tick buckets
+  ---
+  duration_ms: 0.681079
+  type: 'test'
+  ...
+# Subtest: time-scaled bar chart can use sub-slot bar widths for dense timelines
+ok 12 - time-scaled bar chart can use sub-slot bar widths for dense timelines
+  ---
+  duration_ms: 0.553008
+  type: 'test'
+  ...
+# Subtest: time-scaled bar chart can preserve minimum bar width on dense timelines
+ok 13 - time-scaled bar chart can preserve minimum bar width on dense timelines
+  ---
+  duration_ms: 0.2249
+  type: 'test'
+  ...
+# Subtest: scaleBigInt maps signed ranges into chart ratios and clamps out-of-range values
+ok 14 - scaleBigInt maps signed ranges into chart ratios and clamps out-of-range values
+  ---
+  duration_ms: 0.09632
+  type: 'test'
+  ...
+# Subtest: renderEmptyChart escapes custom class names and message content
+ok 15 - renderEmptyChart escapes custom class names and message content
+  ---
+  duration_ms: 0.135782
+  type: 'test'
+  ...
+# Subtest: renderStackedAmountBarChart renders one rect per non-zero segment and escapes labels
+ok 16 - renderStackedAmountBarChart renders one rect per non-zero segment and escapes labels
+  ---
+  duration_ms: 0.628409
+  type: 'test'
+  ...
+# Subtest: renderStackedAmountBarChart returns empty chart for zero totals
+ok 17 - renderStackedAmountBarChart returns empty chart for zero totals
+  ---
+  duration_ms: 0.107096
+  type: 'test'
+  ...
+# Subtest: time-scaled stacked bars honor dense timeline width options
+ok 18 - time-scaled stacked bars honor dense timeline width options
+  ---
+  duration_ms: 0.267405
+  type: 'test'
+  ...
+# Subtest: tracked metric and declared canister count use distinct historian counts
+ok 19 - tracked metric and declared canister count use distinct historian counts
+  ---
+  duration_ms: 0.872282
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/app/agent.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/dashboard-data.local-replica.test.mjs
+not ok 4 - canisters/frontend/web/test/dashboard-data.local-replica.test.mjs
+  ---
+  duration_ms: 66.787922
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/dashboard-data.local-replica.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/dashboard-data.test.mjs
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/dashboard-data.test.mjs
+not ok 5 - canisters/frontend/web/test/dashboard-data.test.mjs
+  ---
+  duration_ms: 36.537863
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/dashboard-data.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/app/agent.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/dashboard-tables-controller.test.mjs
+not ok 6 - canisters/frontend/web/test/dashboard-tables-controller.test.mjs
+  ---
+  duration_ms: 67.396232
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/dashboard-tables-controller.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: diagram viewer selects only whitelisted SVG assets
+ok 23 - diagram viewer selects only whitelisted SVG assets
+  ---
+  duration_ms: 11.024753
+  type: 'test'
+  ...
+# Subtest: diagram viewer rejects unknown diagrams and unsafe asset versions
+ok 24 - diagram viewer rejects unknown diagrams and unsafe asset versions
+  ---
+  duration_ms: 2.992854
+  type: 'test'
+  ...
+# Subtest: setLink clears stale visible text when a link becomes unavailable
+ok 25 - setLink clears stale visible text when a link becomes unavailable
+  ---
+  duration_ms: 0.946706
+  type: 'test'
+  ...
+# Subtest: setPaneValueText writes text content and exposes loading state without touching innerHTML
+ok 26 - setPaneValueText writes text content and exposes loading state without touching innerHTML
+  ---
+  duration_ms: 0.359795
+  type: 'test'
+  ...
+# Subtest: setPaneValueTrustedHtml is the explicit raw-html path and still renders error status metadata
+ok 27 - setPaneValueTrustedHtml is the explicit raw-html path and still renders error status metadata
+  ---
+  duration_ms: 2.80564
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/app/agent.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/endowment-refresh-client.test.mjs
+not ok 9 - canisters/frontend/web/test/endowment-refresh-client.test.mjs
+  ---
+  duration_ms: 44.46682
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/endowment-refresh-client.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: escapeHtml escapes reserved characters for html sinks
+ok 29 - escapeHtml escapes reserved characters for html sinks
+  ---
+  duration_ms: 0.807128
+  type: 'test'
+  ...
+# Subtest: formatFolloweeLinks escapes hostile-looking followee ids before rendering html
+ok 30 - formatFolloweeLinks escapes hostile-looking followee ids before rendering html
+  ---
+  duration_ms: 0.384731
+  type: 'test'
+  ...
+# Subtest: formatFolloweeLinks deduplicates ids and renders alpha-vote alias safely
+ok 31 - formatFolloweeLinks deduplicates ids and renders alpha-vote alias safely
+  ---
+  duration_ms: 0.222518
+  type: 'test'
+  ...
+# Subtest: trackerStateFromHash parses legacy principal hashes
+ok 32 - trackerStateFromHash parses legacy principal hashes
+  ---
+  duration_ms: 2.078854
+  type: 'test'
+  ...
+# Subtest: trackerHashForMemo and trackerStateFromHash preserve dotted memos and protocol canisters
+ok 33 - trackerHashForMemo and trackerStateFromHash preserve dotted memos and protocol canisters
+  ---
+  duration_ms: 0.600908
+  type: 'test'
+  ...
+# Subtest: trackerHashForPrincipal remains backwards-compatible
+ok 34 - trackerHashForPrincipal remains backwards-compatible
+  ---
+  duration_ms: 2.564143
+  type: 'test'
+  ...
+# Subtest: tracker range route state is shareable for query and legacy hashes
+ok 35 - tracker range route state is shareable for query and legacy hashes
+  ---
+  duration_ms: 0.426632
+  type: 'test'
+  ...
+# Subtest: readOpt returns null for a candid opt none array
+ok 36 - readOpt returns null for a candid opt none array
+  ---
+  duration_ms: 1.425911
+  type: 'test'
+  ...
+# Subtest: readOpt unwraps a candid opt some array
+ok 37 - readOpt unwraps a candid opt some array
+  ---
+  duration_ms: 0.362854
+  type: 'test'
+  ...
+# Subtest: readCommitmentIndexFault ignores a candid opt none array
+ok 38 - readCommitmentIndexFault ignores a candid opt none array
+  ---
+  duration_ms: 0.277995
+  type: 'test'
+  ...
+# Subtest: buildHistorianFaultBannerText hides the banner when neither fault is present
+ok 39 - buildHistorianFaultBannerText hides the banner when neither fault is present
+  ---
+  duration_ms: 0.344924
+  type: 'test'
+  ...
+# Subtest: buildHistorianFaultBannerText formats a commitment fault
+ok 40 - buildHistorianFaultBannerText formats a commitment fault
+  ---
+  duration_ms: 0.299039
+  type: 'test'
+  ...
+# Subtest: buildHistorianFaultBannerText formats a route fault
+ok 41 - buildHistorianFaultBannerText formats a route fault
+  ---
+  duration_ms: 0.25118
+  type: 'test'
+  ...
+# Subtest: buildHistorianFaultBannerText combines both faults in one warning
+ok 42 - buildHistorianFaultBannerText combines both faults in one warning
+  ---
+  duration_ms: 0.251085
+  type: 'test'
+  ...
+# Subtest: empty or malformed route faults are ignored defensively
+ok 43 - empty or malformed route faults are ignored defensively
+  ---
+  duration_ms: 0.423017
+  type: 'test'
+  ...
+# Subtest: buildHistorianFaultBannerText does not append undefined text for malformed payloads
+ok 44 - buildHistorianFaultBannerText does not append undefined text for malformed payloads
+  ---
+  duration_ms: 0.662661
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/index-transactions.test.mjs
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/index-transactions.test.mjs
+not ok 13 - canisters/frontend/web/test/index-transactions.test.mjs
+  ---
+  duration_ms: 44.424469
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/index-transactions.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: maturity disbursement status reports no in-flight work
+ok 46 - maturity disbursement status reports no in-flight work
+  ---
+  duration_ms: 1.367316
+  type: 'test'
+  ...
+# Subtest: maturity disbursement status highlights amount and landing time
+ok 47 - maturity disbursement status highlights amount and landing time
+  ---
+  duration_ms: 0.719459
+  type: 'test'
+  ...
+# Subtest: maturity disbursement landing text is concise for the persistent landing status
+ok 48 - maturity disbursement landing text is concise for the persistent landing status
+  ---
+  duration_ms: 0.482965
+  type: 'test'
+  ...
+# Subtest: maturity disbursement landing text stays hidden without an in-flight disbursal
+ok 49 - maturity disbursement landing text stays hidden without an in-flight disbursal
+  ---
+  duration_ms: 0.263501
+  type: 'test'
+  ...
+# Subtest: maturity disbursement status handles multiple disbursals and missing amounts
+ok 50 - maturity disbursement status handles multiple disbursals and missing amounts
+  ---
+  duration_ms: 0.364617
+  type: 'test'
+  ...
+# Subtest: maturity disbursement status does not invent a landing time
+ok 51 - maturity disbursement status does not invent a landing time
+  ---
+  duration_ms: 0.280022
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/memo-policy.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/memo-policy.test.mjs
+not ok 15 - canisters/frontend/web/test/memo-policy.test.mjs
+  ---
+  duration_ms: 37.20252
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/memo-policy.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: navbar disclosures align and remain clickable at 1440px
+ok 53 - navbar disclosures align and remain clickable at 1440px
+  ---
+  duration_ms: 14.777405
+  type: 'test'
+  ...
+# Subtest: navbar disclosures align and remain clickable at 1024px
+ok 54 - navbar disclosures align and remain clickable at 1024px
+  ---
+  duration_ms: 4.205645
+  type: 'test'
+  ...
+# Subtest: navbar disclosures align and remain clickable at 861px
+ok 55 - navbar disclosures align and remain clickable at 861px
+  ---
+  duration_ms: 7.650884
+  type: 'test'
+  ...
+# Subtest: navbar disclosures align and remain clickable at 720px
+ok 56 - navbar disclosures align and remain clickable at 720px
+  ---
+  duration_ms: 6.052291
+  type: 'test'
+  ...
+# Subtest: navbar disclosure and panel state transitions are authoritative
+ok 57 - navbar disclosure and panel state transitions are authoritative
+  ---
+  duration_ms: 9.065201
+  type: 'test'
+  ...
+# Subtest: navbar hash navigation opens panels without reopening dropdowns
+ok 58 - navbar hash navigation opens panels without reopening dropdowns
+  ---
+  duration_ms: 2.844754
+  type: 'test'
+  ...
+# Subtest: Track Memos panel remains owned by Actions after clicks and hash navigation
+ok 59 - Track Memos panel remains owned by Actions after clicks and hash navigation
+  ---
+  duration_ms: 5.885683
+  type: 'test'
+  ...
+# Subtest: How it works Relay route does not claim Actions ownership
+ok 60 - How it works Relay route does not claim Actions ownership
+  ---
+  duration_ms: 2.389021
+  type: 'test'
+  ...
+# Subtest: diagram return fragments open the right page and focus the selected diagram
+ok 61 - diagram return fragments open the right page and focus the selected diagram
+  ---
+  duration_ms: 2.534724
+  type: 'test'
+  ...
+# Subtest: opening transient disclosures clears stale panel hashes
+ok 62 - opening transient disclosures clears stale panel hashes
+  ---
+  duration_ms: 12.482649
+  type: 'test'
+  ...
+# Subtest: direct panel triggers toggle closed but same-section page links navigate
+ok 63 - direct panel triggers toggle closed but same-section page links navigate
+  ---
+  duration_ms: 3.583667
+  type: 'test'
+  ...
+# Subtest: panel links preserve memo builder prefill query parameters
+ok 64 - panel links preserve memo builder prefill query parameters
+  ---
+  duration_ms: 2.065129
+  type: 'test'
+  ...
+# Subtest: closing child panels restores focus to visible parent toggles
+ok 65 - closing child panels restores focus to visible parent toggles
+  ---
+  duration_ms: 3.179109
+  type: 'test'
+  ...
+# Subtest: orbit status visibility uses body metrics menu state
+ok 66 - orbit status visibility uses body metrics menu state
+  ---
+  duration_ms: 2.251991
+  type: 'test'
+  ...
+# Subtest: neuron details can retry after a transient failure and then load successfully
+ok 67 - neuron details can retry after a transient failure and then load successfully
+  ---
+  duration_ms: 1.609394
+  type: 'test'
+  ...
+# Subtest: neuron details null response is treated as retryable until data is available
+ok 68 - neuron details null response is treated as retryable until data is available
+  ---
+  duration_ms: 1.02663
+  type: 'test'
+  ...
+# Subtest: neuron details does not launch a duplicate request while one is already in flight
+ok 69 - neuron details does not launch a duplicate request while one is already in flight
+  ---
+  duration_ms: 0.264692
+  type: 'test'
+  ...
+# Subtest: neuron details ignores a stale in-flight completion after reset and allows a fresh reload
+ok 70 - neuron details ignores a stale in-flight completion after reset and allows a fresh reload
+  ---
+  duration_ms: 0.480438
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/data/nns-neurons.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/nns-neurons.test.mjs
+not ok 18 - canisters/frontend/web/test/nns-neurons.test.mjs
+  ---
+  duration_ms: 56.11608
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/nns-neurons.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: default projection uses 7.0% configured APY, 0.0001T daily burn, and the 1 ICP endowment floor
+ok 72 - default projection uses 7.0% configured APY, 0.0001T daily burn, and the 1 ICP endowment floor
+  ---
+  duration_ms: 1.693488
+  type: 'test'
+  ...
+# Subtest: age bonus calculation matches the NNS four-year ramp and the maturity component share
+ok 73 - age bonus calculation matches the NNS four-year ramp and the maturity component share
+  ---
+  duration_ms: 0.258341
+  type: 'test'
+  ...
+# Subtest: simulator discounts configured APY by the current age-bonus component before projecting top-ups
+ok 74 - simulator discounts configured APY by the current age-bonus component before projecting top-ups
+  ---
+  duration_ms: 0.563428
+  type: 'test'
+  ...
+# Subtest: weekly projection buckets reconcile exactly while rounding drift stays bounded
+ok 75 - weekly projection buckets reconcile exactly while rounding drift stays bounded
+  ---
+  duration_ms: 0.549337
+  type: 'test'
+  ...
+# Subtest: balance projection starts with a day-one payout and then changes linearly with the annual net rate
+ok 76 - balance projection starts with a day-one payout and then changes linearly with the annual net rate
+  ---
+  duration_ms: 0.800304
+  type: 'test'
+  ...
+# Subtest: break-even annual funding leaves the balance line flat at the single projected payout amount
+ok 77 - break-even annual funding leaves the balance line flat at the single projected payout amount
+  ---
+  duration_ms: 0.314378
+  type: 'test'
+  ...
+# Subtest: break-even endowment is the minimal e8s amount that covers the annual burn after age-bonus discount
+ok 78 - break-even endowment is the minimal e8s amount that covers the annual burn after age-bonus discount
+  ---
+  duration_ms: 0.371981
+  type: 'test'
+  ...
+# Subtest: higher assumed ICP/XDR price lowers the required endowment for the same burn
+ok 79 - higher assumed ICP/XDR price lowers the required endowment for the same burn
+  ---
+  duration_ms: 1.327718
+  type: 'test'
+  ...
+# Subtest: higher configured APY lowers the required endowment and increases annual top-ups
+ok 80 - higher configured APY lowers the required endowment and increases annual top-ups
+  ---
+  duration_ms: 0.445062
+  type: 'test'
+  ...
+# Subtest: zero burn and a valid minimum endowment produce an overfunded projection with a 1 ICP required endowment
+ok 81 - zero burn and a valid minimum endowment produce an overfunded projection with a 1 ICP required endowment
+  ---
+  duration_ms: 0.418846
+  type: 'test'
+  ...
+# Subtest: user-facing simulator inputs allow one decimal except daily burn which allows four decimals
+ok 82 - user-facing simulator inputs allow one decimal except daily burn which allows four decimals
+  ---
+  duration_ms: 0.179454
+  type: 'test'
+  ...
+# Subtest: decimal parser accepts separators but rejects invalid precision, negative values, and zero when disallowed
+ok 83 - decimal parser accepts separators but rejects invalid precision, negative values, and zero when disallowed
+  ---
+  duration_ms: 0.614237
+  type: 'test'
+  ...
+# Subtest: normalisation reports all invalid user-facing simulator inputs together
+ok 84 - normalisation reports all invalid user-facing simulator inputs together
+  ---
+  duration_ms: 0.395593
+  type: 'test'
+  ...
+# Subtest: public asset paths use URL-safe characters
+ok 85 - public asset paths use URL-safe characters
+  ---
+  duration_ms: 7.239639
+  type: 'test'
+  ...
+# Subtest: mergeRegisteredLandingData clears stale registered failures after a successful retry
+ok 86 - mergeRegisteredLandingData clears stale registered failures after a successful retry
+  ---
+  duration_ms: 0.74757
+  type: 'test'
+  ...
+# Subtest: mergeRegisteredLandingData preserves overall failure state when another pane is still failing
+ok 87 - mergeRegisteredLandingData preserves overall failure state when another pane is still failing
+  ---
+  duration_ms: 0.146089
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/relay-setup-controller.test.mjs
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/relay-setup-controller.test.mjs
+not ok 22 - canisters/frontend/web/test/relay-setup-controller.test.mjs
+  ---
+  duration_ms: 41.287177
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/relay-setup-controller.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: frontend-facing repository links do not use stale restructure paths
+ok 89 - frontend-facing repository links do not use stale restructure paths
+  ---
+  duration_ms: 3.681555
+  type: 'test'
+  ...
+# Subtest: simulator controller sanitizes inputs without blocking intermediate empty edits
+ok 90 - simulator controller sanitizes inputs without blocking intermediate empty edits
+  ---
+  duration_ms: 5.872158
+  type: 'test'
+  ...
+# Subtest: simulator XDR prefill does not overwrite after the user edits price
+ok 91 - simulator XDR prefill does not overwrite after the user edits price
+  ---
+  duration_ms: 2.659855
+  type: 'test'
+  ...
+# Subtest: simulator share button replaces the hash and copies the full URL
+ok 92 - simulator share button replaces the hash and copies the full URL
+  ---
+  duration_ms: 1.026043
+  type: 'test'
+  ...
+# Subtest: simulator hash prefill opens the panel and applies all shared inputs
+ok 93 - simulator hash prefill opens the panel and applies all shared inputs
+  ---
+  duration_ms: 2.284029
+  type: 'test'
+  ...
+# Subtest: top navbar exposes Simulator and Domains and no longer exposes Partners
+ok 94 - top navbar exposes Simulator and Domains and no longer exposes Partners
+  ---
+  duration_ms: 6.238064
+  type: 'test'
+  ...
+# Subtest: bottom corner controls remain interactive above an open pane backdrop
+ok 95 - bottom corner controls remain interactive above an open pane backdrop
+  ---
+  duration_ms: 5.481254
+  type: 'test'
+  ...
+# Subtest: hero How link opens the maturity and rewards page
+ok 96 - hero How link opens the maturity and rewards page
+  ---
+  duration_ms: 0.398621
+  type: 'test'
+  ...
+# Subtest: static frontend markup does not depend on inline CSS
+ok 97 - static frontend markup does not depend on inline CSS
+  ---
+  duration_ms: 2.661237
+  type: 'test'
+  ...
+# Subtest: all frontend pages use the shared Jupiter scrollbar theme
+ok 98 - all frontend pages use the shared Jupiter scrollbar theme
+  ---
+  duration_ms: 0.377727
+  type: 'test'
+  ...
+# Subtest: first-load overlay uses the token logo and rotating cycle phrases
+ok 99 - first-load overlay uses the token logo and rotating cycle phrases
+  ---
+  duration_ms: 50.245319
+  type: 'test'
+  ...
+# Subtest: not found page displays the Jupiter Faucet token logo
+ok 100 - not found page displays the Jupiter Faucet token logo
+  ---
+  duration_ms: 41.310756
+  type: 'test'
+  ...
+# Subtest: orbit scene includes hoverable infographic callouts
+ok 101 - orbit scene includes hoverable infographic callouts
+  ---
+  duration_ms: 39.859597
+  type: 'test'
+  ...
+# Subtest: partners pane content has been removed
+ok 102 - partners pane content has been removed
+  ---
+  duration_ms: 0.505161
+  type: 'test'
+  ...
+# Subtest: transaction table pagination uses a responsive page size
+ok 103 - transaction table pagination uses a responsive page size
+  ---
+  duration_ms: 100.392464
+  type: 'test'
+  ...
+# Subtest: About pane includes social links and projects slide
+ok 104 - About pane includes social links and projects slide
+  ---
+  duration_ms: 2.228856
+  type: 'test'
+  ...
+# Subtest: Domains pane explains frontend origins and domain listing workflow
+ok 105 - Domains pane explains frontend origins and domain listing workflow
+  ---
+  duration_ms: 0.616999
+  type: 'test'
+  ...
+# Subtest: Source and Governance panes expose subnet context
+ok 106 - Source and Governance panes expose subnet context
+  ---
+  duration_ms: 1.661103
+  type: 'test'
+  ...
+# Subtest: diagram links open a dark full-size viewer without exposing SVGs as standalone documents
+ok 107 - diagram links open a dark full-size viewer without exposing SVGs as standalone documents
+  ---
+  duration_ms: 5.825789
+  type: 'test'
+  ...
+# Subtest: How it works copy is concise and links tracker, simulator, and rewards references
+ok 108 - How it works copy is concise and links tracker, simulator, and rewards references
+  ---
+  duration_ms: 9.350866
+  type: 'test'
+  ...
+# Subtest: cycles help opens a dedicated observability slide with actionable route guidance
+ok 109 - cycles help opens a dedicated observability slide with actionable route guidance
+  ---
+  duration_ms: 1.706397
+  type: 'test'
+  ...
+# Subtest: How it works pane includes advanced usage memo builder without restoring simulator controls
+ok 110 - How it works pane includes advanced usage memo builder without restoring simulator controls
+  ---
+  duration_ms: 7.046049
+  type: 'test'
+  ...
+# Subtest: simulator pane keeps controls outside the scroll region and places intro directly above charts
+ok 111 - simulator pane keeps controls outside the scroll region and places intro directly above charts
+  ---
+  duration_ms: 0.230802
+  type: 'test'
+  ...
+# Subtest: simulator inputs are ordered by user control priority and use compact numeric controls
+ok 112 - simulator inputs are ordered by user control priority and use compact numeric controls
+  ---
+  duration_ms: 0.488078
+  type: 'test'
+  ...
+# Subtest: simulator input binding sanitizes invalid values without blocking native controls
+ok 113 - simulator input binding sanitizes invalid values without blocking native controls
+  ---
+  duration_ms: 0.506665
+  type: 'test'
+  ...
+# Subtest: simulator no longer exposes a starting-buffer stat or copy
+ok 114 - simulator no longer exposes a starting-buffer stat or copy
+  ---
+  duration_ms: 0.518933
+  type: 'test'
+  ...
+# Subtest: simulator renders the cycles balance chart before a weekly top-ups headline and clarifies APY copy
+ok 115 - simulator renders the cycles balance chart before a weekly top-ups headline and clarifies APY copy
+  ---
+  duration_ms: 0.425969
+  type: 'test'
+  ...
+# Subtest: simulator and Jupiter Stake expose age-bonus discount information
+ok 116 - simulator and Jupiter Stake expose age-bonus discount information
+  ---
+  duration_ms: 0.538685
+  type: 'test'
+  ...
+# Subtest: Total Output and Total Rewards are pages of Jupiter Stake rather than metric rail buttons
+ok 117 - Total Output and Total Rewards are pages of Jupiter Stake rather than metric rail buttons
+  ---
+  duration_ms: 0.935057
+  type: 'test'
+  ...
+# Subtest: Actions nav button exposes Plan, Endow, Optimize, and Track Memos pane links in order
+ok 118 - Actions nav button exposes Plan, Endow, Optimize, and Track Memos pane links in order
+  ---
+  duration_ms: 14.857296
+  type: 'test'
+  ...
+# Subtest: Relay Setup uses accessible repeatable target and recipient fields
+ok 119 - Relay Setup uses accessible repeatable target and recipient fields
+  ---
+  duration_ms: 1.05645
+  type: 'test'
+  ...
+# Subtest: Patron Endowments table omits redundant category column
+ok 120 - Patron Endowments table omits redundant category column
+  ---
+  duration_ms: 33.194524
+  type: 'test'
+  ...
+# Subtest: Tracker results render chart controls and graphs before explanatory text
+ok 121 - Tracker results render chart controls and graphs before explanatory text
+  ---
+  duration_ms: 0.750148
+  type: 'test'
+  ...
+# Subtest: mobile panes add one non-shrinking trailing scroll spacer without enlarging the shell
+ok 122 - mobile panes add one non-shrinking trailing scroll spacer without enlarging the shell
+  ---
+  duration_ms: 0.211843
+  type: 'test'
+  ...
+# Subtest: paged nav panel content keeps a stable panel height while preserving overflow scrolling
+ok 123 - paged nav panel content keeps a stable panel height while preserving overflow scrolling
+  ---
+  duration_ms: 0.650061
+  type: 'test'
+  ...
+# Subtest: maturity route pages clarify staging account routing and D-QUORUM account lookup
+ok 124 - maturity route pages clarify staging account routing and D-QUORUM account lookup
+  ---
+  duration_ms: 0.292626
+  type: 'test'
+  ...
+# Subtest: simulator displays T-cycle values with four decimal places and uses weekly headline copy
+ok 125 - simulator displays T-cycle values with four decimal places and uses weekly headline copy
+  ---
+  duration_ms: 0.306143
+  type: 'test'
+  ...
+# Subtest: metrics nav button closes an open pane before showing the metrics rail
+ok 126 - metrics nav button closes an open pane before showing the metrics rail
+  ---
+  duration_ms: 0.323048
+  type: 'test'
+  ...
+# Subtest: navbar brand link closes visible pane state before navigating to intro
+ok 127 - navbar brand link closes visible pane state before navigating to intro
+  ---
+  duration_ms: 0.200562
+  type: 'test'
+  ...
+# Subtest: pane fragment navigation participates in browser history
+ok 128 - pane fragment navigation participates in browser history
+  ---
+  duration_ms: 7.585007
+  type: 'test'
+  ...
+# Subtest: pane arrow-key navigation does not intercept text field caret movement
+ok 129 - pane arrow-key navigation does not intercept text field caret movement
+  ---
+  duration_ms: 0.1986
+  type: 'test'
+  ...
+# Subtest: pane arrow-key guard covers plaintext-only contenteditable fields
+ok 130 - pane arrow-key guard covers plaintext-only contenteditable fields
+  ---
+  duration_ms: 0.143951
+  type: 'test'
+  ...
+# Subtest: pane focus does not strip deep-link query parameters
+ok 131 - pane focus does not strip deep-link query parameters
+  ---
+  duration_ms: 0.16057
+  type: 'test'
+  ...
+# Subtest: canister tracker defaults to last month history
+ok 132 - canister tracker defaults to last month history
+  ---
+  duration_ms: 0.373495
+  type: 'test'
+  ...
+# Subtest: simulator header and scroll region have dedicated compact layout CSS
+ok 133 - simulator header and scroll region have dedicated compact layout CSS
+  ---
+  duration_ms: 0.394126
+  type: 'test'
+  ...
+# Subtest: simulator prepopulates ICP/XDR price from historian XRC cache without overwriting user edits
+ok 134 - simulator prepopulates ICP/XDR price from historian XRC cache without overwriting user edits
+  ---
+  duration_ms: 74.786395
+  type: 'test'
+  ...
+# Subtest: canister tracker links use shareable metric-tracker fragments
+ok 135 - canister tracker links use shareable metric-tracker fragments
+  ---
+  duration_ms: 0.194779
+  type: 'test'
+  ...
+# Subtest: simulator prefill links use shareable simulator fragments
+ok 136 - simulator prefill links use shareable simulator fragments
+  ---
+  duration_ms: 2.816734
+  type: 'test'
+  ...
+# Subtest: metric tracker hash deep links submit once on cold load and panel open
+ok 137 - metric tracker hash deep links submit once on cold load and panel open
+  ---
+  duration_ms: 1.373
+  type: 'test'
+  ...
+# Subtest: canister tracker displays cycles as T cycles and estimates burn per day
+ok 138 - canister tracker displays cycles as T cycles and estimates burn per day
+  ---
+  duration_ms: 3.272182
+  type: 'test'
+  ...
+# Subtest: burn estimate help describes the approximation and CMC conversion assumptions
+ok 139 - burn estimate help describes the approximation and CMC conversion assumptions
+  ---
+  duration_ms: 0.424458
+  type: 'test'
+  ...
+# Subtest: simulator prepopulates the endowment from the calculated break-even minimum
+ok 140 - simulator prepopulates the endowment from the calculated break-even minimum
+  ---
+  duration_ms: 0.224071
+  type: 'test'
+  ...
+# Subtest: canonical and social preview metadata use the direct production origin
+ok 141 - canonical and social preview metadata use the direct production origin
+  ---
+  duration_ms: 2.14471
+  type: 'test'
+  ...
+# Subtest: the social preview metadata references an existing local asset
+ok 142 - the social preview metadata references an existing local asset
+  ---
+  duration_ms: 0.189192
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/app/agent.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/source-pane-controller.test.mjs
+not ok 27 - canisters/frontend/web/test/source-pane-controller.test.mjs
+  ---
+  duration_ms: 185.27259
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/source-pane-controller.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/tracker-controller.test.mjs
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/tracker-controller.test.mjs
+not ok 28 - canisters/frontend/web/test/tracker-controller.test.mjs
+  ---
+  duration_ms: 160.510014
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/tracker-controller.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: cyclesFromLogText reads cycle balances from canister log messages
+ok 145 - cyclesFromLogText reads cycle balances from canister log messages
+  ---
+  duration_ms: 1.181387
+  type: 'test'
+  ...
+# Subtest: burn estimate falls back to log samples when probe history has fewer than two points
+ok 146 - burn estimate falls back to log samples when probe history has fewer than two points
+  ---
+  duration_ms: 1.045324
+  type: 'test'
+  ...
+# Subtest: burn estimate accounts for observed top-ups when probe balances grow
+ok 147 - burn estimate accounts for observed top-ups when probe balances grow
+  ---
+  duration_ms: 1.443733
+  type: 'test'
+  ...
+# Subtest: burn estimate falls back to observed balance drops when top-up conversion is unavailable
+ok 148 - burn estimate falls back to observed balance drops when top-up conversion is unavailable
+  ---
+  duration_ms: 0.322057
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:256
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@icp-sdk/core' imported from /mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/src/app/agent.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+#     at packageResolve (node:internal/modules/esm/resolve:768:81)
+#     at moduleResolve (node:internal/modules/esm/resolve:854:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:984:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:780:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:704:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:687:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:305:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:137:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.16.0
+# Subtest: canisters/frontend/web/test/xss-regression.test.mjs
+not ok 30 - canisters/frontend/web/test/xss-regression.test.mjs
+  ---
+  duration_ms: 126.75015
+  type: 'test'
+  location: '/mnt/data/jupiter_review/source/JUPITER_FAUCET_SUITE-master/canisters/frontend/web/test/xss-regression.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..149
+# tests 149
+# suites 0
+# pass 137
+# fail 12
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1130.798045

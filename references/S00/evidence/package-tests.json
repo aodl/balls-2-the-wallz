@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "scope": "S00 planning-package checks only; no DTR/BTZ compiler/runtime claims",
+  "unit_tests": {
+    "command": "python3 -B -m unittest discover -s tools -p 'test_*.py' -v",
+    "exit_code": 0,
+    "passed": 14,
+    "failed": 0,
+    "status": "PASS",
+    "log": "package-unit-tests.log"
+  },
+  "static_checks": {
+    "json_parse": "PASS",
+    "python_syntax": "PASS",
+    "markdown_fences": "PASS",
+    "relative_links": "PASS",
+    "relative_link_count": 21,
+    "reference_anchor_checks": "PASS",
+    "reference_anchor_count": 25
+  },
+  "integrity_note": "FILES.sha256 is generated after this report; independent post-generation manifest and ZIP checks are recorded in the sibling ZIP verification report, not recursively inside the manifest."
+}

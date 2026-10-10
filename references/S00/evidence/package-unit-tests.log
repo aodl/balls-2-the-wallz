@@ -1,0 +1,19 @@
+test_absolute_path (test_verify_checkpoint.CheckpointVerifierTests.test_absolute_path) ... ok
+test_backslash_path (test_verify_checkpoint.CheckpointVerifierTests.test_backslash_path) ... ok
+test_dot_component (test_verify_checkpoint.CheckpointVerifierTests.test_dot_component) ... ok
+test_duplicate_entry (test_verify_checkpoint.CheckpointVerifierTests.test_duplicate_entry) ... ok
+test_empty_manifest (test_verify_checkpoint.CheckpointVerifierTests.test_empty_manifest) ... ok
+test_invalid_hash (test_verify_checkpoint.CheckpointVerifierTests.test_invalid_hash) ... ok
+test_manifest_self_reference (test_verify_checkpoint.CheckpointVerifierTests.test_manifest_self_reference) ... ok
+test_missing_file (test_verify_checkpoint.CheckpointVerifierTests.test_missing_file) ... ok
+test_missing_manifest (test_verify_checkpoint.CheckpointVerifierTests.test_missing_manifest) ... ok
+test_modified_file (test_verify_checkpoint.CheckpointVerifierTests.test_modified_file) ... ok
+test_parent_traversal (test_verify_checkpoint.CheckpointVerifierTests.test_parent_traversal) ... ok
+test_symlink_file (test_verify_checkpoint.CheckpointVerifierTests.test_symlink_file) ... ok
+test_unlisted_file (test_verify_checkpoint.CheckpointVerifierTests.test_unlisted_file) ... ok
+test_valid_payload (test_verify_checkpoint.CheckpointVerifierTests.test_valid_payload) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.011s
+
+OK

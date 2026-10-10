@@ -1,0 +1,78 @@
+{
+  "source_archive_sha256": "ee1d10777ba365b01f9e97d5fec9aa5cd158643b4ed04bce914c76cb284deb98",
+  "summary": "Limited executable source checks; no compiled/backend audit",
+  "checks": [
+    {
+      "id": "JUP-LOCK",
+      "command": "node tools/scripts/check-npm-lock-hermetic.mjs",
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "npm-lock.log"
+    },
+    {
+      "id": "JUP-EXPORT",
+      "command": "node tools/scripts/check-frontend-exports.mjs",
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "frontend-export-boundary.log"
+    },
+    {
+      "id": "JUP-ARGS",
+      "command": "python3 tools/scripts/validate-mainnet-install-args",
+      "exit_code": 0,
+      "status": "PASS",
+      "qualification": "Release-artifact hash checks explicitly skipped because release-artifacts absent",
+      "log": "install-args-static.log"
+    },
+    {
+      "id": "JUP-ARGS-SELF",
+      "command": "python3 tools/scripts/validate-mainnet-install-args --self-test",
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "install-args-validator-self-tests.log"
+    },
+    {
+      "id": "JUP-FRONTEND",
+      "command": "node --test canisters/frontend/web/test/*.test.mjs",
+      "exit_code": 1,
+      "status": "BLOCKED",
+      "runner_result": "FAIL",
+      "passing_tests": 137,
+      "failed_test_file_imports": 12,
+      "qualification": "Missing @icp-sdk/core; no claim full suite passed. Node v22.16.0 differs from pinned CI.",
+      "log": "frontend-unit-initial.log"
+    },
+    {
+      "id": "JUP-NPM-CI",
+      "command": "npm ci --ignore-scripts --no-fund --no-audit --fetch-retries=0 --fetch-timeout=15000",
+      "exit_code": 1,
+      "status": "BLOCKED",
+      "qualification": "DNS EAI_AGAIN registry.npmjs.org",
+      "log": "npm-ci.log"
+    },
+    {
+      "id": "JUP-RUST",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "qualification": "Rust/Cargo unavailable; not executed"
+    },
+    {
+      "id": "JUP-IC",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "qualification": "IC/Wasm/PocketIC tools unavailable; not executed"
+    },
+    {
+      "id": "JUP-REPRO",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "qualification": "Docker unavailable; not executed"
+    },
+    {
+      "id": "JUP-SECURITY",
+      "status": "BLOCKED",
+      "exit_code": null,
+      "qualification": "Required build/scanner tools and package access unavailable; not executed"
+    }
+  ]
+}

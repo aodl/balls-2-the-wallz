@@ -1,0 +1,12 @@
+startup-and-moving-playhead PASS
+canvas-pixels-change-during-playback PASS
+pause-freezes-presentation PASS
+desktop-and-mobile-layout PASS
+buffer-exhaustion-stops-at-verified-head PASS
+download-recovery-resumes PASS
+reduced-motion-starts-paused PASS
+corruption-never-enters-buffer PASS
+explicit-retry-preserves-sequence PASS
+stale-load-fencing-and-finite-completion PASS
+read-only-local-request-surface PASS
+no-uncaught-page-errors PASS

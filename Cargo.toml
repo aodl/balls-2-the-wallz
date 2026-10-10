@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["crates/dtr-core", "crates/btz-protocol", "crates/dtr-source-model", "kernels/life-conformance", "kernels/btz-mechanics", "tools/conformance-native"]
+exclude = ["canisters/interface-probe", "canisters/arena-lab", "canisters/runtime-lab", "native"]
+
+[workspace.package]
+version = "0.5.0"
+edition = "2021"
+rust-version = "1.85"
+publish = false
+
+[profile.release]
+overflow-checks = true
+lto = true
+codegen-units = 1

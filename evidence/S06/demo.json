@@ -1,0 +1,16 @@
+{
+  "checkpoint": "S06",
+  "game_rules": "unchanged BTZ v3",
+  "private_progress_keeps_publication_stable": true,
+  "preceding_snapshot_downloaded_after_next_commit": true,
+  "manifest_hash": "edba08fe94d65bdf57550665dee0f3e7053e3366705a4bfe109b1c6bb76319e2",
+  "animation_format": "btz-animation-1",
+  "audit_event_bytes": 39928,
+  "animation_bytes": 4502,
+  "source_events": 166,
+  "render_events": 20,
+  "omitted_motion_events": 146,
+  "verification": "offline-pinned-content",
+  "cycles_consumed": null,
+  "scope": "Synthetic local inputs; content integrity only, not an IC certificate or production host."
+}

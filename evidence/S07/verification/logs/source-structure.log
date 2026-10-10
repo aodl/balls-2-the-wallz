@@ -1,0 +1,5 @@
+/mnt/data/dtr-suite-S07/tools/check_source.py:62: FutureWarning: Possible nested set at position 2
+  runtime_exports=re.findall(r'#[[]ic_cdk::(?:query|update)[]]\s*fn\s+(\w+)',runtime)
+PASS: 6 workspace package manifests; 72 JavaScript syntax checks; probe export inventory.
+PASS: 4 native package manifests and two laboratory source inventories (not executable type/permission validation).
+Qualification: Rust/Candid compilation, call behavior and access control execution are NOT verified here.

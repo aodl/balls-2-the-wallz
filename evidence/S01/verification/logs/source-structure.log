@@ -1,0 +1,2 @@
+PASS: 5 local-only workspace packages; 17 JavaScript syntax checks; probe export inventory.
+Qualification: Rust/Candid compilation, call behavior and access control execution are NOT verified here.

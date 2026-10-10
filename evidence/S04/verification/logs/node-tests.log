@@ -1,0 +1,6658 @@
+TAP version 13
+# Subtest: spawn-000: exhaustive placement agrees with independent masked union-find
+ok 1 - spawn-000: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 5.896742
+  type: 'test'
+  ...
+# Subtest: spawn-001: exhaustive placement agrees with independent masked union-find
+ok 2 - spawn-001: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.371732
+  type: 'test'
+  ...
+# Subtest: spawn-002: exhaustive placement agrees with independent masked union-find
+ok 3 - spawn-002: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 7.45476
+  type: 'test'
+  ...
+# Subtest: spawn-003: exhaustive placement agrees with independent masked union-find
+ok 4 - spawn-003: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.420335
+  type: 'test'
+  ...
+# Subtest: spawn-004: exhaustive placement agrees with independent masked union-find
+ok 5 - spawn-004: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.099416
+  type: 'test'
+  ...
+# Subtest: spawn-005: exhaustive placement agrees with independent masked union-find
+ok 6 - spawn-005: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.469184
+  type: 'test'
+  ...
+# Subtest: spawn-006: exhaustive placement agrees with independent masked union-find
+ok 7 - spawn-006: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.579594
+  type: 'test'
+  ...
+# Subtest: spawn-007: exhaustive placement agrees with independent masked union-find
+ok 8 - spawn-007: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.529233
+  type: 'test'
+  ...
+# Subtest: spawn-008: exhaustive placement agrees with independent masked union-find
+ok 9 - spawn-008: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.971929
+  type: 'test'
+  ...
+# Subtest: spawn-009: exhaustive placement agrees with independent masked union-find
+ok 10 - spawn-009: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.28947
+  type: 'test'
+  ...
+# Subtest: spawn-010: exhaustive placement agrees with independent masked union-find
+ok 11 - spawn-010: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.781977
+  type: 'test'
+  ...
+# Subtest: spawn-011: exhaustive placement agrees with independent masked union-find
+ok 12 - spawn-011: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 9.203467
+  type: 'test'
+  ...
+# Subtest: spawn-012: exhaustive placement agrees with independent masked union-find
+ok 13 - spawn-012: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.475627
+  type: 'test'
+  ...
+# Subtest: spawn-013: exhaustive placement agrees with independent masked union-find
+ok 14 - spawn-013: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.065655
+  type: 'test'
+  ...
+# Subtest: spawn-014: exhaustive placement agrees with independent masked union-find
+ok 15 - spawn-014: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.785648
+  type: 'test'
+  ...
+# Subtest: spawn-015: exhaustive placement agrees with independent masked union-find
+ok 16 - spawn-015: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.468842
+  type: 'test'
+  ...
+# Subtest: spawn-016: exhaustive placement agrees with independent masked union-find
+ok 17 - spawn-016: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.715026
+  type: 'test'
+  ...
+# Subtest: spawn-017: exhaustive placement agrees with independent masked union-find
+ok 18 - spawn-017: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.429755
+  type: 'test'
+  ...
+# Subtest: spawn-018: exhaustive placement agrees with independent masked union-find
+ok 19 - spawn-018: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.105446
+  type: 'test'
+  ...
+# Subtest: spawn-019: exhaustive placement agrees with independent masked union-find
+ok 20 - spawn-019: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.865964
+  type: 'test'
+  ...
+# Subtest: spawn-020: exhaustive placement agrees with independent masked union-find
+ok 21 - spawn-020: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.38397
+  type: 'test'
+  ...
+# Subtest: spawn-021: exhaustive placement agrees with independent masked union-find
+ok 22 - spawn-021: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.786853
+  type: 'test'
+  ...
+# Subtest: spawn-022: exhaustive placement agrees with independent masked union-find
+ok 23 - spawn-022: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.9763
+  type: 'test'
+  ...
+# Subtest: spawn-023: exhaustive placement agrees with independent masked union-find
+ok 24 - spawn-023: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 9.912586
+  type: 'test'
+  ...
+# Subtest: spawn-024: exhaustive placement agrees with independent masked union-find
+ok 25 - spawn-024: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.529378
+  type: 'test'
+  ...
+# Subtest: spawn-025: exhaustive placement agrees with independent masked union-find
+ok 26 - spawn-025: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.091664
+  type: 'test'
+  ...
+# Subtest: spawn-026: exhaustive placement agrees with independent masked union-find
+ok 27 - spawn-026: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.946541
+  type: 'test'
+  ...
+# Subtest: spawn-027: exhaustive placement agrees with independent masked union-find
+ok 28 - spawn-027: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.721363
+  type: 'test'
+  ...
+# Subtest: spawn-028: exhaustive placement agrees with independent masked union-find
+ok 29 - spawn-028: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.019284
+  type: 'test'
+  ...
+# Subtest: spawn-029: exhaustive placement agrees with independent masked union-find
+ok 30 - spawn-029: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.790383
+  type: 'test'
+  ...
+# Subtest: spawn-030: exhaustive placement agrees with independent masked union-find
+ok 31 - spawn-030: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.070602
+  type: 'test'
+  ...
+# Subtest: spawn-031: exhaustive placement agrees with independent masked union-find
+ok 32 - spawn-031: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.128379
+  type: 'test'
+  ...
+# Subtest: spawn-032: exhaustive placement agrees with independent masked union-find
+ok 33 - spawn-032: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.439276
+  type: 'test'
+  ...
+# Subtest: spawn-033: exhaustive placement agrees with independent masked union-find
+ok 34 - spawn-033: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.93074
+  type: 'test'
+  ...
+# Subtest: spawn-034: exhaustive placement agrees with independent masked union-find
+ok 35 - spawn-034: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.171695
+  type: 'test'
+  ...
+# Subtest: spawn-035: exhaustive placement agrees with independent masked union-find
+ok 36 - spawn-035: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.752947
+  type: 'test'
+  ...
+# Subtest: spawn-036: exhaustive placement agrees with independent masked union-find
+ok 37 - spawn-036: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.427755
+  type: 'test'
+  ...
+# Subtest: spawn-037: exhaustive placement agrees with independent masked union-find
+ok 38 - spawn-037: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.988899
+  type: 'test'
+  ...
+# Subtest: spawn-038: exhaustive placement agrees with independent masked union-find
+ok 39 - spawn-038: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.965139
+  type: 'test'
+  ...
+# Subtest: spawn-039: exhaustive placement agrees with independent masked union-find
+ok 40 - spawn-039: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.874354
+  type: 'test'
+  ...
+# Subtest: spawn-040: exhaustive placement agrees with independent masked union-find
+ok 41 - spawn-040: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.522684
+  type: 'test'
+  ...
+# Subtest: spawn-041: exhaustive placement agrees with independent masked union-find
+ok 42 - spawn-041: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 17.305594
+  type: 'test'
+  ...
+# Subtest: spawn-042: exhaustive placement agrees with independent masked union-find
+ok 43 - spawn-042: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.519553
+  type: 'test'
+  ...
+# Subtest: spawn-043: exhaustive placement agrees with independent masked union-find
+ok 44 - spawn-043: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.386309
+  type: 'test'
+  ...
+# Subtest: spawn-044: exhaustive placement agrees with independent masked union-find
+ok 45 - spawn-044: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.209938
+  type: 'test'
+  ...
+# Subtest: spawn-045: exhaustive placement agrees with independent masked union-find
+ok 46 - spawn-045: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.121597
+  type: 'test'
+  ...
+# Subtest: spawn-046: exhaustive placement agrees with independent masked union-find
+ok 47 - spawn-046: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.103081
+  type: 'test'
+  ...
+# Subtest: spawn-047: exhaustive placement agrees with independent masked union-find
+ok 48 - spawn-047: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 41.368848
+  type: 'test'
+  ...
+# Subtest: spawn-048: exhaustive placement agrees with independent masked union-find
+ok 49 - spawn-048: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.565272
+  type: 'test'
+  ...
+# Subtest: spawn-049: exhaustive placement agrees with independent masked union-find
+ok 50 - spawn-049: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.748016
+  type: 'test'
+  ...
+# Subtest: spawn-050: exhaustive placement agrees with independent masked union-find
+ok 51 - spawn-050: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 6.671069
+  type: 'test'
+  ...
+# Subtest: spawn-051: exhaustive placement agrees with independent masked union-find
+ok 52 - spawn-051: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.85182
+  type: 'test'
+  ...
+# Subtest: spawn-052: exhaustive placement agrees with independent masked union-find
+ok 53 - spawn-052: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.589925
+  type: 'test'
+  ...
+# Subtest: spawn-053: exhaustive placement agrees with independent masked union-find
+ok 54 - spawn-053: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 11.920925
+  type: 'test'
+  ...
+# Subtest: spawn-054: exhaustive placement agrees with independent masked union-find
+ok 55 - spawn-054: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.509248
+  type: 'test'
+  ...
+# Subtest: spawn-055: exhaustive placement agrees with independent masked union-find
+ok 56 - spawn-055: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.641383
+  type: 'test'
+  ...
+# Subtest: spawn-056: exhaustive placement agrees with independent masked union-find
+ok 57 - spawn-056: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 4.883394
+  type: 'test'
+  ...
+# Subtest: spawn-057: exhaustive placement agrees with independent masked union-find
+ok 58 - spawn-057: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.476374
+  type: 'test'
+  ...
+# Subtest: spawn-058: exhaustive placement agrees with independent masked union-find
+ok 59 - spawn-058: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.005324
+  type: 'test'
+  ...
+# Subtest: spawn-059: exhaustive placement agrees with independent masked union-find
+ok 60 - spawn-059: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 12.866531
+  type: 'test'
+  ...
+# Subtest: spawn-060: exhaustive placement agrees with independent masked union-find
+ok 61 - spawn-060: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.442196
+  type: 'test'
+  ...
+# Subtest: spawn-061: exhaustive placement agrees with independent masked union-find
+ok 62 - spawn-061: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.104503
+  type: 'test'
+  ...
+# Subtest: spawn-062: exhaustive placement agrees with independent masked union-find
+ok 63 - spawn-062: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.730205
+  type: 'test'
+  ...
+# Subtest: spawn-063: exhaustive placement agrees with independent masked union-find
+ok 64 - spawn-063: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.374079
+  type: 'test'
+  ...
+# Subtest: spawn-064: exhaustive placement agrees with independent masked union-find
+ok 65 - spawn-064: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.913846
+  type: 'test'
+  ...
+# Subtest: spawn-065: exhaustive placement agrees with independent masked union-find
+ok 66 - spawn-065: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 24.317026
+  type: 'test'
+  ...
+# Subtest: spawn-066: exhaustive placement agrees with independent masked union-find
+ok 67 - spawn-066: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 0.500155
+  type: 'test'
+  ...
+# Subtest: spawn-067: exhaustive placement agrees with independent masked union-find
+ok 68 - spawn-067: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 1.831732
+  type: 'test'
+  ...
+# Subtest: spawn-068: exhaustive placement agrees with independent masked union-find
+ok 69 - spawn-068: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 3.911107
+  type: 'test'
+  ...
+# Subtest: spawn-069: exhaustive placement agrees with independent masked union-find
+ok 70 - spawn-069: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.753371
+  type: 'test'
+  ...
+# Subtest: spawn-070: exhaustive placement agrees with independent masked union-find
+ok 71 - spawn-070: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 2.074819
+  type: 'test'
+  ...
+# Subtest: spawn-071: exhaustive placement agrees with independent masked union-find
+ok 72 - spawn-071: exhaustive placement agrees with independent masked union-find
+  ---
+  duration_ms: 8.94005
+  type: 'test'
+  ...
+# Subtest: all-neutral bootstrap creates one live cannon, nine cells and chosen heading
+ok 73 - all-neutral bootstrap creates one live cannon, nine cells and chosen heading
+  ---
+  duration_ms: 11.372237
+  type: 'test'
+  ...
+# Subtest: two joins in one sealed batch rebuild eligibility and never reuse ordinals
+ok 74 - two joins in one sealed batch rebuild eligibility and never reuse ordinals
+  ---
+  duration_ms: 25.741204
+  type: 'test'
+  ...
+# Subtest: same-account join then fire obeys existing-cannon pricing, not another join
+ok 75 - same-account join then fire obeys existing-cannon pricing, not another join
+  ---
+  duration_ms: 1.739713
+  type: 'test'
+  ...
+# Subtest: full-board single-owner fallback steals exactly nine cells without disconnection
+ok 76 - full-board single-owner fallback steals exactly nine cells without disconnection
+  ---
+  duration_ms: 2.108219
+  type: 'test'
+  ...
+# Subtest: live/live frontiers take precedence over interior fallback
+ok 77 - live/live frontiers take precedence over interior fallback
+  ---
+  duration_ms: 2.071804
+  type: 'test'
+  ...
+# Subtest: underfunded and impossible joins retain funds but consume no cannon ordinal
+ok 78 - underfunded and impossible joins retain funds but consume no cannon ordinal
+  ---
+  duration_ms: 0.957684
+  type: 'test'
+  ...
+# Subtest: MOVE without a cannon cannot accidentally create one
+ok 79 - MOVE without a cannon cannot accidentally create one
+  ---
+  duration_ms: 0.584321
+  type: 'test'
+  ...
+# Subtest: lifetime ordinal exhaustion fails closed, despite vacant board
+ok 80 - lifetime ordinal exhaustion fails closed, despite vacant board
+  ---
+  duration_ms: 0.533895
+  type: 'test'
+  ...
+# Subtest: maximum cannon count gives a retained capacity rejection
+ok 81 - maximum cannon count gives a retained capacity rejection
+  ---
+  duration_ms: 2.993884
+  type: 'test'
+  ...
+# Subtest: near-time opposite strikes annihilate causally at the second arrival
+ok 82 - near-time opposite strikes annihilate causally at the second arrival
+  ---
+  duration_ms: 5.867197
+  type: 'test'
+  ...
+# Subtest: exact inclusive fuse deadline admits opposite arrival before expiry
+ok 83 - exact inclusive fuse deadline admits opposite arrival before expiry
+  ---
+  duration_ms: 0.912616
+  type: 'test'
+  ...
+# Subtest: one coordinate unit too late does not undo the earlier committed capture
+ok 84 - one coordinate unit too late does not undo the earlier committed capture
+  ---
+  duration_ms: 1.002833
+  type: 'test'
+  ...
+# Subtest: outside spatial tolerance does not match even inside time window
+ok 85 - outside spatial tolerance does not match even inside time window
+  ---
+  duration_ms: 0.999307
+  type: 'test'
+  ...
+# Subtest: pending wall effects survive an exact checkpoint without late mutation of old output
+ok 86 - pending wall effects survive an exact checkpoint without late mutation of old output
+  ---
+  duration_ms: 2.227158
+  type: 'test'
+  ...
+# Subtest: checkpoint MOVE can protect a target before its pending strike expires
+ok 87 - checkpoint MOVE can protect a target before its pending strike expires
+  ---
+  duration_ms: 1.444058
+  type: 'test'
+  ...
+# Subtest: neutral capture is immediate and cannot arm an opposing-player fuse
+ok 88 - neutral capture is immediate and cannot arm an opposing-player fuse
+  ---
+  duration_ms: 0.585483
+  type: 'test'
+  ...
+# Subtest: tie pairing preserves one-to-one matches with unequal ball counts
+ok 89 - tie pairing preserves one-to-one matches with unequal ball counts
+  ---
+  duration_ms: 0.936753
+  type: 'test'
+  ...
+# Subtest: strike matcher never pairs same-side records
+ok 90 - strike matcher never pairs same-side records
+  ---
+  duration_ms: 0.196116
+  type: 'test'
+  ...
+# Subtest: fused severance preserves earned credits and neutralizes dead anchor
+ok 91 - fused severance preserves earned credits and neutralizes dead anchor
+  ---
+  duration_ms: 4.484121
+  type: 'test'
+  ...
+# Subtest: duel: optimized and full-scan modes produce identical canonical outputs
+ok 92 - duel: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.244307
+  type: 'test'
+  ...
+# Subtest: severance: optimized and full-scan modes produce identical canonical outputs
+ok 93 - severance: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.158506
+  type: 'test'
+  ...
+# Subtest: corner: optimized and full-scan modes produce identical canonical outputs
+ok 94 - corner: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 1.410977
+  type: 'test'
+  ...
+# Subtest: wall-bounce: optimized and full-scan modes produce identical canonical outputs
+ok 95 - wall-bounce: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 2.28137
+  type: 'test'
+  ...
+# Subtest: dense: optimized and full-scan modes produce identical canonical outputs
+ok 96 - dense: optimized and full-scan modes produce identical canonical outputs
+  ---
+  duration_ms: 61.058392
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 0: interruptions and input-free segmentation preserve final bytes
+ok 97 - v3 mixed workload 0: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.650682
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 1: interruptions and input-free segmentation preserve final bytes
+ok 98 - v3 mixed workload 1: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.780638
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 2: interruptions and input-free segmentation preserve final bytes
+ok 99 - v3 mixed workload 2: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.135062
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 3: interruptions and input-free segmentation preserve final bytes
+ok 100 - v3 mixed workload 3: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.896913
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 4: interruptions and input-free segmentation preserve final bytes
+ok 101 - v3 mixed workload 4: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.292281
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 5: interruptions and input-free segmentation preserve final bytes
+ok 102 - v3 mixed workload 5: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.754478
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 6: interruptions and input-free segmentation preserve final bytes
+ok 103 - v3 mixed workload 6: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 9.009916
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 7: interruptions and input-free segmentation preserve final bytes
+ok 104 - v3 mixed workload 7: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 12.471049
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 8: interruptions and input-free segmentation preserve final bytes
+ok 105 - v3 mixed workload 8: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 15.530988
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 9: interruptions and input-free segmentation preserve final bytes
+ok 106 - v3 mixed workload 9: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 15.380632
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 10: interruptions and input-free segmentation preserve final bytes
+ok 107 - v3 mixed workload 10: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 15.834165
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 11: interruptions and input-free segmentation preserve final bytes
+ok 108 - v3 mixed workload 11: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 15.399189
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 12: interruptions and input-free segmentation preserve final bytes
+ok 109 - v3 mixed workload 12: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 12.842454
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 13: interruptions and input-free segmentation preserve final bytes
+ok 110 - v3 mixed workload 13: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 10.70408
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 14: interruptions and input-free segmentation preserve final bytes
+ok 111 - v3 mixed workload 14: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 17.748783
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 15: interruptions and input-free segmentation preserve final bytes
+ok 112 - v3 mixed workload 15: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 18.452393
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 16: interruptions and input-free segmentation preserve final bytes
+ok 113 - v3 mixed workload 16: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 14.481696
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 17: interruptions and input-free segmentation preserve final bytes
+ok 114 - v3 mixed workload 17: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 14.960608
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 18: interruptions and input-free segmentation preserve final bytes
+ok 115 - v3 mixed workload 18: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.615911
+  type: 'test'
+  ...
+# Subtest: v3 mixed workload 19: interruptions and input-free segmentation preserve final bytes
+ok 116 - v3 mixed workload 19: interruptions and input-free segmentation preserve final bytes
+  ---
+  duration_ms: 8.404533
+  type: 'test'
+  ...
+# Subtest: v2 state is not silently reinterpreted as v3
+ok 117 - v2 state is not silently reinterpreted as v3
+  ---
+  duration_ms: 0.508967
+  type: 'test'
+  ...
+# Subtest: pending strike corruption and cursor checksum mismatch fail closed
+ok 118 - pending strike corruption and cursor checksum mismatch fail closed
+  ---
+  duration_ms: 1.12046
+  type: 'test'
+  ...
+# Subtest: bounded search admissions have a distinct reason from exhaustive absence
+ok 119 - bounded search admissions have a distinct reason from exhaustive absence
+  ---
+  duration_ms: 1.028
+  type: 'test'
+  ...
+# Subtest: one outstanding strike per ball bounds rapid corner-fire effects
+ok 120 - one outstanding strike per ball bounds rapid corner-fire effects
+  ---
+  duration_ms: 18.215045
+  type: 'test'
+  ...
+# Subtest: rejoining after extinction keeps accrued score and creates a younger ordinal
+ok 121 - rejoining after extinction keeps accrued score and creates a younger ordinal
+  ---
+  duration_ms: 1.364287
+  type: 'test'
+  ...
+# Subtest: global ball cap is enforced before expensive spawn
+ok 122 - global ball cap is enforced before expensive spawn
+  ---
+  duration_ms: 2.242782
+  type: 'test'
+  ...
+# Subtest: fully occupied fixture masks cannot sacrifice a cannon or ball to force a join
+ok 123 - fully occupied fixture masks cannot sacrifice a cannon or ball to force a join
+  ---
+  duration_ms: 0.497801
+  type: 'test'
+  ...
+# Subtest: impact-000: exact causal outcome and scores match independent closed-form oracle
+ok 124 - impact-000: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.431887
+  type: 'test'
+  ...
+# Subtest: impact-001: exact causal outcome and scores match independent closed-form oracle
+ok 125 - impact-001: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.280708
+  type: 'test'
+  ...
+# Subtest: impact-002: exact causal outcome and scores match independent closed-form oracle
+ok 126 - impact-002: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.687404
+  type: 'test'
+  ...
+# Subtest: impact-003: exact causal outcome and scores match independent closed-form oracle
+ok 127 - impact-003: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.10348
+  type: 'test'
+  ...
+# Subtest: impact-004: exact causal outcome and scores match independent closed-form oracle
+ok 128 - impact-004: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.634785
+  type: 'test'
+  ...
+# Subtest: impact-005: exact causal outcome and scores match independent closed-form oracle
+ok 129 - impact-005: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.462375
+  type: 'test'
+  ...
+# Subtest: impact-006: exact causal outcome and scores match independent closed-form oracle
+ok 130 - impact-006: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.61154
+  type: 'test'
+  ...
+# Subtest: impact-007: exact causal outcome and scores match independent closed-form oracle
+ok 131 - impact-007: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.595405
+  type: 'test'
+  ...
+# Subtest: impact-008: exact causal outcome and scores match independent closed-form oracle
+ok 132 - impact-008: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.701206
+  type: 'test'
+  ...
+# Subtest: impact-009: exact causal outcome and scores match independent closed-form oracle
+ok 133 - impact-009: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.211515
+  type: 'test'
+  ...
+# Subtest: impact-010: exact causal outcome and scores match independent closed-form oracle
+ok 134 - impact-010: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.601202
+  type: 'test'
+  ...
+# Subtest: impact-011: exact causal outcome and scores match independent closed-form oracle
+ok 135 - impact-011: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.717097
+  type: 'test'
+  ...
+# Subtest: impact-012: exact causal outcome and scores match independent closed-form oracle
+ok 136 - impact-012: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.873823
+  type: 'test'
+  ...
+# Subtest: impact-013: exact causal outcome and scores match independent closed-form oracle
+ok 137 - impact-013: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.574094
+  type: 'test'
+  ...
+# Subtest: impact-014: exact causal outcome and scores match independent closed-form oracle
+ok 138 - impact-014: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.576637
+  type: 'test'
+  ...
+# Subtest: impact-015: exact causal outcome and scores match independent closed-form oracle
+ok 139 - impact-015: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.5058
+  type: 'test'
+  ...
+# Subtest: impact-016: exact causal outcome and scores match independent closed-form oracle
+ok 140 - impact-016: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.853966
+  type: 'test'
+  ...
+# Subtest: impact-017: exact causal outcome and scores match independent closed-form oracle
+ok 141 - impact-017: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.653643
+  type: 'test'
+  ...
+# Subtest: impact-018: exact causal outcome and scores match independent closed-form oracle
+ok 142 - impact-018: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.069701
+  type: 'test'
+  ...
+# Subtest: impact-019: exact causal outcome and scores match independent closed-form oracle
+ok 143 - impact-019: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.705702
+  type: 'test'
+  ...
+# Subtest: impact-020: exact causal outcome and scores match independent closed-form oracle
+ok 144 - impact-020: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.216642
+  type: 'test'
+  ...
+# Subtest: impact-021: exact causal outcome and scores match independent closed-form oracle
+ok 145 - impact-021: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.150062
+  type: 'test'
+  ...
+# Subtest: impact-022: exact causal outcome and scores match independent closed-form oracle
+ok 146 - impact-022: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.579299
+  type: 'test'
+  ...
+# Subtest: impact-023: exact causal outcome and scores match independent closed-form oracle
+ok 147 - impact-023: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.167669
+  type: 'test'
+  ...
+# Subtest: impact-024: exact causal outcome and scores match independent closed-form oracle
+ok 148 - impact-024: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.788485
+  type: 'test'
+  ...
+# Subtest: impact-025: exact causal outcome and scores match independent closed-form oracle
+ok 149 - impact-025: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.567481
+  type: 'test'
+  ...
+# Subtest: impact-026: exact causal outcome and scores match independent closed-form oracle
+ok 150 - impact-026: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.629174
+  type: 'test'
+  ...
+# Subtest: impact-027: exact causal outcome and scores match independent closed-form oracle
+ok 151 - impact-027: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.149149
+  type: 'test'
+  ...
+# Subtest: impact-028: exact causal outcome and scores match independent closed-form oracle
+ok 152 - impact-028: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.664468
+  type: 'test'
+  ...
+# Subtest: impact-029: exact causal outcome and scores match independent closed-form oracle
+ok 153 - impact-029: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.76557
+  type: 'test'
+  ...
+# Subtest: impact-030: exact causal outcome and scores match independent closed-form oracle
+ok 154 - impact-030: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.994205
+  type: 'test'
+  ...
+# Subtest: impact-031: exact causal outcome and scores match independent closed-form oracle
+ok 155 - impact-031: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.628163
+  type: 'test'
+  ...
+# Subtest: impact-032: exact causal outcome and scores match independent closed-form oracle
+ok 156 - impact-032: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.164093
+  type: 'test'
+  ...
+# Subtest: impact-033: exact causal outcome and scores match independent closed-form oracle
+ok 157 - impact-033: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.170863
+  type: 'test'
+  ...
+# Subtest: impact-034: exact causal outcome and scores match independent closed-form oracle
+ok 158 - impact-034: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.24821
+  type: 'test'
+  ...
+# Subtest: impact-035: exact causal outcome and scores match independent closed-form oracle
+ok 159 - impact-035: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.836497
+  type: 'test'
+  ...
+# Subtest: impact-036: exact causal outcome and scores match independent closed-form oracle
+ok 160 - impact-036: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.201077
+  type: 'test'
+  ...
+# Subtest: impact-037: exact causal outcome and scores match independent closed-form oracle
+ok 161 - impact-037: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.67263
+  type: 'test'
+  ...
+# Subtest: impact-038: exact causal outcome and scores match independent closed-form oracle
+ok 162 - impact-038: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.571477
+  type: 'test'
+  ...
+# Subtest: impact-039: exact causal outcome and scores match independent closed-form oracle
+ok 163 - impact-039: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.790108
+  type: 'test'
+  ...
+# Subtest: impact-040: exact causal outcome and scores match independent closed-form oracle
+ok 164 - impact-040: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.382219
+  type: 'test'
+  ...
+# Subtest: impact-041: exact causal outcome and scores match independent closed-form oracle
+ok 165 - impact-041: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.859522
+  type: 'test'
+  ...
+# Subtest: impact-042: exact causal outcome and scores match independent closed-form oracle
+ok 166 - impact-042: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.4473
+  type: 'test'
+  ...
+# Subtest: impact-043: exact causal outcome and scores match independent closed-form oracle
+ok 167 - impact-043: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.449393
+  type: 'test'
+  ...
+# Subtest: impact-044: exact causal outcome and scores match independent closed-form oracle
+ok 168 - impact-044: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.246167
+  type: 'test'
+  ...
+# Subtest: impact-045: exact causal outcome and scores match independent closed-form oracle
+ok 169 - impact-045: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.574271
+  type: 'test'
+  ...
+# Subtest: impact-046: exact causal outcome and scores match independent closed-form oracle
+ok 170 - impact-046: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.612322
+  type: 'test'
+  ...
+# Subtest: impact-047: exact causal outcome and scores match independent closed-form oracle
+ok 171 - impact-047: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.573302
+  type: 'test'
+  ...
+# Subtest: impact-048: exact causal outcome and scores match independent closed-form oracle
+ok 172 - impact-048: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.564729
+  type: 'test'
+  ...
+# Subtest: impact-049: exact causal outcome and scores match independent closed-form oracle
+ok 173 - impact-049: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.239099
+  type: 'test'
+  ...
+# Subtest: impact-050: exact causal outcome and scores match independent closed-form oracle
+ok 174 - impact-050: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.766854
+  type: 'test'
+  ...
+# Subtest: impact-051: exact causal outcome and scores match independent closed-form oracle
+ok 175 - impact-051: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.589247
+  type: 'test'
+  ...
+# Subtest: impact-052: exact causal outcome and scores match independent closed-form oracle
+ok 176 - impact-052: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.547363
+  type: 'test'
+  ...
+# Subtest: impact-053: exact causal outcome and scores match independent closed-form oracle
+ok 177 - impact-053: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.699991
+  type: 'test'
+  ...
+# Subtest: impact-054: exact causal outcome and scores match independent closed-form oracle
+ok 178 - impact-054: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.170432
+  type: 'test'
+  ...
+# Subtest: impact-055: exact causal outcome and scores match independent closed-form oracle
+ok 179 - impact-055: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.45375
+  type: 'test'
+  ...
+# Subtest: impact-056: exact causal outcome and scores match independent closed-form oracle
+ok 180 - impact-056: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.145274
+  type: 'test'
+  ...
+# Subtest: impact-057: exact causal outcome and scores match independent closed-form oracle
+ok 181 - impact-057: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.734766
+  type: 'test'
+  ...
+# Subtest: impact-058: exact causal outcome and scores match independent closed-form oracle
+ok 182 - impact-058: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.580764
+  type: 'test'
+  ...
+# Subtest: impact-059: exact causal outcome and scores match independent closed-form oracle
+ok 183 - impact-059: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.992334
+  type: 'test'
+  ...
+# Subtest: impact-060: exact causal outcome and scores match independent closed-form oracle
+ok 184 - impact-060: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.323166
+  type: 'test'
+  ...
+# Subtest: impact-061: exact causal outcome and scores match independent closed-form oracle
+ok 185 - impact-061: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.55825
+  type: 'test'
+  ...
+# Subtest: impact-062: exact causal outcome and scores match independent closed-form oracle
+ok 186 - impact-062: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.589046
+  type: 'test'
+  ...
+# Subtest: impact-063: exact causal outcome and scores match independent closed-form oracle
+ok 187 - impact-063: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.534224
+  type: 'test'
+  ...
+# Subtest: impact-064: exact causal outcome and scores match independent closed-form oracle
+ok 188 - impact-064: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.415432
+  type: 'test'
+  ...
+# Subtest: impact-065: exact causal outcome and scores match independent closed-form oracle
+ok 189 - impact-065: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.039876
+  type: 'test'
+  ...
+# Subtest: impact-066: exact causal outcome and scores match independent closed-form oracle
+ok 190 - impact-066: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.487711
+  type: 'test'
+  ...
+# Subtest: impact-067: exact causal outcome and scores match independent closed-form oracle
+ok 191 - impact-067: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.062019
+  type: 'test'
+  ...
+# Subtest: impact-068: exact causal outcome and scores match independent closed-form oracle
+ok 192 - impact-068: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.723707
+  type: 'test'
+  ...
+# Subtest: impact-069: exact causal outcome and scores match independent closed-form oracle
+ok 193 - impact-069: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.58709
+  type: 'test'
+  ...
+# Subtest: impact-070: exact causal outcome and scores match independent closed-form oracle
+ok 194 - impact-070: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.220764
+  type: 'test'
+  ...
+# Subtest: impact-071: exact causal outcome and scores match independent closed-form oracle
+ok 195 - impact-071: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.615424
+  type: 'test'
+  ...
+# Subtest: impact-072: exact causal outcome and scores match independent closed-form oracle
+ok 196 - impact-072: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.598818
+  type: 'test'
+  ...
+# Subtest: impact-073: exact causal outcome and scores match independent closed-form oracle
+ok 197 - impact-073: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.680562
+  type: 'test'
+  ...
+# Subtest: impact-074: exact causal outcome and scores match independent closed-form oracle
+ok 198 - impact-074: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.699841
+  type: 'test'
+  ...
+# Subtest: impact-075: exact causal outcome and scores match independent closed-form oracle
+ok 199 - impact-075: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.508372
+  type: 'test'
+  ...
+# Subtest: impact-076: exact causal outcome and scores match independent closed-form oracle
+ok 200 - impact-076: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.098795
+  type: 'test'
+  ...
+# Subtest: impact-077: exact causal outcome and scores match independent closed-form oracle
+ok 201 - impact-077: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.174148
+  type: 'test'
+  ...
+# Subtest: impact-078: exact causal outcome and scores match independent closed-form oracle
+ok 202 - impact-078: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.072415
+  type: 'test'
+  ...
+# Subtest: impact-079: exact causal outcome and scores match independent closed-form oracle
+ok 203 - impact-079: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.015266
+  type: 'test'
+  ...
+# Subtest: impact-080: exact causal outcome and scores match independent closed-form oracle
+ok 204 - impact-080: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.315399
+  type: 'test'
+  ...
+# Subtest: impact-081: exact causal outcome and scores match independent closed-form oracle
+ok 205 - impact-081: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.631658
+  type: 'test'
+  ...
+# Subtest: impact-082: exact causal outcome and scores match independent closed-form oracle
+ok 206 - impact-082: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.544717
+  type: 'test'
+  ...
+# Subtest: impact-083: exact causal outcome and scores match independent closed-form oracle
+ok 207 - impact-083: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.704037
+  type: 'test'
+  ...
+# Subtest: impact-084: exact causal outcome and scores match independent closed-form oracle
+ok 208 - impact-084: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.241067
+  type: 'test'
+  ...
+# Subtest: impact-085: exact causal outcome and scores match independent closed-form oracle
+ok 209 - impact-085: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.888485
+  type: 'test'
+  ...
+# Subtest: impact-086: exact causal outcome and scores match independent closed-form oracle
+ok 210 - impact-086: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.065805
+  type: 'test'
+  ...
+# Subtest: impact-087: exact causal outcome and scores match independent closed-form oracle
+ok 211 - impact-087: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.472028
+  type: 'test'
+  ...
+# Subtest: impact-088: exact causal outcome and scores match independent closed-form oracle
+ok 212 - impact-088: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.110041
+  type: 'test'
+  ...
+# Subtest: impact-089: exact causal outcome and scores match independent closed-form oracle
+ok 213 - impact-089: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.499409
+  type: 'test'
+  ...
+# Subtest: impact-090: exact causal outcome and scores match independent closed-form oracle
+ok 214 - impact-090: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.551589
+  type: 'test'
+  ...
+# Subtest: impact-091: exact causal outcome and scores match independent closed-form oracle
+ok 215 - impact-091: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.762478
+  type: 'test'
+  ...
+# Subtest: impact-092: exact causal outcome and scores match independent closed-form oracle
+ok 216 - impact-092: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.51885
+  type: 'test'
+  ...
+# Subtest: impact-093: exact causal outcome and scores match independent closed-form oracle
+ok 217 - impact-093: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.205588
+  type: 'test'
+  ...
+# Subtest: impact-094: exact causal outcome and scores match independent closed-form oracle
+ok 218 - impact-094: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.710008
+  type: 'test'
+  ...
+# Subtest: impact-095: exact causal outcome and scores match independent closed-form oracle
+ok 219 - impact-095: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.501834
+  type: 'test'
+  ...
+# Subtest: impact-096: exact causal outcome and scores match independent closed-form oracle
+ok 220 - impact-096: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.913555
+  type: 'test'
+  ...
+# Subtest: impact-097: exact causal outcome and scores match independent closed-form oracle
+ok 221 - impact-097: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.190513
+  type: 'test'
+  ...
+# Subtest: impact-098: exact causal outcome and scores match independent closed-form oracle
+ok 222 - impact-098: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.154148
+  type: 'test'
+  ...
+# Subtest: impact-099: exact causal outcome and scores match independent closed-form oracle
+ok 223 - impact-099: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.033787
+  type: 'test'
+  ...
+# Subtest: impact-100: exact causal outcome and scores match independent closed-form oracle
+ok 224 - impact-100: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.114318
+  type: 'test'
+  ...
+# Subtest: impact-101: exact causal outcome and scores match independent closed-form oracle
+ok 225 - impact-101: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.560353
+  type: 'test'
+  ...
+# Subtest: impact-102: exact causal outcome and scores match independent closed-form oracle
+ok 226 - impact-102: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.997492
+  type: 'test'
+  ...
+# Subtest: impact-103: exact causal outcome and scores match independent closed-form oracle
+ok 227 - impact-103: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.519682
+  type: 'test'
+  ...
+# Subtest: impact-104: exact causal outcome and scores match independent closed-form oracle
+ok 228 - impact-104: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.230766
+  type: 'test'
+  ...
+# Subtest: impact-105: exact causal outcome and scores match independent closed-form oracle
+ok 229 - impact-105: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.544489
+  type: 'test'
+  ...
+# Subtest: impact-106: exact causal outcome and scores match independent closed-form oracle
+ok 230 - impact-106: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.497487
+  type: 'test'
+  ...
+# Subtest: impact-107: exact causal outcome and scores match independent closed-form oracle
+ok 231 - impact-107: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 1.692371
+  type: 'test'
+  ...
+# Subtest: impact-108: exact causal outcome and scores match independent closed-form oracle
+ok 232 - impact-108: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.226176
+  type: 'test'
+  ...
+# Subtest: impact-109: exact causal outcome and scores match independent closed-form oracle
+ok 233 - impact-109: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.691258
+  type: 'test'
+  ...
+# Subtest: impact-110: exact causal outcome and scores match independent closed-form oracle
+ok 234 - impact-110: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.060577
+  type: 'test'
+  ...
+# Subtest: impact-111: exact causal outcome and scores match independent closed-form oracle
+ok 235 - impact-111: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.031894
+  type: 'test'
+  ...
+# Subtest: impact-112: exact causal outcome and scores match independent closed-form oracle
+ok 236 - impact-112: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.687392
+  type: 'test'
+  ...
+# Subtest: impact-113: exact causal outcome and scores match independent closed-form oracle
+ok 237 - impact-113: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.544467
+  type: 'test'
+  ...
+# Subtest: impact-114: exact causal outcome and scores match independent closed-form oracle
+ok 238 - impact-114: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.22976
+  type: 'test'
+  ...
+# Subtest: impact-115: exact causal outcome and scores match independent closed-form oracle
+ok 239 - impact-115: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.60005
+  type: 'test'
+  ...
+# Subtest: impact-116: exact causal outcome and scores match independent closed-form oracle
+ok 240 - impact-116: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.544957
+  type: 'test'
+  ...
+# Subtest: impact-117: exact causal outcome and scores match independent closed-form oracle
+ok 241 - impact-117: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.624598
+  type: 'test'
+  ...
+# Subtest: impact-118: exact causal outcome and scores match independent closed-form oracle
+ok 242 - impact-118: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.377553
+  type: 'test'
+  ...
+# Subtest: impact-119: exact causal outcome and scores match independent closed-form oracle
+ok 243 - impact-119: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.196141
+  type: 'test'
+  ...
+# Subtest: impact-120: exact causal outcome and scores match independent closed-form oracle
+ok 244 - impact-120: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.22136
+  type: 'test'
+  ...
+# Subtest: impact-121: exact causal outcome and scores match independent closed-form oracle
+ok 245 - impact-121: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.632207
+  type: 'test'
+  ...
+# Subtest: impact-122: exact causal outcome and scores match independent closed-form oracle
+ok 246 - impact-122: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.351506
+  type: 'test'
+  ...
+# Subtest: impact-123: exact causal outcome and scores match independent closed-form oracle
+ok 247 - impact-123: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.803224
+  type: 'test'
+  ...
+# Subtest: impact-124: exact causal outcome and scores match independent closed-form oracle
+ok 248 - impact-124: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.165183
+  type: 'test'
+  ...
+# Subtest: impact-125: exact causal outcome and scores match independent closed-form oracle
+ok 249 - impact-125: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.692758
+  type: 'test'
+  ...
+# Subtest: impact-126: exact causal outcome and scores match independent closed-form oracle
+ok 250 - impact-126: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.705399
+  type: 'test'
+  ...
+# Subtest: impact-127: exact causal outcome and scores match independent closed-form oracle
+ok 251 - impact-127: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 4.256608
+  type: 'test'
+  ...
+# Subtest: impact-128: exact causal outcome and scores match independent closed-form oracle
+ok 252 - impact-128: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 3.381589
+  type: 'test'
+  ...
+# Subtest: impact-129: exact causal outcome and scores match independent closed-form oracle
+ok 253 - impact-129: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.701974
+  type: 'test'
+  ...
+# Subtest: impact-130: exact causal outcome and scores match independent closed-form oracle
+ok 254 - impact-130: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.278575
+  type: 'test'
+  ...
+# Subtest: impact-131: exact causal outcome and scores match independent closed-form oracle
+ok 255 - impact-131: exact causal outcome and scores match independent closed-form oracle
+  ---
+  duration_ms: 2.233037
+  type: 'test'
+  ...
+# Subtest: credit values beyond signed 128 bits remain exact in the reference
+ok 256 - credit values beyond signed 128 bits remain exact in the reference
+  ---
+  duration_ms: 0.614717
+  type: 'test'
+  ...
+# Subtest: spawn rejects a centre exactly on the patch boundary even when ball.cell is outside
+ok 257 - spawn rejects a centre exactly on the patch boundary even when ball.cell is outside
+  ---
+  duration_ms: 0.19275
+  type: 'test'
+  ...
+# Subtest: spawn depends on committed inputs, not JS position types or transport metadata
+ok 258 - spawn depends on committed inputs, not JS position types or transport metadata
+  ---
+  duration_ms: 8.671696
+  type: 'test'
+  ...
+# Subtest: geometry-000
+ok 259 - geometry-000
+  ---
+  duration_ms: 4.397291
+  type: 'test'
+  ...
+# Subtest: geometry-001
+ok 260 - geometry-001
+  ---
+  duration_ms: 0.30487
+  type: 'test'
+  ...
+# Subtest: geometry-002
+ok 261 - geometry-002
+  ---
+  duration_ms: 0.134924
+  type: 'test'
+  ...
+# Subtest: geometry-003
+ok 262 - geometry-003
+  ---
+  duration_ms: 0.113921
+  type: 'test'
+  ...
+# Subtest: geometry-004
+ok 263 - geometry-004
+  ---
+  duration_ms: 0.159701
+  type: 'test'
+  ...
+# Subtest: geometry-005
+ok 264 - geometry-005
+  ---
+  duration_ms: 0.08632
+  type: 'test'
+  ...
+# Subtest: geometry-006
+ok 265 - geometry-006
+  ---
+  duration_ms: 0.124047
+  type: 'test'
+  ...
+# Subtest: geometry-007
+ok 266 - geometry-007
+  ---
+  duration_ms: 0.075093
+  type: 'test'
+  ...
+# Subtest: geometry-008
+ok 267 - geometry-008
+  ---
+  duration_ms: 0.240964
+  type: 'test'
+  ...
+# Subtest: geometry-009
+ok 268 - geometry-009
+  ---
+  duration_ms: 1.865884
+  type: 'test'
+  ...
+# Subtest: geometry-010
+ok 269 - geometry-010
+  ---
+  duration_ms: 0.187904
+  type: 'test'
+  ...
+# Subtest: geometry-011
+ok 270 - geometry-011
+  ---
+  duration_ms: 0.060992
+  type: 'test'
+  ...
+# Subtest: geometry-012
+ok 271 - geometry-012
+  ---
+  duration_ms: 0.084127
+  type: 'test'
+  ...
+# Subtest: geometry-013
+ok 272 - geometry-013
+  ---
+  duration_ms: 0.052129
+  type: 'test'
+  ...
+# Subtest: geometry-014
+ok 273 - geometry-014
+  ---
+  duration_ms: 0.040321
+  type: 'test'
+  ...
+# Subtest: geometry-015
+ok 274 - geometry-015
+  ---
+  duration_ms: 0.066921
+  type: 'test'
+  ...
+# Subtest: geometry-016
+ok 275 - geometry-016
+  ---
+  duration_ms: 0.043225
+  type: 'test'
+  ...
+# Subtest: geometry-017
+ok 276 - geometry-017
+  ---
+  duration_ms: 0.037066
+  type: 'test'
+  ...
+# Subtest: geometry-018
+ok 277 - geometry-018
+  ---
+  duration_ms: 0.039369
+  type: 'test'
+  ...
+# Subtest: geometry-019
+ok 278 - geometry-019
+  ---
+  duration_ms: 0.038367
+  type: 'test'
+  ...
+# Subtest: geometry-020
+ok 279 - geometry-020
+  ---
+  duration_ms: 0.037676
+  type: 'test'
+  ...
+# Subtest: geometry-021
+ok 280 - geometry-021
+  ---
+  duration_ms: 0.037476
+  type: 'test'
+  ...
+# Subtest: geometry-022
+ok 281 - geometry-022
+  ---
+  duration_ms: 0.036335
+  type: 'test'
+  ...
+# Subtest: geometry-023
+ok 282 - geometry-023
+  ---
+  duration_ms: 0.035073
+  type: 'test'
+  ...
+# Subtest: geometry-024
+ok 283 - geometry-024
+  ---
+  duration_ms: 0.035904
+  type: 'test'
+  ...
+# Subtest: geometry-025
+ok 284 - geometry-025
+  ---
+  duration_ms: 0.039029
+  type: 'test'
+  ...
+# Subtest: geometry-026
+ok 285 - geometry-026
+  ---
+  duration_ms: 0.036135
+  type: 'test'
+  ...
+# Subtest: geometry-027
+ok 286 - geometry-027
+  ---
+  duration_ms: 0.035253
+  type: 'test'
+  ...
+# Subtest: geometry-028
+ok 287 - geometry-028
+  ---
+  duration_ms: 0.036055
+  type: 'test'
+  ...
+# Subtest: geometry-029
+ok 288 - geometry-029
+  ---
+  duration_ms: 0.038878
+  type: 'test'
+  ...
+# Subtest: geometry-030
+ok 289 - geometry-030
+  ---
+  duration_ms: 0.041743
+  type: 'test'
+  ...
+# Subtest: geometry-031
+ok 290 - geometry-031
+  ---
+  duration_ms: 0.038848
+  type: 'test'
+  ...
+# Subtest: geometry-032
+ok 291 - geometry-032
+  ---
+  duration_ms: 0.102214
+  type: 'test'
+  ...
+# Subtest: geometry-033
+ok 292 - geometry-033
+  ---
+  duration_ms: 0.065709
+  type: 'test'
+  ...
+# Subtest: geometry-034
+ok 293 - geometry-034
+  ---
+  duration_ms: 0.044818
+  type: 'test'
+  ...
+# Subtest: geometry-035
+ok 294 - geometry-035
+  ---
+  duration_ms: 0.036265
+  type: 'test'
+  ...
+# Subtest: geometry-036
+ok 295 - geometry-036
+  ---
+  duration_ms: 0.03987
+  type: 'test'
+  ...
+# Subtest: geometry-037
+ok 296 - geometry-037
+  ---
+  duration_ms: 0.052609
+  type: 'test'
+  ...
+# Subtest: geometry-038
+ok 297 - geometry-038
+  ---
+  duration_ms: 0.043576
+  type: 'test'
+  ...
+# Subtest: geometry-039
+ok 298 - geometry-039
+  ---
+  duration_ms: 0.038257
+  type: 'test'
+  ...
+# Subtest: geometry-040
+ok 299 - geometry-040
+  ---
+  duration_ms: 0.037396
+  type: 'test'
+  ...
+# Subtest: geometry-041
+ok 300 - geometry-041
+  ---
+  duration_ms: 0.054022
+  type: 'test'
+  ...
+# Subtest: geometry-042
+ok 301 - geometry-042
+  ---
+  duration_ms: 0.039309
+  type: 'test'
+  ...
+# Subtest: geometry-043
+ok 302 - geometry-043
+  ---
+  duration_ms: 0.039019
+  type: 'test'
+  ...
+# Subtest: geometry-044
+ok 303 - geometry-044
+  ---
+  duration_ms: 0.036565
+  type: 'test'
+  ...
+# Subtest: geometry-045
+ok 304 - geometry-045
+  ---
+  duration_ms: 0.035383
+  type: 'test'
+  ...
+# Subtest: geometry-046
+ok 305 - geometry-046
+  ---
+  duration_ms: 0.034732
+  type: 'test'
+  ...
+# Subtest: geometry-047
+ok 306 - geometry-047
+  ---
+  duration_ms: 0.074492
+  type: 'test'
+  ...
+# Subtest: geometry-048
+ok 307 - geometry-048
+  ---
+  duration_ms: 0.035704
+  type: 'test'
+  ...
+# Subtest: geometry-049
+ok 308 - geometry-049
+  ---
+  duration_ms: 0.038718
+  type: 'test'
+  ...
+# Subtest: geometry-050
+ok 309 - geometry-050
+  ---
+  duration_ms: 0.035293
+  type: 'test'
+  ...
+# Subtest: geometry-051
+ok 310 - geometry-051
+  ---
+  duration_ms: 0.034752
+  type: 'test'
+  ...
+# Subtest: geometry-052
+ok 311 - geometry-052
+  ---
+  duration_ms: 0.929181
+  type: 'test'
+  ...
+# Subtest: geometry-053
+ok 312 - geometry-053
+  ---
+  duration_ms: 0.166751
+  type: 'test'
+  ...
+# Subtest: geometry-054
+ok 313 - geometry-054
+  ---
+  duration_ms: 0.081243
+  type: 'test'
+  ...
+# Subtest: geometry-055
+ok 314 - geometry-055
+  ---
+  duration_ms: 0.043336
+  type: 'test'
+  ...
+# Subtest: geometry-056
+ok 315 - geometry-056
+  ---
+  duration_ms: 0.041342
+  type: 'test'
+  ...
+# Subtest: geometry-057
+ok 316 - geometry-057
+  ---
+  duration_ms: 0.035002
+  type: 'test'
+  ...
+# Subtest: geometry-058
+ok 317 - geometry-058
+  ---
+  duration_ms: 0.032359
+  type: 'test'
+  ...
+# Subtest: geometry-059
+ok 318 - geometry-059
+  ---
+  duration_ms: 0.032279
+  type: 'test'
+  ...
+# Subtest: geometry-060
+ok 319 - geometry-060
+  ---
+  duration_ms: 0.032489
+  type: 'test'
+  ...
+# Subtest: geometry-061
+ok 320 - geometry-061
+  ---
+  duration_ms: 0.03294
+  type: 'test'
+  ...
+# Subtest: geometry-062
+ok 321 - geometry-062
+  ---
+  duration_ms: 0.03331
+  type: 'test'
+  ...
+# Subtest: geometry-063
+ok 322 - geometry-063
+  ---
+  duration_ms: 0.031297
+  type: 'test'
+  ...
+# Subtest: geometry-064
+ok 323 - geometry-064
+  ---
+  duration_ms: 0.032659
+  type: 'test'
+  ...
+# Subtest: geometry-065
+ok 324 - geometry-065
+  ---
+  duration_ms: 0.034111
+  type: 'test'
+  ...
+# Subtest: geometry-066
+ok 325 - geometry-066
+  ---
+  duration_ms: 0.032158
+  type: 'test'
+  ...
+# Subtest: geometry-067
+ok 326 - geometry-067
+  ---
+  duration_ms: 0.03263
+  type: 'test'
+  ...
+# Subtest: geometry-068
+ok 327 - geometry-068
+  ---
+  duration_ms: 0.032389
+  type: 'test'
+  ...
+# Subtest: geometry-069
+ok 328 - geometry-069
+  ---
+  duration_ms: 0.033641
+  type: 'test'
+  ...
+# Subtest: geometry-070
+ok 329 - geometry-070
+  ---
+  duration_ms: 0.061633
+  type: 'test'
+  ...
+# Subtest: geometry-071
+ok 330 - geometry-071
+  ---
+  duration_ms: 0.035944
+  type: 'test'
+  ...
+# Subtest: geometry-072
+ok 331 - geometry-072
+  ---
+  duration_ms: 0.061933
+  type: 'test'
+  ...
+# Subtest: geometry-073
+ok 332 - geometry-073
+  ---
+  duration_ms: 0.035734
+  type: 'test'
+  ...
+# Subtest: geometry-074
+ok 333 - geometry-074
+  ---
+  duration_ms: 0.033371
+  type: 'test'
+  ...
+# Subtest: geometry-075
+ok 334 - geometry-075
+  ---
+  duration_ms: 0.032179
+  type: 'test'
+  ...
+# Subtest: geometry-076
+ok 335 - geometry-076
+  ---
+  duration_ms: 0.03304
+  type: 'test'
+  ...
+# Subtest: geometry-077
+ok 336 - geometry-077
+  ---
+  duration_ms: 0.033
+  type: 'test'
+  ...
+# Subtest: geometry-078
+ok 337 - geometry-078
+  ---
+  duration_ms: 0.03299
+  type: 'test'
+  ...
+# Subtest: geometry-079
+ok 338 - geometry-079
+  ---
+  duration_ms: 0.033651
+  type: 'test'
+  ...
+# Subtest: geometry-080
+ok 339 - geometry-080
+  ---
+  duration_ms: 0.03277
+  type: 'test'
+  ...
+# Subtest: geometry-081
+ok 340 - geometry-081
+  ---
+  duration_ms: 0.030766
+  type: 'test'
+  ...
+# Subtest: geometry-082
+ok 341 - geometry-082
+  ---
+  duration_ms: 0.033371
+  type: 'test'
+  ...
+# Subtest: geometry-083
+ok 342 - geometry-083
+  ---
+  duration_ms: 0.037326
+  type: 'test'
+  ...
+# Subtest: geometry-084
+ok 343 - geometry-084
+  ---
+  duration_ms: 0.033391
+  type: 'test'
+  ...
+# Subtest: geometry-085
+ok 344 - geometry-085
+  ---
+  duration_ms: 0.036455
+  type: 'test'
+  ...
+# Subtest: geometry-086
+ok 345 - geometry-086
+  ---
+  duration_ms: 0.128774
+  type: 'test'
+  ...
+# Subtest: geometry-087
+ok 346 - geometry-087
+  ---
+  duration_ms: 0.044457
+  type: 'test'
+  ...
+# Subtest: geometry-088
+ok 347 - geometry-088
+  ---
+  duration_ms: 0.035003
+  type: 'test'
+  ...
+# Subtest: geometry-089
+ok 348 - geometry-089
+  ---
+  duration_ms: 0.035073
+  type: 'test'
+  ...
+# Subtest: geometry-090
+ok 349 - geometry-090
+  ---
+  duration_ms: 0.034742
+  type: 'test'
+  ...
+# Subtest: geometry-091
+ok 350 - geometry-091
+  ---
+  duration_ms: 0.033431
+  type: 'test'
+  ...
+# Subtest: geometry-092
+ok 351 - geometry-092
+  ---
+  duration_ms: 0.047302
+  type: 'test'
+  ...
+# Subtest: geometry-093
+ok 352 - geometry-093
+  ---
+  duration_ms: 0.035033
+  type: 'test'
+  ...
+# Subtest: geometry-094
+ok 353 - geometry-094
+  ---
+  duration_ms: 0.034451
+  type: 'test'
+  ...
+# Subtest: geometry-095
+ok 354 - geometry-095
+  ---
+  duration_ms: 0.035714
+  type: 'test'
+  ...
+# Subtest: geometry-096
+ok 355 - geometry-096
+  ---
+  duration_ms: 0.0333
+  type: 'test'
+  ...
+# Subtest: geometry-097
+ok 356 - geometry-097
+  ---
+  duration_ms: 0.035753
+  type: 'test'
+  ...
+# Subtest: geometry-098
+ok 357 - geometry-098
+  ---
+  duration_ms: 0.032028
+  type: 'test'
+  ...
+# Subtest: geometry-099
+ok 358 - geometry-099
+  ---
+  duration_ms: 0.032459
+  type: 'test'
+  ...
+# Subtest: geometry-100
+ok 359 - geometry-100
+  ---
+  duration_ms: 0.040111
+  type: 'test'
+  ...
+# Subtest: geometry-101
+ok 360 - geometry-101
+  ---
+  duration_ms: 0.034091
+  type: 'test'
+  ...
+# Subtest: geometry-102
+ok 361 - geometry-102
+  ---
+  duration_ms: 0.037807
+  type: 'test'
+  ...
+# Subtest: geometry-103
+ok 362 - geometry-103
+  ---
+  duration_ms: 0.033841
+  type: 'test'
+  ...
+# Subtest: geometry-104
+ok 363 - geometry-104
+  ---
+  duration_ms: 0.037106
+  type: 'test'
+  ...
+# Subtest: geometry-105
+ok 364 - geometry-105
+  ---
+  duration_ms: 0.03338
+  type: 'test'
+  ...
+# Subtest: geometry-106
+ok 365 - geometry-106
+  ---
+  duration_ms: 0.034943
+  type: 'test'
+  ...
+# Subtest: geometry-107
+ok 366 - geometry-107
+  ---
+  duration_ms: 0.03319
+  type: 'test'
+  ...
+# Subtest: geometry-108
+ok 367 - geometry-108
+  ---
+  duration_ms: 0.034282
+  type: 'test'
+  ...
+# Subtest: geometry-109
+ok 368 - geometry-109
+  ---
+  duration_ms: 0.032179
+  type: 'test'
+  ...
+# Subtest: geometry-110
+ok 369 - geometry-110
+  ---
+  duration_ms: 0.043566
+  type: 'test'
+  ...
+# Subtest: geometry-111
+ok 370 - geometry-111
+  ---
+  duration_ms: 0.046049
+  type: 'test'
+  ...
+# Subtest: geometry-112
+ok 371 - geometry-112
+  ---
+  duration_ms: 0.068594
+  type: 'test'
+  ...
+# Subtest: geometry-113
+ok 372 - geometry-113
+  ---
+  duration_ms: 0.050927
+  type: 'test'
+  ...
+# Subtest: geometry-114
+ok 373 - geometry-114
+  ---
+  duration_ms: 0.042544
+  type: 'test'
+  ...
+# Subtest: geometry-115
+ok 374 - geometry-115
+  ---
+  duration_ms: 0.044196
+  type: 'test'
+  ...
+# Subtest: geometry-116
+ok 375 - geometry-116
+  ---
+  duration_ms: 0.042715
+  type: 'test'
+  ...
+# Subtest: geometry-117
+ok 376 - geometry-117
+  ---
+  duration_ms: 0.044848
+  type: 'test'
+  ...
+# Subtest: geometry-118
+ok 377 - geometry-118
+  ---
+  duration_ms: 0.044367
+  type: 'test'
+  ...
+# Subtest: geometry-119
+ok 378 - geometry-119
+  ---
+  duration_ms: 0.046209
+  type: 'test'
+  ...
+# Subtest: geometry-120
+ok 379 - geometry-120
+  ---
+  duration_ms: 0.042013
+  type: 'test'
+  ...
+# Subtest: geometry-121
+ok 380 - geometry-121
+  ---
+  duration_ms: 0.043365
+  type: 'test'
+  ...
+# Subtest: geometry-122
+ok 381 - geometry-122
+  ---
+  duration_ms: 0.044237
+  type: 'test'
+  ...
+# Subtest: geometry-123
+ok 382 - geometry-123
+  ---
+  duration_ms: 0.228034
+  type: 'test'
+  ...
+# Subtest: geometry-124
+ok 383 - geometry-124
+  ---
+  duration_ms: 0.052089
+  type: 'test'
+  ...
+# Subtest: geometry-125
+ok 384 - geometry-125
+  ---
+  duration_ms: 0.042955
+  type: 'test'
+  ...
+# Subtest: geometry-126
+ok 385 - geometry-126
+  ---
+  duration_ms: 0.050967
+  type: 'test'
+  ...
+# Subtest: geometry-127
+ok 386 - geometry-127
+  ---
+  duration_ms: 0.07319
+  type: 'test'
+  ...
+# Subtest: geometry-128
+ok 387 - geometry-128
+  ---
+  duration_ms: 0.044367
+  type: 'test'
+  ...
+# Subtest: geometry-129
+ok 388 - geometry-129
+  ---
+  duration_ms: 0.039089
+  type: 'test'
+  ...
+# Subtest: geometry-130
+ok 389 - geometry-130
+  ---
+  duration_ms: 0.041012
+  type: 'test'
+  ...
+# Subtest: geometry-131
+ok 390 - geometry-131
+  ---
+  duration_ms: 0.03979
+  type: 'test'
+  ...
+# Subtest: geometry-132
+ok 391 - geometry-132
+  ---
+  duration_ms: 0.035965
+  type: 'test'
+  ...
+# Subtest: geometry-133
+ok 392 - geometry-133
+  ---
+  duration_ms: 0.039019
+  type: 'test'
+  ...
+# Subtest: geometry-134
+ok 393 - geometry-134
+  ---
+  duration_ms: 0.043215
+  type: 'test'
+  ...
+# Subtest: geometry-135
+ok 394 - geometry-135
+  ---
+  duration_ms: 0.040692
+  type: 'test'
+  ...
+# Subtest: geometry-136
+ok 395 - geometry-136
+  ---
+  duration_ms: 0.042264
+  type: 'test'
+  ...
+# Subtest: geometry-137
+ok 396 - geometry-137
+  ---
+  duration_ms: 0.048844
+  type: 'test'
+  ...
+# Subtest: geometry-138
+ok 397 - geometry-138
+  ---
+  duration_ms: 0.042294
+  type: 'test'
+  ...
+# Subtest: geometry-139
+ok 398 - geometry-139
+  ---
+  duration_ms: 0.04039
+  type: 'test'
+  ...
+# Subtest: geometry-140
+ok 399 - geometry-140
+  ---
+  duration_ms: 0.042304
+  type: 'test'
+  ...
+# Subtest: geometry-141
+ok 400 - geometry-141
+  ---
+  duration_ms: 0.03957
+  type: 'test'
+  ...
+# Subtest: geometry-142
+ok 401 - geometry-142
+  ---
+  duration_ms: 0.041973
+  type: 'test'
+  ...
+# Subtest: geometry-143
+ok 402 - geometry-143
+  ---
+  duration_ms: 0.066521
+  type: 'test'
+  ...
+# Subtest: geometry-144
+ok 403 - geometry-144
+  ---
+  duration_ms: 0.04676
+  type: 'test'
+  ...
+# Subtest: geometry-145
+ok 404 - geometry-145
+  ---
+  duration_ms: 0.042074
+  type: 'test'
+  ...
+# Subtest: geometry-146
+ok 405 - geometry-146
+  ---
+  duration_ms: 0.03966
+  type: 'test'
+  ...
+# Subtest: geometry-147
+ok 406 - geometry-147
+  ---
+  duration_ms: 0.041353
+  type: 'test'
+  ...
+# Subtest: geometry-148
+ok 407 - geometry-148
+  ---
+  duration_ms: 0.044057
+  type: 'test'
+  ...
+# Subtest: geometry-149
+ok 408 - geometry-149
+  ---
+  duration_ms: 0.03982
+  type: 'test'
+  ...
+# Subtest: geometry-150
+ok 409 - geometry-150
+  ---
+  duration_ms: 0.064096
+  type: 'test'
+  ...
+# Subtest: geometry-151
+ok 410 - geometry-151
+  ---
+  duration_ms: 0.03955
+  type: 'test'
+  ...
+# Subtest: geometry-152
+ok 411 - geometry-152
+  ---
+  duration_ms: 0.035934
+  type: 'test'
+  ...
+# Subtest: geometry-153
+ok 412 - geometry-153
+  ---
+  duration_ms: 0.036315
+  type: 'test'
+  ...
+# Subtest: geometry-154
+ok 413 - geometry-154
+  ---
+  duration_ms: 0.040902
+  type: 'test'
+  ...
+# Subtest: geometry-155
+ok 414 - geometry-155
+  ---
+  duration_ms: 0.035314
+  type: 'test'
+  ...
+# Subtest: geometry-156
+ok 415 - geometry-156
+  ---
+  duration_ms: 0.037376
+  type: 'test'
+  ...
+# Subtest: geometry-157
+ok 416 - geometry-157
+  ---
+  duration_ms: 0.036034
+  type: 'test'
+  ...
+# Subtest: geometry-158
+ok 417 - geometry-158
+  ---
+  duration_ms: 0.037035
+  type: 'test'
+  ...
+# Subtest: geometry-159
+ok 418 - geometry-159
+  ---
+  duration_ms: 0.037266
+  type: 'test'
+  ...
+# Subtest: capture-000: independent union-find comparison
+ok 419 - capture-000: independent union-find comparison
+  ---
+  duration_ms: 4.459815
+  type: 'test'
+  ...
+# Subtest: capture-001: independent union-find comparison
+ok 420 - capture-001: independent union-find comparison
+  ---
+  duration_ms: 1.786133
+  type: 'test'
+  ...
+# Subtest: capture-002: independent union-find comparison
+ok 421 - capture-002: independent union-find comparison
+  ---
+  duration_ms: 2.064123
+  type: 'test'
+  ...
+# Subtest: capture-003: independent union-find comparison
+ok 422 - capture-003: independent union-find comparison
+  ---
+  duration_ms: 5.559122
+  type: 'test'
+  ...
+# Subtest: capture-004: independent union-find comparison
+ok 423 - capture-004: independent union-find comparison
+  ---
+  duration_ms: 4.601859
+  type: 'test'
+  ...
+# Subtest: capture-005: independent union-find comparison
+ok 424 - capture-005: independent union-find comparison
+  ---
+  duration_ms: 4.316268
+  type: 'test'
+  ...
+# Subtest: capture-006: independent union-find comparison
+ok 425 - capture-006: independent union-find comparison
+  ---
+  duration_ms: 2.532529
+  type: 'test'
+  ...
+# Subtest: capture-007: independent union-find comparison
+ok 426 - capture-007: independent union-find comparison
+  ---
+  duration_ms: 2.356133
+  type: 'test'
+  ...
+# Subtest: capture-008: independent union-find comparison
+ok 427 - capture-008: independent union-find comparison
+  ---
+  duration_ms: 2.225386
+  type: 'test'
+  ...
+# Subtest: capture-009: independent union-find comparison
+ok 428 - capture-009: independent union-find comparison
+  ---
+  duration_ms: 4.68862
+  type: 'test'
+  ...
+# Subtest: capture-010: independent union-find comparison
+ok 429 - capture-010: independent union-find comparison
+  ---
+  duration_ms: 4.593165
+  type: 'test'
+  ...
+# Subtest: capture-011: independent union-find comparison
+ok 430 - capture-011: independent union-find comparison
+  ---
+  duration_ms: 4.584382
+  type: 'test'
+  ...
+# Subtest: capture-012: independent union-find comparison
+ok 431 - capture-012: independent union-find comparison
+  ---
+  duration_ms: 2.129031
+  type: 'test'
+  ...
+# Subtest: capture-013: independent union-find comparison
+ok 432 - capture-013: independent union-find comparison
+  ---
+  duration_ms: 2.199207
+  type: 'test'
+  ...
+# Subtest: capture-014: independent union-find comparison
+ok 433 - capture-014: independent union-find comparison
+  ---
+  duration_ms: 2.341941
+  type: 'test'
+  ...
+# Subtest: capture-015: independent union-find comparison
+ok 434 - capture-015: independent union-find comparison
+  ---
+  duration_ms: 2.643526
+  type: 'test'
+  ...
+# Subtest: capture-016: independent union-find comparison
+ok 435 - capture-016: independent union-find comparison
+  ---
+  duration_ms: 4.18479
+  type: 'test'
+  ...
+# Subtest: capture-017: independent union-find comparison
+ok 436 - capture-017: independent union-find comparison
+  ---
+  duration_ms: 4.150959
+  type: 'test'
+  ...
+# Subtest: capture-018: independent union-find comparison
+ok 437 - capture-018: independent union-find comparison
+  ---
+  duration_ms: 2.935176
+  type: 'test'
+  ...
+# Subtest: capture-019: independent union-find comparison
+ok 438 - capture-019: independent union-find comparison
+  ---
+  duration_ms: 2.88546
+  type: 'test'
+  ...
+# Subtest: capture-020: independent union-find comparison
+ok 439 - capture-020: independent union-find comparison
+  ---
+  duration_ms: 2.465367
+  type: 'test'
+  ...
+# Subtest: capture-021: independent union-find comparison
+ok 440 - capture-021: independent union-find comparison
+  ---
+  duration_ms: 5.084086
+  type: 'test'
+  ...
+# Subtest: capture-022: independent union-find comparison
+ok 441 - capture-022: independent union-find comparison
+  ---
+  duration_ms: 5.038577
+  type: 'test'
+  ...
+# Subtest: capture-023: independent union-find comparison
+ok 442 - capture-023: independent union-find comparison
+  ---
+  duration_ms: 5.824232
+  type: 'test'
+  ...
+# Subtest: capture-024: independent union-find comparison
+ok 443 - capture-024: independent union-find comparison
+  ---
+  duration_ms: 1.687474
+  type: 'test'
+  ...
+# Subtest: capture-025: independent union-find comparison
+ok 444 - capture-025: independent union-find comparison
+  ---
+  duration_ms: 6.979714
+  type: 'test'
+  ...
+# Subtest: capture-026: independent union-find comparison
+ok 445 - capture-026: independent union-find comparison
+  ---
+  duration_ms: 1.532231
+  type: 'test'
+  ...
+# Subtest: capture-027: independent union-find comparison
+ok 446 - capture-027: independent union-find comparison
+  ---
+  duration_ms: 1.685742
+  type: 'test'
+  ...
+# Subtest: capture-028: independent union-find comparison
+ok 447 - capture-028: independent union-find comparison
+  ---
+  duration_ms: 1.466942
+  type: 'test'
+  ...
+# Subtest: capture-029: independent union-find comparison
+ok 448 - capture-029: independent union-find comparison
+  ---
+  duration_ms: 1.508876
+  type: 'test'
+  ...
+# Subtest: capture-030: independent union-find comparison
+ok 449 - capture-030: independent union-find comparison
+  ---
+  duration_ms: 1.45248
+  type: 'test'
+  ...
+# Subtest: capture-031: independent union-find comparison
+ok 450 - capture-031: independent union-find comparison
+  ---
+  duration_ms: 1.699002
+  type: 'test'
+  ...
+# Subtest: capture-032: independent union-find comparison
+ok 451 - capture-032: independent union-find comparison
+  ---
+  duration_ms: 1.77033
+  type: 'test'
+  ...
+# Subtest: capture-033: independent union-find comparison
+ok 452 - capture-033: independent union-find comparison
+  ---
+  duration_ms: 3.034286
+  type: 'test'
+  ...
+# Subtest: capture-034: independent union-find comparison
+ok 453 - capture-034: independent union-find comparison
+  ---
+  duration_ms: 4.487836
+  type: 'test'
+  ...
+# Subtest: capture-035: independent union-find comparison
+ok 454 - capture-035: independent union-find comparison
+  ---
+  duration_ms: 3.343852
+  type: 'test'
+  ...
+# Subtest: capture-036: independent union-find comparison
+ok 455 - capture-036: independent union-find comparison
+  ---
+  duration_ms: 4.801781
+  type: 'test'
+  ...
+# Subtest: capture-037: independent union-find comparison
+ok 456 - capture-037: independent union-find comparison
+  ---
+  duration_ms: 4.95452
+  type: 'test'
+  ...
+# Subtest: capture-038: independent union-find comparison
+ok 457 - capture-038: independent union-find comparison
+  ---
+  duration_ms: 4.211771
+  type: 'test'
+  ...
+# Subtest: capture-039: independent union-find comparison
+ok 458 - capture-039: independent union-find comparison
+  ---
+  duration_ms: 2.017141
+  type: 'test'
+  ...
+# Subtest: capture-040: independent union-find comparison
+ok 459 - capture-040: independent union-find comparison
+  ---
+  duration_ms: 2.543565
+  type: 'test'
+  ...
+# Subtest: capture-041: independent union-find comparison
+ok 460 - capture-041: independent union-find comparison
+  ---
+  duration_ms: 2.189251
+  type: 'test'
+  ...
+# Subtest: capture-042: independent union-find comparison
+ok 461 - capture-042: independent union-find comparison
+  ---
+  duration_ms: 2.270144
+  type: 'test'
+  ...
+# Subtest: capture-043: independent union-find comparison
+ok 462 - capture-043: independent union-find comparison
+  ---
+  duration_ms: 2.698969
+  type: 'test'
+  ...
+# Subtest: capture-044: independent union-find comparison
+ok 463 - capture-044: independent union-find comparison
+  ---
+  duration_ms: 2.270804
+  type: 'test'
+  ...
+# Subtest: capture-045: independent union-find comparison
+ok 464 - capture-045: independent union-find comparison
+  ---
+  duration_ms: 4.346814
+  type: 'test'
+  ...
+# Subtest: capture-046: independent union-find comparison
+ok 465 - capture-046: independent union-find comparison
+  ---
+  duration_ms: 4.042575
+  type: 'test'
+  ...
+# Subtest: capture-047: independent union-find comparison
+ok 466 - capture-047: independent union-find comparison
+  ---
+  duration_ms: 3.943275
+  type: 'test'
+  ...
+# Subtest: capture-048: independent union-find comparison
+ok 467 - capture-048: independent union-find comparison
+  ---
+  duration_ms: 5.29213
+  type: 'test'
+  ...
+# Subtest: capture-049: independent union-find comparison
+ok 468 - capture-049: independent union-find comparison
+  ---
+  duration_ms: 4.70193
+  type: 'test'
+  ...
+# Subtest: capture-050: independent union-find comparison
+ok 469 - capture-050: independent union-find comparison
+  ---
+  duration_ms: 4.872147
+  type: 'test'
+  ...
+# Subtest: capture-051: independent union-find comparison
+ok 470 - capture-051: independent union-find comparison
+  ---
+  duration_ms: 1.606893
+  type: 'test'
+  ...
+# Subtest: capture-052: independent union-find comparison
+ok 471 - capture-052: independent union-find comparison
+  ---
+  duration_ms: 1.584089
+  type: 'test'
+  ...
+# Subtest: capture-053: independent union-find comparison
+ok 472 - capture-053: independent union-find comparison
+  ---
+  duration_ms: 1.928118
+  type: 'test'
+  ...
+# Subtest: capture-054: independent union-find comparison
+ok 473 - capture-054: independent union-find comparison
+  ---
+  duration_ms: 2.740342
+  type: 'test'
+  ...
+# Subtest: capture-055: independent union-find comparison
+ok 474 - capture-055: independent union-find comparison
+  ---
+  duration_ms: 2.993424
+  type: 'test'
+  ...
+# Subtest: capture-056: independent union-find comparison
+ok 475 - capture-056: independent union-find comparison
+  ---
+  duration_ms: 2.789706
+  type: 'test'
+  ...
+# Subtest: capture-057: independent union-find comparison
+ok 476 - capture-057: independent union-find comparison
+  ---
+  duration_ms: 9.643231
+  type: 'test'
+  ...
+# Subtest: capture-058: independent union-find comparison
+ok 477 - capture-058: independent union-find comparison
+  ---
+  duration_ms: 7.796526
+  type: 'test'
+  ...
+# Subtest: capture-059: independent union-find comparison
+ok 478 - capture-059: independent union-find comparison
+  ---
+  duration_ms: 6.790849
+  type: 'test'
+  ...
+# Subtest: capture-060: independent union-find comparison
+ok 479 - capture-060: independent union-find comparison
+  ---
+  duration_ms: 2.36083
+  type: 'test'
+  ...
+# Subtest: capture-061: independent union-find comparison
+ok 480 - capture-061: independent union-find comparison
+  ---
+  duration_ms: 2.038054
+  type: 'test'
+  ...
+# Subtest: capture-062: independent union-find comparison
+ok 481 - capture-062: independent union-find comparison
+  ---
+  duration_ms: 2.090552
+  type: 'test'
+  ...
+# Subtest: capture-063: independent union-find comparison
+ok 482 - capture-063: independent union-find comparison
+  ---
+  duration_ms: 4.245081
+  type: 'test'
+  ...
+# Subtest: capture-064: independent union-find comparison
+ok 483 - capture-064: independent union-find comparison
+  ---
+  duration_ms: 4.175396
+  type: 'test'
+  ...
+# Subtest: capture-065: independent union-find comparison
+ok 484 - capture-065: independent union-find comparison
+  ---
+  duration_ms: 4.334967
+  type: 'test'
+  ...
+# Subtest: capture-066: independent union-find comparison
+ok 485 - capture-066: independent union-find comparison
+  ---
+  duration_ms: 2.507651
+  type: 'test'
+  ...
+# Subtest: capture-067: independent union-find comparison
+ok 486 - capture-067: independent union-find comparison
+  ---
+  duration_ms: 2.112045
+  type: 'test'
+  ...
+# Subtest: capture-068: independent union-find comparison
+ok 487 - capture-068: independent union-find comparison
+  ---
+  duration_ms: 2.522073
+  type: 'test'
+  ...
+# Subtest: capture-069: independent union-find comparison
+ok 488 - capture-069: independent union-find comparison
+  ---
+  duration_ms: 5.37184
+  type: 'test'
+  ...
+# Subtest: capture-070: independent union-find comparison
+ok 489 - capture-070: independent union-find comparison
+  ---
+  duration_ms: 5.319971
+  type: 'test'
+  ...
+# Subtest: capture-071: independent union-find comparison
+ok 490 - capture-071: independent union-find comparison
+  ---
+  duration_ms: 7.432167
+  type: 'test'
+  ...
+# Subtest: capture-072: independent union-find comparison
+ok 491 - capture-072: independent union-find comparison
+  ---
+  duration_ms: 2.4736
+  type: 'test'
+  ...
+# Subtest: capture-073: independent union-find comparison
+ok 492 - capture-073: independent union-find comparison
+  ---
+  duration_ms: 3.082799
+  type: 'test'
+  ...
+# Subtest: capture-074: independent union-find comparison
+ok 493 - capture-074: independent union-find comparison
+  ---
+  duration_ms: 2.408221
+  type: 'test'
+  ...
+# Subtest: capture-075: independent union-find comparison
+ok 494 - capture-075: independent union-find comparison
+  ---
+  duration_ms: 4.667048
+  type: 'test'
+  ...
+# Subtest: capture-076: independent union-find comparison
+ok 495 - capture-076: independent union-find comparison
+  ---
+  duration_ms: 4.765164
+  type: 'test'
+  ...
+# Subtest: capture-077: independent union-find comparison
+ok 496 - capture-077: independent union-find comparison
+  ---
+  duration_ms: 4.671313
+  type: 'test'
+  ...
+# Subtest: capture-078: independent union-find comparison
+ok 497 - capture-078: independent union-find comparison
+  ---
+  duration_ms: 1.349125
+  type: 'test'
+  ...
+# Subtest: capture-079: independent union-find comparison
+ok 498 - capture-079: independent union-find comparison
+  ---
+  duration_ms: 1.328544
+  type: 'test'
+  ...
+# Subtest: capture-080: independent union-find comparison
+ok 499 - capture-080: independent union-find comparison
+  ---
+  duration_ms: 1.032376
+  type: 'test'
+  ...
+# Subtest: capture-081: independent union-find comparison
+ok 500 - capture-081: independent union-find comparison
+  ---
+  duration_ms: 4.230379
+  type: 'test'
+  ...
+# Subtest: capture-082: independent union-find comparison
+ok 501 - capture-082: independent union-find comparison
+  ---
+  duration_ms: 4.539846
+  type: 'test'
+  ...
+# Subtest: capture-083: independent union-find comparison
+ok 502 - capture-083: independent union-find comparison
+  ---
+  duration_ms: 2.83846
+  type: 'test'
+  ...
+# Subtest: capture-084: independent union-find comparison
+ok 503 - capture-084: independent union-find comparison
+  ---
+  duration_ms: 1.868437
+  type: 'test'
+  ...
+# Subtest: capture-085: independent union-find comparison
+ok 504 - capture-085: independent union-find comparison
+  ---
+  duration_ms: 1.77806
+  type: 'test'
+  ...
+# Subtest: capture-086: independent union-find comparison
+ok 505 - capture-086: independent union-find comparison
+  ---
+  duration_ms: 1.779253
+  type: 'test'
+  ...
+# Subtest: capture-087: independent union-find comparison
+ok 506 - capture-087: independent union-find comparison
+  ---
+  duration_ms: 3.262489
+  type: 'test'
+  ...
+# Subtest: capture-088: independent union-find comparison
+ok 507 - capture-088: independent union-find comparison
+  ---
+  duration_ms: 2.37386
+  type: 'test'
+  ...
+# Subtest: capture-089: independent union-find comparison
+ok 508 - capture-089: independent union-find comparison
+  ---
+  duration_ms: 2.694874
+  type: 'test'
+  ...
+# Subtest: capture-090: independent union-find comparison
+ok 509 - capture-090: independent union-find comparison
+  ---
+  duration_ms: 4.647037
+  type: 'test'
+  ...
+# Subtest: capture-091: independent union-find comparison
+ok 510 - capture-091: independent union-find comparison
+  ---
+  duration_ms: 3.998168
+  type: 'test'
+  ...
+# Subtest: capture-092: independent union-find comparison
+ok 511 - capture-092: independent union-find comparison
+  ---
+  duration_ms: 5.008272
+  type: 'test'
+  ...
+# Subtest: capture-093: independent union-find comparison
+ok 512 - capture-093: independent union-find comparison
+  ---
+  duration_ms: 3.524194
+  type: 'test'
+  ...
+# Subtest: capture-094: independent union-find comparison
+ok 513 - capture-094: independent union-find comparison
+  ---
+  duration_ms: 3.162789
+  type: 'test'
+  ...
+# Subtest: capture-095: independent union-find comparison
+ok 514 - capture-095: independent union-find comparison
+  ---
+  duration_ms: 3.149729
+  type: 'test'
+  ...
+# Subtest: capture-096: independent union-find comparison
+ok 515 - capture-096: independent union-find comparison
+  ---
+  duration_ms: 3.551175
+  type: 'test'
+  ...
+# Subtest: capture-097: independent union-find comparison
+ok 516 - capture-097: independent union-find comparison
+  ---
+  duration_ms: 3.211283
+  type: 'test'
+  ...
+# Subtest: capture-098: independent union-find comparison
+ok 517 - capture-098: independent union-find comparison
+  ---
+  duration_ms: 3.455029
+  type: 'test'
+  ...
+# Subtest: capture-099: independent union-find comparison
+ok 518 - capture-099: independent union-find comparison
+  ---
+  duration_ms: 4.826347
+  type: 'test'
+  ...
+# Subtest: capture-100: independent union-find comparison
+ok 519 - capture-100: independent union-find comparison
+  ---
+  duration_ms: 5.274393
+  type: 'test'
+  ...
+# Subtest: capture-101: independent union-find comparison
+ok 520 - capture-101: independent union-find comparison
+  ---
+  duration_ms: 5.269616
+  type: 'test'
+  ...
+# Subtest: capture-102: independent union-find comparison
+ok 521 - capture-102: independent union-find comparison
+  ---
+  duration_ms: 2.861205
+  type: 'test'
+  ...
+# Subtest: capture-103: independent union-find comparison
+ok 522 - capture-103: independent union-find comparison
+  ---
+  duration_ms: 4.401657
+  type: 'test'
+  ...
+# Subtest: capture-104: independent union-find comparison
+ok 523 - capture-104: independent union-find comparison
+  ---
+  duration_ms: 3.637525
+  type: 'test'
+  ...
+# Subtest: capture-105: independent union-find comparison
+ok 524 - capture-105: independent union-find comparison
+  ---
+  duration_ms: 7.599208
+  type: 'test'
+  ...
+# Subtest: capture-106: independent union-find comparison
+ok 525 - capture-106: independent union-find comparison
+  ---
+  duration_ms: 5.722408
+  type: 'test'
+  ...
+# Subtest: capture-107: independent union-find comparison
+ok 526 - capture-107: independent union-find comparison
+  ---
+  duration_ms: 7.261169
+  type: 'test'
+  ...
+# Subtest: capture-108: independent union-find comparison
+ok 527 - capture-108: independent union-find comparison
+  ---
+  duration_ms: 4.514918
+  type: 'test'
+  ...
+# Subtest: capture-109: independent union-find comparison
+ok 528 - capture-109: independent union-find comparison
+  ---
+  duration_ms: 4.778205
+  type: 'test'
+  ...
+# Subtest: capture-110: independent union-find comparison
+ok 529 - capture-110: independent union-find comparison
+  ---
+  duration_ms: 4.915131
+  type: 'test'
+  ...
+# Subtest: capture-111: independent union-find comparison
+ok 530 - capture-111: independent union-find comparison
+  ---
+  duration_ms: 5.271969
+  type: 'test'
+  ...
+# Subtest: capture-112: independent union-find comparison
+ok 531 - capture-112: independent union-find comparison
+  ---
+  duration_ms: 8.478805
+  type: 'test'
+  ...
+# Subtest: capture-113: independent union-find comparison
+ok 532 - capture-113: independent union-find comparison
+  ---
+  duration_ms: 5.758232
+  type: 'test'
+  ...
+# Subtest: capture-114: independent union-find comparison
+ok 533 - capture-114: independent union-find comparison
+  ---
+  duration_ms: 5.072919
+  type: 'test'
+  ...
+# Subtest: capture-115: independent union-find comparison
+ok 534 - capture-115: independent union-find comparison
+  ---
+  duration_ms: 4.91396
+  type: 'test'
+  ...
+# Subtest: capture-116: independent union-find comparison
+ok 535 - capture-116: independent union-find comparison
+  ---
+  duration_ms: 4.847829
+  type: 'test'
+  ...
+# Subtest: capture-117: independent union-find comparison
+ok 536 - capture-117: independent union-find comparison
+  ---
+  duration_ms: 7.504566
+  type: 'test'
+  ...
+# Subtest: capture-118: independent union-find comparison
+ok 537 - capture-118: independent union-find comparison
+  ---
+  duration_ms: 4.610362
+  type: 'test'
+  ...
+# Subtest: capture-119: independent union-find comparison
+ok 538 - capture-119: independent union-find comparison
+  ---
+  duration_ms: 5.826145
+  type: 'test'
+  ...
+# Subtest: capture-120: independent union-find comparison
+ok 539 - capture-120: independent union-find comparison
+  ---
+  duration_ms: 2.452348
+  type: 'test'
+  ...
+# Subtest: capture-121: independent union-find comparison
+ok 540 - capture-121: independent union-find comparison
+  ---
+  duration_ms: 2.620111
+  type: 'test'
+  ...
+# Subtest: capture-122: independent union-find comparison
+ok 541 - capture-122: independent union-find comparison
+  ---
+  duration_ms: 2.074999
+  type: 'test'
+  ...
+# Subtest: capture-123: independent union-find comparison
+ok 542 - capture-123: independent union-find comparison
+  ---
+  duration_ms: 4.521488
+  type: 'test'
+  ...
+# Subtest: capture-124: independent union-find comparison
+ok 543 - capture-124: independent union-find comparison
+  ---
+  duration_ms: 5.681687
+  type: 'test'
+  ...
+# Subtest: capture-125: independent union-find comparison
+ok 544 - capture-125: independent union-find comparison
+  ---
+  duration_ms: 4.155826
+  type: 'test'
+  ...
+# Subtest: capture-126: independent union-find comparison
+ok 545 - capture-126: independent union-find comparison
+  ---
+  duration_ms: 1.719462
+  type: 'test'
+  ...
+# Subtest: capture-127: independent union-find comparison
+ok 546 - capture-127: independent union-find comparison
+  ---
+  duration_ms: 1.621865
+  type: 'test'
+  ...
+# Subtest: capture-128: independent union-find comparison
+ok 547 - capture-128: independent union-find comparison
+  ---
+  duration_ms: 1.661234
+  type: 'test'
+  ...
+# Subtest: capture-129: independent union-find comparison
+ok 548 - capture-129: independent union-find comparison
+  ---
+  duration_ms: 3.974212
+  type: 'test'
+  ...
+# Subtest: capture-130: independent union-find comparison
+ok 549 - capture-130: independent union-find comparison
+  ---
+  duration_ms: 4.479835
+  type: 'test'
+  ...
+# Subtest: capture-131: independent union-find comparison
+ok 550 - capture-131: independent union-find comparison
+  ---
+  duration_ms: 4.5497
+  type: 'test'
+  ...
+# Subtest: capture-132: independent union-find comparison
+ok 551 - capture-132: independent union-find comparison
+  ---
+  duration_ms: 5.346351
+  type: 'test'
+  ...
+# Subtest: capture-133: independent union-find comparison
+ok 552 - capture-133: independent union-find comparison
+  ---
+  duration_ms: 4.383199
+  type: 'test'
+  ...
+# Subtest: capture-134: independent union-find comparison
+ok 553 - capture-134: independent union-find comparison
+  ---
+  duration_ms: 4.272662
+  type: 'test'
+  ...
+# Subtest: capture-135: independent union-find comparison
+ok 554 - capture-135: independent union-find comparison
+  ---
+  duration_ms: 4.4503
+  type: 'test'
+  ...
+# Subtest: capture-136: independent union-find comparison
+ok 555 - capture-136: independent union-find comparison
+  ---
+  duration_ms: 4.010517
+  type: 'test'
+  ...
+# Subtest: capture-137: independent union-find comparison
+ok 556 - capture-137: independent union-find comparison
+  ---
+  duration_ms: 3.609042
+  type: 'test'
+  ...
+# Subtest: capture-138: independent union-find comparison
+ok 557 - capture-138: independent union-find comparison
+  ---
+  duration_ms: 2.805531
+  type: 'test'
+  ...
+# Subtest: capture-139: independent union-find comparison
+ok 558 - capture-139: independent union-find comparison
+  ---
+  duration_ms: 2.881364
+  type: 'test'
+  ...
+# Subtest: capture-140: independent union-find comparison
+ok 559 - capture-140: independent union-find comparison
+  ---
+  duration_ms: 2.638389
+  type: 'test'
+  ...
+# Subtest: capture-141: independent union-find comparison
+ok 560 - capture-141: independent union-find comparison
+  ---
+  duration_ms: 5.994189
+  type: 'test'
+  ...
+# Subtest: capture-142: independent union-find comparison
+ok 561 - capture-142: independent union-find comparison
+  ---
+  duration_ms: 5.925945
+  type: 'test'
+  ...
+# Subtest: capture-143: independent union-find comparison
+ok 562 - capture-143: independent union-find comparison
+  ---
+  duration_ms: 5.140541
+  type: 'test'
+  ...
+# Subtest: capture-144: independent union-find comparison
+ok 563 - capture-144: independent union-find comparison
+  ---
+  duration_ms: 3.201276
+  type: 'test'
+  ...
+# Subtest: capture-145: independent union-find comparison
+ok 564 - capture-145: independent union-find comparison
+  ---
+  duration_ms: 2.80503
+  type: 'test'
+  ...
+# Subtest: capture-146: independent union-find comparison
+ok 565 - capture-146: independent union-find comparison
+  ---
+  duration_ms: 3.127456
+  type: 'test'
+  ...
+# Subtest: capture-147: independent union-find comparison
+ok 566 - capture-147: independent union-find comparison
+  ---
+  duration_ms: 3.807791
+  type: 'test'
+  ...
+# Subtest: capture-148: independent union-find comparison
+ok 567 - capture-148: independent union-find comparison
+  ---
+  duration_ms: 4.309037
+  type: 'test'
+  ...
+# Subtest: capture-149: independent union-find comparison
+ok 568 - capture-149: independent union-find comparison
+  ---
+  duration_ms: 4.075035
+  type: 'test'
+  ...
+# Subtest: capture-150: independent union-find comparison
+ok 569 - capture-150: independent union-find comparison
+  ---
+  duration_ms: 2.450705
+  type: 'test'
+  ...
+# Subtest: capture-151: independent union-find comparison
+ok 570 - capture-151: independent union-find comparison
+  ---
+  duration_ms: 2.949698
+  type: 'test'
+  ...
+# Subtest: capture-152: independent union-find comparison
+ok 571 - capture-152: independent union-find comparison
+  ---
+  duration_ms: 2.576915
+  type: 'test'
+  ...
+# Subtest: capture-153: independent union-find comparison
+ok 572 - capture-153: independent union-find comparison
+  ---
+  duration_ms: 2.866162
+  type: 'test'
+  ...
+# Subtest: capture-154: independent union-find comparison
+ok 573 - capture-154: independent union-find comparison
+  ---
+  duration_ms: 2.224134
+  type: 'test'
+  ...
+# Subtest: capture-155: independent union-find comparison
+ok 574 - capture-155: independent union-find comparison
+  ---
+  duration_ms: 2.22839
+  type: 'test'
+  ...
+# Subtest: capture-156: independent union-find comparison
+ok 575 - capture-156: independent union-find comparison
+  ---
+  duration_ms: 6.645721
+  type: 'test'
+  ...
+# Subtest: capture-157: independent union-find comparison
+ok 576 - capture-157: independent union-find comparison
+  ---
+  duration_ms: 6.646652
+  type: 'test'
+  ...
+# Subtest: capture-158: independent union-find comparison
+ok 577 - capture-158: independent union-find comparison
+  ---
+  duration_ms: 5.574476
+  type: 'test'
+  ...
+# Subtest: capture-159: independent union-find comparison
+ok 578 - capture-159: independent union-find comparison
+  ---
+  duration_ms: 3.546577
+  type: 'test'
+  ...
+# Subtest: capture-160: independent union-find comparison
+ok 579 - capture-160: independent union-find comparison
+  ---
+  duration_ms: 3.741743
+  type: 'test'
+  ...
+# Subtest: capture-161: independent union-find comparison
+ok 580 - capture-161: independent union-find comparison
+  ---
+  duration_ms: 5.167401
+  type: 'test'
+  ...
+# Subtest: capture-162: independent union-find comparison
+ok 581 - capture-162: independent union-find comparison
+  ---
+  duration_ms: 1.436526
+  type: 'test'
+  ...
+# Subtest: capture-163: independent union-find comparison
+ok 582 - capture-163: independent union-find comparison
+  ---
+  duration_ms: 1.263445
+  type: 'test'
+  ...
+# Subtest: capture-164: independent union-find comparison
+ok 583 - capture-164: independent union-find comparison
+  ---
+  duration_ms: 1.568235
+  type: 'test'
+  ...
+# Subtest: capture-165: independent union-find comparison
+ok 584 - capture-165: independent union-find comparison
+  ---
+  duration_ms: 2.484015
+  type: 'test'
+  ...
+# Subtest: capture-166: independent union-find comparison
+ok 585 - capture-166: independent union-find comparison
+  ---
+  duration_ms: 2.226357
+  type: 'test'
+  ...
+# Subtest: capture-167: independent union-find comparison
+ok 586 - capture-167: independent union-find comparison
+  ---
+  duration_ms: 2.89826
+  type: 'test'
+  ...
+# Subtest: capture-168: independent union-find comparison
+ok 587 - capture-168: independent union-find comparison
+  ---
+  duration_ms: 3.098061
+  type: 'test'
+  ...
+# Subtest: capture-169: independent union-find comparison
+ok 588 - capture-169: independent union-find comparison
+  ---
+  duration_ms: 2.555223
+  type: 'test'
+  ...
+# Subtest: capture-170: independent union-find comparison
+ok 589 - capture-170: independent union-find comparison
+  ---
+  duration_ms: 3.460007
+  type: 'test'
+  ...
+# Subtest: capture-171: independent union-find comparison
+ok 590 - capture-171: independent union-find comparison
+  ---
+  duration_ms: 6.211906
+  type: 'test'
+  ...
+# Subtest: capture-172: independent union-find comparison
+ok 591 - capture-172: independent union-find comparison
+  ---
+  duration_ms: 8.596743
+  type: 'test'
+  ...
+# Subtest: capture-173: independent union-find comparison
+ok 592 - capture-173: independent union-find comparison
+  ---
+  duration_ms: 8.210681
+  type: 'test'
+  ...
+# Subtest: capture-174: independent union-find comparison
+ok 593 - capture-174: independent union-find comparison
+  ---
+  duration_ms: 5.82947
+  type: 'test'
+  ...
+# Subtest: capture-175: independent union-find comparison
+ok 594 - capture-175: independent union-find comparison
+  ---
+  duration_ms: 5.311679
+  type: 'test'
+  ...
+# Subtest: capture-176: independent union-find comparison
+ok 595 - capture-176: independent union-find comparison
+  ---
+  duration_ms: 4.931697
+  type: 'test'
+  ...
+# Subtest: capture-177: independent union-find comparison
+ok 596 - capture-177: independent union-find comparison
+  ---
+  duration_ms: 6.376034
+  type: 'test'
+  ...
+# Subtest: capture-178: independent union-find comparison
+ok 597 - capture-178: independent union-find comparison
+  ---
+  duration_ms: 7.216351
+  type: 'test'
+  ...
+# Subtest: capture-179: independent union-find comparison
+ok 598 - capture-179: independent union-find comparison
+  ---
+  duration_ms: 7.835114
+  type: 'test'
+  ...
+# Subtest: capture-180: independent union-find comparison
+ok 599 - capture-180: independent union-find comparison
+  ---
+  duration_ms: 3.333146
+  type: 'test'
+  ...
+# Subtest: capture-181: independent union-find comparison
+ok 600 - capture-181: independent union-find comparison
+  ---
+  duration_ms: 2.896218
+  type: 'test'
+  ...
+# Subtest: capture-182: independent union-find comparison
+ok 601 - capture-182: independent union-find comparison
+  ---
+  duration_ms: 3.58814
+  type: 'test'
+  ...
+# Subtest: capture-183: independent union-find comparison
+ok 602 - capture-183: independent union-find comparison
+  ---
+  duration_ms: 1.793535
+  type: 'test'
+  ...
+# Subtest: capture-184: independent union-find comparison
+ok 603 - capture-184: independent union-find comparison
+  ---
+  duration_ms: 1.553602
+  type: 'test'
+  ...
+# Subtest: capture-185: independent union-find comparison
+ok 604 - capture-185: independent union-find comparison
+  ---
+  duration_ms: 1.554274
+  type: 'test'
+  ...
+# Subtest: capture-186: independent union-find comparison
+ok 605 - capture-186: independent union-find comparison
+  ---
+  duration_ms: 4.133673
+  type: 'test'
+  ...
+# Subtest: capture-187: independent union-find comparison
+ok 606 - capture-187: independent union-find comparison
+  ---
+  duration_ms: 4.733457
+  type: 'test'
+  ...
+# Subtest: capture-188: independent union-find comparison
+ok 607 - capture-188: independent union-find comparison
+  ---
+  duration_ms: 4.09143
+  type: 'test'
+  ...
+# Subtest: capture-189: independent union-find comparison
+ok 608 - capture-189: independent union-find comparison
+  ---
+  duration_ms: 1.515025
+  type: 'test'
+  ...
+# Subtest: capture-190: independent union-find comparison
+ok 609 - capture-190: independent union-find comparison
+  ---
+  duration_ms: 1.472811
+  type: 'test'
+  ...
+# Subtest: capture-191: independent union-find comparison
+ok 610 - capture-191: independent union-find comparison
+  ---
+  duration_ms: 1.559422
+  type: 'test'
+  ...
+# Subtest: all u16 headings: bounded speed error and quarter-turn symmetry
+ok 611 - all u16 headings: bounded speed error and quarter-turn symmetry
+  ---
+  duration_ms: 166.215802
+  type: 'test'
+  ...
+# Subtest: one ball bounces from external board and integrates exact area-time
+ok 612 - one ball bounces from external board and integrates exact area-time
+  ---
+  duration_ms: 2.424456
+  type: 'test'
+  ...
+# Subtest: own cannon is a solid entry obstacle
+ok 613 - own cannon is a solid entry obstacle
+  ---
+  duration_ms: 0.59018
+  type: 'test'
+  ...
+# Subtest: opponent cannon cell is not capturable
+ok 614 - opponent cannon cell is not capturable
+  ---
+  duration_ms: 0.618503
+  type: 'test'
+  ...
+# Subtest: normal impact transfers one cell and reflects
+ok 615 - normal impact transfers one cell and reflects
+  ---
+  duration_ms: 0.726145
+  type: 'test'
+  ...
+# Subtest: opposing exact-time impacts annihilate, eliminate and preserve earned scores
+ok 616 - opposing exact-time impacts annihilate, eliminate and preserve earned scores
+  ---
+  duration_ms: 0.714517
+  type: 'test'
+  ...
+# Subtest: spatially separated wall impacts do not annihilate; a chip can destroy a resident ball
+ok 617 - spatially separated wall impacts do not annihilate; a chip can destroy a resident ball
+  ---
+  duration_ms: 0.674987
+  type: 'test'
+  ...
+# Subtest: articulation capture transfers orphaned region and last-ball elimination neutralizes anchor region
+ok 618 - articulation capture transfers orphaned region and last-ball elimination neutralizes anchor region
+  ---
+  duration_ms: 4.510011
+  type: 'test'
+  ...
+# Subtest: same-cell conflict favors older cannon, not earlier ball ordinal
+ok 619 - same-cell conflict favors older cannon, not earlier ball ordinal
+  ---
+  duration_ms: 0.632093
+  type: 'test'
+  ...
+# Subtest: compound corner reflects both axes but chips at most one target
+ok 620 - compound corner reflects both axes but chips at most one target
+  ---
+  duration_ms: 0.558352
+  type: 'test'
+  ...
+# Subtest: no diagonal corner leak when both side cells are owned but diagonal is not
+ok 621 - no diagonal corner leak when both side cells are owned but diagonal is not
+  ---
+  duration_ms: 0.442267
+  type: 'test'
+  ...
+# Subtest: ANGLE pricing uses current active count, retains underfunding and excess
+ok 622 - ANGLE pricing uses current active count, retains underfunding and excess
+  ---
+  duration_ms: 18.222116
+  type: 'test'
+  ...
+# Subtest: MOVE over a ball permits exit; second successful move rejected
+ok 623 - MOVE over a ball permits exit; second successful move rejected
+  ---
+  duration_ms: 1.004715
+  type: 'test'
+  ...
+# Subtest: MOVE then ANGLE launches at new anchor; reverse ordering launches at old anchor
+ok 624 - MOVE then ANGLE launches at new anchor; reverse ordering launches at old anchor
+  ---
+  duration_ms: 1.329335
+  type: 'test'
+  ...
+# Subtest: underfunded, foreign MOVE, malformed memo and unimplemented JOIN have explicit retained-payment receipts
+ok 625 - underfunded, foreign MOVE, malformed memo and unimplemented JOIN have explicit retained-payment receipts
+  ---
+  duration_ms: 0.734076
+  type: 'test'
+  ...
+# Subtest: hard per-cannon cap rejects even a fully funded purchase
+ok 626 - hard per-cannon cap rejects even a fully funded purchase
+  ---
+  duration_ms: 1.328494
+  type: 'test'
+  ...
+# Subtest: half-open checkpoint boundary: split execution matches one uninterrupted segment
+ok 627 - half-open checkpoint boundary: split execution matches one uninterrupted segment
+  ---
+  duration_ms: 1.513973
+  type: 'test'
+  ...
+# Subtest: BTZ host journals survive interruption inside capture and publish only complete output
+ok 628 - BTZ host journals survive interruption inside capture and publish only complete output
+  ---
+  duration_ms: 260.957975
+  type: 'test'
+  ...
+# Subtest: malformed normalized payment traps the stage rather than silently advancing source effects
+ok 629 - malformed normalized payment traps the stage rather than silently advancing source effects
+  ---
+  duration_ms: 0.276948
+  type: 'test'
+  ...
+# Subtest: BTZ rejects unexpected rules, invalid owner state and corrupt snapshots
+ok 630 - BTZ rejects unexpected rules, invalid owner state and corrupt snapshots
+  ---
+  duration_ms: 0.553183
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 1: partition and restart invariant
+ok 631 - mixed-trajectory conformance seed 1: partition and restart invariant
+  ---
+  duration_ms: 16.592741
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 2: partition and restart invariant
+ok 632 - mixed-trajectory conformance seed 2: partition and restart invariant
+  ---
+  duration_ms: 20.820371
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 3: partition and restart invariant
+ok 633 - mixed-trajectory conformance seed 3: partition and restart invariant
+  ---
+  duration_ms: 22.872843
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 4: partition and restart invariant
+ok 634 - mixed-trajectory conformance seed 4: partition and restart invariant
+  ---
+  duration_ms: 18.926572
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 5: partition and restart invariant
+ok 635 - mixed-trajectory conformance seed 5: partition and restart invariant
+  ---
+  duration_ms: 40.80326
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 6: partition and restart invariant
+ok 636 - mixed-trajectory conformance seed 6: partition and restart invariant
+  ---
+  duration_ms: 24.893548
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 7: partition and restart invariant
+ok 637 - mixed-trajectory conformance seed 7: partition and restart invariant
+  ---
+  duration_ms: 27.662605
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 8: partition and restart invariant
+ok 638 - mixed-trajectory conformance seed 8: partition and restart invariant
+  ---
+  duration_ms: 16.11471
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 9: partition and restart invariant
+ok 639 - mixed-trajectory conformance seed 9: partition and restart invariant
+  ---
+  duration_ms: 19.377877
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 10: partition and restart invariant
+ok 640 - mixed-trajectory conformance seed 10: partition and restart invariant
+  ---
+  duration_ms: 19.674043
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 11: partition and restart invariant
+ok 641 - mixed-trajectory conformance seed 11: partition and restart invariant
+  ---
+  duration_ms: 24.976002
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 12: partition and restart invariant
+ok 642 - mixed-trajectory conformance seed 12: partition and restart invariant
+  ---
+  duration_ms: 16.608123
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 13: partition and restart invariant
+ok 643 - mixed-trajectory conformance seed 13: partition and restart invariant
+  ---
+  duration_ms: 15.059611
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 14: partition and restart invariant
+ok 644 - mixed-trajectory conformance seed 14: partition and restart invariant
+  ---
+  duration_ms: 19.682566
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 15: partition and restart invariant
+ok 645 - mixed-trajectory conformance seed 15: partition and restart invariant
+  ---
+  duration_ms: 33.01087
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 16: partition and restart invariant
+ok 646 - mixed-trajectory conformance seed 16: partition and restart invariant
+  ---
+  duration_ms: 19.619011
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 17: partition and restart invariant
+ok 647 - mixed-trajectory conformance seed 17: partition and restart invariant
+  ---
+  duration_ms: 21.121574
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 18: partition and restart invariant
+ok 648 - mixed-trajectory conformance seed 18: partition and restart invariant
+  ---
+  duration_ms: 16.860585
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 19: partition and restart invariant
+ok 649 - mixed-trajectory conformance seed 19: partition and restart invariant
+  ---
+  duration_ms: 13.697097
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 20: partition and restart invariant
+ok 650 - mixed-trajectory conformance seed 20: partition and restart invariant
+  ---
+  duration_ms: 16.603738
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 21: partition and restart invariant
+ok 651 - mixed-trajectory conformance seed 21: partition and restart invariant
+  ---
+  duration_ms: 21.732324
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 22: partition and restart invariant
+ok 652 - mixed-trajectory conformance seed 22: partition and restart invariant
+  ---
+  duration_ms: 19.635095
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 23: partition and restart invariant
+ok 653 - mixed-trajectory conformance seed 23: partition and restart invariant
+  ---
+  duration_ms: 25.285969
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 24: partition and restart invariant
+ok 654 - mixed-trajectory conformance seed 24: partition and restart invariant
+  ---
+  duration_ms: 23.625096
+  type: 'test'
+  ...
+# Subtest: typed canonical JSON preserves bigint, sorts fields, distinguishes strings/numbers
+ok 655 - typed canonical JSON preserves bigint, sorts fields, distinguishes strings/numbers
+  ---
+  duration_ms: 1.689007
+  type: 'test'
+  ...
+# Subtest: canonical rejects fraction
+ok 656 - canonical rejects fraction
+  ---
+  duration_ms: 0.205761
+  type: 'test'
+  ...
+# Subtest: canonical rejects nan
+ok 657 - canonical rejects nan
+  ---
+  duration_ms: 0.210647
+  type: 'test'
+  ...
+# Subtest: canonical rejects infinity
+ok 658 - canonical rejects infinity
+  ---
+  duration_ms: 0.083436
+  type: 'test'
+  ...
+# Subtest: canonical rejects negative-zero
+ok 659 - canonical rejects negative-zero
+  ---
+  duration_ms: 0.075444
+  type: 'test'
+  ...
+# Subtest: canonical rejects unsafe
+ok 660 - canonical rejects unsafe
+  ---
+  duration_ms: 0.087262
+  type: 'test'
+  ...
+# Subtest: canonical rejects undefined
+ok 661 - canonical rejects undefined
+  ---
+  duration_ms: 0.067622
+  type: 'test'
+  ...
+# Subtest: canonical rejects map
+ok 662 - canonical rejects map
+  ---
+  duration_ms: 0.063085
+  type: 'test'
+  ...
+# Subtest: canonical rejects sparse
+ok 663 - canonical rejects sparse
+  ---
+  duration_ms: 0.226802
+  type: 'test'
+  ...
+# Subtest: canonical rejects reserved
+ok 664 - canonical rejects reserved
+  ---
+  duration_ms: 0.293162
+  type: 'test'
+  ...
+# Subtest: canonical rejects surrogate
+ok 665 - canonical rejects surrogate
+  ---
+  duration_ms: 0.15283
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire { "a":1}
+ok 666 - canonical rejects wire { "a":1}
+  ---
+  duration_ms: 0.143987
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"b":1,"a":2}
+ok 667 - canonical rejects wire {"b":1,"a":2}
+  ---
+  duration_ms: 0.083486
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"a":1,"a":2}
+ok 668 - canonical rejects wire {"a":1,"a":2}
+  ---
+  duration_ms: 0.067161
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"01"}
+ok 669 - canonical rejects wire {"$integer":"01"}
+  ---
+  duration_ms: 0.107311
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"-0"}
+ok 670 - canonical rejects wire {"$integer":"-0"}
+  ---
+  duration_ms: 0.0665
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"1","x":2}
+ok 671 - canonical rejects wire {"$integer":"1","x":2}
+  ---
+  duration_ms: 0.107382
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire -0
+ok 672 - canonical rejects wire -0
+  ---
+  duration_ms: 0.099671
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire 1.0
+ok 673 - canonical rejects wire 1.0
+  ---
+  duration_ms: 0.05932
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"__proto__":{}}
+ok 674 - canonical rejects wire {"__proto__":{}}
+  ---
+  duration_ms: 0.059049
+  type: 'test'
+  ...
+# Subtest: canonical limits nesting
+ok 675 - canonical limits nesting
+  ---
+  duration_ms: 0.299912
+  type: 'test'
+  ...
+# Subtest: reject byte-order mark rather than dropping it during canonical decoding
+ok 676 - reject byte-order mark rather than dropping it during canonical decoding
+  ---
+  duration_ms: 0.174052
+  type: 'test'
+  ...
+# Subtest: reject sparse array even when a named property disguises key count
+ok 677 - reject sparse array even when a named property disguises key count
+  ---
+  duration_ms: 0.101973
+  type: 'test'
+  ...
+# Subtest: cursor and relevant inbox rows advance atomically; ignored records still occupy positions
+ok 678 - cursor and relevant inbox rows advance atomically; ignored records still occupy positions
+  ---
+  duration_ms: 4.336258
+  type: 'test'
+  ...
+# Subtest: failed classify/page, gap, replay and unverified cutoff cannot advance cursor
+ok 679 - failed classify/page, gap, replay and unverified cutoff cannot advance cursor
+  ---
+  duration_ms: 1.368583
+  type: 'test'
+  ...
+# Subtest: stale source callback is fenced by revision
+ok 680 - stale source callback is fenced by revision
+  ---
+  duration_ms: 0.758634
+  type: 'test'
+  ...
+# Subtest: reserved inputs remain durable until publication acknowledgement, later input remains pending
+ok 681 - reserved inputs remain durable until publication acknowledgement, later input remains pending
+  ---
+  duration_ms: 3.405935
+  type: 'test'
+  ...
+# Subtest: inbox crash ingest/before
+ok 682 - inbox crash ingest/before
+  ---
+  duration_ms: 0.606805
+  type: 'test'
+  ...
+# Subtest: inbox crash ingest/after
+ok 683 - inbox crash ingest/after
+  ---
+  duration_ms: 0.566074
+  type: 'test'
+  ...
+# Subtest: inbox crash reserve/before
+ok 684 - inbox crash reserve/before
+  ---
+  duration_ms: 1.06778
+  type: 'test'
+  ...
+# Subtest: inbox crash reserve/after
+ok 685 - inbox crash reserve/after
+  ---
+  duration_ms: 1.294282
+  type: 'test'
+  ...
+# Subtest: inbox crash ack/before
+ok 686 - inbox crash ack/before
+  ---
+  duration_ms: 1.560393
+  type: 'test'
+  ...
+# Subtest: inbox crash ack/after
+ok 687 - inbox crash ack/after
+  ---
+  duration_ms: 1.689607
+  type: 'test'
+  ...
+# Subtest: backpressure refuses whole page rather than silently discarding commands
+ok 688 - backpressure refuses whole page rather than silently discarding commands
+  ---
+  duration_ms: 301.464816
+  type: 'test'
+  ...
+# Subtest: wrong boundary anchor, double reservation and forged ack rejected
+ok 689 - wrong boundary anchor, double reservation and forged ack rejected
+  ---
+  duration_ms: 1.471609
+  type: 'test'
+  ...
+# Subtest: empty ledger pages cannot invent a new boundary anchor
+ok 690 - empty ledger pages cannot invent a new boundary anchor
+  ---
+  duration_ms: 0.275706
+  type: 'test'
+  ...
+# Subtest: equivalent source-position representations have one canonical kernel envelope
+ok 691 - equivalent source-position representations have one canonical kernel envelope
+  ---
+  duration_ms: 2.895476
+  type: 'test'
+  ...
+# Subtest: canonical envelopes reject duplicates, oversized payloads and oversized batches
+ok 692 - canonical envelopes reject duplicates, oversized payloads and oversized batches
+  ---
+  duration_ms: 0.963232
+  type: 'test'
+  ...
+# Subtest: host stages command application without exposing intermediate state
+ok 693 - host stages command application without exposing intermediate state
+  ---
+  duration_ms: 104.940844
+  type: 'test'
+  ...
+# Subtest: changing budgets and restarting every safe point preserves manifest
+ok 694 - changing budgets and restarting every safe point preserves manifest
+  ---
+  duration_ms: 148.470945
+  type: 'test'
+  ...
+# Subtest: stale step cannot overwrite newer progress
+ok 695 - stale step cannot overwrite newer progress
+  ---
+  duration_ms: 1.940036
+  type: 'test'
+  ...
+# Subtest: crash matrix prepare/before: restart reconciles atomic state
+ok 696 - crash matrix prepare/before: restart reconciles atomic state
+  ---
+  duration_ms: 95.348225
+  type: 'test'
+  ...
+# Subtest: crash matrix prepare/after: restart reconciles atomic state
+ok 697 - crash matrix prepare/after: restart reconciles atomic state
+  ---
+  duration_ms: 71.730037
+  type: 'test'
+  ...
+# Subtest: crash matrix advance/before: restart reconciles atomic state
+ok 698 - crash matrix advance/before: restart reconciles atomic state
+  ---
+  duration_ms: 74.273142
+  type: 'test'
+  ...
+# Subtest: crash matrix advance/after: restart reconciles atomic state
+ok 699 - crash matrix advance/after: restart reconciles atomic state
+  ---
+  duration_ms: 100.533919
+  type: 'test'
+  ...
+# Subtest: crash matrix publish/before: restart reconciles atomic state
+ok 700 - crash matrix publish/before: restart reconciles atomic state
+  ---
+  duration_ms: 12.455864
+  type: 'test'
+  ...
+# Subtest: crash matrix publish/after: restart reconciles atomic state
+ok 701 - crash matrix publish/after: restart reconciles atomic state
+  ---
+  duration_ms: 7.62596
+  type: 'test'
+  ...
+# Subtest: successor sequence rejects source replay and accepts contiguous empty intervals
+ok 702 - successor sequence rejects source replay and accepts contiguous empty intervals
+  ---
+  duration_ms: 32.828965
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link source_id
+ok 703 - reject seal identity/link source_id
+  ---
+  duration_ms: 0.641407
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link rules_hash
+ok 704 - reject seal identity/link rules_hash
+  ---
+  duration_ms: 0.408726
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link config_hash
+ok 705 - reject seal identity/link config_hash
+  ---
+  duration_ms: 0.466382
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link schema_hash
+ok 706 - reject seal identity/link schema_hash
+  ---
+  duration_ms: 0.454735
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link previous_state
+ok 707 - reject seal identity/link previous_state
+  ---
+  duration_ms: 0.404709
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link previous_manifest
+ok 708 - reject seal identity/link previous_manifest
+  ---
+  duration_ms: 0.360604
+  type: 'test'
+  ...
+# Subtest: reject unsealed inputs without changing durable record
+ok 709 - reject unsealed inputs without changing durable record
+  ---
+  duration_ms: 0.438721
+  type: 'test'
+  ...
+# Subtest: reject concurrent stage and premature publication
+ok 710 - reject concurrent stage and premature publication
+  ---
+  duration_ms: 0.823111
+  type: 'test'
+  ...
+# Subtest: ready hash is verified, corrupt journal and unknown schema fail closed
+ok 711 - ready hash is verified, corrupt journal and unknown schema fail closed
+  ---
+  duration_ms: 3.797933
+  type: 'test'
+  ...
+# Subtest: kernel traps and invalid progress never persist a proposal
+ok 712 - kernel traps and invalid progress never persist a proposal
+  ---
+  duration_ms: 1.311046
+  type: 'test'
+  ...
+# Subtest: restoring a head verifies output commitments
+ok 713 - restoring a head verifies output commitments
+  ---
+  duration_ms: 3.773114
+  type: 'test'
+  ...
+# Subtest: overwriting input cells respects source order
+ok 714 - overwriting input cells respects source order
+  ---
+  duration_ms: 1.350485
+  type: 'test'
+  ...
+# Subtest: journal normalizes only committed input fields before durable staging
+ok 715 - journal normalizes only committed input fields before durable staging
+  ---
+  duration_ms: 1.615484
+  type: 'test'
+  ...
+# Subtest: Life Python reference empty budget=1
+ok 716 - Life Python reference empty budget=1
+  ---
+  duration_ms: 5.511534
+  type: 'test'
+  ...
+# Subtest: Life Python reference empty budget=7
+ok 717 - Life Python reference empty budget=7
+  ---
+  duration_ms: 1.090423
+  type: 'test'
+  ...
+# Subtest: Life Python reference empty budget=1000000
+ok 718 - Life Python reference empty budget=1000000
+  ---
+  duration_ms: 0.29864
+  type: 'test'
+  ...
+# Subtest: Life Python reference isolated budget=1
+ok 719 - Life Python reference isolated budget=1
+  ---
+  duration_ms: 0.438771
+  type: 'test'
+  ...
+# Subtest: Life Python reference isolated budget=7
+ok 720 - Life Python reference isolated budget=7
+  ---
+  duration_ms: 0.236466
+  type: 'test'
+  ...
+# Subtest: Life Python reference isolated budget=1000000
+ok 721 - Life Python reference isolated budget=1000000
+  ---
+  duration_ms: 0.235565
+  type: 'test'
+  ...
+# Subtest: Life Python reference block budget=1
+ok 722 - Life Python reference block budget=1
+  ---
+  duration_ms: 9.382317
+  type: 'test'
+  ...
+# Subtest: Life Python reference block budget=7
+ok 723 - Life Python reference block budget=7
+  ---
+  duration_ms: 0.762458
+  type: 'test'
+  ...
+# Subtest: Life Python reference block budget=1000000
+ok 724 - Life Python reference block budget=1000000
+  ---
+  duration_ms: 0.849279
+  type: 'test'
+  ...
+# Subtest: Life Python reference blinker budget=1
+ok 725 - Life Python reference blinker budget=1
+  ---
+  duration_ms: 33.679376
+  type: 'test'
+  ...
+# Subtest: Life Python reference blinker budget=7
+ok 726 - Life Python reference blinker budget=7
+  ---
+  duration_ms: 5.394147
+  type: 'test'
+  ...
+# Subtest: Life Python reference blinker budget=1000000
+ok 727 - Life Python reference blinker budget=1000000
+  ---
+  duration_ms: 0.333742
+  type: 'test'
+  ...
+# Subtest: Life Python reference three-color-birth budget=1
+ok 728 - Life Python reference three-color-birth budget=1
+  ---
+  duration_ms: 0.717762
+  type: 'test'
+  ...
+# Subtest: Life Python reference three-color-birth budget=7
+ok 729 - Life Python reference three-color-birth budget=7
+  ---
+  duration_ms: 0.207342
+  type: 'test'
+  ...
+# Subtest: Life Python reference three-color-birth budget=1000000
+ok 730 - Life Python reference three-color-birth budget=1000000
+  ---
+  duration_ms: 0.143086
+  type: 'test'
+  ...
+# Subtest: Life Python reference edge-no-wrap budget=1
+ok 731 - Life Python reference edge-no-wrap budget=1
+  ---
+  duration_ms: 2.457583
+  type: 'test'
+  ...
+# Subtest: Life Python reference edge-no-wrap budget=7
+ok 732 - Life Python reference edge-no-wrap budget=7
+  ---
+  duration_ms: 0.490339
+  type: 'test'
+  ...
+# Subtest: Life Python reference edge-no-wrap budget=1000000
+ok 733 - Life Python reference edge-no-wrap budget=1000000
+  ---
+  duration_ms: 0.155324
+  type: 'test'
+  ...
+# Subtest: Life Python reference mixed budget=1
+ok 734 - Life Python reference mixed budget=1
+  ---
+  duration_ms: 172.825743
+  type: 'test'
+  ...
+# Subtest: Life Python reference mixed budget=7
+ok 735 - Life Python reference mixed budget=7
+  ---
+  duration_ms: 13.844751
+  type: 'test'
+  ...
+# Subtest: Life Python reference mixed budget=1000000
+ok 736 - Life Python reference mixed budget=1000000
+  ---
+  duration_ms: 0.421846
+  type: 'test'
+  ...
+# Subtest: Life Python reference max-owner budget=1
+ok 737 - Life Python reference max-owner budget=1
+  ---
+  duration_ms: 1.787533
+  type: 'test'
+  ...
+# Subtest: Life Python reference max-owner budget=7
+ok 738 - Life Python reference max-owner budget=7
+  ---
+  duration_ms: 13.110304
+  type: 'test'
+  ...
+# Subtest: Life Python reference max-owner budget=1000000
+ok 739 - Life Python reference max-owner budget=1000000
+  ---
+  duration_ms: 0.227383
+  type: 'test'
+  ...
+# Subtest: zero work leaves cursor byte-identical
+ok 740 - zero work leaves cursor byte-identical
+  ---
+  duration_ms: 0.519142
+  type: 'test'
+  ...
+# Subtest: all safe-point interrupts replay identically
+ok 741 - all safe-point interrupts replay identically
+  ---
+  duration_ms: 84.112736
+  type: 'test'
+  ...
+# Subtest: snapshots reject tampering against trusted digest
+ok 742 - snapshots reject tampering against trusted digest
+  ---
+  duration_ms: 0.281164
+  type: 'test'
+  ...
+# Subtest: snapshots reject unsupported version even with matching local hash
+ok 743 - snapshots reject unsupported version even with matching local hash
+  ---
+  duration_ms: 0.134773
+  type: 'test'
+  ...
+# Subtest: state codec rejects trailing and truncated bytes
+ok 744 - state codec rejects trailing and truncated bytes
+  ---
+  duration_ms: 0.296657
+  type: 'test'
+  ...
+# Subtest: generation overflow detected before simulation
+ok 745 - generation overflow detected before simulation
+  ---
+  duration_ms: 0.333542
+  type: 'test'
+  ...
+# Subtest: bounds reject zero, huge boards and too many generations
+ok 746 - bounds reject zero, huge boards and too many generations
+  ---
+  duration_ms: 0.302486
+  type: 'test'
+  ...
+# Subtest: completed step idempotent and consumes no work
+ok 747 - completed step idempotent and consumes no work
+  ---
+  duration_ms: 0.19235
+  type: 'test'
+  ...
+# Subtest: 50 reproducible mixed work schedules agree
+ok 748 - 50 reproducible mixed work schedules agree
+  ---
+  duration_ms: 64.069736
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/0
+ok 749 - memo fixture angle/0
+  ---
+  duration_ms: 1.865611
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/1
+ok 750 - memo fixture angle/1
+  ---
+  duration_ms: 0.235155
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/16384
+ok 751 - memo fixture angle/16384
+  ---
+  duration_ms: 0.238009
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/32768
+ok 752 - memo fixture angle/32768
+  ---
+  duration_ms: 0.128704
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/49152
+ok 753 - memo fixture angle/49152
+  ---
+  duration_ms: 0.724332
+  type: 'test'
+  ...
+# Subtest: memo fixture angle/65535
+ok 754 - memo fixture angle/65535
+  ---
+  duration_ms: 0.121963
+  type: 'test'
+  ...
+# Subtest: memo fixture move/0
+ok 755 - memo fixture move/0
+  ---
+  duration_ms: 0.14614
+  type: 'test'
+  ...
+# Subtest: memo fixture move/1
+ok 756 - memo fixture move/1
+  ---
+  duration_ms: 0.085589
+  type: 'test'
+  ...
+# Subtest: memo fixture move/65535
+ok 757 - memo fixture move/65535
+  ---
+  duration_ms: 0.238469
+  type: 'test'
+  ...
+# Subtest: memo fixture move/65536
+ok 758 - memo fixture move/65536
+  ---
+  duration_ms: 0.358941
+  type: 'test'
+  ...
+# Subtest: memo fixture move/123456789
+ok 759 - memo fixture move/123456789
+  ---
+  duration_ms: 0.14609
+  type: 'test'
+  ...
+# Subtest: memo fixture move/4294967295
+ok 760 - memo fixture move/4294967295
+  ---
+  duration_ms: 0.088343
+  type: 'test'
+  ...
+# Subtest: every u16 angle roundtrips
+ok 761 - every u16 angle roundtrips
+  ---
+  duration_ms: 128.579425
+  type: 'test'
+  ...
+# Subtest: invalid memo 
+ok 762 - invalid memo 
+  ---
+  duration_ms: 0.38472
+  type: 'test'
+  ...
+# Subtest: invalid memo 00
+ok 763 - invalid memo 00
+  ---
+  duration_ms: 0.071618
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a110000
+ok 764 - invalid memo 42545a110000
+  ---
+  duration_ms: 0.048753
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a110000000000
+ok 765 - invalid memo 42545a110000000000
+  ---
+  duration_ms: 0.041543
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545b1100000000
+ok 766 - invalid memo 42545b1100000000
+  ---
+  duration_ms: 0.046059
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a1300000000
+ok 767 - invalid memo 42545a1300000000
+  ---
+  duration_ms: 0.045379
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a2100000000
+ok 768 - invalid memo 42545a2100000000
+  ---
+  duration_ms: 0.041542
+  type: 'test'
+  ...
+# Subtest: invalid memo 42545a1100010000
+ok 769 - invalid memo 42545a1100010000
+  ---
+  duration_ms: 0.043295
+  type: 'test'
+  ...
+# Subtest: blob and legacy conflict always rejects
+ok 770 - blob and legacy conflict always rejects
+  ---
+  duration_ms: 0.32507
+  type: 'test'
+  ...
+# Subtest: malformed blob does not fall back
+ok 771 - malformed blob does not fall back
+  ---
+  duration_ms: 0.092269
+  type: 'test'
+  ...
+# Subtest: u64 memo Number is unsafe, decimal output is string
+ok 772 - u64 memo Number is unsafe, decimal output is string
+  ---
+  duration_ms: 0.147101
+  type: 'test'
+  ...
+# Subtest: invalid angle input -1
+ok 773 - invalid angle input -1
+  ---
+  duration_ms: 0.094993
+  type: 'test'
+  ...
+# Subtest: invalid angle input 65536
+ok 774 - invalid angle input 65536
+  ---
+  duration_ms: 0.050836
+  type: 'test'
+  ...
+# Subtest: invalid angle input NaN
+ok 775 - invalid angle input NaN
+  ---
+  duration_ms: 0.039349
+  type: 'test'
+  ...
+# Subtest: invalid angle input Infinity
+ok 776 - invalid angle input Infinity
+  ---
+  duration_ms: 0.035844
+  type: 'test'
+  ...
+# Subtest: invalid angle input 1.5
+ok 777 - invalid angle input 1.5
+  ---
+  duration_ms: 0.034962
+  type: 'test'
+  ...
+# Subtest: invalid angle input 01
+ok 778 - invalid angle input 01
+  ---
+  duration_ms: 0.043075
+  type: 'test'
+  ...
+# Subtest: invalid angle input true
+ok 779 - invalid angle input true
+  ---
+  duration_ms: 0.081102
+  type: 'test'
+  ...
+# Subtest: invalid move width
+ok 780 - invalid move width
+  ---
+  duration_ms: 0.082044
+  type: 'test'
+  ...
+# Subtest: CRC32 standard check vector
+ok 781 - CRC32 standard check vector
+  ---
+  duration_ms: 0.902479
+  type: 'test'
+  ...
+# Subtest: account canonicalization
+ok 782 - account canonicalization
+  ---
+  duration_ms: 0.318019
+  type: 'test'
+  ...
+# Subtest: account checksum and lengths checked
+ok 783 - account checksum and lengths checked
+  ---
+  duration_ms: 0.305921
+  type: 'test'
+  ...
+# Subtest: legacy and blob payments classify identically
+ok 784 - legacy and blob payments classify identically
+  ---
+  duration_ms: 0.941929
+  type: 'test'
+  ...
+# Subtest: transfer amount excludes fee without subtracting it
+ok 785 - transfer amount excludes fee without subtracting it
+  ---
+  duration_ms: 0.253923
+  type: 'test'
+  ...
+# Subtest: wrong destination has no gameplay effect
+ok 786 - wrong destination has no gameplay effect
+  ---
+  duration_ms: 0.718432
+  type: 'test'
+  ...
+# Subtest: self transfer cannot manufacture a purchase
+ok 787 - self transfer cannot manufacture a purchase
+  ---
+  duration_ms: 0.205249
+  type: 'test'
+  ...
+# Subtest: delegated allowance spender cannot command funding account
+ok 788 - delegated allowance spender cannot command funding account
+  ---
+  duration_ms: 0.183607
+  type: 'test'
+  ...
+# Subtest: invalid memo retained as rejection candidate not an exception
+ok 789 - invalid memo retained as rejection candidate not an exception
+  ---
+  duration_ms: 0.289105
+  type: 'test'
+  ...
+# Subtest: ignore Mint
+ok 790 - ignore Mint
+  ---
+  duration_ms: 0.302135
+  type: 'test'
+  ...
+# Subtest: ignore Burn
+ok 791 - ignore Burn
+  ---
+  duration_ms: 0.123716
+  type: 'test'
+  ...
+# Subtest: ignore Approve
+ok 792 - ignore Approve
+  ---
+  duration_ms: 0.099159
+  type: 'test'
+  ...
+# Subtest: unknown operation fails closed for adapter review
+ok 793 - unknown operation fails closed for adapter review
+  ---
+  duration_ms: 0.106731
+  type: 'test'
+  ...
+# Subtest: malformed wire amount halts rather than rejecting money blindly
+ok 794 - malformed wire amount halts rather than rejecting money blindly
+  ---
+  duration_ms: 0.123326
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 0
+ok 795 - independent exact accounting 0
+  ---
+  duration_ms: 3.479032
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 1
+ok 796 - independent exact accounting 1
+  ---
+  duration_ms: 0.207082
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 2
+ok 797 - independent exact accounting 2
+  ---
+  duration_ms: 0.175515
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 3
+ok 798 - independent exact accounting 3
+  ---
+  duration_ms: 0.114412
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 4
+ok 799 - independent exact accounting 4
+  ---
+  duration_ms: 0.234644
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 5
+ok 800 - independent exact accounting 5
+  ---
+  duration_ms: 0.123506
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 6
+ok 801 - independent exact accounting 6
+  ---
+  duration_ms: 0.104728
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 7
+ok 802 - independent exact accounting 7
+  ---
+  duration_ms: 0.165149
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 8
+ok 803 - independent exact accounting 8
+  ---
+  duration_ms: 0.600675
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 9
+ok 804 - independent exact accounting 9
+  ---
+  duration_ms: 0.347304
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 10
+ok 805 - independent exact accounting 10
+  ---
+  duration_ms: 0.309937
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 11
+ok 806 - independent exact accounting 11
+  ---
+  duration_ms: 0.111728
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 12
+ok 807 - independent exact accounting 12
+  ---
+  duration_ms: 0.090847
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 13
+ok 808 - independent exact accounting 13
+  ---
+  duration_ms: 0.084627
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 14
+ok 809 - independent exact accounting 14
+  ---
+  duration_ms: 0.080922
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 15
+ok 810 - independent exact accounting 15
+  ---
+  duration_ms: 0.080741
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 16
+ok 811 - independent exact accounting 16
+  ---
+  duration_ms: 1.077503
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 17
+ok 812 - independent exact accounting 17
+  ---
+  duration_ms: 0.097857
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 18
+ok 813 - independent exact accounting 18
+  ---
+  duration_ms: 0.103746
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 19
+ok 814 - independent exact accounting 19
+  ---
+  duration_ms: 0.117627
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 20
+ok 815 - independent exact accounting 20
+  ---
+  duration_ms: 0.117758
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 21
+ok 816 - independent exact accounting 21
+  ---
+  duration_ms: 0.088563
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 22
+ok 817 - independent exact accounting 22
+  ---
+  duration_ms: 0.069375
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 23
+ok 818 - independent exact accounting 23
+  ---
+  duration_ms: 0.064297
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 24
+ok 819 - independent exact accounting 24
+  ---
+  duration_ms: 0.063275
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 25
+ok 820 - independent exact accounting 25
+  ---
+  duration_ms: 0.068983
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 26
+ok 821 - independent exact accounting 26
+  ---
+  duration_ms: 0.066711
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 27
+ok 822 - independent exact accounting 27
+  ---
+  duration_ms: 0.065108
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 28
+ok 823 - independent exact accounting 28
+  ---
+  duration_ms: 0.068604
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 29
+ok 824 - independent exact accounting 29
+  ---
+  duration_ms: 0.116736
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 30
+ok 825 - independent exact accounting 30
+  ---
+  duration_ms: 0.138629
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 31
+ok 826 - independent exact accounting 31
+  ---
+  duration_ms: 0.104838
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 32
+ok 827 - independent exact accounting 32
+  ---
+  duration_ms: 0.076185
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 33
+ok 828 - independent exact accounting 33
+  ---
+  duration_ms: 0.076745
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 34
+ok 829 - independent exact accounting 34
+  ---
+  duration_ms: 0.107412
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 35
+ok 830 - independent exact accounting 35
+  ---
+  duration_ms: 0.077226
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 36
+ok 831 - independent exact accounting 36
+  ---
+  duration_ms: 0.068413
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 37
+ok 832 - independent exact accounting 37
+  ---
+  duration_ms: 0.070646
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 38
+ok 833 - independent exact accounting 38
+  ---
+  duration_ms: 0.096776
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 39
+ok 834 - independent exact accounting 39
+  ---
+  duration_ms: 0.162825
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 40
+ok 835 - independent exact accounting 40
+  ---
+  duration_ms: 0.086791
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 41
+ok 836 - independent exact accounting 41
+  ---
+  duration_ms: 0.076295
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 42
+ok 837 - independent exact accounting 42
+  ---
+  duration_ms: 0.076575
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 43
+ok 838 - independent exact accounting 43
+  ---
+  duration_ms: 0.081623
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 44
+ok 839 - independent exact accounting 44
+  ---
+  duration_ms: 0.135284
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 45
+ok 840 - independent exact accounting 45
+  ---
+  duration_ms: 0.078338
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 46
+ok 841 - independent exact accounting 46
+  ---
+  duration_ms: 0.077007
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 47
+ok 842 - independent exact accounting 47
+  ---
+  duration_ms: 0.373353
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 48
+ok 843 - independent exact accounting 48
+  ---
+  duration_ms: 0.110957
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 49
+ok 844 - independent exact accounting 49
+  ---
+  duration_ms: 0.084788
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 50
+ok 845 - independent exact accounting 50
+  ---
+  duration_ms: 0.08646
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 51
+ok 846 - independent exact accounting 51
+  ---
+  duration_ms: 0.077727
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 52
+ok 847 - independent exact accounting 52
+  ---
+  duration_ms: 0.074643
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 53
+ok 848 - independent exact accounting 53
+  ---
+  duration_ms: 0.105359
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 54
+ok 849 - independent exact accounting 54
+  ---
+  duration_ms: 0.135133
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 55
+ok 850 - independent exact accounting 55
+  ---
+  duration_ms: 0.09308
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 56
+ok 851 - independent exact accounting 56
+  ---
+  duration_ms: 0.089114
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 57
+ok 852 - independent exact accounting 57
+  ---
+  duration_ms: 0.075794
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 58
+ok 853 - independent exact accounting 58
+  ---
+  duration_ms: 0.078087
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 59
+ok 854 - independent exact accounting 59
+  ---
+  duration_ms: 0.07955
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 60
+ok 855 - independent exact accounting 60
+  ---
+  duration_ms: 0.11295
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 61
+ok 856 - independent exact accounting 61
+  ---
+  duration_ms: 0.090306
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 62
+ok 857 - independent exact accounting 62
+  ---
+  duration_ms: 0.081042
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 63
+ok 858 - independent exact accounting 63
+  ---
+  duration_ms: 0.10625
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 64
+ok 859 - independent exact accounting 64
+  ---
+  duration_ms: 0.090356
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 65
+ok 860 - independent exact accounting 65
+  ---
+  duration_ms: 0.0801
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 66
+ok 861 - independent exact accounting 66
+  ---
+  duration_ms: 0.197077
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 67
+ok 862 - independent exact accounting 67
+  ---
+  duration_ms: 0.092148
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 68
+ok 863 - independent exact accounting 68
+  ---
+  duration_ms: 0.082875
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 69
+ok 864 - independent exact accounting 69
+  ---
+  duration_ms: 0.082174
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 70
+ok 865 - independent exact accounting 70
+  ---
+  duration_ms: 0.082845
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 71
+ok 866 - independent exact accounting 71
+  ---
+  duration_ms: 0.081863
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 72
+ok 867 - independent exact accounting 72
+  ---
+  duration_ms: 0.130897
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 73
+ok 868 - independent exact accounting 73
+  ---
+  duration_ms: 0.100682
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 74
+ok 869 - independent exact accounting 74
+  ---
+  duration_ms: 0.103836
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 75
+ok 870 - independent exact accounting 75
+  ---
+  duration_ms: 0.083766
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 76
+ok 871 - independent exact accounting 76
+  ---
+  duration_ms: 0.114102
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 77
+ok 872 - independent exact accounting 77
+  ---
+  duration_ms: 0.094853
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 78
+ok 873 - independent exact accounting 78
+  ---
+  duration_ms: 0.082965
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 79
+ok 874 - independent exact accounting 79
+  ---
+  duration_ms: 0.082545
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 80
+ok 875 - independent exact accounting 80
+  ---
+  duration_ms: 0.081913
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 81
+ok 876 - independent exact accounting 81
+  ---
+  duration_ms: 0.095133
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 82
+ok 877 - independent exact accounting 82
+  ---
+  duration_ms: 0.084758
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 83
+ok 878 - independent exact accounting 83
+  ---
+  duration_ms: 0.089285
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 84
+ok 879 - independent exact accounting 84
+  ---
+  duration_ms: 0.084698
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 85
+ok 880 - independent exact accounting 85
+  ---
+  duration_ms: 0.089635
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 86
+ok 881 - independent exact accounting 86
+  ---
+  duration_ms: 0.082264
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 87
+ok 882 - independent exact accounting 87
+  ---
+  duration_ms: 0.085659
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 88
+ok 883 - independent exact accounting 88
+  ---
+  duration_ms: 0.12608
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 89
+ok 884 - independent exact accounting 89
+  ---
+  duration_ms: 0.087121
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 90
+ok 885 - independent exact accounting 90
+  ---
+  duration_ms: 0.116386
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 91
+ok 886 - independent exact accounting 91
+  ---
+  duration_ms: 0.140802
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 92
+ok 887 - independent exact accounting 92
+  ---
+  duration_ms: 0.096366
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 93
+ok 888 - independent exact accounting 93
+  ---
+  duration_ms: 0.090106
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 94
+ok 889 - independent exact accounting 94
+  ---
+  duration_ms: 0.090186
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 95
+ok 890 - independent exact accounting 95
+  ---
+  duration_ms: 0.090446
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 96
+ok 891 - independent exact accounting 96
+  ---
+  duration_ms: 0.091928
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 97
+ok 892 - independent exact accounting 97
+  ---
+  duration_ms: 0.091618
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 98
+ok 893 - independent exact accounting 98
+  ---
+  duration_ms: 0.125399
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 99
+ok 894 - independent exact accounting 99
+  ---
+  duration_ms: 0.098078
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 100
+ok 895 - independent exact accounting 100
+  ---
+  duration_ms: 0.103005
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 101
+ok 896 - independent exact accounting 101
+  ---
+  duration_ms: 0.281775
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 102
+ok 897 - independent exact accounting 102
+  ---
+  duration_ms: 0.153952
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 103
+ok 898 - independent exact accounting 103
+  ---
+  duration_ms: 0.104007
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 104
+ok 899 - independent exact accounting 104
+  ---
+  duration_ms: 0.137337
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 105
+ok 900 - independent exact accounting 105
+  ---
+  duration_ms: 0.149726
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 106
+ok 901 - independent exact accounting 106
+  ---
+  duration_ms: 0.102374
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 107
+ok 902 - independent exact accounting 107
+  ---
+  duration_ms: 0.099039
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 108
+ok 903 - independent exact accounting 108
+  ---
+  duration_ms: 0.09963
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 109
+ok 904 - independent exact accounting 109
+  ---
+  duration_ms: 0.098869
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 110
+ok 905 - independent exact accounting 110
+  ---
+  duration_ms: 0.110317
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 111
+ok 906 - independent exact accounting 111
+  ---
+  duration_ms: 0.102234
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 112
+ok 907 - independent exact accounting 112
+  ---
+  duration_ms: 0.131408
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 113
+ok 908 - independent exact accounting 113
+  ---
+  duration_ms: 0.1062
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 114
+ok 909 - independent exact accounting 114
+  ---
+  duration_ms: 7.916929
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 115
+ok 910 - independent exact accounting 115
+  ---
+  duration_ms: 0.145229
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 116
+ok 911 - independent exact accounting 116
+  ---
+  duration_ms: 0.10628
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 117
+ok 912 - independent exact accounting 117
+  ---
+  duration_ms: 0.097307
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 118
+ok 913 - independent exact accounting 118
+  ---
+  duration_ms: 0.096315
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 119
+ok 914 - independent exact accounting 119
+  ---
+  duration_ms: 0.09946
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 120
+ok 915 - independent exact accounting 120
+  ---
+  duration_ms: 0.10607
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 121
+ok 916 - independent exact accounting 121
+  ---
+  duration_ms: 0.101974
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 122
+ok 917 - independent exact accounting 122
+  ---
+  duration_ms: 0.136075
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 123
+ok 918 - independent exact accounting 123
+  ---
+  duration_ms: 0.098469
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 124
+ok 919 - independent exact accounting 124
+  ---
+  duration_ms: 0.100501
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 125
+ok 920 - independent exact accounting 125
+  ---
+  duration_ms: 0.098799
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 126
+ok 921 - independent exact accounting 126
+  ---
+  duration_ms: 0.095985
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 127
+ok 922 - independent exact accounting 127
+  ---
+  duration_ms: 0.097547
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 128
+ok 923 - independent exact accounting 128
+  ---
+  duration_ms: 0.098899
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 129
+ok 924 - independent exact accounting 129
+  ---
+  duration_ms: 0.096926
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 130
+ok 925 - independent exact accounting 130
+  ---
+  duration_ms: 0.097227
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 131
+ok 926 - independent exact accounting 131
+  ---
+  duration_ms: 0.113821
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 132
+ok 927 - independent exact accounting 132
+  ---
+  duration_ms: 0.192771
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 133
+ok 928 - independent exact accounting 133
+  ---
+  duration_ms: 0.143086
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 134
+ok 929 - independent exact accounting 134
+  ---
+  duration_ms: 0.12574
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 135
+ok 930 - independent exact accounting 135
+  ---
+  duration_ms: 0.432672
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 136
+ok 931 - independent exact accounting 136
+  ---
+  duration_ms: 0.148443
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 137
+ok 932 - independent exact accounting 137
+  ---
+  duration_ms: 0.193271
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 138
+ok 933 - independent exact accounting 138
+  ---
+  duration_ms: 0.124608
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 139
+ok 934 - independent exact accounting 139
+  ---
+  duration_ms: 0.11255
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 140
+ok 935 - independent exact accounting 140
+  ---
+  duration_ms: 0.119229
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 141
+ok 936 - independent exact accounting 141
+  ---
+  duration_ms: 0.111097
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 142
+ok 937 - independent exact accounting 142
+  ---
+  duration_ms: 0.108153
+  type: 'test'
+  ...
+# Subtest: independent exact accounting 143
+ok 938 - independent exact accounting 143
+  ---
+  duration_ms: 0.108734
+  type: 'test'
+  ...
+# Subtest: portable cursor 0 admission/commands
+ok 939 - portable cursor 0 admission/commands
+  ---
+  duration_ms: 7.841846
+  type: 'test'
+  ...
+# Subtest: portable cursor 1 admission/spawn/enumerate
+ok 940 - portable cursor 1 admission/spawn/enumerate
+  ---
+  duration_ms: 4.537797
+  type: 'test'
+  ...
+# Subtest: portable cursor 2 admission/spawn/candidate
+ok 941 - portable cursor 2 admission/spawn/candidate
+  ---
+  duration_ms: 4.289123
+  type: 'test'
+  ...
+# Subtest: portable cursor 3 admission/spawn/owner
+ok 942 - portable cursor 3 admission/spawn/owner
+  ---
+  duration_ms: 4.525138
+  type: 'test'
+  ...
+# Subtest: portable cursor 4 admission/spawn/flood
+ok 943 - portable cursor 4 admission/spawn/flood
+  ---
+  duration_ms: 4.253629
+  type: 'test'
+  ...
+# Subtest: portable cursor 5 admission/spawn/verify
+ok 944 - portable cursor 5 admission/spawn/verify
+  ---
+  duration_ms: 3.160593
+  type: 'test'
+  ...
+# Subtest: portable cursor 6 admission/search
+ok 945 - portable cursor 6 admission/search
+  ---
+  duration_ms: 1.827914
+  type: 'test'
+  ...
+# Subtest: portable cursor 7 admission/area
+ok 946 - portable cursor 7 admission/area
+  ---
+  duration_ms: 1.571899
+  type: 'test'
+  ...
+# Subtest: portable cursor 8 admission/batch
+ok 947 - portable cursor 8 admission/batch
+  ---
+  duration_ms: 1.523255
+  type: 'test'
+  ...
+# Subtest: portable cursor 9 admission/resolve
+ok 948 - portable cursor 9 admission/resolve
+  ---
+  duration_ms: 1.972823
+  type: 'test'
+  ...
+# Subtest: portable cursor 10 admission/expire
+ok 949 - portable cursor 10 admission/expire
+  ---
+  duration_ms: 3.746705
+  type: 'test'
+  ...
+# Subtest: portable cursor 11 admission/topology/balls
+ok 950 - portable cursor 11 admission/topology/balls
+  ---
+  duration_ms: 1.650828
+  type: 'test'
+  ...
+# Subtest: portable cursor 12 admission/topology/neutral
+ok 951 - portable cursor 12 admission/topology/neutral
+  ---
+  duration_ms: 1.781855
+  type: 'test'
+  ...
+# Subtest: portable cursor 13 admission/done
+ok 952 - portable cursor 13 admission/done
+  ---
+  duration_ms: 1.290054
+  type: 'test'
+  ...
+# Subtest: portable cursor 14 near-impact/commands
+ok 953 - portable cursor 14 near-impact/commands
+  ---
+  duration_ms: 1.140408
+  type: 'test'
+  ...
+# Subtest: portable cursor 15 near-impact/search
+ok 954 - portable cursor 15 near-impact/search
+  ---
+  duration_ms: 0.700806
+  type: 'test'
+  ...
+# Subtest: portable cursor 16 near-impact/area
+ok 955 - portable cursor 16 near-impact/area
+  ---
+  duration_ms: 0.908829
+  type: 'test'
+  ...
+# Subtest: portable cursor 17 near-impact/batch
+ok 956 - portable cursor 17 near-impact/batch
+  ---
+  duration_ms: 0.723921
+  type: 'test'
+  ...
+# Subtest: portable cursor 18 near-impact/resolve
+ok 957 - portable cursor 18 near-impact/resolve
+  ---
+  duration_ms: 0.778893
+  type: 'test'
+  ...
+# Subtest: portable cursor 19 near-impact/expire
+ok 958 - portable cursor 19 near-impact/expire
+  ---
+  duration_ms: 0.81658
+  type: 'test'
+  ...
+# Subtest: portable cursor 20 near-impact/topology/neutral
+ok 959 - portable cursor 20 near-impact/topology/neutral
+  ---
+  duration_ms: 0.719293
+  type: 'test'
+  ...
+# Subtest: portable cursor 21 near-impact/done
+ok 960 - portable cursor 21 near-impact/done
+  ---
+  duration_ms: 0.530229
+  type: 'test'
+  ...
+# Subtest: portable cursor 22 duel/commands
+ok 961 - portable cursor 22 duel/commands
+  ---
+  duration_ms: 0.703801
+  type: 'test'
+  ...
+# Subtest: portable cursor 23 duel/search
+ok 962 - portable cursor 23 duel/search
+  ---
+  duration_ms: 0.61095
+  type: 'test'
+  ...
+# Subtest: portable cursor 24 duel/area
+ok 963 - portable cursor 24 duel/area
+  ---
+  duration_ms: 1.850559
+  type: 'test'
+  ...
+# Subtest: portable cursor 25 duel/batch
+ok 964 - portable cursor 25 duel/batch
+  ---
+  duration_ms: 0.704592
+  type: 'test'
+  ...
+# Subtest: portable cursor 26 duel/resolve
+ok 965 - portable cursor 26 duel/resolve
+  ---
+  duration_ms: 0.817572
+  type: 'test'
+  ...
+# Subtest: portable cursor 27 duel/expire
+ok 966 - portable cursor 27 duel/expire
+  ---
+  duration_ms: 0.77002
+  type: 'test'
+  ...
+# Subtest: portable cursor 28 duel/topology/neutral
+ok 967 - portable cursor 28 duel/topology/neutral
+  ---
+  duration_ms: 0.720616
+  type: 'test'
+  ...
+# Subtest: portable cursor 29 duel/done
+ok 968 - portable cursor 29 duel/done
+  ---
+  duration_ms: 0.498641
+  type: 'test'
+  ...
+# Subtest: portable cursor 30 severance/commands
+ok 969 - portable cursor 30 severance/commands
+  ---
+  duration_ms: 0.827106
+  type: 'test'
+  ...
+# Subtest: portable cursor 31 severance/search
+ok 970 - portable cursor 31 severance/search
+  ---
+  duration_ms: 1.191094
+  type: 'test'
+  ...
+# Subtest: portable cursor 32 severance/area
+ok 971 - portable cursor 32 severance/area
+  ---
+  duration_ms: 0.72325
+  type: 'test'
+  ...
+# Subtest: portable cursor 33 severance/batch
+ok 972 - portable cursor 33 severance/batch
+  ---
+  duration_ms: 1.630386
+  type: 'test'
+  ...
+# Subtest: portable cursor 34 severance/resolve
+ok 973 - portable cursor 34 severance/resolve
+  ---
+  duration_ms: 0.695588
+  type: 'test'
+  ...
+# Subtest: portable cursor 35 severance/expire
+ok 974 - portable cursor 35 severance/expire
+  ---
+  duration_ms: 1.129872
+  type: 'test'
+  ...
+# Subtest: portable cursor 36 severance/topology/flood
+ok 975 - portable cursor 36 severance/topology/flood
+  ---
+  duration_ms: 0.715367
+  type: 'test'
+  ...
+# Subtest: portable cursor 37 severance/topology/transfer
+ok 976 - portable cursor 37 severance/topology/transfer
+  ---
+  duration_ms: 0.728918
+  type: 'test'
+  ...
+# Subtest: portable cursor 38 severance/topology/balls
+ok 977 - portable cursor 38 severance/topology/balls
+  ---
+  duration_ms: 0.968909
+  type: 'test'
+  ...
+# Subtest: portable cursor 39 severance/topology/neutral
+ok 978 - portable cursor 39 severance/topology/neutral
+  ---
+  duration_ms: 0.677691
+  type: 'test'
+  ...
+# Subtest: portable cursor 40 severance/done
+ok 979 - portable cursor 40 severance/done
+  ---
+  duration_ms: 0.640194
+  type: 'test'
+  ...
+# Subtest: portable cursor 41 corner/commands
+ok 980 - portable cursor 41 corner/commands
+  ---
+  duration_ms: 0.676189
+  type: 'test'
+  ...
+# Subtest: portable cursor 42 corner/search
+ok 981 - portable cursor 42 corner/search
+  ---
+  duration_ms: 0.567415
+  type: 'test'
+  ...
+# Subtest: portable cursor 43 corner/area
+ok 982 - portable cursor 43 corner/area
+  ---
+  duration_ms: 0.628457
+  type: 'test'
+  ...
+# Subtest: portable cursor 44 corner/batch
+ok 983 - portable cursor 44 corner/batch
+  ---
+  duration_ms: 0.635979
+  type: 'test'
+  ...
+# Subtest: portable cursor 45 corner/resolve
+ok 984 - portable cursor 45 corner/resolve
+  ---
+  duration_ms: 0.695768
+  type: 'test'
+  ...
+# Subtest: portable cursor 46 corner/expire
+ok 985 - portable cursor 46 corner/expire
+  ---
+  duration_ms: 1.362493
+  type: 'test'
+  ...
+# Subtest: portable cursor 47 corner/topology/flood
+ok 986 - portable cursor 47 corner/topology/flood
+  ---
+  duration_ms: 0.724211
+  type: 'test'
+  ...
+# Subtest: portable cursor 48 corner/topology/transfer
+ok 987 - portable cursor 48 corner/topology/transfer
+  ---
+  duration_ms: 0.598401
+  type: 'test'
+  ...
+# Subtest: portable cursor 49 corner/topology/balls
+ok 988 - portable cursor 49 corner/topology/balls
+  ---
+  duration_ms: 0.627155
+  type: 'test'
+  ...
+# Subtest: portable cursor 50 corner/topology/neutral
+ok 989 - portable cursor 50 corner/topology/neutral
+  ---
+  duration_ms: 0.685383
+  type: 'test'
+  ...
+# Subtest: portable cursor 51 corner/done
+ok 990 - portable cursor 51 corner/done
+  ---
+  duration_ms: 0.575817
+  type: 'test'
+  ...
+# Subtest: portable cursor 52 wall-bounce/commands
+ok 991 - portable cursor 52 wall-bounce/commands
+  ---
+  duration_ms: 0.920467
+  type: 'test'
+  ...
+# Subtest: portable cursor 53 wall-bounce/search
+ok 992 - portable cursor 53 wall-bounce/search
+  ---
+  duration_ms: 0.768908
+  type: 'test'
+  ...
+# Subtest: portable cursor 54 wall-bounce/area
+ok 993 - portable cursor 54 wall-bounce/area
+  ---
+  duration_ms: 1.06201
+  type: 'test'
+  ...
+# Subtest: portable cursor 55 wall-bounce/batch
+ok 994 - portable cursor 55 wall-bounce/batch
+  ---
+  duration_ms: 0.939466
+  type: 'test'
+  ...
+# Subtest: portable cursor 56 wall-bounce/resolve
+ok 995 - portable cursor 56 wall-bounce/resolve
+  ---
+  duration_ms: 0.846987
+  type: 'test'
+  ...
+# Subtest: portable cursor 57 wall-bounce/expire
+ok 996 - portable cursor 57 wall-bounce/expire
+  ---
+  duration_ms: 0.868319
+  type: 'test'
+  ...
+# Subtest: portable cursor 58 wall-bounce/done
+ok 997 - portable cursor 58 wall-bounce/done
+  ---
+  duration_ms: 0.666996
+  type: 'test'
+  ...
+# Subtest: portable cursor 59 dense/commands
+ok 998 - portable cursor 59 dense/commands
+  ---
+  duration_ms: 38.89878
+  type: 'test'
+  ...
+# Subtest: portable cursor 60 dense/search
+ok 999 - portable cursor 60 dense/search
+  ---
+  duration_ms: 43.081722
+  type: 'test'
+  ...
+# Subtest: portable cursor 61 dense/area
+ok 1000 - portable cursor 61 dense/area
+  ---
+  duration_ms: 38.131564
+  type: 'test'
+  ...
+# Subtest: portable cursor 62 dense/batch
+ok 1001 - portable cursor 62 dense/batch
+  ---
+  duration_ms: 33.202493
+  type: 'test'
+  ...
+# Subtest: portable cursor 63 dense/resolve
+ok 1002 - portable cursor 63 dense/resolve
+  ---
+  duration_ms: 28.208923
+  type: 'test'
+  ...
+# Subtest: portable cursor 64 dense/expire
+ok 1003 - portable cursor 64 dense/expire
+  ---
+  duration_ms: 38.326117
+  type: 'test'
+  ...
+# Subtest: portable cursor 65 dense/topology/flood
+ok 1004 - portable cursor 65 dense/topology/flood
+  ---
+  duration_ms: 42.704385
+  type: 'test'
+  ...
+# Subtest: portable cursor 66 dense/topology/transfer
+ok 1005 - portable cursor 66 dense/topology/transfer
+  ---
+  duration_ms: 30.425604
+  type: 'test'
+  ...
+# Subtest: portable cursor 67 dense/topology/balls
+ok 1006 - portable cursor 67 dense/topology/balls
+  ---
+  duration_ms: 24.843322
+  type: 'test'
+  ...
+# Subtest: portable cursor 68 dense/topology/neutral
+ok 1007 - portable cursor 68 dense/topology/neutral
+  ---
+  duration_ms: 29.366117
+  type: 'test'
+  ...
+# Subtest: portable cursor 69 dense/done
+ok 1008 - portable cursor 69 dense/done
+  ---
+  duration_ms: 9.520445
+  type: 'test'
+  ...
+# Subtest: generic host commits identical manifest across work partitions
+ok 1009 - generic host commits identical manifest across work partitions
+  ---
+  duration_ms: 29.14233
+  type: 'test'
+  ...
+# Subtest: wrong previous state fails before invoking kernel
+ok 1010 - wrong previous state fails before invoking kernel
+  ---
+  duration_ms: 0.422316
+  type: 'test'
+  ...
+# Subtest: unsealed command cannot be injected
+ok 1011 - unsealed command cannot be injected
+  ---
+  duration_ms: 0.176906
+  type: 'test'
+  ...
+# Subtest: budget exhaustion publishes no partial manifest
+ok 1012 - budget exhaustion publishes no partial manifest
+  ---
+  duration_ms: 0.353292
+  type: 'test'
+  ...
+# Subtest: zero-work malicious kernel cannot spin forever
+ok 1013 - zero-work malicious kernel cannot spin forever
+  ---
+  duration_ms: 0.218259
+  type: 'test'
+  ...
+# Subtest: excess-work report rejected
+ok 1014 - excess-work report rejected
+  ---
+  duration_ms: 0.189105
+  type: 'test'
+  ...
+# Subtest: offline host strips uncommitted metadata and normalizes source positions
+ok 1015 - offline host strips uncommitted metadata and normalizes source positions
+  ---
+  duration_ms: 1.039426
+  type: 'test'
+  ...
+# Subtest: Python canonical seal golden bytes
+ok 1016 - Python canonical seal golden bytes
+  ---
+  duration_ms: 6.864147
+  type: 'test'
+  ...
+# Subtest: Python seal SHA256 agrees
+ok 1017 - Python seal SHA256 agrees
+  ---
+  duration_ms: 0.833335
+  type: 'test'
+  ...
+# Subtest: incomplete cursor cannot seal inputs
+ok 1018 - incomplete cursor cannot seal inputs
+  ---
+  duration_ms: 1.456144
+  type: 'test'
+  ...
+# Subtest: empty epochs still have canonical commitment
+ok 1019 - empty epochs still have canonical commitment
+  ---
+  duration_ms: 0.30531
+  type: 'test'
+  ...
+# Subtest: invalid inputs 101,101
+ok 1020 - invalid inputs 101,101
+  ---
+  duration_ms: 5.146796
+  type: 'test'
+  ...
+# Subtest: invalid inputs 102,101
+ok 1021 - invalid inputs 102,101
+  ---
+  duration_ms: 0.106671
+  type: 'test'
+  ...
+# Subtest: invalid inputs 99
+ok 1022 - invalid inputs 99
+  ---
+  duration_ms: 0.146521
+  type: 'test'
+  ...
+# Subtest: invalid inputs 110
+ok 1023 - invalid inputs 110
+  ---
+  duration_ms: 0.075253
+  type: 'test'
+  ...
+# Subtest: payload change changes root
+ok 1024 - payload change changes root
+  ---
+  duration_ms: 0.339361
+  type: 'test'
+  ...
+# Subtest: seal cannot move logical time backwards
+ok 1025 - seal cannot move logical time backwards
+  ---
+  duration_ms: 0.448696
+  type: 'test'
+  ...
+# Subtest: successor checks source interval and previous hashes
+ok 1026 - successor checks source interval and previous hashes
+  ---
+  duration_ms: 0.494545
+  type: 'test'
+  ...
+# Subtest: direct prefix planned
+ok 1027 - direct prefix planned
+  ---
+  duration_ms: 1.173858
+  type: 'test'
+  ...
+# Subtest: short prefix advances only returned blocks
+ok 1028 - short prefix advances only returned blocks
+  ---
+  duration_ms: 0.399722
+  type: 'test'
+  ...
+# Subtest: empty prefix never jumps to chain tip
+ok 1029 - empty prefix never jumps to chain tip
+  ---
+  duration_ms: 0.151088
+  type: 'test'
+  ...
+# Subtest: no data and unspecified first index retries
+ok 1030 - no data and unspecified first index retries
+  ---
+  duration_ms: 0.109294
+  type: 'test'
+  ...
+# Subtest: archive prefix can precede local suffix
+ok 1031 - archive prefix can precede local suffix
+  ---
+  duration_ms: 0.359752
+  type: 'test'
+  ...
+# Subtest: overlapping archive/local ranges rejected
+ok 1032 - overlapping archive/local ranges rejected
+  ---
+  duration_ms: 0.231969
+  type: 'test'
+  ...
+# Subtest: holes are not skipped
+ok 1033 - holes are not skipped
+  ---
+  duration_ms: 0.09968
+  type: 'test'
+  ...
+# Subtest: past request window rejected
+ok 1034 - past request window rejected
+  ---
+  duration_ms: 0.098278
+  type: 'test'
+  ...
+# Subtest: malicious route shape rejected
+ok 1035 - malicious route shape rejected
+  ---
+  duration_ms: 5.185233
+  type: 'test'
+  ...
+# Subtest: stale chain length rejected
+ok 1036 - stale chain length rejected
+  ---
+  duration_ms: 0.336517
+  type: 'test'
+  ...
+# Subtest: at tip does not invent work
+ok 1037 - at tip does not invent work
+  ---
+  duration_ms: 0.13969
+  type: 'test'
+  ...
+# Subtest: replay/gap 9 rejected
+ok 1038 - replay/gap 9 rejected
+  ---
+  duration_ms: 0.10615
+  type: 'test'
+  ...
+# Subtest: replay/gap 11 rejected
+ok 1039 - replay/gap 11 rejected
+  ---
+  duration_ms: 0.057858
+  type: 'test'
+  ...
+# Subtest: failure on final row produces no partial state transition
+ok 1040 - failure on final row produces no partial state transition
+  ---
+  duration_ms: 0.197437
+  type: 'test'
+  ...
+# Subtest: oversized response rejected before classification
+ok 1041 - oversized response rejected before classification
+  ---
+  duration_ms: 0.106511
+  type: 'test'
+  ...
+# Subtest: descending exclusive index pages accepted only as hints
+ok 1042 - descending exclusive index pages accepted only as hints
+  ---
+  duration_ms: 0.571291
+  type: 'test'
+  ...
+# Subtest: index ambiguity 9,9 rejected
+ok 1043 - index ambiguity 9,9 rejected
+  ---
+  duration_ms: 0.141824
+  type: 'test'
+  ...
+# Subtest: index ambiguity 4,9 rejected
+ok 1044 - index ambiguity 4,9 rejected
+  ---
+  duration_ms: 0.677011
+  type: 'test'
+  ...
+# Subtest: index ambiguity 10,9 rejected
+ok 1045 - index ambiguity 10,9 rejected
+  ---
+  duration_ms: 0.074221
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 0
+ok 1046 - chunk upload exact boundaries 0
+  ---
+  duration_ms: 3.486704
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 1
+ok 1047 - chunk upload exact boundaries 1
+  ---
+  duration_ms: 1.024364
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 15
+ok 1048 - chunk upload exact boundaries 15
+  ---
+  duration_ms: 0.573905
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 16
+ok 1049 - chunk upload exact boundaries 16
+  ---
+  duration_ms: 1.189262
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 17
+ok 1050 - chunk upload exact boundaries 17
+  ---
+  duration_ms: 0.746004
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 255
+ok 1051 - chunk upload exact boundaries 255
+  ---
+  duration_ms: 3.522247
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 4096
+ok 1052 - chunk upload exact boundaries 4096
+  ---
+  duration_ms: 30.685024
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 4097
+ok 1053 - chunk upload exact boundaries 4097
+  ---
+  duration_ms: 26.087537
+  type: 'test'
+  ...
+# Subtest: durable chunk failure before_root
+ok 1054 - durable chunk failure before_root
+  ---
+  duration_ms: 7.603917
+  type: 'test'
+  ...
+# Subtest: durable chunk failure after
+ok 1055 - durable chunk failure after
+  ---
+  duration_ms: 4.249132
+  type: 'test'
+  ...
+# Subtest: durable chunk failure chunk:0
+ok 1056 - durable chunk failure chunk:0
+  ---
+  duration_ms: 1.547702
+  type: 'test'
+  ...
+# Subtest: durable chunk failure chunk:1
+ok 1057 - durable chunk failure chunk:1
+  ---
+  duration_ms: 3.156156
+  type: 'test'
+  ...
+# Subtest: durable chunk failure chunk:2
+ok 1058 - durable chunk failure chunk:2
+  ---
+  duration_ms: 1.514131
+  type: 'test'
+  ...
+# Subtest: out-of-order, corrupted and stale uploads cannot publish
+ok 1059 - out-of-order, corrupted and stale uploads cannot publish
+  ---
+  duration_ms: 2.773819
+  type: 'test'
+  ...
+# Subtest: committed corruption fails closed, never falls back to older game state
+ok 1060 - committed corruption fails closed, never falls back to older game state
+  ---
+  duration_ms: 0.539893
+  type: 'test'
+  ...
+# Subtest: bounded garbage collection retains both current and pending chunks
+ok 1061 - bounded garbage collection retains both current and pending chunks
+  ---
+  duration_ms: 1.169182
+  type: 'test'
+  ...
+# Subtest: storage capacity rejects before consuming the pending chunk position
+ok 1062 - storage capacity rejects before consuming the pending chunk position
+  ---
+  duration_ms: 0.349286
+  type: 'test'
+  ...
+# Subtest: domain and index bind chunks
+ok 1063 - domain and index bind chunks
+  ---
+  duration_ms: 0.098879
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/prepare/chunk:0
+ok 1064 - shared store recovery life/prepare/chunk:0
+  ---
+  duration_ms: 10.610788
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/prepare/before_root
+ok 1065 - shared store recovery life/prepare/before_root
+  ---
+  duration_ms: 7.424547
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/prepare/after
+ok 1066 - shared store recovery life/prepare/after
+  ---
+  duration_ms: 7.664739
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/advance/chunk:0
+ok 1067 - shared store recovery life/advance/chunk:0
+  ---
+  duration_ms: 8.646999
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/advance/before_root
+ok 1068 - shared store recovery life/advance/before_root
+  ---
+  duration_ms: 7.944891
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/advance/after
+ok 1069 - shared store recovery life/advance/after
+  ---
+  duration_ms: 8.0507
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/publish/chunk:0
+ok 1070 - shared store recovery life/publish/chunk:0
+  ---
+  duration_ms: 8.514089
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/publish/before_root
+ok 1071 - shared store recovery life/publish/before_root
+  ---
+  duration_ms: 8.354589
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/publish/after
+ok 1072 - shared store recovery life/publish/after
+  ---
+  duration_ms: 7.689065
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/prepare/chunk:0
+ok 1073 - shared store recovery admission/prepare/chunk:0
+  ---
+  duration_ms: 60.338754
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/prepare/before_root
+ok 1074 - shared store recovery admission/prepare/before_root
+  ---
+  duration_ms: 58.336748
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/prepare/after
+ok 1075 - shared store recovery admission/prepare/after
+  ---
+  duration_ms: 61.834949
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/advance/chunk:0
+ok 1076 - shared store recovery admission/advance/chunk:0
+  ---
+  duration_ms: 62.87101
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/advance/before_root
+ok 1077 - shared store recovery admission/advance/before_root
+  ---
+  duration_ms: 59.000658
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/advance/after
+ok 1078 - shared store recovery admission/advance/after
+  ---
+  duration_ms: 60.803234
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/publish/chunk:0
+ok 1079 - shared store recovery admission/publish/chunk:0
+  ---
+  duration_ms: 76.292452
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/publish/before_root
+ok 1080 - shared store recovery admission/publish/before_root
+  ---
+  duration_ms: 63.588161
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/publish/after
+ok 1081 - shared store recovery admission/publish/after
+  ---
+  duration_ms: 58.353624
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/prepare/chunk:0
+ok 1082 - shared store recovery severance/prepare/chunk:0
+  ---
+  duration_ms: 11.898197
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/prepare/before_root
+ok 1083 - shared store recovery severance/prepare/before_root
+  ---
+  duration_ms: 11.339996
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/prepare/after
+ok 1084 - shared store recovery severance/prepare/after
+  ---
+  duration_ms: 11.431173
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/advance/chunk:0
+ok 1085 - shared store recovery severance/advance/chunk:0
+  ---
+  duration_ms: 13.827204
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/advance/before_root
+ok 1086 - shared store recovery severance/advance/before_root
+  ---
+  duration_ms: 13.700754
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/advance/after
+ok 1087 - shared store recovery severance/advance/after
+  ---
+  duration_ms: 14.947382
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/publish/chunk:0
+ok 1088 - shared store recovery severance/publish/chunk:0
+  ---
+  duration_ms: 17.021777
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/publish/before_root
+ok 1089 - shared store recovery severance/publish/before_root
+  ---
+  duration_ms: 14.644025
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/publish/after
+ok 1090 - shared store recovery severance/publish/after
+  ---
+  duration_ms: 16.338708
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/prepare/chunk:0
+ok 1091 - shared store recovery near-impact/prepare/chunk:0
+  ---
+  duration_ms: 10.739081
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/prepare/before_root
+ok 1092 - shared store recovery near-impact/prepare/before_root
+  ---
+  duration_ms: 11.020966
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/prepare/after
+ok 1093 - shared store recovery near-impact/prepare/after
+  ---
+  duration_ms: 10.990049
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/advance/chunk:0
+ok 1094 - shared store recovery near-impact/advance/chunk:0
+  ---
+  duration_ms: 12.87568
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/advance/before_root
+ok 1095 - shared store recovery near-impact/advance/before_root
+  ---
+  duration_ms: 17.191423
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/advance/after
+ok 1096 - shared store recovery near-impact/advance/after
+  ---
+  duration_ms: 15.006131
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/publish/chunk:0
+ok 1097 - shared store recovery near-impact/publish/chunk:0
+  ---
+  duration_ms: 14.566708
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/publish/before_root
+ok 1098 - shared store recovery near-impact/publish/before_root
+  ---
+  duration_ms: 16.098857
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/publish/after
+ok 1099 - shared store recovery near-impact/publish/after
+  ---
+  duration_ms: 12.94173
+  type: 'test'
+  ...
+# Subtest: fallback works with zero notifications
+ok 1100 - fallback works with zero notifications
+  ---
+  duration_ms: 2.226584
+  type: 'test'
+  ...
+# Subtest: a thousand hints coalesce
+ok 1101 - a thousand hints coalesce
+  ---
+  duration_ms: 0.209045
+  type: 'test'
+  ...
+# Subtest: hint arriving during await survives successful completion
+ok 1102 - hint arriving during await survives successful completion
+  ---
+  duration_ms: 0.109145
+  type: 'test'
+  ...
+# Subtest: late callback cannot release replacement generation
+ok 1103 - late callback cannot release replacement generation
+  ---
+  duration_ms: 0.096315
+  type: 'test'
+  ...
+# Subtest: lease expires even before a replacement is acquired
+ok 1104 - lease expires even before a replacement is acquired
+  ---
+  duration_ms: 0.193091
+  type: 'test'
+  ...
+# Subtest: failed operation becomes dirty for retry
+ok 1105 - failed operation becomes dirty for retry
+  ---
+  duration_ms: 0.109606
+  type: 'test'
+  ...
+# Subtest: unauthorized hints do not force polling
+ok 1106 - unauthorized hints do not force polling
+  ---
+  duration_ms: 0.178068
+  type: 'test'
+  ...
+# Subtest: minimum spacing prevents notification scan storm
+ok 1107 - minimum spacing prevents notification scan storm
+  ---
+  duration_ms: 0.104087
+  type: 'test'
+  ...
+# Subtest: u64 overflow fails before state mutation
+ok 1108 - u64 overflow fails before state mutation
+  ---
+  duration_ms: 0.394644
+  type: 'test'
+  ...
+1..1108
+# tests 1108
+# suites 0
+# pass 1108
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3020.683648

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "S02",
+  "name": "DTR/BTZ durable execution models and exact small-board simulation",
+  "date": "2026-09-20",
+  "predecessor": {
+    "checkpoint_id": "S01",
+    "archive": "DTR_BTZ_S01_Workspace_and_Conformance.zip",
+    "sha256": "8945735734ad6c1211b3e481fc5f13680868b37ab42bd37689f22300b0f8215e"
+  },
+  "implementation_scope": "S02_executed_offline_reference_plus_uncompiled_Rust_primitives",
+  "delivery_complete": true,
+  "promotion_gate": "BLOCKED",
+  "software_release_eligible": false,
+  "real_funds_authorized": false,
+  "verification_reports": [
+    "evidence/S02/verification/verification.json"
+  ],
+  "manifest": "FILES.sha256",
+  "next_checkpoint": "S03",
+  "open_decision_register": "docs/DECISIONS.md",
+  "limitations": [
+    "Rust/Cargo unavailable; no compiled, rustfmt, clippy or native/Wasm evidence",
+    "Full BTZ orchestration and journal are executed JS reference models, not a complete Rust canister",
+    "No new-cannon spawn or nonzero temporal annihilation window",
+    "No live ledger/archive source, production cutoff policy or actual IC stable structures/upgrade execution",
+    "No certified browser observer, payout orchestration, actual cycle metrics or production capacity validation"
+  ],
+  "implementation_versions": {
+    "source_seal": 1,
+    "btz_memo": 1,
+    "life_board": 1,
+    "journal_model": 2,
+    "btz_reference": 2
+  }
+}

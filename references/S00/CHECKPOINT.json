@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "S00",
+  "name": "DTR/BTZ engineering baseline",
+  "date": "2026-09-20",
+  "predecessor": null,
+  "implementation_scope": "planning_and_reference_review_only",
+  "software_release_eligible": false,
+  "real_funds_authorized": false,
+  "input_reference": {
+    "filename": "JUPITER_FAUCET_SUITE-master (3).zip",
+    "sha256": "ee1d10777ba365b01f9e97d5fec9aa5cd158643b4ed04bce914c76cb284deb98"
+  },
+  "verification_reports": [
+    "evidence/jupiter/verification.json",
+    "evidence/package-tests.json"
+  ],
+  "manifest": "FILES.sha256",
+  "next_checkpoint": "S01",
+  "open_decision_register": "docs/DESIGN_DECISIONS.md",
+  "limitations": [
+    "No DTR/BTZ Rust implementation included",
+    "No compiled Rust/Wasm/PocketIC evidence",
+    "Reference frontend full suite blocked by dependencies",
+    "No mainnet deployment or full security audit"
+  ]
+}

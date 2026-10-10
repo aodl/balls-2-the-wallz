@@ -1,0 +1,77 @@
+{
+  "method": "Actual byte counts of synthetic committed publication fixture artifacts; not cycle/IC performance measurements.",
+  "cycles_consumed": null,
+  "eth_equivalent": null,
+  "rows": [
+    {
+      "scenario": "life",
+      "publication_bytes": 2093,
+      "artifact_bytes": {
+        "state": 52,
+        "events": 269,
+        "scores": 22
+      },
+      "chunk_counts": {
+        "state": 1,
+        "events": 1,
+        "scores": 1
+      }
+    },
+    {
+      "scenario": "admission",
+      "publication_bytes": 2097,
+      "artifact_bytes": {
+        "state": 1067,
+        "events": 3664,
+        "scores": 282
+      },
+      "chunk_counts": {
+        "state": 1,
+        "events": 1,
+        "scores": 1
+      }
+    },
+    {
+      "scenario": "severance",
+      "publication_bytes": 2095,
+      "artifact_bytes": {
+        "state": 691,
+        "events": 748,
+        "scores": 276
+      },
+      "chunk_counts": {
+        "state": 1,
+        "events": 1,
+        "scores": 1
+      }
+    },
+    {
+      "scenario": "near-impact",
+      "publication_bytes": 2095,
+      "artifact_bytes": {
+        "state": 511,
+        "events": 815,
+        "scores": 279
+      },
+      "chunk_counts": {
+        "state": 1,
+        "events": 1,
+        "scores": 1
+      }
+    },
+    {
+      "scenario": "dense",
+      "publication_bytes": 2232,
+      "artifact_bytes": {
+        "state": 4129,
+        "events": 39928,
+        "scores": 299
+      },
+      "chunk_counts": {
+        "state": 1,
+        "events": 3,
+        "scores": 1
+      }
+    }
+  ]
+}

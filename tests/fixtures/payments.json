@@ -1,0 +1,23 @@
+{
+  "provenance": "Synthetic normalized decoded records. NOT Candid bytes, certified blocks or captured mainnet transactions.",
+  "legacy": {
+    "kind": "Transfer",
+    "from": "edc34bc402020202020202020202020202020202020202020202020202020202",
+    "to": "5b116adf01010101010101010101010101010101010101010101010101010101",
+    "amount_e8s": "1000000000",
+    "fee_e8s": "10000",
+    "spender": null,
+    "memo": "4779544133607899136",
+    "icrc1_memo": null
+  },
+  "icrc": {
+    "kind": "Transfer",
+    "from": "edc34bc402020202020202020202020202020202020202020202020202020202",
+    "to": "5b116adf01010101010101010101010101010101010101010101010101010101",
+    "amount_e8s": "1000000000",
+    "fee_e8s": "10000",
+    "spender": null,
+    "memo": "0",
+    "icrc1_memo": "42545a1100004000"
+  }
+}

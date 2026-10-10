@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "S01",
+  "name": "DTR/BTZ workspace, interfaces and conformance",
+  "date": "2026-09-20",
+  "predecessor": {
+    "checkpoint_id": "S00",
+    "archive": "DTR_BTZ_S00_Engineering_Baseline.zip",
+    "sha256": "40f6489c8cb041c3c37de2dbf00ef537b09ad54211c3336d67b9296dc8aadf39"
+  },
+  "implementation_scope": "S01_source_foundations_plus_early_S02_Life_runtime_slice",
+  "delivery_complete": true,
+  "promotion_gate": "BLOCKED",
+  "software_release_eligible": false,
+  "real_funds_authorized": false,
+  "verification_reports": [
+    "evidence/S01/verification/verification.json"
+  ],
+  "manifest": "FILES.sha256",
+  "next_checkpoint": "S02",
+  "open_decision_register": "docs/DECISIONS.md",
+  "limitations": [
+    "Rust/Cargo unavailable: no compiled/native/Wasm evidence",
+    "No PocketIC, live ledger/archive or named-wallet execution",
+    "Candid subsets manually transcribed; generated equivalence unverified",
+    "No authenticated IC certificate verification or real cycle metrics",
+    "No BTZ gameplay or monetary settlement implementation"
+  ]
+}

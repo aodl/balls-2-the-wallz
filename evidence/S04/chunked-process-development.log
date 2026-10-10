@@ -1,0 +1,9 @@
+test_corruption_and_lock_are_not_reset (test_chunked_demo.ChunkedDemoTests.test_corruption_and_lock_are_not_reset) ... ok
+test_lost_acknowledgement_restart (test_chunked_demo.ChunkedDemoTests.test_lost_acknowledgement_restart) ... ok
+test_partial_chunk_restart (test_chunked_demo.ChunkedDemoTests.test_partial_chunk_restart) ... ok
+test_prepublication_restart (test_chunked_demo.ChunkedDemoTests.test_prepublication_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.405s
+
+OK

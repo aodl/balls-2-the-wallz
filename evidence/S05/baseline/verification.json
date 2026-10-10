@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S04",
+  "started_utc": "2026-09-20T14:10:53.805553+00:00",
+  "mode": "source",
+  "checks": [
+    {
+      "id": "protocol-fixtures",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/reference_fixtures.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/protocol-fixtures.log",
+      "elapsed_seconds": 0.67
+    },
+    {
+      "id": "life-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/life_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/life-reference.log",
+      "elapsed_seconds": 0.63
+    },
+    {
+      "id": "btz-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/btz_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/btz-reference.log",
+      "elapsed_seconds": 0.669
+    },
+    {
+      "id": "spawn-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/spawn_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/spawn-reference.log",
+      "elapsed_seconds": 0.781
+    },
+    {
+      "id": "impact-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/impact_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/impact-reference.log",
+      "elapsed_seconds": 0.668
+    },
+    {
+      "id": "btz-full-traces",
+      "command": [
+        "node",
+        "tools/btz_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/btz-full-traces.log",
+      "elapsed_seconds": 0.164
+    },
+    {
+      "id": "numeric-reference",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/numeric_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/numeric-reference.log",
+      "elapsed_seconds": 0.669
+    },
+    {
+      "id": "portable-cursors",
+      "command": [
+        "node",
+        "tools/portable_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-cursors.log",
+      "elapsed_seconds": 0.165
+    },
+    {
+      "id": "node-tests",
+      "command": [
+        "node",
+        "--test",
+        "/mnt/data/dtr-suite-S05/tests/js/btz-v3.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/btz.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/canonical.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/inbox.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/input-canonical.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/journal.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/life.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/memo.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/payment.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/portable-v4.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/runtime.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/seal.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/source.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/storage-v4.test.mjs",
+        "/mnt/data/dtr-suite-S05/tests/js/wakeup.test.mjs"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/node-tests.log",
+      "elapsed_seconds": 3.521,
+      "counts": {
+        "tests": 1108,
+        "pass": 1108,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/check_source.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/source-structure.log",
+      "elapsed_seconds": 1.622
+    },
+    {
+      "id": "docs-links",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "tools/check_docs.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/docs-links.log",
+      "elapsed_seconds": 0.669
+    },
+    {
+      "id": "python-tool-tests",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/python-tool-tests.log",
+      "elapsed_seconds": 3.029
+    }
+  ],
+  "overall": "PASS"
+}

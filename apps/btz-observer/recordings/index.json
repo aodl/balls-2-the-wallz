@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "trust": "offline-pinned-content",
+  "provenance": "Synthetic local coordinator output; no ledger, certificate, real funds or measured cycles.",
+  "recordings": [
+    {
+      "id": "dense",
+      "title": "Frontier pressure",
+      "description": "32 balls, two territories. Watch the border evolve.",
+      "tick_seconds": 0.25,
+      "roots": [
+        "19428131bd504703d162db6287caf66507bf38ca265e84d4d1cf07a0a6d27177",
+        "1a388999378ea172636aff2e9061c347ba7a9b9ae30385a77d85b281269d977f",
+        "e09dcc98ed212738b9ac74eaf5911d9145b5ad8d93c248cc279c74dee7ae2105",
+        "08403c0f8192f724ef874f92f7bfa3d3214cd366ab771da71c97446903657ea5",
+        "53df0fa302c6977e6401f5a43eb1c39bcf789e76467fc94fa786e29fbdffc5b7",
+        "a845a0e5ec41be51ca8e36afd4f43f58148260b9c6ce0524f87d05744a4ac577",
+        "7ebf629d4f35a5f8f42571d8364b3bf6ac9149a9d8abf758eeb5350477429d3e",
+        "b3ca4d5bbf342175e739a70fc490e0f56f4a6c026af3aafea756b2eda91f7351",
+        "38ef0d2f4018e478c76d1c862ef99a1a3284f2d5defcbbf3953a0d3718534574",
+        "555396a300f79e86c825f78432fedcec9a9a2600623b847a025745c3c2342ed0",
+        "7589a67330ae988238be02facc8ea640f8dfde83a712f2a69ddad8edca1ce9fb",
+        "fdb800b4f4835933643757c9f05a77eb34e56ed3ae1ec873d85d6dadf7343f07",
+        "8e29cdb90ecb5c7087c7d523c65e10ef9480280ff1936499cb7eaa321a8e649b"
+      ],
+      "logical_end": 48,
+      "segments": 12
+    },
+    {
+      "id": "admission",
+      "title": "New arrivals",
+      "description": "Two synthetic purchases create cannons on an empty board.",
+      "tick_seconds": 0.25,
+      "roots": [
+        "e923bc8cf22cf6518879ee9bf4dd3207753d80001ec738c3373a9eb32e332ad6",
+        "670d178af6f43deef6db73b98847f205371c6ef5eb0885a898e136fe0e3a9688",
+        "0ec53a7a29d6268f54779ccdb489dd9f93f202856ef90b375d7a6fdfd2b4f9f6",
+        "e0edbd7e238181b8b0715666102de306b9e60d92cf907ee6511e6952ee334420",
+        "0d0b80ed4e9eb0aab452695f56f2938c096a2699be04dee1fd0bd490e1828df1",
+        "0a0e7d79cdfed9f8c68f659de46edfbf3ef419e1549038d102d894e0fa940e7e",
+        "62e1768eeb1831f4153b3946bdf3daf04da64524a5bd355a884e47ec9858e293",
+        "cc3d5672f570afaed50e6f4c02774631cc86f3934de09ed2304c9a2b557efd70",
+        "e5f5fe1208fe1c78310df0f18359a4f2bbfad13c787b8ef1d2af3e1606312ab9",
+        "3346571edc94ee1e651309364b427b079a6fd3b00d40930b7591c6bda48d547d",
+        "b1665a8166ad3646bbfa201e26edd45817da35f287cd446812abf0565622d24b",
+        "c21f25861fb99adc7116247f1cd6991a46057bbc6e65315bdff02585820d87e7",
+        "ca62af5fbb23584f4a77e1242b020d46afe4f5e59cc1fec945dd5a0b0323b41f"
+      ],
+      "logical_end": 24,
+      "segments": 12
+    },
+    {
+      "id": "severance",
+      "title": "The bridge breaks",
+      "description": "A one-cell attack cuts off a territory and eliminates its cannon.",
+      "tick_seconds": 0.25,
+      "roots": [
+        "d53dc1a44af1b3e8fbcb6f2d8d4f46c676ed49a62d241e911abb0beb2b6ad0dd",
+        "2bd6b321b8b1c8e65b4c0e4a48d7102a75a2af5914ddf6d0201516f21c8d36fb",
+        "345aec011cdb837d2a385047a183a23c939a2ffc324aa4c32fc23202bf04010e",
+        "16e59d3efa7e63f0ad8788cf3725105fab78a167261c9834e891c11514a7c68d",
+        "3e5804d728d828465e50b2d4cba5952ce132bb58e4260920caa95405f8b6a0da"
+      ],
+      "logical_end": 4,
+      "segments": 4
+    },
+    {
+      "id": "near-impact",
+      "title": "Mutual destruction",
+      "description": "Opposing impacts arrive slightly apart and annihilate.",
+      "tick_seconds": 0.25,
+      "roots": [
+        "e880f4f6611d7466410a7e73e836ca1a4e4bd12f5c73c4b33a504459288b9a79",
+        "21521605fa738511f46d90359a8514040ba3bee90cbea81250394bdf4a0badd0",
+        "3387194e7246000ed240581cd025f44ff75f893984731acdea5db63e9c388a68",
+        "e77095bc29fba0b0e62749f4a8ac8f03eba5bff0148189e52d4496d8000b2cd3",
+        "6d7b3e6107f0d2dadadcb1921bd0301a472ee76c6d8737f56beaa0890871535c"
+      ],
+      "logical_end": 4,
+      "segments": 4
+    }
+  ]
+}

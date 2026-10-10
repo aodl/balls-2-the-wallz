@@ -1,0 +1,268 @@
+TAP version 13
+# Subtest: typed canonical JSON preserves bigint, sorts fields, distinguishes strings/numbers
+ok 1 - typed canonical JSON preserves bigint, sorts fields, distinguishes strings/numbers
+  ---
+  duration_ms: 1.931952
+  type: 'test'
+  ...
+# Subtest: canonical rejects fraction
+ok 2 - canonical rejects fraction
+  ---
+  duration_ms: 0.295244
+  type: 'test'
+  ...
+# Subtest: canonical rejects nan
+ok 3 - canonical rejects nan
+  ---
+  duration_ms: 0.121182
+  type: 'test'
+  ...
+# Subtest: canonical rejects infinity
+ok 4 - canonical rejects infinity
+  ---
+  duration_ms: 0.067151
+  type: 'test'
+  ...
+# Subtest: canonical rejects negative-zero
+ok 5 - canonical rejects negative-zero
+  ---
+  duration_ms: 0.069415
+  type: 'test'
+  ...
+# Subtest: canonical rejects unsafe
+ok 6 - canonical rejects unsafe
+  ---
+  duration_ms: 0.070175
+  type: 'test'
+  ...
+# Subtest: canonical rejects undefined
+ok 7 - canonical rejects undefined
+  ---
+  duration_ms: 0.062133
+  type: 'test'
+  ...
+# Subtest: canonical rejects map
+ok 8 - canonical rejects map
+  ---
+  duration_ms: 0.069184
+  type: 'test'
+  ...
+# Subtest: canonical rejects sparse
+ok 9 - canonical rejects sparse
+  ---
+  duration_ms: 0.254772
+  type: 'test'
+  ...
+# Subtest: canonical rejects reserved
+ok 10 - canonical rejects reserved
+  ---
+  duration_ms: 0.354453
+  type: 'test'
+  ...
+# Subtest: canonical rejects surrogate
+ok 11 - canonical rejects surrogate
+  ---
+  duration_ms: 0.136314
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire { "a":1}
+ok 12 - canonical rejects wire { "a":1}
+  ---
+  duration_ms: 0.209324
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"b":1,"a":2}
+ok 13 - canonical rejects wire {"b":1,"a":2}
+  ---
+  duration_ms: 0.15318
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"a":1,"a":2}
+ok 14 - canonical rejects wire {"a":1,"a":2}
+  ---
+  duration_ms: 0.191037
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"01"}
+ok 15 - canonical rejects wire {"$integer":"01"}
+  ---
+  duration_ms: 0.175985
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"-0"}
+ok 16 - canonical rejects wire {"$integer":"-0"}
+  ---
+  duration_ms: 0.07365
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"1","x":2}
+ok 17 - canonical rejects wire {"$integer":"1","x":2}
+  ---
+  duration_ms: 0.063705
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire -0
+ok 18 - canonical rejects wire -0
+  ---
+  duration_ms: 0.573903
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire 1.0
+ok 19 - canonical rejects wire 1.0
+  ---
+  duration_ms: 0.091718
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"__proto__":{}}
+ok 20 - canonical rejects wire {"__proto__":{}}
+  ---
+  duration_ms: 0.065698
+  type: 'test'
+  ...
+# Subtest: canonical limits nesting
+ok 21 - canonical limits nesting
+  ---
+  duration_ms: 0.311148
+  type: 'test'
+  ...
+# Subtest: host stages command application without exposing intermediate state
+ok 22 - host stages command application without exposing intermediate state
+  ---
+  duration_ms: 76.510874
+  type: 'test'
+  ...
+# Subtest: changing budgets and restarting every safe point preserves manifest
+ok 23 - changing budgets and restarting every safe point preserves manifest
+  ---
+  duration_ms: 97.73716
+  type: 'test'
+  ...
+# Subtest: stale step cannot overwrite newer progress
+ok 24 - stale step cannot overwrite newer progress
+  ---
+  duration_ms: 1.487635
+  type: 'test'
+  ...
+# Subtest: crash matrix prepare/before: restart reconciles atomic state
+ok 25 - crash matrix prepare/before: restart reconciles atomic state
+  ---
+  duration_ms: 56.645782
+  type: 'test'
+  ...
+# Subtest: crash matrix prepare/after: restart reconciles atomic state
+ok 26 - crash matrix prepare/after: restart reconciles atomic state
+  ---
+  duration_ms: 57.78192
+  type: 'test'
+  ...
+# Subtest: crash matrix advance/before: restart reconciles atomic state
+ok 27 - crash matrix advance/before: restart reconciles atomic state
+  ---
+  duration_ms: 55.238689
+  type: 'test'
+  ...
+# Subtest: crash matrix advance/after: restart reconciles atomic state
+ok 28 - crash matrix advance/after: restart reconciles atomic state
+  ---
+  duration_ms: 53.961591
+  type: 'test'
+  ...
+# Subtest: crash matrix publish/before: restart reconciles atomic state
+ok 29 - crash matrix publish/before: restart reconciles atomic state
+  ---
+  duration_ms: 7.303071
+  type: 'test'
+  ...
+# Subtest: crash matrix publish/after: restart reconciles atomic state
+ok 30 - crash matrix publish/after: restart reconciles atomic state
+  ---
+  duration_ms: 6.149067
+  type: 'test'
+  ...
+# Subtest: successor sequence rejects source replay and accepts contiguous empty intervals
+ok 31 - successor sequence rejects source replay and accepts contiguous empty intervals
+  ---
+  duration_ms: 26.196753
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link source_id
+ok 32 - reject seal identity/link source_id
+  ---
+  duration_ms: 0.529375
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link rules_hash
+ok 33 - reject seal identity/link rules_hash
+  ---
+  duration_ms: 0.355944
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link config_hash
+ok 34 - reject seal identity/link config_hash
+  ---
+  duration_ms: 0.363966
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link schema_hash
+ok 35 - reject seal identity/link schema_hash
+  ---
+  duration_ms: 0.390396
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link previous_state
+ok 36 - reject seal identity/link previous_state
+  ---
+  duration_ms: 0.348373
+  type: 'test'
+  ...
+# Subtest: reject seal identity/link previous_manifest
+ok 37 - reject seal identity/link previous_manifest
+  ---
+  duration_ms: 0.613761
+  type: 'test'
+  ...
+# Subtest: reject unsealed inputs without changing durable record
+ok 38 - reject unsealed inputs without changing durable record
+  ---
+  duration_ms: 0.457467
+  type: 'test'
+  ...
+# Subtest: reject concurrent stage and premature publication
+ok 39 - reject concurrent stage and premature publication
+  ---
+  duration_ms: 0.669625
+  type: 'test'
+  ...
+# Subtest: ready hash is verified, corrupt journal and unknown schema fail closed
+ok 40 - ready hash is verified, corrupt journal and unknown schema fail closed
+  ---
+  duration_ms: 2.994979
+  type: 'test'
+  ...
+# Subtest: kernel traps and invalid progress never persist a proposal
+ok 41 - kernel traps and invalid progress never persist a proposal
+  ---
+  duration_ms: 1.39135
+  type: 'test'
+  ...
+# Subtest: restoring a head verifies output commitments
+ok 42 - restoring a head verifies output commitments
+  ---
+  duration_ms: 2.958895
+  type: 'test'
+  ...
+# Subtest: overwriting input cells respects source order
+ok 43 - overwriting input cells respects source order
+  ---
+  duration_ms: 1.353854
+  type: 'test'
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 43
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 520.246833

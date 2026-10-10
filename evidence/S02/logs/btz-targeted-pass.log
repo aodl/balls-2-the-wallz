@@ -1,0 +1,2386 @@
+TAP version 13
+# Subtest: geometry-000
+ok 1 - geometry-000
+  ---
+  duration_ms: 4.236765
+  type: 'test'
+  ...
+# Subtest: geometry-001
+ok 2 - geometry-001
+  ---
+  duration_ms: 0.22586
+  type: 'test'
+  ...
+# Subtest: geometry-002
+ok 3 - geometry-002
+  ---
+  duration_ms: 0.151548
+  type: 'test'
+  ...
+# Subtest: geometry-003
+ok 4 - geometry-003
+  ---
+  duration_ms: 0.105669
+  type: 'test'
+  ...
+# Subtest: geometry-004
+ok 5 - geometry-004
+  ---
+  duration_ms: 0.19306
+  type: 'test'
+  ...
+# Subtest: geometry-005
+ok 6 - geometry-005
+  ---
+  duration_ms: 0.081172
+  type: 'test'
+  ...
+# Subtest: geometry-006
+ok 7 - geometry-006
+  ---
+  duration_ms: 0.067101
+  type: 'test'
+  ...
+# Subtest: geometry-007
+ok 8 - geometry-007
+  ---
+  duration_ms: 0.06007
+  type: 'test'
+  ...
+# Subtest: geometry-008
+ok 9 - geometry-008
+  ---
+  duration_ms: 0.272179
+  type: 'test'
+  ...
+# Subtest: geometry-009
+ok 10 - geometry-009
+  ---
+  duration_ms: 0.314252
+  type: 'test'
+  ...
+# Subtest: geometry-010
+ok 11 - geometry-010
+  ---
+  duration_ms: 0.24659
+  type: 'test'
+  ...
+# Subtest: geometry-011
+ok 12 - geometry-011
+  ---
+  duration_ms: 0.066029
+  type: 'test'
+  ...
+# Subtest: geometry-012
+ok 13 - geometry-012
+  ---
+  duration_ms: 0.123756
+  type: 'test'
+  ...
+# Subtest: geometry-013
+ok 14 - geometry-013
+  ---
+  duration_ms: 0.051407
+  type: 'test'
+  ...
+# Subtest: geometry-014
+ok 15 - geometry-014
+  ---
+  duration_ms: 0.041502
+  type: 'test'
+  ...
+# Subtest: geometry-015
+ok 16 - geometry-015
+  ---
+  duration_ms: 0.038638
+  type: 'test'
+  ...
+# Subtest: geometry-016
+ok 17 - geometry-016
+  ---
+  duration_ms: 0.036215
+  type: 'test'
+  ...
+# Subtest: geometry-017
+ok 18 - geometry-017
+  ---
+  duration_ms: 0.034983
+  type: 'test'
+  ...
+# Subtest: geometry-018
+ok 19 - geometry-018
+  ---
+  duration_ms: 0.037015
+  type: 'test'
+  ...
+# Subtest: geometry-019
+ok 20 - geometry-019
+  ---
+  duration_ms: 0.035233
+  type: 'test'
+  ...
+# Subtest: geometry-020
+ok 21 - geometry-020
+  ---
+  duration_ms: 0.036615
+  type: 'test'
+  ...
+# Subtest: geometry-021
+ok 22 - geometry-021
+  ---
+  duration_ms: 0.037276
+  type: 'test'
+  ...
+# Subtest: geometry-022
+ok 23 - geometry-022
+  ---
+  duration_ms: 0.035734
+  type: 'test'
+  ...
+# Subtest: geometry-023
+ok 24 - geometry-023
+  ---
+  duration_ms: 0.035684
+  type: 'test'
+  ...
+# Subtest: geometry-024
+ok 25 - geometry-024
+  ---
+  duration_ms: 0.033911
+  type: 'test'
+  ...
+# Subtest: geometry-025
+ok 26 - geometry-025
+  ---
+  duration_ms: 0.03385
+  type: 'test'
+  ...
+# Subtest: geometry-026
+ok 27 - geometry-026
+  ---
+  duration_ms: 0.03343
+  type: 'test'
+  ...
+# Subtest: geometry-027
+ok 28 - geometry-027
+  ---
+  duration_ms: 0.036054
+  type: 'test'
+  ...
+# Subtest: geometry-028
+ok 29 - geometry-028
+  ---
+  duration_ms: 0.063665
+  type: 'test'
+  ...
+# Subtest: geometry-029
+ok 30 - geometry-029
+  ---
+  duration_ms: 0.036304
+  type: 'test'
+  ...
+# Subtest: geometry-030
+ok 31 - geometry-030
+  ---
+  duration_ms: 0.038849
+  type: 'test'
+  ...
+# Subtest: geometry-031
+ok 32 - geometry-031
+  ---
+  duration_ms: 0.083245
+  type: 'test'
+  ...
+# Subtest: geometry-032
+ok 33 - geometry-032
+  ---
+  duration_ms: 0.116475
+  type: 'test'
+  ...
+# Subtest: geometry-033
+ok 34 - geometry-033
+  ---
+  duration_ms: 0.061252
+  type: 'test'
+  ...
+# Subtest: geometry-034
+ok 35 - geometry-034
+  ---
+  duration_ms: 0.048853
+  type: 'test'
+  ...
+# Subtest: geometry-035
+ok 36 - geometry-035
+  ---
+  duration_ms: 0.047311
+  type: 'test'
+  ...
+# Subtest: geometry-036
+ok 37 - geometry-036
+  ---
+  duration_ms: 0.044306
+  type: 'test'
+  ...
+# Subtest: geometry-037
+ok 38 - geometry-037
+  ---
+  duration_ms: 0.054722
+  type: 'test'
+  ...
+# Subtest: geometry-038
+ok 39 - geometry-038
+  ---
+  duration_ms: 0.04641
+  type: 'test'
+  ...
+# Subtest: geometry-039
+ok 40 - geometry-039
+  ---
+  duration_ms: 0.044777
+  type: 'test'
+  ...
+# Subtest: geometry-040
+ok 41 - geometry-040
+  ---
+  duration_ms: 0.049374
+  type: 'test'
+  ...
+# Subtest: geometry-041
+ok 42 - geometry-041
+  ---
+  duration_ms: 0.045519
+  type: 'test'
+  ...
+# Subtest: geometry-042
+ok 43 - geometry-042
+  ---
+  duration_ms: 0.065979
+  type: 'test'
+  ...
+# Subtest: geometry-043
+ok 44 - geometry-043
+  ---
+  duration_ms: 0.051838
+  type: 'test'
+  ...
+# Subtest: geometry-044
+ok 45 - geometry-044
+  ---
+  duration_ms: 0.043535
+  type: 'test'
+  ...
+# Subtest: geometry-045
+ok 46 - geometry-045
+  ---
+  duration_ms: 0.069274
+  type: 'test'
+  ...
+# Subtest: geometry-046
+ok 47 - geometry-046
+  ---
+  duration_ms: 0.048613
+  type: 'test'
+  ...
+# Subtest: geometry-047
+ok 48 - geometry-047
+  ---
+  duration_ms: 0.043745
+  type: 'test'
+  ...
+# Subtest: geometry-048
+ok 49 - geometry-048
+  ---
+  duration_ms: 0.043235
+  type: 'test'
+  ...
+# Subtest: geometry-049
+ok 50 - geometry-049
+  ---
+  duration_ms: 0.046981
+  type: 'test'
+  ...
+# Subtest: geometry-050
+ok 51 - geometry-050
+  ---
+  duration_ms: 0.042864
+  type: 'test'
+  ...
+# Subtest: geometry-051
+ok 52 - geometry-051
+  ---
+  duration_ms: 0.042524
+  type: 'test'
+  ...
+# Subtest: geometry-052
+ok 53 - geometry-052
+  ---
+  duration_ms: 0.054151
+  type: 'test'
+  ...
+# Subtest: geometry-053
+ok 54 - geometry-053
+  ---
+  duration_ms: 0.129755
+  type: 'test'
+  ...
+# Subtest: geometry-054
+ok 55 - geometry-054
+  ---
+  duration_ms: 0.052489
+  type: 'test'
+  ...
+# Subtest: geometry-055
+ok 56 - geometry-055
+  ---
+  duration_ms: 0.044437
+  type: 'test'
+  ...
+# Subtest: geometry-056
+ok 57 - geometry-056
+  ---
+  duration_ms: 0.048924
+  type: 'test'
+  ...
+# Subtest: geometry-057
+ok 58 - geometry-057
+  ---
+  duration_ms: 0.043886
+  type: 'test'
+  ...
+# Subtest: geometry-058
+ok 59 - geometry-058
+  ---
+  duration_ms: 0.04054
+  type: 'test'
+  ...
+# Subtest: geometry-059
+ok 60 - geometry-059
+  ---
+  duration_ms: 0.040411
+  type: 'test'
+  ...
+# Subtest: geometry-060
+ok 61 - geometry-060
+  ---
+  duration_ms: 0.080361
+  type: 'test'
+  ...
+# Subtest: geometry-061
+ok 62 - geometry-061
+  ---
+  duration_ms: 0.041773
+  type: 'test'
+  ...
+# Subtest: geometry-062
+ok 63 - geometry-062
+  ---
+  duration_ms: 0.043084
+  type: 'test'
+  ...
+# Subtest: geometry-063
+ok 64 - geometry-063
+  ---
+  duration_ms: 0.038838
+  type: 'test'
+  ...
+# Subtest: geometry-064
+ok 65 - geometry-064
+  ---
+  duration_ms: 0.043104
+  type: 'test'
+  ...
+# Subtest: geometry-065
+ok 66 - geometry-065
+  ---
+  duration_ms: 0.043876
+  type: 'test'
+  ...
+# Subtest: geometry-066
+ok 67 - geometry-066
+  ---
+  duration_ms: 0.043285
+  type: 'test'
+  ...
+# Subtest: geometry-067
+ok 68 - geometry-067
+  ---
+  duration_ms: 0.042914
+  type: 'test'
+  ...
+# Subtest: geometry-068
+ok 69 - geometry-068
+  ---
+  duration_ms: 0.041603
+  type: 'test'
+  ...
+# Subtest: geometry-069
+ok 70 - geometry-069
+  ---
+  duration_ms: 0.044757
+  type: 'test'
+  ...
+# Subtest: geometry-070
+ok 71 - geometry-070
+  ---
+  duration_ms: 0.167842
+  type: 'test'
+  ...
+# Subtest: geometry-071
+ok 72 - geometry-071
+  ---
+  duration_ms: 0.071838
+  type: 'test'
+  ...
+# Subtest: geometry-072
+ok 73 - geometry-072
+  ---
+  duration_ms: 0.048553
+  type: 'test'
+  ...
+# Subtest: geometry-073
+ok 74 - geometry-073
+  ---
+  duration_ms: 0.077226
+  type: 'test'
+  ...
+# Subtest: geometry-074
+ok 75 - geometry-074
+  ---
+  duration_ms: 0.053611
+  type: 'test'
+  ...
+# Subtest: geometry-075
+ok 76 - geometry-075
+  ---
+  duration_ms: 0.043515
+  type: 'test'
+  ...
+# Subtest: geometry-076
+ok 77 - geometry-076
+  ---
+  duration_ms: 0.041602
+  type: 'test'
+  ...
+# Subtest: geometry-077
+ok 78 - geometry-077
+  ---
+  duration_ms: 0.046821
+  type: 'test'
+  ...
+# Subtest: geometry-078
+ok 79 - geometry-078
+  ---
+  duration_ms: 0.041792
+  type: 'test'
+  ...
+# Subtest: geometry-079
+ok 80 - geometry-079
+  ---
+  duration_ms: 0.067001
+  type: 'test'
+  ...
+# Subtest: geometry-080
+ok 81 - geometry-080
+  ---
+  duration_ms: 0.043616
+  type: 'test'
+  ...
+# Subtest: geometry-081
+ok 82 - geometry-081
+  ---
+  duration_ms: 0.041272
+  type: 'test'
+  ...
+# Subtest: geometry-082
+ok 83 - geometry-082
+  ---
+  duration_ms: 0.042453
+  type: 'test'
+  ...
+# Subtest: geometry-083
+ok 84 - geometry-083
+  ---
+  duration_ms: 0.038438
+  type: 'test'
+  ...
+# Subtest: geometry-084
+ok 85 - geometry-084
+  ---
+  duration_ms: 0.038808
+  type: 'test'
+  ...
+# Subtest: geometry-085
+ok 86 - geometry-085
+  ---
+  duration_ms: 0.055904
+  type: 'test'
+  ...
+# Subtest: geometry-086
+ok 87 - geometry-086
+  ---
+  duration_ms: 0.041572
+  type: 'test'
+  ...
+# Subtest: geometry-087
+ok 88 - geometry-087
+  ---
+  duration_ms: 0.040711
+  type: 'test'
+  ...
+# Subtest: geometry-088
+ok 89 - geometry-088
+  ---
+  duration_ms: 0.039319
+  type: 'test'
+  ...
+# Subtest: geometry-089
+ok 90 - geometry-089
+  ---
+  duration_ms: 0.042554
+  type: 'test'
+  ...
+# Subtest: geometry-090
+ok 91 - geometry-090
+  ---
+  duration_ms: 0.065408
+  type: 'test'
+  ...
+# Subtest: geometry-091
+ok 92 - geometry-091
+  ---
+  duration_ms: 0.047902
+  type: 'test'
+  ...
+# Subtest: geometry-092
+ok 93 - geometry-092
+  ---
+  duration_ms: 0.039569
+  type: 'test'
+  ...
+# Subtest: geometry-093
+ok 94 - geometry-093
+  ---
+  duration_ms: 0.942335
+  type: 'test'
+  ...
+# Subtest: geometry-094
+ok 95 - geometry-094
+  ---
+  duration_ms: 0.185058
+  type: 'test'
+  ...
+# Subtest: geometry-095
+ok 96 - geometry-095
+  ---
+  duration_ms: 0.042213
+  type: 'test'
+  ...
+# Subtest: geometry-096
+ok 97 - geometry-096
+  ---
+  duration_ms: 0.061122
+  type: 'test'
+  ...
+# Subtest: geometry-097
+ok 98 - geometry-097
+  ---
+  duration_ms: 0.034953
+  type: 'test'
+  ...
+# Subtest: geometry-098
+ok 99 - geometry-098
+  ---
+  duration_ms: 0.029284
+  type: 'test'
+  ...
+# Subtest: geometry-099
+ok 100 - geometry-099
+  ---
+  duration_ms: 0.029634
+  type: 'test'
+  ...
+# Subtest: geometry-100
+ok 101 - geometry-100
+  ---
+  duration_ms: 0.028152
+  type: 'test'
+  ...
+# Subtest: geometry-101
+ok 102 - geometry-101
+  ---
+  duration_ms: 0.028223
+  type: 'test'
+  ...
+# Subtest: geometry-102
+ok 103 - geometry-102
+  ---
+  duration_ms: 0.027341
+  type: 'test'
+  ...
+# Subtest: geometry-103
+ok 104 - geometry-103
+  ---
+  duration_ms: 0.027472
+  type: 'test'
+  ...
+# Subtest: geometry-104
+ok 105 - geometry-104
+  ---
+  duration_ms: 0.027841
+  type: 'test'
+  ...
+# Subtest: geometry-105
+ok 106 - geometry-105
+  ---
+  duration_ms: 0.027411
+  type: 'test'
+  ...
+# Subtest: geometry-106
+ok 107 - geometry-106
+  ---
+  duration_ms: 0.030726
+  type: 'test'
+  ...
+# Subtest: geometry-107
+ok 108 - geometry-107
+  ---
+  duration_ms: 0.029224
+  type: 'test'
+  ...
+# Subtest: geometry-108
+ok 109 - geometry-108
+  ---
+  duration_ms: 0.027281
+  type: 'test'
+  ...
+# Subtest: geometry-109
+ok 110 - geometry-109
+  ---
+  duration_ms: 0.026089
+  type: 'test'
+  ...
+# Subtest: geometry-110
+ok 111 - geometry-110
+  ---
+  duration_ms: 0.026069
+  type: 'test'
+  ...
+# Subtest: geometry-111
+ok 112 - geometry-111
+  ---
+  duration_ms: 0.050786
+  type: 'test'
+  ...
+# Subtest: geometry-112
+ok 113 - geometry-112
+  ---
+  duration_ms: 0.034862
+  type: 'test'
+  ...
+# Subtest: geometry-113
+ok 114 - geometry-113
+  ---
+  duration_ms: 0.051677
+  type: 'test'
+  ...
+# Subtest: geometry-114
+ok 115 - geometry-114
+  ---
+  duration_ms: 0.031948
+  type: 'test'
+  ...
+# Subtest: geometry-115
+ok 116 - geometry-115
+  ---
+  duration_ms: 0.027862
+  type: 'test'
+  ...
+# Subtest: geometry-116
+ok 117 - geometry-116
+  ---
+  duration_ms: 0.02681
+  type: 'test'
+  ...
+# Subtest: geometry-117
+ok 118 - geometry-117
+  ---
+  duration_ms: 0.02639
+  type: 'test'
+  ...
+# Subtest: geometry-118
+ok 119 - geometry-118
+  ---
+  duration_ms: 0.027882
+  type: 'test'
+  ...
+# Subtest: geometry-119
+ok 120 - geometry-119
+  ---
+  duration_ms: 0.028843
+  type: 'test'
+  ...
+# Subtest: geometry-120
+ok 121 - geometry-120
+  ---
+  duration_ms: 0.028683
+  type: 'test'
+  ...
+# Subtest: geometry-121
+ok 122 - geometry-121
+  ---
+  duration_ms: 0.02669
+  type: 'test'
+  ...
+# Subtest: geometry-122
+ok 123 - geometry-122
+  ---
+  duration_ms: 0.027071
+  type: 'test'
+  ...
+# Subtest: geometry-123
+ok 124 - geometry-123
+  ---
+  duration_ms: 0.028563
+  type: 'test'
+  ...
+# Subtest: geometry-124
+ok 125 - geometry-124
+  ---
+  duration_ms: 0.026009
+  type: 'test'
+  ...
+# Subtest: geometry-125
+ok 126 - geometry-125
+  ---
+  duration_ms: 0.02698
+  type: 'test'
+  ...
+# Subtest: geometry-126
+ok 127 - geometry-126
+  ---
+  duration_ms: 0.027651
+  type: 'test'
+  ...
+# Subtest: geometry-127
+ok 128 - geometry-127
+  ---
+  duration_ms: 0.027011
+  type: 'test'
+  ...
+# Subtest: geometry-128
+ok 129 - geometry-128
+  ---
+  duration_ms: 0.026579
+  type: 'test'
+  ...
+# Subtest: geometry-129
+ok 130 - geometry-129
+  ---
+  duration_ms: 0.025929
+  type: 'test'
+  ...
+# Subtest: geometry-130
+ok 131 - geometry-130
+  ---
+  duration_ms: 0.097697
+  type: 'test'
+  ...
+# Subtest: geometry-131
+ok 132 - geometry-131
+  ---
+  duration_ms: 0.034211
+  type: 'test'
+  ...
+# Subtest: geometry-132
+ok 133 - geometry-132
+  ---
+  duration_ms: 0.028774
+  type: 'test'
+  ...
+# Subtest: geometry-133
+ok 134 - geometry-133
+  ---
+  duration_ms: 0.030476
+  type: 'test'
+  ...
+# Subtest: geometry-134
+ok 135 - geometry-134
+  ---
+  duration_ms: 0.060891
+  type: 'test'
+  ...
+# Subtest: geometry-135
+ok 136 - geometry-135
+  ---
+  duration_ms: 0.035994
+  type: 'test'
+  ...
+# Subtest: geometry-136
+ok 137 - geometry-136
+  ---
+  duration_ms: 0.03295
+  type: 'test'
+  ...
+# Subtest: geometry-137
+ok 138 - geometry-137
+  ---
+  duration_ms: 0.028733
+  type: 'test'
+  ...
+# Subtest: geometry-138
+ok 139 - geometry-138
+  ---
+  duration_ms: 0.027161
+  type: 'test'
+  ...
+# Subtest: geometry-139
+ok 140 - geometry-139
+  ---
+  duration_ms: 0.026249
+  type: 'test'
+  ...
+# Subtest: geometry-140
+ok 141 - geometry-140
+  ---
+  duration_ms: 0.027151
+  type: 'test'
+  ...
+# Subtest: geometry-141
+ok 142 - geometry-141
+  ---
+  duration_ms: 0.02628
+  type: 'test'
+  ...
+# Subtest: geometry-142
+ok 143 - geometry-142
+  ---
+  duration_ms: 0.02672
+  type: 'test'
+  ...
+# Subtest: geometry-143
+ok 144 - geometry-143
+  ---
+  duration_ms: 0.027952
+  type: 'test'
+  ...
+# Subtest: geometry-144
+ok 145 - geometry-144
+  ---
+  duration_ms: 0.028122
+  type: 'test'
+  ...
+# Subtest: geometry-145
+ok 146 - geometry-145
+  ---
+  duration_ms: 0.02691
+  type: 'test'
+  ...
+# Subtest: geometry-146
+ok 147 - geometry-146
+  ---
+  duration_ms: 0.027331
+  type: 'test'
+  ...
+# Subtest: geometry-147
+ok 148 - geometry-147
+  ---
+  duration_ms: 0.028944
+  type: 'test'
+  ...
+# Subtest: geometry-148
+ok 149 - geometry-148
+  ---
+  duration_ms: 0.027542
+  type: 'test'
+  ...
+# Subtest: geometry-149
+ok 150 - geometry-149
+  ---
+  duration_ms: 0.026871
+  type: 'test'
+  ...
+# Subtest: geometry-150
+ok 151 - geometry-150
+  ---
+  duration_ms: 0.027452
+  type: 'test'
+  ...
+# Subtest: geometry-151
+ok 152 - geometry-151
+  ---
+  duration_ms: 0.027101
+  type: 'test'
+  ...
+# Subtest: geometry-152
+ok 153 - geometry-152
+  ---
+  duration_ms: 0.02623
+  type: 'test'
+  ...
+# Subtest: geometry-153
+ok 154 - geometry-153
+  ---
+  duration_ms: 0.025999
+  type: 'test'
+  ...
+# Subtest: geometry-154
+ok 155 - geometry-154
+  ---
+  duration_ms: 0.087091
+  type: 'test'
+  ...
+# Subtest: geometry-155
+ok 156 - geometry-155
+  ---
+  duration_ms: 0.037165
+  type: 'test'
+  ...
+# Subtest: geometry-156
+ok 157 - geometry-156
+  ---
+  duration_ms: 0.028403
+  type: 'test'
+  ...
+# Subtest: geometry-157
+ok 158 - geometry-157
+  ---
+  duration_ms: 0.027812
+  type: 'test'
+  ...
+# Subtest: geometry-158
+ok 159 - geometry-158
+  ---
+  duration_ms: 0.059229
+  type: 'test'
+  ...
+# Subtest: geometry-159
+ok 160 - geometry-159
+  ---
+  duration_ms: 0.038778
+  type: 'test'
+  ...
+# Subtest: capture-000: independent union-find comparison
+ok 161 - capture-000: independent union-find comparison
+  ---
+  duration_ms: 3.697845
+  type: 'test'
+  ...
+# Subtest: capture-001: independent union-find comparison
+ok 162 - capture-001: independent union-find comparison
+  ---
+  duration_ms: 2.440686
+  type: 'test'
+  ...
+# Subtest: capture-002: independent union-find comparison
+ok 163 - capture-002: independent union-find comparison
+  ---
+  duration_ms: 1.519072
+  type: 'test'
+  ...
+# Subtest: capture-003: independent union-find comparison
+ok 164 - capture-003: independent union-find comparison
+  ---
+  duration_ms: 4.630486
+  type: 'test'
+  ...
+# Subtest: capture-004: independent union-find comparison
+ok 165 - capture-004: independent union-find comparison
+  ---
+  duration_ms: 4.024325
+  type: 'test'
+  ...
+# Subtest: capture-005: independent union-find comparison
+ok 166 - capture-005: independent union-find comparison
+  ---
+  duration_ms: 3.755863
+  type: 'test'
+  ...
+# Subtest: capture-006: independent union-find comparison
+ok 167 - capture-006: independent union-find comparison
+  ---
+  duration_ms: 2.685945
+  type: 'test'
+  ...
+# Subtest: capture-007: independent union-find comparison
+ok 168 - capture-007: independent union-find comparison
+  ---
+  duration_ms: 1.860284
+  type: 'test'
+  ...
+# Subtest: capture-008: independent union-find comparison
+ok 169 - capture-008: independent union-find comparison
+  ---
+  duration_ms: 2.373946
+  type: 'test'
+  ...
+# Subtest: capture-009: independent union-find comparison
+ok 170 - capture-009: independent union-find comparison
+  ---
+  duration_ms: 8.019517
+  type: 'test'
+  ...
+# Subtest: capture-010: independent union-find comparison
+ok 171 - capture-010: independent union-find comparison
+  ---
+  duration_ms: 5.566492
+  type: 'test'
+  ...
+# Subtest: capture-011: independent union-find comparison
+ok 172 - capture-011: independent union-find comparison
+  ---
+  duration_ms: 4.328583
+  type: 'test'
+  ...
+# Subtest: capture-012: independent union-find comparison
+ok 173 - capture-012: independent union-find comparison
+  ---
+  duration_ms: 2.331773
+  type: 'test'
+  ...
+# Subtest: capture-013: independent union-find comparison
+ok 174 - capture-013: independent union-find comparison
+  ---
+  duration_ms: 2.099133
+  type: 'test'
+  ...
+# Subtest: capture-014: independent union-find comparison
+ok 175 - capture-014: independent union-find comparison
+  ---
+  duration_ms: 1.91037
+  type: 'test'
+  ...
+# Subtest: capture-015: independent union-find comparison
+ok 176 - capture-015: independent union-find comparison
+  ---
+  duration_ms: 2.776882
+  type: 'test'
+  ...
+# Subtest: capture-016: independent union-find comparison
+ok 177 - capture-016: independent union-find comparison
+  ---
+  duration_ms: 3.809853
+  type: 'test'
+  ...
+# Subtest: capture-017: independent union-find comparison
+ok 178 - capture-017: independent union-find comparison
+  ---
+  duration_ms: 3.406688
+  type: 'test'
+  ...
+# Subtest: capture-018: independent union-find comparison
+ok 179 - capture-018: independent union-find comparison
+  ---
+  duration_ms: 3.073998
+  type: 'test'
+  ...
+# Subtest: capture-019: independent union-find comparison
+ok 180 - capture-019: independent union-find comparison
+  ---
+  duration_ms: 2.339234
+  type: 'test'
+  ...
+# Subtest: capture-020: independent union-find comparison
+ok 181 - capture-020: independent union-find comparison
+  ---
+  duration_ms: 2.580787
+  type: 'test'
+  ...
+# Subtest: capture-021: independent union-find comparison
+ok 182 - capture-021: independent union-find comparison
+  ---
+  duration_ms: 4.62673
+  type: 'test'
+  ...
+# Subtest: capture-022: independent union-find comparison
+ok 183 - capture-022: independent union-find comparison
+  ---
+  duration_ms: 4.458577
+  type: 'test'
+  ...
+# Subtest: capture-023: independent union-find comparison
+ok 184 - capture-023: independent union-find comparison
+  ---
+  duration_ms: 4.684957
+  type: 'test'
+  ...
+# Subtest: capture-024: independent union-find comparison
+ok 185 - capture-024: independent union-find comparison
+  ---
+  duration_ms: 1.175616
+  type: 'test'
+  ...
+# Subtest: capture-025: independent union-find comparison
+ok 186 - capture-025: independent union-find comparison
+  ---
+  duration_ms: 1.596358
+  type: 'test'
+  ...
+# Subtest: capture-026: independent union-find comparison
+ok 187 - capture-026: independent union-find comparison
+  ---
+  duration_ms: 1.774967
+  type: 'test'
+  ...
+# Subtest: capture-027: independent union-find comparison
+ok 188 - capture-027: independent union-find comparison
+  ---
+  duration_ms: 1.283608
+  type: 'test'
+  ...
+# Subtest: capture-028: independent union-find comparison
+ok 189 - capture-028: independent union-find comparison
+  ---
+  duration_ms: 1.149567
+  type: 'test'
+  ...
+# Subtest: capture-029: independent union-find comparison
+ok 190 - capture-029: independent union-find comparison
+  ---
+  duration_ms: 1.215646
+  type: 'test'
+  ...
+# Subtest: capture-030: independent union-find comparison
+ok 191 - capture-030: independent union-find comparison
+  ---
+  duration_ms: 1.663719
+  type: 'test'
+  ...
+# Subtest: capture-031: independent union-find comparison
+ok 192 - capture-031: independent union-find comparison
+  ---
+  duration_ms: 1.195816
+  type: 'test'
+  ...
+# Subtest: capture-032: independent union-find comparison
+ok 193 - capture-032: independent union-find comparison
+  ---
+  duration_ms: 1.548787
+  type: 'test'
+  ...
+# Subtest: capture-033: independent union-find comparison
+ok 194 - capture-033: independent union-find comparison
+  ---
+  duration_ms: 3.062631
+  type: 'test'
+  ...
+# Subtest: capture-034: independent union-find comparison
+ok 195 - capture-034: independent union-find comparison
+  ---
+  duration_ms: 2.724402
+  type: 'test'
+  ...
+# Subtest: capture-035: independent union-find comparison
+ok 196 - capture-035: independent union-find comparison
+  ---
+  duration_ms: 2.92209
+  type: 'test'
+  ...
+# Subtest: capture-036: independent union-find comparison
+ok 197 - capture-036: independent union-find comparison
+  ---
+  duration_ms: 3.590344
+  type: 'test'
+  ...
+# Subtest: capture-037: independent union-find comparison
+ok 198 - capture-037: independent union-find comparison
+  ---
+  duration_ms: 3.306988
+  type: 'test'
+  ...
+# Subtest: capture-038: independent union-find comparison
+ok 199 - capture-038: independent union-find comparison
+  ---
+  duration_ms: 3.498275
+  type: 'test'
+  ...
+# Subtest: capture-039: independent union-find comparison
+ok 200 - capture-039: independent union-find comparison
+  ---
+  duration_ms: 1.726774
+  type: 'test'
+  ...
+# Subtest: capture-040: independent union-find comparison
+ok 201 - capture-040: independent union-find comparison
+  ---
+  duration_ms: 2.259133
+  type: 'test'
+  ...
+# Subtest: capture-041: independent union-find comparison
+ok 202 - capture-041: independent union-find comparison
+  ---
+  duration_ms: 1.689497
+  type: 'test'
+  ...
+# Subtest: capture-042: independent union-find comparison
+ok 203 - capture-042: independent union-find comparison
+  ---
+  duration_ms: 2.21685
+  type: 'test'
+  ...
+# Subtest: capture-043: independent union-find comparison
+ok 204 - capture-043: independent union-find comparison
+  ---
+  duration_ms: 2.019013
+  type: 'test'
+  ...
+# Subtest: capture-044: independent union-find comparison
+ok 205 - capture-044: independent union-find comparison
+  ---
+  duration_ms: 2.200736
+  type: 'test'
+  ...
+# Subtest: capture-045: independent union-find comparison
+ok 206 - capture-045: independent union-find comparison
+  ---
+  duration_ms: 3.502601
+  type: 'test'
+  ...
+# Subtest: capture-046: independent union-find comparison
+ok 207 - capture-046: independent union-find comparison
+  ---
+  duration_ms: 3.30177
+  type: 'test'
+  ...
+# Subtest: capture-047: independent union-find comparison
+ok 208 - capture-047: independent union-find comparison
+  ---
+  duration_ms: 3.809172
+  type: 'test'
+  ...
+# Subtest: capture-048: independent union-find comparison
+ok 209 - capture-048: independent union-find comparison
+  ---
+  duration_ms: 4.507091
+  type: 'test'
+  ...
+# Subtest: capture-049: independent union-find comparison
+ok 210 - capture-049: independent union-find comparison
+  ---
+  duration_ms: 9.906662
+  type: 'test'
+  ...
+# Subtest: capture-050: independent union-find comparison
+ok 211 - capture-050: independent union-find comparison
+  ---
+  duration_ms: 5.756687
+  type: 'test'
+  ...
+# Subtest: capture-051: independent union-find comparison
+ok 212 - capture-051: independent union-find comparison
+  ---
+  duration_ms: 1.376718
+  type: 'test'
+  ...
+# Subtest: capture-052: independent union-find comparison
+ok 213 - capture-052: independent union-find comparison
+  ---
+  duration_ms: 1.752042
+  type: 'test'
+  ...
+# Subtest: capture-053: independent union-find comparison
+ok 214 - capture-053: independent union-find comparison
+  ---
+  duration_ms: 1.366643
+  type: 'test'
+  ...
+# Subtest: capture-054: independent union-find comparison
+ok 215 - capture-054: independent union-find comparison
+  ---
+  duration_ms: 2.244773
+  type: 'test'
+  ...
+# Subtest: capture-055: independent union-find comparison
+ok 216 - capture-055: independent union-find comparison
+  ---
+  duration_ms: 2.203661
+  type: 'test'
+  ...
+# Subtest: capture-056: independent union-find comparison
+ok 217 - capture-056: independent union-find comparison
+  ---
+  duration_ms: 2.643801
+  type: 'test'
+  ...
+# Subtest: capture-057: independent union-find comparison
+ok 218 - capture-057: independent union-find comparison
+  ---
+  duration_ms: 5.882817
+  type: 'test'
+  ...
+# Subtest: capture-058: independent union-find comparison
+ok 219 - capture-058: independent union-find comparison
+  ---
+  duration_ms: 5.898881
+  type: 'test'
+  ...
+# Subtest: capture-059: independent union-find comparison
+ok 220 - capture-059: independent union-find comparison
+  ---
+  duration_ms: 6.131992
+  type: 'test'
+  ...
+# Subtest: capture-060: independent union-find comparison
+ok 221 - capture-060: independent union-find comparison
+  ---
+  duration_ms: 4.741372
+  type: 'test'
+  ...
+# Subtest: capture-061: independent union-find comparison
+ok 222 - capture-061: independent union-find comparison
+  ---
+  duration_ms: 1.95022
+  type: 'test'
+  ...
+# Subtest: capture-062: independent union-find comparison
+ok 223 - capture-062: independent union-find comparison
+  ---
+  duration_ms: 1.852824
+  type: 'test'
+  ...
+# Subtest: capture-063: independent union-find comparison
+ok 224 - capture-063: independent union-find comparison
+  ---
+  duration_ms: 3.635911
+  type: 'test'
+  ...
+# Subtest: capture-064: independent union-find comparison
+ok 225 - capture-064: independent union-find comparison
+  ---
+  duration_ms: 3.747629
+  type: 'test'
+  ...
+# Subtest: capture-065: independent union-find comparison
+ok 226 - capture-065: independent union-find comparison
+  ---
+  duration_ms: 3.48173
+  type: 'test'
+  ...
+# Subtest: capture-066: independent union-find comparison
+ok 227 - capture-066: independent union-find comparison
+  ---
+  duration_ms: 2.328267
+  type: 'test'
+  ...
+# Subtest: capture-067: independent union-find comparison
+ok 228 - capture-067: independent union-find comparison
+  ---
+  duration_ms: 1.840505
+  type: 'test'
+  ...
+# Subtest: capture-068: independent union-find comparison
+ok 229 - capture-068: independent union-find comparison
+  ---
+  duration_ms: 2.819075
+  type: 'test'
+  ...
+# Subtest: capture-069: independent union-find comparison
+ok 230 - capture-069: independent union-find comparison
+  ---
+  duration_ms: 4.877047
+  type: 'test'
+  ...
+# Subtest: capture-070: independent union-find comparison
+ok 231 - capture-070: independent union-find comparison
+  ---
+  duration_ms: 4.786701
+  type: 'test'
+  ...
+# Subtest: capture-071: independent union-find comparison
+ok 232 - capture-071: independent union-find comparison
+  ---
+  duration_ms: 4.883626
+  type: 'test'
+  ...
+# Subtest: capture-072: independent union-find comparison
+ok 233 - capture-072: independent union-find comparison
+  ---
+  duration_ms: 2.004742
+  type: 'test'
+  ...
+# Subtest: capture-073: independent union-find comparison
+ok 234 - capture-073: independent union-find comparison
+  ---
+  duration_ms: 3.197524
+  type: 'test'
+  ...
+# Subtest: capture-074: independent union-find comparison
+ok 235 - capture-074: independent union-find comparison
+  ---
+  duration_ms: 2.002289
+  type: 'test'
+  ...
+# Subtest: capture-075: independent union-find comparison
+ok 236 - capture-075: independent union-find comparison
+  ---
+  duration_ms: 4.357737
+  type: 'test'
+  ...
+# Subtest: capture-076: independent union-find comparison
+ok 237 - capture-076: independent union-find comparison
+  ---
+  duration_ms: 4.796796
+  type: 'test'
+  ...
+# Subtest: capture-077: independent union-find comparison
+ok 238 - capture-077: independent union-find comparison
+  ---
+  duration_ms: 3.98738
+  type: 'test'
+  ...
+# Subtest: capture-078: independent union-find comparison
+ok 239 - capture-078: independent union-find comparison
+  ---
+  duration_ms: 1.642127
+  type: 'test'
+  ...
+# Subtest: capture-079: independent union-find comparison
+ok 240 - capture-079: independent union-find comparison
+  ---
+  duration_ms: 1.654825
+  type: 'test'
+  ...
+# Subtest: capture-080: independent union-find comparison
+ok 241 - capture-080: independent union-find comparison
+  ---
+  duration_ms: 1.129306
+  type: 'test'
+  ...
+# Subtest: capture-081: independent union-find comparison
+ok 242 - capture-081: independent union-find comparison
+  ---
+  duration_ms: 3.96079
+  type: 'test'
+  ...
+# Subtest: capture-082: independent union-find comparison
+ok 243 - capture-082: independent union-find comparison
+  ---
+  duration_ms: 3.450123
+  type: 'test'
+  ...
+# Subtest: capture-083: independent union-find comparison
+ok 244 - capture-083: independent union-find comparison
+  ---
+  duration_ms: 2.147105
+  type: 'test'
+  ...
+# Subtest: capture-084: independent union-find comparison
+ok 245 - capture-084: independent union-find comparison
+  ---
+  duration_ms: 1.722637
+  type: 'test'
+  ...
+# Subtest: capture-085: independent union-find comparison
+ok 246 - capture-085: independent union-find comparison
+  ---
+  duration_ms: 1.525241
+  type: 'test'
+  ...
+# Subtest: capture-086: independent union-find comparison
+ok 247 - capture-086: independent union-find comparison
+  ---
+  duration_ms: 1.539823
+  type: 'test'
+  ...
+# Subtest: capture-087: independent union-find comparison
+ok 248 - capture-087: independent union-find comparison
+  ---
+  duration_ms: 2.54937
+  type: 'test'
+  ...
+# Subtest: capture-088: independent union-find comparison
+ok 249 - capture-088: independent union-find comparison
+  ---
+  duration_ms: 1.97691
+  type: 'test'
+  ...
+# Subtest: capture-089: independent union-find comparison
+ok 250 - capture-089: independent union-find comparison
+  ---
+  duration_ms: 2.327096
+  type: 'test'
+  ...
+# Subtest: capture-090: independent union-find comparison
+ok 251 - capture-090: independent union-find comparison
+  ---
+  duration_ms: 4.016503
+  type: 'test'
+  ...
+# Subtest: capture-091: independent union-find comparison
+ok 252 - capture-091: independent union-find comparison
+  ---
+  duration_ms: 3.577675
+  type: 'test'
+  ...
+# Subtest: capture-092: independent union-find comparison
+ok 253 - capture-092: independent union-find comparison
+  ---
+  duration_ms: 4.45325
+  type: 'test'
+  ...
+# Subtest: capture-093: independent union-find comparison
+ok 254 - capture-093: independent union-find comparison
+  ---
+  duration_ms: 2.751022
+  type: 'test'
+  ...
+# Subtest: capture-094: independent union-find comparison
+ok 255 - capture-094: independent union-find comparison
+  ---
+  duration_ms: 2.721518
+  type: 'test'
+  ...
+# Subtest: capture-095: independent union-find comparison
+ok 256 - capture-095: independent union-find comparison
+  ---
+  duration_ms: 2.8759
+  type: 'test'
+  ...
+# Subtest: capture-096: independent union-find comparison
+ok 257 - capture-096: independent union-find comparison
+  ---
+  duration_ms: 2.814268
+  type: 'test'
+  ...
+# Subtest: capture-097: independent union-find comparison
+ok 258 - capture-097: independent union-find comparison
+  ---
+  duration_ms: 2.546284
+  type: 'test'
+  ...
+# Subtest: capture-098: independent union-find comparison
+ok 259 - capture-098: independent union-find comparison
+  ---
+  duration_ms: 3.012695
+  type: 'test'
+  ...
+# Subtest: capture-099: independent union-find comparison
+ok 260 - capture-099: independent union-find comparison
+  ---
+  duration_ms: 4.076594
+  type: 'test'
+  ...
+# Subtest: capture-100: independent union-find comparison
+ok 261 - capture-100: independent union-find comparison
+  ---
+  duration_ms: 4.341672
+  type: 'test'
+  ...
+# Subtest: capture-101: independent union-find comparison
+ok 262 - capture-101: independent union-find comparison
+  ---
+  duration_ms: 4.196654
+  type: 'test'
+  ...
+# Subtest: capture-102: independent union-find comparison
+ok 263 - capture-102: independent union-find comparison
+  ---
+  duration_ms: 2.393265
+  type: 'test'
+  ...
+# Subtest: capture-103: independent union-find comparison
+ok 264 - capture-103: independent union-find comparison
+  ---
+  duration_ms: 3.623152
+  type: 'test'
+  ...
+# Subtest: capture-104: independent union-find comparison
+ok 265 - capture-104: independent union-find comparison
+  ---
+  duration_ms: 2.440937
+  type: 'test'
+  ...
+# Subtest: capture-105: independent union-find comparison
+ok 266 - capture-105: independent union-find comparison
+  ---
+  duration_ms: 5.386351
+  type: 'test'
+  ...
+# Subtest: capture-106: independent union-find comparison
+ok 267 - capture-106: independent union-find comparison
+  ---
+  duration_ms: 5.031218
+  type: 'test'
+  ...
+# Subtest: capture-107: independent union-find comparison
+ok 268 - capture-107: independent union-find comparison
+  ---
+  duration_ms: 4.777717
+  type: 'test'
+  ...
+# Subtest: capture-108: independent union-find comparison
+ok 269 - capture-108: independent union-find comparison
+  ---
+  duration_ms: 2.48321
+  type: 'test'
+  ...
+# Subtest: capture-109: independent union-find comparison
+ok 270 - capture-109: independent union-find comparison
+  ---
+  duration_ms: 2.213105
+  type: 'test'
+  ...
+# Subtest: capture-110: independent union-find comparison
+ok 271 - capture-110: independent union-find comparison
+  ---
+  duration_ms: 2.163911
+  type: 'test'
+  ...
+# Subtest: capture-111: independent union-find comparison
+ok 272 - capture-111: independent union-find comparison
+  ---
+  duration_ms: 3.713818
+  type: 'test'
+  ...
+# Subtest: capture-112: independent union-find comparison
+ok 273 - capture-112: independent union-find comparison
+  ---
+  duration_ms: 3.594079
+  type: 'test'
+  ...
+# Subtest: capture-113: independent union-find comparison
+ok 274 - capture-113: independent union-find comparison
+  ---
+  duration_ms: 3.584134
+  type: 'test'
+  ...
+# Subtest: capture-114: independent union-find comparison
+ok 275 - capture-114: independent union-find comparison
+  ---
+  duration_ms: 2.327566
+  type: 'test'
+  ...
+# Subtest: capture-115: independent union-find comparison
+ok 276 - capture-115: independent union-find comparison
+  ---
+  duration_ms: 2.093164
+  type: 'test'
+  ...
+# Subtest: capture-116: independent union-find comparison
+ok 277 - capture-116: independent union-find comparison
+  ---
+  duration_ms: 1.997561
+  type: 'test'
+  ...
+# Subtest: capture-117: independent union-find comparison
+ok 278 - capture-117: independent union-find comparison
+  ---
+  duration_ms: 3.629662
+  type: 'test'
+  ...
+# Subtest: capture-118: independent union-find comparison
+ok 279 - capture-118: independent union-find comparison
+  ---
+  duration_ms: 4.250495
+  type: 'test'
+  ...
+# Subtest: capture-119: independent union-find comparison
+ok 280 - capture-119: independent union-find comparison
+  ---
+  duration_ms: 2.807537
+  type: 'test'
+  ...
+# Subtest: capture-120: independent union-find comparison
+ok 281 - capture-120: independent union-find comparison
+  ---
+  duration_ms: 1.862208
+  type: 'test'
+  ...
+# Subtest: capture-121: independent union-find comparison
+ok 282 - capture-121: independent union-find comparison
+  ---
+  duration_ms: 1.811741
+  type: 'test'
+  ...
+# Subtest: capture-122: independent union-find comparison
+ok 283 - capture-122: independent union-find comparison
+  ---
+  duration_ms: 2.207095
+  type: 'test'
+  ...
+# Subtest: capture-123: independent union-find comparison
+ok 284 - capture-123: independent union-find comparison
+  ---
+  duration_ms: 3.120327
+  type: 'test'
+  ...
+# Subtest: capture-124: independent union-find comparison
+ok 285 - capture-124: independent union-find comparison
+  ---
+  duration_ms: 3.245925
+  type: 'test'
+  ...
+# Subtest: capture-125: independent union-find comparison
+ok 286 - capture-125: independent union-find comparison
+  ---
+  duration_ms: 3.591395
+  type: 'test'
+  ...
+# Subtest: capture-126: independent union-find comparison
+ok 287 - capture-126: independent union-find comparison
+  ---
+  duration_ms: 1.272011
+  type: 'test'
+  ...
+# Subtest: capture-127: independent union-find comparison
+ok 288 - capture-127: independent union-find comparison
+  ---
+  duration_ms: 1.328496
+  type: 'test'
+  ...
+# Subtest: capture-128: independent union-find comparison
+ok 289 - capture-128: independent union-find comparison
+  ---
+  duration_ms: 1.168845
+  type: 'test'
+  ...
+# Subtest: capture-129: independent union-find comparison
+ok 290 - capture-129: independent union-find comparison
+  ---
+  duration_ms: 3.100046
+  type: 'test'
+  ...
+# Subtest: capture-130: independent union-find comparison
+ok 291 - capture-130: independent union-find comparison
+  ---
+  duration_ms: 3.700038
+  type: 'test'
+  ...
+# Subtest: capture-131: independent union-find comparison
+ok 292 - capture-131: independent union-find comparison
+  ---
+  duration_ms: 3.348811
+  type: 'test'
+  ...
+# Subtest: capture-132: independent union-find comparison
+ok 293 - capture-132: independent union-find comparison
+  ---
+  duration_ms: 3.779918
+  type: 'test'
+  ...
+# Subtest: capture-133: independent union-find comparison
+ok 294 - capture-133: independent union-find comparison
+  ---
+  duration_ms: 3.531565
+  type: 'test'
+  ...
+# Subtest: capture-134: independent union-find comparison
+ok 295 - capture-134: independent union-find comparison
+  ---
+  duration_ms: 3.347007
+  type: 'test'
+  ...
+# Subtest: capture-135: independent union-find comparison
+ok 296 - capture-135: independent union-find comparison
+  ---
+  duration_ms: 3.61478
+  type: 'test'
+  ...
+# Subtest: capture-136: independent union-find comparison
+ok 297 - capture-136: independent union-find comparison
+  ---
+  duration_ms: 2.719075
+  type: 'test'
+  ...
+# Subtest: capture-137: independent union-find comparison
+ok 298 - capture-137: independent union-find comparison
+  ---
+  duration_ms: 2.865815
+  type: 'test'
+  ...
+# Subtest: capture-138: independent union-find comparison
+ok 299 - capture-138: independent union-find comparison
+  ---
+  duration_ms: 2.673706
+  type: 'test'
+  ...
+# Subtest: capture-139: independent union-find comparison
+ok 300 - capture-139: independent union-find comparison
+  ---
+  duration_ms: 2.343711
+  type: 'test'
+  ...
+# Subtest: capture-140: independent union-find comparison
+ok 301 - capture-140: independent union-find comparison
+  ---
+  duration_ms: 2.328077
+  type: 'test'
+  ...
+# Subtest: capture-141: independent union-find comparison
+ok 302 - capture-141: independent union-find comparison
+  ---
+  duration_ms: 4.515743
+  type: 'test'
+  ...
+# Subtest: capture-142: independent union-find comparison
+ok 303 - capture-142: independent union-find comparison
+  ---
+  duration_ms: 4.138767
+  type: 'test'
+  ...
+# Subtest: capture-143: independent union-find comparison
+ok 304 - capture-143: independent union-find comparison
+  ---
+  duration_ms: 4.082773
+  type: 'test'
+  ...
+# Subtest: capture-144: independent union-find comparison
+ok 305 - capture-144: independent union-find comparison
+  ---
+  duration_ms: 2.680596
+  type: 'test'
+  ...
+# Subtest: capture-145: independent union-find comparison
+ok 306 - capture-145: independent union-find comparison
+  ---
+  duration_ms: 2.294457
+  type: 'test'
+  ...
+# Subtest: capture-146: independent union-find comparison
+ok 307 - capture-146: independent union-find comparison
+  ---
+  duration_ms: 2.203961
+  type: 'test'
+  ...
+# Subtest: capture-147: independent union-find comparison
+ok 308 - capture-147: independent union-find comparison
+  ---
+  duration_ms: 3.384745
+  type: 'test'
+  ...
+# Subtest: capture-148: independent union-find comparison
+ok 309 - capture-148: independent union-find comparison
+  ---
+  duration_ms: 3.574479
+  type: 'test'
+  ...
+# Subtest: capture-149: independent union-find comparison
+ok 310 - capture-149: independent union-find comparison
+  ---
+  duration_ms: 3.001318
+  type: 'test'
+  ...
+# Subtest: capture-150: independent union-find comparison
+ok 311 - capture-150: independent union-find comparison
+  ---
+  duration_ms: 2.450111
+  type: 'test'
+  ...
+# Subtest: capture-151: independent union-find comparison
+ok 312 - capture-151: independent union-find comparison
+  ---
+  duration_ms: 2.100805
+  type: 'test'
+  ...
+# Subtest: capture-152: independent union-find comparison
+ok 313 - capture-152: independent union-find comparison
+  ---
+  duration_ms: 2.246294
+  type: 'test'
+  ...
+# Subtest: capture-153: independent union-find comparison
+ok 314 - capture-153: independent union-find comparison
+  ---
+  duration_ms: 2.209369
+  type: 'test'
+  ...
+# Subtest: capture-154: independent union-find comparison
+ok 315 - capture-154: independent union-find comparison
+  ---
+  duration_ms: 1.718452
+  type: 'test'
+  ...
+# Subtest: capture-155: independent union-find comparison
+ok 316 - capture-155: independent union-find comparison
+  ---
+  duration_ms: 2.149639
+  type: 'test'
+  ...
+# Subtest: capture-156: independent union-find comparison
+ok 317 - capture-156: independent union-find comparison
+  ---
+  duration_ms: 5.21279
+  type: 'test'
+  ...
+# Subtest: capture-157: independent union-find comparison
+ok 318 - capture-157: independent union-find comparison
+  ---
+  duration_ms: 5.946663
+  type: 'test'
+  ...
+# Subtest: capture-158: independent union-find comparison
+ok 319 - capture-158: independent union-find comparison
+  ---
+  duration_ms: 4.301952
+  type: 'test'
+  ...
+# Subtest: capture-159: independent union-find comparison
+ok 320 - capture-159: independent union-find comparison
+  ---
+  duration_ms: 3.557724
+  type: 'test'
+  ...
+# Subtest: capture-160: independent union-find comparison
+ok 321 - capture-160: independent union-find comparison
+  ---
+  duration_ms: 5.810429
+  type: 'test'
+  ...
+# Subtest: capture-161: independent union-find comparison
+ok 322 - capture-161: independent union-find comparison
+  ---
+  duration_ms: 4.003224
+  type: 'test'
+  ...
+# Subtest: capture-162: independent union-find comparison
+ok 323 - capture-162: independent union-find comparison
+  ---
+  duration_ms: 1.199822
+  type: 'test'
+  ...
+# Subtest: capture-163: independent union-find comparison
+ok 324 - capture-163: independent union-find comparison
+  ---
+  duration_ms: 1.425962
+  type: 'test'
+  ...
+# Subtest: capture-164: independent union-find comparison
+ok 325 - capture-164: independent union-find comparison
+  ---
+  duration_ms: 1.313514
+  type: 'test'
+  ...
+# Subtest: capture-165: independent union-find comparison
+ok 326 - capture-165: independent union-find comparison
+  ---
+  duration_ms: 2.045173
+  type: 'test'
+  ...
+# Subtest: capture-166: independent union-find comparison
+ok 327 - capture-166: independent union-find comparison
+  ---
+  duration_ms: 1.782848
+  type: 'test'
+  ...
+# Subtest: capture-167: independent union-find comparison
+ok 328 - capture-167: independent union-find comparison
+  ---
+  duration_ms: 2.073966
+  type: 'test'
+  ...
+# Subtest: capture-168: independent union-find comparison
+ok 329 - capture-168: independent union-find comparison
+  ---
+  duration_ms: 2.964393
+  type: 'test'
+  ...
+# Subtest: capture-169: independent union-find comparison
+ok 330 - capture-169: independent union-find comparison
+  ---
+  duration_ms: 2.307226
+  type: 'test'
+  ...
+# Subtest: capture-170: independent union-find comparison
+ok 331 - capture-170: independent union-find comparison
+  ---
+  duration_ms: 2.335839
+  type: 'test'
+  ...
+# Subtest: capture-171: independent union-find comparison
+ok 332 - capture-171: independent union-find comparison
+  ---
+  duration_ms: 5.358449
+  type: 'test'
+  ...
+# Subtest: capture-172: independent union-find comparison
+ok 333 - capture-172: independent union-find comparison
+  ---
+  duration_ms: 5.739922
+  type: 'test'
+  ...
+# Subtest: capture-173: independent union-find comparison
+ok 334 - capture-173: independent union-find comparison
+  ---
+  duration_ms: 6.012732
+  type: 'test'
+  ...
+# Subtest: capture-174: independent union-find comparison
+ok 335 - capture-174: independent union-find comparison
+  ---
+  duration_ms: 4.47326
+  type: 'test'
+  ...
+# Subtest: capture-175: independent union-find comparison
+ok 336 - capture-175: independent union-find comparison
+  ---
+  duration_ms: 4.798799
+  type: 'test'
+  ...
+# Subtest: capture-176: independent union-find comparison
+ok 337 - capture-176: independent union-find comparison
+  ---
+  duration_ms: 3.374389
+  type: 'test'
+  ...
+# Subtest: capture-177: independent union-find comparison
+ok 338 - capture-177: independent union-find comparison
+  ---
+  duration_ms: 5.623407
+  type: 'test'
+  ...
+# Subtest: capture-178: independent union-find comparison
+ok 339 - capture-178: independent union-find comparison
+  ---
+  duration_ms: 5.221293
+  type: 'test'
+  ...
+# Subtest: capture-179: independent union-find comparison
+ok 340 - capture-179: independent union-find comparison
+  ---
+  duration_ms: 6.538793
+  type: 'test'
+  ...
+# Subtest: capture-180: independent union-find comparison
+ok 341 - capture-180: independent union-find comparison
+  ---
+  duration_ms: 2.381508
+  type: 'test'
+  ...
+# Subtest: capture-181: independent union-find comparison
+ok 342 - capture-181: independent union-find comparison
+  ---
+  duration_ms: 2.541377
+  type: 'test'
+  ...
+# Subtest: capture-182: independent union-find comparison
+ok 343 - capture-182: independent union-find comparison
+  ---
+  duration_ms: 3.641139
+  type: 'test'
+  ...
+# Subtest: capture-183: independent union-find comparison
+ok 344 - capture-183: independent union-find comparison
+  ---
+  duration_ms: 1.689949
+  type: 'test'
+  ...
+# Subtest: capture-184: independent union-find comparison
+ok 345 - capture-184: independent union-find comparison
+  ---
+  duration_ms: 1.356969
+  type: 'test'
+  ...
+# Subtest: capture-185: independent union-find comparison
+ok 346 - capture-185: independent union-find comparison
+  ---
+  duration_ms: 1.308626
+  type: 'test'
+  ...
+# Subtest: capture-186: independent union-find comparison
+ok 347 - capture-186: independent union-find comparison
+  ---
+  duration_ms: 3.815932
+  type: 'test'
+  ...
+# Subtest: capture-187: independent union-find comparison
+ok 348 - capture-187: independent union-find comparison
+  ---
+  duration_ms: 3.738826
+  type: 'test'
+  ...
+# Subtest: capture-188: independent union-find comparison
+ok 349 - capture-188: independent union-find comparison
+  ---
+  duration_ms: 3.503564
+  type: 'test'
+  ...
+# Subtest: capture-189: independent union-find comparison
+ok 350 - capture-189: independent union-find comparison
+  ---
+  duration_ms: 1.461296
+  type: 'test'
+  ...
+# Subtest: capture-190: independent union-find comparison
+ok 351 - capture-190: independent union-find comparison
+  ---
+  duration_ms: 1.43136
+  type: 'test'
+  ...
+# Subtest: capture-191: independent union-find comparison
+ok 352 - capture-191: independent union-find comparison
+  ---
+  duration_ms: 1.268876
+  type: 'test'
+  ...
+# Subtest: all u16 headings: bounded speed error and quarter-turn symmetry
+ok 353 - all u16 headings: bounded speed error and quarter-turn symmetry
+  ---
+  duration_ms: 135.253604
+  type: 'test'
+  ...
+# Subtest: one ball bounces from external board and integrates exact area-time
+ok 354 - one ball bounces from external board and integrates exact area-time
+  ---
+  duration_ms: 2.126695
+  type: 'test'
+  ...
+# Subtest: own cannon is a solid entry obstacle
+ok 355 - own cannon is a solid entry obstacle
+  ---
+  duration_ms: 0.601473
+  type: 'test'
+  ...
+# Subtest: opponent cannon cell is not capturable
+ok 356 - opponent cannon cell is not capturable
+  ---
+  duration_ms: 0.577888
+  type: 'test'
+  ...
+# Subtest: normal impact transfers one cell and reflects
+ok 357 - normal impact transfers one cell and reflects
+  ---
+  duration_ms: 0.651619
+  type: 'test'
+  ...
+# Subtest: opposing exact-time impacts annihilate, eliminate and preserve earned scores
+ok 358 - opposing exact-time impacts annihilate, eliminate and preserve earned scores
+  ---
+  duration_ms: 0.723316
+  type: 'test'
+  ...
+# Subtest: spatially separated wall impacts do not annihilate; a chip can destroy a resident ball
+ok 359 - spatially separated wall impacts do not annihilate; a chip can destroy a resident ball
+  ---
+  duration_ms: 0.656106
+  type: 'test'
+  ...
+# Subtest: articulation capture transfers orphaned region and last-ball elimination neutralizes anchor region
+ok 360 - articulation capture transfers orphaned region and last-ball elimination neutralizes anchor region
+  ---
+  duration_ms: 4.075873
+  type: 'test'
+  ...
+# Subtest: same-cell conflict favors older cannon, not earlier ball ordinal
+ok 361 - same-cell conflict favors older cannon, not earlier ball ordinal
+  ---
+  duration_ms: 0.521774
+  type: 'test'
+  ...
+# Subtest: compound corner reflects both axes but chips at most one target
+ok 362 - compound corner reflects both axes but chips at most one target
+  ---
+  duration_ms: 0.558218
+  type: 'test'
+  ...
+# Subtest: no diagonal corner leak when both side cells are owned but diagonal is not
+ok 363 - no diagonal corner leak when both side cells are owned but diagonal is not
+  ---
+  duration_ms: 0.462945
+  type: 'test'
+  ...
+# Subtest: ANGLE pricing uses current active count, retains underfunding and excess
+ok 364 - ANGLE pricing uses current active count, retains underfunding and excess
+  ---
+  duration_ms: 14.828105
+  type: 'test'
+  ...
+# Subtest: MOVE over a ball permits exit; second successful move rejected
+ok 365 - MOVE over a ball permits exit; second successful move rejected
+  ---
+  duration_ms: 0.791149
+  type: 'test'
+  ...
+# Subtest: MOVE then ANGLE launches at new anchor; reverse ordering launches at old anchor
+ok 366 - MOVE then ANGLE launches at new anchor; reverse ordering launches at old anchor
+  ---
+  duration_ms: 1.131059
+  type: 'test'
+  ...
+# Subtest: underfunded, foreign MOVE, malformed memo and unimplemented JOIN have explicit retained-payment receipts
+ok 367 - underfunded, foreign MOVE, malformed memo and unimplemented JOIN have explicit retained-payment receipts
+  ---
+  duration_ms: 0.686722
+  type: 'test'
+  ...
+# Subtest: hard per-cannon cap rejects even a fully funded purchase
+ok 368 - hard per-cannon cap rejects even a fully funded purchase
+  ---
+  duration_ms: 1.614305
+  type: 'test'
+  ...
+# Subtest: half-open checkpoint boundary: split execution matches one uninterrupted segment
+ok 369 - half-open checkpoint boundary: split execution matches one uninterrupted segment
+  ---
+  duration_ms: 0.944689
+  type: 'test'
+  ...
+# Subtest: BTZ host journals survive interruption inside capture and publish only complete output
+ok 370 - BTZ host journals survive interruption inside capture and publish only complete output
+  ---
+  duration_ms: 163.110571
+  type: 'test'
+  ...
+# Subtest: malformed normalized payment traps the stage rather than silently advancing source effects
+ok 371 - malformed normalized payment traps the stage rather than silently advancing source effects
+  ---
+  duration_ms: 0.309204
+  type: 'test'
+  ...
+# Subtest: BTZ rejects unexpected rules, invalid owner state and corrupt snapshots
+ok 372 - BTZ rejects unexpected rules, invalid owner state and corrupt snapshots
+  ---
+  duration_ms: 0.55255
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 1: partition and restart invariant
+ok 373 - mixed-trajectory conformance seed 1: partition and restart invariant
+  ---
+  duration_ms: 17.078544
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 2: partition and restart invariant
+ok 374 - mixed-trajectory conformance seed 2: partition and restart invariant
+  ---
+  duration_ms: 24.938813
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 3: partition and restart invariant
+ok 375 - mixed-trajectory conformance seed 3: partition and restart invariant
+  ---
+  duration_ms: 20.907607
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 4: partition and restart invariant
+ok 376 - mixed-trajectory conformance seed 4: partition and restart invariant
+  ---
+  duration_ms: 12.950704
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 5: partition and restart invariant
+ok 377 - mixed-trajectory conformance seed 5: partition and restart invariant
+  ---
+  duration_ms: 16.268619
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 6: partition and restart invariant
+ok 378 - mixed-trajectory conformance seed 6: partition and restart invariant
+  ---
+  duration_ms: 12.450263
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 7: partition and restart invariant
+ok 379 - mixed-trajectory conformance seed 7: partition and restart invariant
+  ---
+  duration_ms: 18.836826
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 8: partition and restart invariant
+ok 380 - mixed-trajectory conformance seed 8: partition and restart invariant
+  ---
+  duration_ms: 13.039748
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 9: partition and restart invariant
+ok 381 - mixed-trajectory conformance seed 9: partition and restart invariant
+  ---
+  duration_ms: 19.407554
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 10: partition and restart invariant
+ok 382 - mixed-trajectory conformance seed 10: partition and restart invariant
+  ---
+  duration_ms: 17.226687
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 11: partition and restart invariant
+ok 383 - mixed-trajectory conformance seed 11: partition and restart invariant
+  ---
+  duration_ms: 17.274629
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 12: partition and restart invariant
+ok 384 - mixed-trajectory conformance seed 12: partition and restart invariant
+  ---
+  duration_ms: 13.758608
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 13: partition and restart invariant
+ok 385 - mixed-trajectory conformance seed 13: partition and restart invariant
+  ---
+  duration_ms: 21.390061
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 14: partition and restart invariant
+ok 386 - mixed-trajectory conformance seed 14: partition and restart invariant
+  ---
+  duration_ms: 20.328317
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 15: partition and restart invariant
+ok 387 - mixed-trajectory conformance seed 15: partition and restart invariant
+  ---
+  duration_ms: 20.815329
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 16: partition and restart invariant
+ok 388 - mixed-trajectory conformance seed 16: partition and restart invariant
+  ---
+  duration_ms: 13.885639
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 17: partition and restart invariant
+ok 389 - mixed-trajectory conformance seed 17: partition and restart invariant
+  ---
+  duration_ms: 15.737992
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 18: partition and restart invariant
+ok 390 - mixed-trajectory conformance seed 18: partition and restart invariant
+  ---
+  duration_ms: 15.485052
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 19: partition and restart invariant
+ok 391 - mixed-trajectory conformance seed 19: partition and restart invariant
+  ---
+  duration_ms: 12.105595
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 20: partition and restart invariant
+ok 392 - mixed-trajectory conformance seed 20: partition and restart invariant
+  ---
+  duration_ms: 14.262906
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 21: partition and restart invariant
+ok 393 - mixed-trajectory conformance seed 21: partition and restart invariant
+  ---
+  duration_ms: 19.496297
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 22: partition and restart invariant
+ok 394 - mixed-trajectory conformance seed 22: partition and restart invariant
+  ---
+  duration_ms: 18.941904
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 23: partition and restart invariant
+ok 395 - mixed-trajectory conformance seed 23: partition and restart invariant
+  ---
+  duration_ms: 19.123236
+  type: 'test'
+  ...
+# Subtest: mixed-trajectory conformance seed 24: partition and restart invariant
+ok 396 - mixed-trajectory conformance seed 24: partition and restart invariant
+  ---
+  duration_ms: 16.854519
+  type: 'test'
+  ...
+1..396
+# tests 396
+# suites 0
+# pass 396
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1515.544648

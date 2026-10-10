@@ -1,0 +1,4362 @@
+{
+  "version": 3,
+  "method": "Closed-form Fraction calculation for a two-ball corridor; not a copy of the event simulator",
+  "cases": [
+    {
+      "name": "impact-000",
+      "left_arrival": [
+        "3",
+        "16"
+      ],
+      "right_arrival": [
+        "7",
+        "64"
+      ],
+      "left_x0": "2880",
+      "right_x0": "3184",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "11",
+          "64"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "99",
+            "64"
+          ],
+          [
+            "629",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-001",
+      "left_arrival": [
+        "239",
+        "1024"
+      ],
+      "right_arrival": [
+        "87",
+        "512"
+      ],
+      "left_x0": "2833",
+      "right_x0": "3246",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "119",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1071",
+            "512"
+          ],
+          [
+            "5001",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-002",
+      "left_arrival": [
+        "143",
+        "512"
+      ],
+      "right_arrival": [
+        "111",
+        "512"
+      ],
+      "left_x0": "2786",
+      "right_x0": "3294",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "143",
+          "512"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "1287",
+            "512"
+          ],
+          [
+            "1287",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-003",
+      "left_arrival": [
+        "333",
+        "1024"
+      ],
+      "right_arrival": [
+        "135",
+        "512"
+      ],
+      "left_x0": "2739",
+      "right_x0": "3342",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "333",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "2997",
+            "1024"
+          ],
+          [
+            "2997",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-004",
+      "left_arrival": [
+        "95",
+        "256"
+      ],
+      "right_arrival": [
+        "379",
+        "1024"
+      ],
+      "left_x0": "2692",
+      "right_x0": "3451",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "95",
+          "256"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "855",
+            "256"
+          ],
+          [
+            "855",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-005",
+      "left_arrival": [
+        "427",
+        "1024"
+      ],
+      "right_arrival": [
+        "427",
+        "1024"
+      ],
+      "left_x0": "2645",
+      "right_x0": "3499",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "427",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3843",
+            "1024"
+          ],
+          [
+            "3843",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-006",
+      "left_arrival": [
+        "237",
+        "512"
+      ],
+      "right_arrival": [
+        "475",
+        "1024"
+      ],
+      "left_x0": "2598",
+      "right_x0": "3547",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "475",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4275",
+            "1024"
+          ],
+          [
+            "4275",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-007",
+      "left_arrival": [
+        "521",
+        "1024"
+      ],
+      "right_arrival": [
+        "73",
+        "128"
+      ],
+      "left_x0": "2551",
+      "right_x0": "3656",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "73",
+          "128"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "657",
+            "128"
+          ],
+          [
+            "657",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-008",
+      "left_arrival": [
+        "71",
+        "128"
+      ],
+      "right_arrival": [
+        "79",
+        "128"
+      ],
+      "left_x0": "2504",
+      "right_x0": "3704",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "79",
+          "128"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "711",
+            "128"
+          ],
+          [
+            "711",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-009",
+      "left_arrival": [
+        "215",
+        "1024"
+      ],
+      "right_arrival": [
+        "35",
+        "128"
+      ],
+      "left_x0": "2857",
+      "right_x0": "3352",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "279",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9961",
+            "1024"
+          ],
+          [
+            "2511",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-010",
+      "left_arrival": [
+        "131",
+        "512"
+      ],
+      "right_arrival": [
+        "171",
+        "512"
+      ],
+      "left_x0": "2810",
+      "right_x0": "3414",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "163",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4957",
+            "512"
+          ],
+          [
+            "1467",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-011",
+      "left_arrival": [
+        "309",
+        "1024"
+      ],
+      "right_arrival": [
+        "229",
+        "1024"
+      ],
+      "left_x0": "2763",
+      "right_x0": "3301",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "293",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2637",
+            "1024"
+          ],
+          [
+            "9947",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-012",
+      "left_arrival": [
+        "89",
+        "256"
+      ],
+      "right_arrival": [
+        "291",
+        "1024"
+      ],
+      "left_x0": "2716",
+      "right_x0": "3363",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "355",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3195",
+            "1024"
+          ],
+          [
+            "9885",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-013",
+      "left_arrival": [
+        "403",
+        "1024"
+      ],
+      "right_arrival": [
+        "339",
+        "1024"
+      ],
+      "left_x0": "2669",
+      "right_x0": "3411",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "403",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3627",
+            "1024"
+          ],
+          [
+            "3627",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-014",
+      "left_arrival": [
+        "225",
+        "512"
+      ],
+      "right_arrival": [
+        "387",
+        "1024"
+      ],
+      "left_x0": "2622",
+      "right_x0": "3459",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "225",
+          "512"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "2025",
+            "512"
+          ],
+          [
+            "2025",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-015",
+      "left_arrival": [
+        "497",
+        "1024"
+      ],
+      "right_arrival": [
+        "31",
+        "64"
+      ],
+      "left_x0": "2575",
+      "right_x0": "3568",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "497",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4473",
+            "1024"
+          ],
+          [
+            "4473",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-016",
+      "left_arrival": [
+        "17",
+        "32"
+      ],
+      "right_arrival": [
+        "17",
+        "32"
+      ],
+      "left_x0": "2528",
+      "right_x0": "3616",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "17",
+          "32"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "153",
+            "32"
+          ],
+          [
+            "153",
+            "32"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-017",
+      "left_arrival": [
+        "591",
+        "1024"
+      ],
+      "right_arrival": [
+        "37",
+        "64"
+      ],
+      "left_x0": "2481",
+      "right_x0": "3664",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "37",
+          "64"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "333",
+            "64"
+          ],
+          [
+            "333",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-018",
+      "left_arrival": [
+        "119",
+        "512"
+      ],
+      "right_arrival": [
+        "301",
+        "1024"
+      ],
+      "left_x0": "2834",
+      "right_x0": "3373",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "301",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "2709",
+            "1024"
+          ],
+          [
+            "2709",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-019",
+      "left_arrival": [
+        "285",
+        "1024"
+      ],
+      "right_arrival": [
+        "349",
+        "1024"
+      ],
+      "left_x0": "2787",
+      "right_x0": "3421",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "349",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3141",
+            "1024"
+          ],
+          [
+            "3141",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-020",
+      "left_arrival": [
+        "83",
+        "256"
+      ],
+      "right_arrival": [
+        "397",
+        "1024"
+      ],
+      "left_x0": "2740",
+      "right_x0": "3469",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "99",
+          "256"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "2461",
+            "256"
+          ],
+          [
+            "891",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-021",
+      "left_arrival": [
+        "379",
+        "1024"
+      ],
+      "right_arrival": [
+        "459",
+        "1024"
+      ],
+      "left_x0": "2693",
+      "right_x0": "3531",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "443",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9797",
+            "1024"
+          ],
+          [
+            "3987",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-022",
+      "left_arrival": [
+        "213",
+        "512"
+      ],
+      "right_arrival": [
+        "173",
+        "512"
+      ],
+      "left_x0": "2646",
+      "right_x0": "3418",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "205",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1845",
+            "512"
+          ],
+          [
+            "4915",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-023",
+      "left_arrival": [
+        "473",
+        "1024"
+      ],
+      "right_arrival": [
+        "51",
+        "128"
+      ],
+      "left_x0": "2599",
+      "right_x0": "3480",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "59",
+          "128"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "531",
+            "128"
+          ],
+          [
+            "1221",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-024",
+      "left_arrival": [
+        "65",
+        "128"
+      ],
+      "right_arrival": [
+        "57",
+        "128"
+      ],
+      "left_x0": "2552",
+      "right_x0": "3528",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "65",
+          "128"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "585",
+            "128"
+          ],
+          [
+            "1215",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-025",
+      "left_arrival": [
+        "567",
+        "1024"
+      ],
+      "right_arrival": [
+        "63",
+        "128"
+      ],
+      "left_x0": "2505",
+      "right_x0": "3576",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "71",
+          "128"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "639",
+            "128"
+          ],
+          [
+            "1209",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-026",
+      "left_arrival": [
+        "107",
+        "512"
+      ],
+      "right_arrival": [
+        "213",
+        "1024"
+      ],
+      "left_x0": "2858",
+      "right_x0": "3285",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "277",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2493",
+            "1024"
+          ],
+          [
+            "9963",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-027",
+      "left_arrival": [
+        "261",
+        "1024"
+      ],
+      "right_arrival": [
+        "261",
+        "1024"
+      ],
+      "left_x0": "2811",
+      "right_x0": "3333",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "325",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9915",
+            "1024"
+          ],
+          [
+            "2925",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-028",
+      "left_arrival": [
+        "77",
+        "256"
+      ],
+      "right_arrival": [
+        "309",
+        "1024"
+      ],
+      "left_x0": "2764",
+      "right_x0": "3381",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "93",
+          "256"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "2467",
+            "256"
+          ],
+          [
+            "837",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-029",
+      "left_arrival": [
+        "355",
+        "1024"
+      ],
+      "right_arrival": [
+        "209",
+        "512"
+      ],
+      "left_x0": "2717",
+      "right_x0": "3490",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "419",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9821",
+            "1024"
+          ],
+          [
+            "3771",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-030",
+      "left_arrival": [
+        "201",
+        "512"
+      ],
+      "right_arrival": [
+        "233",
+        "512"
+      ],
+      "left_x0": "2670",
+      "right_x0": "3538",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "233",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4887",
+            "512"
+          ],
+          [
+            "2097",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-031",
+      "left_arrival": [
+        "449",
+        "1024"
+      ],
+      "right_arrival": [
+        "257",
+        "512"
+      ],
+      "left_x0": "2623",
+      "right_x0": "3586",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "513",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9727",
+            "1024"
+          ],
+          [
+            "4617",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-032",
+      "left_arrival": [
+        "31",
+        "64"
+      ],
+      "right_arrival": [
+        "9",
+        "16"
+      ],
+      "left_x0": "2576",
+      "right_x0": "3648",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "35",
+          "64"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "605",
+            "64"
+          ],
+          [
+            "315",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-033",
+      "left_arrival": [
+        "543",
+        "1024"
+      ],
+      "right_arrival": [
+        "463",
+        "1024"
+      ],
+      "left_x0": "2529",
+      "right_x0": "3535",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "527",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "4743",
+            "1024"
+          ],
+          [
+            "9713",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-034",
+      "left_arrival": [
+        "295",
+        "512"
+      ],
+      "right_arrival": [
+        "525",
+        "1024"
+      ],
+      "left_x0": "2482",
+      "right_x0": "3597",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "589",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "5301",
+            "1024"
+          ],
+          [
+            "9651",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-035",
+      "left_arrival": [
+        "237",
+        "1024"
+      ],
+      "right_arrival": [
+        "173",
+        "1024"
+      ],
+      "left_x0": "2835",
+      "right_x0": "3245",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "237",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2133",
+            "1024"
+          ],
+          [
+            "10003",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-036",
+      "left_arrival": [
+        "71",
+        "256"
+      ],
+      "right_arrival": [
+        "221",
+        "1024"
+      ],
+      "left_x0": "2788",
+      "right_x0": "3293",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "285",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2565",
+            "1024"
+          ],
+          [
+            "9955",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-037",
+      "left_arrival": [
+        "331",
+        "1024"
+      ],
+      "right_arrival": [
+        "165",
+        "512"
+      ],
+      "left_x0": "2741",
+      "right_x0": "3402",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "197",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1773",
+            "512"
+          ],
+          [
+            "4923",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-038",
+      "left_arrival": [
+        "189",
+        "512"
+      ],
+      "right_arrival": [
+        "189",
+        "512"
+      ],
+      "left_x0": "2694",
+      "right_x0": "3450",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "221",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4899",
+            "512"
+          ],
+          [
+            "1989",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-039",
+      "left_arrival": [
+        "425",
+        "1024"
+      ],
+      "right_arrival": [
+        "213",
+        "512"
+      ],
+      "left_x0": "2647",
+      "right_x0": "3498",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "489",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9751",
+            "1024"
+          ],
+          [
+            "4401",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-040",
+      "left_arrival": [
+        "59",
+        "128"
+      ],
+      "right_arrival": [
+        "535",
+        "1024"
+      ],
+      "left_x0": "2600",
+      "right_x0": "3607",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "67",
+          "128"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "1213",
+            "128"
+          ],
+          [
+            "603",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-041",
+      "left_arrival": [
+        "519",
+        "1024"
+      ],
+      "right_arrival": [
+        "583",
+        "1024"
+      ],
+      "left_x0": "2553",
+      "right_x0": "3655",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "583",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9657",
+            "1024"
+          ],
+          [
+            "5247",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-042",
+      "left_arrival": [
+        "283",
+        "512"
+      ],
+      "right_arrival": [
+        "631",
+        "1024"
+      ],
+      "left_x0": "2506",
+      "right_x0": "3703",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "315",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4805",
+            "512"
+          ],
+          [
+            "2835",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-043",
+      "left_arrival": [
+        "213",
+        "1024"
+      ],
+      "right_arrival": [
+        "293",
+        "1024"
+      ],
+      "left_x0": "2859",
+      "right_x0": "3365",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "277",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9963",
+            "1024"
+          ],
+          [
+            "2493",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-044",
+      "left_arrival": [
+        "65",
+        "256"
+      ],
+      "right_arrival": [
+        "45",
+        "256"
+      ],
+      "left_x0": "2812",
+      "right_x0": "3252",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "61",
+          "256"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "549",
+            "256"
+          ],
+          [
+            "2499",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-045",
+      "left_arrival": [
+        "307",
+        "1024"
+      ],
+      "right_arrival": [
+        "121",
+        "512"
+      ],
+      "left_x0": "2765",
+      "right_x0": "3314",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "153",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1377",
+            "512"
+          ],
+          [
+            "4967",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-046",
+      "left_arrival": [
+        "177",
+        "512"
+      ],
+      "right_arrival": [
+        "145",
+        "512"
+      ],
+      "left_x0": "2718",
+      "right_x0": "3362",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "177",
+          "512"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "1593",
+            "512"
+          ],
+          [
+            "1593",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-047",
+      "left_arrival": [
+        "401",
+        "1024"
+      ],
+      "right_arrival": [
+        "169",
+        "512"
+      ],
+      "left_x0": "2671",
+      "right_x0": "3410",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "401",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3609",
+            "1024"
+          ],
+          [
+            "3609",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-048",
+      "left_arrival": [
+        "7",
+        "16"
+      ],
+      "right_arrival": [
+        "447",
+        "1024"
+      ],
+      "left_x0": "2624",
+      "right_x0": "3519",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "7",
+          "16"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "63",
+            "16"
+          ],
+          [
+            "63",
+            "16"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-049",
+      "left_arrival": [
+        "495",
+        "1024"
+      ],
+      "right_arrival": [
+        "495",
+        "1024"
+      ],
+      "left_x0": "2577",
+      "right_x0": "3567",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "495",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4455",
+            "1024"
+          ],
+          [
+            "4455",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-050",
+      "left_arrival": [
+        "271",
+        "512"
+      ],
+      "right_arrival": [
+        "543",
+        "1024"
+      ],
+      "left_x0": "2530",
+      "right_x0": "3615",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "543",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4887",
+            "1024"
+          ],
+          [
+            "4887",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-051",
+      "left_arrival": [
+        "589",
+        "1024"
+      ],
+      "right_arrival": [
+        "163",
+        "256"
+      ],
+      "left_x0": "2483",
+      "right_x0": "3724",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "163",
+          "256"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "1467",
+            "256"
+          ],
+          [
+            "1467",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-052",
+      "left_arrival": [
+        "59",
+        "256"
+      ],
+      "right_arrival": [
+        "75",
+        "256"
+      ],
+      "left_x0": "2836",
+      "right_x0": "3372",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "75",
+          "256"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "675",
+            "256"
+          ],
+          [
+            "675",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-053",
+      "left_arrival": [
+        "283",
+        "1024"
+      ],
+      "right_arrival": [
+        "87",
+        "256"
+      ],
+      "left_x0": "2789",
+      "right_x0": "3420",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "347",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9893",
+            "1024"
+          ],
+          [
+            "3123",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-054",
+      "left_arrival": [
+        "165",
+        "512"
+      ],
+      "right_arrival": [
+        "205",
+        "512"
+      ],
+      "left_x0": "2742",
+      "right_x0": "3482",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "197",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4923",
+            "512"
+          ],
+          [
+            "1773",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-055",
+      "left_arrival": [
+        "377",
+        "1024"
+      ],
+      "right_arrival": [
+        "297",
+        "1024"
+      ],
+      "left_x0": "2695",
+      "right_x0": "3369",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "361",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3249",
+            "1024"
+          ],
+          [
+            "9879",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-056",
+      "left_arrival": [
+        "53",
+        "128"
+      ],
+      "right_arrival": [
+        "359",
+        "1024"
+      ],
+      "left_x0": "2648",
+      "right_x0": "3431",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "423",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3807",
+            "1024"
+          ],
+          [
+            "9817",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-057",
+      "left_arrival": [
+        "471",
+        "1024"
+      ],
+      "right_arrival": [
+        "407",
+        "1024"
+      ],
+      "left_x0": "2601",
+      "right_x0": "3479",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "471",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4239",
+            "1024"
+          ],
+          [
+            "4239",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-058",
+      "left_arrival": [
+        "259",
+        "512"
+      ],
+      "right_arrival": [
+        "455",
+        "1024"
+      ],
+      "left_x0": "2554",
+      "right_x0": "3527",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "259",
+          "512"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "2331",
+            "512"
+          ],
+          [
+            "2331",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-059",
+      "left_arrival": [
+        "565",
+        "1024"
+      ],
+      "right_arrival": [
+        "141",
+        "256"
+      ],
+      "left_x0": "2507",
+      "right_x0": "3636",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "565",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "5085",
+            "1024"
+          ],
+          [
+            "5085",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-060",
+      "left_arrival": [
+        "53",
+        "256"
+      ],
+      "right_arrival": [
+        "53",
+        "256"
+      ],
+      "left_x0": "2860",
+      "right_x0": "3284",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "53",
+          "256"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "477",
+            "256"
+          ],
+          [
+            "477",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-061",
+      "left_arrival": [
+        "259",
+        "1024"
+      ],
+      "right_arrival": [
+        "65",
+        "256"
+      ],
+      "left_x0": "2813",
+      "right_x0": "3332",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "65",
+          "256"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "585",
+            "256"
+          ],
+          [
+            "585",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-062",
+      "left_arrival": [
+        "153",
+        "512"
+      ],
+      "right_arrival": [
+        "369",
+        "1024"
+      ],
+      "left_x0": "2766",
+      "right_x0": "3441",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "369",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3321",
+            "1024"
+          ],
+          [
+            "3321",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-063",
+      "left_arrival": [
+        "353",
+        "1024"
+      ],
+      "right_arrival": [
+        "417",
+        "1024"
+      ],
+      "left_x0": "2719",
+      "right_x0": "3489",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "417",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3753",
+            "1024"
+          ],
+          [
+            "3753",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-064",
+      "left_arrival": [
+        "25",
+        "64"
+      ],
+      "right_arrival": [
+        "465",
+        "1024"
+      ],
+      "left_x0": "2672",
+      "right_x0": "3537",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "29",
+          "64"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "611",
+            "64"
+          ],
+          [
+            "261",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-065",
+      "left_arrival": [
+        "447",
+        "1024"
+      ],
+      "right_arrival": [
+        "527",
+        "1024"
+      ],
+      "left_x0": "2625",
+      "right_x0": "3599",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "511",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9729",
+            "1024"
+          ],
+          [
+            "4599",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-066",
+      "left_arrival": [
+        "247",
+        "512"
+      ],
+      "right_arrival": [
+        "207",
+        "512"
+      ],
+      "left_x0": "2578",
+      "right_x0": "3486",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "239",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2151",
+            "512"
+          ],
+          [
+            "4881",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-067",
+      "left_arrival": [
+        "541",
+        "1024"
+      ],
+      "right_arrival": [
+        "119",
+        "256"
+      ],
+      "left_x0": "2531",
+      "right_x0": "3548",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "135",
+          "256"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1215",
+            "256"
+          ],
+          [
+            "2425",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-068",
+      "left_arrival": [
+        "147",
+        "256"
+      ],
+      "right_arrival": [
+        "131",
+        "256"
+      ],
+      "left_x0": "2484",
+      "right_x0": "3596",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "147",
+          "256"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1323",
+            "256"
+          ],
+          [
+            "2413",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-069",
+      "left_arrival": [
+        "235",
+        "1024"
+      ],
+      "right_arrival": [
+        "43",
+        "256"
+      ],
+      "left_x0": "2837",
+      "right_x0": "3244",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "59",
+          "256"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "531",
+            "256"
+          ],
+          [
+            "2501",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-070",
+      "left_arrival": [
+        "141",
+        "512"
+      ],
+      "right_arrival": [
+        "281",
+        "1024"
+      ],
+      "left_x0": "2790",
+      "right_x0": "3353",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "345",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3105",
+            "1024"
+          ],
+          [
+            "9895",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-071",
+      "left_arrival": [
+        "329",
+        "1024"
+      ],
+      "right_arrival": [
+        "329",
+        "1024"
+      ],
+      "left_x0": "2743",
+      "right_x0": "3401",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "393",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9847",
+            "1024"
+          ],
+          [
+            "3537",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-072",
+      "left_arrival": [
+        "47",
+        "128"
+      ],
+      "right_arrival": [
+        "377",
+        "1024"
+      ],
+      "left_x0": "2696",
+      "right_x0": "3449",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "55",
+          "128"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "1225",
+            "128"
+          ],
+          [
+            "495",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-073",
+      "left_arrival": [
+        "423",
+        "1024"
+      ],
+      "right_arrival": [
+        "243",
+        "512"
+      ],
+      "left_x0": "2649",
+      "right_x0": "3558",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "487",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9753",
+            "1024"
+          ],
+          [
+            "4383",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-074",
+      "left_arrival": [
+        "235",
+        "512"
+      ],
+      "right_arrival": [
+        "267",
+        "512"
+      ],
+      "left_x0": "2602",
+      "right_x0": "3606",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "267",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4853",
+            "512"
+          ],
+          [
+            "2403",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-075",
+      "left_arrival": [
+        "517",
+        "1024"
+      ],
+      "right_arrival": [
+        "291",
+        "512"
+      ],
+      "left_x0": "2555",
+      "right_x0": "3654",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "581",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9659",
+            "1024"
+          ],
+          [
+            "5229",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-076",
+      "left_arrival": [
+        "141",
+        "256"
+      ],
+      "right_arrival": [
+        "161",
+        "256"
+      ],
+      "left_x0": "2508",
+      "right_x0": "3716",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "157",
+          "256"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "2403",
+            "256"
+          ],
+          [
+            "1413",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-077",
+      "left_arrival": [
+        "211",
+        "1024"
+      ],
+      "right_arrival": [
+        "131",
+        "1024"
+      ],
+      "left_x0": "2861",
+      "right_x0": "3203",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "195",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1755",
+            "1024"
+          ],
+          [
+            "10045",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-078",
+      "left_arrival": [
+        "129",
+        "512"
+      ],
+      "right_arrival": [
+        "193",
+        "1024"
+      ],
+      "left_x0": "2814",
+      "right_x0": "3265",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "257",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2313",
+            "1024"
+          ],
+          [
+            "9983",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-079",
+      "left_arrival": [
+        "305",
+        "1024"
+      ],
+      "right_arrival": [
+        "241",
+        "1024"
+      ],
+      "left_x0": "2767",
+      "right_x0": "3313",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "305",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2745",
+            "1024"
+          ],
+          [
+            "9935",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-080",
+      "left_arrival": [
+        "11",
+        "32"
+      ],
+      "right_arrival": [
+        "289",
+        "1024"
+      ],
+      "left_x0": "2720",
+      "right_x0": "3361",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "353",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3177",
+            "1024"
+          ],
+          [
+            "9887",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-081",
+      "left_arrival": [
+        "399",
+        "1024"
+      ],
+      "right_arrival": [
+        "199",
+        "512"
+      ],
+      "left_x0": "2673",
+      "right_x0": "3470",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "231",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2079",
+            "512"
+          ],
+          [
+            "4889",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-082",
+      "left_arrival": [
+        "223",
+        "512"
+      ],
+      "right_arrival": [
+        "223",
+        "512"
+      ],
+      "left_x0": "2626",
+      "right_x0": "3518",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "255",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4865",
+            "512"
+          ],
+          [
+            "2295",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-083",
+      "left_arrival": [
+        "493",
+        "1024"
+      ],
+      "right_arrival": [
+        "247",
+        "512"
+      ],
+      "left_x0": "2579",
+      "right_x0": "3566",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "557",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9683",
+            "1024"
+          ],
+          [
+            "5013",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-084",
+      "left_arrival": [
+        "135",
+        "256"
+      ],
+      "right_arrival": [
+        "603",
+        "1024"
+      ],
+      "left_x0": "2532",
+      "right_x0": "3675",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "151",
+          "256"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "2409",
+            "256"
+          ],
+          [
+            "1359",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-085",
+      "left_arrival": [
+        "587",
+        "1024"
+      ],
+      "right_arrival": [
+        "651",
+        "1024"
+      ],
+      "left_x0": "2485",
+      "right_x0": "3723",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "651",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9589",
+            "1024"
+          ],
+          [
+            "5859",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-086",
+      "left_arrival": [
+        "117",
+        "512"
+      ],
+      "right_arrival": [
+        "299",
+        "1024"
+      ],
+      "left_x0": "2838",
+      "right_x0": "3371",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "149",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4971",
+            "512"
+          ],
+          [
+            "1341",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-087",
+      "left_arrival": [
+        "281",
+        "1024"
+      ],
+      "right_arrival": [
+        "361",
+        "1024"
+      ],
+      "left_x0": "2791",
+      "right_x0": "3433",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "345",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9895",
+            "1024"
+          ],
+          [
+            "3105",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-088",
+      "left_arrival": [
+        "41",
+        "128"
+      ],
+      "right_arrival": [
+        "31",
+        "128"
+      ],
+      "left_x0": "2744",
+      "right_x0": "3320",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "39",
+          "128"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "351",
+            "128"
+          ],
+          [
+            "1241",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-089",
+      "left_arrival": [
+        "375",
+        "1024"
+      ],
+      "right_arrival": [
+        "155",
+        "512"
+      ],
+      "left_x0": "2697",
+      "right_x0": "3382",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "187",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "1683",
+            "512"
+          ],
+          [
+            "4933",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-090",
+      "left_arrival": [
+        "211",
+        "512"
+      ],
+      "right_arrival": [
+        "179",
+        "512"
+      ],
+      "left_x0": "2650",
+      "right_x0": "3430",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "211",
+          "512"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "1899",
+            "512"
+          ],
+          [
+            "1899",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-091",
+      "left_arrival": [
+        "469",
+        "1024"
+      ],
+      "right_arrival": [
+        "203",
+        "512"
+      ],
+      "left_x0": "2603",
+      "right_x0": "3478",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "469",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4221",
+            "1024"
+          ],
+          [
+            "4221",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-092",
+      "left_arrival": [
+        "129",
+        "256"
+      ],
+      "right_arrival": [
+        "515",
+        "1024"
+      ],
+      "left_x0": "2556",
+      "right_x0": "3587",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "129",
+          "256"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "1161",
+            "256"
+          ],
+          [
+            "1161",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-093",
+      "left_arrival": [
+        "563",
+        "1024"
+      ],
+      "right_arrival": [
+        "563",
+        "1024"
+      ],
+      "left_x0": "2509",
+      "right_x0": "3635",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "563",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "5067",
+            "1024"
+          ],
+          [
+            "5067",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-094",
+      "left_arrival": [
+        "105",
+        "512"
+      ],
+      "right_arrival": [
+        "211",
+        "1024"
+      ],
+      "left_x0": "2862",
+      "right_x0": "3283",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "211",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "1899",
+            "1024"
+          ],
+          [
+            "1899",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-095",
+      "left_arrival": [
+        "257",
+        "1024"
+      ],
+      "right_arrival": [
+        "5",
+        "16"
+      ],
+      "left_x0": "2815",
+      "right_x0": "3392",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "5",
+          "16"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "45",
+            "16"
+          ],
+          [
+            "45",
+            "16"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-096",
+      "left_arrival": [
+        "19",
+        "64"
+      ],
+      "right_arrival": [
+        "23",
+        "64"
+      ],
+      "left_x0": "2768",
+      "right_x0": "3440",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "23",
+          "64"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "207",
+            "64"
+          ],
+          [
+            "207",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-097",
+      "left_arrival": [
+        "351",
+        "1024"
+      ],
+      "right_arrival": [
+        "13",
+        "32"
+      ],
+      "left_x0": "2721",
+      "right_x0": "3488",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "415",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9825",
+            "1024"
+          ],
+          [
+            "3735",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-098",
+      "left_arrival": [
+        "199",
+        "512"
+      ],
+      "right_arrival": [
+        "239",
+        "512"
+      ],
+      "left_x0": "2674",
+      "right_x0": "3550",
+      "left_y0": "1536",
+      "right_y0": "1536",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "231",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4889",
+            "512"
+          ],
+          [
+            "2079",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-099",
+      "left_arrival": [
+        "445",
+        "1024"
+      ],
+      "right_arrival": [
+        "365",
+        "1024"
+      ],
+      "left_x0": "2627",
+      "right_x0": "3437",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "429",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3861",
+            "1024"
+          ],
+          [
+            "9811",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-100",
+      "left_arrival": [
+        "123",
+        "256"
+      ],
+      "right_arrival": [
+        "427",
+        "1024"
+      ],
+      "left_x0": "2580",
+      "right_x0": "3499",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "491",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "4419",
+            "1024"
+          ],
+          [
+            "9749",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-101",
+      "left_arrival": [
+        "539",
+        "1024"
+      ],
+      "right_arrival": [
+        "475",
+        "1024"
+      ],
+      "left_x0": "2533",
+      "right_x0": "3547",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "539",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4851",
+            "1024"
+          ],
+          [
+            "4851",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-102",
+      "left_arrival": [
+        "293",
+        "512"
+      ],
+      "right_arrival": [
+        "523",
+        "1024"
+      ],
+      "left_x0": "2486",
+      "right_x0": "3595",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "293",
+          "512"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "2637",
+            "512"
+          ],
+          [
+            "2637",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-103",
+      "left_arrival": [
+        "233",
+        "1024"
+      ],
+      "right_arrival": [
+        "29",
+        "128"
+      ],
+      "left_x0": "2839",
+      "right_x0": "3304",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "233",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "2097",
+            "1024"
+          ],
+          [
+            "2097",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-104",
+      "left_arrival": [
+        "35",
+        "128"
+      ],
+      "right_arrival": [
+        "35",
+        "128"
+      ],
+      "left_x0": "2792",
+      "right_x0": "3352",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "35",
+          "128"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "315",
+            "128"
+          ],
+          [
+            "315",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-105",
+      "left_arrival": [
+        "327",
+        "1024"
+      ],
+      "right_arrival": [
+        "41",
+        "128"
+      ],
+      "left_x0": "2745",
+      "right_x0": "3400",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "41",
+          "128"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "369",
+            "128"
+          ],
+          [
+            "369",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-106",
+      "left_arrival": [
+        "187",
+        "512"
+      ],
+      "right_arrival": [
+        "437",
+        "1024"
+      ],
+      "left_x0": "2698",
+      "right_x0": "3509",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "437",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "3933",
+            "1024"
+          ],
+          [
+            "3933",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-107",
+      "left_arrival": [
+        "421",
+        "1024"
+      ],
+      "right_arrival": [
+        "485",
+        "1024"
+      ],
+      "left_x0": "2651",
+      "right_x0": "3557",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": true,
+        "resolved_at": [
+          "485",
+          "1024"
+        ],
+        "winner": 0,
+        "scores": [
+          [
+            "4365",
+            "1024"
+          ],
+          [
+            "4365",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-108",
+      "left_arrival": [
+        "117",
+        "256"
+      ],
+      "right_arrival": [
+        "533",
+        "1024"
+      ],
+      "left_x0": "2604",
+      "right_x0": "3605",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "133",
+          "256"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "2427",
+            "256"
+          ],
+          [
+            "1197",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-109",
+      "left_arrival": [
+        "515",
+        "1024"
+      ],
+      "right_arrival": [
+        "595",
+        "1024"
+      ],
+      "left_x0": "2557",
+      "right_x0": "3667",
+      "left_y0": "1536",
+      "right_y0": "1600",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "579",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9661",
+            "1024"
+          ],
+          [
+            "5211",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-110",
+      "left_arrival": [
+        "281",
+        "512"
+      ],
+      "right_arrival": [
+        "241",
+        "512"
+      ],
+      "left_x0": "2510",
+      "right_x0": "3554",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "273",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2457",
+            "512"
+          ],
+          [
+            "4847",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-111",
+      "left_arrival": [
+        "209",
+        "1024"
+      ],
+      "right_arrival": [
+        "9",
+        "64"
+      ],
+      "left_x0": "2863",
+      "right_x0": "3216",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "13",
+          "64"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "117",
+            "64"
+          ],
+          [
+            "627",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-112",
+      "left_arrival": [
+        "1",
+        "4"
+      ],
+      "right_arrival": [
+        "3",
+        "16"
+      ],
+      "left_x0": "2816",
+      "right_x0": "3264",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "1",
+          "4"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "9",
+            "4"
+          ],
+          [
+            "39",
+            "4"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-113",
+      "left_arrival": [
+        "303",
+        "1024"
+      ],
+      "right_arrival": [
+        "15",
+        "64"
+      ],
+      "left_x0": "2769",
+      "right_x0": "3312",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "19",
+          "64"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "171",
+            "64"
+          ],
+          [
+            "621",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-114",
+      "left_arrival": [
+        "175",
+        "512"
+      ],
+      "right_arrival": [
+        "349",
+        "1024"
+      ],
+      "left_x0": "2722",
+      "right_x0": "3421",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "413",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3717",
+            "1024"
+          ],
+          [
+            "9827",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-115",
+      "left_arrival": [
+        "397",
+        "1024"
+      ],
+      "right_arrival": [
+        "397",
+        "1024"
+      ],
+      "left_x0": "2675",
+      "right_x0": "3469",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "461",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9779",
+            "1024"
+          ],
+          [
+            "4149",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-116",
+      "left_arrival": [
+        "111",
+        "256"
+      ],
+      "right_arrival": [
+        "445",
+        "1024"
+      ],
+      "left_x0": "2628",
+      "right_x0": "3517",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "127",
+          "256"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "2433",
+            "256"
+          ],
+          [
+            "1143",
+            "256"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-117",
+      "left_arrival": [
+        "491",
+        "1024"
+      ],
+      "right_arrival": [
+        "277",
+        "512"
+      ],
+      "left_x0": "2581",
+      "right_x0": "3626",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "555",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9685",
+            "1024"
+          ],
+          [
+            "4995",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-118",
+      "left_arrival": [
+        "269",
+        "512"
+      ],
+      "right_arrival": [
+        "301",
+        "512"
+      ],
+      "left_x0": "2534",
+      "right_x0": "3674",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "301",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4819",
+            "512"
+          ],
+          [
+            "2709",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-119",
+      "left_arrival": [
+        "585",
+        "1024"
+      ],
+      "right_arrival": [
+        "325",
+        "512"
+      ],
+      "left_x0": "2487",
+      "right_x0": "3722",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "649",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9591",
+            "1024"
+          ],
+          [
+            "5841",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-120",
+      "left_arrival": [
+        "29",
+        "128"
+      ],
+      "right_arrival": [
+        "39",
+        "128"
+      ],
+      "left_x0": "2840",
+      "right_x0": "3384",
+      "left_y0": "1536",
+      "right_y0": "1601",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "37",
+          "128"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "1243",
+            "128"
+          ],
+          [
+            "333",
+            "128"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-121",
+      "left_arrival": [
+        "279",
+        "1024"
+      ],
+      "right_arrival": [
+        "199",
+        "1024"
+      ],
+      "left_x0": "2793",
+      "right_x0": "3271",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "263",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2367",
+            "1024"
+          ],
+          [
+            "9977",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-122",
+      "left_arrival": [
+        "163",
+        "512"
+      ],
+      "right_arrival": [
+        "261",
+        "1024"
+      ],
+      "left_x0": "2746",
+      "right_x0": "3333",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "325",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2925",
+            "1024"
+          ],
+          [
+            "9915",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-123",
+      "left_arrival": [
+        "373",
+        "1024"
+      ],
+      "right_arrival": [
+        "309",
+        "1024"
+      ],
+      "left_x0": "2699",
+      "right_x0": "3381",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "373",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3357",
+            "1024"
+          ],
+          [
+            "9867",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-124",
+      "left_arrival": [
+        "105",
+        "256"
+      ],
+      "right_arrival": [
+        "357",
+        "1024"
+      ],
+      "left_x0": "2652",
+      "right_x0": "3429",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "421",
+          "1024"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "3789",
+            "1024"
+          ],
+          [
+            "9819",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-125",
+      "left_arrival": [
+        "467",
+        "1024"
+      ],
+      "right_arrival": [
+        "233",
+        "512"
+      ],
+      "left_x0": "2605",
+      "right_x0": "3538",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "265",
+          "512"
+        ],
+        "winner": 2,
+        "scores": [
+          [
+            "2385",
+            "512"
+          ],
+          [
+            "4855",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-126",
+      "left_arrival": [
+        "257",
+        "512"
+      ],
+      "right_arrival": [
+        "257",
+        "512"
+      ],
+      "left_x0": "2558",
+      "right_x0": "3586",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "289",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4831",
+            "512"
+          ],
+          [
+            "2601",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-127",
+      "left_arrival": [
+        "561",
+        "1024"
+      ],
+      "right_arrival": [
+        "281",
+        "512"
+      ],
+      "left_x0": "2511",
+      "right_x0": "3634",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "625",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9615",
+            "1024"
+          ],
+          [
+            "5625",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-128",
+      "left_arrival": [
+        "13",
+        "64"
+      ],
+      "right_arrival": [
+        "271",
+        "1024"
+      ],
+      "left_x0": "2864",
+      "right_x0": "3343",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "17",
+          "64"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "623",
+            "64"
+          ],
+          [
+            "153",
+            "64"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-129",
+      "left_arrival": [
+        "255",
+        "1024"
+      ],
+      "right_arrival": [
+        "319",
+        "1024"
+      ],
+      "left_x0": "2817",
+      "right_x0": "3391",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "319",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9921",
+            "1024"
+          ],
+          [
+            "2871",
+            "1024"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-130",
+      "left_arrival": [
+        "151",
+        "512"
+      ],
+      "right_arrival": [
+        "367",
+        "1024"
+      ],
+      "left_x0": "2770",
+      "right_x0": "3439",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "183",
+          "512"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "4937",
+            "512"
+          ],
+          [
+            "1647",
+            "512"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "impact-131",
+      "left_arrival": [
+        "349",
+        "1024"
+      ],
+      "right_arrival": [
+        "429",
+        "1024"
+      ],
+      "left_x0": "2723",
+      "right_x0": "3501",
+      "left_y0": "1536",
+      "right_y0": "1736",
+      "expected": {
+        "annihilates": false,
+        "resolved_at": [
+          "413",
+          "1024"
+        ],
+        "winner": 1,
+        "scores": [
+          [
+            "9827",
+            "1024"
+          ],
+          [
+            "3717",
+            "1024"
+          ]
+        ]
+      }
+    }
+  ]
+}

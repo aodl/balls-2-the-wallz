@@ -1,0 +1,59 @@
+[
+  {
+    "name": "npm-lock",
+    "command": [
+      "node",
+      "tools/scripts/check-npm-lock-hermetic.mjs"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "seconds": 0.066,
+    "log": "npm-lock.log"
+  },
+  {
+    "name": "frontend-export-boundary",
+    "command": [
+      "node",
+      "tools/scripts/check-frontend-exports.mjs"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "seconds": 0.031,
+    "log": "frontend-export-boundary.log"
+  },
+  {
+    "name": "install-args-static",
+    "command": [
+      "python3",
+      "tools/scripts/validate-mainnet-install-args"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "seconds": 0.929,
+    "log": "install-args-static.log"
+  },
+  {
+    "name": "install-args-validator-self-tests",
+    "command": [
+      "python3",
+      "tools/scripts/validate-mainnet-install-args",
+      "--self-test"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "seconds": 0.745,
+    "log": "install-args-validator-self-tests.log"
+  },
+  {
+    "name": "frontend-unit-initial",
+    "command": [
+      "bash",
+      "-lc",
+      "node --test canisters/frontend/web/test/*.test.mjs"
+    ],
+    "exit_code": 1,
+    "status": "FAILED_OR_ENV_BLOCKED",
+    "seconds": 1.18,
+    "log": "frontend-unit-initial.log"
+  }
+]

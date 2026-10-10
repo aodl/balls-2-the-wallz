@@ -1,0 +1,334 @@
+TAP version 13
+# Subtest: chunk upload exact boundaries 0
+ok 1 - chunk upload exact boundaries 0
+  ---
+  duration_ms: 3.672475
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 1
+ok 2 - chunk upload exact boundaries 1
+  ---
+  duration_ms: 0.971622
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 15
+ok 3 - chunk upload exact boundaries 15
+  ---
+  duration_ms: 0.553693
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 16
+ok 4 - chunk upload exact boundaries 16
+  ---
+  duration_ms: 0.547985
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 17
+ok 5 - chunk upload exact boundaries 17
+  ---
+  duration_ms: 0.901196
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 255
+ok 6 - chunk upload exact boundaries 255
+  ---
+  duration_ms: 2.645049
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 4096
+ok 7 - chunk upload exact boundaries 4096
+  ---
+  duration_ms: 21.138668
+  type: 'test'
+  ...
+# Subtest: chunk upload exact boundaries 4097
+ok 8 - chunk upload exact boundaries 4097
+  ---
+  duration_ms: 20.357984
+  type: 'test'
+  ...
+# Subtest: durable chunk failure before_root
+ok 9 - durable chunk failure before_root
+  ---
+  duration_ms: 3.249558
+  type: 'test'
+  ...
+# Subtest: durable chunk failure after
+ok 10 - durable chunk failure after
+  ---
+  duration_ms: 2.070585
+  type: 'test'
+  ...
+# Subtest: durable chunk failure chunk:0
+ok 11 - durable chunk failure chunk:0
+  ---
+  duration_ms: 1.682771
+  type: 'test'
+  ...
+# Subtest: durable chunk failure chunk:1
+ok 12 - durable chunk failure chunk:1
+  ---
+  duration_ms: 1.339906
+  type: 'test'
+  ...
+# Subtest: durable chunk failure chunk:2
+ok 13 - durable chunk failure chunk:2
+  ---
+  duration_ms: 1.471163
+  type: 'test'
+  ...
+# Subtest: out-of-order, corrupted and stale uploads cannot publish
+ok 14 - out-of-order, corrupted and stale uploads cannot publish
+  ---
+  duration_ms: 0.813724
+  type: 'test'
+  ...
+# Subtest: committed corruption fails closed, never falls back to older game state
+ok 15 - committed corruption fails closed, never falls back to older game state
+  ---
+  duration_ms: 0.537548
+  type: 'test'
+  ...
+# Subtest: bounded garbage collection retains both current and pending chunks
+ok 16 - bounded garbage collection retains both current and pending chunks
+  ---
+  duration_ms: 1.172413
+  type: 'test'
+  ...
+# Subtest: storage capacity rejects before consuming the pending chunk position
+ok 17 - storage capacity rejects before consuming the pending chunk position
+  ---
+  duration_ms: 0.486492
+  type: 'test'
+  ...
+# Subtest: domain and index bind chunks
+ok 18 - domain and index bind chunks
+  ---
+  duration_ms: 0.165408
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/prepare/chunk:0
+ok 19 - shared store recovery life/prepare/chunk:0
+  ---
+  duration_ms: 10.81564
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/prepare/before_root
+ok 20 - shared store recovery life/prepare/before_root
+  ---
+  duration_ms: 7.754244
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/prepare/after
+ok 21 - shared store recovery life/prepare/after
+  ---
+  duration_ms: 7.622727
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/advance/chunk:0
+ok 22 - shared store recovery life/advance/chunk:0
+  ---
+  duration_ms: 9.479299
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/advance/before_root
+ok 23 - shared store recovery life/advance/before_root
+  ---
+  duration_ms: 8.327336
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/advance/after
+ok 24 - shared store recovery life/advance/after
+  ---
+  duration_ms: 8.930774
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/publish/chunk:0
+ok 25 - shared store recovery life/publish/chunk:0
+  ---
+  duration_ms: 8.971246
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/publish/before_root
+ok 26 - shared store recovery life/publish/before_root
+  ---
+  duration_ms: 9.038196
+  type: 'test'
+  ...
+# Subtest: shared store recovery life/publish/after
+ok 27 - shared store recovery life/publish/after
+  ---
+  duration_ms: 8.016218
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/prepare/chunk:0
+ok 28 - shared store recovery admission/prepare/chunk:0
+  ---
+  duration_ms: 61.860154
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/prepare/before_root
+ok 29 - shared store recovery admission/prepare/before_root
+  ---
+  duration_ms: 53.606769
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/prepare/after
+ok 30 - shared store recovery admission/prepare/after
+  ---
+  duration_ms: 57.94827
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/advance/chunk:0
+ok 31 - shared store recovery admission/advance/chunk:0
+  ---
+  duration_ms: 54.569186
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/advance/before_root
+ok 32 - shared store recovery admission/advance/before_root
+  ---
+  duration_ms: 56.328763
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/advance/after
+ok 33 - shared store recovery admission/advance/after
+  ---
+  duration_ms: 62.179084
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/publish/chunk:0
+ok 34 - shared store recovery admission/publish/chunk:0
+  ---
+  duration_ms: 63.254111
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/publish/before_root
+ok 35 - shared store recovery admission/publish/before_root
+  ---
+  duration_ms: 63.269625
+  type: 'test'
+  ...
+# Subtest: shared store recovery admission/publish/after
+ok 36 - shared store recovery admission/publish/after
+  ---
+  duration_ms: 61.602907
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/prepare/chunk:0
+ok 37 - shared store recovery severance/prepare/chunk:0
+  ---
+  duration_ms: 13.106536
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/prepare/before_root
+ok 38 - shared store recovery severance/prepare/before_root
+  ---
+  duration_ms: 11.601272
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/prepare/after
+ok 39 - shared store recovery severance/prepare/after
+  ---
+  duration_ms: 11.263694
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/advance/chunk:0
+ok 40 - shared store recovery severance/advance/chunk:0
+  ---
+  duration_ms: 14.090976
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/advance/before_root
+ok 41 - shared store recovery severance/advance/before_root
+  ---
+  duration_ms: 14.192229
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/advance/after
+ok 42 - shared store recovery severance/advance/after
+  ---
+  duration_ms: 14.107832
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/publish/chunk:0
+ok 43 - shared store recovery severance/publish/chunk:0
+  ---
+  duration_ms: 14.435755
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/publish/before_root
+ok 44 - shared store recovery severance/publish/before_root
+  ---
+  duration_ms: 15.644754
+  type: 'test'
+  ...
+# Subtest: shared store recovery severance/publish/after
+ok 45 - shared store recovery severance/publish/after
+  ---
+  duration_ms: 13.525396
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/prepare/chunk:0
+ok 46 - shared store recovery near-impact/prepare/chunk:0
+  ---
+  duration_ms: 11.127418
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/prepare/before_root
+ok 47 - shared store recovery near-impact/prepare/before_root
+  ---
+  duration_ms: 10.812345
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/prepare/after
+ok 48 - shared store recovery near-impact/prepare/after
+  ---
+  duration_ms: 10.871374
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/advance/chunk:0
+ok 49 - shared store recovery near-impact/advance/chunk:0
+  ---
+  duration_ms: 12.820065
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/advance/before_root
+ok 50 - shared store recovery near-impact/advance/before_root
+  ---
+  duration_ms: 16.019837
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/advance/after
+ok 51 - shared store recovery near-impact/advance/after
+  ---
+  duration_ms: 14.27923
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/publish/chunk:0
+ok 52 - shared store recovery near-impact/publish/chunk:0
+  ---
+  duration_ms: 14.87106
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/publish/before_root
+ok 53 - shared store recovery near-impact/publish/before_root
+  ---
+  duration_ms: 15.700207
+  type: 'test'
+  ...
+# Subtest: shared store recovery near-impact/publish/after
+ok 54 - shared store recovery near-impact/publish/after
+  ---
+  duration_ms: 14.780875
+  type: 'test'
+  ...
+1..54
+# tests 54
+# suites 0
+# pass 54
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1029.700784

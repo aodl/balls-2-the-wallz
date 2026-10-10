@@ -1,0 +1,12 @@
+[package]
+name = "conformance-native"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+btz-protocol = { path = "../../crates/btz-protocol" }
+dtr-core = { path = "../../crates/dtr-core" }
+life-conformance = { path = "../../kernels/life-conformance" }
+btz-mechanics = { path = "../../kernels/btz-mechanics" }

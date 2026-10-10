@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: typed canonical JSON preserves bigint, sorts fields, distinguishes strings/numbers
+ok 1 - typed canonical JSON preserves bigint, sorts fields, distinguishes strings/numbers
+  ---
+  duration_ms: 1.64441
+  type: 'test'
+  ...
+# Subtest: canonical rejects fraction
+ok 2 - canonical rejects fraction
+  ---
+  duration_ms: 0.210776
+  type: 'test'
+  ...
+# Subtest: canonical rejects nan
+ok 3 - canonical rejects nan
+  ---
+  duration_ms: 0.154282
+  type: 'test'
+  ...
+# Subtest: canonical rejects infinity
+ok 4 - canonical rejects infinity
+  ---
+  duration_ms: 0.077136
+  type: 'test'
+  ...
+# Subtest: canonical rejects negative-zero
+ok 5 - canonical rejects negative-zero
+  ---
+  duration_ms: 0.072058
+  type: 'test'
+  ...
+# Subtest: canonical rejects unsafe
+ok 6 - canonical rejects unsafe
+  ---
+  duration_ms: 0.069825
+  type: 'test'
+  ...
+# Subtest: canonical rejects undefined
+ok 7 - canonical rejects undefined
+  ---
+  duration_ms: 0.063575
+  type: 'test'
+  ...
+# Subtest: canonical rejects map
+ok 8 - canonical rejects map
+  ---
+  duration_ms: 0.063205
+  type: 'test'
+  ...
+# Subtest: canonical rejects sparse
+ok 9 - canonical rejects sparse
+  ---
+  duration_ms: 0.238549
+  type: 'test'
+  ...
+# Subtest: canonical rejects reserved
+ok 10 - canonical rejects reserved
+  ---
+  duration_ms: 0.291758
+  type: 'test'
+  ...
+# Subtest: canonical rejects surrogate
+ok 11 - canonical rejects surrogate
+  ---
+  duration_ms: 0.121262
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire { "a":1}
+ok 12 - canonical rejects wire { "a":1}
+  ---
+  duration_ms: 0.142584
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"b":1,"a":2}
+ok 13 - canonical rejects wire {"b":1,"a":2}
+  ---
+  duration_ms: 0.115874
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"a":1,"a":2}
+ok 14 - canonical rejects wire {"a":1,"a":2}
+  ---
+  duration_ms: 0.067371
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"01"}
+ok 15 - canonical rejects wire {"$integer":"01"}
+  ---
+  duration_ms: 0.20603
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"-0"}
+ok 16 - canonical rejects wire {"$integer":"-0"}
+  ---
+  duration_ms: 0.077105
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"$integer":"1","x":2}
+ok 17 - canonical rejects wire {"$integer":"1","x":2}
+  ---
+  duration_ms: 0.227452
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire -0
+ok 18 - canonical rejects wire -0
+  ---
+  duration_ms: 0.07326
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire 1.0
+ok 19 - canonical rejects wire 1.0
+  ---
+  duration_ms: 0.1
+  type: 'test'
+  ...
+# Subtest: canonical rejects wire {"__proto__":{}}
+ok 20 - canonical rejects wire {"__proto__":{}}
+  ---
+  duration_ms: 0.06665
+  type: 'test'
+  ...
+# Subtest: canonical limits nesting
+ok 21 - canonical limits nesting
+  ---
+  duration_ms: 0.298639
+  type: 'test'
+  ...
+# Subtest: cursor and relevant inbox rows advance atomically; ignored records still occupy positions
+ok 22 - cursor and relevant inbox rows advance atomically; ignored records still occupy positions
+  ---
+  duration_ms: 3.811825
+  type: 'test'
+  ...
+# Subtest: failed classify/page, gap, replay and unverified cutoff cannot advance cursor
+ok 23 - failed classify/page, gap, replay and unverified cutoff cannot advance cursor
+  ---
+  duration_ms: 0.935525
+  type: 'test'
+  ...
+# Subtest: stale source callback is fenced by revision
+ok 24 - stale source callback is fenced by revision
+  ---
+  duration_ms: 0.583145
+  type: 'test'
+  ...
+# Subtest: reserved inputs remain durable until publication acknowledgement, later input remains pending
+ok 25 - reserved inputs remain durable until publication acknowledgement, later input remains pending
+  ---
+  duration_ms: 3.744013
+  type: 'test'
+  ...
+# Subtest: inbox crash ingest/before
+ok 26 - inbox crash ingest/before
+  ---
+  duration_ms: 0.655565
+  type: 'test'
+  ...
+# Subtest: inbox crash ingest/after
+ok 27 - inbox crash ingest/after
+  ---
+  duration_ms: 0.4059
+  type: 'test'
+  ...
+# Subtest: inbox crash reserve/before
+ok 28 - inbox crash reserve/before
+  ---
+  duration_ms: 1.924005
+  type: 'test'
+  ...
+# Subtest: inbox crash reserve/after
+ok 29 - inbox crash reserve/after
+  ---
+  duration_ms: 1.794865
+  type: 'test'
+  ...
+# Subtest: inbox crash ack/before
+ok 30 - inbox crash ack/before
+  ---
+  duration_ms: 2.45676
+  type: 'test'
+  ...
+# Subtest: inbox crash ack/after
+ok 31 - inbox crash ack/after
+  ---
+  duration_ms: 1.837529
+  type: 'test'
+  ...
+# Subtest: backpressure refuses whole page rather than silently discarding commands
+ok 32 - backpressure refuses whole page rather than silently discarding commands
+  ---
+  duration_ms: 289.284541
+  type: 'test'
+  ...
+# Subtest: wrong boundary anchor, double reservation and forged ack rejected
+ok 33 - wrong boundary anchor, double reservation and forged ack rejected
+  ---
+  duration_ms: 1.594354
+  type: 'test'
+  ...
+# Subtest: empty ledger pages cannot invent a new boundary anchor
+ok 34 - empty ledger pages cannot invent a new boundary anchor
+  ---
+  duration_ms: 0.287372
+  type: 'test'
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 373.708288

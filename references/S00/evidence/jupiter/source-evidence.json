@@ -1,0 +1,206 @@
+{
+  "source_archive_sha256": "ee1d10777ba365b01f9e97d5fec9aa5cd158643b4ed04bce914c76cb284deb98",
+  "review_type": "targeted; not exhaustive",
+  "anchors": [
+    {
+      "path": "README.md",
+      "sha256": "ad94ffe910f503c2b44f5cdd604e8bbdbd2453687d5bb2647de8e7cd4f8e89fd",
+      "line_count": 148,
+      "start_line": 3,
+      "end_line": 24,
+      "topic": "Application versus infrastructure boundary"
+    },
+    {
+      "path": "docs/architecture/canister-roles.md",
+      "sha256": "2905805faa78321c52234bad2251aa0c91284430018a5005dd99cc3089938434",
+      "line_count": 48,
+      "start_line": 3,
+      "end_line": 40,
+      "topic": "Authority roles and effective runtime configuration"
+    },
+    {
+      "path": "docs/architecture/shared-infrastructure.md",
+      "sha256": "5c9bacf04a401d778ad4829c8ec402a34510a1b8a9f0837e7e62443da5fb39ef",
+      "line_count": 127,
+      "start_line": 1,
+      "end_line": 45,
+      "topic": "Shared funding boundary"
+    },
+    {
+      "path": "crates/ic-clients/src/timer_guard.rs",
+      "sha256": "f9107078e9f30f6b321fa2694d9a32b92c46d7a3e82da013227c5b978310fd67",
+      "line_count": 187,
+      "start_line": 18,
+      "end_line": 81,
+      "topic": "Fencing and post-await ownership"
+    },
+    {
+      "path": "crates/persistence-batch/src/lib.rs",
+      "sha256": "a41a203bd282db54ed72a4a6bfaf5c6d5db1f796ea527960f6d7d304cffc6770",
+      "line_count": 78,
+      "start_line": 1,
+      "end_line": 70,
+      "topic": "Synchronous persistence batch boundary"
+    },
+    {
+      "path": "canisters/faucet/src/scheduler/index_health.rs",
+      "sha256": "05dd9d4ef35b9211c456d917beaca70367bb8c5b63d72ad1a8883c26fa3de0fd",
+      "line_count": 398,
+      "start_line": 155,
+      "end_line": 185,
+      "topic": "Whole-page validation and exhaustion semantics"
+    },
+    {
+      "path": "crates/ic-clients/src/index.rs",
+      "sha256": "5e8426743e3aa185a8166f9bca1c7c4f0fca17eddc5963c4d39be79f1a12b234",
+      "line_count": 202,
+      "start_line": 61,
+      "end_line": 98,
+      "topic": "Legacy memo/blob memo and account-identifier wire model"
+    },
+    {
+      "path": "crates/ic-clients/src/lifecycle.rs",
+      "sha256": "618cbf6284a1ec728b1727cce505610e081203fa08f154872c2cc2b46cfbe319",
+      "line_count": 107,
+      "start_line": 1,
+      "end_line": 100,
+      "topic": "Install versus upgrade decoding"
+    },
+    {
+      "path": "canisters/historian/src/state/stable.rs",
+      "sha256": "3b31e46f18ba1534ddd861d9e7028f3d59fc75d21fd8752204d2eb291b36390d",
+      "line_count": 334,
+      "start_line": 1,
+      "end_line": 100,
+      "topic": "Stable memory allocation"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "0aaa557e73ba3c7c81047bba1b0d1edde9d19fafead8b1e1e4faf886345bdad7",
+      "line_count": 31,
+      "start_line": 1,
+      "end_line": 31,
+      "topic": "Repo-aware validation commands"
+    },
+    {
+      "path": "tools/xtask/src/test_runner.rs",
+      "sha256": "eb5a807b2b3a58c3aebdd426c5cbe6e889664d10278b0141e8318c013a32c8bb",
+      "line_count": 903,
+      "start_line": 168,
+      "end_line": 195,
+      "topic": "Exact execution result validation"
+    },
+    {
+      "path": "tools/xtask/src/test_runner.rs",
+      "sha256": "eb5a807b2b3a58c3aebdd426c5cbe6e889664d10278b0141e8318c013a32c8bb",
+      "line_count": 903,
+      "start_line": 733,
+      "end_line": 828,
+      "topic": "Zero/ignored/failed test regression cases"
+    },
+    {
+      "path": "tools/xtask/README.md",
+      "sha256": "631386b221912e0b136c251682927fbef4fb9e59b1e35b6acdcca69a4780456b",
+      "line_count": 306,
+      "start_line": 177,
+      "end_line": 188,
+      "topic": "Pinned server and capability probes"
+    },
+    {
+      "path": "crates/memo-policy/src/lib.rs",
+      "sha256": "a3b629a2177af6b1043bd165204387ac7eb4b326283766f96a54de4d701742f8",
+      "line_count": 460,
+      "start_line": 175,
+      "end_line": 181,
+      "topic": "Rust shared memo fixtures"
+    },
+    {
+      "path": "canisters/frontend/web/test/advanced-memo-builder.test.mjs",
+      "sha256": "3c34f5ffa095dc49386eae7702ac0bd7f57066f595c78b7934d8e6786b27a8d1",
+      "line_count": 416,
+      "start_line": 20,
+      "end_line": 24,
+      "topic": "JS shared memo fixtures"
+    },
+    {
+      "path": "docs/operations/reproducible-builds.md",
+      "sha256": "94001cd0af9f3d7bf11dad2479ad5831d10fd72bfcabda6a411b9d18a03c938d",
+      "line_count": 169,
+      "start_line": 1,
+      "end_line": 56,
+      "topic": "Build/deploy/package/configuration identities"
+    },
+    {
+      "path": "docs/operations/reproducible-builds.md",
+      "sha256": "94001cd0af9f3d7bf11dad2479ad5831d10fd72bfcabda6a411b9d18a03c938d",
+      "line_count": 169,
+      "start_line": 151,
+      "end_line": 169,
+      "topic": "Same-environment reproducibility scope"
+    },
+    {
+      "path": "Dockerfile.repro",
+      "sha256": "26922c5d395408ee14c56aca1c52082ecf79de7dfdf46eeaac598732b5e25a63",
+      "line_count": 48,
+      "start_line": 1,
+      "end_line": 48,
+      "topic": "Pinned builder"
+    },
+    {
+      "path": "tools/scripts/build-canister",
+      "sha256": "5947eaee44ef371ced42d3e761e5d3e45b5679fbc839829799cb2465bd483280",
+      "line_count": 352,
+      "start_line": 240,
+      "end_line": 270,
+      "topic": "Deterministic Wasm gzip packaging"
+    },
+    {
+      "path": "docs/security/dependency-scanning.md",
+      "sha256": "d9f32952f8450ad7dd4987cf71dd8afb615333b15aafe9c3f461dca31f6515b2",
+      "line_count": 195,
+      "start_line": 1,
+      "end_line": 195,
+      "topic": "Reachability and dependency policy"
+    },
+    {
+      "path": ".github/workflows/dependency-security.yml",
+      "sha256": "19448b23c560a7471aee21755076fa61cc410a77f1f9bceb7bf3d562f8abff7f",
+      "line_count": 72,
+      "start_line": 1,
+      "end_line": 72,
+      "topic": "CI permissions/pins/scanners/SBOM"
+    },
+    {
+      "path": "canisters/relay/README.md",
+      "sha256": "34322274060fc431090f027802148e1170a2405dbe1868cf0faf323c99edaaa1",
+      "line_count": 488,
+      "start_line": 65,
+      "end_line": 88,
+      "topic": "Status visibility and baseline-only funding"
+    },
+    {
+      "path": "canisters/relay/README.md",
+      "sha256": "34322274060fc431090f027802148e1170a2405dbe1868cf0faf323c99edaaa1",
+      "line_count": 488,
+      "start_line": 250,
+      "end_line": 260,
+      "topic": "Best-effort reward policy"
+    },
+    {
+      "path": "canisters/relay/README.md",
+      "sha256": "34322274060fc431090f027802148e1170a2405dbe1868cf0faf323c99edaaa1",
+      "line_count": 488,
+      "start_line": 359,
+      "end_line": 363,
+      "topic": "Stronger finite transfer semantics"
+    },
+    {
+      "path": "canisters/frontend/web/src/tracker-cycles.js",
+      "sha256": "b1ad328d5d52376c805103884fb1f3070878ceb98c50051a368562a061d7fdec",
+      "line_count": 117,
+      "start_line": 1,
+      "end_line": 117,
+      "topic": "Balance-based cycles estimate"
+    }
+  ]
+}

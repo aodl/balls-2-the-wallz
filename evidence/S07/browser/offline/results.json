@@ -1,0 +1,71 @@
+{
+  "checkpoint": "S07",
+  "mode": "offline",
+  "overall": "PASS",
+  "checks": [
+    {
+      "name": "startup-and-moving-playhead",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "canvas-pixels-change-during-playback",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "pause-freezes-presentation",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "desktop-and-mobile-layout",
+      "status": "PASS",
+      "details": "1400\u00d71100 and 390\u00d7844 viewports; no horizontal overflow."
+    },
+    {
+      "name": "buffer-exhaustion-stops-at-verified-head",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "download-recovery-resumes",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "reduced-motion-starts-paused",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "corruption-never-enters-buffer",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "explicit-retry-preserves-sequence",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "stale-load-fencing-and-finite-completion",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "read-only-local-request-surface",
+      "status": "PASS",
+      "details": "46 fixture requests; GET only."
+    },
+    {
+      "name": "no-uncaught-page-errors",
+      "status": "PASS",
+      "details": ""
+    }
+  ],
+  "qualification": "Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.",
+  "browser_version": "144.0.7559.96",
+  "playwright_version": "1.57.0",
+  "uncaught_page_errors": []
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark"><meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>BTZ · Timeline observer</title><link rel="icon" href="./icon.svg"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<a class="skip" href="#controls">Skip to playback controls</a>
+<div class="shell">
+<header><a class="brand" href="./" aria-label="Balls 2 The Wallz observer"><span class="mark">B<span>2</span>Z</span><span class="brand-name">BALLS 2<br>THE WALLZ</span></a><span class="build">S07 <span>/</span> OBSERVER LAB</span></header>
+<main>
+  <div class="hero"><div><p class="eyebrow">CHECKPOINT-DRIVEN. CONTINUOUSLY IN MOTION.</p><h1>Watch the territory change.</h1><p class="lede">Committed simulation, smooth playback. The browser observes; it never decides who wins.</p></div></div>
+  <div class="trust" role="note"><span class="trust-dot"></span><strong>Offline replay · Not IC-certified</strong><span>Synthetic inputs. Local content hashes, not a live canister. No real ICP.</span></div>
+  <div id="error" class="error" role="alert" hidden><strong>Playback stopped safely.</strong> <span id="error-text"></span><button id="retry" type="button">Retry download</button></div>
+  <section class="workspace" aria-label="Observer workspace">
+    <div class="arena-column">
+      <div class="panel arena">
+        <div class="panel-heading"><div><span class="eyebrow">RECORDED ARENA</span><h2 id="scenario-title">Loading recording…</h2></div><span id="phase" class="phase" role="status">LOADING</span></div>
+        <div class="canvas-wrap"><canvas id="board" width="1024" height="512" role="img" aria-label="Recorded BTZ board. Territory and ball totals are also shown below.">A canvas-capable browser is required. The territory table supplies a text summary.</canvas></div>
+        <div class="arena-footer"><span id="scenario-description">Reading the local recording index.</span><span id="event-label">—</span></div>
+      </div>
+      <section class="panel transport" id="controls" aria-labelledby="controls-title">
+        <div class="control-row"><h2 id="controls-title">Playback</h2><div class="buttons"><button id="pause" type="button" disabled>Pause playback</button><button id="restart" type="button" disabled>Restart</button></div></div>
+        <div class="timeline-labels"><span>DISPLAY <strong id="playhead">0.00</strong> ticks</span><span>VERIFIED THROUGH <strong id="available">0.00</strong></span></div>
+        <progress id="timeline" max="1" value="0" aria-label="Playback position in recording"></progress>
+        <div class="settings"><label>Recording<select id="recording" disabled></select></label><label>Replay speed<select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label class="download-switch"><input id="network-pause" type="checkbox"> Pause downloads</label></div>
+        <p class="help">Pausing downloads lets the verified buffer drain. Playback slows slightly, then waits; no motion is invented.</p>
+      </section>
+    </div>
+    <aside class="sidebar">
+      <section class="panel"><p class="eyebrow">PLAYOUT HEADROOM</p><div class="metric"><strong id="buffer">0.00</strong><span>logical ticks</span></div><progress id="buffer-meter" max="16" value="0" aria-label="Verified buffer headroom"></progress><div class="pairs"><span>Adaptive rate</span><strong id="rate">1.000×</strong><span>Verified segments</span><strong id="segments">0 / 0</strong></div><p id="delivery" class="help">Finite recording · staged local delivery.</p></section>
+      <section class="panel"><p class="eyebrow">VISIBLE TERRITORY</p><div class="counts"><span><strong id="cannons">0</strong> cannons</span><span><strong id="balls">0</strong> balls</span></div><table><caption class="sr-only">Current displayed territory</caption><thead><tr><th>Cannon</th><th>Cells</th><th>Balls</th></tr></thead><tbody id="territories"></tbody></table><p class="help">At the playhead, not a payout ranking.</p></section>
+      <section class="panel integrity"><p class="eyebrow">CONTENT INTEGRITY</p><strong id="verification-label">Waiting for hashes</strong><code id="root">—</code><p class="help">Catalog → chunks → full artifacts. Pins ship with this recording; they do not prove IC authenticity.</p></section>
+      <section class="panel contribution"><p class="eyebrow">NETWORK CONTRIBUTION</p><div class="pairs"><span>Cycles today</span><strong>—</strong><span>Total cycles</span><strong>—</strong><span>ETH-equivalent compute</span><strong>—</strong></div><p class="help">Not measured. This replay does not run on the IC or burn application cycles.</p></section>
+    </aside>
+  </section>
+  <details class="diagnostics"><summary>About this demonstration and its limits</summary><p>The recordings are produced by the existing BTZ v3 reference kernel and timeline coordinator. State, audit events and scores remain unchanged. The compact animation is checked against its predecessor and resulting snapshot before playback.</p><p>A complete recording is finite. At its end, the observer stops rather than silently inventing another round. Restart begins a new local replay. Input parsing, ledger authority, certificates, payouts and production performance are not demonstrated here.</p><p>One recorded logical tick is presented as 0.25 seconds at 1×, before small buffer corrections. Territory colors and glow are presentation only. Reduced-motion preferences start playback paused.</p></details>
+</main>
+<footer><span>BTZ / DETERMINISTIC TIMELINE RUNTIME</span><span>Observe the outcome. Verify the bytes.</span></footer>
+</div><script type="module" src="./app.mjs"></script>
+</body></html>
