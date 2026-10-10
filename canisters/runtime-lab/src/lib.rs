@@ -294,3 +294,19 @@ fn apply(expected_revision: u64, canonical_action: Vec<u8>) -> std::result::Resu
     Ok(status(&next))
 }
 ic_cdk::export_candid!();
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn print_generated_candid() {
+        let generated = super::__export_service();
+        candid_parser::utils::service_equal(
+            candid_parser::utils::CandidSource::Text(&generated),
+            candid_parser::utils::CandidSource::Text(include_str!("../runtime-lab.did")),
+        )
+        .expect("generated and declared Candid differ semantically");
+        println!("DTR_RUNTIME_CANDID_BEGIN");
+        println!("{generated}");
+        println!("DTR_RUNTIME_CANDID_END");
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "pocketic_version": "16.1.0",
+  "ic_revision": "d3b3351fa343a893aea2cfa8d39ac6b0d507b477",
+  "artifacts": [
+    {
+      "name": "pocket-ic",
+      "url": "https://github.com/dfinity/pocketic/releases/download/16.1.0/pocket-ic-x86_64-linux.gz",
+      "sha256": "131219d90dcf9bf6f3ed8ee02d8f55504ea24a6db382f5680675b7bd6b7ed3bf",
+      "size": 53035253,
+      "gzip_output": "bin/pocket-ic",
+      "executable": true
+    },
+    {
+      "name": "icp-ledger-wasm",
+      "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ledger-canister.wasm.gz",
+      "sha256": "e66fa97ca52e40a43549bb5c37503568e64ec5ba3579c0ad6c3c7e3cc06013ae",
+      "gzip_output": "wasm/ledger-canister.wasm"
+    },
+    {
+      "name": "icp-ledger-did",
+      "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ledger-canister.wasm.gz.did",
+      "sha256": "18c2fe7ea500c88df92eddd83a69a3e44c07a289465e06941b07c0dffc7099df"
+    },
+    {
+      "name": "icp-ledger-archive-wasm",
+      "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ledger-archive-node-canister.wasm.gz",
+      "sha256": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42",
+      "gzip_output": "wasm/ledger-archive-node-canister.wasm"
+    },
+    {
+      "name": "icp-ledger-archive-did",
+      "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ledger-archive-node-canister.wasm.gz.did",
+      "sha256": "8b9f602f2eb8b87a74d595a46f5c52117b9c0ba5bbb67731b349e0d4cadc3232"
+    }
+  ]
+}

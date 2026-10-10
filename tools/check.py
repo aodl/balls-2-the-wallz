@@ -129,6 +129,7 @@ def planned_checks(mode,outdir):
     wasm=[
       ('runtime-lab-lock',['cargo','metadata','--manifest-path','canisters/runtime-lab/Cargo.toml','--format-version','1','--no-deps','--locked','--offline'],'normal',('cargo',),120),
       ('runtime-lab-wasm',['cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline'],'normal',('cargo',),900),
+      ('runtime-lab-candid',[sys.executable,'-B','tools/verify_runtime_candid.py','--output',str(outdir/'runtime-lab.generated.did')],'normal',('cargo',),300),
       ('runtime-lab-format',['cargo','fmt','--manifest-path','canisters/runtime-lab/Cargo.toml','--all','--','--check'],'normal',('cargo',),300),
       ('runtime-lab-clippy',['cargo','clippy','--manifest-path','canisters/runtime-lab/Cargo.toml','--target','wasm32-unknown-unknown','--all-targets','--locked','--offline','--','-D','warnings'],'normal',('cargo',),900),
     ]
@@ -160,12 +161,13 @@ def tested_artifacts(checks):
 
 def blocked_requirements():
     return [
-        ('probe-candid-wasm','The frozen interface probe has no generated-Candid comparison; it is not revived as a product host.'),
         ('pocketic-integration','Runtime-lab trap, lost-acknowledgement, authorization, upgrade and pinned ledger/archive integration have not executed in PocketIC.'),
-        ('runtime-lab-candid-and-upgrade','The Wasm build is not generated-Candid, authorization, atomic rollback, upgrade recovery or recertification evidence.'),
-        ('dependency-audit-and-reproducible-wasm','Committed locks and locked builds pass; vulnerability/license audit and independent byte-reproducible Wasm comparison remain unexecuted.'),
-        ('live-ledger-wallet','No deployed-canister capability, authoritative ledger/archive read or live-wallet memo test was performed.'),
-        ('certification-and-cost','Content verification exists, but real IC certificate identity/delegation/freshness checks, target-subnet capacity and measured cycle telemetry remain unverified.'),
+        ('runtime-lab-upgrade-and-rollback','Authorization, atomic rollback, upgrade recovery and recertification have not executed against the current Wasm.'),
+        ('dependency-audit','The introduced S09 dependency graph has not yet received a recorded vulnerability/license review.'),
+        ('reproducible-wasm','An independent byte-reproducible Wasm comparison remains unexecuted.'),
+        ('authoritative-ledger-ingestion','No current runtime-lab authoritative ledger/archive ingestion has executed.'),
+        ('certificate-verification','No real IC certificate identity/delegation/freshness verification has executed.'),
+        ('capacity-and-cost','Target-subnet capacity and measured cycle telemetry remain unverified; PocketIC cannot satisfy this gate.'),
     ]
 
 def main():

@@ -16,6 +16,8 @@ serde_json = "=1.0.145"
 dtr-host = { path = "../../native/dtr-host" }
 dtr-wire = { path = "../../native/dtr-wire" }
 btz-native = { path = "../../native/btz-native" }
+[dev-dependencies]
+candid_parser = "=0.4.1"
 [profile.release]
 overflow-checks = true
 lto = true

@@ -35,12 +35,16 @@ class TestPlan(unittest.TestCase):
         modes={mode:{name for name,_,_,_,_ in planned_checks(mode,out)} for mode in ('source','native','wasm','browser')}
         self.assertIn('cargo-tests',modes['native'])
         self.assertIn('runtime-lab-wasm',modes['wasm'])
+        self.assertIn('runtime-lab-candid',modes['wasm'])
         self.assertEqual(modes['browser'],{'observer-http-webcrypto'})
         self.assertTrue(all(not (modes[left]&modes[right]) for left in modes for right in modes if left<right))
         self.assertEqual(set().union(*modes.values()),{name for name,_,_,_,_ in planned_checks('all',out)})
     def test_unimplemented_requirements_remain_blocked(self):
         ids={name for name,_ in blocked_requirements()}
         self.assertIn('pocketic-integration',ids)
-        self.assertIn('live-ledger-wallet',ids)
+        self.assertIn('authoritative-ledger-ingestion',ids)
+        self.assertIn('certificate-verification',ids)
+        self.assertIn('capacity-and-cost',ids)
+        self.assertNotIn('probe-candid-wasm',ids)
 if __name__=='__main__':unittest.main()
 
