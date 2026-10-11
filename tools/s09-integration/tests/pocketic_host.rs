@@ -137,7 +137,17 @@ struct FaultTransaction {
 #[derive(Clone, CandidType)]
 #[allow(dead_code)]
 enum FaultOperation {
-    Mint { to: Vec<u8>, amount: FaultTokens },
+    Mint {
+        to: Vec<u8>,
+        amount: FaultTokens,
+    },
+    Transfer {
+        from: Vec<u8>,
+        to: Vec<u8>,
+        amount: FaultTokens,
+        fee: FaultTokens,
+        spender: Option<Vec<u8>>,
+    },
 }
 
 #[derive(Clone, CandidType)]
@@ -267,6 +277,25 @@ fn fault_block() -> FaultBlock {
     }
 }
 
+fn fault_payment(from: AccountIdentifier, to: AccountIdentifier) -> FaultBlock {
+    FaultBlock {
+        parent_hash: Some(vec![0; 32]),
+        transaction: FaultTransaction {
+            memo: u64::from_be_bytes(*b"BTZ\x11\0\0\x40\0"),
+            icrc1_memo: None,
+            operation: Some(FaultOperation::Transfer {
+                from: from.as_bytes().to_vec(),
+                to: to.as_bytes().to_vec(),
+                amount: FaultTokens { e8s: 1_000_000_000 },
+                fee: FaultTokens { e8s: 10_000 },
+                spender: None,
+            }),
+            created_at_time: FaultTimestamp { timestamp_nanos: 1 },
+        },
+        timestamp: FaultTimestamp { timestamp_nanos: 1 },
+    }
+}
+
 fn controller() -> Principal {
     Principal::self_authenticating([7; 32])
 }
@@ -301,6 +330,15 @@ fn deploy_synthetic(pic: &PocketIc, wasm: &[u8]) -> Principal {
 }
 
 fn deploy_fault_source(pic: &PocketIc, wasm: &[u8], ledger: Principal) -> Principal {
+    deploy_fault_source_with_fallback(pic, wasm, ledger, 3600)
+}
+
+fn deploy_fault_source_with_fallback(
+    pic: &PocketIc,
+    wasm: &[u8],
+    ledger: Principal,
+    fallback_seconds: u32,
+) -> Principal {
     let runtime = create_controlled(pic);
     let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
     let init = encode_args((
@@ -313,13 +351,27 @@ fn deploy_fault_source(pic: &PocketIc, wasm: &[u8], ledger: Principal) -> Princi
             ledger,
             recipient_account: recipient.as_bytes().to_vec(),
             page_limit: 4,
-            fallback_seconds: 3600,
+            fallback_seconds,
             hint_principal: None,
         }),
     ))
     .unwrap();
     pic.install_canister(runtime, wasm.to_vec(), init, Some(controller()));
     runtime
+}
+
+fn test_source_anchor(pic: &PocketIc, id: Principal) -> String {
+    let bytes = pic
+        .query_call(
+            id,
+            controller(),
+            "test_source_anchor",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<String, String>>(&bytes)
+        .unwrap()
+        .unwrap()
 }
 
 fn install_fixture(pic: &PocketIc, id: Principal, replies: &[(&str, Vec<u8>)], traps: &[&str]) {
@@ -603,16 +655,19 @@ fn install_and_authorization_smoke() {
     let reply = unauthorized.expect("authorization is an application error reply");
     let result = decode_one::<Result<Status, String>>(&reply).unwrap();
     assert!(result.unwrap_err().contains("controller-only"));
-    assert!(
-        pic.update_call(
-            id,
-            controller(),
-            "test_trap_after_root_write",
-            candid::encode_one(0u64).unwrap(),
-        )
-        .is_err(),
-        "normal Wasm must not expose test-only fault hooks"
-    );
+    for method in [
+        "test_trap_after_root_write",
+        "test_fill_scan_backpressure",
+        "test_arm_scan_fault",
+        "test_source_anchor",
+        "test_stale_scan_completion_fence",
+    ] {
+        assert!(
+            pic.update_call(id, controller(), method, encode_args(()).unwrap())
+                .is_err(),
+            "normal Wasm must not expose test-only fault hook {method}"
+        );
+    }
 }
 
 #[test]
@@ -911,6 +966,354 @@ fn fault_ledger_pages_never_skip_the_contiguous_cursor() {
     .unwrap();
     assert_eq!(archive_status.source.verified_source_watermark, Some(0));
     assert!(archive_status.source.last_error.unwrap().contains("empty"));
+}
+
+#[test]
+fn post_decode_and_persistence_errors_retain_the_source_position() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_TEST_WASM")).unwrap();
+    let pic = instance();
+
+    let invalid_ledger = create_controlled(&pic);
+    let invalid = FaultQueryResponse {
+        chain_length: 1,
+        certificate: None,
+        blocks: vec![FaultBlock {
+            parent_hash: Some(vec![0; 32]),
+            transaction: FaultTransaction {
+                memo: 0,
+                icrc1_memo: None,
+                operation: Some(FaultOperation::Mint {
+                    to: vec![0],
+                    amount: FaultTokens { e8s: 1 },
+                }),
+                created_at_time: FaultTimestamp { timestamp_nanos: 1 },
+            },
+            timestamp: FaultTimestamp { timestamp_nanos: 1 },
+        }],
+        first_block_index: 0,
+        archived_blocks: vec![],
+    };
+    install_fixture(
+        &pic,
+        invalid_ledger,
+        &[("query_blocks", candid::encode_one(invalid).unwrap())],
+        &[],
+    );
+    let invalid_runtime = deploy_fault_source(&pic, &wasm, invalid_ledger);
+    let invalid_anchor = test_source_anchor(&pic, invalid_runtime);
+    for expected_calls in 1..=2 {
+        let result: Status = update_result(
+            &pic,
+            invalid_runtime,
+            controller(),
+            "sync_ledger",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(result.source.verified_source_watermark, Some(0));
+        assert!(!result.source.scan_in_flight);
+        assert!(result.source.last_error.unwrap().contains("ledger account"));
+        assert_eq!(result.source.ledger_calls, expected_calls);
+        assert_eq!(
+            controller_work(&pic, invalid_runtime)
+                .unwrap()
+                .pending_inputs,
+            0
+        );
+        assert_eq!(test_source_anchor(&pic, invalid_runtime), invalid_anchor);
+    }
+
+    let capacity_ledger = create_controlled(&pic);
+    let page = FaultQueryResponse {
+        chain_length: 1,
+        certificate: None,
+        blocks: vec![fault_block()],
+        first_block_index: 0,
+        archived_blocks: vec![],
+    };
+    install_fixture(
+        &pic,
+        capacity_ledger,
+        &[("query_blocks", candid::encode_one(page).unwrap())],
+        &[],
+    );
+    let capacity_runtime = deploy_fault_source(&pic, &wasm, capacity_ledger);
+    let capacity_anchor = test_source_anchor(&pic, capacity_runtime);
+    update_result::<Status>(
+        &pic,
+        capacity_runtime,
+        controller(),
+        "test_arm_scan_fault",
+        candid::encode_one(2u8).unwrap(),
+    )
+    .unwrap();
+    let failed: Status = update_result(
+        &pic,
+        capacity_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(failed.source.verified_source_watermark, Some(0));
+    assert!(!failed.source.scan_in_flight);
+    assert!(
+        failed
+            .source
+            .last_error
+            .unwrap()
+            .contains("persistence-preparation capacity")
+    );
+    assert_eq!(
+        controller_work(&pic, capacity_runtime)
+            .unwrap()
+            .pending_inputs,
+        0
+    );
+    assert_eq!(test_source_anchor(&pic, capacity_runtime), capacity_anchor);
+
+    let retried: Status = update_result(
+        &pic,
+        capacity_runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(retried.source.verified_source_watermark, Some(1));
+    assert!(!retried.source.scan_in_flight);
+    assert!(retried.source.last_error.is_none());
+    assert_eq!(
+        controller_work(&pic, capacity_runtime)
+            .unwrap()
+            .pending_inputs,
+        0
+    );
+}
+
+#[test]
+fn callback_trap_recovers_by_fallback_and_stale_completion_stays_fenced() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_TEST_WASM")).unwrap();
+    let pic = instance();
+    let ledger = create_controlled(&pic);
+    let page = FaultQueryResponse {
+        chain_length: 1,
+        certificate: None,
+        blocks: vec![fault_block()],
+        first_block_index: 0,
+        archived_blocks: vec![],
+    };
+    install_fixture(
+        &pic,
+        ledger,
+        &[("query_blocks", candid::encode_one(page).unwrap())],
+        &[],
+    );
+    let runtime = deploy_fault_source_with_fallback(&pic, &wasm, ledger, 60);
+    let publication_before = observation(&pic, runtime).publication;
+    update_result::<Status>(
+        &pic,
+        runtime,
+        controller(),
+        "test_arm_scan_fault",
+        candid::encode_one(1u8).unwrap(),
+    )
+    .unwrap();
+    assert!(
+        pic.update_call(
+            runtime,
+            controller(),
+            "sync_ledger",
+            encode_args(()).unwrap()
+        )
+        .is_err(),
+        "post-response test hook must trap the callback"
+    );
+    let stranded = status(&pic, runtime, Principal::anonymous()).unwrap();
+    assert_eq!(stranded.source.verified_source_watermark, Some(0));
+    assert!(stranded.source.scan_in_flight);
+
+    pic.advance_time(Duration::from_secs(61));
+    let mut recovered = stranded;
+    for _ in 0..24 {
+        pic.tick();
+        recovered = status(&pic, runtime, Principal::anonymous()).unwrap();
+        if recovered.source.verified_source_watermark == Some(1) && !recovered.source.scan_in_flight
+        {
+            break;
+        }
+    }
+    assert_eq!(recovered.source.verified_source_watermark, Some(1));
+    assert!(!recovered.source.scan_in_flight);
+    assert!(recovered.source.last_error.is_none());
+    assert_eq!(observation(&pic, runtime).publication, publication_before);
+
+    let replacement: Status = update_result(
+        &pic,
+        runtime,
+        controller(),
+        "test_stale_scan_completion_fence",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(replacement.source.verified_source_watermark, Some(1));
+    assert!(
+        replacement.source.scan_in_flight,
+        "stale completion must not clear the replacement operation"
+    );
+    let still_replacement: Status = update_result(
+        &pic,
+        runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(still_replacement.source.verified_source_watermark, Some(1));
+    assert!(still_replacement.source.scan_in_flight);
+}
+
+#[test]
+fn scan_backpressure_is_retryable_without_upgrade_or_manual_reset() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_TEST_WASM")).unwrap();
+    let pic = instance();
+    let ledger = create_controlled(&pic);
+    let runtime = create_controlled(&pic);
+    let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
+    let payer = AccountIdentifier::new(
+        &Principal::self_authenticating([55; 32]),
+        &DEFAULT_SUBACCOUNT,
+    );
+    let response = FaultQueryResponse {
+        chain_length: 4097,
+        certificate: None,
+        blocks: vec![fault_payment(payer, recipient)],
+        first_block_index: 4096,
+        archived_blocks: vec![],
+    };
+    install_fixture(
+        &pic,
+        ledger,
+        &[("query_blocks", candid::encode_one(response).unwrap())],
+        &[],
+    );
+    let init = encode_args((
+        initial_world(),
+        "00".repeat(32),
+        0u64,
+        0u64,
+        Some(LedgerConfig {
+            network: "pocketic-local".into(),
+            ledger,
+            recipient_account: recipient.as_bytes().to_vec(),
+            page_limit: 4,
+            fallback_seconds: 3600,
+            hint_principal: None,
+        }),
+    ))
+    .unwrap();
+    pic.install_canister(runtime, wasm, init, Some(controller()));
+    let filled: Status = update_result(
+        &pic,
+        runtime,
+        controller(),
+        "test_fill_scan_backpressure",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(filled.source.verified_source_watermark, Some(4096));
+    assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 4096);
+    let anchor_before = test_source_anchor(&pic, runtime);
+    let publication_before = observation(&pic, runtime).publication;
+
+    let blocked = update_result::<Status>(
+        &pic,
+        runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    );
+    if let Err(error) = &blocked {
+        let stranded = status(&pic, runtime, Principal::anonymous()).unwrap();
+        eprintln!(
+            "POST_AWAIT_ERROR={error}; SCAN_IN_FLIGHT={}; CURSOR={:?}; PENDING={}",
+            stranded.source.scan_in_flight,
+            stranded.source.verified_source_watermark,
+            controller_work(&pic, runtime).unwrap().pending_inputs,
+        );
+    }
+    let blocked =
+        blocked.expect("backpressure must be reported durably instead of stranding the scan");
+    assert_eq!(blocked.source.verified_source_watermark, Some(4096));
+    assert!(!blocked.source.scan_in_flight);
+    assert!(blocked.source.last_error.unwrap().contains("backpressure"));
+    assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 4096);
+    assert_eq!(test_source_anchor(&pic, runtime), anchor_before);
+    assert_eq!(observation(&pic, runtime).publication, publication_before);
+
+    let mut work = controller_work(&pic, runtime).unwrap();
+    assert_eq!(work.phase.as_deref(), Some("running"));
+    for _ in 0..256 {
+        if work.phase.as_deref() == Some("ready") {
+            break;
+        }
+        apply(
+            &pic,
+            runtime,
+            work.revision,
+            Action::Step { budget: 100_000 },
+        )
+        .unwrap();
+        work = controller_work(&pic, runtime).unwrap();
+    }
+    assert_eq!(work.phase.as_deref(), Some("ready"));
+    let ready = work.ready_manifest.clone().unwrap();
+    apply(
+        &pic,
+        runtime,
+        work.revision,
+        Action::Publish {
+            manifest_hash: ready,
+        },
+    )
+    .unwrap();
+    assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 4095);
+
+    let recovered: Status = update_result(
+        &pic,
+        runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(recovered.source.verified_source_watermark, Some(4097));
+    assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 4096);
+
+    let tip = FaultQueryResponse {
+        chain_length: 4097,
+        certificate: None,
+        blocks: vec![],
+        first_block_index: 4097,
+        archived_blocks: vec![],
+    };
+    pic.upgrade_canister(
+        ledger,
+        fixture_wasm(&[("query_blocks", candid::encode_one(tip).unwrap())], &[]),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let at_tip: Status = update_result(
+        &pic,
+        runtime,
+        controller(),
+        "sync_ledger",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(at_tip.source.verified_source_watermark, Some(4097));
+    assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 4096);
 }
 
 #[test]

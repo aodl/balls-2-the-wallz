@@ -21,12 +21,16 @@ use std::cell::RefCell;
 use std::time::Duration;
 const ROOT_LIMIT: usize = 65536;
 const CHUNKS: u64 = (MAX_ARTIFACT / CHUNK) as u64;
+const SCAN_CALL_TIMEOUT_SECONDS: u32 = 30;
+const SCAN_LEASE_SECONDS: u64 = 45;
 type Memory = VirtualMemory<DefaultMemoryImpl>;
 thread_local! {
     static MANAGER:RefCell<MemoryManager<DefaultMemoryImpl>>=RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
     // This is a NEW laboratory schema, not an in-place migration of arena-lab v4.
     static ROOT:RefCell<StableCell<Vec<u8>,Memory>>=RefCell::new(StableCell::init(memory(0),Vec::new()));
     static BLOBS:RefCell<StableBTreeMap<u64,Vec<u8>,Memory>>=RefCell::new(StableBTreeMap::init(memory(1)));
+    #[cfg(feature = "test-hooks")]
+    static TEST_SCAN_FAULT:RefCell<Option<u8>>=const { RefCell::new(None) };
 }
 fn memory(id: u8) -> Memory {
     MANAGER.with(|m| m.borrow().get(MemoryId::new(id)))
@@ -232,13 +236,12 @@ fn install_source_timer(source: &SourceState) {
     if let SourceState::Ledger(source) = source {
         let delay = Duration::from_secs(u64::from(source.fallback_seconds));
         ic_cdk_timers::set_timer(delay, async move {
-            let _ = scan_ledger_inner().await;
-            // A one-shot timer prevents a large test-clock jump (or a long
-            // canister pause) from queuing every missed interval at once.
-            // Re-arm only after the bounded scan has returned.
+            // Arm the next one-shot before the external await. If a response
+            // callback traps and cancels this task, the fallback chain remains.
             if let Ok(root) = root() {
                 install_source_timer(&root.source);
             }
+            let _ = scan_ledger_inner().await;
         });
     }
 }
@@ -301,6 +304,7 @@ fn post_upgrade() {
         }
         if let SourceState::Ledger(source) = &mut r.source {
             source.in_flight = false;
+            source.scan_started_at_seconds = 0;
             source.wake_scheduled = false;
             source.dirty = true;
             source.scan_nonce = source
@@ -421,6 +425,8 @@ struct ScanLease {
     nonce: u64,
     cursor: u64,
     page_limit: u16,
+    #[cfg(feature = "test-hooks")]
+    test_fault: Option<u8>,
 }
 
 fn lease_matches(source: &source::LedgerSource, lease: &ScanLease) -> bool {
@@ -431,17 +437,32 @@ fn lease_matches(source: &source::LedgerSource, lease: &ScanLease) -> bool {
         && source.ledger == lease.ledger.to_text()
 }
 
+fn scan_lease_expired(source: &source::LedgerSource, now_seconds: u64) -> bool {
+    source.scan_started_at_seconds == 0
+        || now_seconds.saturating_sub(source.scan_started_at_seconds) >= SCAN_LEASE_SECONDS
+}
+
 fn begin_scan() -> Result<std::result::Result<ScanLease, Status>> {
     let mut r = root()?;
+    let now_seconds = ic_cdk::api::time() / 1_000_000_000;
     let source = match &mut r.source {
         SourceState::Synthetic => return Err("ledger source is not configured".into()),
         SourceState::Ledger(source) => source,
     };
     source.wake_scheduled = false;
     if source.in_flight {
+        if !scan_lease_expired(source, now_seconds) {
+            source.dirty = true;
+            save_root_only(&r)?;
+            return Ok(Err(status(&r)));
+        }
+        // The bounded call timeout is 30 seconds. After another 15 seconds,
+        // an ordinary scan may replace a canceled/stuck lease. The nonce below
+        // fences any late callback from the replacement operation.
+        source.in_flight = false;
+        source.scan_started_at_seconds = 0;
         source.dirty = true;
-        save_root_only(&r)?;
-        return Ok(Err(status(&r)));
+        source.last_error = Some("expired ledger scan lease recovered for retry".into());
     }
     source.scan_nonce = source
         .scan_nonce
@@ -452,12 +473,15 @@ fn begin_scan() -> Result<std::result::Result<ScanLease, Status>> {
         .checked_add(1)
         .ok_or("ledger call counter")?;
     source.in_flight = true;
+    source.scan_started_at_seconds = now_seconds;
     let lease = ScanLease {
         ledger: source.principal()?,
         generation: source.generation,
         nonce: source.scan_nonce,
         cursor: source.cursor,
         page_limit: source.page_limit,
+        #[cfg(feature = "test-hooks")]
+        test_fault: TEST_SCAN_FAULT.with(|fault| fault.borrow_mut().take()),
     };
     save_root_only(&r)?;
     Ok(Ok(lease))
@@ -470,6 +494,7 @@ fn finish_error(lease: &ScanLease, error: String) -> Result<Status> {
         _ => return Ok(status(&r)),
     };
     source.in_flight = false;
+    source.scan_started_at_seconds = 0;
     source.wake_scheduled = false;
     source.dirty = true;
     source.last_error = Some(error);
@@ -484,6 +509,7 @@ fn finish_tip(lease: &ScanLease, chain_length: u64) -> Result<Status> {
         _ => return Ok(status(&r)),
     };
     source.in_flight = false;
+    source.scan_started_at_seconds = 0;
     source.wake_scheduled = false;
     source.dirty = false;
     source.last_error = None;
@@ -498,8 +524,20 @@ fn finish_blocks(
     blocks: Vec<source::Block>,
     archived: bool,
 ) -> Result<Status> {
+    match finish_blocks_inner(lease, chain_length, blocks, archived) {
+        Ok(status) => Ok(status),
+        Err(error) => finish_error(lease, error),
+    }
+}
+
+fn finish_blocks_inner(
+    lease: &ScanLease,
+    chain_length: u64,
+    blocks: Vec<source::Block>,
+    archived: bool,
+) -> Result<Status> {
     if blocks.is_empty() || blocks.len() > usize::from(lease.page_limit) {
-        return finish_error(lease, "empty/oversize contiguous ledger response".into());
+        return Err("empty/oversize contiguous ledger response".into());
     }
     let mut r = root()?;
     let current = match &r.source {
@@ -511,7 +549,7 @@ fn finish_blocks(
         .checked_add(blocks.len() as u64)
         .ok_or("source cursor overflow")?;
     if end > chain_length {
-        return finish_error(lease, "ledger page extends beyond reported chain".into());
+        return Err("ledger page extends beyond reported chain".into());
     }
     let (records, anchor) = source::records_and_anchor(
         &blocks,
@@ -525,6 +563,10 @@ fn finish_blocks(
         records,
         anchor,
     })?;
+    #[cfg(feature = "test-hooks")]
+    if lease.test_fault == Some(2) {
+        return Err("test-only persistence-preparation capacity".into());
+    }
     let mut next_source = r.source.clone();
     let next = match &mut next_source {
         SourceState::Ledger(source) if lease_matches(source, lease) => source,
@@ -532,6 +574,7 @@ fn finish_blocks(
     };
     next.cursor = end;
     next.in_flight = false;
+    next.scan_started_at_seconds = 0;
     next.wake_scheduled = false;
     next.dirty = end < chain_length;
     next.last_error = None;
@@ -552,7 +595,7 @@ async fn scan_ledger_inner() -> Result<Status> {
         Err(status) => return Ok(status),
     };
     let response: QueryBlocksResponse = match Call::bounded_wait(lease.ledger, "query_blocks")
-        .change_timeout(30)
+        .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
         .with_arg(GetBlocksArgs {
             start: lease.cursor,
             length: u64::from(lease.page_limit),
@@ -567,6 +610,10 @@ async fn scan_ledger_inner() -> Result<Status> {
         },
         Err(error) => return finish_error(&lease, format!("ledger call rejected: {error:?}")),
     };
+    #[cfg(feature = "test-hooks")]
+    if lease.test_fault == Some(1) {
+        ic_cdk::trap("intentional test-only trap after ledger response");
+    }
     let plan = match source::plan(response, lease.cursor, lease.page_limit) {
         Ok(plan) => plan,
         Err(error) => return finish_error(&lease, error),
@@ -585,7 +632,7 @@ async fn scan_ledger_inner() -> Result<Status> {
             length,
         } => {
             let response: QueryArchiveResult = match Call::bounded_wait(canister, &method)
-                .change_timeout(30)
+                .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
                 .with_arg(GetBlocksArgs { start, length })
                 .await
             {
@@ -662,6 +709,119 @@ fn test_trap_after_root_write(expected_revision: u64) {
     save_root_only(&r).unwrap_or_else(|error| ic_cdk::trap(&error));
     ic_cdk::trap("intentional test-only rollback after stable write");
 }
+
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_fill_scan_backpressure() -> std::result::Result<Status, String> {
+    authorized()?;
+    let r = root()?;
+    let SourceState::Ledger(source) = &r.source else {
+        return Err("ledger source is not configured".into());
+    };
+    if source.in_flight || source.cursor != 0 {
+        return Err("test backpressure setup requires an idle genesis source".into());
+    }
+    let mut h = host(&r)?;
+    if !h.record.inbox.pending.is_empty() {
+        return Err("test backpressure setup requires an empty inbox".into());
+    }
+    let mut payment = b"BTZPAY02".to_vec();
+    payment.extend_from_slice(&[7; 32]);
+    payment.extend_from_slice(&1_000_000_000u64.to_be_bytes());
+    payment.extend_from_slice(&[0; 8]);
+    let payment = hex(&payment);
+    h.apply(Action::Ingest {
+        start: Int(0u64.into()),
+        records: vec![Some(payment.clone())],
+        anchor: hash(&0u64.to_be_bytes()),
+    })?;
+    h.apply(Action::Seal {
+        logical_end: Int(1u64.into()),
+    })?;
+    let mut start = 1u64;
+    while start < 4096 {
+        let length = (4096 - start).min(256) as usize;
+        h.apply(Action::Ingest {
+            start: Int(start.into()),
+            records: vec![Some(payment.clone()); length],
+            anchor: hash(&start.to_be_bytes()),
+        })?;
+        start += length as u64;
+    }
+    let mut next_source = r.source.clone();
+    let SourceState::Ledger(source) = &mut next_source else {
+        unreachable!()
+    };
+    source.cursor = 4096;
+    let next = persist(&h, Some(&r), next_source)?;
+    Ok(status(&next))
+}
+
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_arm_scan_fault(kind: u8) -> std::result::Result<Status, String> {
+    authorized()?;
+    if !matches!(kind, 1 | 2) {
+        return Err("unknown test scan fault".into());
+    }
+    let r = root()?;
+    let SourceState::Ledger(source) = &r.source else {
+        return Err("ledger source is not configured".into());
+    };
+    if source.in_flight {
+        return Err("cannot arm a scan fault while a scan is active".into());
+    }
+    TEST_SCAN_FAULT.with(|fault| -> Result<()> {
+        let mut fault = fault.borrow_mut();
+        if fault.is_some() {
+            return Err("test scan fault is already armed".into());
+        }
+        *fault = Some(kind);
+        Ok(())
+    })?;
+    Ok(status(&r))
+}
+
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::query]
+fn test_source_anchor() -> std::result::Result<String, String> {
+    authorized()?;
+    Ok(host(&root()?)?.record.inbox.source_anchor)
+}
+
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_stale_scan_completion_fence() -> std::result::Result<Status, String> {
+    authorized()?;
+    let mut r = root()?;
+    let source = match &mut r.source {
+        SourceState::Synthetic => return Err("ledger source is not configured".into()),
+        SourceState::Ledger(source) => source,
+    };
+    if source.in_flight {
+        return Err("test stale completion setup requires an idle source".into());
+    }
+    source.scan_nonce = source
+        .scan_nonce
+        .checked_add(1)
+        .ok_or("scan nonce exhausted")?;
+    source.in_flight = true;
+    source.scan_started_at_seconds = ic_cdk::api::time() / 1_000_000_000;
+    let stale = ScanLease {
+        ledger: source.principal()?,
+        generation: source.generation,
+        nonce: source.scan_nonce,
+        cursor: source.cursor,
+        page_limit: source.page_limit,
+        test_fault: None,
+    };
+    source.scan_nonce = source
+        .scan_nonce
+        .checked_add(1)
+        .ok_or("scan nonce exhausted")?;
+    save_root_only(&r)?;
+    finish_tip(&stale, stale.cursor.saturating_add(99))
+}
 ic_cdk::export_candid!();
 
 #[cfg(test)]
@@ -709,6 +869,8 @@ mod tests {
             nonce: 9,
             cursor: 7,
             page_limit: 4,
+            #[cfg(feature = "test-hooks")]
+            test_fault: None,
         };
         assert!(lease_matches(&source, &lease));
         source.generation += 1;
@@ -719,5 +881,32 @@ mod tests {
         source.scan_nonce -= 1;
         source.cursor += 1;
         assert!(!lease_matches(&source, &lease));
+    }
+
+    #[test]
+    fn scan_lease_recovery_is_bounded() {
+        let ledger = Principal::from_slice(&[1]);
+        let recipient = AccountIdentifier::new(&Principal::from_slice(&[2]), &DEFAULT_SUBACCOUNT);
+        let (state, _) = SourceState::configured(
+            LedgerConfig {
+                network: source::LOCAL_NETWORK.into(),
+                ledger,
+                recipient_account: recipient.as_bytes().to_vec(),
+                page_limit: 4,
+                fallback_seconds: 60,
+                hint_principal: None,
+            },
+            0,
+        )
+        .unwrap();
+        let SourceState::Ledger(mut source) = state else {
+            panic!("expected ledger source")
+        };
+        source.in_flight = true;
+        source.scan_started_at_seconds = 1;
+        assert!(!scan_lease_expired(&source, 1 + SCAN_LEASE_SECONDS - 1));
+        assert!(scan_lease_expired(&source, 1 + SCAN_LEASE_SECONDS));
+        source.scan_started_at_seconds = 0;
+        assert!(scan_lease_expired(&source, 1));
     }
 }

@@ -43,6 +43,8 @@ pub struct LedgerSource {
     pub generation: u64,
     pub scan_nonce: u64,
     pub in_flight: bool,
+    #[serde(default)]
+    pub scan_started_at_seconds: u64,
     pub wake_scheduled: bool,
     pub dirty: bool,
     pub last_error: Option<String>,
@@ -95,6 +97,7 @@ impl SourceState {
                 generation: 1,
                 scan_nonce: 0,
                 in_flight: false,
+                scan_started_at_seconds: 0,
                 wake_scheduled: false,
                 dirty: true,
                 last_error: None,
@@ -144,6 +147,7 @@ impl SourceState {
                 || !(1..=MAX_PAGE).contains(&source.page_limit)
                 || !(1..=3600).contains(&source.fallback_seconds)
                 || source.generation == 0
+                || (!source.in_flight && source.scan_started_at_seconds != 0)
             {
                 return Err("durable ledger source configuration".into());
             }
