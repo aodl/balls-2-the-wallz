@@ -19,7 +19,7 @@ NODE_COUNTS=re.compile(r'^(?:#|ℹ)\s+(tests|pass|fail|skipped|cancelled) (\d+)$
 RUST_COUNTS=re.compile(r'test result: ok\. (\d+) passed; (\d+) failed; (\d+) ignored;')
 # Only these repository-owned wrappers document exit 2 as a missing-prerequisite result.
 # Compiler, test, argparse and arbitrary external exits are failures by default.
-BLOCKED_EXIT_CHECKS={'observer-http-webcrypto','s09-local-authoritative-slice'}
+BLOCKED_EXIT_CHECKS={'observer-http-webcrypto','s10-live-local-slice'}
 
 def counts_for(kind,text):
     if kind=='node-tests':return {key:int(value) for key,value in NODE_COUNTS.findall(text)}
@@ -137,7 +137,7 @@ def planned_checks(mode,outdir):
       ('observer-http-webcrypto',[sys.executable,'-B','tools/verify_observer_http.py','--output',str(outdir/'browser-http')],'normal',(),240),
     ]
     integration=[
-      ('s09-local-authoritative-slice',[sys.executable,'-B','tools/verify_s09_local.py','--output',str(outdir/'s09-local')],'normal',('cargo','node','npm'),1200),
+      ('s10-live-local-slice',[sys.executable,'-B','tools/verify_s10_local.py','--output',str(outdir/'s10-local')],'normal',('cargo','node','npm'),1800),
     ]
     groups={'source':source,'native':native,'wasm':wasm,'browser':browser,'integration':integration}
     if mode=='all':return source+native+wasm+browser+integration

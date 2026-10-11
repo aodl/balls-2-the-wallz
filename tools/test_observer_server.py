@@ -22,7 +22,7 @@ class ObserverServerTests(unittest.TestCase):
         status,headers,_=self.get('/apps/btz-observer/app.mjs');self.assertEqual(status,200);self.assertEqual(headers['Content-type'],'text/javascript')
     def test_records(self):self.assertEqual(self.get('/apps/btz-observer/recordings/index.json')[0],200)
     def test_local_certificate_snapshot_is_disabled_by_default(self):
-        for path in ['/s09-local/metadata.json','/s09-assets/ic-certificate.mjs']:
+        for path in ['/s09-local/metadata.json','/s10-live/metadata.json','/s10-live/root-key.der','/s09-assets/ic-certificate.mjs']:
             with self.subTest(path=path):self.assertEqual(self.get(path)[0],404)
     def test_sensitive_paths(self):
         for path in ['/CHECKPOINT.json','/.git/config','/tools/check.py','/evidence/S06/verification/verification.json','/native/Cargo.toml']:
@@ -31,7 +31,7 @@ class ObserverServerTests(unittest.TestCase):
     def test_traversal(self):
         for path in ['/apps/btz-observer/%2e%2e/%2e%2e/CHECKPOINT.json','/apps/btz-observer/%5c../CHECKPOINT.json','/../../etc/passwd']:
             with self.subTest(path=path):self.assertEqual(self.get(path)[0],404)
-    def test_no_write_methods(self):self.assertEqual(self.get('/apps/btz-observer/','POST')[0],501)
+    def test_no_write_methods(self):self.assertEqual(self.get('/apps/btz-observer/','POST')[0],404)
     def test_head_does_not_bypass_allowlist(self):self.assertEqual(self.get('/CHECKPOINT.json','HEAD')[0],405)
     def test_root_redirect(self):self.assertEqual(self.get('/')[1]['Location'],'/apps/btz-observer/')
 if __name__=='__main__':unittest.main()

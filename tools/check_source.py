@@ -61,11 +61,12 @@ def main():
     runtime=(ROOT/'canisters/runtime-lab/src/lib.rs').read_text()
     runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
     if set(runtime_exports)!={
-      'lab_status','controller_work','observation','artifact_chunk','apply','sync_ledger','ledger_hint',
+      'lab_status','retention_status','controller_work','observation','retained_publication','artifact_chunk',
+      'retained_artifact_chunk','start_autonomous','pause_autonomous','apply','sync_ledger','ledger_hint',
       'test_trap_after_root_write','test_fill_scan_backpressure','test_arm_scan_fault','test_source_anchor',
-      'test_stale_scan_completion_fence',
+      'test_scan_state','test_stale_scan_completion_fence',
     }:raise ValueError('runtime laboratory export drift')
-    if runtime.count('authorized()?')!=7 or 'is_controller'not in runtime:raise ValueError('runtime laboratory guard inventory')
+    if runtime.count('authorized()?')!=10 or 'is_controller'not in runtime:raise ValueError('runtime laboratory guard inventory')
     if 'certified_data_set'not in runtime or 'data_certificate()'not in runtime:raise ValueError('runtime certification inventory')
     for path in (ROOT/'packages/client').glob('*.mjs'):
         if 'node:'in path.read_text():raise ValueError('Node-only import in browser client')

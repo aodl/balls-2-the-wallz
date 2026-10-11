@@ -20,6 +20,10 @@ def wait_until(page,predicate,timeout=10000):
     if last:raise TimeoutError(f'condition not met within {timeout}ms: {last}')
     raise TimeoutError(f'condition not met within {timeout}ms')
 
+def wait_file(page,path,timeout=30000):
+    wait_until(page,path.is_file,timeout)
+    return path.read_text().strip()
+
 def module_url(path,cache):
     path=path.resolve()
     if not path.is_relative_to(ROOT):raise ValueError('module escaped repository')
@@ -70,12 +74,13 @@ def setup_offline(page):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--mode',choices=['offline','http'],default='http')
-    p.add_argument('--trust',choices=['offline','local'],default='offline')
+    p.add_argument('--trust',choices=['offline','local','live'],default='offline')
     p.add_argument('--url',default='http://127.0.0.1:8080/apps/btz-observer/')
-    p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser')
+    p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser');p.add_argument('--coordination',type=Path)
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
+    if a.trust=='live' and (a.mode!='http' or a.coordination is None):p.error('live trust requires HTTP mode and --coordination')
     report={'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'mode':a.mode,'trust':a.trust,'overall':'IN_PROGRESS','checks':[],
-      'qualification':('Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.' if a.mode=='offline' else ('Local HTTP with native browser Web Crypto and standard-library verification of a genuine certificate from the configured disposable PocketIC instance.' if a.trust=='local' else 'Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.'))}
+      'qualification':('Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.' if a.mode=='offline' else ('Live local HTTP retrieval with native browser Web Crypto and standard-library verification of fresh certificates from the still-running configured disposable PocketIC instance.' if a.trust=='live' else 'Local HTTP with native browser Web Crypto and standard-library verification of a genuine certificate from the configured disposable PocketIC instance.' if a.trust=='local' else 'Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.'))}
     dest=a.output/'results.json'
     def record(name,status,details=''):
         report['checks'].append({'name':name,'status':status,'details':details});dest.write_text(json.dumps(report,indent=2)+'\n');print(name,status,flush=True)
@@ -111,6 +116,66 @@ def main():
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
                     raise
+            if a.trust=='live':
+                coordination=a.coordination.resolve();coordination.mkdir(parents=True,exist_ok=True)
+                wait_until(page,lambda:page.evaluate("Boolean(globalThis.__dtrLive?.connected)"),20000)
+                assert 'Live local IC — test-network certified' in page.locator('.trust').inner_text()
+                assert page.locator('#verification-label').inner_text()=='Fresh IC certificates + chained retained publications'
+                (coordination/'browser-connected').write_text('connected\n')
+                record('live-browser-connected-before-publication','PASS','Connected to the running gateway at the authenticated genesis head.')
+                wait_until(page,lambda:len(page.evaluate('globalThis.__dtrLive.heads'))>=2,30000)
+                first_heads=page.evaluate('globalThis.__dtrLive.heads.slice()')
+                assert first_heads==sorted(set(first_heads))
+                assert page.evaluate('globalThis.__dtrLive.certificates')>=3
+                assert page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'")
+                record('fresh-live-certified-publications','PASS',f'Observed fresh segment heads {first_heads}.')
+
+                page.locator('#network-pause').check();(coordination/'short-paused').write_text('paused\n')
+                short_target=int(wait_file(page,coordination/'harness-short-ready',30000))
+                page.locator('#network-pause').uncheck()
+                wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=short_target,30000)
+                assert page.evaluate('globalThis.__dtrLive.resyncs')==0
+                record('short-disconnect-retained-catchup','PASS',f'Resumed through retained consecutive segment {short_target}.')
+
+                page.locator('#network-pause').check();(coordination/'long-paused').write_text('paused\n')
+                long_target=int(wait_file(page,coordination/'harness-long-ready',30000))
+                page.locator('#network-pause').uncheck()
+                wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.resyncs')>=1 and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=long_target,30000)
+                assert 'unavailable animation was skipped' in page.locator('#delivery').inner_text()
+                record('long-disconnect-certified-snapshot-resync','PASS',f'Authenticated resync at or after segment {long_target}; skipped animation is visible.')
+
+                final_target=int(wait_file(page,coordination/'harness-final-ready',30000))
+                wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=final_target,30000)
+                heads=page.evaluate('globalThis.__dtrLive.heads.slice()')
+                assert all(b>a for a,b in zip(heads,heads[1:])),heads
+                record('live-anti-rollback-and-continuity','PASS',f'Accepted monotone heads {heads}.')
+                page.screenshot(path=str(a.output/'live-desktop.png'),full_page=True)
+
+                wrong=context.new_page()
+                def corrupt_root(route):
+                    response=route.fetch();body=bytearray(response.body());body[-1]^=1;route.fulfill(response=response,body=bytes(body))
+                wrong.route('**/s10-live/root-key.der',corrupt_root);wrong.goto(a.url,timeout=10000)
+                wait_until(wrong,lambda:wrong.locator('body').get_attribute('data-phase')=='ERROR',20000)
+                assert 'fingerprint mismatch' in wrong.locator('#error-text').inner_text()
+                assert 'Offline' not in wrong.locator('.trust').inner_text();wrong.close()
+                record('wrong-root-fails-closed','PASS')
+
+                corrupt=context.new_page();corrupted={'done':False}
+                def corrupt_query(route):
+                    response=route.fetch();body=bytearray(response.body())
+                    if not corrupted['done'] and body:
+                        body[len(body)//2]^=1;corrupted['done']=True
+                    route.fulfill(response=response,body=bytes(body))
+                corrupt.route('**/api/**/query',corrupt_query);corrupt.goto(a.url,timeout=10000)
+                wait_until(corrupt,lambda:corrupt.locator('body').get_attribute('data-phase')=='ERROR',20000)
+                assert 'Offline' not in corrupt.locator('.trust').inner_text();corrupt.close()
+                record('corrupt-live-response-fails-closed','PASS')
+                assert not errors,errors
+                record('native-browser-webcrypto','PASS','Secure loopback context with native SubtleCrypto.')
+                record('no-uncaught-page-errors','PASS')
+                (coordination/'browser-complete').write_text('complete\n')
+                report['overall']='PASS'
+                return 0
             if a.trust=='local':page.locator('#speed').select_option('0.5')
             wait_until(page,lambda:float(page.locator('#playhead').inner_text())>(.05 if a.trust=='local' else 1))
             if a.trust=='local':
@@ -208,11 +273,18 @@ def main():
             record('no-uncaught-page-errors','PASS')
             report['overall']='PASS'
         except Exception as e:
-            report['overall']='FAIL';record('browser-assertion','FAIL',str(e))
+            details=str(e)
+            if a.trust=='live':
+                try:
+                    details+='; live-state='+json.dumps(page.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#error-text')?.textContent,live:globalThis.__dtrLive})"))
+                except Exception:pass
+            report['overall']='FAIL';record('browser-assertion','FAIL',details)
             try:page.screenshot(path=str(a.output/'failure.png'),full_page=True)
             except Exception:pass
         finally:
             report['uncaught_page_errors']=errors
             dest.write_text(json.dumps(report,indent=2)+'\n');browser.close()
+            if a.trust=='live' and a.coordination is not None and report['overall']!='PASS':
+                a.coordination.mkdir(parents=True,exist_ok=True);(a.coordination/'browser-failed').write_text(report['overall']+'\n')
     return 0 if report['overall']=='PASS' else 1
 if __name__=='__main__':raise SystemExit(main())

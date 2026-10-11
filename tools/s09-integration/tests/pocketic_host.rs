@@ -10,8 +10,9 @@ use ic_ledger_types::{
 use pocket_ic::common::rest::BlobCompression;
 use pocket_ic::{CanisterSettings, PocketIc, PocketIcBuilder};
 use serde_json::Value;
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 #[derive(Clone, CandidType)]
 struct LedgerConfig {
@@ -45,6 +46,54 @@ struct Status {
     publication_hash: String,
     synthetic_inputs_only: bool,
     source: SourceStatus,
+    run: RunStatus,
+}
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
+struct RunStatus {
+    running: bool,
+    generation: u64,
+    segment_ticks: u64,
+    pacing_seconds: u32,
+    work_budget: u32,
+    callback_count: u64,
+    completed_segments: u64,
+    current_segment_work: u64,
+    last_segment_work: u64,
+    total_work: u64,
+    max_segment_work: u64,
+    last_error: Option<String>,
+}
+
+#[derive(Clone, CandidType)]
+struct RunConfig {
+    segment_ticks: u64,
+    pacing_seconds: u32,
+    work_budget: u32,
+}
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
+struct RetainedEntry {
+    segment_id: u64,
+    publication_hash: String,
+    bytes: u64,
+    current: bool,
+}
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
+struct RetentionStatus {
+    max_segments: u16,
+    max_bytes: u64,
+    retained_bytes: u64,
+    entries: Vec<RetainedEntry>,
+}
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
+struct TestScanState {
+    nonce: u64,
+    cursor: u64,
+    started_at_seconds: u64,
+    expired: bool,
 }
 
 #[derive(Clone, Debug, CandidType, Deserialize)]
@@ -374,6 +423,20 @@ fn test_source_anchor(pic: &PocketIc, id: Principal) -> String {
         .unwrap()
 }
 
+fn test_scan_state(pic: &PocketIc, id: Principal) -> TestScanState {
+    let bytes = pic
+        .query_call(
+            id,
+            controller(),
+            "test_scan_state",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<TestScanState, String>>(&bytes)
+        .unwrap()
+        .unwrap()
+}
+
 fn install_fixture(pic: &PocketIc, id: Principal, replies: &[(&str, Vec<u8>)], traps: &[&str]) {
     pic.install_canister(
         id,
@@ -441,6 +504,73 @@ fn observation(pic: &PocketIc, id: Principal) -> Observation {
     decode_one::<Result<Observation, String>>(&reply)
         .unwrap()
         .unwrap()
+}
+
+fn retention_status(pic: &PocketIc, id: Principal) -> RetentionStatus {
+    let reply = pic
+        .query_call(
+            id,
+            Principal::anonymous(),
+            "retention_status",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<RetentionStatus, String>>(&reply)
+        .unwrap()
+        .unwrap()
+}
+
+fn retained_publication(pic: &PocketIc, id: Principal, segment_id: u64) -> Result<Vec<u8>, String> {
+    let reply = pic
+        .query_call(
+            id,
+            Principal::anonymous(),
+            "retained_publication",
+            candid::encode_one(segment_id).unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<Vec<u8>, String>>(&reply).unwrap()
+}
+
+fn retained_chunk(
+    pic: &PocketIc,
+    id: Principal,
+    segment_id: u64,
+    publication_hash: &str,
+    kind: u8,
+    index: u16,
+) -> Result<Vec<u8>, String> {
+    let reply = pic
+        .query_call(
+            id,
+            Principal::anonymous(),
+            "retained_artifact_chunk",
+            encode_args((segment_id, publication_hash, kind, index)).unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<Vec<u8>, String>>(&reply).unwrap()
+}
+
+fn start_autonomous(pic: &PocketIc, id: Principal, config: RunConfig) -> Status {
+    update_result(
+        pic,
+        id,
+        controller(),
+        "start_autonomous",
+        candid::encode_one(config).unwrap(),
+    )
+    .unwrap()
+}
+
+fn pause_autonomous(pic: &PocketIc, id: Principal) -> Status {
+    update_result(
+        pic,
+        id,
+        controller(),
+        "pause_autonomous",
+        encode_args(()).unwrap(),
+    )
+    .unwrap()
 }
 
 fn apply(pic: &PocketIc, id: Principal, revision: u64, action: Action) -> Result<Status, String> {
@@ -562,6 +692,101 @@ fn artifacts(pic: &PocketIc, id: Principal, publication: &Publication) -> Vec<Ve
         .collect()
 }
 
+fn capture_new_publications(
+    pic: &PocketIc,
+    runtime: Principal,
+    captured: &mut Vec<(Publication, Vec<Vec<u8>>)>,
+) {
+    let publication: Publication = decode(&observation(pic, runtime).publication).unwrap();
+    let Some(segment) = publication.head.segment_id.as_ref() else {
+        return;
+    };
+    let segment: usize = segment.0.to_string().parse().unwrap();
+    for expected in captured.len()..=segment {
+        let publication_bytes = retained_publication(pic, runtime, expected as u64).unwrap();
+        let publication: Publication = decode(&publication_bytes).unwrap();
+        let actual: usize = publication
+            .head
+            .segment_id
+            .as_ref()
+            .unwrap()
+            .0
+            .to_string()
+            .parse()
+            .unwrap();
+        assert_eq!(actual, expected, "published segment sequence");
+        let publication_hash = dtr_wire::hash(&publication_bytes);
+        let artifacts = publication
+            .artifacts
+            .iter()
+            .enumerate()
+            .map(|(kind, descriptor)| {
+                let mut bytes = Vec::with_capacity(descriptor.length);
+                for index in 0..descriptor.chunks.len() {
+                    bytes.extend(
+                        retained_chunk(
+                            pic,
+                            runtime,
+                            expected as u64,
+                            &publication_hash,
+                            kind as u8,
+                            index as u16,
+                        )
+                        .unwrap(),
+                    );
+                }
+                bytes.truncate(descriptor.length);
+                assert_eq!(dtr_wire::hash(&bytes), descriptor.sha256);
+                bytes
+            })
+            .collect();
+        captured.push((publication, artifacts));
+    }
+}
+
+fn drive_to_segment(
+    pic: &PocketIc,
+    runtime: Principal,
+    target: u64,
+    captured: &mut Vec<(Publication, Vec<Vec<u8>>)>,
+) -> Status {
+    for _ in 0..240 {
+        let before = captured.len();
+        pic.advance_time(Duration::from_secs(1));
+        for _ in 0..5 {
+            pic.tick();
+        }
+        let current = status(pic, runtime, Principal::anonymous()).unwrap();
+        if current.run.completed_segments as usize > before {
+            capture_new_publications(pic, runtime, captured);
+            assert_eq!(current.run.completed_segments as usize, captured.len());
+        }
+        if current.run.completed_segments >= target + 1 {
+            return current;
+        }
+    }
+    panic!("autonomous runtime did not reach segment {target}")
+}
+
+fn wait_for_marker(directory: &Path, name: &str) -> String {
+    let path = directory.join(name);
+    let failed = directory.join("browser-failed");
+    let deadline = Instant::now() + Duration::from_secs(45);
+    while Instant::now() < deadline {
+        if failed.is_file() {
+            panic!(
+                "live browser failed: {}",
+                std::fs::read_to_string(failed).unwrap()
+            );
+        }
+        if path.is_file() {
+            return std::fs::read_to_string(path).unwrap().trim().to_string();
+        }
+        std::thread::sleep(Duration::from_millis(50));
+    }
+    panic!("timed out waiting for live browser marker {name}")
+}
+
 fn archives(pic: &PocketIc, ledger: Principal) -> Vec<Principal> {
     let reply = pic
         .query_call(
@@ -660,6 +885,7 @@ fn install_and_authorization_smoke() {
         "test_fill_scan_backpressure",
         "test_arm_scan_fault",
         "test_source_anchor",
+        "test_scan_state",
         "test_stale_scan_completion_fence",
     ] {
         assert!(
@@ -1174,6 +1400,128 @@ fn callback_trap_recovers_by_fallback_and_stale_completion_stays_fenced() {
 }
 
 #[test]
+fn delayed_ledger_archive_handoff_refreshes_only_the_matching_lease() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_TEST_WASM")).unwrap();
+    let pic = instance();
+    pic.set_time(SystemTime::now().into());
+    let owner = controller();
+    let ledger = pic.create_canister_on_subnet(
+        Some(owner),
+        Some(CanisterSettings {
+            controllers: Some(vec![owner]),
+            ..Default::default()
+        }),
+        pic.topology().get_nns().unwrap(),
+    );
+    let runtime = create_controlled(&pic);
+    let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
+    let payer = AccountIdentifier::new(
+        &Principal::self_authenticating([54; 32]),
+        &DEFAULT_SUBACCOUNT,
+    );
+    let routed = FaultQueryResponse {
+        chain_length: 1,
+        certificate: None,
+        blocks: vec![],
+        first_block_index: 0,
+        archived_blocks: vec![FaultArchivedRange {
+            start: 0,
+            length: 1,
+            callback: FaultArchiveCallback(candid::Func {
+                principal: ledger,
+                method: "get_blocks".into(),
+            }),
+        }],
+    };
+    let archived: FaultArchiveResult = Ok(FaultBlockRange {
+        blocks: vec![fault_payment(payer, recipient)],
+    });
+    install_fixture(
+        &pic,
+        ledger,
+        &[
+            ("query_blocks", candid::encode_one(routed).unwrap()),
+            ("get_blocks", candid::encode_one(archived).unwrap()),
+        ],
+        &[],
+    );
+    let init = encode_args((
+        initial_world(),
+        "00".repeat(32),
+        0u64,
+        0u64,
+        Some(LedgerConfig {
+            network: "pocketic-local".into(),
+            ledger,
+            recipient_account: recipient.as_bytes().to_vec(),
+            page_limit: 1,
+            fallback_seconds: 3600,
+            hint_principal: None,
+        }),
+    ))
+    .unwrap();
+    pic.install_canister(runtime, wasm, init, Some(controller()));
+    let message = pic
+        .submit_call(
+            runtime,
+            controller(),
+            "sync_ledger",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    let mut initial = test_scan_state(&pic, runtime);
+    for _ in 0..12 {
+        if initial.started_at_seconds > 0 {
+            break;
+        }
+        pic.tick();
+        initial = test_scan_state(&pic, runtime);
+    }
+    assert_eq!(initial.cursor, 0);
+    assert!(initial.started_at_seconds > 0);
+    pic.advance_time(Duration::from_secs(29));
+    let mut refreshed = None;
+    for _ in 0..12 {
+        pic.tick();
+        let state = test_scan_state(&pic, runtime);
+        if state.cursor == 0 && state.started_at_seconds > initial.started_at_seconds {
+            refreshed = Some(state);
+            break;
+        }
+    }
+    let refreshed =
+        refreshed.expect("ledger callback must refresh the fenced lease before archive await");
+    assert_eq!(refreshed.nonce, initial.nonce);
+    assert!(!refreshed.expired);
+
+    // Total wall-clock age now exceeds the old 45-second whole-scan lease, but
+    // the second bounded call still owns its refreshed matching operation.
+    pic.advance_time(Duration::from_secs(17));
+    let legitimate = test_scan_state(&pic, runtime);
+    assert_eq!(legitimate.nonce, initial.nonce);
+    assert!(!legitimate.expired);
+    pic.advance_time(Duration::from_secs(12));
+    for _ in 0..20 {
+        pic.tick();
+        if pic.ingress_status(message.clone()).is_some() {
+            break;
+        }
+    }
+    let reply = pic
+        .ingress_status(message)
+        .expect("delayed two-call scan must finish")
+        .unwrap();
+    let result = decode_one::<Result<Status, String>>(&reply)
+        .unwrap()
+        .unwrap();
+    assert_eq!(result.source.verified_source_watermark, Some(1));
+    assert_eq!(result.source.ledger_calls, 1);
+    assert_eq!(result.source.archive_calls, 1);
+    assert!(!result.source.scan_in_flight);
+    assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 1);
+}
+
+#[test]
 fn scan_backpressure_is_retryable_without_upgrade_or_manual_reset() {
     let wasm = std::fs::read(required_path("DTR_RUNTIME_TEST_WASM")).unwrap();
     let pic = instance();
@@ -1314,6 +1662,571 @@ fn scan_backpressure_is_retryable_without_upgrade_or_manual_reset() {
     .unwrap();
     assert_eq!(at_tip.source.verified_source_watermark, Some(4097));
     assert_eq!(controller_work(&pic, runtime).unwrap().pending_inputs, 4096);
+}
+
+#[test]
+fn autonomous_progression_is_single_bounded_upgrade_safe_and_retained() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let pic = instance();
+    let runtime = deploy_synthetic(&pic, &wasm);
+    let payer = Principal::self_authenticating([61; 32]);
+    let payment = normalized(
+        AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT),
+        1_000_000_000,
+        *b"BTZ\x11\0\0\x40\0",
+    );
+    apply(
+        &pic,
+        runtime,
+        0,
+        Action::Ingest {
+            start: Int(0u64.into()),
+            records: vec![Some(payment)],
+            anchor: "12".repeat(32),
+        },
+    )
+    .unwrap();
+
+    let config = RunConfig {
+        segment_ticks: 2,
+        pacing_seconds: 1,
+        work_budget: 100_000,
+    };
+    let started = start_autonomous(&pic, runtime, config.clone());
+    assert!(started.run.running);
+    let duplicate = start_autonomous(&pic, runtime, config.clone());
+    assert_eq!(duplicate.run.generation, started.run.generation);
+    assert!(
+        apply(
+            &pic,
+            runtime,
+            duplicate.revision,
+            Action::Seal {
+                logical_end: Int(2u64.into())
+            }
+        )
+        .unwrap_err()
+        .contains("autonomous execution is active")
+    );
+
+    let mut publications = Vec::<Publication>::new();
+    let mut seen = 0u64;
+    let mut upgraded = false;
+    let mut paused_once = false;
+    for _ in 0..240 {
+        pic.advance_time(Duration::from_secs(1));
+        for _ in 0..5 {
+            pic.tick();
+        }
+        let current = status(&pic, runtime, Principal::anonymous()).unwrap();
+        if current.run.completed_segments > seen {
+            assert_eq!(current.run.completed_segments, seen + 1);
+            let publication: Publication = decode(&observation(&pic, runtime).publication).unwrap();
+            assert_eq!(
+                publication.head.segment_id.as_ref().unwrap().0.to_string(),
+                seen.to_string()
+            );
+            publications.push(publication);
+            seen += 1;
+        }
+        if seen == 3
+            && controller_work(&pic, runtime).unwrap().phase.as_deref() == Some("running")
+            && !upgraded
+        {
+            let before = current.run.generation;
+            pic.upgrade_canister(
+                runtime,
+                wasm.clone(),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap();
+            let after = status(&pic, runtime, Principal::anonymous()).unwrap();
+            assert!(after.run.running);
+            assert_eq!(after.run.generation, before + 1);
+            upgraded = true;
+        }
+        if seen == 5 && !paused_once {
+            let paused = pause_autonomous(&pic, runtime);
+            assert!(!paused.run.running);
+            let paused_publication = paused.publication_hash.clone();
+            pic.advance_time(Duration::from_secs(8));
+            for _ in 0..8 {
+                pic.tick();
+            }
+            let still = status(&pic, runtime, Principal::anonymous()).unwrap();
+            assert_eq!(still.run.completed_segments, 5);
+            assert_eq!(still.publication_hash, paused_publication);
+            let resumed = start_autonomous(&pic, runtime, config.clone());
+            assert!(resumed.run.running);
+            assert!(resumed.run.generation > paused.run.generation);
+            paused_once = true;
+        }
+        if seen >= 10 {
+            break;
+        }
+    }
+    assert!(upgraded);
+    assert!(paused_once);
+    assert_eq!(
+        seen, 10,
+        "one start/resume path must publish ten consecutive segments"
+    );
+    for (index, publication) in publications.iter().enumerate() {
+        let seal = publication.head.seal.as_ref().unwrap();
+        assert_eq!(seal.segment_id.0.to_string(), index.to_string());
+        assert_eq!(
+            seal.logical_start.0.to_string(),
+            (index as u64 * 2).to_string()
+        );
+        assert_eq!(
+            seal.logical_end.0.to_string(),
+            ((index as u64 + 1) * 2).to_string()
+        );
+        if index == 0 {
+            assert_eq!(seal.input_count, 1);
+            assert_eq!(seal.source_from.0.to_string(), "0");
+            assert_eq!(seal.source_to_exclusive.0.to_string(), "1");
+        } else {
+            assert_eq!(seal.input_count, 0);
+            assert_eq!(seal.source_from.0.to_string(), "1");
+            assert_eq!(seal.source_to_exclusive.0.to_string(), "1");
+        }
+    }
+    let latest_artifacts = artifacts(&pic, runtime, publications.last().unwrap());
+    let world: Value = serde_json::from_slice(&latest_artifacts[0]).unwrap();
+    assert_eq!(world["cannons"].as_array().unwrap().len(), 1);
+    assert_eq!(world["balls"].as_array().unwrap().len(), 1);
+    assert_ne!(
+        publications[1].head.state_hash,
+        publications[2].head.state_hash
+    );
+
+    let retained = retention_status(&pic, runtime);
+    assert_eq!(retained.max_segments, 3);
+    assert_eq!(retained.max_bytes, 8 * 1024 * 1024);
+    assert_eq!(retained.entries.len(), 3);
+    assert_eq!(
+        retained
+            .entries
+            .iter()
+            .map(|entry| entry.segment_id)
+            .collect::<Vec<_>>(),
+        vec![7, 8, 9]
+    );
+    assert!(retained.entries.last().unwrap().current);
+    assert!(retained.retained_bytes > 0);
+    let segment_eight = retained_publication(&pic, runtime, 8).unwrap();
+    let segment_eight_hash = dtr_wire::hash(&segment_eight);
+    let segment_eight_chunk = retained_chunk(&pic, runtime, 8, &segment_eight_hash, 0, 0).unwrap();
+    assert!(
+        retained_publication(&pic, runtime, 6)
+            .unwrap_err()
+            .contains("snapshot resync required")
+    );
+
+    for _ in 0..40 {
+        pic.advance_time(Duration::from_secs(1));
+        for _ in 0..5 {
+            pic.tick();
+        }
+        if status(&pic, runtime, Principal::anonymous())
+            .unwrap()
+            .run
+            .completed_segments
+            >= 11
+        {
+            break;
+        }
+    }
+    assert_eq!(
+        retained_publication(&pic, runtime, 8).unwrap(),
+        segment_eight
+    );
+    assert_eq!(
+        retained_chunk(&pic, runtime, 8, &segment_eight_hash, 0, 0).unwrap(),
+        segment_eight_chunk
+    );
+    let final_status = pause_autonomous(&pic, runtime);
+    assert_eq!(final_status.run.completed_segments, 11);
+    assert!(final_status.run.callback_count >= 33);
+    assert!(final_status.run.total_work > 0);
+    assert!(final_status.run.max_segment_work > 0);
+    assert!(final_status.run.last_error.is_none());
+}
+
+#[test]
+#[ignore = "requires the S10 live browser orchestrator"]
+fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
+    let runtime_wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let ledger_wasm = std::fs::read(required_path("DTR_LEDGER_WASM")).unwrap();
+    let live_directory =
+        PathBuf::from(std::env::var_os("DTR_S10_LIVE_DIR").expect("DTR_S10_LIVE_DIR is required"));
+    let coordination = live_directory.join("coordination");
+    std::fs::create_dir_all(&coordination).unwrap();
+    let mut pic = instance();
+    let wall_time = SystemTime::now() - Duration::from_secs(120);
+    pic.set_time(wall_time.into());
+    let runtime = create_controlled(&pic);
+    let payers = [
+        Principal::self_authenticating([71; 32]),
+        Principal::self_authenticating([72; 32]),
+    ];
+    let ledger = deploy_ledger(&pic, &ledger_wasm, &payers);
+    let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
+    let irrelevant = AccountIdentifier::new(
+        &Principal::self_authenticating([73; 32]),
+        &DEFAULT_SUBACCOUNT,
+    );
+    let first_memo = *b"BTZ\x11\0\0\x20\0";
+    let second_memo = *b"BTZ\x11\0\0\x80\0";
+    let third_memo = *b"BTZ\x11\0\0\xc0\0";
+    let under_memo = *b"BTZ\x11\0\0\x10\0";
+    let malformed_memo = [0; 8];
+    let mut source_records = BTreeMap::<u64, String>::new();
+    let first = transfer(
+        &pic,
+        ledger,
+        payers[0],
+        recipient,
+        1_000_000_000,
+        first_memo,
+    );
+    source_records.insert(
+        first,
+        normalized(
+            AccountIdentifier::new(&payers[0], &DEFAULT_SUBACCOUNT),
+            1_000_000_000,
+            first_memo,
+        ),
+    );
+    let under = transfer(&pic, ledger, payers[1], recipient, 1, under_memo);
+    source_records.insert(
+        under,
+        normalized(
+            AccountIdentifier::new(&payers[1], &DEFAULT_SUBACCOUNT),
+            1,
+            under_memo,
+        ),
+    );
+    let malformed = transfer(
+        &pic,
+        ledger,
+        payers[0],
+        recipient,
+        1_000_000_000,
+        malformed_memo,
+    );
+    source_records.insert(
+        malformed,
+        normalized(
+            AccountIdentifier::new(&payers[0], &DEFAULT_SUBACCOUNT),
+            1_000_000_000,
+            malformed_memo,
+        ),
+    );
+    transfer(
+        &pic,
+        ledger,
+        payers[1],
+        irrelevant,
+        1_000_000_000,
+        first_memo,
+    );
+    for _ in 0..20 {
+        pic.tick();
+    }
+
+    let init = encode_args((
+        initial_world(),
+        "00".repeat(32),
+        0u64,
+        0u64,
+        Some(LedgerConfig {
+            network: "pocketic-local".into(),
+            ledger,
+            recipient_account: recipient.as_bytes().to_vec(),
+            page_limit: 2,
+            fallback_seconds: 2,
+            hint_principal: None,
+        }),
+    ))
+    .unwrap();
+    pic.install_canister(runtime, runtime_wasm.clone(), init, Some(controller()));
+    let config = RunConfig {
+        segment_ticks: 2,
+        pacing_seconds: 1,
+        work_budget: 100_000,
+    };
+    let root_key = pic.root_key().expect("NNS root key");
+    let gateway = pic.make_live(None);
+    let config_directory = live_directory.join("config");
+    std::fs::create_dir_all(&config_directory).unwrap();
+    std::fs::write(config_directory.join("root-key.der"), &root_key).unwrap();
+    std::fs::write(
+        config_directory.join("metadata.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "version":1,
+            "trust":"live-local-ic-certificate",
+            "network":"pocketic-local",
+            "canister_id":runtime.to_text(),
+            "root_key_sha256":dtr_wire::hash(&root_key),
+            "tick_seconds":0.25,
+            "retained_segments":3,
+            "retained_bytes":8*1024*1024,
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+    std::fs::write(
+        live_directory.join("ready.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "gateway":gateway.as_str(),
+            "canister_id":runtime.to_text(),
+            "config":config_directory,
+            "root_key_sha256":dtr_wire::hash(&root_key),
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+    wait_for_marker(&coordination, "browser-connected");
+
+    // Start only after the browser has authenticated the genesis head. Every
+    // publication observed below is therefore new data from the still-running
+    // instance rather than a head produced during browser startup.
+    let started = start_autonomous(&pic, runtime, config.clone());
+    assert!(started.run.running);
+    assert_eq!(
+        start_autonomous(&pic, runtime, config.clone())
+            .run
+            .generation,
+        started.run.generation
+    );
+
+    // Execute the independently scheduled scan before the first logical seal.
+    for _ in 0..24 {
+        pic.tick();
+    }
+    let mut captured = Vec::<(Publication, Vec<Vec<u8>>)>::new();
+    drive_to_segment(&pic, runtime, 1, &mut captured);
+
+    // A valid payment arrives after publication has begun. Repeated hints carry
+    // no payload authority and must not duplicate the eventual command.
+    let second = transfer(
+        &pic,
+        ledger,
+        payers[1],
+        recipient,
+        1_000_000_000,
+        second_memo,
+    );
+    source_records.insert(
+        second,
+        normalized(
+            AccountIdentifier::new(&payers[1], &DEFAULT_SUBACCOUNT),
+            1_000_000_000,
+            second_memo,
+        ),
+    );
+    for _ in 0..2 {
+        update_result::<Status>(
+            &pic,
+            runtime,
+            controller(),
+            "ledger_hint",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    }
+
+    wait_for_marker(&coordination, "short-paused");
+    drive_to_segment(&pic, runtime, 3, &mut captured);
+    std::fs::write(coordination.join("harness-short-ready"), "3\n").unwrap();
+
+    wait_for_marker(&coordination, "long-paused");
+    // This valid record deliberately receives no hint. The two-second fallback
+    // must discover it while autonomous empty-input segments continue.
+    let third = transfer(
+        &pic,
+        ledger,
+        payers[0],
+        recipient,
+        1_000_000_000,
+        third_memo,
+    );
+    source_records.insert(
+        third,
+        normalized(
+            AccountIdentifier::new(&payers[0], &DEFAULT_SUBACCOUNT),
+            1_000_000_000,
+            third_memo,
+        ),
+    );
+    drive_to_segment(&pic, runtime, 8, &mut captured);
+    std::fs::write(coordination.join("harness-long-ready"), "8\n").unwrap();
+
+    // Upgrade with an unfinished stage. The restored timer receives a new
+    // generation; pause/resume must not erase or duplicate the staged segment.
+    for _ in 0..20 {
+        pic.advance_time(Duration::from_secs(1));
+        for _ in 0..5 {
+            pic.tick();
+        }
+        if controller_work(&pic, runtime).unwrap().phase.as_deref() == Some("running") {
+            break;
+        }
+    }
+    assert_eq!(
+        controller_work(&pic, runtime).unwrap().phase.as_deref(),
+        Some("running")
+    );
+    let generation = status(&pic, runtime, Principal::anonymous())
+        .unwrap()
+        .run
+        .generation;
+    pic.upgrade_canister(
+        runtime,
+        runtime_wasm,
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let recovered = status(&pic, runtime, Principal::anonymous()).unwrap();
+    assert!(recovered.run.running);
+    assert_eq!(recovered.run.generation, generation + 1);
+    let duplicate = start_autonomous(&pic, runtime, config.clone());
+    assert_eq!(duplicate.run.generation, recovered.run.generation);
+    let paused = pause_autonomous(&pic, runtime);
+    let paused_hash = paused.publication_hash.clone();
+    pic.advance_time(Duration::from_secs(5));
+    for _ in 0..10 {
+        pic.tick();
+    }
+    assert_eq!(
+        status(&pic, runtime, Principal::anonymous())
+            .unwrap()
+            .publication_hash,
+        paused_hash
+    );
+    start_autonomous(&pic, runtime, config);
+    drive_to_segment(&pic, runtime, 10, &mut captured);
+    let final_status = pause_autonomous(&pic, runtime);
+    std::fs::write(coordination.join("harness-final-ready"), "10\n").unwrap();
+    wait_for_marker(&coordination, "browser-complete");
+    assert_eq!(final_status.run.completed_segments, 11);
+    assert_eq!(captured.len(), 11);
+    assert!(final_status.source.archive_calls > 0);
+    assert!(!final_status.source.scan_in_flight);
+    assert!(final_status.source.verified_source_watermark.unwrap() > third);
+    assert_eq!(retention_status(&pic, runtime).entries.len(), 3);
+
+    let mut receipt_positions = Vec::<u64>::new();
+    for (_, artifacts) in &captured {
+        let events: Value = serde_json::from_slice(&artifacts[1]).unwrap();
+        receipt_positions.extend(
+            events["receipts"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|receipt| {
+                    receipt["position"]["$integer"]
+                        .as_str()
+                        .unwrap()
+                        .parse::<u64>()
+                        .unwrap()
+                }),
+        );
+    }
+    for position in [first, under, malformed, second, third] {
+        assert_eq!(
+            receipt_positions
+                .iter()
+                .filter(|value| **value == position)
+                .count(),
+            1,
+            "source record {position} must be applied exactly once"
+        );
+    }
+
+    let mut native = Coordinator::create(
+        &initial_world(),
+        captured[0].0.identity.clone(),
+        0,
+        0,
+        "00".repeat(32),
+        BtzHostKernel,
+    )
+    .unwrap();
+    let mut source_cursor = 0u64;
+    for (publication, expected_artifacts) in &captured {
+        let seal = publication.head.seal.as_ref().unwrap();
+        let source_to: u64 = seal.source_to_exclusive.0.to_string().parse().unwrap();
+        if source_to > source_cursor {
+            let records = (source_cursor..source_to)
+                .map(|position| source_records.get(&position).cloned())
+                .collect();
+            native
+                .apply(Action::Ingest {
+                    start: Int(source_cursor.into()),
+                    records,
+                    anchor: seal.source_anchor.clone(),
+                })
+                .unwrap();
+            source_cursor = source_to;
+        }
+        native
+            .apply(Action::Seal {
+                logical_end: seal.logical_end.clone(),
+            })
+            .unwrap();
+        while native.record.journal.stage.as_ref().unwrap().phase == "running" {
+            native.apply(Action::Step { budget: 100_000 }).unwrap();
+        }
+        let ready = native
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .unwrap()
+            .ready_hash
+            .clone()
+            .unwrap();
+        native
+            .apply(Action::Publish {
+                manifest_hash: ready,
+            })
+            .unwrap();
+        assert_eq!(
+            native_publication(&native.record).unwrap().artifacts,
+            *expected_artifacts
+        );
+    }
+    let assignment = |position: u64| {
+        captured
+            .iter()
+            .position(|(publication, _)| {
+                let seal = publication.head.seal.as_ref().unwrap();
+                let from: u64 = seal.source_from.0.to_string().parse().unwrap();
+                let to: u64 = seal.source_to_exclusive.0.to_string().parse().unwrap();
+                position >= from && position < to
+            })
+            .unwrap()
+    };
+    println!(
+        "S10_HEADS=0..10 INPUT_ASSIGNMENTS=first:{} second:{} dropped_hint:{} LEDGER_CALLS={} ARCHIVE_CALLS={} RETAINED={} RETAINED_BYTES={} WORK_TOTAL={} WORK_MAX={} ROOT_SHA256={} CANISTER={}",
+        assignment(first),
+        assignment(second),
+        assignment(third),
+        final_status.source.ledger_calls,
+        final_status.source.archive_calls,
+        retention_status(&pic, runtime).entries.len(),
+        retention_status(&pic, runtime).retained_bytes,
+        final_status.run.total_work,
+        final_status.run.max_segment_work,
+        dtr_wire::hash(&root_key),
+        runtime,
+    );
+    pic.stop_live();
 }
 
 #[test]

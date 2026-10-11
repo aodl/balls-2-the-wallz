@@ -76,6 +76,25 @@ export async function verifyCertificatePublication(bytes,certificate,policy,veri
   const p=await content(bytes,result.certified_data_hex);
   return ticket(p,result.certified_data_hex,'certificate-verifier',{canister_id:deployment.canister_id,network:deployment.network,certificate_time_ns:when});
 }
+/** Authenticate an immediately preceding publication through a newer authentic
+ * publication's seal. The predecessor manifest binds its seal and three
+ * authoritative artifacts; the successor seal binds that manifest, state,
+ * logical time and source watermark. Directory metadata is only a locator.
+ */
+export async function verifyRetainedPredecessor(bytes,successor){
+  if(!authentic.has(successor))throw new Error('verified successor required');
+  if(!(bytes instanceof Uint8Array)||bytes.length>MAX_ENVELOPE)throw new Error('publication bounds');
+  bytes=Uint8Array.from(bytes);const root=await sha256Web(bytes),p=await content(bytes,root),next=successor.publication;
+  if(p.version!==6||next.version!==6||p.render_format!==next.render_format
+    ||Object.keys(p.identity).some(k=>p.identity[k]!==next.identity[k]))throw new Error('retained publication identity');
+  const a=p.head,b=next.head,s=b.seal;
+  const expected=a.segment_id===null?0n:a.segment_id+1n;
+  if(!s||b.segment_id!==expected||s.previous_manifest!==a.manifest_hash||s.previous_state!==a.state_hash
+    ||s.logical_start!==a.logical_end||s.source_from!==a.source_to_exclusive)throw new Error('retained publication is not certified predecessor');
+  const extra=successor.mode==='certificate-verifier'?{canister_id:successor.canister_id,network:successor.network,
+    certificate_time_ns:successor.certificate_time_ns}:{};
+  return ticket(p,root,successor.mode,extra);
+}
 export class ArtifactAssembler {
   constructor(verified,kind){
     if(!authentic.has(verified))throw new Error('verified publication required');
@@ -125,6 +144,21 @@ export class PublicationSequence {
           ||b.seal.logical_start!==a.logical_end||b.seal.source_from!==a.source_to_exclusive)throw new Error('observation chain mismatch');
       }
     }
+    this.last=verified;return verified;
+  }
+  /** Explicitly anchor at a newer authentic snapshot after retained history is
+   * unavailable. This preserves the in-session anti-rollback floor and never
+   * claims that omitted animation was observed. */
+  resync(verified){
+    if(!authentic.has(verified))throw new Error('verified publication required');
+    if(!this.last)return this.accept(verified);
+    const a=this.last.publication,b=verified.publication;
+    if(verified.mode!==this.last.mode||verified.canister_id!==this.last.canister_id||verified.network!==this.last.network
+      ||b.version!==a.version||b.render_format!==a.render_format
+      ||Object.keys(b.identity).some(k=>b.identity[k]!==a.identity[k]))throw new Error('observation deployment/rules changed');
+    const old=a.head.segment_id===null?-1n:a.head.segment_id,next=b.head.segment_id===null?-1n:b.head.segment_id;
+    if(next<=old||b.head.logical_end<a.head.logical_end||b.head.source_to_exclusive<a.head.source_to_exclusive)
+      throw new Error('observation rollback');
     this.last=verified;return verified;
   }
 }

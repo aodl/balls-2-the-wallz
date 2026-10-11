@@ -1,5 +1,5 @@
 import {PlayoutClock} from '../../packages/client/playout.mjs';
-import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication} from '../../packages/client/verification.mjs';
+import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../packages/client/verification.mjs';
 import {BtzView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
 import {readBytes,validateIndex,loadEntry} from './transport.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
@@ -30,6 +30,15 @@ function localMetadata(value){
     ||value.network!=='pocketic-local'||typeof value.canister_id!=='string'||!/^[0-9a-f]{64}$/.test(value.root_key_sha256)
     ||!Number.isSafeInteger(value.logical_start)||!Number.isSafeInteger(value.logical_end)||value.logical_start<0||value.logical_end<=value.logical_start
     ||value.logical_end>2048||!Number.isFinite(value.tick_seconds)||value.tick_seconds<.05||value.tick_seconds>10)throw new Error('local IC snapshot metadata');
+  return value;
+}
+function liveMetadata(value){
+  const keys=['version','trust','network','canister_id','root_key_sha256','tick_seconds','retained_segments','retained_bytes'];
+  if(!value||Object.keys(value).sort().join(',')!==keys.sort().join(',')||value.version!==1||value.trust!=='live-local-ic-certificate'
+    ||value.network!=='pocketic-local'||typeof value.canister_id!=='string'||!/^[0-9a-f]{64}$/.test(value.root_key_sha256)
+    ||!Number.isFinite(value.tick_seconds)||value.tick_seconds<.05||value.tick_seconds>10
+    ||!Number.isSafeInteger(value.retained_segments)||value.retained_segments<2||value.retained_segments>8
+    ||!Number.isSafeInteger(value.retained_bytes)||value.retained_bytes<1||value.retained_bytes>16*1024*1024)throw new Error('live local IC metadata');
   return value;
 }
 async function localArtifact(ticket,kind,signal){
@@ -65,9 +74,105 @@ async function startLocal(recording){
     $('pause').disabled=false;$('restart').disabled=false;
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
 }
+async function certifiedTicket(s,response){
+  if(!response.certificate)throw new Error('live IC certificate missing');
+  return verifyCertificatePublication(response.publication,response.certificate,{
+    canister_id:s.recording.canister_id,network:s.recording.network,now_ns:BigInt(Date.now())*1000000n,
+    max_age_ns:300000000000n,max_future_ns:30000000000n,
+  },s.verifyCertificate);
+}
+async function liveArtifacts(s,ticket){
+  const segment=Number(ticket.publication.head.segment_id);if(!Number.isSafeInteger(segment)||segment<0)throw new Error('live segment id');
+  const artifacts={};
+  for(const [kindIndex,kind] of ['state','events','scores'].entries()){
+    const assembler=new ArtifactAssembler(ticket,kind);
+    for(let index=0;index<assembler.descriptor.chunks.length;index++){
+      if(!active(s))throw new DOMException('Aborted','AbortError');
+      await assembler.accept(index,await s.client.chunk(segment,ticket.root_hash,kindIndex,index));
+    }
+    artifacts[kind]=await assembler.finish();
+  }
+  return artifacts;
+}
+function resetLiveClock(s,time){
+  s.clock=new PlayoutClock({start:time,target:6,low:2,max_frame_delta:1});
+  s.queue=[];s.bytes=0;visibleTime=time;
+}
+async function startLive(recording){
+  session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
+    sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:6,low:2,max_frame_delta:1}),
+    client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0};
+  session=s;visible=null;visibleTime=0;lastFrame=null;$('error').hidden=true;
+  $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
+  $('timeline').min=0;$('timeline').max=2048;$('pause').disabled=true;$('restart').disabled=true;
+  try{
+    const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));if(!active(s))return;
+    if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
+    const module=await import('/s09-assets/ic-certificate.mjs');
+    s.verifyCertificate=module.localCertificateVerifier(rootKey,{network:recording.network,maxAgeInMinutes:5});
+    s.client=await module.localLiveClient(rootKey,{network:recording.network,canister_id:recording.canister_id,host:location.origin});
+    const ticket=await certifiedTicket(s,await s.client.observation());if(!active(s))return;
+    const head=ticket.publication.head,segment=head.segment_id===null?null:Number(head.segment_id);
+    let state;
+    if(segment===null){
+      const descriptor=ticket.publication.artifacts.find(a=>a.kind==='state'),assembler=new ArtifactAssembler(ticket,'state');
+      for(let index=0;index<descriptor.chunks.length;index++)await assembler.accept(index,await s.client.currentChunk(ticket.root_hash,0,index));
+      // Genesis is not in the retained segment API. A live harness starts before
+      // segment zero; reject a server that cannot provide this explicit anchor.
+      state=await assembler.finish();
+    }else state=(await liveArtifacts(s,ticket)).state;
+    const world=snapshot(state),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
+    resetLiveClock(s,time);visible=new BtzView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
+    $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
+    globalThis.__dtrLive={connected:true,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped};
+  }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
+}
+async function admitLive(s,ticket){
+  const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
+  const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);if(!active(s))return;
+  if(segment.start!==s.clock.available)throw new Error('live timeline gap');
+  if(s.bytes+segment.bytes>8*1024*1024)throw new Error('observer buffer byte capacity');
+  s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
+  s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
+  globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+}
+async function resyncLive(s,ticket){
+  const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
+  const world=snapshot(artifacts.state),time=timeNumber(world.time);s.sequence.resync(ticket);s.previousState=artifacts.state;s.root=ticket.root_hash;
+  resetLiveClock(s,time);visible=new BtzView(world);s.resyncs++;s.skipped=true;s.accepted++;
+  globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+}
+async function pumpLive(now,s){
+  if(now<s.nextDue||s.queue.length>=4||s.clock.state().buffer>=12)return;s.busy=true;
+  try{
+    const current=await certifiedTicket(s,await s.client.observation());if(!active(s))return;
+    globalThis.__dtrLive.certificates++;
+    const prior=s.sequence.last,past=prior.publication.head.segment_id,next=current.publication.head.segment_id;
+    if(current.root_hash===prior.root_hash){s.retryFailures=0;s.nextDue=performance.now()+500;return;}
+    if(next===null||past!==null&&next<=past){s.sequence.accept(current);s.nextDue=performance.now()+500;return;}
+    const expected=past===null?0n:past+1n;
+    if(next===expected)await admitLive(s,current);
+    else{
+      const reverse=[current];let successor=current,complete=true;
+      for(let segment=next-1n;segment>=expected;segment--){
+        try{const predecessor=await verifyRetainedPredecessor(await s.client.publication(Number(segment)),successor);
+          reverse.push(predecessor);successor=predecessor;
+        }catch(error){if(!String(error?.message??error).includes('snapshot resync required'))throw error;complete=false;break;}
+        if(segment===0n)break;
+      }
+      if(!complete)await resyncLive(s,current);
+      else for(const ticket of reverse.reverse())await admitLive(s,ticket);
+    }
+    s.retryFailures=0;s.nextDue=performance.now()+500;
+  }catch(e){
+    if(!active(s))return;s.retryFailures++;
+    if(s.retryFailures>=5){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
+  }finally{s.busy=false;if(active(s))updateHud();}
+}
 async function pump(now){
-  const s=session;if(!s?.ready||s.busy||s.error||deliveryPaused||s.entry>=s.recording.roots.length||now<s.nextDue
-    ||s.queue.length>=4||s.clock.state().buffer>=12)return;
+  const s=session;if(!s?.ready||s.busy||s.error||deliveryPaused)return;
+  if(s.mode==='live')return pumpLive(now,s);
+  if(s.entry>=s.recording.roots.length||now<s.nextDue||s.queue.length>=4||s.clock.state().buffer>=12)return;
   s.busy=true;
   try{
     const next=await loadEntry(s.recording,s.entry,signal(s));if(!active(s))return;
@@ -83,7 +188,7 @@ async function pump(now){
 }
 function phase(){
   const s=session;if(bootError||s?.error)return 'ERROR';if(!s?.ready)return 'LOADING';
-  if(s.entry===s.recording.roots.length&&s.clock.playhead===s.recording.logical_end)return 'COMPLETE';
+  if(s.mode!=='live'&&s.entry===s.recording.roots.length&&s.clock.playhead===s.recording.logical_end)return 'COMPLETE';
   return paused?'PAUSED':s.clock.phase;
 }
 function updateHud(){
@@ -92,10 +197,11 @@ function updateHud(){
   $('playhead').textContent=state.playhead.toFixed(2);$('available').textContent=state.available.toFixed(2);
   $('buffer').textContent=state.buffer.toFixed(2);$('rate').textContent=state.rate.toFixed(3)+'×';
   $('timeline').value=state.playhead;$('buffer-meter').value=state.buffer;
-  $('segments').textContent=`${Math.max(0,(s?.entry??1)-1)} / ${s?.recording.segments??0}`;
-  $('root').textContent=s?.root??'—';$('verification-label').textContent=s?.ready?(s.mode==='local'?'IC certificate + catalog + artifacts':'Hash-checked local content'):'Waiting for verification';
+  $('segments').textContent=s?.mode==='live'?`${s.accepted} verified · ${s.resyncs} resync`:`${Math.max(0,(s?.entry??1)-1)} / ${s?.recording.segments??0}`;
+  $('root').textContent=s?.root??'—';$('verification-label').textContent=s?.ready?(s.mode==='live'?'Fresh IC certificates + chained retained publications':s.mode==='local'?'IC certificate + catalog + artifacts':'Hash-checked local content'):'Waiting for verification';
   $('pause').textContent=paused?'Resume playback':'Pause playback';
-  $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':p==='COMPLETE'?'End of finite recording. Restart to replay.':s?.mode==='local'?'Authenticated local snapshot · finite playback.':'Finite recording · staged local delivery.';
+  $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':s?.mode==='live'?(s.skipped?'Live delivery resumed from a certified snapshot; unavailable animation was skipped.':'Live certified delivery · bounded retained catch-up.'):
+    p==='COMPLETE'?'End of finite recording. Restart to replay.':s?.mode==='local'?'Authenticated local snapshot · finite playback.':'Finite recording · staged local delivery.';
   $('balls').textContent=visible?.balls.size??0;$('cannons').textContent=visible?.cannons.size??0;
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
@@ -153,11 +259,11 @@ function frame(now){
   void pump(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
 $('pause').addEventListener('click',()=>{paused=!paused;lastFrame=null;updateHud();});
-$('restart').addEventListener('click',()=>{if(session)void (session.mode==='local'?startLocal(session.recording):start(session.recording));});
+$('restart').addEventListener('click',()=>{if(session)void (session.mode==='live'?startLive(session.recording):session.mode==='local'?startLocal(session.recording):start(session.recording));});
 $('recording').addEventListener('change',()=>{const r=catalog.recordings.find(r=>r.id===$('recording').value);if(r)void start(r);});
 $('speed').addEventListener('change',()=>{const n=Number($('speed').value);if([.5,1,2].includes(n))speed=n;});
 $('network-pause').addEventListener('change',()=>{deliveryPaused=$('network-pause').checked;updateHud();});
-$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;$('error').hidden=true;if(!s.ready){void (s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.nextDue=0;updateHud();});
+$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;$('error').hidden=true;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
 document.addEventListener('visibilitychange',()=>{lastFrame=null;});
 new ResizeObserver(draw).observe(canvas);
 async function bootstrap(){
@@ -165,6 +271,15 @@ bootError=null;$('error').hidden=true;
 try{
   if(!ctx||!globalThis.crypto?.subtle)throw new Error('Canvas and Web Crypto require a supported browser on localhost or HTTPS.');
   const params=new URLSearchParams(location.search);
+  if(params.get('mode')==='live'){
+    $('trust-title').textContent='Live local IC — test-network certified';$('trust-detail').textContent='Pinned PocketIC root, intended canister, fresh certificates, chained publications and artifact hashes.';
+    $('integrity-help').textContent='The current head is certified by the configured local root. Retained predecessors are admitted only through exact manifest/state/time/source links to that certified head.';
+    $('network-help').textContent='Read-only live observation of a disposable local IC. No wallet, gameplay command or public network.';
+    const metadata=liveMetadata(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await readBytes('/s10-live/metadata.json',65536,AbortSignal.timeout(10000)))));
+    const recording={...metadata,id:'live-local-ic',title:'Live certified local game',description:'Autonomous runtime-lab publications retrieved while PocketIC remains running.'};
+    catalog={recordings:[recording]};const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
+    $('recording').replaceChildren(option);$('recording').value=recording.id;$('recording').disabled=true;await startLive(recording);return;
+  }
   if(params.get('mode')==='local'){
     $('trust-title').textContent='Local IC / test-network certified';$('trust-detail').textContent='Pinned PocketIC root, canister identity, certificate time, catalog and artifact hashes.';
     $('integrity-help').textContent='Standard IC certificate verification binds this flat catalog to the configured local canister and root. No root is fetched from the endpoint.';

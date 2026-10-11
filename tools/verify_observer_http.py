@@ -29,7 +29,9 @@ def wait_for_server(url,process,timeout=10):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=ROOT/'.work/browser-http')
-    parser.add_argument('--local-snapshot',type=Path);args=parser.parse_args()
+    parser.add_argument('--local-snapshot',type=Path);parser.add_argument('--live-config',type=Path);parser.add_argument('--ic-gateway')
+    parser.add_argument('--live-canister');parser.add_argument('--coordination',type=Path);args=parser.parse_args()
+    if args.local_snapshot and args.live_config:parser.error('snapshot and live modes are mutually exclusive')
     args.output.mkdir(parents=True,exist_ok=True);port=free_port();url=f'http://127.0.0.1:{port}/apps/btz-observer/'
     server_command=[sys.executable,'-B','tools/serve_observer.py','--port',str(port)]
     browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--url',url,'--output',str(args.output)]
@@ -42,6 +44,16 @@ def main():
         subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
         server_command+=['--local-snapshot',str(snapshot),'--generated-assets',str(assets)]
         url+='?mode=local';browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--trust','local','--url',url,'--output',str(args.output)]
+    elif args.live_config:
+        live=args.live_config.resolve()
+        required={'metadata.json','root-key.der'}
+        if not live.is_dir() or not required.issubset({path.name for path in live.iterdir() if path.is_file()}):
+            parser.error('--live-config is incomplete')
+        if not args.ic_gateway or not args.live_canister or not args.coordination:parser.error('live mode requires gateway, canister and coordination')
+        assets=ROOT/'.work/s10/browser-assets';assets.mkdir(parents=True,exist_ok=True)
+        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
+        server_command+=['--live-config',str(live),'--ic-gateway',args.ic_gateway,'--live-canister',args.live_canister,'--generated-assets',str(assets)]
+        url+='?mode=live';browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--trust','live','--url',url,'--output',str(args.output),'--coordination',str(args.coordination)]
     with (args.output/'server.log').open('w') as server_log:
         server=subprocess.Popen(server_command,cwd=ROOT,stdout=server_log,stderr=subprocess.STDOUT,text=True,start_new_session=True)
         try:

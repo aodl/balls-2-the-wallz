@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
 import {publication,publishedChunk,PublicationWindow} from '../../packages/observation/publication.mjs';
 import {projectAnimation} from '../../packages/kernels/btz/animation.mjs';
-import {verifyPinnedPublication,verifyCertificatePublication,ArtifactAssembler,PublicationSequence} from '../../packages/client/verification.mjs';
+import {verifyPinnedPublication,verifyCertificatePublication,verifyRetainedPredecessor,ArtifactAssembler,PublicationSequence} from '../../packages/client/verification.mjs';
 import {unhex} from '../../packages/protocol/bytes.mjs';import{decodeCanonical,encodeCanonical}from'../../packages/runtime/canonical.mjs';import{sha256}from'../../packages/runtime/seal.mjs';
 function complete(host,end){host.seal(end);while(host.status().phase==='running')host.advance(127);host.publish(host.status().ready_hash);}
 for(const name of ['life','admission','severance','near-impact','dense']){
@@ -86,4 +86,27 @@ test('render corruption fails integrity even with a valid catalog',async()=>{
  const p=publication(host.publicationRecord(),{render:{format:'test-1',bytes:Uint8Array.of(1,2,3)}});
  const ticket=await verifyPinnedPublication(p.bytes,p.sha256),a=new ArtifactAssembler(ticket,'render');
  await assert.rejects(a.accept(0,Uint8Array.of(1,2,4)),/integrity/);
+});
+test('retained publications authenticate backward from the certified head and admit forward in order',async()=>{
+ const {host}=coordinatorScenario('life'),publications=[publication(host.publicationRecord())];
+ for(let end=1n;end<=3n;end++){complete(host,end);publications.push(publication(host.publicationRecord()));}
+ const head=await verifyPinnedPublication(publications[3].bytes,publications[3].sha256);
+ const two=await verifyRetainedPredecessor(publications[2].bytes,head);
+ const one=await verifyRetainedPredecessor(publications[1].bytes,two);
+ const sequence=new PublicationSequence();sequence.accept(await verifyPinnedPublication(publications[0].bytes,publications[0].sha256));
+ sequence.accept(one);sequence.accept(two);sequence.accept(head);
+ const corrupt=publications[2].bytes.slice();corrupt[corrupt.length-1]^=1;
+ await assert.rejects(verifyRetainedPredecessor(corrupt,head));
+ await assert.rejects(verifyRetainedPredecessor(publications[1].bytes,head),/not certified predecessor/);
+});
+test('explicit snapshot resync preserves the anti-rollback floor and rejects conflict or older heads',async()=>{
+ const {host}=coordinatorScenario('life'),p=[publication(host.publicationRecord())];
+ for(let end=1n;end<=3n;end++){complete(host,end);p.push(publication(host.publicationRecord()));}
+ const sequence=new PublicationSequence(),genesis=await verifyPinnedPublication(p[0].bytes,p[0].sha256);
+ sequence.accept(genesis);const latest=await verifyPinnedPublication(p[3].bytes,p[3].sha256);sequence.resync(latest);
+ assert.throws(()=>sequence.resync(genesis),/rollback/);
+ assert.throws(()=>sequence.resync(latest),/rollback/);
+ const conflicting=decodeCanonical(p[3].bytes);conflicting.head.logical_end+=1n;
+ const bytes=encodeCanonical(conflicting);
+ await assert.rejects(verifyPinnedPublication(bytes,sha256(bytes)),/head\/seal/);
 });

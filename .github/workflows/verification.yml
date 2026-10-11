@@ -116,8 +116,8 @@ jobs:
           retention-days: 14
 
   local-ic-integration:
-    name: Local IC authoritative slice
-    # This job executes the same sandboxed browser after the PocketIC slice.
+    name: Live local IC autonomous slice
+    # The browser and PocketIC remain live concurrently with Chromium's sandbox enabled.
     runs-on: ubuntu-22.04
     env:
       RUSTUP_TOOLCHAIN: 1.94.1
@@ -146,11 +146,13 @@ jobs:
             .work/ci-integration/environment.json
             .work/ci-integration/verification.json
             .work/ci-integration/logs/**
-            .work/ci-integration/s09-local/results.json
-            .work/ci-integration/s09-local/verified-artifacts.json
-            .work/ci-integration/s09-local/logs/**
-            .work/ci-integration/s09-local/browser/results.json
-            .work/ci-integration/s09-local/browser/*.png
+            .work/ci-integration/s10-local/results.json
+            .work/ci-integration/s10-local/verified-artifacts.json
+            .work/ci-integration/s10-local/logs/**
+            .work/ci-integration/s10-local/browser-live/results.json
+            .work/ci-integration/s10-local/browser-live/*.png
+            .work/ci-integration/s10-local/browser-snapshot-regression/results.json
+            .work/ci-integration/s10-local/browser-snapshot-regression/*.png
           if-no-files-found: warn
           retention-days: 14
 

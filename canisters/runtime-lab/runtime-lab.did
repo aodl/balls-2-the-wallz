@@ -16,10 +16,42 @@ type ControllerWork = record {
   pending_inputs : nat32;
 };
 type Observation = record { certificate : opt blob; publication : blob };
+type RunConfig = record {
+  segment_ticks : nat64;
+  pacing_seconds : nat32;
+  work_budget : nat32;
+};
+type RunStatus = record {
+  running : bool;
+  generation : nat64;
+  segment_ticks : nat64;
+  pacing_seconds : nat32;
+  work_budget : nat32;
+  callback_count : nat64;
+  completed_segments : nat64;
+  current_segment_work : nat64;
+  last_segment_work : nat64;
+  total_work : nat64;
+  max_segment_work : nat64;
+  last_error : opt text;
+};
+type RetainedEntry = record {
+  segment_id : nat64;
+  publication_hash : text;
+  bytes : nat64;
+  current : bool;
+};
+type RetentionStatus = record {
+  max_segments : nat16;
+  max_bytes : nat64;
+  retained_bytes : nat64;
+  entries : vec RetainedEntry;
+};
 type Result = variant { Ok : Status; Err : text };
 type ChunkResult = variant { Ok : blob; Err : text };
 type ObservationResult = variant { Ok : Observation; Err : text };
 type ControllerWorkResult = variant { Ok : ControllerWork; Err : text };
+type RetentionResult = variant { Ok : RetentionStatus; Err : text };
 type SourceStatus = record {
   last_error : opt text;
   hint_pending : bool;
@@ -39,6 +71,7 @@ type Status = record {
   version : nat32;
   revision : nat64;
   publication_hash : text;
+  run : RunStatus;
 };
 service : (blob, text, nat64, nat64, opt LedgerConfig) -> {
   apply : (nat64, blob) -> (Result);
@@ -47,5 +80,10 @@ service : (blob, text, nat64, nat64, opt LedgerConfig) -> {
   lab_status : () -> (Result) query;
   ledger_hint : () -> (Result);
   observation : () -> (ObservationResult) query;
+  pause_autonomous : () -> (Result);
+  retained_artifact_chunk : (nat64, text, nat8, nat16) -> (ChunkResult) query;
+  retained_publication : (nat64) -> (ChunkResult) query;
+  retention_status : () -> (RetentionResult) query;
+  start_autonomous : (RunConfig) -> (Result);
   sync_ledger : () -> (Result);
 }
