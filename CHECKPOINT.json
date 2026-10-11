@@ -16,7 +16,9 @@
   "dtr_remote": "https://github.com/aodl/dtr.git",
   "dtr_remote_head": "869404401216624c3145bbbfcaebf725bb618785",
   "dtr_local_documentation_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
-  "dtr_successful_ci_run": 38173327599,
+  "dtr_successful_ci_runs": [38173294124, 38173327599],
+  "final_source_verification_commit": "632705688b726563be76b279642f2fa687b48886",
+  "final_source_verification_tree": "74ef98d55cdf8f3309969c33e92630decd27fafa",
   "btz_published_ci": {
     "commit": "3c24edb8979c5e1ab523f9e1d35beb1062718efe",
     "run": 38173694389,

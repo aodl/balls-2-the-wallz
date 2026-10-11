@@ -57,8 +57,7 @@
     {
       "id": "dtr-remote-ci",
       "status": "PASS",
-      "run": 38173327599,
-      "job": 114570367223,
+      "runs": [38173294124, 38173327599],
       "head": "869404401216624c3145bbbfcaebf725bb618785"
     },
     {
@@ -119,14 +118,37 @@
     {
       "id": "s10-to-s11-upgrade",
       "status": "PASS",
+      "mode": "cross-version",
       "baseline_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
       "baseline_tree": "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220",
+      "replacement_revision": "4a0e1aef904e99a41948d70ff885f3ad839e2b03",
+      "replacement_tree": "83b2802e86711e59a34de9b2059fc10d12db54fc",
       "boundaries": [
         "idle",
         "running",
         "ready",
         "published"
       ]
+    },
+    {
+      "id": "same-version-recovery",
+      "status": "PASS",
+      "mode": "same-version",
+      "source_revision": "632705688b726563be76b279642f2fa687b48886",
+      "source_tree": "74ef98d55cdf8f3309969c33e92630decd27fafa",
+      "baseline_sha256": "f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef",
+      "replacement_sha256": "f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef",
+      "installed_wasm_tests": 10,
+      "live_browser_assertions": 11,
+      "snapshot_browser_assertions": 12
+    },
+    {
+      "id": "final-source-gate",
+      "status": "PASS",
+      "source_revision": "632705688b726563be76b279642f2fa687b48886",
+      "source_tree": "74ef98d55cdf8f3309969c33e92630decd27fafa",
+      "javascript_tests": 1166,
+      "python_tests": 85
     },
     {
       "id": "retained-render-and-certificate-fail-closed",
@@ -143,7 +165,7 @@
       "id": "fresh-current-btz-ci",
       "status": "BLOCKED",
       "run": null,
-      "reason": "current repaired branch has not been pushed because push authorization was explicitly withheld"
+      "reason": "current repaired branch and its fresh-runner historical gate have not been pushed because push authorization was explicitly withheld"
     }
   ],
   "artifacts": {

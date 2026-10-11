@@ -4,7 +4,7 @@
 
 ## Result
 
-The reusable DTR implementation is in `/home/codexdev/src/dtr` at commit `71e59e93cf49a3656689679b538b4c3f138787f8`, tree `c7b4e138a1c5cc43744e984e6e4081fa483d9383`. The public repository is `https://github.com/aodl/dtr.git`; its verified remote head is documentation commit `869404401216624c3145bbbfcaebf725bb618785`, directly above the implementation. The local DTR branch additionally contains documentation-only closeout commits and is at `ef80f1912e3a8472ae706996b6cd8ae02955d8ae`; those commits have not been pushed. A fresh detached checkout of `71e59e9…` matched the local implementation commit/tree and passed 186 JavaScript tests, 29 Rust tests, formatting and Clippy. Remote workflow run `38173327599` at `8694044…` completed successfully.
+The reusable DTR implementation is in `/home/codexdev/src/dtr` at commit `71e59e93cf49a3656689679b538b4c3f138787f8`, tree `c7b4e138a1c5cc43744e984e6e4081fa483d9383`. The public repository is `https://github.com/aodl/dtr.git`; its verified remote head is documentation commit `869404401216624c3145bbbfcaebf725bb618785`, directly above the implementation. The local DTR branch additionally contains documentation-only closeout commits and is at `ef80f1912e3a8472ae706996b6cd8ae02955d8ae`; those commits have not been pushed. A fresh detached checkout of `71e59e9…` matched the local implementation commit/tree and passed 186 JavaScript tests, 29 Rust tests, formatting and Clippy. Remote workflow runs `38173294124` on `checkpoint/s11-dtr-extraction` and `38173327599` on `main`, both at `8694044…`, completed successfully.
 
 BTZ is in `/home/codexdev/src/btz` on `checkpoint/s11-dtr-extraction` and was substantively tested at `4a0e1aef904e99a41948d70ff885f3ad839e2b03`, tree `83b2802e86711e59a34de9b2059fc10d12db54fc`. DTR owns generic seals/timeline interfaces, source fencing models, wire/coordinator crates, bounded publication/storage/client code, certificate-verification integration, sequencing/playout and competitive Life. BTZ owns mechanics, commands/payment interpretation, economics, scores, projection/rendering, the observer application and concrete canister. `runtime-lab` remains in BTZ because it assembles the BTZ kernel and payment classifier.
 
@@ -26,7 +26,7 @@ An independent fresh clone normalized directories to `0755` and regular files to
 | DTR remote commit/tree versus local extraction | **PASS — exact match at `71e59e9…` / `c7b4e13…`** |
 | DTR JavaScript / Rust / Life | **PASS — 186 JS and 29 Rust tests** |
 | DTR format, Clippy, package inventory | **PASS — 20 packaged files** |
-| DTR remote CI | **PASS — run `38173327599`, standalone job `114570367223`** |
+| DTR remote CI | **PASS — runs `38173294124` and `38173327599` at `8694044…`** |
 | External clean consumers | **PASS — generated-package JS API and four remote Rust packages** |
 | BTZ source and tooling | **PASS — 1,166 JS and 85 Python tests** |
 | BTZ root/native Rust | **PASS — 18 root and 7 portable tests** |
@@ -35,10 +35,14 @@ An independent fresh clone normalized directories to `0755` and regular files to
 | Installed-Wasm PocketIC regressions | **PASS — 10 tests, one live test orchestrated separately** |
 | Concurrent live PocketIC/browser | **PASS — segments 0–10 and 11 browser assertions** |
 | S09 genuine-certificate snapshot regression | **PASS — 12 assertions** |
+| Explicit same-version recovery | **PASS — current `6327056…` normal Wasm over the identical current module** |
+| Historical S10-to-S11 upgrade | **PASS locally — source-built `e4405bb…` baseline upgraded to `4a0e1ae…`** |
 | Published BTZ CI at old `3c24edb…` | **FAIL — browser job only; source/native/Wasm/live jobs passed** |
 | Fresh BTZ CI at current branch | **BLOCKED — requires an authorized push** |
 
-The final provenance-bound cross-version run used the source-built S10 module from commit `e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0`, tree `42c9f5c7b01b94bd1fe6da40cc55bc34513f7220`. Its recorded Wasm hash was `0dc9d72b080dea976e3a66490f28f84e19ab4a87215b374ac84c1975af7b9b8c`. The run checked that the BTZ source revision, tree, remote and clean-worktree state remained unchanged before starting PocketIC. The replacement normal Wasm was `f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef`; the test-hook Wasm was `1a285b339c4bcb6c6872ab6cb206aac3b8bb92b7c140f734d10953ad4c997cfd`. Wasm builds are not claimed to be byte-reproducible.
+The explicitly labelled same-version run used BTZ source commit `632705688b726563be76b279642f2fa687b48886`, tree `74ef98d55cdf8f3309969c33e92630decd27fafa`, and installed the current normal module over the same current normal module. Both source-bound artifacts had SHA-256 `f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef`. It passed 10 installed-Wasm tests, the separately orchestrated live test with 11 browser assertions and the certified snapshot with 12 assertions. This is same-version recovery evidence only.
+
+The distinct provenance-bound cross-version run used the source-built S10 module from commit `e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0`, tree `42c9f5c7b01b94bd1fe6da40cc55bc34513f7220`. Its recorded Wasm hash was `0dc9d72b080dea976e3a66490f28f84e19ab4a87215b374ac84c1975af7b9b8c`. The run checked that the BTZ source revision, tree, remote and clean-worktree state remained unchanged before starting PocketIC. The replacement was source commit `4a0e1aef904e99a41948d70ff885f3ad839e2b03`, tree `83b2802e86711e59a34de9b2059fc10d12db54fc`; its normal Wasm was `f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef` and its test-hook Wasm was `1a285b339c4bcb6c6872ab6cb206aac3b8bb92b7c140f734d10953ad4c997cfd`. Wasm builds are not claimed to be byte-reproducible.
 
 The installed-Wasm suite took 143.103 seconds. The live concurrent slice took 97.741 seconds and the genuine-certificate snapshot browser regression took 17.695 seconds. The owned PocketIC process was healthy and cleaned up.
 
@@ -50,4 +54,4 @@ The S10 module installed first and upgraded to S11 during unfinished work and at
 
 DTR is fully available at the real remote and its current workflow passes. BTZ workflow run `38173694389` at the older remote commit `3c24edb8979c5e1ab523f9e1d35beb1062718efe` is correctly recorded as **FAIL**: only `Browser HTTP and Web Crypto` failed, because that workflow lacked `npm ci`; the source, native, Wasm and live-local jobs passed. The current branch contains the dependency-install fix and the corresponding local browser check passes.
 
-Fresh CI for the current BTZ branch is **BLOCKED** until the user authorizes pushing it. No push, force-push, registry publication, public-network deployment, GitHub setting change, real wallet/funds action, payout or production-controller change occurred. Production scalability, settlement, trust-root policy, capacity and reproducible-Wasm gates remain separate.
+Fresh CI for the current BTZ branch, including a fresh-runner source-built historical gate, is **BLOCKED** until the user authorizes pushing it. No push, force-push, registry publication, public-network deployment, GitHub setting change, real wallet/funds action, payout or production-controller change occurred. Production scalability, settlement, trust-root policy, capacity and reproducible-Wasm gates remain separate.
