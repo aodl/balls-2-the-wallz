@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S11",
+  "date": "2026-10-11",
+  "scope": "remote integration closeout",
+  "overall": "BLOCKED",
+  "local_result": "PASS",
+  "blocking_gate": "fresh current-revision BTZ CI requires an authorized push",
+  "btz": {
+    "path": "/home/codexdev/src/btz",
+    "remote": "https://github.com/aodl/balls-2-the-wallz",
+    "branch": "checkpoint/s11-dtr-extraction",
+    "tested_implementation_commit": "4a0e1aef904e99a41948d70ff885f3ad839e2b03",
+    "tested_tree": "83b2802e86711e59a34de9b2059fc10d12db54fc",
+    "working_tree_changes_during_regression": []
+  },
+  "dtr": {
+    "path": "/home/codexdev/src/dtr",
+    "remote": "https://github.com/aodl/dtr.git",
+    "branch": "checkpoint/s11-dtr-extraction",
+    "tested_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "tested_tree": "c7b4e138a1c5cc43744e984e6e4081fa483d9383",
+    "local_documentation_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
+    "local_documentation_head_tree": "afce8ff8ac9dd7286389b993225b7c7784a7e499",
+    "remote_head": "869404401216624c3145bbbfcaebf725bb618785",
+    "remote_head_tree": "b6bd54fa51051040a0a34cc80aeeaae558978dc1",
+    "remote_match": "PASS"
+  },
+  "dependencies": {
+    "rust_git": "https://github.com/aodl/dtr.git",
+    "rust_rev": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "rust_tree": "c7b4e138a1c5cc43744e984e6e4081fa483d9383",
+    "javascript_name": "@dtr/timeline-runtime",
+    "javascript_version": "0.11.0",
+    "javascript_files": 20,
+    "javascript_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "javascript_integrity": "sha512-lql0NVgK93P26YRvjhfiCXBIK4ZKJ68F0CZBPCrxZAR0+OqMkxROoheOnLtVy8VcTgbiwGz5S1dVxG5vgLIp6w==",
+    "javascript_shasum": "c0cb67ca94560575be20a9c14aabf92ddf58b553",
+    "packaging_node": "24.15.0",
+    "packaging_npm": "11.12.1",
+    "byte_reproduction": "PASS: normalized directories 0755 and regular files 0644; exact npm version"
+  },
+  "lockfiles": {
+    "Cargo.lock": "a1860dfacff801be91ff97468042b7e2ed0f2941c00c6049062edee1ec2d8e60",
+    "native/Cargo.lock": "1064d4838b33f9b0e8acb98c246c2c61751c9ce69359e42fa2d570bcdb8bb5e8",
+    "canisters/runtime-lab/Cargo.lock": "b2c5bd0f49e794e60f4ef2d36d39fd599587026fc2541b53e13ff53c7e043980",
+    "tools/s09-integration/Cargo.lock": "94315659d1f72b8cc2393f9c4bc1860b261aeb738bd690c262cd9ca86c874a7a",
+    "package-lock.json": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "clean-rust-consumer/Cargo.lock": "1ea61266e5d55151cdc33e0858ca83391f4d26a36f9328c840adf8bd2f56a7f3",
+    "clean-javascript-consumer/package-lock.json": "464752415ecf2b0b595bd193f079f8e7aeef0df61bc97c107c542b25203936bc"
+  },
+  "checks": [
+    {
+      "id": "dtr-remote-clean-clone",
+      "status": "PASS"
+    },
+    {
+      "id": "dtr-remote-ci",
+      "status": "PASS",
+      "run": 38173327599,
+      "job": 114570367223,
+      "head": "869404401216624c3145bbbfcaebf725bb618785"
+    },
+    {
+      "id": "dtr-standalone",
+      "status": "PASS",
+      "javascript_tests": 186,
+      "rust_tests": 29,
+      "format": "PASS",
+      "clippy": "PASS"
+    },
+    {
+      "id": "clean-package-consumers",
+      "status": "PASS",
+      "javascript_tests": 1,
+      "rust_packages": 4,
+      "cargo_home_started_empty": true,
+      "git_url_rewrites_disabled": true,
+      "location": "disposable directory outside both source repositories"
+    },
+    {
+      "id": "btz-source",
+      "status": "PASS",
+      "javascript_tests": 1166,
+      "python_tests": 85
+    },
+    {
+      "id": "btz-native",
+      "status": "PASS",
+      "root_tests": 18,
+      "portable_tests": 7
+    },
+    {
+      "id": "btz-wasm-candid-format-clippy",
+      "status": "PASS"
+    },
+    {
+      "id": "browser-http-webcrypto",
+      "status": "PASS",
+      "assertions": 11
+    },
+    {
+      "id": "pocketic-regressions",
+      "status": "PASS",
+      "tests": 10,
+      "ignored_live_test_run_separately": 1
+    },
+    {
+      "id": "live-autonomous-certified-observer",
+      "status": "PASS",
+      "segments": 11,
+      "browser_assertions": 11
+    },
+    {
+      "id": "s09-certified-snapshot-regression",
+      "status": "PASS",
+      "browser_assertions": 12
+    },
+    {
+      "id": "s10-to-s11-upgrade",
+      "status": "PASS",
+      "baseline_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
+      "baseline_tree": "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220",
+      "boundaries": [
+        "idle",
+        "running",
+        "ready",
+        "published"
+      ]
+    },
+    {
+      "id": "retained-render-and-certificate-fail-closed",
+      "status": "PASS"
+    },
+    {
+      "id": "published-btz-ci",
+      "status": "FAIL",
+      "run": 38173694389,
+      "head": "3c24edb8979c5e1ab523f9e1d35beb1062718efe",
+      "reason": "browser job 114571471010 lacked npm dependency installation; source, native, Wasm and live-local jobs passed"
+    },
+    {
+      "id": "fresh-current-btz-ci",
+      "status": "BLOCKED",
+      "run": null,
+      "reason": "current repaired branch has not been pushed because push authorization was explicitly withheld"
+    }
+  ],
+  "artifacts": {
+    "s10_source_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
+    "s10_source_tree": "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220",
+    "s10_baseline_wasm": "0dc9d72b080dea976e3a66490f28f84e19ab4a87215b374ac84c1975af7b9b8c",
+    "s11_normal_wasm": "f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef",
+    "s11_test_hook_wasm": "1a285b339c4bcb6c6872ab6cb206aac3b8bb92b7c140f734d10953ad4c997cfd",
+    "generated_candid": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
+    "ledger_wasm": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ledger_archive": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42",
+    "pocketic": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "disposable_root": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c"
+  },
+  "live_measurements": {
+    "segment_heads": "0..10",
+    "input_assignments": {
+      "first": 0,
+      "after_first_publication": 3,
+      "dropped_hint": 5
+    },
+    "ledger_calls": 30,
+    "archive_calls": 2,
+    "retained_publications": 3,
+    "retained_bytes": 14672,
+    "event_bytes_min": 275,
+    "event_bytes_max": 2373,
+    "event_bytes_total": 15126,
+    "publication_bytes_min": 3245,
+    "publication_bytes_max": 5895,
+    "publication_and_artifact_bytes_total": 51998,
+    "input_high_water": 3,
+    "active_balls": 3,
+    "active_cannons": 2,
+    "work_total": 3398,
+    "work_max_segment": 732
+  },
+  "tools": {
+    "rustc": "1.94.1",
+    "cargo": "1.94.1",
+    "node": "24.15.0",
+    "npm": "11.12.1",
+    "python": "3.11.14",
+    "pocketic": "16.1.0",
+    "playwright": "1.63.0",
+    "chromium": "Google Chrome for Testing 153.0.8010.12",
+    "ic_agent": "0.49.2",
+    "icp_sdk_core": "6.1.0"
+  }
+}

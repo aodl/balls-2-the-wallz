@@ -9,26 +9,40 @@
     "documentation_commit": "eb1f971e4190694ba76fec530e8f93ebce507939",
     "successful_ci_run": 38152955234
   },
-  "tested_btz_implementation_commit": "5c522373055686114bf9dd9e9a30c8e9b03e4b8b",
+  "tested_btz_implementation_commit": "4a0e1aef904e99a41948d70ff885f3ad839e2b03",
+  "tested_btz_tree": "83b2802e86711e59a34de9b2059fc10d12db54fc",
   "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
+  "tested_dtr_tree": "c7b4e138a1c5cc43744e984e6e4081fa483d9383",
   "dtr_remote": "https://github.com/aodl/dtr.git",
+  "dtr_remote_head": "869404401216624c3145bbbfcaebf725bb618785",
+  "dtr_local_documentation_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
+  "dtr_successful_ci_run": 38173327599,
+  "btz_published_ci": {
+    "commit": "3c24edb8979c5e1ab523f9e1d35beb1062718efe",
+    "run": 38173694389,
+    "result": "FAIL"
+  },
   "successful_ci_run": null,
   "local_extraction_complete": true,
+  "remote_dtr_verification_complete": true,
+  "btz_ready_to_push": true,
   "delivery_complete": false,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
+    "evidence/S11/remote-integration-verification.json",
+    "checkpoints/S11_CLOSEOUT.md",
     "evidence/S11/verification-summary.json",
     "evidence/S11/runtime-lab.generated.did",
     "/home/codexdev/src/dtr/evidence/S11/verification-summary.json"
   ],
-  "next_checkpoint": "review and authorize one bounded remote publication/fresh-CI closeout",
+  "next_checkpoint": "authorize the BTZ branch push and require fresh current-revision CI; do not start S12",
   "limitations": [
-    "The standalone DTR remote has not yet been authorized, created or pushed; remote-pinned clean-clone and fresh two-repository CI remain BLOCKED.",
-    "The committed JavaScript package is an immutable local npm-pack artifact and was not published to a registry.",
+    "Fresh BTZ CI for the current repaired branch is BLOCKED until its push is authorized; the only published S11 BTZ run is a failure at an older commit.",
+    "The committed JavaScript package is reproducible with the recorded normalized-mode/npm 11.12.1 recipe but was not published to a registry.",
     "Independent byte-reproducible Wasm remains an open release gate.",
-    "S11 preserves a disposable local correctness demonstration and is not production deployment, financial, scalability, capacity or governance evidence.",
-    "No public-network deployment, wallet access, real transfer, payout, production-controller change, package publication or release occurred."
+    "S11 is local/CI correctness evidence and is not production deployment, financial, scalability, capacity or governance evidence.",
+    "No public-network deployment, wallet access, real transfer, payout, production-controller change, package publication, push or release occurred."
   ]
 }
