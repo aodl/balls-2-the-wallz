@@ -4,7 +4,7 @@ Offline mode uses original ES modules in data URLs, a local fetch fixture and ho
 It does NOT validate production CSP, native browser Web Crypto, or HTTP module loading.
 No browser policy is changed and no browser or package is downloaded.
 """
-import argparse, base64, hashlib, importlib.metadata, json, mimetypes, re, shutil, sys, time
+import argparse, base64, hashlib, importlib.metadata, json, mimetypes, re, subprocess, sys, time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 APP=ROOT/'apps/btz-observer'
@@ -72,7 +72,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--mode',choices=['offline','http'],default='http')
     p.add_argument('--trust',choices=['offline','local'],default='offline')
     p.add_argument('--url',default='http://127.0.0.1:8080/apps/btz-observer/')
-    p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser',default=shutil.which('chromium'))
+    p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
     report={'checkpoint':json.loads((ROOT/'CHECKPOINT.json').read_text())['checkpoint_id'],'mode':a.mode,'trust':a.trust,'overall':'IN_PROGRESS','checks':[],
       'qualification':('Chromium layout, canvas and application execution in an isolated fixture document. Transport fixtures and Python hashlib SHA-256 adapter; NOT native browser Web Crypto, HTTP/CSP or IC certification.' if a.mode=='offline' else ('Local HTTP with native browser Web Crypto and standard-library verification of a genuine certificate from the configured disposable PocketIC instance.' if a.trust=='local' else 'Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.'))}
@@ -84,11 +84,23 @@ def main():
     except ImportError:
         report['overall']='BLOCKED';record('browser-tooling','BLOCKED','Playwright not installed; no installer run.');return 2
     with sync_playwright() as pw:
+        selected=Path(a.browser or pw.chromium.executable_path).resolve()
+        if not selected.is_file():
+            report['overall']='BLOCKED';record('browser-selection','BLOCKED',f'Browser executable is missing: {selected}');return 2
+        executable_version=subprocess.run([str(selected),'--version'],text=True,capture_output=True,timeout=15)
+        report['browser_executable']={
+          'path':str(selected),'selection':'explicit-cli' if a.browser else 'playwright-bundled',
+          'version_exit_code':executable_version.returncode,
+          'version_text':(executable_version.stdout+executable_version.stderr).strip(),
+        }
+        record('browser-selection','PASS',f'{report["browser_executable"]["selection"]}: {selected}')
         try:
-            browser=pw.chromium.launch(executable_path=a.browser,headless=True,chromium_sandbox=True)
+            browser=pw.chromium.launch(executable_path=str(selected),headless=True,chromium_sandbox=True)
         except Exception as e:
             report['overall']='BLOCKED';record('browser-launch','BLOCKED',str(e));return 2
         report['browser_version']=browser.version;report['playwright_version']=importlib.metadata.version('playwright')
+        report['sandbox']={'requested':True,'launch_option':'chromium_sandbox=True'}
+        record('browser-sandbox','PASS','Chromium launched with Playwright sandbox support explicitly enabled.')
         context=browser.new_context(viewport={'width':1400,'height':1100},device_scale_factor=1)
         page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
         try:
