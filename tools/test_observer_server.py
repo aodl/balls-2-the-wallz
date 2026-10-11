@@ -1,6 +1,7 @@
 """HTTP-serving behavior, independent of Chromium's environment navigation policy."""
-import http.client, http.server, threading, unittest
-from serve_observer import ObserverHandler
+import http.client, http.server, tempfile, threading, unittest
+from pathlib import Path
+from serve_observer import ObserverHandler, observer_dependency_error
 class Quiet(ObserverHandler):
     def log_message(self,*args):pass
 class ObserverServerTests(unittest.TestCase):
@@ -38,4 +39,15 @@ class ObserverServerTests(unittest.TestCase):
     def test_no_write_methods(self):self.assertEqual(self.get('/apps/btz-observer/','POST')[0],404)
     def test_head_does_not_bypass_allowlist(self):self.assertEqual(self.get('/CHECKPOINT.json','HEAD')[0],405)
     def test_root_redirect(self):self.assertEqual(self.get('/')[1]['Location'],'/apps/btz-observer/')
+    def test_missing_packaged_modules_have_actionable_setup_error(self):
+        with tempfile.TemporaryDirectory() as directory:
+            error=observer_dependency_error(Path(directory))
+        self.assertIn('npm ci --ignore-scripts',error)
+        self.assertIn('playout.mjs',error)
+    def test_installed_packaged_modules_satisfy_prerequisite(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for relative in ('packages/client/playout.mjs','packages/client/verification.mjs','packages/runtime/canonical.mjs'):
+                path=root/'node_modules/@dtr/timeline-runtime'/relative;path.parent.mkdir(parents=True,exist_ok=True);path.touch()
+            self.assertIsNone(observer_dependency_error(root))
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,12 @@
+{
+  "name": "dtr-isolated-consumer-check",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node consumer.mjs"
+  },
+  "dependencies": {
+    "@dtr/timeline-runtime": "file:./dtr-package.tgz"
+  }
+}

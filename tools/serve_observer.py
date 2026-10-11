@@ -4,11 +4,22 @@ import argparse, http.server, re, urllib.error, urllib.request
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 ROOT=Path(__file__).resolve().parents[1]
+REQUIRED_DTR_MODULES=(
+    'packages/client/playout.mjs',
+    'packages/client/verification.mjs',
+    'packages/runtime/canonical.mjs',
+)
 LOCAL_SNAPSHOT=None
 LIVE_CONFIG=None
 LIVE_CANISTER=None
 IC_GATEWAY=None
 GENERATED_ASSETS=None
+def observer_dependency_error(root=ROOT):
+    package=root/'node_modules/@dtr/timeline-runtime'
+    missing=[str(package/relative) for relative in REQUIRED_DTR_MODULES if not(package/relative).is_file()]
+    if not missing:return None
+    return ('installed DTR observer modules are missing: '+', '.join(missing)
+      +'. Run `npm ci --ignore-scripts` from the BTZ repository root before starting the observer.')
 class ObserverHandler(http.server.SimpleHTTPRequestHandler):
     extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript','.bin':'application/octet-stream'}
     def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)
@@ -78,6 +89,7 @@ def main():
     p.add_argument('--local-snapshot',type=Path);p.add_argument('--live-config',type=Path);p.add_argument('--ic-gateway');p.add_argument('--live-canister')
     p.add_argument('--generated-assets',type=Path);a=p.parse_args()
     if not 0<=a.port<=65535:p.error('port outside range')
+    if dependency_error:=observer_dependency_error():p.error(dependency_error)
     if a.local_snapshot:
         LOCAL_SNAPSHOT=a.local_snapshot.resolve()
         if not LOCAL_SNAPSHOT.is_dir():p.error('--local-snapshot is not a directory')

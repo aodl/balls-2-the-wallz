@@ -258,18 +258,38 @@ fn required_path(name: &str) -> PathBuf {
 }
 
 fn baseline_runtime_wasm(current: &[u8]) -> Vec<u8> {
-    match std::env::var_os("DTR_BASELINE_RUNTIME_WASM") {
-        Some(path) => {
-            let path = PathBuf::from(path);
-            assert!(
-                path.is_file(),
-                "DTR_BASELINE_RUNTIME_WASM is not a file: {}",
-                path.display()
+    let mode = std::env::var("DTR_UPGRADE_TEST_MODE")
+        .expect("DTR_UPGRADE_TEST_MODE must explicitly select same-version or cross-version");
+    let path = required_path("DTR_BASELINE_RUNTIME_WASM");
+    let baseline = std::fs::read(path).unwrap();
+    let baseline_revision = std::env::var("DTR_BASELINE_SOURCE_REVISION")
+        .expect("DTR_BASELINE_SOURCE_REVISION is required");
+    let baseline_tree =
+        std::env::var("DTR_BASELINE_SOURCE_TREE").expect("DTR_BASELINE_SOURCE_TREE is required");
+    let replacement_revision = std::env::var("DTR_REPLACEMENT_SOURCE_REVISION")
+        .expect("DTR_REPLACEMENT_SOURCE_REVISION is required");
+    let replacement_tree = std::env::var("DTR_REPLACEMENT_SOURCE_TREE")
+        .expect("DTR_REPLACEMENT_SOURCE_TREE is required");
+    assert!(!replacement_revision.is_empty() && !replacement_tree.is_empty());
+    match mode.as_str() {
+        "same-version" => {
+            assert_eq!(
+                baseline, current,
+                "same-version baseline must be the current normal module"
             );
-            std::fs::read(path).unwrap()
+            assert_eq!(baseline_revision, replacement_revision);
+            assert_eq!(baseline_tree, replacement_tree);
         }
-        None => current.to_vec(),
+        "cross-version" => {
+            assert_eq!(
+                baseline_revision,
+                "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0"
+            );
+            assert_eq!(baseline_tree, "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220");
+        }
+        other => panic!("unknown DTR_UPGRADE_TEST_MODE: {other}"),
     }
+    baseline
 }
 
 fn instance() -> PocketIc {

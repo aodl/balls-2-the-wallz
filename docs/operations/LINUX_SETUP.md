@@ -2,6 +2,12 @@
 
 This checkout requires Node 22.16 or later, Python 3.11 or later, and the repository-pinned Rust 1.94.1 toolchain. Setup is user-scoped; do not replace the system Python or change the global Rust default.
 
+Install the lockfile-pinned JavaScript dependencies before running source checks or starting the observer. This materializes the immutable DTR package under `node_modules/@dtr/timeline-runtime`; neither the tests nor the observer install it implicitly.
+
+```sh
+npm ci --ignore-scripts
+```
+
 ## Python
 
 Use an existing Python 3.11+ interpreter when available. One reviewed user-scoped option is:
@@ -44,6 +50,7 @@ python3.11 -m venv /path/outside/checkout/browser-venv
 Run the complete HTTP gate with the virtual environment's interpreter:
 
 ```sh
+npm ci --ignore-scripts
 /path/outside/checkout/browser-venv/bin/python -B \
   tools/verify_observer_http.py --output .work/browser-http
 ```
@@ -52,7 +59,7 @@ Playwright's bundled browser still needs host shared libraries. Install system p
 
 All local IC commands must use `DFX_IDENTITY=codex_local`. These setup steps do not deploy to any network.
 
-## S09 disposable PocketIC slice
+## Disposable PocketIC and S11 upgrade slices
 
 The integration runner does not use dfx or an identity. It validates/downloads the exact PocketIC and upstream ICP-ledger artifacts declared in `tools/s09-artifacts.json` to `~/dtr-s09-artifacts`, builds with Rust 1.94.1 and committed locks, creates fresh in-process PocketIC instances, and terminates them after the test.
 
@@ -62,6 +69,18 @@ Run it with the same Python 3.11 Playwright environment. If this host uses the r
 LD_LIBRARY_PATH=/path/to/user-local/browser-libs \
   /path/outside/checkout/browser-venv/bin/python -B \
   tools/verify_s09_local.py --output .work/s09/final
+```
+
+The S11 wrapper has two explicit modes. `same-version` retains recovery coverage with the current normal module installed first. `cross-version` makes a fresh public-source checkout of pinned S10 revision `e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0`, validates its tree, builds and snapshots that historical module, then builds and installs the current replacement. A missing or invalid historical build fails; there is no current-module fallback.
+
+```sh
+LD_LIBRARY_PATH=/path/to/user-local/browser-libs \
+  /path/outside/checkout/browser-venv/bin/python -B \
+  tools/verify_s10_local.py --upgrade-mode same-version --output .work/s11/same-version
+
+LD_LIBRARY_PATH=/path/to/user-local/browser-libs \
+  /path/outside/checkout/browser-venv/bin/python -B \
+  tools/verify_s10_local.py --upgrade-mode cross-version --output .work/s11/historical-upgrade
 ```
 
 The runner starts one pinned PocketIC server, points every fresh test instance at it, and terminates only that owned server process group before browser verification. The output contains sanitized commands, versions, exit codes and hashes. The browser snapshot contains a disposable local root key and certificate, not an identity or wallet secret; it remains uncommitted under `.work/`. Do not reuse that root as a production trust anchor.

@@ -1,0 +1,13 @@
+[package]
+name = "dtr-isolated-consumer-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+dtr-core = { git = "https://github.com/aodl/dtr.git", rev = "71e59e93cf49a3656689679b538b4c3f138787f8" }
+dtr-source-model = { git = "https://github.com/aodl/dtr.git", rev = "71e59e93cf49a3656689679b538b4c3f138787f8" }
+dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "71e59e93cf49a3656689679b538b4c3f138787f8" }
+dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "71e59e93cf49a3656689679b538b4c3f138787f8" }

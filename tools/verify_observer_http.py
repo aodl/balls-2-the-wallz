@@ -9,6 +9,7 @@ import sys
 import time
 import urllib.request
 from pathlib import Path
+from serve_observer import observer_dependency_error
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -32,6 +33,8 @@ def main():
     parser.add_argument('--local-snapshot',type=Path);parser.add_argument('--live-config',type=Path);parser.add_argument('--ic-gateway')
     parser.add_argument('--live-canister');parser.add_argument('--coordination',type=Path);args=parser.parse_args()
     if args.local_snapshot and args.live_config:parser.error('snapshot and live modes are mutually exclusive')
+    if dependency_error:=observer_dependency_error():
+        print(f'BLOCKED: {dependency_error}',file=sys.stderr);return 2
     args.output.mkdir(parents=True,exist_ok=True);port=free_port();url=f'http://127.0.0.1:{port}/apps/btz-observer/'
     server_command=[sys.executable,'-B','tools/serve_observer.py','--port',str(port)]
     browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--url',url,'--output',str(args.output)]
