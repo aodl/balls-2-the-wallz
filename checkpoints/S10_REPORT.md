@@ -6,7 +6,7 @@
 
 - Branch: `checkpoint/s10-live-local-observer`.
 - Corrected S09 base: `68e714979eaf72c3d301b1cc43c1ec2caccd1a27`; S09 documentation head: `d06c3c787b253939cb5844ab2940792273d24614`.
-- S10 implementation and tests: `af029ac` and `9d3406b`.
+- S10 implementation and tests: `af029ac`, `9d3406b` and `e4405bb`.
 - The accidentally attached S08 archive was not imported or used.
 - [S09 Wasm provenance](../evidence/S09/WASM_PROVENANCE_NOTE.md) records the distinct developer and fresh-CI hashes without asserting a cause. Independent byte-reproducible Wasm remains a release gate.
 
@@ -18,7 +18,7 @@ This checkpoint changes no BTZ v3 gameplay, payment envelope, authoritative stat
 
 Duplicate starts with the same configuration are idempotent. A conflicting start is rejected. Pause increments the generation and leaves committed and staged state intact. Post-upgrade recovery installs one new timer generation and continues unfinished work. Controller `Seal`, `Step` and `Publish` calls are rejected while autonomy is active; the browser has no update surface.
 
-The explicit local input policy seals the verified contiguous source prefix visible at the next idle callback. Later ledger records enter a later eligible seal. Empty prefixes remain valid, so existing balls continue moving without payments. The live run assigned a pre-start valid record to segment 0, a valid record submitted after the first publication to a later segment, and an unhinted valid record to segment 5. Every source receipt appeared exactly once in the captured events.
+The explicit local input policy seals the verified contiguous source prefix visible at the next idle callback. Later ledger records enter a later eligible seal. Empty prefixes remain valid, so existing balls continue moving without payments. The final clean live run assigned a pre-start valid record to segment 0, a valid record submitted after the first publication to segment 2, and an unhinted valid record to segment 5. Every source receipt appeared exactly once in the captured events. These assignment numbers are observed local timing, while deterministic replay holds the resulting seals fixed.
 
 S09's source recovery remains in place. S10 refreshes only the matching generation/nonce/ledger/cursor lease after a verified ledger reply that requires an archive call. An installed-Wasm test delayed both legs, crossed the old 45-second total age, and still advanced exactly once through the official ledger/archive interface. Late replacements remain fenced.
 
@@ -52,6 +52,8 @@ The concurrent test authenticated genesis before the single start, then observed
 
 The complete cold local run started with an empty harness target. Compilation took 624.465 seconds and completed before the owned PocketIC server was started with its unchanged 60-second idle and 900-second hard limit. The server stayed healthy, recorded its selected identity/output and was cleaned up through only the owned process group.
 
+The final full wrapper rerun recorded exact clean revision `e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0`. Its prepared-harness step used the already established local target and took 0.834 seconds; the 10 installed-Wasm regressions took 120.939 seconds, the concurrent live slice took 74.711 seconds, and the retained S09 snapshot regression took 12.630 seconds. The live test advances the gateway instance on host elapsed time rather than accelerating its clock ahead of Chromium, so certificate age and future-skew checks stay enabled and meaningful.
+
 The pinned Playwright executable reported `Google Chrome for Testing 153.0.8010.12`; Playwright was 1.63.0. The local host used the documented user-local shared-library bundle via `LD_LIBRARY_PATH`, without sudo or system modification. `chromium_sandbox=True` remained enabled and passed.
 
 Local artifact identities are:
@@ -70,7 +72,7 @@ The test-only scan state/fault exports are absent from the normal Wasm. The decl
 
 ## Local measurements
 
-The recorded run retained 3 publications using 14,672 bytes at stop. Across 11 segments, event artifacts ranged from 275 to 2,373 bytes (15,126 total); publication catalogs plus all authoritative artifacts ranged from 3,245 to 5,895 bytes (51,998 total). The observed input-queue high-water mark was 3. The final world had 3 active balls and 2 cannons. Coordinator work totaled 3,398 units with a per-segment maximum of 732. The run made 30 ledger and 2 archive calls. The browser's maximum buffer was 4 segments / about 6.68 logical ticks and it performed one explicit resynchronization.
+The final clean run retained 3 publications using 14,840 bytes at stop. Across 11 segments, event artifacts ranged from 681 to 2,207 bytes (15,755 total); publication catalogs plus all authoritative artifacts ranged from 3,652 to 5,731 bytes (53,068 total). The observed input-queue high-water mark was 3. The final world had 3 active balls and 2 cannons. Coordinator work totaled 3,612 units with a per-segment maximum of 731. The run made 26 ledger and 2 archive calls. Across the recorded local runs, the browser's maximum observed buffer was 4 segments / about 6.68 logical ticks and it performed one explicit resynchronization.
 
 These values are disposable-local observations, not cycle, mainnet capacity, finality, availability or economic evidence.
 

@@ -3,12 +3,13 @@
   "checkpoint": "S10",
   "date": "2026-10-11",
   "branch": "checkpoint/s10-live-local-observer",
-  "tested_implementation_revision": "9d3406b3d4fa9da3fe9edc2a048f13ab7357fd24",
+  "tested_implementation_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
   "decision": "PASS_LOCAL_CI_PENDING",
   "production_promotion": "BLOCKED",
   "implementation_commits": [
     "af029ac",
-    "9d3406b"
+    "9d3406b",
+    "e4405bb"
   ],
   "local_results": {
     "source": {
@@ -53,6 +54,15 @@
       "server_idle_ttl_seconds": 60,
       "server_hard_ttl_seconds": 900,
       "server_cleaned_up": true
+    },
+    "exact_clean_rerun": {
+      "status": "PASS",
+      "git_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
+      "working_tree_changes": [],
+      "prepared_harness_seconds": 0.834,
+      "installed_wasm_regressions_seconds": 120.939,
+      "live_concurrent_slice_seconds": 74.711,
+      "s09_snapshot_regression_seconds": 12.63
     }
   },
   "live_browser": {
@@ -87,23 +97,23 @@
   "resource_observations": {
     "qualification": "Disposable local measurements, not mainnet capacity, cycle burn, finality or cost evidence.",
     "event_bytes_per_segment": {
-      "minimum": 275,
-      "maximum": 2373,
-      "total": 15126
+      "minimum": 681,
+      "maximum": 2207,
+      "total": 15755
     },
     "publication_plus_artifacts_bytes_per_segment": {
-      "minimum": 3245,
-      "maximum": 5895,
-      "total": 51998
+      "minimum": 3652,
+      "maximum": 5731,
+      "total": 53068
     },
     "retained_publications": 3,
-    "retained_bytes_at_stop": 14672,
+    "retained_bytes_at_stop": 14840,
     "input_queue_observed_high_water": 3,
     "active_balls_at_stop": 3,
     "active_cannons_at_stop": 2,
-    "coordinator_work_total": 3398,
-    "coordinator_work_max_per_segment": 732,
-    "ledger_calls": 30,
+    "coordinator_work_total": 3612,
+    "coordinator_work_max_per_segment": 731,
+    "ledger_calls": 26,
     "archive_calls": 2,
     "browser_max_buffer_segments": 4,
     "browser_max_buffer_logical_ticks": 6.6791591232000025,
@@ -111,7 +121,7 @@
   },
   "input_assignment_example": {
     "first_pre_start_valid_record_segment": 0,
-    "post_first_publication_valid_record_segment": 3,
+    "post_first_publication_valid_record_segment": 2,
     "dropped_hint_valid_record_segment": 5,
     "policy": "seal the verified contiguous source prefix visible at the next idle autonomous callback",
     "timing_qualification": "Segment assignment is timing-dependent local evidence; replay holds the recorded seals fixed."
@@ -143,7 +153,8 @@
     "python3.11 -B tools/check.py native --output .work/s10/precommit-native",
     "python3.11 -B tools/check.py wasm --output .work/s10/precommit-wasm",
     "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/check.py browser --output .work/s10/precommit-browser",
-    "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/verify_s10_local.py --output .work/s10/precommit-integration"
+    "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/verify_s10_local.py --output .work/s10/precommit-integration",
+    "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/verify_s10_local.py --output .work/s10/timing-fix-run"
   ],
   "fresh_ci": {
     "status": "NOT_RUN",

@@ -10,6 +10,7 @@
     "successful_ci_run": 38132545307
   },
   "implementation_scope": "One explicitly started disposable-PocketIC service autonomously ingests valueless ledger records, publishes consecutive BTZ segments, retains a bounded authenticated window, and serves a concurrently connected certified browser observer",
+  "tested_implementation_commit": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
   "delivery_complete": true,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
