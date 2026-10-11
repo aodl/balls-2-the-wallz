@@ -19,6 +19,7 @@ ROOT=Path(__file__).resolve().parents[1]
 DTR_GIT='https://github.com/aodl/dtr.git'
 DTR_REV='71e59e93cf49a3656689679b538b4c3f138787f8'
 DTR_TREE='c7b4e138a1c5cc43744e984e6e4081fa483d9383'
+VENDOR_NPM='11.12.1'
 VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'
 
 def digest(path,algorithm='sha256'):
@@ -89,18 +90,21 @@ def rust_lock_sources(path):
         raise ValueError(f'Rust consumer did not lock all DTR crates to the exact remote revision: {packages}')
     return packages
 
-def validate_vendor(source,generated):
+def validate_vendor(source,generated,packaging_npm):
     generated_payload=archive_payload(generated);vendor_payload=archive_payload(VENDOR)
     if len(generated_payload)!=20 or set(generated_payload)!=set(vendor_payload):raise ValueError('DTR package inventory mismatch')
     verify_payload(generated_payload,source);verify_payload(vendor_payload,source)
     if generated_payload!=vendor_payload:raise ValueError('vendored and freshly packed DTR payloads differ')
-    if generated.read_bytes()!=VENDOR.read_bytes():raise ValueError('vendored DTR package is not byte-reproducible')
+    byte_reproduction={'status':'NOT_RUN','reason':f'vendor used npm {VENDOR_NPM}; current packaging used npm {packaging_npm}'}
+    if packaging_npm==VENDOR_NPM:
+        if generated.read_bytes()!=VENDOR.read_bytes():raise ValueError('vendored DTR package is not byte-reproducible with its recorded npm version')
+        byte_reproduction={'status':'PASS','qualification':'same npm version and normalized source modes'}
     lock=json.loads((ROOT/'package-lock.json').read_text())
     locked=lock['packages']['node_modules/@dtr/timeline-runtime']
     if locked.get('integrity')!=integrity(VENDOR):raise ValueError('vendored DTR package integrity does not match package-lock.json')
     readme=(ROOT/'vendor/dtr/README.md').read_text()
     if DTR_GIT not in readme or DTR_REV not in readme or sha256(VENDOR) not in readme:raise ValueError('vendored DTR origin record is incomplete')
-    return sorted(generated_payload),locked['integrity']
+    return sorted(generated_payload),locked['integrity'],byte_reproduction
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=ROOT/'.work/dtr-consumers');args=parser.parse_args()
@@ -110,6 +114,8 @@ def main():
       'tools':{name:tool_version(command) for name,command in {
         'git':['git','--version'],'node':['node','--version'],'npm':['npm','--version'],
         'cargo':['cargo','+1.94.1','--version'],'rustc':['rustc','+1.94.1','--version']}.items()}}
+    report['btz']={'remote':git_value(ROOT,'remote','get-url','origin'),'revision':git_value(ROOT,'rev-parse','HEAD'),
+      'tree':git_value(ROOT,'rev-parse','HEAD^{tree}'),'working_tree_changes':git_value(ROOT,'status','--porcelain').splitlines()}
     destination.write_text(json.dumps(report,indent=2)+'\n')
     try:
         with tempfile.TemporaryDirectory(prefix='dtr-consumers-') as directory:
@@ -132,10 +138,12 @@ def main():
             if provenance['remote']!=DTR_GIT or provenance['revision']!=DTR_REV or provenance['tree']!=DTR_TREE or provenance['working_tree_changes']:
                 raise ValueError(f'invalid DTR source provenance: {provenance}')
             generated=distribution/'dtr-timeline-runtime-0.11.0.tgz'
-            inventory,vendor_integrity=validate_vendor(source,generated)
+            packaging_npm=report['tools']['npm']['text'].removeprefix('v')
+            inventory,vendor_integrity,byte_reproduction=validate_vendor(source,generated,packaging_npm)
             report['package']={'packaging_tool':report['tools']['npm']['text'],'files':inventory,'file_count':len(inventory),
               'fresh_sha256':sha256(generated),'fresh_integrity':integrity(generated),'vendor_sha256':sha256(VENDOR),
-              'vendor_integrity':vendor_integrity,'payload_source_correspondence':'PASS','byte_reproduction':'PASS'}
+              'vendor_integrity':vendor_integrity,'vendor_packaging_tool':f'npm {VENDOR_NPM}',
+              'payload_source_correspondence':'PASS','byte_reproduction':byte_reproduction}
 
             js=temporary/'javascript-consumer';shutil.copytree(ROOT/'tools/fixtures/dtr-consumer-js',js)
             shutil.copyfile(generated,js/'dtr-package.tgz')

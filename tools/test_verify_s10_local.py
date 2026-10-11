@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from verify_s10_local import select_upgrade_baseline
+from verify_s10_local import reuse_historical_baseline, select_upgrade_baseline
 
 
 class TestUpgradeBaselineSelection(unittest.TestCase):
@@ -24,6 +24,13 @@ class TestUpgradeBaselineSelection(unittest.TestCase):
                 select_upgrade_baseline('cross-version',current,root/'missing.wasm')
             historical=root/'historical.wasm';historical.write_bytes(b'historical')
             self.assertEqual(select_upgrade_baseline('cross-version',current,historical),historical)
+
+    def test_reused_historical_baseline_requires_source_bound_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'wasm').mkdir();wasm=root/'old.wasm';wasm.write_bytes(b'old')
+            evidence=root/'results.json';evidence.write_text('{}')
+            with self.assertRaisesRegex(ValueError,'provenance is invalid'):
+                reuse_historical_baseline(wasm,evidence,root)
 
 
 if __name__=='__main__':unittest.main()

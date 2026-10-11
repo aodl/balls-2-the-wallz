@@ -30,6 +30,21 @@ def source_provenance(root):
       'working_tree_changes':git_value(root,'status','--porcelain').splitlines(),
     }
 
+def require_unchanged_source(expected):
+    actual=source_provenance(ROOT)
+    if actual!=expected:raise ValueError(f'BTZ source changed during verification: started {expected}, now {actual}')
+
+def reuse_historical_baseline(wasm,evidence,output):
+    if wasm is None or evidence is None or not wasm.is_file() or not evidence.is_file():
+        raise ValueError('historical baseline reuse requires existing Wasm and evidence files')
+    prior=json.loads(evidence.read_text());source=prior.get('baseline_source',{});module=prior.get('module_provenance',{}).get('baseline',{})
+    if (source.get('remote','').removesuffix('.git')!=BTZ_GIT or source.get('revision')!=S10_REVISION
+      or source.get('tree')!=S10_TREE or module.get('source_revision')!=S10_REVISION or module.get('source_tree')!=S10_TREE
+      or module.get('sha256')!=sha256(wasm)):
+        raise ValueError('historical baseline reuse provenance is invalid')
+    snapshot=output/'wasm'/f'runtime-lab-s10-{S10_REVISION[:12]}.wasm';shutil.copyfile(wasm,snapshot)
+    return snapshot,{**source,'checkout':'verified-existing-source-built-artifact','evidence':str(evidence),'evidence_sha256':sha256(evidence)}
+
 def select_upgrade_baseline(mode,current,historical=None):
     """Select only an explicit same-version or source-built historical module."""
     if mode=='same-version':
@@ -143,6 +158,9 @@ def main():
     parser.add_argument('--output',type=Path,default=ROOT/'.work/s10/local-final')
     parser.add_argument('--upgrade-mode',choices=['same-version','cross-version'],default='same-version',
       help='same-version recovery, or a source-built S10-to-current historical upgrade')
+    parser.add_argument('--historical-baseline-wasm',type=Path,help='reuse a source-built S10 module (cross-version only)')
+    parser.add_argument('--historical-baseline-evidence',type=Path,help='results.json proving the reused S10 module provenance')
+    parser.add_argument('--harness-target',type=Path,help='explicit reusable Cargo target; CI omits this for a fresh target')
     args=parser.parse_args()
     if sys.version_info<(3,11):parser.error('Python 3.11 or later is required')
     output=args.output.resolve();output.mkdir(parents=True,exist_ok=True);destination=output/'results.json'
@@ -159,10 +177,17 @@ def main():
         artifacts=args.artifacts.resolve();wasm_dir=output/'wasm';wasm_dir.mkdir(parents=True,exist_ok=True)
         historical=None;baseline_source=None
         if args.upgrade_mode=='cross-version':
-            if shutil.which('git') is None:
+            reuse_requested=args.historical_baseline_wasm is not None or args.historical_baseline_evidence is not None
+            if reuse_requested:
+                historical,baseline_source=reuse_historical_baseline(
+                  args.historical_baseline_wasm.resolve() if args.historical_baseline_wasm else None,
+                  args.historical_baseline_evidence.resolve() if args.historical_baseline_evidence else None,output)
+                rows=[{'id':'historical-baseline-provenance','status':'PASS','exit_code':0,
+                  'evidence':str(args.historical_baseline_evidence.resolve())}]
+            elif shutil.which('git') is None:
                 report['overall']='BLOCKED';report['checks'].append({'id':'historical-source-git','status':'BLOCKED','exit_code':None,
                   'reason':'cross-version mode requires Git to fetch the pinned public S10 source'});destination.write_text(json.dumps(report,indent=2)+'\n');return 2
-            historical,baseline_source,rows=build_historical_baseline(output)
+            else:historical,baseline_source,rows=build_historical_baseline(output)
             report['checks'].extend(rows);report['baseline_source']=baseline_source;destination.write_text(json.dumps(report,indent=2)+'\n')
             if historical is None:
                 report['overall']=rows[-1]['status'];destination.write_text(json.dumps(report,indent=2)+'\n');return 1
@@ -192,10 +217,12 @@ def main():
           'replacement':{'source_revision':replacement_source['revision'],'source_tree':replacement_source['tree'],'sha256':sha256(normal)},
         }
         record_artifact(report,'ledger',artifacts/'wasm/ledger-canister.wasm');record_artifact(report,'ledger-archive',artifacts/'downloads/ledger-archive-node-canister.wasm.gz')
-        target=output/'cargo-target';target_started_empty=not target.exists() or not any(target.iterdir());environment={'CARGO_TARGET_DIR':str(target)}
+        target=args.harness_target.resolve() if args.harness_target else output/'cargo-target'
+        target_started_empty=not target.exists() or not any(target.iterdir());environment={'CARGO_TARGET_DIR':str(target)}
         row=execute('pocketic-harness-build',['cargo','+1.94.1','test','--manifest-path','tools/s09-integration/Cargo.toml','--locked','--test','pocketic_host','--no-run'],output,1800,environment)
         row['target_directory']=str(target);row['target_started_empty']=target_started_empty;report['checks'].append(row);destination.write_text(json.dumps(report,indent=2)+'\n')
         if row['status']!='PASS':report['overall']=row['status'];destination.write_text(json.dumps(report,indent=2)+'\n');return 1
+        require_unchanged_source(replacement_source)
         server=None
         try:
             server=start_pocketic(artifacts/'bin/pocket-ic',output)
@@ -218,6 +245,7 @@ def main():
             if row['status']!='PASS':report['overall']=row['status'];destination.write_text(json.dumps(report,indent=2)+'\n');return 2 if row['status']=='BLOCKED' else 1
         finally:
             if server is not None:stop_pocketic(server[0],server[1],server[2])
+        require_unchanged_source(replacement_source)
         row=execute('s09-certified-snapshot-regression',[sys.executable,'-B','tools/verify_observer_http.py','--local-snapshot',str(output/'browser-snapshot'),
           '--output',str(output/'browser-snapshot-regression')],output,300,allow_blocked_exit=True)
         report['checks'].append(row);report['overall']=row['status'];report['local_instance']={**report['checks'][-2].get('local_instance',{}),'server_cleaned_up':True};destination.write_text(json.dumps(report,indent=2)+'\n')
