@@ -99,6 +99,23 @@ test('retained publications authenticate backward from the certified head and ad
  await assert.rejects(verifyRetainedPredecessor(corrupt,head));
  await assert.rejects(verifyRetainedPredecessor(publications[1].bytes,head),/not certified predecessor/);
 });
+test('an optional render cannot gain authentication through a retained predecessor chain',async()=>{
+ const {host}=coordinatorScenario('life');complete(host,1n);const prior=host.publicationRecord();complete(host,2n);
+ const successor=publication(host.publicationRecord(),{render:{format:'test-render-1',bytes:Uint8Array.of(7)}});
+ const authenticated=await verifyPinnedPublication(successor.bytes,successor.sha256);
+ const altered=publication(prior,{render:{format:'test-render-1',bytes:Uint8Array.of(99)}});
+ await assert.rejects(verifyRetainedPredecessor(altered.bytes,authenticated),/render.*direct/i);
+});
+test('retained predecessor authentication rejects altered authoritative commitments',async()=>{
+ const {host}=coordinatorScenario('life');complete(host,1n);const prior=publication(host.publicationRecord());complete(host,2n);
+ const successor=publication(host.publicationRecord()),authenticated=await verifyPinnedPublication(successor.bytes,successor.sha256);
+ for(const kind of ['state','events','scores']){
+  const altered=decodeCanonical(prior.bytes),artifact=altered.artifacts.find(a=>a.kind===kind);
+  artifact.sha256='ff'.repeat(32);if(artifact.chunks.length)artifact.chunks[0]='ff'.repeat(32);
+  const bytes=encodeCanonical(altered);
+  await assert.rejects(verifyRetainedPredecessor(bytes,authenticated));
+ }
+});
 test('explicit snapshot resync preserves the anti-rollback floor and rejects conflict or older heads',async()=>{
  const {host}=coordinatorScenario('life'),p=[publication(host.publicationRecord())];
  for(let end=1n;end<=3n;end++){complete(host,end);p.push(publication(host.publicationRecord()));}

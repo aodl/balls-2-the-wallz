@@ -10,6 +10,12 @@ The certified datum is the existing flat publication-catalog SHA-256. Catalog sc
 
 Local snapshot transport is bounded and allowlisted. Authentication failure visibly stops playback and never selects offline trust. Latest-only runtime-lab retention means an unavailable predecessor requires explicit snapshot resynchronization; S09 does not add an archive service. This is local test-network evidence, not mainnet endpoint/root policy or production hosting evidence.
 
+## S11 retained-render verifier tightening
+
+A successor seal authenticates its predecessor's authoritative manifest, state hash, logical-time boundary and source watermark. The authoritative manifest binds state, audit-event and score artifacts, but not publication v6's optional render artifact. Consequently retained-predecessor chain verification is restricted to catalogs whose `render_format` is null on both sides. An optional render remains supported only when that catalog root is authenticated directly by the existing certificate-verification or offline pinned-root path. The verifier never strips an unbound render while presenting the remaining catalog as authenticated.
+
+This is an intentional fail-closed validation tightening, not a publication, seal or gameplay format change. S10's live canister already publishes null-render catalogs and derives animation from authenticated audit events, so its demonstrated live path is unchanged. Historical offline rendered catalogs continue through their independently pinned catalog roots.
+
 ## Purpose and trust
 
 Demonstrate the architectural result in a browser: autonomous, committed simulation can look continuously dynamic while observers have no authority over gameplay. This stage is deliberately finite and local. There are no browser command controls, wallet calls, ledger queries, payouts or simulated certificates.

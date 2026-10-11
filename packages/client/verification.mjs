@@ -85,7 +85,12 @@ export async function verifyRetainedPredecessor(bytes,successor){
   if(!authentic.has(successor))throw new Error('verified successor required');
   if(!(bytes instanceof Uint8Array)||bytes.length>MAX_ENVELOPE)throw new Error('publication bounds');
   bytes=Uint8Array.from(bytes);const root=await sha256Web(bytes),p=await content(bytes,root),next=successor.publication;
-  if(p.version!==6||next.version!==6||p.render_format!==next.render_format
+  if(p.version!==6||next.version!==6)throw new Error('retained publication identity');
+  // A successor seal authenticates only the predecessor's authoritative
+  // manifest (state, events and scores). Optional render bytes require their
+  // own directly authenticated catalog and cannot inherit predecessor trust.
+  if(p.render_format!==null||next.render_format!==null)throw new Error('retained render requires direct authentication');
+  if(p.render_format!==next.render_format
     ||Object.keys(p.identity).some(k=>p.identity[k]!==next.identity[k]))throw new Error('retained publication identity');
   const a=p.head,b=next.head,s=b.seal;
   const expected=a.segment_id===null?0n:a.segment_id+1n;
