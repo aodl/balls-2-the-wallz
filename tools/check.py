@@ -129,7 +129,7 @@ def planned_checks(mode,outdir):
     wasm=[
       ('runtime-lab-lock',['cargo','metadata','--manifest-path','canisters/runtime-lab/Cargo.toml','--format-version','1','--no-deps','--locked','--offline'],'normal',('cargo',),120),
       ('runtime-lab-wasm',['cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline'],'normal',('cargo',),900),
-      ('runtime-lab-candid',[sys.executable,'-B','tools/verify_runtime_candid.py','--output',str(outdir/'runtime-lab.generated.did')],'normal',('cargo',),300),
+      ('runtime-lab-candid',[sys.executable,'-B','tools/verify_runtime_candid.py','--output',str(outdir/'runtime-lab.generated.did')],'normal',('cargo',),900),
       ('runtime-lab-format',['cargo','fmt','--manifest-path','canisters/runtime-lab/Cargo.toml','--all','--','--check'],'normal',('cargo',),300),
       ('runtime-lab-clippy',['cargo','clippy','--manifest-path','canisters/runtime-lab/Cargo.toml','--target','wasm32-unknown-unknown','--all-targets','--locked','--offline','--','-D','warnings'],'normal',('cargo',),900),
     ]

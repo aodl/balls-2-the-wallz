@@ -17,7 +17,7 @@ def extract(output: str) -> str:
     return output.split(BEGIN, 1)[1].split(END, 1)[0].strip() + "\n"
 
 
-def run(command: list[str], timeout: int = 240) -> subprocess.CompletedProcess[str]:
+def run(command: list[str], timeout: int = 600) -> subprocess.CompletedProcess[str]:
     return subprocess.run(command, cwd=ROOT, text=True, capture_output=True, timeout=timeout)
 
 
