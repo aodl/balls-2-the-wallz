@@ -1,6 +1,6 @@
 # S10 — live-local autonomous game and certified observer
 
-11 October 2026. **The substantial S10 milestone passes locally. Fresh S10 CI remains NOT_RUN pending an authorized push. Production promotion remains BLOCKED.**
+11 October 2026. **The substantial S10 milestone passes locally and in fresh CI. Production promotion remains BLOCKED.**
 
 ## Provenance and scope
 
@@ -78,7 +78,11 @@ These values are disposable-local observations, not cycle, mainnet capacity, fin
 
 ## CI and decision
 
-Fresh S10 GitHub Actions is **NOT_RUN**. The workflow is prepared to run source, native, Wasm/interface, standalone sandboxed browser and the full live-local job, with sanitized artifacts uploaded even on failure. This task does not independently authorize a remote push or workflow dispatch, so no remote action was taken. S10 cannot yet be called fully closed under its fresh-CI acceptance criterion.
+Fresh GitHub Actions [run 38152191589](https://github.com/aodl/placeholder/actions/runs/38152191589) completed successfully at exact pushed revision `6d63ba88dcee8b4b25b2179f707e1064e6d89f47` in 3m 7s. Source conformance, native conformance, Wasm/interface, standalone sandboxed browser and the cold live-local autonomous slice all passed. The live-local job took 3m 3s, including the prepared cold build before PocketIC startup, concurrent genuine-certificate browser checks and the S09 snapshot regression. Its evidence upload also passed.
+
+GitHub retained five sanitized evidence artifacts: source, native, Wasm, browser and local IC. GitHub recorded artifact SHA-256 digests `9cdbf16fa1bf71162e5a08216490aa3cfcd5cef4efc0e17ea9cba01e8b9c6831`, `002d830feadd7b4f9e9f574510deedc210ca12a3fe95dd32c12b955c7a72b58d`, `bceda2b77a951aa5b0fe45d961565a9dcfc87827e2b7ac1fd14f5747df973b32`, `7d7170d6c58a8ae1d8f412fca53afc376e109f80da08373ab840882a2de5d8be` and `9d86961f625cc16ff393cd8ce8192b9959701273be52d113cd5a564a7cc9de92`, respectively. The unauthenticated API exposed their metadata and successful upload steps but did not permit archive download; these are therefore GitHub-recorded identities, not locally recomputed ZIP hashes.
+
+S10's functional acceptance criteria are met. The workflow's warning-only production-inventory job remains informational and does not turn its listed gates into passes.
 
 The local functional milestone is achieved: one local start drives an autonomous multi-segment game, ongoing valueless ledger inputs are verified and applied exactly once, and a concurrently connected browser authenticates fresh publications across short and long disconnects and an upgrade. Production promotion remains BLOCKED on global-ledger scale/catch-up/cost, production root/delegation policy, independently reproducible release Wasm, financial settlement/real wallets, and measured target-subnet capacity/finality/availability.
 

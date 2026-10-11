@@ -1,6 +1,6 @@
 # Current status — S10
 
-**The S10 live-local autonomous game and certified observer pass locally. Fresh S10 CI is pending an authorized push. Production promotion remains BLOCKED.**
+**The S10 live-local autonomous game and certified observer pass locally and in fresh CI. Production promotion remains BLOCKED.**
 
 S10 continues from corrected S09 commit `68e714979eaf72c3d301b1cc43c1ec2caccd1a27` and documentation commit `d06c3c787b253939cb5844ab2940792273d24614` on `checkpoint/s10-live-local-observer`. Historical evidence is unchanged. The S09 developer and CI Wasm hashes are correctly recorded as distinct artifacts in [the provenance note](evidence/S09/WASM_PROVENANCE_NOTE.md); independent byte-for-byte reproduction remains an open release gate.
 
@@ -16,7 +16,7 @@ Local evidence for implementation `e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0` inc
 
 The cold local harness compile used an empty target and took 624 seconds before PocketIC was started, directly preserving the corrected server lifecycle. Installed-Wasm regressions passed 10 tests with the separately orchestrated live test passing afterward. Source, native, Wasm/Candid, HTTP browser and the retained S09 certified-snapshot regression also pass locally. Exact results and resource observations are in [the S10 summary](evidence/S10/verification-summary.json); raw logs remain under `.work/s10/`.
 
-Fresh S10 GitHub Actions evidence has not yet been obtained because this task does not itself authorize a remote push or workflow dispatch. This remains an explicit completion gap, not a local PASS relabeled as CI evidence.
+Fresh GitHub Actions [run 38152191589](https://github.com/aodl/placeholder/actions/runs/38152191589) passed at exact pushed revision `6d63ba88dcee8b4b25b2179f707e1064e6d89f47`. Source, native, Wasm/interface, sandboxed HTTP browser and the cold live-local job all succeeded. The live-local job completed in 3m 3s and uploaded its sanitized evidence; all five evidence uploads completed successfully. The warning-only production inventory remains explicitly separate from execution evidence.
 
 Production promotion remains BLOCKED on global-ledger scale/catch-up/cost policy, production network-root/delegation policy, independently reproducible release Wasm, financial settlement and real-wallet behavior, and measured target-subnet capacity/finality/availability. No public-network deployment, wallet access, real transfer, payout, production-controller change, package publication or release occurred.
 

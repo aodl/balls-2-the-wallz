@@ -4,7 +4,7 @@
   "date": "2026-10-11",
   "branch": "checkpoint/s10-live-local-observer",
   "tested_implementation_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
-  "decision": "PASS_LOCAL_CI_PENDING",
+  "decision": "PASS",
   "production_promotion": "BLOCKED",
   "implementation_commits": [
     "af029ac",
@@ -157,8 +157,63 @@
     "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/verify_s10_local.py --output .work/s10/timing-fix-run"
   ],
   "fresh_ci": {
-    "status": "NOT_RUN",
-    "reason": "A remote push or workflow dispatch requires separate authorization; local preparation is complete."
+    "status": "PASS",
+    "run_id": 38152191589,
+    "url": "https://github.com/aodl/placeholder/actions/runs/38152191589",
+    "event": "push",
+    "tested_commit": "6d63ba88dcee8b4b25b2179f707e1064e6d89f47",
+    "total_duration": "3m 7s",
+    "jobs": {
+      "source_conformance": {
+        "status": "PASS",
+        "duration": "1m 8s"
+      },
+      "native_conformance": {
+        "status": "PASS",
+        "duration": "36s"
+      },
+      "runtime_lab_wasm": {
+        "status": "PASS",
+        "duration": "1m 40s"
+      },
+      "browser_http_and_webcrypto": {
+        "status": "PASS",
+        "duration": "2m 14s"
+      },
+      "live_local_ic_autonomous_slice": {
+        "status": "PASS",
+        "duration": "3m 3s",
+        "evidence_upload": "PASS"
+      },
+      "production_inventory": {
+        "status": "BLOCKED",
+        "workflow_job_conclusion": "success",
+        "qualification": "Informational warning-only inventory; not execution evidence."
+      }
+    },
+    "artifacts": {
+      "source-evidence": {
+        "id": 11707136845,
+        "sha256_recorded_by_github": "9cdbf16fa1bf71162e5a08216490aa3cfcd5cef4efc0e17ea9cba01e8b9c6831"
+      },
+      "native-evidence": {
+        "id": 11706827459,
+        "sha256_recorded_by_github": "002d830feadd7b4f9e9f574510deedc210ca12a3fe95dd32c12b955c7a72b58d"
+      },
+      "wasm-evidence": {
+        "id": 11707655109,
+        "sha256_recorded_by_github": "bceda2b77a951aa5b0fe45d961565a9dcfc87827e2b7ac1fd14f5747df973b32"
+      },
+      "browser-evidence": {
+        "id": 11706962276,
+        "sha256_recorded_by_github": "7d7170d6c58a8ae1d8f412fca53afc376e109f80da08373ab840882a2de5d8be"
+      },
+      "local-ic-evidence": {
+        "id": 11707720175,
+        "sha256_recorded_by_github": "9d86961f625cc16ff393cd8ce8192b9959701273be52d113cd5a564a7cc9de92"
+      }
+    },
+    "artifact_download_qualification": "GitHub reported artifact identities and successful uploads. The unauthenticated artifact API did not permit downloading the ZIPs for independent local checksum verification."
   },
   "blocked_production_gates": [
     "independent byte-reproducible Wasm and release provenance",
