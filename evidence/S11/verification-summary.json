@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S11",
+  "date": "2026-10-11",
+  "overall": "BLOCKED",
+  "local_result": "PASS",
+  "btz": {
+    "path": "/home/codexdev/src/stream",
+    "branch": "checkpoint/s11-dtr-extraction",
+    "tested_implementation_commit": "5c522373055686114bf9dd9e9a30c8e9b03e4b8b"
+  },
+  "dtr": {
+    "path": "/home/codexdev/src/dtr",
+    "branch": "checkpoint/s11-dtr-extraction",
+    "tested_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "intended_remote": "https://github.com/aodl/dtr.git",
+    "remote_status": "BLOCKED: not authorized/created/pushed"
+  },
+  "checks": [
+    {"id": "retained-render-pre-fix-reproduction", "status": "PASS", "qualification": "The regression failed before the fix because no rejection occurred."},
+    {"id": "retained-render-hardening", "status": "PASS", "tests": 25},
+    {"id": "dtr-standalone-javascript", "status": "PASS", "tests": 186},
+    {"id": "dtr-standalone-rust", "status": "PASS", "tests": 29},
+    {"id": "clean-consumer-javascript", "status": "PASS", "tests": 1},
+    {"id": "clean-consumer-rust", "status": "PASS", "packages": 4},
+    {"id": "btz-source", "status": "PASS", "javascript_tests": 1166, "python_tests": 79},
+    {"id": "btz-native", "status": "PASS"},
+    {"id": "btz-wasm-candid-format-clippy", "status": "PASS"},
+    {"id": "browser-http-webcrypto", "status": "PASS", "assertions": 11},
+    {"id": "pocketic-regressions", "status": "PASS", "tests": 10, "ignored": 1},
+    {"id": "live-autonomous-certified-observer", "status": "PASS", "segments": 11, "browser_assertions": 11},
+    {"id": "s09-certified-snapshot-regression", "status": "PASS", "browser_assertions": 12},
+    {"id": "s10-to-s11-upgrade", "status": "PASS", "boundaries": ["idle", "running", "ready", "published"]},
+    {"id": "dtr-remote-clean-clone", "status": "BLOCKED", "reason": "No authorized DTR remote exists containing the pinned revision."},
+    {"id": "fresh-ci", "status": "BLOCKED", "reason": "Remote publication/workflow invocation was not authorized."}
+  ],
+  "dependencies": {
+    "rust_git": "https://github.com/aodl/dtr.git",
+    "rust_rev": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "javascript_name": "@dtr/timeline-runtime",
+    "javascript_version": "0.11.0",
+    "javascript_sha256": "ec890c3946d27efa1ef210a97db92407b04f61fc317f507988d46f20894d3ec8",
+    "javascript_integrity": "sha512-opmkcujWohpEHNGgOITafyBODDyXT8/ne+l+yZ7EUuu65QM8I3ADdbhWmGAvtfq2yNXoAokMibBvCMv9/sG9Eg=="
+  },
+  "artifacts": {
+    "s10_baseline_wasm": "3ee3b6e11a94850114e74e64fe96ee420c1ab14f2008360ae0c2570959a10450",
+    "s11_normal_wasm": "b34943dc1cb4815ff0456bbd77002b04d4fef22e5446dd60677e21ea238096c3",
+    "s11_test_hook_wasm": "edc5cce7c98d03df624fa467daf1284ac11d0d1fbcb682abd81f538556f8d68e",
+    "generated_candid": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
+    "ledger_wasm": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ledger_archive": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42",
+    "pocketic": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "disposable_root": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c"
+  },
+  "lockfiles": {
+    "Cargo.lock": "a1860dfacff801be91ff97468042b7e2ed0f2941c00c6049062edee1ec2d8e60",
+    "native/Cargo.lock": "1064d4838b33f9b0e8acb98c246c2c61751c9ce69359e42fa2d570bcdb8bb5e8",
+    "canisters/runtime-lab/Cargo.lock": "b2c5bd0f49e794e60f4ef2d36d39fd599587026fc2541b53e13ff53c7e043980",
+    "tools/s09-integration/Cargo.lock": "94315659d1f72b8cc2393f9c4bc1860b261aeb738bd690c262cd9ca86c874a7a",
+    "package-lock.json": "d13012c0f4cd59ca9c8207c77438f7b089c548423e6aa4f3c04ab80fe44bc662"
+  },
+  "live_measurements": {
+    "segment_heads": "0..10",
+    "input_assignments": {"first": 0, "after_first_publication": 2, "dropped_hint": 5},
+    "ledger_calls": 24,
+    "archive_calls": 2,
+    "retained_publications": 3,
+    "retained_bytes": 14840,
+    "event_bytes_total": 15755,
+    "publication_and_artifact_bytes_total": 53068,
+    "input_high_water": 3,
+    "active_balls": 3,
+    "active_cannons": 2,
+    "work_total": 3612,
+    "work_max_segment": 731
+  },
+  "tools": {
+    "rustc": "1.94.1",
+    "cargo": "1.94.1",
+    "node": "24.15.0",
+    "npm": "11.12.1",
+    "python": "3.11.14",
+    "pocketic": "16.1.0",
+    "playwright": "1.63.0",
+    "chromium": "Google Chrome for Testing 153.0.8010.12",
+    "ic_agent": "0.49.2",
+    "icp_sdk_core": "6.1.0"
+  },
+  "ci": {"status": "BLOCKED", "run_id": null}
+}

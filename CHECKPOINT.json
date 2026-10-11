@@ -1,57 +1,34 @@
 {
   "schema_version": 1,
-  "checkpoint_id": "S10",
-  "name": "DTR/BTZ live-local autonomous game and certified observer",
+  "checkpoint_id": "S11",
+  "name": "BTZ consumer and standalone Deterministic Timeline Runtime extraction",
   "date": "2026-10-11",
   "predecessor": {
-    "checkpoint_id": "S09",
-    "corrected_implementation_commit": "68e714979eaf72c3d301b1cc43c1ec2caccd1a27",
-    "documentation_commit": "d06c3c787b253939cb5844ab2940792273d24614",
-    "successful_ci_run": 38132545307
+    "checkpoint_id": "S10",
+    "implementation_commit": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
+    "documentation_commit": "eb1f971e4190694ba76fec530e8f93ebce507939",
+    "successful_ci_run": 38152955234
   },
-  "implementation_scope": "One explicitly started disposable-PocketIC service autonomously ingests valueless ledger records, publishes consecutive BTZ segments, retains a bounded authenticated window, and serves a concurrently connected certified browser observer",
-  "tested_implementation_commit": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
-  "successful_ci_run": 38152191589,
-  "ci_tested_commit": "6d63ba88dcee8b4b25b2179f707e1064e6d89f47",
-  "delivery_complete": true,
+  "tested_btz_implementation_commit": "5c522373055686114bf9dd9e9a30c8e9b03e4b8b",
+  "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
+  "dtr_remote": "https://github.com/aodl/dtr.git",
+  "successful_ci_run": null,
+  "local_extraction_complete": true,
+  "delivery_complete": false,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
-    "evidence/S10/verification-summary.json",
-    "evidence/S10/runtime-lab.generated.did"
+    "evidence/S11/verification-summary.json",
+    "evidence/S11/runtime-lab.generated.did",
+    "/home/codexdev/src/dtr/evidence/S11/verification-summary.json"
   ],
-  "manifest": null,
-  "release_archive_created": false,
-  "baseline_manifest": "FILES.sha256",
-  "next_checkpoint": "behavior-preserving DTR repository extraction",
-  "open_decision_register": "docs/DECISIONS.md",
+  "next_checkpoint": "review and authorize one bounded remote publication/fresh-CI closeout",
   "limitations": [
-    "S10 is a disposable local correctness demonstration, not a production deployment, capacity, fairness, cost, finality or availability claim.",
-    "The retention window is three completed publications and 8 MiB; it intentionally provides recent reconnect recovery rather than permanent history.",
-    "The local input policy seals the verified contiguous prefix visible at the next idle progression callback; production ledger scaling and timing policy remain open.",
-    "The loopback observer proxy is a test transport for actual IC query and read_state bytes, not a production gateway or observability service.",
-    "Independent byte-reproducible Wasm comparison remains an open release gate.",
-    "Production network-root policy, financial settlement, real wallets, governance and measured subnet capacity remain unexecuted.",
-    "No public-network deployment, wallet access, real token transfer, payout, production controller change, package publication or release occurred."
-  ],
-  "implementation_versions": {
-    "source_seal": 1,
-    "btz_memo": 1,
-    "life_board": 1,
-    "journal_model": 2,
-    "btz_reference": 3,
-    "native_btz_target": 3,
-    "portable_cursor": 3,
-    "chunk_storage_model": 4,
-    "arena_lab": 4,
-    "atomic_coordinator": 5,
-    "publication_catalog": 6,
-    "client_verification": 6,
-    "runtime_lab": 6,
-    "animation_projection": 1,
-    "observer_recording": 1,
-    "observer_model": 1,
-    "live_local_service": 1
-  }
+    "The standalone DTR remote has not yet been authorized, created or pushed; remote-pinned clean-clone and fresh two-repository CI remain BLOCKED.",
+    "The committed JavaScript package is an immutable local npm-pack artifact and was not published to a registry.",
+    "Independent byte-reproducible Wasm remains an open release gate.",
+    "S11 preserves a disposable local correctness demonstration and is not production deployment, financial, scalability, capacity or governance evidence.",
+    "No public-network deployment, wallet access, real transfer, payout, production-controller change, package publication or release occurred."
+  ]
 }
