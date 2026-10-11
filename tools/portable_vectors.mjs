@@ -5,8 +5,8 @@ import {fileURLToPath} from 'node:url';
 import {BtzCursor} from '../packages/kernels/btz/kernel.mjs';
 import {encodeWorld,BTZ_IDENTITY} from '../packages/kernels/btz/world.mjs';
 import {scenario} from '../tests/scenarios/btz.mjs';
-import {hex} from '../packages/protocol/bytes.mjs';
-import {sha256} from '../packages/runtime/seal.mjs';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 const rows=[];
 for(const name of ['admission','near-impact','duel','severance','corner','wall-bounce','dense']){
   const s=scenario(name), c=new BtzCursor(encodeWorld(s.world),s.inputs??[],{...BTZ_IDENTITY,logical_start:0n,logical_end:s.ticks});

@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync}from'node:fs';
 import {decodeMemo,encodeMemo,decodeLedgerMemo,numericMemo,describeMemo}from'../../packages/protocol/memo.mjs';
-import {hex,unhex,uint}from'../../packages/protocol/bytes.mjs';
+import {hex,unhex,uint}from'@dtr/timeline-runtime/protocol/bytes';
 const rows=readFileSync(new URL('../fixtures/memos.tsv',import.meta.url),'utf8').trim().split('\n').filter(l=>!l.startsWith('#'));
 for(const line of rows){const[k,v,h,n]=line.split('\t');test(`memo fixture ${k}/${v}`,()=>{const c={kind:k,value:Number(v)};assert.equal(hex(encodeMemo(c)),h);assert.deepEqual(decodeMemo(unhex(h)),c);assert.equal(numericMemo(c).toString(),n);assert.deepEqual(decodeLedgerMemo(n,null),c);assert.deepEqual(decodeLedgerMemo('0',h),c);});}
 test('every u16 angle roundtrips',()=>{for(let i=0;i<65536;++i)assert.deepEqual(decodeMemo(encodeMemo({kind:'angle',value:i})),{kind:'angle',value:i});});

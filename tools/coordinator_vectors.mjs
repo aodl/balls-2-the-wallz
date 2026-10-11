@@ -3,9 +3,9 @@
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {coordinatorScenario} from '../tests/scenarios/coordinator.mjs';
-import {encodeCanonical} from '../packages/runtime/canonical.mjs';
-import {hex} from '../packages/protocol/bytes.mjs';
-import {sha256} from '../packages/runtime/seal.mjs';
+import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 const dest=new URL('../tests/fixtures/coordinator-v5.json',import.meta.url);
 export function vectors() {
   const rows=[];

@@ -4,7 +4,7 @@ import {performance} from 'node:perf_hooks';
 import {scenario} from '../tests/scenarios/btz.mjs';
 import {BtzCursor} from '../packages/kernels/btz/kernel.mjs';
 import {BTZ_IDENTITY, encodeWorld} from '../packages/kernels/btz/world.mjs';
-import {sha256} from '../packages/runtime/seal.mjs';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 const rows=[];
 for(const name of ['admission','near-impact','duel','severance','corner','wall-bounce','dense']){
   const spec=scenario(name),initial=encodeWorld(spec.world),modes=[];

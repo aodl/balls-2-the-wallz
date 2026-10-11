@@ -2,8 +2,8 @@
  * The preceding committed snapshot supplies starting positions and board ownership.
  * Sequence numbers intentionally retain gaps: these are source-event identities.
  */
-import {encodeCanonical} from '../../runtime/canonical.mjs';
-import {sha256} from '../../runtime/seal.mjs';
+import {encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {projectAnimationEvents} from './animation-projection.mjs';
 import {decodeWorld} from './world.mjs';
 export const ANIMATION_FORMAT='btz-animation-1';

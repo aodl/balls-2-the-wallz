@@ -1,4 +1,4 @@
-import { be, concat, hex, readBE, uint, unhex } from './bytes.mjs';
+import { be, concat, hex, readBE, uint, unhex } from '../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 const MAGIC = Uint8Array.of(0x42, 0x54, 0x5a);
 /** BTZ/1: 42 54 5a | version/opcode (11=angle,12=move) | u32 payload. */
 export function encodeMemo(command) {

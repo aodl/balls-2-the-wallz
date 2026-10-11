@@ -1,6 +1,6 @@
 /** BTZ-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {decodeCanonical} from '../../packages/runtime/canonical.mjs';
-import {sha256Web} from '../../packages/client/verification.mjs';
+import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {cmp, validRat, rat} from '../../packages/kernels/btz/math.mjs';
 import {projectAnimationEvents} from '../../packages/kernels/btz/animation-projection.mjs';
 export const FORMAT='btz-animation-1';

@@ -4,11 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {coordinatorScenario} from '../tests/scenarios/coordinator.mjs';
-import {publication, CHUNK_BYTES} from '../packages/observation/publication.mjs';
+import {publication, CHUNK_BYTES} from '@dtr/timeline-runtime/observation/publication';
 import {projectAnimation, ANIMATION_FORMAT} from '../packages/kernels/btz/animation.mjs';
-import {encodeCanonical} from '../packages/runtime/canonical.mjs';
-import {sha256} from '../packages/runtime/seal.mjs';
-import {unhex} from '../packages/protocol/bytes.mjs';
+import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
+import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
 const DEST=fileURLToPath(new URL('../apps/btz-observer/recordings/',import.meta.url));
 const CONFIG=[
   ['dense','Frontier pressure','32 balls, two territories. Watch the border evolve.',12],

@@ -1,8 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {rat,add,sub,mulInt,cmp,validRat} from '../../packages/kernels/btz/math.mjs';
 import {BtzCursor} from '../../packages/kernels/btz/kernel.mjs';
-import {encodeCanonical,decodeCanonical} from '../../packages/runtime/canonical.mjs';
-import {sha256} from '../../packages/runtime/seal.mjs';import {unhex} from '../../packages/protocol/bytes.mjs';
+import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
 const load=name=>JSON.parse(fs.readFileSync(new URL(`../fixtures/${name}`,import.meta.url),'utf8'));
 for(const r of load('numeric-v4.json').cases)test(`independent exact accounting ${r.id}`,()=>{
  const p=v=>rat(BigInt(v[0]),BigInt(v[1])),a=p(r.a),b=p(r.b);

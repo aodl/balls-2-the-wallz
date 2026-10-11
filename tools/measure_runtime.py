@@ -9,7 +9,9 @@ def main():
     with tempfile.TemporaryDirectory(prefix='dtr-codec-measure-')as temp:
         base=Path(temp);target=base/'instrumented'
         for folder in ['packages','tests/scenarios']:shutil.copytree(source/folder,target/folder)
-        path=target/'packages/runtime/canonical.mjs';text=path.read_text()
+        packaged=source/'node_modules/@dtr/timeline-runtime'
+        shutil.copytree(packaged,target/'node_modules/@dtr/timeline-runtime')
+        path=target/'node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';text=path.read_text()
         changes=[('export function encodeCanonical(value) {','export function encodeCanonical(value) {\n  auditCounters.encodes++;'),
             ('  return bytes;\n}','  auditCounters.encoded_bytes += bytes.length;\n  return bytes;\n}'),
             ('export function decodeCanonical(bytes) {','export function decodeCanonical(bytes) {\n  auditCounters.decodes++; auditCounters.decoded_bytes += bytes.length;')]

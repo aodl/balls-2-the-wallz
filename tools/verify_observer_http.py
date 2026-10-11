@@ -41,7 +41,7 @@ def main():
         if not snapshot.is_dir() or not required.issubset({path.name for path in snapshot.iterdir() if path.is_file()}):
             parser.error('--local-snapshot is incomplete')
         assets=ROOT/'.work/s09/browser-assets';assets.mkdir(parents=True,exist_ok=True)
-        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
+        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
         server_command+=['--local-snapshot',str(snapshot),'--generated-assets',str(assets)]
         url+='?mode=local';browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--trust','local','--url',url,'--output',str(args.output)]
     elif args.live_config:
@@ -51,7 +51,7 @@ def main():
             parser.error('--live-config is incomplete')
         if not args.ic_gateway or not args.live_canister or not args.coordination:parser.error('live mode requires gateway, canister and coordination')
         assets=ROOT/'.work/s10/browser-assets';assets.mkdir(parents=True,exist_ok=True)
-        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
+        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
         server_command+=['--live-config',str(live),'--ic-gateway',args.ic_gateway,'--live-canister',args.live_canister,'--generated-assets',str(assets)]
         url+='?mode=live';browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--trust','live','--url',url,'--output',str(args.output),'--coordination',str(args.coordination)]
     with (args.output/'server.log').open('w') as server_log:

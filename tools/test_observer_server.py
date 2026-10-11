@@ -20,6 +20,10 @@ class ObserverServerTests(unittest.TestCase):
         self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
     def test_module_mime(self):
         status,headers,_=self.get('/apps/btz-observer/app.mjs');self.assertEqual(status,200);self.assertEqual(headers['Content-type'],'text/javascript')
+    def test_only_packaged_dtr_modules_are_served_from_dependencies(self):
+        path='/node_modules/@dtr/timeline-runtime/packages/client/verification.mjs'
+        status,headers,_=self.get(path);self.assertEqual(status,200);self.assertEqual(headers['Content-type'],'text/javascript')
+        self.assertEqual(self.get('/node_modules/@icp-sdk/core/package.json')[0],404)
     def test_records(self):self.assertEqual(self.get('/apps/btz-observer/recordings/index.json')[0],200)
     def test_local_certificate_snapshot_is_disabled_by_default(self):
         for path in ['/s09-local/metadata.json','/s10-live/metadata.json','/s10-live/root-key.der','/s09-assets/ic-certificate.mjs']:

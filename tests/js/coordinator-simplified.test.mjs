@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
-import {TimelineCoordinator} from '../../packages/runtime/coordinator.mjs';
-import {sha256} from '../../packages/runtime/seal.mjs';
+import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 for(const name of ['life','admission','dense']){
  test(`${name}: uncommitted cached-cursor forks cannot mutate authoritative work`,()=>{
   const {host,records,end}=coordinatorScenario(name);host.ingestPrefix(0n,records,records.length?'aa'.repeat(32):'00'.repeat(32));host.seal(end);

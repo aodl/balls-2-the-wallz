@@ -1,6 +1,6 @@
 {
-  "name": "dtr-suite-s09",
-  "version": "0.9.0",
+  "name": "btz-application",
+  "version": "0.11.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -15,6 +15,7 @@
     "observer:check-recordings": "node tools/build_observer_recordings.mjs --check"
   },
   "dependencies": {
+    "@dtr/timeline-runtime": "file:vendor/dtr/dtr-timeline-runtime-0.11.0.tgz",
     "@icp-sdk/core": "6.1.0"
   },
   "devDependencies": {

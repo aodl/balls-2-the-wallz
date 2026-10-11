@@ -1,7 +1,7 @@
 /** Artificial genesis fixtures, not a production spawn or economic configuration. */
 import {fixtureWorld} from '../../packages/kernels/btz/world.mjs';
 import {encodePayment} from '../../packages/kernels/btz/kernel.mjs';
-import {hex} from '../../packages/protocol/bytes.mjs';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {heading} from '../../packages/kernels/btz/math.mjs';
 const account = id => id.toString(16).padStart(2, '0').repeat(32);
 const ball = (id, owner, cell, width, vx, vy = 0) => ({id, owner, cell, x0: BigInt(cell % width * 1024 + 512),

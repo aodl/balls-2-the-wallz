@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /** Offline demonstration. No wallet, ledger, deployment, certificate or cycles claim. */
 import {coordinatorScenario} from '../tests/scenarios/coordinator.mjs';
-import {publication,PublicationWindow} from '../packages/observation/publication.mjs';
+import {publication,PublicationWindow} from '@dtr/timeline-runtime/observation/publication';
 import {projectAnimation} from '../packages/kernels/btz/animation.mjs';
-import {verifyPinnedPublication,ArtifactAssembler} from '../packages/client/verification.mjs';
-import {unhex} from '../packages/protocol/bytes.mjs';
+import {verifyPinnedPublication,ArtifactAssembler} from '@dtr/timeline-runtime/client/verification';
+import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
 const {host,end}=coordinatorScenario('dense'),before=publication(host.publicationRecord()),initial=unhex(host.committed().state_hex);
 const window=new PublicationWindow({maxSegments:2});window.retain(host.publicationRecord());host.seal(end);
 host.advance(1);const stable=publication(host.publicationRecord()).sha256===before.sha256;

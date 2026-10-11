@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Offline tools only: no network, wallet access, signing or token transfers. */
-import{readFileSync}from'node:fs';import{describeMemo}from'../packages/protocol/memo.mjs';import{board,LifeCursor}from'../packages/kernels/life.mjs';import{sha256}from'../packages/runtime/seal.mjs';
+import{readFileSync}from'node:fs';import{describeMemo}from'../packages/protocol/memo.mjs';import{board,LifeCursor}from'@dtr/timeline-runtime/examples/life';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
 const usage='Usage: node tools/command.mjs memo <angle|move> <integer> | replay [case-name] [comma-separated-budgets]';
 try{
  const[command,arg,value]=process.argv.slice(2);

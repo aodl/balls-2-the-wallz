@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Source-structure checks only. This is NOT a compiler, Candid checker or security audit."""
-import json, re, subprocess, sys, tomllib
+import hashlib, json, re, subprocess, sys, tomllib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def check_version(version):
@@ -15,31 +15,57 @@ def check_npm(package,lock):
         declared=package.get(section,{})
         if declared!=root.get(section,{}):raise ValueError('npm direct dependency lock mismatch')
         for name,version in declared.items():
-            check_version(version)
             resolved=lock['packages'].get('node_modules/'+name,{})
-            if resolved.get('version')!=version.lstrip('='):raise ValueError('npm direct resolution missing/mismatched')
+            if name=='@dtr/timeline-runtime':
+                if version!='file:vendor/dtr/dtr-timeline-runtime-0.11.0.tgz' or resolved.get('version')!='0.11.0' or resolved.get('resolved')!=version:
+                    raise ValueError('DTR package artifact is not exact-pinned')
+            else:
+                check_version(version)
+                if resolved.get('version')!=version.lstrip('='):raise ValueError('npm direct resolution missing/mismatched')
     for path,entry in lock['packages'].items():
         if not path:continue
-        if not entry.get('integrity','').startswith('sha512-') or not entry.get('resolved','').startswith('https://'):
+        local_dtr=path=='node_modules/@dtr/timeline-runtime' and entry.get('resolved')=='file:vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'
+        if not entry.get('integrity','').startswith('sha512-') or not (entry.get('resolved','').startswith('https://') or local_dtr):
             raise ValueError('npm dependency needs HTTPS resolution and integrity')
     return True
 
+DTR_GIT='https://github.com/aodl/dtr.git'
+DTR_REV='71e59e93cf49a3656689679b538b4c3f138787f8'
+def check_cargo_dependency(name,value,base,workspace_dependencies={}):
+    if isinstance(value,str):return check_version(value)
+    if value.get('workspace'):
+        if name not in workspace_dependencies:raise ValueError('undefined workspace dependency: '+name)
+        return
+    if 'path'in value:
+        if not(base/value['path']/'Cargo.toml').resolve().is_file():raise ValueError(f'missing local crate: {name}')
+        return
+    if value.get('git'):
+        if value.get('git')!=DTR_GIT or value.get('rev')!=DTR_REV or set(value)-{'git','rev'}:
+            raise ValueError('DTR Git dependency is not exact-pinned: '+name)
+        return
+    if 'version'in value:return check_version(value['version'])
+    raise ValueError('unreviewed dependency: '+name)
+
 def main():
     workspace=tomllib.loads((ROOT/'Cargo.toml').read_text())
+    root_dependencies=workspace.get('workspace',{}).get('dependencies',{})
+    for name,value in root_dependencies.items():check_cargo_dependency(name,value,ROOT,root_dependencies)
     for member in workspace['workspace']['members']:
         path=ROOT/member
         manifest=tomllib.loads((path/'Cargo.toml').read_text())
         for dep,value in manifest.get('dependencies',{}).items():
-            if isinstance(value,dict) and 'path'in value:
-                if not(path/value['path']/'Cargo.toml').resolve().is_file():raise ValueError(f'missing local crate: {dep}')
-            else:check_version(value if isinstance(value,str) else value.get('version'))
+            check_cargo_dependency(dep,value,path,root_dependencies)
         if not(path/'src').is_dir():raise ValueError(f'missing source: {member}')
     lock=json.loads((ROOT/'package-lock.json').read_text())
     check_npm(json.loads((ROOT/'package.json').read_text()),lock)
+    artifact=ROOT/'vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'
+    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='ec890c3946d27efa1ef210a97db92407b04f61fc317f507988d46f20894d3ec8':raise ValueError('DTR package artifact hash')
     native=tomllib.loads((ROOT/'native/Cargo.toml').read_text())
     for name,value in native['workspace']['dependencies'].items():
-        version=value if isinstance(value,str)else value.get('version','')
-        if not re.fullmatch(r'=\d+\.\d+\.\d+',version):raise ValueError('native dependency is not exact-pinned: '+name)
+        if isinstance(value,dict)and value.get('git'):check_cargo_dependency(name,value,ROOT/'native',native['workspace']['dependencies'])
+        else:
+            version=value if isinstance(value,str)else value.get('version','')
+            if not re.fullmatch(r'=\d+\.\d+\.\d+',version):raise ValueError('native dependency is not exact-pinned: '+name)
     for member in native['workspace']['members']:
         path=ROOT/'native'/member
         manifest=tomllib.loads((path/'Cargo.toml').read_text())
@@ -68,10 +94,12 @@ def main():
     }:raise ValueError('runtime laboratory export drift')
     if runtime.count('authorized()?')!=10 or 'is_controller'not in runtime:raise ValueError('runtime laboratory guard inventory')
     if 'certified_data_set'not in runtime or 'data_certificate()'not in runtime:raise ValueError('runtime certification inventory')
-    for path in (ROOT/'packages/client').glob('*.mjs'):
-        if 'node:'in path.read_text():raise ValueError('Node-only import in browser client')
-    for path in (ROOT/'native/dtr-host/src').glob('*.rs'):
-        if re.search(r'\b(btz_native|btz_mechanics|ic_cdk|SystemTime)\b',path.read_text()):raise ValueError('game/IC coupling in generic host')
+    for removed in ('crates/dtr-core','crates/dtr-source-model','native/dtr-host','native/dtr-wire','packages/client','packages/runtime','packages/observation','packages/storage'):
+        if (ROOT/removed).exists():raise ValueError('editable DTR copy remains: '+removed)
+    for manifest in ('canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml','canisters/arena-lab/Cargo.toml'):
+        data=tomllib.loads((ROOT/manifest).read_text())
+        for name,value in data.get('dependencies',{}).items():
+            if name.startswith('dtr-'):check_cargo_dependency(name,value,ROOT/Path(manifest).parent)
     count=0
     for base in ('packages','apps','tools','tests/js'):
         for path in (ROOT/base).rglob('*.mjs'):

@@ -1,6 +1,6 @@
 import { canonicalAccount } from '../protocol/account.mjs';
 import { decodeLedgerMemo } from '../protocol/memo.mjs';
-import { uint } from '../protocol/bytes.mjs';
+import { uint } from '../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 /** Application classifier over a normalized *authoritative* ledger record; not a wire/proof verifier. */
 export function classifyPayment(tx, recipient) {
   const destination = canonicalAccount(recipient);

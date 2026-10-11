@@ -1,5 +1,5 @@
-import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../runtime/canonical.mjs';
-import {sha256} from '../../runtime/seal.mjs';
+import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat, validRat} from './math.mjs';
 export const Q = 1024;
 export const LIMITS = Object.freeze({max_cells: 1024, max_width: 32, max_balls: 64, max_cannons: 32, max_per_cannon: 32, max_segment_ticks: 64});

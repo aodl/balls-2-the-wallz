@@ -7,7 +7,7 @@ rust-version.workspace = true
 publish = false
 
 [dependencies]
-dtr-host = { path = "../dtr-host" }
-dtr-wire = { path = "../dtr-wire" }
+dtr-host.workspace = true
+dtr-wire.workspace = true
 btz-native = { path = "../btz-native" }
 serde_json.workspace = true

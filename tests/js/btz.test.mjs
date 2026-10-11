@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {hex, unhex} from '../../packages/protocol/bytes.mjs';
-import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../packages/runtime/canonical.mjs';
-import {sha256, makeSeal} from '../../packages/runtime/seal.mjs';
-import {SegmentJournal, AtomicJournalStore} from '../../packages/runtime/journal.mjs';
+import {hex, unhex} from '@dtr/timeline-runtime/protocol/bytes';
+import {cloneCanonical, decodeCanonical, encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256, makeSeal} from '@dtr/timeline-runtime/runtime/seal';
+import {SegmentJournal, AtomicJournalStore} from '@dtr/timeline-runtime/runtime/journal';
 import {rat, cmp, heading} from '../../packages/kernels/btz-v2/math.mjs';
 import {nextCrossing, reflected} from '../../packages/kernels/btz-v2/geometry.mjs';
 import {beginCapture, topologyStep} from '../../packages/kernels/btz-v2/topology.mjs';

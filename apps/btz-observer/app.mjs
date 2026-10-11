@@ -1,5 +1,5 @@
-import {PlayoutClock} from '../../packages/client/playout.mjs';
-import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../packages/client/verification.mjs';
+import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
+import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {BtzView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
 import {readBytes,validateIndex,loadEntry} from './transport.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');

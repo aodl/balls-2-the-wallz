@@ -5,10 +5,10 @@ import path from 'node:path';
 import {scenario} from '../tests/scenarios/btz.mjs';
 import {BtzKernel, BtzCursor} from '../packages/kernels/btz/kernel.mjs';
 import {BTZ_IDENTITY, encodeWorld, decodeWorld} from '../packages/kernels/btz/world.mjs';
-import {decodeCanonical, encodeCanonical} from '../packages/runtime/canonical.mjs';
-import {SegmentJournal, AtomicJournalStore} from '../packages/runtime/journal.mjs';
-import {makeSeal, sha256} from '../packages/runtime/seal.mjs';
-import {hex, unhex} from '../packages/protocol/bytes.mjs';
+import {decodeCanonical, encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {SegmentJournal, AtomicJournalStore} from '@dtr/timeline-runtime/runtime/journal';
+import {makeSeal, sha256} from '@dtr/timeline-runtime/runtime/seal';
+import {hex, unhex} from '@dtr/timeline-runtime/protocol/bytes';
 const usage = 'node tools/demo.mjs btz <scenario> --journal <local-path> [--budget 64] [--slices 10000]';
 function options(args) {
   const [game,name,...rest]=args;if(game!=='btz'||!name)throw new Error(usage);

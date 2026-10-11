@@ -1,4 +1,4 @@
-import { hex, unhex } from './bytes.mjs';
+import { hex, unhex } from '../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 /** CRC is error detection, NOT identity authentication. Inputs must still come from the ledger. */
 export function crc32(data) {
   let crc = 0xffffffff;

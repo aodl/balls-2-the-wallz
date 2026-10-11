@@ -30,7 +30,7 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
             if GENERATED_ASSETS is None:self.send_error(404);return
             return self.serve_explicit(GENERATED_ASSETS/'ic-certificate.mjs')
         target=(ROOT/raw.lstrip('/')).resolve()
-        allowed=[ROOT/'apps/btz-observer',ROOT/'packages/client',ROOT/'packages/protocol',ROOT/'packages/runtime',ROOT/'packages/kernels/btz']
+        allowed=[ROOT/'apps/btz-observer',ROOT/'packages/protocol',ROOT/'packages/kernels/btz',ROOT/'node_modules/@dtr/timeline-runtime/packages']
         if ('\\' in raw or not target.is_relative_to(ROOT) or not any(target.is_relative_to(d) for d in allowed)
             or (target.is_file() and target.suffix not in {'.html','.css','.mjs','.json','.bin','.svg'})
             or (target.is_dir() and target!=ROOT/'apps/btz-observer')):

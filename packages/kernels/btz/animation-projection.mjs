@@ -1,7 +1,7 @@
 /** Shared deterministic BTZ presentation projection. Hash binding and codecs
  * remain the responsibility of the caller's environment. */
 import {cmp} from './math.mjs';
-import {decodeCanonical} from '../../runtime/canonical.mjs';
+import {decodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 
 const trajectory=b=>({id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy});
 const same=(a,b)=>a&&['id','owner','x0','y0','vx','vy'].every(k=>a[k]===b[k]);

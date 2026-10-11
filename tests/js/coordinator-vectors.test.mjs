@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {TimelineCoordinator} from '../../packages/runtime/coordinator.mjs';
-import {decodeCanonical} from '../../packages/runtime/canonical.mjs';
-import {sha256} from '../../packages/runtime/seal.mjs';
-import {hex,unhex} from '../../packages/protocol/bytes.mjs';
+import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
+import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
+import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
 const fixture=JSON.parse(fs.readFileSync(new URL('../fixtures/coordinator-v5.json',import.meta.url),'utf8'));
 for(const row of fixture.rows)for(let n=-1;n<row.actions.length;n++)

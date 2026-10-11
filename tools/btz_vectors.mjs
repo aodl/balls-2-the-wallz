@@ -5,9 +5,9 @@ import {fileURLToPath} from 'node:url';
 import {scenario} from '../tests/scenarios/btz.mjs';
 import {BtzCursor} from '../packages/kernels/btz/kernel.mjs';
 import {BTZ_IDENTITY,encodeWorld} from '../packages/kernels/btz/world.mjs';
-import {encodeCanonical} from '../packages/runtime/canonical.mjs';
-import {sha256} from '../packages/runtime/seal.mjs';
-import {hex} from '../packages/protocol/bytes.mjs';
+import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 const flag=process.argv[2];if(process.argv.length!==3||!['--write','--check'].includes(flag))throw new Error('usage: node tools/btz_vectors.mjs --write|--check');
 const cases=[];
 for(const name of ['admission','near-impact','duel','severance','corner','wall-bounce','dense']){

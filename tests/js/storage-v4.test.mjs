@@ -1,8 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {ChunkStore,ChunkedJournalStore,descriptor,chunkHash} from '../../packages/storage/chunks.mjs';
-import {encodeCanonical,decodeCanonical} from '../../packages/runtime/canonical.mjs';import {sha256,makeSeal} from '../../packages/runtime/seal.mjs';
-import {SegmentJournal} from '../../packages/runtime/journal.mjs';
-import {LifeInputKernel} from '../../packages/kernels/life-input.mjs';import {board,encodeBoard} from '../../packages/kernels/life.mjs';
+import {ChunkStore,ChunkedJournalStore,descriptor,chunkHash} from '@dtr/timeline-runtime/storage/chunks';
+import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';import {sha256,makeSeal} from '@dtr/timeline-runtime/runtime/seal';
+import {SegmentJournal} from '@dtr/timeline-runtime/runtime/journal';
+import {LifeInputKernel} from '@dtr/timeline-runtime/examples/life-input';import {board,encodeBoard} from '@dtr/timeline-runtime/examples/life';
 import {BtzKernel} from '../../packages/kernels/btz/kernel.mjs';import {BTZ_IDENTITY,encodeWorld} from '../../packages/kernels/btz/world.mjs';import {scenario} from '../scenarios/btz.mjs';
 const bytes=n=>Uint8Array.from({length:n},(_,i)=>i%251);
 function upload(s,b,revision,chunk=16){const d=descriptor(b,revision,chunk),g=s.begin(s.revision(),d);for(let i=0;i<d.chunks.length;i++)s.put(g,i,b.slice(i*chunk,(i+1)*chunk));s.commit(g);return g;}

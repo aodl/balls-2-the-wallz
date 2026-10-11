@@ -1,11 +1,11 @@
 /** Synthetic host workloads. There is no live ledger in these fixtures. */
-import {TimelineCoordinator} from '../../packages/runtime/coordinator.mjs';
+import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
 import {scenario} from './btz.mjs';
 import {BtzKernel} from '../../packages/kernels/btz/kernel.mjs';
 import {BTZ_IDENTITY,encodeWorld} from '../../packages/kernels/btz/world.mjs';
-import {LifeInputKernel,encodeLifeSet} from '../../packages/kernels/life-input.mjs';
-import {board,encodeBoard} from '../../packages/kernels/life.mjs';
-import {hex} from '../../packages/protocol/bytes.mjs';
+import {LifeInputKernel,encodeLifeSet} from '@dtr/timeline-runtime/examples/life-input';
+import {board,encodeBoard} from '@dtr/timeline-runtime/examples/life';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 export function coordinatorScenario(name) {
   const source_id='01'.repeat(32);
   if(name==='life'){

@@ -1,11 +1,11 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs/promises';
 import {prepareSegment,BtzView,snapshot,SegmentPlayer,timeNumber} from '../../apps/btz-observer/model.mjs';
 import {loadEntry,readBytes,validateIndex} from '../../apps/btz-observer/transport.mjs';
-import {PublicationSequence,sha256Web} from '../../packages/client/verification.mjs';
-import {decodeCanonical,encodeCanonical} from '../../packages/runtime/canonical.mjs';
-import {unhex} from '../../packages/protocol/bytes.mjs';
+import {PublicationSequence,sha256Web} from '@dtr/timeline-runtime/client/verification';
+import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
 import {projectAnimation} from '../../packages/kernels/btz/animation.mjs';
-import {publication} from '../../packages/observation/publication.mjs';
+import {publication} from '@dtr/timeline-runtime/observation/publication';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
 const root=new URL('../../apps/btz-observer/',import.meta.url);
 const index=validateIndex(JSON.parse(await fs.readFile(new URL('recordings/index.json',root),'utf8')));

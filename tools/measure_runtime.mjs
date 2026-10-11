@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {performance} from 'node:perf_hooks';
 import {coordinatorScenario} from '../instrumented/tests/scenarios/coordinator.mjs';
-import {auditCounters} from '../instrumented/packages/runtime/canonical.mjs';
+import {auditCounters} from '../instrumented/node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 const reset=()=>{for(const k of Object.keys(auditCounters))auditCounters[k]=0;};
 const rows=[];
 for(const name of ['life','admission','dense']){

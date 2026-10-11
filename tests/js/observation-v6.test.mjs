@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
-import {publication,publishedChunk,PublicationWindow} from '../../packages/observation/publication.mjs';
+import {publication,publishedChunk,PublicationWindow} from '@dtr/timeline-runtime/observation/publication';
 import {projectAnimation} from '../../packages/kernels/btz/animation.mjs';
-import {verifyPinnedPublication,verifyCertificatePublication,verifyRetainedPredecessor,ArtifactAssembler,PublicationSequence} from '../../packages/client/verification.mjs';
-import {unhex} from '../../packages/protocol/bytes.mjs';import{decodeCanonical,encodeCanonical}from'../../packages/runtime/canonical.mjs';import{sha256}from'../../packages/runtime/seal.mjs';
+import {verifyPinnedPublication,verifyCertificatePublication,verifyRetainedPredecessor,ArtifactAssembler,PublicationSequence} from '@dtr/timeline-runtime/client/verification';
+import {unhex} from '@dtr/timeline-runtime/protocol/bytes';import{decodeCanonical,encodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
 function complete(host,end){host.seal(end);while(host.status().phase==='running')host.advance(127);host.publish(host.status().ready_hash);}
 for(const name of ['life','admission','severance','near-impact','dense']){
  test(`${name}: private ingest/seal/step never invalidates committed publication`,async()=>{

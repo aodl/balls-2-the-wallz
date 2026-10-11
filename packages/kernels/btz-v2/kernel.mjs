@@ -1,8 +1,8 @@
 /** Small-board authoritative reference slice. No canister calls, timers, floats or browser authority. */
-import {ascii, be, concat, hex, Reader, unhex, uint} from '../../protocol/bytes.mjs';
+import {ascii, be, concat, hex, Reader, unhex, uint} from '../../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
-import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../runtime/canonical.mjs';
-import {sha256} from '../../runtime/seal.mjs';
+import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
 import {BTZ_IDENTITY, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';

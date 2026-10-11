@@ -1,5 +1,5 @@
 /** Read-only local recording transport. No ledger, identity, wallet or certificate API. */
-import {verifyPinnedPublication, ArtifactAssembler} from '../../packages/client/verification.mjs';
+import {verifyPinnedPublication, ArtifactAssembler} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 export function validateIndex(x){
   if(x?.version!==1||x.trust!=='offline-pinned-content'||!Array.isArray(x.recordings)||x.recordings.length<1||x.recordings.length>16)throw new Error('recording index');
   const ids=new Set();for(const r of x.recordings){

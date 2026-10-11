@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {hex} from '../../packages/protocol/bytes.mjs';
-import {encodeCanonical, decodeCanonical, cloneCanonical} from '../../packages/runtime/canonical.mjs';
-import {sha256} from '../../packages/runtime/seal.mjs';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
+import {encodeCanonical, decodeCanonical, cloneCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {rat, cmp} from '../../packages/kernels/btz/math.mjs';
 import {fixtureWorld, encodeWorld, decodeWorld, validateWorld, BTZ_IDENTITY, TEST_CONFIG, position} from '../../packages/kernels/btz/world.mjs';
 import {beginSpawn, spawnStep, spawnRank} from '../../packages/kernels/btz/spawn.mjs';

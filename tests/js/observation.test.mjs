@@ -2,12 +2,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {decodeCanonical,encodeCanonical} from '../../packages/runtime/canonical.mjs';
-import {TimelineCoordinator} from '../../packages/runtime/coordinator.mjs';
-import {sha256} from '../../packages/runtime/seal.mjs';
-import {hex,unhex} from '../../packages/protocol/bytes.mjs';
-import {publicationV5 as publication,publishedChunkV5 as publishedChunk,describeArtifact} from '../../packages/observation/publication.mjs';
-import {ArtifactAssembler,PublicationSequence,verifyPinnedPublication,verifyCertificatePublication} from '../../packages/client/verification.mjs';
+import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
+import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
+import {publicationV5 as publication,publishedChunkV5 as publishedChunk,describeArtifact} from '@dtr/timeline-runtime/observation/publication';
+import {ArtifactAssembler,PublicationSequence,verifyPinnedPublication,verifyCertificatePublication} from '@dtr/timeline-runtime/client/verification';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
 const rows=JSON.parse(fs.readFileSync(new URL('../fixtures/coordinator-v5.json',import.meta.url),'utf8')).rows;
 const fixture=name=>decodeCanonical(unhex(rows.find(r=>r.name===name).actions.at(-1).image_hex));

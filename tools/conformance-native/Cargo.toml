@@ -7,6 +7,6 @@ publish.workspace = true
 
 [dependencies]
 btz-protocol = { path = "../../crates/btz-protocol" }
-dtr-core = { path = "../../crates/dtr-core" }
-life-conformance = { path = "../../kernels/life-conformance" }
+dtr-core.workspace = true
+life-conformance.workspace = true
 btz-mechanics = { path = "../../kernels/btz-mechanics" }

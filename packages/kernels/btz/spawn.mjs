@@ -1,6 +1,6 @@
 /** Exhaustive, resumable placement. Hash ordering is predictable, not manipulation-resistant. */
-import {encodeCanonical} from '../../runtime/canonical.mjs';
-import {sha256} from '../../runtime/seal.mjs';
+import {encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat} from './math.mjs';
 import {neighbors, position, Q} from './world.mjs';
 

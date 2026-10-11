@@ -5,11 +5,11 @@ import path from 'node:path';
 import {scenario} from '../tests/scenarios/btz.mjs';
 import {BtzKernel, BtzCursor} from '../packages/kernels/btz/kernel.mjs';
 import {BTZ_IDENTITY, encodeWorld, decodeWorld} from '../packages/kernels/btz/world.mjs';
-import {decodeCanonical, encodeCanonical} from '../packages/runtime/canonical.mjs';
-import {SegmentJournal} from '../packages/runtime/journal.mjs';
-import {ChunkedJournalStore} from '../packages/storage/chunks.mjs';
-import {makeSeal, sha256} from '../packages/runtime/seal.mjs';
-import {hex, unhex} from '../packages/protocol/bytes.mjs';
+import {decodeCanonical, encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {SegmentJournal} from '@dtr/timeline-runtime/runtime/journal';
+import {ChunkedJournalStore} from '@dtr/timeline-runtime/storage/chunks';
+import {makeSeal, sha256} from '@dtr/timeline-runtime/runtime/seal';
+import {hex, unhex} from '@dtr/timeline-runtime/protocol/bytes';
 const usage = 'node tools/chunked_demo.mjs btz <scenario> --journal <local-path> [--fault chunk:0|before_root|after] [--recover yes] [--budget 127] [--slices 10000]';
 function options(args) {
   const [game,name,...rest]=args;if(game!=='btz'||!name)throw new Error(usage);
