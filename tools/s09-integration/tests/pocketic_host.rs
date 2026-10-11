@@ -801,7 +801,7 @@ fn drive_to_segment(
             capture_new_publications(pic, runtime, captured);
             assert_eq!(current.run.completed_segments as usize, captured.len());
         }
-        if current.run.completed_segments >= target + 1 {
+        if current.run.completed_segments > target {
             return current;
         }
     }
