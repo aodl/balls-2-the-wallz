@@ -1,60 +1,44 @@
-# DTR / Balls 2 The Wallz — S08
+# DTR / Balls 2 The Wallz — S10
 
-A **read-only, locally served browser observer**, built on the verified S06 coordinator, publication v6 and compact animation contract. The recordings are finite deterministic outputs of the existing BTZ v3 reference kernel—not hand-scripted gameplay.
+S10 is a continuously running, local-only Internet Computer game service. After one controller-authorized local start, the existing Rust coordinator autonomously scans a disposable ICP ledger, seals verified input prefixes, performs bounded BTZ v3 simulation work, publishes consecutive publication-v6 segments and continues through empty-input periods. The read-only browser remains connected to the running PocketIC instance, verifies fresh genuine IC certificates and plays authenticated segments through the existing animation-v1 projection.
 
-**Offline replay, not IC-certified. No wallet, payment, deployment or real funds. Native conformance now passes; IC integration and production promotion remain BLOCKED.**
-
-## Start the observer
-
-Node 22.16+ and Python 3.11+ run the source tools. A modern browser on localhost (or HTTPS) supplies Canvas, Web Crypto, ES modules and BigInt. No npm installation is needed to view the bundled recordings.
-
-For the pinned Rust toolchain, user-scoped Python option and one-time locked dependency fetch, see [Linux setup](docs/operations/LINUX_SETUP.md).
-
-```sh
-# First, verify the pristine extracted package.
-python3.11 -B tools/verify_checkpoint.py
-
-# Serve only allowlisted observer files and their source-module dependencies.
-python3.11 -B tools/serve_observer.py --port 8080
-```
-
-Open **http://127.0.0.1:8080/apps/btz-observer/**. Stop the server with Ctrl+C. Opening the HTML directly through `file://` is not supported.
-
-Choose Frontier pressure, New arrivals, The bridge breaks, or Mutual destruction. Pause **downloads** to see the verified buffer drain, then unpause them to resume. Pause **playback** to inspect a frame. Replay speed changes presentation only. The recording stops at its verified end; Restart explicitly returns to genesis.
-
-The contribution panel shows **unmeasured**, not invented cycles or ETH-equivalent figures. The territory table describes the visible board, not a financial payout ranking.
+**Live local IC — test-network certified. No mainnet deployment, wallet, real funds, payout or production-readiness claim.**
 
 ## Verify
 
+Use Node 22.16+, Python 3.11+, the repository-pinned Rust 1.94.1 toolchain, and the pinned Playwright 1.63.0 Chromium. Setup is documented in [Linux setup](docs/operations/LINUX_SETUP.md).
+
 ```sh
-python3.11 -B tools/check.py source
-node tools/build_observer_recordings.mjs --check
-python3.11 -B tools/check.py all
+python3.11 -B tools/check.py source --output .work/source
+python3.11 -B tools/check.py native --output .work/native
+python3.11 -B tools/check.py wasm --output .work/wasm
 
-# With the pinned Playwright test dependency and its Chromium installed:
-python3.11 -B tools/verify_observer_http.py --output .work/browser-http
-
-# Isolated, network-free Chromium fixture-document tests:
-python3.11 -B tools/browser_observer.py --mode offline
+# With the pinned Playwright environment and sandbox-capable host:
+python3.11 -B tools/check.py browser --output .work/browser
+python3.11 -B tools/verify_s10_local.py --output .work/s10-local
 ```
 
-The complete gate reports unimplemented IC integration requirements as BLOCKED. It is not an overall deployment pass.
+The S10 wrapper builds the exact installed-Wasm test harness before starting its owned idle-timed PocketIC server. It then executes the installed-Wasm recovery/upgrade suite, runs the browser and game network concurrently for the live checkpoint, stops only its owned server process group, and reruns the S09 finite certified-snapshot mode as a regression. Missing approved browser prerequisites remain BLOCKED; executed failures remain FAIL.
 
-**Browser evidence qualification:** the S07 environment blocked Chromium navigation with `ERR_BLOCKED_BY_ADMINISTRATOR`; that remains historical evidence, not an assumption about the current host. S08 executes HTTP mode against the loopback server with the production static-page CSP and browser-native Web Crypto. Neither HTTP nor fixture mode establishes IC certificates.
+The bundled offline observer is still available:
 
-## Current source boundary
+```sh
+python3.11 -B tools/serve_observer.py --port 8080
+```
 
-| Component | Role |
+Open **http://127.0.0.1:8080/apps/btz-observer/**. That default mode is labeled **Offline replay — pinned content, not IC-certified** and is distinct from the harness-configured S10 live mode.
+
+## Current boundary
+
+| Component | S10 role |
 |---|---|
-| `apps/btz-observer/` | Renderer, verified replay admission, bounded local transport and UI. |
-| `tools/build_observer_recordings.mjs` | Reproducibly runs the existing coordinator to produce 32 segments plus four genesis anchors. |
-| `tools/serve_observer.py` | Loopback-only static demonstration server; not a production host. |
-| `tools/browser_observer.py` | Separate HTTP and offline Chromium verification modes. |
-| Existing `packages/client/` | Unchanged catalog/chunk verification and adaptive presentation clock. |
-| Existing kernels/coordinator | Unchanged game, accounting, input and publication rules. |
+| `canisters/runtime-lab` | Current IC host: verified ledger ingestion, one generation-fenced progression loop, coordinator persistence, certification and three-publication/8 MiB retention. |
+| `native/dtr-host` and existing BTZ kernel | Unchanged authoritative coordinator/game rules and independent replay reference. |
+| `packages/client` | Publication/artifact checks, standard-library IC certificate verification, predecessor-chain authentication and anti-rollback sequencing. |
+| `apps/btz-observer` | Existing read-only Canvas renderer with live certified retrieval, bounded buffering and visible snapshot resynchronization. |
+| `tools/serve_observer.py` | Loopback-only allowlisted test proxy for actual PocketIC query/read-state bytes. It is not a production service. |
+| `tools/verify_s10_local.py` | Bounded owner of the disposable PocketIC/browser integration and its sanitized results. |
 
-This checkpoint adds no gameplay, backend, new runtime, custom crypto framework or canister laboratory. It validates and minimally repairs the existing native/runtime implementations. The original verbose audit stream remains available beside the compact render projection.
+BTZ v3 gameplay, canonical payment inputs, authoritative state/events/scores/seals, publication v6, animation v1 and Life regression behavior remain unchanged. See the [S10 live-local specification](docs/specs/LIVE_LOCAL_S10.md), [current status](STATUS.md), [checkpoint report](checkpoints/S10_REPORT.md) and [verification summary](evidence/S10/verification-summary.json).
 
-Read the [S08 checkpoint report](checkpoints/S08_REPORT.md), [observer contract](docs/specs/OBSERVER_V7.md), [status](STATUS.md), [verification summary](evidence/S08/verification-summary.json) and [HTTP browser results](evidence/S08/browser/http/results.json). Screenshots: [desktop](evidence/S08/browser/http/desktop.png), [mobile](evidence/S08/browser/http/mobile.png).
-
-The S06 [simplification contract](docs/specs/SIMPLIFICATION_V6.md) remains in force for runtime, publication and private implementation freedom.
+Production ledger scalability, settlement, real-wallet integration, governance, release-grade reproducible Wasm and repository extraction remain separate work. Jupiter Faucet and Event Horizon remain independent products.

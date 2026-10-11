@@ -1,37 +1,36 @@
 {
   "schema_version": 1,
-  "checkpoint_id": "S09",
-  "name": "DTR/BTZ local authoritative IC slice",
-  "date": "2026-10-10",
+  "checkpoint_id": "S10",
+  "name": "DTR/BTZ live-local autonomous game and certified observer",
+  "date": "2026-10-11",
   "predecessor": {
-    "checkpoint_id": "S08",
-    "reviewed_commit": "7e55ceed322dcb9268382522c696a74e86e8f5f3",
-    "s07_baseline_commit": "8adbdab4fd375e27ebf4e540a2e44ba68426c6c8",
-    "s07_baseline_tag": "s07-source-baseline"
+    "checkpoint_id": "S09",
+    "corrected_implementation_commit": "68e714979eaf72c3d301b1cc43c1ec2caccd1a27",
+    "documentation_commit": "d06c3c787b253939cb5844ab2940792273d24614",
+    "successful_ci_run": 38132545307
   },
-  "implementation_scope": "Executed one disposable-local upstream-ledger/archive to runtime-lab to certified browser-observer path with upgrade and recovery evidence",
+  "implementation_scope": "One explicitly started disposable-PocketIC service autonomously ingests valueless ledger records, publishes consecutive BTZ segments, retains a bounded authenticated window, and serves a concurrently connected certified browser observer",
   "delivery_complete": true,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
-    "evidence/S09/verification-summary.json",
-    "evidence/S09/runtime-lab.generated.did"
+    "evidence/S10/verification-summary.json",
+    "evidence/S10/runtime-lab.generated.did"
   ],
   "manifest": null,
   "release_archive_created": false,
   "baseline_manifest": "FILES.sha256",
-  "next_checkpoint": "production-boundary-hardening",
+  "next_checkpoint": "behavior-preserving DTR repository extraction",
   "open_decision_register": "docs/DECISIONS.md",
   "limitations": [
-    "FILES.sha256 remains the imported S07 archive manifest; no S09 release ZIP or manifest was generated.",
-    "The ledger path is a bounded contiguous full-ledger correctness baseline, not production scalability or cost evidence; no index path is claimed.",
-    "The source anchor commits decoded ledger content and continuity but is not represented as the native ledger block hash.",
-    "The disposable PocketIC root is trusted only through an explicit local harness step; production network-root policy remains open.",
-    "Canister-range delegation was verified where emitted by the local topology; broader production topology coverage remains open.",
-    "Independent byte-reproducible Wasm comparison, real cycle telemetry, production capacity and settlement remain unexecuted.",
-    "Cargo audit reports informational unmaintained warnings for paste and serde_cbor; no known vulnerability advisory was found.",
-    "No deployment, wallet access, token transfer, payout, production controller change or mainnet call occurred."
+    "S10 is a disposable local correctness demonstration, not a production deployment, capacity, fairness, cost, finality or availability claim.",
+    "The retention window is three completed publications and 8 MiB; it intentionally provides recent reconnect recovery rather than permanent history.",
+    "The local input policy seals the verified contiguous prefix visible at the next idle progression callback; production ledger scaling and timing policy remain open.",
+    "The loopback observer proxy is a test transport for actual IC query and read_state bytes, not a production gateway or observability service.",
+    "Independent byte-reproducible Wasm comparison remains an open release gate.",
+    "Production network-root policy, financial settlement, real wallets, governance and measured subnet capacity remain unexecuted.",
+    "No public-network deployment, wallet access, real token transfer, payout, production controller change, package publication or release occurred."
   ],
   "implementation_versions": {
     "source_seal": 1,
@@ -49,6 +48,7 @@
     "runtime_lab": 6,
     "animation_projection": 1,
     "observer_recording": 1,
-    "observer_model": 1
+    "observer_model": 1,
+    "live_local_service": 1
   }
 }

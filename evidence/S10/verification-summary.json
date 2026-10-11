@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S10",
+  "date": "2026-10-11",
+  "branch": "checkpoint/s10-live-local-observer",
+  "tested_implementation_revision": "9d3406b3d4fa9da3fe9edc2a048f13ab7357fd24",
+  "decision": "PASS_LOCAL_CI_PENDING",
+  "production_promotion": "BLOCKED",
+  "implementation_commits": [
+    "af029ac",
+    "9d3406b"
+  ],
+  "local_results": {
+    "source": {
+      "status": "PASS",
+      "node_tests": 1317,
+      "python_tool_tests": 78
+    },
+    "native": {
+      "status": "PASS",
+      "root_rust_tests": 38,
+      "portable_rust_tests": 16,
+      "life_and_btz_public_conformance": "PASS"
+    },
+    "wasm_interface_format_clippy": "PASS",
+    "standalone_http_native_webcrypto_browser": "PASS",
+    "installed_wasm_regressions": {
+      "status": "PASS",
+      "passed": 10,
+      "failed": 0,
+      "ignored_for_separate_orchestration": 1
+    },
+    "live_concurrent_slice": {
+      "status": "PASS",
+      "pocketic_test": {
+        "passed": 1,
+        "failed": 0
+      },
+      "browser_assertions": 11,
+      "authoritative_segments": {
+        "first": 0,
+        "last": 10,
+        "count": 11
+      },
+      "native_replay": "PASS",
+      "s09_certified_snapshot_regression": "PASS"
+    },
+    "cold_lifecycle": {
+      "status": "PASS",
+      "target_started_empty": true,
+      "harness_compile_seconds": 624.465,
+      "server_started_after_compile": true,
+      "server_idle_ttl_seconds": 60,
+      "server_hard_ttl_seconds": 900,
+      "server_cleaned_up": true
+    }
+  },
+  "live_browser": {
+    "qualification": "Actual query/read_state traffic and fresh IC certificates from the still-running configured disposable PocketIC instance; no exported future recording.",
+    "checks": [
+      "explicit pinned Playwright browser selected",
+      "Chromium sandbox requested and operational",
+      "browser authenticated genesis before autonomous start",
+      "fresh publications arrived after browser connection",
+      "short disconnect recovered retained consecutive segments",
+      "long disconnect performed certified snapshot resynchronization",
+      "accepted heads remained monotone across reconnect",
+      "wrong configured root failed closed",
+      "corrupted live query response failed closed",
+      "native browser Web Crypto executed",
+      "no uncaught page errors"
+    ],
+    "playwright": "1.63.0",
+    "chromium": "Google Chrome for Testing 153.0.8010.12",
+    "sandbox": true,
+    "accepted_heads_example": [
+      0,
+      1,
+      2,
+      3,
+      8,
+      9,
+      10
+    ],
+    "resynchronizations": 1
+  },
+  "resource_observations": {
+    "qualification": "Disposable local measurements, not mainnet capacity, cycle burn, finality or cost evidence.",
+    "event_bytes_per_segment": {
+      "minimum": 275,
+      "maximum": 2373,
+      "total": 15126
+    },
+    "publication_plus_artifacts_bytes_per_segment": {
+      "minimum": 3245,
+      "maximum": 5895,
+      "total": 51998
+    },
+    "retained_publications": 3,
+    "retained_bytes_at_stop": 14672,
+    "input_queue_observed_high_water": 3,
+    "active_balls_at_stop": 3,
+    "active_cannons_at_stop": 2,
+    "coordinator_work_total": 3398,
+    "coordinator_work_max_per_segment": 732,
+    "ledger_calls": 30,
+    "archive_calls": 2,
+    "browser_max_buffer_segments": 4,
+    "browser_max_buffer_logical_ticks": 6.6791591232000025,
+    "browser_resynchronizations": 1
+  },
+  "input_assignment_example": {
+    "first_pre_start_valid_record_segment": 0,
+    "post_first_publication_valid_record_segment": 3,
+    "dropped_hint_valid_record_segment": 5,
+    "policy": "seal the verified contiguous source prefix visible at the next idle autonomous callback",
+    "timing_qualification": "Segment assignment is timing-dependent local evidence; replay holds the recorded seals fixed."
+  },
+  "tested_artifacts": {
+    "runtime_lab_wasm_sha256": "3ee3b6e11a94850114e74e64fe96ee420c1ab14f2008360ae0c2570959a10450",
+    "runtime_lab_wasm_size": 2238446,
+    "runtime_lab_test_hooks_wasm_sha256": "4ab4fe1e64864e992799562d589d371e95eeaa652a110d9d6ebacbafec7905e6",
+    "runtime_lab_test_hooks_wasm_size": 2263937,
+    "generated_candid_sha256": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
+    "ledger_wasm_sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ledger_archive_wasm_sha256": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42",
+    "pocketic_server_sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "disposable_root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c"
+  },
+  "tools": {
+    "python": "3.11.14",
+    "node": "24.15.0",
+    "npm": "11.12.1",
+    "rustc": "1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "1.94.1 (29ea6fb6a 2026-03-24)",
+    "pocketic_server": "16.1.0",
+    "pocket_ic_crate": "16.1.0",
+    "ic_agent": "0.49.2",
+    "icp_sdk_core": "6.1.0"
+  },
+  "commands": [
+    "python3.11 -B tools/check.py source --output .work/s10/precommit-source",
+    "python3.11 -B tools/check.py native --output .work/s10/precommit-native",
+    "python3.11 -B tools/check.py wasm --output .work/s10/precommit-wasm",
+    "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/check.py browser --output .work/s10/precommit-browser",
+    "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu <playwright-python> -B tools/verify_s10_local.py --output .work/s10/precommit-integration"
+  ],
+  "fresh_ci": {
+    "status": "NOT_RUN",
+    "reason": "A remote push or workflow dispatch requires separate authorization; local preparation is complete."
+  },
+  "blocked_production_gates": [
+    "independent byte-reproducible Wasm and release provenance",
+    "production ledger scalability, catch-up, archive topology, timing policy and cost",
+    "production network-root and delegation policy",
+    "financial settlement, payout and real-wallet behavior",
+    "measured production cycle capacity, finality and availability"
+  ]
+}

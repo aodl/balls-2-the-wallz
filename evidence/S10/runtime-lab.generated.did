@@ -1,0 +1,87 @@
+type ControllerWork = record {
+  source_cursor : nat64;
+  ready_manifest : opt text;
+  phase : opt text;
+  revision : nat64;
+  pending_inputs : nat32;
+};
+type LedgerConfig = record {
+  network : text;
+  fallback_seconds : nat32;
+  ledger : principal;
+  recipient_account : blob;
+  hint_principal : opt principal;
+  page_limit : nat16;
+};
+type Observation = record { certificate : opt blob; publication : blob };
+type Result = variant { Ok : Status; Err : text };
+type Result_1 = variant { Ok : blob; Err : text };
+type Result_2 = variant { Ok : ControllerWork; Err : text };
+type Result_3 = variant { Ok : Observation; Err : text };
+type Result_4 = variant { Ok : RetentionStatus; Err : text };
+type RetainedEntry = record {
+  segment_id : nat64;
+  bytes : nat64;
+  current : bool;
+  publication_hash : text;
+};
+type RetentionStatus = record {
+  entries : vec RetainedEntry;
+  max_segments : nat16;
+  max_bytes : nat64;
+  retained_bytes : nat64;
+};
+type RunConfig = record {
+  work_budget : nat32;
+  segment_ticks : nat64;
+  pacing_seconds : nat32;
+};
+type RunStatus = record {
+  last_error : opt text;
+  last_segment_work : nat64;
+  callback_count : nat64;
+  generation : nat64;
+  work_budget : nat32;
+  total_work : nat64;
+  current_segment_work : nat64;
+  segment_ticks : nat64;
+  max_segment_work : nat64;
+  completed_segments : nat64;
+  running : bool;
+  pacing_seconds : nat32;
+};
+type SourceStatus = record {
+  last_error : opt text;
+  hint_pending : bool;
+  archive_calls : nat64;
+  mode : text;
+  generation : opt nat64;
+  network : opt text;
+  verified_source_watermark : opt nat64;
+  ledger : opt principal;
+  recipient_account : opt blob;
+  scan_in_flight : bool;
+  ledger_calls : nat64;
+};
+type Status = record {
+  run : RunStatus;
+  source : SourceStatus;
+  synthetic_inputs_only : bool;
+  version : nat32;
+  revision : nat64;
+  publication_hash : text;
+};
+service : (blob, text, nat64, nat64, opt LedgerConfig) -> {
+  apply : (nat64, blob) -> (Result);
+  artifact_chunk : (text, nat8, nat16) -> (Result_1) query;
+  controller_work : () -> (Result_2) query;
+  lab_status : () -> (Result) query;
+  ledger_hint : () -> (Result);
+  observation : () -> (Result_3) query;
+  pause_autonomous : () -> (Result);
+  retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result_1) query;
+  retained_publication : (nat64) -> (Result_1) query;
+  retention_status : () -> (Result_4) query;
+  start_autonomous : (RunConfig) -> (Result);
+  sync_ledger : () -> (Result);
+}
