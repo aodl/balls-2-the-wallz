@@ -149,6 +149,7 @@ def main():
                 heads=page.evaluate('globalThis.__dtrLive.heads.slice()')
                 assert all(b>a for a,b in zip(heads,heads[1:])),heads
                 record('live-anti-rollback-and-continuity','PASS',f'Accepted monotone heads {heads}.')
+                report['resource_observations']=page.evaluate("({max_buffer_segments:globalThis.__dtrLive.maxBufferSegments,max_buffer_logical_ticks:globalThis.__dtrLive.maxBufferLogical,resynchronizations:globalThis.__dtrLive.resyncs,accepted_heads:globalThis.__dtrLive.heads.slice()})")
                 page.screenshot(path=str(a.output/'live-desktop.png'),full_page=True)
 
                 wrong=context.new_page()

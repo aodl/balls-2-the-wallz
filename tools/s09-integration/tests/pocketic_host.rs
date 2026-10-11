@@ -749,6 +749,7 @@ fn drive_to_segment(
     runtime: Principal,
     target: u64,
     captured: &mut Vec<(Publication, Vec<Vec<u8>>)>,
+    pending_high_water: &mut u32,
 ) -> Status {
     for _ in 0..240 {
         let before = captured.len();
@@ -757,6 +758,8 @@ fn drive_to_segment(
             pic.tick();
         }
         let current = status(pic, runtime, Principal::anonymous()).unwrap();
+        *pending_high_water =
+            (*pending_high_water).max(controller_work(pic, runtime).unwrap().pending_inputs);
         if current.run.completed_segments as usize > before {
             capture_new_publications(pic, runtime, captured);
             assert_eq!(current.run.completed_segments as usize, captured.len());
@@ -2008,7 +2011,8 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
         pic.tick();
     }
     let mut captured = Vec::<(Publication, Vec<Vec<u8>>)>::new();
-    drive_to_segment(&pic, runtime, 1, &mut captured);
+    let mut pending_high_water = controller_work(&pic, runtime).unwrap().pending_inputs;
+    drive_to_segment(&pic, runtime, 1, &mut captured, &mut pending_high_water);
 
     // A valid payment arrives after publication has begun. Repeated hints carry
     // no payload authority and must not duplicate the eventual command.
@@ -2040,7 +2044,7 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
     }
 
     wait_for_marker(&coordination, "short-paused");
-    drive_to_segment(&pic, runtime, 3, &mut captured);
+    drive_to_segment(&pic, runtime, 3, &mut captured, &mut pending_high_water);
     std::fs::write(coordination.join("harness-short-ready"), "3\n").unwrap();
 
     wait_for_marker(&coordination, "long-paused");
@@ -2062,7 +2066,7 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
             third_memo,
         ),
     );
-    drive_to_segment(&pic, runtime, 8, &mut captured);
+    drive_to_segment(&pic, runtime, 8, &mut captured, &mut pending_high_water);
     std::fs::write(coordination.join("harness-long-ready"), "8\n").unwrap();
 
     // Upgrade with an unfinished stage. The restored timer receives a new
@@ -2109,7 +2113,7 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
         paused_hash
     );
     start_autonomous(&pic, runtime, config);
-    drive_to_segment(&pic, runtime, 10, &mut captured);
+    drive_to_segment(&pic, runtime, 10, &mut captured, &mut pending_high_water);
     let final_status = pause_autonomous(&pic, runtime);
     std::fs::write(coordination.join("harness-final-ready"), "10\n").unwrap();
     wait_for_marker(&coordination, "browser-complete");
@@ -2212,8 +2216,19 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
             })
             .unwrap()
     };
+    let event_bytes = captured
+        .iter()
+        .map(|(_, artifacts)| artifacts[1].len())
+        .collect::<Vec<_>>();
+    let publication_bytes = captured
+        .iter()
+        .map(|(publication, artifacts)| {
+            encode(publication).unwrap().len() + artifacts.iter().map(Vec::len).sum::<usize>()
+        })
+        .collect::<Vec<_>>();
+    let final_world: Value = serde_json::from_slice(&captured.last().unwrap().1[0]).unwrap();
     println!(
-        "S10_HEADS=0..10 INPUT_ASSIGNMENTS=first:{} second:{} dropped_hint:{} LEDGER_CALLS={} ARCHIVE_CALLS={} RETAINED={} RETAINED_BYTES={} WORK_TOTAL={} WORK_MAX={} ROOT_SHA256={} CANISTER={}",
+        "S10_HEADS=0..10 INPUT_ASSIGNMENTS=first:{} second:{} dropped_hint:{} LEDGER_CALLS={} ARCHIVE_CALLS={} RETAINED={} RETAINED_BYTES={} EVENT_BYTES_MIN={} EVENT_BYTES_MAX={} EVENT_BYTES_TOTAL={} PUBLICATION_BYTES_MIN={} PUBLICATION_BYTES_MAX={} PUBLICATION_BYTES_TOTAL={} INBOX_HIGH_WATER={} ACTIVE_BALLS={} ACTIVE_CANNONS={} WORK_TOTAL={} WORK_MAX={} ROOT_SHA256={} CANISTER={}",
         assignment(first),
         assignment(second),
         assignment(third),
@@ -2221,6 +2236,15 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
         final_status.source.archive_calls,
         retention_status(&pic, runtime).entries.len(),
         retention_status(&pic, runtime).retained_bytes,
+        event_bytes.iter().min().unwrap(),
+        event_bytes.iter().max().unwrap(),
+        event_bytes.iter().sum::<usize>(),
+        publication_bytes.iter().min().unwrap(),
+        publication_bytes.iter().max().unwrap(),
+        publication_bytes.iter().sum::<usize>(),
+        pending_high_water,
+        final_world["balls"].as_array().unwrap().len(),
+        final_world["cannons"].as_array().unwrap().len(),
         final_status.run.total_work,
         final_status.run.max_segment_work,
         dtr_wire::hash(&root_key),

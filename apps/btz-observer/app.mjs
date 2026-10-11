@@ -124,7 +124,8 @@ async function startLive(recording){
     const world=snapshot(state),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
     resetLiveClock(s,time);visible=new BtzView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
-    globalThis.__dtrLive={connected:true,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped};
+    globalThis.__dtrLive={connected:true,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
+      maxBufferSegments:0,maxBufferLogical:0};
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
 }
 async function admitLive(s,ticket){
@@ -135,6 +136,8 @@ async function admitLive(s,ticket){
   s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
   globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+  globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);
+  globalThis.__dtrLive.maxBufferLogical=Math.max(globalThis.__dtrLive.maxBufferLogical,s.clock.state().buffer);
 }
 async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
