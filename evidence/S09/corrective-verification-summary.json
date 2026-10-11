@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S09",
+  "date": "2026-10-11",
+  "reviewed_revision": "cafb3201068c5e5a37d9b80097767a82b45b7f69",
+  "tested_implementation_revision": "68e714979eaf72c3d301b1cc43c1ec2caccd1a27",
+  "decision": "PASS_LOCAL_AND_FRESH_CI",
+  "production_promotion": "BLOCKED",
+  "corrective_commits": [
+    "cb232c4ae599d9c145ed550df09e4d89364b3876",
+    "fb135f9e31bd5529afe909ff76098701e9ecd29d",
+    "68e714979eaf72c3d301b1cc43c1ec2caccd1a27"
+  ],
+  "pre_fix_reproduction": {
+    "kind": "installed-Wasm PocketIC",
+    "status": "FAIL_AS_EXPECTED",
+    "diagnostic": "POST_AWAIT_ERROR=inbox backpressure; SCAN_IN_FLIGHT=true; CURSOR=Some(4096); PENDING=4096",
+    "raw_log": ".work/s09/corrective-reproduction/backpressure-before-fix.log"
+  },
+  "local_corrective_results": {
+    "runtime_source_revision": "90469ff8e0f03a0c46ea9d950761c16d3b140236",
+    "qualification": "The subsequent commits changed source-inventory expectations and CI runner labels, not the tested runtime or runner implementation.",
+    "integration_overall": "PASS",
+    "pocketic_tests": {
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0
+    },
+    "genuine_certificate_browser_assertions": 12,
+    "http_native_webcrypto": "PASS",
+    "node_tests": 1315,
+    "python_tool_tests": 78,
+    "root_rust_tests": 38,
+    "native_rust_tests": 16,
+    "wasm_candid_format_clippy": "PASS"
+  },
+  "fresh_ci": {
+    "run_id": 38132545307,
+    "attempt": 1,
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/aodl/placeholder/actions/runs/38132545307",
+    "started_utc": "2026-10-11T10:36:19Z",
+    "updated_utc": "2026-10-11T10:40:00Z",
+    "jobs": [
+      {
+        "name": "Source conformance",
+        "runner": "ubuntu-24.04",
+        "conclusion": "success"
+      },
+      {
+        "name": "Native conformance",
+        "runner": "ubuntu-24.04",
+        "conclusion": "success"
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "runner": "ubuntu-24.04",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "runner": "ubuntu-22.04",
+        "conclusion": "success"
+      },
+      {
+        "name": "Local IC authoritative slice",
+        "runner": "ubuntu-22.04",
+        "conclusion": "success"
+      }
+    ],
+    "artifact_packages": [
+      {
+        "name": "source-evidence",
+        "artifact_id": 11699707536,
+        "size_bytes": 24697,
+        "sha256": "1d112c5af1f107e828c787ad5309f91b7ff89e7cc95f6765ca42aa43b9af3df8"
+      },
+      {
+        "name": "native-evidence",
+        "artifact_id": 11699617557,
+        "size_bytes": 7904,
+        "sha256": "572d020daa4f32a04b60070ee71d72bfa1ec4c5ea9ba49d077626e75e70f84d4"
+      },
+      {
+        "name": "wasm-evidence",
+        "artifact_id": 11699592696,
+        "size_bytes": 5675,
+        "sha256": "48c079ea8cbee2fe3a9aebac685410b67da08af55131b1a8e3c23fb2acf05fae"
+      },
+      {
+        "name": "browser-evidence",
+        "artifact_id": 11699747361,
+        "size_bytes": 277042,
+        "sha256": "109e3702e4eb7cabdcdb14b48b7c53eade9b85cab1e57d630147a4908b19fd9c"
+      },
+      {
+        "name": "local-ic-evidence",
+        "artifact_id": 11699975979,
+        "size_bytes": 247030,
+        "sha256": "a565d4cc4f85db33cf1b7d1c44014bc2b86d7e3cdd63734ecc880e295bd67e91"
+      }
+    ]
+  },
+  "tested_artifacts": {
+    "runtime_lab_wasm_sha256": "bcbbcd258112c77b15e86cca039bed382f64ae35046a5517c42615c7071f06e7",
+    "runtime_lab_test_hooks_wasm_sha256": "87bc9ea48b1d188635ca653eb18bb16f4a7946753cbbe51951dd789db9d6b6a0",
+    "generated_candid_sha256": "c7e2cf9e6e2c959f58fa2a919d2f632f7003c81b99cfad3decd99ee70f24a86d",
+    "ledger_wasm_sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ledger_archive_wasm_sha256": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42"
+  },
+  "tools": {
+    "python": "3.11.14",
+    "node": "24.15.0",
+    "npm": "11.12.1",
+    "rustc": "1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "1.94.1 (29ea6fb6a 2026-03-24)",
+    "playwright": "1.63.0",
+    "chromium": "153.0.8010.12",
+    "pocketic_server": "16.1.0",
+    "pocket_ic_crate": "16.1.0",
+    "ic_agent": "0.49.2",
+    "icp_sdk_core": "6.1.0"
+  },
+  "qualification": "The browser evidence is genuine-certificate authenticated replay of a finite exported PocketIC snapshot, not a continuously running observer or service.",
+  "blocked_production_gates": [
+    "independent byte-reproducible Wasm and release provenance",
+    "production ledger scalability, catch-up, archive topology, latency and cost",
+    "production network-root and delegation policy",
+    "financial settlement, payout and real-wallet behavior",
+    "measured production cycle capacity, finality and availability"
+  ]
+}
