@@ -126,6 +126,8 @@ def main():
                 wait_until(page,lambda:len(page.evaluate('globalThis.__dtrLive.heads'))>=2,30000)
                 first_heads=page.evaluate('globalThis.__dtrLive.heads.slice()')
                 assert first_heads==sorted(set(first_heads))
+                assert first_heads[:2]==[0,1],first_heads
+                assert page.evaluate('globalThis.__dtrLive.resyncs')==0
                 assert page.evaluate('globalThis.__dtrLive.certificates')>=3
                 assert page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'")
                 record('fresh-live-certified-publications','PASS',f'Observed fresh segment heads {first_heads}.')
@@ -138,7 +140,7 @@ def main():
                 record('short-disconnect-retained-catchup','PASS',f'Resumed through retained consecutive segment {short_target}.')
 
                 page.locator('#network-pause').check();(coordination/'long-paused').write_text('paused\n')
-                long_target=int(wait_file(page,coordination/'harness-long-ready',30000))
+                long_target=int(wait_file(page,coordination/'harness-long-ready',60000))
                 page.locator('#network-pause').uncheck()
                 wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.resyncs')>=1 and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=long_target,30000)
                 assert 'unavailable animation was skipped' in page.locator('#delivery').inner_text()

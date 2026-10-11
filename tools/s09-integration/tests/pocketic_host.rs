@@ -751,12 +751,14 @@ fn drive_to_segment(
     captured: &mut Vec<(Publication, Vec<Vec<u8>>)>,
     pending_high_water: &mut u32,
 ) -> Status {
-    for _ in 0..240 {
+    let deadline = Instant::now() + Duration::from_secs(120);
+    while Instant::now() < deadline {
         let before = captured.len();
-        pic.advance_time(Duration::from_secs(1));
-        for _ in 0..5 {
-            pic.tick();
-        }
+        // Keep this live-gateway test on elapsed host time. Advancing the
+        // disposable instance clock faster than the browser clock would make
+        // otherwise genuine certificates appear to come from the future.
+        std::thread::sleep(Duration::from_millis(100));
+        pic.tick();
         let current = status(pic, runtime, Principal::anonymous()).unwrap();
         *pending_high_water =
             (*pending_high_water).max(controller_work(pic, runtime).unwrap().pending_inputs);
@@ -1868,8 +1870,6 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
     let coordination = live_directory.join("coordination");
     std::fs::create_dir_all(&coordination).unwrap();
     let mut pic = instance();
-    let wall_time = SystemTime::now() - Duration::from_secs(120);
-    pic.set_time(wall_time.into());
     let runtime = create_controlled(&pic);
     let payers = [
         Principal::self_authenticating([71; 32]),
@@ -2071,11 +2071,10 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
 
     // Upgrade with an unfinished stage. The restored timer receives a new
     // generation; pause/resume must not erase or duplicate the staged segment.
-    for _ in 0..20 {
-        pic.advance_time(Duration::from_secs(1));
-        for _ in 0..5 {
-            pic.tick();
-        }
+    let running_deadline = Instant::now() + Duration::from_secs(30);
+    while Instant::now() < running_deadline {
+        std::thread::sleep(Duration::from_millis(100));
+        pic.tick();
         if controller_work(&pic, runtime).unwrap().phase.as_deref() == Some("running") {
             break;
         }
@@ -2102,8 +2101,8 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
     assert_eq!(duplicate.run.generation, recovered.run.generation);
     let paused = pause_autonomous(&pic, runtime);
     let paused_hash = paused.publication_hash.clone();
-    pic.advance_time(Duration::from_secs(5));
-    for _ in 0..10 {
+    for _ in 0..20 {
+        std::thread::sleep(Duration::from_millis(100));
         pic.tick();
     }
     assert_eq!(
