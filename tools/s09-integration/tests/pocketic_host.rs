@@ -257,6 +257,21 @@ fn required_path(name: &str) -> PathBuf {
     path
 }
 
+fn baseline_runtime_wasm(current: &[u8]) -> Vec<u8> {
+    match std::env::var_os("DTR_BASELINE_RUNTIME_WASM") {
+        Some(path) => {
+            let path = PathBuf::from(path);
+            assert!(
+                path.is_file(),
+                "DTR_BASELINE_RUNTIME_WASM is not a file: {}",
+                path.display()
+            );
+            std::fs::read(path).unwrap()
+        }
+        None => current.to_vec(),
+    }
+}
+
 fn instance() -> PocketIc {
     let builder = PocketIcBuilder::new()
         .with_nns_subnet()
@@ -985,9 +1000,10 @@ fn invalid_init_trap_rollback_and_corruption_fail_closed() {
 #[test]
 fn upgrades_preserve_idle_sealed_and_ready_boundaries() {
     let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let baseline = baseline_runtime_wasm(&wasm);
     let pic = instance();
 
-    let idle = deploy_synthetic(&pic, &wasm);
+    let idle = deploy_synthetic(&pic, &baseline);
     let idle_publication = observation(&pic, idle).publication;
     pic.upgrade_canister(
         idle,
@@ -999,7 +1015,7 @@ fn upgrades_preserve_idle_sealed_and_ready_boundaries() {
     assert_eq!(observation(&pic, idle).publication, idle_publication);
     assert!(controller_work(&pic, idle).unwrap().phase.is_none());
 
-    let sealed = deploy_synthetic(&pic, &wasm);
+    let sealed = deploy_synthetic(&pic, &baseline);
     let sealed_publication = observation(&pic, sealed).publication;
     apply(
         &pic,
@@ -1027,7 +1043,7 @@ fn upgrades_preserve_idle_sealed_and_ready_boundaries() {
         Some("running")
     );
 
-    let ready = deploy_synthetic(&pic, &wasm);
+    let ready = deploy_synthetic(&pic, &baseline);
     apply(
         &pic,
         ready,
@@ -1672,8 +1688,9 @@ fn scan_backpressure_is_retryable_without_upgrade_or_manual_reset() {
 #[test]
 fn autonomous_progression_is_single_bounded_upgrade_safe_and_retained() {
     let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let baseline = baseline_runtime_wasm(&wasm);
     let pic = instance();
-    let runtime = deploy_synthetic(&pic, &wasm);
+    let runtime = deploy_synthetic(&pic, &baseline);
     let payer = Principal::self_authenticating([61; 32]);
     let payment = normalized(
         AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT),
@@ -1864,6 +1881,7 @@ fn autonomous_progression_is_single_bounded_upgrade_safe_and_retained() {
 #[ignore = "requires the S10 live browser orchestrator"]
 fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
     let runtime_wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let baseline_wasm = baseline_runtime_wasm(&runtime_wasm);
     let ledger_wasm = std::fs::read(required_path("DTR_LEDGER_WASM")).unwrap();
     let live_directory =
         PathBuf::from(std::env::var_os("DTR_S10_LIVE_DIR").expect("DTR_S10_LIVE_DIR is required"));
@@ -1955,7 +1973,7 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
         }),
     ))
     .unwrap();
-    pic.install_canister(runtime, runtime_wasm.clone(), init, Some(controller()));
+    pic.install_canister(runtime, baseline_wasm, init, Some(controller()));
     let config = RunConfig {
         segment_ticks: 2,
         pacing_seconds: 1,
@@ -2255,6 +2273,7 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
 #[test]
 fn upstream_ledger_archive_to_recovered_publication_matches_native() {
     let runtime_wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let baseline_wasm = baseline_runtime_wasm(&runtime_wasm);
     let ledger_wasm = std::fs::read(required_path("DTR_LEDGER_WASM")).unwrap();
     let mut pic = instance();
     let runtime = create_controlled(&pic);
@@ -2282,7 +2301,7 @@ fn upstream_ledger_archive_to_recovered_publication_matches_native() {
         }),
     ))
     .unwrap();
-    pic.install_canister(runtime, runtime_wasm.clone(), init, Some(controller()));
+    pic.install_canister(runtime, baseline_wasm, init, Some(controller()));
 
     let valid_memo = *b"BTZ\x11\0\0\x40\0";
     let under_memo = *b"BTZ\x11\0\0\x20\0";
@@ -2507,6 +2526,28 @@ fn upstream_ledger_archive_to_recovered_publication_matches_native() {
     )
     .unwrap();
     assert_eq!(duplicate.revision, committed_status.revision);
+
+    let published_before_upgrade = observation(&pic, runtime);
+    pic.upgrade_canister(
+        runtime,
+        runtime_wasm.clone(),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        observation(&pic, runtime).publication,
+        published_before_upgrade.publication
+    );
+    let after_published_upgrade = status(&pic, runtime, Principal::anonymous()).unwrap();
+    assert_eq!(
+        after_published_upgrade.source.verified_source_watermark,
+        Some(watermark)
+    );
+    assert_eq!(
+        after_published_upgrade.publication_hash,
+        committed_status.publication_hash
+    );
 
     let public_artifacts = artifacts(&pic, runtime, &committed);
     let world: Value = serde_json::from_slice(&public_artifacts[0]).unwrap();

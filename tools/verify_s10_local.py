@@ -78,7 +78,9 @@ def execute_live(output,environment,timeout=600):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts')
-    parser.add_argument('--output',type=Path,default=ROOT/'.work/s10/local-final');args=parser.parse_args()
+    parser.add_argument('--output',type=Path,default=ROOT/'.work/s10/local-final')
+    parser.add_argument('--baseline-wasm',type=Path,help='optional prior compatible runtime used for cross-version upgrade tests')
+    args=parser.parse_args()
     if sys.version_info<(3,11):parser.error('Python 3.11 or later is required')
     output=args.output.resolve();output.mkdir(parents=True,exist_ok=True);destination=output/'results.json'
     report={'schema_version':1,'checkpoint':'S10','git_revision':None,'overall':'IN_PROGRESS','checks':[],'tools':{},'tested_artifacts':[]}
@@ -104,6 +106,9 @@ def main():
         report['checks'].append(row)
         if row['status']!='PASS':report['overall']=row['status'];destination.write_text(json.dumps(report,indent=2)+'\n');return 1
         hooked=wasm_dir/'runtime-lab-test-hooks.wasm';shutil.copyfile(built,hooked);record_artifact(report,'runtime-lab-test-hooks',hooked)
+        baseline=args.baseline_wasm.resolve() if args.baseline_wasm else normal
+        if not baseline.is_file():raise ValueError(f'baseline Wasm is not a file: {baseline}')
+        record_artifact(report,'baseline-runtime-lab',baseline)
         record_artifact(report,'ledger',artifacts/'wasm/ledger-canister.wasm');record_artifact(report,'ledger-archive',artifacts/'downloads/ledger-archive-node-canister.wasm.gz')
         target=output/'cargo-target';target_started_empty=not target.exists() or not any(target.iterdir());environment={'CARGO_TARGET_DIR':str(target)}
         row=execute('pocketic-harness-build',['cargo','+1.94.1','test','--manifest-path','tools/s09-integration/Cargo.toml','--locked','--test','pocketic_host','--no-run'],output,1800,environment)
@@ -114,7 +119,8 @@ def main():
             server=start_pocketic(artifacts/'bin/pocket-ic',output)
             integration_environment={**environment,'POCKET_IC_BIN':str(artifacts/'bin/pocket-ic'),'POCKET_IC_SERVER_URL':server[3],
               'DTR_RUNTIME_WASM':str(normal),'DTR_RUNTIME_TEST_WASM':str(hooked),'DTR_LEDGER_WASM':str(artifacts/'wasm/ledger-canister.wasm'),
-              'DTR_LEDGER_ARCHIVE_WASM_GZ':str(artifacts/'downloads/ledger-archive-node-canister.wasm.gz'),'DTR_S09_EXPORT':str(output/'browser-snapshot')}
+              'DTR_LEDGER_ARCHIVE_WASM_GZ':str(artifacts/'downloads/ledger-archive-node-canister.wasm.gz'),'DTR_S09_EXPORT':str(output/'browser-snapshot'),
+              'DTR_BASELINE_RUNTIME_WASM':str(baseline)}
             row=execute('pocketic-regressions',['cargo','+1.94.1','test','--manifest-path','tools/s09-integration/Cargo.toml','--locked','--test','pocketic_host','--','--nocapture'],output,900,integration_environment)
             row['pocketic_server']=pocketic_evidence(server,artifacts/'bin/pocket-ic',output)
             if row['pocketic_server']['unexpected_exit_code'] is not None:
