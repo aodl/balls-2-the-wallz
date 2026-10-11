@@ -73,6 +73,14 @@ def tool_version(command):
 def git_value(root,*arguments):
     return subprocess.run(['git','-C',str(root),*arguments],text=True,capture_output=True,check=True,timeout=30).stdout.strip()
 
+def normalize_source_modes(source):
+    """Make npm-pack bytes independent of the checkout process umask."""
+    for path in source.rglob('*'):
+        if '.git' in path.relative_to(source).parts:continue
+        if path.is_symlink():raise ValueError(f'unexpected source symlink: {path}')
+        if path.is_dir():path.chmod(0o755)
+        elif path.is_file():path.chmod(0o644)
+
 def rust_lock_sources(path):
     lock=tomllib.loads(path.read_text());expected=f'git+{DTR_GIT}?rev={DTR_REV}#{DTR_REV}'
     names={'dtr-core','dtr-host','dtr-source-model','dtr-wire'}
@@ -86,6 +94,7 @@ def validate_vendor(source,generated):
     if len(generated_payload)!=20 or set(generated_payload)!=set(vendor_payload):raise ValueError('DTR package inventory mismatch')
     verify_payload(generated_payload,source);verify_payload(vendor_payload,source)
     if generated_payload!=vendor_payload:raise ValueError('vendored and freshly packed DTR payloads differ')
+    if generated.read_bytes()!=VENDOR.read_bytes():raise ValueError('vendored DTR package is not byte-reproducible')
     lock=json.loads((ROOT/'package-lock.json').read_text())
     locked=lock['packages']['node_modules/@dtr/timeline-runtime']
     if locked.get('integrity')!=integrity(VENDOR):raise ValueError('vendored DTR package integrity does not match package-lock.json')
@@ -112,6 +121,10 @@ def main():
               ('dtr-npm-pack',['npm','pack','--pack-destination',str(distribution)],source,300,{}),
             ]
             for identifier,command,cwd,timeout,environment in steps:
+                if identifier=='dtr-npm-install':
+                    normalize_source_modes(source)
+                    report['checks'].append({'id':'dtr-package-mode-normalization','status':'PASS','exit_code':0,
+                      'directories':'0755','regular_files':'0644'})
                 row=run(identifier,command,cwd,output,timeout,environment);report['checks'].append(row);destination.write_text(json.dumps(report,indent=2)+'\n')
                 if row['status']!='PASS':report['overall']='FAIL';destination.write_text(json.dumps(report,indent=2)+'\n');return 1
             provenance={'remote':git_value(source,'remote','get-url','origin'),'revision':git_value(source,'rev-parse','HEAD'),
@@ -122,7 +135,7 @@ def main():
             inventory,vendor_integrity=validate_vendor(source,generated)
             report['package']={'packaging_tool':report['tools']['npm']['text'],'files':inventory,'file_count':len(inventory),
               'fresh_sha256':sha256(generated),'fresh_integrity':integrity(generated),'vendor_sha256':sha256(VENDOR),
-              'vendor_integrity':vendor_integrity,'payload_source_correspondence':'PASS'}
+              'vendor_integrity':vendor_integrity,'payload_source_correspondence':'PASS','byte_reproduction':'PASS'}
 
             js=temporary/'javascript-consumer';shutil.copytree(ROOT/'tools/fixtures/dtr-consumer-js',js)
             shutil.copyfile(generated,js/'dtr-package.tgz')
