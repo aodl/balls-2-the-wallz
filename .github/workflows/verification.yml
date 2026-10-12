@@ -66,6 +66,37 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  benchmark-smoke:
+    name: S12 benchmark smoke
+    runs-on: ubuntu-24.04
+    env:
+      RUSTUP_TOOLCHAIN: 1.94.1
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: rustup toolchain install 1.94.1 --profile minimal --target wasm32-unknown-unknown
+      - run: cargo +1.94.1 install canbench --version 0.7.0 --locked
+      - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
+      - run: python -B tools/benchmark_s12.py --profile smoke --output .work/ci-s12-smoke
+      - name: Upload benchmark smoke evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: s12-benchmark-smoke-evidence
+          path: |
+            .work/ci-s12-smoke/results.json
+            .work/ci-s12-smoke/game-measurements.json
+            .work/ci-s12-smoke/logs/**
+          if-no-files-found: warn
+          retention-days: 14
+
   package-consumers:
     name: Packaged DTR and clean consumers
     runs-on: ubuntu-24.04

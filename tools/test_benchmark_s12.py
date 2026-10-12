@@ -11,6 +11,12 @@ SPEC.loader.exec_module(BENCH)
 
 
 class S12BenchmarkRunnerTests(unittest.TestCase):
+    def test_canbench_zero_match_is_not_measurement(self):
+        self.assertFalse(BENCH.canbench_measured(
+            'counts:   [total 0 | regressed 0 | improved 0]'))
+        self.assertTrue(BENCH.canbench_measured(
+            'Benchmark: example\ncounts:   [total 1 | unchanged 1]'))
+
     def test_ledger_aggregate_uses_conservative_minimum(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

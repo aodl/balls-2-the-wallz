@@ -1,0 +1,92 @@
+{
+  "schema": "btz-s12-regression-summary-v1",
+  "captured_utc_date": "2026-10-12",
+  "tested_source": {
+    "revision": "524807a394f80e0e38db163c3e726e8e992c802f",
+    "tree": "d9846e2e85e7be78aa5cd0b29a711035765de828",
+    "branch": "checkpoint/s12-operating-envelope"
+  },
+  "results": [
+    {
+      "gate": "extended-s12-benchmarks",
+      "status": "PASS",
+      "scope": "nine deterministic workloads, 20 canbench cases, normal Wasm, 50 autonomous segments, three repeated controlled-ledger cases, upstream ledger/archive compatibility and cost model",
+      "record": "evidence/S12/benchmark-run.json"
+    },
+    {
+      "gate": "benchmark-smoke",
+      "status": "PASS",
+      "scope": "complete deterministic fixture matrix plus one measured production-shaped medium callback and one measured all-irrelevant ledger page; zero-match canbench output fails closed",
+      "qualification": "Executed locally; the newly added normal-CI job remains NOT_RUN remotely."
+    },
+    {
+      "gate": "source",
+      "status": "PASS",
+      "node_tests": 1175,
+      "python_tests": 93,
+      "node_failed": 0,
+      "node_skipped": 0,
+      "record": ".work/s12/regression/source-final/verification.json"
+    },
+    {
+      "gate": "native",
+      "status": "PASS",
+      "workspace_rust_tests": 18,
+      "portable_rust_tests": 7,
+      "format": "PASS",
+      "clippy": "PASS",
+      "record": ".work/s12/regression/native/verification.json"
+    },
+    {
+      "gate": "wasm-candid",
+      "status": "PASS",
+      "normal_wasm_sha256": "4a0e1673612523b690bd45b7c30ca490bc35c422831cb4391f22653dc8096293",
+      "normal_wasm_bytes": 2238605,
+      "test_hook_wasm_sha256": "0ab60a381e6c587e28720c5369dd53bc73ce291218a0efef28a9066546cbb31d",
+      "test_hook_wasm_bytes": 2264096,
+      "generated_candid_sha256": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
+      "format": "PASS",
+      "clippy": "PASS",
+      "record": ".work/s12/regression/wasm/verification.json"
+    },
+    {
+      "gate": "pocketic-same-version-regressions",
+      "status": "PASS",
+      "passed": 10,
+      "failed": 0,
+      "ignored": 3,
+      "pocketic_version": "16.1.0",
+      "qualification": "The three ignored cases are the separately executed S12 extended traces and the live browser orchestrator.",
+      "record": ".work/s12/regression/integration/s10-local/results.json"
+    },
+    {
+      "gate": "standalone-browser-native-webcrypto",
+      "status": "BLOCKED",
+      "reason": "The approved Playwright 1.63.0 Chromium was selected, but this local host lacks libatk-1.0.so.0; installing OS packages would require prohibited privilege escalation.",
+      "historical_context": "The unchanged browser path passed S11 GitHub Actions run 38208721952.",
+      "record": ".work/s12/regression/browser-pinned/browser-http/results.json"
+    },
+    {
+      "gate": "same-version-live-concurrent-browser-slice",
+      "status": "BLOCKED",
+      "reason": "PocketIC regressions passed; the concurrent browser launch encountered the same missing libatk-1.0.so.0 host prerequisite.",
+      "record": ".work/s12/regression/integration/s10-local/results.json"
+    },
+    {
+      "gate": "remote-s12-ci",
+      "status": "NOT_RUN",
+      "reason": "Remote push and workflow invocation are reserved for the user."
+    }
+  ],
+  "classification": "Executed failures are FAIL. Only the documented project browser wrapper's exit-2 prerequisite contract is BLOCKED; remote S12 CI is NOT_RUN.",
+  "dtr": {
+    "changed": false,
+    "pinned_implementation_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "retained_standalone_baseline": {
+      "javascript_tests": 186,
+      "rust_tests": 29,
+      "remote_tested_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
+      "github_actions_run": 38208750331
+    }
+  }
+}

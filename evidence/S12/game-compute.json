@@ -1,0 +1,779 @@
+{
+  "schema": "btz-s12-game-measurements-v1",
+  "rows": [
+    {
+      "workload": "small-reference",
+      "family": "existing-small-reference",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 849,
+      "coordinator_step_equivalent": 849,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          33.79370400000002,
+          13.831006000000002,
+          18.54987700000001,
+          28.71792800000003,
+          10.254052000000001
+        ],
+        "min": 10.254052000000001,
+        "median": 18.54987700000001,
+        "max": 33.79370400000002
+      },
+      "initial_bytes": 417,
+      "output_bytes": {
+        "state": 1067,
+        "events": 3664,
+        "scores": 282
+      },
+      "output_hashes": {
+        "state": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+        "events": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+        "scores": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+      },
+      "final_cannons": 2,
+      "final_balls": 2,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "small-reference",
+      "family": "existing-small-reference",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 849,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          8.604229000000032,
+          5.751886000000013,
+          5.913088000000016,
+          14.556916999999999,
+          7.557011999999986
+        ],
+        "min": 5.751886000000013,
+        "median": 7.557011999999986,
+        "max": 14.556916999999999
+      },
+      "initial_bytes": 417,
+      "output_bytes": {
+        "state": 1067,
+        "events": 3664,
+        "scores": 282
+      },
+      "output_hashes": {
+        "state": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+        "events": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+        "scores": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+      },
+      "final_cannons": 2,
+      "final_balls": 2,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "empty-motion",
+      "family": "empty-input-motion",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 253,
+      "coordinator_step_equivalent": 253,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          7.560812999999996,
+          8.62262899999996,
+          6.994005000000016,
+          7.243308000000013,
+          7.147205999999983
+        ],
+        "min": 6.994005000000016,
+        "median": 7.243308000000013,
+        "max": 8.62262899999996
+      },
+      "initial_bytes": 463,
+      "output_bytes": {
+        "state": 590,
+        "events": 7431,
+        "scores": 152
+      },
+      "output_hashes": {
+        "state": "2264e10201684aa5ca84b67251b1fec7355be58e269f12df7779d9b8921526fc",
+        "events": "2460ed4b5c5a1ac57a7117e003d1c06690fdb7ade7352abf2c39a3f1bdb6db3f",
+        "scores": "ce422853050dab0d7066e638612c252811135f6ab123d91127c48ed798d76040"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "empty-motion",
+      "family": "empty-input-motion",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 253,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          5.066976000000011,
+          7.040905000000009,
+          9.962548999999967,
+          11.573572000000013,
+          5.74458599999997
+        ],
+        "min": 5.066976000000011,
+        "median": 7.040905000000009,
+        "max": 11.573572000000013
+      },
+      "initial_bytes": 463,
+      "output_bytes": {
+        "state": 590,
+        "events": 7431,
+        "scores": 152
+      },
+      "output_hashes": {
+        "state": "2264e10201684aa5ca84b67251b1fec7355be58e269f12df7779d9b8921526fc",
+        "events": "2460ed4b5c5a1ac57a7117e003d1c06690fdb7ade7352abf2c39a3f1bdb6db3f",
+        "scores": "ce422853050dab0d7066e638612c252811135f6ab123d91127c48ed798d76040"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "ball-dense-medium",
+      "family": "ball-dense-simulation",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 7138,
+      "coordinator_step_equivalent": 7138,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          155.28941300000002,
+          133.00498099999993,
+          116.17303100000004,
+          104.76106000000004,
+          91.51296300000001
+        ],
+        "min": 91.51296300000001,
+        "median": 116.17303100000004,
+        "max": 155.28941300000002
+      },
+      "initial_bytes": 3852,
+      "output_bytes": {
+        "state": 4129,
+        "events": 39928,
+        "scores": 299
+      },
+      "output_hashes": {
+        "state": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+        "events": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+        "scores": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+      },
+      "final_cannons": 2,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "ball-dense-medium",
+      "family": "ball-dense-simulation",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 7138,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          99.0500750000001,
+          83.7079470000001,
+          74.70971300000019,
+          94.14200200000005,
+          101.50001199999997
+        ],
+        "min": 74.70971300000019,
+        "median": 94.14200200000005,
+        "max": 101.50001199999997
+      },
+      "initial_bytes": 3852,
+      "output_bytes": {
+        "state": 4129,
+        "events": 39928,
+        "scores": 299
+      },
+      "output_hashes": {
+        "state": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+        "events": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+        "scores": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+      },
+      "final_cannons": 2,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "ball-dense-high",
+      "family": "ball-dense-simulation",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 22947,
+      "coordinator_step_equivalent": 22947,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          248.26419800000008,
+          284.18703299999993,
+          194.59389800000008,
+          204.8936520000002,
+          197.9555479999999
+        ],
+        "min": 194.59389800000008,
+        "median": 204.8936520000002,
+        "max": 284.18703299999993
+      },
+      "initial_bytes": 7015,
+      "output_bytes": {
+        "state": 7307,
+        "events": 80017,
+        "scores": 293
+      },
+      "output_hashes": {
+        "state": "79c4abf7434c33e7e2481c77ce65b85dcd349393c46653e04e3497c9b9494276",
+        "events": "1826a59c815124f3a717ab5945454c41283d4cb22533bf52bc77e67bdeb982a0",
+        "scores": "0f241e412ebef966a017abd8578a6ac76e9633de52e5598206340bbefe23571e"
+      },
+      "final_cannons": 2,
+      "final_balls": 64,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "ball-dense-high",
+      "family": "ball-dense-simulation",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 22947,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          210.53173600000036,
+          188.0413010000002,
+          245.8306620000003,
+          202.04080900000008,
+          152.32476899999983
+        ],
+        "min": 152.32476899999983,
+        "median": 202.04080900000008,
+        "max": 245.8306620000003
+      },
+      "initial_bytes": 7015,
+      "output_bytes": {
+        "state": 7307,
+        "events": 80017,
+        "scores": 293
+      },
+      "output_hashes": {
+        "state": "79c4abf7434c33e7e2481c77ce65b85dcd349393c46653e04e3497c9b9494276",
+        "events": "1826a59c815124f3a717ab5945454c41283d4cb22533bf52bc77e67bdeb982a0",
+        "scores": "0f241e412ebef966a017abd8578a6ac76e9633de52e5598206340bbefe23571e"
+      },
+      "final_cannons": 2,
+      "final_balls": 64,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "many-cannon-frontier",
+      "family": "many-cannon-frontier",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 360,
+      "coordinator_step_equivalent": 360,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          2.1100310000001627,
+          2.7026409999998577,
+          2.016030000000228,
+          2.1646319999999832,
+          3.092946000000211
+        ],
+        "min": 2.016030000000228,
+        "median": 2.1646319999999832,
+        "max": 3.092946000000211
+      },
+      "initial_bytes": 7227,
+      "output_bytes": {
+        "state": 11162,
+        "events": 7582,
+        "scores": 3963
+      },
+      "output_hashes": {
+        "state": "915f62f0aa62adedc51119f3227c40bfbe7056f991fb1396010477cca2cb7c24",
+        "events": "dea208cbeea1f953a5ebe6cccdbdede8b0b5cdf98ffe184fd8e701848c494ad3",
+        "scores": "2a318eb389d111172b5aa3ca5563fed4a19603b03d94c6d6889abdb3b7a8eba8"
+      },
+      "final_cannons": 32,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "many-cannon-frontier",
+      "family": "many-cannon-frontier",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 360,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          4.2221629999999095,
+          2.8452430000002096,
+          2.3485350000000835,
+          2.028229999999894,
+          1.969930000000204
+        ],
+        "min": 1.969930000000204,
+        "median": 2.3485350000000835,
+        "max": 4.2221629999999095
+      },
+      "initial_bytes": 7227,
+      "output_bytes": {
+        "state": 11162,
+        "events": 7582,
+        "scores": 3963
+      },
+      "output_hashes": {
+        "state": "915f62f0aa62adedc51119f3227c40bfbe7056f991fb1396010477cca2cb7c24",
+        "events": "dea208cbeea1f953a5ebe6cccdbdede8b0b5cdf98ffe184fd8e701848c494ad3",
+        "scores": "2a318eb389d111172b5aa3ca5563fed4a19603b03d94c6d6889abdb3b7a8eba8"
+      },
+      "final_cannons": 32,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "fragmentation-severance",
+      "family": "territory-fragmentation-and-severance",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 87,
+      "coordinator_step_equivalent": 87,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          0.8087120000000141,
+          0.4045059999998557,
+          1.0194149999997535,
+          0.438506999999845,
+          0.4743069999999534
+        ],
+        "min": 0.4045059999998557,
+        "median": 0.4743069999999534,
+        "max": 1.0194149999997535
+      },
+      "initial_bytes": 629,
+      "output_bytes": {
+        "state": 691,
+        "events": 748,
+        "scores": 276
+      },
+      "output_hashes": {
+        "state": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+        "events": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+        "scores": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "fragmentation-severance",
+      "family": "territory-fragmentation-and-severance",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 87,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          0.479207000000315,
+          0.4286059999999452,
+          0.437507000000096,
+          0.45140700000001743,
+          0.438705999999911
+        ],
+        "min": 0.4286059999999452,
+        "median": 0.438705999999911,
+        "max": 0.479207000000315
+      },
+      "initial_bytes": 629,
+      "output_bytes": {
+        "state": 691,
+        "events": 748,
+        "scores": 276
+      },
+      "output_hashes": {
+        "state": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+        "events": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+        "scores": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "collision-intensive",
+      "family": "collision-intensive-simulation",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 74,
+      "coordinator_step_equivalent": 74,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          1.2798189999998613,
+          0.4513070000002699,
+          0.44050700000025245,
+          2.5724379999996927,
+          0.45100600000023405
+        ],
+        "min": 0.44050700000025245,
+        "median": 0.4513070000002699,
+        "max": 2.5724379999996927
+      },
+      "initial_bytes": 640,
+      "output_bytes": {
+        "state": 511,
+        "events": 815,
+        "scores": 279
+      },
+      "output_hashes": {
+        "state": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+        "events": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+        "scores": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+      },
+      "final_cannons": 0,
+      "final_balls": 0,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "collision-intensive",
+      "family": "collision-intensive-simulation",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 74,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          2.955543999999918,
+          0.4699070000001484,
+          2.7126399999997375,
+          0.4529069999998683,
+          2.910543000000416
+        ],
+        "min": 0.4529069999998683,
+        "median": 2.7126399999997375,
+        "max": 2.955543999999918
+      },
+      "initial_bytes": 640,
+      "output_bytes": {
+        "state": 511,
+        "events": 815,
+        "scores": 279
+      },
+      "output_hashes": {
+        "state": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+        "events": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+        "scores": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+      },
+      "final_cannons": 0,
+      "final_balls": 0,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "spawn-admission-pressure",
+      "family": "spawn-and-admission-pressure",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 19556,
+      "coordinator_step_equivalent": 19556,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          160.45069000000012,
+          290.72653100000025,
+          259.39516300000014,
+          222.32521199999974,
+          104.03494899999987
+        ],
+        "min": 104.03494899999987,
+        "median": 222.32521199999974,
+        "max": 290.72653100000025
+      },
+      "initial_bytes": 2274,
+      "output_bytes": {
+        "state": 4216,
+        "events": 9107,
+        "scores": 784
+      },
+      "output_hashes": {
+        "state": "0bd5e9dde5bc733f190b28270dbb3cf3090b270a1b5585147e790c39a6e4dbe5",
+        "events": "c73fab14ed6f3f861f9386cf810929e561c189ae3daa5bf7a76a2778c4ea4030",
+        "scores": "20ada3271fd7eed387bf73a5d0d42a466a36ee55037dd3de7a29c53b8e5f69dd"
+      },
+      "final_cannons": 6,
+      "final_balls": 6,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "spawn-admission-pressure",
+      "family": "spawn-and-admission-pressure",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 19556,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          150.9526480000004,
+          101.115906,
+          85.31667099999959,
+          142.8975279999995,
+          91.6059639999994
+        ],
+        "min": 85.31667099999959,
+        "median": 101.115906,
+        "max": 150.9526480000004
+      },
+      "initial_bytes": 2274,
+      "output_bytes": {
+        "state": 4216,
+        "events": 9107,
+        "scores": 784
+      },
+      "output_hashes": {
+        "state": "0bd5e9dde5bc733f190b28270dbb3cf3090b270a1b5585147e790c39a6e4dbe5",
+        "events": "c73fab14ed6f3f861f9386cf810929e561c189ae3daa5bf7a76a2778c4ea4030",
+        "scores": "20ada3271fd7eed387bf73a5d0d42a466a36ee55037dd3de7a29c53b8e5f69dd"
+      },
+      "final_cannons": 6,
+      "final_balls": 6,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "multi-segment-persistence",
+      "family": "multi-segment-persistence",
+      "budget": 1,
+      "repetitions": 5,
+      "work_units": 32,
+      "coordinator_step_equivalent": 32,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          0.30140399999982037,
+          0.2533029999995051,
+          0.22750300000006973,
+          0.22610399999939546,
+          0.22380400000020018
+        ],
+        "min": 0.22380400000020018,
+        "median": 0.22750300000006973,
+        "max": 0.30140399999982037
+      },
+      "initial_bytes": 641,
+      "output_bytes": {
+        "state": 885,
+        "events": 496,
+        "scores": 273
+      },
+      "output_hashes": {
+        "state": "6f9376263510abf70bbf090999a96e560e5e118d8c85dd561e6ba8a4cb0ac32f",
+        "events": "666986ff3bad7b7be032418ea767916b8a136088e5e9a5d3844451639bffb4eb",
+        "scores": "b85d11aca682d93b20ea61ba7945f14c6e38b1e16a193ccea911e018f4c5525b"
+      },
+      "final_cannons": 2,
+      "final_balls": 2,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "workload": "multi-segment-persistence",
+      "family": "multi-segment-persistence",
+      "budget": 100000,
+      "repetitions": 5,
+      "work_units": 32,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          0.2508029999999053,
+          0.22310300000026473,
+          0.17750299999988783,
+          0.1890029999995022,
+          0.2133029999995415
+        ],
+        "min": 0.17750299999988783,
+        "median": 0.2133029999995415,
+        "max": 0.2508029999999053
+      },
+      "initial_bytes": 641,
+      "output_bytes": {
+        "state": 885,
+        "events": 496,
+        "scores": 273
+      },
+      "output_hashes": {
+        "state": "6f9376263510abf70bbf090999a96e560e5e118d8c85dd561e6ba8a4cb0ac32f",
+        "events": "666986ff3bad7b7be032418ea767916b8a136088e5e9a5d3844451639bffb4eb",
+        "scores": "b85d11aca682d93b20ea61ba7945f14c6e38b1e16a193ccea911e018f4c5525b"
+      },
+      "final_cannons": 2,
+      "final_balls": 2,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    }
+  ]
+}

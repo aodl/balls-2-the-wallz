@@ -1,0 +1,451 @@
+{
+  "schema": "btz-s12-cost-projection-v1",
+  "classification": {
+    "measured_locally": [
+      "canbench instructions/heap/stable growth",
+      "controlled PocketIC records, elapsed time and Candid response bytes"
+    ],
+    "estimated_from_tariffs": [
+      "cycles per segment/hour/day/month and XDR"
+    ],
+    "not_measured": [
+      "actual production cycle burn",
+      "mainnet latency/finality/availability",
+      "current canister cycle balance",
+      "gateway/query infrastructure cost",
+      "Wasm heap high-water mark",
+      "certified_data_set instruction cost",
+      "inter-canister request payload bytes (32-byte model assumption used)",
+      "ETH-equivalent compute (no versioned conversion definition)"
+    ]
+  },
+  "tariff_provenance": {
+    "retrieved_utc_date": "2026-10-12",
+    "official_sources": {
+      "cycle_costs": "https://docs.internetcomputer.org/references/cycle-costs/",
+      "resource_limits": "https://docs.internetcomputer.org/references/resource-limits/",
+      "cycles": "https://docs.internetcomputer.org/concepts/cycles/"
+    },
+    "cycles_per_xdr": 1000000000000,
+    "usd_conversion": "NOT_PROVIDED"
+  },
+  "controlled_throughput": {
+    "source": "/home/codexdev/src/btz/.work/s12/final/clean/ledger-trace.json",
+    "scenario": "paused-arrivals",
+    "evidence_class": "controlled PocketIC fault-ledger fixture",
+    "records": 256,
+    "elapsed_seconds": 0.665122899,
+    "selection": "minimum repeated local-host throughput",
+    "received_candid_bytes": 38356,
+    "bytes_per_record": 149.828125
+  },
+  "backlog_estimates": {
+    "backlog_records": 4096,
+    "formula": "B / (mu - lambda) when mu > lambda",
+    "arrival_scenarios": [
+      {
+        "name": "paused",
+        "lambda_records_per_second": 0,
+        "mu_records_per_second": 384.8912740561049,
+        "estimated_catch_up_seconds": 10.641966384,
+        "outcome": "DRAINS"
+      },
+      {
+        "name": "half_measured_mu",
+        "lambda_records_per_second": 192.44563702805246,
+        "mu_records_per_second": 384.8912740561049,
+        "estimated_catch_up_seconds": 21.283932768,
+        "outcome": "DRAINS"
+      },
+      {
+        "name": "above_measured_mu",
+        "lambda_records_per_second": 423.38040146171545,
+        "mu_records_per_second": 384.8912740561049,
+        "estimated_catch_up_seconds": null,
+        "outcome": "DOES_NOT_DRAIN"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "quiet-existing-ball",
+      "workload": "empty-motion",
+      "coordinator_benchmark": "coordinator_empty_motion",
+      "persistence_benchmark": "persistence_publication_empty_motion",
+      "players": 1,
+      "balls": 1,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 0,
+      "measured_components": {
+        "work_units": 253,
+        "steps": 1,
+        "callbacks": 3,
+        "coordinator_instructions": 118491222,
+        "seal_instructions_proxy": 22040756,
+        "persistence_instructions_per_callback_conservative_proxy": 13077115,
+        "ledger_classification_instructions_per_64_record_page": 1407764
+      },
+      "estimated_components_13_node_cycles_per_segment": {
+        "game_measured_instruction_components": 179763323,
+        "unmeasured_execution_allowance": 17976333,
+        "game_update_base_fees": 15000000,
+        "ledger_instruction_components": 0,
+        "ledger_update_base_fees": 0,
+        "xnet_call_overhead": 0,
+        "xnet_received_and_assumed_request_bytes": 0,
+        "xnet_byte_transmission": 0,
+        "stable_storage": 179059,
+        "compute_allocation": 0
+      },
+      "projection": {
+        "13_node_application": {
+          "cycles_per_segment": 212918715,
+          "cycles_per_hour": 12775122890,
+          "cycles_per_day": 306602949367,
+          "cycles_per_30_day_month": 9198088480997,
+          "xdr_per_day": 0.3066029493665625,
+          "xdr_per_30_day_month": 9.198088480996875
+        },
+        "34_node_higher_replication": {
+          "cycles_per_segment": 556864331,
+          "cycles_per_hour": 33411859867,
+          "cycles_per_day": 801884636805,
+          "cycles_per_30_day_month": 24056539104146,
+          "xdr_per_day": 0.801884636804856,
+          "xdr_per_30_day_month": 24.05653910414568
+        }
+      }
+    },
+    {
+      "name": "moderate-ongoing",
+      "workload": "ball-dense-medium",
+      "coordinator_benchmark": "coordinator_ball_dense_medium",
+      "persistence_benchmark": "persistence_publication_medium",
+      "players": 2,
+      "balls": 32,
+      "segment_seconds": 20,
+      "ledger_records_per_second": 1,
+      "measured_components": {
+        "work_units": 7138,
+        "steps": 14,
+        "callbacks": 16,
+        "coordinator_instructions": 1007115272,
+        "seal_instructions_proxy": 22040756,
+        "persistence_instructions_per_callback_conservative_proxy": 47606050,
+        "ledger_classification_instructions_per_64_record_page": 1407764
+      },
+      "estimated_components_13_node_cycles_per_segment": {
+        "game_measured_instruction_components": 1790852828,
+        "unmeasured_execution_allowance": 179085283,
+        "game_update_base_fees": 80000000,
+        "ledger_instruction_components": 15316817,
+        "ledger_update_base_fees": 3906250,
+        "xnet_call_overhead": 121875,
+        "xnet_received_and_assumed_request_bytes": 3012,
+        "xnet_byte_transmission": 3011562,
+        "stable_storage": 59686,
+        "compute_allocation": 0
+      },
+      "projection": {
+        "13_node_application": {
+          "cycles_per_segment": 2072354302,
+          "cycles_per_hour": 373023774298,
+          "cycles_per_day": 8952570583147,
+          "cycles_per_30_day_month": 268577117494397,
+          "xdr_per_day": 8.952570583146562,
+          "xdr_per_30_day_month": 268.5771174943969
+        },
+        "34_node_higher_replication": {
+          "cycles_per_segment": 5420003558,
+          "cycles_per_hour": 975600640471,
+          "cycles_per_day": 23414415371306,
+          "cycles_per_30_day_month": 702432461139192,
+          "xdr_per_day": 23.414415371306397,
+          "xdr_per_30_day_month": 702.432461139192
+        }
+      }
+    },
+    {
+      "name": "high-legal-occupancy",
+      "workload": "ball-dense-high",
+      "coordinator_benchmark": "coordinator_ball_dense_high",
+      "persistence_benchmark": "persistence_publication_high",
+      "players": 2,
+      "balls": 64,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 1,
+      "measured_components": {
+        "work_units": 22947,
+        "steps": 45,
+        "callbacks": 47,
+        "coordinator_instructions": 2741602784,
+        "seal_instructions_proxy": 22040756,
+        "persistence_instructions_per_callback_conservative_proxy": 83566285,
+        "ledger_classification_instructions_per_64_record_page": 1407764
+      },
+      "estimated_components_13_node_cycles_per_segment": {
+        "game_measured_instruction_components": 6691258935,
+        "unmeasured_execution_allowance": 669125894,
+        "game_update_base_fees": 235000000,
+        "ledger_instruction_components": 79663171,
+        "ledger_update_base_fees": 11718750,
+        "xnet_call_overhead": 365625,
+        "xnet_received_and_assumed_request_bytes": 9035,
+        "xnet_byte_transmission": 9034688,
+        "stable_storage": 179059,
+        "compute_allocation": 0
+      },
+      "projection": {
+        "13_node_application": {
+          "cycles_per_segment": 7696346121,
+          "cycles_per_hour": 461780767277,
+          "cycles_per_day": 11082738414637,
+          "cycles_per_30_day_month": 332482152439097,
+          "xdr_per_day": 11.082738414636562,
+          "xdr_per_30_day_month": 332.48215243909686
+        },
+        "34_node_higher_replication": {
+          "cycles_per_segment": 20128905240,
+          "cycles_per_hour": 1207734314416,
+          "cycles_per_day": 28985623545973,
+          "cycles_per_30_day_month": 869568706379176,
+          "xdr_per_day": 28.985623545972548,
+          "xdr_per_30_day_month": 869.5687063791763
+        }
+      }
+    },
+    {
+      "name": "many-player-frontier",
+      "workload": "many-cannon-frontier",
+      "coordinator_benchmark": "coordinator_many_cannon_frontier",
+      "persistence_benchmark": "persistence_publication_many_cannon",
+      "players": 32,
+      "balls": 32,
+      "segment_seconds": 20,
+      "ledger_records_per_second": 1,
+      "measured_components": {
+        "work_units": 360,
+        "steps": 1,
+        "callbacks": 3,
+        "coordinator_instructions": 276799967,
+        "seal_instructions_proxy": 22040756,
+        "persistence_instructions_per_callback_conservative_proxy": 26662250,
+        "ledger_classification_instructions_per_64_record_page": 1407764
+      },
+      "estimated_components_13_node_cycles_per_segment": {
+        "game_measured_instruction_components": 378827473,
+        "unmeasured_execution_allowance": 37882748,
+        "game_update_base_fees": 15000000,
+        "ledger_instruction_components": 8771879,
+        "ledger_update_base_fees": 3906250,
+        "xnet_call_overhead": 121875,
+        "xnet_received_and_assumed_request_bytes": 3012,
+        "xnet_byte_transmission": 3011562,
+        "stable_storage": 59686,
+        "compute_allocation": 0
+      },
+      "projection": {
+        "13_node_application": {
+          "cycles_per_segment": 447581474,
+          "cycles_per_hour": 80564665348,
+          "cycles_per_day": 1933551968347,
+          "cycles_per_30_day_month": 58006559050397,
+          "xdr_per_day": 1.9335519683465625,
+          "xdr_per_30_day_month": 58.00655905039687
+        },
+        "34_node_higher_replication": {
+          "cycles_per_segment": 1170597702,
+          "cycles_per_hour": 210707586294,
+          "cycles_per_day": 5056982071060,
+          "cycles_per_30_day_month": 151709462131807,
+          "xdr_per_day": 5.05698207106024,
+          "xdr_per_30_day_month": 151.70946213180721
+        }
+      }
+    },
+    {
+      "name": "irrelevant-ledger-heavy",
+      "workload": "empty-motion",
+      "coordinator_benchmark": "coordinator_empty_motion",
+      "persistence_benchmark": "persistence_publication_empty_motion",
+      "players": 1,
+      "balls": 1,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 20,
+      "measured_components": {
+        "work_units": 253,
+        "steps": 1,
+        "callbacks": 3,
+        "coordinator_instructions": 118491222,
+        "seal_instructions_proxy": 22040756,
+        "persistence_instructions_per_callback_conservative_proxy": 13077115,
+        "ledger_classification_instructions_per_64_record_page": 1407764
+      },
+      "estimated_components_13_node_cycles_per_segment": {
+        "game_measured_instruction_components": 179763323,
+        "unmeasured_execution_allowance": 17976333,
+        "game_update_base_fees": 15000000,
+        "ledger_instruction_components": 271591481,
+        "ledger_update_base_fees": 234375000,
+        "xnet_call_overhead": 7312500,
+        "xnet_received_and_assumed_request_bytes": 180694,
+        "xnet_byte_transmission": 180693750,
+        "stable_storage": 179059,
+        "compute_allocation": 0
+      },
+      "projection": {
+        "13_node_application": {
+          "cycles_per_segment": 906891446,
+          "cycles_per_hour": 54413486765,
+          "cycles_per_day": 1305923682367,
+          "cycles_per_30_day_month": 39177710470997,
+          "xdr_per_day": 1.3059236823665625,
+          "xdr_per_30_day_month": 39.17771047099688
+        },
+        "34_node_higher_replication": {
+          "cycles_per_segment": 2371869936,
+          "cycles_per_hour": 142312196155,
+          "cycles_per_day": 3415492707728,
+          "cycles_per_30_day_month": 102464781231838,
+          "xdr_per_day": 3.4154927077279322,
+          "xdr_per_30_day_month": 102.46478123183797
+        }
+      }
+    },
+    {
+      "name": "backlog-catch-up-continuous-bound",
+      "workload": "empty-motion",
+      "coordinator_benchmark": "coordinator_empty_motion",
+      "persistence_benchmark": "persistence_publication_empty_motion",
+      "players": 1,
+      "balls": 1,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 384.8912740561049,
+      "measured_components": {
+        "work_units": 253,
+        "steps": 1,
+        "callbacks": 3,
+        "coordinator_instructions": 118491222,
+        "seal_instructions_proxy": 22040756,
+        "persistence_instructions_per_callback_conservative_proxy": 13077115,
+        "ledger_classification_instructions_per_64_record_page": 1407764
+      },
+      "estimated_components_13_node_cycles_per_segment": {
+        "game_measured_instruction_components": 179763323,
+        "unmeasured_execution_allowance": 17976333,
+        "game_update_base_fees": 15000000,
+        "ledger_instruction_components": 5226659562,
+        "ledger_update_base_fees": 4510444618,
+        "xnet_call_overhead": 140725872,
+        "xnet_received_and_assumed_request_bytes": 3477372,
+        "xnet_byte_transmission": 3477372383,
+        "stable_storage": 179059,
+        "compute_allocation": 0
+      },
+      "projection": {
+        "13_node_application": {
+          "cycles_per_segment": 13568121149,
+          "cycles_per_hour": 814087268963,
+          "cycles_per_day": 19538094455119,
+          "cycles_per_30_day_month": 586142833653573,
+          "xdr_per_day": 19.538094455119094,
+          "xdr_per_30_day_month": 586.1428336535728
+        },
+        "34_node_higher_replication": {
+          "cycles_per_segment": 35485855314,
+          "cycles_per_hour": 2129151318827,
+          "cycles_per_day": 51099631651850,
+          "cycles_per_30_day_month": 1532988949555498,
+          "xdr_per_day": 51.09963165184995,
+          "xdr_per_30_day_month": 1532.9889495554983
+        }
+      }
+    }
+  ],
+  "sensitivity": {
+    "occupancy_and_players": [
+      {
+        "name": "quiet-existing-ball",
+        "players": 1,
+        "balls": 1,
+        "segment_seconds": 60,
+        "cycles_per_day_13_node": 306602949367
+      },
+      {
+        "name": "moderate-ongoing",
+        "players": 2,
+        "balls": 32,
+        "segment_seconds": 20,
+        "cycles_per_day_13_node": 8952570583147
+      },
+      {
+        "name": "high-legal-occupancy",
+        "players": 2,
+        "balls": 64,
+        "segment_seconds": 60,
+        "cycles_per_day_13_node": 11082738414637
+      },
+      {
+        "name": "many-player-frontier",
+        "players": 32,
+        "balls": 32,
+        "segment_seconds": 20,
+        "cycles_per_day_13_node": 1933551968347
+      }
+    ],
+    "segment_cadence": [
+      {
+        "seconds": 10,
+        "moderate_workload_cycles_per_day_13_node_holding_segment_work_fixed": 17905141169280
+      },
+      {
+        "seconds": 20,
+        "moderate_workload_cycles_per_day_13_node_holding_segment_work_fixed": 8952570584640
+      },
+      {
+        "seconds": 60,
+        "moderate_workload_cycles_per_day_13_node_holding_segment_work_fixed": 2984190194880
+      }
+    ],
+    "ledger_record_rates": [
+      {
+        "records_per_second": 0,
+        "pages_per_day": 0.0,
+        "scan_cycles_per_day_13_node": 0
+      },
+      {
+        "records_per_second": 1,
+        "pages_per_day": 1350.0,
+        "scan_cycles_per_day_13_node": 49966036650
+      },
+      {
+        "records_per_second": 20,
+        "pages_per_day": 27000.0,
+        "scan_cycles_per_day_13_node": 999320733000
+      },
+      {
+        "records_per_second": 384.8912740561049,
+        "pages_per_day": 519603.21997574164,
+        "scan_cycles_per_day_13_node": 19231491505753
+      }
+    ],
+    "retention": [
+      {
+        "retained_bytes": 0,
+        "additional_storage_cycles_per_day_13_node": 0,
+        "additional_storage_cycles_per_day_34_node": 0
+      },
+      {
+        "retained_bytes": 4194304,
+        "additional_storage_cycles_per_day_13_node": 42862500,
+        "additional_storage_cycles_per_day_34_node": 112101923
+      },
+      {
+        "retained_bytes": 8388608,
+        "additional_storage_cycles_per_day_13_node": 85725000,
+        "additional_storage_cycles_per_day_34_node": 224203846
+      }
+    ],
+    "qualification": "Player rows are tested configurations but occupancy/geometry are confounded; cadence and traffic rows hold their stated component fixed."
+  }
+}

@@ -9,12 +9,15 @@
     "remote_tested_head": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
     "successful_ci_run": 38208721952
   },
-  "tested_btz_implementation_commit": "58ed49a986824291b747affbeeab61cb4dc811fa",
-  "tested_btz_tree": "34f918aa580955dee2df7c2f3e0ef741e7eb31c4",
+  "tested_btz_implementation_commit": "524807a394f80e0e38db163c3e726e8e992c802f",
+  "tested_btz_tree": "d9846e2e85e7be78aa5cd0b29a711035765de828",
   "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
   "dtr_changed": false,
   "normal_wasm_sha256": "4a0e1673612523b690bd45b7c30ca490bc35c422831cb4391f22653dc8096293",
+  "test_hook_wasm_sha256": "0ab60a381e6c587e28720c5369dd53bc73ce291218a0efef28a9066546cbb31d",
+  "generated_candid_sha256": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
   "local_benchmark_result": "PASS",
+  "local_regression_result": "PASS_WITH_BROWSER_PREREQUISITE_BLOCKED",
   "remote_ci_result": "NOT_RUN",
   "verified_local_envelope": {
     "board": "16x8",
@@ -36,7 +39,8 @@
     "evidence/S12/game-compute.json",
     "evidence/S12/autonomous-trace.json",
     "evidence/S12/ledger-ingestion.json",
-    "evidence/S12/cost-projections.json"
+    "evidence/S12/cost-projections.json",
+    "evidence/S12/regression-summary.json"
   ],
   "next_checkpoint": "Stop after evidenced S12; do not begin S13 without a separate request",
   "limitations": [
@@ -44,6 +48,7 @@
     "Cost values are dated tariff projections, not measured production cycle burn.",
     "The 64-ball and 32-cannon cases are single-segment measurements, not continuous-capacity promises.",
     "Actual production input-assignment latency, heap high-water, finality, availability and gateway costs remain unmeasured.",
+    "Local Chromium is prerequisite-BLOCKED by missing libatk-1.0.so.0; remote S12 browser verification is NOT_RUN.",
     "No remote Git action, public deployment, real-value transfer, package publication or release occurred."
   ]
 }

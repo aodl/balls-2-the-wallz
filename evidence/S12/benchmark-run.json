@@ -1,0 +1,328 @@
+{
+  "schema": "btz-s12-benchmark-run-v1",
+  "profile": "extended",
+  "overall": "PASS",
+  "source": {
+    "revision": "524807a394f80e0e38db163c3e726e8e992c802f",
+    "tree": "d9846e2e85e7be78aa5cd0b29a711035765de828",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004"
+  },
+  "environment": {
+    "captured_utc": "2026-10-12T07:50:23.503686+00:00",
+    "platform": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        46 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               2\nOn-line CPU(s) list:                  0,1\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz\nCPU family:                           6\nModel:                                85\nThread(s) per core:                   2\nCore(s) per socket:                   1\nSocket(s):                            1\nStepping:                             7\nBogoMIPS:                             5187.81\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid ept_ad fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves vnmi avx512_vnni arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            32 KiB (1 instance)\nL1i cache:                            32 KiB (1 instance)\nL2 cache:                             1 MiB (1 instance)\nL3 cache:                             35.8 MiB (1 instance)\nNUMA node(s):                         1\nNUMA node0 CPU(s):                    0,1\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Vulnerable\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Vulnerable\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:      8325529600  2987646976  1488281600    12877824  3849601024  4994568192\nSwap:              0           0           0\n",
+    "tools": {
+      "python": {
+        "command": [
+          "/home/codexdev/.local/bin/python3.11",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "Python 3.11.14"
+      },
+      "node": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "v24.15.0"
+      },
+      "npm": {
+        "command": [
+          "npm",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "11.12.1"
+      },
+      "rustc": {
+        "command": [
+          "rustc",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+      },
+      "cargo": {
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+      },
+      "canbench": {
+        "command": [
+          "canbench",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "canbench 0.7.0"
+      }
+    },
+    "definitions": {
+      "wasm_instructions": "canbench performance-counter instructions",
+      "heap_increase": "canbench 64-KiB Wasm pages grown during one benchmark query",
+      "stable_memory_increase": "canbench 64-KiB stable pages grown; not payload bytes",
+      "elapsed_seconds": "local host wall time; not mainnet latency",
+      "work_units": "BTZ deterministic abstract work; not Wasm instructions"
+    }
+  },
+  "checks": [
+    {
+      "id": "fixture-correspondence",
+      "command": [
+        "node",
+        "tools/generate_s12_fixtures.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 2.319,
+      "timeout_seconds": 60,
+      "log": "logs/fixture-correspondence.log"
+    },
+    {
+      "id": "deterministic-game-matrix",
+      "command": [
+        "node",
+        "tools/s12_game_bench.mjs",
+        "benchmarks/s12/workloads.json",
+        "/home/codexdev/src/btz/.work/s12/final/clean/game-measurements.json",
+        "5"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 5.622,
+      "timeout_seconds": 300,
+      "log": "logs/deterministic-game-matrix.log"
+    },
+    {
+      "id": "canbench",
+      "command": [
+        "canbench"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 50.569,
+      "timeout_seconds": 600,
+      "log": "logs/canbench.log"
+    },
+    {
+      "id": "normal-wasm-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 31.131,
+      "timeout_seconds": 900,
+      "log": "logs/normal-wasm-build.log"
+    },
+    {
+      "id": "pocketic-harness-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--no-run"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.772,
+      "timeout_seconds": 1800,
+      "log": "logs/pocketic-harness-build.log"
+    },
+    {
+      "id": "autonomous-50-segment",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_autonomous_fifty_segment_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 105.973,
+      "timeout_seconds": 1200,
+      "log": "logs/autonomous-50-segment.log"
+    },
+    {
+      "id": "controlled-ledger-backlog-1",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_controlled_ledger_backlog_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 14.799,
+      "timeout_seconds": 1200,
+      "log": "logs/controlled-ledger-backlog-1.log"
+    },
+    {
+      "id": "controlled-ledger-backlog-2",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_controlled_ledger_backlog_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 11.57,
+      "timeout_seconds": 1200,
+      "log": "logs/controlled-ledger-backlog-2.log"
+    },
+    {
+      "id": "controlled-ledger-backlog-3",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_controlled_ledger_backlog_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 14.422,
+      "timeout_seconds": 1200,
+      "log": "logs/controlled-ledger-backlog-3.log"
+    },
+    {
+      "id": "upstream-ledger-archive",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "upstream_ledger_archive_to_recovered_publication_matches_native",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 25.981,
+      "timeout_seconds": 900,
+      "log": "logs/upstream-ledger-archive.log"
+    },
+    {
+      "id": "cost-model",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/s12_cost_model.py",
+        "--ledger-trace",
+        "/home/codexdev/src/btz/.work/s12/final/clean/ledger-trace.json",
+        "--output",
+        "/home/codexdev/src/btz/.work/s12/final/clean/cost-projections.json"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.118,
+      "timeout_seconds": 60,
+      "log": "logs/cost-model.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "measured",
+      "path": "/home/codexdev/src/btz/.work/s12/final/clean/game-measurements.json",
+      "sha256": "1bdbf7bf083a61e53593e2948e840d0622f66d2a129afa754192b5056ee1bbdf"
+    },
+    {
+      "kind": "measured",
+      "path": "benchmarks/s12/canbench_results.yml",
+      "sha256": "270bedb9f7be871c1274cb677c43cb3c28a8c9477c0e77fbe266f9e4cc97286d"
+    },
+    {
+      "kind": "measured",
+      "path": "benchmarks/s12/canbench_results.csv",
+      "sha256": "718291c813a81e2c05b8d662ac7a7345d660205c4c81677f83982e1d65814c5a"
+    },
+    {
+      "kind": "normal-wasm",
+      "path": "/home/codexdev/src/btz/.work/s12/final/clean/wasm/runtime-lab.wasm",
+      "sha256": "4a0e1673612523b690bd45b7c30ca490bc35c422831cb4391f22653dc8096293",
+      "size": 2238605
+    },
+    {
+      "kind": "autonomous-trace",
+      "path": "/home/codexdev/src/btz/.work/s12/final/clean/autonomous-trace.json",
+      "sha256": "b2cdd82cda259bd8c91caf4520d6ba2fb21e855e7564271925c8169f7464495b"
+    },
+    {
+      "kind": "ledger-trace",
+      "path": "/home/codexdev/src/btz/.work/s12/final/clean/ledger-trace.json",
+      "sha256": "c0dd481f7bad2be95acf8339f07a99f7016556d1ff7581c1428b0856da4af54d"
+    },
+    {
+      "kind": "tariff-estimate",
+      "path": "/home/codexdev/src/btz/.work/s12/final/clean/cost-projections.json",
+      "sha256": "ec71d56f3fd11633e259376c750b899acb19776cae27d92dcc8dc4a3af0bfdca"
+    }
+  ]
+}

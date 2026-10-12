@@ -7,6 +7,7 @@ import json
 import statistics
 import os
 import platform
+import re
 import shutil
 import signal
 import subprocess
@@ -143,6 +144,11 @@ def aggregate_ledger_traces(paths, destination):
     destination.write_text(json.dumps(aggregate, indent=2) + '\n')
 
 
+def canbench_measured(text):
+    """Reject canbench's successful zero-pattern match as missing evidence."""
+    return 'Benchmark:' in text and not re.search(r'counts:\s+\[total 0\b', text)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--profile', choices=['smoke', 'extended'], required=True)
@@ -182,6 +188,11 @@ def main():
 
     def run(identifier, command, timeout, environment=None):
         row = execute(identifier, command, output, timeout, environment)
+        if identifier.startswith('canbench'):
+            canbench_log = (output / row['log']).read_text(errors='replace')
+            if row['status'] == 'PASS' and not canbench_measured(canbench_log):
+                row['status'] = 'FAIL'
+                row['reason'] = 'canbench matched zero benchmarks'
         report['checks'].append(row)
         result_path.write_text(json.dumps(report, indent=2) + '\n')
         if row['status'] != 'PASS':
@@ -195,8 +206,16 @@ def main():
             'benchmarks/s12/workloads.json', str(game_output), str(args.repetitions)], 300)
         report['artifacts'].append({'kind': 'measured', 'path': str(game_output),
                                     'sha256': sha256(game_output)})
-        run('canbench', ['canbench'], 600,
-            {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
+        if args.profile == 'smoke':
+            run('canbench-medium-callback',
+                ['canbench', 'callback_step_persist_medium_512'], 600,
+                {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
+            run('canbench-irrelevant-ledger-page',
+                ['canbench', 'ledger_page_all_irrelevant'], 600,
+                {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
+        else:
+            run('canbench', ['canbench'], 600,
+                {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
         for relative in ('benchmarks/s12/canbench_results.yml',
                          'benchmarks/s12/canbench_results.csv'):
             path = ROOT / relative

@@ -48,6 +48,12 @@ DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s12.py \
   --profile extended --output .work/s12/extended
 ```
 
+The smoke profile runs the complete deterministic fixture matrix plus the
+production-shaped medium callback and all-irrelevant ledger-page canbench cases.
+The normal CI workflow runs this tier. The extended tier adds fresh normal Wasm,
+PocketIC autonomous progress, repeated controlled-ledger traces, the pinned
+upstream ledger/archive case and cost projections; it is intentionally manual.
+
 The extended runner snapshots normal Wasm, compiles the test binary before starting the idle-timed PocketIC server, applies explicit per-case timeouts, saves partial results after every case, and terminates only its owned server process group. Omit `--harness-target` for a fresh target; the optional argument exists only for deliberate local reuse.
 
 `canbench_results.yml` is the deterministic regression baseline. `cost-assumptions.json` records the tariff retrieval date, official URLs, replication assumptions and model qualifications. Current source-bound results are retained under `evidence/S12/` and interpreted by `checkpoints/S12_REPORT.md`.
