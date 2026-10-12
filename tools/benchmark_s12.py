@@ -116,6 +116,8 @@ def main():
     parser.add_argument('--artifacts', type=Path,
                         default=Path('/home/codexdev/dtr-s09-artifacts'))
     parser.add_argument('--repetitions', type=int, default=3)
+    parser.add_argument('--harness-target', type=Path,
+                        help='optional reusable Cargo target; omit for a fresh isolated target')
     args = parser.parse_args()
     if sys.version_info < (3, 11):
         parser.error('Python 3.11 or newer is required')
@@ -174,7 +176,7 @@ def main():
             shutil.copyfile(built, normal)
             report['artifacts'].append({'kind': 'normal-wasm', 'path': str(normal),
                 'sha256': sha256(normal), 'size': normal.stat().st_size})
-            target = output / 'cargo-target'
+            target = args.harness_target.resolve() if args.harness_target else output / 'cargo-target'
             harness_env = {'CARGO_TARGET_DIR': str(target)}
             run('pocketic-harness-build', ['cargo', '+1.94.1', 'test', '--manifest-path',
                 'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
@@ -207,6 +209,11 @@ def main():
             for kind, path in (('autonomous-trace', autonomous), ('ledger-trace', ledger)):
                 report['artifacts'].append({'kind': kind, 'path': str(path),
                                             'sha256': sha256(path)})
+            cost = output / 'cost-projections.json'
+            run('cost-model', [sys.executable, '-B', 'tools/s12_cost_model.py',
+                '--ledger-trace', str(ledger), '--output', str(cost)], 60)
+            report['artifacts'].append({'kind': 'tariff-estimate', 'path': str(cost),
+                                        'sha256': sha256(cost)})
         report['overall'] = 'PASS'
         result_path.write_text(json.dumps(report, indent=2) + '\n')
         print('OVERALL PASS')
