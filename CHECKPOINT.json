@@ -2,7 +2,7 @@
   "schema_version": 1,
   "checkpoint_id": "S11",
   "name": "BTZ consumer and standalone Deterministic Timeline Runtime extraction",
-  "date": "2026-10-11",
+  "date": "2026-10-12",
   "predecessor": {
     "checkpoint_id": "S10",
     "implementation_commit": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
@@ -14,21 +14,28 @@
   "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
   "tested_dtr_tree": "c7b4e138a1c5cc43744e984e6e4081fa483d9383",
   "dtr_remote": "https://github.com/aodl/dtr.git",
-  "dtr_remote_head": "869404401216624c3145bbbfcaebf725bb618785",
+  "dtr_remote_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
   "dtr_local_documentation_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
-  "dtr_successful_ci_runs": [38173294124, 38173327599],
+  "dtr_successful_ci_runs": [38173294124, 38173327599, 38208750331],
   "final_source_verification_commit": "632705688b726563be76b279642f2fa687b48886",
   "final_source_verification_tree": "74ef98d55cdf8f3309969c33e92630decd27fafa",
   "btz_published_ci": {
-    "commit": "3c24edb8979c5e1ab523f9e1d35beb1062718efe",
-    "run": 38173694389,
-    "result": "FAIL"
+    "previous_failure": {
+      "commit": "3c24edb8979c5e1ab523f9e1d35beb1062718efe",
+      "run": 38173694389,
+      "result": "FAIL"
+    },
+    "closeout_pass": {
+      "commit": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
+      "run": 38208721952,
+      "result": "PASS"
+    }
   },
-  "successful_ci_run": null,
+  "successful_ci_run": 38208721952,
   "local_extraction_complete": true,
   "remote_dtr_verification_complete": true,
-  "btz_ready_to_push": true,
-  "delivery_complete": false,
+  "btz_branch_published": true,
+  "delivery_complete": true,
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
@@ -39,12 +46,12 @@
     "evidence/S11/runtime-lab.generated.did",
     "/home/codexdev/src/dtr/evidence/S11/verification-summary.json"
   ],
-  "next_checkpoint": "authorize the BTZ branch push and require fresh current-revision CI; do not start S12",
+  "next_checkpoint": "S11 is closed; do not start S12 or production promotion without a separate request",
   "limitations": [
-    "Fresh BTZ CI for the current repaired branch is BLOCKED until its push is authorized; the only published S11 BTZ run is a failure at an older commit.",
+    "S11 verification is complete, but production promotion remains separately BLOCKED.",
     "The committed JavaScript package is reproducible with the recorded normalized-mode/npm 11.12.1 recipe but was not published to a registry.",
     "Independent byte-reproducible Wasm remains an open release gate.",
     "S11 is local/CI correctness evidence and is not production deployment, financial, scalability, capacity or governance evidence.",
-    "No public-network deployment, wallet access, real transfer, payout, production-controller change, package publication, push or release occurred."
+    "No force-push, public-network deployment, wallet access, real transfer, payout, production-controller change, package publication or release occurred."
   ]
 }

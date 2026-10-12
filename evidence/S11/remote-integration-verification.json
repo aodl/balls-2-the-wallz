@@ -1,15 +1,18 @@
 {
   "schema_version": 1,
   "checkpoint": "S11",
-  "date": "2026-10-11",
+  "date": "2026-10-12",
   "scope": "remote integration closeout",
-  "overall": "BLOCKED",
+  "overall": "PASS",
   "local_result": "PASS",
-  "blocking_gate": "fresh current-revision BTZ CI requires an authorized push",
+  "ci_result": "PASS",
+  "production_promotion": "BLOCKED",
   "btz": {
     "path": "/home/codexdev/src/btz",
     "remote": "https://github.com/aodl/balls-2-the-wallz",
     "branch": "checkpoint/s11-dtr-extraction",
+    "published_closeout_head": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
+    "published_closeout_tree": "bdd2d3cc3828447b4cc2a15027859a943422fd6c",
     "tested_implementation_commit": "4a0e1aef904e99a41948d70ff885f3ad839e2b03",
     "tested_tree": "83b2802e86711e59a34de9b2059fc10d12db54fc",
     "working_tree_changes_during_regression": []
@@ -22,8 +25,8 @@
     "tested_tree": "c7b4e138a1c5cc43744e984e6e4081fa483d9383",
     "local_documentation_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
     "local_documentation_head_tree": "afce8ff8ac9dd7286389b993225b7c7784a7e499",
-    "remote_head": "869404401216624c3145bbbfcaebf725bb618785",
-    "remote_head_tree": "b6bd54fa51051040a0a34cc80aeeaae558978dc1",
+    "remote_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
+    "remote_head_tree": "afce8ff8ac9dd7286389b993225b7c7784a7e499",
     "remote_match": "PASS"
   },
   "dependencies": {
@@ -57,8 +60,8 @@
     {
       "id": "dtr-remote-ci",
       "status": "PASS",
-      "runs": [38173294124, 38173327599],
-      "head": "869404401216624c3145bbbfcaebf725bb618785"
+      "runs": [38173294124, 38173327599, 38208750331],
+      "latest_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae"
     },
     {
       "id": "dtr-standalone",
@@ -75,13 +78,17 @@
       "rust_packages": 4,
       "cargo_home_started_empty": true,
       "git_url_rewrites_disabled": true,
-      "location": "disposable directory outside both source repositories"
+      "location": "disposable directory outside both source repositories",
+      "fresh_ci_run": 38208721952,
+      "fresh_ci_job": 114677886997
     },
     {
       "id": "btz-source",
       "status": "PASS",
       "javascript_tests": 1166,
-      "python_tests": 85
+      "python_tests": 85,
+      "fresh_ci_run": 38208721952,
+      "fresh_ci_job": 114677886996
     },
     {
       "id": "btz-native",
@@ -96,7 +103,9 @@
     {
       "id": "browser-http-webcrypto",
       "status": "PASS",
-      "assertions": 11
+      "assertions": 11,
+      "fresh_ci_run": 38208721952,
+      "fresh_ci_job": 114677886924
     },
     {
       "id": "pocketic-regressions",
@@ -123,6 +132,14 @@
       "baseline_tree": "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220",
       "replacement_revision": "4a0e1aef904e99a41948d70ff885f3ad839e2b03",
       "replacement_tree": "83b2802e86711e59a34de9b2059fc10d12db54fc",
+      "fresh_ci_run": 38208721952,
+      "fresh_ci_job": 114677886950,
+      "fresh_ci_baseline_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
+      "fresh_ci_baseline_tree": "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220",
+      "fresh_ci_replacement_revision": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
+      "fresh_ci_replacement_tree": "bdd2d3cc3828447b4cc2a15027859a943422fd6c",
+      "fresh_ci_command": "python -B tools/verify_s10_local.py --upgrade-mode cross-version --output .work/ci-historical-upgrade",
+      "fresh_ci_local_overrides": [],
       "boundaries": [
         "idle",
         "running",
@@ -140,7 +157,9 @@
       "replacement_sha256": "f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef",
       "installed_wasm_tests": 10,
       "live_browser_assertions": 11,
-      "snapshot_browser_assertions": 12
+      "snapshot_browser_assertions": 12,
+      "fresh_ci_run": 38208721952,
+      "fresh_ci_job": 114677886960
     },
     {
       "id": "final-source-gate",
@@ -163,11 +182,34 @@
     },
     {
       "id": "fresh-current-btz-ci",
-      "status": "BLOCKED",
-      "run": null,
-      "reason": "current repaired branch and its fresh-runner historical gate have not been pushed because push authorization was explicitly withheld"
+      "status": "PASS",
+      "run": 38208721952,
+      "head": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
+      "started_utc": "2026-10-12T05:37:09Z",
+      "completed_utc": "2026-10-12T05:41:40Z",
+      "jobs_passed": 8
     }
   ],
+  "ci_artifact_uploads": {
+    "btz_run": 38208721952,
+    "btz": [
+      {"id": 11729130311, "name": "local-ic-evidence", "size": 1760713, "digest": "sha256:f18bf4f7a536aea5eb48faa1c657d1da3c050a331e6771018239ec70eba1bce7"},
+      {"id": 11728845222, "name": "native-evidence", "size": 7365, "digest": "sha256:347d3f63c3e3e8892beb4fb8ef57b9949ced60a87b7a13c7a3a171c932206560"},
+      {"id": 11728656188, "name": "source-evidence", "size": 21823, "digest": "sha256:0ac8a62a961d294c8c2c87b30187dcbec6ef23d3d59d999bd31968f1c1ed0863"},
+      {"id": 11728626342, "name": "wasm-evidence", "size": 5868, "digest": "sha256:ff03823c51560b6b418210bcc0c3e0b66ad9f71df1f77ee971d74e43b8ac7729"},
+      {"id": 11728331224, "name": "package-consumer-evidence", "size": 4719, "digest": "sha256:dcfa715dcee906765d5cf7484548257e02a4f2ea871ada84f76837a4c218a081"},
+      {"id": 11728326265, "name": "browser-evidence", "size": 277105, "digest": "sha256:59c0600fceed0a37f04c4ea01064fc063131f7dd06e11c2d543e5732d531339b"},
+      {"id": 11728182243, "name": "historical-upgrade-evidence", "size": 2445592, "digest": "sha256:a1b187a848c0f559be48625cf49c872ca014ac17fb387406a0d78bd5f087910c"}
+    ],
+    "dtr_run": 38208750331,
+    "dtr": [
+      {"id": 11728910552, "name": "dtr-standalone-evidence", "size": 7025, "digest": "sha256:1f3058dc2674e66088924748dcead93f16222039f5b4f72e27662f9815aa85d1"}
+    ],
+    "archive_download": {
+      "status": "NOT_RUN",
+      "reason": "GitHub requires authenticated artifact download; anonymous API metadata and upload-step success were verified"
+    }
+  },
   "artifacts": {
     "s10_source_revision": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
     "s10_source_tree": "42c9f5c7b01b94bd1fe6da40cc55bc34513f7220",

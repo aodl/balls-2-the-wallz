@@ -1,10 +1,10 @@
 # S11 closeout — standalone DTR extraction and BTZ consumer
 
-11 October 2026. **The remote DTR extraction, exact consumers and behavior-preserving BTZ regressions pass. The BTZ branch is ready to push; fresh current-revision BTZ CI remains BLOCKED pending authorization to push.**
+12 October 2026. **The remote DTR extraction, exact consumers, standalone browser and historical S10-to-S11 upgrade pass locally and on fresh hosted runners. S11 is closed; production promotion remains separately blocked.**
 
 ## Result
 
-The reusable DTR implementation is in `/home/codexdev/src/dtr` at commit `71e59e93cf49a3656689679b538b4c3f138787f8`, tree `c7b4e138a1c5cc43744e984e6e4081fa483d9383`. The public repository is `https://github.com/aodl/dtr.git`; its verified remote head is documentation commit `869404401216624c3145bbbfcaebf725bb618785`, directly above the implementation. The local DTR branch additionally contains documentation-only closeout commits and is at `ef80f1912e3a8472ae706996b6cd8ae02955d8ae`; those commits have not been pushed. A fresh detached checkout of `71e59e9…` matched the local implementation commit/tree and passed 186 JavaScript tests, 29 Rust tests, formatting and Clippy. Remote workflow runs `38173294124` on `checkpoint/s11-dtr-extraction` and `38173327599` on `main`, both at `8694044…`, completed successfully.
+The reusable DTR implementation is in `/home/codexdev/src/dtr` at commit `71e59e93cf49a3656689679b538b4c3f138787f8`, tree `c7b4e138a1c5cc43744e984e6e4081fa483d9383`. The public repository is `https://github.com/aodl/dtr.git`; its checkpoint branch is at documentation head `ef80f1912e3a8472ae706996b6cd8ae02955d8ae`. A fresh detached checkout of `71e59e9…` matched the local implementation commit/tree and passed 186 JavaScript tests, 29 Rust tests, formatting and Clippy. Remote workflow runs `38173294124` on `checkpoint/s11-dtr-extraction` and `38173327599` on `main`, both at `8694044…`, completed successfully. Post-closeout run `38208750331` at `ef80f19…` also passed.
 
 BTZ is in `/home/codexdev/src/btz` on `checkpoint/s11-dtr-extraction` and was substantively tested at `4a0e1aef904e99a41948d70ff885f3ad839e2b03`, tree `83b2802e86711e59a34de9b2059fc10d12db54fc`. DTR owns generic seals/timeline interfaces, source fencing models, wire/coordinator crates, bounded publication/storage/client code, certificate-verification integration, sequencing/playout and competitive Life. BTZ owns mechanics, commands/payment interpretation, economics, scores, projection/rendering, the observer application and concrete canister. `runtime-lab` remains in BTZ because it assembles the BTZ kernel and payment classifier.
 
@@ -26,7 +26,7 @@ An independent fresh clone normalized directories to `0755` and regular files to
 | DTR remote commit/tree versus local extraction | **PASS — exact match at `71e59e9…` / `c7b4e13…`** |
 | DTR JavaScript / Rust / Life | **PASS — 186 JS and 29 Rust tests** |
 | DTR format, Clippy, package inventory | **PASS — 20 packaged files** |
-| DTR remote CI | **PASS — runs `38173294124` and `38173327599` at `8694044…`** |
+| DTR remote CI | **PASS — runs `38173294124`, `38173327599` and `38208750331`** |
 | External clean consumers | **PASS — generated-package JS API and four remote Rust packages** |
 | BTZ source and tooling | **PASS — 1,166 JS and 85 Python tests** |
 | BTZ root/native Rust | **PASS — 18 root and 7 portable tests** |
@@ -38,7 +38,7 @@ An independent fresh clone normalized directories to `0755` and regular files to
 | Explicit same-version recovery | **PASS — current `6327056…` normal Wasm over the identical current module** |
 | Historical S10-to-S11 upgrade | **PASS locally — source-built `e4405bb…` baseline upgraded to `4a0e1ae…`** |
 | Published BTZ CI at old `3c24edb…` | **FAIL — browser job only; source/native/Wasm/live jobs passed** |
-| Fresh BTZ CI at current branch | **BLOCKED — requires an authorized push** |
+| Fresh BTZ CI at `76898c5…` | **PASS — run `38208721952`, all eight jobs** |
 
 The explicitly labelled same-version run used BTZ source commit `632705688b726563be76b279642f2fa687b48886`, tree `74ef98d55cdf8f3309969c33e92630decd27fafa`, and installed the current normal module over the same current normal module. Both source-bound artifacts had SHA-256 `f7732368fa5ddfc980a0874a9d8a974a2bebc46f9634f71b91e03af86f2fbaef`. It passed 10 installed-Wasm tests, the separately orchestrated live test with 11 browser assertions and the certified snapshot with 12 assertions. This is same-version recovery evidence only.
 
@@ -54,4 +54,6 @@ The S10 module installed first and upgraded to S11 during unfinished work and at
 
 DTR is fully available at the real remote and its current workflow passes. BTZ workflow run `38173694389` at the older remote commit `3c24edb8979c5e1ab523f9e1d35beb1062718efe` is correctly recorded as **FAIL**: only `Browser HTTP and Web Crypto` failed, because that workflow lacked `npm ci`; the source, native, Wasm and live-local jobs passed. The current branch contains the dependency-install fix and the corresponding local browser check passes.
 
-Fresh CI for the current BTZ branch, including a fresh-runner source-built historical gate, is **BLOCKED** until the user authorizes pushing it. No push, force-push, registry publication, public-network deployment, GitHub setting change, real wallet/funds action, payout or production-controller change occurred. Production scalability, settlement, trust-root policy, capacity and reproducible-Wasm gates remain separate.
+Fresh CI for the current BTZ branch passed in run `38208721952` from 05:37:09 through 05:41:40 UTC on 12 October 2026. The standalone browser job passed in 69 seconds, same-version recovery/live-local passed in 230 seconds, and the fresh historical gate passed in 267 seconds. The latter invoked `verify_s10_local.py --upgrade-mode cross-version` with no historical-artifact or harness-target override, then uploaded its machine-readable evidence and both Wasm snapshots. Seven BTZ artifacts and one DTR artifact were uploaded with nonzero sizes and API-reported SHA-256 archive digests. Anonymous API access exposed metadata but required authentication for archive download, so the archives were not independently unpacked in this closeout turn.
+
+No force-push, registry publication, public-network deployment, GitHub setting change, real wallet/funds action, payout or production-controller change occurred. Production scalability, settlement, trust-root policy, capacity and reproducible-Wasm gates remain separate and BLOCKED; they are not part of this S11 PASS.
