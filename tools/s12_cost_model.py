@@ -32,9 +32,16 @@ def workload_rows(path):
 def controlled_mu(path):
     data = json.loads(path.read_text())
     row = next(row for row in data['scenarios'] if row['name'] == 'paused-arrivals')
+    elapsed = row.get('elapsed_seconds')
+    if elapsed is None:
+        distribution = row['sustained_records_per_second_distribution']
+        selected = distribution['samples'].index(distribution['min'])
+        elapsed = row['elapsed_seconds_samples'][selected]
     return row['sustained_records_per_second'], {
         'source': str(path), 'scenario': row['name'], 'evidence_class': row['evidence_class'],
-        'records': row['records_processed'], 'elapsed_seconds': row['elapsed_seconds'],
+        'records': row['records_processed'], 'elapsed_seconds': elapsed,
+        'selection': 'minimum repeated local-host throughput' if 'elapsed_seconds_samples' in row
+                     else 'single local-host sample',
         'received_candid_bytes': row['received_candid_bytes'],
         'bytes_per_record': row['received_candid_bytes'] / row['records_processed']}
 

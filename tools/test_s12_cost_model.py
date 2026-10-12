@@ -29,6 +29,21 @@ class S12CostModelTests(unittest.TestCase):
             self.assertEqual(mu, 10)
             self.assertEqual(record['bytes_per_record'], 50)
 
+    def test_mu_uses_slowest_aggregated_sample(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'trace.json'
+            path.write_text(json.dumps({'scenarios': [{
+                'name': 'paused-arrivals', 'sustained_records_per_second': 8,
+                'sustained_records_per_second_distribution': {
+                    'samples': [10, 8, 12], 'min': 8},
+                'evidence_class': 'controlled', 'records_processed': 80,
+                'elapsed_seconds_samples': [8, 10, 6.666666667],
+                'received_candid_bytes': 4000}]}))
+            mu, record = MODEL.controlled_mu(path)
+            self.assertEqual(mu, 8)
+            self.assertEqual(record['elapsed_seconds'], 10)
+            self.assertEqual(record['selection'], 'minimum repeated local-host throughput')
+
     def test_cost_projection_separates_measured_and_unmeasured(self):
         assumptions = json.loads((ROOT / 'benchmarks/s12/cost-assumptions.json').read_text())
         benches = MODEL.load_canbench(ROOT / 'benchmarks/s12/canbench_results.yml')
