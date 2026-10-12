@@ -1,57 +1,49 @@
 {
   "schema_version": 1,
-  "checkpoint_id": "S11",
-  "name": "BTZ consumer and standalone Deterministic Timeline Runtime extraction",
+  "checkpoint_id": "S12",
+  "name": "BTZ/DTR operating envelope, ledger throughput and projected operating costs",
   "date": "2026-10-12",
   "predecessor": {
-    "checkpoint_id": "S10",
-    "implementation_commit": "e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0",
-    "documentation_commit": "eb1f971e4190694ba76fec530e8f93ebce507939",
-    "successful_ci_run": 38152955234
+    "checkpoint_id": "S11",
+    "local_evidence_head": "a823a3c7d0802daaf5a0c4be6a4034cb1f54cdf9",
+    "remote_tested_head": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
+    "successful_ci_run": 38208721952
   },
-  "tested_btz_implementation_commit": "4a0e1aef904e99a41948d70ff885f3ad839e2b03",
-  "tested_btz_tree": "83b2802e86711e59a34de9b2059fc10d12db54fc",
+  "tested_btz_implementation_commit": "58ed49a986824291b747affbeeab61cb4dc811fa",
+  "tested_btz_tree": "34f918aa580955dee2df7c2f3e0ef741e7eb31c4",
   "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
-  "tested_dtr_tree": "c7b4e138a1c5cc43744e984e6e4081fa483d9383",
-  "dtr_remote": "https://github.com/aodl/dtr.git",
-  "dtr_remote_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
-  "dtr_local_documentation_head": "ef80f1912e3a8472ae706996b6cd8ae02955d8ae",
-  "dtr_successful_ci_runs": [38173294124, 38173327599, 38208750331],
-  "final_source_verification_commit": "632705688b726563be76b279642f2fa687b48886",
-  "final_source_verification_tree": "74ef98d55cdf8f3309969c33e92630decd27fafa",
-  "btz_published_ci": {
-    "previous_failure": {
-      "commit": "3c24edb8979c5e1ab523f9e1d35beb1062718efe",
-      "run": 38173694389,
-      "result": "FAIL"
-    },
-    "closeout_pass": {
-      "commit": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
-      "run": 38208721952,
-      "result": "PASS"
-    }
+  "dtr_changed": false,
+  "normal_wasm_sha256": "4a0e1673612523b690bd45b7c30ca490bc35c422831cb4391f22653dc8096293",
+  "local_benchmark_result": "PASS",
+  "remote_ci_result": "NOT_RUN",
+  "verified_local_envelope": {
+    "board": "16x8",
+    "cannons": 2,
+    "starting_balls": 32,
+    "logical_segment_ticks": 2,
+    "pacing_seconds": 1,
+    "work_budget": 512,
+    "target_cadence_seconds": 20,
+    "completed_segments": 50
   },
-  "successful_ci_run": 38208721952,
-  "local_extraction_complete": true,
-  "remote_dtr_verification_complete": true,
-  "btz_branch_published": true,
-  "delivery_complete": true,
+  "full_ledger_decision": "supportable only under narrow controlled traffic assumptions",
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
-    "evidence/S11/remote-integration-verification.json",
-    "checkpoints/S11_CLOSEOUT.md",
-    "evidence/S11/verification-summary.json",
-    "evidence/S11/runtime-lab.generated.did",
-    "/home/codexdev/src/dtr/evidence/S11/verification-summary.json"
+    "checkpoints/S12_REPORT.md",
+    "evidence/S12/benchmark-run.json",
+    "evidence/S12/game-compute.json",
+    "evidence/S12/autonomous-trace.json",
+    "evidence/S12/ledger-ingestion.json",
+    "evidence/S12/cost-projections.json"
   ],
-  "next_checkpoint": "S11 is closed; do not start S12 or production promotion without a separate request",
+  "next_checkpoint": "Stop after evidenced S12; do not begin S13 without a separate request",
   "limitations": [
-    "S11 verification is complete, but production promotion remains separately BLOCKED.",
-    "The committed JavaScript package is reproducible with the recorded normalized-mode/npm 11.12.1 recipe but was not published to a registry.",
-    "Independent byte-reproducible Wasm remains an open release gate.",
-    "S11 is local/CI correctness evidence and is not production deployment, financial, scalability, capacity or governance evidence.",
-    "No force-push, public-network deployment, wallet access, real transfer, payout, production-controller change, package publication or release occurred."
+    "Controlled PocketIC throughput is not upstream-ledger or mainnet capacity evidence.",
+    "Cost values are dated tariff projections, not measured production cycle burn.",
+    "The 64-ball and 32-cannon cases are single-segment measurements, not continuous-capacity promises.",
+    "Actual production input-assignment latency, heap high-water, finality, availability and gateway costs remain unmeasured.",
+    "No remote Git action, public deployment, real-value transfer, package publication or release occurred."
   ]
 }

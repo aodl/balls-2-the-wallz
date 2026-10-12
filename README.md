@@ -1,6 +1,6 @@
-# Balls 2 The Wallz — S11 DTR consumer
+# Balls 2 The Wallz — S12 measured operating envelope
 
-BTZ is a continuously running, local-only Internet Computer game service and now consumes the independently maintained Deterministic Timeline Runtime. DTR supplies the generic checkpoint/coordinator, publication verification and client buffering; this repository owns BTZ gameplay, payments, observer application and concrete canister assembly.
+BTZ is a continuously running, local-only Internet Computer game service that consumes the independently maintained Deterministic Timeline Runtime. S12 adds reproducible workload, canister-instruction, persistence, ledger-backlog, continuous-operation and tariff measurements without changing gameplay or the public interface.
 
 **Live local IC — test-network certified. No mainnet deployment, wallet, real funds, payout or production-readiness claim.**
 
@@ -13,6 +13,9 @@ npm ci --ignore-scripts
 python3.11 -B tools/check.py source --output .work/source
 python3.11 -B tools/check.py native --output .work/native
 python3.11 -B tools/check.py wasm --output .work/wasm
+
+# Bounded S12 benchmark smoke; see benchmarks/s12/README.md for extended mode.
+python3.11 -B tools/benchmark_s12.py --profile smoke --output .work/s12/smoke
 
 # With the pinned Playwright environment and sandbox-capable host:
 python3.11 -B tools/check.py browser --output .work/browser
@@ -32,7 +35,7 @@ Open **http://127.0.0.1:8080/apps/btz-observer/**. That default mode is labeled 
 
 ## Current boundary
 
-| Component | S11 role |
+| Component | S12 role |
 |---|---|
 | Pinned DTR revision | Generic Rust coordinator/wire crates, canonical timeline primitives, publication verification, source/storage models, Life and playout buffering. |
 | `canisters/runtime-lab` | BTZ application host: verified ledger classification, autonomous progression, stable state, certification and three-publication/8 MiB retention. |
@@ -40,7 +43,8 @@ Open **http://127.0.0.1:8080/apps/btz-observer/**. That default mode is labeled 
 | `apps/btz-observer` | Existing read-only Canvas renderer with live certified retrieval, bounded buffering and visible snapshot resynchronization. |
 | `tools/serve_observer.py` | Loopback-only allowlisted test proxy for actual PocketIC query/read-state bytes. It is not a production service. |
 | `tools/verify_s10_local.py` | Bounded owner of the disposable PocketIC/browser integration and its sanitized results. |
+| `tools/benchmark_s12.py` | Smoke/extended S12 runner for fixtures, canbench, continuous normal-Wasm PocketIC, controlled ledger traffic and cost projections. |
 
-BTZ v3 gameplay, canonical payment inputs, authoritative state/events/scores/seals, publication v6, animation v1 and Life regression behavior remain unchanged. See the [S11 ownership map](docs/architecture/S11_DTR_EXTRACTION.md), [current status](STATUS.md), [checkpoint report](checkpoints/S11_REPORT.md) and [verification summary](evidence/S11/verification-summary.json).
+BTZ v3 gameplay, canonical payment inputs, authoritative state/events/scores/seals, publication v6, animation v1 and Life regression behavior remain unchanged. See the [S11 ownership map](docs/architecture/S11_DTR_EXTRACTION.md), [current status](STATUS.md), [S12 report](checkpoints/S12_REPORT.md), [workload inventory](benchmarks/s12/README.md) and [machine-readable run](evidence/S12/benchmark-run.json).
 
-The public DTR source is `https://github.com/aodl/dtr`; BTZ pins its exact implementation revision for Rust and a reviewed npm-pack artifact for JavaScript. Production ledger scalability, settlement, real-wallet integration, governance and release-grade reproducible Wasm remain separate work. Jupiter Faucet and Event Horizon remain independent products.
+The public DTR source is `https://github.com/aodl/dtr`; BTZ pins its exact implementation revision for Rust and a reviewed npm-pack artifact for JavaScript. S12's verified local continuous envelope is the 16×8/2-cannon/32-ball fixture at two logical ticks, work budget 512 and a 20-second local target cadence. This is not a production capacity promise. Production ledger-source selection, real cycle burn, settlement, wallet integration, governance and release-grade reproducible Wasm remain separate work. Jupiter Faucet and Event Horizon remain independent products.
