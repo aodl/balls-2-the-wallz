@@ -1,0 +1,104 @@
+{
+  "schema": "btz-s12-cost-assumptions-v1",
+  "retrieved_utc_date": "2026-10-12",
+  "official_sources": {
+    "cycle_costs": "https://docs.internetcomputer.org/references/cycle-costs/",
+    "resource_limits": "https://docs.internetcomputer.org/references/resource-limits/",
+    "cycles": "https://docs.internetcomputer.org/concepts/cycles/"
+  },
+  "tariff_13_node_cycles": {
+    "update_execution_base": 5000000,
+    "per_wasm_instruction": 1,
+    "xnet_request_and_response": 260000,
+    "xnet_byte": 1000,
+    "ingress_message": 1200000,
+    "ingress_byte": 2000,
+    "gib_storage_second": 127000,
+    "compute_allocation_percent_second": 10000000
+  },
+  "replication": {
+    "standard_application_nodes": 13,
+    "higher_replication_nodes": 34,
+    "higher_replication_scale": 2.6153846153846154
+  },
+  "hard_limits": {
+    "update_instructions": 40000000000,
+    "query_instructions": 5000000000,
+    "wasm32_heap_bytes": 4294967296,
+    "stable_memory_bytes": 536870912000,
+    "replicated_response_bytes": 2097152
+  },
+  "model": {
+    "work_budget": 512,
+    "page_records": 64,
+    "archive_fraction": 0.5,
+    "unmeasured_execution_allowance_fraction": 0.1,
+    "stable_memory_bytes": 25231360,
+    "average_request_bytes_assumption": 32,
+    "compute_allocation_percent": 0,
+    "cycles_per_xdr": 1000000000000,
+    "backlog_records": 4096
+  },
+  "scenarios": [
+    {
+      "name": "quiet-existing-ball",
+      "workload": "empty-motion",
+      "coordinator_benchmark": "coordinator_empty_motion",
+      "persistence_benchmark": "persistence_publication_empty_motion",
+      "players": 1,
+      "balls": 1,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 0
+    },
+    {
+      "name": "moderate-ongoing",
+      "workload": "ball-dense-medium",
+      "coordinator_benchmark": "coordinator_ball_dense_medium",
+      "persistence_benchmark": "persistence_publication_medium",
+      "players": 2,
+      "balls": 32,
+      "segment_seconds": 20,
+      "ledger_records_per_second": 1
+    },
+    {
+      "name": "high-legal-occupancy",
+      "workload": "ball-dense-high",
+      "coordinator_benchmark": "coordinator_ball_dense_high",
+      "persistence_benchmark": "persistence_publication_high",
+      "players": 2,
+      "balls": 64,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 1
+    },
+    {
+      "name": "many-player-frontier",
+      "workload": "many-cannon-frontier",
+      "coordinator_benchmark": "coordinator_many_cannon_frontier",
+      "persistence_benchmark": "persistence_publication_many_cannon",
+      "players": 32,
+      "balls": 32,
+      "segment_seconds": 20,
+      "ledger_records_per_second": 1
+    },
+    {
+      "name": "irrelevant-ledger-heavy",
+      "workload": "empty-motion",
+      "coordinator_benchmark": "coordinator_empty_motion",
+      "persistence_benchmark": "persistence_publication_empty_motion",
+      "players": 1,
+      "balls": 1,
+      "segment_seconds": 60,
+      "ledger_records_per_second": 20
+    },
+    {
+      "name": "backlog-catch-up-continuous-bound",
+      "workload": "empty-motion",
+      "coordinator_benchmark": "coordinator_empty_motion",
+      "persistence_benchmark": "persistence_publication_empty_motion",
+      "players": 1,
+      "balls": 1,
+      "segment_seconds": 60,
+      "ledger_records_per_second": "MEASURED_CONTROLLED_MU"
+    }
+  ]
+}

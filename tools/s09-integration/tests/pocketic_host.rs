@@ -10,7 +10,7 @@ use ic_ledger_types::{
 use pocket_ic::common::rest::BlobCompression;
 use pocket_ic::{CanisterSettings, PocketIc, PocketIcBuilder};
 use serde_json::Value;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
@@ -392,7 +392,33 @@ fn initial_world() -> Vec<u8> {
     dtr_wire::unhex(text).unwrap()
 }
 
+fn s12_world(name: &str) -> Vec<u8> {
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../benchmarks/s12/workloads.json");
+    let value: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+    let workload = value["workloads"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["name"] == name)
+        .unwrap_or_else(|| panic!("missing S12 workload {name}"));
+    dtr_wire::unhex(workload["initial_state_hex"].as_str().unwrap()).unwrap()
+}
+
+fn write_s12_trace(variable: &str, value: &Value) {
+    let path = PathBuf::from(
+        std::env::var_os(variable).unwrap_or_else(|| panic!("{variable} is required")),
+    );
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).unwrap();
+    }
+    std::fs::write(path, serde_json::to_vec_pretty(value).unwrap()).unwrap();
+}
+
 fn deploy_synthetic(pic: &PocketIc, wasm: &[u8]) -> Principal {
+    deploy_synthetic_world(pic, wasm, initial_world())
+}
+
+fn deploy_synthetic_world(pic: &PocketIc, wasm: &[u8], world: Vec<u8>) -> Principal {
     let owner = controller();
     let id = pic.create_canister_with_settings(
         Some(owner),
@@ -401,14 +427,7 @@ fn deploy_synthetic(pic: &PocketIc, wasm: &[u8]) -> Principal {
             ..Default::default()
         }),
     );
-    let init = encode_args((
-        initial_world(),
-        "01".repeat(32),
-        0u64,
-        0u64,
-        None::<LedgerConfig>,
-    ))
-    .unwrap();
+    let init = encode_args((world, "01".repeat(32), 0u64, 0u64, None::<LedgerConfig>)).unwrap();
     pic.install_canister(id, wasm.to_vec(), init, Some(owner));
     id
 }
@@ -423,6 +442,16 @@ fn deploy_fault_source_with_fallback(
     ledger: Principal,
     fallback_seconds: u32,
 ) -> Principal {
+    deploy_fault_source_with_limits(pic, wasm, ledger, fallback_seconds, 4)
+}
+
+fn deploy_fault_source_with_limits(
+    pic: &PocketIc,
+    wasm: &[u8],
+    ledger: Principal,
+    fallback_seconds: u32,
+    page_limit: u16,
+) -> Principal {
     let runtime = create_controlled(pic);
     let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
     let init = encode_args((
@@ -434,7 +463,7 @@ fn deploy_fault_source_with_fallback(
             network: "pocketic-local".into(),
             ledger,
             recipient_account: recipient.as_bytes().to_vec(),
-            page_limit: 4,
+            page_limit,
             fallback_seconds,
             hint_principal: None,
         }),
@@ -2800,4 +2829,390 @@ fn upstream_ledger_archive_to_recovered_publication_matches_native() {
         committed.artifacts[0].sha256
     );
     pic.stop_live();
+}
+
+#[test]
+#[ignore = "S12 extended autonomous operating-envelope trace"]
+fn s12_autonomous_fifty_segment_trace() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let pic = instance();
+    let runtime = deploy_synthetic_world(&pic, &wasm, s12_world("ball-dense-medium"));
+    let payer = Principal::self_authenticating([61; 32]);
+    let payment = normalized(
+        AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT),
+        1_000_000_000,
+        *b"BTZ\x11\0\0\x40\0",
+    );
+    apply(
+        &pic,
+        runtime,
+        0,
+        Action::Ingest {
+            start: Int(0u64.into()),
+            records: vec![Some(payment)],
+            anchor: "12".repeat(32),
+        },
+    )
+    .unwrap();
+
+    let target_segments = 50u64;
+    let target_cadence_seconds = 20u64;
+    let work_budget = 512u32;
+    let initial_stable_bytes = pic.get_stable_memory(runtime).len();
+    let started = start_autonomous(
+        &pic,
+        runtime,
+        RunConfig {
+            segment_ticks: 2,
+            pacing_seconds: 1,
+            work_budget,
+        },
+    );
+    assert!(started.run.running);
+
+    let host_started = Instant::now();
+    let mut virtual_seconds = 0u64;
+    let mut previous_completed = 0u64;
+    let mut previous_callbacks = started.run.callback_count;
+    let mut previous_total_work = started.run.total_work;
+    let mut ready_at = None::<u64>;
+    let mut maximum_callback_work = 0u64;
+    let mut publication_hashes = BTreeSet::new();
+    let mut stable_samples = vec![serde_json::json!({
+        "completed_segments": 0,
+        "stable_bytes": initial_stable_bytes,
+    })];
+    let mut segments = Vec::new();
+
+    for _ in 0..20_000 {
+        virtual_seconds += 1;
+        pic.advance_time(Duration::from_secs(1));
+        pic.tick();
+        let current = status(&pic, runtime, Principal::anonymous()).unwrap();
+        let callback_work = current.run.total_work - previous_total_work;
+        maximum_callback_work = maximum_callback_work.max(callback_work);
+        assert!(callback_work <= u64::from(work_budget));
+        previous_total_work = current.run.total_work;
+        let work = controller_work(&pic, runtime).unwrap();
+        if work.phase.as_deref() == Some("ready") && ready_at.is_none() {
+            ready_at = Some(virtual_seconds);
+        }
+        if current.run.completed_segments > previous_completed {
+            assert_eq!(current.run.completed_segments, previous_completed + 1);
+            let bytes = observation(&pic, runtime).publication;
+            let publication: Publication = decode(&bytes).unwrap();
+            let segment_id: u64 = publication
+                .head
+                .segment_id
+                .as_ref()
+                .unwrap()
+                .0
+                .to_string()
+                .parse()
+                .unwrap();
+            assert_eq!(segment_id + 1, current.run.completed_segments);
+            let seal = publication.head.seal.as_ref().unwrap();
+            let logical_start: u64 = seal.logical_start.0.to_string().parse().unwrap();
+            let logical_end: u64 = seal.logical_end.0.to_string().parse().unwrap();
+            assert_eq!(logical_start, segment_id * 2);
+            assert_eq!(logical_end, logical_start + 2);
+            if segment_id == 0 {
+                assert_eq!(seal.input_count, 1);
+                assert_eq!(seal.source_from.0.to_string(), "0");
+                assert_eq!(seal.source_to_exclusive.0.to_string(), "1");
+            } else {
+                assert_eq!(seal.input_count, 0);
+                assert_eq!(seal.source_from.0.to_string(), "1");
+                assert_eq!(seal.source_to_exclusive.0.to_string(), "1");
+            }
+            assert!(publication_hashes.insert(current.publication_hash.clone()));
+            let retention = retention_status(&pic, runtime);
+            let lag_seconds = virtual_seconds as i64
+                - (current.run.completed_segments * target_cadence_seconds) as i64;
+            segments.push(serde_json::json!({
+                "segment_id": segment_id,
+                "logical_start": logical_start,
+                "logical_end": logical_end,
+                "ready_virtual_second": ready_at.take(),
+                "committed_virtual_second": virtual_seconds,
+                "callbacks": current.run.callback_count - previous_callbacks,
+                "work_units": current.run.last_segment_work,
+                "publication_bytes": bytes.len(),
+                "artifact_bytes": publication.artifacts.iter().map(|row| row.length).sum::<usize>(),
+                "retained_bytes": retention.retained_bytes,
+                "queue": work.pending_inputs,
+                "source_cursor": work.source_cursor,
+                "lag_against_20_second_cadence": lag_seconds,
+                "cadence_status": if lag_seconds <= 0 { "ON_TIME" } else { "BEHIND" },
+            }));
+            previous_callbacks = current.run.callback_count;
+            previous_completed = current.run.completed_segments;
+            if current.run.completed_segments % 10 == 0 {
+                stable_samples.push(serde_json::json!({
+                    "completed_segments": current.run.completed_segments,
+                    "stable_bytes": pic.get_stable_memory(runtime).len(),
+                }));
+            }
+            if current.run.completed_segments == target_segments {
+                break;
+            }
+        }
+    }
+    assert_eq!(previous_completed, target_segments);
+    let final_status = pause_autonomous(&pic, runtime);
+    assert!(final_status.run.last_error.is_none());
+    assert_eq!(publication_hashes.len(), target_segments as usize);
+    assert!(maximum_callback_work > 0);
+    let trace = serde_json::json!({
+        "schema": "btz-s12-autonomous-trace-v1",
+        "outcome": "PASS",
+        "source": "normal application Wasm on disposable PocketIC",
+        "workload": "ball-dense-medium",
+        "target_segments": target_segments,
+        "target_cadence_seconds": target_cadence_seconds,
+        "logical_segment_ticks": 2,
+        "pacing_seconds": 1,
+        "work_budget": work_budget,
+        "host_elapsed_seconds": host_started.elapsed().as_secs_f64(),
+        "virtual_elapsed_seconds": virtual_seconds,
+        "maximum_work_in_one_callback": maximum_callback_work,
+        "final_callback_count": final_status.run.callback_count,
+        "final_total_work": final_status.run.total_work,
+        "stable_memory_samples": stable_samples,
+        "input_assignment": {
+            "source_position": 0,
+            "discovered_virtual_second": 0,
+            "verified_virtual_second": 0,
+            "assigned_segment": 0,
+            "assigned_at_seal_virtual_second": 1,
+            "segments_after_arrival": 0,
+            "qualification": "synthetic sealed-input timing, not production ledger latency",
+        },
+        "segments": segments,
+    });
+    write_s12_trace("DTR_S12_AUTONOMOUS_TRACE", &trace);
+}
+
+fn s12_fault_transfer(
+    from: AccountIdentifier,
+    to: AccountIdentifier,
+    amount: u64,
+    memo: [u8; 8],
+    timestamp: u64,
+) -> FaultBlock {
+    FaultBlock {
+        parent_hash: Some(vec![(timestamp & 255) as u8; 32]),
+        transaction: FaultTransaction {
+            memo: u64::from_be_bytes(memo),
+            icrc1_memo: None,
+            operation: Some(FaultOperation::Transfer {
+                from: from.as_bytes().to_vec(),
+                to: to.as_bytes().to_vec(),
+                amount: FaultTokens { e8s: amount },
+                fee: FaultTokens { e8s: 10_000 },
+                spender: None,
+            }),
+            created_at_time: FaultTimestamp {
+                timestamp_nanos: timestamp,
+            },
+        },
+        timestamp: FaultTimestamp {
+            timestamp_nanos: timestamp,
+        },
+    }
+}
+
+#[test]
+#[ignore = "S12 extended controlled ledger throughput trace"]
+fn s12_controlled_ledger_backlog_trace() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let pic = instance();
+    let mut scenario_rows = Vec::new();
+    for (name, arrivals_per_service, max_calls, expect_drain) in [
+        ("paused-arrivals", 0u64, 8u64, true),
+        ("half-page-arrivals", 32u64, 12u64, true),
+        ("overload-arrivals", 80u64, 8u64, false),
+    ] {
+        let ledger = create_controlled(&pic);
+        let runtime = deploy_fault_source_with_limits(&pic, &wasm, ledger, 3600, 64);
+        let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
+        let other = AccountIdentifier::new(
+            &Principal::self_authenticating([91; 32]),
+            &DEFAULT_SUBACCOUNT,
+        );
+        let from = AccountIdentifier::new(
+            &Principal::self_authenticating([92; 32]),
+            &DEFAULT_SUBACCOUNT,
+        );
+        let mut tip = 256u64;
+        let mut cursor = 0u64;
+        let mut installed = false;
+        let mut received_bytes = 0usize;
+        let mut rows = Vec::new();
+        let scenario_started = Instant::now();
+        for round in 0..max_calls {
+            if round > 0 {
+                tip += arrivals_per_service;
+            }
+            let count = (tip - cursor).min(64);
+            if count == 0 {
+                break;
+            }
+            let blocks = (cursor..cursor + count)
+                .map(|position| {
+                    if position % 64 == 0 {
+                        s12_fault_transfer(
+                            from,
+                            recipient,
+                            1_000_000_000,
+                            *b"BTZ\x11\0\0\x40\0",
+                            position,
+                        )
+                    } else if position % 257 == 1 {
+                        s12_fault_transfer(from, recipient, 1, *b"BTZ\x11\0\0\x20\0", position)
+                    } else if position % 257 == 2 {
+                        s12_fault_transfer(from, recipient, 1_000_000_000, [0; 8], position)
+                    } else {
+                        s12_fault_transfer(
+                            from,
+                            other,
+                            1_000_000_000,
+                            *b"BTZ\x11\0\0\x40\0",
+                            position,
+                        )
+                    }
+                })
+                .collect::<Vec<_>>();
+            let archived = round % 2 == 1;
+            let (replies, query_bytes, archive_bytes) = if archived {
+                let query = FaultQueryResponse {
+                    chain_length: tip,
+                    certificate: None,
+                    blocks: vec![],
+                    first_block_index: cursor,
+                    archived_blocks: vec![FaultArchivedRange {
+                        start: cursor,
+                        length: count,
+                        callback: FaultArchiveCallback(candid::Func {
+                            principal: ledger,
+                            method: "get_blocks".into(),
+                        }),
+                    }],
+                };
+                let query = candid::encode_one(query).unwrap();
+                let archive =
+                    candid::encode_one(Ok::<_, FaultArchiveError>(FaultBlockRange { blocks }))
+                        .unwrap();
+                (
+                    vec![
+                        ("query_blocks", query.clone()),
+                        ("get_blocks", archive.clone()),
+                    ],
+                    query.len(),
+                    archive.len(),
+                )
+            } else {
+                let query = candid::encode_one(FaultQueryResponse {
+                    chain_length: tip,
+                    certificate: None,
+                    blocks,
+                    first_block_index: cursor,
+                    archived_blocks: vec![],
+                })
+                .unwrap();
+                (vec![("query_blocks", query.clone())], query.len(), 0)
+            };
+            let reply_refs = replies
+                .iter()
+                .map(|(method, bytes)| (*method, bytes.clone()))
+                .collect::<Vec<_>>();
+            let fixture = fixture_wasm(&reply_refs, &[]);
+            if installed {
+                pic.upgrade_canister(
+                    ledger,
+                    fixture,
+                    encode_args(()).unwrap(),
+                    Some(controller()),
+                )
+                .unwrap();
+            } else {
+                pic.install_canister(
+                    ledger,
+                    fixture,
+                    encode_args(()).unwrap(),
+                    Some(controller()),
+                );
+                installed = true;
+            }
+            let before = Instant::now();
+            let current: Status = update_result(
+                &pic,
+                runtime,
+                controller(),
+                "sync_ledger",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+            let elapsed = before.elapsed().as_secs_f64();
+            let next = current.source.verified_source_watermark.unwrap();
+            assert_eq!(next - cursor, count);
+            cursor = next;
+            received_bytes += query_bytes + archive_bytes;
+            rows.push(serde_json::json!({
+                "round": round,
+                "tip": tip,
+                "cursor": cursor,
+                "backlog": tip - cursor,
+                "records": count,
+                "relevant_records": (cursor - count..cursor).filter(|position| position % 64 == 0 || position % 257 == 1 || position % 257 == 2).count(),
+                "irrelevant_records": (cursor - count..cursor).filter(|position| position % 64 != 0 && position % 257 != 1 && position % 257 != 2).count(),
+                "archived": archived,
+                "ledger_calls": current.source.ledger_calls,
+                "archive_calls": current.source.archive_calls,
+                "received_candid_bytes": query_bytes + archive_bytes,
+                "elapsed_seconds": elapsed,
+                "records_per_second": count as f64 / elapsed.max(0.000_001),
+            }));
+            if cursor == tip {
+                break;
+            }
+        }
+        let final_status = status(&pic, runtime, Principal::anonymous()).unwrap();
+        let backlog = tip - cursor;
+        if expect_drain {
+            assert_eq!(backlog, 0, "{name} must drain");
+        } else {
+            assert!(backlog > 256, "overload case must retain growing backlog");
+        }
+        let elapsed = scenario_started.elapsed().as_secs_f64();
+        scenario_rows.push(serde_json::json!({
+            "name": name,
+            "evidence_class": "controlled PocketIC fault-ledger fixture",
+            "initial_backlog": 256,
+            "arrivals_per_service_window": arrivals_per_service,
+            "arrival_model": "host-controlled records per completed 64-record scan opportunity",
+            "final_tip": tip,
+            "final_cursor": cursor,
+            "final_backlog": backlog,
+            "records_processed": cursor,
+            "elapsed_seconds": elapsed,
+            "sustained_records_per_second": cursor as f64 / elapsed.max(0.000_001),
+            "ledger_calls": final_status.source.ledger_calls,
+            "archive_calls": final_status.source.archive_calls,
+            "received_candid_bytes": received_bytes,
+            "outcome": if backlog == 0 { "DRAINED" } else { "SATURATED_BOUNDED_RUN" },
+            "trace": rows,
+        }));
+    }
+    write_s12_trace(
+        "DTR_S12_LEDGER_TRACE",
+        &serde_json::json!({
+            "schema": "btz-s12-controlled-ledger-trace-v1",
+            "outcome": "PASS",
+            "page_limit": 64,
+            "qualification": "controlled fixture throughput; not upstream-ledger or mainnet throughput",
+            "traffic": "overwhelmingly irrelevant transfers plus valid, underfunded and invalid-memo incoming transfers",
+            "scenarios": scenario_rows,
+        }),
+    );
 }
