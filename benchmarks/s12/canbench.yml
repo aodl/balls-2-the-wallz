@@ -1,0 +1,4 @@
+build_cmd: cargo +1.94.1 build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --features canbench
+wasm_path: canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm
+results_path: benchmarks/s12/canbench_results.yml
+csv_results_path: benchmarks/s12/canbench_results.csv

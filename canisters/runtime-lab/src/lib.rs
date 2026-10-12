@@ -431,6 +431,16 @@ fn persist(
     source: SourceState,
     run: RunState,
 ) -> Result<Root> {
+    persist_inner(h, old, source, run, true)
+}
+
+fn persist_inner(
+    h: &Coordinator<BtzHostKernel>,
+    old: Option<&Root>,
+    source: SourceState,
+    run: RunState,
+    update_certified_data: bool,
+) -> Result<Root> {
     let image = h.snapshot()?;
     let image_descriptor = describe(&image)?;
     let view = publication(&h.record)?;
@@ -557,7 +567,9 @@ fn persist(
     ROOT.with(|c| {
         c.borrow_mut().set(root_bytes);
     });
-    ic_cdk::api::certified_data_set(certified_root);
+    if update_certified_data {
+        ic_cdk::api::certified_data_set(certified_root);
+    }
     Ok(r)
 }
 fn save_root_only(r: &Root) -> Result<()> {
@@ -697,7 +709,7 @@ fn install_run_timer(run: &RunState) {
         );
     }
 }
-#[ic_cdk::init]
+#[cfg_attr(not(feature = "canbench"), ic_cdk::init)]
 fn init(
     initial_world: Vec<u8>,
     synthetic_source_id: String,
@@ -1496,6 +1508,373 @@ fn test_stale_scan_completion_fence() -> std::result::Result<Status, String> {
     finish_tip(&stale, stale.cursor.saturating_add(99))
 }
 ic_cdk::export_candid!();
+
+// These exports exist only in the dedicated benchmark Wasm. The normal and
+// test-hook application modules do not contain canbench entry points.
+#[cfg(feature = "canbench")]
+mod benches {
+    use super::*;
+    use btz_native::{Cursor, Input as KernelInput};
+    use canbench_rs::{bench, bench_fn, bench_scope, BenchResult};
+    use ic_ledger_types::{AccountIdentifier, Subaccount};
+    use serde::Deserialize;
+    use std::hint::black_box;
+
+    // The canbench macro emits the standard two-parameter Result spelling;
+    // keep it distinct from dtr_wire's one-parameter alias imported above.
+    type Result<T, E> = std::result::Result<T, E>;
+
+    #[derive(Deserialize)]
+    struct Fixtures {
+        workloads: Vec<Workload>,
+    }
+
+    #[derive(Deserialize)]
+    struct Workload {
+        name: String,
+        rules: serde_json::Value,
+        logical_start: String,
+        logical_end: String,
+        initial_state_hex: String,
+        inputs: Vec<FixtureInput>,
+    }
+
+    #[derive(Deserialize)]
+    struct FixtureInput {
+        position: String,
+        payload_hex: String,
+    }
+
+    fn workload(name: &str) -> Workload {
+        let fixtures: Fixtures =
+            serde_json::from_str(include_str!("../../../benchmarks/s12/workloads.json"))
+                .expect("valid S12 workload fixture");
+        fixtures
+            .workloads
+            .into_iter()
+            .find(|row| row.name == name)
+            .expect("named S12 workload")
+    }
+
+    fn cursor(name: &str) -> Cursor {
+        let row = workload(name);
+        let mut context = row.rules;
+        context["logical_start"] = serde_json::json!({"$integer": row.logical_start});
+        context["logical_end"] = serde_json::json!({"$integer": row.logical_end});
+        let inputs = row
+            .inputs
+            .into_iter()
+            .map(|input| KernelInput {
+                position: Int(input
+                    .position
+                    .parse::<u64>()
+                    .expect("fixture position")
+                    .into()),
+                payload_hex: input.payload_hex,
+            })
+            .collect();
+        Cursor::begin(
+            &unhex(&row.initial_state_hex).expect("fixture state"),
+            inputs,
+            &context,
+        )
+        .expect("fixture cursor")
+    }
+
+    fn measure_kernel(name: &str) -> BenchResult {
+        let mut cursor = cursor(name);
+        bench_fn(|| {
+            {
+                let _scope = bench_scope("kernel_step");
+                while !cursor.step(100_000).expect("kernel step").1 {}
+            }
+            {
+                let _scope = bench_scope("result_serialization");
+                black_box(cursor.result().expect("kernel result"));
+            }
+        })
+    }
+
+    fn coordinator_unsealed(name: &str) -> (Coordinator<BtzHostKernel>, u64) {
+        let row = workload(name);
+        let state = unhex(&row.initial_state_hex).expect("fixture state");
+        let start = row.logical_start.parse::<u64>().expect("logical start");
+        let end = row.logical_end.parse::<u64>().expect("logical end");
+        let mut identity = btz_native::identity().expect("BTZ identity");
+        identity["source_id"] = serde_json::Value::String("00".repeat(32));
+        let identity: Identity = serde_json::from_value(identity).expect("typed identity");
+        let mut host =
+            Coordinator::create(&state, identity, start, 0, "00".repeat(32), BtzHostKernel)
+                .expect("coordinator");
+        if !row.inputs.is_empty() {
+            host.apply(Action::Ingest {
+                start: Int(0u64.into()),
+                records: row
+                    .inputs
+                    .into_iter()
+                    .map(|input| Some(input.payload_hex))
+                    .collect(),
+                anchor: "11".repeat(32),
+            })
+            .expect("fixture ingest");
+        }
+        (host, end)
+    }
+
+    fn coordinator_ready(name: &str) -> Coordinator<BtzHostKernel> {
+        let (mut host, end) = coordinator_unsealed(name);
+        host.apply(Action::Seal {
+            logical_end: Int(end.into()),
+        })
+        .expect("fixture seal");
+        host
+    }
+
+    fn complete(host: &mut Coordinator<BtzHostKernel>) {
+        loop {
+            let stage = host.record.journal.stage.as_ref().expect("active stage");
+            if stage.phase == "ready" {
+                break;
+            }
+            host.apply(Action::Step { budget: 100_000 })
+                .expect("coordinator step");
+        }
+    }
+
+    #[bench(raw)]
+    fn kernel_small_reference() -> BenchResult {
+        measure_kernel("small-reference")
+    }
+
+    #[bench(raw)]
+    fn kernel_empty_motion() -> BenchResult {
+        measure_kernel("empty-motion")
+    }
+
+    #[bench(raw)]
+    fn kernel_ball_dense_medium() -> BenchResult {
+        measure_kernel("ball-dense-medium")
+    }
+
+    #[bench(raw)]
+    fn kernel_ball_dense_high() -> BenchResult {
+        measure_kernel("ball-dense-high")
+    }
+
+    #[bench(raw)]
+    fn kernel_many_cannon_frontier() -> BenchResult {
+        measure_kernel("many-cannon-frontier")
+    }
+
+    #[bench(raw)]
+    fn coordinator_ball_dense_medium() -> BenchResult {
+        let mut host = coordinator_ready("ball-dense-medium");
+        bench_fn(|| {
+            {
+                let _scope = bench_scope("coordinator_steps");
+                complete(&mut host);
+            }
+            {
+                let _scope = bench_scope("publication_commit");
+                let manifest = host
+                    .record
+                    .journal
+                    .stage
+                    .as_ref()
+                    .and_then(|stage| stage.ready_hash.clone())
+                    .expect("ready manifest");
+                host.apply(Action::Publish {
+                    manifest_hash: manifest,
+                })
+                .expect("publish");
+            }
+        })
+    }
+
+    #[bench(raw)]
+    fn coordinator_empty_motion() -> BenchResult {
+        let mut host = coordinator_ready("empty-motion");
+        bench_fn(|| {
+            complete(&mut host);
+            let manifest = host
+                .record
+                .journal
+                .stage
+                .as_ref()
+                .and_then(|stage| stage.ready_hash.clone())
+                .expect("ready manifest");
+            host.apply(Action::Publish {
+                manifest_hash: manifest,
+            })
+            .expect("publish");
+        })
+    }
+
+    #[bench(raw)]
+    fn coordinator_seal_medium() -> BenchResult {
+        let (mut host, end) = coordinator_unsealed("ball-dense-medium");
+        bench_fn(|| {
+            host.apply(Action::Seal {
+                logical_end: Int(end.into()),
+            })
+            .expect("seal");
+        })
+    }
+
+    #[bench(raw)]
+    fn coordinator_ball_dense_high() -> BenchResult {
+        let mut host = coordinator_ready("ball-dense-high");
+        bench_fn(|| {
+            complete(&mut host);
+            let manifest = host
+                .record
+                .journal
+                .stage
+                .as_ref()
+                .and_then(|stage| stage.ready_hash.clone())
+                .expect("ready manifest");
+            host.apply(Action::Publish {
+                manifest_hash: manifest,
+            })
+            .expect("publish");
+        })
+    }
+
+    #[bench(raw)]
+    fn coordinator_many_cannon_frontier() -> BenchResult {
+        let mut host = coordinator_ready("many-cannon-frontier");
+        bench_fn(|| {
+            complete(&mut host);
+            let manifest = host
+                .record
+                .journal
+                .stage
+                .as_ref()
+                .and_then(|stage| stage.ready_hash.clone())
+                .expect("ready manifest");
+            host.apply(Action::Publish {
+                manifest_hash: manifest,
+            })
+            .expect("publish");
+        })
+    }
+
+    fn measure_persistence(name: &str) -> BenchResult {
+        let mut host = coordinator_ready(name);
+        complete(&mut host);
+        let manifest = host
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .and_then(|stage| stage.ready_hash.clone())
+            .expect("ready manifest");
+        host.apply(Action::Publish {
+            manifest_hash: manifest,
+        })
+        .expect("publish");
+        bench_fn(|| {
+            // certified_data_set is update-only and cannot execute in canbench's
+            // non-replicated query. Everything else is the production path.
+            let _scope = bench_scope("snapshot_publication_stable_writes");
+            black_box(
+                persist_inner(
+                    &host,
+                    None,
+                    SourceState::Synthetic,
+                    RunState::default(),
+                    false,
+                )
+                .expect("persist benchmark"),
+            );
+        })
+    }
+
+    #[bench(raw)]
+    fn persistence_publication_small() -> BenchResult {
+        measure_persistence("small-reference")
+    }
+
+    #[bench(raw)]
+    fn persistence_publication_empty_motion() -> BenchResult {
+        measure_persistence("empty-motion")
+    }
+
+    #[bench(raw)]
+    fn persistence_publication_medium() -> BenchResult {
+        measure_persistence("ball-dense-medium")
+    }
+
+    #[bench(raw)]
+    fn persistence_publication_high() -> BenchResult {
+        measure_persistence("ball-dense-high")
+    }
+
+    #[bench(raw)]
+    fn persistence_publication_many_cannon() -> BenchResult {
+        measure_persistence("many-cannon-frontier")
+    }
+
+    fn ledger_blocks(relevant: usize) -> (Vec<source::Block>, AccountIdentifier) {
+        let recipient = AccountIdentifier::new(&Principal::from_slice(&[99]), &Subaccount([0; 32]));
+        let other = AccountIdentifier::new(&Principal::from_slice(&[98]), &Subaccount([0; 32]));
+        let mut blocks = Vec::with_capacity(64);
+        for index in 0..64 {
+            let from = AccountIdentifier::new(
+                &Principal::from_slice(&[(index + 1) as u8]),
+                &Subaccount([0; 32]),
+            );
+            blocks.push(source::Block {
+                parent_hash: Some(vec![index as u8; 32]),
+                transaction: source::Transaction {
+                    memo: u64::from_be_bytes(*b"BTZ\x11\0\0\x40\0"),
+                    icrc1_memo: None,
+                    operation: Some(source::Operation::Transfer {
+                        from: from.as_bytes().to_vec(),
+                        to: if index < relevant { recipient } else { other }
+                            .as_bytes()
+                            .to_vec(),
+                        amount: source::Tokens { e8s: 1_000_000_000 },
+                        fee: source::Tokens { e8s: 10_000 },
+                        spender: None,
+                    }),
+                    created_at_time: source::Timestamp {
+                        timestamp_nanos: index as u64,
+                    },
+                },
+                timestamp: source::Timestamp {
+                    timestamp_nanos: index as u64,
+                },
+            });
+        }
+        (blocks, recipient)
+    }
+
+    fn measure_ledger_page(relevant: usize) -> BenchResult {
+        let (blocks, recipient) = ledger_blocks(relevant);
+        bench_fn(|| {
+            black_box(
+                source::records_and_anchor(&blocks, 0, &recipient, &"00".repeat(32))
+                    .expect("ledger page"),
+            );
+        })
+    }
+
+    #[bench(raw)]
+    fn ledger_page_all_irrelevant() -> BenchResult {
+        measure_ledger_page(0)
+    }
+
+    #[bench(raw)]
+    fn ledger_page_sparse_relevant() -> BenchResult {
+        measure_ledger_page(1)
+    }
+
+    #[bench(raw)]
+    fn ledger_page_all_relevant() -> BenchResult {
+        measure_ledger_page(64)
+    }
+}
 
 #[cfg(test)]
 mod tests {

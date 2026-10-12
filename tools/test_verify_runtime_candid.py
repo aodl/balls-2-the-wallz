@@ -1,6 +1,6 @@
 import unittest
 
-from verify_runtime_candid import extract
+from verify_runtime_candid import extract, reject_test_exports
 
 
 class TestGeneratedCandidExtraction(unittest.TestCase):
@@ -13,6 +13,12 @@ class TestGeneratedCandidExtraction(unittest.TestCase):
             extract("service : {}")
         with self.assertRaises(ValueError):
             extract("DTR_RUNTIME_CANDID_BEGIN\na\nDTR_RUNTIME_CANDID_END\nDTR_RUNTIME_CANDID_END")
+
+    def test_normal_interface_rejects_benchmark_and_test_exports(self):
+        reject_test_exports('service : { lab_status: () -> (); }')
+        for name in ('__canbench__dense', '__tracing__dense', 'test_metrics'):
+            with self.assertRaises(ValueError):
+                reject_test_exports(f'service : {{ {name}: () -> (); }}')
 
 
 if __name__ == "__main__":

@@ -17,6 +17,13 @@ def extract(output: str) -> str:
     return output.split(BEGIN, 1)[1].split(END, 1)[0].strip() + "\n"
 
 
+def reject_test_exports(candid: str) -> None:
+    prohibited = ("__canbench__", "__tracing__", "test_")
+    found = [name for name in prohibited if name in candid]
+    if found:
+        raise ValueError("normal Candid contains test/benchmark exports: " + ", ".join(found))
+
+
 def run(command: list[str], timeout: int = 600) -> subprocess.CompletedProcess[str]:
     return subprocess.run(command, cwd=ROOT, text=True, capture_output=True, timeout=timeout)
 
@@ -34,6 +41,7 @@ def main() -> int:
         return generated.returncode
     try:
         candid = extract(generated.stdout + generated.stderr)
+        reject_test_exports(candid)
     except ValueError as error:
         print(f"FAIL: {error}", file=sys.stderr)
         return 1
