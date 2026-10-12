@@ -4,6 +4,7 @@ import argparse
 import datetime
 import hashlib
 import json
+import statistics
 import os
 import platform
 import shutil
@@ -109,6 +110,39 @@ def environment_record():
             }}
 
 
+def aggregate_ledger_traces(paths, destination):
+    documents = [json.loads(path.read_text()) for path in paths]
+    names = [row['name'] for row in documents[0]['scenarios']]
+    scenarios = []
+    for name in names:
+        rows = [next(row for row in document['scenarios'] if row['name'] == name)
+                for document in documents]
+        rates = [row['sustained_records_per_second'] for row in rows]
+        deterministic = ('initial_backlog', 'arrivals_per_service_window', 'final_tip',
+                         'final_cursor', 'final_backlog', 'records_processed',
+                         'ledger_calls', 'archive_calls', 'received_candid_bytes', 'outcome')
+        for key in deterministic:
+            if len({json.dumps(row[key], sort_keys=True) for row in rows}) != 1:
+                raise ValueError(f'ledger repetitions disagree for {name}.{key}')
+        scenarios.append({key: rows[0][key] for key in rows[0]
+                          if key not in ('trace', 'sustained_records_per_second', 'elapsed_seconds')})
+        scenarios[-1].update({
+            'elapsed_seconds_samples': [row['elapsed_seconds'] for row in rows],
+            'sustained_records_per_second': min(rates),
+            'sustained_records_per_second_distribution': {
+                'samples': rates, 'min': min(rates), 'median': statistics.median(rates),
+                'max': max(rates), 'selection': 'minimum used as conservative mu'},
+            'runs': [{'source': str(path), 'elapsed_seconds': row['elapsed_seconds'],
+                      'records_per_second': row['sustained_records_per_second'],
+                      'page_trace': row['trace']} for path, row in zip(paths, rows)],
+        })
+    aggregate = {'schema': 'btz-s12-controlled-ledger-distribution-v1', 'outcome': 'PASS',
+        'page_limit': documents[0]['page_limit'], 'qualification': documents[0]['qualification'],
+        'traffic': documents[0]['traffic'], 'repetitions': len(documents),
+        'scenarios': scenarios}
+    destination.write_text(json.dumps(aggregate, indent=2) + '\n')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--profile', choices=['smoke', 'extended'], required=True)
@@ -116,11 +150,14 @@ def main():
     parser.add_argument('--artifacts', type=Path,
                         default=Path('/home/codexdev/dtr-s09-artifacts'))
     parser.add_argument('--repetitions', type=int, default=3)
+    parser.add_argument('--ledger-repetitions', type=int, default=3)
     parser.add_argument('--harness-target', type=Path,
                         help='optional reusable Cargo target; omit for a fresh isolated target')
     args = parser.parse_args()
     if sys.version_info < (3, 11):
         parser.error('Python 3.11 or newer is required')
+    if not 1 <= args.ledger_repetitions <= 10:
+        parser.error('--ledger-repetitions must be 1..10')
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     result_path = output / 'results.json'
@@ -198,10 +235,16 @@ def main():
                 'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
                 's12_autonomous_fifty_segment_trace', '--', '--ignored', '--exact', '--nocapture'],
                 1200, {**common, 'DTR_S12_AUTONOMOUS_TRACE': str(autonomous)})
-            run('controlled-ledger-backlog', ['cargo', '+1.94.1', 'test', '--manifest-path',
-                'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
-                's12_controlled_ledger_backlog_trace', '--', '--ignored', '--exact', '--nocapture'],
-                1200, {**common, 'DTR_S12_LEDGER_TRACE': str(ledger)})
+            ledger_runs = []
+            for repetition in range(1, args.ledger_repetitions + 1):
+                ledger_run = output / f'ledger-trace-{repetition}.json'
+                run(f'controlled-ledger-backlog-{repetition}', ['cargo', '+1.94.1', 'test',
+                    '--manifest-path', 'tools/s09-integration/Cargo.toml', '--locked', '--test',
+                    'pocketic_host', 's12_controlled_ledger_backlog_trace', '--', '--ignored',
+                    '--exact', '--nocapture'], 1200,
+                    {**common, 'DTR_S12_LEDGER_TRACE': str(ledger_run)})
+                ledger_runs.append(ledger_run)
+            aggregate_ledger_traces(ledger_runs, ledger)
             run('upstream-ledger-archive', ['cargo', '+1.94.1', 'test', '--manifest-path',
                 'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
                 'upstream_ledger_archive_to_recovered_publication_matches_native', '--',
