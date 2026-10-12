@@ -1721,6 +1721,34 @@ mod benches {
         })
     }
 
+    fn measure_step_and_persist(name: &str) -> BenchResult {
+        let mut host = coordinator_ready(name);
+        bench_fn(|| {
+            host.apply(Action::Step { budget: 512 })
+                .expect("bounded coordinator step");
+            black_box(
+                persist_inner(
+                    &host,
+                    None,
+                    SourceState::Synthetic,
+                    RunState::default(),
+                    false,
+                )
+                .expect("bounded step persistence"),
+            );
+        })
+    }
+
+    #[bench(raw)]
+    fn callback_step_persist_medium_512() -> BenchResult {
+        measure_step_and_persist("ball-dense-medium")
+    }
+
+    #[bench(raw)]
+    fn callback_step_persist_high_512() -> BenchResult {
+        measure_step_and_persist("ball-dense-high")
+    }
+
     #[bench(raw)]
     fn coordinator_ball_dense_high() -> BenchResult {
         let mut host = coordinator_ready("ball-dense-high");

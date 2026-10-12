@@ -1,10 +1,12 @@
 status,name,scope_calls,scope_calls Δ,scope_calls Δ%,instructions,instructions Δ,instructions Δ%,heap_increase,heap_increase Δ,heap_increase Δ%,stable_memory_increase,stable_memory_increase Δ,stable_memory_increase Δ%
+new,callback_step_persist_high_512,,,,113334404,,,3,,,385,,
+new,callback_step_persist_medium_512,,,,81853465,,,2,,,385,,
 ,coordinator_ball_dense_high,,,,2741602784,0,0.00%,56,0,0.00%,0,0,0.00%
 ,coordinator_ball_dense_medium,,,,1007115272,0,0.00%,27,0,0.00%,0,0,0.00%
 ,coordinator_ball_dense_medium::coordinator_steps,1,0,0.00%,729826189,0,0.00%,27,0,0.00%,0,0,0.00%
 ,coordinator_ball_dense_medium::publication_commit,1,0,0.00%,277287345,0,0.00%,0,0,0.00%,0,0,0.00%
 ,coordinator_empty_motion,,,,118491222,0,0.00%,5,0,0.00%,0,0,0.00%
-new,coordinator_many_cannon_frontier,,,,276799967,,,7,,,0,,
+,coordinator_many_cannon_frontier,,,,276799967,0,0.00%,7,0,0.00%,0,0,0.00%
 ,coordinator_seal_medium,,,,22040756,0,0.00%,2,0,0.00%,0,0,0.00%
 ,kernel_ball_dense_high,,,,1661578160,0,0.00%,46,0,0.00%,0,0,0.00%
 ,kernel_ball_dense_high::kernel_step,1,0,0.00%,1626059341,0,0.00%,12,0,0.00%,0,0,0.00%
@@ -15,9 +17,9 @@ new,coordinator_many_cannon_frontier,,,,276799967,,,7,,,0,,
 ,kernel_empty_motion,,,,8973008,0,0.00%,4,0,0.00%,0,0,0.00%
 ,kernel_empty_motion::kernel_step,1,0,0.00%,5705708,0,0.00%,1,0,0.00%,0,0,0.00%
 ,kernel_empty_motion::result_serialization,1,0,0.00%,3265338,0,0.00%,3,0,0.00%,0,0,0.00%
-new,kernel_many_cannon_frontier,,,,15478878,,,3,,,0,,
-new,kernel_many_cannon_frontier::kernel_step,1,,,6992307,,,0,,,0,,
-new,kernel_many_cannon_frontier::result_serialization,1,,,8484663,,,3,,,0,,
+,kernel_many_cannon_frontier,,,,15478878,0,0.00%,3,0,0.00%,0,0,0.00%
+,kernel_many_cannon_frontier::kernel_step,1,0,0.00%,6992307,0,0.00%,0,0,0.00%,0,0,0.00%
+,kernel_many_cannon_frontier::result_serialization,1,0,0.00%,8484663,0,0.00%,3,0,0.00%,0,0,0.00%
 ,kernel_small_reference,,,,16852473,0,0.00%,1,0,0.00%,0,0,0.00%
 ,kernel_small_reference::kernel_step,1,0,0.00%,15080959,0,0.00%,0,0,0.00%,0,0,0.00%
 ,kernel_small_reference::result_serialization,1,0,0.00%,1769449,0,0.00%,1,0,0.00%,0,0,0.00%
@@ -28,8 +30,8 @@ new,kernel_many_cannon_frontier::result_serialization,1,,,8484663,,,3,,,0,,
 ,persistence_publication_empty_motion::snapshot_publication_stable_writes,1,0,0.00%,13076167,0,0.00%,0,0,0.00%,385,0,0.00%
 ,persistence_publication_high,,,,83566285,0,0.00%,0,0,0.00%,385,0,0.00%
 ,persistence_publication_high::snapshot_publication_stable_writes,1,0,0.00%,83565337,0,0.00%,0,0,0.00%,385,0,0.00%
-new,persistence_publication_many_cannon,,,,26662250,,,0,,,385,,
-new,persistence_publication_many_cannon::snapshot_publication_stable_writes,1,,,26661302,,,0,,,385,,
+,persistence_publication_many_cannon,,,,26662250,0,0.00%,0,0,0.00%,385,0,0.00%
+,persistence_publication_many_cannon::snapshot_publication_stable_writes,1,0,0.00%,26661302,0,0.00%,0,0,0.00%,385,0,0.00%
 ,persistence_publication_medium,,,,47606050,0,0.00%,0,0,0.00%,385,0,0.00%
 ,persistence_publication_medium::snapshot_publication_stable_writes,1,0,0.00%,47605102,0,0.00%,0,0,0.00%,385,0,0.00%
 ,persistence_publication_small,,,,10039826,0,0.00%,0,0,0.00%,385,0,0.00%

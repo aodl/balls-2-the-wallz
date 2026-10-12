@@ -1,4 +1,18 @@
 benches:
+  callback_step_persist_high_512:
+    total:
+      calls: 1
+      instructions: 113334404
+      heap_increase: 3
+      stable_memory_increase: 385
+    scopes: {}
+  callback_step_persist_medium_512:
+    total:
+      calls: 1
+      instructions: 81853465
+      heap_increase: 2
+      stable_memory_increase: 385
+    scopes: {}
   coordinator_ball_dense_high:
     total:
       calls: 1
