@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from s12_cost_model import scenario_cost
 from s12_measurements import load_current
-from s13_analysis import identity, validate_trace, validate_pair
+from s13_analysis import cases, identity, validate_trace, validate_pair
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -18,6 +18,12 @@ def project(traces, assumptions, binding):
         raise ValueError('cost configuration identity mismatch')
     if binding['normal_wasm_sha256'] != assumptions['reuse_instructions']['normal_wasm_sha256']:
         raise ValueError('S12 instruction reuse requires unchanged normal Wasm; obtain new measurements')
+    workload_path = ROOT/'benchmarks/s12/workloads.json'
+    if binding['workload_sha256'] != sha256(workload_path):
+        raise ValueError('incompatible workload fixture identity')
+    workload = json.loads(workload_path.read_text())
+    world_hash = next(r['initial_state_hash'] for r in workload['workloads'] if r['name']=='ball-dense-medium')
+    declared = {spec['id']:spec for profile in ('smoke','extended') for spec in cases(profile)}
     manifest = load_current(ROOT/assumptions['reuse_instructions']['manifest'])
     if manifest['source']['dtr_revision'] != binding['source']['dtr_revision']:
         raise ValueError('instruction dependency incompatible')
@@ -26,7 +32,12 @@ def project(traces, assumptions, binding):
         validate_pair(traces[i],traces[i+1])
     rows = []
     for trace in traces:
-        validate_trace(trace,{**binding,'case':trace['case']})
+        if trace['initial_world_sha256'] != world_hash:
+            raise ValueError('initial world differs from declared workload')
+        expected_case = declared.get(trace['case']['id'])
+        if expected_case is None:
+            raise ValueError('unknown declared measurement case')
+        validate_trace(trace,{**binding,'case':expected_case})
         last = trace['trace'][-1]; spec = trace['case']; duration = last['elapsed_virtual_seconds']
         pages = last['verified_cursor']/64
         calls = last['ledger_calls']; archive = last['archive_calls']

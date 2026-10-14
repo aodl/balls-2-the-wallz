@@ -67,7 +67,7 @@ jobs:
           retention-days: 14
 
   benchmark-smoke:
-    name: S12 compute and S13 fallback smoke
+    name: S12 benchmark smoke
     runs-on: ubuntu-24.04
     env:
       RUSTUP_TOOLCHAIN: 1.94.1
@@ -85,8 +85,6 @@ jobs:
       - run: cargo +1.94.1 install canbench --version 0.7.0 --locked
       - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
       - run: python -B tools/benchmark_s12.py --profile smoke --output .work/ci-s12-smoke
-      - run: python -B tools/fetch_s09_artifacts.py --destination .work/ci-s13-artifacts --record .work/ci-s13-artifacts.json
-      - run: python -B tools/benchmark_s13.py --profile smoke --output .work/ci-s13-smoke --artifacts .work/ci-s13-artifacts
       - name: Upload benchmark smoke evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -100,8 +98,6 @@ jobs:
             .work/ci-s12-smoke/current-*.csv
             .work/ci-s12-smoke/regression-comparison.json
             .work/ci-s12-smoke/logs/**
-            .work/ci-s13-smoke/*.json
-            .work/ci-s13-smoke/logs/**
           if-no-files-found: warn
           retention-days: 14
 
@@ -186,7 +182,7 @@ jobs:
           retention-days: 14
 
   local-ic-integration:
-    name: Same-version recovery and live local IC
+    name: Same-version recovery, live local IC and S13 fallback smoke
     # The browser and PocketIC remain live concurrently with Chromium's sandbox enabled.
     runs-on: ubuntu-22.04
     env:
@@ -207,6 +203,8 @@ jobs:
       - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
       - run: cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked
       - run: python -B tools/check.py integration --output .work/ci-integration
+      - run: python -B tools/fetch_s09_artifacts.py --destination .work/ci-s13-artifacts --record .work/ci-s13-artifacts.json
+      - run: python -B tools/benchmark_s13.py --profile smoke --output .work/ci-s13-smoke --artifacts .work/ci-s13-artifacts --harness-target .work/ci-integration/s10-local/cargo-target
       - name: Upload local IC evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -224,6 +222,8 @@ jobs:
             .work/ci-integration/s10-local/browser-live/*.png
             .work/ci-integration/s10-local/browser-snapshot-regression/results.json
             .work/ci-integration/s10-local/browser-snapshot-regression/*.png
+            .work/ci-s13-smoke/*.json
+            .work/ci-s13-smoke/logs/**
           if-no-files-found: warn
           retention-days: 14
 

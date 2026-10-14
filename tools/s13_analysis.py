@@ -65,6 +65,8 @@ def validate_trace(trace, expected):
             raise ValueError(f'inconsistent interval {i}')
         previous_cursor, previous_tip, previous_time, previous_calls = (
             row['verified_cursor'], tip, row['elapsed_virtual_seconds'], row['ledger_calls'])
+    if (spec['arrival_batch'] or spec['initial_tip']) and previous_cursor == 0:
+        raise ValueError('source never progressed during offered traffic')
     if trace.get('native_replay') != dict(status='PASS', segments=len(trace['publications']), own_history=True):
         raise ValueError('native own-history replay missing')
     positions = [v['position'] for v in trace['latency']]
