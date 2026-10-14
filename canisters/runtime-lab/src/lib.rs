@@ -2049,7 +2049,10 @@ mod benches {
         // Complete local begin/at-tip handling; cross-canister awaiting,
         // payload encode/decode and timer dispatch are outside this query.
         bench_fn(|| {
-            let lease = begin_scan().unwrap().unwrap();
+            let lease = match begin_scan().unwrap() {
+                Ok(lease) => lease,
+                Err(_) => panic!("unexpected scan in flight"),
+            };
             finish_tip(&lease, 0).unwrap();
         })
     }

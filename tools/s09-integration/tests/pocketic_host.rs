@@ -3480,7 +3480,7 @@ fn s12_autonomous_combined_service_trace() {
                 "relevant_records_accepted":(previous_cursor..cursor).filter(|p| p%256<3).count(),
                 "ledger_calls":current.source.ledger_calls,"archive_calls":current.source.archive_calls,
                 "empty_polls_observed":empty_polls,"successful_scans_observed":successful_scans,
-                "retries":0,"dropped_hints":(second/period).saturating_sub(hints_delivered),"hints_delivered":hints_delivered,"completed_segments":current.run.completed_segments,
+                "retries":0,"dropped_hints":if batch == 0 { 0 } else { (second/period).saturating_sub(hints_delivered) },"hints_delivered":hints_delivered,"completed_segments":current.run.completed_segments,
                 "phase":work.phase,"callbacks":current.run.callback_count,"total_work":current.run.total_work,
                 "input_queue_size":work.pending_inputs,"source_error":current.source.last_error,"run_error":current.run.last_error}));
             assert!(current.run.last_error.is_none());
