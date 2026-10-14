@@ -1,0 +1,2 @@
+status,name,scope_calls,scope_calls Δ,scope_calls Δ%,instructions,instructions Δ,instructions Δ%,heap_increase,heap_increase Δ,heap_increase Δ%,stable_memory_increase,stable_memory_increase Δ,stable_memory_increase Δ%
+new,callback_step_persist_medium_512,,,,81853465,,,2,,,385,,

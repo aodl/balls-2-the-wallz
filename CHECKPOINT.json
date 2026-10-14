@@ -1,54 +1,83 @@
 {
   "schema_version": 1,
   "checkpoint_id": "S12",
-  "name": "BTZ/DTR operating envelope, ledger throughput and projected operating costs",
-  "date": "2026-10-12",
+  "name": "S12 corrective closeout: source-bound measurements and finite combined operating capacity",
+  "date": "2026-10-14",
   "predecessor": {
     "checkpoint_id": "S11",
     "local_evidence_head": "a823a3c7d0802daaf5a0c4be6a4034cb1f54cdf9",
     "remote_tested_head": "76898c5a67fcb5baaa50c0caaf70bd95e4159b13",
     "successful_ci_run": 38208721952
   },
-  "tested_btz_implementation_commit": "524807a394f80e0e38db163c3e726e8e992c802f",
-  "tested_btz_tree": "d9846e2e85e7be78aa5cd0b29a711035765de828",
+  "tested_btz_implementation_commit": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+  "tested_btz_tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
   "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
   "dtr_changed": false,
-  "normal_wasm_sha256": "4a0e1673612523b690bd45b7c30ca490bc35c422831cb4391f22653dc8096293",
-  "test_hook_wasm_sha256": "0ab60a381e6c587e28720c5369dd53bc73ce291218a0efef28a9066546cbb31d",
+  "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+  "test_hook_wasm_sha256": "8be047a2dc49afdf32fa47209d54d2e0a7ff72e06dc3cccb9001cfda4b106c11",
   "generated_candid_sha256": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
   "local_benchmark_result": "PASS",
-  "local_regression_result": "PASS_WITH_BROWSER_PREREQUISITE_BLOCKED",
+  "local_regression_result": "PASS",
   "remote_ci_result": "NOT_RUN",
   "verified_local_envelope": {
     "board": "16x8",
-    "cannons": 2,
-    "starting_balls": 32,
-    "logical_segment_ticks": 2,
-    "pacing_seconds": 1,
+    "initial_cannons": 2,
+    "initial_balls": 32,
+    "logical_ticks_per_segment": 2,
     "work_budget": 512,
-    "target_cadence_seconds": 20,
-    "completed_segments": 50
+    "callback_pacing_virtual_seconds": 1,
+    "fallback_virtual_seconds": 5,
+    "page_records": 64,
+    "arrival_batch_records": 64,
+    "arrival_period_virtual_seconds": 64,
+    "arrival_records_per_virtual_second": 1,
+    "hint_policy": "alternate batches notified; alternate hints omitted",
+    "retention_max_segments": 3,
+    "retention_max_bytes": 8388608,
+    "duration_virtual_seconds": 128,
+    "completed_segments": 10,
+    "stable_bytes": 25231360
   },
-  "full_ledger_decision": "supportable only under narrow controlled traffic assumptions",
+  "full_ledger_decision": "Observed draining at 1/8 records per virtual second for 128 seconds; configured service unsustainable at 128; production viability not established",
   "promotion_gate": "BLOCKED",
   "software_release_eligible": false,
   "real_funds_authorized": false,
   "verification_reports": [
-    "checkpoints/S12_REPORT.md",
-    "evidence/S12/benchmark-run.json",
-    "evidence/S12/game-compute.json",
-    "evidence/S12/autonomous-trace.json",
-    "evidence/S12/ledger-ingestion.json",
-    "evidence/S12/cost-projections.json",
-    "evidence/S12/regression-summary.json"
+    "checkpoints/S12_CLOSEOUT.md",
+    "evidence/S12/closeout/provenance.json",
+    "evidence/S12/closeout/combined-summary.json",
+    "evidence/S12/closeout/warm-operations.json",
+    "evidence/S12/closeout/cost-projections.json",
+    "evidence/S12/closeout/verification-summary.json"
   ],
   "next_checkpoint": "Stop after evidenced S12; do not begin S13 without a separate request",
   "limitations": [
-    "Controlled PocketIC throughput is not upstream-ledger or mainnet capacity evidence.",
-    "Cost values are dated tariff projections, not measured production cycle burn.",
-    "The 64-ball and 32-cannon cases are single-segment measurements, not continuous-capacity promises.",
-    "Actual production input-assignment latency, heap high-water, finality, availability and gateway costs remain unmeasured.",
-    "Local Chromium is prerequisite-BLOCKED by missing libatk-1.0.so.0; remote S12 browser verification is NOT_RUN.",
-    "No remote Git action, public deployment, real-value transfer, package publication or release occurred."
-  ]
+    "Only finite controlled local combined capacity was tested; no upstream-ledger or mainnet throughput claim.",
+    "Warm query scopes exclude certification and timer dispatch; full update headroom is NOT_MEASURED.",
+    "Cost ranges are partial analytical sample projections without a complete upper bound or observed production burn.",
+    "64-ball continuous combined service, heap high-water and production finality/availability remain unmeasured.",
+    "One historical live initial-head attempt failed; unchanged isolated live and fresh-snapshot checks passed; failure is retained.",
+    "New CI and the remote-cloning package-consumer wrapper are NOT_RUN; the user owns all remote operations."
+  ],
+  "original_s12_reference": {
+    "tested_btz_implementation_commit": "524807a394f80e0e38db163c3e726e8e992c802f",
+    "tested_btz_tree": "d9846e2e85e7be78aa5cd0b29a711035765de828",
+    "normal_wasm_sha256": "4a0e1673612523b690bd45b7c30ca490bc35c422831cb4391f22653dc8096293",
+    "test_hook_wasm_sha256": "0ab60a381e6c587e28720c5369dd53bc73ce291218a0efef28a9066546cbb31d",
+    "verified_local_envelope": {
+      "board": "16x8",
+      "cannons": 2,
+      "starting_balls": 32,
+      "logical_segment_ticks": 2,
+      "pacing_seconds": 1,
+      "work_budget": 512,
+      "target_cadence_seconds": 20,
+      "completed_segments": 50
+    }
+  },
+  "original_s12_ci": {
+    "run": 38598030205,
+    "commit": "364964d0248d9c093571d4d9dd34bc871bd32f0d",
+    "result": "PASS"
+  }
 }

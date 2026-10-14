@@ -1,0 +1,544 @@
+{
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "wasm_sha256": "99bcaa7a71d2c3c45cd47d729b03677ab1e637248dfcbbef02ae68852d25c7be",
+  "runtime": {
+    "canbench": "canbench 0.7.0",
+    "runtime_sha256": "b19a15ba0650a3987e78a8017dee0e99c5518194d1e0c4fd45b53cd32598544e",
+    "runtime": "canbench integrity-checked PocketIC 13.0.0"
+  },
+  "rows": [
+    {
+      "name": "warm_early_medium_512",
+      "calls": 1,
+      "instructions": 94586429,
+      "heap_increase_pages": 2,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 71647119,
+          "heap_growth_pages": 2,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 14491973,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 8434311,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_empty_progression_medium_512",
+      "calls": 1,
+      "instructions": 89909620,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "empty-motion",
+        "initial_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 39449694,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 23037747,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 27404308,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_evict_medium_512",
+      "calls": 1,
+      "instructions": 342365877,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 181897037,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 117242763,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 43214379,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_finalize_medium_512",
+      "calls": 1,
+      "instructions": 304502067,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 243119126,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 48036298,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 13333121,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_late_medium_512",
+      "calls": 1,
+      "instructions": 228301384,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 164495306,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 50603348,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 13189312,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_ledger_admission",
+      "calls": 1,
+      "instructions": 19004693,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "workload": "ball-dense-medium",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "source_mode": "ledger",
+        "staged": false,
+        "relevant_records_per_page": 1
+      },
+      "scopes": {},
+      "measurement_scope": "validated page admission against existing root; begin_scan/network/encode/decode/certification excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_ledger_empty_poll",
+      "calls": 1,
+      "instructions": 4089302,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "workload": "ball-dense-medium",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "source_mode": "ledger",
+        "staged": false,
+        "relevant_records_per_page": 0
+      },
+      "scopes": {},
+      "measurement_scope": "local begin_scan and finish_tip; awaiting/encode/decode/timer dispatch excluded",
+      "certification": "NOT_APPLICABLE_TO_SAVE_ROOT_ONLY",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_ledger_staged_admission",
+      "calls": 1,
+      "instructions": 54537893,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "workload": "ball-dense-medium",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "source_mode": "ledger",
+        "staged": true,
+        "relevant_records_per_page": 1
+      },
+      "scopes": {},
+      "measurement_scope": "validated page admission against existing root; begin_scan/network/encode/decode/certification excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_middle_medium_512",
+      "calls": 1,
+      "instructions": 188437379,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 140999541,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 36221719,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 11205211,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_publish_medium_512",
+      "calls": 1,
+      "instructions": 288463923,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 164369539,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 93138908,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 30945782,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_publish_retire_medium_512",
+      "calls": 1,
+      "instructions": 290089354,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic",
+        "input_mode": "first small-reference fixture input"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 165384181,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 93900000,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 30794128,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    },
+    {
+      "name": "warm_seal_medium_512",
+      "calls": 1,
+      "instructions": 34381976,
+      "heap_increase_pages": 1,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      },
+      "scopes": {
+        "coordinator_action": {
+          "calls": 1,
+          "instructions": 22123603,
+          "heap_growth_pages": 1,
+          "stable_growth_pages": 0
+        },
+        "root_restore_validate": {
+          "calls": 1,
+          "instructions": 4689284,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        },
+        "snapshot_publication_stable_writes": {
+          "calls": 1,
+          "instructions": 7556243,
+          "heap_growth_pages": 0,
+          "stable_growth_pages": 0
+        }
+      },
+      "measurement_scope": "existing-root application action, restore/validation and persistence; certification and timer dispatch excluded",
+      "certification": "NOT_MEASURED",
+      "evidence_class": "MICROBENCHMARK"
+    }
+  ],
+  "pre_operation_footprints": [
+    {
+      "case": "early",
+      "durable_root_bytes": 2713,
+      "coordinator_image_bytes": 19560,
+      "working_cursor_bytes": 4451,
+      "total_initial_step_actions_for_selected_seed": null
+    },
+    {
+      "case": "evict",
+      "durable_root_bytes": 5184,
+      "coordinator_image_bytes": 110844,
+      "working_cursor_bytes": 27588,
+      "total_initial_step_actions_for_selected_seed": 9
+    },
+    {
+      "case": "finalize",
+      "durable_root_bytes": 2719,
+      "coordinator_image_bytes": 60624,
+      "working_cursor_bytes": 24983,
+      "total_initial_step_actions_for_selected_seed": 9
+    },
+    {
+      "case": "late",
+      "durable_root_bytes": 2719,
+      "coordinator_image_bytes": 63838,
+      "working_cursor_bytes": 26590,
+      "total_initial_step_actions_for_selected_seed": 9
+    },
+    {
+      "case": "middle",
+      "durable_root_bytes": 2719,
+      "coordinator_image_bytes": 44654,
+      "working_cursor_bytes": 16998,
+      "total_initial_step_actions_for_selected_seed": 9
+    },
+    {
+      "case": "publish",
+      "durable_root_bytes": 2720,
+      "coordinator_image_bytes": 62386,
+      "working_cursor_bytes": 25833,
+      "total_initial_step_actions_for_selected_seed": 9
+    },
+    {
+      "case": "seal",
+      "durable_root_bytes": 2712,
+      "coordinator_image_bytes": 8742,
+      "working_cursor_bytes": 0,
+      "total_initial_step_actions_for_selected_seed": null
+    }
+  ],
+  "scope_limit": "No measured normal-Wasm full update instruction counter; query-scope measurements are not worst-case callbacks.",
+  "retirement_check": "warm_publish_retire_medium_512 restores durable state after publishing and asserts pending=0 and retired_to=1",
+  "eviction_check": "warm_evict_medium_512 starts with three committed publications and two retained historical entries; publishing the fourth executes the capacity eviction path"
+}

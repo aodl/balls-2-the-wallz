@@ -1,0 +1,295 @@
+{
+  "status": "PASS",
+  "threshold_percent": 2.0,
+  "metric": "deterministic instructions",
+  "rows": [
+    {
+      "name": "callback_step_persist_high_512",
+      "current_instructions": 113334404,
+      "baseline_instructions": 113334404,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "callback_step_persist_medium_512",
+      "current_instructions": 81853465,
+      "baseline_instructions": 81853465,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "coordinator_ball_dense_high",
+      "current_instructions": 2741602784,
+      "baseline_instructions": 2741602784,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "coordinator_ball_dense_medium",
+      "current_instructions": 1007115272,
+      "baseline_instructions": 1007115272,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "coordinator_empty_motion",
+      "current_instructions": 118491222,
+      "baseline_instructions": 118491222,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "coordinator_many_cannon_frontier",
+      "current_instructions": 276799967,
+      "baseline_instructions": 276799967,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "coordinator_seal_medium",
+      "current_instructions": 22040756,
+      "baseline_instructions": 22040756,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "kernel_ball_dense_high",
+      "current_instructions": 1661578160,
+      "baseline_instructions": 1661578160,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "kernel_ball_dense_medium",
+      "current_instructions": 455281320,
+      "baseline_instructions": 455281320,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "kernel_empty_motion",
+      "current_instructions": 8973008,
+      "baseline_instructions": 8973008,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "kernel_many_cannon_frontier",
+      "current_instructions": 15478878,
+      "baseline_instructions": 15478878,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "kernel_small_reference",
+      "current_instructions": 16852473,
+      "baseline_instructions": 16852473,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "ledger_page_all_irrelevant",
+      "current_instructions": 1407764,
+      "baseline_instructions": 1407764,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "ledger_page_all_relevant",
+      "current_instructions": 5823603,
+      "baseline_instructions": 5823603,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "ledger_page_sparse_relevant",
+      "current_instructions": 1476571,
+      "baseline_instructions": 1476571,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "persistence_publication_empty_motion",
+      "current_instructions": 13077115,
+      "baseline_instructions": 13077115,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "persistence_publication_high",
+      "current_instructions": 83566285,
+      "baseline_instructions": 83566285,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "persistence_publication_many_cannon",
+      "current_instructions": 26662250,
+      "baseline_instructions": 26662250,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "persistence_publication_medium",
+      "current_instructions": 47606050,
+      "baseline_instructions": 47606050,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "persistence_publication_small",
+      "current_instructions": 10039826,
+      "baseline_instructions": 10039826,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "warm_early_medium_512",
+      "current_instructions": 94586429,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_empty_progression_medium_512",
+      "current_instructions": 89909620,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_evict_medium_512",
+      "current_instructions": 342365877,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_finalize_medium_512",
+      "current_instructions": 304502067,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_late_medium_512",
+      "current_instructions": 228301384,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_ledger_admission",
+      "current_instructions": 19004693,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_ledger_empty_poll",
+      "current_instructions": 4089302,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_ledger_staged_admission",
+      "current_instructions": 54537893,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_middle_medium_512",
+      "current_instructions": 188437379,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_publish_medium_512",
+      "current_instructions": 288463923,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_publish_retire_medium_512",
+      "current_instructions": 290089354,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "warm_seal_medium_512",
+      "current_instructions": 34381976,
+      "baseline_instructions": null,
+      "change_percent": null,
+      "outcome": "INCOMPARABLE",
+      "reason": "missing baseline",
+      "status": "NOT_RUN"
+    }
+  ]
+}

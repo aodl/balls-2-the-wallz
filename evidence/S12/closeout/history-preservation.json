@@ -1,0 +1,57 @@
+[
+  {
+    "path": "benchmarks/s12/canbench_results.yml",
+    "sha256": "270bedb9f7be871c1274cb677c43cb3c28a8c9477c0e77fbe266f9e4cc97286d",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "benchmarks/s12/canbench_results.csv",
+    "sha256": "718291c813a81e2c05b8d662ac7a7345d660205c4c81677f83982e1d65814c5a",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "checkpoints/S12_REPORT.md",
+    "sha256": "aaee967581092b8521aeb2dbe9d1a1a75f0ed21c939775ac967dd91814e5b691",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "checkpoints/S11_REPORT.md",
+    "sha256": "ddf70ae5373e2a95a5e98fafc13b860c44b021e2b21c99eb029893900231b3f7",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "checkpoints/S11_CLOSEOUT.md",
+    "sha256": "f242b670a7122aab42275b4b200e4b174464d24c1782ffbeebe0b06d1fafab27",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "evidence/S12/game-compute.json",
+    "sha256": "1bdbf7bf083a61e53593e2948e840d0622f66d2a129afa754192b5056ee1bbdf",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "evidence/S12/autonomous-trace.json",
+    "sha256": "b2cdd82cda259bd8c91caf4520d6ba2fb21e855e7564271925c8169f7464495b",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "evidence/S12/benchmark-run.json",
+    "sha256": "5fa8e0748df3727734a6f4853df01d9ec686ba2c0b014eeb01bd2bcf99a74b29",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "evidence/S12/regression-summary.json",
+    "sha256": "669b7c1512464ee163b8e7b1968380dabf713666d6fcd628089e1a4a04cfe98c",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "evidence/S12/cost-projections.json",
+    "sha256": "ec71d56f3fd11633e259376c750b899acb19776cae27d92dcc8dc4a3af0bfdca",
+    "unchanged_from_reviewed_commit": true
+  },
+  {
+    "path": "evidence/S12/ledger-ingestion.json",
+    "sha256": "c0dd481f7bad2be95acf8339f07a99f7016556d1ff7581c1428b0856da4af54d",
+    "unchanged_from_reviewed_commit": true
+  }
+]

@@ -1,0 +1,156 @@
+{
+  "schema": "btz-s12-closeout-artifact-index-v1",
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "files": [
+    {
+      "path": "autonomous-trace.json",
+      "sha256": "754d19725b646e41d4e6e13246c74f6a9cd23fa7300d68aa97029150c40a713f",
+      "bytes": 16337
+    },
+    {
+      "path": "combined-service-trace.json",
+      "sha256": "4a5e2fcd8d34bc7dcb555eff3598390bcd770c88f7e6eae16059074d66def555",
+      "bytes": 293347
+    },
+    {
+      "path": "combined-summary.json",
+      "sha256": "abb6fc6bad58ee310df36a0516b578c192fc9735892c90622ad864b5083bd085",
+      "bytes": 10256
+    },
+    {
+      "path": "cost-assumptions.json",
+      "sha256": "41131804c609696b4b9a2e255c5d11201ff0cf6d1a0a21a376cc28ec35c4ace3",
+      "bytes": 7479
+    },
+    {
+      "path": "cost-projections.json",
+      "sha256": "5c7932054fa862bb6c4eee321b43281c6e49f0f4ee04fc08acc5d5515c28b8d2",
+      "bytes": 39435
+    },
+    {
+      "path": "export-checks.json",
+      "sha256": "cad0352736089be7ec20a4c95073acbb8acce60d6e7a3c2922dbbc89b5de2d93",
+      "bytes": 2378
+    },
+    {
+      "path": "extended/current-0.csv",
+      "sha256": "c80aa55df5395da28d3e5097afa633eaab3d11b100ef0900ccfdff04342b187f",
+      "bytes": 5391
+    },
+    {
+      "path": "extended/current-0.yml",
+      "sha256": "48115f39d6f5539f99bcf96c2e66f1de334595be07fb37fe771495e6f42f6a96",
+      "bytes": 11047
+    },
+    {
+      "path": "extended/current-measurements.json",
+      "sha256": "5211b433cd40610e4824f6b45cd2644ed4caabcfc76c9f54194273591823da30",
+      "bytes": 28804
+    },
+    {
+      "path": "extended/game-measurements.json",
+      "sha256": "246e29b34cf42a5b87973c076d61e723384edb3c0f14c6d4ce6eec09234aa874",
+      "bytes": 46283
+    },
+    {
+      "path": "extended/regression-comparison.json",
+      "sha256": "32d3c018a47deb644691bd511468bb6531f8dd6956def809bbec978e2502cd08",
+      "bytes": 8213
+    },
+    {
+      "path": "extended/run-summary.json",
+      "sha256": "4b04eb8273c7dc933e3a9f19f908f6c56238f65be49d4ed4ee17430057bddac6",
+      "bytes": 23020
+    },
+    {
+      "path": "history-preservation.json",
+      "sha256": "6bafca2d4e5431a5836750abdceddae5636d3ca772a79abeda5cefb3cb2995e6",
+      "bytes": 1999
+    },
+    {
+      "path": "manual-ledger-trace.json",
+      "sha256": "97cdaa7ae7f4edc30627e71b257e271b1c77a9f9fb3be9ac3141f65ba8bc5e23",
+      "bytes": 18966
+    },
+    {
+      "path": "medium-two-tick-work.json",
+      "sha256": "872b35fdb27bc264c9a1273d6086872f4c56ea11ba64bc79b74961d2ccf5e81a",
+      "bytes": 144
+    },
+    {
+      "path": "operating-envelope.json",
+      "sha256": "80cc8a6249b06b58f840b9dca365407593960428e888e84568605407fea42f3f",
+      "bytes": 2879
+    },
+    {
+      "path": "provenance.json",
+      "sha256": "6365504f6ef328623acc2a961ac9f409a80062040f6aac2526c5b3d39c31aca1",
+      "bytes": 4259
+    },
+    {
+      "path": "smoke/current-0.csv",
+      "sha256": "a8a47686f5b99edf5e6d7c71dd5585267d730cf686d8ffe99eba6b5fdb608d8b",
+      "bytes": 287
+    },
+    {
+      "path": "smoke/current-0.yml",
+      "sha256": "5853a497b72c18f5941c006e8d51a5e4da541e7f45c2121b699061e6785a9e8c",
+      "bytes": 187
+    },
+    {
+      "path": "smoke/current-1.csv",
+      "sha256": "6586f748a58ec9ee384fa5eff5f1cddd6cecb8c4511ceadbbcf844866e8b1b7d",
+      "bytes": 278
+    },
+    {
+      "path": "smoke/current-1.yml",
+      "sha256": "d24b2b4901461b429d49b21b439951f731f60e659821b3c1b473154b68349fcb",
+      "bytes": 178
+    },
+    {
+      "path": "smoke/current-measurements.json",
+      "sha256": "61a52eef703cf023c108ce545ee9212d547899c71b67905050de0041ca7555f3",
+      "bytes": 3439
+    },
+    {
+      "path": "smoke/game-measurements.json",
+      "sha256": "ee7280afc4a318efd7847b8ea64b061a2641a85bd995fb501da7efa812250163",
+      "bytes": 46229
+    },
+    {
+      "path": "smoke/regression-comparison.json",
+      "sha256": "07891652590f240cdc7f9c6f53d97ba3c204412307477bac99560e8d8f77e614",
+      "bytes": 611
+    },
+    {
+      "path": "smoke/run-summary.json",
+      "sha256": "2c1c92c71a9b80a5704f539a7be68be94848b4462d123441f9e999363a34a665",
+      "bytes": 8311
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "984c0c96d102fd8f921230852f1d9e9623998938913597ba20933b19f70e9bce",
+      "bytes": 52305
+    },
+    {
+      "path": "warm-operations.json",
+      "sha256": "ea362abf2f07a7a06f1dfa5b6cdfa66bf17f758ee6e94631eae9e1c4052015fa",
+      "bytes": 21025
+    },
+    {
+      "path": "workload-configurations.json",
+      "sha256": "5015b02b439b80468ac3edc40fa4f07e9a9b39832059150e872527d98b953fc4",
+      "bytes": 4309
+    }
+  ]
+}

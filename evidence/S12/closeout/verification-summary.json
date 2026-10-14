@@ -1,0 +1,1242 @@
+{
+  "schema": "btz-s12-closeout-verification-v1",
+  "overall": "PASS",
+  "qualification": "Required latest slices passed; prior failed attempts and historical live observation sensitivity remain explicitly recorded.",
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "counts": {
+    "btz_js": 1175,
+    "python": 116,
+    "workspace_rust": 18,
+    "portable_rust": 7,
+    "canister_rust": 8,
+    "dtr_js": 186,
+    "dtr_rust": 29,
+    "same_version_pocketic": 10,
+    "s09_pocketic": 10,
+    "historical_core_pocketic": 10,
+    "smoke_canbench": 2,
+    "extended_canbench": 32,
+    "extended_installed_test_invocations": 6
+  },
+  "native_applicability": "Workspace/portable files did not change after the earlier native run; final canister tests/Candid/format/Clippy were rerun against measured implementation.",
+  "checks": [
+    {
+      "id": "source",
+      "status": "PASS",
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "raw_reference": ".work/s12/source-final/verification.json",
+      "checks": [
+        {
+          "id": "observer-recordings",
+          "command": [
+            "node",
+            "tools/build_observer_recordings.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observer-recordings.log",
+          "elapsed_seconds": 11.524,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "protocol-fixtures",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/reference_fixtures.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/protocol-fixtures.log",
+          "elapsed_seconds": 0.324,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "life-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/life_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/life-reference.log",
+          "elapsed_seconds": 0.282,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "btz-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/btz_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/btz-reference.log",
+          "elapsed_seconds": 1.227,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "spawn-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/spawn_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/spawn-reference.log",
+          "elapsed_seconds": 1.392,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "impact-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/impact_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/impact-reference.log",
+          "elapsed_seconds": 0.287,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "btz-full-traces",
+          "command": [
+            "node",
+            "tools/btz_vectors.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/btz-full-traces.log",
+          "elapsed_seconds": 2.926,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "numeric-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/numeric_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/numeric-reference.log",
+          "elapsed_seconds": 1.116,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "coordinator-vectors",
+          "command": [
+            "node",
+            "tools/coordinator_vectors.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/coordinator-vectors.log",
+          "elapsed_seconds": 2.171,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "observation-v6-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/observation_reference.py",
+            "--version",
+            "6",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observation-v6-reference.log",
+          "elapsed_seconds": 0.219,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "observation-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/observation_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observation-reference.log",
+          "elapsed_seconds": 0.17,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "portable-cursors",
+          "command": [
+            "node",
+            "tools/portable_vectors.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-cursors.log",
+          "elapsed_seconds": 0.873,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "node-tests",
+          "command": [
+            "node",
+            "--test",
+            "/home/codexdev/src/btz/tests/js/animation-v1.test.mjs",
+            "/home/codexdev/src/btz/tests/js/btz-v3.test.mjs",
+            "/home/codexdev/src/btz/tests/js/btz.test.mjs",
+            "/home/codexdev/src/btz/tests/js/coordinator-simplified.test.mjs",
+            "/home/codexdev/src/btz/tests/js/coordinator-vectors.test.mjs",
+            "/home/codexdev/src/btz/tests/js/coordinator.test.mjs",
+            "/home/codexdev/src/btz/tests/js/memo.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation-reference.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation-v6-reference.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation-v6.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observer-v7.test.mjs",
+            "/home/codexdev/src/btz/tests/js/payment.test.mjs",
+            "/home/codexdev/src/btz/tests/js/portable-v4.test.mjs",
+            "/home/codexdev/src/btz/tests/js/s12-workloads.test.mjs",
+            "/home/codexdev/src/btz/tests/js/storage-v4.test.mjs"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/node-tests.log",
+          "elapsed_seconds": 117.183,
+          "timeout_seconds": 300,
+          "counts": {
+            "tests": 1175,
+            "pass": 1175,
+            "fail": 0,
+            "cancelled": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "id": "source-structure",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/check_source.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/source-structure.log",
+          "elapsed_seconds": 12.787,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "docs-links",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/check_docs.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/docs-links.log",
+          "elapsed_seconds": 0.172,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "python-tool-tests",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tools",
+            "-p",
+            "test_*.py",
+            "-v"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/python-tool-tests.log",
+          "elapsed_seconds": 50.603,
+          "timeout_seconds": 300,
+          "counts": {
+            "tests": 116
+          }
+        }
+      ]
+    },
+    {
+      "id": "native",
+      "status": "PASS",
+      "source_revision": "d4078bd65213e2b24fc064cee18bfa29c07b1b2c",
+      "raw_reference": ".work/s12/native-closeout/verification.json",
+      "checks": [
+        {
+          "id": "cargo-lock",
+          "command": [
+            "cargo",
+            "metadata",
+            "--format-version",
+            "1",
+            "--no-deps",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-lock.log",
+          "elapsed_seconds": 0.287,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "cargo-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-tests.log",
+          "elapsed_seconds": 3.85,
+          "timeout_seconds": 900,
+          "counts": {
+            "passed": 18,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "id": "native-vectors",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_native.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/native-vectors.log",
+          "elapsed_seconds": 1.18,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "portable-lock",
+          "command": [
+            "cargo",
+            "metadata",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--format-version",
+            "1",
+            "--no-deps",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-lock.log",
+          "elapsed_seconds": 0.377,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "portable-rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--workspace",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-rust-tests.log",
+          "elapsed_seconds": 10.048,
+          "timeout_seconds": 900,
+          "counts": {
+            "passed": 7,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "id": "native-public-game",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_portable_native.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/native-public-game.log",
+          "elapsed_seconds": 5.02,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "native-public-host",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_host_native.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/native-public-host.log",
+          "elapsed_seconds": 9.503,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "portable-format",
+          "command": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-format.log",
+          "elapsed_seconds": 1.237,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "portable-clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--workspace",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-clippy.log",
+          "elapsed_seconds": 1.741,
+          "timeout_seconds": 900
+        },
+        {
+          "id": "cargo-format",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-format.log",
+          "elapsed_seconds": 0.675,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "cargo-clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-clippy.log",
+          "elapsed_seconds": 1.136,
+          "timeout_seconds": 900
+        }
+      ]
+    },
+    {
+      "id": "earlier-wasm",
+      "status": "PASS",
+      "source_revision": "808089905f515283bf40889d9f74b54b4d857187",
+      "raw_reference": ".work/s12/wasm-closeout/verification.json",
+      "checks": [
+        {
+          "id": "runtime-lab-lock",
+          "command": [
+            "cargo",
+            "metadata",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--format-version",
+            "1",
+            "--no-deps",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-lock.log",
+          "elapsed_seconds": 0.381,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "runtime-lab-wasm",
+          "command": [
+            "cargo",
+            "build",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--release",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-wasm.log",
+          "elapsed_seconds": 182.538,
+          "timeout_seconds": 900,
+          "tested_artifacts": [
+            {
+              "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+              "sha256": "19b3109a331ccbec46ac200ffb0773c5facb7c7f9a60227dc0ac3511de1aa696",
+              "size": 2238602
+            }
+          ]
+        },
+        {
+          "id": "runtime-lab-candid",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_runtime_candid.py",
+            "--output",
+            ".work/s12/wasm-closeout/runtime-lab.generated.did"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-candid.log",
+          "elapsed_seconds": 5.659,
+          "timeout_seconds": 900
+        },
+        {
+          "id": "runtime-lab-format",
+          "command": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-format.log",
+          "elapsed_seconds": 1.742,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "runtime-lab-clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-clippy.log",
+          "elapsed_seconds": 31.047,
+          "timeout_seconds": 900
+        }
+      ]
+    },
+    {
+      "id": "http-browser",
+      "status": "PASS",
+      "source_revision": "808089905f515283bf40889d9f74b54b4d857187",
+      "raw_reference": ".work/s12/browser-user-libs-closeout/verification.json",
+      "checks": [
+        {
+          "id": "observer-http-webcrypto",
+          "command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/verify_observer_http.py",
+            "--output",
+            ".work/s12/browser-user-libs-closeout/browser-http"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observer-http-webcrypto.log",
+          "elapsed_seconds": 46.531,
+          "timeout_seconds": 240,
+          "exit_contract": "project-wrapper-exit-2-is-blocked"
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "status": "PASS",
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "raw_reference": ".work/s12/s09-final/results.json",
+      "checks": [
+        {
+          "id": "pinned-artifacts",
+          "command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/fetch_s09_artifacts.py",
+            "--destination",
+            "/home/codexdev/dtr-s09-artifacts",
+            "--record",
+            "/home/codexdev/src/btz/.work/s12/s09-final/verified-artifacts.json"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 12.186,
+          "timeout_seconds": 300,
+          "log": "logs/pinned-artifacts.log"
+        },
+        {
+          "id": "runtime-normal-build",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "build",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--release",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--locked"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 144.562,
+          "timeout_seconds": 900,
+          "log": "logs/runtime-normal-build.log"
+        },
+        {
+          "id": "runtime-test-hook-build",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "build",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--release",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--features",
+            "test-hooks",
+            "--locked"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 164.382,
+          "timeout_seconds": 900,
+          "log": "logs/runtime-test-hook-build.log"
+        },
+        {
+          "id": "pocketic-harness-build",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "test",
+            "--manifest-path",
+            "tools/s09-integration/Cargo.toml",
+            "--locked",
+            "--test",
+            "pocketic_host",
+            "--no-run"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 2.048,
+          "timeout_seconds": 1800,
+          "log": "logs/pocketic-harness-build.log",
+          "target_directory": "/home/codexdev/src/btz/tools/s09-integration/target",
+          "target_started_empty": false
+        },
+        {
+          "id": "pocketic-authoritative-slice",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "test",
+            "--manifest-path",
+            "tools/s09-integration/Cargo.toml",
+            "--locked",
+            "--test",
+            "pocketic_host",
+            "--",
+            "--nocapture"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 190.549,
+          "timeout_seconds": 600,
+          "log": "logs/pocketic-authoritative-slice.log",
+          "pocketic_server": {
+            "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+            "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+            "version": {
+              "command": [
+                "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+                "--version"
+              ],
+              "exit_code": 0,
+              "text": "pocket-ic-server 16.1.0"
+            },
+            "url": "http://127.0.0.1:40769/",
+            "log": "logs/pocketic-server.log",
+            "output_tail": "2026-10-14T18:10:41.447715Z  INFO pocket_ic_server: The PocketIC server is listening on port 40769\n2021-05-06 19:17:10.000000008 UTC: [Canister dllsh-pd777-77776-qaaaa-cai] Panicked at 'called `Result::unwrap()` on an `Err` value: Custom(Fail to decode argument 0 from table0 to blob\n\nCaused by:\n    Subtyping error: TypeInner :: Nat8)', src/lib.rs:725:39\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+            "unexpected_exit_code": null
+          }
+        },
+        {
+          "id": "browser-certified-observer",
+          "command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/verify_observer_http.py",
+            "--local-snapshot",
+            "/home/codexdev/src/btz/.work/s12/s09-final/browser-snapshot",
+            "--output",
+            "/home/codexdev/src/btz/.work/s12/s09-final/browser"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 17.231,
+          "timeout_seconds": 300,
+          "log": "logs/browser-certified-observer.log",
+          "exit_contract": "project-wrapper-exit-2-is-blocked"
+        }
+      ]
+    },
+    {
+      "id": "same-version",
+      "status": "PASS",
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "raw_reference": ".work/s12/same-version-final/results.json",
+      "checks": [
+        {
+          "id": "pinned-artifacts",
+          "command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/fetch_s09_artifacts.py",
+            "--destination",
+            "/home/codexdev/dtr-s09-artifacts",
+            "--record",
+            "/home/codexdev/src/btz/.work/s12/same-version-final/verified-artifacts.json"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 11.222,
+          "timeout_seconds": 300,
+          "log": "logs/pinned-artifacts.log"
+        },
+        {
+          "id": "runtime-normal-build",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "build",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--release",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--locked"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 58.923,
+          "timeout_seconds": 900,
+          "log": "logs/runtime-normal-build.log"
+        },
+        {
+          "id": "runtime-test-hook-build",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "build",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--release",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--features",
+            "test-hooks",
+            "--locked"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 54.884,
+          "timeout_seconds": 900,
+          "log": "logs/runtime-test-hook-build.log"
+        },
+        {
+          "id": "pocketic-harness-build",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "test",
+            "--manifest-path",
+            "tools/s09-integration/Cargo.toml",
+            "--locked",
+            "--test",
+            "pocketic_host",
+            "--no-run"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 1.027,
+          "timeout_seconds": 1800,
+          "log": "logs/pocketic-harness-build.log",
+          "target_directory": "/home/codexdev/src/btz/tools/s09-integration/target",
+          "target_started_empty": false
+        },
+        {
+          "id": "pocketic-regressions",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "test",
+            "--manifest-path",
+            "tools/s09-integration/Cargo.toml",
+            "--locked",
+            "--test",
+            "pocketic_host",
+            "--",
+            "--nocapture"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 118.016,
+          "timeout_seconds": 900,
+          "log": "logs/pocketic-regressions.log",
+          "pocketic_server": {
+            "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+            "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+            "version": {
+              "command": [
+                "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+                "--version"
+              ],
+              "exit_code": 0,
+              "text": "pocket-ic-server 16.1.0"
+            },
+            "url": "http://127.0.0.1:37519/",
+            "log": "logs/pocketic-server.log",
+            "output_tail": "2026-10-14T18:18:08.771273Z  INFO pocket_ic_server: The PocketIC server is listening on port 37519\n2021-05-06 19:17:10.000000008 UTC: [Canister dllsh-pd777-77776-qaaaa-cai] Panicked at 'called `Result::unwrap()` on an `Err` value: Custom(Fail to decode argument 0 from table0 to blob\n\nCaused by:\n    Subtyping error: TypeInner :: Nat8)', src/lib.rs:725:39\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+            "unexpected_exit_code": null
+          }
+        },
+        {
+          "id": "s10-live-concurrent-slice",
+          "command": [
+            "cargo",
+            "+1.94.1",
+            "test",
+            "--manifest-path",
+            "tools/s09-integration/Cargo.toml",
+            "--locked",
+            "--test",
+            "pocketic_host",
+            "live_autonomous_ledger_browser_reconnect_upgrade_and_replay",
+            "--",
+            "--ignored",
+            "--exact",
+            "--nocapture"
+          ],
+          "browser_command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/verify_observer_http.py",
+            "--live-config",
+            "/home/codexdev/src/btz/.work/s12/same-version-final/live/config",
+            "--ic-gateway",
+            "http://localhost:37063/",
+            "--live-canister",
+            "dllsh-pd777-77776-qaaaa-cai",
+            "--coordination",
+            "/home/codexdev/src/btz/.work/s12/same-version-final/live/coordination",
+            "--output",
+            "/home/codexdev/src/btz/.work/s12/same-version-final/browser-live"
+          ],
+          "exit_code": 0,
+          "browser_exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 62.149,
+          "timeout_seconds": 900,
+          "log": "logs/s10-live-pocketic.log",
+          "browser_log": "logs/s10-live-browser-wrapper.log",
+          "local_instance": {
+            "canister_id": "dllsh-pd777-77776-qaaaa-cai",
+            "config": "/home/codexdev/src/btz/.work/s12/same-version-final/live/config",
+            "gateway": "http://localhost:37063/",
+            "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c"
+          },
+          "pocketic_server": {
+            "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+            "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+            "version": {
+              "command": [
+                "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+                "--version"
+              ],
+              "exit_code": 0,
+              "text": "pocket-ic-server 16.1.0"
+            },
+            "url": "http://127.0.0.1:37519/",
+            "log": "logs/pocketic-server.log",
+            "output_tail": "19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000014 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000017 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2026-10-14 18:20:37.724244447 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553930 bytes\n2026-10-14 18:20:37.724244447 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2026-10-14 18:20:37.724244447 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+            "unexpected_exit_code": null
+          }
+        },
+        {
+          "id": "s09-certified-snapshot-regression",
+          "command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/verify_observer_http.py",
+            "--local-snapshot",
+            "/home/codexdev/src/btz/.work/s12/same-version-final/browser-snapshot",
+            "--output",
+            "/home/codexdev/src/btz/.work/s12/same-version-final/browser-snapshot-regression"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 9.842,
+          "timeout_seconds": 300,
+          "log": "logs/s09-certified-snapshot-regression.log",
+          "exit_contract": "project-wrapper-exit-2-is-blocked"
+        }
+      ]
+    },
+    {
+      "id": "benchmark-smoke",
+      "status": "PASS",
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "reference": "smoke/run-summary.json"
+    },
+    {
+      "id": "benchmark-extended",
+      "status": "PASS",
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "reference": "extended/run-summary.json"
+    },
+    {
+      "id": "historical-upgrade-required-slices",
+      "status": "PASS",
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "core_reference": ".work/s12/historical-final/results.json",
+      "core": {
+        "id": "pocketic-regressions",
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "test",
+          "--manifest-path",
+          "tools/s09-integration/Cargo.toml",
+          "--locked",
+          "--test",
+          "pocketic_host",
+          "--",
+          "--nocapture"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 229.295,
+        "timeout_seconds": 900,
+        "log": "logs/pocketic-regressions.log",
+        "pocketic_server": {
+          "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+          "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+          "version": {
+            "command": [
+              "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+              "--version"
+            ],
+            "exit_code": 0,
+            "text": "pocket-ic-server 16.1.0"
+          },
+          "url": "http://127.0.0.1:41827/",
+          "log": "logs/pocketic-server.log",
+          "output_tail": "2026-10-14T18:24:19.627839Z  INFO pocket_ic_server: The PocketIC server is listening on port 41827\n2021-05-06 19:17:10.000000008 UTC: [Canister dllsh-pd777-77776-qaaaa-cai] Panicked at 'called `Result::unwrap()` on an `Err` value: Custom(Fail to decode argument 0 from table0 to blob\n\nCaused by:\n    Subtyping error: TypeInner :: Nat8)', src/lib.rs:725:39\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+          "unexpected_exit_code": null
+        }
+      },
+      "live_reference": ".work/s12/historical-live-rerun/results.json",
+      "live": {
+        "id": "s10-live-concurrent-slice",
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "test",
+          "--manifest-path",
+          "tools/s09-integration/Cargo.toml",
+          "--locked",
+          "--test",
+          "pocketic_host",
+          "live_autonomous_ledger_browser_reconnect_upgrade_and_replay",
+          "--",
+          "--ignored",
+          "--exact",
+          "--nocapture"
+        ],
+        "browser_command": [
+          "/home/codexdev/dtr-s08-playwright/bin/python",
+          "-B",
+          "tools/verify_observer_http.py",
+          "--live-config",
+          "/home/codexdev/src/btz/.work/s12/historical-live-rerun/live/config",
+          "--ic-gateway",
+          "http://localhost:34141/",
+          "--live-canister",
+          "dllsh-pd777-77776-qaaaa-cai",
+          "--coordination",
+          "/home/codexdev/src/btz/.work/s12/historical-live-rerun/live/coordination",
+          "--output",
+          "/home/codexdev/src/btz/.work/s12/historical-live-rerun/browser-live"
+        ],
+        "exit_code": 0,
+        "browser_exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 92.901,
+        "timeout_seconds": 900,
+        "log": "logs/s10-live-pocketic.log",
+        "browser_log": "logs/s10-live-browser-wrapper.log",
+        "local_instance": {
+          "canister_id": "dllsh-pd777-77776-qaaaa-cai",
+          "config": "/home/codexdev/src/btz/.work/s12/historical-live-rerun/live/config",
+          "gateway": "http://localhost:34141/",
+          "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c"
+        },
+        "pocketic_server": {
+          "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+          "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+          "version": {
+            "command": [
+              "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+              "--version"
+            ],
+            "exit_code": 0,
+            "text": "pocket-ic-server 16.1.0"
+          },
+          "url": "http://127.0.0.1:44901/",
+          "log": "logs/pocketic-server.log",
+          "output_tail": "2026-10-14T18:36:30.386497Z  INFO pocket_ic_server: The PocketIC server is listening on port 44901\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000014 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000017 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2026-10-14 18:37:17.055185763 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553930 bytes\n2026-10-14 18:37:17.055185763 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2026-10-14 18:37:17.055185763 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+          "unexpected_exit_code": null
+        }
+      },
+      "fresh_snapshot_reference": ".work/s12/historical-snapshot-rerun/results.json",
+      "fresh_snapshot_checks": [
+        {
+          "id": "fresh-upstream-snapshot",
+          "command": [
+            "cargo",
+            "test",
+            "--manifest-path",
+            "tools/s09-integration/Cargo.toml",
+            "--locked",
+            "--offline",
+            "--test",
+            "pocketic_host",
+            "upstream_ledger_archive_to_recovered_publication_matches_native",
+            "--",
+            "--exact",
+            "--nocapture"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 33.996,
+          "timeout_seconds": 900,
+          "log": "logs/fresh-upstream-snapshot.log"
+        },
+        {
+          "id": "fresh-browser-snapshot",
+          "command": [
+            "/home/codexdev/dtr-s08-playwright/bin/python",
+            "-B",
+            "tools/verify_observer_http.py",
+            "--local-snapshot",
+            "/home/codexdev/src/btz/.work/s12/historical-snapshot-rerun/snapshot",
+            "--output",
+            "/home/codexdev/src/btz/.work/s12/historical-snapshot-rerun/browser"
+          ],
+          "exit_code": 0,
+          "status": "PASS",
+          "elapsed_seconds": 14.023,
+          "timeout_seconds": 300,
+          "log": "logs/fresh-browser-snapshot.log"
+        }
+      ],
+      "qualification": "Original final full-wrapper attempt was FAIL; unchanged isolated live and fresh-snapshot required slices passed. Initial-head observation sensitivity remains a harness limitation."
+    },
+    {
+      "id": "final-canister-unit",
+      "status": "PASS",
+      "tests": 8,
+      "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "log": ".work/s12/final-canister-tests.log"
+    },
+    {
+      "id": "final-candid",
+      "status": "PASS",
+      "sha256": "587bddc30097bbbcbe732818b084c98c721292fe38f994898a8ecc145675352c",
+      "log": ".work/s12/final-candid.log"
+    },
+    {
+      "id": "final-format-clippy",
+      "status": "PASS",
+      "logs": [
+        ".work/s12/final-format.log",
+        ".work/s12/final-clippy.log"
+      ]
+    },
+    {
+      "id": "normal-test-hook-export-check",
+      "status": "PASS",
+      "reference": "export-checks.json"
+    },
+    {
+      "id": "standalone-dtr",
+      "status": "PASS",
+      "js_tests": 186,
+      "rust_tests": 29,
+      "implementation_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+      "logs": [
+        ".work/s12/dtr-js-tests.log",
+        ".work/s12/dtr-rust-tests.log"
+      ]
+    },
+    {
+      "id": "remote-cloning-package-consumer-wrapper",
+      "status": "NOT_RUN",
+      "reason": "Explicit remote Git restriction; package/lock integrity and unchanged standalone DTR tests were checked; original CI remains historical evidence"
+    },
+    {
+      "id": "new-ci",
+      "status": "NOT_RUN",
+      "reason": "User owns pushes/workflows"
+    },
+    {
+      "id": "reviewed-cost-measurement-tests",
+      "status": "PASS",
+      "tests": 26,
+      "log": ".work/s12/reviewed-cost-tests.log",
+      "qualification": "Repeated after committing the reviewed assumption file into the working tree"
+    },
+    {
+      "id": "reviewed-runner-tests",
+      "status": "PASS",
+      "tests": 4,
+      "log": ".work/s12/reviewed-runner-tests.log"
+    },
+    {
+      "id": "final-doc-links",
+      "status": "PASS",
+      "links": 81,
+      "command": [
+        "python3.11",
+        "-B",
+        "tools/check_docs.py"
+      ]
+    },
+    {
+      "id": "final-source-structure",
+      "status": "PASS",
+      "js_syntax_files": 51,
+      "log": ".work/s12/final-source-structure.log"
+    }
+  ],
+  "retained_attempts": [
+    {
+      "id": "initial-empty-poll-compile",
+      "status": "FAIL",
+      "reference": ".work/s12/closeout-smoke-compile-failure/results.json",
+      "resolution": "8080899; final smoke and extended PASS"
+    },
+    {
+      "id": "initial-extended-server-expiry",
+      "status": "FAIL",
+      "reference": ".work/s12/closeout-extended-server-expiry/results.json",
+      "reason": "900-second owned-server lifetime expired during last test",
+      "resolution": "b1d5f0d finite total-timeout lifetime; final extended PASS"
+    },
+    {
+      "id": "historical-initial-head-skip",
+      "status": "FAIL",
+      "reference": ".work/s12/historical-final/results.json",
+      "resolution": "Isolated live unchanged assertions PASS; retained as observation timing sensitivity"
+    },
+    {
+      "id": "incomplete-snapshot-command",
+      "status": "FAIL",
+      "reference": ".work/s12/historical-live-rerun/results.json",
+      "resolution": "Corrected command used the existing snapshot, then a fresh snapshot was generated"
+    },
+    {
+      "id": "expired-snapshot-rejection",
+      "status": "FAIL",
+      "reference": ".work/s12/historical-live-rerun/browser-snapshot-regression/results.json",
+      "security_outcome": "Correct fail-closed rejection; no clock/freshness relaxation",
+      "resolution": ".work/s12/historical-snapshot-rerun/results.json PASS"
+    },
+    {
+      "id": "initial-browser-prerequisites",
+      "status": "BLOCKED",
+      "references": [
+        ".work/s12/browser-closeout/verification.json",
+        ".work/s12/browser-venv-closeout/verification.json"
+      ],
+      "resolution": "Existing user-scoped libraries; sandboxed browser PASS"
+    }
+  ],
+  "remote_git_operations_performed": false
+}

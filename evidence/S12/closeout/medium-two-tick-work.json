@@ -1,0 +1,7 @@
+{
+  "scope": "pure kernel two-tick initial medium seed, no inputs",
+  "work_units": 4322,
+  "steps": 9,
+  "budget": 512,
+  "logical_ticks": 2
+}

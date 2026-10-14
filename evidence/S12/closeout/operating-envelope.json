@@ -1,0 +1,68 @@
+{
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "classification": "DIRECTLY_TESTED_COMBINED",
+  "recommended_local_configuration": {
+    "board": "16x8",
+    "initial_cannons": 2,
+    "initial_balls": 32,
+    "logical_ticks_per_segment": 2,
+    "work_budget": 512,
+    "callback_pacing_virtual_seconds": 1,
+    "fallback_virtual_seconds": 5,
+    "page_records": 64,
+    "arrival_batch_records": 64,
+    "arrival_period_virtual_seconds": 64,
+    "arrival_records_per_virtual_second": 1,
+    "hint_policy": "alternate batches notified; alternate hints omitted",
+    "retention_max_segments": 3,
+    "retention_max_bytes": 8388608,
+    "duration_virtual_seconds": 128,
+    "completed_segments": 10,
+    "stable_bytes": 25231360
+  },
+  "higher_tested_rate": {
+    "rate_records_per_virtual_second": 8,
+    "duration_virtual_seconds": 128,
+    "final_backlog": 0,
+    "backlog_high_water": 64,
+    "classification": "DIRECTLY_TESTED_COMBINED"
+  },
+  "saturation": {
+    "offered_records_per_virtual_second": 128,
+    "verified_records_per_virtual_second": 38.999999975320314,
+    "final_backlog": 11392,
+    "operating_status": "UNSUSTAINABLE_TESTED",
+    "expected_saturation_test": "PASS"
+  },
+  "largest_warm_query_scope": {
+    "name": "warm_evict_medium_512",
+    "instructions": 342365877,
+    "update_limit_instructions": 40000000000,
+    "arithmetic_margin_instructions": 39657634123,
+    "qualification": "Arithmetic margin of this measured scope only; certification/timer dispatch and other states excluded"
+  },
+  "largest_complete_measured_update": "NOT_MEASURED",
+  "verified_worst_case_update_headroom": "NOT_MEASURED",
+  "heap_high_water": "NOT_MEASURED",
+  "maximum_measured_heap_growth_bytes": 3670016,
+  "maximum_measured_cold_stable_growth_bytes": 25231360,
+  "maximum_measured_warm_stable_growth_bytes": 0,
+  "unsupported": [
+    "full legal board/high population combinations",
+    "64-ball combined continuous service",
+    "production/global ICP traffic",
+    "complete cost upper bound",
+    "mainnet latency/finality/cycles burned"
+  ],
+  "next_decision": "Compare one-second versus five-second fallback in the same independent-arrival combined fixture before choosing a relevant-account history source. No implementation started."
+}

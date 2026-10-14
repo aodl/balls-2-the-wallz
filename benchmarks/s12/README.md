@@ -49,11 +49,21 @@ DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s12.py \
 ```
 
 The smoke profile runs the complete deterministic fixture matrix plus the
-production-shaped medium callback and all-irrelevant ledger-page canbench cases.
+cold first-step plus new-root persistence microbenchmark and all-irrelevant ledger-page canbench cases.
 The normal CI workflow runs this tier. The extended tier adds fresh normal Wasm,
 PocketIC autonomous progress, repeated controlled-ledger traces, the pinned
 upstream ledger/archive case and cost projections; it is intentionally manual.
 
 The extended runner snapshots normal Wasm, compiles the test binary before starting the idle-timed PocketIC server, applies explicit per-case timeouts, saves partial results after every case, and terminates only its owned server process group. Omit `--harness-target` for a fresh target; the optional argument exists only for deliberate local reuse.
 
-`canbench_results.yml` is the deterministic regression baseline. `cost-assumptions.json` records the tariff retrieval date, official URLs, replication assumptions and model qualifications. Current source-bound results are retained under `evidence/S12/` and interpreted by `checkpoints/S12_REPORT.md`.
+`canbench_results.yml` is the deterministic regression baseline. `cost-assumptions.json` records the tariff retrieval date, official URLs, replication assumptions and model qualifications. Original results remain immutable under `evidence/S12/` and `checkpoints/S12_REPORT.md`. Current closeout results are under `evidence/S12/closeout/`, interpreted by `checkpoints/S12_CLOSEOUT.md`; the current cost assumptions are `closeout-cost-assumptions.json`.
+
+## Corrective capture and interpretation
+
+The runner creates per-process configurations and uses `--persist --csv`, writing `current-N.yml`/`.csv` only inside the specified output directory. Smoke's two processes use different files. Use a new empty directory for each run; existing current results are rejected. The committed result files remain historical baselines. Direct canbench persistence with the committed configuration would update that baseline and is not the normal capture workflow.
+
+`current-measurements.json` binds raw results to source, fixtures, budget, logical interval, tool/runtime and Wasm. The instruction regression gate compares structured values at 2%; hosted elapsed time is informational. New warm cases have no historical baseline and make no regression claim. The cost CLI requires this manifest and never defaults to committed historical values.
+
+Extended adds warm existing-root operations, source-independent virtual-time ledger arrivals concurrent with autonomous simulation, idle/draining/overload scenarios, upstream-compatible ledger/archive functionality and corrected partial costs. Certification/timer dispatch are outside canbench query scopes. Manually driven page processing is distinct from autonomous service. The extended owned-server hard lifetime covers its declared case timeout budgets, while individual timeouts remain failures.
+
+The declared eight-segment fixture now runs eight chained pure-kernel intervals at both budgets and eight coordinator snapshot/restore/publication intervals with bounded memory retention. Its first-interval golden remains unchanged; IC stable writes for that specific JS fixture are not measured.

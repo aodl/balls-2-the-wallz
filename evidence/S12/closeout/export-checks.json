@@ -1,0 +1,68 @@
+{
+  "source_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+  "status": "PASS",
+  "checks": [
+    {
+      "path": ".work/s12/same-version-final/wasm/runtime-lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602,
+      "status": "PASS",
+      "exports": [
+        "memory",
+        "canister_init",
+        "canister_post_upgrade",
+        "canister_query artifact_chunk",
+        "canister_query controller_work",
+        "canister_query lab_status",
+        "canister_query observation",
+        "canister_query retained_artifact_chunk",
+        "canister_query retained_publication",
+        "canister_query retention_status",
+        "canister_update apply",
+        "canister_update ledger_hint",
+        "canister_update pause_autonomous",
+        "canister_update start_autonomous",
+        "canister_update sync_ledger",
+        "get_candid_pointer",
+        "canister_global_timer",
+        "canister_update <ic-cdk internal> timer_executor",
+        "__data_end",
+        "__heap_base"
+      ]
+    },
+    {
+      "path": ".work/s12/same-version-final/wasm/runtime-lab-test-hooks.wasm",
+      "sha256": "8be047a2dc49afdf32fa47209d54d2e0a7ff72e06dc3cccb9001cfda4b106c11",
+      "size": 2264093,
+      "status": "PASS",
+      "exports": [
+        "memory",
+        "canister_init",
+        "canister_post_upgrade",
+        "canister_query artifact_chunk",
+        "canister_query controller_work",
+        "canister_query lab_status",
+        "canister_query observation",
+        "canister_query retained_artifact_chunk",
+        "canister_query retained_publication",
+        "canister_query retention_status",
+        "canister_query test_scan_state",
+        "canister_query test_source_anchor",
+        "canister_update apply",
+        "canister_update ledger_hint",
+        "canister_update pause_autonomous",
+        "canister_update start_autonomous",
+        "canister_update sync_ledger",
+        "canister_update test_arm_scan_fault",
+        "canister_update test_fill_scan_backpressure",
+        "canister_update test_stale_scan_completion_fence",
+        "canister_update test_trap_after_root_write",
+        "get_candid_pointer",
+        "canister_global_timer",
+        "canister_update <ic-cdk internal> timer_executor",
+        "__data_end",
+        "__heap_base"
+      ]
+    }
+  ]
+}

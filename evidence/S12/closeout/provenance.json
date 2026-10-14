@@ -1,0 +1,93 @@
+{
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "current_benchmark_wasm_sha256": "99bcaa7a71d2c3c45cd47d729b03677ab1e637248dfcbbef02ae68852d25c7be",
+  "measurement_runtime": {
+    "canbench": "canbench 0.7.0",
+    "runtime_sha256": "b19a15ba0650a3987e78a8017dee0e99c5518194d1e0c4fd45b53cd32598544e",
+    "runtime": "canbench integrity-checked PocketIC 13.0.0"
+  },
+  "application_runtime": {
+    "version": {
+      "command": [
+        "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "pocket-ic-server 16.1.0"
+    },
+    "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"
+  },
+  "normal_wasm": {
+    "kind": "normal-wasm",
+    "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/wasm/runtime-lab.wasm",
+    "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+    "size": 2238602
+  },
+  "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+  "dtr_changed": false,
+  "dtr_local_checkout_head": "436ec0f940f1179710b6a596d5b64d22f306fba5",
+  "dtr_checkout_difference_from_dependency_pin": "Only documentation, workflow and historical evidence; implementation files unchanged.",
+  "manifest_release_configuration": {
+    "opt_level_default": 3,
+    "lto": true,
+    "codegen_units": 1,
+    "overflow_checks": true
+  },
+  "observed_root_rustc_flags": [
+    "-C opt-level=3",
+    "-C codegen-units=1",
+    "-C overflow-checks=on",
+    "-C strip=debuginfo"
+  ],
+  "explicit_rustc_lto_flag_observed": false,
+  "release_environment_overrides": {
+    "CARGO_PROFILE_RELEASE_LTO": null,
+    "CARGO_PROFILE_RELEASE_OPT_LEVEL": null,
+    "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": null,
+    "CARGO_PROFILE_RELEASE_OVERFLOW_CHECKS": null,
+    "RUSTFLAGS": null,
+    "CARGO_ENCODED_RUSTFLAGS": null,
+    "CARGO_BUILD_RUSTFLAGS": null
+  },
+  "verbose_build_log": ".work/s12/final-benchmark-build.log",
+  "reproducible_wasm": "NOT_MEASURED",
+  "baseline_reference": "benchmarks/s12/baseline-identity.json",
+  "cost_model_code_revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+  "reviewed_cost_assumptions_sha256": "41131804c609696b4b9a2e255c5d11201ff0cf6d1a0a21a376cc28ec35c4ace3",
+  "cost_recompute_command": [
+    "python3.11",
+    "-B",
+    "tools/s12_cost_model.py",
+    "--assumptions",
+    ".work/s12/cost-assumptions-reviewed.json",
+    "--current-measurements",
+    ".work/s12/closeout-extended/current-measurements.json",
+    "--combined-trace",
+    ".work/s12/closeout-extended/combined-service-trace.json",
+    "--output",
+    ".work/s12/cost-projections-reviewed.json"
+  ],
+  "cost_assumption_review": "9 initial Step(512) actions require 11 seal/step/publish callbacks. Reviewed assumptions are committed verbatim after source-bound verification; performance measurements were not relabelled.",
+  "remote_git_operations_performed": false,
+  "new_ci": "NOT_RUN",
+  "original_ci": {
+    "run": 38598030205,
+    "commit": "364964d0248d9c093571d4d9dd34bc871bd32f0d",
+    "status": "PASS",
+    "source": "user-provided historical verification"
+  },
+  "portable_provenance": "Source and raw-result hashes are portable; .work references resolve relative to BTZ. External application artifacts are checksum-pinned by tools/s09-artifacts.json.",
+  "raw_combined_trace_sha256": "e4809172b3e91b760146dbfcc8ff5b6db319b74f1fa8173add50649485493dd0",
+  "committed_combined_trace_sha256": "4a5e2fcd8d34bc7dcb555eff3598390bcd770c88f7e6eae16059074d66def555",
+  "trace_compaction": "Lossless JSON compaction; numerical values/observations unchanged; cost input hash names original raw document"
+}

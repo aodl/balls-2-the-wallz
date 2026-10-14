@@ -1,0 +1,669 @@
+{
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "profile": "extended",
+  "overall": "PASS",
+  "environment": {
+    "captured_utc": "2026-10-14T17:55:42.565004+00:00",
+    "platform": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        46 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               2\nOn-line CPU(s) list:                  0,1\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz\nCPU family:                           6\nModel:                                85\nThread(s) per core:                   2\nCore(s) per socket:                   1\nSocket(s):                            1\nStepping:                             7\nBogoMIPS:                             5187.81\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid ept_ad fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves vnmi avx512_vnni arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            32 KiB (1 instance)\nL1i cache:                            32 KiB (1 instance)\nL2 cache:                             1 MiB (1 instance)\nL3 cache:                             35.8 MiB (1 instance)\nNUMA node(s):                         1\nNUMA node0 CPU(s):                    0,1\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Vulnerable\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Vulnerable\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:      8325529600  3883864064   694886400    24887296  3746779136  4098330624\nSwap:              0           0           0\n",
+    "tools": {
+      "python": {
+        "command": [
+          "/home/codexdev/.local/bin/python3.11",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "Python 3.11.14"
+      },
+      "node": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "v24.15.0"
+      },
+      "npm": {
+        "command": [
+          "npm",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "11.12.1"
+      },
+      "rustc": {
+        "command": [
+          "rustc",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+      },
+      "cargo": {
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+      },
+      "canbench": {
+        "command": [
+          "canbench",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "canbench 0.7.0"
+      }
+    },
+    "definitions": {
+      "wasm_instructions": "canbench performance-counter instructions",
+      "heap_increase": "canbench 64-KiB Wasm pages grown during one benchmark query",
+      "stable_memory_increase": "canbench 64-KiB stable pages grown; not payload bytes",
+      "elapsed_seconds": "local host wall time; not mainnet latency",
+      "work_units": "BTZ deterministic abstract work; not Wasm instructions"
+    },
+    "application_runtime": {
+      "version": {
+        "command": [
+          "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "pocket-ic-server 16.1.0"
+      },
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"
+    }
+  },
+  "checks": [
+    {
+      "id": "fixture-correspondence",
+      "command": [
+        "node",
+        "tools/generate_s12_fixtures.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 5.752,
+      "timeout_seconds": 60,
+      "log": "logs/fixture-correspondence.log"
+    },
+    {
+      "id": "deterministic-game-matrix",
+      "command": [
+        "node",
+        "tools/s12_game_bench.mjs",
+        "benchmarks/s12/workloads.json",
+        "/home/codexdev/src/btz/.work/s12/closeout-extended/game-measurements.json",
+        "3"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 6.844,
+      "timeout_seconds": 300,
+      "log": "logs/deterministic-game-matrix.log"
+    },
+    {
+      "id": "canbench-0",
+      "command": [
+        "canbench",
+        "--persist",
+        "--csv",
+        "--show-canister-output"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 45.324,
+      "timeout_seconds": 1200,
+      "log": "logs/canbench-0.log"
+    },
+    {
+      "id": "instruction-regression",
+      "status": "PASS",
+      "threshold_percent": 2.0,
+      "metric": "deterministic instructions",
+      "rows": [
+        {
+          "name": "callback_step_persist_high_512",
+          "current_instructions": 113334404,
+          "baseline_instructions": 113334404,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "callback_step_persist_medium_512",
+          "current_instructions": 81853465,
+          "baseline_instructions": 81853465,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "coordinator_ball_dense_high",
+          "current_instructions": 2741602784,
+          "baseline_instructions": 2741602784,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "coordinator_ball_dense_medium",
+          "current_instructions": 1007115272,
+          "baseline_instructions": 1007115272,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "coordinator_empty_motion",
+          "current_instructions": 118491222,
+          "baseline_instructions": 118491222,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "coordinator_many_cannon_frontier",
+          "current_instructions": 276799967,
+          "baseline_instructions": 276799967,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "coordinator_seal_medium",
+          "current_instructions": 22040756,
+          "baseline_instructions": 22040756,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "kernel_ball_dense_high",
+          "current_instructions": 1661578160,
+          "baseline_instructions": 1661578160,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "kernel_ball_dense_medium",
+          "current_instructions": 455281320,
+          "baseline_instructions": 455281320,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "kernel_empty_motion",
+          "current_instructions": 8973008,
+          "baseline_instructions": 8973008,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "kernel_many_cannon_frontier",
+          "current_instructions": 15478878,
+          "baseline_instructions": 15478878,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "kernel_small_reference",
+          "current_instructions": 16852473,
+          "baseline_instructions": 16852473,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "ledger_page_all_irrelevant",
+          "current_instructions": 1407764,
+          "baseline_instructions": 1407764,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "ledger_page_all_relevant",
+          "current_instructions": 5823603,
+          "baseline_instructions": 5823603,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "ledger_page_sparse_relevant",
+          "current_instructions": 1476571,
+          "baseline_instructions": 1476571,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "persistence_publication_empty_motion",
+          "current_instructions": 13077115,
+          "baseline_instructions": 13077115,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "persistence_publication_high",
+          "current_instructions": 83566285,
+          "baseline_instructions": 83566285,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "persistence_publication_many_cannon",
+          "current_instructions": 26662250,
+          "baseline_instructions": 26662250,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "persistence_publication_medium",
+          "current_instructions": 47606050,
+          "baseline_instructions": 47606050,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "persistence_publication_small",
+          "current_instructions": 10039826,
+          "baseline_instructions": 10039826,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "warm_early_medium_512",
+          "current_instructions": 94586429,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_empty_progression_medium_512",
+          "current_instructions": 89909620,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_evict_medium_512",
+          "current_instructions": 342365877,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_finalize_medium_512",
+          "current_instructions": 304502067,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_late_medium_512",
+          "current_instructions": 228301384,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_ledger_admission",
+          "current_instructions": 19004693,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_ledger_empty_poll",
+          "current_instructions": 4089302,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_ledger_staged_admission",
+          "current_instructions": 54537893,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_middle_medium_512",
+          "current_instructions": 188437379,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_publish_medium_512",
+          "current_instructions": 288463923,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_publish_retire_medium_512",
+          "current_instructions": 290089354,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        },
+        {
+          "name": "warm_seal_medium_512",
+          "current_instructions": 34381976,
+          "baseline_instructions": null,
+          "change_percent": null,
+          "outcome": "INCOMPARABLE",
+          "reason": "missing baseline",
+          "status": "NOT_RUN"
+        }
+      ]
+    },
+    {
+      "id": "normal-wasm-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 74.219,
+      "timeout_seconds": 900,
+      "log": "logs/normal-wasm-build.log"
+    },
+    {
+      "id": "pocketic-harness-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--no-run"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 2.958,
+      "timeout_seconds": 1800,
+      "log": "logs/pocketic-harness-build.log"
+    },
+    {
+      "id": "autonomous-50-segment",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_autonomous_fifty_segment_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 224.014,
+      "timeout_seconds": 1200,
+      "log": "logs/autonomous-50-segment.log"
+    },
+    {
+      "id": "autonomous-combined-service",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_autonomous_combined_service_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 428.177,
+      "timeout_seconds": 1200,
+      "log": "logs/autonomous-combined-service.log"
+    },
+    {
+      "id": "controlled-ledger-backlog-1",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_controlled_ledger_backlog_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 35.026,
+      "timeout_seconds": 1200,
+      "log": "logs/controlled-ledger-backlog-1.log"
+    },
+    {
+      "id": "controlled-ledger-backlog-2",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_controlled_ledger_backlog_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 26.408,
+      "timeout_seconds": 1200,
+      "log": "logs/controlled-ledger-backlog-2.log"
+    },
+    {
+      "id": "controlled-ledger-backlog-3",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s12_controlled_ledger_backlog_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 34.492,
+      "timeout_seconds": 1200,
+      "log": "logs/controlled-ledger-backlog-3.log"
+    },
+    {
+      "id": "upstream-ledger-archive",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "upstream_ledger_archive_to_recovered_publication_matches_native",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 99.122,
+      "timeout_seconds": 900,
+      "log": "logs/upstream-ledger-archive.log"
+    },
+    {
+      "id": "cost-model",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/s12_cost_model.py",
+        "--ledger-trace",
+        "/home/codexdev/src/btz/.work/s12/closeout-extended/ledger-trace.json",
+        "--current-measurements",
+        "/home/codexdev/src/btz/.work/s12/closeout-extended/current-measurements.json",
+        "--combined-trace",
+        "/home/codexdev/src/btz/.work/s12/closeout-extended/combined-service-trace.json",
+        "--output",
+        "/home/codexdev/src/btz/.work/s12/closeout-extended/cost-projections.json"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 2.983,
+      "timeout_seconds": 60,
+      "log": "logs/cost-model.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "measured",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/game-measurements.json",
+      "sha256": "246e29b34cf42a5b87973c076d61e723384edb3c0f14c6d4ce6eec09234aa874"
+    },
+    {
+      "kind": "current-measurements",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/current-measurements.json",
+      "sha256": "5211b433cd40610e4824f6b45cd2644ed4caabcfc76c9f54194273591823da30"
+    },
+    {
+      "kind": "normal-wasm",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/wasm/runtime-lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602
+    },
+    {
+      "kind": "combined-service",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/combined-service-trace.json",
+      "sha256": "e4809172b3e91b760146dbfcc8ff5b6db319b74f1fa8173add50649485493dd0"
+    },
+    {
+      "kind": "autonomous-trace",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/autonomous-trace.json",
+      "sha256": "f7f50da92b4393c8bf508d43c3cb7d4f5a257a39274ee0e605cdc53d795c70ec"
+    },
+    {
+      "kind": "ledger-trace",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/ledger-trace.json",
+      "sha256": "203875f95bc9be7ad580aafc8b8aa14b10a2fc6d9b68f72374bccc418de8a5fe"
+    },
+    {
+      "kind": "tariff-estimate",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/cost-projections.json",
+      "sha256": "3853bb2d7803e0ffb8745d479a8d6c74f87c362137b7781e8027f8f170290820"
+    }
+  ],
+  "raw_run_reference": ".work/s12/closeout-extended/results.json",
+  "portable_path_rule": "Absolute checkout/artifact paths identify this host; resolve source paths relative to BTZ and external pinned artifacts via tools/s09-artifacts.json.",
+  "pocketic_server_hard_ttl_seconds": 6960
+}

@@ -1,0 +1,9 @@
+benches:
+  ledger_page_all_irrelevant:
+    total:
+      calls: 1
+      instructions: 1407764
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+version: 0.7.0

@@ -42,7 +42,7 @@
       "ledger_enabled": true,
       "ledger_records_per_second": 0,
       "segment_seconds": 20,
-      "callbacks_per_segment": 9,
+      "callbacks_per_segment": 11,
       "fallback_seconds": 5,
       "archive_fraction": 0.5,
       "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
@@ -53,7 +53,9 @@
       "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
       "arrival_batch": 64,
       "arrival_period_seconds": null,
-      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
     },
     {
       "name": "moderate-combined",
@@ -63,7 +65,7 @@
       "ledger_enabled": true,
       "ledger_records_per_second": 8,
       "segment_seconds": 20,
-      "callbacks_per_segment": 9,
+      "callbacks_per_segment": 11,
       "fallback_seconds": 5,
       "archive_fraction": 0.5,
       "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
@@ -74,7 +76,9 @@
       "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
       "arrival_batch": 64,
       "arrival_period_seconds": 8.0,
-      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
     },
     {
       "name": "high-occupancy",
@@ -106,7 +110,7 @@
       "ledger_enabled": true,
       "ledger_records_per_second": 128,
       "segment_seconds": 20,
-      "callbacks_per_segment": 9,
+      "callbacks_per_segment": 11,
       "fallback_seconds": 5,
       "archive_fraction": 0.5,
       "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
@@ -117,7 +121,9 @@
       "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
       "arrival_batch": 64,
       "arrival_period_seconds": 0.5,
-      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
     },
     {
       "name": "backlog-catch-up",
@@ -127,7 +133,7 @@
       "ledger_enabled": true,
       "ledger_records_per_second": 8,
       "segment_seconds": 20,
-      "callbacks_per_segment": 9,
+      "callbacks_per_segment": 11,
       "fallback_seconds": 5,
       "archive_fraction": 0.5,
       "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
@@ -142,7 +148,9 @@
       "backlog_records_assumption": 4096,
       "service_records_per_second_assumption": 8,
       "new_arrivals_per_second_assumption": 0,
-      "rate_scope": "assumed busy-window processing; not an autonomous catch-up measurement"
+      "rate_scope": "assumed busy-window processing; not an autonomous catch-up measurement",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
     },
     {
       "name": "quiet-ledger-disabled",

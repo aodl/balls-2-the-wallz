@@ -1,0 +1,128 @@
+[
+  {
+    "name": "small-reference",
+    "board": "12x8",
+    "initial_cannons": 0,
+    "initial_balls": 0,
+    "logical_ticks": 2,
+    "initial_work_units": 849,
+    "input_count": 2,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "empty-motion",
+    "board": "5x5",
+    "initial_cannons": 1,
+    "initial_balls": 1,
+    "logical_ticks": 32,
+    "initial_work_units": 253,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "ball-dense-medium",
+    "board": "16x8",
+    "initial_cannons": 2,
+    "initial_balls": 32,
+    "logical_ticks": 4,
+    "initial_work_units": 7138,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "ball-dense-high",
+    "board": "16x8",
+    "initial_cannons": 2,
+    "initial_balls": 64,
+    "logical_ticks": 4,
+    "initial_work_units": 22947,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "many-cannon-frontier",
+    "board": "32x8",
+    "initial_cannons": 32,
+    "initial_balls": 32,
+    "logical_ticks": 1,
+    "initial_work_units": 360,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "fragmentation-severance",
+    "board": "5x3",
+    "initial_cannons": 2,
+    "initial_balls": 2,
+    "logical_ticks": 1,
+    "initial_work_units": 87,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "collision-intensive",
+    "board": "6x3",
+    "initial_cannons": 2,
+    "initial_balls": 2,
+    "logical_ticks": 1,
+    "initial_work_units": 74,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "spawn-admission-pressure",
+    "board": "32x32",
+    "initial_cannons": 0,
+    "initial_balls": 0,
+    "logical_ticks": 1,
+    "initial_work_units": 19556,
+    "input_count": 10,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  },
+  {
+    "name": "multi-segment-persistence",
+    "board": "6x3",
+    "initial_cannons": 2,
+    "initial_balls": 2,
+    "logical_ticks": 1,
+    "initial_work_units": 32,
+    "input_count": 0,
+    "rules": {
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+    }
+  }
+]

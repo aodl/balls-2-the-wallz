@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "threshold_percent": 2.0,
+  "metric": "deterministic instructions",
+  "rows": [
+    {
+      "name": "callback_step_persist_medium_512",
+      "current_instructions": 81853465,
+      "baseline_instructions": 81853465,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    },
+    {
+      "name": "ledger_page_all_irrelevant",
+      "current_instructions": 1407764,
+      "baseline_instructions": 1407764,
+      "change_percent": 0.0,
+      "outcome": "WITHIN_THRESHOLD",
+      "reason": null,
+      "status": "PASS"
+    }
+  ]
+}

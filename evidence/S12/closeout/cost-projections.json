@@ -1,0 +1,925 @@
+{
+  "schema": "btz-s12-cost-projection-v2",
+  "status": "PASS",
+  "qualification": "Tariff-based partial estimates and illustrative sample ranges; no demonstrated complete upper bound or actual balance burn",
+  "assumptions": {
+    "schema": "btz-s12-cost-assumptions-v2",
+    "retrieved_utc_date": "2026-10-14",
+    "official_sources": {
+      "cycle_costs": "https://docs.internetcomputer.org/references/cycle-costs/",
+      "resource_limits": "https://docs.internetcomputer.org/references/resource-limits/",
+      "cycles": "https://docs.internetcomputer.org/concepts/cycles/"
+    },
+    "tariff_13_node_cycles": {
+      "update_execution_base": 5000000,
+      "per_wasm_instruction": 1,
+      "xnet_request_and_response": 260000,
+      "xnet_byte": 1000,
+      "ingress_message": 1200000,
+      "ingress_byte": 2000,
+      "gib_storage_second": 127000,
+      "compute_allocation_percent_second": 10000000
+    },
+    "hard_limits": {
+      "update_instructions": 40000000000,
+      "query_instructions": 5000000000,
+      "wasm32_heap_bytes": 4294967296,
+      "stable_memory_bytes": 536870912000,
+      "replicated_response_bytes": 2097152
+    },
+    "model": {
+      "work_budget": 512,
+      "page_records": 64,
+      "storage_bytes": 25231360,
+      "response_bytes_per_record_assumption": 150,
+      "request_bytes_assumption": 32,
+      "empty_poll_instruction_assumption": 1000000,
+      "empty_poll_updates_assumption": 2,
+      "empty_poll_bytes_assumption": 256
+    },
+    "scenarios": [
+      {
+        "name": "active-no-payments",
+        "combined_scenario": "idle",
+        "game_mode": "warm-medium",
+        "kernel_benchmark": null,
+        "ledger_enabled": true,
+        "ledger_records_per_second": 0,
+        "segment_seconds": 20,
+        "callbacks_per_segment": 11,
+        "fallback_seconds": 5,
+        "archive_fraction": 0.5,
+        "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+        "logical_ticks": 2,
+        "board": "16x8",
+        "retention_max_segments": 3,
+        "relevant_density": "controlled fixture 3/256",
+        "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+        "arrival_batch": 64,
+        "arrival_period_seconds": null,
+        "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+        "expected_initial_work_units": 4322,
+        "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
+      },
+      {
+        "name": "moderate-combined",
+        "combined_scenario": "moderate",
+        "game_mode": "warm-medium",
+        "kernel_benchmark": null,
+        "ledger_enabled": true,
+        "ledger_records_per_second": 8,
+        "segment_seconds": 20,
+        "callbacks_per_segment": 11,
+        "fallback_seconds": 5,
+        "archive_fraction": 0.5,
+        "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+        "logical_ticks": 2,
+        "board": "16x8",
+        "retention_max_segments": 3,
+        "relevant_density": "controlled fixture 3/256",
+        "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8.0,
+        "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+        "expected_initial_work_units": 4322,
+        "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
+      },
+      {
+        "name": "high-occupancy",
+        "combined_scenario": null,
+        "game_mode": "kernel-only",
+        "kernel_benchmark": "kernel_ball_dense_high",
+        "ledger_enabled": true,
+        "ledger_records_per_second": 1,
+        "segment_seconds": 60,
+        "callbacks_per_segment": 47,
+        "fallback_seconds": 5,
+        "archive_fraction": 0.5,
+        "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+        "logical_ticks": 4,
+        "board": "16x8",
+        "retention_max_segments": 3,
+        "relevant_density": "ASSUMED",
+        "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+        "work_units": 22947,
+        "arrival_batch": 64,
+        "arrival_period_seconds": 64.0,
+        "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
+      },
+      {
+        "name": "high-irrelevant-traffic",
+        "combined_scenario": "overload",
+        "game_mode": "warm-medium",
+        "kernel_benchmark": null,
+        "ledger_enabled": true,
+        "ledger_records_per_second": 128,
+        "segment_seconds": 20,
+        "callbacks_per_segment": 11,
+        "fallback_seconds": 5,
+        "archive_fraction": 0.5,
+        "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+        "logical_ticks": 2,
+        "board": "16x8",
+        "retention_max_segments": 3,
+        "relevant_density": "controlled fixture 3/256",
+        "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+        "arrival_batch": 64,
+        "arrival_period_seconds": 0.5,
+        "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+        "expected_initial_work_units": 4322,
+        "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
+      },
+      {
+        "name": "backlog-catch-up",
+        "combined_scenario": null,
+        "game_mode": "warm-medium",
+        "kernel_benchmark": null,
+        "ledger_enabled": true,
+        "ledger_records_per_second": 8,
+        "segment_seconds": 20,
+        "callbacks_per_segment": 11,
+        "fallback_seconds": 5,
+        "archive_fraction": 0.5,
+        "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+        "logical_ticks": 2,
+        "board": "16x8",
+        "retention_max_segments": 3,
+        "relevant_density": "ASSUMED",
+        "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8.0,
+        "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+        "backlog_records_assumption": 4096,
+        "service_records_per_second_assumption": 8,
+        "new_arrivals_per_second_assumption": 0,
+        "rate_scope": "assumed busy-window processing; not an autonomous catch-up measurement",
+        "expected_initial_work_units": 4322,
+        "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization"
+      },
+      {
+        "name": "quiet-ledger-disabled",
+        "combined_scenario": null,
+        "game_mode": "kernel-only",
+        "kernel_benchmark": "kernel_empty_motion",
+        "ledger_enabled": false,
+        "ledger_records_per_second": 0,
+        "segment_seconds": 60,
+        "callbacks_per_segment": 3,
+        "fallback_seconds": 5,
+        "archive_fraction": 0.5,
+        "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+        "logical_ticks": 32,
+        "board": "fixture empty-motion",
+        "retention_max_segments": 3,
+        "relevant_density": "ASSUMED",
+        "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+        "work_units": 253,
+        "arrival_batch": 0,
+        "arrival_period_seconds": null,
+        "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "active-no-payments",
+      "combined_scenario": "idle",
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 0.0,
+      "segment_seconds": 11.636363637181818,
+      "callbacks_per_segment": 11.636363636363637,
+      "fallback_seconds": 5,
+      "archive_fraction": 0,
+      "cadence_classification": "MEASURED_VIRTUAL_TIME",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "controlled fixture 3/256",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 0,
+      "arrival_period_seconds": 1,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "observed_arrival_rate": 0.0,
+      "observed_final_backlog": 0,
+      "observed_empty_polls_per_day": 17549.999998766016,
+      "modeled_callbacks_per_segment": 11.636363636363637,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1498132715.909091,
+        2652943690.909091
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        11123635414842.871,
+        19698106903614.977
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.625,
+      "ledger_processing_instruction_cycles_per_day": 0.0,
+      "ledger_base_cycles_per_day": 0.0,
+      "ledger_xnet_cycles_per_day": 0.0,
+      "ledger_bytes_cycles_per_day": 0.0,
+      "polling_cycles_per_day": 273873050080.74332,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 0.0,
+      "polls_per_day_assumption": 17549.999998766016,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11212952664936.592,
+        19787424153708.695
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1556314534.0909092,
+        2711125509.090909
+      ],
+      "cycles_per_day_sample_range": [
+        11829766309619.803,
+        20404237798391.906
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        354892989288594.06,
+        612127133951757.2
+      ],
+      "xdr_per_day_sample_range": [
+        11.829766309619803,
+        20.404237798391907
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        354.89298928859404,
+        612.1271339517573
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        30939388809774.87,
+        53364929626563.445
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "moderate-combined",
+      "combined_scenario": "moderate",
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 12.800000001699999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.125,
+      "cadence_classification": "MEASURED_VIRTUAL_TIME",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "controlled fixture 3/256",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "observed_arrival_rate": 7.999999998937501,
+      "observed_final_backlog": 0,
+      "observed_empty_polls_per_day": 11474.999998475978,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329236908.28,
+        19700573508983.523
+      ],
+      "game_callback_base_cycles_per_day": 431999999942.62506,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 179070840426.2172,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 11474.999998475978,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11502738221672.295,
+        20347982493747.54
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        12277644966295.975,
+        21122889238371.22
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        368329348988879.25,
+        633686677151136.5
+      ],
+      "xdr_per_day_sample_range": [
+        12.277644966295975,
+        21.12288923837122
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        368.32934898887925,
+        633.6866771511365
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        32110763758004.855,
+        55244479546509.34
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "high-occupancy",
+      "combined_scenario": null,
+      "game_mode": "kernel-only",
+      "kernel_benchmark": "kernel_ball_dense_high",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 1,
+      "segment_seconds": 60,
+      "callbacks_per_segment": 47,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.5,
+      "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+      "logical_ticks": 4,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "ASSUMED",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "work_units": 22947,
+      "arrival_batch": 64,
+      "arrival_period_seconds": 64.0,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "modeled_callbacks_per_segment": 47,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "PARTIAL_ESTIMATE: direct kernel only; coordinator/restore/persistence/publication NOT_MEASURED for this scenario",
+      "game_instructions_per_segment_sample_range": [
+        1661578160,
+        1661578160
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        2392672550400.0,
+        2392672550400.0
+      ],
+      "game_callback_base_cycles_per_day": 338400000000.0,
+      "ledger_processing_instruction_cycles_per_day": 73626155550.0,
+      "ledger_base_cycles_per_day": 16875000000.0,
+      "ledger_xnet_cycles_per_day": 526500000.0,
+      "ledger_bytes_cycles_per_day": 13024800000.0,
+      "polling_cycles_per_day": 248592460860.0,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 1350.0,
+      "polls_per_day_assumption": 15930.0,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "ESTIMATED: full arrival batches, no hints; nonempty pages use polling opportunities",
+      "instruction_components_per_day_sample_range": [
+        2547371286810.0,
+        2547371286810.0
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1896578160,
+        1896578160
+      ],
+      "cycles_per_day_sample_range": [
+        3083975311536.5625,
+        3083975311536.5625
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        92519259346096.88,
+        92519259346096.88
+      ],
+      "xdr_per_day_sample_range": [
+        3.0839753115365625,
+        3.0839753115365625
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        92.51925934609687,
+        92.51925934609687
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        8065781584018.702,
+        8065781584018.702
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "high-irrelevant-traffic",
+      "combined_scenario": "overload",
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 38.999999975320314,
+      "segment_seconds": 12.8000000081,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.02564102564102564,
+      "cadence_classification": "MEASURED_VIRTUAL_TIME",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "controlled fixture 3/256",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 128,
+      "arrival_period_seconds": 1,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "observed_arrival_rate": 127.999999919,
+      "observed_final_backlog": 11392,
+      "observed_empty_polls_per_day": 0.0,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329231480.611,
+        19700573499133.23
+      ],
+      "game_callback_base_cycles_per_day": 431999999726.625,
+      "ledger_processing_instruction_cycles_per_day": 2871420064632.9297,
+      "ledger_base_cycles_per_day": 533249999662.55273,
+      "ledger_xnet_cycles_per_day": 14039999991.115313,
+      "ledger_bytes_cycles_per_day": 507167999679.0578,
+      "polling_cycles_per_day": 0.0,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 52649.99996668242,
+      "polls_per_day_assumption": 0.0,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        13726749296113.541,
+        22571993563766.16
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        15213465139899.455,
+        24058709407552.074
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        456403954196983.6,
+        721761282226562.2
+      ],
+      "xdr_per_day_sample_range": [
+        15.213465139899455,
+        24.058709407552076
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        456.40395419698365,
+        721.7612822265622
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        39789062673583.195,
+        62922778450520.805
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "backlog-catch-up",
+      "combined_scenario": null,
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 8,
+      "segment_seconds": 20,
+      "callbacks_per_segment": 11,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.5,
+      "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "ASSUMED",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8.0,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "backlog_records_assumption": 4096,
+      "service_records_per_second_assumption": 8,
+      "new_arrivals_per_second_assumption": 0,
+      "rate_scope": "assumed busy-window processing; not an autonomous catch-up measurement",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "modeled_callbacks_per_segment": 11,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1437941352,
+        2507660992
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        6211906640640.0,
+        10833095485440.0
+      ],
+      "game_callback_base_cycles_per_day": 237600000000.0,
+      "ledger_processing_instruction_cycles_per_day": 3490425152.0,
+      "ledger_base_cycles_per_day": 800000000.0,
+      "ledger_xnet_cycles_per_day": 24960000.0,
+      "ledger_bytes_cycles_per_day": 617472000.0,
+      "polling_cycles_per_day": 268660879232.0,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 64.0,
+      "polls_per_day_assumption": 17216.0,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "ESTIMATED: full arrival batches, no hints; nonempty pages use polling opportunities",
+      "instruction_components_per_day_sample_range": [
+        6303014489024.0,
+        10924203333824.0
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1492941352,
+        2562660992
+      ],
+      "cycles_per_day_sample_range": [
+        6723358221750.5625,
+        11344547066550.562
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        201700746652516.88,
+        340336411996516.9
+      ],
+      "xdr_per_day_sample_range": [
+        6.723358221750562,
+        11.344547066550563
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        201.70074665251687,
+        340.33641199651686
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        17584167656886.086,
+        29670353866363.008
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "quiet-ledger-disabled",
+      "combined_scenario": null,
+      "game_mode": "kernel-only",
+      "kernel_benchmark": "kernel_empty_motion",
+      "ledger_enabled": false,
+      "ledger_records_per_second": 0,
+      "segment_seconds": 60,
+      "callbacks_per_segment": 3,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.5,
+      "cadence_classification": "ASSUMED_DEPLOYMENT_POLICY",
+      "logical_ticks": 32,
+      "board": "fixture empty-motion",
+      "retention_max_segments": 3,
+      "relevant_density": "ASSUMED",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "work_units": 253,
+      "arrival_batch": 0,
+      "arrival_period_seconds": null,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "modeled_callbacks_per_segment": 3,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "PARTIAL_ESTIMATE: direct kernel only; coordinator/restore/persistence/publication NOT_MEASURED for this scenario",
+      "game_instructions_per_segment_sample_range": [
+        8973008,
+        8973008
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        12921131520.0,
+        12921131520.0
+      ],
+      "game_callback_base_cycles_per_day": 21600000000.0,
+      "ledger_processing_instruction_cycles_per_day": 0,
+      "ledger_base_cycles_per_day": 0.0,
+      "ledger_xnet_cycles_per_day": 0.0,
+      "ledger_bytes_cycles_per_day": 0.0,
+      "polling_cycles_per_day": 0,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 0,
+      "polls_per_day_assumption": 0,
+      "fallback_opportunities_per_day": 0,
+      "poll_count_classification": "ESTIMATED: full arrival batches, no hints; nonempty pages use polling opportunities",
+      "instruction_components_per_day_sample_range": [
+        12921131520.0,
+        12921131520.0
+      ],
+      "game_cycles_per_segment_sample_range": [
+        23973008,
+        23973008
+      ],
+      "cycles_per_day_sample_range": [
+        34778976246.5625,
+        34778976246.5625
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        1043369287396.875,
+        1043369287396.875
+      ],
+      "xdr_per_day_sample_range": [
+        0.0347789762465625,
+        0.0347789762465625
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        1.043369287396875,
+        1.043369287396875
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        90960399414.08653,
+        90960399414.08653
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    }
+  ],
+  "cadence_sensitivity": [
+    {
+      "name": "moderate-combined",
+      "combined_scenario": "moderate",
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 10,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.125,
+      "cadence_classification": "MEASURED_VIRTUAL_TIME",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "controlled fixture 3/256",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "observed_arrival_rate": 7.999999998937501,
+      "observed_final_backlog": 0,
+      "observed_empty_polls_per_day": 11474.999998475978,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        13894821425088.0,
+        25216734094848.004
+      ],
+      "game_callback_base_cycles_per_day": 552960000000.0,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 179070840426.2172,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 11474.999998475978,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        14542230409852.016,
+        25864143079612.02
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        15438097154533.07,
+        26760009824293.074
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        463142914635992.1,
+        802800294728792.2
+      ],
+      "xdr_per_day_sample_range": [
+        15.43809715453307,
+        26.760009824293075
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        463.1429146359921,
+        802.8002947287922
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        40376561788778.8,
+        69987718001997.266
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "moderate-combined",
+      "combined_scenario": "moderate",
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 20,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.125,
+      "cadence_classification": "MEASURED_VIRTUAL_TIME",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "controlled fixture 3/256",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "observed_arrival_rate": 7.999999998937501,
+      "observed_final_backlog": 0,
+      "observed_empty_polls_per_day": 11474.999998475978,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        6947410712544.0,
+        12608367047424.002
+      ],
+      "game_callback_base_cycles_per_day": 276480000000.0,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 179070840426.2172,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 11474.999998475978,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        7594819697308.017,
+        13255776032188.018
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        8214206441989.071,
+        13875162776869.072
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        246426193259672.12,
+        416254883306072.2
+      ],
+      "xdr_per_day_sample_range": [
+        8.214206441989072,
+        13.875162776869072
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        246.42619325967212,
+        416.2548833060722
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        21483309155971.418,
+        36288887262580.65
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    },
+    {
+      "name": "moderate-combined",
+      "combined_scenario": "moderate",
+      "game_mode": "warm-medium",
+      "kernel_benchmark": null,
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 60,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.125,
+      "cadence_classification": "MEASURED_VIRTUAL_TIME",
+      "logical_ticks": 2,
+      "board": "16x8",
+      "retention_max_segments": 3,
+      "relevant_density": "controlled fixture 3/256",
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "expected_initial_work_units": 4322,
+      "callback_count_scope": "initial two-tick medium seed: 9 measured Step(512) actions plus seal and publish; combined rows replace this with finite-window measured callback amortization",
+      "observed_arrival_rate": 7.999999998937501,
+      "observed_final_backlog": 0,
+      "observed_empty_polls_per_day": 11474.999998475978,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        2315803570848.0,
+        4202789015808.0005
+      ],
+      "game_callback_base_cycles_per_day": 92160000000.0,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 179070840426.2172,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 11474.999998475978,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        2963212555612.016,
+        4850198000572.017
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        3398279300293.071,
+        5285264745253.071
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        101948379008792.12,
+        158557942357592.12
+      ],
+      "xdr_per_day_sample_range": [
+        3.398279300293071,
+        5.285264745253071
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        101.94837900879213,
+        158.5579423575921
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        8887807400766.492,
+        13823000102969.572
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED"
+    }
+  ],
+  "backlog_catch_up_qualification": "Busy-window service rate is a scenario assumption, not a measured catch-up duration. High-hint overload service rate must not be reused for quieter fallback scheduling.",
+  "not_measured": [
+    "heap high-water",
+    "update-only certification and timer dispatch instructions",
+    "network encode/decode part of polling execution",
+    "actual inter-canister request bytes",
+    "archive execution",
+    "mainnet cycles burned",
+    "mainnet finality/availability",
+    "real-world fiat conversion"
+  ],
+  "not_included": [
+    "query-service/gateway costs",
+    "ETH-equivalent compute",
+    "upstream ledger operating costs",
+    "storage of unmeasured heap and Wasm code",
+    "retry execution costs (zero observed is not a future guarantee)"
+  ],
+  "measurement_provenance": {
+    "source": {
+      "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+      "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+      "branch": "checkpoint/s12-operating-envelope",
+      "working_tree_changes": [],
+      "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+      "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+      "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+      "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+      "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+    },
+    "wasm_sha256": "99bcaa7a71d2c3c45cd47d729b03677ab1e637248dfcbbef02ae68852d25c7be",
+    "manifest_sha256": "5211b433cd40610e4824f6b45cd2644ed4caabcfc76c9f54194273591823da30",
+    "combined_trace_sha256": "e4809172b3e91b760146dbfcc8ff5b6db319b74f1fa8173add50649485493dd0"
+  }
+}

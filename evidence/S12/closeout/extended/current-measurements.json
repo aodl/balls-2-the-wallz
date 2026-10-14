@@ -1,0 +1,710 @@
+{
+  "schema": "btz-s12-current-measurements-v1",
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "profile": "extended",
+  "captured_utc": "2026-10-14T17:55:42.565004+00:00",
+  "tool": {
+    "canbench": "canbench 0.7.0",
+    "runtime_sha256": "b19a15ba0650a3987e78a8017dee0e99c5518194d1e0c4fd45b53cd32598544e",
+    "runtime": "canbench integrity-checked PocketIC 13.0.0"
+  },
+  "wasm_sha256": "99bcaa7a71d2c3c45cd47d729b03677ab1e637248dfcbbef02ae68852d25c7be",
+  "build": {
+    "features": [
+      "canbench"
+    ],
+    "release": {
+      "lto": true,
+      "codegen_units": 1,
+      "overflow_checks": true
+    },
+    "config_sha256": "7193e7383d5f524fd5464dc39b79c46abc73c4a276afe9b3f8ec01256dc71f19"
+  },
+  "baseline": {
+    "path": "benchmarks/s12/canbench_results.yml",
+    "sha256": "270bedb9f7be871c1274cb677c43cb3c28a8c9477c0e77fbe266f9e4cc97286d",
+    "source_revision": "524807a394f80e0e38db163c3e726e8e992c802f"
+  },
+  "benchmarks": [
+    {
+      "name": "callback_step_persist_high_512",
+      "calls": 1,
+      "instructions": 113334404,
+      "heap_increase_pages": 3,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-high",
+        "initial_state_hash": "7964d2ef5f9b24dc658549f84b9dee8f9e427a34a62221b76ca02faa2a8ee739",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "callback_step_persist_medium_512",
+      "calls": 1,
+      "instructions": 81853465,
+      "heap_increase_pages": 2,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "coordinator_ball_dense_high",
+      "calls": 1,
+      "instructions": 2741602784,
+      "heap_increase_pages": 56,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-high",
+        "initial_state_hash": "7964d2ef5f9b24dc658549f84b9dee8f9e427a34a62221b76ca02faa2a8ee739",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "coordinator_ball_dense_medium",
+      "calls": 1,
+      "instructions": 1007115272,
+      "heap_increase_pages": 27,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "coordinator_empty_motion",
+      "calls": 1,
+      "instructions": 118491222,
+      "heap_increase_pages": 5,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "empty-motion",
+        "initial_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 32
+      }
+    },
+    {
+      "name": "coordinator_many_cannon_frontier",
+      "calls": 1,
+      "instructions": 276799967,
+      "heap_increase_pages": 7,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "many-cannon-frontier",
+        "initial_state_hash": "3119751a7e98d075174cf5d82f5a6c7f4fa801d5d92549e7872bfa6e912d90ce",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 1
+      }
+    },
+    {
+      "name": "coordinator_seal_medium",
+      "calls": 1,
+      "instructions": 22040756,
+      "heap_increase_pages": 2,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "kernel_ball_dense_high",
+      "calls": 1,
+      "instructions": 1661578160,
+      "heap_increase_pages": 46,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-high",
+        "initial_state_hash": "7964d2ef5f9b24dc658549f84b9dee8f9e427a34a62221b76ca02faa2a8ee739",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "kernel_ball_dense_medium",
+      "calls": 1,
+      "instructions": 455281320,
+      "heap_increase_pages": 22,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "kernel_empty_motion",
+      "calls": 1,
+      "instructions": 8973008,
+      "heap_increase_pages": 4,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "empty-motion",
+        "initial_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 32
+      }
+    },
+    {
+      "name": "kernel_many_cannon_frontier",
+      "calls": 1,
+      "instructions": 15478878,
+      "heap_increase_pages": 3,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "many-cannon-frontier",
+        "initial_state_hash": "3119751a7e98d075174cf5d82f5a6c7f4fa801d5d92549e7872bfa6e912d90ce",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 1
+      }
+    },
+    {
+      "name": "kernel_small_reference",
+      "calls": 1,
+      "instructions": 16852473,
+      "heap_increase_pages": 1,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "small-reference",
+        "initial_state_hash": "fd1df275ae4dfc732bb9bb8ec3bbacb1595781d3bea46b9a2b760d36aa8ef63b",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 2
+      }
+    },
+    {
+      "name": "ledger_page_all_irrelevant",
+      "calls": 1,
+      "instructions": 1407764,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "work_budget": null,
+        "logical_ticks": null,
+        "page_records": 64
+      }
+    },
+    {
+      "name": "ledger_page_all_relevant",
+      "calls": 1,
+      "instructions": 5823603,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "work_budget": null,
+        "logical_ticks": null,
+        "page_records": 64
+      }
+    },
+    {
+      "name": "ledger_page_sparse_relevant",
+      "calls": 1,
+      "instructions": 1476571,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "work_budget": null,
+        "logical_ticks": null,
+        "page_records": 64
+      }
+    },
+    {
+      "name": "persistence_publication_empty_motion",
+      "calls": 1,
+      "instructions": 13077115,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "empty-motion",
+        "initial_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 32
+      }
+    },
+    {
+      "name": "persistence_publication_high",
+      "calls": 1,
+      "instructions": 83566285,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-high",
+        "initial_state_hash": "7964d2ef5f9b24dc658549f84b9dee8f9e427a34a62221b76ca02faa2a8ee739",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "persistence_publication_many_cannon",
+      "calls": 1,
+      "instructions": 26662250,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "many-cannon-frontier",
+        "initial_state_hash": "3119751a7e98d075174cf5d82f5a6c7f4fa801d5d92549e7872bfa6e912d90ce",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 1
+      }
+    },
+    {
+      "name": "persistence_publication_medium",
+      "calls": 1,
+      "instructions": 47606050,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "persistence_publication_small",
+      "calls": 1,
+      "instructions": 10039826,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "small-reference",
+        "initial_state_hash": "fd1df275ae4dfc732bb9bb8ec3bbacb1595781d3bea46b9a2b760d36aa8ef63b",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 100000,
+        "logical_ticks": 2
+      }
+    },
+    {
+      "name": "warm_early_medium_512",
+      "calls": 1,
+      "instructions": 94586429,
+      "heap_increase_pages": 2,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_empty_progression_medium_512",
+      "calls": 1,
+      "instructions": 89909620,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "empty-motion",
+        "initial_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_evict_medium_512",
+      "calls": 1,
+      "instructions": 342365877,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_finalize_medium_512",
+      "calls": 1,
+      "instructions": 304502067,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_late_medium_512",
+      "calls": 1,
+      "instructions": 228301384,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_ledger_admission",
+      "calls": 1,
+      "instructions": 19004693,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "workload": "ball-dense-medium",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "source_mode": "ledger",
+        "staged": false,
+        "relevant_records_per_page": 1
+      }
+    },
+    {
+      "name": "warm_ledger_empty_poll",
+      "calls": 1,
+      "instructions": 4089302,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "workload": "ball-dense-medium",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "source_mode": "ledger",
+        "staged": false,
+        "relevant_records_per_page": 0
+      }
+    },
+    {
+      "name": "warm_ledger_staged_admission",
+      "calls": 1,
+      "instructions": 54537893,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "workload": "ball-dense-medium",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "source_mode": "ledger",
+        "staged": true,
+        "relevant_records_per_page": 1
+      }
+    },
+    {
+      "name": "warm_middle_medium_512",
+      "calls": 1,
+      "instructions": 188437379,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_publish_medium_512",
+      "calls": 1,
+      "instructions": 288463923,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    },
+    {
+      "name": "warm_publish_retire_medium_512",
+      "calls": 1,
+      "instructions": 290089354,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic",
+        "input_mode": "first small-reference fixture input"
+      }
+    },
+    {
+      "name": "warm_seal_medium_512",
+      "calls": 1,
+      "instructions": 34381976,
+      "heap_increase_pages": 1,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 2,
+        "source_mode": "synthetic"
+      }
+    }
+  ],
+  "raw_results": [
+    {
+      "path": "current-0.yml",
+      "sha256": "48115f39d6f5539f99bcf96c2e66f1de334595be07fb37fe771495e6f42f6a96"
+    },
+    {
+      "path": "current-0.csv",
+      "sha256": "c80aa55df5395da28d3e5097afa633eaab3d11b100ef0900ccfdff04342b187f"
+    }
+  ],
+  "informational_names": [
+    "warm_early_medium_512",
+    "warm_empty_progression_medium_512",
+    "warm_evict_medium_512",
+    "warm_finalize_medium_512",
+    "warm_late_medium_512",
+    "warm_ledger_admission",
+    "warm_ledger_empty_poll",
+    "warm_ledger_staged_admission",
+    "warm_middle_medium_512",
+    "warm_publish_medium_512",
+    "warm_publish_retire_medium_512",
+    "warm_seal_medium_512"
+  ],
+  "executed_names": [
+    "callback_step_persist_high_512",
+    "callback_step_persist_medium_512",
+    "coordinator_ball_dense_high",
+    "coordinator_ball_dense_medium",
+    "coordinator_empty_motion",
+    "coordinator_many_cannon_frontier",
+    "coordinator_seal_medium",
+    "kernel_ball_dense_high",
+    "kernel_ball_dense_medium",
+    "kernel_empty_motion",
+    "kernel_many_cannon_frontier",
+    "kernel_small_reference",
+    "ledger_page_all_irrelevant",
+    "ledger_page_all_relevant",
+    "ledger_page_sparse_relevant",
+    "persistence_publication_empty_motion",
+    "persistence_publication_high",
+    "persistence_publication_many_cannon",
+    "persistence_publication_medium",
+    "persistence_publication_small",
+    "warm_early_medium_512",
+    "warm_empty_progression_medium_512",
+    "warm_evict_medium_512",
+    "warm_finalize_medium_512",
+    "warm_late_medium_512",
+    "warm_ledger_admission",
+    "warm_ledger_empty_poll",
+    "warm_ledger_staged_admission",
+    "warm_middle_medium_512",
+    "warm_publish_medium_512",
+    "warm_publish_retire_medium_512",
+    "warm_seal_medium_512"
+  ]
+}

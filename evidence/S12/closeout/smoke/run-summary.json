@@ -1,0 +1,182 @@
+{
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "profile": "smoke",
+  "overall": "PASS",
+  "environment": {
+    "captured_utc": "2026-10-14T17:59:46.372843+00:00",
+    "platform": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        46 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               2\nOn-line CPU(s) list:                  0,1\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz\nCPU family:                           6\nModel:                                85\nThread(s) per core:                   2\nCore(s) per socket:                   1\nSocket(s):                            1\nStepping:                             7\nBogoMIPS:                             5187.81\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid ept_ad fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves vnmi avx512_vnni arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            32 KiB (1 instance)\nL1i cache:                            32 KiB (1 instance)\nL2 cache:                             1 MiB (1 instance)\nL3 cache:                             35.8 MiB (1 instance)\nNUMA node(s):                         1\nNUMA node0 CPU(s):                    0,1\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Vulnerable\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Vulnerable\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:      8325529600  4749328384   246743040    66510848  3329458176  3192123392\nSwap:              0           0           0\n",
+    "tools": {
+      "python": {
+        "command": [
+          "/home/codexdev/.local/bin/python3.11",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "Python 3.11.14"
+      },
+      "node": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "v24.15.0"
+      },
+      "npm": {
+        "command": [
+          "npm",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "11.12.1"
+      },
+      "rustc": {
+        "command": [
+          "rustc",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+      },
+      "cargo": {
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+      },
+      "canbench": {
+        "command": [
+          "canbench",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "canbench 0.7.0"
+      }
+    },
+    "definitions": {
+      "wasm_instructions": "canbench performance-counter instructions",
+      "heap_increase": "canbench 64-KiB Wasm pages grown during one benchmark query",
+      "stable_memory_increase": "canbench 64-KiB stable pages grown; not payload bytes",
+      "elapsed_seconds": "local host wall time; not mainnet latency",
+      "work_units": "BTZ deterministic abstract work; not Wasm instructions"
+    }
+  },
+  "checks": [
+    {
+      "id": "fixture-correspondence",
+      "command": [
+        "node",
+        "tools/generate_s12_fixtures.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 4.111,
+      "timeout_seconds": 60,
+      "log": "logs/fixture-correspondence.log"
+    },
+    {
+      "id": "deterministic-game-matrix",
+      "command": [
+        "node",
+        "tools/s12_game_bench.mjs",
+        "benchmarks/s12/workloads.json",
+        "/home/codexdev/src/btz/.work/s12/closeout-smoke/game-measurements.json",
+        "3"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 11.003,
+      "timeout_seconds": 300,
+      "log": "logs/deterministic-game-matrix.log"
+    },
+    {
+      "id": "canbench-0",
+      "command": [
+        "canbench",
+        "--persist",
+        "--csv",
+        "--show-canister-output",
+        "callback_step_persist_medium_512"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 199.903,
+      "timeout_seconds": 1200,
+      "log": "logs/canbench-0.log"
+    },
+    {
+      "id": "canbench-1",
+      "command": [
+        "canbench",
+        "--persist",
+        "--csv",
+        "--show-canister-output",
+        "ledger_page_all_irrelevant"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 18.936,
+      "timeout_seconds": 1200,
+      "log": "logs/canbench-1.log"
+    },
+    {
+      "id": "instruction-regression",
+      "status": "PASS",
+      "threshold_percent": 2.0,
+      "metric": "deterministic instructions",
+      "rows": [
+        {
+          "name": "callback_step_persist_medium_512",
+          "current_instructions": 81853465,
+          "baseline_instructions": 81853465,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        },
+        {
+          "name": "ledger_page_all_irrelevant",
+          "current_instructions": 1407764,
+          "baseline_instructions": 1407764,
+          "change_percent": 0.0,
+          "outcome": "WITHIN_THRESHOLD",
+          "reason": null,
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "measured",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-smoke/game-measurements.json",
+      "sha256": "ee7280afc4a318efd7847b8ea64b061a2641a85bd995fb501da7efa812250163"
+    },
+    {
+      "kind": "current-measurements",
+      "path": "/home/codexdev/src/btz/.work/s12/closeout-smoke/current-measurements.json",
+      "sha256": "61a52eef703cf023c108ce545ee9212d547899c71b67905050de0041ca7555f3"
+    }
+  ],
+  "raw_run_reference": ".work/s12/closeout-smoke/results.json",
+  "portable_path_rule": "Absolute checkout/artifact paths identify this host; resolve source paths relative to BTZ and external pinned artifacts via tools/s09-artifacts.json.",
+  "pocketic_server_hard_ttl_seconds": null
+}

@@ -1,0 +1,1313 @@
+{
+  "schema": "btz-s12-game-measurements-v1",
+  "rows": [
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "2",
+          "input_state_hash": "fd1df275ae4dfc732bb9bb8ec3bbacb1595781d3bea46b9a2b760d36aa8ef63b",
+          "output_hashes": {
+            "state": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+            "events": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+            "scores": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+          },
+          "work_units": 849,
+          "callbacks": 849
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "small-reference",
+      "family": "existing-small-reference",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 849,
+      "coordinator_step_equivalent": 849,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          88.51116399999995,
+          38.30808999999999,
+          44.688188999999966
+        ],
+        "min": 38.30808999999999,
+        "median": 44.688188999999966,
+        "max": 88.51116399999995
+      },
+      "initial_bytes": 417,
+      "output_bytes": {
+        "state": 1067,
+        "events": 3664,
+        "scores": 282
+      },
+      "output_hashes": {
+        "state": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+        "events": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+        "scores": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+      },
+      "final_cannons": 2,
+      "final_balls": 2,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "2",
+          "input_state_hash": "fd1df275ae4dfc732bb9bb8ec3bbacb1595781d3bea46b9a2b760d36aa8ef63b",
+          "output_hashes": {
+            "state": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+            "events": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+            "scores": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+          },
+          "work_units": 849,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "small-reference",
+      "family": "existing-small-reference",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 849,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          37.661681000000044,
+          30.025962999999933,
+          36.42396199999996
+        ],
+        "min": 30.025962999999933,
+        "median": 36.42396199999996,
+        "max": 37.661681000000044
+      },
+      "initial_bytes": 417,
+      "output_bytes": {
+        "state": 1067,
+        "events": 3664,
+        "scores": 282
+      },
+      "output_hashes": {
+        "state": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845",
+        "events": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1",
+        "scores": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+      },
+      "final_cannons": 2,
+      "final_balls": 2,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "32",
+          "input_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+          "output_hashes": {
+            "state": "2264e10201684aa5ca84b67251b1fec7355be58e269f12df7779d9b8921526fc",
+            "events": "2460ed4b5c5a1ac57a7117e003d1c06690fdb7ade7352abf2c39a3f1bdb6db3f",
+            "scores": "ce422853050dab0d7066e638612c252811135f6ab123d91127c48ed798d76040"
+          },
+          "work_units": 253,
+          "callbacks": 253
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "empty-motion",
+      "family": "empty-input-motion",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 253,
+      "coordinator_step_equivalent": 253,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          26.906714999999963,
+          27.06501700000001,
+          34.24372800000003
+        ],
+        "min": 26.906714999999963,
+        "median": 27.06501700000001,
+        "max": 34.24372800000003
+      },
+      "initial_bytes": 463,
+      "output_bytes": {
+        "state": 590,
+        "events": 7431,
+        "scores": 152
+      },
+      "output_hashes": {
+        "state": "2264e10201684aa5ca84b67251b1fec7355be58e269f12df7779d9b8921526fc",
+        "events": "2460ed4b5c5a1ac57a7117e003d1c06690fdb7ade7352abf2c39a3f1bdb6db3f",
+        "scores": "ce422853050dab0d7066e638612c252811135f6ab123d91127c48ed798d76040"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "32",
+          "input_state_hash": "9348eed945e488f7e409d66df75b07da7c978dadb80a33b1770b248a9cc38a57",
+          "output_hashes": {
+            "state": "2264e10201684aa5ca84b67251b1fec7355be58e269f12df7779d9b8921526fc",
+            "events": "2460ed4b5c5a1ac57a7117e003d1c06690fdb7ade7352abf2c39a3f1bdb6db3f",
+            "scores": "ce422853050dab0d7066e638612c252811135f6ab123d91127c48ed798d76040"
+          },
+          "work_units": 253,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "empty-motion",
+      "family": "empty-input-motion",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 253,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          30.570570999999973,
+          25.254590000000007,
+          31.88739099999998
+        ],
+        "min": 25.254590000000007,
+        "median": 30.570570999999973,
+        "max": 31.88739099999998
+      },
+      "initial_bytes": 463,
+      "output_bytes": {
+        "state": 590,
+        "events": 7431,
+        "scores": 152
+      },
+      "output_hashes": {
+        "state": "2264e10201684aa5ca84b67251b1fec7355be58e269f12df7779d9b8921526fc",
+        "events": "2460ed4b5c5a1ac57a7117e003d1c06690fdb7ade7352abf2c39a3f1bdb6db3f",
+        "scores": "ce422853050dab0d7066e638612c252811135f6ab123d91127c48ed798d76040"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "4",
+          "input_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+          "output_hashes": {
+            "state": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+            "events": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+            "scores": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+          },
+          "work_units": 7138,
+          "callbacks": 7138
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "ball-dense-medium",
+      "family": "ball-dense-simulation",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 7138,
+      "coordinator_step_equivalent": 7138,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          282.6516570000001,
+          121.16336799999999,
+          129.01808899999992
+        ],
+        "min": 121.16336799999999,
+        "median": 129.01808899999992,
+        "max": 282.6516570000001
+      },
+      "initial_bytes": 3852,
+      "output_bytes": {
+        "state": 4129,
+        "events": 39928,
+        "scores": 299
+      },
+      "output_hashes": {
+        "state": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+        "events": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+        "scores": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+      },
+      "final_cannons": 2,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "4",
+          "input_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+          "output_hashes": {
+            "state": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+            "events": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+            "scores": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+          },
+          "work_units": 7138,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "ball-dense-medium",
+      "family": "ball-dense-simulation",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 7138,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          100.03474299999993,
+          92.35332300000005,
+          70.95049399999994
+        ],
+        "min": 70.95049399999994,
+        "median": 92.35332300000005,
+        "max": 100.03474299999993
+      },
+      "initial_bytes": 3852,
+      "output_bytes": {
+        "state": 4129,
+        "events": 39928,
+        "scores": 299
+      },
+      "output_hashes": {
+        "state": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205",
+        "events": "f978f54ded8bb26eb00d21583d44e622581b17390d17fe61294296dfad436e90",
+        "scores": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+      },
+      "final_cannons": 2,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "4",
+          "input_state_hash": "7964d2ef5f9b24dc658549f84b9dee8f9e427a34a62221b76ca02faa2a8ee739",
+          "output_hashes": {
+            "state": "79c4abf7434c33e7e2481c77ce65b85dcd349393c46653e04e3497c9b9494276",
+            "events": "1826a59c815124f3a717ab5945454c41283d4cb22533bf52bc77e67bdeb982a0",
+            "scores": "0f241e412ebef966a017abd8578a6ac76e9633de52e5598206340bbefe23571e"
+          },
+          "work_units": 22947,
+          "callbacks": 22947
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "ball-dense-high",
+      "family": "ball-dense-simulation",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 22947,
+      "coordinator_step_equivalent": 22947,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          608.1772760000001,
+          307.5788419999999,
+          294.00383299999976
+        ],
+        "min": 294.00383299999976,
+        "median": 307.5788419999999,
+        "max": 608.1772760000001
+      },
+      "initial_bytes": 7015,
+      "output_bytes": {
+        "state": 7307,
+        "events": 80017,
+        "scores": 293
+      },
+      "output_hashes": {
+        "state": "79c4abf7434c33e7e2481c77ce65b85dcd349393c46653e04e3497c9b9494276",
+        "events": "1826a59c815124f3a717ab5945454c41283d4cb22533bf52bc77e67bdeb982a0",
+        "scores": "0f241e412ebef966a017abd8578a6ac76e9633de52e5598206340bbefe23571e"
+      },
+      "final_cannons": 2,
+      "final_balls": 64,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "4",
+          "input_state_hash": "7964d2ef5f9b24dc658549f84b9dee8f9e427a34a62221b76ca02faa2a8ee739",
+          "output_hashes": {
+            "state": "79c4abf7434c33e7e2481c77ce65b85dcd349393c46653e04e3497c9b9494276",
+            "events": "1826a59c815124f3a717ab5945454c41283d4cb22533bf52bc77e67bdeb982a0",
+            "scores": "0f241e412ebef966a017abd8578a6ac76e9633de52e5598206340bbefe23571e"
+          },
+          "work_units": 22947,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "ball-dense-high",
+      "family": "ball-dense-simulation",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 22947,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          257.1846639999999,
+          323.40968599999997,
+          293.18611999999985
+        ],
+        "min": 257.1846639999999,
+        "median": 293.18611999999985,
+        "max": 323.40968599999997
+      },
+      "initial_bytes": 7015,
+      "output_bytes": {
+        "state": 7307,
+        "events": 80017,
+        "scores": 293
+      },
+      "output_hashes": {
+        "state": "79c4abf7434c33e7e2481c77ce65b85dcd349393c46653e04e3497c9b9494276",
+        "events": "1826a59c815124f3a717ab5945454c41283d4cb22533bf52bc77e67bdeb982a0",
+        "scores": "0f241e412ebef966a017abd8578a6ac76e9633de52e5598206340bbefe23571e"
+      },
+      "final_cannons": 2,
+      "final_balls": 64,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "3119751a7e98d075174cf5d82f5a6c7f4fa801d5d92549e7872bfa6e912d90ce",
+          "output_hashes": {
+            "state": "915f62f0aa62adedc51119f3227c40bfbe7056f991fb1396010477cca2cb7c24",
+            "events": "dea208cbeea1f953a5ebe6cccdbdede8b0b5cdf98ffe184fd8e701848c494ad3",
+            "scores": "2a318eb389d111172b5aa3ca5563fed4a19603b03d94c6d6889abdb3b7a8eba8"
+          },
+          "work_units": 360,
+          "callbacks": 360
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "many-cannon-frontier",
+      "family": "many-cannon-frontier",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 360,
+      "coordinator_step_equivalent": 360,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          36.93986899999982,
+          30.203365999999733,
+          39.65441099999998
+        ],
+        "min": 30.203365999999733,
+        "median": 36.93986899999982,
+        "max": 39.65441099999998
+      },
+      "initial_bytes": 7227,
+      "output_bytes": {
+        "state": 11162,
+        "events": 7582,
+        "scores": 3963
+      },
+      "output_hashes": {
+        "state": "915f62f0aa62adedc51119f3227c40bfbe7056f991fb1396010477cca2cb7c24",
+        "events": "dea208cbeea1f953a5ebe6cccdbdede8b0b5cdf98ffe184fd8e701848c494ad3",
+        "scores": "2a318eb389d111172b5aa3ca5563fed4a19603b03d94c6d6889abdb3b7a8eba8"
+      },
+      "final_cannons": 32,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "3119751a7e98d075174cf5d82f5a6c7f4fa801d5d92549e7872bfa6e912d90ce",
+          "output_hashes": {
+            "state": "915f62f0aa62adedc51119f3227c40bfbe7056f991fb1396010477cca2cb7c24",
+            "events": "dea208cbeea1f953a5ebe6cccdbdede8b0b5cdf98ffe184fd8e701848c494ad3",
+            "scores": "2a318eb389d111172b5aa3ca5563fed4a19603b03d94c6d6889abdb3b7a8eba8"
+          },
+          "work_units": 360,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "many-cannon-frontier",
+      "family": "many-cannon-frontier",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 360,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          45.27239799999961,
+          28.302635999999893,
+          28.834544999999707
+        ],
+        "min": 28.302635999999893,
+        "median": 28.834544999999707,
+        "max": 45.27239799999961
+      },
+      "initial_bytes": 7227,
+      "output_bytes": {
+        "state": 11162,
+        "events": 7582,
+        "scores": 3963
+      },
+      "output_hashes": {
+        "state": "915f62f0aa62adedc51119f3227c40bfbe7056f991fb1396010477cca2cb7c24",
+        "events": "dea208cbeea1f953a5ebe6cccdbdede8b0b5cdf98ffe184fd8e701848c494ad3",
+        "scores": "2a318eb389d111172b5aa3ca5563fed4a19603b03d94c6d6889abdb3b7a8eba8"
+      },
+      "final_cannons": 32,
+      "final_balls": 32,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "ddab8d03243400d5b50c82ee58ca3d0067e59d1eb007bc6ed63612af4485444b",
+          "output_hashes": {
+            "state": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+            "events": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+            "scores": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+          },
+          "work_units": 87,
+          "callbacks": 87
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "fragmentation-severance",
+      "family": "territory-fragmentation-and-severance",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 87,
+      "coordinator_step_equivalent": 87,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          10.501061999999365,
+          0.7296109999997498,
+          13.792911999999887
+        ],
+        "min": 0.7296109999997498,
+        "median": 10.501061999999365,
+        "max": 13.792911999999887
+      },
+      "initial_bytes": 629,
+      "output_bytes": {
+        "state": 691,
+        "events": 748,
+        "scores": 276
+      },
+      "output_hashes": {
+        "state": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+        "events": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+        "scores": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "ddab8d03243400d5b50c82ee58ca3d0067e59d1eb007bc6ed63612af4485444b",
+          "output_hashes": {
+            "state": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+            "events": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+            "scores": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+          },
+          "work_units": 87,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "fragmentation-severance",
+      "family": "territory-fragmentation-and-severance",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 87,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          8.889537000000018,
+          0.7362119999997958,
+          0.683711000000585
+        ],
+        "min": 0.683711000000585,
+        "median": 0.7362119999997958,
+        "max": 8.889537000000018
+      },
+      "initial_bytes": 629,
+      "output_bytes": {
+        "state": 691,
+        "events": 748,
+        "scores": 276
+      },
+      "output_hashes": {
+        "state": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096",
+        "events": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5",
+        "scores": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+      },
+      "final_cannons": 1,
+      "final_balls": 1,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "a1c3142890d4e2f3cfd39a3e1235e47eca0484fc4d5c91fd7772f881354e65b5",
+          "output_hashes": {
+            "state": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+            "events": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+            "scores": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+          },
+          "work_units": 74,
+          "callbacks": 74
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "collision-intensive",
+      "family": "collision-intensive-simulation",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 74,
+      "coordinator_step_equivalent": 74,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          1.2381189999996423,
+          13.1881029999995,
+          0.8302130000001853
+        ],
+        "min": 0.8302130000001853,
+        "median": 1.2381189999996423,
+        "max": 13.1881029999995
+      },
+      "initial_bytes": 640,
+      "output_bytes": {
+        "state": 511,
+        "events": 815,
+        "scores": 279
+      },
+      "output_hashes": {
+        "state": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+        "events": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+        "scores": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+      },
+      "final_cannons": 0,
+      "final_balls": 0,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "a1c3142890d4e2f3cfd39a3e1235e47eca0484fc4d5c91fd7772f881354e65b5",
+          "output_hashes": {
+            "state": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+            "events": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+            "scores": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+          },
+          "work_units": 74,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "collision-intensive",
+      "family": "collision-intensive-simulation",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 74,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          14.085517999999865,
+          0.8028119999999035,
+          17.835175000000163
+        ],
+        "min": 0.8028119999999035,
+        "median": 14.085517999999865,
+        "max": 17.835175000000163
+      },
+      "initial_bytes": 640,
+      "output_bytes": {
+        "state": 511,
+        "events": 815,
+        "scores": 279
+      },
+      "output_hashes": {
+        "state": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2",
+        "events": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45",
+        "scores": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+      },
+      "final_cannons": 0,
+      "final_balls": 0,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "365a41509059f9b44fffbdf8c80787b1569aef35864d2e23c424542251ddf464",
+          "output_hashes": {
+            "state": "0bd5e9dde5bc733f190b28270dbb3cf3090b270a1b5585147e790c39a6e4dbe5",
+            "events": "c73fab14ed6f3f861f9386cf810929e561c189ae3daa5bf7a76a2778c4ea4030",
+            "scores": "20ada3271fd7eed387bf73a5d0d42a466a36ee55037dd3de7a29c53b8e5f69dd"
+          },
+          "work_units": 19556,
+          "callbacks": 19556
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "spawn-admission-pressure",
+      "family": "spawn-and-admission-pressure",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 19556,
+      "coordinator_step_equivalent": 19556,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          572.3139229999997,
+          637.7892320000001,
+          638.6392459999997
+        ],
+        "min": 572.3139229999997,
+        "median": 637.7892320000001,
+        "max": 638.6392459999997
+      },
+      "initial_bytes": 2274,
+      "output_bytes": {
+        "state": 4216,
+        "events": 9107,
+        "scores": 784
+      },
+      "output_hashes": {
+        "state": "0bd5e9dde5bc733f190b28270dbb3cf3090b270a1b5585147e790c39a6e4dbe5",
+        "events": "c73fab14ed6f3f861f9386cf810929e561c189ae3daa5bf7a76a2778c4ea4030",
+        "scores": "20ada3271fd7eed387bf73a5d0d42a466a36ee55037dd3de7a29c53b8e5f69dd"
+      },
+      "final_cannons": 6,
+      "final_balls": 6,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 1,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "365a41509059f9b44fffbdf8c80787b1569aef35864d2e23c424542251ddf464",
+          "output_hashes": {
+            "state": "0bd5e9dde5bc733f190b28270dbb3cf3090b270a1b5585147e790c39a6e4dbe5",
+            "events": "c73fab14ed6f3f861f9386cf810929e561c189ae3daa5bf7a76a2778c4ea4030",
+            "scores": "20ada3271fd7eed387bf73a5d0d42a466a36ee55037dd3de7a29c53b8e5f69dd"
+          },
+          "work_units": 19556,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "spawn-admission-pressure",
+      "family": "spawn-and-admission-pressure",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 19556,
+      "coordinator_step_equivalent": 1,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          226.34518900000057,
+          173.47857399999975,
+          153.15476099999978
+        ],
+        "min": 153.15476099999978,
+        "median": 173.47857399999975,
+        "max": 226.34518900000057
+      },
+      "initial_bytes": 2274,
+      "output_bytes": {
+        "state": 4216,
+        "events": 9107,
+        "scores": 784
+      },
+      "output_hashes": {
+        "state": "0bd5e9dde5bc733f190b28270dbb3cf3090b270a1b5585147e790c39a6e4dbe5",
+        "events": "c73fab14ed6f3f861f9386cf810929e561c189ae3daa5bf7a76a2778c4ea4030",
+        "scores": "20ada3271fd7eed387bf73a5d0d42a466a36ee55037dd3de7a29c53b8e5f69dd"
+      },
+      "final_cannons": 6,
+      "final_balls": 6,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 8,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "d3e2a6cb797c3e785ef99ab49c279f4c1789ee81c44b40192603db5364d055d1",
+          "output_hashes": {
+            "state": "6f9376263510abf70bbf090999a96e560e5e118d8c85dd561e6ba8a4cb0ac32f",
+            "events": "666986ff3bad7b7be032418ea767916b8a136088e5e9a5d3844451639bffb4eb",
+            "scores": "b85d11aca682d93b20ea61ba7945f14c6e38b1e16a193ccea911e018f4c5525b"
+          },
+          "work_units": 32,
+          "callbacks": 32
+        },
+        {
+          "segment": 1,
+          "logical_start": "1",
+          "logical_end": "2",
+          "input_state_hash": "6f9376263510abf70bbf090999a96e560e5e118d8c85dd561e6ba8a4cb0ac32f",
+          "output_hashes": {
+            "state": "38eb0131c1d669167842adef1427b92afc07377811502371a09128bcfb99cd17",
+            "events": "19dff92c2c16d386c97753f9fd4659bab8d91804e8502fc555e76d35afe8c266",
+            "scores": "bed22631e1436653a570494675070cf51c009e22481ac08465c31a19e4c00fe8"
+          },
+          "work_units": 67,
+          "callbacks": 67
+        },
+        {
+          "segment": 2,
+          "logical_start": "2",
+          "logical_end": "3",
+          "input_state_hash": "38eb0131c1d669167842adef1427b92afc07377811502371a09128bcfb99cd17",
+          "output_hashes": {
+            "state": "0d938e94c7f1584abb096e4294f9c73e8ee74ae712b7dbda5f2d9cacae6e3d9e",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 21
+        },
+        {
+          "segment": 3,
+          "logical_start": "3",
+          "logical_end": "4",
+          "input_state_hash": "0d938e94c7f1584abb096e4294f9c73e8ee74ae712b7dbda5f2d9cacae6e3d9e",
+          "output_hashes": {
+            "state": "ad05c19a401b91968dd7e2430d85db9493642829904eb882f0069a7b69293830",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 21
+        },
+        {
+          "segment": 4,
+          "logical_start": "4",
+          "logical_end": "5",
+          "input_state_hash": "ad05c19a401b91968dd7e2430d85db9493642829904eb882f0069a7b69293830",
+          "output_hashes": {
+            "state": "f8d92e4c26ca696d657178956513dc4826e03b93f9c04ebe246181d2360a8f2a",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 21
+        },
+        {
+          "segment": 5,
+          "logical_start": "5",
+          "logical_end": "6",
+          "input_state_hash": "f8d92e4c26ca696d657178956513dc4826e03b93f9c04ebe246181d2360a8f2a",
+          "output_hashes": {
+            "state": "bb7c87d2c0818dec9260a0933d98cfc2c0b066659346585de62cfca6700426ec",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 21
+        },
+        {
+          "segment": 6,
+          "logical_start": "6",
+          "logical_end": "7",
+          "input_state_hash": "bb7c87d2c0818dec9260a0933d98cfc2c0b066659346585de62cfca6700426ec",
+          "output_hashes": {
+            "state": "e12dc56d9f9e2f99f20713a6c1ae837ca07fc23c02f1220a65e7bb9af295bd92",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 21
+        },
+        {
+          "segment": 7,
+          "logical_start": "7",
+          "logical_end": "8",
+          "input_state_hash": "e12dc56d9f9e2f99f20713a6c1ae837ca07fc23c02f1220a65e7bb9af295bd92",
+          "output_hashes": {
+            "state": "17ce0b498f7daf1ea900f1476a75159798dbb4a5a7287dc0baf8a1d1cb7082e4",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 21
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "multi-segment-persistence",
+      "family": "multi-segment-persistence",
+      "budget": 1,
+      "repetitions": 3,
+      "work_units": 225,
+      "coordinator_step_equivalent": 225,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          3.4318530000000464,
+          3.0978470000000016,
+          2.9005449999995108
+        ],
+        "min": 2.9005449999995108,
+        "median": 3.0978470000000016,
+        "max": 3.4318530000000464
+      },
+      "initial_bytes": 641,
+      "output_bytes": {
+        "state": 507,
+        "events": 39,
+        "scores": 273
+      },
+      "output_hashes": {
+        "state": "17ce0b498f7daf1ea900f1476a75159798dbb4a5a7287dc0baf8a1d1cb7082e4",
+        "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+        "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+      },
+      "final_cannons": 0,
+      "final_balls": 0,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "executed_segments": 8,
+      "intervals": [
+        {
+          "segment": 0,
+          "logical_start": "0",
+          "logical_end": "1",
+          "input_state_hash": "d3e2a6cb797c3e785ef99ab49c279f4c1789ee81c44b40192603db5364d055d1",
+          "output_hashes": {
+            "state": "6f9376263510abf70bbf090999a96e560e5e118d8c85dd561e6ba8a4cb0ac32f",
+            "events": "666986ff3bad7b7be032418ea767916b8a136088e5e9a5d3844451639bffb4eb",
+            "scores": "b85d11aca682d93b20ea61ba7945f14c6e38b1e16a193ccea911e018f4c5525b"
+          },
+          "work_units": 32,
+          "callbacks": 1
+        },
+        {
+          "segment": 1,
+          "logical_start": "1",
+          "logical_end": "2",
+          "input_state_hash": "6f9376263510abf70bbf090999a96e560e5e118d8c85dd561e6ba8a4cb0ac32f",
+          "output_hashes": {
+            "state": "38eb0131c1d669167842adef1427b92afc07377811502371a09128bcfb99cd17",
+            "events": "19dff92c2c16d386c97753f9fd4659bab8d91804e8502fc555e76d35afe8c266",
+            "scores": "bed22631e1436653a570494675070cf51c009e22481ac08465c31a19e4c00fe8"
+          },
+          "work_units": 67,
+          "callbacks": 1
+        },
+        {
+          "segment": 2,
+          "logical_start": "2",
+          "logical_end": "3",
+          "input_state_hash": "38eb0131c1d669167842adef1427b92afc07377811502371a09128bcfb99cd17",
+          "output_hashes": {
+            "state": "0d938e94c7f1584abb096e4294f9c73e8ee74ae712b7dbda5f2d9cacae6e3d9e",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 1
+        },
+        {
+          "segment": 3,
+          "logical_start": "3",
+          "logical_end": "4",
+          "input_state_hash": "0d938e94c7f1584abb096e4294f9c73e8ee74ae712b7dbda5f2d9cacae6e3d9e",
+          "output_hashes": {
+            "state": "ad05c19a401b91968dd7e2430d85db9493642829904eb882f0069a7b69293830",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 1
+        },
+        {
+          "segment": 4,
+          "logical_start": "4",
+          "logical_end": "5",
+          "input_state_hash": "ad05c19a401b91968dd7e2430d85db9493642829904eb882f0069a7b69293830",
+          "output_hashes": {
+            "state": "f8d92e4c26ca696d657178956513dc4826e03b93f9c04ebe246181d2360a8f2a",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 1
+        },
+        {
+          "segment": 5,
+          "logical_start": "5",
+          "logical_end": "6",
+          "input_state_hash": "f8d92e4c26ca696d657178956513dc4826e03b93f9c04ebe246181d2360a8f2a",
+          "output_hashes": {
+            "state": "bb7c87d2c0818dec9260a0933d98cfc2c0b066659346585de62cfca6700426ec",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 1
+        },
+        {
+          "segment": 6,
+          "logical_start": "6",
+          "logical_end": "7",
+          "input_state_hash": "bb7c87d2c0818dec9260a0933d98cfc2c0b066659346585de62cfca6700426ec",
+          "output_hashes": {
+            "state": "e12dc56d9f9e2f99f20713a6c1ae837ca07fc23c02f1220a65e7bb9af295bd92",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 1
+        },
+        {
+          "segment": 7,
+          "logical_start": "7",
+          "logical_end": "8",
+          "input_state_hash": "e12dc56d9f9e2f99f20713a6c1ae837ca07fc23c02f1220a65e7bb9af295bd92",
+          "output_hashes": {
+            "state": "17ce0b498f7daf1ea900f1476a75159798dbb4a5a7287dc0baf8a1d1cb7082e4",
+            "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+            "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+          },
+          "work_units": 21,
+          "callbacks": 1
+        }
+      ],
+      "scope": "chained pure kernel intervals; publication/stable retention NOT_MEASURED",
+      "workload": "multi-segment-persistence",
+      "family": "multi-segment-persistence",
+      "budget": 100000,
+      "repetitions": 3,
+      "work_units": 225,
+      "coordinator_step_equivalent": 8,
+      "elapsed_ms": {
+        "kind": "MEASURED_LOCAL_WARM",
+        "samples": [
+          2.909244999999828,
+          4.07516299999952,
+          20.169911000000866
+        ],
+        "min": 2.909244999999828,
+        "median": 4.07516299999952,
+        "max": 20.169911000000866
+      },
+      "initial_bytes": 641,
+      "output_bytes": {
+        "state": 507,
+        "events": 39,
+        "scores": 273
+      },
+      "output_hashes": {
+        "state": "17ce0b498f7daf1ea900f1476a75159798dbb4a5a7287dc0baf8a1d1cb7082e4",
+        "events": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1",
+        "scores": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+      },
+      "final_cannons": 0,
+      "final_balls": 0,
+      "wasm_instructions": {
+        "kind": "NOT_MEASURED",
+        "reason": "reported separately by canbench"
+      },
+      "stable_memory": {
+        "kind": "NOT_MEASURED",
+        "reason": "pure kernel benchmark has no stable memory"
+      },
+      "outcome": "PASS"
+    }
+  ],
+  "multi_segment_coordinator": [
+    {
+      "workload": "multi-segment-persistence",
+      "declared_segments": 8,
+      "executed_segments": 8,
+      "publications": [
+        {
+          "segment": 0,
+          "callbacks": 1,
+          "snapshot_bytes": 5252,
+          "publication_bytes": 2072,
+          "publication_hash": "a4c96063c3775ca75259164364790f3d5f1152e5aa2bca57cc440716bd612057",
+          "retained_segments": 1,
+          "retained_bytes": 3726
+        },
+        {
+          "segment": 1,
+          "callbacks": 1,
+          "snapshot_bytes": 4072,
+          "publication_bytes": 2072,
+          "publication_hash": "a3c9116be0c3d74f348897394f5ff503799bbfb142a2facead739746639c998e",
+          "retained_segments": 2,
+          "retained_bytes": 6862
+        },
+        {
+          "segment": 2,
+          "callbacks": 1,
+          "snapshot_bytes": 3582,
+          "publication_bytes": 2071,
+          "publication_hash": "52532d7fcbabcc37f80947a379ce9e8d3f7a85a6b455038a890b317fa62eda1d",
+          "retained_segments": 3,
+          "retained_bytes": 9752
+        },
+        {
+          "segment": 3,
+          "callbacks": 1,
+          "snapshot_bytes": 3584,
+          "publication_bytes": 2071,
+          "publication_hash": "0c1f8facb10119b8e1b455f86aa65ac816642665a3e6c8a94d1e55956bb49d72",
+          "retained_segments": 3,
+          "retained_bytes": 8916
+        },
+        {
+          "segment": 4,
+          "callbacks": 1,
+          "snapshot_bytes": 3585,
+          "publication_bytes": 2071,
+          "publication_hash": "d5f6f65d09dacf8120cc98308195c5d5755a44938d197c50cddcafbd5fa2091b",
+          "retained_segments": 3,
+          "retained_bytes": 8670
+        },
+        {
+          "segment": 5,
+          "callbacks": 1,
+          "snapshot_bytes": 3585,
+          "publication_bytes": 2071,
+          "publication_hash": "02b1ae414e3fa3d68717720eb878ae9eb78645f3a1524ec6e5044c5e16d8e875",
+          "retained_segments": 3,
+          "retained_bytes": 8670
+        },
+        {
+          "segment": 6,
+          "callbacks": 1,
+          "snapshot_bytes": 3585,
+          "publication_bytes": 2071,
+          "publication_hash": "4f62db49f21b2cf86d8fea73a08842e0f44f48899c219d31aed72ac63443173a",
+          "retained_segments": 3,
+          "retained_bytes": 8670
+        },
+        {
+          "segment": 7,
+          "callbacks": 1,
+          "snapshot_bytes": 3585,
+          "publication_bytes": 2071,
+          "publication_hash": "0d1fba3236732a5559e494feb3a66aa9deec90ae2361f2df4f986ef0ad22207c",
+          "retained_segments": 3,
+          "retained_bytes": 8670
+        }
+      ],
+      "scope": "JS coordinator snapshot/restore, publication v6 and bounded memory window; IC stable writes NOT_MEASURED"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "schema": "btz-s12-current-measurements-v1",
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "profile": "smoke",
+  "captured_utc": "2026-10-14T17:59:46.372843+00:00",
+  "tool": {
+    "canbench": "canbench 0.7.0",
+    "runtime_sha256": "b19a15ba0650a3987e78a8017dee0e99c5518194d1e0c4fd45b53cd32598544e",
+    "runtime": "canbench integrity-checked PocketIC 13.0.0"
+  },
+  "wasm_sha256": "99bcaa7a71d2c3c45cd47d729b03677ab1e637248dfcbbef02ae68852d25c7be",
+  "build": {
+    "features": [
+      "canbench"
+    ],
+    "release": {
+      "lto": true,
+      "codegen_units": 1,
+      "overflow_checks": true
+    },
+    "config_sha256": "7193e7383d5f524fd5464dc39b79c46abc73c4a276afe9b3f8ec01256dc71f19"
+  },
+  "baseline": {
+    "path": "benchmarks/s12/canbench_results.yml",
+    "sha256": "270bedb9f7be871c1274cb677c43cb3c28a8c9477c0e77fbe266f9e4cc97286d",
+    "source_revision": "524807a394f80e0e38db163c3e726e8e992c802f"
+  },
+  "benchmarks": [
+    {
+      "name": "callback_step_persist_medium_512",
+      "calls": 1,
+      "instructions": 81853465,
+      "heap_increase_pages": 2,
+      "stable_memory_increase_pages": 385,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "workload": "ball-dense-medium",
+        "initial_state_hash": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e",
+        "rules": {
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"
+        },
+        "work_budget": 512,
+        "logical_ticks": 4
+      }
+    },
+    {
+      "name": "ledger_page_all_irrelevant",
+      "calls": 1,
+      "instructions": 1407764,
+      "heap_increase_pages": 0,
+      "stable_memory_increase_pages": 0,
+      "configuration": {
+        "fixture_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+        "work_budget": null,
+        "logical_ticks": null,
+        "page_records": 64
+      }
+    }
+  ],
+  "raw_results": [
+    {
+      "path": "current-0.yml",
+      "sha256": "5853a497b72c18f5941c006e8d51a5e4da541e7f45c2121b699061e6785a9e8c"
+    },
+    {
+      "path": "current-0.csv",
+      "sha256": "a8a47686f5b99edf5e6d7c71dd5585267d730cf686d8ffe99eba6b5fdb608d8b"
+    },
+    {
+      "path": "current-1.yml",
+      "sha256": "d24b2b4901461b429d49b21b439951f731f60e659821b3c1b473154b68349fcb"
+    },
+    {
+      "path": "current-1.csv",
+      "sha256": "6586f748a58ec9ee384fa5eff5f1cddd6cecb8c4511ceadbbcf844866e8b1b7d"
+    }
+  ],
+  "informational_names": [],
+  "executed_names": [
+    "callback_step_persist_medium_512",
+    "ledger_page_all_irrelevant"
+  ]
+}

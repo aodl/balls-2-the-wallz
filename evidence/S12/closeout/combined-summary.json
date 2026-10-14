@@ -1,0 +1,307 @@
+{
+  "source": {
+    "revision": "b1d5f0dcef46cf743c18cb8e43eea57faeab68c3",
+    "tree": "b999ac0448114a5925f8a8beb2d80e8699e72c33",
+    "branch": "checkpoint/s12-operating-envelope",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "26ab9d644ffd730e003dbb8e44995467cd16018a8798c5272e16e97d1c5becfc"
+  },
+  "normal_wasm": {
+    "kind": "normal-wasm",
+    "path": "/home/codexdev/src/btz/.work/s12/closeout-extended/wasm/runtime-lab.wasm",
+    "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+    "size": 2238602
+  },
+  "evidence_class": "DIRECTLY_TESTED_COMBINED",
+  "time_base": "PocketIC virtual canister seconds",
+  "scenarios": [
+    {
+      "arrival_batch": 0,
+      "arrival_period_seconds": 1,
+      "arrival_records_per_virtual_second": 0.0,
+      "assignment_time_scope": "publication observation is an upper bound on seal-time assignment; exact active-stage seal time NOT_MEASURED",
+      "callbacks": 128,
+      "completed_segments": 11,
+      "configuration": {
+        "board": "16x8",
+        "callback_pacing_seconds": 1,
+        "cannons": 2,
+        "fallback_seconds": 5,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "starting_balls": 32,
+        "work_budget": 512
+      },
+      "duration_virtual_seconds": 128.000000009,
+      "evidence_class": "AUTONOMOUS_CONTROLLED_SERVICE_LOAD",
+      "final_backlog": 0,
+      "host_elapsed_seconds": 69.340390831,
+      "name": "idle",
+      "operating_outcome": "OBSERVED_BOUNDED",
+      "publication_times_virtual_seconds": [
+        11,
+        19,
+        30,
+        46,
+        60,
+        73,
+        84,
+        94,
+        104,
+        117,
+        126
+      ],
+      "queue_high_water": 0,
+      "retention": {
+        "retained_bytes": 76451
+      },
+      "retry_scope": "no retries observed; controlled fixture has no rejection injection in these scenarios",
+      "stable_bytes_final": 25231360,
+      "stable_bytes_initial": 25231360,
+      "status": "PASS",
+      "time_base": "PocketIC virtual canister seconds",
+      "verified_records_per_virtual_second": 0.0,
+      "backlog_high_water": 0,
+      "observed_completion_period_virtual_seconds": 11.636363637181818,
+      "inter_publication_spacing_virtual_seconds": {
+        "min": 8,
+        "mean": 11.5,
+        "max": 16
+      },
+      "completed_segment_callbacks": {
+        "min": 8,
+        "mean": 11.454545454545455,
+        "max": 16
+      },
+      "unfinished_tail_callbacks": 2,
+      "finite_window_amortized_callbacks": 11.636363636363637,
+      "empty_polls_observed": 26,
+      "ledger_calls": 26,
+      "archive_calls": 0,
+      "relevant_canonical_inputs_admitted": 0,
+      "published_assignments": 0,
+      "accepted_during_running_observations": 0,
+      "arrival_to_publication_upper_bound_virtual_seconds": null,
+      "exact_seal_assignment_latency": "NOT_MEASURED"
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 64,
+      "arrival_records_per_virtual_second": 0.9999999999218749,
+      "assignment_time_scope": "publication observation is an upper bound on seal-time assignment; exact active-stage seal time NOT_MEASURED",
+      "callbacks": 128,
+      "completed_segments": 10,
+      "configuration": {
+        "board": "16x8",
+        "callback_pacing_seconds": 1,
+        "cannons": 2,
+        "fallback_seconds": 5,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "starting_balls": 32,
+        "work_budget": 512
+      },
+      "duration_virtual_seconds": 128.00000001,
+      "evidence_class": "AUTONOMOUS_CONTROLLED_SERVICE_LOAD",
+      "final_backlog": 0,
+      "host_elapsed_seconds": 58.791585578,
+      "name": "low",
+      "operating_outcome": "OBSERVED_BOUNDED",
+      "publication_times_virtual_seconds": [
+        11,
+        19,
+        30,
+        46,
+        60,
+        73,
+        86,
+        98,
+        110,
+        120
+      ],
+      "queue_high_water": 3,
+      "retention": {
+        "retained_bytes": 80895
+      },
+      "retry_scope": "no retries observed; controlled fixture has no rejection injection in these scenarios",
+      "stable_bytes_final": 25231360,
+      "stable_bytes_initial": 25231360,
+      "status": "PASS",
+      "time_base": "PocketIC virtual canister seconds",
+      "verified_records_per_virtual_second": 0.9999999999218749,
+      "backlog_high_water": 64,
+      "observed_completion_period_virtual_seconds": 12.800000001,
+      "inter_publication_spacing_virtual_seconds": {
+        "min": 8,
+        "mean": 12.11111111111111,
+        "max": 16
+      },
+      "completed_segment_callbacks": {
+        "min": 8,
+        "mean": 12.0,
+        "max": 16
+      },
+      "unfinished_tail_callbacks": 8,
+      "finite_window_amortized_callbacks": 12.8,
+      "empty_polls_observed": 25,
+      "ledger_calls": 27,
+      "archive_calls": 2,
+      "relevant_canonical_inputs_admitted": 3,
+      "published_assignments": 3,
+      "accepted_during_running_observations": 1,
+      "arrival_to_publication_upper_bound_virtual_seconds": {
+        "min": 22,
+        "max": 22
+      },
+      "exact_seal_assignment_latency": "NOT_MEASURED"
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "arrival_records_per_virtual_second": 7.999999998937501,
+      "assignment_time_scope": "publication observation is an upper bound on seal-time assignment; exact active-stage seal time NOT_MEASURED",
+      "callbacks": 128,
+      "completed_segments": 10,
+      "configuration": {
+        "board": "16x8",
+        "callback_pacing_seconds": 1,
+        "cannons": 2,
+        "fallback_seconds": 5,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "starting_balls": 32,
+        "work_budget": 512
+      },
+      "duration_virtual_seconds": 128.000000017,
+      "evidence_class": "AUTONOMOUS_CONTROLLED_SERVICE_LOAD",
+      "final_backlog": 0,
+      "host_elapsed_seconds": 52.515543503,
+      "name": "moderate",
+      "operating_outcome": "OBSERVED_BOUNDED",
+      "publication_times_virtual_seconds": [
+        11,
+        21,
+        33,
+        47,
+        64,
+        77,
+        90,
+        100,
+        111,
+        123
+      ],
+      "queue_high_water": 3,
+      "retention": {
+        "retained_bytes": 83592
+      },
+      "retry_scope": "no retries observed; controlled fixture has no rejection injection in these scenarios",
+      "stable_bytes_final": 25231360,
+      "stable_bytes_initial": 25231360,
+      "status": "PASS",
+      "time_base": "PocketIC virtual canister seconds",
+      "verified_records_per_virtual_second": 7.999999998937501,
+      "backlog_high_water": 64,
+      "observed_completion_period_virtual_seconds": 12.800000001699999,
+      "inter_publication_spacing_virtual_seconds": {
+        "min": 10,
+        "mean": 12.444444444444445,
+        "max": 17
+      },
+      "completed_segment_callbacks": {
+        "min": 10,
+        "mean": 12.3,
+        "max": 17
+      },
+      "unfinished_tail_callbacks": 5,
+      "finite_window_amortized_callbacks": 12.8,
+      "empty_polls_observed": 17,
+      "ledger_calls": 33,
+      "archive_calls": 2,
+      "relevant_canonical_inputs_admitted": 12,
+      "published_assignments": 12,
+      "accepted_during_running_observations": 12,
+      "arrival_to_publication_upper_bound_virtual_seconds": {
+        "min": 13,
+        "max": 24
+      },
+      "exact_seal_assignment_latency": "NOT_MEASURED"
+    },
+    {
+      "arrival_batch": 128,
+      "arrival_period_seconds": 1,
+      "arrival_records_per_virtual_second": 127.999999919,
+      "assignment_time_scope": "publication observation is an upper bound on seal-time assignment; exact active-stage seal time NOT_MEASURED",
+      "callbacks": 128,
+      "completed_segments": 10,
+      "configuration": {
+        "board": "16x8",
+        "callback_pacing_seconds": 1,
+        "cannons": 2,
+        "fallback_seconds": 5,
+        "logical_ticks": 2,
+        "page_records": 64,
+        "starting_balls": 32,
+        "work_budget": 512
+      },
+      "duration_virtual_seconds": 128.000000081,
+      "evidence_class": "AUTONOMOUS_CONTROLLED_SERVICE_LOAD",
+      "final_backlog": 11392,
+      "host_elapsed_seconds": 127.510365347,
+      "name": "overload",
+      "operating_outcome": "UNSUSTAINABLE_TESTED",
+      "publication_times_virtual_seconds": [
+        11,
+        21,
+        34,
+        48,
+        66,
+        80,
+        93,
+        106,
+        117,
+        128
+      ],
+      "queue_high_water": 12,
+      "retention": {
+        "retained_bytes": 92519
+      },
+      "retry_scope": "no retries observed; controlled fixture has no rejection injection in these scenarios",
+      "stable_bytes_final": 25231360,
+      "stable_bytes_initial": 25231360,
+      "status": "PASS",
+      "time_base": "PocketIC virtual canister seconds",
+      "verified_records_per_virtual_second": 38.999999975320314,
+      "backlog_high_water": 11392,
+      "observed_completion_period_virtual_seconds": 12.8000000081,
+      "inter_publication_spacing_virtual_seconds": {
+        "min": 10,
+        "mean": 13.0,
+        "max": 18
+      },
+      "completed_segment_callbacks": {
+        "min": 10,
+        "mean": 12.8,
+        "max": 18
+      },
+      "unfinished_tail_callbacks": 0,
+      "finite_window_amortized_callbacks": 12.8,
+      "empty_polls_observed": 0,
+      "ledger_calls": 78,
+      "archive_calls": 2,
+      "relevant_canonical_inputs_admitted": 60,
+      "published_assignments": 54,
+      "accepted_during_running_observations": 66,
+      "arrival_to_publication_upper_bound_virtual_seconds": {
+        "min": 18,
+        "max": 93
+      },
+      "exact_seal_assignment_latency": "NOT_MEASURED"
+    }
+  ],
+  "finite_duration_limit": "128 virtual seconds per scenario; sustained long-term/mainnet capacity not established",
+  "catch_up_time": "NOT_MEASURED; high-hint overload service rate is not transferable to quiet fallback scheduling"
+}

@@ -1,0 +1,446 @@
+benches:
+  callback_step_persist_high_512:
+    total:
+      calls: 1
+      instructions: 113334404
+      heap_increase: 3
+      stable_memory_increase: 385
+    scopes: {}
+  callback_step_persist_medium_512:
+    total:
+      calls: 1
+      instructions: 81853465
+      heap_increase: 2
+      stable_memory_increase: 385
+    scopes: {}
+  coordinator_ball_dense_high:
+    total:
+      calls: 1
+      instructions: 2741602784
+      heap_increase: 56
+      stable_memory_increase: 0
+    scopes: {}
+  coordinator_ball_dense_medium:
+    total:
+      calls: 1
+      instructions: 1007115272
+      heap_increase: 27
+      stable_memory_increase: 0
+    scopes:
+      coordinator_steps:
+        calls: 1
+        instructions: 729826189
+        heap_increase: 27
+        stable_memory_increase: 0
+      publication_commit:
+        calls: 1
+        instructions: 277287345
+        heap_increase: 0
+        stable_memory_increase: 0
+  coordinator_empty_motion:
+    total:
+      calls: 1
+      instructions: 118491222
+      heap_increase: 5
+      stable_memory_increase: 0
+    scopes: {}
+  coordinator_many_cannon_frontier:
+    total:
+      calls: 1
+      instructions: 276799967
+      heap_increase: 7
+      stable_memory_increase: 0
+    scopes: {}
+  coordinator_seal_medium:
+    total:
+      calls: 1
+      instructions: 22040756
+      heap_increase: 2
+      stable_memory_increase: 0
+    scopes: {}
+  kernel_ball_dense_high:
+    total:
+      calls: 1
+      instructions: 1661578160
+      heap_increase: 46
+      stable_memory_increase: 0
+    scopes:
+      kernel_step:
+        calls: 1
+        instructions: 1626059341
+        heap_increase: 12
+        stable_memory_increase: 0
+      result_serialization:
+        calls: 1
+        instructions: 35516940
+        heap_increase: 34
+        stable_memory_increase: 0
+  kernel_ball_dense_medium:
+    total:
+      calls: 1
+      instructions: 455281320
+      heap_increase: 22
+      stable_memory_increase: 0
+    scopes:
+      kernel_step:
+        calls: 1
+        instructions: 437355153
+        heap_increase: 6
+        stable_memory_increase: 0
+      result_serialization:
+        calls: 1
+        instructions: 17924431
+        heap_increase: 16
+        stable_memory_increase: 0
+  kernel_empty_motion:
+    total:
+      calls: 1
+      instructions: 8973008
+      heap_increase: 4
+      stable_memory_increase: 0
+    scopes:
+      kernel_step:
+        calls: 1
+        instructions: 5705708
+        heap_increase: 1
+        stable_memory_increase: 0
+      result_serialization:
+        calls: 1
+        instructions: 3265338
+        heap_increase: 3
+        stable_memory_increase: 0
+  kernel_many_cannon_frontier:
+    total:
+      calls: 1
+      instructions: 15478878
+      heap_increase: 3
+      stable_memory_increase: 0
+    scopes:
+      kernel_step:
+        calls: 1
+        instructions: 6992307
+        heap_increase: 0
+        stable_memory_increase: 0
+      result_serialization:
+        calls: 1
+        instructions: 8484663
+        heap_increase: 3
+        stable_memory_increase: 0
+  kernel_small_reference:
+    total:
+      calls: 1
+      instructions: 16852473
+      heap_increase: 1
+      stable_memory_increase: 0
+    scopes:
+      kernel_step:
+        calls: 1
+        instructions: 15080959
+        heap_increase: 0
+        stable_memory_increase: 0
+      result_serialization:
+        calls: 1
+        instructions: 1769449
+        heap_increase: 1
+        stable_memory_increase: 0
+  ledger_page_all_irrelevant:
+    total:
+      calls: 1
+      instructions: 1407764
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+  ledger_page_all_relevant:
+    total:
+      calls: 1
+      instructions: 5823603
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+  ledger_page_sparse_relevant:
+    total:
+      calls: 1
+      instructions: 1476571
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+  persistence_publication_empty_motion:
+    total:
+      calls: 1
+      instructions: 13077115
+      heap_increase: 0
+      stable_memory_increase: 385
+    scopes:
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 13076167
+        heap_increase: 0
+        stable_memory_increase: 385
+  persistence_publication_high:
+    total:
+      calls: 1
+      instructions: 83566285
+      heap_increase: 0
+      stable_memory_increase: 385
+    scopes:
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 83565337
+        heap_increase: 0
+        stable_memory_increase: 385
+  persistence_publication_many_cannon:
+    total:
+      calls: 1
+      instructions: 26662250
+      heap_increase: 0
+      stable_memory_increase: 385
+    scopes:
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 26661302
+        heap_increase: 0
+        stable_memory_increase: 385
+  persistence_publication_medium:
+    total:
+      calls: 1
+      instructions: 47606050
+      heap_increase: 0
+      stable_memory_increase: 385
+    scopes:
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 47605102
+        heap_increase: 0
+        stable_memory_increase: 385
+  persistence_publication_small:
+    total:
+      calls: 1
+      instructions: 10039826
+      heap_increase: 0
+      stable_memory_increase: 385
+    scopes:
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 10038878
+        heap_increase: 0
+        stable_memory_increase: 385
+  warm_early_medium_512:
+    total:
+      calls: 1
+      instructions: 94586429
+      heap_increase: 2
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 71647119
+        heap_increase: 2
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 14491973
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 8434311
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_empty_progression_medium_512:
+    total:
+      calls: 1
+      instructions: 89909620
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 39449694
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 23037747
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 27404308
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_evict_medium_512:
+    total:
+      calls: 1
+      instructions: 342365877
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 181897037
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 117242763
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 43214379
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_finalize_medium_512:
+    total:
+      calls: 1
+      instructions: 304502067
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 243119126
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 48036298
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 13333121
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_late_medium_512:
+    total:
+      calls: 1
+      instructions: 228301384
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 164495306
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 50603348
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 13189312
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_ledger_admission:
+    total:
+      calls: 1
+      instructions: 19004693
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+  warm_ledger_empty_poll:
+    total:
+      calls: 1
+      instructions: 4089302
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+  warm_ledger_staged_admission:
+    total:
+      calls: 1
+      instructions: 54537893
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes: {}
+  warm_middle_medium_512:
+    total:
+      calls: 1
+      instructions: 188437379
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 140999541
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 36221719
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 11205211
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_publish_medium_512:
+    total:
+      calls: 1
+      instructions: 288463923
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 164369539
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 93138908
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 30945782
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_publish_retire_medium_512:
+    total:
+      calls: 1
+      instructions: 290089354
+      heap_increase: 0
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 165384181
+        heap_increase: 0
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 93900000
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 30794128
+        heap_increase: 0
+        stable_memory_increase: 0
+  warm_seal_medium_512:
+    total:
+      calls: 1
+      instructions: 34381976
+      heap_increase: 1
+      stable_memory_increase: 0
+    scopes:
+      coordinator_action:
+        calls: 1
+        instructions: 22123603
+        heap_increase: 1
+        stable_memory_increase: 0
+      root_restore_validate:
+        calls: 1
+        instructions: 4689284
+        heap_increase: 0
+        stable_memory_increase: 0
+      snapshot_publication_stable_writes:
+        calls: 1
+        instructions: 7556243
+        heap_increase: 0
+        stable_memory_increase: 0
+version: 0.7.0
