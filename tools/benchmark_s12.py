@@ -16,6 +16,7 @@ import time
 from pathlib import Path
 
 from verify_s09_local import start_pocketic, stop_pocketic
+from s12_measurements import load_totals, configuration, validate, compare
 
 ROOT = Path(__file__).resolve().parents[1]
 DTR_REVISION = '71e59e93cf49a3656689679b538b4c3f138787f8'
@@ -47,7 +48,11 @@ def source_record():
             'working_tree_changes': git_value('status', '--porcelain').splitlines(),
             'dtr_revision': DTR_REVISION,
             'package_lock_sha256': sha256(ROOT / 'package-lock.json'),
-            'runtime_cargo_lock_sha256': sha256(ROOT / 'canisters/runtime-lab/Cargo.lock')}
+            'runtime_cargo_lock_sha256': sha256(ROOT / 'canisters/runtime-lab/Cargo.lock'),
+            'tracked_content_sha256': hashlib.sha256(b''.join(
+                path.encode() + b'\0' + (ROOT / path).read_bytes()
+                for path in git_value('ls-files').splitlines()
+                if (ROOT / path).is_file())).hexdigest()}
 
 
 def execute(identifier, command, output, timeout, environment=None):
@@ -206,21 +211,58 @@ def main():
             'benchmarks/s12/workloads.json', str(game_output), str(args.repetitions)], 300)
         report['artifacts'].append({'kind': 'measured', 'path': str(game_output),
                                     'sha256': sha256(game_output)})
-        if args.profile == 'smoke':
-            run('canbench-medium-callback',
-                ['canbench', 'callback_step_persist_medium_512'], 600,
-                {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
-            run('canbench-irrelevant-ledger-page',
-                ['canbench', 'ledger_page_all_irrelevant'], 600,
-                {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
-        else:
-            run('canbench', ['canbench'], 600,
-                {'CANBENCH_CFG_FILE': 'benchmarks/s12/canbench.yml'})
-        for relative in ('benchmarks/s12/canbench_results.yml',
-                         'benchmarks/s12/canbench_results.csv'):
-            path = ROOT / relative
-            report['artifacts'].append({'kind': 'measured', 'path': relative,
-                                        'sha256': sha256(path)})
+        baseline_path = ROOT / 'benchmarks/s12/canbench_results.yml'
+        baseline_hash = sha256(baseline_path)
+        baseline_rows = load_totals(baseline_path)
+        current_rows, raw = [], []
+        patterns = ['callback_step_persist_medium_512', 'ledger_page_all_irrelevant'] \
+            if args.profile == 'smoke' else [None]
+        for index, pattern in enumerate(patterns):
+            yml = output / f'current-{index}.yml'
+            csv = output / f'current-{index}.csv'
+            if yml.exists() or csv.exists():
+                raise ValueError('run output already contains measurements; use a new directory')
+            cfg = output / f'canbench-{index}.yml'
+            original = (ROOT / 'benchmarks/s12/canbench.yml').read_text().splitlines()
+            cfg.write_text('\n'.join(line for line in original
+                if not line.startswith(('results_path:', 'csv_results_path:'))) +
+                f'\nresults_path: {yml}\ncsv_results_path: {csv}\n')
+            run(f'canbench-{index}', ['canbench', '--persist', '--csv'] +
+                ([pattern] if pattern else []), 1200, {'CANBENCH_CFG_FILE': str(cfg)})
+            totals = load_totals(yml)
+            if pattern and set(totals) != {pattern}:
+                raise ValueError('canbench pattern matched unexpected cases')
+            for name, total in totals.items():
+                current_rows.append({'name': name, **total,
+                    'configuration': configuration(name, ROOT / 'benchmarks/s12/workloads.json')})
+            raw.extend({'path': path.name, 'sha256': sha256(path)} for path in (yml, csv))
+        if sha256(baseline_path) != baseline_hash:
+            raise ValueError('historical baseline changed')
+        tool = {'canbench': report['environment']['tools']['canbench']['text'],
+                'runtime_sha256': sha256(ROOT / '.canbench/pocket-ic'),
+                'runtime': 'canbench integrity-checked PocketIC 13.0.0'}
+        measured = {'schema': 'btz-s12-current-measurements-v1',
+            'source': report['source'], 'profile': args.profile,
+            'captured_utc': report['environment']['captured_utc'], 'tool': tool,
+            'wasm_sha256': sha256(ROOT / 'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'),
+            'baseline': {'path': 'benchmarks/s12/canbench_results.yml', 'sha256': baseline_hash,
+                         'source_revision': '524807a394f80e0e38db163c3e726e8e992c802f'},
+            'benchmarks': current_rows, 'raw_results': raw,
+            'executed_names': [row['name'] for row in current_rows]}
+        validate(measured, source_record())
+        current_path = output / 'current-measurements.json'
+        current_path.write_text(json.dumps(measured, indent=2) + '\n')
+        baseline = json.loads((ROOT / 'benchmarks/s12/baseline-identity.json').read_text())
+        baseline['benchmarks'] = [{'name': name, **total,
+            'configuration': baseline['configurations'][name]} for name, total in baseline_rows.items()]
+        baseline['monitored_names'] = [r['name'] for r in current_rows if r['name'] in baseline_rows]
+        comparison = compare(measured, baseline)
+        (output / 'regression-comparison.json').write_text(json.dumps(comparison, indent=2) + '\n')
+        report['checks'].append({'id': 'instruction-regression', **comparison})
+        report['artifacts'].append({'kind': 'current-measurements', 'path': str(current_path),
+                                    'sha256': sha256(current_path)})
+        if comparison['status'] == 'FAIL':
+            raise ValueError('instruction regression gate failed')
         if args.profile == 'extended':
             wasm_dir = output / 'wasm'
             wasm_dir.mkdir(exist_ok=True)
@@ -273,7 +315,7 @@ def main():
                                             'sha256': sha256(path)})
             cost = output / 'cost-projections.json'
             run('cost-model', [sys.executable, '-B', 'tools/s12_cost_model.py',
-                '--ledger-trace', str(ledger), '--output', str(cost)], 60)
+                '--ledger-trace', str(ledger), '--current-measurements', str(current_path), '--output', str(cost)], 60)
             report['artifacts'].append({'kind': 'tariff-estimate', 'path': str(cost),
                                         'sha256': sha256(cost)})
         report['overall'] = 'PASS'
