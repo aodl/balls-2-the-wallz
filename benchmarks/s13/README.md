@@ -9,6 +9,7 @@ DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s13.py --profile smoke --
 DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s13.py --profile extended --output .work/s13/extended --harness-target tools/s09-integration/target
 ```
 
+Smoke has no cost gate against a historical build hash; cost reuse is extended-only.
 Smoke: 32 seconds, no hints, 64 records every eight seconds, fallback 1/5.
 Extended: twenty independent 128-second cases: eight primary cases (idle, 8, 32,
 128 records/s), six no-hints controls, two fixed-512-backlog recovery cases at

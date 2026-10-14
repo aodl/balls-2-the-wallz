@@ -74,8 +74,13 @@ def main():
             if len(traces)%2 == 0: validate_pair(traces[-2],traces[-1])
             (output/'summary.json').write_text(json.dumps(dict(status='IN_PROGRESS',scenarios=[summarize(t) for t in traces]),indent=2)+'\n')
             save()
-        from s13_cost_model import project
-        costs = project(traces, json.loads(model.read_text()), binding)
+        if args.profile == 'extended':
+            from s13_cost_model import project
+            costs = project(traces, json.loads(model.read_text()), binding)
+        else:
+            # CI tests paired service correctness independently of a historical
+            # binary's byte identity. Extended cost reuse remains fail-closed.
+            costs = dict(status='NOT_RUN', reason='smoke measures paired correctness; instruction reuse/cost comparison is extended-only')
         (output/'cost-projections.json').write_text(json.dumps(costs,indent=2)+'\n')
         (output/'summary.json').write_text(json.dumps(dict(status='PASS',scenarios=[summarize(t) for t in traces]),indent=2)+'\n')
         if source_record() != report['source']: raise ValueError('source changed during measurement')

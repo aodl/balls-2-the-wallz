@@ -202,8 +202,9 @@ fn s13_fallback_policy_trace() {
     for (publication, artifacts) in &captured {
         let seal = publication.head.seal.as_ref().unwrap();
         let to: u64 = seal.source_to_exclusive.0.to_string().parse().unwrap();
-        if to > native_cursor {
-            let records = (native_cursor..to)
+        while to > native_cursor {
+            let page_end = to.min(native_cursor + 64);
+            let records = (native_cursor..page_end)
                 .map(|p| match p % 256 {
                     0 => Some(normalized(payer, 1_000_000_000, *b"BTZ\x11\0\0\x40\0")),
                     1 => Some(normalized(payer, 1, *b"BTZ\x11\0\0\x20\0")),
@@ -218,7 +219,7 @@ fn s13_fallback_policy_trace() {
                     anchor: seal.source_anchor.clone(),
                 })
                 .unwrap();
-            native_cursor = to;
+            native_cursor = page_end;
         }
         native
             .apply(Action::Seal {
