@@ -618,11 +618,17 @@ fn autonomous_once(generation: u64) -> Result<()> {
     autonomous_once_inner(generation, true)
 }
 fn autonomous_once_inner(generation: u64, certify: bool) -> Result<()> {
+    #[cfg(feature = "canbench")]
+    let restore_scope = canbench_rs::bench_scope("root_restore_validate");
     let r = root()?;
     if !r.run.running || r.run.generation != generation {
         return Ok(());
     }
     let mut h = host(&r)?;
+    #[cfg(feature = "canbench")]
+    drop(restore_scope);
+    #[cfg(feature = "canbench")]
+    let action_scope = canbench_rs::bench_scope("coordinator_action");
     let mut run = r.run.clone();
     run.callback_count = run
         .callback_count
@@ -675,6 +681,10 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> Result<()> {
         Some(_) => return Err("autonomous coordinator phase".into()),
     }
     run.last_error = None;
+    #[cfg(feature = "canbench")]
+    drop(action_scope);
+    #[cfg(feature = "canbench")]
+    let _persist_scope = canbench_rs::bench_scope("snapshot_publication_stable_writes");
     persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
     Ok(())
 }
@@ -1919,11 +1929,20 @@ mod benches {
             assert_eq!(r.retention.history.len(), 2);
         }
         let root_bytes = encode(&r).unwrap().len();
-        let cursor_bytes = r.image.length;
+        let image_bytes = r.image.length;
+        let cursor_bytes = host(&r)
+            .unwrap()
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .map(|stage| stage.cursor_hex.len() / 2)
+            .unwrap_or(0);
         ic_cdk::println!(
-            "S12 warm metadata case={} root_bytes={} image_bytes={} steps={} certification=NOT_MEASURED",
+            "S12 warm metadata case={} root_bytes={} image_bytes={} working_cursor_bytes={} steps={} certification=NOT_MEASURED",
             case,
             root_bytes,
+            image_bytes,
             cursor_bytes,
             steps
         );
@@ -1960,6 +1979,47 @@ mod benches {
     fn warm_evict_medium_512() -> BenchResult {
         warm_action("evict")
     }
+    #[bench(raw)]
+    fn warm_publish_retire_medium_512() -> BenchResult {
+        let r = warm_root(false);
+        let mut h = host(&r).unwrap();
+        let input = workload("small-reference").inputs.remove(0).payload_hex;
+        h.apply(Action::Ingest {
+            start: Int(0u64.into()),
+            records: vec![Some(input)],
+            anchor: "11".repeat(32),
+        })
+        .unwrap();
+        h.apply(Action::Seal {
+            logical_end: Int(2u64.into()),
+        })
+        .unwrap();
+        persist_inner(&h, Some(&r), r.source.clone(), r.run.clone(), false).unwrap();
+        while host(&root().unwrap())
+            .unwrap()
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .unwrap()
+            .phase
+            != "ready"
+        {
+            autonomous_once_inner(1, false).unwrap();
+        }
+        assert_eq!(
+            host(&root().unwrap()).unwrap().record.inbox.pending.len(),
+            1
+        );
+        let result = bench_fn(|| {
+            autonomous_once_inner(1, false).unwrap();
+        });
+        let restored = host(&root().unwrap()).unwrap();
+        assert!(restored.record.inbox.pending.is_empty());
+        assert_eq!(number(&restored.record.inbox.retired_to).unwrap(), 1);
+        result
+    }
+
     #[bench(raw)]
     fn warm_empty_progression_medium_512() -> BenchResult {
         warm_root(false);

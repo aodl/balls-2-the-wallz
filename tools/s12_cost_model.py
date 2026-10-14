@@ -67,7 +67,7 @@ def scenario_cost(spec, tariff, model, benches):
         steps = max(0, callbacks - 3)
         low = seal + publish + finalize + steps * min(samples)
         high = seal + publish + finalize + steps * max(samples)
-        scope = 'ESTIMATED: warm two-tick initial medium samples applied to observed evolving-world callback counts; sample extrema are not worst-case bounds'
+        scope = 'ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds'
     else:
         low = high = instructions(spec['kernel_benchmark'])
         scope = 'PARTIAL_ESTIMATE: direct kernel only; coordinator/restore/persistence/publication NOT_MEASURED for this scenario'
@@ -75,6 +75,8 @@ def scenario_cost(spec, tariff, model, benches):
     segments_day = 86400 / cadence
     game_base = callbacks * tariff['update_execution_base'] * segments_day
     page_day = rate * 86400 / model['page_records'] if spec['ledger_enabled'] else 0
+    if 'backlog_records_assumption' in spec:
+        page_day = min(page_day, spec['backlog_records_assumption'] / model['page_records'])
     admission = instructions('warm_ledger_staged_admission') if page_day else 0
     calls_page = 1 + spec['archive_fraction']
     ledger_instructions_day = page_day * admission
@@ -82,9 +84,12 @@ def scenario_cost(spec, tariff, model, benches):
     ledger_xnet = page_day * calls_page * tariff['xnet_request_and_response']
     ledger_bytes = page_day * (model['page_records'] * model['response_bytes_per_record_assumption']
                               + calls_page * model['request_bytes_assumption'])
-    # Polling is independent of arrival processing. This conservative scheduled
-    # opportunity assumption can overcount polls while a backlog drains.
-    polls_day = 86400 / spec['fallback_seconds'] if spec['ledger_enabled'] else 0
+    # Full-page arrival batches are explicit scenario assumptions. Count an
+    # observed/assumed empty scan independently, without charging the same
+    # scheduled opportunity again as both an empty poll and a nonempty page.
+    opportunities_day = 86400 / spec['fallback_seconds'] if spec['ledger_enabled'] else 0
+    polls_day = spec.get('observed_empty_polls_per_day', max(0, opportunities_day - page_day)) \
+        if spec['ledger_enabled'] else 0
     poll_instructions_day = polls_day * (instructions('warm_ledger_empty_poll') + model['empty_poll_instruction_assumption']) if polls_day else 0
     poll_base = polls_day * model['empty_poll_updates_assumption'] * tariff['update_execution_base']
     poll_xnet = polls_day * tariff['xnet_request_and_response']
@@ -107,11 +112,16 @@ def scenario_cost(spec, tariff, model, benches):
         'polling_classification': 'PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions',
         'storage_cycles_per_day': storage, 'pages_per_day_assumption': page_day,
         'polls_per_day_assumption': polls_day,
+        'fallback_opportunities_per_day': opportunities_day,
+        'poll_count_classification': 'OBSERVED_FINITE_WINDOW' if 'observed_empty_polls_per_day' in spec else 'ESTIMATED: full arrival batches, no hints; nonempty pages use polling opportunities',
         'instruction_components_per_day_sample_range': [instruction_day_low, instruction_day_high],
         'game_cycles_per_segment_sample_range': [low*coefficient+callbacks*tariff['update_execution_base'],high*coefficient+callbacks*tariff['update_execution_base']],
         'cycles_per_day_sample_range': [total_low,total_high],
         'cycles_per_30_day_month_sample_range': [total_low*30,total_high*30],
         'xdr_per_day_sample_range': [total_low/1e12,total_high/1e12],
+        'xdr_per_30_day_month_sample_range': [total_low*30/1e12,total_high*30/1e12],
+        'subnet_nodes_assumption': 13,
+        'higher_replication_34_node_cycles_per_day_sample_range': [total_low*34/13,total_high*34/13],
         'complete_total_upper_bound': 'NOT_MEASURED'}
 
 
@@ -128,6 +138,11 @@ def project(assumptions, benches, combined):
             spec['cadence_classification'] = 'MEASURED_VIRTUAL_TIME'
             spec['observed_arrival_rate'] = observed['arrival_records_per_virtual_second']
             spec['observed_final_backlog'] = observed['final_backlog']
+            spec['observed_empty_polls_per_day'] = observed['trace'][-1]['empty_polls_observed'] / seconds * 86400
+            pages = sum(row['records_verified'] for row in observed['trace']) / assumptions['model']['page_records']
+            spec['archive_fraction'] = observed['trace'][-1]['archive_calls'] / pages if pages else 0
+            spec['arrival_batch'] = observed['arrival_batch']
+            spec['arrival_period_seconds'] = observed['arrival_period_seconds']
         specs.append(spec)
     rows = [scenario_cost(s, assumptions['tariff_13_node_cycles'], assumptions['model'], benches) for s in specs]
     moderate = next(s for s in specs if s['name'] == 'moderate-combined')
@@ -135,8 +150,9 @@ def project(assumptions, benches, combined):
     return {'schema': 'btz-s12-cost-projection-v2', 'status': 'PASS',
         'qualification': 'Tariff-based partial estimates and illustrative sample ranges; no demonstrated complete upper bound or actual balance burn',
         'assumptions': assumptions, 'scenarios': rows, 'cadence_sensitivity': sensitivity,
+        'backlog_catch_up_qualification': 'Busy-window service rate is a scenario assumption, not a measured catch-up duration. High-hint overload service rate must not be reused for quieter fallback scheduling.',
         'not_measured': ['heap high-water', 'update-only certification and timer dispatch instructions',
-            'empty polling execution', 'actual inter-canister request bytes', 'archive execution',
+            'network encode/decode part of polling execution', 'actual inter-canister request bytes', 'archive execution',
             'mainnet cycles burned', 'mainnet finality/availability', 'real-world fiat conversion'],
         'not_included': ['query-service/gateway costs', 'ETH-equivalent compute', 'upstream ledger operating costs',
             'storage of unmeasured heap and Wasm code', 'retry execution costs (zero observed is not a future guarantee)']}

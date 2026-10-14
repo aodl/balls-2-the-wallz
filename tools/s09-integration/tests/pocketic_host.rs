@@ -3187,7 +3187,7 @@ fn s12_controlled_ledger_backlog_trace() {
         let elapsed = scenario_started.elapsed().as_secs_f64();
         scenario_rows.push(serde_json::json!({
             "name": name,
-            "evidence_class": "controlled PocketIC fault-ledger fixture",
+            "evidence_class": "MANUALLY_DRIVEN_CONTROLLED_PAGE_PROCESSING",
             "initial_backlog": 256,
             "arrivals_per_service_window": arrivals_per_service,
             "arrival_model": "host-controlled records per completed 64-record scan opportunity",
@@ -3469,13 +3469,13 @@ fn s12_autonomous_combined_service_trace() {
                     assert_eq!(positions.len(), seal.input_count as usize);
                     for position in positions {
                         assert!(assigned.insert(position), "duplicate input assignment");
-                        assignment_trace.push(serde_json::json!({"position":position,"assigned_at_virtual_second":second,
+                        assignment_trace.push(serde_json::json!({"position":position,"publication_observed_at_virtual_second":second,
                             "arrival_virtual_second":(position / batch.max(1) + 1)*period}));
                     }
                 }
             }
             rows.push(serde_json::json!({"elapsed_virtual_seconds":elapsed as f64/1e9,"observation_second":second,
-                "ledger_tip":tip,"verified_cursor":cursor,"sealed_source_watermark":watermark,"backlog":tip-cursor,
+                "ledger_tip":tip,"verified_cursor":cursor,"last_published_sealed_source_watermark":watermark,"active_stage_source_watermark":"NOT_MEASURED","backlog":tip-cursor,
                 "new_arrivals":tip-previous_tip,"records_verified":verified,
                 "relevant_records_accepted":(previous_cursor..cursor).filter(|p| p%256<3).count(),
                 "ledger_calls":current.source.ledger_calls,"archive_calls":current.source.archive_calls,
@@ -3493,6 +3493,18 @@ fn s12_autonomous_combined_service_trace() {
         let current = status(&pic, runtime, Principal::anonymous()).unwrap();
         assert!(current.run.completed_segments > 1);
         assert!(current.source.ledger_calls > 0);
+        if name == "low" || name == "moderate" {
+            assert!(
+                rows.iter()
+                    .any(|row| row["records_verified"].as_u64().unwrap() > 0
+                        && row["phase"] == "running"),
+                "input must arrive while a segment is staged"
+            );
+            assert!(
+                previous_tip - previous_cursor <= 64,
+                "tested low/moderate backlog should drain or stay within one arrival batch"
+            );
+        }
         if name == "overload" {
             assert!(previous_tip - previous_cursor > 128);
         }
@@ -3509,6 +3521,8 @@ fn s12_autonomous_combined_service_trace() {
             "retention":serde_json::json!({"retained_bytes":retention_status(&pic,runtime).retained_bytes}),
             "completed_segments":current.run.completed_segments,"callbacks":current.run.callback_count,
             "publication_times_virtual_seconds":publication_times,"assignments":assignment_trace,
+            "assignment_time_scope":"publication observation is an upper bound on seal-time assignment; exact active-stage seal time NOT_MEASURED",
+            "retry_scope":"no retries observed; controlled fixture has no rejection injection in these scenarios",
             "status":"PASS","operating_outcome":if name=="overload" {"UNSUSTAINABLE_TESTED"} else {"OBSERVED_BOUNDED"},
             "configuration":{"board":"16x8","starting_balls":32,"cannons":2,"logical_ticks":2,"work_budget":512,
                 "callback_pacing_seconds":1,"fallback_seconds":5,"page_records":64},"trace":rows}));

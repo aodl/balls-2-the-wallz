@@ -86,3 +86,35 @@ class Measurements(unittest.TestCase):
             path = Path(directory) / 'empty.yml'
             path.write_text('benches: {}\nversion: 0.7.0\n')
             with self.assertRaises(ValueError): load_totals(path)
+
+    def test_raw_result_integrity_and_manifest_counts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'manifest.json';raw=root/'current.yml'
+            raw.write_text('benches:\n' + ''.join(f'  {n}:\n    total:\n      calls: 1\n      instructions: 100\n      heap_increase: 0\n      stable_memory_increase: 0\n    scopes: {{}}\n' for n in sorted(SMOKE)))
+            document=self.document()
+            for row in document['benchmarks']: row.update(heap_increase_pages=0,stable_memory_increase_pages=0)
+            document['raw_results']=[{'path':raw.name,'sha256':digest(raw)}]
+            path.write_text(json.dumps(document));load_current(path)
+            document['benchmarks'][0]['instructions']=200
+            path.write_text(json.dumps(document))
+            with self.assertRaises(ValueError):load_current(path)
+            document['benchmarks'][0]['instructions']=100
+            path.write_text(json.dumps(document));raw.write_text(raw.read_text()+'# tampered\n')
+            with self.assertRaises(ValueError):load_current(path)
+
+    def test_extended_complete_inventory_is_identified(self):
+        document=self.document();document['profile']='extended'
+        import re
+        names=re.findall(r'#\[bench\(raw\)\]\s+fn (\w+)\(\) -> BenchResult', (ROOT/'canisters/runtime-lab/src/lib.rs').read_text())
+        document['executed_names']=names
+        document['benchmarks']=[{'name':n,'calls':1,'instructions':100,
+            'configuration':configuration(n,ROOT/'benchmarks/s12/workloads.json')} for n in names]
+        self.assertEqual(validate(document)['profile'],'extended')
+
+    def test_new_informational_measurement_has_no_regression_claim(self):
+        current=self.document();baseline=self.document()
+        current['benchmarks'].append({'name':'warm_new','instructions':100,'configuration':{}})
+        current['informational_names']=['warm_new']
+        comparison=compare(current,baseline)
+        self.assertEqual(comparison['status'],'PASS')
+        self.assertEqual(comparison['rows'][-1]['status'],'NOT_RUN')

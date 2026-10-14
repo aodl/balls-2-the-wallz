@@ -21,14 +21,14 @@ from check import classify
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def start_pocketic(binary,output,timeout=30):
+def start_pocketic(binary,output,timeout=30,*,hard_ttl_seconds=900):
     """Start one owned server so the runner can reliably stop it."""
     port_file=output/'pocketic.port'
     port_file.unlink(missing_ok=True)
     log_path=output/'logs'/'pocketic-server.log';log_path.parent.mkdir(parents=True,exist_ok=True)
     stream=log_path.open('w')
     process=subprocess.Popen(
-        [str(binary),'--ttl','60','--hard-ttl','900','--port-file',str(port_file)],
+        [str(binary),'--ttl','60','--hard-ttl',str(hard_ttl_seconds),'--port-file',str(port_file)],
         cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,text=True,start_new_session=True,
     )
     started=time.monotonic()
@@ -102,6 +102,7 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts')
     parser.add_argument('--output',type=Path,default=ROOT/'.work/s09/final')
+    parser.add_argument('--harness-target',type=Path,help='explicit reusable Cargo target; omitted means an isolated target')
     args=parser.parse_args()
     if sys.version_info<(3,11):parser.error('Python 3.11 or later is required')
     args.output=args.output.resolve()
@@ -137,7 +138,7 @@ def main():
         record_artifact(report,'runtime-lab-test-hooks',hooked)
         record_artifact(report,'ledger',artifacts/'wasm/ledger-canister.wasm')
         record_artifact(report,'ledger-archive',artifacts/'downloads/ledger-archive-node-canister.wasm.gz')
-        harness_target=args.output/'cargo-target'
+        harness_target=args.harness_target.resolve() if args.harness_target else args.output/'cargo-target'
         harness_started_empty=not harness_target.exists() or not any(harness_target.iterdir())
         harness_environment={'CARGO_TARGET_DIR':str(harness_target)}
         row=execute('pocketic-harness-build',['cargo','+1.94.1','test','--manifest-path','tools/s09-integration/Cargo.toml','--locked','--test','pocketic_host','--no-run'],args.output,1800,harness_environment)

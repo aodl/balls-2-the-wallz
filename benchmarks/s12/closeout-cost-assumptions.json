@@ -50,7 +50,10 @@
       "board": "16x8",
       "retention_max_segments": 3,
       "relevant_density": "controlled fixture 3/256",
-      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise"
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": null,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
     },
     {
       "name": "moderate-combined",
@@ -68,7 +71,10 @@
       "board": "16x8",
       "retention_max_segments": 3,
       "relevant_density": "controlled fixture 3/256",
-      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise"
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8.0,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
     },
     {
       "name": "high-occupancy",
@@ -87,7 +93,10 @@
       "retention_max_segments": 3,
       "relevant_density": "ASSUMED",
       "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
-      "work_units": 22947
+      "work_units": 22947,
+      "arrival_batch": 64,
+      "arrival_period_seconds": 64.0,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
     },
     {
       "name": "high-irrelevant-traffic",
@@ -105,7 +114,10 @@
       "board": "16x8",
       "retention_max_segments": 3,
       "relevant_density": "controlled fixture 3/256",
-      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise"
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 0.5,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
     },
     {
       "name": "backlog-catch-up",
@@ -123,7 +135,14 @@
       "board": "16x8",
       "retention_max_segments": 3,
       "relevant_density": "ASSUMED",
-      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise"
+      "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8.0,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise",
+      "backlog_records_assumption": 4096,
+      "service_records_per_second_assumption": 8,
+      "new_arrivals_per_second_assumption": 0,
+      "rate_scope": "assumed busy-window processing; not an autonomous catch-up measurement"
     },
     {
       "name": "quiet-ledger-disabled",
@@ -142,7 +161,10 @@
       "retention_max_segments": 3,
       "relevant_density": "ASSUMED",
       "input_rate_classification": "measured verified service rate when combined; assumed offered rate otherwise",
-      "work_units": 253
+      "work_units": 253,
+      "arrival_batch": 0,
+      "arrival_period_seconds": null,
+      "arrival_policy_classification": "observed batch schedule when combined; analytical full-page batches otherwise"
     }
   ]
 }

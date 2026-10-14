@@ -141,13 +141,15 @@ def aggregate_ledger_traces(paths, destination):
             'sustained_records_per_second': min(rates),
             'sustained_records_per_second_distribution': {
                 'samples': rates, 'min': min(rates), 'median': statistics.median(rates),
-                'max': max(rates), 'selection': 'minimum used as conservative mu'},
+                'max': max(rates), 'selection': 'minimum controlled host-time page sample; not autonomous capacity'},
             'runs': [{'source': str(path), 'elapsed_seconds': row['elapsed_seconds'],
                       'records_per_second': row['sustained_records_per_second'],
                       'page_trace': row['trace']} for path, row in zip(paths, rows)],
         })
     aggregate = {'schema': 'btz-s12-controlled-ledger-distribution-v1', 'outcome': 'PASS',
         'page_limit': documents[0]['page_limit'], 'qualification': documents[0]['qualification'],
+        'evidence_class': 'MANUALLY_DRIVEN_CONTROLLED_PAGE_PROCESSING',
+        'method': 'controller-driven sync_ledger; host elapsed time; arrivals per completed service opportunity',
         'traffic': documents[0]['traffic'], 'repetitions': len(documents),
         'scenarios': scenarios}
     destination.write_text(json.dumps(aggregate, indent=2) + '\n')
@@ -289,7 +291,9 @@ def main():
                 'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
                 '--no-run'], 1800, harness_env)
             # The idle-timed server starts only after all test binaries are compiled.
-            server = start_pocketic(args.artifacts / 'bin/pocket-ic', output)
+            server_lifetime = 1200 * (2 + args.ledger_repetitions) + 900 + 60
+            report['pocketic_server_hard_ttl_seconds'] = server_lifetime
+            server = start_pocketic(args.artifacts / 'bin/pocket-ic', output, hard_ttl_seconds=server_lifetime)
             revision = report['source']['revision']
             tree = report['source']['tree']
             common = {**harness_env, 'POCKET_IC_BIN': str(args.artifacts / 'bin/pocket-ic'),

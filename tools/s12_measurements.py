@@ -25,6 +25,13 @@ def load_totals(path):
 
 
 def configuration(name, fixture):
+    if name.startswith('warm_ledger'):
+        data = json.loads(fixture.read_text())
+        row = next(r for r in data['workloads'] if r['name'] == 'ball-dense-medium')
+        return {'fixture_sha256': digest(fixture), 'initial_state_hash': row['initial_state_hash'],
+                'workload': row['name'], 'rules': row['rules'], 'work_budget': 512, 'logical_ticks': 2,
+                'page_records': 64, 'source_mode': 'ledger', 'staged': 'staged' in name,
+                'relevant_records_per_page': 0 if 'empty_poll' in name else 1}
     if 'ledger' in name:
         return {'fixture_sha256': digest(fixture), 'work_budget': None,
                 'logical_ticks': None, 'page_records': 64}
@@ -34,10 +41,13 @@ def configuration(name, fixture):
                 'many-cannon-frontier' if 'many_cannon' in name else
                 'small-reference' if 'small' in name else 'ball-dense-medium')
     row = next(r for r in data['workloads'] if r['name'] == workload)
-    return {'fixture_sha256': digest(fixture), 'workload': workload,
+    recipe = {'fixture_sha256': digest(fixture), 'workload': workload,
             'initial_state_hash': row['initial_state_hash'], 'rules': row['rules'],
             'work_budget': 512 if ('512' in name or name.startswith('warm_')) else 100000,
             'logical_ticks': 2 if name.startswith('warm_') else int(row['logical_end']) - int(row['logical_start'])}
+    if name.startswith('warm_'): recipe['source_mode'] = 'synthetic'
+    if 'retire' in name: recipe['input_mode'] = 'first small-reference fixture input'
+    return recipe
 
 
 def validate(document, expected_source=None):

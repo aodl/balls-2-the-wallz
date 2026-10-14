@@ -59,6 +59,17 @@ class S12BenchmarkRunnerTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 BENCH.aggregate_ledger_traces(documents, root / 'aggregate.json')
 
+    def test_timeout_and_external_exit_two_are_failures(self):
+        import sys
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory)
+            timed=BENCH.execute('timeout',[sys.executable,'-c','import time; time.sleep(5)'],output,.05)
+            self.assertEqual(timed['status'],'FAIL')
+            self.assertEqual(timed['exit_code'],124)
+            self.assertIn('timeout',timed['reason'])
+            external=BENCH.execute('external',[sys.executable,'-c','raise SystemExit(2)'],output,5)
+            self.assertEqual(external['status'],'FAIL')
+
 
 if __name__ == '__main__':
     unittest.main()

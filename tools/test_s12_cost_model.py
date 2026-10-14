@@ -52,3 +52,20 @@ class CostSensitivity(unittest.TestCase):
         source=(ROOT/'tools/s12_cost_model.py').read_text()
         self.assertIn("'--current-measurements', type=Path, required=True",source)
         self.assertNotIn("default=ROOT / 'benchmarks/s12/canbench_results.yml'",source)
+
+    def test_empty_and_nonempty_poll_opportunities_not_double_counted(self):
+        row=self.cost(ledger_records_per_second=1)
+        self.assertAlmostEqual(row['polls_per_day_assumption']+row['pages_per_day_assumption'],row['fallback_opportunities_per_day'])
+        observed=self.cost(observed_empty_polls_per_day=1234)
+        self.assertEqual(observed['polls_per_day_assumption'],1234)
+
+    def test_kernel_only_budget_changes_callback_count(self):
+        self.spec={**self.assumptions['scenarios'][2]}
+        self.benches['kernel_ball_dense_high']={'instructions':1000000}
+        old=self.cost();self.model['work_budget']=256;new=self.cost()
+        self.assertGreater(new['modeled_callbacks_per_segment'],old['modeled_callbacks_per_segment'])
+        self.assertGreater(new['game_callback_base_cycles_per_day'],old['game_callback_base_cycles_per_day'])
+
+    def test_finite_backlog_does_not_become_a_full_day_of_arrivals(self):
+        row=self.cost(backlog_records_assumption=4096)
+        self.assertEqual(row['pages_per_day_assumption'],64)

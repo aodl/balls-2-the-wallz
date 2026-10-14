@@ -93,6 +93,10 @@ jobs:
           path: |
             .work/ci-s12-smoke/results.json
             .work/ci-s12-smoke/game-measurements.json
+            .work/ci-s12-smoke/current-measurements.json
+            .work/ci-s12-smoke/current-*.yml
+            .work/ci-s12-smoke/current-*.csv
+            .work/ci-s12-smoke/regression-comparison.json
             .work/ci-s12-smoke/logs/**
           if-no-files-found: warn
           retention-days: 14
