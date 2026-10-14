@@ -1471,6 +1471,15 @@ fn callback_trap_recovers_by_fallback_and_stale_completion_stays_fenced() {
 
 #[test]
 fn delayed_ledger_archive_handoff_refreshes_only_the_matching_lease() {
+    delayed_ledger_archive_with_fallback(3600);
+}
+
+#[test]
+fn one_second_timers_preserve_delayed_archive_scan_lease() {
+    delayed_ledger_archive_with_fallback(1);
+}
+
+fn delayed_ledger_archive_with_fallback(fallback_seconds: u32) {
     let wasm = std::fs::read(required_path("DTR_RUNTIME_TEST_WASM")).unwrap();
     let pic = instance();
     pic.set_time(SystemTime::now().into());
@@ -1525,7 +1534,7 @@ fn delayed_ledger_archive_handoff_refreshes_only_the_matching_lease() {
             ledger,
             recipient_account: recipient.as_bytes().to_vec(),
             page_limit: 1,
-            fallback_seconds: 3600,
+            fallback_seconds,
             hint_principal: None,
         }),
     ))
@@ -1549,7 +1558,28 @@ fn delayed_ledger_archive_handoff_refreshes_only_the_matching_lease() {
     }
     assert_eq!(initial.cursor, 0);
     assert!(initial.started_at_seconds > 0);
-    pic.advance_time(Duration::from_secs(29));
+    if fallback_seconds == 1 {
+        for _ in 0..5 {
+            pic.advance_time(Duration::from_secs(1));
+            let _: Status = update_result(
+                &pic,
+                runtime,
+                controller(),
+                "ledger_hint",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+            pic.tick();
+            let state = test_scan_state(&pic, runtime);
+            assert_eq!(state.nonce, initial.nonce);
+            assert_eq!(state.cursor, 0);
+        }
+    }
+    pic.advance_time(Duration::from_secs(if fallback_seconds == 1 {
+        24
+    } else {
+        29
+    }));
     let mut refreshed = None;
     for _ in 0..12 {
         pic.tick();
@@ -3226,6 +3256,21 @@ fn s12_clock_ledger(
     batch: u64,
     duration: u64,
 ) -> Vec<u8> {
+    s13_clock_ledger(ledger, runtime, epoch, period, batch, duration, 0)
+}
+
+// The only fixture extension: fixed backlog exists before any scan executes.
+#[allow(clippy::too_many_arguments)]
+fn s13_clock_ledger(
+    ledger: Principal,
+    runtime: Principal,
+    epoch: u64,
+    period: u64,
+    batch: u64,
+    duration: u64,
+    initial_tip: u64,
+) -> Vec<u8> {
+    assert_eq!(initial_tip % 64, 0);
     let request = candid::encode_one(FaultGetBlocksArgs {
         start: 0x0102030405060708,
         length: 64,
@@ -3244,7 +3289,7 @@ fn s12_clock_ledger(
         &Principal::self_authenticating([91; 32]),
         &DEFAULT_SUBACCOUNT,
     );
-    let max_tip = duration / period * batch;
+    let max_tip = initial_tip + duration / period * batch;
     let mut bytes = vec![0; 1024];
     let mut table = Vec::new();
     let mut archive_table = Vec::new();
@@ -3334,7 +3379,7 @@ fn s12_clock_ledger(
         i32.const {start_offset} i64.load i32.wrap_i64 i32.const 64 i32.div_u)
       (func (export "canister_query query_blocks") (local $tip i64) (local $entry i32) (local $start i32)
         call $time i64.const {epoch} i64.sub i64.const 1000000000 i64.div_u
-        i64.const {period} i64.div_u i64.const {batch} i64.mul local.set $tip
+        i64.const {period} i64.div_u i64.const {batch} i64.mul i64.const {initial_tip} i64.add local.set $tip
         call $start local.set $start
         local.get $start i32.const 64 i32.mul i64.extend_i32_u local.get $tip i64.ge_u
         if
@@ -3537,3 +3582,5 @@ fn s12_autonomous_combined_service_trace() {
         "qualification":"controlled typed ledger; separate upstream functional evidence required; empty polls are observational, not full instruction measurements"}),
     );
 }
+
+include!("s13_fallback.rs");
