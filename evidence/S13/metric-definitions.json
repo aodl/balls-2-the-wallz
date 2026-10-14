@@ -1,0 +1,13 @@
+{
+  "time_base": "PocketIC virtual canister seconds; host seconds separate",
+  "maximum_backlog": "maximum sampled post-processing backlog, including fixed initial backlog; not instantaneous peak",
+  "queue_high_water": "maximum observed pending canonical input count, not hidden instantaneous peak",
+  "empty_polls": "observed completed call without cursor movement at tip; not exact timer/system-call count",
+  "source_advances": "intervals with cursor increase; several pages can be grouped into one observation",
+  "latency": "one-second first-observation bounds; completed-sample distributions accompanied by censored counts; exact hidden seal time NOT_MEASURED",
+  "instructions": "S12 query samples explicitly reused under matching normal Wasm/DTR/workload identities; not new full updates",
+  "cycles": "tariff projections of finite window rates, not actual burn or complete upper bounds",
+  "bytes_transmitted": "NOT_MEASURED; cost payloads assumed",
+  "source_backlog": "ledger records not verified; irrelevant records still require scanning",
+  "certification": "separate fresh local-IC functional/browser evidence; controlled fixed-clock load fixtures do not claim mainnet authentication/capacity"
+}

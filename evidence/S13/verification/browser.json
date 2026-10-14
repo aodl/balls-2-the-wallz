@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S12",
+  "git_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+  "started_utc": "2026-10-14T22:01:41.867019+00:00",
+  "mode": "browser",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "observer-http-webcrypto",
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "-B",
+        "tools/verify_observer_http.py",
+        "--output",
+        ".work/s13/browser/browser-http"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-http-webcrypto.log",
+      "elapsed_seconds": 18.375,
+      "timeout_seconds": 240,
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}

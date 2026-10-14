@@ -1,0 +1,27 @@
+{
+  "classification": "DIRECTLY_TESTED_COMBINED",
+  "recommendation": "Use one second for the measured local operating envelope",
+  "configuration": {
+    "board": "16x8",
+    "starting_balls": 32,
+    "cannons": 2,
+    "logical_ticks": 2,
+    "work_budget": 512,
+    "simulation_pacing_seconds": 1,
+    "fallback_seconds": 1,
+    "page_records": 64,
+    "retention_segments": 3,
+    "retention_bytes": 8388608
+  },
+  "arrival_schedule": "64 records every 2 seconds; primary alternating hints and separate no-hints control",
+  "duration_virtual_seconds": 128,
+  "repetitions_primary": 2,
+  "sustainable_tested_arrival_rate": 32,
+  "confidence": "finite reproducible controlled-local observations; no permanent or production stability proof",
+  "overload": "128 offered records/s grows backlog at both fallback policies",
+  "complete_update_instruction_headroom": "NOT_MEASURED",
+  "heap_high_water": "NOT_MEASURED",
+  "stable_bytes": 25231360,
+  "production_configuration_changed": false,
+  "next_decision": "Evaluate relevant-account history authority/completeness and independent verification for global-ledger traffic beyond the observed scanner envelope; do not implement during S13"
+}

@@ -1,0 +1,26 @@
+{
+  "classification": "ANALYTICAL_ESTIMATE",
+  "daily_scope": "daily cost table repeats initial backlog each window; not a one-off 512-record recovery bill",
+  "scenarios": [
+    {
+      "name": "backlog-r1-f1",
+      "window_virtual_seconds": 128.000000009,
+      "modeled_cycles_for_observation_window_sample_range": [
+        20142204074.18753,
+        33246269664.187534
+      ],
+      "scope": "includes simulation, arrivals, polling and storage during the entire 128-second recovery observation; not isolated initial-backlog cost",
+      "actual_cycles_burned": "NOT_MEASURED"
+    },
+    {
+      "name": "backlog-r1-f5",
+      "window_virtual_seconds": 128.000000009,
+      "modeled_cycles_for_observation_window_sample_range": [
+        18491638679.18753,
+        31595704269.187523
+      ],
+      "scope": "includes simulation, arrivals, polling and storage during the entire 128-second recovery observation; not isolated initial-backlog cost",
+      "actual_cycles_burned": "NOT_MEASURED"
+    }
+  ]
+}

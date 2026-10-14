@@ -1,0 +1,1785 @@
+{
+  "status": "PASS",
+  "scenarios": [
+    {
+      "arrival_batch": 0,
+      "arrival_period_seconds": 1,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "alternating",
+      "id": "idle-r1-f1",
+      "initial_tip": 0,
+      "pair": "idle-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 0.0,
+      "verified_records_per_virtual_second": 0.0,
+      "verified_records": 0,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 0,
+      "empty_polls_observed": 128,
+      "successful_source_advances_observed": 0,
+      "ledger_calls_per_virtual_second": 0.9999999999296876,
+      "successful_source_advances_per_virtual_second": 0.0,
+      "ledger_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "archive_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "polls_observed_per_completed_segment": 11.636363636363637,
+      "completed_segments": 11,
+      "game_segments_per_virtual_second": 0.08593749999395753,
+      "publication_spacing": {
+        "completed_samples": 10,
+        "unresolved_samples": 0,
+        "median": 11.0,
+        "p95": 15.999999999999996,
+        "maximum": 15.999999999999996
+      },
+      "publication_spacing_mean": 11.5,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 11.636363636363637,
+      "work_units": 50617,
+      "queue_high_water": 0,
+      "stable_bytes": 25231360,
+      "retained_bytes": 76451,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 0,
+      "valid_payment_samples": 0,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 0,
+      "arrival_period_seconds": 1,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "alternating",
+      "id": "idle-r1-f5",
+      "initial_tip": 0,
+      "pair": "idle-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 0.0,
+      "verified_records_per_virtual_second": 0.0,
+      "verified_records": 0,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 26,
+      "archive_calls": 0,
+      "empty_polls_observed": 26,
+      "successful_source_advances_observed": 0,
+      "ledger_calls_per_virtual_second": 0.20312499998571779,
+      "successful_source_advances_per_virtual_second": 0.0,
+      "ledger_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "archive_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "polls_observed_per_completed_segment": 2.3636363636363638,
+      "completed_segments": 11,
+      "game_segments_per_virtual_second": 0.08593749999395753,
+      "publication_spacing": {
+        "completed_samples": 10,
+        "unresolved_samples": 0,
+        "median": 11.0,
+        "p95": 15.999999999999996,
+        "maximum": 15.999999999999996
+      },
+      "publication_spacing_mean": 11.5,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 11.636363636363637,
+      "work_units": 50617,
+      "queue_high_water": 0,
+      "stable_bytes": 25231360,
+      "retained_bytes": 76451,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 0,
+      "valid_payment_samples": 0,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "alternating",
+      "id": "moderate-r1-f1",
+      "initial_tip": 0,
+      "pair": "moderate-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999998937501,
+      "verified_records_per_virtual_second": 7.999999998937501,
+      "verified_records": 1024,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 112,
+      "successful_source_advances_observed": 16,
+      "ledger_calls_per_virtual_second": 0.9999999998671876,
+      "successful_source_advances_per_virtual_second": 0.12499999998339845,
+      "ledger_calls_per_1000_verified_records": 125.0,
+      "archive_calls_per_1000_verified_records": 1.953125,
+      "polls_observed_per_completed_segment": 11.2,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499998962404,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000001000004,
+        "p95": 17.000000002000007,
+        "maximum": 17.000000002000007
+      },
+      "publication_spacing_mean": 12.444444445222222,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 51751,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 83592,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 12,
+      "valid_payment_samples": 4,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 1.2000000992884452e-08,
+          "p95": 1.4999997688391886e-08,
+          "maximum": 1.4999997688391886e-08
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000000999997,
+          "p95": 24.000000002000007,
+          "maximum": 24.000000002000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 1.2000000992884452e-08,
+          "p95": 1.4999997688391886e-08,
+          "maximum": 1.4999997688391886e-08
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "alternating",
+      "id": "moderate-r1-f5",
+      "initial_tip": 0,
+      "pair": "moderate-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999998937501,
+      "verified_records_per_virtual_second": 7.999999998937501,
+      "verified_records": 1024,
+      "final_backlog": 0,
+      "maximum_backlog": 64,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 33,
+      "archive_calls": 2,
+      "empty_polls_observed": 17,
+      "successful_source_advances_observed": 16,
+      "ledger_calls_per_virtual_second": 0.2578124999657593,
+      "successful_source_advances_per_virtual_second": 0.12499999998339845,
+      "ledger_calls_per_1000_verified_records": 32.2265625,
+      "archive_calls_per_1000_verified_records": 1.953125,
+      "polls_observed_per_completed_segment": 1.7,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499998962404,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000001000004,
+        "p95": 17.000000002000007,
+        "maximum": 17.000000002000007
+      },
+      "publication_spacing_mean": 12.444444445222222,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 51751,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 83592,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 12,
+      "valid_payment_samples": 4,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 1.5000000119999992,
+          "p95": 3.0000000130000046,
+          "maximum": 3.0000000130000046
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 16.500000000999997,
+          "p95": 24.000000002000007,
+          "maximum": 24.000000002000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 1.5000000119999992,
+          "p95": 3.0000000130000046,
+          "maximum": 3.0000000130000046
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 2,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "alternating",
+      "id": "higher-r1-f1",
+      "initial_tip": 0,
+      "pair": "higher-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 31.999999989750002,
+      "verified_records_per_virtual_second": 31.999999989750002,
+      "verified_records": 4096,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 64,
+      "successful_source_advances_observed": 64,
+      "ledger_calls_per_virtual_second": 0.9999999996796876,
+      "successful_source_advances_per_virtual_second": 0.4999999998398438,
+      "ledger_calls_per_1000_verified_records": 31.25,
+      "archive_calls_per_1000_verified_records": 0.48828125,
+      "polls_observed_per_completed_segment": 6.4,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499997497559,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000002999997,
+        "p95": 16.000000004000007,
+        "maximum": 16.000000004000007
+      },
+      "publication_spacing_mean": 12.333333336444445,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52528,
+      "queue_high_water": 12,
+      "stable_bytes": 25231360,
+      "retained_bytes": 95655,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 48,
+      "valid_payment_samples": 16,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 48,
+          "unresolved_samples": 0,
+          "median": 2.4000001985768904e-08,
+          "p95": 3.899999967416079e-08,
+          "maximum": 3.899999967416079e-08
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 42,
+          "unresolved_samples": 6,
+          "median": 19.000000004999997,
+          "p95": 27.000000007000004,
+          "maximum": 27.000000007000004
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 42,
+          "unresolved_samples": 6,
+          "median": 19.000000021,
+          "p95": 27.000000028000002,
+          "maximum": 27.000000028000002
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 16,
+          "unresolved_samples": 0,
+          "median": 2.4000001985768904e-08,
+          "p95": 3.899999967416079e-08,
+          "maximum": 3.899999967416079e-08
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 14,
+          "unresolved_samples": 2,
+          "median": 19.000000021,
+          "p95": 27.000000028000002,
+          "maximum": 27.000000028000002
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 6
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 2,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "alternating",
+      "id": "higher-r1-f5",
+      "initial_tip": 0,
+      "pair": "higher-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_GROWING_BACKLOG",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 31.999999989750002,
+      "verified_records_per_virtual_second": 25.499999991832034,
+      "verified_records": 3264,
+      "final_backlog": 832,
+      "maximum_backlog": 832,
+      "backlog_change_per_virtual_second": 6.4999999979179695,
+      "ledger_calls": 52,
+      "archive_calls": 2,
+      "empty_polls_observed": 1,
+      "successful_source_advances_observed": 51,
+      "ledger_calls_per_virtual_second": 0.4062499998698731,
+      "successful_source_advances_per_virtual_second": 0.39843749987237553,
+      "ledger_calls_per_1000_verified_records": 15.931372549019608,
+      "archive_calls_per_1000_verified_records": 0.6127450980392157,
+      "polls_observed_per_completed_segment": 0.1,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499997497559,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000002999997,
+        "p95": 16.000000004,
+        "maximum": 16.000000004
+      },
+      "publication_spacing_mean": 12.111111114222222,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52453,
+      "queue_high_water": 9,
+      "stable_bytes": 25231360,
+      "retained_bytes": 91886,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 48,
+      "valid_payment_samples": 16,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 39,
+          "unresolved_samples": 9,
+          "median": 14.000000025000006,
+          "p95": 26.000000040000003,
+          "maximum": 26.000000040000003
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 33,
+          "unresolved_samples": 15,
+          "median": 18.000000004,
+          "p95": 23.000000005,
+          "maximum": 23.000000005
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 33,
+          "unresolved_samples": 15,
+          "median": 29.000000029999995,
+          "p95": 38.000000039,
+          "maximum": 38.000000039
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 13,
+          "unresolved_samples": 3,
+          "median": 14.000000025000006,
+          "p95": 26.000000040000003,
+          "maximum": 26.000000040000003
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 11,
+          "unresolved_samples": 5,
+          "median": 29.000000029999995,
+          "p95": 38.000000039,
+          "maximum": 38.000000039
+        }
+      },
+      "unresolved_unverified": 9,
+      "unresolved_unpublished": 6
+    },
+    {
+      "arrival_batch": 128,
+      "arrival_period_seconds": 1,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "alternating",
+      "id": "overload-r1-f1",
+      "initial_tip": 0,
+      "pair": "overload-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_GROWING_BACKLOG",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 127.999999919,
+      "verified_records_per_virtual_second": 63.9999999595,
+      "verified_records": 8192,
+      "final_backlog": 8192,
+      "maximum_backlog": 8192,
+      "backlog_change_per_virtual_second": 63.9999999595,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 0,
+      "successful_source_advances_observed": 128,
+      "ledger_calls_per_virtual_second": 0.9999999993671875,
+      "successful_source_advances_per_virtual_second": 0.9999999993671875,
+      "ledger_calls_per_1000_verified_records": 15.625,
+      "archive_calls_per_1000_verified_records": 0.244140625,
+      "polls_observed_per_completed_segment": 0.0,
+      "completed_segments": 9,
+      "game_segments_per_virtual_second": 0.07031249995550537,
+      "publication_spacing": {
+        "completed_samples": 8,
+        "unresolved_samples": 0,
+        "median": 14.000000007000008,
+        "p95": 15.000000008,
+        "maximum": 15.000000008
+      },
+      "publication_spacing_mean": 13.375000006750001,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 14.222222222222221,
+      "work_units": 53382,
+      "queue_high_water": 21,
+      "stable_bytes": 25231360,
+      "retained_bytes": 106760,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 192,
+      "valid_payment_samples": 64,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 96,
+          "unresolved_samples": 96,
+          "median": 31.000000047999997,
+          "p95": 60.000000076999996,
+          "maximum": 62.000000079
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 78,
+          "unresolved_samples": 114,
+          "median": 19.50000001,
+          "p95": 26.000000013000005,
+          "maximum": 28.000000013999994
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 78,
+          "unresolved_samples": 114,
+          "median": 46.0000000525,
+          "p95": 69.000000076,
+          "maximum": 71.000000076
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 32,
+          "unresolved_samples": 32,
+          "median": 31.000000047999997,
+          "p95": 60.000000076999996,
+          "maximum": 62.000000079
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 26,
+          "unresolved_samples": 38,
+          "median": 46.0000000525,
+          "p95": 69.000000076,
+          "maximum": 71.000000076
+        }
+      },
+      "unresolved_unverified": 96,
+      "unresolved_unpublished": 18
+    },
+    {
+      "arrival_batch": 128,
+      "arrival_period_seconds": 1,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "alternating",
+      "id": "overload-r1-f5",
+      "initial_tip": 0,
+      "pair": "overload-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_GROWING_BACKLOG",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 127.999999919,
+      "verified_records_per_virtual_second": 38.999999975320314,
+      "verified_records": 4992,
+      "final_backlog": 11392,
+      "maximum_backlog": 11392,
+      "backlog_change_per_virtual_second": 88.9999999436797,
+      "ledger_calls": 78,
+      "archive_calls": 2,
+      "empty_polls_observed": 0,
+      "successful_source_advances_observed": 78,
+      "ledger_calls_per_virtual_second": 0.6093749996143799,
+      "successful_source_advances_per_virtual_second": 0.6093749996143799,
+      "ledger_calls_per_1000_verified_records": 15.625,
+      "archive_calls_per_1000_verified_records": 0.40064102564102566,
+      "polls_observed_per_completed_segment": 0.0,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499995056153,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 13.000000006999997,
+        "p95": 18.000000008999997,
+        "maximum": 18.000000008999997
+      },
+      "publication_spacing_mean": 13.000000006555554,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 53156,
+      "queue_high_water": 12,
+      "stable_bytes": 25231360,
+      "retained_bytes": 92519,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 192,
+      "valid_payment_samples": 64,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 60,
+          "unresolved_samples": 132,
+          "median": 43.0000000485,
+          "p95": 83.000000077,
+          "maximum": 87.00000008
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 54,
+          "unresolved_samples": 138,
+          "median": 19.5000000095,
+          "p95": 26.000000012999998,
+          "maximum": 26.000000012999998
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 54,
+          "unresolved_samples": 138,
+          "median": 60.000000056999994,
+          "p95": 93.000000081,
+          "maximum": 93.000000081
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 20,
+          "unresolved_samples": 44,
+          "median": 43.0000000485,
+          "p95": 83.000000077,
+          "maximum": 87.00000008
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 46,
+          "median": 60.000000056999994,
+          "p95": 93.000000081,
+          "maximum": 93.000000081
+        }
+      },
+      "unresolved_unverified": 132,
+      "unresolved_unpublished": 6
+    },
+    {
+      "arrival_batch": 0,
+      "arrival_period_seconds": 1,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "none",
+      "id": "no-hints-idle-r1-f1",
+      "initial_tip": 0,
+      "pair": "no-hints-idle-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 0.0,
+      "verified_records_per_virtual_second": 0.0,
+      "verified_records": 0,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 0,
+      "empty_polls_observed": 128,
+      "successful_source_advances_observed": 0,
+      "ledger_calls_per_virtual_second": 0.9999999999296876,
+      "successful_source_advances_per_virtual_second": 0.0,
+      "ledger_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "archive_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "polls_observed_per_completed_segment": 11.636363636363637,
+      "completed_segments": 11,
+      "game_segments_per_virtual_second": 0.08593749999395753,
+      "publication_spacing": {
+        "completed_samples": 10,
+        "unresolved_samples": 0,
+        "median": 11.0,
+        "p95": 15.999999999999996,
+        "maximum": 15.999999999999996
+      },
+      "publication_spacing_mean": 11.5,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 11.636363636363637,
+      "work_units": 50617,
+      "queue_high_water": 0,
+      "stable_bytes": 25231360,
+      "retained_bytes": 76451,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 0,
+      "valid_payment_samples": 0,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 0,
+      "arrival_period_seconds": 1,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "none",
+      "id": "no-hints-idle-r1-f5",
+      "initial_tip": 0,
+      "pair": "no-hints-idle-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 0.0,
+      "verified_records_per_virtual_second": 0.0,
+      "verified_records": 0,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 26,
+      "archive_calls": 0,
+      "empty_polls_observed": 26,
+      "successful_source_advances_observed": 0,
+      "ledger_calls_per_virtual_second": 0.20312499998571779,
+      "successful_source_advances_per_virtual_second": 0.0,
+      "ledger_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "archive_calls_per_1000_verified_records": "NOT_APPLICABLE",
+      "polls_observed_per_completed_segment": 2.3636363636363638,
+      "completed_segments": 11,
+      "game_segments_per_virtual_second": 0.08593749999395753,
+      "publication_spacing": {
+        "completed_samples": 10,
+        "unresolved_samples": 0,
+        "median": 11.0,
+        "p95": 15.999999999999996,
+        "maximum": 15.999999999999996
+      },
+      "publication_spacing_mean": 11.5,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 11.636363636363637,
+      "work_units": 50617,
+      "queue_high_water": 0,
+      "stable_bytes": 25231360,
+      "retained_bytes": 76451,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 0,
+      "valid_payment_samples": 0,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 0,
+          "unresolved_samples": 0,
+          "median": "NOT_MEASURED",
+          "p95": "NOT_MEASURED",
+          "maximum": "NOT_MEASURED"
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "none",
+      "id": "no-hints-moderate-r1-f1",
+      "initial_tip": 0,
+      "pair": "no-hints-moderate-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999999437501,
+      "verified_records_per_virtual_second": 7.999999999437501,
+      "verified_records": 1024,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 112,
+      "successful_source_advances_observed": 16,
+      "ledger_calls_per_virtual_second": 0.9999999999296876,
+      "successful_source_advances_per_virtual_second": 0.12499999999121095,
+      "ledger_calls_per_1000_verified_records": 125.0,
+      "archive_calls_per_1000_verified_records": 1.953125,
+      "polls_observed_per_completed_segment": 11.2,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499999450684,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.0,
+        "p95": 17.000000000000007,
+        "maximum": 17.000000000000007
+      },
+      "publication_spacing_mean": 12.444444444444445,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 51751,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 83592,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 12,
+      "valid_payment_samples": 4,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 9.000002521020178e-09,
+          "p95": 9.000004297377018e-09,
+          "maximum": 9.000004297377018e-09
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.5,
+          "p95": 24.000000000000007,
+          "maximum": 24.000000000000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000009000004,
+          "p95": 24.000000009000004,
+          "maximum": 24.000000009000004
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 9.000002521020178e-09,
+          "p95": 9.000004297377018e-09,
+          "maximum": 9.000004297377018e-09
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 18.500000009000004,
+          "p95": 24.000000009000004,
+          "maximum": 24.000000009000004
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "none",
+      "id": "no-hints-moderate-r1-f5",
+      "initial_tip": 0,
+      "pair": "no-hints-moderate-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_BOUNDED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999999437501,
+      "verified_records_per_virtual_second": 7.4999999994726565,
+      "verified_records": 960,
+      "final_backlog": 64,
+      "maximum_backlog": 64,
+      "backlog_change_per_virtual_second": 0.4999999999648438,
+      "ledger_calls": 26,
+      "archive_calls": 2,
+      "empty_polls_observed": 11,
+      "successful_source_advances_observed": 15,
+      "ledger_calls_per_virtual_second": 0.20312499998571779,
+      "successful_source_advances_per_virtual_second": 0.11718749999176026,
+      "ledger_calls_per_1000_verified_records": 27.083333333333332,
+      "archive_calls_per_1000_verified_records": 2.0833333333333335,
+      "polls_observed_per_completed_segment": 1.1,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499999450684,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.0,
+        "p95": 17.000000000000007,
+        "maximum": 17.000000000000007
+      },
+      "publication_spacing_mean": 12.444444444444445,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 51751,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 83592,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 12,
+      "valid_payment_samples": 4,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 1.5000000090000025,
+          "p95": 3.0000000090000043,
+          "maximum": 3.0000000090000043
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 16.5,
+          "p95": 24.000000000000007,
+          "maximum": 24.000000000000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000009000004,
+          "p95": 24.000000009000004,
+          "maximum": 24.000000009000004
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 1.5000000090000025,
+          "p95": 3.0000000090000043,
+          "maximum": 3.0000000090000043
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 18.500000009000004,
+          "p95": 24.000000009000004,
+          "maximum": 24.000000009000004
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 2,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "none",
+      "id": "no-hints-higher-r1-f1",
+      "initial_tip": 0,
+      "pair": "no-hints-higher-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 31.999999997750002,
+      "verified_records_per_virtual_second": 31.999999997750002,
+      "verified_records": 4096,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 64,
+      "successful_source_advances_observed": 64,
+      "ledger_calls_per_virtual_second": 0.9999999999296876,
+      "successful_source_advances_per_virtual_second": 0.4999999999648438,
+      "ledger_calls_per_1000_verified_records": 31.25,
+      "archive_calls_per_1000_verified_records": 0.48828125,
+      "polls_observed_per_completed_segment": 6.4,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499999450684,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.0,
+        "p95": 16.000000000000007,
+        "maximum": 16.000000000000007
+      },
+      "publication_spacing_mean": 12.333333333333334,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52528,
+      "queue_high_water": 12,
+      "stable_bytes": 25231360,
+      "retained_bytes": 95655,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 48,
+      "valid_payment_samples": 16,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 48,
+          "unresolved_samples": 0,
+          "median": 9.000002521020178e-09,
+          "p95": 9.000004297377018e-09,
+          "maximum": 9.000004297377018e-09
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 42,
+          "unresolved_samples": 6,
+          "median": 19.0,
+          "p95": 27.000000000000007,
+          "maximum": 27.000000000000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 42,
+          "unresolved_samples": 6,
+          "median": 19.000000009000004,
+          "p95": 27.000000009000004,
+          "maximum": 27.000000009000004
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 16,
+          "unresolved_samples": 0,
+          "median": 9.000002521020178e-09,
+          "p95": 9.000004297377018e-09,
+          "maximum": 9.000004297377018e-09
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 14,
+          "unresolved_samples": 2,
+          "median": 19.000000009000004,
+          "p95": 27.000000009000004,
+          "maximum": 27.000000009000004
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 6
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 2,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "none",
+      "id": "no-hints-higher-r1-f5",
+      "initial_tip": 0,
+      "pair": "no-hints-higher-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_GROWING_BACKLOG",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 31.999999997750002,
+      "verified_records_per_virtual_second": 12.499999999121094,
+      "verified_records": 1600,
+      "final_backlog": 2496,
+      "maximum_backlog": 2496,
+      "backlog_change_per_virtual_second": 19.49999999862891,
+      "ledger_calls": 26,
+      "archive_calls": 2,
+      "empty_polls_observed": 1,
+      "successful_source_advances_observed": 25,
+      "ledger_calls_per_virtual_second": 0.20312499998571779,
+      "successful_source_advances_per_virtual_second": 0.1953124999862671,
+      "ledger_calls_per_1000_verified_records": 16.25,
+      "archive_calls_per_1000_verified_records": 1.25,
+      "polls_observed_per_completed_segment": 0.1,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499999450684,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 13.0,
+        "p95": 18.000000000000007,
+        "maximum": 18.000000000000007
+      },
+      "publication_spacing_mean": 12.666666666666668,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52752,
+      "queue_high_water": 6,
+      "stable_bytes": 25231360,
+      "retained_bytes": 85244,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 48,
+      "valid_payment_samples": 16,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 21,
+          "unresolved_samples": 27,
+          "median": 39.000000009000004,
+          "p95": 75.000000009,
+          "maximum": 75.000000009
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 30,
+          "median": 19.5,
+          "p95": 21.999999999999996,
+          "maximum": 21.999999999999996
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 30,
+          "median": 49.500000009000004,
+          "p95": 83.000000009,
+          "maximum": 83.000000009
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 7,
+          "unresolved_samples": 9,
+          "median": 39.000000009000004,
+          "p95": 75.000000009,
+          "maximum": 75.000000009
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 6,
+          "unresolved_samples": 10,
+          "median": 49.500000009000004,
+          "p95": 83.000000009,
+          "maximum": 83.000000009
+        }
+      },
+      "unresolved_unverified": 27,
+      "unresolved_unpublished": 3
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "none",
+      "id": "backlog-r1-f1",
+      "initial_tip": 512,
+      "pair": "backlog-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999999437501,
+      "verified_records_per_virtual_second": 11.999999999156252,
+      "verified_records": 1536,
+      "final_backlog": 0,
+      "maximum_backlog": 512,
+      "backlog_change_per_virtual_second": -3.9999999997187503,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 104,
+      "successful_source_advances_observed": 24,
+      "ledger_calls_per_virtual_second": 0.9999999999296876,
+      "successful_source_advances_per_virtual_second": 0.18749999998681643,
+      "ledger_calls_per_1000_verified_records": 83.33333333333333,
+      "archive_calls_per_1000_verified_records": 1.3020833333333333,
+      "polls_observed_per_completed_segment": 10.4,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499999450684,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.999999999999996,
+        "p95": 16.000000000000007,
+        "maximum": 16.000000000000007
+      },
+      "publication_spacing_mean": 12.777777777777779,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52336,
+      "queue_high_water": 9,
+      "stable_bytes": 25231360,
+      "retained_bytes": 84124,
+      "backlog_half_time": 4.000000009,
+      "backlog_zero_time": 9.000000009,
+      "relevant_record_samples": 18,
+      "valid_payment_samples": 6,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 0,
+          "median": 0.5000000090000022,
+          "p95": 5.000000009,
+          "maximum": 5.000000009
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 0,
+          "median": 18.5,
+          "p95": 24.000000000000007,
+          "maximum": 24.000000000000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 0,
+          "median": 21.000000009,
+          "p95": 24.000000009000004,
+          "maximum": 24.000000009000004
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 6,
+          "unresolved_samples": 0,
+          "median": 0.5000000090000022,
+          "p95": 5.000000009,
+          "maximum": 5.000000009
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 6,
+          "unresolved_samples": 0,
+          "median": 21.000000009,
+          "p95": 24.000000009000004,
+          "maximum": 24.000000009000004
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "none",
+      "id": "backlog-r1-f5",
+      "initial_tip": 512,
+      "pair": "backlog-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_BOUNDED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999999437501,
+      "verified_records_per_virtual_second": 11.499999999191408,
+      "verified_records": 1472,
+      "final_backlog": 64,
+      "maximum_backlog": 512,
+      "backlog_change_per_virtual_second": -3.4999999997539066,
+      "ledger_calls": 26,
+      "archive_calls": 2,
+      "empty_polls_observed": 3,
+      "successful_source_advances_observed": 23,
+      "ledger_calls_per_virtual_second": 0.20312499998571779,
+      "successful_source_advances_per_virtual_second": 0.17968749998736575,
+      "ledger_calls_per_1000_verified_records": 17.66304347826087,
+      "archive_calls_per_1000_verified_records": 1.358695652173913,
+      "polls_observed_per_completed_segment": 0.3,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499999450684,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.0,
+        "p95": 17.000000000000007,
+        "maximum": 17.000000000000007
+      },
+      "publication_spacing_mean": 12.666666666666668,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52166,
+      "queue_high_water": 6,
+      "stable_bytes": 25231360,
+      "retained_bytes": 82666,
+      "backlog_half_time": 30.000000009,
+      "backlog_zero_time": 85.000000009,
+      "relevant_record_samples": 18,
+      "valid_payment_samples": 6,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 0,
+          "median": 14.000000009,
+          "p95": 32.000000009,
+          "maximum": 32.000000009
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 0,
+          "median": 20.0,
+          "p95": 24.000000000000007,
+          "maximum": 24.000000000000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 18,
+          "unresolved_samples": 0,
+          "median": 27.000000009,
+          "p95": 56.000000009000004,
+          "maximum": 56.000000009000004
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 6,
+          "unresolved_samples": 0,
+          "median": 14.000000009,
+          "p95": 32.000000009,
+          "maximum": 32.000000009
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 6,
+          "unresolved_samples": 0,
+          "median": 27.000000009,
+          "p95": 56.000000009000004,
+          "maximum": 56.000000009000004
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "alternating",
+      "id": "moderate-r2-f1",
+      "initial_tip": 0,
+      "pair": "moderate-r2",
+      "repetition": 2,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999998937501,
+      "verified_records_per_virtual_second": 7.999999998937501,
+      "verified_records": 1024,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 112,
+      "successful_source_advances_observed": 16,
+      "ledger_calls_per_virtual_second": 0.9999999998671876,
+      "successful_source_advances_per_virtual_second": 0.12499999998339845,
+      "ledger_calls_per_1000_verified_records": 125.0,
+      "archive_calls_per_1000_verified_records": 1.953125,
+      "polls_observed_per_completed_segment": 11.2,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499998962404,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000001000004,
+        "p95": 17.000000002000007,
+        "maximum": 17.000000002000007
+      },
+      "publication_spacing_mean": 12.444444445222222,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 51751,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 83592,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 12,
+      "valid_payment_samples": 4,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 1.2000000992884452e-08,
+          "p95": 1.4999997688391886e-08,
+          "maximum": 1.4999997688391886e-08
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000000999997,
+          "p95": 24.000000002000007,
+          "maximum": 24.000000002000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 1.2000000992884452e-08,
+          "p95": 1.4999997688391886e-08,
+          "maximum": 1.4999997688391886e-08
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "alternating",
+      "id": "moderate-r2-f5",
+      "initial_tip": 0,
+      "pair": "moderate-r2",
+      "repetition": 2,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999998937501,
+      "verified_records_per_virtual_second": 7.999999998937501,
+      "verified_records": 1024,
+      "final_backlog": 0,
+      "maximum_backlog": 64,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 33,
+      "archive_calls": 2,
+      "empty_polls_observed": 17,
+      "successful_source_advances_observed": 16,
+      "ledger_calls_per_virtual_second": 0.2578124999657593,
+      "successful_source_advances_per_virtual_second": 0.12499999998339845,
+      "ledger_calls_per_1000_verified_records": 32.2265625,
+      "archive_calls_per_1000_verified_records": 1.953125,
+      "polls_observed_per_completed_segment": 1.7,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499998962404,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000001000004,
+        "p95": 17.000000002000007,
+        "maximum": 17.000000002000007
+      },
+      "publication_spacing_mean": 12.444444445222222,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 51751,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 83592,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 12,
+      "valid_payment_samples": 4,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 1.5000000119999992,
+          "p95": 3.0000000130000046,
+          "maximum": 3.0000000130000046
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 16.500000000999997,
+          "p95": 24.000000002000007,
+          "maximum": 24.000000002000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 12,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 1.5000000119999992,
+          "p95": 3.0000000130000046,
+          "maximum": 3.0000000130000046
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 4,
+          "unresolved_samples": 0,
+          "median": 18.500000014999998,
+          "p95": 24.000000013000005,
+          "maximum": 24.000000013000005
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 2,
+      "duration_seconds": 128,
+      "fallback_seconds": 1,
+      "hints": "alternating",
+      "id": "higher-r2-f1",
+      "initial_tip": 0,
+      "pair": "higher-r2",
+      "repetition": 2,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 31.999999989750002,
+      "verified_records_per_virtual_second": 31.999999989750002,
+      "verified_records": 4096,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 128,
+      "archive_calls": 2,
+      "empty_polls_observed": 64,
+      "successful_source_advances_observed": 64,
+      "ledger_calls_per_virtual_second": 0.9999999996796876,
+      "successful_source_advances_per_virtual_second": 0.4999999998398438,
+      "ledger_calls_per_1000_verified_records": 31.25,
+      "archive_calls_per_1000_verified_records": 0.48828125,
+      "polls_observed_per_completed_segment": 6.4,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499997497559,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000002999997,
+        "p95": 16.000000004000007,
+        "maximum": 16.000000004000007
+      },
+      "publication_spacing_mean": 12.333333336444445,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52528,
+      "queue_high_water": 12,
+      "stable_bytes": 25231360,
+      "retained_bytes": 95655,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 48,
+      "valid_payment_samples": 16,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 48,
+          "unresolved_samples": 0,
+          "median": 2.4000001985768904e-08,
+          "p95": 3.899999967416079e-08,
+          "maximum": 3.899999967416079e-08
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 42,
+          "unresolved_samples": 6,
+          "median": 19.000000004999997,
+          "p95": 27.000000007000004,
+          "maximum": 27.000000007000004
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 42,
+          "unresolved_samples": 6,
+          "median": 19.000000021,
+          "p95": 27.000000028000002,
+          "maximum": 27.000000028000002
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 16,
+          "unresolved_samples": 0,
+          "median": 2.4000001985768904e-08,
+          "p95": 3.899999967416079e-08,
+          "maximum": 3.899999967416079e-08
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 14,
+          "unresolved_samples": 2,
+          "median": 19.000000021,
+          "p95": 27.000000028000002,
+          "maximum": 27.000000028000002
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 6
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 2,
+      "duration_seconds": 128,
+      "fallback_seconds": 5,
+      "hints": "alternating",
+      "id": "higher-r2-f5",
+      "initial_tip": 0,
+      "pair": "higher-r2",
+      "repetition": 2,
+      "outcome": "OBSERVED_GROWING_BACKLOG",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 31.999999989750002,
+      "verified_records_per_virtual_second": 25.499999991832034,
+      "verified_records": 3264,
+      "final_backlog": 832,
+      "maximum_backlog": 832,
+      "backlog_change_per_virtual_second": 6.4999999979179695,
+      "ledger_calls": 52,
+      "archive_calls": 2,
+      "empty_polls_observed": 1,
+      "successful_source_advances_observed": 51,
+      "ledger_calls_per_virtual_second": 0.4062499998698731,
+      "successful_source_advances_per_virtual_second": 0.39843749987237553,
+      "ledger_calls_per_1000_verified_records": 15.931372549019608,
+      "archive_calls_per_1000_verified_records": 0.6127450980392157,
+      "polls_observed_per_completed_segment": 0.1,
+      "completed_segments": 10,
+      "game_segments_per_virtual_second": 0.07812499997497559,
+      "publication_spacing": {
+        "completed_samples": 9,
+        "unresolved_samples": 0,
+        "median": 12.000000002999997,
+        "p95": 16.000000004,
+        "maximum": 16.000000004
+      },
+      "publication_spacing_mean": 12.111111114222222,
+      "callbacks": 128,
+      "callbacks_per_completed_segment_including_tail": 12.8,
+      "work_units": 52453,
+      "queue_high_water": 9,
+      "stable_bytes": 25231360,
+      "retained_bytes": 91886,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 48,
+      "valid_payment_samples": 16,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 39,
+          "unresolved_samples": 9,
+          "median": 14.000000025000006,
+          "p95": 26.000000040000003,
+          "maximum": 26.000000040000003
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 33,
+          "unresolved_samples": 15,
+          "median": 18.000000004,
+          "p95": 23.000000005,
+          "maximum": 23.000000005
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 33,
+          "unresolved_samples": 15,
+          "median": 29.000000029999995,
+          "p95": 38.000000039,
+          "maximum": 38.000000039
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 13,
+          "unresolved_samples": 3,
+          "median": 14.000000025000006,
+          "p95": 26.000000040000003,
+          "maximum": 26.000000040000003
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 11,
+          "unresolved_samples": 5,
+          "median": 29.000000029999995,
+          "p95": 38.000000039,
+          "maximum": 38.000000039
+        }
+      },
+      "unresolved_unverified": 9,
+      "unresolved_unpublished": 6
+    }
+  ]
+}

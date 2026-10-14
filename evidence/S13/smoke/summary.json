@@ -1,0 +1,183 @@
+{
+  "status": "PASS",
+  "scenarios": [
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 32,
+      "fallback_seconds": 1,
+      "hints": "none",
+      "id": "smoke-r1-f1",
+      "initial_tip": 0,
+      "pair": "smoke-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_DRAINED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999997750001,
+      "verified_records_per_virtual_second": 7.999999997750001,
+      "verified_records": 256,
+      "final_backlog": 0,
+      "maximum_backlog": 0,
+      "backlog_change_per_virtual_second": 0.0,
+      "ledger_calls": 32,
+      "archive_calls": 2,
+      "empty_polls_observed": 28,
+      "successful_source_advances_observed": 4,
+      "ledger_calls_per_virtual_second": 0.9999999997187501,
+      "successful_source_advances_per_virtual_second": 0.12499999996484376,
+      "ledger_calls_per_1000_verified_records": 125.0,
+      "archive_calls_per_1000_verified_records": 7.8125,
+      "polls_observed_per_completed_segment": 14.0,
+      "completed_segments": 2,
+      "game_segments_per_virtual_second": 0.06249999998242188,
+      "publication_spacing": {
+        "completed_samples": 1,
+        "unresolved_samples": 0,
+        "median": 10.0,
+        "p95": 10.0,
+        "maximum": 10.0
+      },
+      "publication_spacing_mean": 10.0,
+      "callbacks": 32,
+      "callbacks_per_completed_segment_including_tail": 16.0,
+      "work_units": 13244,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 55688,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 3,
+      "valid_payment_samples": 1,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 3,
+          "unresolved_samples": 0,
+          "median": 9.000000744663339e-09,
+          "p95": 9.000000744663339e-09,
+          "maximum": 9.000000744663339e-09
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 3,
+          "unresolved_samples": 0,
+          "median": 13.0,
+          "p95": 13.0,
+          "maximum": 13.0
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 3,
+          "unresolved_samples": 0,
+          "median": 13.000000009,
+          "p95": 13.000000009,
+          "maximum": 13.000000009
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 1,
+          "unresolved_samples": 0,
+          "median": 9.000000744663339e-09,
+          "p95": 9.000000744663339e-09,
+          "maximum": 9.000000744663339e-09
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 1,
+          "unresolved_samples": 0,
+          "median": 13.000000009,
+          "p95": 13.000000009,
+          "maximum": 13.000000009
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    },
+    {
+      "arrival_batch": 64,
+      "arrival_period_seconds": 8,
+      "duration_seconds": 32,
+      "fallback_seconds": 5,
+      "hints": "none",
+      "id": "smoke-r1-f5",
+      "initial_tip": 0,
+      "pair": "smoke-r1",
+      "repetition": 1,
+      "outcome": "OBSERVED_BOUNDED",
+      "status": "PASS",
+      "offered_records_per_virtual_second": 7.999999997750001,
+      "verified_records_per_virtual_second": 5.999999998312501,
+      "verified_records": 192,
+      "final_backlog": 64,
+      "maximum_backlog": 64,
+      "backlog_change_per_virtual_second": 1.9999999994375002,
+      "ledger_calls": 7,
+      "archive_calls": 2,
+      "empty_polls_observed": 4,
+      "successful_source_advances_observed": 3,
+      "ledger_calls_per_virtual_second": 0.21874999993847657,
+      "successful_source_advances_per_virtual_second": 0.09374999997363283,
+      "ledger_calls_per_1000_verified_records": 36.458333333333336,
+      "archive_calls_per_1000_verified_records": 10.416666666666666,
+      "polls_observed_per_completed_segment": 2.0,
+      "completed_segments": 2,
+      "game_segments_per_virtual_second": 0.06249999998242188,
+      "publication_spacing": {
+        "completed_samples": 1,
+        "unresolved_samples": 0,
+        "median": 10.0,
+        "p95": 10.0,
+        "maximum": 10.0
+      },
+      "publication_spacing_mean": 10.0,
+      "callbacks": 32,
+      "callbacks_per_completed_segment_including_tail": 16.0,
+      "work_units": 13244,
+      "queue_high_water": 3,
+      "stable_bytes": 25231360,
+      "retained_bytes": 55688,
+      "backlog_half_time": "NOT_APPLICABLE",
+      "backlog_zero_time": "NOT_APPLICABLE",
+      "relevant_record_samples": 3,
+      "valid_payment_samples": 1,
+      "latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 3,
+          "unresolved_samples": 0,
+          "median": 2.0000000090000007,
+          "p95": 2.0000000090000007,
+          "maximum": 2.0000000090000007
+        },
+        "verification_to_publication_seconds": {
+          "completed_samples": 3,
+          "unresolved_samples": 0,
+          "median": 11.0,
+          "p95": 11.0,
+          "maximum": 11.0
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 3,
+          "unresolved_samples": 0,
+          "median": 13.000000009,
+          "p95": 13.000000009,
+          "maximum": 13.000000009
+        }
+      },
+      "valid_payment_latency": {
+        "arrival_to_verification_seconds": {
+          "completed_samples": 1,
+          "unresolved_samples": 0,
+          "median": 2.0000000090000007,
+          "p95": 2.0000000090000007,
+          "maximum": 2.0000000090000007
+        },
+        "arrival_to_publication_seconds": {
+          "completed_samples": 1,
+          "unresolved_samples": 0,
+          "median": 13.000000009,
+          "p95": 13.000000009,
+          "maximum": 13.000000009
+        }
+      },
+      "unresolved_unverified": 0,
+      "unresolved_unpublished": 0
+    }
+  ]
+}

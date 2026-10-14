@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "source_revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+  "trace_sha256": "1e6e3bbb1ab070a1200998e3792483497f8a093a1fb725289b1f02bfbfae336c",
+  "checks": [
+    {
+      "field": "verified_cursor",
+      "status": "PASS",
+      "rejected": "inconsistent interval 1"
+    },
+    {
+      "field": "ledger_tip",
+      "status": "PASS",
+      "rejected": "inconsistent interval 1"
+    },
+    {
+      "field": "records_verified",
+      "status": "PASS",
+      "rejected": "inconsistent interval 1"
+    },
+    {
+      "field": "elapsed_virtual_seconds",
+      "status": "PASS",
+      "rejected": "inconsistent interval 1"
+    },
+    {
+      "field": "backlog",
+      "status": "PASS",
+      "rejected": "inconsistent interval 1"
+    }
+  ]
+}

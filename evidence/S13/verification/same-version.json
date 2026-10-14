@@ -1,0 +1,336 @@
+{
+  "schema_version": 2,
+  "checkpoint": "S11",
+  "scenario": "S10-live-local",
+  "upgrade_test_mode": "same-version",
+  "git_revision": "3e57280d761700f8ea7432316ade05c689404351",
+  "overall": "PASS",
+  "checks": [
+    {
+      "id": "pinned-artifacts",
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "-B",
+        "tools/fetch_s09_artifacts.py",
+        "--destination",
+        "/home/codexdev/dtr-s09-artifacts",
+        "--record",
+        "/home/codexdev/src/btz/.work/s13/same-version-verified/verified-artifacts.json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 5.194,
+      "timeout_seconds": 300,
+      "log": "logs/pinned-artifacts.log"
+    },
+    {
+      "id": "runtime-normal-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.167,
+      "timeout_seconds": 900,
+      "log": "logs/runtime-normal-build.log"
+    },
+    {
+      "id": "runtime-test-hook-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--features",
+        "test-hooks",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 44.502,
+      "timeout_seconds": 900,
+      "log": "logs/runtime-test-hook-build.log"
+    },
+    {
+      "id": "pocketic-harness-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--no-run"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.929,
+      "timeout_seconds": 1800,
+      "log": "logs/pocketic-harness-build.log",
+      "target_directory": "/home/codexdev/src/btz/tools/s09-integration/target",
+      "target_started_empty": false
+    },
+    {
+      "id": "pocketic-regressions",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 121.41,
+      "timeout_seconds": 900,
+      "log": "logs/pocketic-regressions.log",
+      "pocketic_server": {
+        "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+        "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "version": {
+          "command": [
+            "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+            "--version"
+          ],
+          "exit_code": 0,
+          "text": "pocket-ic-server 16.1.0"
+        },
+        "url": "http://127.0.0.1:37177/",
+        "log": "logs/pocketic-server.log",
+        "output_tail": "2026-10-14T22:07:17.245803Z  INFO pocket_ic_server: The PocketIC server is listening on port 37177\n2021-05-06 19:17:10.000000008 UTC: [Canister dllsh-pd777-77776-qaaaa-cai] Panicked at 'called `Result::unwrap()` on an `Err` value: Custom(Fail to decode argument 0 from table0 to blob\n\nCaused by:\n    Subtyping error: TypeInner :: Nat8)', src/lib.rs:725:39\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+        "unexpected_exit_code": null
+      }
+    },
+    {
+      "id": "s10-live-concurrent-slice",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "live_autonomous_ledger_browser_reconnect_upgrade_and_replay",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "browser_command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "-B",
+        "tools/verify_observer_http.py",
+        "--live-config",
+        "/home/codexdev/src/btz/.work/s13/same-version-verified/live/config",
+        "--ic-gateway",
+        "http://localhost:35931/",
+        "--live-canister",
+        "dllsh-pd777-77776-qaaaa-cai",
+        "--coordination",
+        "/home/codexdev/src/btz/.work/s13/same-version-verified/live/coordination",
+        "--output",
+        "/home/codexdev/src/btz/.work/s13/same-version-verified/browser-live"
+      ],
+      "exit_code": 0,
+      "browser_exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 77.95,
+      "timeout_seconds": 900,
+      "log": "logs/s10-live-pocketic.log",
+      "browser_log": "logs/s10-live-browser-wrapper.log",
+      "local_instance": {
+        "canister_id": "dllsh-pd777-77776-qaaaa-cai",
+        "config": "/home/codexdev/src/btz/.work/s13/same-version-verified/live/config",
+        "gateway": "http://localhost:35931/",
+        "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c"
+      },
+      "pocketic_server": {
+        "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+        "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "version": {
+          "command": [
+            "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+            "--version"
+          ],
+          "exit_code": 0,
+          "text": "pocket-ic-server 16.1.0"
+        },
+        "url": "http://127.0.0.1:37177/",
+        "log": "logs/pocketic-server.log",
+        "output_tail": "19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000014 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000017 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000020 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2026-10-14 22:10:05.515864155 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553930 bytes\n2026-10-14 22:10:05.515864155 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2026-10-14 22:10:05.515864155 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+        "unexpected_exit_code": null
+      }
+    },
+    {
+      "id": "s09-certified-snapshot-regression",
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "-B",
+        "tools/verify_observer_http.py",
+        "--local-snapshot",
+        "/home/codexdev/src/btz/.work/s13/same-version-verified/browser-snapshot",
+        "--output",
+        "/home/codexdev/src/btz/.work/s13/same-version-verified/browser-snapshot-regression"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 16.12,
+      "timeout_seconds": 300,
+      "log": "logs/s09-certified-snapshot-regression.log",
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tools": {
+    "python": {
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "Python 3.11.14"
+    },
+    "node": {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "v24.15.0"
+    },
+    "npm": {
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "11.12.1"
+    },
+    "rustc": {
+      "command": [
+        "rustc",
+        "+1.94.1",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+    },
+    "cargo": {
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+    }
+  },
+  "tested_artifacts": [
+    {
+      "name": "replacement-runtime-lab",
+      "path": "/home/codexdev/src/btz/.work/s13/same-version-verified/wasm/runtime-lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602,
+      "source_revision": "3e57280d761700f8ea7432316ade05c689404351",
+      "source_tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+      "source_remote": "https://github.com/aodl/balls-2-the-wallz",
+      "module_selection": "normal release Wasm"
+    },
+    {
+      "name": "runtime-lab-test-hooks",
+      "path": "/home/codexdev/src/btz/.work/s13/same-version-verified/wasm/runtime-lab-test-hooks.wasm",
+      "sha256": "8be047a2dc49afdf32fa47209d54d2e0a7ff72e06dc3cccb9001cfda4b106c11",
+      "size": 2264093,
+      "source_revision": "3e57280d761700f8ea7432316ade05c689404351",
+      "source_tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+      "source_remote": "https://github.com/aodl/balls-2-the-wallz",
+      "module_selection": "test-hooks release Wasm"
+    },
+    {
+      "name": "same-version-baseline-runtime-lab",
+      "path": "/home/codexdev/src/btz/.work/s13/same-version-verified/wasm/runtime-lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602,
+      "source_revision": "3e57280d761700f8ea7432316ade05c689404351",
+      "source_tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+      "source_remote": "https://github.com/aodl/balls-2-the-wallz",
+      "module_selection": "current normal release Wasm"
+    },
+    {
+      "name": "ledger",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm",
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "size": 2552776
+    },
+    {
+      "name": "ledger-archive",
+      "path": "/home/codexdev/dtr-s09-artifacts/downloads/ledger-archive-node-canister.wasm.gz",
+      "sha256": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42",
+      "size": 249578
+    }
+  ],
+  "working_tree_changes": [],
+  "replacement_source": {
+    "remote": "https://github.com/aodl/balls-2-the-wallz",
+    "revision": "3e57280d761700f8ea7432316ade05c689404351",
+    "tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+    "working_tree_changes": []
+  },
+  "baseline_source": {
+    "remote": "https://github.com/aodl/balls-2-the-wallz",
+    "revision": "3e57280d761700f8ea7432316ade05c689404351",
+    "tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+    "working_tree_changes": [],
+    "checkout": "current source",
+    "build_command": [
+      "cargo",
+      "+1.94.1",
+      "build",
+      "--manifest-path",
+      "canisters/runtime-lab/Cargo.toml",
+      "--release",
+      "--target",
+      "wasm32-unknown-unknown",
+      "--locked"
+    ]
+  },
+  "module_provenance": {
+    "baseline": {
+      "source_revision": "3e57280d761700f8ea7432316ade05c689404351",
+      "source_tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3"
+    },
+    "replacement": {
+      "source_revision": "3e57280d761700f8ea7432316ade05c689404351",
+      "source_tree": "44589d93a87bca7dda3094d3916e683c116cd3e1",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3"
+    }
+  },
+  "local_instance": {
+    "canister_id": "dllsh-pd777-77776-qaaaa-cai",
+    "config": "/home/codexdev/src/btz/.work/s13/same-version-verified/live/config",
+    "gateway": "http://localhost:35931/",
+    "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c",
+    "server_cleaned_up": true
+  }
+}

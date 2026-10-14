@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "source_tests": {
+    "revision": "81b88463ee75ed0d4c6a431fd7d2bffd4f270daf",
+    "javascript": 1175,
+    "python": 135,
+    "s13_focused": 19
+  },
+  "native_tests": {
+    "workspace": 18,
+    "portable": 7,
+    "canister": 8
+  },
+  "source_native_wasm_browser_revisions": "individual verification records retain their actual source revision; runtime code unchanged across corrections",
+  "pocketic": {
+    "regular": 11,
+    "ignored": 5,
+    "live_browser": "PASS",
+    "fresh_certificate_snapshot": "PASS",
+    "paired_smoke": 2,
+    "extended": 20,
+    "native_replay": "PASS for every completed captured history"
+  },
+  "rust_format": "PASS",
+  "clippy": "PASS",
+  "wasm": "PASS",
+  "candid": "PASS",
+  "actual_normal_test_hook_exports": "PASS",
+  "historical_cross_version": "NOT_RUN: unchanged schema/normal Wasm; preserved S12 historical evidence",
+  "dtr_standalone": "NOT_RUN: unchanged; S12 186 JS/29 Rust remains historical evidence",
+  "remote_cloning_clean_consumer": "NOT_RUN: remote Git reserved for user",
+  "s13_remote_ci": "NOT_RUN",
+  "s12_remote_ci": {
+    "run": 38640723588,
+    "commit": "3f94ea05acbbf47b31ef9c6b366119e3eae3f422",
+    "source": "user-provided completed baseline CI"
+  },
+  "failures_preserved": [
+    {
+      "run": ".work/s13/same-version",
+      "status": "FAIL",
+      "reason": "Synchronous hints pumped the deliberately delayed test scan; harness assumption corrected.",
+      "results_sha256": "9b37790312158537c8968af46adc5de1a7e40c6bea6023bddcabc4baaa8df63f"
+    },
+    {
+      "run": ".work/s13/extended",
+      "status": "FAIL",
+      "reason": "Deliberate interruption for that correction; remaining cases NOT_RUN.",
+      "results_sha256": "b9e8f6bbcde154ff41574e0948cc045e9f7ad4d86aa43e29dc3e7b0269d58b82"
+    },
+    {
+      "run": ".work/s13/extended-verified",
+      "status": "FAIL",
+      "reason": "Native replay exceeded existing 256-record Ingest limit; corrected to 64-record pages.",
+      "results_sha256": "f8a3c5a75535df4e9dfe7b6a507e5bbcab7e0d77d18758d68bd275c302f062bc"
+    },
+    {
+      "run": ".work/s13/extended-final",
+      "status": "FAIL",
+      "reason": "External SIGTERM interrupted runner; originating cause unavailable. Completed fifth test not validated by parent. Owned orphan server terminated.",
+      "results_sha256": "916bc07523dce9c530c47dce081d0332aa0f46db4b2acfaad6d7394ef1c1d3ef"
+    }
+  ],
+  "final_document_checks": {
+    "links": "PASS: 90 current-document links",
+    "source_inventory": "PASS",
+    "diff_whitespace": "PASS"
+  },
+  "per_message_limits": {
+    "complete_update_instructions": "NOT_MEASURED",
+    "heap_high_water": "NOT_MEASURED",
+    "known_update_limit_instructions": 40000000000
+  },
+  "unmeasured_production_costs": [
+    "actual cycle balance deductions",
+    "production finality/availability",
+    "real network response delays",
+    "full request/response payloads",
+    "query/gateway service",
+    "fiat conversion",
+    "ETH-equivalent compute"
+  ]
+}

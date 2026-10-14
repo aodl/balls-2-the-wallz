@@ -1,0 +1,249 @@
+{
+  "schema_version": 2,
+  "checkpoint": "S11",
+  "scenario": "S10-live-local",
+  "upgrade_test_mode": "same-version",
+  "git_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+  "overall": "FAIL",
+  "checks": [
+    {
+      "id": "pinned-artifacts",
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "-B",
+        "tools/fetch_s09_artifacts.py",
+        "--destination",
+        "/home/codexdev/dtr-s09-artifacts",
+        "--record",
+        "/home/codexdev/src/btz/.work/s13/same-version/verified-artifacts.json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 3.787,
+      "timeout_seconds": 300,
+      "log": "logs/pinned-artifacts.log"
+    },
+    {
+      "id": "runtime-normal-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.317,
+      "timeout_seconds": 900,
+      "log": "logs/runtime-normal-build.log"
+    },
+    {
+      "id": "runtime-test-hook-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--features",
+        "test-hooks",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 31.344,
+      "timeout_seconds": 900,
+      "log": "logs/runtime-test-hook-build.log"
+    },
+    {
+      "id": "pocketic-harness-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--no-run"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.824,
+      "timeout_seconds": 1800,
+      "log": "logs/pocketic-harness-build.log",
+      "target_directory": "/home/codexdev/src/btz/tools/s09-integration/target",
+      "target_started_empty": false
+    },
+    {
+      "id": "pocketic-regressions",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "status": "FAIL",
+      "elapsed_seconds": 114.46,
+      "timeout_seconds": 900,
+      "log": "logs/pocketic-regressions.log",
+      "pocketic_server": {
+        "binary": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+        "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "version": {
+          "command": [
+            "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+            "--version"
+          ],
+          "exit_code": 0,
+          "text": "pocket-ic-server 16.1.0"
+        },
+        "url": "http://127.0.0.1:35043/",
+        "log": "logs/pocketic-server.log",
+        "output_tail": "2026-10-14T22:03:34.063922Z  INFO pocket_ic_server: The PocketIC server is listening on port 35043\n2021-05-06 19:17:10.000000008 UTC: [Canister dllsh-pd777-77776-qaaaa-cai] Panicked at 'called `Result::unwrap()` on an `Err` value: Custom(Fail to decode argument 0 from table0 to blob\n\nCaused by:\n    Subtyping error: TypeInner :: Nat8)', src/lib.rs:725:39\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): minting account is fba8fec14f924ccdd37b77f8bc4616b2745f88bd1f84a4e804b1010df20da6ab\n2021-05-06 19:17:10.000000009 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [ledger] init(): using maximum message size: 1000000\n2021-05-06 19:17:10.000000016 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister(cycles_for_canister_creation=10000000000000)\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] create_canister() = Ok(CanisterIdRecord { canister_id: dfj7p-ut777-77776-qaaba-cai })\n2021-05-06 19:17:10.000000018 UTC: [Canister dmkut-c3777-77776-qaaaq-cai] [spawn] install_code()\n2021-05-06 19:17:10.000000019 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] init(): using maximum memory size: 33554432 bytes and height offset 0\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554432 bytes\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 0 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000022 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33554248 bytes\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 2 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000024 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 4 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] remaining_capacity: 33553977 bytes\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): archive size: 4 blocks, appending 2 blocks\n2021-05-06 19:17:10.000000053 UTC: [Canister dfj7p-ut777-77776-qaaba-cai] [archive node] append_blocks(): done. archive size: 6 blocks\n",
+        "unexpected_exit_code": null
+      }
+    }
+  ],
+  "tools": {
+    "python": {
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "Python 3.11.14"
+    },
+    "node": {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "v24.15.0"
+    },
+    "npm": {
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "11.12.1"
+    },
+    "rustc": {
+      "command": [
+        "rustc",
+        "+1.94.1",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+    },
+    "cargo": {
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+    }
+  },
+  "tested_artifacts": [
+    {
+      "name": "replacement-runtime-lab",
+      "path": "/home/codexdev/src/btz/.work/s13/same-version/wasm/runtime-lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602,
+      "source_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+      "source_tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+      "source_remote": "https://github.com/aodl/balls-2-the-wallz",
+      "module_selection": "normal release Wasm"
+    },
+    {
+      "name": "runtime-lab-test-hooks",
+      "path": "/home/codexdev/src/btz/.work/s13/same-version/wasm/runtime-lab-test-hooks.wasm",
+      "sha256": "8be047a2dc49afdf32fa47209d54d2e0a7ff72e06dc3cccb9001cfda4b106c11",
+      "size": 2264093,
+      "source_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+      "source_tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+      "source_remote": "https://github.com/aodl/balls-2-the-wallz",
+      "module_selection": "test-hooks release Wasm"
+    },
+    {
+      "name": "same-version-baseline-runtime-lab",
+      "path": "/home/codexdev/src/btz/.work/s13/same-version/wasm/runtime-lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602,
+      "source_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+      "source_tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+      "source_remote": "https://github.com/aodl/balls-2-the-wallz",
+      "module_selection": "current normal release Wasm"
+    },
+    {
+      "name": "ledger",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm",
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "size": 2552776
+    },
+    {
+      "name": "ledger-archive",
+      "path": "/home/codexdev/dtr-s09-artifacts/downloads/ledger-archive-node-canister.wasm.gz",
+      "sha256": "3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42",
+      "size": 249578
+    }
+  ],
+  "working_tree_changes": [],
+  "replacement_source": {
+    "remote": "https://github.com/aodl/balls-2-the-wallz",
+    "revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+    "tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+    "working_tree_changes": []
+  },
+  "baseline_source": {
+    "remote": "https://github.com/aodl/balls-2-the-wallz",
+    "revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+    "tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+    "working_tree_changes": [],
+    "checkout": "current source",
+    "build_command": [
+      "cargo",
+      "+1.94.1",
+      "build",
+      "--manifest-path",
+      "canisters/runtime-lab/Cargo.toml",
+      "--release",
+      "--target",
+      "wasm32-unknown-unknown",
+      "--locked"
+    ]
+  },
+  "module_provenance": {
+    "baseline": {
+      "source_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+      "source_tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3"
+    },
+    "replacement": {
+      "source_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+      "source_tree": "883e5ed862cb50e8968fcf17789d5e406ba3e1c4",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3"
+    }
+  }
+}

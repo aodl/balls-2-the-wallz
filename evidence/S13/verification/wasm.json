@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S12",
+  "git_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+  "started_utc": "2026-10-14T22:01:41.496909+00:00",
+  "mode": "wasm",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "runtime-lab-lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--format-version",
+        "1",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/runtime-lab-lock.log",
+      "elapsed_seconds": 0.22,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "runtime-lab-wasm",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/runtime-lab-wasm.log",
+      "elapsed_seconds": 11.152,
+      "timeout_seconds": 900,
+      "tested_artifacts": [
+        {
+          "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+          "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+          "size": 2238602
+        }
+      ]
+    },
+    {
+      "id": "runtime-lab-candid",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/verify_runtime_candid.py",
+        "--output",
+        ".work/s13/wasm/runtime-lab.generated.did"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/runtime-lab-candid.log",
+      "elapsed_seconds": 2.034,
+      "timeout_seconds": 900
+    },
+    {
+      "id": "runtime-lab-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/runtime-lab-format.log",
+      "elapsed_seconds": 1.281,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "runtime-lab-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/runtime-lab-clippy.log",
+      "elapsed_seconds": 1.848,
+      "timeout_seconds": 900
+    }
+  ],
+  "tested_artifacts": [
+    {
+      "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+      "sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "size": 2238602
+    }
+  ],
+  "overall": "PASS"
+}

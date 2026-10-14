@@ -1,0 +1,508 @@
+{
+  "schema": "btz-s13-run-v1",
+  "profile": "extended",
+  "overall": "FAIL",
+  "source": {
+    "revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+    "tree": "2cbd15fa03b74cc29c3ae8cbf20a498a9352a0e5",
+    "branch": "checkpoint/s13-fallback-policy",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "55d8f46ed5dbf74325c602dd3ad3b3ec7f91fb132c86f867a58aa54fdd504cbc"
+  },
+  "environment": {
+    "captured_utc": "2026-10-14T22:13:22.499467+00:00",
+    "platform": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        46 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               2\nOn-line CPU(s) list:                  0,1\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz\nCPU family:                           6\nModel:                                85\nThread(s) per core:                   2\nCore(s) per socket:                   1\nSocket(s):                            1\nStepping:                             7\nBogoMIPS:                             5187.81\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid ept_ad fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves vnmi avx512_vnni arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            32 KiB (1 instance)\nL1i cache:                            32 KiB (1 instance)\nL2 cache:                             1 MiB (1 instance)\nL3 cache:                             35.8 MiB (1 instance)\nNUMA node(s):                         1\nNUMA node0 CPU(s):                    0,1\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Vulnerable\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Vulnerable\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:      8325529600  3448811520  1875877888    61710336  3000840192  4480208896\nSwap:              0           0           0\n",
+    "tools": {
+      "python": {
+        "command": [
+          "/home/codexdev/.local/bin/python3.11",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "Python 3.11.14"
+      },
+      "node": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "v24.15.0"
+      },
+      "npm": {
+        "command": [
+          "npm",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "11.12.1"
+      },
+      "rustc": {
+        "command": [
+          "rustc",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+      },
+      "cargo": {
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+      },
+      "canbench": {
+        "command": [
+          "canbench",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "canbench 0.7.0"
+      }
+    },
+    "definitions": {
+      "wasm_instructions": "canbench performance-counter instructions",
+      "heap_increase": "canbench 64-KiB Wasm pages grown during one benchmark query",
+      "stable_memory_increase": "canbench 64-KiB stable pages grown; not payload bytes",
+      "elapsed_seconds": "local host wall time; not mainnet latency",
+      "work_units": "BTZ deterministic abstract work; not Wasm instructions"
+    }
+  },
+  "checks": [
+    {
+      "id": "normal-wasm-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.618,
+      "timeout_seconds": 900,
+      "log": "logs/normal-wasm-build.log"
+    },
+    {
+      "id": "harness-build",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "--no-run"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 7.563,
+      "timeout_seconds": 1800,
+      "log": "logs/harness-build.log"
+    },
+    {
+      "id": "idle-r1-f1",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s13_fallback_policy_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 87.565,
+      "timeout_seconds": 600,
+      "log": "logs/idle-r1-f1.log"
+    },
+    {
+      "id": "idle-r1-f5",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s13_fallback_policy_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 57.082,
+      "timeout_seconds": 600,
+      "log": "logs/idle-r1-f5.log"
+    },
+    {
+      "id": "moderate-r1-f1",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s13_fallback_policy_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 60.837,
+      "timeout_seconds": 600,
+      "log": "logs/moderate-r1-f1.log"
+    },
+    {
+      "id": "moderate-r1-f5",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--locked",
+        "--test",
+        "pocketic_host",
+        "s13_fallback_policy_trace",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 79.843,
+      "timeout_seconds": 600,
+      "log": "logs/moderate-r1-f5.log"
+    }
+  ],
+  "cases": [
+    {
+      "id": "idle-r1-f1",
+      "pair": "idle-r1",
+      "arrival_period_seconds": 1,
+      "arrival_batch": 0,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "idle-r1-f5",
+      "pair": "idle-r1",
+      "arrival_period_seconds": 1,
+      "arrival_batch": 0,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "moderate-r1-f1",
+      "pair": "moderate-r1",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "moderate-r1-f5",
+      "pair": "moderate-r1",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "higher-r1-f1",
+      "pair": "higher-r1",
+      "arrival_period_seconds": 2,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "higher-r1-f5",
+      "pair": "higher-r1",
+      "arrival_period_seconds": 2,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "overload-r1-f1",
+      "pair": "overload-r1",
+      "arrival_period_seconds": 1,
+      "arrival_batch": 128,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "overload-r1-f5",
+      "pair": "overload-r1",
+      "arrival_period_seconds": 1,
+      "arrival_batch": 128,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "no-hints-idle-r1-f1",
+      "pair": "no-hints-idle-r1",
+      "arrival_period_seconds": 1,
+      "arrival_batch": 0,
+      "hints": "none",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "no-hints-idle-r1-f5",
+      "pair": "no-hints-idle-r1",
+      "arrival_period_seconds": 1,
+      "arrival_batch": 0,
+      "hints": "none",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "no-hints-moderate-r1-f1",
+      "pair": "no-hints-moderate-r1",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "none",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "no-hints-moderate-r1-f5",
+      "pair": "no-hints-moderate-r1",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "none",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "no-hints-higher-r1-f1",
+      "pair": "no-hints-higher-r1",
+      "arrival_period_seconds": 2,
+      "arrival_batch": 64,
+      "hints": "none",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "no-hints-higher-r1-f5",
+      "pair": "no-hints-higher-r1",
+      "arrival_period_seconds": 2,
+      "arrival_batch": 64,
+      "hints": "none",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "backlog-r1-f1",
+      "pair": "backlog-r1",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "none",
+      "initial_tip": 512,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "backlog-r1-f5",
+      "pair": "backlog-r1",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "none",
+      "initial_tip": 512,
+      "duration_seconds": 128,
+      "repetition": 1,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "moderate-r2-f1",
+      "pair": "moderate-r2",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 2,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "moderate-r2-f5",
+      "pair": "moderate-r2",
+      "arrival_period_seconds": 8,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 2,
+      "fallback_seconds": 5
+    },
+    {
+      "id": "higher-r2-f1",
+      "pair": "higher-r2",
+      "arrival_period_seconds": 2,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 2,
+      "fallback_seconds": 1
+    },
+    {
+      "id": "higher-r2-f5",
+      "pair": "higher-r2",
+      "arrival_period_seconds": 2,
+      "arrival_batch": 64,
+      "hints": "alternating",
+      "initial_tip": 0,
+      "duration_seconds": 128,
+      "repetition": 2,
+      "fallback_seconds": 5
+    }
+  ],
+  "binding": {
+    "source": {
+      "revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+      "tree": "2cbd15fa03b74cc29c3ae8cbf20a498a9352a0e5",
+      "branch": "checkpoint/s13-fallback-policy",
+      "working_tree_changes": [],
+      "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+      "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+      "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+      "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+      "tracked_content_sha256": "55d8f46ed5dbf74325c602dd3ad3b3ec7f91fb132c86f867a58aa54fdd504cbc"
+    },
+    "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+    "workload_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+    "harness_sha256": "191c734747358f589c17c216be7848e849f2a8749fd60a1264184c25ba2a3387",
+    "runtime_sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "model_configuration_sha256": "b4271b50b40a793a2e3c11975008e5c88e0ece70edb1128ce50cccf8699e05fa"
+  },
+  "application_runtime": {
+    "version": {
+      "command": [
+        "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "pocket-ic-server 16.1.0"
+    },
+    "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"
+  },
+  "normal_wasm_bytes": 2238602,
+  "trace_artifacts": [
+    {
+      "path": "idle-r1-f1.json",
+      "sha256": "a6b566e1f05fdb8be2c159a760ed91597cf8c3303f4f61ae200bc65f26397370"
+    },
+    {
+      "path": "idle-r1-f5.json",
+      "sha256": "b44f620fb8de325ab551ff066edc08e7734351f5f2aa9e09bbc1f66c25e0b568"
+    },
+    {
+      "path": "moderate-r1-f1.json",
+      "sha256": "f09db2a526fa74757b9404fff831dd9c9ea3e2fa56777bd59cff9da19c23b9b8"
+    },
+    {
+      "path": "moderate-r1-f5.json",
+      "sha256": "7dc06b3b87caef99f2412b6a86ee2bedc3de327785a1f2d7cf90cede7b00a6b0"
+    }
+  ],
+  "external_interruption": {
+    "exit_code": 143,
+    "reason": "SIGTERM; originating cause NOT_MEASURED; parent exited before recording fifth case result",
+    "owned_orphaned_server_cleanup": "TERM sent to owned process group 250977"
+  },
+  "remaining_case_status": {
+    "higher-r1-f1": "NOT_VALIDATED: test log/trace completed, parent terminated before recording result",
+    "higher-r1-f5": "NOT_RUN",
+    "overload-r1-f1": "NOT_RUN",
+    "overload-r1-f5": "NOT_RUN",
+    "no-hints-idle-r1-f1": "NOT_RUN",
+    "no-hints-idle-r1-f5": "NOT_RUN",
+    "no-hints-moderate-r1-f1": "NOT_RUN",
+    "no-hints-moderate-r1-f5": "NOT_RUN",
+    "no-hints-higher-r1-f1": "NOT_RUN",
+    "no-hints-higher-r1-f5": "NOT_RUN",
+    "backlog-r1-f1": "NOT_RUN",
+    "backlog-r1-f5": "NOT_RUN",
+    "moderate-r2-f1": "NOT_RUN",
+    "moderate-r2-f5": "NOT_RUN",
+    "higher-r2-f1": "NOT_RUN",
+    "higher-r2-f5": "NOT_RUN"
+  },
+  "annotation": "Compact reviewed copy annotates omitted cases. Original exact output and logs remain under .work/s13/extended-final"
+}

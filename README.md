@@ -1,6 +1,6 @@
-# Balls 2 The Wallz — S12 corrective measurement closeout
+# Balls 2 The Wallz — S13 fallback-policy checkpoint
 
-BTZ is a continuously running, local-only Internet Computer game service that consumes the independently maintained Deterministic Timeline Runtime. S12 adds reproducible workload, canister-instruction, persistence, ledger-backlog, continuous-operation and tariff measurements without changing gameplay or the public interface.
+BTZ is a continuously running, local-only Internet Computer game service that consumes the independently maintained Deterministic Timeline Runtime. S13 compares one-second and five-second ledger fallback using independently clocked traffic while the unchanged game runs autonomously. One second drained the tested 32-record/s streams; both policies saturated at 128. No production configuration or gameplay change was made.
 
 **Live local IC — test-network certified. No mainnet deployment, wallet, real funds, payout or production-readiness claim.**
 
@@ -14,8 +14,9 @@ python3.11 -B tools/check.py source --output .work/source
 python3.11 -B tools/check.py native --output .work/native
 python3.11 -B tools/check.py wasm --output .work/wasm
 
-# Bounded S12 benchmark smoke; see benchmarks/s12/README.md for extended mode.
+# Bounded S12 compute smoke and S13 scheduling smoke.
 python3.11 -B tools/benchmark_s12.py --profile smoke --output .work/s12/smoke
+DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s13.py --profile smoke --output .work/s13/smoke
 
 # With the pinned Playwright environment and sandbox-capable host:
 python3.11 -B tools/check.py browser --output .work/browser
@@ -35,6 +36,8 @@ python3.11 -B tools/serve_observer.py --port 8080
 
 Open **http://127.0.0.1:8080/apps/btz-observer/**. That default mode is labeled **Offline replay — pinned content, not IC-certified** and is distinct from the harness-configured S10 live mode.
 
+See [S13 report](checkpoints/S13_REPORT.md), [paired results](evidence/S13/extended/summary.json), [cost comparison](evidence/S13/extended/cost-projections.json) and [S13 reproduction](benchmarks/s13/README.md). Extended S13 runs twenty independent 128-second cases; ordinary source tests do not run saturation experiments.
+
 ## Current boundary
 
 | Component | S12 role |
@@ -45,10 +48,11 @@ Open **http://127.0.0.1:8080/apps/btz-observer/**. That default mode is labeled 
 | `apps/btz-observer` | Existing read-only Canvas renderer with live certified retrieval, bounded buffering and visible snapshot resynchronization. |
 | `tools/serve_observer.py` | Loopback-only allowlisted test proxy for actual PocketIC query/read-state bytes. It is not a production service. |
 | `tools/verify_s10_local.py` | Bounded owner of the disposable PocketIC/browser integration and its sanitized results. |
+| `tools/benchmark_s13.py` | Paired fallback, no-hints and fixed-backlog installed-Wasm measurements; strict trace/cost provenance. |
 | `tools/benchmark_s12.py` | Smoke/extended S12 runner for fixtures, canbench, continuous normal-Wasm PocketIC, controlled ledger traffic and cost projections. |
 
 BTZ v3 gameplay, canonical payment inputs, authoritative state/events/scores/seals, publication v6, animation v1 and Life regression behavior remain unchanged. See the [S11 ownership map](docs/architecture/S11_DTR_EXTRACTION.md), [current status](STATUS.md), [S12 closeout](checkpoints/S12_CLOSEOUT.md) and [original report](checkpoints/S12_REPORT.md), [workload inventory](benchmarks/s12/README.md) and [closeout evidence](evidence/S12/closeout/provenance.json).
 
-The public DTR source is `https://github.com/aodl/dtr`; BTZ pins its exact Rust implementation and reviewed JavaScript artifact. The tested combined local configuration is 16×8/two initial cannons/32 initial balls, two logical ticks, work budget 512, one-second callback pacing, five-second fallback and 64-record pages. Independent 1/8 record/s streams drained for 128 virtual seconds; 128 record/s accumulated backlog. Twenty seconds was an earlier target deadline, not a measured publication cadence. Complete update headroom and all-in costs remain unestablished. Production ledger-source selection, actual cycle burn, settlement, wallets, governance and reproducible Wasm remain separate work. Jupiter Faucet and Event Horizon remain independent products.
+The public DTR source is `https://github.com/aodl/dtr`; BTZ pins its exact Rust implementation and reviewed JavaScript artifact. The S13 tested combined local configuration is 16×8/two initial cannons/32 starting balls, two logical ticks, work budget 512, one-second callback pacing and 64-record pages. One-second fallback drained 8/32 record/s streams with and without hints for 128 virtual seconds; five seconds accumulated backlog at 32, and both accumulated backlog at 128. Five seconds remains cheaper at quiet/moderate traffic, with slower discovery/recovery. The recommendation is local and finite; no production default was changed. Twenty seconds was an earlier target deadline, not a measured publication cadence. Complete update headroom and all-in costs remain unestablished. Production ledger-source selection, actual cycle burn, settlement, wallets, governance and reproducible Wasm remain separate work. Jupiter Faucet and Event Horizon remain independent products.
 
 Historical upgrade commands must supply both existing provenance-bound reuse arguments above to avoid the default remote-cloning preparation path. Every remote Git operation belongs to the user.

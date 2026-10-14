@@ -1,0 +1,2160 @@
+{
+  "schema": "btz-s13-policy-cost-results-v1",
+  "status": "PASS",
+  "binding": {
+    "source": {
+      "revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+      "tree": "2cbd15fa03b74cc29c3ae8cbf20a498a9352a0e5",
+      "branch": "checkpoint/s13-fallback-policy",
+      "working_tree_changes": [],
+      "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+      "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+      "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+      "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+      "tracked_content_sha256": "55d8f46ed5dbf74325c602dd3ad3b3ec7f91fb132c86f867a58aa54fdd504cbc"
+    },
+    "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+    "workload_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+    "harness_sha256": "191c734747358f589c17c216be7848e849f2a8749fd60a1264184c25ba2a3387",
+    "runtime_sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "model_configuration_sha256": "b4271b50b40a793a2e3c11975008e5c88e0ece70edb1128ce50cccf8699e05fa"
+  },
+  "assumptions": {
+    "retrieved_utc_date": "2026-10-14",
+    "official_sources": {
+      "cycle_costs": "https://docs.internetcomputer.org/references/cycle-costs/",
+      "resource_limits": "https://docs.internetcomputer.org/references/resource-limits/",
+      "cycles": "https://docs.internetcomputer.org/concepts/cycles/"
+    },
+    "tariff_13_node_cycles": {
+      "update_execution_base": 5000000,
+      "per_wasm_instruction": 1,
+      "xnet_request_and_response": 260000,
+      "xnet_byte": 1000,
+      "ingress_message": 1200000,
+      "ingress_byte": 2000,
+      "gib_storage_second": 127000,
+      "compute_allocation_percent_second": 10000000
+    },
+    "hard_limits": {
+      "update_instructions": 40000000000,
+      "query_instructions": 5000000000,
+      "wasm32_heap_bytes": 4294967296,
+      "stable_memory_bytes": 536870912000,
+      "replicated_response_bytes": 2097152
+    },
+    "model": {
+      "work_budget": 512,
+      "page_records": 64,
+      "storage_bytes": 25231360,
+      "response_bytes_per_record_assumption": 150,
+      "request_bytes_assumption": 32,
+      "empty_poll_instruction_assumption": 1000000,
+      "empty_poll_updates_assumption": 2,
+      "empty_poll_bytes_assumption": 256
+    },
+    "schema": "btz-s13-policy-cost-v1",
+    "reuse_instructions": {
+      "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+      "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+      "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+    },
+    "qualification": "Finite observed call/callback rates projected for identical 86400-second days; startup archive calls are not a steady-state forecast. Empty polls are observations; payload and timer/decoding residual costs assumed. Sample range is not an upper bound."
+  },
+  "scenarios": [
+    {
+      "name": "idle-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 0.0,
+      "segment_seconds": 11.636363637181818,
+      "callbacks_per_segment": 11.636363636363637,
+      "fallback_seconds": 1,
+      "archive_fraction": 0,
+      "observed_empty_polls_per_day": 86399.99999392501,
+      "modeled_callbacks_per_segment": 11.636363636363637,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1498132715.909091,
+        2652943690.909091
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        11123635414842.871,
+        19698106903614.977
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.625,
+      "ledger_processing_instruction_cycles_per_day": 0.0,
+      "ledger_base_cycles_per_day": 0.0,
+      "ledger_xnet_cycles_per_day": 0.0,
+      "ledger_bytes_cycles_per_day": 0.0,
+      "polling_cycles_per_day": 1348298092705.198,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 0.0,
+      "polls_per_day_assumption": 86399.99999392501,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11563351107611.953,
+        20137822596384.06
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1556314534.0909092,
+        2711125509.090909
+      ],
+      "cycles_per_day_sample_range": [
+        12904191352244.256,
+        21478662841016.363
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        387125740567327.7,
+        644359885230490.9
+      ],
+      "xdr_per_day_sample_range": [
+        12.904191352244256,
+        21.478662841016362
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        387.1257405673277,
+        644.3598852304909
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        33749423536638.82,
+        56174964353427.414
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 0,
+        "verified_full_pages": 0.0,
+        "empty_polls_observed": 128,
+        "empty_or_pending_calls": 128.0,
+        "callbacks": 128,
+        "completed_segments": 11
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 0,
+        "arrival_period_seconds": 1,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "alternating",
+        "id": "idle-r1-f1",
+        "initial_tip": 0,
+        "pair": "idle-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "idle-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 0.0,
+      "segment_seconds": 11.636363637181818,
+      "callbacks_per_segment": 11.636363636363637,
+      "fallback_seconds": 5,
+      "archive_fraction": 0,
+      "observed_empty_polls_per_day": 17549.999998766016,
+      "modeled_callbacks_per_segment": 11.636363636363637,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1498132715.909091,
+        2652943690.909091
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        11123635414842.871,
+        19698106903614.977
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.625,
+      "ledger_processing_instruction_cycles_per_day": 0.0,
+      "ledger_base_cycles_per_day": 0.0,
+      "ledger_xnet_cycles_per_day": 0.0,
+      "ledger_bytes_cycles_per_day": 0.0,
+      "polling_cycles_per_day": 273873050080.74332,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 0.0,
+      "polls_per_day_assumption": 17549.999998766016,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11212952664936.592,
+        19787424153708.695
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1556314534.0909092,
+        2711125509.090909
+      ],
+      "cycles_per_day_sample_range": [
+        11829766309619.803,
+        20404237798391.906
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        354892989288594.06,
+        612127133951757.2
+      ],
+      "xdr_per_day_sample_range": [
+        11.829766309619803,
+        20.404237798391907
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        354.89298928859404,
+        612.1271339517573
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        30939388809774.87,
+        53364929626563.445
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 26,
+        "archive_calls": 0,
+        "verified_full_pages": 0.0,
+        "empty_polls_observed": 26,
+        "empty_or_pending_calls": 26.0,
+        "callbacks": 128,
+        "completed_segments": 11
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 0,
+        "arrival_period_seconds": 1,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "alternating",
+        "id": "idle-r1-f5",
+        "initial_tip": 0,
+        "pair": "idle-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "moderate-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 12.800000001699999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.125,
+      "observed_empty_polls_per_day": 75599.99998995938,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329236908.28,
+        19700573508983.523
+      ],
+      "game_callback_base_cycles_per_day": 431999999942.62506,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 1179760831043.3132,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 75599.99998995938,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11829089712378.951,
+        20674333984454.195
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        13278334956913.07,
+        22123579228988.312
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        398350048707392.1,
+        663707376869649.4
+      ],
+      "xdr_per_day_sample_range": [
+        13.27833495691307,
+        22.123579228988312
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        398.35004870739215,
+        663.7073768696494
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        34727952964234.184,
+        57861668752738.664
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 16.0,
+        "empty_polls_observed": 112,
+        "empty_or_pending_calls": 112.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000017,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "alternating",
+        "id": "moderate-r1-f1",
+        "initial_tip": 0,
+        "pair": "moderate-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "moderate-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 12.800000001699999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.125,
+      "observed_empty_polls_per_day": 11474.999998475978,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329236908.28,
+        19700573508983.523
+      ],
+      "game_callback_base_cycles_per_day": 431999999942.62506,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 179070840426.2172,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 11474.999998475978,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11502738221672.295,
+        20347982493747.54
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        12277644966295.975,
+        21122889238371.22
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        368329348988879.25,
+        633686677151136.5
+      ],
+      "xdr_per_day_sample_range": [
+        12.277644966295975,
+        21.12288923837122
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        368.32934898887925,
+        633.6866771511365
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        32110763758004.855,
+        55244479546509.34
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 33,
+        "archive_calls": 2,
+        "verified_full_pages": 16.0,
+        "empty_polls_observed": 17,
+        "empty_or_pending_calls": 17.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000017,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "alternating",
+        "id": "moderate-r1-f5",
+        "initial_tip": 0,
+        "pair": "moderate-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "higher-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 31.999999989750002,
+      "segment_seconds": 12.8000000041,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.03125,
+      "observed_empty_polls_per_day": 43199.999986162504,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329234872.902,
+        19700573505289.664
+      ],
+      "game_callback_base_cycles_per_day": 431999999861.625,
+      "ledger_processing_instruction_cycles_per_day": 2356036976845.332,
+      "ledger_base_cycles_per_day": 438749999859.4629,
+      "ledger_xnet_cycles_per_day": 11582999996.28982,
+      "ledger_bytes_cycles_per_day": 416145599866.70337,
+      "polling_cycles_per_day": 674149046184.0618,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 43199.999986162504,
+      "polls_per_day_assumption": 43199.999986162504,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        13431224058047.81,
+        22276468328464.574
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        15184251702212.94,
+        24029495972629.703
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        455527551066388.2,
+        720884879178891.1
+      ],
+      "xdr_per_day_sample_range": [
+        15.18425170221294,
+        24.029495972629704
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        455.5275510663882,
+        720.8848791788911
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        39712658298095.38,
+        62846374082262.3
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 64.0,
+        "empty_polls_observed": 64,
+        "empty_or_pending_calls": 64.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000041,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 2,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "alternating",
+        "id": "higher-r1-f1",
+        "initial_tip": 0,
+        "pair": "higher-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "higher-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 25.499999991832034,
+      "segment_seconds": 12.8000000041,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.0392156862745098,
+      "observed_empty_polls_per_day": 674.9999997837891,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329234872.902,
+        19700573505289.664
+      ],
+      "game_callback_base_cycles_per_day": 431999999861.625,
+      "ledger_processing_instruction_cycles_per_day": 1877466965923.6238,
+      "ledger_base_cycles_per_day": 350999999887.5703,
+      "ledger_xnet_cycles_per_day": 9301499997.020615,
+      "ledger_bytes_cycles_per_day": 331624799893.7765,
+      "polling_cycles_per_day": 10533578846.625965,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 34424.99998897324,
+      "polls_per_day_assumption": 674.9999997837891,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        12736231479645.426,
+        21581475750062.188
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        13867513924009.707,
+        22712758194426.47
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        416025417720291.2,
+        681382745832794.0
+      ],
+      "xdr_per_day_sample_range": [
+        13.867513924009707,
+        22.71275819442647
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        416.02541772029116,
+        681.382745832794
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        36268882570486.93,
+        59402598354653.84
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 52,
+        "archive_calls": 2,
+        "verified_full_pages": 51.0,
+        "empty_polls_observed": 1,
+        "empty_or_pending_calls": 1.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000041,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 2,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "alternating",
+        "id": "higher-r1-f5",
+        "initial_tip": 0,
+        "pair": "higher-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "overload-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 63.9999999595,
+      "segment_seconds": 14.222222231222222,
+      "callbacks_per_segment": 14.222222222222221,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.015625,
+      "observed_empty_polls_per_day": 0.0,
+      "modeled_callbacks_per_segment": 14.222222222222221,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1742719845.4444444,
+        3243298784.888889
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10587023054375.398,
+        19703040105731.668
+      ],
+      "game_callback_base_cycles_per_day": 431999999726.62494,
+      "ledger_processing_instruction_cycles_per_day": 4712073952218.141,
+      "ledger_base_cycles_per_day": 870749999448.9786,
+      "ledger_xnet_cycles_per_day": 22814999985.562386,
+      "ledger_bytes_cycles_per_day": 832247999473.3431,
+      "polling_cycles_per_day": 0.0,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 86399.999945325,
+      "polls_per_day_assumption": 0.0,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        15299097006593.54,
+        24415114057949.81
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1813830956.5555556,
+        3314409896.0
+      ],
+      "cycles_per_day_sample_range": [
+        17457167849954.611,
+        26573184901310.88
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        523715035498638.3,
+        797195547039326.4
+      ],
+      "xdr_per_day_sample_range": [
+        17.45716784995461,
+        26.573184901310878
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        523.7150354986383,
+        797.1955470393264
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        45657208222958.21,
+        69499098972659.22
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 128.0,
+        "empty_polls_observed": 0,
+        "empty_or_pending_calls": 0.0,
+        "callbacks": 128,
+        "completed_segments": 9
+      },
+      "measured_virtual_seconds": 128.000000081,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 128,
+        "arrival_period_seconds": 1,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "alternating",
+        "id": "overload-r1-f1",
+        "initial_tip": 0,
+        "pair": "overload-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "overload-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 38.999999975320314,
+      "segment_seconds": 12.8000000081,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.02564102564102564,
+      "observed_empty_polls_per_day": 0.0,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329231480.611,
+        19700573499133.23
+      ],
+      "game_callback_base_cycles_per_day": 431999999726.625,
+      "ledger_processing_instruction_cycles_per_day": 2871420064632.9297,
+      "ledger_base_cycles_per_day": 533249999662.55273,
+      "ledger_xnet_cycles_per_day": 14039999991.115313,
+      "ledger_bytes_cycles_per_day": 507167999679.0578,
+      "polling_cycles_per_day": 0.0,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 52649.99996668242,
+      "polls_per_day_assumption": 0.0,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        13726749296113.541,
+        22571993563766.16
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        15213465139899.455,
+        24058709407552.074
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        456403954196983.6,
+        721761282226562.2
+      ],
+      "xdr_per_day_sample_range": [
+        15.213465139899455,
+        24.058709407552076
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        456.40395419698365,
+        721.7612822265622
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        39789062673583.195,
+        62922778450520.805
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 78,
+        "archive_calls": 2,
+        "verified_full_pages": 78.0,
+        "empty_polls_observed": 0,
+        "empty_or_pending_calls": 0.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000081,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 128,
+        "arrival_period_seconds": 1,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "alternating",
+        "id": "overload-r1-f5",
+        "initial_tip": 0,
+        "pair": "overload-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "no-hints-idle-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 0.0,
+      "segment_seconds": 11.636363637181818,
+      "callbacks_per_segment": 11.636363636363637,
+      "fallback_seconds": 1,
+      "archive_fraction": 0,
+      "observed_empty_polls_per_day": 86399.99999392501,
+      "modeled_callbacks_per_segment": 11.636363636363637,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1498132715.909091,
+        2652943690.909091
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        11123635414842.871,
+        19698106903614.977
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.625,
+      "ledger_processing_instruction_cycles_per_day": 0.0,
+      "ledger_base_cycles_per_day": 0.0,
+      "ledger_xnet_cycles_per_day": 0.0,
+      "ledger_bytes_cycles_per_day": 0.0,
+      "polling_cycles_per_day": 1348298092705.198,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 0.0,
+      "polls_per_day_assumption": 86399.99999392501,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11563351107611.953,
+        20137822596384.06
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1556314534.0909092,
+        2711125509.090909
+      ],
+      "cycles_per_day_sample_range": [
+        12904191352244.256,
+        21478662841016.363
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        387125740567327.7,
+        644359885230490.9
+      ],
+      "xdr_per_day_sample_range": [
+        12.904191352244256,
+        21.478662841016362
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        387.1257405673277,
+        644.3598852304909
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        33749423536638.82,
+        56174964353427.414
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 0,
+        "verified_full_pages": 0.0,
+        "empty_polls_observed": 128,
+        "empty_or_pending_calls": 128.0,
+        "callbacks": 128,
+        "completed_segments": 11
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 0,
+        "arrival_period_seconds": 1,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "none",
+        "id": "no-hints-idle-r1-f1",
+        "initial_tip": 0,
+        "pair": "no-hints-idle-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "no-hints-idle-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 0.0,
+      "segment_seconds": 11.636363637181818,
+      "callbacks_per_segment": 11.636363636363637,
+      "fallback_seconds": 5,
+      "archive_fraction": 0,
+      "observed_empty_polls_per_day": 17549.999998766016,
+      "modeled_callbacks_per_segment": 11.636363636363637,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1498132715.909091,
+        2652943690.909091
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        11123635414842.871,
+        19698106903614.977
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.625,
+      "ledger_processing_instruction_cycles_per_day": 0.0,
+      "ledger_base_cycles_per_day": 0.0,
+      "ledger_xnet_cycles_per_day": 0.0,
+      "ledger_bytes_cycles_per_day": 0.0,
+      "polling_cycles_per_day": 273873050080.74332,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 0.0,
+      "polls_per_day_assumption": 17549.999998766016,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11212952664936.592,
+        19787424153708.695
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1556314534.0909092,
+        2711125509.090909
+      ],
+      "cycles_per_day_sample_range": [
+        11829766309619.803,
+        20404237798391.906
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        354892989288594.06,
+        612127133951757.2
+      ],
+      "xdr_per_day_sample_range": [
+        11.829766309619803,
+        20.404237798391907
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        354.89298928859404,
+        612.1271339517573
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        30939388809774.87,
+        53364929626563.445
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 26,
+        "archive_calls": 0,
+        "verified_full_pages": 0.0,
+        "empty_polls_observed": 26,
+        "empty_or_pending_calls": 26.0,
+        "callbacks": 128,
+        "completed_segments": 11
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 0,
+        "arrival_period_seconds": 1,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "none",
+        "id": "no-hints-idle-r1-f5",
+        "initial_tip": 0,
+        "pair": "no-hints-idle-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "no-hints-moderate-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999999437501,
+      "segment_seconds": 12.800000000899999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.125,
+      "observed_empty_polls_per_day": 75599.99999468437,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329237586.736,
+        19700573510214.81
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.62506,
+      "ledger_processing_instruction_cycles_per_day": 589009244358.5853,
+      "ledger_base_cycles_per_day": 114749999991.93166,
+      "ledger_xnet_cycles_per_day": 3158999999.777883,
+      "ledger_bytes_cycles_per_day": 104068799992.68268,
+      "polling_cycles_per_day": 1179760831117.048,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999999240626,
+      "polls_per_day_assumption": 75599.99999468437,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11829089713118.27,
+        20674333985746.34
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        13278334957742.95,
+        22123579230371.02
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        398350048732288.5,
+        663707376911130.6
+      ],
+      "xdr_per_day_sample_range": [
+        13.278334957742949,
+        22.12357923037102
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        398.3500487322885,
+        663.7073769111306
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        34727952966404.633,
+        57861668756354.97
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 16.0,
+        "empty_polls_observed": 112,
+        "empty_or_pending_calls": 112.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "none",
+        "id": "no-hints-moderate-r1-f1",
+        "initial_tip": 0,
+        "pair": "no-hints-moderate-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "no-hints-moderate-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.4999999994726565,
+      "segment_seconds": 12.800000000899999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.13333333333333333,
+      "observed_empty_polls_per_day": 7424.99999947793,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329237586.736,
+        19700573510214.81
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.62506,
+      "ledger_processing_instruction_cycles_per_day": 552196166586.1737,
+      "ledger_base_cycles_per_day": 107999999992.40625,
+      "ledger_xnet_cycles_per_day": 2983499999.7902226,
+      "ledger_bytes_cycles_per_day": 97567199993.1398,
+      "polling_cycles_per_day": 115869367341.85292,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10124.999999288086,
+      "polls_per_day_assumption": 7424.99999947793,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11445313471520.254,
+        20290557744148.324
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        12164203316196.287,
+        21009447588824.36
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        364926099485888.6,
+        630283427664730.8
+      ],
+      "xdr_per_day_sample_range": [
+        12.164203316196287,
+        21.009447588824358
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        364.92609948588864,
+        630.2834276647308
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        31814070211590.29,
+        54947786001540.63
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 26,
+        "archive_calls": 2,
+        "verified_full_pages": 15.0,
+        "empty_polls_observed": 11,
+        "empty_or_pending_calls": 11.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "none",
+        "id": "no-hints-moderate-r1-f5",
+        "initial_tip": 0,
+        "pair": "no-hints-moderate-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "no-hints-higher-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 31.999999997750002,
+      "segment_seconds": 12.800000000899999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.03125,
+      "observed_empty_polls_per_day": 43199.999996962506,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329237586.736,
+        19700573510214.81
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.62506,
+      "ledger_processing_instruction_cycles_per_day": 2356036977434.3413,
+      "ledger_base_cycles_per_day": 438749999969.15045,
+      "ledger_xnet_cycles_per_day": 11582999999.185572,
+      "ledger_bytes_cycles_per_day": 416145599970.73987,
+      "polling_cycles_per_day": 674149046352.599,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 43199.999996962506,
+      "polls_per_day_assumption": 43199.999996962506,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        13431224061405.62,
+        22276468334033.69
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        15184251706008.94,
+        24029495978637.01
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        455527551180268.2,
+        720884879359110.4
+      ],
+      "xdr_per_day_sample_range": [
+        15.18425170600894,
+        24.029495978637012
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        455.5275511802682,
+        720.8848793591104
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        39712658308023.38,
+        62846374097973.72
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 64.0,
+        "empty_polls_observed": 64,
+        "empty_or_pending_calls": 64.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 2,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "none",
+        "id": "no-hints-higher-r1-f1",
+        "initial_tip": 0,
+        "pair": "no-hints-higher-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "no-hints-higher-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 12.499999999121094,
+      "segment_seconds": 12.800000000899999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.08,
+      "observed_empty_polls_per_day": 674.9999999525392,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329237586.736,
+        19700573510214.81
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.62506,
+      "ledger_processing_instruction_cycles_per_day": 920326944310.2896,
+      "ledger_base_cycles_per_day": 175499999987.66016,
+      "ledger_xnet_cycles_per_day": 4738499999.666824,
+      "ledger_bytes_cycles_per_day": 162583199988.56836,
+      "polling_cycles_per_day": 10533578849.25936,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 16874.999998813477,
+      "polls_per_day_assumption": 674.9999999525392,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11779091460746.783,
+        20624335733374.855
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        12561269305418.367,
+        21406513578046.438
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        376838079162551.0,
+        642195407341393.1
+      ],
+      "xdr_per_day_sample_range": [
+        12.561269305418367,
+        21.406513578046436
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        376.838079162551,
+        642.1954073413931
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        32852550491094.19,
+        55986266281044.53
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 26,
+        "archive_calls": 2,
+        "verified_full_pages": 25.0,
+        "empty_polls_observed": 1,
+        "empty_or_pending_calls": 1.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 2,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "none",
+        "id": "no-hints-higher-r1-f5",
+        "initial_tip": 0,
+        "pair": "no-hints-higher-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "backlog-r1-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 11.999999999156252,
+      "segment_seconds": 12.800000000899999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.08333333333333333,
+      "observed_empty_polls_per_day": 70199.99999506406,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329237586.736,
+        19700573510214.81
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.62506,
+      "ledger_processing_instruction_cycles_per_day": 883513866537.878,
+      "ledger_base_cycles_per_day": 168749999988.1348,
+      "ledger_xnet_cycles_per_day": 4562999999.679164,
+      "ledger_bytes_cycles_per_day": 156081599989.02554,
+      "polling_cycles_per_day": 1095492200322.9733,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 16199.99999886094,
+      "polls_per_day_assumption": 70199.99999506406,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        12096112104499.494,
+        20941356377127.566
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        13595987749120.615,
+        22441232021748.688
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        407879632473618.44,
+        673236960652460.6
+      ],
+      "xdr_per_day_sample_range": [
+        13.595987749120615,
+        22.441232021748686
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        407.8796324736184,
+        673.2369606524607
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        35558737190007.766,
+        58692452979958.11
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 24.0,
+        "empty_polls_observed": 104,
+        "empty_or_pending_calls": 104.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "none",
+        "id": "backlog-r1-f1",
+        "initial_tip": 512,
+        "pair": "backlog-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "backlog-r1-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 11.499999999191408,
+      "segment_seconds": 12.800000000899999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.08695652173913043,
+      "observed_empty_polls_per_day": 2024.9999998576172,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329237586.736,
+        19700573510214.81
+      ],
+      "game_callback_base_cycles_per_day": 431999999969.62506,
+      "ledger_processing_instruction_cycles_per_day": 846700788765.4664,
+      "ledger_base_cycles_per_day": 161999999988.6094,
+      "ledger_xnet_cycles_per_day": 4387499999.691504,
+      "ledger_bytes_cycles_per_day": 149579999989.48267,
+      "polling_cycles_per_day": 31600736547.778076,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 15524.9999989084,
+      "polls_per_day_assumption": 2024.9999998576172,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11712335862901.479,
+        20557580135529.547
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        12481856107573.953,
+        21327100380202.02
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        374455683227218.6,
+        639813011406060.6
+      ],
+      "xdr_per_day_sample_range": [
+        12.481856107573954,
+        21.32710038020202
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        374.4556832272186,
+        639.8130114060606
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        32644854435193.414,
+        55778570225143.74
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 26,
+        "archive_calls": 2,
+        "verified_full_pages": 23.0,
+        "empty_polls_observed": 3,
+        "empty_or_pending_calls": 3.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000009,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "none",
+        "id": "backlog-r1-f5",
+        "initial_tip": 512,
+        "pair": "backlog-r1",
+        "repetition": 1
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "moderate-r2-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 12.800000001699999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.125,
+      "observed_empty_polls_per_day": 75599.99998995938,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329236908.28,
+        19700573508983.523
+      ],
+      "game_callback_base_cycles_per_day": 431999999942.62506,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 1179760831043.3132,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 75599.99998995938,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11829089712378.951,
+        20674333984454.195
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        13278334956913.07,
+        22123579228988.312
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        398350048707392.1,
+        663707376869649.4
+      ],
+      "xdr_per_day_sample_range": [
+        13.27833495691307,
+        22.123579228988312
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        398.35004870739215,
+        663.7073768696494
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        34727952964234.184,
+        57861668752738.664
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 16.0,
+        "empty_polls_observed": 112,
+        "empty_or_pending_calls": 112.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000017,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "alternating",
+        "id": "moderate-r2-f1",
+        "initial_tip": 0,
+        "pair": "moderate-r2",
+        "repetition": 2
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "moderate-r2-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 7.999999998937501,
+      "segment_seconds": 12.800000001699999,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.125,
+      "observed_empty_polls_per_day": 11474.999998475978,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329236908.28,
+        19700573508983.523
+      ],
+      "game_callback_base_cycles_per_day": 431999999942.62506,
+      "ledger_processing_instruction_cycles_per_day": 589009244321.7722,
+      "ledger_base_cycles_per_day": 114749999984.75977,
+      "ledger_xnet_cycles_per_day": 3158999999.5804453,
+      "ledger_bytes_cycles_per_day": 104068799986.17838,
+      "polling_cycles_per_day": 179070840426.2172,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 10799.999998565625,
+      "polls_per_day_assumption": 11474.999998475978,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        11502738221672.295,
+        20347982493747.54
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        12277644966295.975,
+        21122889238371.22
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        368329348988879.25,
+        633686677151136.5
+      ],
+      "xdr_per_day_sample_range": [
+        12.277644966295975,
+        21.12288923837122
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        368.32934898887925,
+        633.6866771511365
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        32110763758004.855,
+        55244479546509.34
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 33,
+        "archive_calls": 2,
+        "verified_full_pages": 16.0,
+        "empty_polls_observed": 17,
+        "empty_or_pending_calls": 17.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000017,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 8,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "alternating",
+        "id": "moderate-r2-f5",
+        "initial_tip": 0,
+        "pair": "moderate-r2",
+        "repetition": 2
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "higher-r2-f1",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 31.999999989750002,
+      "segment_seconds": 12.8000000041,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 1,
+      "archive_fraction": 0.03125,
+      "observed_empty_polls_per_day": 43199.999986162504,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329234872.902,
+        19700573505289.664
+      ],
+      "game_callback_base_cycles_per_day": 431999999861.625,
+      "ledger_processing_instruction_cycles_per_day": 2356036976845.332,
+      "ledger_base_cycles_per_day": 438749999859.4629,
+      "ledger_xnet_cycles_per_day": 11582999996.28982,
+      "ledger_bytes_cycles_per_day": 416145599866.70337,
+      "polling_cycles_per_day": 674149046184.0618,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 43199.999986162504,
+      "polls_per_day_assumption": 43199.999986162504,
+      "fallback_opportunities_per_day": 86400.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        13431224058047.81,
+        22276468328464.574
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        15184251702212.94,
+        24029495972629.703
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        455527551066388.2,
+        720884879178891.1
+      ],
+      "xdr_per_day_sample_range": [
+        15.18425170221294,
+        24.029495972629704
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        455.5275510663882,
+        720.8848791788911
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        39712658298095.38,
+        62846374082262.3
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 128,
+        "archive_calls": 2,
+        "verified_full_pages": 64.0,
+        "empty_polls_observed": 64,
+        "empty_or_pending_calls": 64.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000041,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 2,
+        "duration_seconds": 128,
+        "fallback_seconds": 1,
+        "hints": "alternating",
+        "id": "higher-r2-f1",
+        "initial_tip": 0,
+        "pair": "higher-r2",
+        "repetition": 2
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    },
+    {
+      "name": "higher-r2-f5",
+      "game_mode": "warm-medium",
+      "ledger_enabled": true,
+      "ledger_records_per_second": 25.499999991832034,
+      "segment_seconds": 12.8000000041,
+      "callbacks_per_segment": 12.8,
+      "fallback_seconds": 5,
+      "archive_fraction": 0.0392156862745098,
+      "observed_empty_polls_per_day": 674.9999997837891,
+      "modeled_callbacks_per_segment": 12.8,
+      "classification": "ANALYTICAL_ESTIMATE",
+      "game_scope": "ESTIMATED: synthetic-source warm two-tick seed samples transferred to ledger-source evolving-world callback counts; metadata/cursor differences are unmeasured and sample extrema are not bounds",
+      "game_instructions_per_segment_sample_range": [
+        1608196924.2,
+        2918603483.2000003
+      ],
+      "game_instruction_cycles_per_day_sample_range": [
+        10855329234872.902,
+        19700573505289.664
+      ],
+      "game_callback_base_cycles_per_day": 431999999861.625,
+      "ledger_processing_instruction_cycles_per_day": 1877466965923.6238,
+      "ledger_base_cycles_per_day": 350999999887.5703,
+      "ledger_xnet_cycles_per_day": 9301499997.020615,
+      "ledger_bytes_cycles_per_day": 331624799893.7765,
+      "polling_cycles_per_day": 10533578846.625965,
+      "polling_classification": "PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions",
+      "storage_cycles_per_day": 257844726.5625,
+      "pages_per_day_assumption": 34424.99998897324,
+      "polls_per_day_assumption": 674.9999997837891,
+      "fallback_opportunities_per_day": 17280.0,
+      "poll_count_classification": "OBSERVED_FINITE_WINDOW",
+      "instruction_components_per_day_sample_range": [
+        12736231479645.426,
+        21581475750062.188
+      ],
+      "game_cycles_per_segment_sample_range": [
+        1672196924.2,
+        2982603483.2000003
+      ],
+      "cycles_per_day_sample_range": [
+        13867513924009.707,
+        22712758194426.47
+      ],
+      "cycles_per_30_day_month_sample_range": [
+        416025417720291.2,
+        681382745832794.0
+      ],
+      "xdr_per_day_sample_range": [
+        13.867513924009707,
+        22.71275819442647
+      ],
+      "xdr_per_30_day_month_sample_range": [
+        416.02541772029116,
+        681.382745832794
+      ],
+      "subnet_nodes_assumption": 13,
+      "higher_replication_34_node_cycles_per_day_sample_range": [
+        36268882570486.93,
+        59402598354653.84
+      ],
+      "complete_total_upper_bound": "NOT_MEASURED",
+      "measured_counts": {
+        "ledger_calls": 52,
+        "archive_calls": 2,
+        "verified_full_pages": 51.0,
+        "empty_polls_observed": 1,
+        "empty_or_pending_calls": 1.0,
+        "callbacks": 128,
+        "completed_segments": 10
+      },
+      "measured_virtual_seconds": 128.000000041,
+      "count_scope": "finite initiated calls, including startup/archive and unfinished tail; idle timers without a call NOT_MEASURED",
+      "source_trace_case": {
+        "arrival_batch": 64,
+        "arrival_period_seconds": 2,
+        "duration_seconds": 128,
+        "fallback_seconds": 5,
+        "hints": "alternating",
+        "id": "higher-r2-f5",
+        "initial_tip": 0,
+        "pair": "higher-r2",
+        "repetition": 2
+      },
+      "payload_bytes": "ESTIMATED: 150 response bytes per record, 32 request bytes, 256 empty bytes",
+      "omitted": "certification, full timer dispatch, full network decoding/await paths, heap/code storage, actual production burn, finality, query/gateway service",
+      "instruction_reuse": {
+        "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+        "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+        "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "pair": "idle-r1",
+      "one_second": "idle-r1-f1",
+      "five_second": "idle-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 1074425042624.4547,
+        "ledger_processing_instruction_cycles_per_day": 0.0,
+        "ledger_base_cycles_per_day": 0.0,
+        "ledger_xnet_cycles_per_day": 0.0,
+        "ledger_bytes_cycles_per_day": 0.0,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1074425042624.4531,
+        1074425042624.457
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "moderate-r1",
+      "one_second": "moderate-r1-f1",
+      "five_second": "moderate-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 1000689990617.0961,
+        "ledger_processing_instruction_cycles_per_day": 0.0,
+        "ledger_base_cycles_per_day": 0.0,
+        "ledger_xnet_cycles_per_day": 0.0,
+        "ledger_bytes_cycles_per_day": 0.0,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1000689990617.0957,
+        1000689990617.0938
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "higher-r1",
+      "one_second": "higher-r1-f1",
+      "five_second": "higher-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 663615467337.4358,
+        "ledger_processing_instruction_cycles_per_day": 478570010921.70825,
+        "ledger_base_cycles_per_day": 87749999971.89258,
+        "ledger_xnet_cycles_per_day": 2281499999.269205,
+        "ledger_bytes_cycles_per_day": 84520799972.92688,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1316737778203.2324,
+        1316737778203.2344
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "overload-r1",
+      "one_second": "overload-r1-f1",
+      "five_second": "overload-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 0.0,
+        "ledger_processing_instruction_cycles_per_day": 1840653887585.211,
+        "ledger_base_cycles_per_day": 337499999786.4259,
+        "ledger_xnet_cycles_per_day": 8774999994.447073,
+        "ledger_bytes_cycles_per_day": 325079999794.28534,
+        "game_callback_base_cycles_per_day": -6.103515625e-05,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        -268306177105.2129,
+        2466606598.4375
+      ],
+      "total_increment_matched_sample_range": [
+        2243702710055.1562,
+        2514475493758.8047
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "no-hints-idle-r1",
+      "one_second": "no-hints-idle-r1-f1",
+      "five_second": "no-hints-idle-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 1074425042624.4547,
+        "ledger_processing_instruction_cycles_per_day": 0.0,
+        "ledger_base_cycles_per_day": 0.0,
+        "ledger_xnet_cycles_per_day": 0.0,
+        "ledger_bytes_cycles_per_day": 0.0,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1074425042624.4531,
+        1074425042624.457
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "no-hints-moderate-r1",
+      "one_second": "no-hints-moderate-r1-f1",
+      "five_second": "no-hints-moderate-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 1063891463775.1952,
+        "ledger_processing_instruction_cycles_per_day": 36813077772.41162,
+        "ledger_base_cycles_per_day": 6749999999.525406,
+        "ledger_xnet_cycles_per_day": 175499999.9876604,
+        "ledger_bytes_cycles_per_day": 6501599999.542877,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1114131641546.662,
+        1114131641546.6602
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "no-hints-higher-r1",
+      "one_second": "no-hints-higher-r1-f1",
+      "five_second": "no-hints-higher-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 663615467503.3396,
+        "ledger_processing_instruction_cycles_per_day": 1435710033124.0518,
+        "ledger_base_cycles_per_day": 263249999981.4903,
+        "ledger_xnet_cycles_per_day": 6844499999.518747,
+        "ledger_bytes_cycles_per_day": 253562399982.1715,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        2622982400590.5723,
+        2622982400590.574
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "backlog-r1",
+      "one_second": "backlog-r1-f1",
+      "five_second": "backlog-r1-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 1063891463775.1952,
+        "ledger_processing_instruction_cycles_per_day": 36813077772.41162,
+        "ledger_base_cycles_per_day": 6749999999.525391,
+        "ledger_xnet_cycles_per_day": 175499999.9876604,
+        "ledger_bytes_cycles_per_day": 6501599999.542877,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1114131641546.662,
+        1114131641546.668
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "moderate-r2",
+      "one_second": "moderate-r2-f1",
+      "five_second": "moderate-r2-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 1000689990617.0961,
+        "ledger_processing_instruction_cycles_per_day": 0.0,
+        "ledger_base_cycles_per_day": 0.0,
+        "ledger_xnet_cycles_per_day": 0.0,
+        "ledger_bytes_cycles_per_day": 0.0,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1000689990617.0957,
+        1000689990617.0938
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    },
+    {
+      "pair": "higher-r2",
+      "one_second": "higher-r2-f1",
+      "five_second": "higher-r2-f5",
+      "increment_one_minus_five_cycles_per_day": {
+        "polling_cycles_per_day": 663615467337.4358,
+        "ledger_processing_instruction_cycles_per_day": 478570010921.70825,
+        "ledger_base_cycles_per_day": 87749999971.89258,
+        "ledger_xnet_cycles_per_day": 2281499999.269205,
+        "ledger_bytes_cycles_per_day": 84520799972.92688,
+        "game_callback_base_cycles_per_day": 0.0,
+        "storage_cycles_per_day": 0.0
+      },
+      "game_instruction_increment_sample_range": [
+        0.0,
+        0.0
+      ],
+      "total_increment_matched_sample_range": [
+        1316737778203.2324,
+        1316737778203.2344
+      ],
+      "range_scope": "matched early/late sample choices, not confidence interval or complete-cost bound"
+    }
+  ],
+  "actual_cycles_burned": "NOT_MEASURED",
+  "deployment": "ANALYTICAL_ESTIMATE: repeat each finite virtual-time window for a day"
+}

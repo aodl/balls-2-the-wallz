@@ -1,0 +1,172 @@
+{
+  "source": {
+    "revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+    "tree": "2cbd15fa03b74cc29c3ae8cbf20a498a9352a0e5",
+    "branch": "checkpoint/s13-fallback-policy",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "55d8f46ed5dbf74325c602dd3ad3b3ec7f91fb132c86f867a58aa54fdd504cbc"
+  },
+  "binding": {
+    "source": {
+      "revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+      "tree": "2cbd15fa03b74cc29c3ae8cbf20a498a9352a0e5",
+      "branch": "checkpoint/s13-fallback-policy",
+      "working_tree_changes": [],
+      "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+      "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+      "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+      "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+      "tracked_content_sha256": "55d8f46ed5dbf74325c602dd3ad3b3ec7f91fb132c86f867a58aa54fdd504cbc"
+    },
+    "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+    "workload_sha256": "e250dcf74742cbb915575cdb6532c56eee9b495623edbfa8170965c8bda387df",
+    "harness_sha256": "191c734747358f589c17c216be7848e849f2a8749fd60a1264184c25ba2a3387",
+    "runtime_sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "model_configuration_sha256": "b4271b50b40a793a2e3c11975008e5c88e0ece70edb1128ce50cccf8699e05fa"
+  },
+  "environment": {
+    "captured_utc": "2026-10-14T22:20:48.819409+00:00",
+    "platform": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.35",
+    "machine": "x86_64",
+    "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        46 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               2\nOn-line CPU(s) list:                  0,1\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz\nCPU family:                           6\nModel:                                85\nThread(s) per core:                   2\nCore(s) per socket:                   1\nSocket(s):                            1\nStepping:                             7\nBogoMIPS:                             5187.81\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid ept_ad fsgsbase bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves vnmi avx512_vnni arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            32 KiB (1 instance)\nL1i cache:                            32 KiB (1 instance)\nL2 cache:                             1 MiB (1 instance)\nL3 cache:                             35.8 MiB (1 instance)\nNUMA node(s):                         1\nNUMA node0 CPU(s):                    0,1\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\nVulnerability Reg file data sampling: Not affected\nVulnerability Retbleed:               Vulnerable\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Vulnerable\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state unknown\n",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:      8325529600  4434493440   693321728    14643200  3197714432  3541762048\nSwap:              0           0           0\n",
+    "tools": {
+      "python": {
+        "command": [
+          "/home/codexdev/.local/bin/python3.11",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "Python 3.11.14"
+      },
+      "node": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "v24.15.0"
+      },
+      "npm": {
+        "command": [
+          "npm",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "11.12.1"
+      },
+      "rustc": {
+        "command": [
+          "rustc",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+      },
+      "cargo": {
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+      },
+      "canbench": {
+        "command": [
+          "canbench",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "canbench 0.7.0"
+      }
+    },
+    "definitions": {
+      "wasm_instructions": "canbench performance-counter instructions",
+      "heap_increase": "canbench 64-KiB Wasm pages grown during one benchmark query",
+      "stable_memory_increase": "canbench 64-KiB stable pages grown; not payload bytes",
+      "elapsed_seconds": "local host wall time; not mainnet latency",
+      "work_units": "BTZ deterministic abstract work; not Wasm instructions"
+    }
+  },
+  "runtime": {
+    "version": {
+      "command": [
+        "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "pocket-ic-server 16.1.0"
+    },
+    "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"
+  },
+  "normal_wasm_bytes": 2238602,
+  "dtr_changed": false,
+  "dtr_dependency_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+  "dtr_package_version": "0.11.0",
+  "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+  "evidence_class": "AUTONOMOUS_CONTROLLED_SERVICE_LOAD",
+  "normal_wasm_matches_s12": true,
+  "app_source_changed": false,
+  "candid_changed": false,
+  "source_frozen_during_collection": true,
+  "commands": [
+    "DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s13.py --profile smoke --output .work/s13/review-smoke --harness-target tools/s09-integration/target",
+    "DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s13.py --profile extended --output .work/s13/review-extended --harness-target tools/s09-integration/target"
+  ],
+  "portable_references": {
+    "repository": "BTZ at source.revision",
+    "historical_instruction_manifest": "evidence/S12/closeout/extended/current-measurements.json",
+    "benchmark_fixture": "benchmarks/s12/workloads.json",
+    "harness": "tools/s09-integration/tests/s13_fallback.rs",
+    "artifact_pins": "tools/s09-artifacts.json"
+  },
+  "launcher": {
+    "reason": "prior direct command received SIGTERM; owner launcher isolated from command session and records actual exit",
+    "exit_record": {
+      "command": [
+        "python3.11",
+        "-B",
+        "tools/benchmark_s13.py",
+        "--profile",
+        "extended",
+        "--output",
+        "/home/codexdev/src/btz/.work/s13/extended-complete",
+        "--harness-target",
+        "tools/s09-integration/target"
+      ],
+      "exit_code": 0
+    },
+    "raw_log": ".work/s13/extended-complete-launch.log"
+  },
+  "build": {
+    "command": "cargo +1.94.1 build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked",
+    "features": "normal; no test-hooks/canbench",
+    "optimization": "unchanged S12 release settings; no independent reproducible-build claim"
+  },
+  "postprocessing": {
+    "status": "PASS",
+    "tooling_revision": "81b88463ee75ed0d4c6a431fd7d2bffd4f270daf",
+    "measurement_revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+    "cases": 20,
+    "pairs": 10,
+    "guarded_recalculation_unchanged": true,
+    "cost_sha256": "b6e9268900b5ed3fd2ce21da639d9a4f081626db2865e26302d6ec6d7d489cd2"
+  },
+  "guarded_smoke_source": {
+    "revision": "81b88463ee75ed0d4c6a431fd7d2bffd4f270daf",
+    "tree": "128c50e9c9e94126de578c0041de9840f4084d6d",
+    "branch": "checkpoint/s13-fallback-policy",
+    "working_tree_changes": [],
+    "dtr_revision": "71e59e93cf49a3656689679b538b4c3f138787f8",
+    "package_lock_sha256": "3bb32e0e96aed1f5d6487932c93e33ea16002dc4adf1696289d58cd9b63dba8d",
+    "dtr_package_sha256": "dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8",
+    "runtime_cargo_lock_sha256": "4fa6c6de359b6d2354083dca6bc735705887ff1456294d2be51d2103af617004",
+    "tracked_content_sha256": "c254354c78d37ed05aff76257531c11ebb1f56a32f6e514d4dc362da5034a99e"
+  }
+}

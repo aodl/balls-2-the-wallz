@@ -1,0 +1,4 @@
+{
+  "status": "NOT_RUN",
+  "reason": "smoke measures paired correctness; instruction reuse/cost comparison is extended-only"
+}

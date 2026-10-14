@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "tooling_revision": "81b88463ee75ed0d4c6a431fd7d2bffd4f270daf",
+  "measurement_revision": "b904ee638180d35b44fee44b0b6639aa29a307ac",
+  "cases": 20,
+  "pairs": 10,
+  "guarded_recalculation_unchanged": true,
+  "cost_sha256": "b6e9268900b5ed3fd2ce21da639d9a4f081626db2865e26302d6ec6d7d489cd2"
+}

@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S12",
+  "git_revision": "4f3f68a050aa97f6cf6958b16dd0bc6690262676",
+  "started_utc": "2026-10-14T22:01:03.628281+00:00",
+  "mode": "native",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "cargo-lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--format-version",
+        "1",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-lock.log",
+      "elapsed_seconds": 0.17,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "cargo-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-tests.log",
+      "elapsed_seconds": 2.186,
+      "timeout_seconds": 900,
+      "counts": {
+        "passed": 18,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    {
+      "id": "native-vectors",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/verify_native.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/native-vectors.log",
+      "elapsed_seconds": 0.626,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "portable-lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--format-version",
+        "1",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-lock.log",
+      "elapsed_seconds": 0.168,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "portable-rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-rust-tests.log",
+      "elapsed_seconds": 4.266,
+      "timeout_seconds": 900,
+      "counts": {
+        "passed": 7,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    {
+      "id": "native-public-game",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/verify_portable_native.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/native-public-game.log",
+      "elapsed_seconds": 4.959,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "native-public-host",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/verify_host_native.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/native-public-host.log",
+      "elapsed_seconds": 8.086,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "portable-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-format.log",
+      "elapsed_seconds": 0.728,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "portable-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-clippy.log",
+      "elapsed_seconds": 0.623,
+      "timeout_seconds": 900
+    },
+    {
+      "id": "cargo-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-format.log",
+      "elapsed_seconds": 0.474,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "cargo-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-clippy.log",
+      "elapsed_seconds": 0.472,
+      "timeout_seconds": 900
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}
