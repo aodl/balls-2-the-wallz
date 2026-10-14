@@ -1,65 +1,54 @@
-import importlib.util
+import copy
 import json
-import tempfile
 import unittest
 from pathlib import Path
+from s12_cost_model import scenario_cost
 
-ROOT = Path(__file__).resolve().parents[1]
-SPEC = importlib.util.spec_from_file_location('s12_cost_model', ROOT / 'tools/s12_cost_model.py')
-MODEL = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(MODEL)
+ROOT=Path(__file__).resolve().parents[1]
 
-
-class S12CostModelTests(unittest.TestCase):
-    def test_committed_canbench_inventory_is_complete(self):
-        rows = MODEL.load_canbench(ROOT / 'benchmarks/s12/canbench_results.yml')
-        for name in ('coordinator_empty_motion', 'coordinator_ball_dense_medium',
-                     'coordinator_ball_dense_high', 'persistence_publication_medium',
-                     'ledger_page_all_irrelevant'):
-            self.assertGreater(rows[name]['instructions'], 0)
-
-    def test_mu_uses_controlled_paused_arrival_trace(self):
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / 'trace.json'
-            path.write_text(json.dumps({'scenarios': [{
-                'name': 'paused-arrivals', 'sustained_records_per_second': 10,
-                'evidence_class': 'controlled', 'records_processed': 100,
-                'elapsed_seconds': 10, 'received_candid_bytes': 5000}]}))
-            mu, record = MODEL.controlled_mu(path)
-            self.assertEqual(mu, 10)
-            self.assertEqual(record['bytes_per_record'], 50)
-
-    def test_mu_uses_slowest_aggregated_sample(self):
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / 'trace.json'
-            path.write_text(json.dumps({'scenarios': [{
-                'name': 'paused-arrivals', 'sustained_records_per_second': 8,
-                'sustained_records_per_second_distribution': {
-                    'samples': [10, 8, 12], 'min': 8},
-                'evidence_class': 'controlled', 'records_processed': 80,
-                'elapsed_seconds_samples': [8, 10, 6.666666667],
-                'received_candid_bytes': 4000}]}))
-            mu, record = MODEL.controlled_mu(path)
-            self.assertEqual(mu, 8)
-            self.assertEqual(record['elapsed_seconds'], 10)
-            self.assertEqual(record['selection'], 'minimum repeated local-host throughput')
-
-    def test_cost_projection_separates_measured_and_unmeasured(self):
-        assumptions = json.loads((ROOT / 'benchmarks/s12/cost-assumptions.json').read_text())
-        benches = MODEL.load_canbench(ROOT / 'benchmarks/s12/canbench_results.yml')
-        workloads = MODEL.workload_rows(ROOT / 'benchmarks/s12/workloads.json')
-        output = MODEL.project(assumptions, benches, workloads, 100, {
-            'source': 'fixture', 'scenario': 'paused-arrivals', 'evidence_class': 'controlled',
-            'records': 100, 'elapsed_seconds': 1, 'received_candid_bytes': 5000,
-            'bytes_per_record': 50})
-        self.assertIn('actual production cycle burn', output['classification']['not_measured'])
-        rows = {row['name']: row for row in output['scenarios']}
-        self.assertGreater(
-            rows['high-legal-occupancy']['projection']['13_node_application']['cycles_per_day'],
-            rows['quiet-existing-ball']['projection']['13_node_application']['cycles_per_day'])
-        self.assertEqual(output['backlog_estimates']['arrival_scenarios'][-1]['outcome'],
-                         'DOES_NOT_DRAIN')
-
-
-if __name__ == '__main__':
-    unittest.main()
+class CostSensitivity(unittest.TestCase):
+    def setUp(self):
+        self.assumptions=json.loads((ROOT/'benchmarks/s12/closeout-cost-assumptions.json').read_text())
+        self.tariff=self.assumptions['tariff_13_node_cycles']
+        self.model=self.assumptions['model']
+        self.spec=copy.deepcopy(self.assumptions['scenarios'][1])
+        names=['seal','early','middle','late','finalize','evict']
+        self.benches={f'warm_{p}_medium_512':{'instructions':1000000+i*100000} for i,p in enumerate(names)}
+        self.benches['warm_ledger_staged_admission']={'instructions':2000000}
+        self.benches['warm_ledger_empty_poll']={'instructions':1000000}
+    def cost(self,**changes):
+        return scenario_cost({**self.spec,**changes},self.tariff,self.model,self.benches)
+    def test_tariff_sensitivity(self):
+        old=self.cost()
+        self.tariff['per_wasm_instruction']*=2
+        new=self.cost()
+        for i in (0,1):
+            self.assertAlmostEqual(new['cycles_per_day_sample_range'][i]-old['cycles_per_day_sample_range'][i],old['instruction_components_per_day_sample_range'][i])
+        self.assertEqual(old['game_callback_base_cycles_per_day'],new['game_callback_base_cycles_per_day'])
+    def test_zero_arrivals_polling_enabled_and_disabled(self):
+        self.assertGreater(self.cost(ledger_records_per_second=0)['polling_cycles_per_day'],0)
+        self.assertEqual(self.cost(ledger_enabled=False,ledger_records_per_second=0)['polling_cycles_per_day'],0)
+    def test_traffic_increases_processing(self):
+        self.assertGreater(self.cost(ledger_records_per_second=20)['ledger_processing_instruction_cycles_per_day'], self.cost(ledger_records_per_second=1)['ledger_processing_instruction_cycles_per_day'])
+    def test_cadence_independent_terms(self):
+        old=self.cost(segment_seconds=20);new=self.cost(segment_seconds=10)
+        self.assertEqual(new['game_callback_base_cycles_per_day'],2*old['game_callback_base_cycles_per_day'])
+        for key in ['polling_cycles_per_day','storage_cycles_per_day','ledger_processing_instruction_cycles_per_day','ledger_bytes_cycles_per_day']:
+            self.assertEqual(new[key],old[key])
+    def test_storage_sensitivity(self):
+        old=self.cost();self.model['storage_bytes']*=2
+        self.assertEqual(self.cost()['storage_cycles_per_day'],2*old['storage_cycles_per_day'])
+    def test_budget_mismatch_requires_measurement(self):
+        self.model['work_budget']=256
+        with self.assertRaises(ValueError):self.cost()
+    def test_missing_callback_is_not_zero(self):
+        del self.benches['warm_middle_medium_512']
+        with self.assertRaises(ValueError):self.cost()
+    def test_fresh_measurement_changes_cost(self):
+        old=self.cost()['cycles_per_day_sample_range'][1]
+        self.benches['warm_late_medium_512']['instructions']*=3
+        self.assertGreater(self.cost()['cycles_per_day_sample_range'][1],old)
+    def test_no_default_baseline_cli(self):
+        source=(ROOT/'tools/s12_cost_model.py').read_text()
+        self.assertIn("'--current-measurements', type=Path, required=True",source)
+        self.assertNotIn("default=ROOT / 'benchmarks/s12/canbench_results.yml'",source)

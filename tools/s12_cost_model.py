@@ -46,138 +46,121 @@ def controlled_mu(path):
         'bytes_per_record': row['received_candid_bytes'] / row['records_processed']}
 
 
-def project(assumptions, benches, workloads, mu, mu_record):
-    tariff = assumptions['tariff_13_node_cycles']
-    model = assumptions['model']
-    seal = benches['coordinator_seal_medium']['instructions']
-    page_classification = benches['ledger_page_all_irrelevant']['instructions']
-    bytes_per_record = mu_record['bytes_per_record']
-    scenarios = []
+def scenario_cost(spec, tariff, model, benches):
+    """Independent daily terms; sampled ranges are illustrative, never bounds."""
+    rate = spec['ledger_records_per_second']
+    cadence = spec['segment_seconds']
+    callbacks = spec['callbacks_per_segment']
+    if spec['game_mode'] == 'kernel-only':
+        callbacks = math.ceil(spec['work_units'] / model['work_budget']) + 2
+    def instructions(name):
+        if name not in benches or benches[name]['instructions'] <= 0:
+            raise ValueError(f'missing measurement {name}; cannot substitute zero')
+        return benches[name]['instructions']
+    if spec['game_mode'] == 'warm-medium':
+        if model['work_budget'] != 512:
+            raise ValueError('warm measurements require work budget 512; rerun for changed budget')
+        seal = instructions('warm_seal_medium_512')
+        publish = instructions('warm_evict_medium_512')
+        finalize = instructions('warm_finalize_medium_512')
+        samples = [instructions(f'warm_{phase}_medium_512') for phase in ('early','middle','late')]
+        steps = max(0, callbacks - 3)
+        low = seal + publish + finalize + steps * min(samples)
+        high = seal + publish + finalize + steps * max(samples)
+        scope = 'ESTIMATED: warm two-tick initial medium samples applied to observed evolving-world callback counts; sample extrema are not worst-case bounds'
+    else:
+        low = high = instructions(spec['kernel_benchmark'])
+        scope = 'PARTIAL_ESTIMATE: direct kernel only; coordinator/restore/persistence/publication NOT_MEASURED for this scenario'
+    coefficient = tariff['per_wasm_instruction']
+    segments_day = 86400 / cadence
+    game_base = callbacks * tariff['update_execution_base'] * segments_day
+    page_day = rate * 86400 / model['page_records'] if spec['ledger_enabled'] else 0
+    admission = instructions('warm_ledger_staged_admission') if page_day else 0
+    calls_page = 1 + spec['archive_fraction']
+    ledger_instructions_day = page_day * admission
+    ledger_base = page_day * (2 + spec['archive_fraction']) * tariff['update_execution_base']
+    ledger_xnet = page_day * calls_page * tariff['xnet_request_and_response']
+    ledger_bytes = page_day * (model['page_records'] * model['response_bytes_per_record_assumption']
+                              + calls_page * model['request_bytes_assumption'])
+    # Polling is independent of arrival processing. This conservative scheduled
+    # opportunity assumption can overcount polls while a backlog drains.
+    polls_day = 86400 / spec['fallback_seconds'] if spec['ledger_enabled'] else 0
+    poll_instructions_day = polls_day * (instructions('warm_ledger_empty_poll') + model['empty_poll_instruction_assumption']) if polls_day else 0
+    poll_base = polls_day * model['empty_poll_updates_assumption'] * tariff['update_execution_base']
+    poll_xnet = polls_day * tariff['xnet_request_and_response']
+    poll_bytes = polls_day * model['empty_poll_bytes_assumption'] * tariff['xnet_byte']
+    storage = model['storage_bytes'] / 1024**3 * tariff['gib_storage_second'] * 86400
+    independent = ledger_base + ledger_xnet + ledger_bytes * tariff['xnet_byte'] + poll_base + poll_xnet + poll_bytes + storage
+    instruction_day_low = low * segments_day + ledger_instructions_day + poll_instructions_day
+    instruction_day_high = high * segments_day + ledger_instructions_day + poll_instructions_day
+    total_low = instruction_day_low * coefficient + game_base + independent
+    total_high = instruction_day_high * coefficient + game_base + independent
+    return {**spec, 'modeled_callbacks_per_segment': callbacks, 'classification': 'ANALYTICAL_ESTIMATE', 'game_scope': scope,
+        'game_instructions_per_segment_sample_range': [low, high],
+        'game_instruction_cycles_per_day_sample_range': [low * segments_day * coefficient, high * segments_day * coefficient],
+        'game_callback_base_cycles_per_day': game_base,
+        'ledger_processing_instruction_cycles_per_day': ledger_instructions_day * coefficient,
+        'ledger_base_cycles_per_day': ledger_base,
+        'ledger_xnet_cycles_per_day': ledger_xnet,
+        'ledger_bytes_cycles_per_day': ledger_bytes * tariff['xnet_byte'],
+        'polling_cycles_per_day': poll_instructions_day * coefficient + poll_base + poll_xnet + poll_bytes,
+        'polling_classification': 'PARTIAL_ESTIMATE: measured begin/at-tip handling plus explicit unmeasured execution and payload assumptions',
+        'storage_cycles_per_day': storage, 'pages_per_day_assumption': page_day,
+        'polls_per_day_assumption': polls_day,
+        'instruction_components_per_day_sample_range': [instruction_day_low, instruction_day_high],
+        'game_cycles_per_segment_sample_range': [low*coefficient+callbacks*tariff['update_execution_base'],high*coefficient+callbacks*tariff['update_execution_base']],
+        'cycles_per_day_sample_range': [total_low,total_high],
+        'cycles_per_30_day_month_sample_range': [total_low*30,total_high*30],
+        'xdr_per_day_sample_range': [total_low/1e12,total_high/1e12],
+        'complete_total_upper_bound': 'NOT_MEASURED'}
+
+
+def project(assumptions, benches, combined):
+    specs = []
     for spec in assumptions['scenarios']:
-        workload = workloads[spec['workload']]
-        work = workload['expected']['work_units']
-        steps = math.ceil(work / model['work_budget'])
-        callbacks = steps + 2
-        coordinator = benches[spec['coordinator_benchmark']]['instructions']
-        persistence = benches[spec['persistence_benchmark']]['instructions']
-        measured_component_instructions = coordinator + seal + callbacks * persistence
-        execution_allowance = math.ceil(
-            measured_component_instructions * model['unmeasured_execution_allowance_fraction'])
-        game_instructions = measured_component_instructions + execution_allowance
-        game_base = callbacks * tariff['update_execution_base']
-        rate = mu if spec['ledger_records_per_second'] == 'MEASURED_CONTROLLED_MU' \
-            else spec['ledger_records_per_second']
-        pages_per_segment = rate * spec['segment_seconds'] / model['page_records']
-        scan_instructions_page = page_classification + persistence
-        scan_execution_messages_page = 2 + model['archive_fraction']
-        scan_base = pages_per_segment * scan_execution_messages_page * tariff['update_execution_base']
-        scan_instructions = pages_per_segment * scan_instructions_page
-        xnet_calls = pages_per_segment * (1 + model['archive_fraction'])
-        xnet = xnet_calls * tariff['xnet_request_and_response']
-        xnet_bytes = pages_per_segment * (
-            model['page_records'] * bytes_per_record
-            + model['average_request_bytes_assumption'] * (1 + model['archive_fraction']))
-        xnet_byte_cost = xnet_bytes * tariff['xnet_byte']
-        storage = (model['stable_memory_bytes'] / (1024 ** 3)) * \
-            tariff['gib_storage_second'] * spec['segment_seconds']
-        segment_cycles_13 = game_instructions + game_base + scan_instructions + scan_base + xnet + xnet_byte_cost + storage
-        multiplier = assumptions['replication']['higher_replication_scale']
-        def periods(cycles):
-            per_hour = cycles * 3600 / spec['segment_seconds']
-            return {'cycles_per_segment': round(cycles), 'cycles_per_hour': round(per_hour),
-                    'cycles_per_day': round(per_hour * 24),
-                    'cycles_per_30_day_month': round(per_hour * 24 * 30),
-                    'xdr_per_day': per_hour * 24 / model['cycles_per_xdr'],
-                    'xdr_per_30_day_month': per_hour * 24 * 30 / model['cycles_per_xdr']}
-        scenarios.append({**spec, 'ledger_records_per_second': rate,
-            'measured_components': {'work_units': work, 'steps': steps, 'callbacks': callbacks,
-                'coordinator_instructions': coordinator, 'seal_instructions_proxy': seal,
-                'persistence_instructions_per_callback_conservative_proxy': persistence,
-                'ledger_classification_instructions_per_64_record_page': page_classification},
-            'estimated_components_13_node_cycles_per_segment': {
-                'game_measured_instruction_components': measured_component_instructions,
-                'unmeasured_execution_allowance': execution_allowance,
-                'game_update_base_fees': game_base,
-                'ledger_instruction_components': round(scan_instructions),
-                'ledger_update_base_fees': round(scan_base),
-                'xnet_call_overhead': round(xnet), 'xnet_received_and_assumed_request_bytes': round(xnet_bytes),
-                'xnet_byte_transmission': round(xnet_byte_cost), 'stable_storage': round(storage),
-                'compute_allocation': 0},
-            'projection': {'13_node_application': periods(segment_cycles_13),
-                '34_node_higher_replication': periods(segment_cycles_13 * multiplier)}})
-    backlog = model['backlog_records']
-    arrivals = []
-    for label, lam in [('paused', 0), ('half_measured_mu', mu / 2), ('above_measured_mu', mu * 1.1)]:
-        arrivals.append({'name': label, 'lambda_records_per_second': lam,
-            'mu_records_per_second': mu,
-            'estimated_catch_up_seconds': backlog / (mu - lam) if mu > lam else None,
-            'outcome': 'DRAINS' if mu > lam else 'DOES_NOT_DRAIN'})
-    retention_rows = []
-    for retained in (0, 4 * 1024 * 1024, 8 * 1024 * 1024):
-        storage_day = retained / (1024 ** 3) * tariff['gib_storage_second'] * 86400
-        retention_rows.append({'retained_bytes': retained,
-            'additional_storage_cycles_per_day_13_node': round(storage_day),
-            'additional_storage_cycles_per_day_34_node': round(
-                storage_day * assumptions['replication']['higher_replication_scale'])})
-    moderate = next(row for row in scenarios if row['name'] == 'moderate-ongoing')
-    moderate_segment = moderate['projection']['13_node_application']['cycles_per_segment']
-    page_cycles = page_classification + benches['persistence_publication_empty_motion']['instructions'] \
-        + (2 + model['archive_fraction']) * tariff['update_execution_base'] \
-        + (1 + model['archive_fraction']) * tariff['xnet_request_and_response'] \
-        + (model['page_records'] * bytes_per_record
-           + model['average_request_bytes_assumption'] * (1 + model['archive_fraction'])) * tariff['xnet_byte']
-    return {'schema': 'btz-s12-cost-projection-v1',
-        'classification': {'measured_locally': ['canbench instructions/heap/stable growth',
-            'controlled PocketIC records, elapsed time and Candid response bytes'],
-            'estimated_from_tariffs': ['cycles per segment/hour/day/month and XDR'],
-            'not_measured': ['actual production cycle burn', 'mainnet latency/finality/availability',
-                'current canister cycle balance', 'gateway/query infrastructure cost',
-                'Wasm heap high-water mark', 'certified_data_set instruction cost',
-                'inter-canister request payload bytes (32-byte model assumption used)',
-                'ETH-equivalent compute (no versioned conversion definition)']},
-        'tariff_provenance': {'retrieved_utc_date': assumptions['retrieved_utc_date'],
-            'official_sources': assumptions['official_sources'],
-            'cycles_per_xdr': model['cycles_per_xdr'], 'usd_conversion': 'NOT_PROVIDED'},
-        'controlled_throughput': mu_record,
-        'backlog_estimates': {'backlog_records': backlog,
-            'formula': 'B / (mu - lambda) when mu > lambda', 'arrival_scenarios': arrivals},
-        'scenarios': scenarios,
-        'sensitivity': {
-            'occupancy_and_players': [
-                {key: row[key] for key in ('name', 'players', 'balls', 'segment_seconds')}
-                | {'cycles_per_day_13_node': row['projection']['13_node_application']['cycles_per_day']}
-                for row in scenarios[:4]],
-            'segment_cadence': [{'seconds': seconds,
-                'moderate_workload_cycles_per_day_13_node_holding_segment_work_fixed': round(
-                    moderate_segment * 86400 / seconds)} for seconds in (10, 20, 60)],
-            'ledger_record_rates': [{'records_per_second': rate,
-                'pages_per_day': rate * 86400 / model['page_records'],
-                'scan_cycles_per_day_13_node': round(
-                    rate * 86400 / model['page_records'] * page_cycles)}
-                for rate in (0, 1, 20, mu)],
-            'retention': retention_rows,
-            'qualification': 'Player rows are tested configurations but occupancy/geometry are confounded; cadence and traffic rows hold their stated component fixed.'}}
+        spec = dict(spec)
+        if spec.get('combined_scenario'):
+            observed = next(row for row in combined['scenarios'] if row['name'] == spec['combined_scenario'])
+            seconds = observed['duration_virtual_seconds']
+            spec['segment_seconds'] = seconds / observed['completed_segments']
+            spec['callbacks_per_segment'] = observed['callbacks'] / observed['completed_segments']
+            spec['ledger_records_per_second'] = observed['verified_records_per_virtual_second']
+            spec['cadence_classification'] = 'MEASURED_VIRTUAL_TIME'
+            spec['observed_arrival_rate'] = observed['arrival_records_per_virtual_second']
+            spec['observed_final_backlog'] = observed['final_backlog']
+        specs.append(spec)
+    rows = [scenario_cost(s, assumptions['tariff_13_node_cycles'], assumptions['model'], benches) for s in specs]
+    moderate = next(s for s in specs if s['name'] == 'moderate-combined')
+    sensitivity = [scenario_cost({**moderate, 'segment_seconds': seconds}, assumptions['tariff_13_node_cycles'], assumptions['model'], benches) for seconds in (10,20,60)]
+    return {'schema': 'btz-s12-cost-projection-v2', 'status': 'PASS',
+        'qualification': 'Tariff-based partial estimates and illustrative sample ranges; no demonstrated complete upper bound or actual balance burn',
+        'assumptions': assumptions, 'scenarios': rows, 'cadence_sensitivity': sensitivity,
+        'not_measured': ['heap high-water', 'update-only certification and timer dispatch instructions',
+            'empty polling execution', 'actual inter-canister request bytes', 'archive execution',
+            'mainnet cycles burned', 'mainnet finality/availability', 'real-world fiat conversion'],
+        'not_included': ['query-service/gateway costs', 'ETH-equivalent compute', 'upstream ledger operating costs',
+            'storage of unmeasured heap and Wasm code', 'retry execution costs (zero observed is not a future guarantee)']}
 
 
 def main():
+    from s12_measurements import load_current
+    from benchmark_s12 import source_record
     parser = argparse.ArgumentParser()
-    parser.add_argument('--assumptions', type=Path,
-        default=ROOT / 'benchmarks/s12/cost-assumptions.json')
-    parser.add_argument('--canbench', type=Path,
-        default=ROOT / 'benchmarks/s12/canbench_results.yml')
-    parser.add_argument('--workloads', type=Path,
-        default=ROOT / 'benchmarks/s12/workloads.json')
-    parser.add_argument('--ledger-trace', type=Path, required=True)
+    parser.add_argument('--assumptions', type=Path, default=ROOT / 'benchmarks/s12/closeout-cost-assumptions.json')
+    parser.add_argument('--current-measurements', type=Path, required=True)
+    parser.add_argument('--combined-trace', type=Path, required=True)
+    parser.add_argument('--ledger-trace', type=Path, help='historical controlled page evidence only; never autonomous capacity')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    assumptions = json.loads(args.assumptions.read_text())
-    mu, mu_record = controlled_mu(args.ledger_trace)
-    result = project(assumptions, load_canbench(args.canbench),
-                     workload_rows(args.workloads), mu, mu_record)
+    current = load_current(args.current_measurements, source_record())
+    benches = {row['name']:row for row in current['benchmarks']}
+    result = project(json.loads(args.assumptions.read_text()), benches, json.loads(args.combined_trace.read_text()))
+    result['measurement_provenance'] = {'source': current['source'], 'wasm_sha256': current['wasm_sha256'],
+        'manifest_sha256': __import__('hashlib').sha256(args.current_measurements.read_bytes()).hexdigest(),
+        'combined_trace_sha256': __import__('hashlib').sha256(args.combined_trace.read_bytes()).hexdigest()}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + '\n')
-    print(json.dumps({'outcome': 'PASS', 'scenarios': len(result['scenarios']),
-                      'controlled_mu': mu}))
+    print(json.dumps({'status':'PASS','scenarios':len(result['scenarios'])}))
 
 
 if __name__ == '__main__':

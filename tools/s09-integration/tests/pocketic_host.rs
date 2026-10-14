@@ -3216,3 +3216,310 @@ fn s12_controlled_ledger_backlog_trace() {
         }),
     );
 }
+// The controlled upstream-shaped ledger owns its arrival clock. It decodes the
+// fixed typed request and selects a contiguous page independently of the harness.
+fn s12_clock_ledger(
+    ledger: Principal,
+    runtime: Principal,
+    epoch: u64,
+    period: u64,
+    batch: u64,
+    duration: u64,
+) -> Vec<u8> {
+    let request = candid::encode_one(FaultGetBlocksArgs {
+        start: 0x0102030405060708,
+        length: 64,
+    })
+    .unwrap();
+    let start_offset = request
+        .windows(8)
+        .position(|b| b == 0x0102030405060708u64.to_le_bytes())
+        .unwrap();
+    let recipient = AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT);
+    let from = AccountIdentifier::new(
+        &Principal::self_authenticating([92; 32]),
+        &DEFAULT_SUBACCOUNT,
+    );
+    let other = AccountIdentifier::new(
+        &Principal::self_authenticating([91; 32]),
+        &DEFAULT_SUBACCOUNT,
+    );
+    let max_tip = duration / period * batch;
+    let mut bytes = vec![0; 1024];
+    let mut table = Vec::new();
+    let mut archive_table = Vec::new();
+    let mut empty_patch = 0;
+    for cursor in (0..=max_tip).step_by(64) {
+        let blocks = (cursor..cursor + 64)
+            .map(|position| {
+                let (to, amount, memo) = match position % 256 {
+                    0 => (recipient, 1_000_000_000, *b"BTZ\x11\0\0\x40\0"),
+                    1 => (recipient, 1, *b"BTZ\x11\0\0\x20\0"),
+                    2 => (recipient, 1_000_000_000, [0; 8]),
+                    _ => (other, 1_000_000_000, *b"BTZ\x11\0\0\x40\0"),
+                };
+                s12_fault_transfer(from, to, amount, memo, position)
+            })
+            .collect::<Vec<_>>();
+        let archived = cursor < 128;
+        let mut response = FaultQueryResponse {
+            chain_length: 0x0102030405060708,
+            certificate: None,
+            blocks: if archived { vec![] } else { blocks.clone() },
+            first_block_index: cursor,
+            archived_blocks: if archived {
+                vec![FaultArchivedRange {
+                    start: cursor,
+                    length: 64,
+                    callback: FaultArchiveCallback(candid::Func {
+                        principal: ledger,
+                        method: "get_blocks".into(),
+                    }),
+                }]
+            } else {
+                vec![]
+            },
+        };
+        if cursor == max_tip {
+            response.blocks.clear();
+            response.archived_blocks.clear();
+        }
+        let encoded = candid::encode_one(response).unwrap();
+        let patch = encoded
+            .windows(8)
+            .position(|b| b == 0x0102030405060708u64.to_le_bytes())
+            .unwrap();
+        let offset = bytes.len();
+        bytes.extend(&encoded);
+        table.push((offset, encoded.len(), offset + patch));
+        let archive =
+            candid::encode_one(Ok::<_, FaultArchiveError>(FaultBlockRange { blocks })).unwrap();
+        archive_table.push((bytes.len(), archive.len()));
+        bytes.extend(archive);
+    }
+    let empty = candid::encode_one(FaultQueryResponse {
+        chain_length: 0x0102030405060708,
+        certificate: None,
+        blocks: vec![],
+        first_block_index: 0,
+        archived_blocks: vec![],
+    })
+    .unwrap();
+    let empty_offset = bytes.len();
+    empty_patch += empty_offset
+        + empty
+            .windows(8)
+            .position(|b| b == 0x0102030405060708u64.to_le_bytes())
+            .unwrap();
+    bytes.extend(&empty);
+    let table_offset = bytes.len();
+    for (offset, len, patch) in table {
+        for value in [offset, len, patch] {
+            bytes.extend((value as u32).to_le_bytes());
+        }
+    }
+    let archive_offset = bytes.len();
+    for (offset, len) in archive_table {
+        for value in [offset, len] {
+            bytes.extend((value as u32).to_le_bytes());
+        }
+    }
+    wat::parse_str(format!(r#"(module
+      (import "ic0" "time" (func $time (result i64)))
+      (import "ic0" "msg_arg_data_copy" (func $copy (param i32 i32 i32)))
+      (import "ic0" "msg_reply_data_append" (func $append (param i32 i32)))
+      (import "ic0" "msg_reply" (func $reply))
+      (memory (export "memory") {pages}) (data (i32.const 0) "{data}")
+      (func $start (result i32) i32.const 0 i32.const 0 i32.const {request_len} call $copy
+        i32.const {start_offset} i64.load i32.wrap_i64 i32.const 64 i32.div_u)
+      (func (export "canister_query query_blocks") (local $tip i64) (local $entry i32) (local $start i32)
+        call $time i64.const {epoch} i64.sub i64.const 1000000000 i64.div_u
+        i64.const {period} i64.div_u i64.const {batch} i64.mul local.set $tip
+        call $start local.set $start
+        local.get $start i32.const 64 i32.mul i64.extend_i32_u local.get $tip i64.ge_u
+        if
+          i32.const {empty_patch} local.get $tip i64.store
+          i32.const {empty_offset} i32.const {empty_len} call $append
+        else
+          i32.const {table_offset} local.get $start i32.const 12 i32.mul i32.add local.set $entry
+          local.get $entry i32.const 8 i32.add i32.load local.get $tip i64.store
+          local.get $entry i32.load local.get $entry i32.const 4 i32.add i32.load call $append
+        end call $reply)
+      (func (export "canister_query get_blocks") (local $entry i32)
+        i32.const {archive_offset} call $start i32.const 8 i32.mul i32.add local.set $entry
+        local.get $entry i32.load local.get $entry i32.const 4 i32.add i32.load call $append call $reply)
+    )"#, pages=bytes.len().div_ceil(65536), data=wat_bytes(&bytes), request_len=request.len(), empty_len=empty.len())).unwrap()
+}
+
+#[test]
+#[ignore = "bounded extended S12 independent-arrival load experiment"]
+fn s12_autonomous_combined_service_trace() {
+    let wasm = std::fs::read(required_path("DTR_RUNTIME_WASM")).unwrap();
+    let mut scenarios = Vec::new();
+    for (name, period, batch) in [
+        ("idle", 1, 0),
+        ("low", 64, 64),
+        ("moderate", 8, 64),
+        ("overload", 1, 128),
+    ] {
+        let pic = instance();
+        let ledger = create_controlled(&pic);
+        let runtime = create_controlled(&pic);
+        let epoch = pic.get_time().as_nanos_since_unix_epoch();
+        let duration = 128u64;
+        let fixture = s12_clock_ledger(ledger, runtime, epoch, period, batch, duration + 64);
+        pic.install_canister(
+            ledger,
+            fixture,
+            encode_args(()).unwrap(),
+            Some(controller()),
+        );
+        let init = encode_args((
+            s12_world("ball-dense-medium"),
+            "00".repeat(32),
+            0u64,
+            0u64,
+            Some(LedgerConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                recipient_account: AccountIdentifier::new(&runtime, &DEFAULT_SUBACCOUNT)
+                    .as_bytes()
+                    .to_vec(),
+                page_limit: 64,
+                fallback_seconds: 5,
+                hint_principal: None,
+            }),
+        ))
+        .unwrap();
+        pic.install_canister(runtime, wasm.clone(), init, Some(controller()));
+        start_autonomous(
+            &pic,
+            runtime,
+            RunConfig {
+                segment_ticks: 2,
+                pacing_seconds: 1,
+                work_budget: 512,
+            },
+        );
+        let mut rows = Vec::new();
+        let mut previous_cursor = 0;
+        let mut previous_tip = 0;
+        let mut previous_calls = 0;
+        let mut empty_polls = 0;
+        let mut previous_in_flight = false;
+        let mut hints_delivered = 0;
+        let initial_stable_bytes = pic.get_stable_memory(runtime).len();
+        let mut successful_scans = 0;
+        let mut publications = BTreeSet::new();
+        let mut assigned = BTreeSet::new();
+        let mut assignment_trace = Vec::new();
+        let mut publication_times = Vec::new();
+        let mut queue_high = 0;
+        let host_started = Instant::now();
+        for second in 1..=duration {
+            pic.advance_time(Duration::from_secs(1));
+            // Arrival-clock hints accelerate discovery; alternating arrival
+            // batches intentionally omit the hint and rely on fallback.
+            if batch > 0 && second % period == 0 && (second / period) % 2 == 0 {
+                let _: Status = update_result(
+                    &pic,
+                    runtime,
+                    controller(),
+                    "ledger_hint",
+                    encode_args(()).unwrap(),
+                )
+                .unwrap();
+                hints_delivered += 1;
+            }
+            pic.tick();
+            let current = status(&pic, runtime, Principal::anonymous()).unwrap();
+            let work = controller_work(&pic, runtime).unwrap();
+            let elapsed = pic.get_time().as_nanos_since_unix_epoch() - epoch;
+            let tip = elapsed / 1_000_000_000 / period * batch;
+            let cursor = current.source.verified_source_watermark.unwrap();
+            let verified = cursor - previous_cursor;
+            if verified > 0 {
+                successful_scans += 1;
+            }
+            // Observational classification: completed call while cursor unchanged
+            // and no call remains in flight at the tip. Not an execution counter.
+            if (current.source.ledger_calls > previous_calls || previous_in_flight)
+                && cursor == previous_cursor
+                && cursor == tip
+                && !current.source.scan_in_flight
+            {
+                empty_polls += 1;
+            }
+            queue_high = queue_high.max(work.pending_inputs);
+            let publication: Publication = decode(&observation(&pic, runtime).publication).unwrap();
+            let mut watermark = None;
+            if let Some(seal) = &publication.head.seal {
+                watermark = Some(seal.source_to_exclusive.0.to_string());
+                let id = publication.head.segment_id.as_ref().unwrap().0.to_string();
+                if publications.insert(id) {
+                    publication_times.push(second);
+                    let from = seal.source_from.0.to_string().parse::<u64>().unwrap();
+                    let to = seal
+                        .source_to_exclusive
+                        .0
+                        .to_string()
+                        .parse::<u64>()
+                        .unwrap();
+                    let positions = (from..to).filter(|p| p % 256 < 3).collect::<Vec<_>>();
+                    assert_eq!(positions.len(), seal.input_count as usize);
+                    for position in positions {
+                        assert!(assigned.insert(position), "duplicate input assignment");
+                        assignment_trace.push(serde_json::json!({"position":position,"assigned_at_virtual_second":second,
+                            "arrival_virtual_second":(position / batch.max(1) + 1)*period}));
+                    }
+                }
+            }
+            rows.push(serde_json::json!({"elapsed_virtual_seconds":elapsed as f64/1e9,"observation_second":second,
+                "ledger_tip":tip,"verified_cursor":cursor,"sealed_source_watermark":watermark,"backlog":tip-cursor,
+                "new_arrivals":tip-previous_tip,"records_verified":verified,
+                "relevant_records_accepted":(previous_cursor..cursor).filter(|p| p%256<3).count(),
+                "ledger_calls":current.source.ledger_calls,"archive_calls":current.source.archive_calls,
+                "empty_polls_observed":empty_polls,"successful_scans_observed":successful_scans,
+                "retries":0,"dropped_hints":(second/period).saturating_sub(hints_delivered),"hints_delivered":hints_delivered,"completed_segments":current.run.completed_segments,
+                "phase":work.phase,"callbacks":current.run.callback_count,"total_work":current.run.total_work,
+                "input_queue_size":work.pending_inputs,"source_error":current.source.last_error,"run_error":current.run.last_error}));
+            assert!(current.run.last_error.is_none());
+            assert!(current.source.last_error.is_none());
+            previous_cursor = cursor;
+            previous_tip = tip;
+            previous_calls = current.source.ledger_calls;
+            previous_in_flight = current.source.scan_in_flight;
+        }
+        let current = status(&pic, runtime, Principal::anonymous()).unwrap();
+        assert!(current.run.completed_segments > 1);
+        assert!(current.source.ledger_calls > 0);
+        if name == "overload" {
+            assert!(previous_tip - previous_cursor > 128);
+        }
+        let elapsed = rows.last().unwrap()["elapsed_virtual_seconds"]
+            .as_f64()
+            .unwrap();
+        scenarios.push(serde_json::json!({"name":name,"evidence_class":"AUTONOMOUS_CONTROLLED_SERVICE_LOAD",
+            "time_base":"PocketIC virtual canister seconds","duration_virtual_seconds":elapsed,
+            "host_elapsed_seconds":host_started.elapsed().as_secs_f64(),"arrival_batch":batch,"arrival_period_seconds":period,
+            "arrival_records_per_virtual_second":previous_tip as f64/elapsed,
+            "verified_records_per_virtual_second":previous_cursor as f64/elapsed,
+            "final_backlog":previous_tip-previous_cursor,"queue_high_water":queue_high,
+            "stable_bytes_initial":initial_stable_bytes,"stable_bytes_final":pic.get_stable_memory(runtime).len(),
+            "retention":serde_json::json!({"retained_bytes":retention_status(&pic,runtime).retained_bytes}),
+            "completed_segments":current.run.completed_segments,"callbacks":current.run.callback_count,
+            "publication_times_virtual_seconds":publication_times,"assignments":assignment_trace,
+            "status":"PASS","operating_outcome":if name=="overload" {"UNSUSTAINABLE_TESTED"} else {"OBSERVED_BOUNDED"},
+            "configuration":{"board":"16x8","starting_balls":32,"cannons":2,"logical_ticks":2,"work_budget":512,
+                "callback_pacing_seconds":1,"fallback_seconds":5,"page_records":64},"trace":rows}));
+        write_s12_trace(
+            "DTR_S12_COMBINED_TRACE",
+            &serde_json::json!({"schema":"btz-s12-combined-v1","status":"IN_PROGRESS","scenarios":scenarios}),
+        );
+    }
+    write_s12_trace(
+        "DTR_S12_COMBINED_TRACE",
+        &serde_json::json!({"schema":"btz-s12-combined-v1","status":"PASS","scenarios":scenarios,
+        "qualification":"controlled typed ledger; separate upstream functional evidence required; empty polls are observational, not full instruction measurements"}),
+    );
+}

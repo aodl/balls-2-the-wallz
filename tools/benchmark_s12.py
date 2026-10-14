@@ -31,7 +31,10 @@ def sha256(path):
 
 
 def command_text(command, timeout=15):
-    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, timeout=timeout)
+    try:
+        result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, timeout=timeout)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        return {'command': command, 'exit_code': None, 'text': str(error)}
     return {'command': command, 'exit_code': result.returncode,
             'text': (result.stdout + result.stderr).strip()}
 
@@ -48,6 +51,7 @@ def source_record():
             'working_tree_changes': git_value('status', '--porcelain').splitlines(),
             'dtr_revision': DTR_REVISION,
             'package_lock_sha256': sha256(ROOT / 'package-lock.json'),
+            'dtr_package_sha256': sha256(ROOT / 'vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'),
             'runtime_cargo_lock_sha256': sha256(ROOT / 'canisters/runtime-lab/Cargo.lock'),
             'tracked_content_sha256': hashlib.sha256(b''.join(
                 path.encode() + b'\0' + (ROOT / path).read_bytes()
@@ -227,7 +231,7 @@ def main():
             cfg.write_text('\n'.join(line for line in original
                 if not line.startswith(('results_path:', 'csv_results_path:'))) +
                 f'\nresults_path: {yml}\ncsv_results_path: {csv}\n')
-            run(f'canbench-{index}', ['canbench', '--persist', '--csv'] +
+            run(f'canbench-{index}', ['canbench', '--persist', '--csv', '--show-canister-output'] +
                 ([pattern] if pattern else []), 1200, {'CANBENCH_CFG_FILE': str(cfg)})
             totals = load_totals(yml)
             if pattern and set(totals) != {pattern}:
@@ -245,14 +249,19 @@ def main():
             'source': report['source'], 'profile': args.profile,
             'captured_utc': report['environment']['captured_utc'], 'tool': tool,
             'wasm_sha256': sha256(ROOT / 'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'),
+            'build': {'features': ['canbench'], 'release': {'lto': True, 'codegen_units': 1, 'overflow_checks': True},
+                      'config_sha256': sha256(ROOT / 'benchmarks/s12/canbench.yml')},
             'baseline': {'path': 'benchmarks/s12/canbench_results.yml', 'sha256': baseline_hash,
                          'source_revision': '524807a394f80e0e38db163c3e726e8e992c802f'},
             'benchmarks': current_rows, 'raw_results': raw,
+            'informational_names': [r['name'] for r in current_rows if r['name'].startswith('warm_')],
             'executed_names': [row['name'] for row in current_rows]}
         validate(measured, source_record())
         current_path = output / 'current-measurements.json'
         current_path.write_text(json.dumps(measured, indent=2) + '\n')
         baseline = json.loads((ROOT / 'benchmarks/s12/baseline-identity.json').read_text())
+        if baseline['baseline_sha256'] != baseline_hash:
+            raise ValueError('baseline identity mismatch')
         baseline['benchmarks'] = [{'name': name, **total,
             'configuration': baseline['configurations'][name]} for name, total in baseline_rows.items()]
         baseline['monitored_names'] = [r['name'] for r in current_rows if r['name'] in baseline_rows]
@@ -296,6 +305,14 @@ def main():
                 'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
                 's12_autonomous_fifty_segment_trace', '--', '--ignored', '--exact', '--nocapture'],
                 1200, {**common, 'DTR_S12_AUTONOMOUS_TRACE': str(autonomous)})
+            combined = output / 'combined-service-trace.json'
+            run('autonomous-combined-service', ['cargo', '+1.94.1', 'test', '--manifest-path',
+                'tools/s09-integration/Cargo.toml', '--locked', '--test', 'pocketic_host',
+                's12_autonomous_combined_service_trace', '--', '--ignored', '--exact', '--nocapture'],
+                1200, {**common, 'DTR_S12_COMBINED_TRACE': str(combined)})
+            report['artifacts'].append({'kind': 'combined-service', 'path': str(combined), 'sha256': sha256(combined)})
+            report['environment']['application_runtime'] = {'version': command_text([str(args.artifacts / 'bin/pocket-ic'), '--version']),
+                'sha256': sha256(args.artifacts / 'bin/pocket-ic')}
             ledger_runs = []
             for repetition in range(1, args.ledger_repetitions + 1):
                 ledger_run = output / f'ledger-trace-{repetition}.json'
@@ -315,7 +332,7 @@ def main():
                                             'sha256': sha256(path)})
             cost = output / 'cost-projections.json'
             run('cost-model', [sys.executable, '-B', 'tools/s12_cost_model.py',
-                '--ledger-trace', str(ledger), '--current-measurements', str(current_path), '--output', str(cost)], 60)
+                '--ledger-trace', str(ledger), '--current-measurements', str(current_path), '--combined-trace', str(combined), '--output', str(cost)], 60)
             report['artifacts'].append({'kind': 'tariff-estimate', 'path': str(cost),
                                         'sha256': sha256(cost)})
         report['overall'] = 'PASS'
