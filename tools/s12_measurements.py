@@ -37,7 +37,7 @@ def configuration(name, fixture):
     return {'fixture_sha256': digest(fixture), 'workload': workload,
             'initial_state_hash': row['initial_state_hash'], 'rules': row['rules'],
             'work_budget': 512 if ('512' in name or name.startswith('warm_')) else 100000,
-            'logical_ticks': int(row['logical_end']) - int(row['logical_start'])}
+            'logical_ticks': 2 if name.startswith('warm_') else int(row['logical_end']) - int(row['logical_start'])}
 
 
 def validate(document, expected_source=None):
@@ -50,6 +50,11 @@ def validate(document, expected_source=None):
         raise ValueError('empty/duplicate current results')
     if document['profile'] == 'smoke' and {r['name'] for r in rows} != SMOKE:
         raise ValueError('smoke inventory differs from executed cases')
+    if document['profile'] == 'extended':
+        declared = set(re.findall(r'#\[bench\(raw\)\]\s+fn (\w+)\(\) -> BenchResult',
+            (ROOT / 'canisters/runtime-lab/src/lib.rs').read_text()))
+        if {r['name'] for r in rows} != declared:
+            raise ValueError('extended inventory differs from declared benchmark exports')
     if {r['name'] for r in rows} != set(document['executed_names']):
         raise ValueError('current inventory differs from executed cases')
     for row in rows:
@@ -66,6 +71,16 @@ def load_current(path, expected_source=None):
         target = path.parent / artifact['path']
         if digest(target) != artifact['sha256']:
             raise ValueError('current raw measurement hash mismatch')
+    actual = {}
+    for artifact in document['raw_results']:
+        if artifact['path'].endswith('.yml'):
+            actual.update(load_totals(path.parent / artifact['path']))
+    if not actual:
+        raise ValueError('missing structured current results')
+    if actual:
+        expected = {r['name']: {k: r[k] for k in ('calls', 'instructions', 'heap_increase_pages', 'stable_memory_increase_pages')} for r in document['benchmarks']}
+        if actual != expected:
+            raise ValueError('manifest counts differ from structured current measurements')
     return document
 
 
@@ -89,10 +104,10 @@ def compare(current, baseline, threshold_percent=2.0):
         rows.append({'name': row['name'], 'current_instructions': row['instructions'],
                      'baseline_instructions': prior['instructions'] if prior else None,
                      'change_percent': delta, 'outcome': outcome, 'reason': reason,
-                     'status': 'NOT_RUN' if reason else 'FAIL' if outcome == 'REGRESSION' else 'PASS'})
+                     'status': ('NOT_RUN' if row['name'] in current.get('informational_names', []) else 'FAIL') if reason else 'FAIL' if outcome == 'REGRESSION' else 'PASS'})
     missing = set(baseline.get('monitored_names', [])) - {r['name'] for r in current['benchmarks']}
     for name in sorted(missing):
         rows.append({'name': name, 'status': 'FAIL', 'reason': 'missing current result'})
     return {'status': 'FAIL' if any(r['status'] == 'FAIL' for r in rows) else
-            'NOT_RUN' if any(r['status'] == 'NOT_RUN' for r in rows) else 'PASS',
+            'PASS',
             'threshold_percent': threshold_percent, 'metric': 'deterministic instructions', 'rows': rows}

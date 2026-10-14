@@ -20,7 +20,10 @@ class Measurements(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'current.json'
             document = self.document()
-            document['raw_results'] = []
+            raw=Path(directory)/'current.yml'
+            raw.write_text('benches:\n' + ''.join(f'  {n}:\n    total:\n      calls: 1\n      instructions: 100\n      heap_increase: 0\n      stable_memory_increase: 0\n    scopes: {{}}\n' for n in sorted(SMOKE)))
+            for row in document['benchmarks']: row.update(heap_increase_pages=0,stable_memory_increase_pages=0)
+            document['raw_results'] = [{'path':raw.name,'sha256':digest(raw)}]
             path.write_text(json.dumps(document))
             self.assertEqual(load_current(path)['profile'], 'smoke')
         self.assertEqual(digest(baseline), before)
@@ -50,7 +53,7 @@ class Measurements(unittest.TestCase):
     def test_extended_inventory(self):
         document = self.document()
         document['profile'] = 'extended'
-        self.assertEqual(validate(document)['profile'], 'extended')
+        with self.assertRaises(ValueError): validate(document)
 
     def test_regression_and_noise(self):
         baseline = self.document()
@@ -69,7 +72,7 @@ class Measurements(unittest.TestCase):
             if change == 'budget': current['benchmarks'][0]['configuration']['work_budget'] = 1
             if change == 'fixture': current['benchmarks'][0]['configuration']['fixture_sha256'] = 'wrong'
             if change == 'tool': current['tool'] = {'version': 'wrong'}
-            self.assertEqual(compare(current, baseline_copy)['status'], 'NOT_RUN')
+            self.assertEqual(compare(current, baseline_copy)['status'], 'FAIL')
 
     def test_missing_monitored_current_and_empty(self):
         baseline = self.document()

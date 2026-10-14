@@ -615,6 +615,9 @@ fn stop_run_after_error(generation: u64, error: String) -> Result<()> {
     Ok(())
 }
 fn autonomous_once(generation: u64) -> Result<()> {
+    autonomous_once_inner(generation, true)
+}
+fn autonomous_once_inner(generation: u64, certify: bool) -> Result<()> {
     let r = root()?;
     if !r.run.running || r.run.generation != generation {
         return Ok(());
@@ -672,7 +675,7 @@ fn autonomous_once(generation: u64) -> Result<()> {
         Some(_) => return Err("autonomous coordinator phase".into()),
     }
     run.last_error = None;
-    persist(&h, Some(&r), r.source.clone(), run)?;
+    persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
     Ok(())
 }
 fn arm_run_timer(generation: u64, delay: Duration) {
@@ -1201,6 +1204,15 @@ fn finish_blocks_inner(
     blocks: Vec<source::Block>,
     archived: bool,
 ) -> Result<Status> {
+    admit_blocks(lease, chain_length, blocks, archived, true)
+}
+fn admit_blocks(
+    lease: &ScanLease,
+    chain_length: u64,
+    blocks: Vec<source::Block>,
+    archived: bool,
+    certify: bool,
+) -> Result<Status> {
     if blocks.is_empty() || blocks.len() > usize::from(lease.page_limit) {
         return Err("empty/oversize contiguous ledger response".into());
     }
@@ -1250,7 +1262,7 @@ fn finish_blocks_inner(
             .checked_add(1)
             .ok_or("archive call counter")?;
     }
-    r = persist(&coordinator, Some(&r), next_source, r.run.clone())?;
+    r = persist_inner(&coordinator, Some(&r), next_source, r.run.clone(), certify)?;
     Ok(status(&r))
 }
 
@@ -1841,6 +1853,213 @@ mod benches {
     #[bench(raw)]
     fn persistence_publication_many_cannon() -> BenchResult {
         measure_persistence("many-cannon-frontier")
+    }
+
+    // Each query gets isolated stable memory. Setup is outside bench_fn;
+    // measured work loads and validates the existing root and hidden cursor.
+    fn warm_root(staged: bool) -> Root {
+        let (mut h, _) = coordinator_unsealed("ball-dense-medium");
+        if staged {
+            h.apply(Action::Seal {
+                logical_end: Int(2u64.into()),
+            })
+            .unwrap();
+        }
+        let run = RunState {
+            running: true,
+            segment_ticks: 2,
+            pacing_seconds: 1,
+            work_budget: 512,
+            generation: 1,
+            ..RunState::default()
+        };
+        persist_inner(&h, None, SourceState::Synthetic, run, false).unwrap()
+    }
+
+    fn warm_action(case: &str) -> BenchResult {
+        let mut r = warm_root(case != "seal");
+        let mut steps = 0;
+        if matches!(case, "middle" | "late" | "finalize" | "publish" | "evict") {
+            let mut probe = host(&r).unwrap();
+            while probe.record.journal.stage.as_ref().unwrap().phase != "ready" {
+                probe.apply(Action::Step { budget: 512 }).unwrap();
+                steps += 1;
+            }
+            let advance = match case {
+                "middle" => steps / 2,
+                "late" => steps - 2,
+                "finalize" => steps - 1,
+                _ => steps,
+            };
+            for _ in 0..advance {
+                autonomous_once_inner(1, false).unwrap();
+            }
+            r = root().unwrap();
+        }
+        if case == "evict" {
+            // Publish three segments, preparing the fourth ready state against
+            // the real three-publication retention root.
+            for _ in 0..3 {
+                autonomous_once_inner(1, false).unwrap();
+                autonomous_once_inner(1, false).unwrap();
+                while host(&root().unwrap())
+                    .unwrap()
+                    .record
+                    .journal
+                    .stage
+                    .as_ref()
+                    .unwrap()
+                    .phase
+                    != "ready"
+                {
+                    autonomous_once_inner(1, false).unwrap();
+                }
+            }
+            r = root().unwrap();
+            assert_eq!(r.retention.history.len(), 2);
+        }
+        let root_bytes = encode(&r).unwrap().len();
+        let cursor_bytes = r.image.length;
+        ic_cdk::println!(
+            "S12 warm metadata case={} root_bytes={} image_bytes={} steps={} certification=NOT_MEASURED",
+            case,
+            root_bytes,
+            cursor_bytes,
+            steps
+        );
+        bench_fn(|| {
+            autonomous_once_inner(1, false).unwrap();
+        })
+    }
+
+    #[bench(raw)]
+    fn warm_seal_medium_512() -> BenchResult {
+        warm_action("seal")
+    }
+    #[bench(raw)]
+    fn warm_early_medium_512() -> BenchResult {
+        warm_action("early")
+    }
+    #[bench(raw)]
+    fn warm_middle_medium_512() -> BenchResult {
+        warm_action("middle")
+    }
+    #[bench(raw)]
+    fn warm_late_medium_512() -> BenchResult {
+        warm_action("late")
+    }
+    #[bench(raw)]
+    fn warm_finalize_medium_512() -> BenchResult {
+        warm_action("finalize")
+    }
+    #[bench(raw)]
+    fn warm_publish_medium_512() -> BenchResult {
+        warm_action("publish")
+    }
+    #[bench(raw)]
+    fn warm_evict_medium_512() -> BenchResult {
+        warm_action("evict")
+    }
+    #[bench(raw)]
+    fn warm_empty_progression_medium_512() -> BenchResult {
+        warm_root(false);
+        autonomous_once_inner(1, false).unwrap();
+        while host(&root().unwrap())
+            .unwrap()
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .unwrap()
+            .phase
+            != "ready"
+        {
+            autonomous_once_inner(1, false).unwrap();
+        }
+        autonomous_once_inner(1, false).unwrap();
+        bench_fn(|| {
+            autonomous_once_inner(1, false).unwrap();
+        })
+    }
+
+    fn prepare_warm_ledger(staged: bool) -> (ScanLease, Vec<source::Block>) {
+        let r = warm_root(staged);
+        let (blocks, recipient) = ledger_blocks(1);
+        let (mut source, source_id) = SourceState::configured(
+            source::LedgerConfig {
+                network: "pocketic-local".into(),
+                ledger: Principal::from_slice(&[99]),
+                recipient_account: recipient.as_bytes().to_vec(),
+                page_limit: 64,
+                fallback_seconds: 5,
+                hint_principal: None,
+            },
+            0,
+        )
+        .unwrap();
+        if let SourceState::Ledger(s) = &mut source {
+            s.in_flight = true;
+            s.scan_nonce = 1;
+        }
+        let row = workload("ball-dense-medium");
+        let mut identity = btz_native::identity().unwrap();
+        identity["source_id"] = serde_json::Value::String(source_id);
+        let mut coordinator = Coordinator::create(
+            &unhex(&row.initial_state_hex).unwrap(),
+            serde_json::from_value(identity).unwrap(),
+            0,
+            0,
+            "00".repeat(32),
+            BtzHostKernel,
+        )
+        .unwrap();
+        if staged {
+            coordinator
+                .apply(Action::Seal {
+                    logical_end: Int(2u64.into()),
+                })
+                .unwrap();
+        }
+        persist_inner(&coordinator, None, source, r.run.clone(), false).unwrap();
+        let lease = ScanLease {
+            ledger: Principal::from_slice(&[99]),
+            generation: 1,
+            nonce: 1,
+            cursor: 0,
+            page_limit: 64,
+            #[cfg(feature = "test-hooks")]
+            test_fault: None,
+        };
+        (lease, blocks)
+    }
+    fn warm_ledger(staged: bool) -> BenchResult {
+        let (lease, blocks) = prepare_warm_ledger(staged);
+        bench_fn(|| {
+            admit_blocks(&lease, 64, blocks, false, false).unwrap();
+        })
+    }
+    #[bench(raw)]
+    fn warm_ledger_empty_poll() -> BenchResult {
+        prepare_warm_ledger(false);
+        let mut r = root().unwrap();
+        if let SourceState::Ledger(s) = &mut r.source {
+            s.in_flight = false;
+        }
+        save_root_only(&r).unwrap();
+        // Complete local begin/at-tip handling; cross-canister awaiting,
+        // payload encode/decode and timer dispatch are outside this query.
+        bench_fn(|| {
+            let lease = begin_scan().unwrap().unwrap();
+            finish_tip(&lease, 0).unwrap();
+        })
+    }
+    #[bench(raw)]
+    fn warm_ledger_admission() -> BenchResult {
+        warm_ledger(false)
+    }
+    #[bench(raw)]
+    fn warm_ledger_staged_admission() -> BenchResult {
+        warm_ledger(true)
     }
 
     fn ledger_blocks(relevant: usize) -> (Vec<source::Block>, AccountIdentifier) {
