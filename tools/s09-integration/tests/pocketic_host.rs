@@ -1558,28 +1558,10 @@ fn delayed_ledger_archive_with_fallback(fallback_seconds: u32) {
     }
     assert_eq!(initial.cursor, 0);
     assert!(initial.started_at_seconds > 0);
-    if fallback_seconds == 1 {
-        for _ in 0..5 {
-            pic.advance_time(Duration::from_secs(1));
-            let _: Status = update_result(
-                &pic,
-                runtime,
-                controller(),
-                "ledger_hint",
-                encode_args(()).unwrap(),
-            )
-            .unwrap();
-            pic.tick();
-            let state = test_scan_state(&pic, runtime);
-            assert_eq!(state.nonce, initial.nonce);
-            assert_eq!(state.cursor, 0);
-        }
-    }
-    pic.advance_time(Duration::from_secs(if fallback_seconds == 1 {
-        24
-    } else {
-        29
-    }));
+    // Advance the clock while awaiting, then dispatch timers and the delayed
+    // cross-subnet reply. Synchronous hint calls would pump PocketIC rounds
+    // and complete the operation before this deliberate delay is observed.
+    pic.advance_time(Duration::from_secs(29));
     let mut refreshed = None;
     for _ in 0..12 {
         pic.tick();
