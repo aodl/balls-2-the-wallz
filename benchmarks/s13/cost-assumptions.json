@@ -1,0 +1,42 @@
+{
+  "retrieved_utc_date": "2026-10-14",
+  "official_sources": {
+    "cycle_costs": "https://docs.internetcomputer.org/references/cycle-costs/",
+    "resource_limits": "https://docs.internetcomputer.org/references/resource-limits/",
+    "cycles": "https://docs.internetcomputer.org/concepts/cycles/"
+  },
+  "tariff_13_node_cycles": {
+    "update_execution_base": 5000000,
+    "per_wasm_instruction": 1,
+    "xnet_request_and_response": 260000,
+    "xnet_byte": 1000,
+    "ingress_message": 1200000,
+    "ingress_byte": 2000,
+    "gib_storage_second": 127000,
+    "compute_allocation_percent_second": 10000000
+  },
+  "hard_limits": {
+    "update_instructions": 40000000000,
+    "query_instructions": 5000000000,
+    "wasm32_heap_bytes": 4294967296,
+    "stable_memory_bytes": 536870912000,
+    "replicated_response_bytes": 2097152
+  },
+  "model": {
+    "work_budget": 512,
+    "page_records": 64,
+    "storage_bytes": 25231360,
+    "response_bytes_per_record_assumption": 150,
+    "request_bytes_assumption": 32,
+    "empty_poll_instruction_assumption": 1000000,
+    "empty_poll_updates_assumption": 2,
+    "empty_poll_bytes_assumption": 256
+  },
+  "schema": "btz-s13-policy-cost-v1",
+  "reuse_instructions": {
+    "manifest": "evidence/S12/closeout/extended/current-measurements.json",
+    "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
+    "qualification": "Explicit S12 query-scope reuse only when normal Wasm and workload remain identical. Different runtime/update context remains analytical."
+  },
+  "qualification": "Finite observed call/callback rates projected for identical 86400-second days; startup archive calls are not a steady-state forecast. Empty polls are observations; payload and timer/decoding residual costs assumed. Sample range is not an upper bound."
+}
