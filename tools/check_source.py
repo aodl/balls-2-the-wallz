@@ -79,7 +79,7 @@ def main():
             if re.search(r'\b(ic_cdk|ic_stable_structures|SystemTime|Instant|thread_rng)\b',rust.read_text()):raise ValueError('ambient effect in native kernel/tool')
     runtime=(ROOT/'canisters/runtime-lab/src/lib.rs').read_text()
     runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
-    if set(runtime_exports)!={'lab_status','retention_status','controller_work','source_descriptor','observation','retained_publication','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','poke'}:raise ValueError('application export drift')
+    if set(runtime_exports)!={'lab_status','retention_status','controller_work','source_descriptor','observation','retained_publication','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
     if 'guard = "poke_guard"' not in runtime or 'is_controller' not in runtime:raise ValueError('application authorization guards missing')
     if any(name in runtime for name in ['query_blocks','ledger_hint','sync_ledger','scan_ledger_inner']):raise ValueError('retired scanner remains active')
     if 'certified_data_set'not in runtime or 'data_certificate()'not in runtime:raise ValueError('runtime certification inventory')

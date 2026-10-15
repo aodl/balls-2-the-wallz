@@ -53,6 +53,13 @@ def main():
         actual=hashlib.sha256(path.read_bytes()).hexdigest()
         if actual!=expected[name]:result.update(overall='FAIL',reason='pinned runtime/artifact mismatch: '+name);save();return 1
         result['artifacts'].append({'name':name,'sha256':actual,'path':str(path)})
+    if not a.test_filter or 'deployed_bundle' in a.test_filter:
+        try:
+            probe=__import__('subprocess').run([a.browser_python,'-c',
+              "from pathlib import Path; from playwright.sync_api import sync_playwright; p=sync_playwright().start(); assert Path(p.chromium.executable_path).is_file(), 'Chromium missing'; p.stop()"],capture_output=True,text=True,timeout=20)
+            if probe.returncode:raise RuntimeError(probe.stderr.strip())
+        except Exception as error:
+            result.update(overall='BLOCKED',reason='Local deployment browser prerequisite: '+str(error));save();return 2
     cargo=['cargo']+(['--config',os.environ['S14_DTR_CONFIG']] if os.environ.get('S14_DTR_CONFIG') else [])
     def run(name,command,timeout=900,env=None):
         row=execute(name,command,out,timeout,env);result['checks'].append(row);save()
@@ -80,7 +87,8 @@ def main():
         server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1200)
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),BTZ_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
-        run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else []),'--nocapture','--test-threads=1'],900,env)
+        test_log=run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else []),'--nocapture','--test-threads=1'],900,env)
+        if not __import__('re').search(r'test result: ok\. [1-9][0-9]* passed',test_log):raise RuntimeError('No installed tests executed')
         if a.test_filter:
             result['overall']='PASS';save();return 0
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)

@@ -1437,7 +1437,9 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
             pic.upgrade_canister(id, wasm, encode_args(()).unwrap(), Some(controller()))
                 .unwrap();
         }
-        for _ in 0..58 {
+        // Release at virtual second 50: after source replacement, before the
+        // management HTTP fixture expires at 60. It is not a source deadline.
+        for _ in 0..38 {
             tick(&pic);
         }
         assert_eq!(
@@ -1643,6 +1645,10 @@ fn btz_callback_trap_recovers_through_fallback_without_reset() {
         work.pending_inputs, 1,
         "trapped/retried payment admitted exactly once"
     );
+    println!(
+        "CALLBACK_TRAP_RESULT {}",
+        serde_json::json!({"status":"PASS","trapped_cursor":trapped.source.admitted_to_exclusive,"trapped_in_flight":trapped.source.scan_in_flight,"unexpired_extra_calls":trapped.source.index_calls-baseline-1,"recovered_cursor":recovered.source.admitted_to_exclusive,"pending_payments":work.pending_inputs,"recovery":"ordinary fallback; no upgrade/reset"})
+    );
 }
 
 #[test]
@@ -1819,7 +1825,7 @@ fn bounded_history_windows_drain_256_257_and_513_without_skipping() {
         );
         println!(
             "BACKLOG_RESULT {}",
-            serde_json::json!({"records":count,"new_arrivals":1,"max_pending":max_pending,"assigned":assigned.len(),"status":"PASS"})
+            serde_json::json!({"records":count,"new_arrivals":1,"sampled_pending_high_water":max_pending,"assigned":assigned.len(),"status":"PASS"})
         );
     }
 }
