@@ -2,7 +2,7 @@
 //! contents AND completeness. No global-ledger scanning or archive traversal.
 use candid::{CandidType, Deserialize, Nat, Principal};
 use dtr_host::Input;
-use dtr_wire::{Int, Result, hash, hex, unhex};
+use dtr_wire::{hash, hex, unhex, Int, Result};
 use ic_ledger_types::{AccountIdentifier, Subaccount};
 use serde::Serialize;
 
@@ -27,9 +27,30 @@ pub struct IndexConfig {
     /// Explicitly process existing history too; never silently skip a funded account.
     pub starting_policy: StartingPolicy,
 }
+// Private durable counters/positions are decimal strings, so every nat64 value
+// survives the canonical JSON codec's safe-number restriction without rounding.
+mod u64_string {
+    pub fn serialize<S: serde::Serializer>(
+        value: &u64,
+        serializer: S,
+    ) -> std::result::Result<S::Ok, S::Error> {
+        serializer.serialize_str(&value.to_string())
+    }
+    pub fn deserialize<'de, D: serde::Deserializer<'de>>(
+        deserializer: D,
+    ) -> std::result::Result<u64, D::Error> {
+        let text = <String as serde::Deserialize>::deserialize(deserializer)?;
+        let value = text.parse::<u64>().map_err(serde::de::Error::custom)?;
+        if value.to_string() != text {
+            return Err(serde::de::Error::custom("noncanonical durable u64"));
+        }
+        Ok(value)
+    }
+}
 #[derive(Clone, Debug, Serialize, serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Row {
+    #[serde(with = "u64_string")]
     pub id: u64,
     pub payload: Option<String>,
     pub digest: String,
@@ -37,8 +58,11 @@ pub struct Row {
 #[derive(Clone, Debug, Serialize, serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Pending {
+    #[serde(with = "u64_string")]
     pub high: u64,
+    #[serde(with = "u64_string")]
     pub oldest: u64,
+    #[serde(with = "u64_string")]
     pub before: u64,
     pub complete: bool,
     pub rows: Vec<Row>, // descending until atomically admitted oldest first
@@ -49,18 +73,24 @@ pub struct SourceState {
     pub network: String,
     pub ledger: String,
     pub index: String,
+    #[serde(with = "u64_string")]
     pub receiving_subaccount: u64,
     pub recipient_hex: String,
     pub event_horizon: Option<String>,
+    #[serde(with = "u64_string")]
     pub cursor: u64, // exclusive admitted global transaction position, never index tip
     pub binding_checked: bool,
     pub pending: Option<Pending>,
+    #[serde(with = "u64_string")]
     pub nonce: u64,
     pub in_flight: bool,
+    #[serde(with = "u64_string")]
     pub started_at: u64,
     pub requested: bool,
     pub wake_scheduled: bool,
+    #[serde(with = "u64_string")]
     pub retry_until: u64,
+    #[serde(with = "u64_string")]
     pub index_calls: u64,
     pub last_error: Option<String>,
 }
@@ -586,30 +616,24 @@ mod tests {
         );
         t.icrc1_memo = Some(b"BTZ\x12\0\0\0\x01".to_vec());
         t.memo = 0;
-        assert!(
-            classify(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("42545a1200000001")
-        );
+        assert!(classify(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("42545a1200000001"));
         t.memo = 1;
-        assert!(
-            classify(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("0000000000000000")
-        );
+        assert!(classify(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("0000000000000000"));
         t.memo = 0;
         t.icrc1_memo = None;
         if let Operation::Transfer { spender, .. } = &mut t.operation {
             *spender = Some(receiving_account(owner(), 2).to_string());
         }
-        assert!(
-            classify(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("0000000000000000")
-        );
+        assert!(classify(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("0000000000000000"));
         if let Operation::Transfer { from, .. } = &mut t.operation {
             *from = recipient.to_string();
         }
@@ -627,6 +651,42 @@ mod tests {
             spender: None,
         };
         assert!(classify(&t, &recipient).is_err());
+    }
+    #[test]
+    fn full_nat64_source_positions_and_subaccounts_survive_durable_codec() {
+        let (mut s, _) = SourceState::configured(
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger: Principal::from_slice(&[1]),
+                index: Principal::from_slice(&[2]),
+                receiving_subaccount: u64::MAX,
+                event_horizon: None,
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+            owner(),
+        )
+        .unwrap();
+        let mut record = tx(u64::MAX - 1);
+        if let Operation::Transfer { to, .. } = &mut record.transaction.operation {
+            *to = s.recipient_hex.clone();
+        }
+        s.page(History {
+            balance: 0,
+            transactions: vec![record],
+            oldest_tx_id: Some(u64::MAX - 1),
+        })
+        .unwrap();
+        let bytes = dtr_wire::encode(&s).unwrap();
+        let restored: SourceState = dtr_wire::decode(&bytes).unwrap();
+        restored.validate().unwrap();
+        assert_eq!(restored.receiving_subaccount, u64::MAX);
+        let (end, inputs, _) = restored.admission(&"00".repeat(32)).unwrap();
+        assert_eq!(end, u64::MAX);
+        assert_eq!(inputs[0].position.0.to_string(), (u64::MAX - 1).to_string());
+        let bad = String::from_utf8(bytes)
+            .unwrap()
+            .replace(&format!("\"{}\"", u64::MAX), "\"018446744073709551615\"");
+        assert!(dtr_wire::decode::<SourceState>(bad.as_bytes()).is_err());
     }
     #[test]
     fn exact_numeric_subaccount_derivation() {
