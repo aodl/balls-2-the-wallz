@@ -1960,17 +1960,6 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         BtzHostKernel,
     )
     .unwrap();
-    let _: Status = get_result(
-        &pic,
-        id,
-        "start_autonomous",
-        candid::encode_one(RunConfig {
-            segment_ticks: 2,
-            pacing_seconds: 1,
-            work_budget: 512,
-        })
-        .unwrap(),
-    );
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
@@ -2010,7 +1999,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut assigned = Vec::new();
     let mut publications = Vec::new();
     let mut last = None;
-    let mut phase = 0;
+    let mut phase = -1;
     let mut pause_segments = 0;
     let mut first = None;
     let mut second = None;
@@ -2021,6 +2010,28 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             replay_head(&pic, id, &p, &mut native, &payments, &mut assigned);
             last = p.head.segment_id.clone();
             publications.push(p);
+        }
+        if phase == -1 && out.join("bootstrap-anchor-read").exists() {
+            let _: Status = get_result(
+                &pic,
+                id,
+                "start_autonomous",
+                candid::encode_one(RunConfig {
+                    segment_ticks: 2,
+                    pacing_seconds: 1,
+                    work_budget: 512,
+                })
+                .unwrap(),
+            );
+            phase = 0;
+        }
+        if last.is_some() && !out.join("harness-genesis-retired").exists() {
+            std::fs::write(
+                out.join("harness-genesis-retired"),
+                b"published
+",
+            )
+            .unwrap();
         }
         let s = status(&pic, id);
         assert!(s.source.last_error.is_none(), "{:?}", s.source.last_error);

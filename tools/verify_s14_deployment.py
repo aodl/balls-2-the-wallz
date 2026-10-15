@@ -2,7 +2,7 @@
 """Actual deployment bundle against an owned live PocketIC. No wallet/update calls.
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
-import argparse,json,os,signal,subprocess,sys
+import argparse,json,os,signal,subprocess,sys,time
 from pathlib import Path
 from browser_observer import wait_until,wait_file
 from verify_observer_http import free_port,wait_for_server
@@ -34,8 +34,19 @@ def main():
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             context=browser.new_context();page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            def retire_genesis_before_artifact(route):
+                (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
+                deadline=time.monotonic()+20
+                while not (out/'harness-genesis-retired').exists():
+                    if time.monotonic()>deadline:raise TimeoutError('harness did not publish after genesis observation')
+                    time.sleep(.05)
+                route.continue_()
+            page.route('**/configuration.bin',retire_genesis_before_artifact)
             page.goto(url,timeout=30000)
-            wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
+            wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)') or page.locator('body').get_attribute('data-phase')=='ERROR',30000)
+            if page.locator('body').get_attribute('data-phase')=='ERROR':
+                message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
+                raise RuntimeError('deployed observer startup: '+message)
             assert page.locator('#receiving-account').inner_text()==configuration['recipient']
             assert page.locator('#backend-identity').inner_text()==configuration['canister_id']
             assert 'join 1000000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').inner_text()
