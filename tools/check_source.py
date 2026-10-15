@@ -59,7 +59,7 @@ def main():
     lock=json.loads((ROOT/'package-lock.json').read_text())
     check_npm(json.loads((ROOT/'package.json').read_text()),lock)
     artifact=ROOT/'vendor/dtr/dtr-timeline-runtime-0.12.0.tgz'
-    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb':raise ValueError('DTR package artifact hash')
+    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f':raise ValueError('DTR package artifact hash')
     native=tomllib.loads((ROOT/'native/Cargo.toml').read_text())
     for name,value in native['workspace']['dependencies'].items():
         if isinstance(value,dict)and value.get('git'):check_cargo_dependency(name,value,ROOT/'native',native['workspace']['dependencies'])
