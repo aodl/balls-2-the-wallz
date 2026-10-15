@@ -29,9 +29,9 @@ The existing offline observer remains available with `python3.11 -B tools/serve_
 
 BTZ owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; BTZ consumes DTR without copying its source. Game v3, publication v6 and animation v1 are unchanged. Life and independent game oracles remain regression boundaries.
 
-1. **Implemented and locally verified:** bounded account-history reconciliation, exact filtered pokes, independent fallback, autonomous game, read-only mainnet-capable observer and deployment tooling.
+1. **Implemented and locally verified:** bounded account-history draining, expired-lease recovery, exact filtered pokes, independent fallback, autonomous game, read-only certified deployment bundle and operator tooling.
 2. **Ready for user-operated verification after new CI:** published immutable dependencies and isolated consumers, fresh canister/controller/cycles setup, official index binding, certified observer and exact Event Horizon account subscription.
 3. **Before public paid/prize launch:** payout/settlement implementation and review, retained-payment disclosures, real-wallet memo/account compatibility, operational funding/availability and explicit user launch decision.
 4. **Removed/deferred:** global-ledger scanner/archive path, alternative laboratory hosts, manual production game controls, scanner throughput campaigns, wallet/login features, dynamic scheduler and general notification/source frameworks.
 
-Historical baseline: [S13 report](checkpoints/S13_REPORT.md). Current implementation results and remaining gates: [S14 report](checkpoints/S14_REPORT.md). Prior CI did not execute new local code.
+Historical baseline: [S13 report](checkpoints/S13_REPORT.md). Current implementation results and remaining gates: [S14 closeout](checkpoints/S14_CLOSEOUT.md). The [earlier S14 report](checkpoints/S14_REPORT.md) remains historical; prior CI did not execute new local code.

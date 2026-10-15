@@ -4,7 +4,7 @@ No mainnet command below has been executed by Codex. Use the operator's reviewed
 
 ## Published dependencies and next push
 
-The user published both staging branches. DTR is now pinned to the published immutable commit `1f47c1a0a104875bd13475d561b8d5aa10770d99`, tree `467bd2e25b1cf356ecdced7d69e26514a764c045`; the inspected 0.12.0 package SHA-256 is `933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f`. Real Cargo/npm locks consume those identities. No npm registry publication or sibling-source override is needed. The original local-override evidence remains historical in the S14 report.
+The user published both staging branches. User-provided CI evidence: DTR workflow 38778487685 passed; initial BTZ workflow 38778318985 failed against the old committed dependency (`IngestOrdered` unavailable). That compiler failure is addressed by the published immutable pins; it does not validate later local corrections. DTR is now pinned to the published immutable commit `1f47c1a0a104875bd13475d561b8d5aa10770d99`, tree `467bd2e25b1cf356ecdced7d69e26514a764c045`; the inspected 0.12.0 package SHA-256 is `933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f`. Real Cargo/npm locks consume those identities. No npm registry publication or sibling-source override is needed. The original local-override evidence remains historical in the S14 report.
 
 Review and push the BTZ dependency-completion commit after local verification:
 
@@ -32,6 +32,8 @@ python3.11 -B tools/check.py native --output .work/s14/native
 python3.11 -B tools/check.py wasm --output .work/s14/wasm
 python3.11 -B tools/fetch_s09_artifacts.py --destination /home/codexdev/dtr-s09-artifacts --record .work/s14/artifacts.json
 DFX_IDENTITY=codex_local python3.11 -B tools/verify_s14_local.py --output .work/s14/local
+# If Playwright is installed in a separate environment, add:
+# --browser-python /path/to/that/environment/bin/python
 ```
 
 The consumer wrapper resolves the published Git dependency using ordinary Cargo resolution in a fresh Cargo home, verifies revision/tree, archives the resulting local Git object, reproduces the npm package and runs an isolated installed JavaScript consumer. It performs no explicit remote Git checkout/clone/fetch and no URL rewrite. `tools/fetch_s09_artifacts.py` obtains checksum-pinned PocketIC/ICP ledger/index artifacts by HTTPS (no Git checkout). The upstream index compressed SHA-256 is `3015c0d83b832e6cb5685e98c0cef690c3b89661343965767bb11397cc9f7b3f`, IC source revision `d3b3351fa343a893aea2cfa8d39ac6b0d507b477`. Build binaries before starting the owned PocketIC server; the runner cleans only its owned server. Development overrides are unnecessary for the published configuration.
@@ -107,4 +109,14 @@ dfx canister call btz lab_status --network ic --query
 dfx canister call btz start_autonomous '(record {segment_ticks=2:nat64;pacing_seconds=1:nat32;work_budget=512:nat32})' --network ic
 ```
 
-The source timer continues independently while gameplay is paused. Preserve pending records and scores; a capacity error needs reviewed recovery, never cursor skipping. Verify fresh certified observation, monotonic source progress, no duplicate commands and unchanged accrued scores after upgrade. Operator funding, availability, index lag, real cycle burn, wallet memo compatibility and financial settlement remain user-operated verification/product gates.
+The source timer continues independently while gameplay is paused. Preserve pending records and scores; bounded oldest windows re-read newer history until it drains; inbox/storage backpressure needs retirement or reviewed recovery, never cursor skipping. Verify fresh certified observation, monotonic source progress, no duplicate commands and unchanged accrued scores after upgrade. Operator funding, availability, index lag, real cycle burn, wallet memo compatibility and financial settlement remain user-operated verification/product gates.
+
+## Short mainnet readiness checklist
+
+- [ ] Review new BTZ CI for the exact local completion commit; DTR pin `1f47c1a` and package 0.12.0 must match real locks/integrity.
+- [ ] Rebuild normal Wasm; check module hash, generated Candid and absence of test/fault exports.
+- [ ] Review installed callback-trap recovery, stale-response fencing and 256/257/larger-backlog evidence. Re-reading large history amplifies calls; no production capacity promise follows.
+- [ ] Review the actual built observer assets and CSP. Local acceptance serves that bundle against the live disposable backend, verifies account/config identities and reconnect/upgrade. Asset-canister hosting/certification still requires user-operated verification.
+- [ ] Confirm intended backend, receiving account/subaccount, official index/ledger binding and reviewed Event Horizon sender/subscription target.
+- [ ] Confirm fresh-deployment scope, controllers, sufficient operator-funded cycles and supported pause/upgrade procedures; never reinstall a funded canister.
+- [ ] Verify retained-payment/no-refund disclosures and preserved area-time scores. Automatic payouts remain unavailable; public paid/prize participation remains a separate gated decision.
