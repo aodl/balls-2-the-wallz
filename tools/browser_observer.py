@@ -223,8 +223,9 @@ def main():
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)
             else:second.goto(a.url,timeout=30000)
-            wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED')
-            assert float(second.locator('#playhead').inner_text())==float(second.locator('#timeline').get_attribute('min') or 0)
+            wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED' and not second.locator('#pause').is_disabled())
+            paused_state=second.evaluate("({playhead:document.querySelector('#playhead').textContent,min:document.querySelector('#timeline').min,verification:document.querySelector('#verification-label').textContent})")
+            assert float(paused_state['playhead'])==float(paused_state['min'] or 0),paused_state
             record('reduced-motion-starts-paused','PASS');second.locator('#network-pause').check();second.wait_for_timeout(800);second.close()
             if a.mode=='offline':
                 # Deterministic fault injection in test transport ONLY, never in product source.
