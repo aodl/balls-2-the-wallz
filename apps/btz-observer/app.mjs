@@ -116,6 +116,9 @@ async function startLive(recording){
       const source=await module.certifiedSource(recording.deployment,ticket);
       $('receiving-account').textContent=source.recipient;
       $('backend-identity').textContent=source.owner;
+      const config=await module.certifiedConfiguration(ticket);
+      $('command-prices').textContent=`Certified configuration: join ${config.join_e8s} e8s; relocation ${config.move_e8s} e8s; ball base ${config.ball_base_e8s} e8s (existing occupancy pricing applies).`;
+      $('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;
     }else{
       const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));
       if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');

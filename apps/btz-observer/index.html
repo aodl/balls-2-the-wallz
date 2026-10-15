@@ -15,6 +15,8 @@
   <div class="trust" role="note"><span class="trust-dot"></span><strong id="trust-title">Offline pinned replay · Not IC-certified</strong><span id="trust-detail">Synthetic inputs. Local content hashes, not a live canister. No real ICP.</span></div>
   <section aria-label="Payment reference"><p>Receiving account (authenticated live deployment): <code id="receiving-account">Not connected</code></p>
   <p>Backend: <code id="backend-identity">Not connected</code></p>
+  <p id="command-prices">Prices are available after authenticating the live configuration.</p><p id="rules-identity"></p>
+  <p>Memo: eight bytes, ASCII BTZ, opcode 0x11 (ANGLE) or 0x12 (MOVE), then big-endian u32. ANGLE uses its low 16 bits. Use the equivalent numeric u64 or exact blob with legacy numeric memo zero.</p>
   <p>No login or wallet connection. Send using an existing wallet with the documented ICP memo. Shared-sender wallets may not provide a unique gameplay identity or the required memo controls.</p>
   <p>Area-time scores are preserved. <strong>Automatic payouts are unavailable.</strong> Paid/prize participation requires an explicit operator launch decision; no guaranteed distributions.</p></section>
   <div id="error" class="error" role="alert" hidden><strong>Playback stopped safely.</strong> <span id="error-text"></span><button id="retry" type="button">Retry download</button></div>

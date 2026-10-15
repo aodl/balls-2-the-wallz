@@ -4,6 +4,11 @@ name = "dtr-s09-integration"
 version = "0.1.0"
 edition = "2024"
 publish = false
+autotests = false
+
+[[test]]
+name = "s14_index"
+path = "tests/s14_index.rs"
 
 [dependencies]
 candid = "=0.10.37"

@@ -1,4 +1,6 @@
 /** BTZ deployment policy and certified source descriptor; no wallet or signing API. */
+import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {readBytes} from './transport.mjs';
 import {Actor,HttpAgent} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {Principal} from '@icp-sdk/core/principal';
@@ -24,4 +26,10 @@ export async function certifiedSource(policy,ticket){
   const [domain,network,ledger,index,owner,subaccount,recipient]=IDL.decode([IDL.Text,IDL.Text,IDL.Principal,IDL.Principal,IDL.Principal,IDL.Nat64,IDL.Text],bytes);
   if(domain!=='BTZ-ICP-INDEX-01'||network!=='ic'||owner.toText()!==policy.canister_id||ledger.toText()!=='ryjl3-tyaaa-aaaaa-aaaba-cai'||index.toText()!=='qhbym-qaaaa-aaaaa-aaafq-cai'||!/^[0-9a-f]{64}$/.test(recipient))throw new Error('source deployment mismatch');
   return Object.freeze({network,ledger:ledger.toText(),index:index.toText(),owner:owner.toText(),subaccount,recipient});
+}
+
+export async function certifiedConfiguration(ticket){
+  const bytes=await readBytes(new URL('./configuration.bin',import.meta.url),65536,AbortSignal.timeout(10000));
+  if(await sha256Web(bytes)!==ticket.publication.identity.config_hash)throw new Error('configuration not bound by certified publication');
+  return decodeCanonical(bytes);
 }
