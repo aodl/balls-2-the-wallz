@@ -52,6 +52,7 @@ def main():
         return (out/row['log']).read_text()
     server=None
     try:
+        run('prepare-operator-genesis',['node','tools/prepare_s14_init.mjs','--world-output',str(out/'genesis-world.bin'),'--output',str(out/'example-init.did')],60)
         manifest='canisters/runtime-lab/Cargo.toml';target=ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'
         for features,name in [([], 'normal'),(['--features','test-hooks'],'test-hooks')]:
             run('build-'+name,cargo+['build','--manifest-path',manifest,'--release','--target','wasm32-unknown-unknown','--locked','--offline',*features])
@@ -70,7 +71,7 @@ def main():
         assert len(binaries)==1
         server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1200)
         env={key:str(path.resolve()) for key,path in files.items()}
-        env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
+        env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         run('installed-index-integration',[binaries[0],'--nocapture','--test-threads=1'],900,env)
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)
         result['overall']='PASS';save();return 0

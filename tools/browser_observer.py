@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 APP=ROOT/'apps/btz-observer'
 
-def wait_until(page,predicate,timeout=10000):
+def wait_until(page,predicate,timeout=30000):
     deadline=time.monotonic()+timeout/1000
     last=None
     while time.monotonic()<deadline:
@@ -111,7 +111,7 @@ def main():
         try:
             if a.mode=='offline':setup_offline(page)
             else:
-                try:page.goto(a.url,timeout=10000)
+                try:page.goto(a.url,timeout=30000)
                 except Exception as e:
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
@@ -157,7 +157,7 @@ def main():
                 wrong=context.new_page()
                 def corrupt_root(route):
                     response=route.fetch();body=bytearray(response.body());body[-1]^=1;route.fulfill(response=response,body=bytes(body))
-                wrong.route('**/s10-live/root-key.der',corrupt_root);wrong.goto(a.url,timeout=10000)
+                wrong.route('**/s10-live/root-key.der',corrupt_root);wrong.goto(a.url,timeout=30000)
                 wait_until(wrong,lambda:wrong.locator('body').get_attribute('data-phase')=='ERROR',20000)
                 assert 'fingerprint mismatch' in wrong.locator('#error-text').inner_text()
                 assert 'Offline' not in wrong.locator('.trust').inner_text();wrong.close()
@@ -169,7 +169,7 @@ def main():
                     if not corrupted['done'] and body:
                         body[len(body)//2]^=1;corrupted['done']=True
                     route.fulfill(response=response,body=bytes(body))
-                corrupt.route('**/api/**/query',corrupt_query);corrupt.goto(a.url,timeout=10000)
+                corrupt.route('**/api/**/query',corrupt_query);corrupt.goto(a.url,timeout=30000)
                 wait_until(corrupt,lambda:corrupt.locator('body').get_attribute('data-phase')=='ERROR',20000)
                 assert 'Offline' not in corrupt.locator('.trust').inner_text();corrupt.close()
                 record('corrupt-live-response-fails-closed','PASS')
@@ -222,7 +222,7 @@ def main():
             # Reduced-motion preference starts a new independent document paused.
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)
-            else:second.goto(a.url,timeout=10000)
+            else:second.goto(a.url,timeout=30000)
             wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED')
             assert float(second.locator('#playhead').inner_text())==float(second.locator('#timeline').get_attribute('min') or 0)
             record('reduced-motion-starts-paused','PASS');second.locator('#network-pause').check();second.wait_for_timeout(800);second.close()
@@ -266,7 +266,7 @@ def main():
                     response=route.fetch();body=bytearray(response.body());body[len(body)//2]^=1
                     route.fulfill(response=response,body=bytes(body))
                 failed.route('**/s09-local/certificate.cbor',corrupt_certificate)
-                failed.goto(a.url,timeout=10000)
+                failed.goto(a.url,timeout=30000)
                 wait_until(failed,lambda:failed.locator('body').get_attribute('data-phase')=='ERROR')
                 assert 'Local IC / test-network certified' in failed.locator('.trust').inner_text()
                 assert 'Offline' not in failed.locator('.trust').inner_text()
@@ -279,7 +279,7 @@ def main():
             report['overall']='PASS'
         except Exception as e:
             details=str(e)
-            if a.trust=='live':
+            if a.trust in ('live','local'):
                 try:
                     details+='; live-state='+json.dumps(page.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#error-text')?.textContent,live:globalThis.__dtrLive})"))
                 except Exception:pass

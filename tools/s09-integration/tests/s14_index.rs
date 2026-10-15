@@ -83,6 +83,9 @@ fn controller() -> Principal {
 }
 
 fn initial_world() -> Vec<u8> {
+    if let Ok(path) = std::env::var("S14_GENESIS_WORLD") {
+        return std::fs::read(path).unwrap();
+    }
     let path =
         Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/btz-v3-golden.json");
     let value: serde_json::Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
