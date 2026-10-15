@@ -1645,9 +1645,50 @@ fn btz_callback_trap_recovers_through_fallback_without_reset() {
         work.pending_inputs, 1,
         "trapped/retried payment admitted exactly once"
     );
+    // Publish the recovered payment, then cross another ordinary fallback.
+    let (_, genesis) = observe(&pic, id);
+    let mut native = Coordinator::create(
+        &initial_world(),
+        genesis.identity,
+        0,
+        0,
+        "00".repeat(32),
+        BtzHostKernel,
+    )
+    .unwrap();
+    let payments = BTreeMap::from([(
+        100,
+        normalized(source::receiving_account(controller(), 0), 1, [0; 8]),
+    )]);
+    let mut assigned = Vec::new();
+    let mut last = None;
+    let _: Status = get_result(
+        &pic,
+        id,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 2,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    for _ in 0..50 {
+        tick(&pic);
+        let (_, p) = observe(&pic, id);
+        if p.head.segment_id != last {
+            replay_head(&pic, id, &p, &mut native, &payments, &mut assigned);
+            last = p.head.segment_id.clone();
+        }
+    }
+    assert_eq!(
+        assigned,
+        vec![100],
+        "recovered payment publishes exactly once, even after another fallback"
+    );
     println!(
         "CALLBACK_TRAP_RESULT {}",
-        serde_json::json!({"status":"PASS","trapped_cursor":trapped.source.admitted_to_exclusive,"trapped_in_flight":trapped.source.scan_in_flight,"unexpired_extra_calls":trapped.source.index_calls-baseline-1,"recovered_cursor":recovered.source.admitted_to_exclusive,"pending_payments":work.pending_inputs,"recovery":"ordinary fallback; no upgrade/reset"})
+        serde_json::json!({"status":"PASS","trapped_cursor":trapped.source.admitted_to_exclusive,"trapped_in_flight":trapped.source.scan_in_flight,"unexpired_extra_calls":trapped.source.index_calls-baseline-1,"recovered_cursor":recovered.source.admitted_to_exclusive,"queued_once":work.pending_inputs,"published_once":assigned,"recovery":"ordinary fallback; no upgrade/reset"})
     );
 }
 

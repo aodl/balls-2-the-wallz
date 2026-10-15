@@ -272,10 +272,12 @@ impl SourceState {
         if response.transactions.last().unwrap().id < oldest {
             return Err("history below oldest".into());
         }
-        if let Some(p) = &self.pending {
-            if p.rows.is_empty() && response.transactions[0].id != p.high {
-                return Err("index omitted frozen high on window restart".into());
-            }
+        if self
+            .pending
+            .as_ref()
+            .is_some_and(|p| p.rows.is_empty() && response.transactions[0].id != p.high)
+        {
+            return Err("index omitted frozen high on window restart".into());
         }
         let recipient = account(&self.recipient_hex)?;
         let mut pending = self.pending.clone();
