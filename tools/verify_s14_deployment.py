@@ -2,7 +2,7 @@
 """Actual deployment bundle against an owned live PocketIC. No wallet/update calls.
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
-import argparse,json,os,signal,subprocess,sys,time
+import argparse,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
 from browser_observer import wait_until,wait_file
 from verify_observer_http import free_port,wait_for_server
@@ -10,9 +10,11 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
-    out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port();configuration['host']=f'http://127.0.0.1:{port}'
+    out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port()
+    asset_canister=os.environ.get('S14_ASSET_CANISTER')=='1'
+    configuration['host']=a.gateway.rstrip('/') if asset_canister else f'http://127.0.0.1:{port}'
     local=out/'local-test-policy.json';local.write_text(json.dumps(configuration)+'\n')
-    report={'status':'NOT_RUN','mode':'BUILT_DEPLOYMENT_LIVE_LOCAL','checks':[],'qualification':'Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.'}
+    report={'status':'NOT_RUN','mode':'DFX_ASSET_CANISTER_LIVE_LOCAL' if asset_canister else 'BUILT_DEPLOYMENT_LIVE_LOCAL','checks':[],'qualification':'Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.'}
     def record(name,details=''):
         report['checks'].append({'name':name,'status':'PASS','details':details});save()
     def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
@@ -27,13 +29,37 @@ def main():
             assert {'index.html','app.mjs','configuration.bin','deployment.json','build-manifest.json','.ic-assets.json5','style.css','icon.svg'}.issubset({x.name for x in directory.iterdir()})
         manifest=json.loads((production/'build-manifest.json').read_text());assert not manifest['local_test_only'];assert not any('s14-local-deployment' in name for name in manifest['inputs'])
         record('real-asset-build-and-mainnet-test-adapter-exclusion',manifest)
-        with (out/'server.log').open('w') as log:
-            server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id']],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
-        url=configuration['host']+'/';wait_for_server(url,server)
+        if asset_canister:
+            # The Rust harness owns this disposable network. No dfx start/stop,
+            # shared network reset, external wallet or real cycles are involved.
+            project=out/'dfx-project';project.mkdir()
+            dfx=json.loads((ROOT/'dfx.json').read_text())
+            shutil.copytree(assets,project/'.work/s14/assets')
+            dfx['canisters']={'observer':dfx['canisters']['observer']}
+            dfx['networks']={'local':{'providers':[a.gateway],'type':'ephemeral'}}
+            (project/'dfx.json').write_text(json.dumps(dfx,indent=2)+'\n')
+            def dfx_run(*args):
+                command=['dfx','--identity','codex_local',*args,'--network','local']
+                p=subprocess.run(command,cwd=project,text=True,capture_output=True,timeout=90,env={**os.environ,'DFX_IDENTITY':'codex_local'})
+                with (out/'dfx.log').open('a') as log:log.write(' '.join(command)+'\n'+p.stdout+p.stderr+'\n')
+                if p.returncode:raise RuntimeError('Local dfx asset deployment failed; see dfx.log')
+                return p.stdout.strip()
+            dfx_run('canister','create','observer','--no-wallet')
+            dfx_run('deploy','observer','--mode','install')
+            observer=dfx_run('canister','id','observer')
+            from urllib.parse import urlparse
+            endpoint=urlparse(a.gateway)
+            url=f'http://{observer}.localhost:{endpoint.port}/'
+            record('dfx-asset-canister-install',{'observer':observer,'url':url,'configuration':'dfx.json observer type=assets; owned disposable gateway'})
+        else:
+            with (out/'server.log').open('w') as log:
+                server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id']],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+            url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             context=browser.new_context();page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             def retire_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
                 deadline=time.monotonic()+20
@@ -42,7 +68,16 @@ def main():
                     time.sleep(.05)
                 route.continue_()
             page.route('**/configuration.bin',retire_genesis_before_artifact)
-            page.goto(url,timeout=30000)
+            response=page.goto(url,timeout=30000)
+            if asset_canister:
+                assert response.status==200
+                assert 'text/html' in response.headers['content-type']
+                assert 'ic-certificate' in response.headers
+                assert configuration['host'] in response.headers['content-security-policy']
+                for path,mime in [('app.mjs','javascript'),('style.css','text/css'),('configuration.bin','application/octet-stream')]:
+                    fetched=context.request.get(url+path);assert fetched.status==200
+                    assert mime in fetched.headers['content-type'],fetched.headers
+                record('asset-http-certificate-mime-and-csp',response.headers)
             wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)') or page.locator('body').get_attribute('data-phase')=='ERROR',30000)
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
@@ -58,15 +93,29 @@ def main():
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)') is not None and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>initial,30000)
             record('fresh-publications-after-browser-connection')
             (out/'browser-connected').write_text('ready\n')
-            wait_file(page,out/'harness-payments-done',100000)
+            paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
+            wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
+            receipts=page.locator('#live-receipts tr').all_inner_texts()
+            for tx,kind in zip(paid,['cannon_spawned','ball_spawned','cannon_moved']):
+                matching=[row for row in receipts if row.split('\t')[0]==str(tx)]
+                assert len(matching)==1 and 'ACCEPTED' in matching[0] and kind in matching[0],receipts
+            assert page.locator('#live-cannons tr').count()==1
+            assert 'Gameplay running' in page.locator('#service-status').inner_text()
+            record('paid-join-ball-fallback-and-legal-move-visible-once',receipts)
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',45000))
             page.locator('#network-pause').uncheck()
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.resyncs')>=1 and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=target,30000)
             heads=page.evaluate('globalThis.__dtrLive.heads.slice()');assert all(b>a for a,b in zip(heads,heads[1:])),heads
             assert page.locator('#receiving-account').inner_text()==configuration['recipient']
+            if asset_canister:
+                page.reload(timeout=30000)
+                wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
+                assert page.locator('#receiving-account').inner_text()==configuration['recipient']
+                record('asset-entry-refresh-authenticates-same-backend')
             record('authenticated-reconnect-after-retention-gap-and-upgrade',heads)
-            record('read-only-transport-and-native-webcrypto','Server accepts only query/read_state; no signing or ledger update transport.')
+            assert posts and all(url.endswith(('/query','/read_state')) for url in posts),posts
+            record('read-only-transport-and-native-webcrypto','All observed browser POSTs are query/read_state; no signing or ledger updates.')
             assert page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'");assert not errors,errors
             page.screenshot(path=str(out/'deployment.png'),full_page=True)
             report['sandbox']=True;report['browser_version']=browser.version;report['status']='PASS';save()

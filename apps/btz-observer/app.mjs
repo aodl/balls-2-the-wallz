@@ -3,12 +3,14 @@ import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/cl
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {BtzView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
 import {readBytes,validateIndex,loadEntry} from './transport.mjs';
+import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {cannonReference,operationalText} from './play-reference.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
 const COLORS=['#425365','#57d4b7','#709cf2','#c58df5','#ecb966'];
 const color=id=>COLORS[id===0?0:1+(id-1)%4];
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
 let deliveryPaused=false,visible=null,visibleTime=0;
-function showError(error){$('error-text').textContent=String(error?.message??error);$('error').hidden=false;}
+function showError(error){$('error-text').textContent=String(error?.message??error);$('error').hidden=false;$('service-status').textContent='Observation unhealthy — wait before making purchases.';}
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
 function active(s){return session===s&&!s.abort.signal.aborted;}
 async function start(recording){
@@ -111,12 +113,13 @@ async function startLive(recording,startupRetries=0){
     if(recording.deployment){
       const module=await import('./mainnet.mjs');
       const connection=await deploymentConnection(recording.deployment);
-      s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;
+      s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
       ticket=await certifiedTicket(s,await s.client.observation());
       const source=await deploymentSource(recording.deployment,ticket);
       $('receiving-account').textContent=source.recipient;
       $('backend-identity').textContent=source.owner;
       const config=await module.certifiedConfiguration(ticket);
+      s.config=config;$('live-play-reference').hidden=false;
       $('command-prices').textContent=`Certified configuration: join ${config.join_e8s} e8s; relocation ${config.move_e8s} e8s; ball base ${config.ball_base_e8s} e8s (existing occupancy pricing applies).`;
       $('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;
     }else{
@@ -129,15 +132,16 @@ async function startLive(recording,startupRetries=0){
     }
     if(!active(s))return;
     const head=ticket.publication.head,segment=head.segment_id===null?null:Number(head.segment_id);
-    let state;
+    let state,events;
     if(segment===null){
       const descriptor=ticket.publication.artifacts.find(a=>a.kind==='state'),assembler=new ArtifactAssembler(ticket,'state');
       for(let index=0;index<descriptor.chunks.length;index++)await assembler.accept(index,await s.client.currentChunk(ticket.root_hash,0,index));
       // Genesis is not in the retained segment API. A live harness starts before
       // segment zero; reject a server that cannot provide this explicit anchor.
       state=await assembler.finish();
-    }else state=(await liveArtifacts(s,ticket)).state;
+    }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
     const world=snapshot(state),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
+    updatePlayReference(s,world,events);
     resetLiveClock(s,time);visible=new BtzView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
@@ -160,6 +164,7 @@ async function admitLive(s,ticket){
   if(s.bytes+segment.bytes>8*1024*1024)throw new Error('observer buffer byte capacity');
   s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
+  updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
   globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
   globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);
   globalThis.__dtrLive.maxBufferLogical=Math.max(globalThis.__dtrLive.maxBufferLogical,s.clock.state().buffer);
@@ -168,7 +173,27 @@ async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
   const world=snapshot(artifacts.state),time=timeNumber(world.time);s.sequence.resync(ticket);s.previousState=artifacts.state;s.root=ticket.root_hash;
   resetLiveClock(s,time);visible=new BtzView(world);s.resyncs++;s.skipped=true;s.accepted++;
+  updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+}
+function updatePlayReference(s,world,events){
+  if(!s.config)return;
+  const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
+  $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
+    `#${c.id}`,c.account,c.cell,c.balls,c.next_ball_e8s===null?'At capacity':`${c.next_ball_e8s} e8s`,c.owned_cells.join(', ')
+  ])));
+  s.receipts??=new Map();
+  for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
+  while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
+  $('live-receipts').replaceChildren(...[...s.receipts.values()].reverse().map(r=>row([r.position,r.account,r.reason,r.kind??'—'])));
+  $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
+}
+async function refreshOperational(now){
+  const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
+  s.statusBusy=true;s.statusDue=now+5000;
+  try{const status=await s.readStatus();if(active(s))$('service-status').textContent=operationalText(status);}
+  catch{if(active(s))$('service-status').textContent=operationalText(null);}
+  finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
   if(now<s.nextDue||s.queue.length>=4||s.clock.state().buffer>=12)return;s.busy=true;
@@ -284,7 +309,7 @@ function frame(now){
     while(s.queue.length&&visibleTime>=s.queue[0].segment.end){const q=s.queue.shift();visible=q.player.advance(q.segment.end);s.bytes-=q.segment.bytes;}
     if(s.queue.length)visible=s.queue[0].player.advance(visibleTime);
   }
-  void pump(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
+  void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
 $('pause').addEventListener('click',()=>{paused=!paused;lastFrame=null;updateHud();});
 $('restart').addEventListener('click',()=>{if(session)void (session.mode==='live'?startLive(session.recording):session.mode==='local'?startLocal(session.recording):start(session.recording));});

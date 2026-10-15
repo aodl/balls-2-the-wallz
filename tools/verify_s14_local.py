@@ -35,6 +35,7 @@ def wasm_exports(path):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=ROOT/'.work/s14/local')
     p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts');p.add_argument('--index-wasm',type=Path);p.add_argument('--test-filter');p.add_argument('--browser-python',default=sys.executable)
+    p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
     lock=tomllib.loads((ROOT/'canisters/runtime-lab/Cargo.lock').read_text())
@@ -87,6 +88,7 @@ def main():
         server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1200)
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),BTZ_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
+        if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         test_log=run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else []),'--nocapture','--test-threads=1'],900,env)
         if not __import__('re').search(r'test result: ok\. [1-9][0-9]* passed',test_log):raise RuntimeError('No installed tests executed')
         if a.test_filter:

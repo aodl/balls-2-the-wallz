@@ -3,7 +3,7 @@ import {HttpAgent,Actor} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {Principal} from '@icp-sdk/core/principal';
 import {certificateVerifier,liveClient} from '@dtr/timeline-runtime/client/ic-certificate';
-import {verifiedSourceDescriptor} from '../../apps/btz-observer/mainnet.mjs';
+import {verifiedSourceDescriptor,operationalReader} from '../../apps/btz-observer/mainnet.mjs';
 export function deploymentPolicy(value){
  const endpoint=new URL(value.host);
  if(value.network!=='pocketic-local'||endpoint.protocol!=='http:'||!['localhost','127.0.0.1'].includes(endpoint.hostname)||endpoint.username||endpoint.password||!/^([0-9a-f]{2}){32,1024}$/.test(value.root_key_hex))throw new Error('explicit loopback test deployment required');
@@ -13,7 +13,8 @@ export function deploymentPolicy(value){
 const root=p=>Uint8Array.from(p.root_key_hex.match(/../g),x=>parseInt(x,16));
 export async function deploymentConnection(value){
  const p=deploymentPolicy(value),rootKey=root(p);
- return {verifyCertificate:certificateVerifier({network:p.network,rootKey}),client:await liveClient({...p,rootKey})};
+ const agent=await HttpAgent.create({host:p.host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
+ return {verifyCertificate:certificateVerifier({network:p.network,rootKey}),client:await liveClient({...p,rootKey}),readStatus:operationalReader(agent,p.canister_id)};
 }
 export async function deploymentSource(value,ticket){
  const p=deploymentPolicy(value);

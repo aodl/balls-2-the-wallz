@@ -18,7 +18,16 @@
   <p id="command-prices">Prices are available after authenticating the live configuration.</p><p id="rules-identity"></p>
   <p>Memo: eight bytes, ASCII BTZ, opcode 0x11 (ANGLE) or 0x12 (MOVE), then big-endian u32. ANGLE uses its low 16 bits. Use the equivalent numeric u64 or exact blob with legacy numeric memo zero.</p>
   <p>No login or wallet connection. Send using an existing wallet with the documented ICP memo. Shared-sender wallets may not provide a unique gameplay identity or the required memo controls.</p>
-  <p>Area-time scores are preserved. <strong>Automatic payouts are unavailable.</strong> Paid/prize participation requires an explicit operator launch decision; no guaranteed distributions.</p></section>
+  <p>Experimental controlled MVP. Payments, including invalid/underfunded commands and overpayments, are retained; no refunds are implemented. Area-time scores are preserved. <strong>Automatic payouts and prizes are unavailable.</strong></p></section>
+  <section id="live-play-reference" hidden aria-label="Live play reference">
+    <p id="service-status" role="status">Checking operational status — wait before making purchases.</p>
+    <p class="help">Operational status is a separate signed query. Payment destination, configuration, snapshots and outcomes below are bound to certified publications.</p>
+    <p id="reference-time"></p>
+    <div class="play-table"><table><caption>Current certified cannons — identify yours by its funding AccountIdentifier</caption><thead><tr><th>Cannon</th><th>Funding account</th><th>Anchor cell</th><th>Balls</th><th>Next ball</th><th>Owned MOVE cell IDs</th></tr></thead><tbody id="live-cannons"></tbody></table></div>
+    <p>Cell ID = row × board width + column, starting at row/column zero in the upper left. MOVE must target a cell still owned by your cannon when applied. At most one MOVE per cannon per segment.</p>
+    <div class="play-table"><table><caption>Recent certified command outcomes (last 100 observed; history gaps can omit older outcomes)</caption><thead><tr><th>Ledger transaction ID</th><th>Funding account</th><th>Result</th><th>Action</th></tr></thead><tbody id="live-receipts"></tbody></table></div>
+    <p>An absent receipt is unresolved, not proof of loss. The index may lag and discovery/publication take time. Reload reconnects to a recent snapshot; this browser is not a permanent receipt archive.</p>
+  </section>
   <div id="error" class="error" role="alert" hidden><strong>Playback stopped safely.</strong> <span id="error-text"></span><button id="retry" type="button">Retry download</button></div>
   <section class="workspace" aria-label="Observer workspace">
     <div class="arena-column">

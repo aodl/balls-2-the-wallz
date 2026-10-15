@@ -372,8 +372,14 @@ fn replay_head(
                     &pic.query_call(
                         id,
                         controller(),
-                        "artifact_chunk",
-                        encode_args((expected.sha256.clone(), kind as u8, n as u16)).unwrap(),
+                        "retained_artifact_chunk",
+                        encode_args((
+                            seal.segment_id.0.to_string().parse::<u64>().unwrap(),
+                            expected.sha256.clone(),
+                            kind as u8,
+                            n as u16,
+                        ))
+                        .unwrap(),
                     )
                     .unwrap(),
                 )
@@ -2003,6 +2009,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut pause_segments = 0;
     let mut first = None;
     let mut second = None;
+    let mut third = None;
     let deadline = std::time::Instant::now() + Duration::from_secs(200);
     while std::time::Instant::now() < deadline {
         let (_, p) = observe(&pic, id);
@@ -2091,14 +2098,48 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 ledger,
                 payer,
                 recipient,
-                100_000_000,
-                *b"BTZ\x12\0\0\0\x01",
+                10_000_000,
+                *b"BTZ\x11\0\0\x40\0",
             );
             second = Some(tx);
-            payments.insert(tx, normalized(funding, 100_000_000, *b"BTZ\x12\0\0\0\x01"));
+            payments.insert(tx, normalized(funding, 10_000_000, *b"BTZ\x11\0\0\x40\0"));
             phase = 2;
         } else if phase == 2 && assigned.contains(&second.unwrap()) {
-            std::fs::write(out.join("harness-payments-done"), b"two assigned once\n").unwrap();
+            let view = publication(&native.record).unwrap();
+            let world = btz_native::world::World::decode(&view.artifacts[0]).unwrap();
+            assert_eq!(world.cannons.len(), 1, "paid join created one cannon");
+            assert_eq!(world.balls.len(), 2, "fallback payment bought second ball");
+            let cannon = &world.cannons[0];
+            let target = world
+                .cells
+                .iter()
+                .enumerate()
+                .find(|(cell, owner)| **owner == cannon.id && *cell != cannon.cell)
+                .unwrap()
+                .0;
+            let mut memo = *b"BTZ\x12\0\0\0\0";
+            memo[4..].copy_from_slice(&(target as u32).to_be_bytes());
+            let tx = transfer(&pic, ledger, payer, recipient, 10_000, memo);
+            third = Some(tx);
+            payments.insert(tx, normalized(funding, 10_000, memo));
+            pic.update_call(
+                sender,
+                controller(),
+                "forward",
+                candid::encode_one(vec![PokeMatch {
+                    target: PokeTarget::subaccount(0),
+                    max_amount: 10_000u64.into(),
+                }])
+                .unwrap(),
+            )
+            .unwrap();
+            phase = 6;
+        } else if phase == 6 && assigned.contains(&third.unwrap()) {
+            std::fs::write(
+                out.join("harness-payments-done"),
+                serde_json::to_vec(&[first.unwrap(), second.unwrap(), third.unwrap()]).unwrap(),
+            )
+            .unwrap();
             phase = 3;
         } else if phase == 3 && out.join("browser-disconnected").exists() {
             pause_segments = s.run.completed_segments;
@@ -2152,7 +2193,10 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     }
     assert!(browser.0.wait().unwrap().success());
     pic.stop_live();
-    assert_eq!(assigned, vec![first.unwrap(), second.unwrap()]);
+    assert_eq!(
+        assigned,
+        vec![first.unwrap(), second.unwrap(), third.unwrap()]
+    );
     let history = serde_json::json!({"status":"PASS","evidence_class":"DEPLOYMENT_BUNDLE_LIVE_LOCAL","initial_world_hex":hex(&world),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned});
     std::fs::write(
         out.join("history.json"),

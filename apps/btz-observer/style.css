@@ -5,3 +5,4 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 /* Certified identifiers must remain readable on narrow observer screens. */
 code, #rules-identity { overflow-wrap: anywhere; }
+.play-table{overflow-x:auto;margin:1rem 0}.play-table td{overflow-wrap:anywhere;max-width:24rem}.play-table table{min-width:42rem;width:100%}
