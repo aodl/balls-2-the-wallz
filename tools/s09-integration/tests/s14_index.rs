@@ -13,6 +13,9 @@ use std::{
     path::{Path, PathBuf},
     time::Duration,
 };
+// Reuse exact adapter types/validation; host-only methods are checked in the host crate.
+#[allow(dead_code)]
+#[rustfmt::skip]
 #[path = "../../../canisters/runtime-lab/src/source.rs"]
 mod source;
 use source::{IndexConfig, PokeMatch, PokeTarget, SourceStatus, StartingPolicy};
@@ -260,7 +263,7 @@ fn poke_forwarder(target: Principal) -> Vec<u8> {
 }
 fn tick(pic: &PocketIc) {
     pic.advance_time(Duration::from_secs(1));
-    for _ in 0..8 {
+    for _ in 0..4 {
         pic.tick();
     }
 }
@@ -426,6 +429,34 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
         Some(controller()),
     );
     let (_, genesis) = observe(&pic, id);
+    let descriptor = decode_one::<Result<Vec<u8>, String>>(
+        &pic.query_call(
+            id,
+            controller(),
+            "source_descriptor",
+            encode_args(()).unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap()
+    .unwrap();
+    assert_eq!(dtr_wire::hash(&descriptor), genesis.identity.source_id);
+    let (domain, network, reported_ledger, reported_index, owner, n, account): (
+        String,
+        String,
+        Principal,
+        Principal,
+        Principal,
+        u64,
+        String,
+    ) = candid::decode_args(&descriptor).unwrap();
+    assert_eq!(domain, "BTZ-ICP-INDEX-01");
+    assert_eq!(network, "pocketic-local");
+    assert_eq!(reported_ledger, ledger);
+    assert_eq!(reported_index, index);
+    assert_eq!(owner, id);
+    assert_eq!(n, 0);
+    assert_eq!(account, source::receiving_account(id, n).to_string());
     let mut h = Coordinator::create(
         &world,
         genesis.identity.clone(),
@@ -604,6 +635,20 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
         }
         trace.push(serde_json::json!({"elapsed_virtual_seconds":elapsed+1,"cursor":s.source.admitted_to_exclusive,"index_calls":s.source.index_calls,"in_flight":s.source.scan_in_flight,"pending":s.source.pending_records,"segments":s.run.completed_segments,"error":s.source.last_error}));
     }
+    let observed_segments = status(&pic, id).run.completed_segments;
+    // Virtual observation is complete. Produce a fresh real-time certificate
+    // without relaxing verifier freshness. This may execute one additional
+    // bounded game action; capture/replay any publication separately below.
+    pic.set_time(std::time::SystemTime::now().into());
+    for _ in 0..4 {
+        pic.tick();
+    }
+    let (_, fresh) = observe(&pic, id);
+    if fresh.head.segment_id != last {
+        last_initial = unhex(&h.record.journal.head.state_hex).unwrap();
+        publications.push(fresh.clone());
+        replay_head(&pic, id, &fresh, &mut h, &payments, &mut assigned);
+    }
     assert!(assigned.contains(&first));
     assert!(assigned.contains(&second.unwrap()));
     assert_eq!(assigned.len(), 2);
@@ -639,6 +684,72 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
     )
     .unwrap();
     assert_eq!(certified, unhex(&dtr_wire::hash(&o.publication)).unwrap());
+    let wrong = ic_agent::Agent::builder()
+        .with_url("http://127.0.0.1:1")
+        .build()
+        .unwrap();
+    assert!(
+        wrong.verify(&cert, id).is_err(),
+        "mainnet SDK root must reject disposable local certificate"
+    );
+    assert!(
+        ic_agent::lookup_value(
+            &cert,
+            [
+                b"canister".as_slice(),
+                sender.as_slice(),
+                b"certified_data".as_slice()
+            ]
+        )
+        .is_err(),
+        "certificate must bind the intended canister path"
+    );
+    #[derive(CandidType, Deserialize)]
+    struct Entry {
+        segment_id: u64,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Retention {
+        max_segments: u16,
+        max_bytes: u64,
+        retained_bytes: u64,
+        entries: Vec<Entry>,
+    }
+    let retention: Retention = decode_one::<Result<Retention, String>>(
+        &pic.query_call(
+            id,
+            controller(),
+            "retention_status",
+            encode_args(()).unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap()
+    .unwrap();
+    assert_eq!(retention.max_segments, 3);
+    assert_eq!(retention.max_bytes, 8 * 1024 * 1024);
+    assert!(retention.retained_bytes <= retention.max_bytes);
+    assert_eq!(retention.entries.len(), 3);
+    assert!(
+        retention
+            .entries
+            .windows(2)
+            .all(|p| p[1].segment_id == p[0].segment_id + 1)
+    );
+    let missing = pic
+        .query_call(
+            id,
+            controller(),
+            "retained_publication",
+            candid::encode_one(0u64).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&missing)
+            .unwrap()
+            .unwrap_err()
+            .contains("snapshot resync")
+    );
     if let Ok(path) = std::env::var("S14_SNAPSHOT") {
         let directory = PathBuf::from(path);
         std::fs::create_dir_all(&directory).unwrap();
@@ -661,7 +772,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
         std::fs::write(directory.join("metadata.json"),serde_json::to_vec_pretty(&serde_json::json!({"version":1,"trust":"local-ic-test-certificate","network":"pocketic-local","canister_id":id.to_text(),"root_key_sha256":dtr_wire::hash(&pic.root_key().unwrap()),"logical_start":seal.logical_start.0.to_string().parse::<u64>().unwrap(),"logical_end":seal.logical_end.0.to_string().parse::<u64>().unwrap(),"tick_seconds":0.25})).unwrap()).unwrap();
     }
     if let Ok(path) = std::env::var("S14_TRACE") {
-        std::fs::write(path,serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","evidence_class":"UPSTREAM_COMPATIBLE_LOCAL_FUNCTIONAL","assigned":assigned,"publications":publications,"trace":trace,"segments":s.run.completed_segments})).unwrap()).unwrap();
+        std::fs::write(path,serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","evidence_class":"UPSTREAM_COMPATIBLE_LOCAL_FUNCTIONAL","assigned":assigned,"initial_world_hex":hex(&world),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"trace":trace,"segments":s.run.completed_segments,"observed_segments":observed_segments,"certificate_time_refreshed_after_observation":true})).unwrap()).unwrap();
     }
 }
 
@@ -741,7 +852,21 @@ fn controlled_index_pagination_lag_failure_and_upgrade() {
                 .unwrap();
         }
     };
-    install(empty_bytes.clone(), &[], true);
+    pic.install_canister(
+        index,
+        fixture_wasm(
+            &[
+                (
+                    "ledger_id",
+                    candid::encode_one(Principal::anonymous()).unwrap(),
+                ),
+                ("get_account_identifier_transactions", empty_bytes.clone()),
+            ],
+            &[],
+        ),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
     let wasm = bytes("BTZ_S14_WASM");
     pic.install_canister(
         id,
@@ -767,6 +892,31 @@ fn controlled_index_pagination_lag_failure_and_upgrade() {
         encode_args(()).unwrap(),
         Some(controller()),
     );
+    for _ in 0..12 {
+        pic.tick();
+    }
+    let mismatched = status(&pic, id);
+    assert!(!mismatched.source.binding_checked);
+    assert_eq!(mismatched.source.index_calls, 0);
+    assert!(
+        mismatched
+            .source
+            .last_error
+            .as_ref()
+            .is_some_and(|e| e.contains("ledger_id mismatch"))
+    );
+    install(empty_bytes.clone(), &[], false);
+    pic.update_call(
+        sender,
+        controller(),
+        "forward",
+        candid::encode_one(vec![PokeMatch {
+            target: PokeTarget::subaccount(7),
+            max_amount: 1u64.into(),
+        }])
+        .unwrap(),
+    )
+    .unwrap();
     for _ in 0..12 {
         pic.tick();
     }
@@ -931,6 +1081,80 @@ fn controlled_index_pagination_lag_failure_and_upgrade() {
         work.pending_inputs, 68,
         "recovery must admit the new ID exactly once"
     );
+    let before_ignored = status(&pic, id).source.index_calls;
+    for matches in [
+        vec![
+            PokeMatch {
+                target: PokeTarget::subaccount(7),
+                max_amount: 1u64.into()
+            };
+            257
+        ],
+        vec![PokeMatch {
+            target: PokeTarget::subaccount(7),
+            max_amount: candid::Nat::parse(&vec![b'9'; 100000]).unwrap(),
+        }],
+    ] {
+        pic.update_call(
+            sender,
+            controller(),
+            "forward",
+            candid::encode_one(matches).unwrap(),
+        )
+        .unwrap();
+    }
+    assert_eq!(
+        status(&pic, id).source.index_calls,
+        before_ignored,
+        "oversize target vector / encoded payload cannot schedule work"
+    );
+    install(empty_bytes, &[], false);
+    let disabled = create_controlled(&pic);
+    pic.add_cycles(disabled, 100_000_000_000_000);
+    pic.install_canister(
+        disabled,
+        wasm.clone(),
+        encode_args((
+            initial_world(),
+            0u64,
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                index,
+                receiving_subaccount: u64::MAX,
+                event_horizon: None,
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+        ))
+        .unwrap(),
+        Some(controller()),
+    );
+    for _ in 0..12 {
+        pic.tick();
+    }
+    let disabled_calls = status(&pic, disabled).source.index_calls;
+    assert!(
+        pic.update_call(
+            disabled,
+            controller(),
+            "poke",
+            candid::encode_one(vec![PokeMatch {
+                target: PokeTarget::subaccount(0),
+                max_amount: 1u64.into()
+            }])
+            .unwrap()
+        )
+        .is_err()
+    );
+    assert_eq!(status(&pic, disabled).source.index_calls, disabled_calls);
+    assert_eq!(status(&pic, disabled).source.receiving_subaccount, u64::MAX);
+    assert_eq!(
+        status(&pic, disabled).source.recipient_account,
+        source::receiving_account(disabled, u64::MAX).as_bytes()
+    );
+    pic.upgrade_canister(disabled, wasm, encode_args(()).unwrap(), Some(controller()))
+        .unwrap();
+    assert_eq!(status(&pic, disabled).source.receiving_subaccount, u64::MAX);
     for method in [
         "apply",
         "sync_ledger",
@@ -960,9 +1184,9 @@ fn complete_index_range_backpressure_preserves_both_documents() {
         owner,
     )
     .unwrap();
-    let mut identity: dtr_host::Identity =
-        serde_json::from_value(btz_native::identity().unwrap()).unwrap();
-    identity.source_id = source_id;
+    let mut identity = btz_native::identity().unwrap();
+    identity["source_id"] = serde_json::Value::String(source_id);
+    let identity: dtr_host::Identity = serde_json::from_value(identity).unwrap();
     let mut h = Coordinator::create(
         &initial_world(),
         identity,
@@ -1120,7 +1344,8 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
             let s = status(&pic, id);
             assert_eq!(
                 s.source.index_calls, 1,
-                "timer/poke must not overlap the active scan"
+                "timer/poke must not overlap the active scan: error={:?}, active={}",
+                s.source.last_error, s.source.scan_in_flight
             );
             assert!(s.source.scan_in_flight);
             assert_eq!(s.source.admitted_to_exclusive, 0);
@@ -1136,7 +1361,29 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
             pic.upgrade_canister(id, wasm, encode_args(()).unwrap(), Some(controller()))
                 .unwrap();
         }
-        for _ in 0..88 {
+        for _ in 0..28 {
+            tick(&pic);
+        }
+        let held = pic.get_canister_http();
+        assert_eq!(
+            held.len(),
+            1,
+            "controlled fixture must hold a genuine await"
+        );
+        let request = &held[0];
+        pic.mock_canister_http_response(pocket_ic::common::rest::MockCanisterHttpResponse {
+            subnet_id: request.subnet_id,
+            request_id: request.request_id,
+            response: pocket_ic::common::rest::CanisterHttpResponse::CanisterHttpReply(
+                pocket_ic::common::rest::CanisterHttpReply {
+                    status: 200,
+                    headers: vec![],
+                    body: vec![],
+                },
+            ),
+            additional_responses: vec![],
+        });
+        for _ in 0..40 {
             tick(&pic);
         }
         let s = status(&pic, id);

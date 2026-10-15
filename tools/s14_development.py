@@ -25,6 +25,7 @@ def main():
     command=a.command[1:] if a.command[:1]==['--'] else a.command
     if not command:raise SystemExit('missing command')
     locks={ROOT/path:(ROOT/path).read_bytes() for path in ['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock']}
+    (ROOT/'.work/s14').mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='dtr-override-',dir=ROOT/'.work/s14') as directory:
         config=Path(directory)/'patch.toml'
         config.write_text('[patch."https://github.com/aodl/dtr.git"]\n'+''.join(f'{name} = {{ path = "{dtr}/crates/{name}" }}\n' for name in ['dtr-core','dtr-source-model','dtr-host','dtr-wire']))

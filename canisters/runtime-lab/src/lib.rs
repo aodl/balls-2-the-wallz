@@ -1097,7 +1097,7 @@ fn reconciliation_failed(lease: &Lease, error: String) -> AppResult<()> {
     }
     r.source.in_flight = false;
     r.source.started_at = 0;
-    r.source.last_error = Some(error);
+    r.source.last_error = Some(error.chars().take(1024).collect());
     // Preserve pending range, nonce fence and a poke received during await.
     let requested = r.source.requested;
     save_root_only(&r)?;

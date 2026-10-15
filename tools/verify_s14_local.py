@@ -40,6 +40,11 @@ def main():
     files={'POCKET_IC_BIN':a.artifacts/'bin/pocket-ic','ICP_LEDGER_WASM':a.artifacts/'wasm/ledger-canister.wasm','ICP_INDEX_WASM':a.index_wasm or a.artifacts/'wasm/ic-icp-index-canister.wasm'}
     missing=[str(path) for path in files.values() if not path.is_file()]
     if missing:result.update(overall='BLOCKED',reason='Missing: '+', '.join(missing));save();return 2
+    expected={'POCKET_IC_BIN':'b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db','ICP_LEDGER_WASM':'7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc','ICP_INDEX_WASM':'6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30'}
+    for name,path in files.items():
+        actual=hashlib.sha256(path.read_bytes()).hexdigest()
+        if actual!=expected[name]:result.update(overall='FAIL',reason='pinned runtime/artifact mismatch: '+name);save();return 1
+        result['artifacts'].append({'name':name,'sha256':actual,'path':str(path)})
     cargo=['cargo']+(['--config',os.environ['S14_DTR_CONFIG']] if os.environ.get('S14_DTR_CONFIG') else [])
     def run(name,command,timeout=900,env=None):
         row=execute(name,command,out,timeout,env);result['checks'].append(row);save()
@@ -67,6 +72,7 @@ def main():
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         run('installed-index-integration',[binaries[0],'--nocapture','--test-threads=1'],900,env)
+        run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)
         result['overall']='PASS';save();return 0
     except Exception as e:result.update(overall='FAIL',reason=str(e));save();return 1
     finally:
