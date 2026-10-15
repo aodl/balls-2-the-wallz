@@ -16,6 +16,8 @@ def main():
     def record(name,details=''):
         report['checks'].append({'name':name,'status':'PASS','details':details});save()
     def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
+    def terminated(_signal,_frame):raise SystemExit(143)
+    signal.signal(signal.SIGTERM,terminated)
     server=None;browser=None
     try:
         assets=out/'assets';production=out/'mainnet-assets'
@@ -60,7 +62,9 @@ def main():
     except Exception as error:
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
-        if browser:browser.close()
+        if browser:
+            try:browser.close()
+            except Exception:pass
         if server and server.poll() is None:
             os.killpg(server.pid,signal.SIGTERM)
             try:server.wait(timeout=5)

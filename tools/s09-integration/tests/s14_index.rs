@@ -1824,6 +1824,26 @@ fn bounded_history_windows_drain_256_257_and_513_without_skipping() {
     }
 }
 
+// Terminate only the browser driver owned by this test, including on assertion
+// failure; its SIGTERM handler cleans its own server/Chromium children.
+struct OwnedBrowser(std::process::Child);
+impl Drop for OwnedBrowser {
+    fn drop(&mut self) {
+        if self.0.try_wait().ok().flatten().is_none() {
+            let _ = std::process::Command::new("kill")
+                .args(["-TERM", &self.0.id().to_string()])
+                .status();
+            for _ in 0..50 {
+                if self.0.try_wait().ok().flatten().is_some() {
+                    return;
+                }
+                std::thread::sleep(Duration::from_millis(100));
+            }
+            let _ = self.0.kill();
+            let _ = self.0.wait();
+        }
+    }
+}
 /// Full built asset deployment, not an exported finite recording. All transfers
 /// and controllers are valueless identities on this disposable local network.
 #[test]
@@ -1921,22 +1941,24 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let gateway = pic.make_live(None);
     let python = std::env::var("S14_BROWSER_PYTHON").unwrap_or_else(|_| "python3.11".into());
     let log = std::fs::File::create(out.join("browser.log")).unwrap();
-    let mut browser = std::process::Command::new(python)
-        .current_dir(&root)
-        .args([
-            "-B",
-            "tools/verify_s14_deployment.py",
-            "--configuration",
-            out.join("configuration.json").to_str().unwrap(),
-            "--gateway",
-            gateway.as_str(),
-            "--output",
-            out.to_str().unwrap(),
-        ])
-        .stdout(log.try_clone().unwrap())
-        .stderr(log)
-        .spawn()
-        .unwrap();
+    let mut browser = OwnedBrowser(
+        std::process::Command::new(python)
+            .current_dir(&root)
+            .args([
+                "-B",
+                "tools/verify_s14_deployment.py",
+                "--configuration",
+                out.join("configuration.json").to_str().unwrap(),
+                "--gateway",
+                gateway.as_str(),
+                "--output",
+                out.to_str().unwrap(),
+            ])
+            .stdout(log.try_clone().unwrap())
+            .stderr(log)
+            .spawn()
+            .unwrap(),
+    );
     let mut payments = BTreeMap::new();
     let mut assigned = Vec::new();
     let mut publications = Vec::new();
@@ -1956,7 +1978,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         let s = status(&pic, id);
         assert!(s.source.last_error.is_none(), "{:?}", s.source.last_error);
         assert!(s.run.last_error.is_none());
-        if let Some(code) = browser.try_wait().unwrap() {
+        if let Some(code) = browser.0.try_wait().unwrap() {
             assert!(
                 code.success(),
                 "browser deployment failed; see {}",
@@ -2064,13 +2086,13 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         std::thread::sleep(Duration::from_millis(100));
     }
     if phase != 5 || !out.join("browser-complete").exists() {
-        let _ = browser.kill();
+        let _ = browser.0.kill();
         panic!(
             "deployment acceptance timeout in phase {phase}; see {}",
             out.join("browser.log").display()
         );
     }
-    assert!(browser.wait().unwrap().success());
+    assert!(browser.0.wait().unwrap().success());
     pic.stop_live();
     assert_eq!(assigned, vec![first.unwrap(), second.unwrap()]);
     let history = serde_json::json!({"status":"PASS","evidence_class":"DEPLOYMENT_BUNDLE_LIVE_LOCAL","initial_world_hex":hex(&world),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned});

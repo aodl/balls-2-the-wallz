@@ -292,7 +292,7 @@ try{
   if(deployment!==null){
     const policy=await deploymentPolicy(deployment);
     $('trust-title').textContent=policy.network==='ic'?'Internet Computer — certified observer':'Disposable local deployment — certified observer';
-    $('trust-detail').textContent='SDK mainnet root, configured backend, fresh certificates and verified publication artifacts.';
+    $('trust-detail').textContent=policy.network==='ic'?'SDK mainnet root, configured backend, fresh certificates and verified publication artifacts.':'Test-only bundle, pinned disposable root, configured backend and fresh certified artifacts.';
     $('network-help').textContent='Read-only observation. Transfers use your existing wallet; this site never signs or sends.';
     const recording={id:'mainnet',title:'BTZ live observer',description:'Account-index payments, authoritative simulation. Automatic payouts are unavailable.',
       network:policy.network,canister_id:policy.canister_id,tick_seconds:1,deployment:policy};
