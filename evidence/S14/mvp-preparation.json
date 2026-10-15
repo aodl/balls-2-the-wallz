@@ -1,0 +1,26 @@
+{
+  "status": "NOT_RUN",
+  "scope": "Controlled MVP deployment preparation; final local rehearsal pending",
+  "base_commit": "2ce72c5cac736df7fbb40b2312d2c5c72e3f13d4",
+  "implementation_commit": "b3b8fdd",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "mainnet": "NOT_RUN",
+  "remote_ci": "NOT_RUN",
+  "attempts": [
+    {
+      "path": ".work/s14/mvp-assets-attempt1",
+      "status": "BLOCKED",
+      "reason": "Index artifact required explicit existing path"
+    },
+    {
+      "path": ".work/s14/mvp-assets-attempt2",
+      "status": "FAIL",
+      "reason": "dfx asset source outside temporary workspace; corrected by owned local copy"
+    },
+    {
+      "path": ".work/s14/mvp-assets-attempt3",
+      "status": "FAIL",
+      "reason": "Browser paid flow passed; native harness fetched current artifacts after live head advanced; switched to existing retained API"
+    }
+  ]
+}
