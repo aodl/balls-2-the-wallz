@@ -106,6 +106,14 @@ def validate_vendor(source,generated,packaging_npm):
     if DTR_GIT not in readme or DTR_REV not in readme or sha256(VENDOR) not in readme:raise ValueError('vendored DTR origin record is incomplete')
     return sorted(generated_payload),locked['integrity'],byte_reproduction
 
+def cargo_metadata_document(text):
+    # Cargo may report ordinary dependency downloads on stderr before its single
+    # JSON stdout document. Keep the exact combined log, parse only the document.
+    documents=[json.loads(line) for line in text.splitlines() if line.startswith('{')]
+    if len(documents)!=1 or 'packages' not in documents[0]:
+        raise ValueError('Cargo metadata document missing or ambiguous')
+    return documents[0]
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=ROOT/'.work/dtr-consumers');args=parser.parse_args()
     output=args.output.resolve();output.mkdir(parents=True,exist_ok=True);destination=output/'results.json'
@@ -138,7 +146,7 @@ def main():
               'location':'disposable directory outside source trees'}
             step('rust-consumer-published',['cargo','+1.94.1','run','--locked'],rust,1200,environment)
             metadata=step('published-source-location',['cargo','+1.94.1','metadata','--locked','--format-version','1'],rust,120,environment)
-            metadata=json.loads(metadata)
+            metadata=cargo_metadata_document(metadata)
             core=next(package for package in metadata['packages'] if package['name']=='dtr-core')
             checkout=Path(core['manifest_path']).parents[2]
             provenance={'revision':git_value(checkout,'rev-parse','HEAD'),'tree':git_value(checkout,'rev-parse','HEAD^{tree}'),
