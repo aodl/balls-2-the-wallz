@@ -14,6 +14,7 @@ LIVE_CONFIG=None
 LIVE_CANISTER=None
 IC_GATEWAY=None
 GENERATED_ASSETS=None
+DEPLOYMENT_ASSETS=None
 def observer_dependency_error(root=ROOT):
     package=root/'node_modules/@dtr/timeline-runtime'
     missing=[str(package/relative) for relative in REQUIRED_DTR_MODULES if not(package/relative).is_file()]
@@ -25,6 +26,10 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)
     def do_GET(self):
         raw=unquote(urlsplit(self.path).path)
+        if DEPLOYMENT_ASSETS is not None:
+            name='index.html' if raw=='/' else raw.removeprefix('/')
+            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','deployment.json','build-manifest.json'}:
+                return self.serve_explicit(DEPLOYMENT_ASSETS/name)
         if raw=='/':
             self.send_response(302);self.send_header('Location','/apps/btz-observer/');self.end_headers();return
         if raw.startswith('/s09-local/'):
@@ -84,12 +89,15 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
         super().end_headers()
 def main():
-    global LOCAL_SNAPSHOT,LIVE_CONFIG,LIVE_CANISTER,IC_GATEWAY,GENERATED_ASSETS
+    global LOCAL_SNAPSHOT,LIVE_CONFIG,LIVE_CANISTER,IC_GATEWAY,GENERATED_ASSETS,DEPLOYMENT_ASSETS
     p=argparse.ArgumentParser();p.add_argument('--port',type=int,default=8080)
     p.add_argument('--local-snapshot',type=Path);p.add_argument('--live-config',type=Path);p.add_argument('--ic-gateway');p.add_argument('--live-canister')
-    p.add_argument('--generated-assets',type=Path);a=p.parse_args()
+    p.add_argument('--generated-assets',type=Path);p.add_argument('--deployment-assets',type=Path);a=p.parse_args()
     if not 0<=a.port<=65535:p.error('port outside range')
     if dependency_error:=observer_dependency_error():p.error(dependency_error)
+    if a.deployment_assets:
+        DEPLOYMENT_ASSETS=a.deployment_assets.resolve()
+        if not DEPLOYMENT_ASSETS.is_dir():p.error('deployment assets missing')
     if a.local_snapshot:
         LOCAL_SNAPSHOT=a.local_snapshot.resolve()
         if not LOCAL_SNAPSHOT.is_dir():p.error('--local-snapshot is not a directory')

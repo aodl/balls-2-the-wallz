@@ -1,4 +1,4 @@
-import deployment from './deployment.mjs';
+import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {BtzView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
@@ -108,12 +108,12 @@ async function startLive(recording){
   $('timeline').min=0;$('timeline').max=2048;$('pause').disabled=true;$('restart').disabled=true;
   try{
     let ticket;
-    if(recording.network==='ic'){
+    if(recording.deployment){
       const module=await import('./mainnet.mjs');
-      const connection=await module.mainnetConnection(recording.deployment);
+      const connection=await deploymentConnection(recording.deployment);
       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;
       ticket=await certifiedTicket(s,await s.client.observation());
-      const source=await module.certifiedSource(recording.deployment,ticket);
+      const source=await deploymentSource(recording.deployment,ticket);
       $('receiving-account').textContent=source.recipient;
       $('backend-identity').textContent=source.owner;
       const config=await module.certifiedConfiguration(ticket);
@@ -290,12 +290,12 @@ bootError=null;$('error').hidden=true;
 try{
   if(!ctx||!globalThis.crypto?.subtle)throw new Error('Canvas and Web Crypto require a supported browser on localhost or HTTPS.');
   if(deployment!==null){
-    const {mainnetPolicy}=await import('./mainnet.mjs');const policy=mainnetPolicy(deployment);
-    $('trust-title').textContent='Internet Computer — certified observer';
+    const policy=await deploymentPolicy(deployment);
+    $('trust-title').textContent=policy.network==='ic'?'Internet Computer — certified observer':'Disposable local deployment — certified observer';
     $('trust-detail').textContent='SDK mainnet root, configured backend, fresh certificates and verified publication artifacts.';
     $('network-help').textContent='Read-only observation. Transfers use your existing wallet; this site never signs or sends.';
     const recording={id:'mainnet',title:'BTZ live observer',description:'Account-index payments, authoritative simulation. Automatic payouts are unavailable.',
-      network:'ic',canister_id:policy.canister_id,tick_seconds:1,deployment:policy};
+      network:policy.network,canister_id:policy.canister_id,tick_seconds:1,deployment:policy};
     const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
     $('recording').replaceChildren(option);$('recording').disabled=true;catalog={recordings:[recording]};await startLive(recording);return;
   }

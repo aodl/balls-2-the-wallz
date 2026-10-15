@@ -298,7 +298,7 @@ fn replay_head(
         .parse::<u64>()
         .unwrap();
     let from = seal.source_from.0.to_string().parse::<u64>().unwrap();
-    let inputs = payments
+    let inputs: Vec<dtr_host::Input> = payments
         .range(from..to)
         .map(|(position, payload_hex)| {
             assigned.push(*position);
@@ -308,13 +308,40 @@ fn replay_head(
             }
         })
         .collect();
-    h.apply(Action::IngestOrdered {
-        start: Int(from.into()),
-        end: Int(to.into()),
-        inputs,
-        anchor: seal.source_anchor.clone(),
-    })
-    .unwrap();
+    if inputs.is_empty() {
+        h.apply(Action::IngestOrdered {
+            start: Int(from.into()),
+            end: Int(to.into()),
+            inputs: vec![],
+            anchor: seal.source_anchor.clone(),
+        })
+        .unwrap();
+    } else {
+        let mut start = from;
+        for (n, chunk) in inputs.chunks(256).enumerate() {
+            let end = if (n + 1) * 256 >= inputs.len() {
+                to
+            } else {
+                chunk
+                    .last()
+                    .unwrap()
+                    .position
+                    .0
+                    .to_string()
+                    .parse::<u64>()
+                    .unwrap()
+                    + 1
+            };
+            h.apply(Action::IngestOrdered {
+                start: Int(start.into()),
+                end: Int(end.into()),
+                inputs: chunk.to_vec(),
+                anchor: seal.source_anchor.clone(),
+            })
+            .unwrap();
+            start = end;
+        }
+    }
     h.apply(Action::Seal {
         logical_end: seal.logical_end.clone(),
     })
@@ -1795,4 +1822,273 @@ fn bounded_history_windows_drain_256_257_and_513_without_skipping() {
             serde_json::json!({"records":count,"new_arrivals":1,"max_pending":max_pending,"assigned":assigned.len(),"status":"PASS"})
         );
     }
+}
+
+/// Full built asset deployment, not an exported finite recording. All transfers
+/// and controllers are valueless identities on this disposable local network.
+#[test]
+fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
+    let mut pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    pic.set_time(std::time::SystemTime::now().into());
+    let payer = Principal::self_authenticating([9; 32]);
+    let ledger = deploy_ledger(&pic, &bytes("ICP_LEDGER_WASM"), &[payer]);
+    let index = create_controlled(&pic);
+    let id = create_controlled(&pic);
+    let sender = create_controlled(&pic);
+    for c in [index, id, sender] {
+        pic.add_cycles(c, 100_000_000_000_000);
+    }
+    pic.install_canister(
+        index,
+        bytes("ICP_INDEX_WASM"),
+        candid::encode_one(Some(IndexArg::Init(IndexInit {
+            ledger_id: ledger,
+            retrieve_blocks_from_ledger_interval_seconds: Some(1),
+        })))
+        .unwrap(),
+        Some(controller()),
+    );
+    let wasm = bytes("BTZ_S14_WASM");
+    let world = initial_world();
+    pic.install_canister(
+        id,
+        wasm.clone(),
+        encode_args((
+            world.clone(),
+            0u64,
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                index,
+                receiving_subaccount: 0,
+                event_horizon: Some(sender),
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+        ))
+        .unwrap(),
+        Some(controller()),
+    );
+    pic.install_canister(
+        sender,
+        poke_forwarder(id),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
+    let (_, genesis) = observe(&pic, id);
+    let mut native = Coordinator::create(
+        &world,
+        genesis.identity,
+        0,
+        0,
+        "00".repeat(32),
+        BtzHostKernel,
+    )
+    .unwrap();
+    let _: Status = get_result(
+        &pic,
+        id,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 2,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let recipient = source::receiving_account(id, 0);
+    let funding = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT);
+    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":index.to_text(),"recipient":recipient.to_string(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    std::fs::write(
+        out.join("configuration.json"),
+        serde_json::to_vec(&configuration).unwrap(),
+    )
+    .unwrap();
+    // Existing allowlisted loopback proxy requires explicit local trust metadata.
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let gateway = pic.make_live(None);
+    let python = std::env::var("S14_BROWSER_PYTHON").unwrap_or_else(|_| "python3.11".into());
+    let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut browser = std::process::Command::new(python)
+        .current_dir(&root)
+        .args([
+            "-B",
+            "tools/verify_s14_deployment.py",
+            "--configuration",
+            out.join("configuration.json").to_str().unwrap(),
+            "--gateway",
+            gateway.as_str(),
+            "--output",
+            out.to_str().unwrap(),
+        ])
+        .stdout(log.try_clone().unwrap())
+        .stderr(log)
+        .spawn()
+        .unwrap();
+    let mut payments = BTreeMap::new();
+    let mut assigned = Vec::new();
+    let mut publications = Vec::new();
+    let mut last = None;
+    let mut phase = 0;
+    let mut pause_segments = 0;
+    let mut first = None;
+    let mut second = None;
+    let deadline = std::time::Instant::now() + Duration::from_secs(200);
+    while std::time::Instant::now() < deadline {
+        let (_, p) = observe(&pic, id);
+        if p.head.segment_id != last {
+            replay_head(&pic, id, &p, &mut native, &payments, &mut assigned);
+            last = p.head.segment_id.clone();
+            publications.push(p);
+        }
+        let s = status(&pic, id);
+        assert!(s.source.last_error.is_none(), "{:?}", s.source.last_error);
+        assert!(s.run.last_error.is_none());
+        if let Some(code) = browser.try_wait().unwrap() {
+            assert!(
+                code.success(),
+                "browser deployment failed; see {}",
+                out.join("browser.log").display()
+            );
+        }
+        if phase == 0 && out.join("browser-connected").exists() && !s.source.scan_in_flight {
+            let before = s.source.index_calls;
+            for target in [PokeTarget::subaccount(1), PokeTarget::neuron_nonce(0)] {
+                pic.update_call(
+                    sender,
+                    controller(),
+                    "forward",
+                    candid::encode_one(vec![PokeMatch {
+                        target,
+                        max_amount: 1u64.into(),
+                    }])
+                    .unwrap(),
+                )
+                .unwrap();
+            }
+            assert_eq!(
+                status(&pic, id).source.index_calls,
+                before,
+                "unrelated target must not call index"
+            );
+            let tx = transfer(
+                &pic,
+                ledger,
+                payer,
+                recipient,
+                1_000_000_000,
+                *b"BTZ\x11\0\0\0\0",
+            );
+            first = Some(tx);
+            payments.insert(tx, normalized(funding, 1_000_000_000, *b"BTZ\x11\0\0\0\0"));
+            pic.update_call(
+                sender,
+                controller(),
+                "forward",
+                candid::encode_one(vec![PokeMatch {
+                    target: PokeTarget::subaccount(0),
+                    max_amount: 1_000_000_000u64.into(),
+                }])
+                .unwrap(),
+            )
+            .unwrap();
+            phase = 1;
+        } else if phase == 1 && assigned.contains(&first.unwrap()) {
+            let tx = transfer(
+                &pic,
+                ledger,
+                payer,
+                recipient,
+                100_000_000,
+                *b"BTZ\x12\0\0\0\x01",
+            );
+            second = Some(tx);
+            payments.insert(tx, normalized(funding, 100_000_000, *b"BTZ\x12\0\0\0\x01"));
+            phase = 2;
+        } else if phase == 2 && assigned.contains(&second.unwrap()) {
+            std::fs::write(out.join("harness-payments-done"), b"two assigned once\n").unwrap();
+            phase = 3;
+        } else if phase == 3 && out.join("browser-disconnected").exists() {
+            pause_segments = s.run.completed_segments;
+            phase = 4;
+        } else if phase == 4 && s.run.completed_segments >= pause_segments + 5 {
+            #[derive(CandidType, Deserialize)]
+            struct Work {
+                phase: Option<String>,
+            }
+            let work: Work = decode_one::<Result<Work, String>>(
+                &pic.query_call(
+                    id,
+                    controller(),
+                    "controller_work",
+                    encode_args(()).unwrap(),
+                )
+                .unwrap(),
+            )
+            .unwrap()
+            .unwrap();
+            if work.phase.is_some() {
+                pic.upgrade_canister(
+                    id,
+                    wasm.clone(),
+                    encode_args(()).unwrap(),
+                    Some(controller()),
+                )
+                .unwrap();
+                assert_eq!(
+                    status(&pic, id).source.admitted_to_exclusive,
+                    s.source.admitted_to_exclusive
+                );
+                std::fs::write(
+                    out.join("harness-upgrade-ready"),
+                    s.run.completed_segments.saturating_sub(1).to_string(),
+                )
+                .unwrap();
+                phase = 5;
+            }
+        } else if phase == 5 && out.join("browser-complete").exists() {
+            break;
+        }
+        std::thread::sleep(Duration::from_millis(100));
+    }
+    if phase != 5 || !out.join("browser-complete").exists() {
+        let _ = browser.kill();
+        panic!(
+            "deployment acceptance timeout in phase {phase}; see {}",
+            out.join("browser.log").display()
+        );
+    }
+    assert!(browser.wait().unwrap().success());
+    pic.stop_live();
+    assert_eq!(assigned, vec![first.unwrap(), second.unwrap()]);
+    let history = serde_json::json!({"status":"PASS","evidence_class":"DEPLOYMENT_BUNDLE_LIVE_LOCAL","initial_world_hex":hex(&world),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned});
+    std::fs::write(
+        out.join("history.json"),
+        serde_json::to_vec_pretty(&history).unwrap(),
+    )
+    .unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&root)
+            .args([
+                "tools/replay_s14.mjs",
+                out.join("history.json").to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
 }

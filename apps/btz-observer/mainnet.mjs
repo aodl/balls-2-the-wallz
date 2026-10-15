@@ -22,9 +22,13 @@ export async function certifiedSource(policy,ticket){
   const actor=Actor.createActor(({IDL})=>IDL.Service({source_descriptor:IDL.Func([],[IDL.Variant({Ok:IDL.Vec(IDL.Nat8),Err:IDL.Text})],['query'])}),{agent,canisterId:policy.canister_id});
   const result=await actor.source_descriptor();if(!result.Ok)throw new Error('source descriptor unavailable');
   const bytes=Uint8Array.from(result.Ok);
+  return verifiedSourceDescriptor(bytes,ticket,{network:'ic',canister_id:policy.canister_id,ledger:'ryjl3-tyaaa-aaaaa-aaaba-cai',index:'qhbym-qaaaa-aaaaa-aaafq-cai'});
+}
+/** Same descriptor binding for the explicit local acceptance build. No root policy. */
+export async function verifiedSourceDescriptor(bytes,ticket,expected){
   if(await sha256Web(bytes)!==ticket.publication.identity.source_id)throw new Error('source descriptor not bound by certified publication');
   const [domain,network,ledger,index,owner,subaccount,recipient]=IDL.decode([IDL.Text,IDL.Text,IDL.Principal,IDL.Principal,IDL.Principal,IDL.Nat64,IDL.Text],bytes);
-  if(domain!=='BTZ-ICP-INDEX-01'||network!=='ic'||owner.toText()!==policy.canister_id||ledger.toText()!=='ryjl3-tyaaa-aaaaa-aaaba-cai'||index.toText()!=='qhbym-qaaaa-aaaaa-aaafq-cai'||!/^[0-9a-f]{64}$/.test(recipient))throw new Error('source deployment mismatch');
+  if(domain!=='BTZ-ICP-INDEX-01'||network!==expected.network||owner.toText()!==expected.canister_id||ledger.toText()!==expected.ledger||index.toText()!==expected.index||!/^[0-9a-f]{64}$/.test(recipient))throw new Error('source deployment mismatch');
   return Object.freeze({network,ledger:ledger.toText(),index:index.toText(),owner:owner.toText(),subaccount,recipient});
 }
 

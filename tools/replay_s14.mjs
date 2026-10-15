@@ -15,7 +15,14 @@ let assigned=[];
 for(const p of trace.publications){
  const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);
  assigned.push(...selected.map(i=>i.position.toString()));
- host.ingestOrdered(seal.source_from,seal.source_to_exclusive,selected,seal.source_anchor);
+ if(selected.length===0)host.ingestOrdered(seal.source_from,seal.source_to_exclusive,[],seal.source_anchor);
+ else {
+  let start=seal.source_from;
+  for(let offset=0;offset<selected.length;offset+=256){
+   const part=selected.slice(offset,offset+256),end=offset+256>=selected.length?seal.source_to_exclusive:part.at(-1).position+1n;
+   host.ingestOrdered(start,end,part,seal.source_anchor);start=end;
+  }
+ }
  host.seal(seal.logical_end);
  while(host.status().phase==='running')host.advance(23);
  host.publish(host.status().ready_hash);
