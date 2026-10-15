@@ -36,6 +36,8 @@ def main():
             dfx=json.loads((ROOT/'dfx.json').read_text())
             shutil.copytree(assets,project/'.work/s14/assets')
             dfx['canisters']={'observer':dfx['canisters']['observer']}
+            backend=json.loads((ROOT/'dfx.json').read_text())['canisters']['btz']
+            dfx['canisters']['btz']={**backend,'candid':str(ROOT/backend['candid']),'wasm':os.environ['BTZ_S14_WASM']}
             dfx['networks']={'local':{'providers':[a.gateway],'type':'ephemeral'}}
             (project/'dfx.json').write_text(json.dumps(dfx,indent=2)+'\n')
             def dfx_run(*args):
@@ -47,6 +49,27 @@ def main():
             dfx_run('canister','create','observer','--no-wallet')
             dfx_run('deploy','observer','--mode','install')
             observer=dfx_run('canister','id','observer')
+            # A separate disposable constructor probe exercises the same custom
+            # backend install route with the generated local Candid arguments.
+            # It receives no payments and is deleted with this owned instance.
+            dfx_run('canister','create','btz','--no-wallet')
+            init=project/'local-init.did'
+            subprocess.run(['node','tools/prepare_s14_init.mjs','--network','pocketic-local',
+                '--ledger',configuration['ledger'],'--index',configuration['index'],'--output',str(init)],cwd=ROOT,check=True,timeout=30)
+            dfx_run('canister','install','btz','--mode','install','--wasm',os.environ['BTZ_S14_WASM'],'--argument-file',str(init))
+            probe=dfx_run('canister','id','btz')
+            info=dfx_run('canister','info','btz')
+            from hashlib import sha256
+            assert sha256(Path(os.environ['BTZ_S14_WASM']).read_bytes()).hexdigest() in info
+            deadline=time.monotonic()+15
+            while True:
+                status=dfx_run('canister','call','btz','lab_status','()','--query')
+                if 'binding_checked = true' in status:break
+                if time.monotonic()>deadline:raise TimeoutError('generated constructor index binding not ready')
+                time.sleep(.2)
+            account=dfx_run('ledger','account-id','--of-principal',probe,'--subaccount','00'*32)
+            assert len(account)==64 and 'event_horizon = null' in status,status
+            record('dfx-normal-backend-generated-constructor-and-binding',{'backend':probe,'receiving_account':account,'module':info,'pokes':'disabled, fallback enabled'})
             from urllib.parse import urlparse
             endpoint=urlparse(a.gateway)
             url=f'http://{observer}.localhost:{endpoint.port}/'

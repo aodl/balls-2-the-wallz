@@ -120,7 +120,7 @@ Compare the installed module hash with the manifest's `normal.wasm` SHA-256 and 
 
 ## D. User builds/deploys the real observer
 
-Keep the same clean checkout as the backend manifest. The ACTUAL backend ID, not a sample ID, is embedded in the bundle. No URL parameter can replace it, its endpoint or root.
+Keep the same reviewed source checkout as the backend manifest. The newly generated public `canister_ids.json` is recorded separately in the asset manifest; other source changes must be absent. The ACTUAL backend ID, not a sample ID, is embedded in the bundle. No URL parameter can replace it, its endpoint or root.
 
 ```bash
 node tools/build_observer_mainnet.mjs --canister "$BTZ_BACKEND" --output .work/s14/assets

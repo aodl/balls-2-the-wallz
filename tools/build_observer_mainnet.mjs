@@ -34,6 +34,15 @@ for(const name of ['index.html','app.mjs','style.css','icon.svg','configuration.
  const bytes=await readFile(out+'/'+name);files[name]={sha256:createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length};
 }
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
-await writeFile(out+'/build-manifest.json',JSON.stringify({source_commit:git('rev-parse','HEAD'),source_dirty:Boolean(git('status','--porcelain')),
+// dfx creates this public deployment record after the backend release is frozen.
+// Record it separately; it is not a source-code modification.
+let deploymentIds=null;
+try{
+ const bytes=await readFile('canister_ids.json'),ids=JSON.parse(bytes);
+ if(!test&&ids.btz?.ic&&ids.btz.ic!==policy.canister_id)throw new Error('backend differs from recorded mainnet canister');
+ deploymentIds=createHash('sha256').update(bytes).digest('hex');
+}catch(error){if(error.code!=='ENOENT')throw error;}
+const sourceDirty=git('status','--porcelain','--untracked-files=all').split('\n').filter(Boolean).some(line=>line.slice(3)!=='canister_ids.json');
+await writeFile(out+'/build-manifest.json',JSON.stringify({source_commit:git('rev-parse','HEAD'),source_dirty:sourceDirty,canister_ids_sha256:deploymentIds,
  local_test_only:test,deployment:policy,inputs:Object.keys(built.metafile.inputs),configuration:'configuration.bin',files,
  npm_lock_sha256:createHash('sha256').update(await readFile('package-lock.json')).digest('hex')},null,2)+'\n');
