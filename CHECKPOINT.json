@@ -9,27 +9,28 @@
     "commit": "c75192cb2e4c33a04675b57abfd4d42121255bfd",
     "successful_ci_run": 38690051399
   },
-  "tested_btz_commit": "dad4b64577e892aa15b6bf18601ad8b6f5c8c13a",
+  "tested_btz_commit": "96aeac76a7c2b3c90ef6ab5840ffc80aa31a25f5",
   "tested_dtr_development_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
   "dtr_changed": true,
   "local_development_package": {
     "version": "0.12.0",
     "sha256": "3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb"
   },
-  "normal_wasm_sha256": "be60c452872fc15e32878b99a44af7bf408e2100575385ee51f7f59f309c0c4e",
+  "normal_wasm_sha256": "383b9c7185037840dad92d7090b023a03735691d9f93361c15224995fdd305b3",
   "local_implementation_result": "PASS",
-  "remote_pinned_consumer_result": "NOT_RUN",
+  "remote_pinned_consumer_result": "PASS",
   "remote_ci_result": "NOT_RUN",
-  "publication_boundary": "User pushes DTR first; then update immutable BTZ pins, real locks and inspected vendor package and rerun consumers before user pushes BTZ. Checked-in old pins are not deployment-ready.",
+  "publication_boundary": "DTR is user-published and consumed through real immutable locks. User reviews/pushes BTZ dependency-completion commits and checks their CI; no new DTR changes.",
   "mainnet_verification": "NOT_RUN",
   "real_funds_authorized": false,
   "public_prize_launch": "BLOCKED",
   "payouts_implemented": false,
   "verification_reports": [
     "checkpoints/S14_REPORT.md",
+    "evidence/S14/published-dependencies.json",
+    "evidence/S14/published-index-trace.json",
     "evidence/S14/provenance.json",
-    "evidence/S14/verification.json",
-    "evidence/S14/index-trace.json"
+    "evidence/S14/verification.json"
   ],
   "limitations": [
     "Trusts configured official ICP index for account-history contents and completeness.",
@@ -38,5 +39,13 @@
     "Full-update instructions, heap high-water, mainnet capacity and actual cycles burned NOT_MEASURED.",
     "Local functional evidence does not establish public paid/prize launch readiness."
   ],
-  "next_action": "Stop at user DTR publication boundary; no further milestone."
+  "next_action": "User pushes BTZ dependency completion and reviews CI; mainnet remains user-operated. No subsequent milestone.",
+  "tested_native_wasm_dependency_commit": "de74fef1546f67c0cf675d0bb1d628087c222e66",
+  "tested_dtr_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dependency_mode": "published-immutable-git",
+  "javascript_package": {
+    "version": "0.12.0",
+    "sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f"
+  },
+  "remote_ci_scope": "NOT_RUN for the new dependency-completion commits; staging branches already pushed by user."
 }

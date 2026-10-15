@@ -1,6 +1,20 @@
 # S14 — lean ICP-index / filtered-poke checkpoint
 
-The implementation is locally verified using an explicit DTR development override. **Stop at the user-owned DTR publication boundary.** BTZ's checked-in old public dependency pins do not contain the new APIs and must be replaced with the actual published immutable revision/package before normal consumer validation, CI or deployment. No remote or mainnet operation was performed.
+The user has published both staging branches. **The published DTR dependency is now pinned and locally verified without development overrides.** User action is now a BTZ push of the dependency-completion commits and review of their CI. Codex performed no remote Git or mainnet operation.
+
+## Published dependency completion
+
+Current tested BTZ source: `96aeac76a7c2b3c90ef6ab5840ffc80aa31a25f5`; DTR remains `1f47c1a0a104875bd13475d561b8d5aa10770d99`. All five Cargo locks and the real npm lock bind the published dependency; `npm ci` installs 0.12.0 normally. Native/Wasm checks passed at dependency commit `de74fef`, before the package-container normalization; no application/Rust implementation changed in this continuation.
+
+An isolated Rust consumer downloaded the published dependency through ordinary Cargo resolution in an initially empty Cargo home with Git URL rewrites disabled and CLI Git fetching disabled. The checker verified commit/tree, archived the resulting **local** Git object, reproduced the npm package and passed an isolated installed JavaScript consumer. No remote Git clone/check-out step remains in the wrapper. API checks include sparse admission and SDK-root client exports.
+
+The current normalized package SHA-256 is `933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f`. Its twenty payloads exactly match the initial development package below. Eleven tar members had 0600 permissions; deliberate 0644 normalization changes only container metadata. The normalized artifact now reproduces byte-for-byte with npm 11.12.1; the npm lock integrity was actually regenerated and verified. Failed metadata/download parsing and package-reproduction wrapper runs remain recorded; two new parser regressions raise tooling coverage to **137 Python tests**.
+
+Published-pin verification passes: **1,177 JavaScript / 137 Python**, **18 workspace / seven portable Rust**, nine host tests, 12 installed integration tests (eight repeated adapter units), independent native/public conformance, format/Clippy, normal/test exports, Candid and **12 fresh certified-browser checks**. The installed normal Wasm again assigned source positions 7/8 exactly once, including fallback before upgrade, and replayed all **49 publications** exactly. The live SDK read-only client authenticated a subsequent autonomous head. No old global-scanner campaign was rerun.
+
+Measured normal Wasm SHA-256 is `383b9c7185037840dad92d7090b023a03735691d9f93361c15224995fdd305b3`; test-hooks is `38881e5e32c890a49c7895ba02539150d0476500862b68a8d890b7925478269e`. These differ from the earlier path-override builds below; no byte-reproducibility claim is made across source-resolution modes. Generated Candid is identical. Current machine-readable results: [published dependencies](../evidence/S14/published-dependencies.json) and [captured history](../evidence/S14/published-index-trace.json). Raw logs: `.work/s14/published/`.
+
+The original prepublication measurements below remain explicitly scoped historical evidence. Their pending-publication statements were resolved by this continuation; they do not describe current dependency state.
 
 ## DTR CHANGES
 
@@ -12,7 +26,7 @@ Branch `checkpoint/s14-sparse-input-mainnet-client`, tested/final shared commit 
 
 Standalone result: **191 JavaScript / 31 Rust tests PASS**, including dense admission and Life. Rust formatting/Clippy passed; the final follow-up changes only JavaScript normalization and documentation. No ICP, Event Horizon, prices, wallet or deployment types enter DTR. The pre-edit notice and deletion map are in [S14_WORK](S14_WORK.md).
 
-Inspected npm pack: `@dtr/timeline-runtime@0.12.0`, SHA-256 `3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb`. All 20 packaged files match the installed local consumer. Rust crate version remains 0.11.0; the exact shared revision identifies its new API. Temporary command-scoped Cargo patches and regenerated development locks were restored after execution. No permanent sibling dependency or Git rewrite was committed. Remote-pinned clean-consumer validation is **NOT_RUN**, pending publication. At handoff, `npm ci --ignore-scripts --offline` restores the checked-in old published package; reapply the explicit development-package command to reproduce S14 before the immutable pin update. Verification results above refer to the inspected 0.12.0 package, not that restored 0.11.0 installation.
+Inspected npm pack: `@dtr/timeline-runtime@0.12.0`, SHA-256 `3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb`. All 20 packaged files match the installed local consumer. Rust crate version remains 0.11.0; the exact shared revision identifies its new API. Temporary command-scoped Cargo patches and regenerated development locks were restored after execution. No permanent sibling dependency or Git rewrite was committed. At the initial prepublication handoff, remote-pinned clean-consumer validation was **NOT_RUN**. At that handoff, `npm ci --ignore-scripts --offline` restores the checked-in old published package; reapply the explicit development-package command to reproduce S14 before the immutable pin update. Verification results above refer to the inspected 0.12.0 package, not that restored 0.11.0 installation.
 
 ## BTZ CHANGES
 
@@ -56,36 +70,25 @@ Raw logs remain under `.work/s14/` and DTR `.work/s14/`. Failed intermediate exp
 
 ## USER ACTIONS
 
-First review and push DTR only:
-
-```sh
-cd /home/codexdev/src/dtr
-git status --short
-git branch --show-current
-git log -5 --oneline
-# User only:
-git push -u origin checkpoint/s14-sparse-input-mainnet-client
-```
-
-Return the published immutable revision. The next local continuation updates BTZ's actual Cargo pins/locks and inspected vendored package, then runs clean-consumer/application checks. Do not deploy or push the staging dependency state as a ready release. After that continuation and review, the user runs:
+DTR publication is complete and no further DTR source change is needed. Review the local BTZ continuation and push it:
 
 ```sh
 cd /home/codexdev/src/btz
 git status --short
 git branch --show-current
 git log -6 --oneline
-git diff c75192cb2e4c33a04675b57abfd4d42121255bfd..HEAD --stat
-# User only, after immutable dependency update and checks:
-git push -u origin checkpoint/s14-lean-index-poke
+git diff a33f22df8dd55762a89ebdedb3f4a6170b73fd5d..HEAD --stat
+# User only:
+git push origin checkpoint/s14-lean-index-poke
 ```
 
-Never force-push; inspect/reconcile any remote divergence. New remote CI is **NOT_RUN**. Exact local reproduction and user-operated deployment/account/subscription/pause/upgrade commands are in the runbook. Official ICP ledger/index IDs were confirmed against official documentation on 2026-10-15; Event Horizon's pinned subscriber guide and instance interface are referenced there. No principal or subscription-funding destination was invented.
+Never force-push; inspect/reconcile any remote divergence. CI for these new local commits is **NOT_RUN**; the earlier staging push does not validate them. Exact local reproduction and user-operated deployment/account/subscription/pause/upgrade commands are in the runbook. Official ICP ledger/index IDs were confirmed against official documentation on 2026-10-15; Event Horizon's pinned subscriber guide and instance interface are referenced there. No principal or subscription-funding destination was invented.
 
 ## REMAINING PRODUCT GATES
 
 1. **Implemented and locally verified:** bounded account-index admission, filtered real-format pokes, lag/fallback recovery, autonomous authoritative game, durable upgrade recovery, certified read-only observer and deployment preparation.
-2. **Ready for user-operated mainnet verification after publication:** DTR-first immutable dependency completion and CI, confirmation of fresh deployment scope, reviewed controllers/cycles/Event Horizon identity, real index binding, intended account/certificate verification, subscription admission and controlled wallet memo exercise. No live funded deployment was found in checked-in configuration; this is not permission to reset one. Mainnet actions remain **NOT_RUN**.
+2. **Ready for user-operated mainnet verification after CI:** published immutable dependency completion and isolated-consumer verification are done; new BTZ push/CI, confirmation of fresh deployment scope, reviewed controllers/cycles/Event Horizon identity, real index binding, intended account/certificate verification, subscription admission and controlled wallet memo exercise. No live funded deployment was found in checked-in configuration; this is not permission to reset one. Mainnet actions remain **NOT_RUN**.
 3. **Before public paid/prize launch:** automatic settlement/payout implementation and review, retained-payment/no-refund disclosures, operational funding/availability, real-wallet identity/memo compatibility and explicit user launch decision. Area-time scores remain; automatic payouts/refunds are unavailable. Do not advertise guaranteed distributions or whole prize-product completion.
 4. **Explicitly removed/deferred:** global-ledger throughput campaigns, competing source/notification services, wallet/login features, adaptive scheduling, telemetry infrastructure and payout framework in this milestone. Full-update instructions, heap high-water, production capacity/latency and actual cycles burned are **NOT_MEASURED**. No new cost estimate borrows obsolete global-scanner rates.
 
-Stop here at the DTR publication boundary. No subsequent milestone is started.
+Stop here for the user BTZ push/CI and later user-operated deployment decisions. No subsequent milestone is started.

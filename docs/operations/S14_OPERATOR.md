@@ -2,46 +2,39 @@
 
 No mainnet command below has been executed by Codex. Use the operator's reviewed identity and controllers; never export keys, switch identity automatically, reinstall a funded canister, remove controllers or use `--yes` to bypass review. Confirm there is no existing funded deployment requiring migration before creating a fresh backend. Root schema 7 does not import the old disposable scanner schema. The build does not implement refunds or automatic payouts. Keep public paid/prize participation closed pending an explicit launch decision and settlement work.
 
-## Publish dependencies first
+## Published dependencies and next push
 
-Review both local branches. The tested local DTR changes are commits `5e2af85` (ordered admission) and `7df2a45` (network client); JavaScript pack version 0.12.0. The follow-up `1f47c1a` fixes canonical position normalization before durable sparse reservation; it adds no third shared API. No npm registry publication is required: BTZ vendors an inspected npm-pack artifact.
+The user published both staging branches. DTR is now pinned to the published immutable commit `1f47c1a0a104875bd13475d561b8d5aa10770d99`, tree `467bd2e25b1cf356ecdced7d69e26514a764c045`; the inspected 0.12.0 package SHA-256 is `933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f`. Real Cargo/npm locks consume those identities. No npm registry publication or sibling-source override is needed. The original local-override evidence remains historical in the S14 report.
 
-```sh
-cd /home/codexdev/src/dtr
-git status --short
-git log -4 --oneline
-# User only:
-git push -u origin checkpoint/s14-sparse-input-mainnet-client
-```
-
-Then return the published immutable revision to Codex. The next authorized local continuation updates every BTZ Cargo pin and real lock, constructs/vendors the exact package, verifies integrity and consumer/application checks, and records remote-pinned validation. S14's temporary override is explicit; the checked-in old pin must not be mistaken for a consumer of the new API. Do not deploy the unpublished dependency staging state.
-
-Only after that continuation and review:
+Review and push the BTZ dependency-completion commit after local verification:
 
 ```sh
 cd /home/codexdev/src/btz
 git status --short
+git branch --show-current
 git log -6 --oneline
-git diff c75192cb2e4c33a04675b57abfd4d42121255bfd..HEAD --stat
+git diff a33f22df8dd55762a89ebdedb3f4a6170b73fd5d..HEAD --stat
 # User only:
-git push -u origin checkpoint/s14-lean-index-poke
+git push origin checkpoint/s14-lean-index-poke
 ```
 
-Never force-push; inspect and reconcile remote divergence. New CI is NOT_RUN until the user pushes.
+Never force-push; inspect and reconcile remote divergence. CI for the dependency-completion commit has not run locally and must be reviewed after the user pushes. No further DTR source change was made.
 
 ## Local reproduction
 
-Use Python 3.11, Rust 1.94.1, Node >=22.16 and the inspected dependency package. Before dependency publication, the explicit development override is:
+Use Python 3.11, Rust 1.94.1 and Node >=22.16:
 
 ```sh
-npm install --ignore-scripts --no-save --package-lock=false /home/codexdev/src/dtr/.work/s14/final/dtr-timeline-runtime-0.12.0.tgz
-DFX_IDENTITY=codex_local python3.11 -B tools/s14_development.py \
-  --dtr /home/codexdev/src/dtr --revision 1f47c1a0a104875bd13475d561b8d5aa10770d99 -- \
-  python3.11 -B tools/verify_s14_local.py \
-  --index-wasm .work/s14/upstream/ic-icp-index-canister.wasm --output .work/s14/local
+npm ci --ignore-scripts
+python3.11 -B tools/verify_dtr_consumers.py --output .work/s14/consumers
+python3.11 -B tools/check.py source --output .work/s14/source
+python3.11 -B tools/check.py native --output .work/s14/native
+python3.11 -B tools/check.py wasm --output .work/s14/wasm
+python3.11 -B tools/fetch_s09_artifacts.py --destination /home/codexdev/dtr-s09-artifacts --record .work/s14/artifacts.json
+DFX_IDENTITY=codex_local python3.11 -B tools/verify_s14_local.py --output .work/s14/local
 ```
 
-`tools/fetch_s09_artifacts.py` obtains checksum-pinned PocketIC/ICP ledger/index artifacts by HTTPS (no Git checkout). The upstream index compressed SHA-256 is `3015c0d83b832e6cb5685e98c0cef690c3b89661343965767bb11397cc9f7b3f`, IC source revision `d3b3351fa343a893aea2cfa8d39ac6b0d507b477`. Build binaries before starting the owned PocketIC server. The runner cleans only its owned server. Restore the published package with `npm ci --ignore-scripts` when ending development override use. Cargo overrides restore tracked locks even on command failure; do not run overlapping override sessions.
+The consumer wrapper resolves the published Git dependency using ordinary Cargo resolution in a fresh Cargo home, verifies revision/tree, archives the resulting local Git object, reproduces the npm package and runs an isolated installed JavaScript consumer. It performs no explicit remote Git checkout/clone/fetch and no URL rewrite. `tools/fetch_s09_artifacts.py` obtains checksum-pinned PocketIC/ICP ledger/index artifacts by HTTPS (no Git checkout). The upstream index compressed SHA-256 is `3015c0d83b832e6cb5685e98c0cef690c3b89661343965767bb11397cc9f7b3f`, IC source revision `d3b3351fa343a893aea2cfa8d39ac6b0d507b477`. Build binaries before starting the owned PocketIC server; the runner cleans only its owned server. Development overrides are unnecessary for the published configuration.
 
 ## Fresh mainnet installation (after dependency and CI gates)
 

@@ -1,0 +1,1450 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "phase": "published immutable dependency completion",
+  "status": "PASS",
+  "recorded_utc": "2026-10-15T17:45:14.931364+00:00",
+  "btz_tested_commit": "96aeac76a7c2b3c90ef6ab5840ffc80aa31a25f5",
+  "btz_branch": "checkpoint/s14-lean-index-poke",
+  "btz_measured_tree": "bf1c3e847f320ef54025bacf57ab10e8e2f113dc",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dtr_tree": "467bd2e25b1cf356ecdced7d69e26514a764c045",
+  "dtr_source_changed_in_continuation": false,
+  "user_publication": {
+    "confirmation": "User stated both branches pushed",
+    "local_tracking_refs": {
+      "dtr": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+      "btz_staging": "a33f22df8dd55762a89ebdedb3f4a6170b73fd5d"
+    }
+  },
+  "package": {
+    "packaging_tool": "11.12.1",
+    "files": [
+      "README.md",
+      "index.mjs",
+      "package.json",
+      "packages/client/ic-certificate.mjs",
+      "packages/client/playout.mjs",
+      "packages/client/verification.mjs",
+      "packages/kernels/life-input.mjs",
+      "packages/kernels/life.mjs",
+      "packages/observation/publication.mjs",
+      "packages/protocol/bytes.mjs",
+      "packages/protocol/seal-codec.mjs",
+      "packages/runtime/canonical.mjs",
+      "packages/runtime/coordinator.mjs",
+      "packages/runtime/journal.mjs",
+      "packages/runtime/runner.mjs",
+      "packages/runtime/seal.mjs",
+      "packages/source/inbox.mjs",
+      "packages/source/scan.mjs",
+      "packages/source/wakeup.mjs",
+      "packages/storage/chunks.mjs"
+    ],
+    "file_count": 20,
+    "fresh_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+    "fresh_integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+    "vendor_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+    "vendor_integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+    "vendor_packaging_tool": "npm 11.12.1",
+    "payload_source_correspondence": "PASS",
+    "byte_reproduction": {
+      "status": "PASS",
+      "qualification": "same npm version and normalized source modes"
+    }
+  },
+  "package_permission_review": {
+    "source_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+    "previous_sha256": "3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb",
+    "normalized_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+    "payload_equality": "PASS",
+    "file_count": 20,
+    "only_changed_tar_metadata": "11 file permissions from 0600 to 0644; other member metadata and payloads equal",
+    "files": [
+      {
+        "path": "package/package.json",
+        "sha256": "054921e8824f4a9ab6d96a4f8022c202cb1b3592ea955e717ac774b17f8a94f5",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/README.md",
+        "sha256": "4fda7f6f7dd74850afcfddfcb7b1f93fb7d0f2c1b2ebd9ceb80086dd731ef77e",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/protocol/bytes.mjs",
+        "sha256": "3768a420dc31becc881fdbead97fb04fc1026a46e9b632904f0e28814b8d3510",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/runtime/canonical.mjs",
+        "sha256": "52e670a9b0116ec572c17db9cc7105a7de5ecb6a0d7b885aa968ca402ecc50e1",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/storage/chunks.mjs",
+        "sha256": "d549d5bb03e89f4263e032522505c415298a095f4d54909e303530717912ca73",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/runtime/coordinator.mjs",
+        "sha256": "db84f3b171faa2d2832141de3a92186fcf93b5c92ad0075c4ce66dd679624ea9",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/client/ic-certificate.mjs",
+        "sha256": "aef2973911e0695ec5c4bd0e6f3f32aa85b5e9aa4607c2ef357aa53c6f4e83fb",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/source/inbox.mjs",
+        "sha256": "bbf90c05ee4443d0ef995710b9d98f40db9daefc47680d5d472a7fbb117be3ae",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/index.mjs",
+        "sha256": "4807df269c7948e3a47e053715340d4308a195e5bd220b94babbf4454f048b16",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/runtime/journal.mjs",
+        "sha256": "96af5e0a046a0301762808eff26753bc641764c1910ac5d53c0f218884ab376e",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/kernels/life-input.mjs",
+        "sha256": "821372bb300b1bfedfde2c8e9cc357f98b4b034a08b76df27c63698fb22dfb04",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/kernels/life.mjs",
+        "sha256": "3b9bfe5e741fab2b9d38bf289701340c27a32ea7850fd077264159bb72a045cb",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/client/playout.mjs",
+        "sha256": "740adc9112e0b52a16b03c6466372b10f43b1c3a916128dc884bfa4697326b03",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/observation/publication.mjs",
+        "sha256": "6b04ac3507941185e8051ccf4530e4028c95db4a2afdc579d0f4c06e07ad10aa",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/runtime/runner.mjs",
+        "sha256": "cb91f56dd07ebd99017291d3adab5c43caea62352de799593ba9c4cd750b4e94",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/source/scan.mjs",
+        "sha256": "3b4d0868066cd1dbf7a9092aaa4b58f70f124811714b180ae79f2b359b8faf12",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/protocol/seal-codec.mjs",
+        "sha256": "13bbd71921a56b1fe12c2a952b8fb13db0b573ed6ec9034f8c5edf40ba33e7dd",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/runtime/seal.mjs",
+        "sha256": "9f1c09a52218b42261c2933adf9100f67f877e98e4e4916de4a382e7d69bd7d2",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/client/verification.mjs",
+        "sha256": "42926501111c68a7d26ab363f2b9cee8464a24e3f00ac40c6861a6283839a5ef",
+        "old_mode": "0o644",
+        "normalized_mode": "0o644"
+      },
+      {
+        "path": "package/packages/source/wakeup.mjs",
+        "sha256": "86e73ba9f3c0686b5a6f5d27eb1427bd09ad5f73b317ee3c6b76dd8a6510c4d6",
+        "old_mode": "0o600",
+        "normalized_mode": "0o644"
+      }
+    ]
+  },
+  "locks": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "2dbbde7b116704d6bd6bac6a7027ecfe093dc8ffc92c1576384dc6e1f730f9c1"
+    },
+    {
+      "path": "native/Cargo.lock",
+      "sha256": "96dd8e7ef8601fb3ca58f960241a063fc21d86d7b83b1d3748e6f7aefd8b53d1"
+    },
+    {
+      "path": "canisters/runtime-lab/Cargo.lock",
+      "sha256": "c660694c0354cab07db93300037507f606fe0d005943504768b6aae41c58fc26"
+    },
+    {
+      "path": "tools/s09-integration/Cargo.lock",
+      "sha256": "f87a8b074d6d1a995ebaebaa024f2871bd8c4f5476a0244a5cac4789478660af"
+    },
+    {
+      "path": "tools/fixtures/dtr-consumer-rust/Cargo.lock",
+      "sha256": "8efcc2f7b4b54385fb9b837cdf6ea54a5b5b0f4221a115725eff23edc8c77598"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "7450a0b7e876edb6b28bd088a3bea71c1a1a741fba00b270968575aa96aed09e"
+    }
+  ],
+  "checks": [
+    {
+      "id": "source",
+      "status": "PASS",
+      "tested_commit": "96aeac76a7c2b3c90ef6ab5840ffc80aa31a25f5",
+      "raw_result": ".work/s14/published/source-normalized/verification.json",
+      "raw_result_sha256": "1e98ef85af8b7a878e4a3f41ae7de95248c9e78b5bc04bec19bbcd5f6d0640cb",
+      "checks": [
+        {
+          "id": "observer-recordings",
+          "command": [
+            "node",
+            "tools/build_observer_recordings.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observer-recordings.log",
+          "elapsed_seconds": 3.497,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "protocol-fixtures",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/reference_fixtures.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/protocol-fixtures.log",
+          "elapsed_seconds": 0.168,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "life-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/life_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/life-reference.log",
+          "elapsed_seconds": 0.171,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "btz-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/btz_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/btz-reference.log",
+          "elapsed_seconds": 0.572,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "spawn-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/spawn_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/spawn-reference.log",
+          "elapsed_seconds": 0.873,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "impact-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/impact_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/impact-reference.log",
+          "elapsed_seconds": 0.171,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "btz-full-traces",
+          "command": [
+            "node",
+            "tools/btz_vectors.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/btz-full-traces.log",
+          "elapsed_seconds": 0.471,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "numeric-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/numeric_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/numeric-reference.log",
+          "elapsed_seconds": 0.169,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "coordinator-vectors",
+          "command": [
+            "node",
+            "tools/coordinator_vectors.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/coordinator-vectors.log",
+          "elapsed_seconds": 1.023,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "observation-v6-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/observation_reference.py",
+            "--version",
+            "6",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observation-v6-reference.log",
+          "elapsed_seconds": 0.166,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "observation-reference",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/observation_reference.py",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/observation-reference.log",
+          "elapsed_seconds": 0.223,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "portable-cursors",
+          "command": [
+            "node",
+            "tools/portable_vectors.mjs",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-cursors.log",
+          "elapsed_seconds": 0.726,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "node-tests",
+          "command": [
+            "node",
+            "--test",
+            "/home/codexdev/src/btz/tests/js/animation-v1.test.mjs",
+            "/home/codexdev/src/btz/tests/js/btz-v3.test.mjs",
+            "/home/codexdev/src/btz/tests/js/btz.test.mjs",
+            "/home/codexdev/src/btz/tests/js/coordinator-simplified.test.mjs",
+            "/home/codexdev/src/btz/tests/js/coordinator-vectors.test.mjs",
+            "/home/codexdev/src/btz/tests/js/coordinator.test.mjs",
+            "/home/codexdev/src/btz/tests/js/mainnet-policy.test.mjs",
+            "/home/codexdev/src/btz/tests/js/memo.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation-reference.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation-v6-reference.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation-v6.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observation.test.mjs",
+            "/home/codexdev/src/btz/tests/js/observer-v7.test.mjs",
+            "/home/codexdev/src/btz/tests/js/payment.test.mjs",
+            "/home/codexdev/src/btz/tests/js/portable-v4.test.mjs",
+            "/home/codexdev/src/btz/tests/js/s12-workloads.test.mjs",
+            "/home/codexdev/src/btz/tests/js/storage-v4.test.mjs"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/node-tests.log",
+          "elapsed_seconds": 42.507,
+          "timeout_seconds": 300,
+          "counts": {
+            "tests": 1177,
+            "pass": 1177,
+            "fail": 0,
+            "cancelled": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "id": "source-structure",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/check_source.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/source-structure.log",
+          "elapsed_seconds": 3.28,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "docs-links",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/check_docs.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/docs-links.log",
+          "elapsed_seconds": 0.068,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "python-tool-tests",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tools",
+            "-p",
+            "test_*.py",
+            "-v"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/python-tool-tests.log",
+          "elapsed_seconds": 15.706,
+          "timeout_seconds": 300,
+          "counts": {
+            "tests": 137
+          }
+        }
+      ],
+      "tested_artifacts": []
+    },
+    {
+      "id": "native",
+      "status": "PASS",
+      "tested_commit": "de74fef1546f67c0cf675d0bb1d628087c222e66",
+      "raw_result": ".work/s14/published/native/verification.json",
+      "raw_result_sha256": "a54b611b547eaf3eb4edf88578683f3095b92ebb654785052378ddd450d7c33a",
+      "checks": [
+        {
+          "id": "cargo-lock",
+          "command": [
+            "cargo",
+            "metadata",
+            "--format-version",
+            "1",
+            "--no-deps",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-lock.log",
+          "elapsed_seconds": 0.115,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "cargo-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-tests.log",
+          "elapsed_seconds": 10.244,
+          "timeout_seconds": 900,
+          "counts": {
+            "passed": 18,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "id": "native-vectors",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_native.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/native-vectors.log",
+          "elapsed_seconds": 2.535,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "portable-lock",
+          "command": [
+            "cargo",
+            "metadata",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--format-version",
+            "1",
+            "--no-deps",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-lock.log",
+          "elapsed_seconds": 0.28,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "portable-rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--workspace",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-rust-tests.log",
+          "elapsed_seconds": 22.63,
+          "timeout_seconds": 900,
+          "counts": {
+            "passed": 7,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "id": "native-public-game",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_portable_native.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/native-public-game.log",
+          "elapsed_seconds": 5.148,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "native-public-host",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_host_native.py"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/native-public-host.log",
+          "elapsed_seconds": 7.614,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "portable-format",
+          "command": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-format.log",
+          "elapsed_seconds": 0.619,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "portable-clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "native/Cargo.toml",
+            "--workspace",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/portable-clippy.log",
+          "elapsed_seconds": 6.707,
+          "timeout_seconds": 900
+        },
+        {
+          "id": "cargo-format",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-format.log",
+          "elapsed_seconds": 0.22,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "cargo-clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/cargo-clippy.log",
+          "elapsed_seconds": 1.98,
+          "timeout_seconds": 900
+        }
+      ],
+      "tested_artifacts": []
+    },
+    {
+      "id": "wasm",
+      "status": "PASS",
+      "tested_commit": "de74fef1546f67c0cf675d0bb1d628087c222e66",
+      "raw_result": ".work/s14/published/wasm/verification.json",
+      "raw_result_sha256": "8361f8ac48c5d9a88120ddbd03a0536e0e505d840b2feb90f7fcd9aa19b63aa3",
+      "checks": [
+        {
+          "id": "runtime-lab-lock",
+          "command": [
+            "cargo",
+            "metadata",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--format-version",
+            "1",
+            "--no-deps",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-lock.log",
+          "elapsed_seconds": 0.173,
+          "timeout_seconds": 120
+        },
+        {
+          "id": "runtime-lab-wasm",
+          "command": [
+            "cargo",
+            "build",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--release",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--locked",
+            "--offline"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-wasm.log",
+          "elapsed_seconds": 79.683,
+          "timeout_seconds": 900,
+          "tested_artifacts": [
+            {
+              "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+              "sha256": "383b9c7185037840dad92d7090b023a03735691d9f93361c15224995fdd305b3",
+              "size": 2148079
+            }
+          ]
+        },
+        {
+          "id": "runtime-lab-candid",
+          "command": [
+            "/home/codexdev/.local/bin/python3.11",
+            "-B",
+            "tools/verify_runtime_candid.py",
+            "--output",
+            ".work/s14/published/wasm/runtime-lab.generated.did"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-candid.log",
+          "elapsed_seconds": 20.486,
+          "timeout_seconds": 900
+        },
+        {
+          "id": "runtime-lab-format",
+          "command": [
+            "cargo",
+            "fmt",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-format.log",
+          "elapsed_seconds": 0.525,
+          "timeout_seconds": 300
+        },
+        {
+          "id": "runtime-lab-clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--manifest-path",
+            "canisters/runtime-lab/Cargo.toml",
+            "--target",
+            "wasm32-unknown-unknown",
+            "--all-targets",
+            "--locked",
+            "--offline",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "status": "PASS",
+          "exit_code": 0,
+          "log": "logs/runtime-lab-clippy.log",
+          "elapsed_seconds": 8.261,
+          "timeout_seconds": 900
+        }
+      ],
+      "tested_artifacts": [
+        {
+          "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+          "sha256": "383b9c7185037840dad92d7090b023a03735691d9f93361c15224995fdd305b3",
+          "size": 2148079
+        }
+      ]
+    }
+  ],
+  "isolated_consumers": {
+    "schema_version": 1,
+    "checkpoint": "S14",
+    "started_utc": "2026-10-15T17:41:58.158475+00:00",
+    "overall": "PASS",
+    "dtr": {
+      "remote": "https://github.com/aodl/dtr.git",
+      "revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+      "tree": "467bd2e25b1cf356ecdced7d69e26514a764c045"
+    },
+    "checks": [
+      {
+        "id": "rust-consumer-published",
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "run",
+          "--locked"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 34.665,
+        "timeout_seconds": 1200,
+        "log": "logs/rust-consumer-published.log"
+      },
+      {
+        "id": "published-source-location",
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "metadata",
+          "--locked",
+          "--format-version",
+          "1"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 0.423,
+        "timeout_seconds": 120,
+        "log": "logs/published-source-location.log"
+      },
+      {
+        "id": "published-source-archive",
+        "command": [
+          "git",
+          "-C",
+          "/home/codexdev/.cache/btz-consumers/dtr-consumers-0gh7k4u2/cargo-home/git/checkouts/dtr-2e9e0c309015e5c2/1f47c1a",
+          "archive",
+          "--format=tar",
+          "--output",
+          "/home/codexdev/.cache/btz-consumers/dtr-consumers-0gh7k4u2/source.tar",
+          "1f47c1a0a104875bd13475d561b8d5aa10770d99"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 0.019,
+        "timeout_seconds": 120,
+        "log": "logs/published-source-archive.log"
+      },
+      {
+        "id": "dtr-npm-install",
+        "command": [
+          "npm",
+          "ci",
+          "--ignore-scripts"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 1.979,
+        "timeout_seconds": 600,
+        "log": "logs/dtr-npm-install.log"
+      },
+      {
+        "id": "dtr-npm-pack",
+        "command": [
+          "npm",
+          "pack",
+          "--ignore-scripts",
+          "--pack-destination",
+          "/home/codexdev/.cache/btz-consumers/dtr-consumers-0gh7k4u2/distribution"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 1.275,
+        "timeout_seconds": 300,
+        "log": "logs/dtr-npm-pack.log"
+      },
+      {
+        "id": "javascript-consumer-lock",
+        "command": [
+          "npm",
+          "install",
+          "--package-lock-only",
+          "--ignore-scripts"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 3.034,
+        "timeout_seconds": 600,
+        "log": "logs/javascript-consumer-lock.log"
+      },
+      {
+        "id": "javascript-consumer-install",
+        "command": [
+          "npm",
+          "ci",
+          "--ignore-scripts"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 2.226,
+        "timeout_seconds": 600,
+        "log": "logs/javascript-consumer-install.log"
+      },
+      {
+        "id": "javascript-consumer-api",
+        "command": [
+          "npm",
+          "test"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 0.823,
+        "timeout_seconds": 600,
+        "log": "logs/javascript-consumer-api.log"
+      }
+    ],
+    "tools": {
+      "git": {
+        "command": [
+          "git",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "git version 2.34.1"
+      },
+      "node": {
+        "command": [
+          "node",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "v24.15.0"
+      },
+      "npm": {
+        "command": [
+          "npm",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "11.12.1"
+      },
+      "cargo": {
+        "command": [
+          "cargo",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+      },
+      "rustc": {
+        "command": [
+          "rustc",
+          "+1.94.1",
+          "--version"
+        ],
+        "exit_code": 0,
+        "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+      }
+    },
+    "btz": {
+      "remote": "https://github.com/aodl/balls-2-the-wallz",
+      "revision": "96aeac76a7c2b3c90ef6ab5840ffc80aa31a25f5",
+      "tree": "bf1c3e847f320ef54025bacf57ab10e8e2f113dc",
+      "working_tree_changes": [
+        "M AGENTS.md",
+        " M README.md",
+        " M docs/operations/S14_OPERATOR.md"
+      ]
+    },
+    "rust_consumer": {
+      "lock_sha256": "8efcc2f7b4b54385fb9b837cdf6ea54a5b5b0f4221a115725eff23edc8c77598",
+      "sources": {
+        "dtr-core": "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99",
+        "dtr-host": "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99",
+        "dtr-source-model": "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99",
+        "dtr-wire": "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99"
+      },
+      "cargo_home_started_empty": true,
+      "git_url_rewrites_disabled": true,
+      "explicit_remote_git_commands": false,
+      "location": "disposable directory outside source trees"
+    },
+    "resolved_source": {
+      "revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+      "tree": "467bd2e25b1cf356ecdced7d69e26514a764c045",
+      "tracked_changes": [],
+      "origin": "ordinary Cargo Git dependency resolution into an initially empty CARGO_HOME"
+    },
+    "package": {
+      "packaging_tool": "11.12.1",
+      "files": [
+        "README.md",
+        "index.mjs",
+        "package.json",
+        "packages/client/ic-certificate.mjs",
+        "packages/client/playout.mjs",
+        "packages/client/verification.mjs",
+        "packages/kernels/life-input.mjs",
+        "packages/kernels/life.mjs",
+        "packages/observation/publication.mjs",
+        "packages/protocol/bytes.mjs",
+        "packages/protocol/seal-codec.mjs",
+        "packages/runtime/canonical.mjs",
+        "packages/runtime/coordinator.mjs",
+        "packages/runtime/journal.mjs",
+        "packages/runtime/runner.mjs",
+        "packages/runtime/seal.mjs",
+        "packages/source/inbox.mjs",
+        "packages/source/scan.mjs",
+        "packages/source/wakeup.mjs",
+        "packages/storage/chunks.mjs"
+      ],
+      "file_count": 20,
+      "fresh_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+      "fresh_integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+      "vendor_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+      "vendor_integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+      "vendor_packaging_tool": "npm 11.12.1",
+      "payload_source_correspondence": "PASS",
+      "byte_reproduction": {
+        "status": "PASS",
+        "qualification": "same npm version and normalized source modes"
+      }
+    },
+    "javascript_consumer": {
+      "lock_sha256": "5c134440c70fc065e0e0a424ec5b74d2b337dd5215b22c59d812b3492c287e2d",
+      "location": "disposable directory outside source trees"
+    }
+  },
+  "installed_integration": {
+    "source_revision": "96aeac76a7c2b3c90ef6ab5840ffc80aa31a25f5",
+    "checkpoint": "S14",
+    "overall": "PASS",
+    "checks": [
+      {
+        "id": "prepare-operator-genesis",
+        "command": [
+          "node",
+          "tools/prepare_s14_init.mjs",
+          "--world-output",
+          "/home/codexdev/src/btz/.work/s14/published/local/genesis-world.bin",
+          "--output",
+          "/home/codexdev/src/btz/.work/s14/published/local/example-init.did"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 0.275,
+        "timeout_seconds": 60,
+        "log": "logs/prepare-operator-genesis.log"
+      },
+      {
+        "id": "build-normal",
+        "command": [
+          "cargo",
+          "build",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--release",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--locked",
+          "--offline"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 0.773,
+        "timeout_seconds": 900,
+        "log": "logs/build-normal.log"
+      },
+      {
+        "id": "build-test-hooks",
+        "command": [
+          "cargo",
+          "build",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--release",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--locked",
+          "--offline",
+          "--features",
+          "test-hooks"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 48.736,
+        "timeout_seconds": 900,
+        "log": "logs/build-test-hooks.log"
+      },
+      {
+        "id": "host-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--locked",
+          "--offline",
+          "--",
+          "--nocapture"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 6.8,
+        "timeout_seconds": 900,
+        "log": "logs/host-tests.log"
+      },
+      {
+        "id": "build-slow-index-fixture",
+        "command": [
+          "cargo",
+          "build",
+          "--manifest-path",
+          "tools/s14-index-fixture/Cargo.toml",
+          "--release",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--locked",
+          "--offline"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 0.317,
+        "timeout_seconds": 900,
+        "log": "logs/build-slow-index-fixture.log"
+      },
+      {
+        "id": "harness-build",
+        "command": [
+          "cargo",
+          "test",
+          "--manifest-path",
+          "tools/s09-integration/Cargo.toml",
+          "--test",
+          "s14_index",
+          "--no-run",
+          "--locked",
+          "--offline",
+          "--message-format=json"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 17.004,
+        "timeout_seconds": 900,
+        "log": "logs/harness-build.log"
+      },
+      {
+        "id": "installed-index-integration",
+        "command": [
+          "/home/codexdev/src/btz/tools/s09-integration/target/debug/deps/s14_index-dd5e7dd1d445db97",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 57.112,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration.log"
+      },
+      {
+        "id": "js-captured-history-replay",
+        "command": [
+          "node",
+          "tools/replay_s14.mjs",
+          "/home/codexdev/src/btz/.work/s14/published/local/index-trace.json",
+          "/home/codexdev/src/btz/.work/s14/published/local/js-replay.json"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 0.519,
+        "timeout_seconds": 180,
+        "log": "logs/js-captured-history-replay.log"
+      }
+    ],
+    "artifacts": [
+      {
+        "name": "POCKET_IC_BIN",
+        "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "path": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic"
+      },
+      {
+        "name": "ICP_LEDGER_WASM",
+        "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm"
+      },
+      {
+        "name": "ICP_INDEX_WASM",
+        "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+        "path": "/home/codexdev/src/btz/.work/s14/upstream/ic-icp-index-canister.wasm"
+      },
+      {
+        "name": "normal",
+        "sha256": "383b9c7185037840dad92d7090b023a03735691d9f93361c15224995fdd305b3",
+        "exports": [
+          "memory",
+          "canister_init",
+          "canister_post_upgrade",
+          "canister_query artifact_chunk",
+          "canister_query controller_work",
+          "canister_query lab_status",
+          "canister_query observation",
+          "canister_query retained_artifact_chunk",
+          "canister_query retained_publication",
+          "canister_query retention_status",
+          "canister_query source_descriptor",
+          "canister_update pause_autonomous",
+          "canister_update poke",
+          "canister_update start_autonomous",
+          "get_candid_pointer",
+          "canister_global_timer",
+          "canister_update <ic-cdk internal> timer_executor",
+          "__data_end",
+          "__heap_base"
+        ]
+      },
+      {
+        "name": "test-hooks",
+        "sha256": "38881e5e32c890a49c7895ba02539150d0476500862b68a8d890b7925478269e",
+        "exports": [
+          "memory",
+          "canister_init",
+          "canister_post_upgrade",
+          "canister_query artifact_chunk",
+          "canister_query controller_work",
+          "canister_query lab_status",
+          "canister_query observation",
+          "canister_query retained_artifact_chunk",
+          "canister_query retained_publication",
+          "canister_query retention_status",
+          "canister_query source_descriptor",
+          "canister_update pause_autonomous",
+          "canister_update poke",
+          "canister_update start_autonomous",
+          "canister_update test_apply",
+          "get_candid_pointer",
+          "canister_global_timer",
+          "canister_update <ic-cdk internal> timer_executor",
+          "__data_end",
+          "__heap_base"
+        ]
+      }
+    ],
+    "dtr_development_revision": null,
+    "dependency_mode": "published-immutable-git",
+    "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+    "host_lock_sha256": "c660694c0354cab07db93300037507f606fe0d005943504768b6aae41c58fc26",
+    "javascript_package": {
+      "version": "0.12.0",
+      "integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+      "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.12.0.tgz"
+    }
+  },
+  "certified_browser": {
+    "checkpoint": "S14",
+    "mode": "http",
+    "trust": "local",
+    "overall": "PASS",
+    "checks": [
+      {
+        "name": "browser-selection",
+        "status": "PASS",
+        "details": "playwright-bundled: /home/codexdev/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome"
+      },
+      {
+        "name": "browser-sandbox",
+        "status": "PASS",
+        "details": "Chromium launched with Playwright sandbox support explicitly enabled."
+      },
+      {
+        "name": "browser-standard-certificate-verification",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "startup-and-moving-playhead",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "authenticated-projection-admitted",
+        "status": "PASS",
+        "details": "Predecessor, audit binding and final visible state were checked before buffer admission."
+      },
+      {
+        "name": "pause-freezes-presentation",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "desktop-and-mobile-layout",
+        "status": "PASS",
+        "details": "1400\u00d71100 and 390\u00d7844 viewports; no horizontal overflow."
+      },
+      {
+        "name": "reduced-motion-starts-paused",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "authenticated-final-visible-state",
+        "status": "PASS",
+        "details": "One expected cannon and ball at logical time 2."
+      },
+      {
+        "name": "certificate-failure-is-fail-closed",
+        "status": "PASS",
+        "details": "Tampered certificate stopped playback without offline fallback."
+      },
+      {
+        "name": "native-browser-webcrypto",
+        "status": "PASS",
+        "details": "True"
+      },
+      {
+        "name": "no-uncaught-page-errors",
+        "status": "PASS",
+        "details": ""
+      }
+    ],
+    "qualification": "Local HTTP with native browser Web Crypto and standard-library verification of a genuine certificate from the configured disposable PocketIC instance.",
+    "browser_executable": {
+      "path": "/home/codexdev/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome",
+      "selection": "playwright-bundled",
+      "version_exit_code": 0,
+      "version_text": "Google Chrome for Testing 153.0.8010.12"
+    },
+    "browser_version": "153.0.8010.12",
+    "playwright_version": "1.63.0",
+    "sandbox": {
+      "requested": true,
+      "launch_option": "chromium_sandbox=True"
+    },
+    "uncaught_page_errors": []
+  },
+  "independent_replay": {
+    "status": "PASS",
+    "segments": 49,
+    "assigned": [
+      "7",
+      "8"
+    ],
+    "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+    "work_budget": 23
+  },
+  "read_only_live_sdk": {
+    "status": "PASS",
+    "mode": "LIVE_READ_ONLY_LOCAL_SDK",
+    "first_segment": "48",
+    "next_segment": "49",
+    "certificate_root": "explicit disposable root; no root fetching",
+    "authenticated_artifacts": [
+      "state",
+      "events",
+      "scores"
+    ]
+  },
+  "trace": {
+    "path": "evidence/S14/published-index-trace.json",
+    "sha256": "677992fb7f9a6d1860c77cf1f6c627a751fe83bbc1936378f532159f6467fda5",
+    "evidence_class": "UPSTREAM_COMPATIBLE_LOCAL_FUNCTIONAL",
+    "observation_virtual_seconds": 150,
+    "publications": 49,
+    "assigned_once": [
+      7,
+      8
+    ],
+    "final_observation": {
+      "cursor": 9,
+      "elapsed_virtual_seconds": 150,
+      "error": null,
+      "in_flight": false,
+      "index_calls": 8,
+      "pending": 0,
+      "segments": 49
+    },
+    "qualification": "Clock refreshed for fresh certification after virtual observation; later live-client heads are not part of the 150-second trace."
+  },
+  "generated_candid": {
+    "path": "evidence/S14/generated.did",
+    "sha256": "87ace6e282f328df49e3a343e4108ab62991a0ea94df60c1be395162d02ef8cd",
+    "unchanged_from_initial_S14": true
+  },
+  "prior_failed_wrapper_runs": [
+    {
+      "result": "FAIL",
+      "raw_result": ".work/s14/published/consumers/results.json",
+      "reason": "Offline metadata lacked an unused target-specific dependency in the intentionally empty Cargo cache."
+    },
+    {
+      "result": "FAIL",
+      "raw_result": ".work/s14/published/consumers-final/results.json",
+      "reason": "Combined Cargo download diagnostics preceded JSON metadata; parsing fixed and two regression tests added."
+    },
+    {
+      "result": "FAIL",
+      "raw_result": ".work/s14/published/consumers-verified/results.json",
+      "reason": "Byte reproduction exposed eleven 0600 members in the development tarball. Normalized archive deliberately reviewed, re-vendored and integrity-locked; all 20 payloads identical."
+    }
+  ],
+  "remote_git_operations_performed_by_codex": false,
+  "dependency_network_access": "Only ordinary Cargo/npm dependency resolution; Cargo CLI Git disabled, no explicit remote Git commands. Isolated Cargo home starts empty; Git URL rewrites disabled.",
+  "mainnet_or_financial_operations_performed": false,
+  "new_commit_remote_CI": "NOT_RUN",
+  "remaining_gates": [
+    "User reviews/pushes BTZ dependency-completion commits and checks CI.",
+    "User-operated fresh deployment/account/index/certificate/controllers/cycles/Event Horizon/wallet verification.",
+    "Public paid/prize participation: settlement/payout implementation and explicit user launch decision."
+  ],
+  "reproduction": "docs/operations/S14_OPERATOR.md",
+  "historical_evidence": "Initial S14 provenance.json, verification.json and index-trace.json remain unchanged; this record supersedes their prepublication dependency boundary.",
+  "final_default_wasm": {
+    "status": "PASS",
+    "sha256": "383b9c7185037840dad92d7090b023a03735691d9f93361c15224995fdd305b3",
+    "exports": [
+      "memory",
+      "canister_init",
+      "canister_post_upgrade",
+      "canister_query artifact_chunk",
+      "canister_query controller_work",
+      "canister_query lab_status",
+      "canister_query observation",
+      "canister_query retained_artifact_chunk",
+      "canister_query retained_publication",
+      "canister_query retention_status",
+      "canister_query source_descriptor",
+      "canister_update pause_autonomous",
+      "canister_update poke",
+      "canister_update start_autonomous",
+      "get_candid_pointer",
+      "canister_global_timer",
+      "canister_update <ic-cdk internal> timer_executor",
+      "__data_end",
+      "__heap_base"
+    ],
+    "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm"
+  },
+  "final_document_checks": [
+    {
+      "status": "PASS",
+      "raw_log": ".work/s14/published/docs-final.log",
+      "sha256": "9bf244b7983cc55170e6639d98833502df111cbdcd4956f9c303b4247332a7d6"
+    },
+    {
+      "status": "PASS",
+      "raw_log": ".work/s14/published/source-structure-final.log",
+      "sha256": "98b64103681214e1f9b8c77a4cd2c855505cbda00197bddc376b7171612d1b0f"
+    }
+  ]
+}

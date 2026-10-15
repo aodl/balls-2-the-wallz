@@ -8,10 +8,9 @@ The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies pa
 
 ## Local verification
 
-Use Node >=22.16, Python >=3.11 and Rust 1.94.1. Dependencies remain immutable; S14's two local DTR changes must be published before the final BTZ pin/lock update. Until then, use the explicit temporary development override in the runbook. A normal `npm ci` restores the old published package; it does not validate the new mainnet client.
+Use Node >=22.16, Python >=3.11 and Rust 1.94.1. Dependencies are immutable: DTR revision `1f47c1a0a104875bd13475d561b8d5aa10770d99` and inspected client package 0.12.0 are now pinned in real locks. Use normal `npm ci` and locked Cargo checks; no sibling-source or development override is required.
 
 ```sh
-# After the published dependency update:
 npm ci --ignore-scripts
 python3.11 -B tools/check.py source --output .work/source
 python3.11 -B tools/check.py native --output .work/native
@@ -30,8 +29,8 @@ The existing offline observer remains available with `python3.11 -B tools/serve_
 
 BTZ owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; BTZ consumes DTR without copying its source. Game v3, publication v6 and animation v1 are unchanged. Life and independent game oracles remain regression boundaries.
 
-1. **Implemented and locally verified with an explicit DTR development override:** bounded account-history reconciliation, exact filtered pokes, independent fallback, autonomous game, read-only mainnet-capable observer and deployment tooling.
-2. **Ready for user-operated verification after dependency publication:** immutable DTR consumer update, new remote CI, fresh canister/controller/cycles setup, official index binding, certified observer and exact Event Horizon account subscription.
+1. **Implemented and locally verified:** bounded account-history reconciliation, exact filtered pokes, independent fallback, autonomous game, read-only mainnet-capable observer and deployment tooling.
+2. **Ready for user-operated verification after new CI:** published immutable dependencies and isolated consumers, fresh canister/controller/cycles setup, official index binding, certified observer and exact Event Horizon account subscription.
 3. **Before public paid/prize launch:** payout/settlement implementation and review, retained-payment disclosures, real-wallet memo/account compatibility, operational funding/availability and explicit user launch decision.
 4. **Removed/deferred:** global-ledger scanner/archive path, alternative laboratory hosts, manual production game controls, scanner throughput campaigns, wallet/login features, dynamic scheduler and general notification/source frameworks.
 
