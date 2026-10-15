@@ -363,7 +363,12 @@ fn replay_head(
     })
     .unwrap();
     let expected = publication(&h.record).unwrap();
-    assert_eq!(expected.bytes, encode_publication(p));
+    assert!(
+        expected.bytes == encode_publication(p),
+        "native publication mismatch: expected {}, observed {}",
+        expected.sha256,
+        dtr_wire::hash(&encode_publication(p))
+    );
     for (kind, artifact) in expected.artifacts.iter().enumerate() {
         let mut actual = vec![];
         for n in 0..artifact.len().div_ceil(16384) {
@@ -2014,9 +2019,42 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     while std::time::Instant::now() < deadline {
         let (_, p) = observe(&pic, id);
         if p.head.segment_id != last {
-            replay_head(&pic, id, &p, &mut native, &payments, &mut assigned);
-            last = p.head.segment_id.clone();
-            publications.push(p);
+            // make_live advances independently while HTTP/asset requests run.
+            // Replay every intervening retained publication; never skip a seal
+            // merely because two publications completed between observations.
+            let next_segment = last
+                .as_ref()
+                .map_or(0, |sid: &Int| sid.0.to_string().parse::<u64>().unwrap() + 1);
+            let head = p
+                .head
+                .segment_id
+                .as_ref()
+                .unwrap()
+                .0
+                .to_string()
+                .parse::<u64>()
+                .unwrap();
+            for segment in next_segment..=head {
+                let observed = if segment == head {
+                    p.clone()
+                } else {
+                    let bytes = decode_one::<Result<Vec<u8>, String>>(
+                        &pic.query_call(
+                            id,
+                            controller(),
+                            "retained_publication",
+                            candid::encode_one(segment).unwrap(),
+                        )
+                        .unwrap(),
+                    )
+                    .unwrap()
+                    .expect("live replay requires each intermediate publication still retained");
+                    decode::<Publication>(&bytes).unwrap()
+                };
+                replay_head(&pic, id, &observed, &mut native, &payments, &mut assigned);
+                last = observed.head.segment_id.clone();
+                publications.push(observed);
+            }
         }
         if phase == -1 && out.join("bootstrap-anchor-read").exists() {
             let _: Status = get_result(
