@@ -14,6 +14,7 @@ def run(*command):return subprocess.check_output(command,cwd=ROOT,text=True,time
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--event-horizon');a=p.parse_args()
     if run('git','status','--porcelain'):raise SystemExit('Commit/review local changes before preparing release artifacts.')
+    source_commit=run('git','rev-parse','HEAD');source_tree=run('git','rev-parse','HEAD^{tree}')
     out=a.output.resolve()
     if out.exists():raise SystemExit('Use a new release output directory; existing artifacts are preserved.')
     lock=tomllib.loads((ROOT/'canisters/runtime-lab/Cargo.lock').read_text())
@@ -39,7 +40,9 @@ def main():
     if a.event_horizon:args+=['--event-horizon',a.event_horizon]
     run(*args)
     paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.12.0.tgz','dfx.json']
-    result={'status':'PASS','source_commit':run('git','rev-parse','HEAD'),'source_tree':run('git','rev-parse','HEAD^{tree}'),
+    if run('git','rev-parse','HEAD')!=source_commit or run('git','status','--porcelain'):
+        raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
+    result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,
       'dtr_revision':DTR,'javascript_package':npm,'dependency_sha256':{name:sha(ROOT/name) for name in paths},
       'normal_features':[],'normal_exports':exports,'artifacts':{path.name:{'sha256':sha(path),'bytes':path.stat().st_size} for path in sorted(out.iterdir()) if path.is_file()},
       'tools':{name:run(*command) for name,command in {'rustc':['rustc','--version'],'cargo':['cargo','--version'],'node':['node','--version'],'npm':['npm','--version'],'dfx':['dfx','--version'],'python':['python3.11','--version']}.items()},
