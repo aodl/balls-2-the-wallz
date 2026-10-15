@@ -1,412 +1,390 @@
-//! Exact typed boundary for the pinned ICP ledger `query_blocks` path.
-//!
-//! The upstream `ic-ledger-types` operation enum intentionally lags the pinned
-//! ledger DID's `spender` fields, so this module declares that response shape
-//! exactly and uses the library only for canonical account validation.
-use candid::{CandidType, Deserialize, Int as CandidInt, Principal};
-use dtr_wire::{hash, hex, unhex, Result};
-use ic_ledger_types::AccountIdentifier;
+//! ICP account-index adapter v1. Trusts the configured index for account history
+//! contents AND completeness. No global-ledger scanning or archive traversal.
+use candid::{CandidType, Deserialize, Nat, Principal};
+use dtr_host::Input;
+use dtr_wire::{Int, Result, hash, hex, unhex};
+use ic_ledger_types::{AccountIdentifier, Subaccount};
 use serde::Serialize;
 
-pub const LOCAL_NETWORK: &str = "pocketic-local";
-pub const MAX_PAGE: u16 = 64;
 const INVALID_MEMO: [u8; 8] = [0; 8];
+pub const PAGE: u64 = 64;
+pub const MAX_PENDING: usize = 256;
+pub const FALLBACK_SECONDS: u64 = 60;
+pub const INDEX_ID: &str = "qhbym-qaaaa-aaaaa-aaafq-cai";
+pub const LEDGER_ID: &str = "ryjl3-tyaaa-aaaaa-aaaba-cai";
 
 #[derive(Clone, CandidType, Deserialize)]
-pub struct LedgerConfig {
+pub enum StartingPolicy {
+    FromBeginning,
+}
+#[derive(Clone, CandidType, Deserialize)]
+pub struct IndexConfig {
     pub network: String,
     pub ledger: Principal,
-    pub recipient_account: Vec<u8>,
-    pub page_limit: u16,
-    pub fallback_seconds: u32,
-    pub hint_principal: Option<Principal>,
+    pub index: Principal,
+    pub receiving_subaccount: u64,
+    pub event_horizon: Option<Principal>,
+    /// Explicitly process existing history too; never silently skip a funded account.
+    pub starting_policy: StartingPolicy,
 }
-
-#[derive(Clone, Debug, Default, Serialize, serde::Deserialize)]
-#[serde(tag = "mode", rename_all = "snake_case", deny_unknown_fields)]
-pub enum SourceState {
-    #[default]
-    Synthetic,
-    Ledger(LedgerSource),
-}
-
 #[derive(Clone, Debug, Serialize, serde::Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct LedgerSource {
+pub struct Row {
+    pub id: u64,
+    pub payload: Option<String>,
+    pub digest: String,
+}
+#[derive(Clone, Debug, Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Pending {
+    pub high: u64,
+    pub oldest: u64,
+    pub before: u64,
+    pub complete: bool,
+    pub rows: Vec<Row>, // descending until atomically admitted oldest first
+}
+#[derive(Clone, Debug, Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct SourceState {
     pub network: String,
     pub ledger: String,
+    pub index: String,
+    pub receiving_subaccount: u64,
     pub recipient_hex: String,
-    pub page_limit: u16,
-    pub fallback_seconds: u32,
-    pub hint_principal: Option<String>,
-    pub cursor: u64,
-    pub generation: u64,
-    pub scan_nonce: u64,
+    pub event_horizon: Option<String>,
+    pub cursor: u64, // exclusive admitted global transaction position, never index tip
+    pub binding_checked: bool,
+    pub pending: Option<Pending>,
+    pub nonce: u64,
     pub in_flight: bool,
-    #[serde(default)]
-    pub scan_started_at_seconds: u64,
+    pub started_at: u64,
+    pub requested: bool,
     pub wake_scheduled: bool,
-    pub dirty: bool,
+    pub retry_until: u64,
+    pub index_calls: u64,
     pub last_error: Option<String>,
-    pub last_chain_length: Option<u64>,
-    pub ledger_calls: u64,
-    pub archive_calls: u64,
 }
-
 #[derive(Clone, CandidType, Deserialize)]
 pub struct SourceStatus {
-    pub mode: String,
-    pub network: Option<String>,
-    pub ledger: Option<Principal>,
-    pub recipient_account: Option<Vec<u8>>,
-    pub verified_source_watermark: Option<u64>,
-    pub generation: Option<u64>,
+    pub network: String,
+    pub ledger: Principal,
+    pub index: Principal,
+    pub recipient_account: Vec<u8>,
+    pub receiving_subaccount: u64,
+    pub event_horizon: Option<Principal>,
+    pub admitted_to_exclusive: u64,
+    pub binding_checked: bool,
+    pub pending_records: u32,
     pub scan_in_flight: bool,
-    pub hint_pending: bool,
+    pub reconciliation_requested: bool,
+    pub index_calls: u64,
     pub last_error: Option<String>,
-    pub ledger_calls: u64,
-    pub archive_calls: u64,
 }
-
+pub fn receiving_account(owner: Principal, n: u64) -> AccountIdentifier {
+    let mut bytes = [0; 32];
+    bytes[24..].copy_from_slice(&n.to_be_bytes());
+    AccountIdentifier::new(&owner, &Subaccount(bytes))
+}
+pub fn identity_bytes(
+    network: &str,
+    ledger: Principal,
+    index: Principal,
+    owner: Principal,
+    subaccount: u64,
+    recipient: &str,
+) -> Result<Vec<u8>> {
+    candid::encode_args((
+        "BTZ-ICP-INDEX-01",
+        network,
+        ledger,
+        index,
+        owner,
+        subaccount,
+        recipient,
+    ))
+    .map_err(|e| e.to_string())
+}
 impl SourceState {
-    pub fn configured(config: LedgerConfig, cursor: u64) -> Result<(Self, String)> {
-        if config.network != LOCAL_NETWORK {
-            return Err("runtime-lab ledger mode is confined to pocketic-local".into());
-        }
-        if config.ledger == Principal::anonymous()
-            || !(1..=MAX_PAGE).contains(&config.page_limit)
-            || !(1..=3600).contains(&config.fallback_seconds)
+    pub fn configured(config: IndexConfig, owner: Principal) -> Result<(Self, String)> {
+        if !matches!(config.network.as_str(), "ic" | "pocketic-local")
+            || config.index == Principal::anonymous()
+            || config.ledger == Principal::anonymous()
+            || config.event_horizon == Some(Principal::anonymous())
         {
-            return Err("ledger source configuration bounds".into());
+            return Err("index configuration".into());
         }
-        let recipient = account(&config.recipient_account)?;
-        let mut identity = b"DTRICP-SOURCE-01".to_vec();
-        identity.extend_from_slice(config.network.as_bytes());
-        identity.extend_from_slice(config.ledger.as_slice());
-        identity.extend_from_slice(recipient.as_bytes());
-        let source_id = hash(&identity);
+        if config.network == "ic"
+            && (config.index.to_text() != INDEX_ID || config.ledger.to_text() != LEDGER_ID)
+        {
+            return Err("mainnet requires reviewed official ICP ledger and index".into());
+        }
+        let recipient = receiving_account(owner, config.receiving_subaccount);
+        let identity = identity_bytes(
+            &config.network,
+            config.ledger,
+            config.index,
+            owner,
+            config.receiving_subaccount,
+            &recipient.to_string(),
+        )?;
         Ok((
-            Self::Ledger(LedgerSource {
+            Self {
                 network: config.network,
                 ledger: config.ledger.to_text(),
-                recipient_hex: hex(recipient.as_bytes()),
-                page_limit: config.page_limit,
-                fallback_seconds: config.fallback_seconds,
-                hint_principal: config.hint_principal.map(|p| p.to_text()),
-                cursor,
-                generation: 1,
-                scan_nonce: 0,
+                index: config.index.to_text(),
+                receiving_subaccount: config.receiving_subaccount,
+                recipient_hex: recipient.to_string(),
+                event_horizon: config.event_horizon.map(|p| p.to_text()),
+                cursor: 0,
+                binding_checked: false,
+                pending: None,
+                nonce: 0,
                 in_flight: false,
-                scan_started_at_seconds: 0,
+                started_at: 0,
+                requested: true,
                 wake_scheduled: false,
-                dirty: true,
+                retry_until: 0,
+                index_calls: 0,
                 last_error: None,
-                last_chain_length: None,
-                ledger_calls: 0,
-                archive_calls: 0,
-            }),
-            source_id,
+            },
+            hash(&identity),
         ))
     }
-
-    pub fn status(&self) -> Result<SourceStatus> {
-        match self {
-            Self::Synthetic => Ok(SourceStatus {
-                mode: "synthetic".into(),
-                network: None,
-                ledger: None,
-                recipient_account: None,
-                verified_source_watermark: None,
-                generation: None,
-                scan_in_flight: false,
-                hint_pending: false,
-                last_error: None,
-                ledger_calls: 0,
-                archive_calls: 0,
-            }),
-            Self::Ledger(source) => Ok(SourceStatus {
-                mode: "ledger".into(),
-                network: Some(source.network.clone()),
-                ledger: Some(source.principal()?),
-                recipient_account: Some(unhex(&source.recipient_hex)?),
-                verified_source_watermark: Some(source.cursor),
-                generation: Some(source.generation),
-                scan_in_flight: source.in_flight,
-                hint_pending: source.dirty || source.wake_scheduled,
-                last_error: source.last_error.clone(),
-                ledger_calls: source.ledger_calls,
-                archive_calls: source.archive_calls,
-            }),
-        }
-    }
-
     pub fn validate(&self) -> Result<()> {
-        if let Self::Ledger(source) = self {
-            if source.network != LOCAL_NETWORK
-                || source.principal()? == Principal::anonymous()
-                || !(1..=MAX_PAGE).contains(&source.page_limit)
-                || !(1..=3600).contains(&source.fallback_seconds)
-                || source.generation == 0
-                || (!source.in_flight && source.scan_started_at_seconds != 0)
-            {
-                return Err("durable ledger source configuration".into());
+        if !matches!(self.network.as_str(), "ic" | "pocketic-local") {
+            return Err("source network".into());
+        }
+        for p in [&self.ledger, &self.index] {
+            if Principal::from_text(p).map_err(|e| e.to_string())? == Principal::anonymous() {
+                return Err("source principal".into());
             }
-            account(&unhex(&source.recipient_hex)?)?;
-            if let Some(principal) = &source.hint_principal {
-                Principal::from_text(principal).map_err(|e| e.to_string())?;
+        }
+        account(&self.recipient_hex)?;
+        if let Some(p) = &self.event_horizon {
+            Principal::from_text(p).map_err(|e| e.to_string())?;
+        }
+        if let Some(p) = &self.pending {
+            if p.rows.is_empty()
+                || p.rows.len() > MAX_PENDING
+                || p.high != p.rows[0].id
+                || p.before != p.rows.last().unwrap().id
+                || p.oldest > p.before
+                || p.before < self.cursor
+            {
+                return Err("pending range bounds".into());
+            }
+            let mut prior = None;
+            for row in &p.rows {
+                if prior.is_some_and(|id| row.id >= id) || row.id < self.cursor {
+                    return Err("pending order".into());
+                }
+                prior = Some(row.id);
+                unhex(&row.digest)?;
             }
         }
         Ok(())
     }
+    pub fn status(&self) -> Result<SourceStatus> {
+        Ok(SourceStatus {
+            network: self.network.clone(),
+            ledger: Principal::from_text(&self.ledger).map_err(|e| e.to_string())?,
+            index: Principal::from_text(&self.index).map_err(|e| e.to_string())?,
+            recipient_account: account(&self.recipient_hex)?.as_bytes().to_vec(),
+            receiving_subaccount: self.receiving_subaccount,
+            event_horizon: self
+                .event_horizon
+                .as_ref()
+                .map(Principal::from_text)
+                .transpose()
+                .map_err(|e| e.to_string())?,
+            admitted_to_exclusive: self.cursor,
+            binding_checked: self.binding_checked,
+            pending_records: self.pending.as_ref().map_or(0, |p| p.rows.len() as u32),
+            scan_in_flight: self.in_flight,
+            reconciliation_requested: self.requested || self.wake_scheduled,
+            index_calls: self.index_calls,
+            last_error: self.last_error.clone(),
+        })
+    }
+    /// Called on a clone. Failure leaves the durable download cursor unchanged.
+    pub fn page(&mut self, response: History) -> Result<()> {
+        if response.transactions.len() > PAGE as usize {
+            return Err("oversize index page".into());
+        }
+        let prior_pending = self.pending.as_ref();
+        let before = prior_pending.map(|p| p.before);
+        let mut prior = before;
+        for row in &response.transactions {
+            if prior.is_some_and(|id| row.id >= id) || row.id == u64::MAX {
+                return Err("non-descending index page / position overflow".into());
+            }
+            prior = Some(row.id);
+        }
+        let Some(oldest) = response.oldest_tx_id else {
+            if !response.transactions.is_empty() || self.pending.is_some() || self.cursor != 0 {
+                return Err("inconsistent empty history".into());
+            }
+            return Ok(());
+        };
+        if let Some(p) = &self.pending {
+            if p.oldest != oldest {
+                return Err("index oldest changed during pass".into());
+            }
+        }
+        if response.transactions.is_empty() {
+            return Err("index omitted expected history".into());
+        }
+        if response.transactions.last().unwrap().id < oldest {
+            return Err("history below oldest".into());
+        }
+        let recipient = account(&self.recipient_hex)?;
+        let mut pending = self.pending.clone();
+        for tx in response.transactions {
+            if tx.id < self.cursor {
+                if let Some(p) = &mut pending {
+                    p.complete = true;
+                }
+                break;
+            }
+            let row = Row {
+                id: tx.id,
+                payload: classify(&tx.transaction, &recipient)?,
+                digest: hash(&candid::encode_one(&tx).map_err(|e| e.to_string())?),
+            };
+            let p = pending.get_or_insert_with(|| Pending {
+                high: row.id,
+                oldest,
+                before: row.id,
+                complete: false,
+                rows: Vec::new(),
+            });
+            if p.rows.len() >= MAX_PENDING {
+                return Err("INDEX_BACKLOG_CAPACITY: pending range exceeds 256; no payments admitted or discarded".into());
+            }
+            p.before = row.id;
+            p.rows.push(row);
+            if tx.id == oldest {
+                p.complete = true;
+                break;
+            }
+        }
+        self.pending = pending;
+        Ok(())
+    }
+    pub fn admission(&self, previous_anchor: &str) -> Result<(u64, Vec<Input>, String)> {
+        let p = self
+            .pending
+            .as_ref()
+            .filter(|p| p.complete)
+            .ok_or("range not complete")?;
+        let end = p.high.checked_add(1).ok_or("position overflow")?;
+        let mut bytes = b"BTZ-ICP-INDEX-ANCHOR-01".to_vec();
+        bytes.extend(unhex(previous_anchor)?);
+        let mut inputs = Vec::new();
+        for row in p.rows.iter().rev() {
+            bytes.extend(row.id.to_be_bytes());
+            bytes.extend(unhex(&row.digest)?);
+            if let Some(payload) = &row.payload {
+                inputs.push(Input {
+                    position: Int(row.id.into()),
+                    payload_hex: payload.clone(),
+                });
+            }
+        }
+        Ok((end, inputs, hash(&bytes)))
+    }
 }
 
-impl LedgerSource {
-    pub fn principal(&self) -> Result<Principal> {
-        Principal::from_text(&self.ledger).map_err(|e| e.to_string())
-    }
-
-    pub fn recipient(&self) -> Result<AccountIdentifier> {
-        account(&unhex(&self.recipient_hex)?)
-    }
+// Exact official ICP index types; pinned upstream DID is retained in interfaces/.
+#[derive(Clone, CandidType, Deserialize)]
+pub struct HistoryArgs {
+    pub account_identifier: String,
+    pub start: Option<u64>,
+    pub max_results: u64,
 }
-
-#[derive(Clone, Debug, CandidType, Deserialize, Serialize)]
+#[derive(Clone, Debug, CandidType, Deserialize)]
 pub struct Tokens {
     pub e8s: u64,
 }
-
-#[derive(Clone, Debug, CandidType, Deserialize, Serialize)]
+#[derive(Clone, Debug, CandidType, Deserialize)]
 pub struct Timestamp {
     pub timestamp_nanos: u64,
 }
-
-#[derive(Clone, Debug, CandidType, Deserialize, Serialize)]
+#[derive(Clone, Debug, CandidType, Deserialize)]
 pub enum Operation {
-    Mint {
-        to: Vec<u8>,
-        amount: Tokens,
+    Approve {
+        fee: Tokens,
+        from: String,
+        allowance: Tokens,
+        expires_at: Option<Timestamp>,
+        spender: String,
+        expected_allowance: Option<Tokens>,
     },
     Burn {
-        from: Vec<u8>,
-        spender: Option<Vec<u8>>,
+        from: String,
+        amount: Tokens,
+        spender: Option<String>,
+    },
+    Mint {
+        to: String,
         amount: Tokens,
     },
     Transfer {
-        from: Vec<u8>,
-        to: Vec<u8>,
+        to: String,
+        fee: Tokens,
+        from: String,
         amount: Tokens,
-        fee: Tokens,
-        spender: Option<Vec<u8>>,
-    },
-    Approve {
-        from: Vec<u8>,
-        spender: Vec<u8>,
-        allowance_e8s: CandidInt,
-        allowance: Tokens,
-        fee: Tokens,
-        expires_at: Option<Timestamp>,
-        expected_allowance: Option<Tokens>,
+        spender: Option<String>,
     },
 }
-
-#[derive(Clone, Debug, CandidType, Deserialize, Serialize)]
+#[derive(Clone, Debug, CandidType, Deserialize)]
 pub struct Transaction {
     pub memo: u64,
     pub icrc1_memo: Option<Vec<u8>>,
-    pub operation: Option<Operation>,
-    pub created_at_time: Timestamp,
+    pub operation: Operation,
+    pub created_at_time: Option<Timestamp>,
+    pub timestamp: Option<Timestamp>,
 }
-
-#[derive(Clone, Debug, CandidType, Deserialize, Serialize)]
-pub struct Block {
-    pub parent_hash: Option<Vec<u8>>,
+#[derive(Clone, Debug, CandidType, Deserialize)]
+pub struct TransactionWithId {
+    pub id: u64,
     pub transaction: Transaction,
-    pub timestamp: Timestamp,
 }
-
 #[derive(Clone, Debug, CandidType, Deserialize)]
-pub struct GetBlocksArgs {
-    pub start: u64,
-    pub length: u64,
+pub struct History {
+    pub balance: u64,
+    pub transactions: Vec<TransactionWithId>,
+    pub oldest_tx_id: Option<u64>,
 }
-
 #[derive(Clone, Debug, CandidType, Deserialize)]
-pub struct BlockRange {
-    pub blocks: Vec<Block>,
+pub struct IndexError {
+    pub message: String,
 }
+pub type HistoryResult = std::result::Result<History, IndexError>;
 
+#[allow(non_camel_case_types)]
 #[derive(Clone, Debug, CandidType, Deserialize)]
-pub enum QueryArchiveError {
-    BadFirstBlockIndex {
-        requested_index: u64,
-        first_valid_index: u64,
-    },
-    Other {
-        error_code: u64,
-        error_message: String,
-    },
+pub enum PokeTarget {
+    subaccount(u64),
+    neuron_nonce(u64),
 }
-
-pub type QueryArchiveResult = std::result::Result<BlockRange, QueryArchiveError>;
-candid::define_function!(pub QueryArchiveFn : (GetBlocksArgs) -> (QueryArchiveResult) query);
-
 #[derive(Clone, Debug, CandidType, Deserialize)]
-pub struct ArchivedBlocksRange {
-    pub start: u64,
-    pub length: u64,
-    pub callback: QueryArchiveFn,
+pub struct PokeMatch {
+    pub target: PokeTarget,
+    pub max_amount: Nat,
 }
-
-#[derive(Clone, Debug, CandidType, Deserialize)]
-pub struct QueryBlocksResponse {
-    pub chain_length: u64,
-    pub certificate: Option<Vec<u8>>,
-    pub blocks: Vec<Block>,
-    pub first_block_index: u64,
-    pub archived_blocks: Vec<ArchivedBlocksRange>,
+pub fn matching_poke(matches: &[PokeMatch], target: u64) -> bool {
+    matches.len() <= 256
+        && matches.iter().any(|p| {
+            matches!(p.target,PokeTarget::subaccount(n) if n==target)
+                && p.max_amount > Nat::from(0u8)
+        })
 }
-
-pub enum PagePlan {
-    AtTip {
-        chain_length: u64,
-    },
-    Direct {
-        chain_length: u64,
-        blocks: Vec<Block>,
-    },
-    Archive {
-        chain_length: u64,
-        canister: Principal,
-        method: String,
-        start: u64,
-        length: u64,
-    },
+fn account(text: &str) -> Result<AccountIdentifier> {
+    AccountIdentifier::from_hex(text).map_err(|e| format!("index account: {e}"))
 }
-
-pub fn plan(response: QueryBlocksResponse, cursor: u64, page_limit: u16) -> Result<PagePlan> {
-    if !(1..=MAX_PAGE).contains(&page_limit)
-        || response.chain_length < cursor
-        || response.blocks.len() > usize::from(page_limit)
-        || response.archived_blocks.len() > usize::from(MAX_PAGE)
-    {
-        return Err("ledger page bounds".into());
-    }
-    if response.chain_length == cursor {
-        if !response.blocks.is_empty() || !response.archived_blocks.is_empty() {
-            return Err("ledger returned data beyond reported tip".into());
-        }
-        return Ok(PagePlan::AtTip {
-            chain_length: response.chain_length,
-        });
-    }
-    let request_end = cursor
-        .checked_add(u64::from(page_limit))
-        .ok_or("ledger request overflow")?
-        .min(response.chain_length);
-    let mut ranges: Vec<(u64, u64, bool, usize)> = Vec::new();
-    if !response.blocks.is_empty() {
-        let end = response
-            .first_block_index
-            .checked_add(response.blocks.len() as u64)
-            .ok_or("direct range overflow")?;
-        ranges.push((response.first_block_index, end, true, 0));
-    }
-    for (index, route) in response.archived_blocks.iter().enumerate() {
-        let end = route
-            .start
-            .checked_add(route.length)
-            .ok_or("archive range overflow")?;
-        if route.length == 0 {
-            return Err("empty archive route".into());
-        }
-        ranges.push((route.start, end, false, index));
-    }
-    ranges.sort_by_key(|row| row.0);
-    let mut previous_end = cursor;
-    for &(start, end, _, _) in &ranges {
-        if start < cursor || end > request_end || end <= start || start < previous_end {
-            return Err("overlapping/out-of-request ledger ranges".into());
-        }
-        previous_end = end;
-    }
-    let selected = ranges
-        .into_iter()
-        .find(|row| row.0 == cursor)
-        .ok_or("no validated contiguous ledger prefix")?;
-    if selected.2 {
-        return Ok(PagePlan::Direct {
-            chain_length: response.chain_length,
-            blocks: response.blocks,
-        });
-    }
-    let route = &response.archived_blocks[selected.3];
-    let callback = route.callback.0.clone();
-    if callback.principal == Principal::anonymous()
-        || callback.method != "get_blocks"
-        || callback.method.len() > 64
-    {
-        return Err("untrusted archive callback shape".into());
-    }
-    Ok(PagePlan::Archive {
-        chain_length: response.chain_length,
-        canister: callback.principal,
-        method: callback.method,
-        start: route.start,
-        length: route.length.min(u64::from(page_limit)),
-    })
-}
-
-pub fn records_and_anchor(
-    blocks: &[Block],
-    start: u64,
-    recipient: &AccountIdentifier,
-    previous_anchor: &str,
-) -> Result<(Vec<Option<String>>, String)> {
-    if blocks.is_empty() || blocks.len() > usize::from(MAX_PAGE) {
-        return Err("ledger block page bounds".into());
-    }
-    let mut records = Vec::with_capacity(blocks.len());
-    for block in blocks {
-        if let Some(parent) = &block.parent_hash {
-            if parent.len() != 32 {
-                return Err("ledger parent hash length".into());
-            }
-        }
-        records.push(classify(&block.transaction, recipient)?);
-    }
-    let mut anchor = b"DTRICP-ANCHOR-01".to_vec();
-    anchor.extend_from_slice(&unhex(previous_anchor)?);
-    anchor.extend_from_slice(&start.to_be_bytes());
-    anchor.extend_from_slice(&(blocks.len() as u64).to_be_bytes());
-    // Candid preserves the ledger's nat64 timestamps without routing them
-    // through the project's intentionally JavaScript-safe JSON integer codec.
-    anchor.extend_from_slice(
-        &candid::encode_one(blocks.to_vec()).map_err(|error| error.to_string())?,
-    );
-    Ok((records, hash(&anchor)))
-}
-
-fn classify(transaction: &Transaction, recipient: &AccountIdentifier) -> Result<Option<String>> {
-    let Some(operation) = &transaction.operation else {
-        return Ok(None);
-    };
-    match operation {
-        Operation::Mint { to, .. } => {
-            account(to)?;
-            Ok(None)
-        }
-        Operation::Burn { from, spender, .. } => {
-            account(from)?;
-            if let Some(spender) = spender {
-                account(spender)?;
-            }
-            Ok(None)
-        }
-        Operation::Approve { from, spender, .. } => {
-            account(from)?;
-            account(spender)?;
-            Ok(None)
-        }
+fn classify(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<String>> {
+    match &tx.operation {
         Operation::Transfer {
             from,
             to,
@@ -416,29 +394,41 @@ fn classify(transaction: &Transaction, recipient: &AccountIdentifier) -> Result<
         } => {
             let from = account(from)?;
             let to = account(to)?;
-            let delegated = if let Some(spender) = spender {
-                account(spender)?;
-                true
-            } else {
-                false
-            };
+            if let Some(s) = spender {
+                account(s)?;
+            }
             if &to != recipient || &from == recipient {
                 return Ok(None);
             }
-            let memo = if delegated {
-                INVALID_MEMO
+            let memo = if spender.is_some() {
+                [0; 8]
             } else {
-                normalized_memo(transaction.memo, transaction.icrc1_memo.as_deref())
+                normalized_memo(tx.memo, tx.icrc1_memo.as_deref())
             };
             let mut payload = b"BTZPAY02".to_vec();
-            payload.extend_from_slice(from.as_bytes());
-            payload.extend_from_slice(&amount.e8s.to_be_bytes());
-            payload.extend_from_slice(&memo);
+            payload.extend(from.as_bytes());
+            payload.extend(amount.e8s.to_be_bytes());
+            payload.extend(memo);
             Ok(Some(hex(&payload)))
+        }
+        Operation::Mint { to, .. } => {
+            account(to)?;
+            Ok(None)
+        }
+        Operation::Burn { from, spender, .. } => {
+            account(from)?;
+            if let Some(s) = spender {
+                account(s)?;
+            }
+            Ok(None)
+        }
+        Operation::Approve { from, spender, .. } => {
+            account(from)?;
+            account(spender)?;
+            Ok(None)
         }
     }
 }
-
 fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
     let candidate: [u8; 8] = match blob {
         Some(bytes) if legacy == 0 => match bytes.try_into() {
@@ -459,142 +449,221 @@ fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
     }
 }
 
-fn account(bytes: &[u8]) -> Result<AccountIdentifier> {
-    AccountIdentifier::from_slice(bytes).map_err(|e| format!("ledger account: {e}"))
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ic_ledger_types::Subaccount;
-
-    fn account_for(seed: u8) -> AccountIdentifier {
-        AccountIdentifier::new(&Principal::from_slice(&[seed]), &Subaccount([0; 32]))
+    fn owner() -> Principal {
+        Principal::from_slice(&[7])
     }
-
-    fn transfer(
-        from: AccountIdentifier,
-        to: AccountIdentifier,
-        memo: u64,
-        blob: Option<Vec<u8>>,
-        spender: Option<AccountIdentifier>,
-    ) -> Transaction {
-        Transaction {
-            memo,
-            icrc1_memo: blob,
-            operation: Some(Operation::Transfer {
-                from: from.as_bytes().to_vec(),
-                to: to.as_bytes().to_vec(),
-                amount: Tokens { e8s: 123 },
-                fee: Tokens { e8s: 10_000 },
-                spender: spender.map(|a| a.as_bytes().to_vec()),
-            }),
-            created_at_time: Timestamp { timestamp_nanos: 1 },
-        }
-    }
-
-    fn block() -> Block {
-        Block {
-            parent_hash: Some(vec![0; 32]),
-            transaction: Transaction {
-                memo: 0,
-                icrc1_memo: None,
-                operation: None,
-                created_at_time: Timestamp { timestamp_nanos: 1 },
+    fn fresh() -> SourceState {
+        SourceState::configured(
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger: Principal::from_slice(&[1]),
+                index: Principal::from_slice(&[2]),
+                receiving_subaccount: 0,
+                event_horizon: Some(Principal::from_slice(&[3])),
+                starting_policy: StartingPolicy::FromBeginning,
             },
-            timestamp: Timestamp { timestamp_nanos: 1 },
-        }
-    }
-
-    fn archive(start: u64, length: u64, method: &str) -> ArchivedBlocksRange {
-        ArchivedBlocksRange {
-            start,
-            length,
-            callback: QueryArchiveFn(candid::Func {
-                principal: Principal::from_slice(&[42]),
-                method: method.into(),
-            }),
-        }
-    }
-
-    #[test]
-    fn valid_payment_is_exact_existing_envelope() {
-        let from = account_for(1);
-        let to = account_for(2);
-        let memo = *b"BTZ\x11\0\0\x40\0";
-        let payload = classify(&transfer(from, to, 0, Some(memo.to_vec()), None), &to)
-            .unwrap()
-            .unwrap();
-        let bytes = unhex(&payload).unwrap();
-        assert_eq!(&bytes[..8], b"BTZPAY02");
-        assert_eq!(&bytes[8..40], from.as_bytes());
-        assert_eq!(&bytes[40..48], &123u64.to_be_bytes());
-        assert_eq!(&bytes[48..], &memo);
-    }
-
-    #[test]
-    fn mixed_and_delegated_memos_cannot_issue_commands() {
-        let from = account_for(1);
-        let to = account_for(2);
-        let spender = account_for(3);
-        let memo = b"BTZ\x12\0\0\0\x01".to_vec();
-        for tx in [
-            transfer(from, to, 1, Some(memo.clone()), None),
-            transfer(from, to, 0, Some(memo), Some(spender)),
-        ] {
-            let payload = unhex(&classify(&tx, &to).unwrap().unwrap()).unwrap();
-            assert_eq!(&payload[48..], &INVALID_MEMO);
-        }
-    }
-
-    #[test]
-    fn irrelevant_transfer_advances_without_game_input() {
-        let from = account_for(1);
-        let recipient = account_for(2);
-        let other = account_for(3);
-        assert_eq!(
-            classify(&transfer(from, other, 0, None, None), &recipient).unwrap(),
-            None
-        );
-    }
-
-    #[test]
-    fn short_direct_page_is_a_prefix_not_a_tip_jump() {
-        let page = plan(
-            QueryBlocksResponse {
-                chain_length: 12,
-                certificate: None,
-                blocks: vec![block(), block()],
-                first_block_index: 5,
-                archived_blocks: vec![],
-            },
-            5,
-            4,
+            owner(),
         )
-        .unwrap();
-        match page {
-            PagePlan::Direct {
-                chain_length,
-                blocks,
-            } => {
-                assert_eq!(chain_length, 12);
-                assert_eq!(blocks.len(), 2);
-            }
-            _ => panic!("expected direct prefix"),
+        .unwrap()
+        .0
+    }
+    fn tx(id: u64) -> TransactionWithId {
+        TransactionWithId {
+            id,
+            transaction: Transaction {
+                memo: u64::from_be_bytes(*b"BTZ\x11\0\0\0\0"),
+                icrc1_memo: None,
+                operation: Operation::Transfer {
+                    to: fresh().recipient_hex,
+                    from: receiving_account(Principal::from_slice(&[8]), 0).to_string(),
+                    amount: Tokens { e8s: 100_000_000 },
+                    fee: Tokens { e8s: 10_000 },
+                    spender: None,
+                },
+                created_at_time: None,
+                timestamp: None,
+            },
         }
     }
-
+    fn page(ids: &[u64], oldest: Option<u64>) -> History {
+        History {
+            balance: 0,
+            transactions: ids.iter().map(|id| tx(*id)).collect(),
+            oldest_tx_id: oldest,
+        }
+    }
     #[test]
-    fn gaps_overlaps_and_untrusted_archive_methods_are_rejected() {
-        let response = |direct_at, routes| QueryBlocksResponse {
-            chain_length: 12,
-            certificate: None,
-            blocks: vec![block()],
-            first_block_index: direct_at,
-            archived_blocks: routes,
+    fn sparse_pages_frozen_high_and_oldest_first() {
+        let mut s = fresh();
+        s.page(page(&[800, 109], Some(100))).unwrap();
+        assert!(!s.pending.as_ref().unwrap().complete);
+        assert!(s.admission(&"00".repeat(32)).is_err());
+        // New arrival 900 belongs to next pass. Exclusive continuation is 109.
+        s.page(page(&[100], Some(100))).unwrap();
+        let (end, inputs, _) = s.admission(&"00".repeat(32)).unwrap();
+        assert_eq!(end, 801);
+        assert_eq!(
+            inputs
+                .iter()
+                .map(|i| i.position.0.to_string())
+                .collect::<Vec<_>>(),
+            ["100", "109", "800"]
+        );
+        s.cursor = end;
+        s.pending = None;
+        s.page(page(&[900, 800, 109], Some(100))).unwrap();
+        assert_eq!(s.admission(&"00".repeat(32)).unwrap().0, 901);
+    }
+    #[test]
+    fn duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected() {
+        let mut s = fresh();
+        for bad in [
+            page(&[2, 2], Some(2)),
+            page(&[1, 2], Some(1)),
+            page(&[u64::MAX], Some(u64::MAX)),
+            page(&[1], None),
+            page(&[], Some(1)),
+            page(&[1], Some(2)),
+        ] {
+            assert!(s.page(bad).is_err());
+            assert!(s.pending.is_none());
+            assert_eq!(s.cursor, 0);
+        }
+        s.page(page(&[800], Some(1))).unwrap();
+        let before = serde_json::to_vec(&s).unwrap();
+        for bad in [
+            page(&[800], Some(1)),
+            page(&[900], Some(1)),
+            page(&[], Some(1)),
+            page(&[799], Some(2)),
+        ] {
+            assert!(s.page(bad).is_err());
+            assert_eq!(serde_json::to_vec(&s).unwrap(), before);
+        }
+    }
+    #[test]
+    fn durable_pending_and_capacity_never_advance_admission() {
+        let mut s = fresh();
+        for n in 0..4 {
+            s.page(page(
+                &(1..=64).rev().map(|i| i + 256 - n * 64).collect::<Vec<_>>(),
+                Some(0),
+            ))
+            .unwrap();
+        }
+        let bytes = serde_json::to_vec(&s).unwrap();
+        let mut restored: SourceState = serde_json::from_slice(&bytes).unwrap();
+        restored.validate().unwrap();
+        assert!(restored.page(page(&[64, 0], Some(0))).is_err());
+        assert_eq!(restored.cursor, 0);
+        assert_eq!(serde_json::to_vec(&restored).unwrap(), bytes);
+    }
+    #[test]
+    fn empty_history_and_unchanged_account_are_safe() {
+        let mut s = fresh();
+        s.page(page(&[], None)).unwrap();
+        assert!(s.pending.is_none());
+        s.page(page(&[100], Some(100))).unwrap();
+        s.cursor = 101;
+        s.pending = None;
+        s.page(page(&[100], Some(100))).unwrap();
+        assert!(s.pending.is_none());
+        assert_eq!(s.cursor, 101);
+        assert!(s.page(page(&[], None)).is_err());
+    }
+    #[test]
+    fn classification_preserves_memo_and_delegation_rules() {
+        let recipient = receiving_account(owner(), 0);
+        let mut t = tx(1).transaction;
+        assert_eq!(
+            unhex(&classify(&t, &recipient).unwrap().unwrap())
+                .unwrap()
+                .len(),
+            56
+        );
+        t.icrc1_memo = Some(b"BTZ\x12\0\0\0\x01".to_vec());
+        t.memo = 0;
+        assert!(
+            classify(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("42545a1200000001")
+        );
+        t.memo = 1;
+        assert!(
+            classify(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("0000000000000000")
+        );
+        t.memo = 0;
+        t.icrc1_memo = None;
+        if let Operation::Transfer { spender, .. } = &mut t.operation {
+            *spender = Some(receiving_account(owner(), 2).to_string());
+        }
+        assert!(
+            classify(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("0000000000000000")
+        );
+        if let Operation::Transfer { from, .. } = &mut t.operation {
+            *from = recipient.to_string();
+        }
+        assert!(classify(&t, &recipient).unwrap().is_none());
+        t.operation = Operation::Mint {
+            to: recipient.to_string(),
+            amount: Tokens { e8s: 1 },
         };
-        assert!(plan(response(6, vec![]), 5, 4).is_err());
-        assert!(plan(response(6, vec![archive(5, 2, "get_blocks")]), 5, 4).is_err());
-        assert!(plan(response(6, vec![archive(5, 1, "arbitrary")]), 5, 4).is_err());
+        assert!(classify(&t, &recipient).unwrap().is_none());
+        t.operation = Operation::Transfer {
+            to: "bad".into(),
+            from: recipient.to_string(),
+            amount: Tokens { e8s: 1 },
+            fee: Tokens { e8s: 1 },
+            spender: None,
+        };
+        assert!(classify(&t, &recipient).is_err());
+    }
+    #[test]
+    fn exact_numeric_subaccount_derivation() {
+        assert_eq!(
+            receiving_account(owner(), 0),
+            AccountIdentifier::new(&owner(), &ic_ledger_types::DEFAULT_SUBACCOUNT)
+        );
+        let mut raw = [0; 32];
+        raw[31] = 7;
+        assert_eq!(
+            receiving_account(owner(), 7),
+            AccountIdentifier::new(&owner(), &Subaccount(raw))
+        );
+        assert_ne!(receiving_account(owner(), 0), receiving_account(owner(), 7));
+    }
+    #[test]
+    fn poke_target_positive_nat_and_bounded_vector() {
+        let p = |target, amount| PokeMatch {
+            target,
+            max_amount: Nat::from(amount),
+        };
+        assert!(!matching_poke(&[], 0));
+        for target in [PokeTarget::subaccount(1), PokeTarget::neuron_nonce(0)] {
+            assert!(!matching_poke(&[p(target, 1u64)], 0));
+        }
+        assert!(!matching_poke(&[p(PokeTarget::subaccount(0), 0u64)], 0));
+        assert!(matching_poke(&[p(PokeTarget::subaccount(0), 1u64)], 0));
+        let huge = Nat::parse(b"18446744073709551616000000000000000").unwrap();
+        assert!(matching_poke(
+            &[PokeMatch {
+                target: PokeTarget::subaccount(0),
+                max_amount: huge
+            }],
+            0
+        ));
+        let duplicate = p(PokeTarget::subaccount(0), 1u64);
+        assert!(matching_poke(&vec![duplicate.clone(); 256], 0));
+        assert!(!matching_poke(&vec![duplicate; 257], 0));
     }
 }

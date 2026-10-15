@@ -6,20 +6,17 @@ use btz_native::{host::BtzHostKernel, world::World};
 use candid::{CandidType, Principal};
 use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
 use dtr_host::{Action, Coordinator, Identity};
-use dtr_wire::{decode, encode, hash, hex, unhex, Int, Result};
+use dtr_wire::{decode, encode, hash, hex, unhex, Int, Result as AppResult};
 use ic_cdk::call::Call;
 use ic_stable_structures::{
     memory_manager::{MemoryId, MemoryManager, VirtualMemory},
     DefaultMemoryImpl, StableBTreeMap, StableCell,
 };
 use serde::{Deserialize, Serialize};
-use source::{
-    GetBlocksArgs, LedgerConfig, PagePlan, QueryArchiveResult, QueryBlocksResponse, SourceState,
-    SourceStatus,
-};
+use source::{IndexConfig, PokeMatch, SourceState, SourceStatus};
 use std::cell::RefCell;
 use std::time::Duration;
-const ROOT_LIMIT: usize = 65536;
+const ROOT_LIMIT: usize = 256 * 1024;
 const CHUNKS: u64 = (MAX_ARTIFACT / CHUNK) as u64;
 const PUBLICATION_CHUNKS: u64 = dtr_host::observation::MAX_PUBLICATION.div_ceil(CHUNK) as u64;
 const RETAINED_STRIDE: u64 = PUBLICATION_CHUNKS + 3 * CHUNKS;
@@ -35,8 +32,8 @@ thread_local! {
     static BLOBS:RefCell<StableBTreeMap<u64,Vec<u8>,Memory>>=RefCell::new(StableBTreeMap::init(memory(1)));
     static RETAINED:RefCell<StableBTreeMap<u64,Vec<u8>,Memory>>=RefCell::new(StableBTreeMap::init(memory(2)));
     static RUN_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
-    #[cfg(feature = "test-hooks")]
-    static TEST_SCAN_FAULT:RefCell<Option<u8>>=const { RefCell::new(None) };
+    static POKE_POLICY:RefCell<Option<(Principal,u64)>>=const { RefCell::new(None) };
+    static WAKE_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
 }
 fn memory(id: u8) -> Memory {
     MANAGER.with(|m| m.borrow().get(MemoryId::new(id)))
@@ -103,7 +100,6 @@ struct Root {
     image: Blob,
     publication_hex: String,
     publication_hash: String,
-    #[serde(default)]
     source: SourceState,
     #[serde(default)]
     run: RunState,
@@ -150,7 +146,6 @@ struct Status {
     version: u32,
     revision: u64,
     publication_hash: String,
-    synthetic_inputs_only: bool,
     source: SourceStatus,
     run: RunStatus,
 }
@@ -175,13 +170,13 @@ struct TestScanState {
     started_at_seconds: u64,
     expired: bool,
 }
-fn authorized() -> Result<()> {
+fn authorized() -> AppResult<()> {
     if !ic_cdk::api::is_controller(&ic_cdk::api::msg_caller()) {
-        return Err("controller-only synthetic laboratory".into());
+        return Err("controller only".into());
     }
     Ok(())
 }
-fn describe(bytes: &[u8]) -> Result<Blob> {
+fn describe(bytes: &[u8]) -> AppResult<Blob> {
     if bytes.len() > MAX_ARTIFACT {
         return Err("laboratory artifact capacity".into());
     }
@@ -190,17 +185,17 @@ fn describe(bytes: &[u8]) -> Result<Blob> {
         sha256: hash(bytes),
     })
 }
-fn number(value: &Int) -> Result<u64> {
+fn number(value: &Int) -> AppResult<u64> {
     value
         .0
         .to_string()
         .parse()
         .map_err(|_| "unsigned 64-bit field".into())
 }
-fn publication_segment(publication: &Publication) -> Result<Option<u64>> {
+fn publication_segment(publication: &Publication) -> AppResult<Option<u64>> {
     publication.head.segment_id.as_ref().map(number).transpose()
 }
-fn reconcile_completed_segments(run: &mut RunState, publication: &Publication) -> Result<bool> {
+fn reconcile_completed_segments(run: &mut RunState, publication: &Publication) -> AppResult<bool> {
     let committed = publication_segment(publication)?
         .map(|segment| segment.checked_add(1).ok_or("autonomous segment counter"))
         .transpose()?
@@ -212,7 +207,7 @@ fn reconcile_completed_segments(run: &mut RunState, publication: &Publication) -
     run.completed_segments = committed;
     Ok(changed)
 }
-fn validate_run(run: &RunState) -> Result<()> {
+fn validate_run(run: &RunState) -> AppResult<()> {
     if run.segment_ticks == 0
         || run.segment_ticks > 64
         || run.pacing_seconds == 0
@@ -224,7 +219,7 @@ fn validate_run(run: &RunState) -> Result<()> {
     }
     Ok(())
 }
-fn validate_retention(retention: &RetentionState, current: &Publication) -> Result<()> {
+fn validate_retention(retention: &RetentionState, current: &Publication) -> AppResult<()> {
     if retention.history.len() >= RETAINED_SEGMENTS {
         return Err("retention count".into());
     }
@@ -273,14 +268,16 @@ fn validate_retention(retention: &RetentionState, current: &Publication) -> Resu
     }
     Ok(())
 }
-fn root() -> Result<Root> {
+fn root() -> AppResult<Root> {
     let bytes = ROOT.with(|c| c.borrow().get().clone());
     if bytes.is_empty() || bytes.len() > ROOT_LIMIT {
         return Err("missing/oversize root; no genesis fallback".into());
     }
     let r: Root = decode(&bytes)?;
-    if r.version != 6 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_ARTIFACT {
-        return Err("incompatible laboratory schema".into());
+    if r.version != 7 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_ARTIFACT {
+        return Err(
+            "incompatible index application schema; no implicit lab-state migration".into(),
+        );
     }
     r.source.validate()?;
     let pb = unhex(&r.publication_hex)?;
@@ -297,12 +294,12 @@ fn root() -> Result<Root> {
     validate_retention(&r.retention, &p)?;
     Ok(r)
 }
-fn read_blob(slot: u64, b: &Blob) -> Result<Vec<u8>> {
+fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
     if slot >= 4 || b.length > MAX_ARTIFACT {
         return Err("blob bounds".into());
     }
     let mut out = Vec::with_capacity(b.length);
-    BLOBS.with(|m| -> Result<()> {
+    BLOBS.with(|m| -> AppResult<()> {
         let m = m.borrow();
         for index in 0..b.length.div_ceil(CHUNK) {
             let bytes = m
@@ -320,7 +317,7 @@ fn read_blob(slot: u64, b: &Blob) -> Result<Vec<u8>> {
     }
     Ok(out)
 }
-fn retained_key(segment_id: u64, offset: u64) -> Result<u64> {
+fn retained_key(segment_id: u64, offset: u64) -> AppResult<u64> {
     if offset >= RETAINED_STRIDE {
         return Err("retained storage offset".into());
     }
@@ -329,12 +326,12 @@ fn retained_key(segment_id: u64, offset: u64) -> Result<u64> {
         .and_then(|base| base.checked_add(offset))
         .ok_or_else(|| "retained storage key".into())
 }
-fn read_retained_bytes(meta: &RetainedMeta, offset: u64, length: usize) -> Result<Vec<u8>> {
+fn read_retained_bytes(meta: &RetainedMeta, offset: u64, length: usize) -> AppResult<Vec<u8>> {
     if length > MAX_ARTIFACT.max(dtr_host::observation::MAX_PUBLICATION) {
         return Err("retained blob bounds".into());
     }
     let mut out = Vec::with_capacity(length);
-    RETAINED.with(|map| -> Result<()> {
+    RETAINED.with(|map| -> AppResult<()> {
         let map = map.borrow();
         for chunk in 0..length.div_ceil(CHUNK) {
             let key = retained_key(meta.segment_id, offset + chunk as u64)?;
@@ -348,14 +345,14 @@ fn read_retained_bytes(meta: &RetainedMeta, offset: u64, length: usize) -> Resul
     })?;
     Ok(out)
 }
-fn retained_publication_bytes(meta: &RetainedMeta) -> Result<Vec<u8>> {
+fn retained_publication_bytes(meta: &RetainedMeta) -> AppResult<Vec<u8>> {
     let bytes = read_retained_bytes(meta, 0, meta.publication_length)?;
     if hash(&bytes) != meta.publication_hash {
         return Err("retained publication integrity".into());
     }
     Ok(bytes)
 }
-fn publication_size(bytes: &[u8], publication: &Publication) -> Result<usize> {
+fn publication_size(bytes: &[u8], publication: &Publication) -> AppResult<usize> {
     publication
         .artifacts
         .iter()
@@ -365,7 +362,7 @@ fn publication_size(bytes: &[u8], publication: &Publication) -> Result<usize> {
                 .ok_or("publication byte count".into())
         })
 }
-fn retained_meta(bytes: &[u8], publication: &Publication) -> Result<RetainedMeta> {
+fn retained_meta(bytes: &[u8], publication: &Publication) -> AppResult<RetainedMeta> {
     let segment_id =
         publication_segment(publication)?.ok_or("genesis is not a completed segment")?;
     let artifact_lengths: [usize; 3] = publication
@@ -385,10 +382,9 @@ fn retained_meta(bytes: &[u8], publication: &Publication) -> Result<RetainedMeta
 }
 fn status(r: &Root) -> Status {
     Status {
-        version: 6,
+        version: 7,
         revision: r.revision,
         publication_hash: r.publication_hash.clone(),
-        synthetic_inputs_only: matches!(r.source, SourceState::Synthetic),
         source: r.source.status().expect("validated durable source"),
         run: RunStatus {
             running: r.run.running,
@@ -406,22 +402,10 @@ fn status(r: &Root) -> Status {
         },
     }
 }
-fn host(r: &Root) -> Result<Coordinator<BtzHostKernel>> {
+fn host(r: &Root) -> AppResult<Coordinator<BtzHostKernel>> {
     let host = Coordinator::restore(&read_blob(0, &r.image)?, &r.image.sha256, BtzHostKernel)?;
-    if let SourceState::Ledger(source) = &r.source {
-        let cursor: u64 = host
-            .record
-            .inbox
-            .cursor
-            .0
-            .to_string()
-            .parse()
-            .map_err(|_| "coordinator cursor is not u64")?;
-        if cursor != source.cursor
-            || host.record.inbox.source_id != host.record.journal.identity.source_id
-        {
-            return Err("ledger source/coordinator divergence".into());
-        }
+    if number(&host.record.inbox.cursor)? != r.source.cursor {
+        return Err("index source/coordinator divergence".into());
     }
     Ok(host)
 }
@@ -430,7 +414,7 @@ fn persist(
     old: Option<&Root>,
     source: SourceState,
     run: RunState,
-) -> Result<Root> {
+) -> AppResult<Root> {
     persist_inner(h, old, source, run, true)
 }
 
@@ -440,7 +424,7 @@ fn persist_inner(
     source: SourceState,
     run: RunState,
     update_certified_data: bool,
-) -> Result<Root> {
+) -> AppResult<Root> {
     let image = h.snapshot()?;
     let image_descriptor = describe(&image)?;
     let view = publication(&h.record)?;
@@ -505,7 +489,7 @@ fn persist_inner(
     }
     retained_writes.retain(|(key, _)| !evicted.contains(&(key / RETAINED_STRIDE)));
     let r = Root {
-        version: 6,
+        version: 7,
         revision: h.record.revision,
         image: image_descriptor,
         publication_hex: hex(&view.bytes),
@@ -572,7 +556,7 @@ fn persist_inner(
     }
     Ok(r)
 }
-fn save_root_only(r: &Root) -> Result<()> {
+fn save_root_only(r: &Root) -> AppResult<()> {
     r.source.validate()?;
     validate_run(&r.run)?;
     let publication: Publication = decode(&unhex(&r.publication_hex)?)?;
@@ -585,18 +569,20 @@ fn save_root_only(r: &Root) -> Result<()> {
     ROOT.with(|cell| cell.borrow_mut().set(bytes));
     Ok(())
 }
-fn install_source_timer(source: &SourceState) {
-    if let SourceState::Ledger(source) = source {
-        let delay = Duration::from_secs(u64::from(source.fallback_seconds));
-        ic_cdk_timers::set_timer(delay, async move {
-            // Arm the next one-shot before the external await. If a response
-            // callback traps and cancels this task, the fallback chain remains.
-            if let Ok(root) = root() {
-                install_source_timer(&root.source);
-            }
-            let _ = scan_ledger_inner().await;
-        });
-    }
+fn install_source_timer() {
+    ic_cdk_timers::set_timer(Duration::from_secs(source::FALLBACK_SECONDS), async {
+        install_source_timer(); // independent of any await or poke retry chain
+        let _ = request_reconciliation();
+    });
+}
+fn cache_poke_policy(source: &SourceState) {
+    POKE_POLICY.with(|p| {
+        *p.borrow_mut() = source
+            .event_horizon
+            .as_ref()
+            .and_then(|p| Principal::from_text(p).ok())
+            .map(|p| (p, source.receiving_subaccount))
+    });
 }
 fn clear_run_timer() {
     RUN_TIMER.with(|timer| {
@@ -605,7 +591,7 @@ fn clear_run_timer() {
         }
     });
 }
-fn stop_run_after_error(generation: u64, error: String) -> Result<()> {
+fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
     let mut r = root()?;
     if r.run.running && r.run.generation == generation {
         r.run.running = false;
@@ -614,21 +600,16 @@ fn stop_run_after_error(generation: u64, error: String) -> Result<()> {
     }
     Ok(())
 }
-fn autonomous_once(generation: u64) -> Result<()> {
+fn autonomous_once(generation: u64) -> AppResult<()> {
     autonomous_once_inner(generation, true)
 }
-fn autonomous_once_inner(generation: u64, certify: bool) -> Result<()> {
-    #[cfg(feature = "canbench")]
-    let restore_scope = canbench_rs::bench_scope("root_restore_validate");
+fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     let r = root()?;
     if !r.run.running || r.run.generation != generation {
         return Ok(());
     }
     let mut h = host(&r)?;
-    #[cfg(feature = "canbench")]
-    drop(restore_scope);
-    #[cfg(feature = "canbench")]
-    let action_scope = canbench_rs::bench_scope("coordinator_action");
+
     let mut run = r.run.clone();
     run.callback_count = run
         .callback_count
@@ -681,10 +662,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> Result<()> {
         Some(_) => return Err("autonomous coordinator phase".into()),
     }
     run.last_error = None;
-    #[cfg(feature = "canbench")]
-    drop(action_scope);
-    #[cfg(feature = "canbench")]
-    let _persist_scope = canbench_rs::bench_scope("snapshot_publication_stable_writes");
+
     persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
     Ok(())
 }
@@ -722,26 +700,17 @@ fn install_run_timer(run: &RunState) {
         );
     }
 }
-#[cfg_attr(not(feature = "canbench"), ic_cdk::init)]
-fn init(
-    initial_world: Vec<u8>,
-    synthetic_source_id: String,
-    source_from: u64,
-    logical_start: u64,
-    ledger: Option<LedgerConfig>,
-) {
+#[ic_cdk::init]
+fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
     if ROOT.with(|c| !c.borrow().get().is_empty()) {
         ic_cdk::trap("refusing initialization over durable root");
     }
-    let initialize = || -> Result<()> {
+    let initialize = || -> AppResult<()> {
         let w = World::decode(&initial_world)?;
         if !w.time.0.is_integer() || w.time.0.to_integer() != Int(logical_start.into()).0 {
             return Err("genesis logical time".into());
         }
-        let (source, source_id) = match ledger {
-            Some(config) => SourceState::configured(config, source_from)?,
-            None => (SourceState::Synthetic, synthetic_source_id),
-        };
+        let (source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
         let mut identity = btz_native::identity()?;
         identity["source_id"] = serde_json::Value::String(source_id);
         let identity: Identity = serde_json::from_value(identity).map_err(|e| e.to_string())?;
@@ -749,12 +718,14 @@ fn init(
             &initial_world,
             identity,
             logical_start,
-            source_from,
+            0,
             "00".repeat(32),
             BtzHostKernel,
         )?;
-        let root = persist(&h, None, source, RunState::default())?;
-        install_source_timer(&root.source);
+        let r = persist(&h, None, source, RunState::default())?;
+        cache_poke_policy(&r.source);
+        install_source_timer();
+        request_reconciliation()?;
         Ok(())
     };
     if let Err(e) = initialize() {
@@ -763,7 +734,7 @@ fn init(
 }
 #[ic_cdk::post_upgrade]
 fn post_upgrade() {
-    let verify = || -> Result<()> {
+    let verify = || -> AppResult<()> {
         let mut r = root()?;
         let h = host(&r)?;
         let view = publication(&h.record)?;
@@ -779,20 +750,17 @@ fn post_upgrade() {
                 },
             )?;
         }
-        let mut changed = false;
-        changed |= reconcile_completed_segments(&mut r.run, &view.data)?;
-        if let SourceState::Ledger(source) = &mut r.source {
-            source.in_flight = false;
-            source.scan_started_at_seconds = 0;
-            source.wake_scheduled = false;
-            source.dirty = true;
-            source.scan_nonce = source
-                .scan_nonce
-                .checked_add(1)
-                .ok_or("scan nonce exhausted")?;
-            source.last_error = Some("upgrade interrupted or rescheduled ledger scan".into());
-            changed = true;
-        }
+        reconcile_completed_segments(&mut r.run, &view.data)?;
+        r.source.in_flight = false;
+        r.source.started_at = 0;
+        r.source.wake_scheduled = false;
+        r.source.requested = true;
+        r.source.nonce = r
+            .source
+            .nonce
+            .checked_add(1)
+            .ok_or("source nonce exhausted")?;
+
         if r.run.running {
             r.run.generation = r
                 .run
@@ -800,13 +768,12 @@ fn post_upgrade() {
                 .checked_add(1)
                 .ok_or("autonomous generation exhausted")?;
             r.run.last_error = None;
-            changed = true;
         }
-        if changed {
-            save_root_only(&r)?;
-        }
+        save_root_only(&r)?;
         ic_cdk::api::certified_data_set(unhex(&r.publication_hash)?);
-        install_source_timer(&r.source);
+        cache_poke_policy(&r.source);
+        install_source_timer();
+        request_reconciliation()?;
         install_run_timer(&r.run);
         Ok(())
     };
@@ -887,6 +854,19 @@ fn controller_work() -> std::result::Result<ControllerWork, String> {
         pending_inputs: h.record.inbox.pending.len() as u32,
         source_cursor,
     })
+}
+/// Hash this descriptor and compare with the certified publication's source_id.
+#[ic_cdk::query]
+fn source_descriptor() -> std::result::Result<Vec<u8>, String> {
+    let s = root()?.source;
+    source::identity_bytes(
+        &s.network,
+        Principal::from_text(s.ledger).map_err(|e| e.to_string())?,
+        Principal::from_text(s.index).map_err(|e| e.to_string())?,
+        ic_cdk::api::canister_self(),
+        s.receiving_subaccount,
+        &s.recipient_hex,
+    )
 }
 #[ic_cdk::query]
 fn observation() -> std::result::Result<Observation, String> {
@@ -1014,22 +994,9 @@ fn start_autonomous(config: RunConfig) -> std::result::Result<Status, String> {
         .checked_add(1)
         .ok_or("autonomous generation exhausted")?;
     r.run.last_error = None;
-    let schedule_scan = match &mut r.source {
-        SourceState::Synthetic => false,
-        SourceState::Ledger(source) => {
-            source.dirty = true;
-            let schedule = !source.wake_scheduled;
-            source.wake_scheduled = true;
-            schedule
-        }
-    };
     save_root_only(&r)?;
     install_run_timer(&r.run);
-    if schedule_scan {
-        ic_cdk_timers::set_timer(Duration::ZERO, async {
-            let _ = scan_ledger_inner().await;
-        });
-    }
+    request_reconciliation()?;
     Ok(status(&r))
 }
 #[ic_cdk::update]
@@ -1049,1226 +1016,247 @@ fn pause_autonomous() -> std::result::Result<Status, String> {
     clear_run_timer();
     Ok(status(&r))
 }
+// Public controller APIs only pause/resume autonomous execution. Explicit
+// coordinator actions are test-only and cannot admit external payment proofs.
+#[cfg(feature = "test-hooks")]
 #[ic_cdk::update]
-fn apply(expected_revision: u64, canonical_action: Vec<u8>) -> std::result::Result<Status, String> {
+fn test_apply(
+    expected_revision: u64,
+    canonical_action: Vec<u8>,
+) -> std::result::Result<Status, String> {
     authorized()?;
     if canonical_action.len() > 65536 {
-        return Err("laboratory action capacity".into());
+        return Err("test action capacity".into());
     }
     let r = root()?;
-    if expected_revision != r.revision {
-        return Err("stale laboratory revision".into());
+    if r.revision != expected_revision || r.run.running {
+        return Err("stale revision / running".into());
     }
-    let a: Action = decode(&canonical_action)?;
-    if r.run.running
-        && matches!(
-            &a,
-            Action::Seal { .. } | Action::Step { .. } | Action::Publish { .. }
-        )
-    {
-        return Err("autonomous execution is active".into());
-    }
-    if matches!(r.source, SourceState::Ledger(_)) && matches!(&a, Action::Ingest { .. }) {
-        return Err("ledger-fed mode rejects generic synthetic ingestion".into());
-    }
-    if matches!(&a,Action::Step{budget}if *budget>100000) {
-        return Err("laboratory step capacity".into());
+    let action: Action = decode(&canonical_action)?;
+    if matches!(action, Action::Ingest { .. } | Action::IngestOrdered { .. }) {
+        return Err("index owns input admission".into());
     }
     let mut h = host(&r)?;
-    h.apply(a)?;
-    if h.record.revision == r.revision {
-        return Ok(status(&r));
-    }
-    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
-    Ok(status(&next))
+    h.apply(action)?;
+    Ok(status(&persist(
+        &h,
+        Some(&r),
+        r.source.clone(),
+        r.run.clone(),
+    )?))
 }
 
+fn request_reconciliation() -> AppResult<()> {
+    let mut r = root()?;
+    r.source.requested = true;
+    let schedule = !r.source.in_flight && !r.source.wake_scheduled;
+    if schedule {
+        r.source.wake_scheduled = true;
+    }
+    save_root_only(&r)?;
+    if schedule {
+        schedule_reconciliation();
+    }
+    Ok(())
+}
+fn schedule_reconciliation() {
+    let timer = ic_cdk_timers::set_timer(Duration::ZERO, async {
+        WAKE_TIMER.with(|t| t.borrow_mut().take());
+        let _ = reconcile().await;
+    });
+    WAKE_TIMER.with(|t| *t.borrow_mut() = Some(timer));
+}
 #[derive(Clone)]
-struct ScanLease {
-    ledger: Principal,
-    generation: u64,
+struct Lease {
     nonce: u64,
-    cursor: u64,
-    page_limit: u16,
-    #[cfg(feature = "test-hooks")]
-    test_fault: Option<u8>,
+    index: Principal,
+    before: Option<u64>,
 }
-
-fn lease_matches(source: &source::LedgerSource, lease: &ScanLease) -> bool {
-    source.generation == lease.generation
-        && source.scan_nonce == lease.nonce
-        && source.cursor == lease.cursor
-        && source.in_flight
-        && source.ledger == lease.ledger.to_text()
+fn matches_lease(source: &SourceState, lease: &Lease) -> bool {
+    source.in_flight && source.nonce == lease.nonce && source.index == lease.index.to_text()
 }
-
-fn scan_lease_expired(source: &source::LedgerSource, now_seconds: u64) -> bool {
-    source.scan_started_at_seconds == 0
-        || now_seconds.saturating_sub(source.scan_started_at_seconds) >= SCAN_LEASE_SECONDS
-}
-
-fn begin_scan() -> Result<std::result::Result<ScanLease, Status>> {
+fn begin_reconciliation() -> AppResult<Option<Lease>> {
     let mut r = root()?;
-    let now_seconds = ic_cdk::api::time() / 1_000_000_000;
-    let source = match &mut r.source {
-        SourceState::Synthetic => return Err("ledger source is not configured".into()),
-        SourceState::Ledger(source) => source,
-    };
-    source.wake_scheduled = false;
-    if source.in_flight {
-        if !scan_lease_expired(source, now_seconds) {
-            source.dirty = true;
-            save_root_only(&r)?;
-            return Ok(Err(status(&r)));
-        }
-        // The bounded call timeout is 30 seconds. After another 15 seconds,
-        // an ordinary scan may replace a canceled/stuck lease. The nonce below
-        // fences any late callback from the replacement operation.
-        source.in_flight = false;
-        source.scan_started_at_seconds = 0;
-        source.dirty = true;
-        source.last_error = Some("expired ledger scan lease recovered for retry".into());
+    r.source.wake_scheduled = false;
+    let now = ic_cdk::api::time() / 1_000_000_000;
+    if r.source.in_flight && now.saturating_sub(r.source.started_at) < SCAN_LEASE_SECONDS {
+        return Ok(None);
     }
-    source.scan_nonce = source
-        .scan_nonce
+    r.source.in_flight = true;
+    r.source.started_at = now;
+    r.source.requested = false;
+    r.source.nonce = r
+        .source
+        .nonce
         .checked_add(1)
-        .ok_or("scan nonce exhausted")?;
-    source.ledger_calls = source
-        .ledger_calls
-        .checked_add(1)
-        .ok_or("ledger call counter")?;
-    source.in_flight = true;
-    source.scan_started_at_seconds = now_seconds;
-    let lease = ScanLease {
-        ledger: source.principal()?,
-        generation: source.generation,
-        nonce: source.scan_nonce,
-        cursor: source.cursor,
-        page_limit: source.page_limit,
-        #[cfg(feature = "test-hooks")]
-        test_fault: TEST_SCAN_FAULT.with(|fault| fault.borrow_mut().take()),
+        .ok_or("source nonce exhausted")?;
+    let lease = Lease {
+        nonce: r.source.nonce,
+        index: Principal::from_text(&r.source.index).map_err(|e| e.to_string())?,
+        before: r.source.pending.as_ref().map(|p| p.before),
     };
     save_root_only(&r)?;
-    Ok(Ok(lease))
+    Ok(Some(lease))
 }
-
-fn finish_error(lease: &ScanLease, error: String) -> Result<Status> {
+fn reconciliation_failed(lease: &Lease, error: String) -> AppResult<()> {
     let mut r = root()?;
-    let source = match &mut r.source {
-        SourceState::Ledger(source) if lease_matches(source, lease) => source,
-        _ => return Ok(status(&r)),
-    };
-    source.in_flight = false;
-    source.scan_started_at_seconds = 0;
-    source.wake_scheduled = false;
-    source.dirty = true;
-    source.last_error = Some(error);
+    if !matches_lease(&r.source, lease) {
+        return Ok(());
+    }
+    r.source.in_flight = false;
+    r.source.started_at = 0;
+    r.source.last_error = Some(error);
+    // Preserve pending range, nonce fence and a poke received during await.
+    let requested = r.source.requested;
     save_root_only(&r)?;
-    Ok(status(&r))
+    if requested {
+        request_reconciliation()?;
+    }
+    Ok(())
 }
-
-fn finish_tip(lease: &ScanLease, chain_length: u64) -> Result<Status> {
+fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     let mut r = root()?;
-    let source = match &mut r.source {
-        SourceState::Ledger(source) if lease_matches(source, lease) => source,
-        _ => return Ok(status(&r)),
-    };
-    source.in_flight = false;
-    source.scan_started_at_seconds = 0;
-    source.wake_scheduled = false;
-    source.dirty = false;
-    source.last_error = None;
-    source.last_chain_length = Some(chain_length);
-    save_root_only(&r)?;
-    Ok(status(&r))
-}
-fn refresh_scan_lease(lease: &ScanLease) -> Result<std::result::Result<(), Status>> {
-    let mut r = root()?;
-    let source = match &mut r.source {
-        SourceState::Ledger(source) if lease_matches(source, lease) => source,
-        _ => return Ok(Err(status(&r))),
-    };
-    // A ledger-to-archive handoff is a second independently bounded call.
-    // Refresh only the matching fenced operation after the ledger reply so a
-    // legitimate two-call scan receives one lease window per remote call.
-    source.scan_started_at_seconds = ic_cdk::api::time() / 1_000_000_000;
-    save_root_only(&r)?;
-    Ok(Ok(()))
-}
-
-fn finish_blocks(
-    lease: &ScanLease,
-    chain_length: u64,
-    blocks: Vec<source::Block>,
-    archived: bool,
-) -> Result<Status> {
-    match finish_blocks_inner(lease, chain_length, blocks, archived) {
-        Ok(status) => Ok(status),
-        Err(error) => finish_error(lease, error),
+    if !matches_lease(&r.source, lease) {
+        return Ok(());
     }
-}
-
-fn finish_blocks_inner(
-    lease: &ScanLease,
-    chain_length: u64,
-    blocks: Vec<source::Block>,
-    archived: bool,
-) -> Result<Status> {
-    admit_blocks(lease, chain_length, blocks, archived, true)
-}
-fn admit_blocks(
-    lease: &ScanLease,
-    chain_length: u64,
-    blocks: Vec<source::Block>,
-    archived: bool,
-    certify: bool,
-) -> Result<Status> {
-    if blocks.is_empty() || blocks.len() > usize::from(lease.page_limit) {
-        return Err("empty/oversize contiguous ledger response".into());
+    let mut next = r.source.clone();
+    if let Some(page) = page {
+        next.page(page)?;
+        r.source = next.clone();
+        save_root_only(&r)?; // download survives admission backpressure
     }
-    let mut r = root()?;
-    let current = match &r.source {
-        SourceState::Ledger(source) if lease_matches(source, lease) => source.clone(),
-        _ => return Ok(status(&r)),
-    };
-    let end = lease
-        .cursor
-        .checked_add(blocks.len() as u64)
-        .ok_or("source cursor overflow")?;
-    if end > chain_length {
-        return Err("ledger page extends beyond reported chain".into());
-    }
-    let (records, anchor) = source::records_and_anchor(
-        &blocks,
-        lease.cursor,
-        &current.recipient()?,
-        &host(&r)?.record.inbox.source_anchor,
-    )?;
-    let mut coordinator = host(&r)?;
-    coordinator.apply(Action::Ingest {
-        start: Int(lease.cursor.into()),
-        records,
-        anchor,
-    })?;
-    #[cfg(feature = "test-hooks")]
-    if lease.test_fault == Some(2) {
-        return Err("test-only persistence-preparation capacity".into());
-    }
-    let mut next_source = r.source.clone();
-    let next = match &mut next_source {
-        SourceState::Ledger(source) if lease_matches(source, lease) => source,
-        _ => return Ok(status(&r)),
-    };
-    next.cursor = end;
-    next.in_flight = false;
-    next.scan_started_at_seconds = 0;
-    next.wake_scheduled = false;
-    next.dirty = end < chain_length;
-    next.last_error = None;
-    next.last_chain_length = Some(chain_length);
-    if archived {
-        next.archive_calls = next
-            .archive_calls
-            .checked_add(1)
-            .ok_or("archive call counter")?;
-    }
-    r = persist_inner(&coordinator, Some(&r), next_source, r.run.clone(), certify)?;
-    Ok(status(&r))
-}
-
-async fn scan_ledger_inner() -> Result<Status> {
-    let lease = match begin_scan()? {
-        Ok(lease) => lease,
-        Err(status) => return Ok(status),
-    };
-    let response: QueryBlocksResponse = match Call::bounded_wait(lease.ledger, "query_blocks")
-        .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
-        .with_arg(GetBlocksArgs {
-            start: lease.cursor,
-            length: u64::from(lease.page_limit),
-        })
-        .await
-    {
-        Ok(response) => match response.candid() {
-            Ok(response) => response,
-            Err(error) => {
-                return finish_error(&lease, format!("ledger response decode: {error:?}"))
-            }
-        },
-        Err(error) => return finish_error(&lease, format!("ledger call rejected: {error:?}")),
-    };
-    #[cfg(feature = "test-hooks")]
-    if lease.test_fault == Some(1) {
-        ic_cdk::trap("intentional test-only trap after ledger response");
-    }
-    let plan = match source::plan(response, lease.cursor, lease.page_limit) {
-        Ok(plan) => plan,
-        Err(error) => return finish_error(&lease, error),
-    };
-    match plan {
-        PagePlan::AtTip { chain_length } => finish_tip(&lease, chain_length),
-        PagePlan::Direct {
-            chain_length,
-            blocks,
-        } => finish_blocks(&lease, chain_length, blocks, false),
-        PagePlan::Archive {
-            chain_length,
-            canister,
-            method,
-            start,
-            length,
-        } => {
-            if let Err(status) = refresh_scan_lease(&lease)? {
-                return Ok(status);
-            }
-            let response: QueryArchiveResult = match Call::bounded_wait(canister, &method)
-                .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
-                .with_arg(GetBlocksArgs { start, length })
-                .await
-            {
-                Ok(response) => match response.candid() {
-                    Ok(response) => response,
-                    Err(error) => {
-                        return finish_error(&lease, format!("archive response decode: {error:?}"))
-                    }
-                },
-                Err(error) => {
-                    return finish_error(&lease, format!("archive call rejected: {error:?}"))
-                }
-            };
-            match response {
-                Ok(range) if start == lease.cursor && range.blocks.len() as u64 <= length => {
-                    finish_blocks(&lease, chain_length, range.blocks, true)
-                }
-                Ok(_) => finish_error(
-                    &lease,
-                    "archive returned wrong/oversize contiguous range".into(),
-                ),
-                Err(error) => finish_error(&lease, format!("archive range rejected: {error:?}")),
-            }
-        }
-    }
-}
-
-#[ic_cdk::update]
-async fn sync_ledger() -> std::result::Result<Status, String> {
-    authorized()?;
-    scan_ledger_inner().await
-}
-
-#[ic_cdk::update]
-fn ledger_hint() -> std::result::Result<Status, String> {
-    let mut r = root()?;
-    let source = match &mut r.source {
-        SourceState::Synthetic => return Err("ledger source is not configured".into()),
-        SourceState::Ledger(source) => source,
-    };
-    if let Some(expected) = &source.hint_principal {
-        let expected = Principal::from_text(expected).map_err(|e| e.to_string())?;
-        if ic_cdk::api::msg_caller() != expected
-            && !ic_cdk::api::is_controller(&ic_cdk::api::msg_caller())
-        {
-            return Err("untrusted ledger hint caller".into());
-        }
-    }
-    source.dirty = true;
-    let schedule = !source.wake_scheduled;
-    if schedule {
-        source.wake_scheduled = true;
-    }
-    save_root_only(&r)?;
-    if schedule {
-        ic_cdk_timers::set_timer(Duration::ZERO, async {
-            let _ = scan_ledger_inner().await;
-        });
-    }
-    Ok(status(&r))
-}
-
-#[cfg(feature = "test-hooks")]
-#[ic_cdk::update]
-fn test_trap_after_root_write(expected_revision: u64) {
-    if let Err(error) = authorized() {
-        ic_cdk::trap(&error);
-    }
-    let mut r = root().unwrap_or_else(|error| ic_cdk::trap(&error));
-    if r.revision != expected_revision {
-        ic_cdk::trap("stale laboratory revision");
-    }
-    r.publication_hash = "ff".repeat(32);
-    save_root_only(&r).unwrap_or_else(|error| ic_cdk::trap(&error));
-    ic_cdk::trap("intentional test-only rollback after stable write");
-}
-
-#[cfg(feature = "test-hooks")]
-#[ic_cdk::update]
-fn test_fill_scan_backpressure() -> std::result::Result<Status, String> {
-    authorized()?;
-    let r = root()?;
-    let SourceState::Ledger(source) = &r.source else {
-        return Err("ledger source is not configured".into());
-    };
-    if source.in_flight || source.cursor != 0 {
-        return Err("test backpressure setup requires an idle genesis source".into());
-    }
-    let mut h = host(&r)?;
-    if !h.record.inbox.pending.is_empty() {
-        return Err("test backpressure setup requires an empty inbox".into());
-    }
-    let mut payment = b"BTZPAY02".to_vec();
-    payment.extend_from_slice(&[7; 32]);
-    payment.extend_from_slice(&1_000_000_000u64.to_be_bytes());
-    payment.extend_from_slice(&[0; 8]);
-    let payment = hex(&payment);
-    h.apply(Action::Ingest {
-        start: Int(0u64.into()),
-        records: vec![Some(payment.clone())],
-        anchor: hash(&0u64.to_be_bytes()),
-    })?;
-    h.apply(Action::Seal {
-        logical_end: Int(1u64.into()),
-    })?;
-    let mut start = 1u64;
-    while start < 4096 {
-        let length = (4096 - start).min(256) as usize;
-        h.apply(Action::Ingest {
-            start: Int(start.into()),
-            records: vec![Some(payment.clone()); length],
-            anchor: hash(&start.to_be_bytes()),
-        })?;
-        start += length as u64;
-    }
-    let mut next_source = r.source.clone();
-    let SourceState::Ledger(source) = &mut next_source else {
-        unreachable!()
-    };
-    source.cursor = 4096;
-    let next = persist(&h, Some(&r), next_source, r.run.clone())?;
-    Ok(status(&next))
-}
-
-#[cfg(feature = "test-hooks")]
-#[ic_cdk::update]
-fn test_arm_scan_fault(kind: u8) -> std::result::Result<Status, String> {
-    authorized()?;
-    if !matches!(kind, 1 | 2) {
-        return Err("unknown test scan fault".into());
-    }
-    let r = root()?;
-    let SourceState::Ledger(source) = &r.source else {
-        return Err("ledger source is not configured".into());
-    };
-    if source.in_flight {
-        return Err("cannot arm a scan fault while a scan is active".into());
-    }
-    TEST_SCAN_FAULT.with(|fault| -> Result<()> {
-        let mut fault = fault.borrow_mut();
-        if fault.is_some() {
-            return Err("test scan fault is already armed".into());
-        }
-        *fault = Some(kind);
-        Ok(())
-    })?;
-    Ok(status(&r))
-}
-
-#[cfg(feature = "test-hooks")]
-#[ic_cdk::query]
-fn test_source_anchor() -> std::result::Result<String, String> {
-    authorized()?;
-    Ok(host(&root()?)?.record.inbox.source_anchor)
-}
-
-#[cfg(feature = "test-hooks")]
-#[ic_cdk::query]
-fn test_scan_state() -> std::result::Result<TestScanState, String> {
-    authorized()?;
-    let r = root()?;
-    let SourceState::Ledger(source) = &r.source else {
-        return Err("ledger source is not configured".into());
-    };
-    Ok(TestScanState {
-        nonce: source.scan_nonce,
-        cursor: source.cursor,
-        started_at_seconds: source.scan_started_at_seconds,
-        expired: source.in_flight
-            && scan_lease_expired(source, ic_cdk::api::time() / 1_000_000_000),
-    })
-}
-
-#[cfg(feature = "test-hooks")]
-#[ic_cdk::update]
-fn test_stale_scan_completion_fence() -> std::result::Result<Status, String> {
-    authorized()?;
-    let mut r = root()?;
-    let source = match &mut r.source {
-        SourceState::Synthetic => return Err("ledger source is not configured".into()),
-        SourceState::Ledger(source) => source,
-    };
-    if source.in_flight {
-        return Err("test stale completion setup requires an idle source".into());
-    }
-    source.scan_nonce = source
-        .scan_nonce
-        .checked_add(1)
-        .ok_or("scan nonce exhausted")?;
-    source.in_flight = true;
-    source.scan_started_at_seconds = ic_cdk::api::time() / 1_000_000_000;
-    let stale = ScanLease {
-        ledger: source.principal()?,
-        generation: source.generation,
-        nonce: source.scan_nonce,
-        cursor: source.cursor,
-        page_limit: source.page_limit,
-        test_fault: None,
-    };
-    source.scan_nonce = source
-        .scan_nonce
-        .checked_add(1)
-        .ok_or("scan nonce exhausted")?;
-    save_root_only(&r)?;
-    finish_tip(&stale, stale.cursor.saturating_add(99))
-}
-ic_cdk::export_candid!();
-
-// These exports exist only in the dedicated benchmark Wasm. The normal and
-// test-hook application modules do not contain canbench entry points.
-#[cfg(feature = "canbench")]
-mod benches {
-    use super::*;
-    use btz_native::{Cursor, Input as KernelInput};
-    use canbench_rs::{bench, bench_fn, bench_scope, BenchResult};
-    use ic_ledger_types::{AccountIdentifier, Subaccount};
-    use serde::Deserialize;
-    use std::hint::black_box;
-
-    // The canbench macro emits the standard two-parameter Result spelling;
-    // keep it distinct from dtr_wire's one-parameter alias imported above.
-    type Result<T, E> = std::result::Result<T, E>;
-
-    #[derive(Deserialize)]
-    struct Fixtures {
-        workloads: Vec<Workload>,
-    }
-
-    #[derive(Deserialize)]
-    struct Workload {
-        name: String,
-        rules: serde_json::Value,
-        logical_start: String,
-        logical_end: String,
-        initial_state_hex: String,
-        inputs: Vec<FixtureInput>,
-    }
-
-    #[derive(Deserialize)]
-    struct FixtureInput {
-        position: String,
-        payload_hex: String,
-    }
-
-    fn workload(name: &str) -> Workload {
-        let fixtures: Fixtures =
-            serde_json::from_str(include_str!("../../../benchmarks/s12/workloads.json"))
-                .expect("valid S12 workload fixture");
-        fixtures
-            .workloads
-            .into_iter()
-            .find(|row| row.name == name)
-            .expect("named S12 workload")
-    }
-
-    fn cursor(name: &str) -> Cursor {
-        let row = workload(name);
-        let mut context = row.rules;
-        context["logical_start"] = serde_json::json!({"$integer": row.logical_start});
-        context["logical_end"] = serde_json::json!({"$integer": row.logical_end});
-        let inputs = row
-            .inputs
-            .into_iter()
-            .map(|input| KernelInput {
-                position: Int(input
-                    .position
-                    .parse::<u64>()
-                    .expect("fixture position")
-                    .into()),
-                payload_hex: input.payload_hex,
-            })
-            .collect();
-        Cursor::begin(
-            &unhex(&row.initial_state_hex).expect("fixture state"),
+    if next.pending.as_ref().is_some_and(|p| p.complete) {
+        let mut h = host(&r)?;
+        let (end, inputs, anchor) = next.admission(&h.record.inbox.source_anchor)?;
+        h.apply(Action::IngestOrdered {
+            start: Int(next.cursor.into()),
+            end: Int(end.into()),
             inputs,
-            &context,
-        )
-        .expect("fixture cursor")
+            anchor,
+        })?;
+        next.cursor = end;
+        next.pending = None;
+        next.in_flight = false;
+        next.started_at = 0;
+        next.last_error = None;
+        r = persist(&h, Some(&r), next, r.run.clone())?;
+    } else {
+        next.in_flight = false;
+        next.started_at = 0;
+        next.last_error = None;
+        r.source = next;
+        save_root_only(&r)?;
     }
-
-    fn measure_kernel(name: &str) -> BenchResult {
-        let mut cursor = cursor(name);
-        bench_fn(|| {
-            {
-                let _scope = bench_scope("kernel_step");
-                while !cursor.step(100_000).expect("kernel step").1 {}
-            }
-            {
-                let _scope = bench_scope("result_serialization");
-                black_box(cursor.result().expect("kernel result"));
-            }
-        })
+    if r.source.requested || r.source.pending.is_some() {
+        request_reconciliation()?;
     }
-
-    fn coordinator_unsealed(name: &str) -> (Coordinator<BtzHostKernel>, u64) {
-        let row = workload(name);
-        let state = unhex(&row.initial_state_hex).expect("fixture state");
-        let start = row.logical_start.parse::<u64>().expect("logical start");
-        let end = row.logical_end.parse::<u64>().expect("logical end");
-        let mut identity = btz_native::identity().expect("BTZ identity");
-        identity["source_id"] = serde_json::Value::String("00".repeat(32));
-        let identity: Identity = serde_json::from_value(identity).expect("typed identity");
-        let mut host =
-            Coordinator::create(&state, identity, start, 0, "00".repeat(32), BtzHostKernel)
-                .expect("coordinator");
-        if !row.inputs.is_empty() {
-            host.apply(Action::Ingest {
-                start: Int(0u64.into()),
-                records: row
-                    .inputs
-                    .into_iter()
-                    .map(|input| Some(input.payload_hex))
-                    .collect(),
-                anchor: "11".repeat(32),
+    Ok(())
+}
+async fn reconcile() -> AppResult<()> {
+    let Some(lease) = begin_reconciliation()? else {
+        return Ok(());
+    };
+    let operation = async {
+        let mut r = root()?;
+        if !r.source.binding_checked {
+            let response = Call::bounded_wait(lease.index, "ledger_id")
+                .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
+                .await
+                .map_err(|e| format!("index ledger binding call: {e}"))?;
+            let actual: Principal = response
+                .candid()
+                .map_err(|e| format!("index ledger binding decode: {e}"))?;
+            r = root()?;
+            if !matches_lease(&r.source, &lease) {
+                return Ok(());
+            }
+            if actual.to_text() != r.source.ledger {
+                return Err("index ledger_id mismatch".into());
+            }
+            r.source.binding_checked = true;
+            save_root_only(&r)?;
+        }
+        r = root()?;
+        if !matches_lease(&r.source, &lease) {
+            return Ok(());
+        }
+        if r.source.pending.as_ref().is_some_and(|p| p.complete) {
+            return finish_page(&lease, None);
+        }
+        r.source.index_calls = r
+            .source
+            .index_calls
+            .checked_add(1)
+            .ok_or("index call counter")?;
+        r.source.started_at = ic_cdk::api::time() / 1_000_000_000;
+        save_root_only(&r)?;
+        let response = Call::bounded_wait(lease.index, "get_account_identifier_transactions")
+            .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
+            .with_arg(source::HistoryArgs {
+                account_identifier: r.source.recipient_hex,
+                start: lease.before,
+                max_results: source::PAGE,
             })
-            .expect("fixture ingest");
-        }
-        (host, end)
+            .await
+            .map_err(|e| format!("index unavailable: {e}"))?;
+        let result: source::HistoryResult = response
+            .candid()
+            .map_err(|e| format!("index response decode: {e}"))?;
+        let page = result.map_err(|e| format!("index error: {}", e.message))?;
+        finish_page(&lease, Some(page))
     }
-
-    fn coordinator_ready(name: &str) -> Coordinator<BtzHostKernel> {
-        let (mut host, end) = coordinator_unsealed(name);
-        host.apply(Action::Seal {
-            logical_end: Int(end.into()),
-        })
-        .expect("fixture seal");
-        host
+    .await;
+    if let Err(error) = operation {
+        reconciliation_failed(&lease, error)?;
     }
-
-    fn complete(host: &mut Coordinator<BtzHostKernel>) {
-        loop {
-            let stage = host.record.journal.stage.as_ref().expect("active stage");
-            if stage.phase == "ready" {
-                break;
+    Ok(())
+}
+// CDK runs the guard before Candid argument decoding. Bound ingress bytes too;
+// receipt/decoding still costs cycles. No custom Candid decoder is used.
+fn poke_guard() -> std::result::Result<(), String> {
+    let caller = ic_cdk::api::msg_caller();
+    if !POKE_POLICY.with(|p| p.borrow().is_some_and(|(sender, _)| sender == caller)) {
+        return Err("pokes disabled or unauthorized sender".into());
+    }
+    if ic_cdk::api::msg_arg_data().len() > 32768 {
+        return Err("poke payload bound".into());
+    }
+    Ok(())
+}
+#[ic_cdk::update(guard = "poke_guard")]
+fn poke(matches: Vec<PokeMatch>) {
+    let target = POKE_POLICY.with(|p| p.borrow().map(|(_, target)| target));
+    if !target.is_some_and(|target| source::matching_poke(&matches, target)) {
+        return;
+    }
+    let wake = || -> AppResult<()> {
+        let mut r = root()?;
+        let now = ic_cdk::api::time() / 1_000_000_000;
+        if now >= r.source.retry_until {
+            r.source.retry_until = now.saturating_add(60);
+            save_root_only(&r)?;
+            // One fixed bounded retry burst per minute, never one chain per poke.
+            for seconds in [2, 10] {
+                ic_cdk_timers::set_timer(Duration::from_secs(seconds), async {
+                    let _ = request_reconciliation();
+                });
             }
-            host.apply(Action::Step { budget: 100_000 })
-                .expect("coordinator step");
         }
-    }
-
-    #[bench(raw)]
-    fn kernel_small_reference() -> BenchResult {
-        measure_kernel("small-reference")
-    }
-
-    #[bench(raw)]
-    fn kernel_empty_motion() -> BenchResult {
-        measure_kernel("empty-motion")
-    }
-
-    #[bench(raw)]
-    fn kernel_ball_dense_medium() -> BenchResult {
-        measure_kernel("ball-dense-medium")
-    }
-
-    #[bench(raw)]
-    fn kernel_ball_dense_high() -> BenchResult {
-        measure_kernel("ball-dense-high")
-    }
-
-    #[bench(raw)]
-    fn kernel_many_cannon_frontier() -> BenchResult {
-        measure_kernel("many-cannon-frontier")
-    }
-
-    #[bench(raw)]
-    fn coordinator_ball_dense_medium() -> BenchResult {
-        let mut host = coordinator_ready("ball-dense-medium");
-        bench_fn(|| {
-            {
-                let _scope = bench_scope("coordinator_steps");
-                complete(&mut host);
-            }
-            {
-                let _scope = bench_scope("publication_commit");
-                let manifest = host
-                    .record
-                    .journal
-                    .stage
-                    .as_ref()
-                    .and_then(|stage| stage.ready_hash.clone())
-                    .expect("ready manifest");
-                host.apply(Action::Publish {
-                    manifest_hash: manifest,
-                })
-                .expect("publish");
-            }
-        })
-    }
-
-    #[bench(raw)]
-    fn coordinator_empty_motion() -> BenchResult {
-        let mut host = coordinator_ready("empty-motion");
-        bench_fn(|| {
-            complete(&mut host);
-            let manifest = host
-                .record
-                .journal
-                .stage
-                .as_ref()
-                .and_then(|stage| stage.ready_hash.clone())
-                .expect("ready manifest");
-            host.apply(Action::Publish {
-                manifest_hash: manifest,
-            })
-            .expect("publish");
-        })
-    }
-
-    #[bench(raw)]
-    fn coordinator_seal_medium() -> BenchResult {
-        let (mut host, end) = coordinator_unsealed("ball-dense-medium");
-        bench_fn(|| {
-            host.apply(Action::Seal {
-                logical_end: Int(end.into()),
-            })
-            .expect("seal");
-        })
-    }
-
-    fn measure_step_and_persist(name: &str) -> BenchResult {
-        let mut host = coordinator_ready(name);
-        bench_fn(|| {
-            host.apply(Action::Step { budget: 512 })
-                .expect("bounded coordinator step");
-            black_box(
-                persist_inner(
-                    &host,
-                    None,
-                    SourceState::Synthetic,
-                    RunState::default(),
-                    false,
-                )
-                .expect("bounded step persistence"),
-            );
-        })
-    }
-
-    #[bench(raw)]
-    fn callback_step_persist_medium_512() -> BenchResult {
-        measure_step_and_persist("ball-dense-medium")
-    }
-
-    #[bench(raw)]
-    fn callback_step_persist_high_512() -> BenchResult {
-        measure_step_and_persist("ball-dense-high")
-    }
-
-    #[bench(raw)]
-    fn coordinator_ball_dense_high() -> BenchResult {
-        let mut host = coordinator_ready("ball-dense-high");
-        bench_fn(|| {
-            complete(&mut host);
-            let manifest = host
-                .record
-                .journal
-                .stage
-                .as_ref()
-                .and_then(|stage| stage.ready_hash.clone())
-                .expect("ready manifest");
-            host.apply(Action::Publish {
-                manifest_hash: manifest,
-            })
-            .expect("publish");
-        })
-    }
-
-    #[bench(raw)]
-    fn coordinator_many_cannon_frontier() -> BenchResult {
-        let mut host = coordinator_ready("many-cannon-frontier");
-        bench_fn(|| {
-            complete(&mut host);
-            let manifest = host
-                .record
-                .journal
-                .stage
-                .as_ref()
-                .and_then(|stage| stage.ready_hash.clone())
-                .expect("ready manifest");
-            host.apply(Action::Publish {
-                manifest_hash: manifest,
-            })
-            .expect("publish");
-        })
-    }
-
-    fn measure_persistence(name: &str) -> BenchResult {
-        let mut host = coordinator_ready(name);
-        complete(&mut host);
-        let manifest = host
-            .record
-            .journal
-            .stage
-            .as_ref()
-            .and_then(|stage| stage.ready_hash.clone())
-            .expect("ready manifest");
-        host.apply(Action::Publish {
-            manifest_hash: manifest,
-        })
-        .expect("publish");
-        bench_fn(|| {
-            // certified_data_set is update-only and cannot execute in canbench's
-            // non-replicated query. Everything else is the production path.
-            let _scope = bench_scope("snapshot_publication_stable_writes");
-            black_box(
-                persist_inner(
-                    &host,
-                    None,
-                    SourceState::Synthetic,
-                    RunState::default(),
-                    false,
-                )
-                .expect("persist benchmark"),
-            );
-        })
-    }
-
-    #[bench(raw)]
-    fn persistence_publication_small() -> BenchResult {
-        measure_persistence("small-reference")
-    }
-
-    #[bench(raw)]
-    fn persistence_publication_empty_motion() -> BenchResult {
-        measure_persistence("empty-motion")
-    }
-
-    #[bench(raw)]
-    fn persistence_publication_medium() -> BenchResult {
-        measure_persistence("ball-dense-medium")
-    }
-
-    #[bench(raw)]
-    fn persistence_publication_high() -> BenchResult {
-        measure_persistence("ball-dense-high")
-    }
-
-    #[bench(raw)]
-    fn persistence_publication_many_cannon() -> BenchResult {
-        measure_persistence("many-cannon-frontier")
-    }
-
-    // Each query gets isolated stable memory. Setup is outside bench_fn;
-    // measured work loads and validates the existing root and hidden cursor.
-    fn warm_root(staged: bool) -> Root {
-        let (mut h, _) = coordinator_unsealed("ball-dense-medium");
-        if staged {
-            h.apply(Action::Seal {
-                logical_end: Int(2u64.into()),
-            })
-            .unwrap();
-        }
-        let run = RunState {
-            running: true,
-            segment_ticks: 2,
-            pacing_seconds: 1,
-            work_budget: 512,
-            generation: 1,
-            ..RunState::default()
-        };
-        persist_inner(&h, None, SourceState::Synthetic, run, false).unwrap()
-    }
-
-    fn warm_action(case: &str) -> BenchResult {
-        let mut r = warm_root(case != "seal");
-        let mut steps = 0;
-        if matches!(case, "middle" | "late" | "finalize" | "publish" | "evict") {
-            let mut probe = host(&r).unwrap();
-            while probe.record.journal.stage.as_ref().unwrap().phase != "ready" {
-                probe.apply(Action::Step { budget: 512 }).unwrap();
-                steps += 1;
-            }
-            let advance = match case {
-                "middle" => steps / 2,
-                "late" => steps - 2,
-                "finalize" => steps - 1,
-                _ => steps,
-            };
-            for _ in 0..advance {
-                autonomous_once_inner(1, false).unwrap();
-            }
-            r = root().unwrap();
-        }
-        if case == "evict" {
-            // Publish three segments, preparing the fourth ready state against
-            // the real three-publication retention root.
-            for _ in 0..3 {
-                autonomous_once_inner(1, false).unwrap();
-                autonomous_once_inner(1, false).unwrap();
-                while host(&root().unwrap())
-                    .unwrap()
-                    .record
-                    .journal
-                    .stage
-                    .as_ref()
-                    .unwrap()
-                    .phase
-                    != "ready"
-                {
-                    autonomous_once_inner(1, false).unwrap();
-                }
-            }
-            r = root().unwrap();
-            assert_eq!(r.retention.history.len(), 2);
-        }
-        let root_bytes = encode(&r).unwrap().len();
-        let image_bytes = r.image.length;
-        let cursor_bytes = host(&r)
-            .unwrap()
-            .record
-            .journal
-            .stage
-            .as_ref()
-            .map(|stage| stage.cursor_hex.len() / 2)
-            .unwrap_or(0);
-        ic_cdk::println!(
-            "S12 warm metadata case={} root_bytes={} image_bytes={} working_cursor_bytes={} steps={} certification=NOT_MEASURED",
-            case,
-            root_bytes,
-            image_bytes,
-            cursor_bytes,
-            steps
-        );
-        bench_fn(|| {
-            autonomous_once_inner(1, false).unwrap();
-        })
-    }
-
-    #[bench(raw)]
-    fn warm_seal_medium_512() -> BenchResult {
-        warm_action("seal")
-    }
-    #[bench(raw)]
-    fn warm_early_medium_512() -> BenchResult {
-        warm_action("early")
-    }
-    #[bench(raw)]
-    fn warm_middle_medium_512() -> BenchResult {
-        warm_action("middle")
-    }
-    #[bench(raw)]
-    fn warm_late_medium_512() -> BenchResult {
-        warm_action("late")
-    }
-    #[bench(raw)]
-    fn warm_finalize_medium_512() -> BenchResult {
-        warm_action("finalize")
-    }
-    #[bench(raw)]
-    fn warm_publish_medium_512() -> BenchResult {
-        warm_action("publish")
-    }
-    #[bench(raw)]
-    fn warm_evict_medium_512() -> BenchResult {
-        warm_action("evict")
-    }
-    #[bench(raw)]
-    fn warm_publish_retire_medium_512() -> BenchResult {
-        let r = warm_root(false);
-        let mut h = host(&r).unwrap();
-        let input = workload("small-reference").inputs.remove(0).payload_hex;
-        h.apply(Action::Ingest {
-            start: Int(0u64.into()),
-            records: vec![Some(input)],
-            anchor: "11".repeat(32),
-        })
-        .unwrap();
-        h.apply(Action::Seal {
-            logical_end: Int(2u64.into()),
-        })
-        .unwrap();
-        persist_inner(&h, Some(&r), r.source.clone(), r.run.clone(), false).unwrap();
-        while host(&root().unwrap())
-            .unwrap()
-            .record
-            .journal
-            .stage
-            .as_ref()
-            .unwrap()
-            .phase
-            != "ready"
-        {
-            autonomous_once_inner(1, false).unwrap();
-        }
-        assert_eq!(
-            host(&root().unwrap()).unwrap().record.inbox.pending.len(),
-            1
-        );
-        let result = bench_fn(|| {
-            autonomous_once_inner(1, false).unwrap();
-        });
-        let restored = host(&root().unwrap()).unwrap();
-        assert!(restored.record.inbox.pending.is_empty());
-        assert_eq!(number(&restored.record.inbox.retired_to).unwrap(), 1);
-        result
-    }
-
-    #[bench(raw)]
-    fn warm_empty_progression_medium_512() -> BenchResult {
-        warm_root(false);
-        autonomous_once_inner(1, false).unwrap();
-        while host(&root().unwrap())
-            .unwrap()
-            .record
-            .journal
-            .stage
-            .as_ref()
-            .unwrap()
-            .phase
-            != "ready"
-        {
-            autonomous_once_inner(1, false).unwrap();
-        }
-        autonomous_once_inner(1, false).unwrap();
-        bench_fn(|| {
-            autonomous_once_inner(1, false).unwrap();
-        })
-    }
-
-    fn prepare_warm_ledger(staged: bool) -> (ScanLease, Vec<source::Block>) {
-        let r = warm_root(staged);
-        let (blocks, recipient) = ledger_blocks(1);
-        let (mut source, source_id) = SourceState::configured(
-            source::LedgerConfig {
-                network: "pocketic-local".into(),
-                ledger: Principal::from_slice(&[99]),
-                recipient_account: recipient.as_bytes().to_vec(),
-                page_limit: 64,
-                fallback_seconds: 5,
-                hint_principal: None,
-            },
-            0,
-        )
-        .unwrap();
-        if let SourceState::Ledger(s) = &mut source {
-            s.in_flight = true;
-            s.scan_nonce = 1;
-        }
-        let row = workload("ball-dense-medium");
-        let mut identity = btz_native::identity().unwrap();
-        identity["source_id"] = serde_json::Value::String(source_id);
-        let mut coordinator = Coordinator::create(
-            &unhex(&row.initial_state_hex).unwrap(),
-            serde_json::from_value(identity).unwrap(),
-            0,
-            0,
-            "00".repeat(32),
-            BtzHostKernel,
-        )
-        .unwrap();
-        if staged {
-            coordinator
-                .apply(Action::Seal {
-                    logical_end: Int(2u64.into()),
-                })
-                .unwrap();
-        }
-        persist_inner(&coordinator, None, source, r.run.clone(), false).unwrap();
-        let lease = ScanLease {
-            ledger: Principal::from_slice(&[99]),
-            generation: 1,
-            nonce: 1,
-            cursor: 0,
-            page_limit: 64,
-            #[cfg(feature = "test-hooks")]
-            test_fault: None,
-        };
-        (lease, blocks)
-    }
-    fn warm_ledger(staged: bool) -> BenchResult {
-        let (lease, blocks) = prepare_warm_ledger(staged);
-        bench_fn(|| {
-            admit_blocks(&lease, 64, blocks, false, false).unwrap();
-        })
-    }
-    #[bench(raw)]
-    fn warm_ledger_empty_poll() -> BenchResult {
-        prepare_warm_ledger(false);
-        let mut r = root().unwrap();
-        if let SourceState::Ledger(s) = &mut r.source {
-            s.in_flight = false;
-        }
-        save_root_only(&r).unwrap();
-        // Complete local begin/at-tip handling; cross-canister awaiting,
-        // payload encode/decode and timer dispatch are outside this query.
-        bench_fn(|| {
-            let lease = match begin_scan().unwrap() {
-                Ok(lease) => lease,
-                Err(_) => panic!("unexpected scan in flight"),
-            };
-            finish_tip(&lease, 0).unwrap();
-        })
-    }
-    #[bench(raw)]
-    fn warm_ledger_admission() -> BenchResult {
-        warm_ledger(false)
-    }
-    #[bench(raw)]
-    fn warm_ledger_staged_admission() -> BenchResult {
-        warm_ledger(true)
-    }
-
-    fn ledger_blocks(relevant: usize) -> (Vec<source::Block>, AccountIdentifier) {
-        let recipient = AccountIdentifier::new(&Principal::from_slice(&[99]), &Subaccount([0; 32]));
-        let other = AccountIdentifier::new(&Principal::from_slice(&[98]), &Subaccount([0; 32]));
-        let mut blocks = Vec::with_capacity(64);
-        for index in 0..64 {
-            let from = AccountIdentifier::new(
-                &Principal::from_slice(&[(index + 1) as u8]),
-                &Subaccount([0; 32]),
-            );
-            blocks.push(source::Block {
-                parent_hash: Some(vec![index as u8; 32]),
-                transaction: source::Transaction {
-                    memo: u64::from_be_bytes(*b"BTZ\x11\0\0\x40\0"),
-                    icrc1_memo: None,
-                    operation: Some(source::Operation::Transfer {
-                        from: from.as_bytes().to_vec(),
-                        to: if index < relevant { recipient } else { other }
-                            .as_bytes()
-                            .to_vec(),
-                        amount: source::Tokens { e8s: 1_000_000_000 },
-                        fee: source::Tokens { e8s: 10_000 },
-                        spender: None,
-                    }),
-                    created_at_time: source::Timestamp {
-                        timestamp_nanos: index as u64,
-                    },
-                },
-                timestamp: source::Timestamp {
-                    timestamp_nanos: index as u64,
-                },
-            });
-        }
-        (blocks, recipient)
-    }
-
-    fn measure_ledger_page(relevant: usize) -> BenchResult {
-        let (blocks, recipient) = ledger_blocks(relevant);
-        bench_fn(|| {
-            black_box(
-                source::records_and_anchor(&blocks, 0, &recipient, &"00".repeat(32))
-                    .expect("ledger page"),
-            );
-        })
-    }
-
-    #[bench(raw)]
-    fn ledger_page_all_irrelevant() -> BenchResult {
-        measure_ledger_page(0)
-    }
-
-    #[bench(raw)]
-    fn ledger_page_sparse_relevant() -> BenchResult {
-        measure_ledger_page(1)
-    }
-
-    #[bench(raw)]
-    fn ledger_page_all_relevant() -> BenchResult {
-        measure_ledger_page(64)
+        request_reconciliation()
+    };
+    if let Err(e) = wake() {
+        ic_cdk::trap(&e);
     }
 }
 
+ic_cdk::export_candid!();
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use ic_ledger_types::{AccountIdentifier, DEFAULT_SUBACCOUNT};
-
     #[test]
     fn print_generated_candid() {
-        let generated = super::__export_service();
-        println!("DTR_RUNTIME_CANDID_BEGIN");
-        println!("{generated}");
-        println!("DTR_RUNTIME_CANDID_END");
-        candid_parser::utils::service_equal(
-            candid_parser::utils::CandidSource::Text(&generated),
-            candid_parser::utils::CandidSource::Text(include_str!("../runtime-lab.did")),
-        )
-        .expect("generated and declared Candid differ semantically");
-    }
-
-    #[test]
-    fn scan_lease_fences_every_await_identity() {
-        let ledger = Principal::from_slice(&[1]);
-        let recipient = AccountIdentifier::new(&Principal::from_slice(&[2]), &DEFAULT_SUBACCOUNT);
-        let (state, _) = SourceState::configured(
-            LedgerConfig {
-                network: source::LOCAL_NETWORK.into(),
-                ledger,
-                recipient_account: recipient.as_bytes().to_vec(),
-                page_limit: 4,
-                fallback_seconds: 60,
-                hint_principal: None,
-            },
-            7,
-        )
-        .unwrap();
-        let SourceState::Ledger(mut source) = state else {
-            panic!("expected ledger source")
-        };
-        source.in_flight = true;
-        source.scan_nonce = 9;
-        let lease = ScanLease {
-            ledger,
-            generation: source.generation,
-            nonce: 9,
-            cursor: 7,
-            page_limit: 4,
-            #[cfg(feature = "test-hooks")]
-            test_fault: None,
-        };
-        assert!(lease_matches(&source, &lease));
-        source.generation += 1;
-        assert!(!lease_matches(&source, &lease));
-        source.generation -= 1;
-        source.scan_nonce += 1;
-        assert!(!lease_matches(&source, &lease));
-        source.scan_nonce -= 1;
-        source.cursor += 1;
-        assert!(!lease_matches(&source, &lease));
-    }
-
-    #[test]
-    fn scan_lease_recovery_is_bounded() {
-        let ledger = Principal::from_slice(&[1]);
-        let recipient = AccountIdentifier::new(&Principal::from_slice(&[2]), &DEFAULT_SUBACCOUNT);
-        let (state, _) = SourceState::configured(
-            LedgerConfig {
-                network: source::LOCAL_NETWORK.into(),
-                ledger,
-                recipient_account: recipient.as_bytes().to_vec(),
-                page_limit: 4,
-                fallback_seconds: 60,
-                hint_principal: None,
-            },
-            0,
-        )
-        .unwrap();
-        let SourceState::Ledger(mut source) = state else {
-            panic!("expected ledger source")
-        };
-        source.in_flight = true;
-        source.scan_started_at_seconds = 1;
-        assert!(!scan_lease_expired(&source, 1 + SCAN_LEASE_SECONDS - 1));
-        assert!(scan_lease_expired(&source, 1 + SCAN_LEASE_SECONDS));
-        source.scan_started_at_seconds = 0;
-        assert!(scan_lease_expired(&source, 1));
+        println!(
+            "DTR_RUNTIME_CANDID_BEGIN\n{}\nDTR_RUNTIME_CANDID_END",
+            super::__export_service()
+        );
     }
 }

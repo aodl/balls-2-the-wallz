@@ -1,3 +1,4 @@
-// Proposed DTR receiver contract, NOT a claim about the unpublished Event Horizon API.
-// No per-payment claims. Sender allowlist limits wake-up costs; fallback polling is independent.
-service : { ledger_hint : () -> (); }
+// Event Horizon subscriber guide; payload-bearing S14 application contract.
+type PokeTarget = variant { subaccount : nat64; neuron_nonce : nat64 };
+type PokeMatch = record { target : PokeTarget; max_amount : nat };
+service : { poke : (vec PokeMatch) -> (); };
