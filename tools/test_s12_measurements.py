@@ -105,7 +105,7 @@ class Measurements(unittest.TestCase):
     def test_extended_complete_inventory_is_identified(self):
         document=self.document();document['profile']='extended'
         import re
-        names=re.findall(r'#\[bench\(raw\)\]\s+fn (\w+)\(\) -> BenchResult', (ROOT/'canisters/runtime-lab/src/lib.rs').read_text())
+        names=json.loads((ROOT/'benchmarks/s12/historical-benchmark-inventory.json').read_text())['names']
         document['executed_names']=names
         document['benchmarks']=[{'name':n,'calls':1,'instructions':100,
             'configuration':configuration(n,ROOT/'benchmarks/s12/workloads.json')} for n in names]

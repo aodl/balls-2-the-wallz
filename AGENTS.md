@@ -27,3 +27,11 @@ Use `DFX_IDENTITY=codex_local` for local IC tests. Never inspect or export ident
 No mainnet deployment, production-controller change, wallet access, token transfer, remote push or package publication is authorized. Do not disable browser, OS or agent security policy. User-scoped reviewed development dependencies are permitted; system-wide changes require explicit approval.
 
 Save coherent progress commits on the active branch. Preserve historical checkpoint reports and evidence. Do not create a release ZIP until the checkpoint is actually ready and explicitly requested.
+
+## S14 active application (supersedes historical scanner/laboratory descriptions)
+
+Use `docs/specs/BTZ_APPLICATION.md` as the normative application contract. One official ICP account index, one receiving numeric subaccount, one configured Event Horizon sender, exact payload-bearing target-filtered `poke`, and fixed 60-second fallback. Trust the configured official index for account-history contents/completeness. Never recreate global `query_blocks` scanning, archive traversal, dense gap padding, a zero-argument poke, parallel notification services or generic source frameworks.
+
+The observer has no login, wallet, signing, allowance, session or transaction-sending feature. Keep keys and payment execution in users' existing wallets. Preserve scores and disclose that automatic payouts remain unavailable. Mainnet/real-money actions and all remote Git operations remain user-owned. Never reinstall/reset an existing funded canister. Normal Wasm must exclude synthetic input/state mutation and manual game-step controls.
+
+DTR S14 changes are limited to sparse ordered admission and network-configured SDK certificate/observation handling. Before remote publication, use only the explicit `tools/s14_development.py` temporary override; never commit sibling-path dependencies, a Git URL rewrite or a revision falsely presented as remotely available. User publishes DTR first; immutable BTZ pins/locks and remote consumer validation follow in a separate authorized local continuation.

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "canisters": {
+    "btz": {
+      "type": "custom",
+      "candid": "canisters/runtime-lab/runtime-lab.did",
+      "wasm": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+      "build": "cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked"
+    },
+    "observer": {
+      "type": "assets",
+      "source": [".work/s14/assets/"]
+    }
+  },
+  "networks": {
+    "local": { "bind": "127.0.0.1:4943", "type": "ephemeral" },
+    "ic": { "providers": ["https://icp-api.io"], "type": "persistent" }
+  }
+}

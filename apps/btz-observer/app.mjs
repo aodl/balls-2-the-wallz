@@ -1,3 +1,4 @@
+import deployment from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {BtzView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
@@ -106,12 +107,24 @@ async function startLive(recording){
   $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
   $('timeline').min=0;$('timeline').max=2048;$('pause').disabled=true;$('restart').disabled=true;
   try{
-    const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));if(!active(s))return;
-    if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
-    const module=await import('/s09-assets/ic-certificate.mjs');
-    s.verifyCertificate=module.localCertificateVerifier(rootKey,{network:recording.network,maxAgeInMinutes:5});
-    s.client=await module.localLiveClient(rootKey,{network:recording.network,canister_id:recording.canister_id,host:location.origin});
-    const ticket=await certifiedTicket(s,await s.client.observation());if(!active(s))return;
+    let ticket;
+    if(recording.network==='ic'){
+      const module=await import('./mainnet.mjs');
+      const connection=await module.mainnetConnection(recording.deployment);
+      s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;
+      ticket=await certifiedTicket(s,await s.client.observation());
+      const source=await module.certifiedSource(recording.deployment,ticket);
+      $('receiving-account').textContent=source.recipient;
+      $('backend-identity').textContent=source.owner;
+    }else{
+      const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));
+      if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
+      const module=await import('/s09-assets/ic-certificate.mjs');
+      s.verifyCertificate=module.localCertificateVerifier(rootKey,{network:recording.network,maxAgeInMinutes:5});
+      s.client=await module.localLiveClient(rootKey,{network:recording.network,canister_id:recording.canister_id,host:location.origin});
+      ticket=await certifiedTicket(s,await s.client.observation());
+    }
+    if(!active(s))return;
     const head=ticket.publication.head,segment=head.segment_id===null?null:Number(head.segment_id);
     let state;
     if(segment===null){
@@ -273,6 +286,16 @@ async function bootstrap(){
 bootError=null;$('error').hidden=true;
 try{
   if(!ctx||!globalThis.crypto?.subtle)throw new Error('Canvas and Web Crypto require a supported browser on localhost or HTTPS.');
+  if(deployment!==null){
+    const {mainnetPolicy}=await import('./mainnet.mjs');const policy=mainnetPolicy(deployment);
+    $('trust-title').textContent='Internet Computer — certified observer';
+    $('trust-detail').textContent='SDK mainnet root, configured backend, fresh certificates and verified publication artifacts.';
+    $('network-help').textContent='Read-only observation. Transfers use your existing wallet; this site never signs or sends.';
+    const recording={id:'mainnet',title:'BTZ live observer',description:'Account-index payments, authoritative simulation. Automatic payouts are unavailable.',
+      network:'ic',canister_id:policy.canister_id,tick_seconds:1,deployment:policy};
+    const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
+    $('recording').replaceChildren(option);$('recording').disabled=true;catalog={recordings:[recording]};await startLive(recording);return;
+  }
   const params=new URLSearchParams(location.search);
   if(params.get('mode')==='live'){
     $('trust-title').textContent='Live local IC — test-network certified';$('trust-detail').textContent='Pinned PocketIC root, intended canister, fresh certificates, chained publications and artifact hashes.';

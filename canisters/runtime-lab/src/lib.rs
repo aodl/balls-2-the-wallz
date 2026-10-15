@@ -162,14 +162,6 @@ struct ControllerWork {
     pending_inputs: u32,
     source_cursor: u64,
 }
-#[cfg(feature = "test-hooks")]
-#[derive(CandidType, Deserialize)]
-struct TestScanState {
-    nonce: u64,
-    cursor: u64,
-    started_at_seconds: u64,
-    expired: bool,
-}
 fn authorized() -> AppResult<()> {
     if !ic_cdk::api::is_controller(&ic_cdk::api::msg_caller()) {
         return Err("controller only".into());
@@ -1258,5 +1250,11 @@ mod tests {
             "DTR_RUNTIME_CANDID_BEGIN\n{}\nDTR_RUNTIME_CANDID_END",
             super::__export_service()
         );
+        #[cfg(not(feature = "test-hooks"))]
+        candid_parser::utils::service_equal(
+            candid_parser::utils::CandidSource::Text(&super::__export_service()),
+            candid_parser::utils::CandidSource::Text(include_str!("../runtime-lab.did")),
+        )
+        .unwrap();
     }
 }

@@ -77,26 +77,15 @@ def main():
             else:raise ValueError('unreviewed native direct dependency')
         for rust in (path/'src').rglob('*.rs'):
             if re.search(r'\b(ic_cdk|ic_stable_structures|SystemTime|Instant|thread_rng)\b',rust.read_text()):raise ValueError('ambient effect in native kernel/tool')
-    lab=(ROOT/'canisters/arena-lab/src/lib.rs').read_text()
-    lab_exports=re.findall(r'#\[ic_cdk::(?:query|update)\]\s*fn\s+(\w+)',lab)
-    if set(lab_exports)!={'lab_status','committed_chunk','prepare','advance','publish'}:raise ValueError('arena laboratory export drift')
-    if re.search(r'\basync\b|\.await\b',lab):raise ValueError('async boundary introduced into atomic laboratory')
-    if lab.count('authorized()?')!=3 or 'is_controller'not in lab:raise ValueError('laboratory guard inventory')
-    for api in lab_exports:
-        if api not in (ROOT/'canisters/arena-lab/arena-lab.did').read_text():raise ValueError('declared laboratory interface method absent')
     runtime=(ROOT/'canisters/runtime-lab/src/lib.rs').read_text()
-    runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
-    if set(runtime_exports)!={
-      'lab_status','retention_status','controller_work','observation','retained_publication','artifact_chunk',
-      'retained_artifact_chunk','start_autonomous','pause_autonomous','apply','sync_ledger','ledger_hint',
-      'test_trap_after_root_write','test_fill_scan_backpressure','test_arm_scan_fault','test_source_anchor',
-      'test_scan_state','test_stale_scan_completion_fence',
-    }:raise ValueError('runtime laboratory export drift')
-    if runtime.count('authorized()?')!=10 or 'is_controller'not in runtime:raise ValueError('runtime laboratory guard inventory')
+    runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
+    if set(runtime_exports)!={'lab_status','retention_status','controller_work','source_descriptor','observation','retained_publication','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','poke'}:raise ValueError('application export drift')
+    if 'guard = "poke_guard"' not in runtime or 'is_controller' not in runtime:raise ValueError('application authorization guards missing')
+    if any(name in runtime for name in ['query_blocks','ledger_hint','sync_ledger','scan_ledger_inner']):raise ValueError('retired scanner remains active')
     if 'certified_data_set'not in runtime or 'data_certificate()'not in runtime:raise ValueError('runtime certification inventory')
     for removed in ('crates/dtr-core','crates/dtr-source-model','native/dtr-host','native/dtr-wire','packages/client','packages/runtime','packages/observation','packages/storage'):
         if (ROOT/removed).exists():raise ValueError('editable DTR copy remains: '+removed)
-    for manifest in ('canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml','canisters/arena-lab/Cargo.toml'):
+    for manifest in ('canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml'):
         data=tomllib.loads((ROOT/manifest).read_text())
         for name,value in data.get('dependencies',{}).items():
             if name.startswith('dtr-'):check_cargo_dependency(name,value,ROOT/Path(manifest).parent)
@@ -104,14 +93,10 @@ def main():
     for base in ('packages','apps','tools','tests/js'):
         for path in (ROOT/base).rglob('*.mjs'):
             subprocess.run(['node','--check',str(path)],check=True,capture_output=True,timeout=10);count+=1
-    probe=(ROOT/'canisters/interface-probe/src/lib.rs').read_text()
-    exported=re.findall(r'#\[ic_cdk::(?:query|update)\]\s*(?:async\s+)?fn\s+(\w+)',probe)
-    if set(exported)!={'info','probe_ledger','probe_index'}:raise ValueError('unexpected probe method')
-    if 'authorize_and_reserve()?' not in probe or 'is_controller' not in probe:raise ValueError('probe authorization guard missing')
     for path in list((ROOT/'crates').rglob('*.rs'))+list((ROOT/'kernels').rglob('*.rs')):
         if re.search(r'\b(ic_cdk|ic_stable_structures|SystemTime|Instant)\b',path.read_text()):raise ValueError(f'ambient host dependency in pure code: {path}')
-    print(f'PASS: {len(workspace["workspace"]["members"])} workspace package manifests; {count} JavaScript syntax checks; probe export inventory.')
-    print(f'PASS: {len(native["workspace"]["members"])} native package manifests and two laboratory source inventories (not executable type/permission validation).')
+    print(f'PASS: {len(workspace["workspace"]["members"])} workspace package manifests; {count} JavaScript syntax checks; application export inventory.')
+    print(f'PASS: {len(native["workspace"]["members"])} native package manifests and application source inventory (not executable type/permission validation).')
     print('Qualification: Rust/Candid compilation, call behavior and access control execution are NOT verified here.')
 if __name__=='__main__':
     try:main()

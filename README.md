@@ -1,58 +1,38 @@
-# Balls 2 The Wallz — S13 fallback-policy checkpoint
+# Balls 2 The Wallz — lean account-index application
 
-BTZ is a continuously running, local-only Internet Computer game service that consumes the independently maintained Deterministic Timeline Runtime. S13 compares one-second and five-second ledger fallback using independently clocked traffic while the unchanged game runs autonomously. One second drained the tested 32-record/s streams; both policies saturated at 128. No production configuration or gameplay change was made.
+BTZ is an authoritative deterministic game on the Internet Computer. Players use existing wallets to transfer ICP with a BTZ memo. The backend reconciles **one receiving account through the official ICP index**, runs the existing Rust game autonomously and publishes certified state/events/scores. Event Horizon's authenticated, target-filtered `poke` accelerates checking; an independent 60-second fallback handles missed notifications. The browser only observes.
 
-**Live local IC — test-network certified. No mainnet deployment, wallet, real funds, payout or production-readiness claim.**
+**No sign-in, wallet connection or transaction-sending frontend. Automatic payouts and refunds are unavailable.** Area-time scores preserve the intended revenue-sharing direction. A controlled operator mainnet exercise is separate from opening public paid/prize participation; no guaranteed distributions are advertised.
 
-## Verify
+The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains build, DTR-first publication, deployment, subscription, pause/upgrade and verification commands. All remote Git, deployment, funding and real-money operations belong to the user.
 
-Use Node 22.16+, Python 3.11+, the repository-pinned Rust 1.94.1 toolchain, and the pinned Playwright 1.63.0 Chromium. Setup is documented in [Linux setup](docs/operations/LINUX_SETUP.md).
+## Local verification
+
+Use Node >=22.16, Python >=3.11 and Rust 1.94.1. Dependencies remain immutable; S14's two local DTR changes must be published before the final BTZ pin/lock update. Until then, use the explicit temporary development override in the runbook. A normal `npm ci` restores the old published package; it does not validate the new mainnet client.
 
 ```sh
+# After the published dependency update:
 npm ci --ignore-scripts
 python3.11 -B tools/check.py source --output .work/source
 python3.11 -B tools/check.py native --output .work/native
 python3.11 -B tools/check.py wasm --output .work/wasm
-
-# Bounded S12 compute smoke and S13 scheduling smoke.
-python3.11 -B tools/benchmark_s12.py --profile smoke --output .work/s12/smoke
-DFX_IDENTITY=codex_local python3.11 -B tools/benchmark_s13.py --profile smoke --output .work/s13/smoke
-
-# With the pinned Playwright environment and sandbox-capable host:
+python3.11 -B tools/fetch_s09_artifacts.py --destination /home/codexdev/dtr-s09-artifacts --record .work/artifacts.json
+DFX_IDENTITY=codex_local python3.11 -B tools/verify_s14_local.py --output .work/s14/local
+# With the sandbox-enabled Playwright environment:
 python3.11 -B tools/check.py browser --output .work/browser
-python3.11 -B tools/verify_s10_local.py --upgrade-mode same-version --output .work/same-version
-python3.11 -B tools/verify_s10_local.py --upgrade-mode cross-version \
-  --historical-baseline-wasm PATH_TO_VERIFIED_S10_WASM \
-  --historical-baseline-evidence PATH_TO_PROVENANCE_JSON --output .work/historical-upgrade
 ```
 
-Same-version mode installs the current normal module as the recovery baseline. Cross-version mode with both reuse arguments validates and snapshots an existing source-bound S10 module at revision `e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0`. Without those arguments, its preparation path performs remote Git cloning; that path is reserved for explicit user preparation and must not be invoked automatically. Neither mode substitutes the replacement for a missing historical module. Both compile the harness before starting the owned PocketIC server, execute recovery/upgrade and concurrent browser checks, clean up owned processes and verify a fresh S09 snapshot. Missing prerequisites remain BLOCKED; executed failures remain FAIL.
+The S14 integration uses disposable PocketIC, the pinned upstream ICP ledger and index, real-format local caller pokes, no-poke fallback, pagination faults, upgrades, native replay and genuine IC certificates. Small controlled doubles are labelled separately. Historical S09–S13 scanner/benchmark evidence remains in Git; those obsolete scanner experiments are no longer application release gates. No script may silently retrieve historical source using remote Git.
 
-The bundled offline observer is still available:
+The existing offline observer remains available with `python3.11 -B tools/serve_observer.py --port 8080`, at `http://127.0.0.1:8080/apps/btz-observer/`. Its pinned replay is labelled separately from certified local/mainnet observation. `tools/build_observer_mainnet.mjs` bundles explicit trusted deployment policy for the existing static observer; it publishes nothing.
 
-```sh
-python3.11 -B tools/serve_observer.py --port 8080
-```
+## Ownership and remaining gates
 
-Open **http://127.0.0.1:8080/apps/btz-observer/**. That default mode is labeled **Offline replay — pinned content, not IC-certified** and is distinct from the harness-configured S10 live mode.
+BTZ owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; BTZ consumes DTR without copying its source. Game v3, publication v6 and animation v1 are unchanged. Life and independent game oracles remain regression boundaries.
 
-See [S13 report](checkpoints/S13_REPORT.md), [paired results](evidence/S13/extended/summary.json), [cost comparison](evidence/S13/extended/cost-projections.json) and [S13 reproduction](benchmarks/s13/README.md). Extended S13 runs twenty independent 128-second cases; ordinary source tests do not run saturation experiments.
+1. **Implemented; local verification being recorded:** bounded account-history reconciliation, exact filtered pokes, independent fallback, autonomous game, read-only mainnet-capable observer and deployment tooling.
+2. **Ready for user-operated verification after dependency publication:** immutable DTR consumer update, new remote CI, fresh canister/controller/cycles setup, official index binding, certified observer and exact Event Horizon account subscription.
+3. **Before public paid/prize launch:** payout/settlement implementation and review, retained-payment disclosures, real-wallet memo/account compatibility, operational funding/availability and explicit user launch decision.
+4. **Removed/deferred:** global-ledger scanner/archive path, alternative laboratory hosts, manual production game controls, scanner throughput campaigns, wallet/login features, dynamic scheduler and general notification/source frameworks.
 
-## Current boundary
-
-| Component | S12 role |
-|---|---|
-| Pinned DTR revision | Generic Rust coordinator/wire crates, canonical timeline primitives, publication verification, source/storage models, Life and playout buffering. |
-| `canisters/runtime-lab` | BTZ application host: verified ledger classification, autonomous progression, stable state, certification and three-publication/8 MiB retention. |
-| `native/btz-native` and `kernels/btz-mechanics` | BTZ authoritative rules and independent replay reference. |
-| `apps/btz-observer` | Existing read-only Canvas renderer with live certified retrieval, bounded buffering and visible snapshot resynchronization. |
-| `tools/serve_observer.py` | Loopback-only allowlisted test proxy for actual PocketIC query/read-state bytes. It is not a production service. |
-| `tools/verify_s10_local.py` | Bounded owner of the disposable PocketIC/browser integration and its sanitized results. |
-| `tools/benchmark_s13.py` | Paired fallback, no-hints and fixed-backlog installed-Wasm measurements; strict trace/cost provenance. |
-| `tools/benchmark_s12.py` | Smoke/extended S12 runner for fixtures, canbench, continuous normal-Wasm PocketIC, controlled ledger traffic and cost projections. |
-
-BTZ v3 gameplay, canonical payment inputs, authoritative state/events/scores/seals, publication v6, animation v1 and Life regression behavior remain unchanged. See the [S11 ownership map](docs/architecture/S11_DTR_EXTRACTION.md), [current status](STATUS.md), [S12 closeout](checkpoints/S12_CLOSEOUT.md) and [original report](checkpoints/S12_REPORT.md), [workload inventory](benchmarks/s12/README.md) and [closeout evidence](evidence/S12/closeout/provenance.json).
-
-The public DTR source is `https://github.com/aodl/dtr`; BTZ pins its exact Rust implementation and reviewed JavaScript artifact. The S13 tested combined local configuration is 16×8/two initial cannons/32 starting balls, two logical ticks, work budget 512, one-second callback pacing and 64-record pages. One-second fallback drained 8/32 record/s streams with and without hints for 128 virtual seconds; five seconds accumulated backlog at 32, and both accumulated backlog at 128. Five seconds remains cheaper at quiet/moderate traffic, with slower discovery/recovery. The recommendation is local and finite; no production default was changed. Twenty seconds was an earlier target deadline, not a measured publication cadence. Complete update headroom and all-in costs remain unestablished. Production ledger-source selection, actual cycle burn, settlement, wallets, governance and reproducible Wasm remain separate work. Jupiter Faucet and Event Horizon remain independent products.
-
-Historical upgrade commands must supply both existing provenance-bound reuse arguments above to avoid the default remote-cloning preparation path. Every remote Git operation belongs to the user.
+Historical baseline: [S13 report](checkpoints/S13_REPORT.md). S14 current evidence and remaining unsupported claims will be recorded in the S14 checkpoint report; prior CI did not execute new local code.

@@ -1,0 +1,17 @@
+# Controlled slow-response double only. Never an application deployment.
+[workspace]
+[package]
+name = "s14-index-fixture"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[lib]
+crate-type = ["cdylib"]
+[dependencies]
+ic-cdk = "=0.20.3"
+ic-cdk-timers = "=1.0.0"
+candid = "=0.10.28"
+serde = { version = "=1.0.228", features = ["derive"] }
+futures-channel = "=0.3.32"
+[profile.release]
+overflow-checks = true

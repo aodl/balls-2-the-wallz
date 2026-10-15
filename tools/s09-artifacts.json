@@ -32,6 +32,17 @@
       "name": "icp-ledger-archive-did",
       "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ledger-archive-node-canister.wasm.gz.did",
       "sha256": "8b9f602f2eb8b87a74d595a46f5c52117b9c0ba5bbb67731b349e0d4cadc3232"
+    },
+    {
+      "name": "icp-index-wasm",
+      "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ic-icp-index-canister.wasm.gz",
+      "sha256": "3015c0d83b832e6cb5685e98c0cef690c3b89661343965767bb11397cc9f7b3f",
+      "gzip_output": "wasm/ic-icp-index-canister.wasm"
+    },
+    {
+      "name": "icp-index-did",
+      "url": "https://download.dfinity.systems/ic/d3b3351fa343a893aea2cfa8d39ac6b0d507b477/canisters/ic-icp-index-canister.wasm.gz.did",
+      "sha256": "7cc38f9c04119460019dc5146b5fb454ddd21395c7a4651692d604794ebe7df5"
     }
   ]
 }

@@ -61,8 +61,9 @@ def validate(document, expected_source=None):
     if document['profile'] == 'smoke' and {r['name'] for r in rows} != SMOKE:
         raise ValueError('smoke inventory differs from executed cases')
     if document['profile'] == 'extended':
-        declared = set(re.findall(r'#\[bench\(raw\)\]\s+fn (\w+)\(\) -> BenchResult',
-            (ROOT / 'canisters/runtime-lab/src/lib.rs').read_text()))
+        # S14 retired scanner benchmarks from the production host. Validate
+        # historical documents against their explicit, preserved inventory.
+        declared = set(json.loads((ROOT/'benchmarks/s12/historical-benchmark-inventory.json').read_text())['names'])
         if {r['name'] for r in rows} != declared:
             raise ValueError('extended inventory differs from declared benchmark exports')
     if {r['name'] for r in rows} != set(document['executed_names']):
