@@ -1,5 +1,5 @@
-//! Current runtime/certification laboratory with one local-only ICP ledger ingestion path.
-//! It has no transfer, payout, production admission, or mainnet configuration path.
+//! Authoritative BTZ host with one account-index adapter and certified observation.
+//! No wallet, transfer-sending or payout implementation.
 #![forbid(unsafe_code)]
 mod source;
 use btz_native::{host::BtzHostKernel, world::World};
@@ -34,6 +34,18 @@ thread_local! {
     static RUN_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
     static POKE_POLICY:RefCell<Option<(Principal,u64)>>=const { RefCell::new(None) };
     static WAKE_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
+}
+#[cfg(feature = "test-hooks")]
+thread_local! {
+    static TRAP_NEXT_INDEX_REPLY:std::cell::Cell<bool>=const { std::cell::Cell::new(false) };
+}
+/// Authorized fault injection only; absent from normal Wasm/Candid. The flag is
+/// consumed BEFORE the await, so callback rollback cannot arm another trap.
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_trap_next_index_reply() {
+    assert!(ic_cdk::api::is_controller(&ic_cdk::api::msg_caller()));
+    TRAP_NEXT_INDEX_REPLY.with(|flag| flag.set(true));
 }
 fn memory(id: u8) -> Memory {
     MANAGER.with(|m| m.borrow().get(MemoryId::new(id)))
@@ -1041,7 +1053,9 @@ fn test_apply(
 fn request_reconciliation() -> AppResult<()> {
     let mut r = root()?;
     r.source.requested = true;
-    let schedule = !r.source.in_flight && !r.source.wake_scheduled;
+    let now = ic_cdk::api::time() / 1_000_000_000;
+    let expired = now.saturating_sub(r.source.started_at) >= SCAN_LEASE_SECONDS;
+    let schedule = (!r.source.in_flight || expired) && !r.source.wake_scheduled;
     if schedule {
         r.source.wake_scheduled = true;
     }
@@ -1126,8 +1140,7 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
             inputs,
             anchor,
         })?;
-        next.cursor = end;
-        next.pending = None;
+        next.admitted(end)?;
         next.in_flight = false;
         next.started_at = 0;
         next.last_error = None;
@@ -1182,6 +1195,8 @@ async fn reconcile() -> AppResult<()> {
             .ok_or("index call counter")?;
         r.source.started_at = ic_cdk::api::time() / 1_000_000_000;
         save_root_only(&r)?;
+        #[cfg(feature = "test-hooks")]
+        let trap_after_reply = TRAP_NEXT_INDEX_REPLY.with(|flag| flag.replace(false));
         let response = Call::bounded_wait(lease.index, "get_account_identifier_transactions")
             .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
             .with_arg(source::HistoryArgs {
@@ -1191,6 +1206,10 @@ async fn reconcile() -> AppResult<()> {
             })
             .await
             .map_err(|e| format!("index unavailable: {e}"))?;
+        #[cfg(feature = "test-hooks")]
+        if trap_after_reply {
+            ic_cdk::trap("S14 injected BTZ response-handler trap after index await");
+        }
         let result: source::HistoryResult = response
             .candid()
             .map_err(|e| format!("index response decode: {e}"))?;

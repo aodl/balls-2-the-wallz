@@ -1410,9 +1410,14 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
             pic.upgrade_canister(id, wasm, encode_args(()).unwrap(), Some(controller()))
                 .unwrap();
         }
-        for _ in 0..28 {
+        for _ in 0..58 {
             tick(&pic);
         }
+        assert_eq!(
+            status(&pic, id).source.admitted_to_exclusive,
+            202,
+            "replacement must admit before old index response is released"
+        );
         let held = pic.get_canister_http();
         assert_eq!(
             held.len(),
@@ -1457,6 +1462,337 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
         assert_eq!(
             work.pending_inputs, 2,
             "late stale response must never duplicate or erase input"
+        );
+    }
+}
+
+/// This traps BTZ's reply callback, not the index. Only the first callback traps;
+/// its pre-await durable in-flight flag must recover through ordinary fallback.
+#[test]
+fn btz_callback_trap_recovers_through_fallback_without_reset() {
+    let pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    let ledger = create_controlled(&pic);
+    let index = create_controlled(&pic);
+    let id = create_controlled(&pic);
+    let sender = create_controlled(&pic);
+    for c in [index, id, sender] {
+        pic.add_cycles(c, 100_000_000_000_000);
+    }
+    let response = |ids: Vec<u64>| {
+        candid::encode_one(source::HistoryResult::Ok(source::History {
+            balance: 0,
+            oldest_tx_id: ids.iter().min().copied(),
+            transactions: ids
+                .into_iter()
+                .rev()
+                .map(|position| source::TransactionWithId {
+                    id: position,
+                    transaction: source::Transaction {
+                        memo: 0,
+                        icrc1_memo: None,
+                        created_at_time: None,
+                        timestamp: None,
+                        operation: source::Operation::Transfer {
+                            from: source::receiving_account(controller(), 0).to_string(),
+                            to: source::receiving_account(id, 0).to_string(),
+                            amount: source::Tokens { e8s: 1 },
+                            fee: source::Tokens { e8s: 10_000 },
+                            spender: None,
+                        },
+                    },
+                })
+                .collect(),
+        }))
+        .unwrap()
+    };
+    pic.install_canister(
+        index,
+        bytes("S14_SLOW_INDEX_WASM"),
+        encode_args((ledger, 0u32, response(vec![]))).unwrap(),
+        Some(controller()),
+    );
+    pic.install_canister(
+        id,
+        bytes("BTZ_S14_TEST_WASM"),
+        encode_args((
+            initial_world(),
+            0u64,
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                index,
+                receiving_subaccount: 0,
+                event_horizon: Some(sender),
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+        ))
+        .unwrap(),
+        Some(controller()),
+    );
+    pic.install_canister(
+        sender,
+        poke_forwarder(id),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
+    for _ in 0..12 {
+        pic.tick();
+    }
+    let baseline = status(&pic, id).source.index_calls;
+    pic.update_call(
+        id,
+        controller(),
+        "test_trap_next_index_reply",
+        encode_args(()).unwrap(),
+    )
+    .unwrap();
+    pic.update_call(
+        index,
+        controller(),
+        "set_reply",
+        encode_args((0u32, response(vec![100]))).unwrap(),
+    )
+    .unwrap();
+    pic.update_call(
+        sender,
+        controller(),
+        "forward",
+        candid::encode_one(vec![PokeMatch {
+            target: PokeTarget::subaccount(0),
+            max_amount: 1u64.into(),
+        }])
+        .unwrap(),
+    )
+    .unwrap();
+    for _ in 0..12 {
+        tick(&pic);
+    }
+    let trapped = status(&pic, id);
+    assert!(
+        trapped.source.scan_in_flight,
+        "BTZ callback rollback must retain pre-await lease"
+    );
+    assert_eq!(trapped.source.admitted_to_exclusive, 0);
+    assert_eq!(
+        trapped.source.index_calls,
+        baseline + 1,
+        "unexpired scan must not duplicate"
+    );
+    // No manual sync, upgrade, reset or additional poke. Only normal fallback.
+    for _ in 0..65 {
+        tick(&pic);
+    }
+    let recovered = status(&pic, id);
+    assert_eq!(
+        recovered.source.admitted_to_exclusive, 101,
+        "ordinary fallback must replace the expired trapped lease"
+    );
+    assert!(!recovered.source.scan_in_flight);
+    #[derive(CandidType, Deserialize)]
+    struct Work {
+        pending_inputs: u32,
+    }
+    let work: Work = decode_one::<Result<Work, String>>(
+        &pic.query_call(
+            id,
+            controller(),
+            "controller_work",
+            encode_args(()).unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap()
+    .unwrap();
+    assert_eq!(
+        work.pending_inputs, 1,
+        "trapped/retried payment admitted exactly once"
+    );
+}
+
+#[test]
+fn bounded_history_windows_drain_256_257_and_513_without_skipping() {
+    for count in [256u64, 257, 513] {
+        let pic = PocketIcBuilder::new()
+            .with_nns_subnet()
+            .with_application_subnet()
+            .with_server_url(
+                std::env::var("POCKET_IC_SERVER_URL")
+                    .unwrap()
+                    .parse()
+                    .unwrap(),
+            )
+            .build();
+        let ledger = create_controlled(&pic);
+        let index = create_controlled(&pic);
+        let id = create_controlled(&pic);
+        for c in [index, id] {
+            pic.add_cycles(c, 100_000_000_000_000);
+        }
+        let empty = candid::encode_one(source::HistoryResult::Ok(source::History {
+            balance: 0,
+            transactions: vec![],
+            oldest_tx_id: None,
+        }))
+        .unwrap();
+        pic.install_canister(
+            index,
+            bytes("S14_SLOW_INDEX_WASM"),
+            encode_args((ledger, 0u32, empty)).unwrap(),
+            Some(controller()),
+        );
+        let ids = (0..count).map(|n| 100 + n * 7).collect::<Vec<_>>();
+        let recipient = source::receiving_account(id, 0);
+        let funding = source::receiving_account(controller(), 0);
+        pic.update_call(
+            index,
+            controller(),
+            "set_history",
+            encode_args((ids.clone(), recipient.to_string(), funding.to_string())).unwrap(),
+        )
+        .unwrap();
+        let wasm = bytes("BTZ_S14_WASM");
+        let world = initial_world();
+        pic.install_canister(
+            id,
+            wasm.clone(),
+            encode_args((
+                world.clone(),
+                0u64,
+                IndexConfig {
+                    network: "pocketic-local".into(),
+                    ledger,
+                    index,
+                    receiving_subaccount: 0,
+                    event_horizon: None,
+                    starting_policy: StartingPolicy::FromBeginning,
+                },
+            ))
+            .unwrap(),
+            Some(controller()),
+        );
+        let (_, genesis) = observe(&pic, id);
+        let mut replay = Coordinator::create(
+            &world,
+            genesis.identity,
+            0,
+            0,
+            "00".repeat(32),
+            BtzHostKernel,
+        )
+        .unwrap();
+        let mut upgraded = false;
+        let mut max_pending = 0;
+        let mut last_cursor = 0;
+        let mut new_ids = ids.clone();
+        new_ids.push(ids[count as usize - 1] + 100);
+        for _ in 0..150 {
+            // Observe each platform round, so the upgrade interrupts downloading,
+            // not a controller-driven source admission.
+            pic.tick();
+            let s = status(&pic, id);
+            max_pending = max_pending.max(s.source.pending_records);
+            assert!(s.source.admitted_to_exclusive >= last_cursor);
+            last_cursor = s.source.admitted_to_exclusive;
+            assert!(s.source.last_error.is_none(), "{:?}", s.source.last_error);
+            if s.source.pending_records >= 64 && !upgraded {
+                pic.upgrade_canister(
+                    id,
+                    wasm.clone(),
+                    encode_args(()).unwrap(),
+                    Some(controller()),
+                )
+                .unwrap();
+                pic.update_call(
+                    index,
+                    controller(),
+                    "set_history",
+                    encode_args((new_ids.clone(), recipient.to_string(), funding.to_string()))
+                        .unwrap(),
+                )
+                .unwrap();
+                upgraded = true;
+            }
+            if s.source.admitted_to_exclusive == ids[count as usize - 1] + 1
+                && !s.source.scan_in_flight
+            {
+                break;
+            }
+        }
+        assert!(upgraded);
+        assert!(max_pending <= 256);
+        assert_eq!(
+            status(&pic, id).source.admitted_to_exclusive,
+            ids[count as usize - 1] + 1,
+            "frozen range drains before newer arrival"
+        );
+        // The independently added newer row is discovered by ordinary fallback.
+        for _ in 0..65 {
+            tick(&pic);
+        }
+        assert_eq!(
+            status(&pic, id).source.admitted_to_exclusive,
+            *new_ids.last().unwrap() + 1
+        );
+        #[derive(CandidType, Deserialize)]
+        struct Work {
+            pending_inputs: u32,
+        }
+        let work: Work = decode_one::<Result<Work, String>>(
+            &pic.query_call(
+                id,
+                controller(),
+                "controller_work",
+                encode_args(()).unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap()
+        .unwrap();
+        assert_eq!(work.pending_inputs, count as u32 + 1);
+        let _: Status = get_result(
+            &pic,
+            id,
+            "start_autonomous",
+            candid::encode_one(RunConfig {
+                segment_ticks: 2,
+                pacing_seconds: 1,
+                work_budget: 512,
+            })
+            .unwrap(),
+        );
+        let payments = new_ids
+            .iter()
+            .map(|id| (*id, normalized(funding, 1, [0; 8])))
+            .collect::<BTreeMap<_, _>>();
+        let mut assigned = Vec::new();
+        let mut last = None;
+        for _ in 0..45 {
+            tick(&pic);
+            let (_, p) = observe(&pic, id);
+            if p.head.segment_id != last {
+                replay_head(&pic, id, &p, &mut replay, &payments, &mut assigned);
+                last = p.head.segment_id.clone();
+            }
+            if assigned.len() == new_ids.len() {
+                break;
+            }
+        }
+        assert_eq!(
+            assigned, new_ids,
+            "every original sparse position is applied oldest first exactly once"
+        );
+        println!(
+            "BACKLOG_RESULT {}",
+            serde_json::json!({"records":count,"new_arrivals":1,"max_pending":max_pending,"assigned":assigned.len(),"status":"PASS"})
         );
     }
 }

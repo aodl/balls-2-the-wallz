@@ -8,6 +8,8 @@ use serde::Serialize;
 
 const INVALID_MEMO: [u8; 8] = [0; 8];
 pub const PAGE: u64 = 64;
+// Rolling OLDEST window, not a limit on unseen account history. Newer rows
+// outside this window are re-downloaded after the oldest window is admitted.
 pub const MAX_PENDING: usize = 256;
 pub const FALLBACK_SECONDS: u64 = 60;
 pub const INDEX_ID: &str = "qhbym-qaaaa-aaaaa-aaafq-cai";
@@ -59,7 +61,7 @@ pub struct Row {
 #[serde(deny_unknown_fields)]
 pub struct Pending {
     #[serde(with = "u64_string")]
-    pub high: u64,
+    pub high: u64, // frozen high for the whole reconciliation, including rescan windows
     #[serde(with = "u64_string")]
     pub oldest: u64,
     #[serde(with = "u64_string")]
@@ -194,12 +196,17 @@ impl SourceState {
             Principal::from_text(p).map_err(|e| e.to_string())?;
         }
         if let Some(p) = &self.pending {
-            if p.rows.is_empty()
-                || p.rows.len() > MAX_PENDING
-                || p.high != p.rows[0].id
-                || p.before != p.rows.last().unwrap().id
-                || p.oldest > p.before
+            let empty_restart =
+                p.rows.is_empty() && !p.complete && p.high.checked_add(1) == Some(p.before);
+            if p.rows.len() > MAX_PENDING
+                || p.high < self.cursor
+                || p.oldest > p.high
                 || p.before < self.cursor
+                || (!empty_restart
+                    && (p.rows.is_empty()
+                        || p.high < p.rows[0].id
+                        || p.before != p.rows.last().unwrap().id
+                        || p.oldest > p.before))
             {
                 return Err("pending range bounds".into());
             }
@@ -265,6 +272,11 @@ impl SourceState {
         if response.transactions.last().unwrap().id < oldest {
             return Err("history below oldest".into());
         }
+        if let Some(p) = &self.pending {
+            if p.rows.is_empty() && response.transactions[0].id != p.high {
+                return Err("index omitted frozen high on window restart".into());
+            }
+        }
         let recipient = account(&self.recipient_hex)?;
         let mut pending = self.pending.clone();
         for tx in response.transactions {
@@ -286,8 +298,10 @@ impl SourceState {
                 complete: false,
                 rows: Vec::new(),
             });
-            if p.rows.len() >= MAX_PENDING {
-                return Err("INDEX_BACKLOG_CAPACITY: pending range exceeds 256; no payments admitted or discarded".into());
+            if p.rows.len() == MAX_PENDING {
+                // Keep the oldest bounded window seen so far. These newer rows
+                // remain unadmitted and will be fetched again below frozen high.
+                p.rows.remove(0);
             }
             p.before = row.id;
             p.rows.push(row);
@@ -305,7 +319,13 @@ impl SourceState {
             .as_ref()
             .filter(|p| p.complete)
             .ok_or("range not complete")?;
-        let end = p.high.checked_add(1).ok_or("position overflow")?;
+        let end = p
+            .rows
+            .first()
+            .ok_or("empty admission window")?
+            .id
+            .checked_add(1)
+            .ok_or("position overflow")?;
         let mut bytes = b"BTZ-ICP-INDEX-ANCHOR-01".to_vec();
         bytes.extend(unhex(previous_anchor)?);
         let mut inputs = Vec::new();
@@ -320,6 +340,30 @@ impl SourceState {
             }
         }
         Ok((end, inputs, hash(&bytes)))
+    }
+    /// Call only in the same atomic persistence as successful DTR admission.
+    pub fn admitted(&mut self, end: u64) -> Result<()> {
+        let p = self
+            .pending
+            .as_ref()
+            .filter(|p| p.complete)
+            .ok_or("incomplete admission")?;
+        if p.rows.first().and_then(|r| r.id.checked_add(1)) != Some(end) || end <= self.cursor {
+            return Err("admitted window bounds".into());
+        }
+        self.pending = if end <= p.high {
+            Some(Pending {
+                high: p.high,
+                oldest: p.oldest,
+                before: p.high.checked_add(1).ok_or("position overflow")?,
+                complete: false,
+                rows: Vec::new(),
+            })
+        } else {
+            None
+        };
+        self.cursor = end;
+        Ok(())
     }
 }
 
@@ -584,9 +628,63 @@ mod tests {
         let bytes = serde_json::to_vec(&s).unwrap();
         let mut restored: SourceState = serde_json::from_slice(&bytes).unwrap();
         restored.validate().unwrap();
-        assert!(restored.page(page(&[64, 0], Some(0))).is_err());
+        restored.page(page(&[64, 0], Some(0))).unwrap();
         assert_eq!(restored.cursor, 0);
-        assert_eq!(serde_json::to_vec(&restored).unwrap(), bytes);
+        assert_eq!(restored.pending.as_ref().unwrap().rows.len(), MAX_PENDING);
+        assert!(restored.pending.as_ref().unwrap().complete);
+    }
+    #[test]
+    fn bounded_windows_drain_256_257_and_1025_sparse_records_across_restore() {
+        for count in [256u64, 257, 1025] {
+            let mut s = fresh();
+            let mut ids = (0..count).map(|n| 100 + n * 7).collect::<Vec<_>>();
+            let frozen = *ids.last().unwrap();
+            let mut assigned = Vec::new();
+            let mut high_water = 0;
+            let mut inserted = false;
+            let mut anchor = "00".repeat(32);
+            for _ in 0..200 {
+                let before = s.pending.as_ref().map(|p| p.before);
+                let page_ids = ids
+                    .iter()
+                    .rev()
+                    .copied()
+                    .filter(|id| before.is_none_or(|b| *id < b))
+                    .take(PAGE as usize)
+                    .collect::<Vec<_>>();
+                s.page(page(&page_ids, Some(100))).unwrap();
+                if !inserted {
+                    ids.push(frozen + 100);
+                    inserted = true;
+                }
+                high_water = high_water.max(s.pending.as_ref().map_or(0, |p| p.rows.len()));
+                s = serde_json::from_slice(&serde_json::to_vec(&s).unwrap()).unwrap();
+                s.validate().unwrap();
+                if s.pending.as_ref().is_some_and(|p| p.complete) {
+                    let (end, inputs, next_anchor) = s.admission(&anchor).unwrap();
+                    assert!(inputs.len() <= MAX_PENDING);
+                    assigned.extend(
+                        inputs
+                            .into_iter()
+                            .map(|i| i.position.0.to_string().parse::<u64>().unwrap()),
+                    );
+                    s.admitted(end).unwrap();
+                    anchor = next_anchor;
+                    s = serde_json::from_slice(&serde_json::to_vec(&s).unwrap()).unwrap();
+                    s.validate().unwrap();
+                    if s.pending.is_none() {
+                        break;
+                    }
+                }
+            }
+            assert_eq!(s.cursor, frozen + 1);
+            assert!(s.pending.is_none());
+            assert_eq!(assigned, ids[..count as usize]);
+            assert!(high_water <= MAX_PENDING);
+            // Arrival after frozen high is handled only in a subsequent pass.
+            s.page(page(&[frozen + 100, frozen], Some(100))).unwrap();
+            assert_eq!(s.admission(&anchor).unwrap().1.len(), 1);
+        }
     }
     #[test]
     fn empty_history_and_unchanged_account_are_safe() {
