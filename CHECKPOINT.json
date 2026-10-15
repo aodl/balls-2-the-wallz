@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "checkpoint_id": "S14",
-  "name": "Lean ICP-index/poke application: published dependency, trap recovery, bounded draining and deployed observer",
+  "name": "Lean index/poke S14: controlled mainnet MVP deployment preparation",
   "date": "2026-10-15",
   "branch": "checkpoint/s14-lean-index-poke",
   "predecessor": {
@@ -9,7 +9,7 @@
     "commit": "c75192cb2e4c33a04675b57abfd4d42121255bfd",
     "successful_ci_run": 38690051399
   },
-  "tested_btz_commit": "2573516471afb35f09e643186667a58f7fa772ea",
+  "tested_btz_commit": "2df4dd840d792d824b38ede5612fbead9321d635",
   "dtr_changed": false,
   "normal_wasm_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
   "local_implementation_result": "PASS",
@@ -24,17 +24,19 @@
     "checkpoints/S14_CLOSEOUT.md",
     "evidence/S14/closeout.json",
     "evidence/S14/closeout-simulation-trace.json",
-    "evidence/S14/closeout-deployment-trace.json"
+    "evidence/S14/closeout-deployment-trace.json",
+    "evidence/S14/mvp-preparation.json"
   ],
   "limitations": [
     "Configured official index is trusted for receiving-history contents/completeness.",
     "Oldest staging windows are bounded at 256 rows; finite history drains by re-reading newer rows, with potentially quadratic read amplification.",
     "Inbox/image/storage backpressure preserves unadmitted payments and progress; no arbitrary-traffic sustainability promise.",
     "Fresh deployment only; funded deployment reset is not authorized.",
-    "Asset hosting/mainnet verification NOT_RUN; full-update headroom, production capacity and actual cycle burn NOT_MEASURED.",
-    "Automatic payouts/refunds unavailable; public paid/prize launch remains gated."
+    "Mainnet verification NOT_RUN; actual local dfx asset hosting PASS; full-update headroom, production capacity and actual cycle burn NOT_MEASURED.",
+    "Automatic payouts/refunds unavailable; public paid/prize launch remains gated.",
+    "Event Horizon sender disabled unless reviewed at installation; existing source configuration is immutable."
   ],
-  "next_action": "User reviews and pushes BTZ closeout, then reviews new CI. No new DTR push, mainnet action or S15.",
+  "next_action": "User reviews exact-commit CI, chooses public operational values and follows the operator runbook to create/fund/install, host and play. No DTR push or S15.",
   "tested_dtr_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
   "dependency_mode": "published-immutable-git",
   "javascript_package": {
@@ -46,11 +48,14 @@
   "callback_trap_recovery": "PASS",
   "backlog_recovery": "PASS",
   "deployment_bundle_local": "PASS",
-  "asset_canister_hosting": "NOT_RUN",
+  "asset_canister_hosting": "PASS",
   "historical_ci": {
     "source": "user-provided",
     "dtr_pass": 38778487685,
     "btz_old_dependency_fail": 38778318985
   },
-  "dtr_change_scope": "No DTR changes in this corrective closeout; the original S14 shared APIs are already published."
+  "dtr_change_scope": "No DTR changes in this corrective closeout; the original S14 shared APIs are already published.",
+  "deployment_preparation": "PASS",
+  "financial_action_authority": "User only; no Codex mainnet calls, funding or transfers.",
+  "asset_canister_hosting_scope": "Actual dfx assets route on disposable local network; mainnet NOT_RUN"
 }

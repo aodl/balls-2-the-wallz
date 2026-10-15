@@ -4,7 +4,7 @@ BTZ is an authoritative deterministic game on the Internet Computer. Players use
 
 **No sign-in, wallet connection or transaction-sending frontend. Automatic payouts and refunds are unavailable.** Area-time scores preserve the intended revenue-sharing direction. A controlled operator mainnet exercise is separate from opening public paid/prize participation; no guaranteed distributions are advertised.
 
-The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains build, DTR-first publication, deployment, subscription, pause/upgrade and verification commands. All remote Git, deployment, funding and real-money operations belong to the user.
+The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains phased deployment/funding commands, launch configuration, exact wallet play card, subscription and pause/upgrade procedures. All remote Git, deployment, funding and real-money operations belong to the user.
 
 ## Local verification
 
@@ -29,9 +29,9 @@ The existing offline observer remains available with `python3.11 -B tools/serve_
 
 BTZ owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; BTZ consumes DTR without copying its source. Game v3, publication v6 and animation v1 are unchanged. Life and independent game oracles remain regression boundaries.
 
-1. **Implemented and locally verified:** bounded account-history draining, expired-lease recovery, exact filtered pokes, independent fallback, autonomous game, read-only certified deployment bundle and operator tooling.
+1. **Implemented and locally verified:** bounded account-history draining, expired-lease recovery, exact filtered pokes, independent fallback, autonomous game, read-only certified observer, actual dfx asset-canister hosting, frozen normal release and public price/cell/outcome reference.
 2. **Ready for user-operated verification after new CI:** published immutable dependencies and isolated consumers, fresh canister/controller/cycles setup, official index binding, certified observer and exact Event Horizon account subscription.
 3. **Before public paid/prize launch:** payout/settlement implementation and review, retained-payment disclosures, real-wallet memo/account compatibility, operational funding/availability and explicit user launch decision.
 4. **Removed/deferred:** global-ledger scanner/archive path, alternative laboratory hosts, manual production game controls, scanner throughput campaigns, wallet/login features, dynamic scheduler and general notification/source frameworks.
 
-Historical baseline: [S13 report](checkpoints/S13_REPORT.md). Current implementation results and remaining gates: [S14 closeout](checkpoints/S14_CLOSEOUT.md). The [earlier S14 report](checkpoints/S14_REPORT.md) remains historical; prior CI did not execute new local code.
+Historical baseline: [S13 report](checkpoints/S13_REPORT.md). Current deployment preparation: [MVP evidence](evidence/S14/mvp-preparation.json) and the [operator play/deployment runbook](docs/operations/S14_OPERATOR.md). Join remains **10 ICP**; the solo join/first extra ball/relocation exercise is **10.1001 ICP plus wallet fees**, conditional on the current ball price. Source/index recovery baseline: [S14 closeout](checkpoints/S14_CLOSEOUT.md). The [earlier S14 report](checkpoints/S14_REPORT.md) remains historical; prior CI did not execute new local code.
