@@ -565,6 +565,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
     )
     .unwrap();
     let mut second = None;
+    let mut upgraded = false;
     let mut last_initial = world.clone();
     let mut publications = Vec::new();
     for elapsed in 0..150 {
@@ -596,14 +597,36 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
             payments.insert(tx, normalized(funding, 100_000_000, *b"BTZ\x12\0\0\0\x01"));
             second = Some(tx);
         }
-        if elapsed == 31 {
-            pic.upgrade_canister(
-                id,
-                wasm.clone(),
-                encode_args(()).unwrap(),
-                Some(controller()),
+        if elapsed >= 74 && !upgraded {
+            #[derive(CandidType, Deserialize)]
+            struct Work {
+                phase: Option<String>,
+            }
+            let work: Work = decode_one::<Result<Work, String>>(
+                &pic.query_call(
+                    id,
+                    controller(),
+                    "controller_work",
+                    encode_args(()).unwrap(),
+                )
+                .unwrap(),
             )
+            .unwrap()
             .unwrap();
+            if work.phase.is_some() {
+                assert!(
+                    assigned.contains(&second.unwrap()),
+                    "no-poke payment must publish through fallback before upgrade is allowed to wake reconciliation"
+                );
+                pic.upgrade_canister(
+                    id,
+                    wasm.clone(),
+                    encode_args(()).unwrap(),
+                    Some(controller()),
+                )
+                .unwrap();
+                upgraded = true;
+            }
         }
         tick(&pic);
         let s = status(&pic, id);
@@ -635,6 +658,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
         }
         trace.push(serde_json::json!({"elapsed_virtual_seconds":elapsed+1,"cursor":s.source.admitted_to_exclusive,"index_calls":s.source.index_calls,"in_flight":s.source.scan_in_flight,"pending":s.source.pending_records,"segments":s.run.completed_segments,"error":s.source.last_error}));
     }
+    assert!(upgraded, "upgrade must interrupt a staged game operation");
     let observed_segments = status(&pic, id).run.completed_segments;
     // Virtual observation is complete. Produce a fresh real-time certificate
     // without relaxing verifier freshness. This may execute one additional

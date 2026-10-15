@@ -1,3 +1,5 @@
+> Historical implementation context. The active S14 application is specified in [BTZ application](BTZ_APPLICATION.md). Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
+
 # BTZ payment protocol, provisional wire version 1
 
 **Implemented:** pure Rust/JavaScript memo codecs, the JavaScript classifier, and one local-only runtime-lab adapter exercised with valueless records from a pinned upstream ICP ledger Wasm. **Not implemented:** public payment admission, wallet transaction execution, refunds/payouts or production destination publication.

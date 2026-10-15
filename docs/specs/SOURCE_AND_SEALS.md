@@ -1,3 +1,5 @@
+> Historical implementation context. The active S14 application is specified in [BTZ application](BTZ_APPLICATION.md). Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
+
 # S09 executed local supplement
 
 `canisters/runtime-lab` now executes this contiguous-scan baseline in disposable PocketIC tests against the pinned upstream ICP ledger and its ledger-established archive. The trusted local install configuration fixes network `pocketic-local`, ledger principal, recipient account, page limit, fallback interval and optional hint caller. Typed inter-canister `query_blocks` and archive `get_blocks` calls validate bounded ranges and advance only a contiguous decoded prefix. The durable cursor, canonical inbox records and domain-separated source anchor are saved with the coordinator image. The anchor binds the prior anchor, source indices and exact decoded block values; it is deliberately not labelled an ICP ledger block hash.

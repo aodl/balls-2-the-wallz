@@ -4,7 +4,7 @@ No mainnet command below has been executed by Codex. Use the operator's reviewed
 
 ## Publish dependencies first
 
-Review both local branches. The tested local DTR changes are commits `5e2af85` (ordered admission) and `7df2a45` (network client); JavaScript pack version 0.12.0. No npm registry publication is required: BTZ vendors an inspected npm-pack artifact.
+Review both local branches. The tested local DTR changes are commits `5e2af85` (ordered admission) and `7df2a45` (network client); JavaScript pack version 0.12.0. The follow-up `1f47c1a` fixes canonical position normalization before durable sparse reservation; it adds no third shared API. No npm registry publication is required: BTZ vendors an inspected npm-pack artifact.
 
 ```sh
 cd /home/codexdev/src/dtr
@@ -34,9 +34,9 @@ Never force-push; inspect and reconcile remote divergence. New CI is NOT_RUN unt
 Use Python 3.11, Rust 1.94.1, Node >=22.16 and the inspected dependency package. Before dependency publication, the explicit development override is:
 
 ```sh
-npm install --ignore-scripts --no-save --package-lock=false /home/codexdev/src/dtr/.work/s14/dtr-timeline-runtime-0.12.0.tgz
+npm install --ignore-scripts --no-save --package-lock=false /home/codexdev/src/dtr/.work/s14/final/dtr-timeline-runtime-0.12.0.tgz
 DFX_IDENTITY=codex_local python3.11 -B tools/s14_development.py \
-  --dtr /home/codexdev/src/dtr --revision f42a22a9a33e0935295f9c40a7076becbc95d9cb -- \
+  --dtr /home/codexdev/src/dtr --revision 1f47c1a0a104875bd13475d561b8d5aa10770d99 -- \
   python3.11 -B tools/verify_s14_local.py \
   --index-wasm .work/s14/upstream/ic-icp-index-canister.wasm --output .work/s14/local
 ```
@@ -91,8 +91,8 @@ This is one backend and one static observer. The bundle pins `https://icp-api.io
 Consult the instance's [subscriber guide](https://github.com/aodl/Event_Horizon/blob/3e2493f526998daa2f8f7a2d4e5c08ff1e3120c5/docs/subscriber-guide.md). Verify the configured instance's `get_instance` observed ledger is ICP and review `get_pricing`; current account price is not a hardcoded funding amount. The public read-only methods are:
 
 ```sh
-dfx canister call "$EH_PRINCIPAL" get_instance '()' --network ic --query
-dfx canister call "$EH_PRINCIPAL" get_pricing '()' --network ic --query
+dfx canister call "$EH_PRINCIPAL" get_instance '()' --network ic --query --candid interfaces/event-horizon.instance.did
+dfx canister call "$EH_PRINCIPAL" get_pricing '()' --network ic --query --candid interfaces/event-horizon.instance.did
 node tools/prepare_s14_subscription.mjs --subscriber "$BTZ_BACKEND" --subaccount 0 --alias YOUR_REVIEWED_JUPITER_ALIAS
 ```
 

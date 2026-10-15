@@ -178,16 +178,11 @@ jobs:
             .work/ci-integration/environment.json
             .work/ci-integration/verification.json
             .work/ci-integration/logs/**
-            .work/ci-integration/s10-local/results.json
-            .work/ci-integration/s10-local/verified-artifacts.json
-            .work/ci-integration/s10-local/logs/**
-            .work/ci-integration/s10-local/wasm/*.wasm
-            .work/ci-integration/s10-local/browser-live/results.json
-            .work/ci-integration/s10-local/browser-live/*.png
-            .work/ci-integration/s10-local/browser-snapshot-regression/results.json
-            .work/ci-integration/s10-local/browser-snapshot-regression/*.png
-            .work/ci-s13-smoke/*.json
-            .work/ci-s13-smoke/logs/**
+            .work/ci-integration/s14-local/*.json
+            .work/ci-integration/s14-local/generated.did
+            .work/ci-integration/s14-local/logs/**
+            .work/ci-integration/s14-local/*.wasm
+            .work/ci-integration/s14-local/snapshot/**
           if-no-files-found: warn
           retention-days: 14
 
