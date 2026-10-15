@@ -47,6 +47,8 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
+            assert page.evaluate('globalThis.__dtrLive.startupRetries')>=1
+            record('retired-genesis-restarts-with-fresh-certified-head')
             assert page.locator('#receiving-account').inner_text()==configuration['recipient']
             assert page.locator('#backend-identity').inner_text()==configuration['canister_id']
             assert 'join 1000000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').inner_text()

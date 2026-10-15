@@ -99,7 +99,7 @@ function resetLiveClock(s,time){
   s.clock=new PlayoutClock({start:time,target:6,low:2,max_frame_delta:1});
   s.queue=[];s.bytes=0;visibleTime=time;
 }
-async function startLive(recording){
+async function startLive(recording,startupRetries=0){
   session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
     sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:6,low:2,max_frame_delta:1}),
     client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0};
@@ -140,9 +140,18 @@ async function startLive(recording){
     const world=snapshot(state),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
     resetLiveClock(s,time);visible=new BtzView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
-    globalThis.__dtrLive={connected:true,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
+    globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0};
-  }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
+  }catch(e){
+    if(!active(s))return;
+    // A certified genesis can retire before its non-retained state is fetched.
+    // Retry only the host's explicit moving-snapshot errors, with a fresh
+    // certificate and full source/config/artifact validation on every attempt.
+    if(startupRetries<2&&['stale observation publication','publication unavailable: snapshot resync required'].includes(e?.message)){
+      await startLive(recording,startupRetries+1);return;
+    }
+    s.error=e;showError(e);
+  }finally{s.busy=false;updateHud();draw();}
 }
 async function admitLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
