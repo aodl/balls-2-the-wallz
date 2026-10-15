@@ -1,67 +1,42 @@
 {
   "schema_version": 1,
-  "checkpoint_id": "S13",
-  "name": "Fixed ledger fallback scheduling, latency and sustainable tested throughput",
-  "date": "2026-10-14",
+  "checkpoint_id": "S14",
+  "name": "Lean ICP account-index reconciliation, filtered Event Horizon pokes and mainnet-capable observer",
+  "date": "2026-10-15",
+  "branch": "checkpoint/s14-lean-index-poke",
   "predecessor": {
-    "checkpoint_id": "S12",
-    "commit": "3f94ea05acbbf47b31ef9c6b366119e3eae3f422",
-    "successful_ci_run": 38640723588
+    "checkpoint_id": "S13",
+    "commit": "c75192cb2e4c33a04675b57abfd4d42121255bfd",
+    "successful_ci_run": 38690051399
   },
-  "branch": "checkpoint/s13-fallback-policy",
-  "tested_btz_measurement_commit": "b904ee638180d35b44fee44b0b6639aa29a307ac",
-  "tested_btz_measurement_tree": "2cbd15fa03b74cc29c3ae8cbf20a498a9352a0e5",
-  "tested_postprocessing_and_smoke_commit": "81b88463ee75ed0d4c6a431fd7d2bffd4f270daf",
-  "tested_dtr_implementation_commit": "71e59e93cf49a3656689679b538b4c3f138787f8",
-  "dtr_changed": false,
-  "application_changed": false,
-  "normal_wasm_sha256": "2e26b749927d39b13701b06768f5c854196032d04fd16d5af385f55c12af92c3",
-  "local_benchmark_result": "PASS",
-  "local_regression_result": "PASS",
+  "tested_btz_commit": "dad4b64577e892aa15b6bf18601ad8b6f5c8c13a",
+  "tested_dtr_development_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dtr_changed": true,
+  "local_development_package": {
+    "version": "0.12.0",
+    "sha256": "3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb"
+  },
+  "normal_wasm_sha256": "be60c452872fc15e32878b99a44af7bf408e2100575385ee51f7f59f309c0c4e",
+  "local_implementation_result": "PASS",
+  "remote_pinned_consumer_result": "NOT_RUN",
   "remote_ci_result": "NOT_RUN",
-  "verified_local_envelope": {
-    "classification": "DIRECTLY_TESTED_COMBINED",
-    "board": "16x8",
-    "initial_cannons": 2,
-    "initial_balls": 32,
-    "logical_ticks_per_segment": 2,
-    "work_budget": 512,
-    "simulation_pacing_virtual_seconds": 1,
-    "fallback_virtual_seconds": 1,
-    "page_records": 64,
-    "arrival_batch_records": 64,
-    "arrival_period_virtual_seconds": 2,
-    "arrival_records_per_virtual_second": 32,
-    "hint_policies": [
-      "alternating",
-      "none"
-    ],
-    "retention_max_segments": 3,
-    "retention_max_bytes": 8388608,
-    "duration_virtual_seconds": 128,
-    "primary_repetitions": 2,
-    "stable_bytes": 25231360
-  },
-  "full_ledger_decision": "Scheduling frequency is limiting at 32 records/s under five-second fallback. One second drains the tested 32-record/s streams; both policies accumulate backlog at 128. Production suitability remains unestablished.",
-  "promotion_gate": "BLOCKED",
-  "software_release_eligible": false,
+  "publication_boundary": "User pushes DTR first; then update immutable BTZ pins, real locks and inspected vendor package and rerun consumers before user pushes BTZ. Checked-in old pins are not deployment-ready.",
+  "mainnet_verification": "NOT_RUN",
   "real_funds_authorized": false,
-  "production_configuration_changed": false,
+  "public_prize_launch": "BLOCKED",
+  "payouts_implemented": false,
   "verification_reports": [
-    "checkpoints/S13_REPORT.md",
-    "evidence/S13/provenance.json",
-    "evidence/S13/extended/summary.json",
-    "evidence/S13/extended/cost-projections.json",
-    "evidence/S13/postprocess-validation.json",
-    "evidence/S13/verification-summary.json"
+    "checkpoints/S14_REPORT.md",
+    "evidence/S14/provenance.json",
+    "evidence/S14/verification.json",
+    "evidence/S14/index-trace.json"
   ],
   "limitations": [
-    "Finite controlled PocketIC virtual-time observations; no mainnet/global-upstream capacity proof.",
-    "Full-update instructions, heap high-water and actual cycles burned NOT_MEASURED.",
-    "Tariff ranges are partial estimates, not complete upper bounds.",
-    "Input latency uses publication observation; hidden seal time NOT_MEASURED; unresolved records retained.",
-    "Raw verification records retain actual revisions; historical cross-version and DTR standalone not rerun in S13.",
-    "S13 remote CI NOT_RUN; user owns every remote Git operation."
+    "Trusts configured official ICP index for account-history contents and completeness.",
+    "Pending account range bounded to 256 records; overflow fails visibly without skipping payments.",
+    "Fresh deployment only; existing funded deployment requires explicit review, no reset authorized.",
+    "Full-update instructions, heap high-water, mainnet capacity and actual cycles burned NOT_MEASURED.",
+    "Local functional evidence does not establish public paid/prize launch readiness."
   ],
-  "next_checkpoint": "Stop after verified S13; relevant-account-history evaluation requires a separate request. No S14 work started."
+  "next_action": "Stop at user DTR publication boundary; no further milestone."
 }

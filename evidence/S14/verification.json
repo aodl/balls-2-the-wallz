@@ -1,0 +1,646 @@
+{
+  "checkpoint": "S14",
+  "tested_btz_commit": "dad4b64577e892aa15b6bf18601ad8b6f5c8c13a",
+  "tested_dtr_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "local_implementation": "PASS",
+  "checks": [
+    {
+      "check": "BTZ JavaScript",
+      "status": "PASS",
+      "count": 1177,
+      "raw_log": ".work/s14/btz-js-package-final.log",
+      "sha256": "5c58931ddcd61ef82896ed1a12710ef6c33ee3d81432e5a5fbfb3a641ca15f3c",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Python tooling",
+      "status": "PASS",
+      "count": 135,
+      "raw_log": ".work/s14/python-final.log",
+      "sha256": "72cc2f852d47257aed482474ab0322cb5c9efe3ad7275915c0f09f64fb3ceecf",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Workspace Rust",
+      "status": "PASS",
+      "count": 18,
+      "raw_log": ".work/s14/root-rust.log",
+      "sha256": "922e7f95304ebc9a50a45e6fb472b81609f97cb68cdb1c97e1643fb6a7266781",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Portable Rust",
+      "status": "PASS",
+      "count": 7,
+      "raw_log": ".work/s14/native.log",
+      "sha256": "ad1d7b88ce89e17d4e64ac1a16bc1a5838b0f919886fd555689b7606d0724641",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Host Rust/Candid",
+      "status": "PASS",
+      "count": 9,
+      "raw_log": ".work/s14/operator-closeout/logs/host-tests.log",
+      "sha256": "843a88a0ebc50c8d2e11d555da980646cccf3f04ddba7eb25000c5d9a8abf3a2",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Installed integration (eight repeated source units)",
+      "status": "PASS",
+      "count": 12,
+      "raw_log": ".work/s14/operator-closeout/logs/installed-index-integration.log",
+      "sha256": "c6d3881dfeea8b789b30c53331ce0ddf40c17659859a545b5df8526379cf0c11",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Independent native vectors",
+      "status": "PASS",
+      "count": 445,
+      "raw_log": ".work/s14/verify_native.log",
+      "sha256": "76cff2ad24dba0cf4765de0b3da906296e7369dce1c1a8554edd4ebe0373cb7c",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Portable byte/arithmetic conformance",
+      "status": "PASS",
+      "count": 151,
+      "raw_log": ".work/s14/verify_portable_native.log",
+      "sha256": "56d612e3af87090f66d0174248466930f7e9334576d347ecd87ff5f3ea4ed622",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Native public host outcomes",
+      "status": "PASS",
+      "count": 8,
+      "raw_log": ".work/s14/verify_host_native.log",
+      "sha256": "42c23cf74927d846adbf3c7a5f272d92ca43f8ac9d49a00f332b84dfe736b8e9",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "Format and Clippy gates",
+      "status": "PASS",
+      "count": 11,
+      "raw_log": ".work/s14/quality.json",
+      "sha256": "f06998d316e94e12f152de97e87d44a8350311f9b422a6355ab0cc70b2f056a6",
+      "scope": "exact final dependency package; earlier equivalent core revision where recorded in raw logs; operator integration at tested_btz_commit"
+    },
+    {
+      "check": "DTR JavaScript",
+      "status": "PASS",
+      "count": 191,
+      "raw_log": "DTR/.work/s14/normalization/js.log",
+      "sha256": "2809847d655a2d9efffb34e5a3472cbbf5c2da3613a0cd7cefc829cfb3b8dfd9"
+    },
+    {
+      "check": "DTR Rust including Life",
+      "status": "PASS",
+      "count": 31,
+      "raw_log": "DTR/.work/s14/normalization/rust.log",
+      "sha256": "128f36edea0a3fb8e6402b3bebc78624d68ac78b4fec7c9e6ee3375412122b01"
+    },
+    {
+      "check": "Current documentation links",
+      "status": "PASS",
+      "raw_log": ".work/s14/docs-final.log",
+      "sha256": "a89c54f3b00371209cfdfe8020fa477f3b8daad510a7c7123303dbb7822382d3"
+    },
+    {
+      "check": "Source syntax/manifests",
+      "status": "PASS",
+      "raw_log": ".work/s14/source-inventory-final.log",
+      "sha256": "98b64103681214e1f9b8c77a4cd2c855505cbda00197bddc376b7171612d1b0f"
+    },
+    {
+      "check": "Mainnet observer bundle build",
+      "status": "PASS",
+      "raw_log": ".work/s14/observer-build.log",
+      "sha256": "33155995887c09bef4f29e8c39c237ec446ca75ec3fa428e88c58d0ed915227c"
+    },
+    {
+      "check": "Package install audit (0 vulnerabilities)",
+      "status": "PASS",
+      "raw_log": ".work/s14/local-package-final-install.log",
+      "sha256": "749bff2f35b2ec844a0cc58a0205fda3da5f7d6aef9d5f23d5b672af7dbb4a6d"
+    }
+  ],
+  "installed_run": {
+    "source_revision": "dad4b64577e892aa15b6bf18601ad8b6f5c8c13a",
+    "checkpoint": "S14",
+    "overall": "PASS",
+    "checks": [
+      {
+        "id": "prepare-operator-genesis",
+        "command": [
+          "node",
+          "tools/prepare_s14_init.mjs",
+          "--world-output",
+          "/home/codexdev/src/btz/.work/s14/operator-closeout/genesis-world.bin",
+          "--output",
+          "/home/codexdev/src/btz/.work/s14/operator-closeout/example-init.did"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 0.316,
+        "timeout_seconds": 60,
+        "log": "logs/prepare-operator-genesis.log"
+      },
+      {
+        "id": "build-normal",
+        "command": [
+          "cargo",
+          "--config",
+          "/home/codexdev/src/btz/.work/s14/dtr-override-96v5y9bb/patch.toml",
+          "build",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--release",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--locked",
+          "--offline"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 41.281,
+        "timeout_seconds": 900,
+        "log": "logs/build-normal.log"
+      },
+      {
+        "id": "build-test-hooks",
+        "command": [
+          "cargo",
+          "--config",
+          "/home/codexdev/src/btz/.work/s14/dtr-override-96v5y9bb/patch.toml",
+          "build",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--release",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--locked",
+          "--offline",
+          "--features",
+          "test-hooks"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 97.039,
+        "timeout_seconds": 900,
+        "log": "logs/build-test-hooks.log"
+      },
+      {
+        "id": "host-tests",
+        "command": [
+          "cargo",
+          "--config",
+          "/home/codexdev/src/btz/.work/s14/dtr-override-96v5y9bb/patch.toml",
+          "test",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--locked",
+          "--offline",
+          "--",
+          "--nocapture"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 4.803,
+        "timeout_seconds": 900,
+        "log": "logs/host-tests.log"
+      },
+      {
+        "id": "build-slow-index-fixture",
+        "command": [
+          "cargo",
+          "build",
+          "--manifest-path",
+          "tools/s14-index-fixture/Cargo.toml",
+          "--release",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--locked",
+          "--offline"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 1.278,
+        "timeout_seconds": 900,
+        "log": "logs/build-slow-index-fixture.log"
+      },
+      {
+        "id": "harness-build",
+        "command": [
+          "cargo",
+          "--config",
+          "/home/codexdev/src/btz/.work/s14/dtr-override-96v5y9bb/patch.toml",
+          "test",
+          "--manifest-path",
+          "tools/s09-integration/Cargo.toml",
+          "--test",
+          "s14_index",
+          "--no-run",
+          "--locked",
+          "--offline",
+          "--message-format=json"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 87.685,
+        "timeout_seconds": 900,
+        "log": "logs/harness-build.log"
+      },
+      {
+        "id": "installed-index-integration",
+        "command": [
+          "/home/codexdev/src/btz/tools/s09-integration/target/debug/deps/s14_index-7d878dac32d6dbb1",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 135.244,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration.log"
+      },
+      {
+        "id": "js-captured-history-replay",
+        "command": [
+          "node",
+          "tools/replay_s14.mjs",
+          "/home/codexdev/src/btz/.work/s14/operator-closeout/index-trace.json",
+          "/home/codexdev/src/btz/.work/s14/operator-closeout/js-replay.json"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "elapsed_seconds": 1.779,
+        "timeout_seconds": 180,
+        "log": "logs/js-captured-history-replay.log"
+      }
+    ],
+    "artifacts": [
+      {
+        "name": "POCKET_IC_BIN",
+        "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "path": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic"
+      },
+      {
+        "name": "ICP_LEDGER_WASM",
+        "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm"
+      },
+      {
+        "name": "ICP_INDEX_WASM",
+        "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+        "path": "/home/codexdev/src/btz/.work/s14/upstream/ic-icp-index-canister.wasm"
+      },
+      {
+        "name": "normal",
+        "sha256": "be60c452872fc15e32878b99a44af7bf408e2100575385ee51f7f59f309c0c4e",
+        "exports": [
+          "memory",
+          "canister_init",
+          "canister_post_upgrade",
+          "canister_query artifact_chunk",
+          "canister_query controller_work",
+          "canister_query lab_status",
+          "canister_query observation",
+          "canister_query retained_artifact_chunk",
+          "canister_query retained_publication",
+          "canister_query retention_status",
+          "canister_query source_descriptor",
+          "canister_update pause_autonomous",
+          "canister_update poke",
+          "canister_update start_autonomous",
+          "get_candid_pointer",
+          "canister_global_timer",
+          "canister_update <ic-cdk internal> timer_executor",
+          "__data_end",
+          "__heap_base"
+        ]
+      },
+      {
+        "name": "test-hooks",
+        "sha256": "49205183f0ea99a30f6b4d0c9c6cb5834fee31ff267603c89fa8b2e824c52df7",
+        "exports": [
+          "memory",
+          "canister_init",
+          "canister_post_upgrade",
+          "canister_query artifact_chunk",
+          "canister_query controller_work",
+          "canister_query lab_status",
+          "canister_query observation",
+          "canister_query retained_artifact_chunk",
+          "canister_query retained_publication",
+          "canister_query retention_status",
+          "canister_query source_descriptor",
+          "canister_update pause_autonomous",
+          "canister_update poke",
+          "canister_update start_autonomous",
+          "canister_update test_apply",
+          "get_candid_pointer",
+          "canister_global_timer",
+          "canister_update <ic-cdk internal> timer_executor",
+          "__data_end",
+          "__heap_base"
+        ]
+      },
+      {
+        "name": "operator-genesis",
+        "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae",
+        "path": ".work/s14/operator-closeout/genesis-world.bin"
+      },
+      {
+        "name": "generated-candid",
+        "sha256": "87ace6e282f328df49e3a343e4108ab62991a0ea94df60c1be395162d02ef8cd",
+        "path": "evidence/S14/generated.did"
+      }
+    ],
+    "dtr_development_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99"
+  },
+  "raw_logs": ".work/s14/",
+  "failure_history": [
+    {
+      "path": ".work/s14/local-v2",
+      "result": "FAIL",
+      "reason": "timer-only fixture did not retain inter-canister reply context; replaced by held mocked call"
+    },
+    {
+      "path": ".work/s14/browser-operator-closeout/results.json",
+      "result": "FAIL",
+      "reason": "genuine certificate aged beyond five minutes; freshness correctly rejected; repeated with immediate fresh capture"
+    },
+    {
+      "path": ".work/s14/fresh-observer/browser/results.json",
+      "result": "FAIL",
+      "reason": "reduced-motion snapshot-start assertion; diagnostic and correction recorded separately"
+    },
+    {
+      "path": ".work/s14/browser-diagnostic/results.json",
+      "result": "PASS",
+      "reason": "Wait for ready/enabled controls before asserting reduced-motion snapshot start; all 12 certified browser checks pass."
+    }
+  ],
+  "not_run": [
+    {
+      "check": "remote-pinned-clean-consumer",
+      "status": "NOT_RUN",
+      "reason": "DTR-first user publication required; inherited consumer script clones remotely and was not invoked"
+    },
+    {
+      "check": "new-remote-CI",
+      "status": "NOT_RUN",
+      "reason": "user owns pushes/workflow execution"
+    },
+    {
+      "check": "mainnet-deployment-verification",
+      "status": "NOT_RUN",
+      "reason": "user-owned deployment/funding/controllers/subscription/real transfers"
+    },
+    {
+      "check": "historical-scanner-upgrade-and-benchmarks",
+      "status": "NOT_RUN",
+      "reason": "obsolete production responsibility; historical evidence preserved"
+    },
+    {
+      "check": "interactive-live-GUI-reconnect-orchestration",
+      "status": "NOT_RUN",
+      "reason": "new live SDK/certificate path checked separately; existing client regression suite retained"
+    }
+  ],
+  "not_measured": [
+    "Full-update instructions and headroom",
+    "Heap high-water",
+    "Mainnet finality/capacity/latency",
+    "Actual cycles burned",
+    "Payout settlement (not implemented)"
+  ],
+  "replay": {
+    "status": "PASS",
+    "segments": 49,
+    "assigned": [
+      "7",
+      "8"
+    ],
+    "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+    "work_budget": 23
+  },
+  "live_sdk": {
+    "status": "PASS",
+    "mode": "LIVE_READ_ONLY_LOCAL_SDK",
+    "first_segment": "48",
+    "next_segment": "49",
+    "certificate_root": "explicit disposable root; no root fetching",
+    "authenticated_artifacts": [
+      "state",
+      "events",
+      "scores"
+    ]
+  },
+  "offline_browser": {
+    "checkpoint": "S13",
+    "mode": "http",
+    "trust": "offline",
+    "overall": "PASS",
+    "checks": [
+      {
+        "name": "browser-selection",
+        "status": "PASS",
+        "details": "playwright-bundled: /home/codexdev/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome"
+      },
+      {
+        "name": "browser-sandbox",
+        "status": "PASS",
+        "details": "Chromium launched with Playwright sandbox support explicitly enabled."
+      },
+      {
+        "name": "startup-and-moving-playhead",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "canvas-pixels-change-during-playback",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "pause-freezes-presentation",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "desktop-and-mobile-layout",
+        "status": "PASS",
+        "details": "1400\u00d71100 and 390\u00d7844 viewports; no horizontal overflow."
+      },
+      {
+        "name": "buffer-exhaustion-stops-at-verified-head",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "download-recovery-resumes",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "reduced-motion-starts-paused",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "native-browser-webcrypto",
+        "status": "PASS",
+        "details": "True"
+      },
+      {
+        "name": "no-uncaught-page-errors",
+        "status": "PASS",
+        "details": ""
+      }
+    ],
+    "qualification": "Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification.",
+    "browser_executable": {
+      "path": "/home/codexdev/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome",
+      "selection": "playwright-bundled",
+      "version_exit_code": 0,
+      "version_text": "Google Chrome for Testing 153.0.8010.12"
+    },
+    "browser_version": "153.0.8010.12",
+    "playwright_version": "1.63.0",
+    "sandbox": {
+      "requested": true,
+      "launch_option": "chromium_sandbox=True"
+    },
+    "uncaught_page_errors": [],
+    "checkpoint_label_note": "S13 label inherited from then-current CHECKPOINT; this was an S14 source run with inspected final package."
+  },
+  "certified_browser": {
+    "status": "PASS",
+    "checks": [
+      {
+        "name": "browser-selection",
+        "status": "PASS",
+        "details": "playwright-bundled: /home/codexdev/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome"
+      },
+      {
+        "name": "browser-sandbox",
+        "status": "PASS",
+        "details": "Chromium launched with Playwright sandbox support explicitly enabled."
+      },
+      {
+        "name": "browser-standard-certificate-verification",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "startup-and-moving-playhead",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "authenticated-projection-admitted",
+        "status": "PASS",
+        "details": "Predecessor, audit binding and final visible state were checked before buffer admission."
+      },
+      {
+        "name": "pause-freezes-presentation",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "desktop-and-mobile-layout",
+        "status": "PASS",
+        "details": "1400\u00d71100 and 390\u00d7844 viewports; no horizontal overflow."
+      },
+      {
+        "name": "reduced-motion-starts-paused",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "authenticated-final-visible-state",
+        "status": "PASS",
+        "details": "One expected cannon and ball at logical time 2."
+      },
+      {
+        "name": "certificate-failure-is-fail-closed",
+        "status": "PASS",
+        "details": "Tampered certificate stopped playback without offline fallback."
+      },
+      {
+        "name": "native-browser-webcrypto",
+        "status": "PASS",
+        "details": "True"
+      },
+      {
+        "name": "no-uncaught-page-errors",
+        "status": "PASS",
+        "details": ""
+      }
+    ],
+    "qualification": "Local HTTP with native browser Web Crypto and standard-library verification of a genuine certificate from the configured disposable PocketIC instance.",
+    "browser_version": "153.0.8010.12",
+    "playwright_version": "1.63.0",
+    "sandbox": {
+      "requested": true,
+      "launch_option": "chromium_sandbox=True"
+    },
+    "raw_result": ".work/s14/browser-diagnostic/results.json",
+    "raw_result_sha256": "fa66e3a38404803bca42eb218a17c2df43306911d86b95373b5e7419fc1fb7b9",
+    "harness_commit": "8f299a7",
+    "runtime_wasm_tested_btz_commit": "dad4b64577e892aa15b6bf18601ad8b6f5c8c13a",
+    "snapshot_source": ".work/s14/fresh-observer/snapshot",
+    "certificate_freshness": "Five-minute limit enforced. New disposable capture, immediate browser run. A preceding stale capture was correctly rejected."
+  },
+  "fresh_certificate_repeat": {
+    "status": "PASS",
+    "integration_tests": 12,
+    "trace": ".work/s14/fresh-observer/index-trace.json",
+    "trace_sha256": "4fea4cb27eb94eae6bf7009b751f067c6bcde36dd36b2a9ac887e0afffe83fd0",
+    "functional_observation_matches_original": true,
+    "live_sdk": {
+      "status": "PASS",
+      "mode": "LIVE_READ_ONLY_LOCAL_SDK",
+      "first_segment": "48",
+      "next_segment": "50",
+      "certificate_root": "explicit disposable root; no root fetching",
+      "authenticated_artifacts": [
+        "state",
+        "events",
+        "scores"
+      ]
+    },
+    "replay": {
+      "status": "PASS",
+      "segments": 49,
+      "assigned": [
+        "7",
+        "8"
+      ],
+      "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+      "work_budget": 23
+    },
+    "qualification": "Separate disposable repeat to capture a fresh certificate. Live heads after the 150-second functional window are not counted as functional throughput."
+  },
+  "historical_integrity": {
+    "status": "PASS",
+    "comparison_baseline": "c75192cb2e4c33a04675b57abfd4d42121255bfd",
+    "unchanged_paths": [
+      "evidence/S11",
+      "evidence/S12",
+      "evidence/S13",
+      "checkpoints/S11_REPORT.md",
+      "checkpoints/S12_REPORT.md",
+      "checkpoints/S12_CLOSEOUT.md",
+      "checkpoints/S13_REPORT.md",
+      "tests/fixtures"
+    ],
+    "check": "git diff --name-only baseline..HEAD -- named paths returned no changes"
+  },
+  "handoff_dependency_state": {
+    "permanent_pins": "unchanged old public revision/package",
+    "npm_installation": "restored using npm ci --ignore-scripts --offline after all development-package verification",
+    "development_artifact": "DTR/.work/s14/final/dtr-timeline-runtime-0.12.0.tgz",
+    "reapply_for_local_checks": "explicit command in docs/operations/S14_OPERATOR.md; no permanent override"
+  }
+}

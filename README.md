@@ -30,9 +30,9 @@ The existing offline observer remains available with `python3.11 -B tools/serve_
 
 BTZ owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; BTZ consumes DTR without copying its source. Game v3, publication v6 and animation v1 are unchanged. Life and independent game oracles remain regression boundaries.
 
-1. **Implemented; local verification being recorded:** bounded account-history reconciliation, exact filtered pokes, independent fallback, autonomous game, read-only mainnet-capable observer and deployment tooling.
+1. **Implemented and locally verified with an explicit DTR development override:** bounded account-history reconciliation, exact filtered pokes, independent fallback, autonomous game, read-only mainnet-capable observer and deployment tooling.
 2. **Ready for user-operated verification after dependency publication:** immutable DTR consumer update, new remote CI, fresh canister/controller/cycles setup, official index binding, certified observer and exact Event Horizon account subscription.
 3. **Before public paid/prize launch:** payout/settlement implementation and review, retained-payment disclosures, real-wallet memo/account compatibility, operational funding/availability and explicit user launch decision.
 4. **Removed/deferred:** global-ledger scanner/archive path, alternative laboratory hosts, manual production game controls, scanner throughput campaigns, wallet/login features, dynamic scheduler and general notification/source frameworks.
 
-Historical baseline: [S13 report](checkpoints/S13_REPORT.md). S14 current evidence and remaining unsupported claims will be recorded in the S14 checkpoint report; prior CI did not execute new local code.
+Historical baseline: [S13 report](checkpoints/S13_REPORT.md). Current implementation results and remaining gates: [S14 report](checkpoints/S14_REPORT.md). Prior CI did not execute new local code.
