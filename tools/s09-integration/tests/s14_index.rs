@@ -363,7 +363,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
     let builder = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet();
-    let pic = if let Ok(url) = std::env::var("POCKET_IC_SERVER_URL") {
+    let mut pic = if let Ok(url) = std::env::var("POCKET_IC_SERVER_URL") {
         builder.with_server_url(url.parse().unwrap()).build()
     } else {
         builder
@@ -770,6 +770,28 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
             std::fs::write(directory.join(name), data).unwrap();
         }
         std::fs::write(directory.join("metadata.json"),serde_json::to_vec_pretty(&serde_json::json!({"version":1,"trust":"local-ic-test-certificate","network":"pocketic-local","canister_id":id.to_text(),"root_key_sha256":dtr_wire::hash(&pic.root_key().unwrap()),"logical_start":seal.logical_start.0.to_string().parse::<u64>().unwrap(),"logical_end":seal.logical_end.0.to_string().parse::<u64>().unwrap(),"tick_seconds":0.25})).unwrap()).unwrap();
+    }
+    if let Ok(output) = std::env::var("S14_LIVE_CLIENT_RESULT") {
+        let gateway = pic.make_live(None);
+        let result = std::process::Command::new("node")
+            .args([
+                "tools/verify_s14_transport.mjs",
+                "--snapshot",
+                &std::env::var("S14_SNAPSHOT").unwrap(),
+                "--host",
+                gateway.as_str(),
+                "--canister",
+                &id.to_text(),
+                "--output",
+                &output,
+            ])
+            .status()
+            .unwrap();
+        pic.stop_live();
+        assert!(
+            result.success(),
+            "live read-only SDK transport verification failed"
+        );
     }
     if let Ok(path) = std::env::var("S14_TRACE") {
         std::fs::write(path,serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","evidence_class":"UPSTREAM_COMPATIBLE_LOCAL_FUNCTIONAL","assigned":assigned,"initial_world_hex":hex(&world),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"trace":trace,"segments":s.run.completed_segments,"observed_segments":observed_segments,"certificate_time_refreshed_after_observation":true})).unwrap()).unwrap();

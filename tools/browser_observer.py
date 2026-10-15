@@ -180,7 +180,9 @@ def main():
                 report['overall']='PASS'
                 return 0
             if a.trust=='local':page.locator('#speed').select_option('0.5')
-            wait_until(page,lambda:float(page.locator('#playhead').inner_text())>(.05 if a.trust=='local' else 1))
+            if a.trust=='local':
+                wait_until(page,lambda:page.locator('#verification-label').inner_text()=='IC certificate + catalog + artifacts' and not page.locator('#pause').is_disabled() and float(page.locator('#playhead').inner_text())>float(page.locator('#timeline').get_attribute('min') or 0)+.05)
+            else:wait_until(page,lambda:float(page.locator('#playhead').inner_text())>1)
             if a.trust=='local':
                 assert 'Local IC / test-network certified' in page.locator('.trust').inner_text()
                 assert page.locator('#verification-label').inner_text()=='IC certificate + catalog + artifacts'
@@ -222,7 +224,7 @@ def main():
             if a.mode=='offline':setup_offline(second)
             else:second.goto(a.url,timeout=10000)
             wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED')
-            assert second.locator('#playhead').inner_text()=='0.00'
+            assert float(second.locator('#playhead').inner_text())==float(second.locator('#timeline').get_attribute('min') or 0)
             record('reduced-motion-starts-paused','PASS');second.locator('#network-pause').check();second.wait_for_timeout(800);second.close()
             if a.mode=='offline':
                 # Deterministic fault injection in test transport ONLY, never in product source.

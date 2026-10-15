@@ -70,7 +70,7 @@ def main():
         assert len(binaries)==1
         server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1200)
         env={key:str(path.resolve()) for key,path in files.items()}
-        env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
+        env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         run('installed-index-integration',[binaries[0],'--nocapture','--test-threads=1'],900,env)
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)
         result['overall']='PASS';save();return 0

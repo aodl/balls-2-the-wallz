@@ -34,7 +34,8 @@ def main():
             for manifest in ['Cargo.toml','native/Cargo.toml','canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml']:
                 subprocess.run(['cargo','--config',str(config),'metadata','--format-version','1','--offline','--manifest-path',manifest],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
             env={**os.environ,'S14_DTR_CONFIG':str(config),'S14_DTR_REVISION':actual}
-            if command[0]=='cargo':command=[command[0],'--config',str(config),*command[1:]]
+            if command[:2]==['cargo','clippy']:command=['cargo','clippy','--config',str(config),*command[2:]]
+            elif command[0]=='cargo':command=[command[0],'--config',str(config),*command[1:]]
             return subprocess.run(command,cwd=ROOT,env=env).returncode
         finally:
             for path,data in locks.items():path.write_bytes(data)

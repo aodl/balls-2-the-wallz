@@ -36,7 +36,7 @@ Use Python 3.11, Rust 1.94.1, Node >=22.16 and the inspected dependency package.
 ```sh
 npm install --ignore-scripts --no-save --package-lock=false /home/codexdev/src/dtr/.work/s14/dtr-timeline-runtime-0.12.0.tgz
 DFX_IDENTITY=codex_local python3.11 -B tools/s14_development.py \
-  --dtr /home/codexdev/src/dtr --revision 7df2a459b37b04fc142d1f615a6da82dcc9c16f2 -- \
+  --dtr /home/codexdev/src/dtr --revision f42a22a9a33e0935295f9c40a7076becbc95d9cb -- \
   python3.11 -B tools/verify_s14_local.py \
   --index-wasm .work/s14/upstream/ic-icp-index-canister.wasm --output .work/s14/local
 ```

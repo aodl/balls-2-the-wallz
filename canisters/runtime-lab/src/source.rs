@@ -256,10 +256,8 @@ impl SourceState {
             }
             return Ok(());
         };
-        if let Some(p) = &self.pending {
-            if p.oldest != oldest {
-                return Err("index oldest changed during pass".into());
-            }
+        if self.pending.as_ref().is_some_and(|p| p.oldest != oldest) {
+            return Err("index oldest changed during pass".into());
         }
         if response.transactions.is_empty() {
             return Err("index omitted expected history".into());
@@ -406,8 +404,7 @@ pub struct PokeMatch {
 pub fn matching_poke(matches: &[PokeMatch], target: u64) -> bool {
     matches.len() <= 256
         && matches.iter().any(|p| {
-            matches!(p.target,PokeTarget::subaccount(n) if n==target)
-                && p.max_amount > Nat::from(0u8)
+            matches!(p.target,PokeTarget::subaccount(n) if n==target) && p.max_amount > 0u8
         })
 }
 fn account(text: &str) -> Result<AccountIdentifier> {

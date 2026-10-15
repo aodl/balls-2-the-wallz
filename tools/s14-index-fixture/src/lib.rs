@@ -3,7 +3,7 @@
 use candid::{CandidType, Deserialize, Principal};
 use std::cell::RefCell;
 thread_local! {
-    static LEDGER:RefCell<Principal>=RefCell::new(Principal::anonymous());
+    static LEDGER:RefCell<Principal>=const { RefCell::new(Principal::anonymous()) };
     static RESPONSE:RefCell<(u32,Vec<u8>)>=const {RefCell::new((0,Vec::new()))};
     static CALLS:RefCell<u64>=const {RefCell::new(0)};
 }
