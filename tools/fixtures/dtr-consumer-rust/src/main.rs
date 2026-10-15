@@ -1,5 +1,5 @@
 use dtr_core::Seal as CoreSeal;
-use dtr_host::{input_root, Input};
+use dtr_host::{input_root, Action, Input};
 use dtr_source_model::advance_prefix;
 use dtr_wire::{hash, Int};
 
@@ -11,6 +11,21 @@ fn main() {
     };
     assert_eq!(input_root(&[input], 0, 1).unwrap().len(), 64);
     assert_eq!(hash(b"consumer").len(), 64);
+    let sparse: Vec<Input> = [100u64, 109, 800]
+        .into_iter()
+        .map(|id| Input {
+            position: Int(id.into()),
+            payload_hex: "00".into(),
+        })
+        .collect();
+    assert_eq!(input_root(&sparse, 0, 801).unwrap().len(), 64);
+    let ordered = Action::IngestOrdered {
+        start: Int(0.into()),
+        end: Int(801.into()),
+        inputs: sparse,
+        anchor: "aa".repeat(32),
+    };
+    assert!(matches!(ordered, Action::IngestOrdered {inputs, ..} if inputs.len() == 3));
     let seal = CoreSeal {
         segment_id: 0,
         logical_start: 0,

@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import shutil
 import sys
+import tomllib
 from verify_s09_local import ROOT, execute, start_pocketic, stop_pocketic
 
 def wasm_exports(path):
@@ -36,6 +37,13 @@ def main():
     p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts');p.add_argument('--index-wasm',type=Path)
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
+    lock=tomllib.loads((ROOT/'canisters/runtime-lab/Cargo.lock').read_text())
+    host=next(package for package in lock['package'] if package['name']=='dtr-host')
+    result['dependency_mode']='explicit-development-override' if os.environ.get('S14_DTR_CONFIG') else 'published-immutable-git'
+    result['dtr_revision']=os.environ.get('S14_DTR_REVISION') or host.get('source','').split('#')[-1]
+    result['host_lock_sha256']=hashlib.sha256((ROOT/'canisters/runtime-lab/Cargo.lock').read_bytes()).hexdigest()
+    npm=json.loads((ROOT/'package-lock.json').read_text())['packages']['node_modules/@dtr/timeline-runtime']
+    result['javascript_package']={'version':npm['version'],'integrity':npm['integrity'],'resolved':npm['resolved']}
     def save(): (out/'results.json').write_text(json.dumps(result,indent=2)+'\n')
     files={'POCKET_IC_BIN':a.artifacts/'bin/pocket-ic','ICP_LEDGER_WASM':a.artifacts/'wasm/ledger-canister.wasm','ICP_INDEX_WASM':a.index_wasm or a.artifacts/'wasm/ic-icp-index-canister.wasm'}
     missing=[str(path) for path in files.values() if not path.is_file()]

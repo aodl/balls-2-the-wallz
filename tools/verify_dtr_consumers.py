@@ -17,10 +17,10 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='71e59e93cf49a3656689679b538b4c3f138787f8'
-DTR_TREE='c7b4e138a1c5cc43744e984e6e4081fa483d9383'
+DTR_REV='1f47c1a0a104875bd13475d561b8d5aa10770d99'
+DTR_TREE='467bd2e25b1cf356ecdced7d69e26514a764c045'
 VENDOR_NPM='11.12.1'
-VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'
+VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.12.0.tgz'
 
 def digest(path,algorithm='sha256'):
     value=hashlib.new(algorithm)
@@ -109,63 +109,75 @@ def validate_vendor(source,generated,packaging_npm):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=ROOT/'.work/dtr-consumers');args=parser.parse_args()
     output=args.output.resolve();output.mkdir(parents=True,exist_ok=True);destination=output/'results.json'
-    report={'schema_version':1,'checkpoint':'S11','started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    report={'schema_version':1,'checkpoint':'S14','started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
       'overall':'IN_PROGRESS','dtr':{'remote':DTR_GIT,'revision':DTR_REV,'tree':DTR_TREE},'checks':[],
       'tools':{name:tool_version(command) for name,command in {
         'git':['git','--version'],'node':['node','--version'],'npm':['npm','--version'],
         'cargo':['cargo','+1.94.1','--version'],'rustc':['rustc','+1.94.1','--version']}.items()}}
     report['btz']={'remote':git_value(ROOT,'remote','get-url','origin'),'revision':git_value(ROOT,'rev-parse','HEAD'),
       'tree':git_value(ROOT,'rev-parse','HEAD^{tree}'),'working_tree_changes':git_value(ROOT,'status','--porcelain').splitlines()}
-    destination.write_text(json.dumps(report,indent=2)+'\n')
+    def save():destination.write_text(json.dumps(report,indent=2)+'\n')
+    def step(identifier,command,cwd,timeout=600,environment=None):
+        row=run(identifier,command,cwd,output,timeout,environment);report['checks'].append(row);save()
+        if row['status']!='PASS':raise ValueError(identifier+' failed; see '+row['log'])
+        return (output/row['log']).read_text()
+    save()
     try:
-        with tempfile.TemporaryDirectory(prefix='dtr-consumers-') as directory:
-            temporary=Path(directory);source=temporary/'dtr';distribution=temporary/'distribution';distribution.mkdir()
-            steps=[
-              ('dtr-remote-clone',['git','clone','--filter=blob:none','--no-checkout',DTR_GIT,str(source)],ROOT,900,{}),
-              ('dtr-revision-checkout',['git','-C',str(source),'checkout','--detach',DTR_REV],ROOT,300,{}),
-              ('dtr-npm-install',['npm','ci','--ignore-scripts'],source,600,{}),
-              ('dtr-npm-pack',['npm','pack','--pack-destination',str(distribution)],source,300,{}),
-            ]
-            for identifier,command,cwd,timeout,environment in steps:
-                if identifier=='dtr-npm-install':
-                    normalize_source_modes(source)
-                    report['checks'].append({'id':'dtr-package-mode-normalization','status':'PASS','exit_code':0,
-                      'directories':'0755','regular_files':'0644'})
-                row=run(identifier,command,cwd,output,timeout,environment);report['checks'].append(row);destination.write_text(json.dumps(report,indent=2)+'\n')
-                if row['status']!='PASS':report['overall']='FAIL';destination.write_text(json.dumps(report,indent=2)+'\n');return 1
-            provenance={'remote':git_value(source,'remote','get-url','origin'),'revision':git_value(source,'rev-parse','HEAD'),
-              'tree':git_value(source,'rev-parse','HEAD^{tree}'),'working_tree_changes':git_value(source,'status','--porcelain').splitlines()}
-            if provenance['remote']!=DTR_GIT or provenance['revision']!=DTR_REV or provenance['tree']!=DTR_TREE or provenance['working_tree_changes']:
+        # Cargo obtains the exact published Git dependency through its ordinary
+        # resolver. No explicit remote Git command or sibling-source override.
+        cache=Path.home()/'.cache/btz-consumers';cache.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='dtr-consumers-',dir=cache) as directory:
+            temporary=Path(directory);rust=temporary/'rust-consumer'
+            shutil.copytree(ROOT/'tools/fixtures/dtr-consumer-rust',rust)
+            sources=rust_lock_sources(rust/'Cargo.lock')
+            empty_config=temporary/'empty-git-config';empty_config.write_text('')
+            environment={'CARGO_HOME':str(temporary/'cargo-home'),'CARGO_TARGET_DIR':str(temporary/'cargo-target'),
+              'GIT_CONFIG_GLOBAL':str(empty_config),'GIT_CONFIG_NOSYSTEM':'1','CARGO_NET_GIT_FETCH_WITH_CLI':'false'}
+            report['rust_consumer']={'lock_sha256':sha256(rust/'Cargo.lock'),'sources':sources,
+              'cargo_home_started_empty':True,'git_url_rewrites_disabled':True,'explicit_remote_git_commands':False,
+              'location':'disposable directory outside source trees'}
+            step('rust-consumer-published',['cargo','+1.94.1','run','--locked'],rust,1200,environment)
+            metadata=step('published-source-location',['cargo','+1.94.1','metadata','--locked','--format-version','1'],rust,120,environment)
+            metadata=json.loads(metadata)
+            core=next(package for package in metadata['packages'] if package['name']=='dtr-core')
+            checkout=Path(core['manifest_path']).parents[2]
+            provenance={'revision':git_value(checkout,'rev-parse','HEAD'),'tree':git_value(checkout,'rev-parse','HEAD^{tree}'),
+              'tracked_changes':git_value(checkout,'status','--porcelain','--untracked-files=no').splitlines(),
+              'origin':'ordinary Cargo Git dependency resolution into an initially empty CARGO_HOME'}
+            if provenance['revision']!=DTR_REV or provenance['tree']!=DTR_TREE or provenance['tracked_changes']:
                 raise ValueError(f'invalid DTR source provenance: {provenance}')
-            generated=distribution/'dtr-timeline-runtime-0.11.0.tgz'
+            report['resolved_source']=provenance;save()
+            # Archive only immutable local objects downloaded by Cargo, never
+            # clone/check out another remote repository in this wrapper.
+            archive=temporary/'source.tar';source=temporary/'source';source.mkdir()
+            step('published-source-archive',['git','-C',str(checkout),'archive','--format=tar','--output',str(archive),DTR_REV],ROOT,120)
+            with tarfile.open(archive) as packed:
+                for member in packed.getmembers():
+                    if member.name.startswith('/') or '..' in Path(member.name).parts or not(member.isfile() or member.isdir()):
+                        raise ValueError('unsupported source archive member: '+member.name)
+                packed.extractall(source,filter='data')
+            normalize_source_modes(source)
+            distribution=temporary/'distribution';distribution.mkdir()
+            step('dtr-npm-install',['npm','ci','--ignore-scripts'],source)
+            step('dtr-npm-pack',['npm','pack','--ignore-scripts','--pack-destination',str(distribution)],source,300)
+            generated=distribution/'dtr-timeline-runtime-0.12.0.tgz'
             packaging_npm=report['tools']['npm']['text'].removeprefix('v')
             inventory,vendor_integrity,byte_reproduction=validate_vendor(source,generated,packaging_npm)
             report['package']={'packaging_tool':report['tools']['npm']['text'],'files':inventory,'file_count':len(inventory),
               'fresh_sha256':sha256(generated),'fresh_integrity':integrity(generated),'vendor_sha256':sha256(VENDOR),
               'vendor_integrity':vendor_integrity,'vendor_packaging_tool':f'npm {VENDOR_NPM}',
               'payload_source_correspondence':'PASS','byte_reproduction':byte_reproduction}
-
+            save()
             js=temporary/'javascript-consumer';shutil.copytree(ROOT/'tools/fixtures/dtr-consumer-js',js)
             shutil.copyfile(generated,js/'dtr-package.tgz')
             for identifier,command in [
               ('javascript-consumer-lock',['npm','install','--package-lock-only','--ignore-scripts']),
               ('javascript-consumer-install',['npm','ci','--ignore-scripts']),
               ('javascript-consumer-api',['npm','test']),
-            ]:
-                row=run(identifier,command,js,output,600);report['checks'].append(row);destination.write_text(json.dumps(report,indent=2)+'\n')
-                if row['status']!='PASS':report['overall']='FAIL';destination.write_text(json.dumps(report,indent=2)+'\n');return 1
+            ]:step(identifier,command,js)
             report['javascript_consumer']={'lock_sha256':sha256(js/'package-lock.json'),'location':'disposable directory outside source trees'}
-
-            rust=temporary/'rust-consumer';shutil.copytree(ROOT/'tools/fixtures/dtr-consumer-rust',rust)
-            sources=rust_lock_sources(rust/'Cargo.lock')
-            environment={'CARGO_HOME':str(temporary/'cargo-home'),'CARGO_TARGET_DIR':str(temporary/'cargo-target'),
-              'GIT_CONFIG_GLOBAL':'/dev/null','GIT_CONFIG_NOSYSTEM':'1'}
-            row=run('rust-consumer-remote',['cargo','+1.94.1','run','--locked'],rust,output,1200,environment)
-            report['checks'].append(row);report['rust_consumer']={'lock_sha256':sha256(rust/'Cargo.lock'),'sources':sources,
-              'cargo_home_started_empty':True,'git_url_rewrites_disabled':True,'location':'disposable directory outside source trees'}
-            report['overall']=row['status'];destination.write_text(json.dumps(report,indent=2)+'\n')
-            print('OVERALL',report['overall']);return 0 if row['status']=='PASS' else 1
-    except (OSError,subprocess.SubprocessError,TimeoutError,ValueError,KeyError,json.JSONDecodeError,tarfile.TarError) as error:
-        report['overall']='FAIL';report['fatal_error']=str(error);destination.write_text(json.dumps(report,indent=2)+'\n');print(f'FAIL: {error}');return 1
+            report['overall']='PASS';save();print('OVERALL PASS');return 0
+    except (OSError,subprocess.SubprocessError,TimeoutError,ValueError,KeyError,StopIteration,json.JSONDecodeError,tarfile.TarError) as error:
+        report['overall']='FAIL';report['fatal_error']=str(error);save();print(f'FAIL: {error}');return 1
 
 if __name__=='__main__':raise SystemExit(main())

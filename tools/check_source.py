@@ -17,20 +17,20 @@ def check_npm(package,lock):
         for name,version in declared.items():
             resolved=lock['packages'].get('node_modules/'+name,{})
             if name=='@dtr/timeline-runtime':
-                if version!='file:vendor/dtr/dtr-timeline-runtime-0.11.0.tgz' or resolved.get('version')!='0.11.0' or resolved.get('resolved')!=version:
+                if version!='file:vendor/dtr/dtr-timeline-runtime-0.12.0.tgz' or resolved.get('version')!='0.12.0' or resolved.get('resolved')!=version:
                     raise ValueError('DTR package artifact is not exact-pinned')
             else:
                 check_version(version)
                 if resolved.get('version')!=version.lstrip('='):raise ValueError('npm direct resolution missing/mismatched')
     for path,entry in lock['packages'].items():
         if not path:continue
-        local_dtr=path=='node_modules/@dtr/timeline-runtime' and entry.get('resolved')=='file:vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'
+        local_dtr=path=='node_modules/@dtr/timeline-runtime' and entry.get('resolved')=='file:vendor/dtr/dtr-timeline-runtime-0.12.0.tgz'
         if not entry.get('integrity','').startswith('sha512-') or not (entry.get('resolved','').startswith('https://') or local_dtr):
             raise ValueError('npm dependency needs HTTPS resolution and integrity')
     return True
 
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='71e59e93cf49a3656689679b538b4c3f138787f8'
+DTR_REV='1f47c1a0a104875bd13475d561b8d5aa10770d99'
 def check_cargo_dependency(name,value,base,workspace_dependencies={}):
     if isinstance(value,str):return check_version(value)
     if value.get('workspace'):
@@ -58,8 +58,8 @@ def main():
         if not(path/'src').is_dir():raise ValueError(f'missing source: {member}')
     lock=json.loads((ROOT/'package-lock.json').read_text())
     check_npm(json.loads((ROOT/'package.json').read_text()),lock)
-    artifact=ROOT/'vendor/dtr/dtr-timeline-runtime-0.11.0.tgz'
-    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='dc460b1a5349f022d0ba789fd7e647271f41402de2e57a9c8c4ba860834a4bf8':raise ValueError('DTR package artifact hash')
+    artifact=ROOT/'vendor/dtr/dtr-timeline-runtime-0.12.0.tgz'
+    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='3e04294abee75b7b8a42d72000fb09068ce8700567729af98b9f7aa53470cdcb':raise ValueError('DTR package artifact hash')
     native=tomllib.loads((ROOT/'native/Cargo.toml').read_text())
     for name,value in native['workspace']['dependencies'].items():
         if isinstance(value,dict)and value.get('git'):check_cargo_dependency(name,value,ROOT/'native',native['workspace']['dependencies'])

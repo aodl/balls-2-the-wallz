@@ -1,6 +1,14 @@
 import assert from 'node:assert/strict';
-import {decodeCanonical,encodeCanonical,PlayoutClock,sha256} from '@dtr/timeline-runtime';
+import {decodeCanonical,encodeCanonical,PlayoutClock,sha256,TimelineCoordinator} from '@dtr/timeline-runtime';
 import {sha256Web} from '@dtr/timeline-runtime/client/verification';
+
+import {certificateRoot,certificateVerifier,liveClient} from '@dtr/timeline-runtime/client/ic-certificate';
+
+assert.equal(typeof TimelineCoordinator.prototype.ingestOrdered,'function');
+assert.equal(typeof certificateVerifier,'function');
+assert.equal(typeof liveClient,'function');
+assert.ok(certificateRoot({network:'ic'}).length>32);
+assert.throws(()=>certificateRoot({network:'ic',rootKey:new Uint8Array(32)}),/override/);
 
 const value={a:[true,null,12n],z:'consumer'};
 const encoded=encodeCanonical(value);
