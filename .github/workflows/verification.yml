@@ -167,6 +167,7 @@ jobs:
       - run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown
       - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
       - run: cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked
+      - run: cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked
       - run: python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json
       - run: python -B tools/check.py integration --output .work/ci-integration
       - name: Upload local IC evidence
