@@ -1,8 +1,47 @@
 # Controlled mainnet MVP — operator runbook
 
-This is the single deployment procedure for `checkpoint/s14-lean-index-poke`. **Every mainnet command and payment below is user executed.** Codex has executed none of them. Use Bash, dfx **0.31.0**, Rust **1.94.1**, Node >=22.16 and Python 3.11. Commands/flags were checked against the installed dfx help; the actual asset-canister route is rehearsed locally in [deployment evidence](../../evidence/S14/mvp-preparation.json). Review CI for the exact candidate before spending funds; new CI is pending user confirmation.
+This is the single deployment procedure for `checkpoint/s14-lean-index-poke`. **Every mainnet action requires explicit operator authorization.** Codex installed the existing baseline under the user’s two-canister authorization; the staged UX/pricing release requires fresh exact-release approval. All real transfers, funding, controller changes and remote Git operations remain user-owned. Use Bash, dfx **0.31.0**, Rust **1.94.1**, Node >=22.16 and Python 3.11. Commands/flags were checked against the installed dfx help; the actual asset-canister route is rehearsed locally in [deployment evidence](../../evidence/S14/mvp-preparation.json). Review CI for the exact candidate before spending funds; new CI is pending user confirmation.
 
-This is an experimental, publicly reachable game for a controlled personal exercise. No login or wallet connection is needed. **Join costs 10 ICP. Payments are retained, including rejected/underfunded commands and overpayments. Refunds and automatic payouts are unavailable.** Accrued area-time scores remain; this is not a prize-bearing launch. A public account remains payable even while gameplay is paused or its URL is unadvertised.
+This is an experimental, publicly reachable game for a controlled personal exercise. No login or wallet connection is needed. **The staged fresh-game profile costs 1 ICP to join; the existing live profile still costs 10 ICP until approved activation. Payments are retained, including rejected/underfunded commands and overpayments. Refunds and automatic payouts are unavailable.** Accrued area-time scores remain; this is not a prize-bearing launch. A public account remains payable even while gameplay is paused or its URL is unadvertised.
+
+## Existing deployment and staged UX/pricing release
+
+The existing canisters are **btz `s34gv-3qaaa-aaaar-qcifa-cai`** and **observer `s45ab-wiaaa-aaaar-qcifq-cai`**. Both are installed. The public observer is `https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/`. **Do not run the create/fresh-install examples below against this deployment.** The live backend remains on the original **10 ICP** profile until a separately approved transition. The staged build initializes a **1 ICP** profile; the observer selects prices only from the configuration hash in a verified publication and can honestly display either supported profile.
+
+The root npm package intentionally has no `build` script. Use **`NPM_CONFIG_IF_PRESENT=true` on DFX build/install/deploy commands** to preserve the prebuilt observer assets without changing the repository. This was verified on dfx 0.31.0.
+
+### Release approval and the one-time empty-game option
+
+This section is a **proposal, not authorization to run a reset**. The user must approve the exact reviewed source and frozen artifact hashes and explicitly approve discarding the empty timeline. No reset has been performed. An installed local old-to-new upgrade preserves the historical configuration and public output, then keeps advancing; it does **not** change the price. DTR has no supported in-place journal repricing action. Do not rewrite a journal identity or old seal. No DTR modification is proposed.
+
+At preparation time, the official account index returned no transactions, no oldest transaction and zero balance. Certified state had no cannons, balls, area-time credits or retained payments, and controller work showed no queued inputs/source progress. This is finite, timestamped evidence, not a guarantee about payments arriving later. Before approval is acted on, repeat the account-history/balance query, certified state/score/tally inspection, source/pending input checks and controller/module comparison. Confirm no wallet transfer is outstanding or waiting for index visibility. **If any receiving-account transaction, score or pending input exists, stop; this empty-game proposal no longer applies.** The account remains publicly payable even when paused.
+
+An approved reset would discard the old empty world's logical time, segment/checkpoint history, private coordinator continuation and retained publication chain. It preserves canister principals, controllers, the derived receiving account and the external ledger/index history. Source initialization remains `FromBeginning`; no cursor skipping is allowed. Public preflight artifacts and the old Wasm are retained, but they are not a full private-state backup and cannot restore the discarded timeline. Do not promise rollback: the old module is not a compatible reader of the new price profile. Allow several minutes for pause/install/readiness/start/browser verification; no mainnet downtime bound is promised.
+
+After **separate source/artifact and reset approval**, the intended sequence is:
+
+1. Recheck both existing canister IDs, module hashes, controllers and cycles. Reconfirm the empty-payment conditions above. Never create canisters or change settings/controllers.
+2. Build/freeze from the approved clean checkout into a new release directory with `tools/prepare_mvp_release.py`; record `manifest.json`, `normal.wasm`, `generated.did`, `init.did` and `launch.json`. Generate observer assets for the actual backend using the existing builder and retain its manifest. Do not substitute a test-feature module.
+3. Upload the approved observer assets to **observer only**. It can still display the certified historical 10 ICP price while the old game runs. Check the installed CLI's help first. The targeted route is `NPM_CONFIG_IF_PRESENT=true dfx --identity codex_local build observer --network ic`, followed by `dfx --identity codex_local canister install observer --network ic --mode upgrade --no-asset-upgrade` for an asset-only upload. No `--all`, install, reinstall or canister creation applies to the already-installed observer.
+4. Pause **btz only** through `pause_autonomous`; source reconciliation continues. Recheck no payment/history/score/input appeared. Record the last public state and configuration again. Stop on any mismatch.
+5. **Only with explicit reset approval**, fresh-install the approved module into the same backend using `--mode reinstall`, the exact frozen `--wasm` and `--argument-file init.did`. Keep the interactive destructive confirmation. This is intentionally not described as a state-preserving upgrade. Do not run it merely because a deployment command fails.
+6. Require official index/ledger binding, unchanged subaccount-0 receiving address, healthy source, and the new configuration hash/1 ICP join. Event Horizon remains disabled; fallback remains 60 seconds. Do not change controllers or send funds.
+7. Start once with `(record {segment_ticks=2:nat64;pacing_seconds=1:nat32;work_budget=512:nat32})`. Verify several certified segments and bounded retention. **Reload the observer into a fresh session**: an old session must not silently accept a reset as continuation of its old chain. Do not weaken anti-rollback checks to avoid this explicit restart.
+8. Verify the hosted page's authenticated address, **1 ICP** price, current next-ball prices and errors before suggesting a transfer. The user alone sends gameplay ICP. The solo join/first-ball/move exercise is **1.1001 ICP plus three fees**, if one ball is active at the additional-ball application point. Payments remain retained; no refunds/automatic payouts exist.
+
+The concrete backend reset command, **not to be run before the approvals and preflight above**, is:
+
+```bash
+# PROPOSAL ONLY — separately approved one-time empty-game reset.
+# Verify btz resolves to s34gv-3qaaa-aaaar-qcifa-cai immediately before use.
+dfx --identity codex_local canister install btz --network ic --mode reinstall \
+  --wasm .work/ux-pricing/release/normal.wasm \
+  --argument-file .work/ux-pricing/release/init.did
+```
+
+Do not add `--yes`, change the target, or substitute the default target-directory Wasm. The release’s generated constructor retains default subaccount 0, the official index/ledger, disabled Event Horizon and `FromBeginning` history policy. If any preflight is uncertain, retain the current backend and do not execute this command.
+
+If the user approves only the frontend, deploy only the reviewed assets and keep the currently certified 10 ICP price. Do not imply the 1 ICP backend transition has occurred. Mainnet/remote CI results must be recorded after their actual execution.
 
 ## Launch configuration and funding
 
@@ -22,7 +61,7 @@ This is an experimental, publicly reachable game for a controlled personal exerc
 | Limits | 32 cannons, 64 balls total, 32 balls per cannon |
 | Autonomous run | 2 logical ticks/segment, Step(512), 1 s callback pacing |
 | Publication retention | 3 publications, at most 8 MiB |
-| Join | **1,000,000,000 e8s = 10 ICP**, includes first cannon/ball |
+| Join (staged fresh profile) | **100,000,000 e8s = 1 ICP**, includes first cannon/ball |
 | Additional ball | **10,000,000 × n² e8s**, n = your active ball count when applied |
 | Relocation | **10,000 e8s = 0.0001 ICP** |
 
@@ -172,10 +211,10 @@ node tools/command.mjs memo move 1
 
 Use the **decimal integer** in a wallet's legacy numeric-memo field, preserving every digit. Never round through a JavaScript Number. Do not send ASCII bytes of that decimal string, or paste a hex string into a decimal field. For an explicit eight-byte ICRC memo, use precisely the hex bytes; legacy numeric memo must be zero when a blob is present. The codec's angle range is 0–65535 (one turn); 32768 points left, 49152 up. Actual directions use the existing fixed integer approximation.
 
-A concrete solo exercise, at the unchanged prices with one active ball before purchase, costs **10.1001 ICP plus three wallet fees**: join 10, first additional ball 0.1, relocation 0.0001. An optional opponent's distinct funding account adds **10 ICP plus its wallet fee**: **20.1001 ICP plus four fees** in total. Review those expenditures yourself; these are not tiny test amounts. No prices were reduced for the MVP.
+A concrete solo exercise, at the unchanged prices with one active ball before purchase, costs **1.1001 ICP plus three wallet fees**: join 1, first additional ball 0.1, relocation 0.0001. An optional opponent's distinct funding account adds **1 ICP plus its wallet fee**: **2.1001 ICP plus four fees** in total. Review those expenditures yourself; these are not tiny test amounts. No prices were reduced for the MVP.
 
 1. Open the observer with no login. Require **Gameplay running**, no source errors and fresh certification. Compare receiving account/backend independently.
-2. In your existing wallet, send **10 ICP** to `$BTZ_ACCOUNT` with ANGLE 0's exact numeric memo. The wallet fee is separate; the recipient must receive the full command amount. Record the ledger transaction ID.
+2. In your existing wallet, send **1 ICP** to `$BTZ_ACCOUNT` with ANGLE 0's exact numeric memo. The wallet fee is separate; the recipient must receive the full command amount. Record the ledger transaction ID.
 3. Wait for the **Recent certified command outcomes** table to show that ID exactly once as `ACCEPTED / cannon_spawned`. See your funding AccountIdentifier in the cannon table, starting territory and first moving ball. Reload: the authoritative cannon persists. Older receipts can disappear after reconnect/retention gaps; absence is unresolved, not rejection or loss.
 4. Read your **current certified** ball count and **Next ball** price in the cannon table. With one active ball it is 10,000,000 e8s = **0.1 ICP**. Send that exact current price with ANGLE 16384; do not deliberately underpay to probe. Wait for `ball_spawned` and two balls. A transfer without a poke must still be discovered by fallback.
 5. Pick a cell from **Owned MOVE cell IDs** for your cannon, preferably different from its anchor. Encode that ID offline with `npm run memo -- move CELL_ID`; send **0.0001 ICP** with its exact memo. Wait for `ACCEPTED / cannon_moved`. IDs are row × 16 + column, zero-based from the upper left; the cell must still be yours when applied. Only one move per cannon per segment is allowed.

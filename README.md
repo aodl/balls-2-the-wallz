@@ -4,7 +4,13 @@ BTZ is an authoritative deterministic game on the Internet Computer. Players use
 
 **No sign-in, wallet connection or transaction-sending frontend. Automatic payouts and refunds are unavailable.** Area-time scores preserve the intended revenue-sharing direction. A controlled operator mainnet exercise is separate from opening public paid/prize participation; no guaranteed distributions are advertised.
 
-The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains phased deployment/funding commands, launch configuration, exact wallet play card, subscription and pause/upgrade procedures. All remote Git, deployment, funding and real-money operations belong to the user.
+The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains phased deployment/funding commands, launch configuration, exact wallet play card, subscription and pause/upgrade procedures. All remote Git, funding and real-money operations belong to the user. Deploying reviewed code into the two existing mainnet canisters requires explicit user authorization; a destructive reset requires separate approval.
+
+## Staged arcade / prelaunch release
+
+The existing [mainnet observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) remains on the original 10 ICP profile. The local `checkpoint/s14-mvp-ux-pricing` branch prepares an arena-first arcade UI and **1 ICP** fresh-game profile, with unchanged 0.1 ICP ball base and 0.0001 ICP relocation. No wallet/login or payout feature is added. This release is **not deployed** pending exact-release review and a separately approved empty-game transition; an ordinary upgrade preserves the old journal price.
+
+The sole editable price source is [prelaunch.json](config/economics/prelaunch.json); [generation and profile rules](config/economics/README.md) describe freshness checks and future adjustments. The client reads either supported profile only when its bytes match the certified configuration hash, so it never substitutes the proposed 1 ICP price for a live 10 ICP configuration. Detailed transition precautions remain in the single operator runbook.
 
 ## Local verification
 
