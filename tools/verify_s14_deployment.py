@@ -145,9 +145,9 @@ def main():
             paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
             wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
             receipts=page.locator('#live-receipts tr').all_inner_texts()
-            for tx,kind in zip(paid,['cannon_spawned','ball_spawned','cannon_moved']):
+            for tx,kind in zip(paid,['Joined arena','Launched ball','Moved cannon']):
                 matching=[row for row in receipts if row.split('\t')[0]==str(tx)]
-                assert len(matching)==1 and 'ACCEPTED' in matching[0] and kind in matching[0],receipts
+                assert len(matching)==1 and 'Accepted' in matching[0] and kind in matching[0],receipts
             assert page.locator('#live-cannons tr').count()==1
             assert 'Gameplay running' in page.locator('#service-status').inner_text()
             record('paid-join-ball-fallback-and-legal-move-visible-once',receipts)

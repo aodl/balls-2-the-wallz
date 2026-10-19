@@ -189,7 +189,11 @@ function updatePlayReference(s,world,events){
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
-  $('live-receipts').replaceChildren(...[...s.receipts.values()].reverse().map(r=>row([r.position,r.account,r.reason,r.kind??'—'])));
+  const actionNames={cannon_spawned:'Joined arena',ball_spawned:'Launched ball',cannon_moved:'Moved cannon'};
+  $('live-receipts').replaceChildren(...[...s.receipts.values()].reverse().map(r=>{
+    const tr=row([r.position,r.account,r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase(),actionNames[r.kind]??r.kind??'—']);
+    tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
+  }));
   $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
 }
 async function refreshOperational(now){
