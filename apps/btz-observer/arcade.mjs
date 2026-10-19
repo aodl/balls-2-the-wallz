@@ -38,7 +38,7 @@ export function createArcade(doc){
     render(w,c,s){
       world=w;config=c;source=s;
       if(!config||!source)return;
-      text('join-price',formatIcp(config.join_e8s));text('transfer-amount',formatIcp(config.join_e8s));text('payment-address',source.recipient);text('move-price',formatIcp(config.move_e8s));memos();
+      text('join-price',formatIcp(config.join_e8s));text('hero-join-price',`${formatIcp(config.join_e8s)} join`);text('transfer-amount',formatIcp(config.join_e8s));text('payment-address',source.recipient);text('move-price',formatIcp(config.move_e8s));memos();
       $('players-empty').hidden=w.cannons.length>0;
       const selected=$('selected-cannon').value,placeholder=doc.createElement('option');placeholder.value='';placeholder.textContent='Choose a cannon';$('selected-cannon').replaceChildren(placeholder);
       for(const c of w.cannons){const o=doc.createElement('option');o.value=String(c.id);o.textContent=`Cannon #${c.id} · ${c.account.slice(0,10)}…`;$('selected-cannon').append(o);}

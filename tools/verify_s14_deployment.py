@@ -121,6 +121,7 @@ def main():
             page.locator('.diagnostics').evaluate('(node)=>node.open=false')
             wait_until(page,lambda:not page.locator('[data-copy="recipient"]').is_disabled(),15000)
             assert page.locator('#join-price').inner_text()=='1 ICP'
+            assert page.locator('#hero-join-price').inner_text()=='1 ICP join'
             assert page.locator('#payment-address').inner_text()==configuration['recipient']
             page.bring_to_front()
             assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')

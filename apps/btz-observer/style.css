@@ -5,3 +5,5 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
 .owner-5{color:#ff8b9b}
+
+.hero .button small{display:block;font-size:10px;font-weight:650;margin-top:4px}
