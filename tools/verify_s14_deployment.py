@@ -163,11 +163,12 @@ def main():
                 matching=[row for row in receipts if row.split('\t')[0]==str(tx)]
                 assert len(matching)==1 and 'Accepted' in matching[0] and kind in matching[0],receipts
             assert page.locator('#live-cannons tr').count()==1
-            assert 'Gameplay running' in page.locator('#service-status').inner_text()
+            assert 'Gameplay running' in page.locator('#service-status').text_content()
             record('paid-join-ball-fallback-and-legal-move-visible-once',receipts)
             assert page.locator('#live-cannons').inner_text().find('0.4 ICP')>=0
             assert not page.locator('#empty-arena').is_visible()
             page.screenshot(path=str(out/'arcade-paid-cannon.png'),full_page=True)
+            page.locator('.players details summary').click()
             page.locator('#selected-cannon').select_option('1')
             page.locator('#move-cell').select_option(index=1)
             assert page.locator('#move-memo').inner_text().startswith('47795441379')
