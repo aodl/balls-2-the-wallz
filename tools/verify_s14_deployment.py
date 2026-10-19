@@ -86,7 +86,7 @@ def main():
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
-            context=browser.new_context(permissions=['clipboard-read','clipboard-write']);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            context=browser.new_context(permissions=['clipboard-write']);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             def retire_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -112,18 +112,26 @@ def main():
                 raise RuntimeError('deployed observer startup: '+message)
             assert page.evaluate('globalThis.__dtrLive.startupRetries')>=1
             record('retired-genesis-restarts-with-fresh-certified-head')
+            page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             assert page.locator('#receiving-account').inner_text()==configuration['recipient']
             assert page.locator('#backend-identity').inner_text()==configuration['canister_id']
             assert 'join 100000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').inner_text()
             assert 'Rules ' in page.locator('#rules-identity').inner_text()
             record('certified-backend-receiving-account-and-price-identities')
+            page.locator('.diagnostics').evaluate('(node)=>node.open=false')
             wait_until(page,lambda:not page.locator('#transfer-controls').is_disabled(),15000)
             assert page.locator('#join-price').inner_text()=='1 ICP'
             assert page.locator('#payment-address').inner_text()==configuration['recipient']
+            page.bring_to_front()
+            assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')
+            assert 'clipboard-read=()' in response.headers.get('permissions-policy','')
+            # Observe arguments while still invoking native clipboard writes under
+            # an actual click; do not enable clipboard reading in production.
+            page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
             for selector,expected in [('[data-copy="recipient"]',configuration['recipient']),('[data-copy="numeric"]','4779544133607882752'),('[data-copy="hex"]','42545a1100000000')]:
                 if 'hex' in selector:page.locator('#transfer-controls details summary').click()
                 page.locator(selector).click()
-                wait_until(page,lambda:page.evaluate('navigator.clipboard.readText()')==expected,5000)
+                wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==expected,5000)
             page.locator('[data-angle="16384"]').click()
             assert page.locator('#numeric-memo').inner_text()=='4779544133607899136'
             assert page.locator('#hex-memo').inner_text()=='42545a1100004000'
@@ -215,6 +223,7 @@ def main():
             (out/'browser-complete').write_text('PASS\n');browser.close();browser=None
         return 0
     except Exception as error:
+        __import__('traceback').print_exc()
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
         if browser:
