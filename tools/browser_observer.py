@@ -220,6 +220,28 @@ def main():
                 page.locator('#network-pause').uncheck()
                 wait_until(page,lambda:float(page.locator('#playhead').inner_text())>float(available))
                 record('download-recovery-resumes','PASS')
+            if a.mode=='http' and a.trust=='offline':
+                if page.locator('#pause').inner_text()=='Pause playback':page.locator('#pause').click()
+                page.locator('#recording').select_option('near-impact')
+                wait_until(page,lambda:page.locator('#scenario-title').inner_text()=='Mutual destruction' and page.locator('#pause').is_enabled())
+                assert page.locator('#cannons').inner_text()=='2' and page.locator('#balls').inner_text()=='2'
+                assert page.locator('#transfer-controls').is_disabled()
+                assert page.locator('#live-status').inner_text()=='Verified replay · not live'
+                page.locator('.diagnostics').evaluate('(node)=>node.open=false')
+                page.screenshot(path=str(a.output/'competing-cannons.png'),full_page=True)
+                page.locator('.diagnostics').evaluate('(node)=>node.open=true')
+                record('bundled-competing-cannons-labelled-replay','PASS')
+                page.locator('#pause').click()
+                wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='COMPLETE')
+                assert page.locator('#cannons').inner_text()=='0' and page.locator('#balls').inner_text()=='0'
+                record('bundled-annihilation-completes-with-authenticated-finite-output','PASS','Offline content pins, not IC certification.')
+                page.locator('#pause').click();page.locator('#recording').select_option('severance')
+                wait_until(page,lambda:page.locator('#scenario-title').inner_text()=='The bridge breaks' and page.locator('#pause').is_enabled())
+                before=page.locator('#territories').inner_text();page.locator('#pause').click()
+                wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='COMPLETE')
+                assert page.locator('#territories').inner_text()!=before
+                page.screenshot(path=str(a.output/'territory-change.png'),full_page=True)
+                record('bundled-territory-change-and-elimination','PASS')
             # Reduced-motion preference starts a new independent document paused.
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)

@@ -3,6 +3,7 @@
 import argparse
 import os
 import signal
+import shutil
 import socket
 import subprocess
 import sys
@@ -57,6 +58,17 @@ def main():
         subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/ic-certificate.mjs'],cwd=ROOT,check=True)
         server_command+=['--live-config',str(live),'--ic-gateway',args.ic_gateway,'--live-canister',args.live_canister,'--generated-assets',str(assets)]
         url+='?mode=live';browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--trust','live','--url',url,'--output',str(args.output),'--coordination',str(args.coordination)]
+    if not args.local_snapshot and not args.live_config:
+        # Test the bundled renderer as well as native browser Web Crypto/CSP.
+        # Null deployment policy deliberately retains labelled offline replays;
+        # genuine installed-canister trust is tested separately by S14.
+        assets=args.output.resolve()/'assets';assets.mkdir(parents=True,exist_ok=True)
+        for name in ['index.html','style.css','icon.svg']:
+            shutil.copyfile(ROOT/'apps/btz-observer'/name,assets/name)
+        shutil.copytree(ROOT/'apps/btz-observer/recordings',assets/'recordings',dirs_exist_ok=True)
+        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'apps/btz-observer/app.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/app.mjs'],cwd=ROOT,check=True)
+        url=f'http://127.0.0.1:{port}/';server_command+=['--deployment-assets',str(assets)]
+        browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--url',url,'--output',str(args.output)]
     with (args.output/'server.log').open('w') as server_log:
         server=subprocess.Popen(server_command,cwd=ROOT,stdout=server_log,stderr=subprocess.STDOUT,text=True,start_new_session=True)
         try:

@@ -30,6 +30,8 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
             name='index.html' if raw=='/' else raw.removeprefix('/')
             if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','deployment.json','build-manifest.json'}:
                 return self.serve_explicit(DEPLOYMENT_ASSETS/name)
+        if DEPLOYMENT_ASSETS is not None and re.fullmatch(r'/recordings/(?:index\.json|(?:dense|admission|severance|near-impact)/[0-9]{3}/(?:catalog|(?:state|events|scores|render)-[0-9]+)\.bin)',raw):
+            return self.serve_explicit(DEPLOYMENT_ASSETS/raw.removeprefix('/'))
         if raw=='/':
             self.send_response(302);self.send_header('Location','/apps/btz-observer/');self.end_headers();return
         if raw.startswith('/s09-local/'):
