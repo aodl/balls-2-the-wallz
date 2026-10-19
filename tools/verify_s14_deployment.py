@@ -190,27 +190,36 @@ def main():
             record('authenticated-reconnect-after-retention-gap-and-upgrade',heads)
             # Negative cases keep the genuine pinned-root local deployment and
             # its verifier. Only a browser-local response is damaged.
-            for fault in ['unavailable-config','tampered-config','tampered-query']:
+            mainnet_root=subprocess.check_output(['node','--input-type=module','-e',"import {IC_ROOT_KEY} from '@icp-sdk/core/agent'; process.stdout.write(IC_ROOT_KEY)"],cwd=ROOT,text=True).strip()
+            for fault in ['unavailable-config','tampered-config','wrong-certificate-root']:
+                report['current_negative_case']=fault;save()
                 negative=context.new_page()
                 if fault=='unavailable-config':
                     negative.route('**/configuration.bin',lambda route:route.fulfill(status=503,body='unavailable'))
                 elif fault=='tampered-config':
-                    def corrupt_config(route):
-                        response=route.fetch();data=bytearray(response.body());data[-1]^=1
-                        route.fulfill(response=response,body=bytes(data))
-                    negative.route('**/configuration.bin',corrupt_config)
+                    damaged=bytearray((assets/'configuration.bin').read_bytes());damaged[-1]^=1
+                    negative.route('**/configuration.bin',lambda route:route.fulfill(status=200,content_type='application/octet-stream',body=bytes(damaged)))
                 else:
-                    def corrupt_query(route):
-                        response=route.fetch();data=bytearray(response.body());data[-1]^=1
-                        route.fulfill(response=response,body=bytes(data))
-                    negative.route('**/api/v*/canister/*/query',corrupt_query)
+                    # Deliberately wrong *public* trust root in the explicit
+                    # local-only test bundle. The production mainnet root policy
+                    # is never replaced or relaxed; standard SDK crypto must fail.
+                    script=(assets/'app.mjs').read_text()
+                    assert configuration['root_key_hex'] in script
+                    damaged_script=script.replace(configuration['root_key_hex'],mainnet_root)
+                    negative.route('**/app.mjs',lambda route:route.fulfill(status=200,content_type='text/javascript',body=damaged_script))
                 negative.goto(url,timeout=30000)
-                wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
+                try:wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
+                except Exception:
+                    report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#error-text').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
                 assert negative.locator('[data-copy="recipient"]').is_disabled()
                 assert negative.locator('#live-status').inner_text()=='Connection error'
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
+                if fault=='wrong-certificate-root':
+                    message=negative.locator('#error-text').inner_text().lower()
+                    assert any(word in message for word in ['certificate','signature','root','bls']),message
                 negative.close()
-            record('unavailable-or-unbound-configuration-and-tampered-certified-query-fail-closed')
+            report.pop('current_negative_case',None)
+            record('unavailable-or-unbound-configuration-and-wrong-certificate-root-fail-closed')
             reduced=browser.new_context(reduced_motion='reduce');still=reduced.new_page();still.goto(url,timeout=30000)
             wait_until(still,lambda:still.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
             assert still.locator('body').get_attribute('data-phase')=='PAUSED'
