@@ -24,10 +24,15 @@ def main():
     try:
         assets=out/'assets';production=out/'mainnet-assets'
         subprocess.run(['node','tools/build_observer_mainnet.mjs','--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
-        subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',configuration['canister_id'],'--output',str(production)],cwd=ROOT,check=True,timeout=120)
+        # A committed real deployment mapping must never be bypassed to build
+        # mainnet assets for a disposable test principal. Production-policy
+        # inspection uses that real ID; only the explicit local bundle runs here.
+        ids=ROOT/'canister_ids.json'
+        production_id=json.loads(ids.read_text()).get('btz',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
+        subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',production_id,'--output',str(production)],cwd=ROOT,check=True,timeout=120)
         for directory in [assets,production]:
             assert {'index.html','app.mjs','configuration.bin','deployment.json','build-manifest.json','.ic-assets.json5','style.css','icon.svg'}.issubset({x.name for x in directory.iterdir()})
-        manifest=json.loads((production/'build-manifest.json').read_text());assert not manifest['local_test_only'];assert not any('s14-local-deployment' in name for name in manifest['inputs'])
+        manifest=json.loads((production/'build-manifest.json').read_text());assert manifest['deployment']['canister_id']==production_id;assert not manifest['local_test_only'];assert not any('s14-local-deployment' in name for name in manifest['inputs'])
         record('real-asset-build-and-mainnet-test-adapter-exclusion',manifest)
         if asset_canister:
             # The Rust harness owns this disposable network. No dfx start/stop,
@@ -122,6 +127,7 @@ def main():
             page.locator('[data-angle="16384"]').click()
             assert page.locator('#numeric-memo').inner_text()=='4779544133607899136'
             assert page.locator('#hex-memo').inner_text()=='42545a1100004000'
+            page.locator('#transfer-controls details').evaluate('(node)=>node.open=false')
             record('exact-authenticated-transfer-copy-and-angle-controls')
             for width,height in [(1440,900),(768,1024),(390,844)]:
                 page.set_viewport_size({'width':width,'height':height});page.evaluate('scrollTo(0,0)')
@@ -198,7 +204,7 @@ def main():
             reduced=browser.new_context(reduced_motion='reduce');still=reduced.new_page();still.goto(url,timeout=30000)
             wait_until(still,lambda:still.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
             assert still.locator('body').get_attribute('data-phase')=='PAUSED'
-            assert still.locator('#live-status').inner_text()=='Playback paused'
+            wait_until(still,lambda:still.locator('#live-status').inner_text()=='Playback paused',15000)
             reduced.close();record('deployment-bundle-reduced-motion-pauses-playback')
 
             assert posts and all(url.endswith(('/query','/read_state')) for url in posts),posts
