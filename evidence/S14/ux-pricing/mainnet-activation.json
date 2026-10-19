@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "recorded_at_utc": "2026-10-19T20:37:41.855485+00:00",
+  "source_commit": "717069497c7e9beb90c37e70320a8b946524531f",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dtr_changes": "NONE",
+  "ci": {
+    "run": 39306785701,
+    "status": "PASS",
+    "source": "Explicit user confirmation"
+  },
+  "identity": {
+    "name": "codex_local",
+    "principal": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae"
+  },
+  "authorization": "User explicitly approved exact release and one-time empty-game reset; no repeat approval requested. Native DFX destructive confirmation retained and answered interactively.",
+  "targets": {
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "frontend": "s45ab-wiaaa-aaaar-qcifq-cai"
+  },
+  "preflight": {
+    "status": "PASS",
+    "checks": "Mainnet SDK certificate, exact official account index: no transactions/balance/oldest ID. No cannons, balls, credits, retained-payment tally or queued inputs; cursor zero. Rechecked immediately after pause.",
+    "discarded": "Authorized empty timeline/private continuation/retained publication chain only",
+    "old_module_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
+    "initial_cycles_blocker": "Resolved after user-operated top-up; source recovered before deployment"
+  },
+  "frontend_deployment": {
+    "status": "PASS",
+    "method": "Existing observer asset-only upload: --mode upgrade --no-asset-upgrade, NPM_CONFIG_IF_PRESENT=true",
+    "asset_module_unchanged": true,
+    "app_mjs_sha256": "8167a7e596d635aeff38270a3e1f5fd70e17f426ae052a48aec28ec430d41c24",
+    "module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "cycles": 2801556854370,
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ]
+  },
+  "backend_activation": {
+    "status": "PASS",
+    "method": "Explicitly authorized one-time --mode reinstall using frozen normal.wasm and init.did",
+    "configuration_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+    "join_e8s": "100000000",
+    "ball_base_e8s": "10000000",
+    "move_e8s": "10000",
+    "module_sha256": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
+    "cycles": 2277986317468,
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ]
+  },
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "binding_checked": true,
+    "numeric_subaccount": 0,
+    "receiving_account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+    "event_horizon": "DISABLED",
+    "fallback_seconds": 60,
+    "last_error": null
+  },
+  "game": {
+    "running": true,
+    "segment_ticks": 2,
+    "work_budget": 512,
+    "pacing_seconds": 1,
+    "browser_verified_segment_ids": [
+      8,
+      9,
+      10
+    ],
+    "completed_segments_after_browser_closed": [
+      18,
+      23
+    ],
+    "retention": {
+      "publications": 3,
+      "max_bytes": 8388608,
+      "sampled_retained_bytes": 7872
+    },
+    "last_error": null
+  },
+  "browser": {
+    "status": "PASS",
+    "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+    "network": "ic",
+    "root": "Standard SDK mainnet root; no replacement, fetchRootKey, proxy or browser interception",
+    "screenshots": [
+      ".work/ux-pricing/mainnet-arcade-activation/mainnet-arcade-1440x900.png",
+      ".work/ux-pricing/mainnet-arcade-activation/mainnet-arcade-768x1024.png",
+      ".work/ux-pricing/mainnet-arcade-activation/mainnet-arcade-390x844.png"
+    ],
+    "certified_frontend_price": "1 ICP",
+    "receiving_account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "verified_heads": [
+      8,
+      9,
+      10
+    ],
+    "certificate_checks": 4,
+    "live_status": "Live and verified",
+    "native_webcrypto": true,
+    "sandbox": true,
+    "console_errors": [],
+    "failed_requests": [],
+    "transport": "All browser POSTs query/read_state",
+    "browser_version": "153.0.8010.12"
+  },
+  "raw_directory": ".work/ux-pricing/mainnet-arcade-activation",
+  "frozen_manifest_sha256": "c2166dcd0b6e2cb48bb1e5c74e73902939014952956279032c276efb86304768",
+  "remaining_errors": [],
+  "failed_inspection_attempts": "Preserved local assertion type mismatch and empty-genesis JSON decode logs; no canister defect/certification failure, no patch deployed. Running canonical artifacts and real browser subsequently verified.",
+  "no_actions": [
+    "No canister creation/deletion",
+    "No controller/settings change",
+    "No ICP/cycles transfer by Codex",
+    "No Event Horizon funding",
+    "No Git remote operation",
+    "No DTR modification"
+  ],
+  "payment_notice": "No real gameplay transfer was made or observed. Payments/excess retained; refunds/automatic payouts unavailable."
+}

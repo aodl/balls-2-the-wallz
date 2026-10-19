@@ -14,9 +14,9 @@
   "normal_wasm_sha256": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
   "local_implementation_result": "PASS",
   "remote_pinned_consumer_result": "PASS",
-  "remote_ci_result": "NOT_RUN",
+  "remote_ci_result": "PASS",
   "publication_boundary": "User reviews/pushes BTZ branch and checks CI. DTR is unchanged and already published. Exact-release and separate conditional empty-game reset approval are required before activation.",
-  "mainnet_verification": "PASS_READ_ONLY_EXISTING_BASELINE",
+  "mainnet_verification": "PASS_CERTIFIED_HOSTED_OBSERVER_AND_AUTONOMOUS_PROGRESSION",
   "real_funds_authorized": false,
   "public_prize_launch": "BLOCKED",
   "payouts_implemented": false,
@@ -28,7 +28,8 @@
     "evidence/S14/mvp-preparation.json",
     "checkpoints/S14_MVP_UX_PRICING.md",
     "evidence/S14/ux-pricing/release.json",
-    "evidence/S14/ux-pricing/ci-closeout.json"
+    "evidence/S14/ux-pricing/ci-closeout.json",
+    "evidence/S14/ux-pricing/mainnet-activation.json"
   ],
   "limitations": [
     "Official index trusted for history contents/completeness; index lag requires fresh checks before any approved reset.",
@@ -38,14 +39,14 @@
     "Automatic payouts/refunds unavailable; payments and excess retained. Public paid/prize launch remains gated.",
     "Event Horizon disabled on current deployment; fixed 60-second fallback works. Source configuration remains immutable."
   ],
-  "next_action": "Review report/screenshots and exact artifacts, push branch/check CI, approve release and separately any empty-game reset after fresh account/no-outstanding-transfer checks. No S15.",
+  "next_action": "User opens certified mainnet observer and personally sends first 1 ICP gameplay transfer. No additional milestone, reset, financial or remote Git action is automatic.",
   "tested_dtr_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
   "dependency_mode": "published-immutable-git",
   "javascript_package": {
     "version": "0.12.0",
     "sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f"
   },
-  "remote_ci_scope": "User-reported run 39288849453 failed hosted-browser header assertion. Local corrective full default integration PASS; fresh GitHub CI NOT_RUN pending user push.",
+  "remote_ci_scope": "User-confirmed successful run 39306785701 at deployed source 717069497c7e9beb90c37e70320a8b946524531f; subsequent metadata commit changes no deployed implementation.",
   "test_hooks_wasm_sha256": "28ea54d0d1b687ce7353f81da143a48216af15919b04a2a61e69e6e555402fe4",
   "callback_trap_recovery": "PASS",
   "backlog_recovery": "PASS",
@@ -60,8 +61,8 @@
   "deployment_preparation": "PASS",
   "financial_action_authority": "No transfers/funding/controller changes authorized. Current release permits read-only mainnet preflight; code activation requires exact-release approval and reset requires separate approval.",
   "asset_canister_hosting_scope": "Staged deployment bundle served by actual disposable local asset canister; mainnet deployment of this release NOT_RUN.",
-  "mainnet_activation": "NOT_RUN",
-  "deployment_approval": "REQUIRED",
+  "mainnet_activation": "PASS",
+  "deployment_approval": "EXPLICITLY_GRANTED_AND_EXECUTED",
   "staged_pricing": {
     "join_e8s": "100000000",
     "ball_base_e8s": "10000000",
@@ -73,5 +74,7 @@
     "module_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
     "join_e8s": "1000000000"
   },
-  "installed_gate_scope": "Latest local default hosted run: 16 PASS / 0 FAIL / 1 intentionally ignored historical old-module probe; browser 12 groups PASS, native/JS deployment replay 43 publications PASS. Earlier failed runs retained."
+  "installed_gate_scope": "Latest local default hosted run: 16 PASS / 0 FAIL / 1 intentionally ignored historical old-module probe; browser 12 groups PASS, native/JS deployment replay 43 publications PASS. Earlier failed runs retained.",
+  "deployed_source_commit": "717069497c7e9beb90c37e70320a8b946524531f",
+  "deployed_backend_wasm_sha256": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c"
 }
