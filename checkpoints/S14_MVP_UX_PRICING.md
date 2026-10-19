@@ -89,3 +89,11 @@ DFX_IDENTITY=codex_local python3.11 -B tools/verify_s14_local.py \
 ```
 
 Only mainnet reads were performed during this release. **No deployment, pause, reset, transfer, controller/settings change, subscription funding, remote Git operation or CI trigger occurred.** The live backend remains `15b016…`, join **10 ICP**. User next steps: review screenshots/artifacts, push `checkpoint/s14-mvp-ux-pricing`, inspect CI, then approve the exact release and, separately, the conditional empty-game reset. Do not begin another milestone.
+
+## CI hosted-browser correction
+
+User-reported CI run 39288849453 failed the default hosted path. A local unmodified reproduction captured `AssertionError` at `tools/verify_s14_deployment.py:127`, requiring `clipboard-write=(self)` in a loopback response with no `Permissions-Policy` header. The correction checks generated hardened production policy in both modes and actual response policy only for asset-canister hosting. Native exact recipient/numeric/hex copying and all security/game regressions remain. CI always uploads `deployment/browser.log` and `deployment/results.json`. No backend, observer, pricing or DTR implementation changed.
+
+The complete **default** installed run now passes **16 / 0 failed / 1 intentionally ignored historical probe**, ten host tests and 12 browser assertion groups. Native/JS replay matches **43 publications**, transactions 1/2/3 once. Source passes **1,187 JS / 137 Python**. [Correction evidence](../evidence/S14/ux-pricing/ci-closeout.json) retains the original failing log, current results and unchanged module hashes. Raw runs: `.work/ux-pricing/ci-hosted-red/`, `ci-hosted-fixed/`, `ci-header-source/`. Reproduce using the standard installed command above **without `--asset-canister`**. Prior asset-hosting and explicit old-profile upgrade evidence is preserved, not counted as rerun here.
+
+Original frozen source/artifacts remain intact. The existing release/observer builders must generate new clean-commit source-bound manifests before any subsequent approval; identical implementation bytes do not make old provenance represent a new commit. **Fresh GitHub CI and mainnet activation remain NOT_RUN. No reset is authorized. Live price remains 10 ICP.**

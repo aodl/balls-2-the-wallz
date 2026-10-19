@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "scope": "Local CI browser-harness correction only; fresh GitHub CI NOT_RUN and mainnet activation NOT_RUN.",
+  "recorded_at_utc": "2026-10-19T17:14:34.988488+00:00",
+  "base_commit": "f6d922234771dc6b7671740d504f7ad846bc16c2",
+  "implementation_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
+  "tested_corrective_files_sha256": {
+    "tools/verify_s14_deployment.py": "9cf75250dbfebff4d2df32c985fe59dfe860d73362456ed9e436d445a36e131e",
+    ".github/workflows/verification.yml": "1ada80fc0fba7237d3e0d7d89fd3670fce89ff37b4ee1da647beb9ed43e6c610"
+  },
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dtr_changes": "NONE",
+  "actual_exception": {
+    "mode": "BUILT_DEPLOYMENT_LIVE_LOCAL",
+    "file": "tools/verify_s14_deployment.py",
+    "line": 127,
+    "exception": "AssertionError",
+    "expression": "'clipboard-write=(self)' in response.headers.get('permissions-policy','')",
+    "reason": "Default loopback query proxy does not emit the production asset-canister Permissions-Policy header.",
+    "raw_log": ".work/ux-pricing/ci-hosted-red/deployment/browser.log",
+    "raw_results": ".work/ux-pricing/ci-hosted-red/deployment/results.json"
+  },
+  "correction": "Inspect generated hardened production Permissions-Policy in both modes; assert response policy on actual asset-canister responses only. Native clipboard copy assertions unchanged in both modes. Upload deployment/browser.log and deployment/results.json with CI evidence.",
+  "verification": {
+    "source": {
+      "status": "PASS",
+      "javascript": 1187,
+      "python": 137,
+      "raw": ".work/ux-pricing/ci-header-source/verification.json"
+    },
+    "installed": {
+      "status": "PASS",
+      "passed": 16,
+      "failed": 0,
+      "ignored": 1,
+      "ignored_scope": "Explicit historical pricing upgrade probe requires reviewed prior Wasm; not rerun here, earlier evidence retained.",
+      "raw": ".work/ux-pricing/ci-hosted-fixed/results.json",
+      "normal_and_test_builds": "PASS; locked/offline, normal export inventory and exact generated Candid checked",
+      "host_tests": 10,
+      "mode": "Default hosted proxy; --asset-canister NOT selected"
+    },
+    "browser": {
+      "status": "PASS",
+      "assertion_groups": 12,
+      "raw": ".work/ux-pricing/ci-hosted-fixed/deployment/results.json",
+      "checks": [
+        "real-asset-build-and-mainnet-test-adapter-exclusion",
+        "retired-genesis-restarts-with-fresh-certified-head",
+        "certified-backend-receiving-account-and-price-identities",
+        "exact-authenticated-transfer-copy-and-angle-controls",
+        "arcade-responsive-arena-and-empty-state",
+        "fresh-publications-after-browser-connection",
+        "paid-join-ball-fallback-and-legal-move-visible-once",
+        "certified-ball-price-and-owned-relocation-reference",
+        "authenticated-reconnect-after-retention-gap-and-upgrade",
+        "unavailable-or-unbound-configuration-and-wrong-certificate-root-fail-closed",
+        "deployment-bundle-reduced-motion-pauses-playback",
+        "read-only-transport-and-native-webcrypto"
+      ],
+      "native_exact_recipient_numeric_hex_copy": "PASS",
+      "generated_hardened_policy": {
+        "clipboard-read": "()",
+        "clipboard-write": "(self)"
+      },
+      "qualification": "Generated production policy checked separately. Actual production asset-canister header checks preserved; earlier asset-hosted acceptance evidence remains applicable, not rerun in this correction."
+    },
+    "deployment_replay": {
+      "status": "PASS",
+      "segments": 43,
+      "assigned": [
+        "1",
+        "2",
+        "3"
+      ],
+      "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+      "work_budget": 23
+    },
+    "source_trace_js_replay": "PASS"
+  },
+  "unchanged": {
+    "backend_and_observer_implementation": true,
+    "pricing": "1 ICP fresh profile; historical 10 ICP compatibility unchanged",
+    "module_sha256": {
+      "normal": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
+      "test-hooks": "28ea54d0d1b687ce7353f81da143a48216af15919b04a2a61e69e6e555402fe4"
+    },
+    "original_frozen_directory": ".work/ux-pricing/release-final",
+    "original_release_manifest_sha256": "9d8a546efb66e4988436681639444a8be581f50eaa73911996a1c0043c4228e9",
+    "source_bound_manifest_policy": "Preserve original frozen release. Freeze a new clean-commit backend/observer manifest using existing builders after this corrective commit, before any subsequent deployment approval."
+  },
+  "boundaries": {
+    "mainnet_operations": "NONE",
+    "live_price_icp": "10",
+    "reset_approval": "NOT_GRANTED",
+    "remote_git_operations": "NONE",
+    "new_remote_ci": "NOT_RUN; user pushes and checks GitHub result"
+  }
+}

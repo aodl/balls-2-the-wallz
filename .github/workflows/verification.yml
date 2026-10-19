@@ -182,6 +182,8 @@ jobs:
             .work/ci-integration/s14-local/*.json
             .work/ci-integration/s14-local/generated.did
             .work/ci-integration/s14-local/logs/**
+            .work/ci-integration/s14-local/deployment/browser.log
+            .work/ci-integration/s14-local/deployment/results.json
             .work/ci-integration/s14-local/*.wasm
             .work/ci-integration/s14-local/snapshot/**
           if-no-files-found: warn

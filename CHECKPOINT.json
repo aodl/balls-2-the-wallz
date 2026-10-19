@@ -27,7 +27,8 @@
     "evidence/S14/closeout-deployment-trace.json",
     "evidence/S14/mvp-preparation.json",
     "checkpoints/S14_MVP_UX_PRICING.md",
-    "evidence/S14/ux-pricing/release.json"
+    "evidence/S14/ux-pricing/release.json",
+    "evidence/S14/ux-pricing/ci-closeout.json"
   ],
   "limitations": [
     "Official index trusted for history contents/completeness; index lag requires fresh checks before any approved reset.",
@@ -44,7 +45,7 @@
     "version": "0.12.0",
     "sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f"
   },
-  "remote_ci_scope": "NOT_RUN for staged UI/pricing release. Baseline 565e40eda394a3ccc8a0c5d11c8327a4a6ec8d8e passed user-reported run 38889365414.",
+  "remote_ci_scope": "User-reported run 39288849453 failed hosted-browser header assertion. Local corrective full default integration PASS; fresh GitHub CI NOT_RUN pending user push.",
   "test_hooks_wasm_sha256": "28ea54d0d1b687ce7353f81da143a48216af15919b04a2a61e69e6e555402fe4",
   "callback_trap_recovery": "PASS",
   "backlog_recovery": "PASS",
@@ -72,5 +73,5 @@
     "module_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
     "join_e8s": "1000000000"
   },
-  "installed_gate_scope": "Full run 15 PASS / 1 browser FAIL / 1 ignored explicit old-module probe; corrected browser rerun separately PASS with identical module hashes; old-module probe separately PASS."
+  "installed_gate_scope": "Latest local default hosted run: 16 PASS / 0 FAIL / 1 intentionally ignored historical old-module probe; browser 12 groups PASS, native/JS deployment replay 43 publications PASS. Earlier failed runs retained."
 }

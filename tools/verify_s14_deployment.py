@@ -33,6 +33,13 @@ def main():
         for directory in [assets,production]:
             assert {'index.html','app.mjs','configuration.bin','deployment.json','build-manifest.json','.ic-assets.json5','style.css','icon.svg'}.issubset({x.name for x in directory.iterdir()})
         manifest=json.loads((production/'build-manifest.json').read_text());assert manifest['deployment']['canister_id']==production_id;assert not manifest['local_test_only'];assert not any('s14-local-deployment' in name for name in manifest['inputs'])
+        # Both modes inspect the generated production policy. The loopback
+        # query proxy is not an asset canister and does not serve that header.
+        policy=json.loads((production/'.ic-assets.json5').read_text())
+        assert len(policy)==1 and policy[0]['match']=='**/*' and policy[0]['security_policy']=='hardened'
+        permissions=policy[0]['headers']['Permissions-Policy']
+        assert 'clipboard-write=(self)' in permissions and 'clipboard-read=()' in permissions
+        report['production_permissions_policy']=permissions
         record('real-asset-build-and-mainnet-test-adapter-exclusion',manifest)
         if asset_canister:
             # The Rust harness owns this disposable network. No dfx start/stop,
@@ -124,8 +131,9 @@ def main():
             assert page.locator('#hero-join-price').inner_text()=='1 ICP join'
             assert page.locator('#payment-address').inner_text()==configuration['recipient']
             page.bring_to_front()
-            assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')
-            assert 'clipboard-read=()' in response.headers.get('permissions-policy','')
+            if asset_canister:
+                assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')
+                assert 'clipboard-read=()' in response.headers.get('permissions-policy','')
             # Observe arguments while still invoking native clipboard writes under
             # an actual click; do not enable clipboard reading in production.
             page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
