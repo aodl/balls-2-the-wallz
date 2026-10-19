@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "profile": "prelaunch-1",
+  "join_e8s": "100000000",
+  "ball_base_e8s": "10000000",
+  "move_e8s": "10000"
+}

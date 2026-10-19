@@ -116,6 +116,7 @@ def main():
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
                     raise
+            page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             if a.trust=='live':
                 coordination=a.coordination.resolve();coordination.mkdir(parents=True,exist_ok=True)
                 wait_until(page,lambda:page.evaluate("Boolean(globalThis.__dtrLive?.connected)"),20000)
@@ -223,6 +224,7 @@ def main():
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)
             else:second.goto(a.url,timeout=30000)
+            second.locator('.diagnostics').evaluate('(node)=>node.open=true')
             wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED' and not second.locator('#pause').is_disabled())
             paused_state=second.evaluate("({playhead:document.querySelector('#playhead').textContent,min:document.querySelector('#timeline').min,verification:document.querySelector('#verification-label').textContent})")
             assert float(paused_state['playhead'])==float(paused_state['min'] or 0),paused_state

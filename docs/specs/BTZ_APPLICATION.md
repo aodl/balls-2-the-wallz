@@ -1,6 +1,6 @@
 # BTZ application contract — S14
 
-This is the current application contract. Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. BTZ v3 rules, exact arithmetic, prices, memos, state/events/scores/seal encodings, publication v6 and animation v1 are unchanged.
+This is the current application contract. Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. BTZ v3 mechanics, exact arithmetic, memos, state/events/scores/seal encodings, publication v6 and animation v1 are unchanged. The staged prelaunch profile changes only the join price; deployment requires explicit release and transition approval.
 
 ## Payment authority and identity
 
@@ -32,7 +32,7 @@ Only incoming transfers to the exact account are command candidates. Outgoing/se
 
 Memo is eight bytes: `BTZ`, opcode `0x11` ANGLE or `0x12` MOVE, then big-endian u32. ANGLE's high 16 payload bits must be zero. Legacy memo is the big-endian u64 interpretation; blob memo is exactly those bytes. A present blob requires numeric memo zero; malformed blobs never fall back. `npm run memo -- angle 0` / `npm run memo -- move 1` are offline encoders, never senders.
 
-Existing config prices: join 1,000,000,000 e8s, ball base 10,000,000 e8s with existing occupancy pricing, relocation 10,000 e8s; transferred amount excludes sender fee. Consult the current authenticated world/rules identity and kernel for eligibility and dynamic ball price. Account history ordering, not poke amounts/order, determines commands. Seals bind actual admitted inputs to checkpoints; timer-dependent discovery can change eligible checkpoints. No exact wall-clock fairness or payment-to-seal deadline is promised.
+The editable `config/economics/prelaunch.json` generates the new profile: join 100,000,000 e8s (1 ICP), ball base 10,000,000 e8s with unchanged occupancy-squared pricing, relocation 10,000 e8s; transferred amount excludes sender fee. Consult the current authenticated world/rules identity and kernel for eligibility and dynamic ball price. Account history ordering, not poke amounts/order, determines commands. Seals bind actual admitted inputs to checkpoints; timer-dependent discovery can change eligible checkpoints. No exact wall-clock fairness or payment-to-seal deadline is promised.
 
 The observer's public play reference displays funding AccountIdentifiers, ball prices (`ball_base_e8s × active count²`), owned MOVE cells and recent command receipts from already authenticated snapshots/configuration/audit artifacts. These are read-only references; application-time eligibility can change. It retains at most 100 observed receipts and can omit older outcomes after reconnect/retention gaps. Operational pause/source/error status is a separately identified signed query. No public permanent receipt archive or new payment authority is introduced.
 
@@ -41,3 +41,9 @@ The autonomous loop advances independently of payments, observers and notificati
 The read-only observer uses the SDK mainnet root for network `ic`, explicit build-time backend/endpoint policy, intended canister, freshness, delegation, certified-data path, catalog/artifact hashes, chaining and anti-rollback. It never fetches a replacement root on mainnet. The receiving descriptor's hash must equal the certified source identity. Optional render data is not authenticated through a predecessor manifest that does not bind it. Disposable local mode requires its explicit pinned root and cannot substitute for failed mainnet authentication.
 
 Area-time scores, including accrued scores after elimination, preserve the intended revenue-sharing direction. **Automatic payouts are unavailable.** A controlled operator exercise is distinct from opening paid/prize participation. No guaranteed distributions may be advertised.
+
+## Versioned prices and the arcade observer
+
+The original S14 configuration hash `3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622` continues to mean a 10 ICP join. Its immutable configuration and golden histories remain unchanged. Fresh initialization uses the generated prelaunch configuration. Existing journal identity is not rewritten during an upgrade: compatibility with old cursors/seals preserves old payment interpretation, not a mid-game price transition. The application exposes no repricing endpoint. A fresh-game reset requires separate approval and an immediate recheck of all receiving-account history, pending inputs, scores and current controllers.
+
+The arena-first observer prepares exact memos with the shared codec and displays ICP through integer arithmetic. It accepts only configuration bytes matching the authenticated publication's supported profile hash, including the historical profile. Before verification or while service health is unavailable, transfer preparation is disabled. Runtime pause/error status is a separate signed query, not a certificate of game outcomes. Copied values never submit transactions. Primary player/territory displays remain derived from verified snapshots; decorative presentation does not advance the game. Full deployment, certificate/configuration identities, retained-chain diagnostics and replay controls remain in a collapsed panel. The visible retained-payment/no-refund/no-prize disclosure applies to every profile.

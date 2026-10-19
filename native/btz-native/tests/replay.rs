@@ -3,8 +3,13 @@ use btz_native::{Cursor, Input};
 use dtr_wire::{decode, hash, unhex};
 use serde_json::Value;
 fn replay(name: &str) {
-    let fixture: Value =
-        serde_json::from_str(include_str!("../../../tests/fixtures/btz-v3-golden.json")).unwrap();
+    replay_fixture(
+        include_str!("../../../tests/fixtures/btz-v3-golden.json"),
+        name,
+    );
+}
+fn replay_fixture(text: &str, name: &str) {
+    let fixture: Value = serde_json::from_str(text).unwrap();
     let case = fixture["cases"]
         .as_array()
         .unwrap()
@@ -53,3 +58,20 @@ case!(dense, "dense");
 case!(duel, "duel");
 case!(corner, "corner");
 case!(wall_bounce, "wall-bounce");
+
+#[test]
+fn prelaunch_thresholds_ball_pricing_and_moves_match_js() {
+    for name in [
+        "underfunded",
+        "exact-join",
+        "excess-join",
+        "same-account-balls",
+        "move-underfunded",
+        "move-exact",
+    ] {
+        replay_fixture(
+            include_str!("../../../tests/fixtures/prelaunch-pricing.json"),
+            name,
+        );
+    }
+}

@@ -25,6 +25,7 @@ def main():
     if sha(package)!=PACKAGE_SHA:raise SystemExit('Unexpected packaged DTR identity')
     npm=json.loads((ROOT/'package-lock.json').read_text())['packages']['node_modules/@dtr/timeline-runtime']
     if npm['version']!='0.12.0' or json.loads((ROOT/'node_modules/@dtr/timeline-runtime/package.json').read_text())['version']!='0.12.0':raise SystemExit('Run npm ci --ignore-scripts with the committed lock')
+    run('node','tools/generate_economics.mjs','--check')
     out.mkdir(parents=True)
     run('cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline')
     module=ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'
@@ -39,7 +40,7 @@ def main():
     args=['node','tools/prepare_s14_init.mjs','--output',str(out/'init.did'),'--world-output',str(out/'world.bin'),'--profile-output',str(out/'launch.json')]
     if a.event_horizon:args+=['--event-horizon',a.event_horizon]
     run(*args)
-    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.12.0.tgz','dfx.json']
+    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.12.0.tgz','dfx.json','config/economics/prelaunch.json','packages/kernels/btz/economics.generated.mjs','native/btz-native/src/economics_generated.rs','references/S14/mvp-configuration.bin']
     if run('git','rev-parse','HEAD')!=source_commit or run('git','status','--porcelain'):
         raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
     result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,

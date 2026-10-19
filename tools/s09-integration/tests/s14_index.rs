@@ -2113,24 +2113,28 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 ledger,
                 payer,
                 recipient,
-                1_000_000_000,
+                100_000_000,
                 *b"BTZ\x11\0\0\0\0",
             );
             first = Some(tx);
-            payments.insert(tx, normalized(funding, 1_000_000_000, *b"BTZ\x11\0\0\0\0"));
+            payments.insert(tx, normalized(funding, 100_000_000, *b"BTZ\x11\0\0\0\0"));
             pic.update_call(
                 sender,
                 controller(),
                 "forward",
                 candid::encode_one(vec![PokeMatch {
                     target: PokeTarget::subaccount(0),
-                    max_amount: 1_000_000_000u64.into(),
+                    max_amount: 100_000_000u64.into(),
                 }])
                 .unwrap(),
             )
             .unwrap();
             phase = 1;
         } else if phase == 1 && assigned.contains(&first.unwrap()) {
+            if !out.join("browser-first-cannon-seen").exists() {
+                std::thread::sleep(Duration::from_millis(50));
+                continue;
+            }
             let tx = transfer(
                 &pic,
                 ledger,
@@ -2252,5 +2256,133 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             .status()
             .unwrap()
             .success()
+    );
+}
+
+/// Explicit old-release probe, never a mainnet operation. The reviewed old
+/// module is supplied separately, so ordinary CI needs no historical checkout.
+#[test]
+#[ignore = "requires BTZ_PRIOR_WASM with the reviewed S14 module"]
+fn pricing_profile_upgrade_preserves_history_but_does_not_reprice() {
+    let pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    let ledger = create_controlled(&pic);
+    let index = create_controlled(&pic);
+    let old_game = create_controlled(&pic);
+    let fresh_game = create_controlled(&pic);
+    for c in [index, old_game, fresh_game] {
+        pic.add_cycles(c, 100_000_000_000_000);
+    }
+    let empty = candid::encode_one(source::HistoryResult::Ok(source::History {
+        balance: 0,
+        transactions: vec![],
+        oldest_tx_id: None,
+    }))
+    .unwrap();
+    pic.install_canister(
+        index,
+        fixture_wasm(
+            &[
+                ("ledger_id", candid::encode_one(ledger).unwrap()),
+                ("get_account_identifier_transactions", empty),
+            ],
+            &[],
+        ),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
+    let init = || {
+        encode_args((
+            initial_world(),
+            0u64,
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                index,
+                receiving_subaccount: 0,
+                event_horizon: None,
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+        ))
+        .unwrap()
+    };
+    let old = bytes("BTZ_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&old),
+        "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703"
+    );
+    pic.install_canister(old_game, old, init(), Some(controller()));
+    get_result::<Status>(
+        &pic,
+        old_game,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 2,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    for _ in 0..16 {
+        tick(&pic);
+    }
+    let before = status(&pic, old_game);
+    assert!(before.run.completed_segments >= 2);
+    let (_, publication_before) = observe(&pic, old_game);
+    assert_eq!(
+        publication_before.identity.config_hash,
+        "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+    );
+    pic.upgrade_canister(
+        old_game,
+        bytes("BTZ_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let (_, publication_after) = observe(&pic, old_game);
+    assert_eq!(
+        encode_publication(&publication_before),
+        encode_publication(&publication_after)
+    );
+    assert_eq!(
+        status(&pic, old_game).source.admitted_to_exclusive,
+        before.source.admitted_to_exclusive
+    );
+    for _ in 0..12 {
+        tick(&pic);
+    }
+    let after = status(&pic, old_game);
+    assert!(after.run.completed_segments > before.run.completed_segments);
+    assert!(after.run.last_error.is_none());
+    let (_, still_old) = observe(&pic, old_game);
+    assert_eq!(
+        still_old.identity.config_hash,
+        publication_before.identity.config_hash
+    );
+    pic.install_canister(
+        fresh_game,
+        bytes("BTZ_S14_WASM"),
+        init(),
+        Some(controller()),
+    );
+    let (_, fresh) = observe(&pic, fresh_game);
+    let identity = btz_native::identity().unwrap();
+    assert_eq!(
+        fresh.identity.config_hash,
+        identity["config_hash"].as_str().unwrap()
+    );
+    assert_ne!(fresh.identity.config_hash, still_old.identity.config_hash);
+    println!(
+        "PRICE_TRANSITION_RESULT {}",
+        serde_json::json!({"status":"PASS","before_segments":before.run.completed_segments,"after_segments":after.run.completed_segments,"old_config":still_old.identity.config_hash,"new_config":fresh.identity.config_hash,"classification":"ordinary upgrade preserves historical price; 1 ICP activation requires separately approved fresh game"})
     );
 }

@@ -1,3 +1,6 @@
+use crate::economics_generated::{
+    BALL_BASE_E8S, JOIN_E8S, LEGACY_BALL_BASE_E8S, LEGACY_JOIN_E8S, LEGACY_MOVE_E8S, MOVE_E8S,
+};
 use crate::geometry::{classify, next_crossing, reflect, Crossing, Intent};
 use crate::spawn::SpawnJob;
 use crate::topology::{self, TopologyJob};
@@ -35,6 +38,8 @@ pub struct Output {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Cursor {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub join_e8s: Option<Int>,
     pub world: World,
     pub inputs: Vec<Input>,
     pub input_index: usize,
@@ -103,9 +108,17 @@ fn context_int(v: &Value, key: &str) -> Result<i64> {
         .ok_or_else(|| "context integer".into())
 }
 pub fn identity() -> Result<Value> {
+    identity_for_profile(true)
+}
+fn identity_for_profile(current: bool) -> Result<Value> {
+    let (join_e8s, ball_base, move_price) = if current {
+        (JOIN_E8S, BALL_BASE_E8S, MOVE_E8S)
+    } else {
+        (LEGACY_JOIN_E8S, LEGACY_BALL_BASE_E8S, LEGACY_MOVE_E8S)
+    };
     let config = json!({"version":3,"max_cells":1024,"max_width":32,"max_balls":64,"max_cannons":32,"max_per_cannon":32,
-        "max_segment_ticks":64,"speed":1024,"ball_base_e8s":Int::from(10000000),"move_e8s":Int::from(10000),
-        "annihilation_distance":64,"annihilation_time_window":Rat::new(1.into(),16.into())?,"join_e8s":Int::from(1000000000),"max_spawn_searches_per_segment":8});
+        "max_segment_ticks":64,"speed":1024,"ball_base_e8s":Int(BigInt::from(ball_base)),"move_e8s":Int(BigInt::from(move_price)),
+        "annihilation_distance":64,"annihilation_time_window":Rat::new(1.into(),16.into())?,"join_e8s":Int(BigInt::from(join_e8s)),"max_spawn_searches_per_segment":8});
     Ok(
         json!({"rules_hash":hash(b"BTZ_SMALL_BOARD_RULES_03"),"config_hash":hash(&encode(&config)?),"schema_hash":hash(b"BTZ_STATE_03_TYPED_JSON")}),
     )
@@ -130,7 +143,13 @@ fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     w.balls.push(b.clone());
     Ok(b)
 }
-fn mutation(w: &mut World, p: &Payment, moved: &mut Vec<u32>) -> Result<Value> {
+fn mutation(
+    w: &mut World,
+    p: &Payment,
+    moved: &mut Vec<u32>,
+    join_e8s: &Int,
+    current: bool,
+) -> Result<Value> {
     let tally = &w.received_e8s.0 + &p.saved.amount.0;
     if tally >= (BigInt::from(1) << 128usize) {
         return Err("treasury overflow".into());
@@ -149,7 +168,7 @@ fn mutation(w: &mut World, p: &Payment, moved: &mut Vec<u32>) -> Result<Value> {
         let Command::Angle(angle) = command else {
             return Ok(rejection("NO_CANNON"));
         };
-        if p.saved.amount.0 < BigInt::from(1000000000) {
+        if p.saved.amount.0 < join_e8s.0 {
             return Ok(rejection("UNDERFUNDED"));
         }
         if w.cannons.len() >= 32 {
@@ -174,7 +193,7 @@ fn mutation(w: &mut World, p: &Payment, moved: &mut Vec<u32>) -> Result<Value> {
     };
     match command {
         Command::Move(cell) => {
-            if p.saved.amount.0 < BigInt::from(10000) {
+            if p.saved.amount.0 < BigInt::from(if current { MOVE_E8S } else { LEGACY_MOVE_E8S }) {
                 return Ok(rejection("UNDERFUNDED"));
             }
             if moved.contains(&c.id) {
@@ -198,7 +217,11 @@ fn mutation(w: &mut World, p: &Payment, moved: &mut Vec<u32>) -> Result<Value> {
             if count == 0 || count > 32 {
                 return Err("price count".into());
             }
-            let price = BigInt::from(10000000) * BigInt::from(count * count);
+            let price = BigInt::from(if current {
+                BALL_BASE_E8S
+            } else {
+                LEGACY_BALL_BASE_E8S
+            }) * BigInt::from(count * count);
             if p.saved.amount.0 < price {
                 return Ok(rejection("UNDERFUNDED"));
             }
@@ -274,7 +297,13 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
 }
 impl Cursor {
     pub fn begin(state: &[u8], inputs: Vec<Input>, context: &Value) -> Result<Self> {
-        let expected = identity()?;
+        let current = identity()?;
+        let is_current = context.get("config_hash") == current.get("config_hash");
+        let expected = if is_current {
+            current
+        } else {
+            identity_for_profile(false)?
+        };
         for key in ["rules_hash", "config_hash", "schema_hash"] {
             if context.get(key) != expected.get(key) {
                 return Err("rule/config/schema identity".into());
@@ -305,6 +334,7 @@ impl Cursor {
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
+            join_e8s: is_current.then(|| Int(BigInt::from(JOIN_E8S))),
             world,
             inputs,
             input_index: 0,
@@ -388,7 +418,16 @@ impl Cursor {
                     return self.restart_search();
                 }
                 let payment = read_payment(&self.inputs[self.input_index].payload_hex)?;
-                let outcome = mutation(&mut self.world, &payment, &mut self.moved)?;
+                let outcome = mutation(
+                    &mut self.world,
+                    &payment,
+                    &mut self.moved,
+                    &self
+                        .join_e8s
+                        .clone()
+                        .unwrap_or_else(|| Int(BigInt::from(LEGACY_JOIN_E8S))),
+                    self.join_e8s.is_some(),
+                )?;
                 if outcome.get("reason").and_then(Value::as_str) == Some("PENDING_SPAWN") {
                     if self.spawn_searches >= 8 {
                         self.receipt(&payment.saved, rejection("SPAWN_SEARCH_CAPACITY"))?;
@@ -733,6 +772,12 @@ impl Cursor {
         }
         let p: Snapshot = decode(bytes)?;
         let c = p.cursor;
+        if c.join_e8s
+            .as_ref()
+            .is_some_and(|j| j.0 != BigInt::from(JOIN_E8S))
+        {
+            return Err("cursor economics".into());
+        }
         if p.version != 3
             || !matches!(
                 c.phase.as_str(),

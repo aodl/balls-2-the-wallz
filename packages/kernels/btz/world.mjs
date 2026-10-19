@@ -1,12 +1,16 @@
+import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './economics.generated.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat, validRat} from './math.mjs';
 export const Q = 1024;
 export const LIMITS = Object.freeze({max_cells: 1024, max_width: 32, max_balls: 64, max_cannons: 32, max_per_cannon: 32, max_segment_ticks: 64});
-export const TEST_CONFIG = Object.freeze({version: 3, ...LIMITS, speed: 1024, ball_base_e8s: 10000000n,
-  move_e8s: 10000n, annihilation_distance: 64, annihilation_time_window: [1n, 16n], join_e8s: 1000000000n, max_spawn_searches_per_segment: 8});
+export const TEST_CONFIG = Object.freeze({version: 3, ...LIMITS, speed: 1024, ball_base_e8s: LEGACY_BALL_BASE_E8S,
+  move_e8s: LEGACY_MOVE_E8S, annihilation_distance: 64, annihilation_time_window: [1n, 16n], join_e8s: LEGACY_JOIN_E8S, max_spawn_searches_per_segment: 8});
 export const BTZ_IDENTITY = Object.freeze({rules_hash: sha256(new TextEncoder().encode('BTZ_SMALL_BOARD_RULES_03')),
   config_hash: sha256(encodeCanonical(TEST_CONFIG)), schema_hash: sha256(new TextEncoder().encode('BTZ_STATE_03_TYPED_JSON'))});
+// Historical TEST_CONFIG/BTZ_IDENTITY retain byte-for-byte S03–S14 fixtures.
+export const PRELAUNCH_CONFIG=Object.freeze({...TEST_CONFIG,...PRICING});
+export const PRELAUNCH_IDENTITY=Object.freeze({...BTZ_IDENTITY,config_hash:sha256(encodeCanonical(PRELAUNCH_CONFIG))});
 function integer(n, low, high, label) {
   if (!Number.isSafeInteger(n) || n < low || n > high) throw new Error(label);
 }

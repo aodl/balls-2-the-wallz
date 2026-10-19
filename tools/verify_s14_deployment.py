@@ -81,7 +81,7 @@ def main():
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
-            context=browser.new_context();page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            context=browser.new_context(permissions=['clipboard-read','clipboard-write']);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             def retire_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -109,13 +109,39 @@ def main():
             record('retired-genesis-restarts-with-fresh-certified-head')
             assert page.locator('#receiving-account').inner_text()==configuration['recipient']
             assert page.locator('#backend-identity').inner_text()==configuration['canister_id']
-            assert 'join 1000000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').inner_text()
+            assert 'join 100000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').inner_text()
             assert 'Rules ' in page.locator('#rules-identity').inner_text()
             record('certified-backend-receiving-account-and-price-identities')
+            wait_until(page,lambda:not page.locator('#transfer-controls').is_disabled(),15000)
+            assert page.locator('#join-price').inner_text()=='1 ICP'
+            assert page.locator('#payment-address').inner_text()==configuration['recipient']
+            for selector,expected in [('[data-copy="recipient"]',configuration['recipient']),('[data-copy="numeric"]','4779544133607882752'),('[data-copy="hex"]','42545a1100000000')]:
+                if 'hex' in selector:page.locator('#transfer-controls details summary').click()
+                page.locator(selector).click()
+                wait_until(page,lambda:page.evaluate('navigator.clipboard.readText()')==expected,5000)
+            page.locator('[data-angle="16384"]').click()
+            assert page.locator('#numeric-memo').inner_text()=='4779544133607899136'
+            assert page.locator('#hex-memo').inner_text()=='42545a1100004000'
+            record('exact-authenticated-transfer-copy-and-angle-controls')
+            for width,height in [(1440,900),(768,1024),(390,844)]:
+                page.set_viewport_size({'width':width,'height':height});page.evaluate('scrollTo(0,0)')
+                page.wait_for_timeout(150)
+                board=page.locator('#board').bounding_box()
+                assert board['y']<height*.4 and board['height']>100
+                assert abs(board['width']/board['height']-2)<.01
+                assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+                assert page.locator('.hero a[href="#join"]').is_visible()
+                page.screenshot(path=str(out/f'arcade-empty-{width}x{height}.png'),full_page=True)
+            record('arcade-responsive-arena-and-empty-state')
+            page.set_viewport_size({'width':1440,'height':900})
+
             initial=page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)') is not None and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>initial,30000)
             record('fresh-publications-after-browser-connection')
             (out/'browser-connected').write_text('ready\n')
+            wait_until(page,lambda:page.locator('#live-cannons tr').count()==1,60000)
+            page.screenshot(path=str(out/'arcade-first-cannon.png'),full_page=True)
+            (out/'browser-first-cannon-seen').write_text('certified join visible\n')
             paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
             wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
             receipts=page.locator('#live-receipts tr').all_inner_texts()
@@ -125,6 +151,15 @@ def main():
             assert page.locator('#live-cannons tr').count()==1
             assert 'Gameplay running' in page.locator('#service-status').inner_text()
             record('paid-join-ball-fallback-and-legal-move-visible-once',receipts)
+            assert page.locator('#live-cannons').inner_text().find('0.4 ICP')>=0
+            assert not page.locator('#empty-arena').is_visible()
+            page.screenshot(path=str(out/'arcade-paid-cannon.png'),full_page=True)
+            page.locator('#selected-cannon').select_option('1')
+            page.locator('#move-cell').select_option(index=1)
+            assert page.locator('#move-memo').inner_text().startswith('47795441379')
+            record('certified-ball-price-and-owned-relocation-reference')
+
+            page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',45000))
             page.locator('#network-pause').uncheck()
@@ -137,6 +172,35 @@ def main():
                 assert page.locator('#receiving-account').inner_text()==configuration['recipient']
                 record('asset-entry-refresh-authenticates-same-backend')
             record('authenticated-reconnect-after-retention-gap-and-upgrade',heads)
+            # Negative cases keep the genuine pinned-root local deployment and
+            # its verifier. Only a browser-local response is damaged.
+            for fault in ['unavailable-config','tampered-config','tampered-query']:
+                negative=context.new_page()
+                if fault=='unavailable-config':
+                    negative.route('**/configuration.bin',lambda route:route.fulfill(status=503,body='unavailable'))
+                elif fault=='tampered-config':
+                    def corrupt_config(route):
+                        response=route.fetch();data=bytearray(response.body());data[-1]^=1
+                        route.fulfill(response=response,body=bytes(data))
+                    negative.route('**/configuration.bin',corrupt_config)
+                else:
+                    def corrupt_query(route):
+                        response=route.fetch();data=bytearray(response.body());data[-1]^=1
+                        route.fulfill(response=response,body=bytes(data))
+                    negative.route('**/api/v*/canister/*/query',corrupt_query)
+                negative.goto(url,timeout=30000)
+                wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
+                assert negative.locator('#transfer-controls').is_disabled()
+                assert negative.locator('#live-status').inner_text()=='Connection error'
+                assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
+                negative.close()
+            record('unavailable-or-unbound-configuration-and-tampered-certified-query-fail-closed')
+            reduced=browser.new_context(reduced_motion='reduce');still=reduced.new_page();still.goto(url,timeout=30000)
+            wait_until(still,lambda:still.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
+            assert still.locator('body').get_attribute('data-phase')=='PAUSED'
+            assert still.locator('#live-status').inner_text()=='Playback paused'
+            reduced.close();record('deployment-bundle-reduced-motion-pauses-playback')
+
             assert posts and all(url.endswith(('/query','/read_state')) for url in posts),posts
             record('read-only-transport-and-native-webcrypto','All observed browser POSTs are query/read_state; no signing or ledger updates.')
             assert page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'");assert not errors,errors

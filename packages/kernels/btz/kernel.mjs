@@ -4,7 +4,7 @@ import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
-import {BTZ_IDENTITY, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld} from './world.mjs';
+import {BTZ_IDENTITY, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
@@ -19,9 +19,9 @@ function readPayment(payload) {
   const account = hex(r.take(32)), amount = r.integer(8), memo = r.take(8); r.end();
   return {account, amount, memo};
 }
-export const ballPrice = active => {
+export const ballPrice = (active,config=TEST_CONFIG) => {
   if (!Number.isInteger(active) || active < 1 || active > LIMITS.max_per_cannon) throw new Error('price count');
-  return TEST_CONFIG.ball_base_e8s * BigInt(active) ** 2n;
+  return config.ball_base_e8s * BigInt(active) ** 2n;
 };
 function launch(world, cannon, angle) {
   if (world.time[1] !== 1n) throw new Error('commands require integer checkpoint');
@@ -31,7 +31,7 @@ function launch(world, cannon, angle) {
     x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy};
   world.balls.push(b); return b;
 }
-function mutation(world, payment, moved) {
+function mutation(world, payment, moved, config) {
   if (world.received_e8s + payment.amount >= (1n << 128n)) throw new Error('treasury counter overflow');
   world.received_e8s += payment.amount;
   let command;
@@ -39,7 +39,7 @@ function mutation(world, payment, moved) {
   const cannon = world.cannons.find(c => c.account === payment.account);
   if (!cannon) {
     if (command.kind !== 'angle') return {reason: 'NO_CANNON'};
-    if (payment.amount < TEST_CONFIG.join_e8s) return {reason: 'UNDERFUNDED'};
+    if (payment.amount < config.join_e8s) return {reason: 'UNDERFUNDED'};
     if (world.cannons.length >= LIMITS.max_cannons) return {reason: 'CANNON_CAPACITY'};
     if (world.next_cannon_id > 65535) return {reason: 'CANNON_ID_EXHAUSTED'};
     if (world.balls.length >= LIMITS.max_balls || world.next_ball_id >= 4294967295) return {reason: 'BALL_CAPACITY'};
@@ -48,14 +48,14 @@ function mutation(world, payment, moved) {
     return {reason: 'PENDING_SPAWN', angle: command.value};
   }
   if (command.kind === 'move') {
-    if (payment.amount < TEST_CONFIG.move_e8s) return {reason: 'UNDERFUNDED'};
+    if (payment.amount < config.move_e8s) return {reason: 'UNDERFUNDED'};
     if (moved.includes(cannon.id)) return {reason: 'MOVE_LIMIT'};
     if (command.value >= world.cells.length || world.cells[command.value] !== cannon.id) return {reason: 'NOT_OWN_TERRITORY'};
     const before = cannon.cell; cannon.cell = command.value; moved.push(cannon.id);
     return {reason: 'ACCEPTED', kind: 'cannon_moved', cannon: cannon.id, before, after: cannon.cell};
   }
   const count = world.balls.filter(b => b.owner === cannon.id).length;
-  if (payment.amount < ballPrice(count)) return {reason: 'UNDERFUNDED'};
+  if (payment.amount < ballPrice(count,config)) return {reason: 'UNDERFUNDED'};
   if (count >= LIMITS.max_per_cannon || world.balls.length >= LIMITS.max_balls || world.next_ball_id >= 4294967295)
     return {reason: 'BALL_CAPACITY'};
   return {reason: 'ACCEPTED', kind: 'ball_spawned', cannon: cannon.id, ball: cloneCanonical(launch(world, cannon, command.value))};
@@ -109,7 +109,9 @@ export function matchStrikes(world, incoming) {
 
 export class BtzCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    for (const k of Object.keys(BTZ_IDENTITY)) if (seal[k] !== BTZ_IDENTITY[k]) throw new Error('BTZ rule/config/schema identity');
+    const identity=seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:BTZ_IDENTITY;
+    for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('BTZ rule/config/schema identity');
+    if(identity===PRELAUNCH_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
     this.world = decodeWorld(state); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
@@ -147,7 +149,7 @@ export class BtzCursor {
     if (this.phase === 'commands') {
       if (this.inputIndex < this.inputs.length) {
         const i = this.inputs[this.inputIndex], payment = readPayment(i.payload_hex);
-        const outcome = mutation(this.world, payment, this.moved);
+        const outcome = mutation(this.world, payment, this.moved, this.joinE8s===undefined?TEST_CONFIG:PRELAUNCH_CONFIG);
         if (outcome.reason === 'PENDING_SPAWN' && this.spawnSearches >= TEST_CONFIG.max_spawn_searches_per_segment) {
           this.receipt(payment, {reason: 'SPAWN_SEARCH_CAPACITY'});
         } else if (outcome.reason === 'PENDING_SPAWN') {
@@ -286,6 +288,7 @@ export class BtzCursor {
     if (p.version !== 3 || !p.cursor || !['commands','spawn','search','area','batch','resolve','expire','topology','done'].includes(p.cursor.phase))
       throw new Error('BTZ cursor schema');
     const c = Object.assign(Object.create(BtzCursor.prototype), p.cursor);
+    if(c.joinE8s!==undefined&&c.joinE8s!==PRELAUNCH_CONFIG.join_e8s)throw new Error('BTZ cursor economics');
     validRat(c.world.time); validRat(c.start); validRat(c.end);
     if (cmp(c.world.time, c.start) < 0 || cmp(c.world.time, c.end) > 0 || c.inputIndex > c.inputs.length
         || c.inputIndex < 0 || c.receipts.length !== c.inputIndex || c.world.cells.length > LIMITS.max_cells

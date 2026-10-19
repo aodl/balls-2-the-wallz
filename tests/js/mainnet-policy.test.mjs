@@ -14,7 +14,7 @@ test('displayed prices require configuration bytes bound by the certified identi
  const bytes=new Uint8Array(await readFile(new URL('../../apps/btz-observer/configuration.bin',import.meta.url)));
  const ticket={publication:{identity:{config_hash:await sha256Web(bytes)}}};
  let response=bytes;t.mock.method(globalThis,'fetch',async()=>new Response(response));
- const config=await certifiedConfiguration(ticket);assert.equal(config.move_e8s,10000n);assert.equal(config.join_e8s,1000000000n);
+ const config=await certifiedConfiguration(ticket);assert.equal(config.move_e8s,10000n);assert.equal(config.join_e8s,100000000n);
  response=Uint8Array.from(bytes);response[10]^=1;
  await assert.rejects(certifiedConfiguration(ticket),/not bound/);
 });

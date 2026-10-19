@@ -4,7 +4,7 @@ import {parseArgs} from 'node:util';
 import {writeFile,mkdir} from 'node:fs/promises';
 import {dirname} from 'node:path';
 import {Principal} from '@icp-sdk/core/principal';
-import {fixtureWorld,encodeWorld,TEST_CONFIG,BTZ_IDENTITY} from '../packages/kernels/btz/world.mjs';
+import {fixtureWorld,encodeWorld,PRELAUNCH_CONFIG,PRELAUNCH_IDENTITY} from '../packages/kernels/btz/world.mjs';
 const {values}=parseArgs({options:{network:{type:'string',default:'ic'},ledger:{type:'string',default:'ryjl3-tyaaa-aaaaa-aaaba-cai'},index:{type:'string',default:'qhbym-qaaaa-aaaaa-aaafq-cai'},'event-horizon':{type:'string'},subaccount:{type:'string',default:'0'},output:{type:'string',default:'.work/s14/init.did'},'world-output':{type:'string'},'profile-output':{type:'string'}}});
 if(!['ic','pocketic-local'].includes(values.network))throw new Error('network');
 for(const key of ['ledger','index'])Principal.fromText(values[key]);
@@ -21,7 +21,7 @@ if(values['profile-output']){
   receiving_numeric_subaccount:n.toString(),subaccount_hex:'00'.repeat(24)+n.toString(16).padStart(16,'0'),
   receiving_account:'Derive after creation with dfx ledger account-id; compare with certified source descriptor.',
   event_horizon:values['event-horizon']??'DISABLED',fallback_seconds:60,delayed_rechecks_seconds:[2,10],
-  board:{width:16,height:8,starting_cannons:0,starting_balls:0},rules:TEST_CONFIG,identity:BTZ_IDENTITY,
+  board:{width:16,height:8,starting_cannons:0,starting_balls:0},rules:PRELAUNCH_CONFIG,identity:PRELAUNCH_IDENTITY,
   run:{segment_ticks:2,pacing_seconds:1,work_budget:512},retention:{publications:3,max_bytes:8388608},
   ball_price:'ball_base_e8s × active balls belonging to this cannon squared, evaluated when applied',
   payments:'Retained, including rejected commands and overpayments; no refunds. Wallet fees separate.',

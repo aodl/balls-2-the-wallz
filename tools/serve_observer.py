@@ -28,7 +28,7 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
         raw=unquote(urlsplit(self.path).path)
         if DEPLOYMENT_ASSETS is not None:
             name='index.html' if raw=='/' else raw.removeprefix('/')
-            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','deployment.json','build-manifest.json'}:
+            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','deployment.json','build-manifest.json'}:
                 return self.serve_explicit(DEPLOYMENT_ASSETS/name)
         if raw=='/':
             self.send_response(302);self.send_header('Location','/apps/btz-observer/');self.end_headers();return

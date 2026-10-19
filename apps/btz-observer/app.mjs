@@ -1,3 +1,4 @@
+import {createArcade,formatIcp} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -6,10 +7,11 @@ import {readBytes,validateIndex,loadEntry} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText} from './play-reference.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
-const COLORS=['#425365','#57d4b7','#709cf2','#c58df5','#ecb966'];
-const color=id=>COLORS[id===0?0:1+(id-1)%4];
+const COLORS=['#30415b','#54f0d2','#84b7ff','#e4a4ff','#ffc778','#ff8b9b'];
+const color=id=>COLORS[id===0?0:1+(id-1)%5];
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
 let deliveryPaused=false,visible=null,visibleTime=0;
+const arcade=createArcade(document);
 function showError(error){$('error-text').textContent=String(error?.message??error);$('error').hidden=false;$('service-status').textContent='Observation unhealthy — wait before making purchases.';}
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
 function active(s){return session===s&&!s.abort.signal.aborted;}
@@ -118,8 +120,8 @@ async function startLive(recording,startupRetries=0){
       const source=await deploymentSource(recording.deployment,ticket);
       $('receiving-account').textContent=source.recipient;
       $('backend-identity').textContent=source.owner;
-      const config=await module.certifiedConfiguration(ticket);
-      s.config=config;$('live-play-reference').hidden=false;
+      const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
+      s.config=config;s.source=source;$('live-play-reference').hidden=false;
       $('command-prices').textContent=`Certified configuration: join ${config.join_e8s} e8s; relocation ${config.move_e8s} e8s; ball base ${config.ball_base_e8s} e8s (existing occupancy pricing applies).`;
       $('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;
     }else{
@@ -180,8 +182,10 @@ function updatePlayReference(s,world,events){
   if(!s.config)return;
   const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
   $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
-    `#${c.id}`,c.account,c.cell,c.balls,c.next_ball_e8s===null?'At capacity':`${c.next_ball_e8s} e8s`,c.owned_cells.join(', ')
+    `#${c.id}`,`${c.owned_cells.length} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
   ])));
+  [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].className=`owner-${1+(world.cannons[i].id-1)%5}`;});
+  arcade.render(world,s.config,s.source);
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
@@ -191,15 +195,15 @@ function updatePlayReference(s,world,events){
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
   s.statusBusy=true;s.statusDue=now+5000;
-  try{const status=await s.readStatus();if(active(s))$('service-status').textContent=operationalText(status);}
-  catch{if(active(s))$('service-status').textContent=operationalText(null);}
+  try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();$('service-status').textContent=operationalText(status);}}
+  catch{if(active(s)){s.operational=null;$('service-status').textContent=operationalText(null);}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
   if(now<s.nextDue||s.queue.length>=4||s.clock.state().buffer>=12)return;s.busy=true;
   try{
     const current=await certifiedTicket(s,await s.client.observation());if(!active(s))return;
-    globalThis.__dtrLive.certificates++;
+    globalThis.__dtrLive.certificates++;s.certifiedAt=performance.now();
     const prior=s.sequence.last,past=prior.publication.head.segment_id,next=current.publication.head.segment_id;
     if(current.root_hash===prior.root_hash){s.retryFailures=0;s.nextDue=performance.now()+500;return;}
     if(next===null||past!==null&&next<=past){s.sequence.accept(current);s.nextDue=performance.now()+500;return;}
@@ -255,10 +259,15 @@ function updateHud(){
   $('pause').textContent=paused?'Resume playback':'Pause playback';
   $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':s?.mode==='live'?(s.skipped?'Live delivery resumed from a certified snapshot; unavailable animation was skipped.':'Live certified delivery · bounded retained catch-up.'):
     p==='COMPLETE'?'End of finite recording. Restart to replay.':s?.mode==='local'?'Authenticated local snapshot · finite playback.':'Finite recording · staged local delivery.';
-  $('balls').textContent=visible?.balls.size??0;$('cannons').textContent=visible?.cannons.size??0;
+  $('balls').textContent=visible?.balls.size??'—';$('cannons').textContent=visible?.cannons.size??'—';
+  const claimed=visible?[...visible.cells].filter(x=>x!==0).length:0;
+  $('claimed').textContent=visible?`${Math.round(claimed/visible.cells.length*100)}%`:'—';
+  $('empty-arena').hidden=!s?.ready||Boolean(s.error)||!visible||visible.cannons.size!==0;
+  const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length);
+  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused});
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
-      const td=document.createElement('td');td.textContent=v;if(i===0)td.className=`owner-${1+(r.id-1)%4}`;tr.append(td);
+      const td=document.createElement('td');td.textContent=v;if(i===0)td.className=`owner-${1+(r.id-1)%5}`;tr.append(td);
     }rows.push(tr);
   }$('territories').replaceChildren(...rows);$('event-label').textContent=visible?.lastEvent??'—';
 }
@@ -268,12 +277,12 @@ function draw(){
   const width=Math.max(1,Math.round(rect.width*ratio)),height=Math.max(1,Math.round(rect.height*ratio));
   if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
-  if(!visible){ctx.fillStyle='#7892a8';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the recorded arena…',rect.width/2,rect.height/2);return;}
+  if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the arena…',rect.width/2,rect.height/2);return;}
   const v=visible,cell=Math.min((rect.width-20)/v.width,(rect.height-20)/v.height),ox=(rect.width-cell*v.width)/2,oy=(rect.height-cell*v.height)/2;
   ctx.save();ctx.translate(ox,oy);
   for(let y=0;y<v.height;y++)for(let x=0;x<v.width;x++){
-    const n=y*v.width+x,owner=v.cells[n];ctx.fillStyle=color(owner)+(owner?'29':'18');ctx.fillRect(x*cell,y*cell,cell,cell);
-    ctx.strokeStyle='#31415366';ctx.lineWidth=.5;ctx.strokeRect(x*cell,y*cell,cell,cell);
+    const n=y*v.width+x,owner=v.cells[n];ctx.fillStyle=color(owner)+(owner?'66':'1d');ctx.fillRect(x*cell,y*cell,cell,cell);
+    ctx.strokeStyle='#45638455';ctx.lineWidth=.5;ctx.strokeRect(x*cell,y*cell,cell,cell);
     ctx.strokeStyle=color(owner)+'aa';ctx.lineWidth=1.4;
     if(x===0||v.cells[n-1]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo(x*cell,(y+1)*cell);ctx.stroke();}
     if(y===0||v.cells[n-v.width]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo((x+1)*cell,y*cell);ctx.stroke();}
@@ -282,7 +291,7 @@ function draw(){
   }
   for(const c of v.cannons.values()){
     const x=(c.cell%v.width+.5)*cell,y=(Math.floor(c.cell/v.width)+.5)*cell,r=cell*.31;
-    ctx.fillStyle='#0d1a24';ctx.strokeStyle=color(c.id);ctx.lineWidth=2;ctx.fillRect(x-r,y-r,2*r,2*r);ctx.strokeRect(x-r,y-r,2*r,2*r);
+    ctx.fillStyle='#071423';ctx.strokeStyle=color(c.id);ctx.lineWidth=2;ctx.fillRect(x-r,y-r,2*r,2*r);ctx.strokeRect(x-r,y-r,2*r,2*r);
     ctx.fillStyle=color(c.id);ctx.fillRect(x-2,y-r*.85,4,r*.95);ctx.beginPath();ctx.arc(x,y,Math.max(2,cell*.10),0,Math.PI*2);ctx.fill();
   }
   for(const p of v.pending.values())if(timeNumber(p.deadline)>=visibleTime){
@@ -300,7 +309,7 @@ function draw(){
     ctx.globalAlpha=1-age/.9;ctx.strokeStyle=e.kind==='burst'?'#ffdc9c':color(e.owner);ctx.lineWidth=1.8;
     ctx.beginPath();ctx.arc(x,y,cell*(.12+age*.7),0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
   }ctx.restore();
-  canvas.setAttribute('aria-label',`Recorded board: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
+  canvas.setAttribute('aria-label',`BTZ territory arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
 function frame(now){
   const dt=lastFrame===null?0:Math.min((now-lastFrame)/1000,.25);lastFrame=now;const s=session;
