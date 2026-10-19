@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "checkpoint_id": "S14",
-  "name": "Lean index/poke S14: controlled mainnet MVP deployment preparation",
-  "date": "2026-10-15",
-  "branch": "checkpoint/s14-lean-index-poke",
+  "name": "S14 arcade UI and centralized prelaunch pricing \u2014 staged approval",
+  "date": "2026-10-19",
+  "branch": "checkpoint/s14-mvp-ux-pricing",
   "predecessor": {
     "checkpoint_id": "S13",
     "commit": "c75192cb2e4c33a04675b57abfd4d42121255bfd",
     "successful_ci_run": 38690051399
   },
-  "tested_btz_commit": "2df4dd840d792d824b38ede5612fbead9321d635",
+  "tested_btz_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
   "dtr_changed": false,
-  "normal_wasm_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
+  "normal_wasm_sha256": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
   "local_implementation_result": "PASS",
   "remote_pinned_consumer_result": "PASS",
   "remote_ci_result": "NOT_RUN",
-  "publication_boundary": "DTR is user-published and consumed through real immutable locks. User reviews/pushes BTZ dependency-completion commits and checks their CI; no new DTR changes.",
-  "mainnet_verification": "NOT_RUN",
+  "publication_boundary": "User reviews/pushes BTZ branch and checks CI. DTR is unchanged and already published. Exact-release and separate conditional empty-game reset approval are required before activation.",
+  "mainnet_verification": "PASS_READ_ONLY_EXISTING_BASELINE",
   "real_funds_authorized": false,
   "public_prize_launch": "BLOCKED",
   "payouts_implemented": false,
@@ -25,26 +25,27 @@
     "evidence/S14/closeout.json",
     "evidence/S14/closeout-simulation-trace.json",
     "evidence/S14/closeout-deployment-trace.json",
-    "evidence/S14/mvp-preparation.json"
+    "evidence/S14/mvp-preparation.json",
+    "checkpoints/S14_MVP_UX_PRICING.md",
+    "evidence/S14/ux-pricing/release.json"
   ],
   "limitations": [
-    "Configured official index is trusted for receiving-history contents/completeness.",
-    "Oldest staging windows are bounded at 256 rows; finite history drains by re-reading newer rows, with potentially quadratic read amplification.",
-    "Inbox/image/storage backpressure preserves unadmitted payments and progress; no arbitrary-traffic sustainability promise.",
-    "Fresh deployment only; funded deployment reset is not authorized.",
-    "Mainnet verification NOT_RUN; actual local dfx asset hosting PASS; full-update headroom, production capacity and actual cycle burn NOT_MEASURED.",
-    "Automatic payouts/refunds unavailable; public paid/prize launch remains gated.",
-    "Event Horizon sender disabled unless reviewed at installation; existing source configuration is immutable."
+    "Official index trusted for history contents/completeness; index lag requires fresh checks before any approved reset.",
+    "Ordinary upgrade preserves historical 10 ICP configuration; new 1 ICP profile is not active on mainnet.",
+    "Proposed empty-game reset discards durable timeline/private cursor/retained publications; requires separate approval and no participation.",
+    "Bounded oldest-history draining may reread newer rows; arbitrary-traffic sustainability and production burn/headroom are not established.",
+    "Automatic payouts/refunds unavailable; payments and excess retained. Public paid/prize launch remains gated.",
+    "Event Horizon disabled on current deployment; fixed 60-second fallback works. Source configuration remains immutable."
   ],
-  "next_action": "User reviews exact-commit CI, chooses public operational values and follows the operator runbook to create/fund/install, host and play. No DTR push or S15.",
+  "next_action": "Review report/screenshots and exact artifacts, push branch/check CI, approve release and separately any empty-game reset after fresh account/no-outstanding-transfer checks. No S15.",
   "tested_dtr_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
   "dependency_mode": "published-immutable-git",
   "javascript_package": {
     "version": "0.12.0",
     "sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f"
   },
-  "remote_ci_scope": "NOT_RUN for the new corrective-closeout commits; the earlier staging/dependency history is recorded separately.",
-  "test_hooks_wasm_sha256": "c1be98ae2d6c839853ab818f4bf613d4e0533a6e86342ab3e50e567d647a4e19",
+  "remote_ci_scope": "NOT_RUN for staged UI/pricing release. Baseline 565e40eda394a3ccc8a0c5d11c8327a4a6ec8d8e passed user-reported run 38889365414.",
+  "test_hooks_wasm_sha256": "28ea54d0d1b687ce7353f81da143a48216af15919b04a2a61e69e6e555402fe4",
   "callback_trap_recovery": "PASS",
   "backlog_recovery": "PASS",
   "deployment_bundle_local": "PASS",
@@ -54,8 +55,22 @@
     "dtr_pass": 38778487685,
     "btz_old_dependency_fail": 38778318985
   },
-  "dtr_change_scope": "No DTR changes in this corrective closeout; the original S14 shared APIs are already published.",
+  "dtr_change_scope": "NONE in the UI/pricing release; existing published APIs and immutable package remain unchanged.",
   "deployment_preparation": "PASS",
-  "financial_action_authority": "User only; no Codex mainnet calls, funding or transfers.",
-  "asset_canister_hosting_scope": "Actual dfx assets route on disposable local network; mainnet NOT_RUN"
+  "financial_action_authority": "No transfers/funding/controller changes authorized. Current release permits read-only mainnet preflight; code activation requires exact-release approval and reset requires separate approval.",
+  "asset_canister_hosting_scope": "Staged deployment bundle served by actual disposable local asset canister; mainnet deployment of this release NOT_RUN.",
+  "mainnet_activation": "NOT_RUN",
+  "deployment_approval": "REQUIRED",
+  "staged_pricing": {
+    "join_e8s": "100000000",
+    "ball_base_e8s": "10000000",
+    "move_e8s": "10000",
+    "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+  },
+  "live_baseline": {
+    "commit": "565e40eda394a3ccc8a0c5d11c8327a4a6ec8d8e",
+    "module_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
+    "join_e8s": "1000000000"
+  },
+  "installed_gate_scope": "Full run 15 PASS / 1 browser FAIL / 1 ignored explicit old-module probe; corrected browser rerun separately PASS with identical module hashes; old-module probe separately PASS."
 }

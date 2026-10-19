@@ -1,0 +1,571 @@
+{
+  "status": "BLOCKED",
+  "recorded_at_utc": "2026-10-19T08:32:38.805717+00:00",
+  "release_source_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
+  "release_source_tree": "07c07a8d2d1b6796e1d090651d9755f94a55bb7e",
+  "branch": "checkpoint/s14-mvp-ux-pricing",
+  "dtr_changed": false,
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dtr_package_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+  "release_directory": ".work/ux-pricing/release-final",
+  "release_manifest_sha256": "9d8a546efb66e4988436681639444a8be581f50eaa73911996a1c0043c4228e9",
+  "normal_features": [],
+  "normal_exports": [
+    "memory",
+    "canister_init",
+    "canister_post_upgrade",
+    "canister_query artifact_chunk",
+    "canister_query controller_work",
+    "canister_query lab_status",
+    "canister_query observation",
+    "canister_query retained_artifact_chunk",
+    "canister_query retained_publication",
+    "canister_query retention_status",
+    "canister_query source_descriptor",
+    "canister_update pause_autonomous",
+    "canister_update poke",
+    "canister_update start_autonomous",
+    "get_candid_pointer",
+    "canister_global_timer",
+    "canister_update <ic-cdk internal> timer_executor",
+    "__data_end",
+    "__heap_base"
+  ],
+  "artifacts": {
+    "generated.did": {
+      "sha256": "87ace6e282f328df49e3a343e4108ab62991a0ea94df60c1be395162d02ef8cd",
+      "bytes": 2825
+    },
+    "init.did": {
+      "sha256": "b97570e0408e3cf50fc2a5099d65012b831e8492c922eddd443430703998a912",
+      "bytes": 1670
+    },
+    "launch.json": {
+      "sha256": "d4d0c3638a03ac3c0948705e997e3df7e0ea3664e3bf522572b03ef0b56ed16d",
+      "bytes": 1807
+    },
+    "normal.wasm": {
+      "sha256": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
+      "bytes": 2151555
+    },
+    "world.bin": {
+      "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae",
+      "bytes": 481
+    }
+  },
+  "tools": {
+    "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "cargo 1.94.1 (29ea6fb6a 2026-03-24)",
+    "node": "v24.15.0",
+    "npm": "11.12.1",
+    "dfx": "dfx 0.31.0",
+    "python": "Python 3.11.14"
+  },
+  "locks_and_sources_sha256": {
+    "Cargo.lock": "2dbbde7b116704d6bd6bac6a7027ecfe093dc8ffc92c1576384dc6e1f730f9c1",
+    "native/Cargo.lock": "96dd8e7ef8601fb3ca58f960241a063fc21d86d7b83b1d3748e6f7aefd8b53d1",
+    "canisters/runtime-lab/Cargo.lock": "c660694c0354cab07db93300037507f606fe0d005943504768b6aae41c58fc26",
+    "tools/s09-integration/Cargo.lock": "f87a8b074d6d1a995ebaebaa024f2871bd8c4f5476a0244a5cac4789478660af",
+    "package-lock.json": "7450a0b7e876edb6b28bd088a3bea71c1a1a741fba00b270968575aa96aed09e",
+    "vendor/dtr/dtr-timeline-runtime-0.12.0.tgz": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+    "dfx.json": "a4b39ff2e9bb36a3dbb12bd88ddb3cdbbeb33c4e91a1bde609ff4c0f10add35b",
+    "config/economics/prelaunch.json": "e45452ef0220547ea74e044afd28a2362713efaed49148d17a9d5f761e8bc147",
+    "packages/kernels/btz/economics.generated.mjs": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+    "native/btz-native/src/economics_generated.rs": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9",
+    "references/S14/mvp-configuration.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+  },
+  "economic_source": "config/economics/prelaunch.json",
+  "pricing_e8s": {
+    "version": 1,
+    "profile": "prelaunch-1",
+    "join_e8s": "100000000",
+    "ball_base_e8s": "10000000",
+    "move_e8s": "10000"
+  },
+  "historical_config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+  "new_config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+  "observer": {
+    "source_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
+    "source_dirty": false,
+    "local_test_only": false,
+    "deployment": {
+      "network": "ic",
+      "host": "https://icp-api.io",
+      "canister_id": "s34gv-3qaaa-aaaar-qcifa-cai"
+    },
+    "files": {
+      "index.html": {
+        "sha256": "a5ffe74dd9ce2c5d9af8e060a623077e49ac56eb0e10835774667a9e4eed54f6",
+        "bytes": 10926
+      },
+      "app.mjs": {
+        "sha256": "8167a7e596d635aeff38270a3e1f5fd70e17f426ae052a48aec28ec430d41c24",
+        "bytes": 528152
+      },
+      "style.css": {
+        "sha256": "26c4aeb81090773f66e183b2a8f6d94868d6927b9ca82fffbea348b2321619e2",
+        "bytes": 10500
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "npm_lock_sha256": "7450a0b7e876edb6b28bd088a3bea71c1a1a741fba00b270968575aa96aed09e"
+  },
+  "observer_manifest_sha256": "081c1bcb9615b8322bb9f038f243e25b8ebaaf495c534c59b1296dfee9013372",
+  "verification": {
+    "source": {
+      "status": "PASS",
+      "source_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
+      "checks": [
+        {
+          "name": "observer-recordings",
+          "status": "PASS"
+        },
+        {
+          "name": "protocol-fixtures",
+          "status": "PASS"
+        },
+        {
+          "name": "life-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "btz-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "spawn-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "impact-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "btz-full-traces",
+          "status": "PASS"
+        },
+        {
+          "name": "numeric-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "coordinator-vectors",
+          "status": "PASS"
+        },
+        {
+          "name": "observation-v6-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "observation-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "portable-cursors",
+          "status": "PASS"
+        },
+        {
+          "name": "node-tests",
+          "status": "PASS"
+        },
+        {
+          "name": "source-structure",
+          "status": "PASS"
+        },
+        {
+          "name": "docs-links",
+          "status": "PASS"
+        },
+        {
+          "name": "python-tool-tests",
+          "status": "PASS"
+        }
+      ],
+      "raw_report": ".work/ux-pricing/source-release/verification.json"
+    },
+    "native": {
+      "status": "PASS",
+      "source_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
+      "checks": [
+        {
+          "name": "cargo-lock",
+          "status": "PASS"
+        },
+        {
+          "name": "cargo-tests",
+          "status": "PASS"
+        },
+        {
+          "name": "native-vectors",
+          "status": "PASS"
+        },
+        {
+          "name": "portable-lock",
+          "status": "PASS"
+        },
+        {
+          "name": "portable-rust-tests",
+          "status": "PASS"
+        },
+        {
+          "name": "native-public-game",
+          "status": "PASS"
+        },
+        {
+          "name": "native-public-host",
+          "status": "PASS"
+        },
+        {
+          "name": "portable-format",
+          "status": "PASS"
+        },
+        {
+          "name": "portable-clippy",
+          "status": "PASS"
+        },
+        {
+          "name": "cargo-format",
+          "status": "PASS"
+        },
+        {
+          "name": "cargo-clippy",
+          "status": "PASS"
+        }
+      ],
+      "raw_report": ".work/ux-pricing/native-release/verification.json"
+    },
+    "wasm": {
+      "status": "PASS",
+      "source_commit": "4a9345349a13b80f5900700f4a01066cec6beebc",
+      "checks": [
+        {
+          "name": "runtime-lab-lock",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime-lab-wasm",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime-lab-candid",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime-lab-format",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime-lab-clippy",
+          "status": "PASS"
+        }
+      ],
+      "raw_report": ".work/ux-pricing/wasm-release/verification.json"
+    },
+    "bundled_replay": {
+      "status": "PASS",
+      "source_commit": null,
+      "checks": [
+        {
+          "name": "browser-selection",
+          "status": "PASS"
+        },
+        {
+          "name": "browser-sandbox",
+          "status": "PASS"
+        },
+        {
+          "name": "startup-and-moving-playhead",
+          "status": "PASS"
+        },
+        {
+          "name": "canvas-pixels-change-during-playback",
+          "status": "PASS"
+        },
+        {
+          "name": "pause-freezes-presentation",
+          "status": "PASS"
+        },
+        {
+          "name": "desktop-and-mobile-layout",
+          "status": "PASS"
+        },
+        {
+          "name": "buffer-exhaustion-stops-at-verified-head",
+          "status": "PASS"
+        },
+        {
+          "name": "download-recovery-resumes",
+          "status": "PASS"
+        },
+        {
+          "name": "bundled-competing-cannons-labelled-replay",
+          "status": "PASS"
+        },
+        {
+          "name": "bundled-annihilation-completes-with-hash-verified-finite-output",
+          "status": "PASS"
+        },
+        {
+          "name": "bundled-territory-change-and-elimination",
+          "status": "PASS"
+        },
+        {
+          "name": "reduced-motion-starts-paused",
+          "status": "PASS"
+        },
+        {
+          "name": "native-browser-webcrypto",
+          "status": "PASS"
+        },
+        {
+          "name": "no-uncaught-page-errors",
+          "status": "PASS"
+        }
+      ],
+      "raw_report": ".work/ux-pricing/browser-bundle-verified/results.json"
+    },
+    "counts": {
+      "javascript": 1187,
+      "python": 137,
+      "workspace_rust": 18,
+      "portable_rust_test_functions": 8,
+      "new_prelaunch_public_output_vectors_in_native": 6,
+      "host_rust": 10,
+      "installed_non_browser_tests_passed": 15,
+      "installed_browser_case_rerun_passed": 1,
+      "installed_price_transition_probe": 1,
+      "hosted_browser_assertion_groups": 16,
+      "bundled_replay_assertion_groups": 14
+    },
+    "installed": {
+      "status": "PASS",
+      "qualification": "Coverage aggregation, NOT a claim that the earlier full run was green. Full run: 15 PASS / one browser FAIL / one explicit probe ignored. Corrected browser case rerun PASS on the exact same normal/test Wasm hashes. Explicit reviewed-old-module probe PASS separately.",
+      "normal_wasm_sha256": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
+      "full_run_raw": ".work/ux-pricing/installed-complete/results.json",
+      "browser_rerun_raw": ".work/ux-pricing/deployment-final-pass/results.json",
+      "transition_probe_raw": ".work/ux-pricing/transition-verified/results.json",
+      "browser_checks": [
+        {
+          "name": "real-asset-build-and-mainnet-test-adapter-exclusion",
+          "status": "PASS"
+        },
+        {
+          "name": "dfx-normal-backend-generated-constructor-and-binding",
+          "status": "PASS"
+        },
+        {
+          "name": "dfx-asset-canister-install",
+          "status": "PASS"
+        },
+        {
+          "name": "asset-http-certificate-mime-and-csp",
+          "status": "PASS"
+        },
+        {
+          "name": "retired-genesis-restarts-with-fresh-certified-head",
+          "status": "PASS"
+        },
+        {
+          "name": "certified-backend-receiving-account-and-price-identities",
+          "status": "PASS"
+        },
+        {
+          "name": "exact-authenticated-transfer-copy-and-angle-controls",
+          "status": "PASS"
+        },
+        {
+          "name": "arcade-responsive-arena-and-empty-state",
+          "status": "PASS"
+        },
+        {
+          "name": "fresh-publications-after-browser-connection",
+          "status": "PASS"
+        },
+        {
+          "name": "paid-join-ball-fallback-and-legal-move-visible-once",
+          "status": "PASS"
+        },
+        {
+          "name": "certified-ball-price-and-owned-relocation-reference",
+          "status": "PASS"
+        },
+        {
+          "name": "asset-entry-refresh-authenticates-same-backend",
+          "status": "PASS"
+        },
+        {
+          "name": "authenticated-reconnect-after-retention-gap-and-upgrade",
+          "status": "PASS"
+        },
+        {
+          "name": "unavailable-or-unbound-configuration-and-wrong-certificate-root-fail-closed",
+          "status": "PASS"
+        },
+        {
+          "name": "deployment-bundle-reduced-motion-pauses-playback",
+          "status": "PASS"
+        },
+        {
+          "name": "read-only-transport-and-native-webcrypto",
+          "status": "PASS"
+        }
+      ],
+      "captured_publications": 37,
+      "assigned_once": [
+        1,
+        2,
+        3
+      ],
+      "replay": {
+        "status": "PASS",
+        "segments": 37,
+        "assigned": [
+          "1",
+          "2",
+          "3"
+        ],
+        "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+        "work_budget": 23
+      },
+      "raw_history_sha256": "3631e64e8a69cdbfa81e3896004210d064f1a73f03b8bf769bce352e54a5fd94"
+    }
+  },
+  "mainnet_preflight": {
+    "status": "PASS",
+    "as_of": "2026-10-19T08:13:17.797Z",
+    "certificate_verified": true,
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "subaccount": "0",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+    },
+    "configuration_identity": {
+      "config_hash": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "segment_id": "1263",
+    "logical_time": [
+      "2528",
+      "1"
+    ],
+    "cannons": 0,
+    "balls": 0,
+    "score_entries": 0,
+    "retained_payment_tally_e8s": "0",
+    "index_history": {
+      "Ok": {
+        "balance": "0",
+        "transactions": [],
+        "oldest_tx_id": []
+      }
+    },
+    "index_history_complete_at_observation": true,
+    "source_cursor_and_pending_inputs": {
+      "cursor": 0,
+      "pending_inputs": 0,
+      "qualification": "Fresh mainnet-review-status/work queries; immediately before any future reset recheck again."
+    },
+    "raw_report": ".work/ux-pricing/mainnet-approval.json",
+    "raw_report_sha256": "c0a9bcbee9d16f88b5eaaba18626819dcab04135f126ccacd0c49bc5cfff1bdd",
+    "canister_status": {
+      "backend": {
+        "canister_id": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "module_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "cycles": 2241515535488
+      },
+      "observer": {
+        "canister_id": "s45ab-wiaaa-aaaar-qcifq-cai",
+        "module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "cycles": 2806899110244
+      }
+    },
+    "canister_status_recorded_at": "2026-10-19T08:33:26.095587+00:00",
+    "fresh_controller_work_query": ".work/ux-pricing/mainnet-review-work.log"
+  },
+  "transition": {
+    "classification": "CASE_B_EXPLICIT_EMPTY_GAME_RESET_APPROVAL_REQUIRED",
+    "ordinary_upgrade": "Preserves old publication bytes/profile and source progress; observed five to nine segments locally. Does not reprice the old journal.",
+    "data_discarded": "Empty durable timeline/logical time, private coordinator continuation and retained publications; older publications already evicted. No payments/scores observed as of preflight.",
+    "preserved": "Canister IDs, controllers, receiving account and external index/ledger history. Source FromBeginning; no cursor skipping.",
+    "conditions": "Recheck all account history, tally, scores, pending inputs, expected modules/controllers and outstanding wallet transfers immediately before any approved reset. Stop if any participation exists.",
+    "restoration": "Public preflight is not a private stable-state backup. No restoration/old-module rollback promise. Reload observers into a fresh session; never relax anti-rollback.",
+    "user_approval": "PENDING"
+  },
+  "deployment": {
+    "status": "NOT_RUN",
+    "live_join_price_icp": "10",
+    "live_backend_module_sha256": "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703",
+    "live_observer_module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "frontend": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "mainnet_writes_this_release": "NONE",
+    "remote_git_operations": "NONE",
+    "real_transfers": "NONE",
+    "new_ci": "NOT_RUN"
+  },
+  "screenshots": {
+    "qualification": "Actual sandboxed Chromium captures at specified viewports, visually inspected. Disposable local ICP ledger/index and test account, not payment instructions. Competition image is explicitly labelled hash-verified offline replay, not IC authenticity.",
+    "files": {
+      "arcade-1440x900.png": "a8f4d12a4844fe27cad09c7f4084c0f81dffe80922acd294cc8ad3e41e813857",
+      "arcade-390x844.png": "14bb581c0fd96e0698ed01a6b5f1ac109fa2c9f7bbfd8ddb99cc6c22ff5a254b",
+      "arcade-768x1024.png": "7ce31f02b49e60c72547c14eb3f10a926c9a1dda3f836da12d9b5ed8494bcbf9",
+      "arcade-paid.png": "25a253a8788ab21498e803461f3b143ffdaf00407b53fb844445b8ef3ea8b62e",
+      "competing-replay.png": "af8f9658f0581a9b79fb5070f6cb9235bf7250862c6290b7fc7acb548086cb27"
+    }
+  },
+  "failed_attempts_retained": {
+    "raw_directory": ".work/ux-pricing",
+    "summary": "Node-only import in browser build, transient zero-size canvas draw, default missing index path, old collapsed-dashboard selectors/fieldset semantics, clipboard policy/permission, old 200s UI budget and hanging query interception were recorded and corrected. Full failed installed run remains FAIL; passing rerun is separately identified. No crypto verification or game tests were disabled."
+  },
+  "remote_user_command": "git push -u origin checkpoint/s14-mvp-ux-pricing",
+  "scope": "Local release preparation PASS; deployment awaits explicit approval",
+  "local_release_status": "PASS",
+  "blocking_condition": "Exact-release review/CI and separate one-time empty-game reset approval pending.",
+  "final_metadata_checks": {
+    "docs_local_links": {
+      "status": "PASS",
+      "count": 110
+    },
+    "source_structure": "PASS",
+    "economics_freshness": "PASS",
+    "prelaunch_vectors": {
+      "status": "PASS",
+      "count": 6
+    },
+    "frozen_artifact_hashes": "PASS",
+    "git_diff_check": "PASS",
+    "scope": "Metadata-only finalization after frozen substantive source; no rebuild or mainnet deployment."
+  }
+}

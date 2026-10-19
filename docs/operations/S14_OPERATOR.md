@@ -35,8 +35,8 @@ The concrete backend reset command, **not to be run before the approvals and pre
 # PROPOSAL ONLY — separately approved one-time empty-game reset.
 # Verify btz resolves to s34gv-3qaaa-aaaar-qcifa-cai immediately before use.
 dfx --identity codex_local canister install btz --network ic --mode reinstall \
-  --wasm .work/ux-pricing/release/normal.wasm \
-  --argument-file .work/ux-pricing/release/init.did
+  --wasm .work/ux-pricing/release-final/normal.wasm \
+  --argument-file .work/ux-pricing/release-final/init.did
 ```
 
 Do not add `--yes`, change the target, or substitute the default target-directory Wasm. The release’s generated constructor retains default subaccount 0, the official index/ledger, disabled Event Horizon and `FromBeginning` history policy. If any preflight is uncertain, retain the current backend and do not execute this command.
