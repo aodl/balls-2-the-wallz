@@ -1,4 +1,4 @@
-import {BTZ_IDENTITY,PRELAUNCH_IDENTITY} from '../../packages/kernels/btz/world.mjs';
+import {CONFIGURATION_ASSETS} from './configuration.generated.mjs';
 /** BTZ deployment policy and certified source descriptor; no wallet or signing API. */
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {readBytes} from './transport.mjs';
@@ -43,8 +43,7 @@ export async function verifiedSourceDescriptor(bytes,ticket,expected){
 }
 
 export async function certifiedConfiguration(ticket){
-  const name=ticket.publication.identity.config_hash===PRELAUNCH_IDENTITY.config_hash?'configuration.bin':
-    ticket.publication.identity.config_hash===BTZ_IDENTITY.config_hash?'configuration-legacy.bin':null;
+  const name=CONFIGURATION_ASSETS[ticket.publication.identity.config_hash];
   if(!name)throw new Error('configuration not bound: unsupported profile');
   const bytes=await readBytes(new URL('./'+name,import.meta.url),65536,AbortSignal.timeout(10000));
   if(await sha256Web(bytes)!==ticket.publication.identity.config_hash)throw new Error('configuration not bound by certified publication');

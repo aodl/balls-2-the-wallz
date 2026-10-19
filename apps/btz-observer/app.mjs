@@ -274,6 +274,7 @@ function updateHud(){
 function draw(){
   if(!ctx)return;
   const rect=canvas.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2);
+  if(rect.width<=20||rect.height<=20)return; // Hidden/transient layout has no drawable arena.
   const width=Math.max(1,Math.round(rect.width*ratio)),height=Math.max(1,Math.round(rect.height*ratio));
   if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);

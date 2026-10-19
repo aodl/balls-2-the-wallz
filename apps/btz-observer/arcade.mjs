@@ -47,8 +47,8 @@ export function createArcade(doc){
     status({phase,live,verified,fresh,healthy,paused}){
       available=Boolean(config&&source&&live&&verified&&fresh&&healthy&&phase!=='ERROR');
       $('transfer-controls').disabled=!available;$('selected-cannon').disabled=!available;$('move-cell').disabled=!available;move();
-      const label=phase==='ERROR'?'Connection error':!verified?'Waiting for verified state':!live?'Verified replay · not live':!fresh?'Temporarily behind':paused?'Playback paused':['STALLED','BUFFERING'].includes(phase)?'Temporarily behind':'Live and verified';
-      text('live-status',label);$('live-status').dataset.verified=String(verified&&live&&fresh&&phase!=='ERROR');
+      const label=phase==='ERROR'?'Connection error':!verified?'Waiting for verified state':!live?'Verified replay · not live':!fresh?'Temporarily behind':!healthy?'Checking live service':paused?'Playback paused':['STALLED','BUFFERING'].includes(phase)?'Temporarily behind':'Live and verified';
+      text('live-status',label);$('live-status').dataset.verified=String(label==='Live and verified');
       text('payment-health',available?'Verified address and prices. Prepare your transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
       text('arena-note',label==='Live and verified'?'Authoritative game · verified playback':label==='Temporarily behind'?'Waiting for verified game data. No motion is invented.':label);
     }
