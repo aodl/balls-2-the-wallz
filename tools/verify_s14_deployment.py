@@ -119,7 +119,7 @@ def main():
             assert 'Rules ' in page.locator('#rules-identity').inner_text()
             record('certified-backend-receiving-account-and-price-identities')
             page.locator('.diagnostics').evaluate('(node)=>node.open=false')
-            wait_until(page,lambda:not page.locator('#transfer-controls').is_disabled(),15000)
+            wait_until(page,lambda:not page.locator('[data-copy="recipient"]').is_disabled(),15000)
             assert page.locator('#join-price').inner_text()=='1 ICP'
             assert page.locator('#payment-address').inner_text()==configuration['recipient']
             page.bring_to_front()
@@ -205,7 +205,7 @@ def main():
                     negative.route('**/api/v*/canister/*/query',corrupt_query)
                 negative.goto(url,timeout=30000)
                 wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
-                assert negative.locator('#transfer-controls').is_disabled()
+                assert negative.locator('[data-copy="recipient"]').is_disabled()
                 assert negative.locator('#live-status').inner_text()=='Connection error'
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
                 negative.close()
