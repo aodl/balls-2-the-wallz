@@ -113,10 +113,10 @@ def main():
             assert page.evaluate('globalThis.__dtrLive.startupRetries')>=1
             record('retired-genesis-restarts-with-fresh-certified-head')
             page.locator('.diagnostics').evaluate('(node)=>node.open=true')
-            assert page.locator('#receiving-account').inner_text()==configuration['recipient']
-            assert page.locator('#backend-identity').inner_text()==configuration['canister_id']
-            assert 'join 100000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').inner_text()
-            assert 'Rules ' in page.locator('#rules-identity').inner_text()
+            assert page.locator('#receiving-account').text_content()==configuration['recipient']
+            assert page.locator('#backend-identity').text_content()==configuration['canister_id']
+            assert 'join 100000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').text_content()
+            assert 'Rules ' in page.locator('#rules-identity').text_content()
             record('certified-backend-receiving-account-and-price-identities')
             page.locator('.diagnostics').evaluate('(node)=>node.open=false')
             wait_until(page,lambda:not page.locator('[data-copy="recipient"]').is_disabled(),15000)
@@ -181,11 +181,11 @@ def main():
             page.locator('#network-pause').uncheck()
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.resyncs')>=1 and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=target,30000)
             heads=page.evaluate('globalThis.__dtrLive.heads.slice()');assert all(b>a for a,b in zip(heads,heads[1:])),heads
-            assert page.locator('#receiving-account').inner_text()==configuration['recipient']
+            assert page.locator('#receiving-account').text_content()==configuration['recipient']
             if asset_canister:
                 page.reload(timeout=30000)
                 wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
-                assert page.locator('#receiving-account').inner_text()==configuration['recipient']
+                assert page.locator('#receiving-account').text_content()==configuration['recipient']
                 record('asset-entry-refresh-authenticates-same-backend')
             record('authenticated-reconnect-after-retention-gap-and-upgrade',heads)
             # Negative cases keep the genuine pinned-root local deployment and
