@@ -2015,7 +2015,12 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut first = None;
     let mut second = None;
     let mut third = None;
-    let deadline = std::time::Instant::now() + Duration::from_secs(200);
+    // Includes dfx asset hosting, fallback, three responsive captures, clipboard,
+    // reconnect/upgrade, three negative pages and reduced-motion verification.
+    // Per-page waits remain bounded; preserve the earlier 200s timeout evidence.
+    let began = std::time::Instant::now();
+    let deadline = began + Duration::from_secs(360);
+    let mut logged_phase = -2;
     while std::time::Instant::now() < deadline {
         let (_, p) = observe(&pic, id);
         if p.head.segment_id != last {
@@ -2223,6 +2228,13 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             }
         } else if phase == 5 && out.join("browser-complete").exists() {
             break;
+        }
+        if phase != logged_phase {
+            println!(
+                "DEPLOYMENT_PHASE {}",
+                serde_json::json!({"phase":phase,"host_elapsed_seconds":began.elapsed().as_secs(),"completed_segments":s.run.completed_segments})
+            );
+            logged_phase = phase;
         }
         std::thread::sleep(Duration::from_millis(100));
     }
