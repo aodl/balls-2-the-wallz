@@ -130,7 +130,7 @@ def main():
             page.locator('#prepare-transfer').click()
             assert page.locator('#join-price').inner_text()=='1 ICP'
             assert page.locator('#hero-join-price').inner_text()=='1 ICP join'
-            assert page.locator('#payment-address').inner_text()==configuration['recipient']
+            assert page.locator('#payment-address').text_content()==configuration['recipient']
             page.bring_to_front()
             if asset_canister:
                 assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')
