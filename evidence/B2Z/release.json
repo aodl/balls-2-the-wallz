@@ -1,0 +1,575 @@
+{
+  "status": "PASS",
+  "release": "B2Z identity and prefix-free memos",
+  "deployed_at": "2026-10-20T22:17:07.283Z",
+  "source_commit": "8dd26d03b4945a016268a8a2f6e885eb0e427d5d",
+  "source_tree": "e997142fed0dc63ba289fc2f2bf9cdf370a671c5",
+  "branch": "checkpoint/b2z-identity-and-memos",
+  "baseline": "75491ea287df97eb2677f47043b37795dbe3b423",
+  "memo_adapter": 3,
+  "canonical_examples": [
+    "ANGLE 37.5",
+    "ANGLE 225",
+    "MOVE 83"
+  ],
+  "eight_byte_regressions": [
+    "ANGLE 12",
+    "ANGLE 99",
+    "MOVE 123"
+  ],
+  "compatibility": [
+    "S15 BTZ-prefixed text",
+    "historic binary magic/opcodes/reserved bits",
+    "absent-blob legacy numeric"
+  ],
+  "historical_raw_replay_versions": [
+    1,
+    2,
+    3
+  ],
+  "normal_wasm_sha256": "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1",
+  "candid_sha256": "87ace6e282f328df49e3a343e4108ab62991a0ea94df60c1be395162d02ef8cd",
+  "frontend": {
+    "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+    "canister": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "files": {
+      "index.html": {
+        "sha256": "413ffaf14f76721baaaff6f5ebbbdc5bae72801e6741aadb7e7783a373445bde",
+        "bytes": 13244
+      },
+      "app.mjs": {
+        "sha256": "75d00582996f00a015599b6f7c2050615dc98c155a3ed5f817c95a3a03ab9dd4",
+        "bytes": 537881
+      },
+      "style.css": {
+        "sha256": "0448a464cf0d925c6cfdcd5b90dc141aa875463960e331db03ddb532206cdf64",
+        "bytes": 12172
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "served_files": {
+      "status": "PASS",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+      "assets": [
+        {
+          "file": "index.html",
+          "sha256": "413ffaf14f76721baaaff6f5ebbbdc5bae72801e6741aadb7e7783a373445bde",
+          "bytes": 13244,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "app.mjs",
+          "sha256": "75d00582996f00a015599b6f7c2050615dc98c155a3ed5f817c95a3a03ab9dd4",
+          "bytes": 537881,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "style.css",
+          "sha256": "0448a464cf0d925c6cfdcd5b90dc141aa875463960e331db03ddb532206cdf64",
+          "bytes": 12172,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "icon.svg",
+          "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+          "bytes": 235,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "configuration.bin",
+          "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "bytes": 367,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "configuration-legacy.bin",
+          "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "bytes": 368,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "deployment.json",
+          "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+          "bytes": 89,
+          "http_status": 200,
+          "http_certificate": true
+        },
+        {
+          "file": "build-manifest.json",
+          "sha256": "dc1df14178b10e38c4e403541e3c6e39ae532b306afad0ef255b087f63962fa3",
+          "bytes": 6537,
+          "http_status": 200,
+          "http_certificate": true
+        }
+      ]
+    }
+  },
+  "backend": {
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "before": {
+      "module": "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "cycles": 1700663407856,
+      "freezing_threshold": "2_592_000 Seconds"
+    },
+    "after": {
+      "module": "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "cycles": 1449780304732,
+      "freezing_threshold": "2_592_000 Seconds"
+    },
+    "preservation": {
+      "status": "PASS",
+      "module_sha256": "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1",
+      "controllers_preserved": true,
+      "byte_identical": [
+        "publication",
+        "state",
+        "events",
+        "scores",
+        "all retained catalogs and artifact chunks"
+      ],
+      "retained_publications": 3,
+      "identity_preserved": true,
+      "source_cursor": "0",
+      "pending_inputs_preserved": true,
+      "segment": "7161",
+      "receiving_account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "configuration_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+    },
+    "resume_configuration": {
+      "segment_ticks": 2,
+      "pacing_seconds": 1,
+      "work_budget": 512
+    }
+  },
+  "economics": {
+    "join_e8s": 100000000,
+    "ball_base_e8s": 10000000,
+    "ball_rule": "base \u00d7 active-count squared",
+    "move_e8s": 10000,
+    "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+    "wallet_fees": "separate",
+    "payments": "retained; no refunds or automatic payouts"
+  },
+  "receiving_account": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "subaccount": "0",
+    "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+  },
+  "health": {
+    "certificate_verified": true,
+    "latest_segment": "7205",
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "0"
+    },
+    "run": {
+      "last_error": [],
+      "running": true
+    },
+    "autonomy_first_segment": "7167",
+    "autonomy_last_segment": "7172",
+    "observing_browser_closed": true,
+    "world_players": 0,
+    "received_e8s": "0",
+    "scores": {
+      "area_time": [],
+      "version": 3
+    }
+  },
+  "checks": {
+    "source-final": {
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "b2z-naming-audit",
+          "status": "PASS"
+        },
+        {
+          "id": "observer-recordings",
+          "status": "PASS"
+        },
+        {
+          "id": "protocol-fixtures",
+          "status": "PASS"
+        },
+        {
+          "id": "life-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "b2z-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "spawn-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "impact-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "b2z-full-traces",
+          "status": "PASS"
+        },
+        {
+          "id": "numeric-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "coordinator-vectors",
+          "status": "PASS"
+        },
+        {
+          "id": "observation-v6-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "observation-reference",
+          "status": "PASS"
+        },
+        {
+          "id": "portable-cursors",
+          "status": "PASS"
+        },
+        {
+          "id": "node-tests",
+          "status": "PASS",
+          "counts": {
+            "tests": 1320,
+            "pass": 1320,
+            "fail": 0,
+            "cancelled": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "id": "source-structure",
+          "status": "PASS"
+        },
+        {
+          "id": "docs-links",
+          "status": "PASS"
+        },
+        {
+          "id": "python-tool-tests",
+          "status": "PASS",
+          "counts": {
+            "tests": 137
+          }
+        }
+      ],
+      "raw_report": ".work/b2z-identity/source-final/verification.json"
+    },
+    "native": {
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "cargo-lock",
+          "status": "PASS"
+        },
+        {
+          "id": "cargo-tests",
+          "status": "PASS",
+          "counts": {
+            "passed": 21,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "id": "native-vectors",
+          "status": "PASS"
+        },
+        {
+          "id": "portable-lock",
+          "status": "PASS"
+        },
+        {
+          "id": "portable-rust-tests",
+          "status": "PASS",
+          "counts": {
+            "passed": 8,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "id": "native-public-game",
+          "status": "PASS"
+        },
+        {
+          "id": "native-public-host",
+          "status": "PASS"
+        },
+        {
+          "id": "portable-format",
+          "status": "PASS"
+        },
+        {
+          "id": "portable-clippy",
+          "status": "PASS"
+        },
+        {
+          "id": "cargo-format",
+          "status": "PASS"
+        },
+        {
+          "id": "cargo-clippy",
+          "status": "PASS"
+        }
+      ],
+      "raw_report": ".work/b2z-identity/native/verification.json"
+    },
+    "wasm": {
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "runtime-lab-lock",
+          "status": "PASS"
+        },
+        {
+          "id": "runtime-lab-wasm",
+          "status": "PASS"
+        },
+        {
+          "id": "runtime-lab-candid",
+          "status": "PASS"
+        },
+        {
+          "id": "runtime-lab-format",
+          "status": "PASS"
+        },
+        {
+          "id": "runtime-lab-clippy",
+          "status": "PASS"
+        }
+      ],
+      "raw_report": ".work/b2z-identity/wasm/verification.json"
+    },
+    "browser-http": {
+      "status": "PASS",
+      "raw_report": ".work/b2z-identity/browser-http/results.json"
+    },
+    "full-installed-index": {
+      "status": "PASS",
+      "raw_report": ".work/b2z-identity/local/results.json"
+    },
+    "final-location-installed-assets-and-upgrade": {
+      "status": "PASS",
+      "raw_report": ".work/b2z-identity/final-location/results.json"
+    },
+    "isolated-DTR-consumers": {
+      "status": "PASS",
+      "raw_report": ".work/b2z-identity/consumers/results.json"
+    }
+  },
+  "local_upgrade": {
+    "prior_module": "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4",
+    "players": 2,
+    "pending_inputs": 2,
+    "source_cursor_before": 7,
+    "publication_preserved": true,
+    "assigned_exactly_once": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "publications_replayed": 40,
+    "receipts": {
+      "2": [
+        "ACCEPTED",
+        "cannon_spawned"
+      ],
+      "3": [
+        "ACCEPTED",
+        "cannon_spawned"
+      ],
+      "4": [
+        "MALFORMED_MEMO",
+        null
+      ],
+      "5": [
+        "ACCEPTED",
+        "ball_spawned"
+      ],
+      "6": [
+        "MALFORMED_MEMO",
+        null
+      ],
+      "7": [
+        "MALFORMED_MEMO",
+        null
+      ],
+      "8": [
+        "NOT_OWN_TERRITORY",
+        null
+      ],
+      "9": [
+        "ACCEPTED",
+        "ball_spawned"
+      ]
+    },
+    "MOVE_123": "normalizes successfully, then NOT_OWN_TERRITORY; following ANGLE accepted",
+    "old_queued_prefix_free_rejection": "remains MALFORMED_MEMO"
+  },
+  "browser": {
+    "status": "PASS",
+    "sandbox": true,
+    "browser_version": "153.0.8010.12",
+    "memo": "ANGLE 37.5",
+    "copied": [
+      {
+        "field": "text",
+        "value": "ANGLE 37.5"
+      },
+      {
+        "field": "owner",
+        "value": "s34gv-3qaaa-aaaar-qcifa-cai"
+      },
+      {
+        "field": "amount",
+        "value": "1"
+      },
+      {
+        "field": "recipient",
+        "value": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+      },
+      {
+        "field": "hex",
+        "value": "414e474c452033372e35"
+      }
+    ],
+    "pointer_angles": [
+      0.0,
+      37.5,
+      90.0,
+      135.0,
+      180.0,
+      225.0,
+      270.0,
+      315.0,
+      359.99
+    ],
+    "keyboard": true,
+    "touch": true,
+    "offline_local_aim_and_payment_gating": true,
+    "reconnect_selection_preserved": true,
+    "first_head": 7181,
+    "post_count": 51,
+    "all_posts_read_only": true,
+    "page_errors": [],
+    "real_gameplay_transfer": "NOT_RUN; no funds sent",
+    "trust": "Standard SDK mainnet root; no substitute root, fetchRootKey or proxy"
+  },
+  "immutable_bytes": {
+    "status": "PASS",
+    "baseline": "75491ea287df97eb2677f47043b37795dbe3b423",
+    "byte_identical_files_by_family": {
+      "CHECKPOINT.json": 1,
+      "FILES.sha256": 1,
+      "apps": 194,
+      "benchmarks": 11,
+      "checkpoints": 25,
+      "evidence": 441,
+      "references": 32,
+      "tests": 21
+    },
+    "failures": []
+  },
+  "naming": {
+    "status": "PASS",
+    "counts": {
+      "immutable protocol/legacy decoder/fixture metadata": 99,
+      "archived release/provenance": 1377,
+      "frozen fixture/recording bytes": 77,
+      "explicit compatibility policy": 12,
+      "audit patterns for compatibility spellings": 2
+    },
+    "policy": "docs/architecture/LEGACY_IDENTIFIERS.md",
+    "raw_audit": ".work/b2z-identity/naming-release.json"
+  },
+  "workspace": {
+    "status": "PASS",
+    "old_path": "/home/codexdev/src/btz",
+    "new_path": "/home/codexdev/src/b2z",
+    "git_metadata_preserved": {
+      "head": "8dd26d03b4945a016268a8a2f6e885eb0e427d5d",
+      "branch": "checkpoint/b2z-identity-and-memos",
+      "git_directory_inode": 21942386,
+      "config_inode": 21950133,
+      "remote_names": [
+        "origin"
+      ]
+    }
+  },
+  "dtr_changes": "NONE",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "remote_git_operations": "NONE",
+  "new_remote_ci": "NOT_RUN; user push required",
+  "mainnet_gameplay_payment": "NOT_RUN; no real funds sent or text payment verified",
+  "remaining": [
+    "New GitHub CI awaits user push.",
+    "A real mainnet prefix-free memo payment remains user-owned and unverified.",
+    "Existing intermittent presentation buffering remains; this release changes neither cadence nor physics."
+  ],
+  "screenshots": [
+    "mainnet-desktop.png",
+    "mainnet-mobile.png",
+    "local-owned-move.png"
+  ],
+  "identity": {
+    "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+    "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+    "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+  },
+  "implementation_commits": [
+    "393c7693ca5939cc37a15035ffe4568dd714e3d2",
+    "8dd26d03b4945a016268a8a2f6e885eb0e427d5d"
+  ]
+}

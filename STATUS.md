@@ -1,6 +1,10 @@
 # Current status — B2Z naming and prefix-free memos
 
-Implementation and local verification are in progress on `checkpoint/b2z-identity-and-memos`. Existing deployed S15 module, history, pricing and account remain the baseline until the state-preserving upgrade is verified. DTR CHANGES: NONE.
+**Deployed and verified, 2026-10-20.** B2Z is the sole current product name. Canonical wallet memos are `ANGLE 37.5`, `ANGLE 225` and `MOVE 83`; adapter v3 retains published old forms and preserves queued canonical rows. Eight-byte ASCII commands are distinguished from legacy binary by actual magic/layout. Active paths, packages, symbols, tools, specifications and deployment aliases use B2Z/b2z. Historical protocol bytes and archived evidence remain unchanged.
+
+The existing backend now runs `187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1`. Backend-first upgrade and subsequent asset-only frontend upload preserved both principals, controllers, source progress, configuration identity and all three retained publications/artifact bytes. Join remains authenticated 1 ICP and the receiving account is unchanged. Public certificates, native copying, full-circle input, responsive layouts and reconnect pass. Autonomous segments advanced 7167 → 7172 with our browser closed; final certified snapshot reached 7205, with source/run errors clear.
+
+The checkout is `/home/codexdev/src/b2z`, branch `checkpoint/b2z-identity-and-memos`. Source/native/Wasm/browser/real local ICP ledger/index and exact installed-S15 recovery gates pass. [Report/screenshots](checkpoints/B2Z_IDENTITY_AND_MEMOS.md) / [evidence](evidence/B2Z/release.json) record exact scope and artifacts. DTR CHANGES: NONE, pinned revision unchanged. New CI is NOT_RUN pending user push; no real mainnet prefix-free memo payment was sent or verified. Existing intermittent buffering remains; no physics or cadence change was made. No next milestone starts automatically.
 
 <!-- ARCHIVED_STATUS -->
 

@@ -8,7 +8,9 @@ The normative [application contract](docs/specs/B2Z_APPLICATION.md) specifies pa
 
 ## B2Z naming and prefix-free memos
 
-The current release prepares `ANGLE 37.5`, `ANGLE 225` and `MOVE 83` with full-circle pointer/touch/keyboard aiming and one authenticated action card. The additive adapter retains S15 prefixed text, binary and numeric compatibility. See the [grammar](docs/specs/B2Z_TEXT_MEMOS.md) and [immutable identifier policy](docs/architecture/LEGACY_IDENTIFIERS.md). The release is undergoing local verification; deployed S15 module `c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4` remains the predecessor until the tested upgrade is recorded. Prices, receiving account, physics and DTR are unchanged.
+The [public observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) prepares `ANGLE 37.5`, `ANGLE 225` and `MOVE 83`, with full-circle aiming and an authenticated action card. Adapter v3 accepts prefix-free text and published S15/binary/numeric compatibility. Backend `187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1` was upgraded in place before the frontend upload; state, scores, retained publications, source progress and identities were preserved. Prices remain 1 ICP to join, 0.1 ICP ball base and 0.0001 ICP MOVE, fees separate. DTR is unchanged.
+
+The checkout is now `/home/codexdev/src/b2z`. See the [grammar](docs/specs/B2Z_TEXT_MEMOS.md), [immutable identifier policy](docs/architecture/LEGACY_IDENTIFIERS.md), [release report/screenshots](checkpoints/B2Z_IDENTITY_AND_MEMOS.md) and [reviewed evidence](evidence/B2Z/release.json). Local real ledger/index transfers, exact S15 recovery, DFX asset hosting and actual public certificate/copy/aim/reconnect checks pass. New CI is **NOT_RUN** pending user push. No real prefix-free mainnet gameplay payment has been verified. Existing intermittent presentation buffering remains; physics/cadence are unchanged.
 
 ## Live arcade / prelaunch release
 
