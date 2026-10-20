@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Legacy fixture metadata is preserved byte-for-byte; current application naming is B2Z.
 /** Generate new S12-only deterministic workloads; never rewrites historical goldens. */
 import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {dirname, resolve} from 'node:path';
@@ -6,10 +7,10 @@ import {fileURLToPath} from 'node:url';
 import {encodeCanonical, decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
-import {BtzCursor, encodePayment} from '../packages/kernels/btz/kernel.mjs';
-import {BTZ_IDENTITY, TEST_CONFIG, encodeWorld, fixtureWorld} from '../packages/kernels/btz/world.mjs';
-import {heading} from '../packages/kernels/btz/math.mjs';
-import {scenario} from '../tests/scenarios/btz.mjs';
+import {B2zCursor, encodePayment} from '../packages/kernels/b2z/kernel.mjs';
+import {B2Z_IDENTITY, TEST_CONFIG, encodeWorld, fixtureWorld} from '../packages/kernels/b2z/world.mjs';
+import {heading} from '../packages/kernels/b2z/math.mjs';
+import {scenario} from '../tests/scenarios/b2z.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const target = resolve(here, '../benchmarks/s12/workloads.json');
@@ -74,8 +75,8 @@ const definitions = [
 function complete(definition, budget) {
   const state = encodeWorld(definition.world);
   const inputs = definition.inputs ?? [];
-  const cursor = new BtzCursor(state, inputs, {
-    ...BTZ_IDENTITY, logical_start: definition.world.time[0], logical_end: definition.ticks
+  const cursor = new B2zCursor(state, inputs, {
+    ...B2Z_IDENTITY, logical_start: definition.world.time[0], logical_end: definition.ticks
   });
   let work = 0, slices = 0;
   while (cursor.phase !== 'done') {
@@ -100,7 +101,7 @@ const workloads = definitions.map(definition => {
   return {
     name: definition.name,
     family: definition.family,
-    rules: {...BTZ_IDENTITY},
+    rules: {...B2Z_IDENTITY},
     logical_start: definition.world.time[0].toString(),
     logical_end: definition.ticks.toString(),
     segments: definition.segments ?? 1,

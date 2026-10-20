@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
-import {projectAnimation,trajectory} from '../../packages/kernels/btz/animation.mjs';
-import {decodeWorld,position} from '../../packages/kernels/btz/world.mjs';
+import {projectAnimation,trajectory} from '../../packages/kernels/b2z/animation.mjs';
+import {decodeWorld,position} from '../../packages/kernels/b2z/world.mjs';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
-const rows=JSON.parse(fs.readFileSync(new URL('../fixtures/btz-v3-golden.json',import.meta.url),'utf8')).cases;
+const rows=JSON.parse(fs.readFileSync(new URL('../fixtures/b2z-v3-golden.json',import.meta.url),'utf8')).cases;
 function trackEvent(tracks,e){
   if(e.kind==='motion')tracks.set(e.ball,trajectory(e.ball_state));
   if(['ball_spawned','cannon_spawned','trajectory'].includes(e.kind))tracks.set(e.ball.id,trajectory(e.ball));

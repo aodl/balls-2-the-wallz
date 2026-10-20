@@ -1,4 +1,4 @@
-> Historical implementation context. The active S14 application is specified in [BTZ application](BTZ_APPLICATION.md). Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
+> Historical implementation context. The active S14 application is specified in [B2Z application](B2Z_APPLICATION.md). Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
 
 # S09 executed local supplement
 

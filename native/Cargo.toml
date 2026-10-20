@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["btz-native", "native-conformance"]
+members = ["b2z-native", "native-conformance"]
 
 [workspace.package]
 version = "0.5.0"

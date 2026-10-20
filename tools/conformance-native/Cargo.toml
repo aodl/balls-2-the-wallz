@@ -6,7 +6,7 @@ rust-version.workspace = true
 publish.workspace = true
 
 [dependencies]
-btz-protocol = { path = "../../crates/btz-protocol" }
+b2z-protocol = { path = "../../crates/b2z-protocol" }
 dtr-core.workspace = true
 life-conformance.workspace = true
-btz-mechanics = { path = "../../kernels/btz-mechanics" }
+b2z-mechanics = { path = "../../kernels/b2z-mechanics" }

@@ -37,6 +37,7 @@ def main():
     p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts');p.add_argument('--index-wasm',type=Path);p.add_argument('--test-filter');p.add_argument('--browser-python',default=sys.executable)
     p.add_argument('--prior-wasm',type=Path,help='Explicit reviewed S14 module for the ignored local price-transition probe')
     p.add_argument('--deployed-wasm',type=Path,help='Exact deployed 2cd80b module for state-preserving S15 upgrade test')
+    p.add_argument('--current-deployed-wasm',type=Path,help='Exact installed S15 c831ec module for B2Z adapter v3 recovery')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -89,18 +90,23 @@ def main():
         assert len(binaries)==1
         server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1200)
         env={key:str(path.resolve()) for key,path in files.items()}
-        env.update(POCKET_IC_SERVER_URL=server[3],BTZ_S14_WASM=str(out/'normal.wasm'),BTZ_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
+        env.update(POCKET_IC_SERVER_URL=server[3],B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         if a.deployed_wasm:
             if hashlib.sha256(a.deployed_wasm.read_bytes()).hexdigest()!='2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c':raise ValueError('S15 upgrade requires exact deployed module')
-            env['BTZ_DEPLOYED_WASM']=str(a.deployed_wasm.resolve())
+            env['B2Z_DEPLOYED_WASM']=str(a.deployed_wasm.resolve())
+        if a.current_deployed_wasm:
+            if hashlib.sha256(a.current_deployed_wasm.read_bytes()).hexdigest()!='c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4':raise ValueError('B2Z upgrade requires exact installed S15 module')
+            env['B2Z_CURRENT_DEPLOYED_WASM']=str(a.current_deployed_wasm.resolve())
         if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
-            env['BTZ_PRIOR_WASM']=str(a.prior_wasm.resolve())
+            env['B2Z_PRIOR_WASM']=str(a.prior_wasm.resolve())
         test_log=run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else []),*(['--ignored'] if a.prior_wasm else []),'--nocapture','--test-threads=1'],900,env)
         if not __import__('re').search(r'test result: ok\. [1-9][0-9]* passed',test_log):raise RuntimeError('No installed tests executed')
         if a.deployed_wasm:
             run('deployed-module-state-preserving-upgrade',[binaries[0],'s15_upgrade_from_deployed_module_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
+        if a.current_deployed_wasm:
+            run('installed-s15-state-preserving-upgrade',[binaries[0],'b2z_upgrade_from_s15_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
         if a.test_filter:
             result['overall']='PASS';save();return 0
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)

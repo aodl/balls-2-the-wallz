@@ -36,7 +36,7 @@ def main():
     if args.local_snapshot and args.live_config:parser.error('snapshot and live modes are mutually exclusive')
     if dependency_error:=observer_dependency_error():
         print(f'BLOCKED: {dependency_error}',file=sys.stderr);return 2
-    args.output.mkdir(parents=True,exist_ok=True);port=free_port();url=f'http://127.0.0.1:{port}/apps/btz-observer/'
+    args.output.mkdir(parents=True,exist_ok=True);port=free_port();url=f'http://127.0.0.1:{port}/apps/b2z-observer/'
     server_command=[sys.executable,'-B','tools/serve_observer.py','--port',str(port)]
     browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--url',url,'--output',str(args.output)]
     if args.local_snapshot:
@@ -64,9 +64,9 @@ def main():
         # genuine installed-canister trust is tested separately by S14.
         assets=args.output.resolve()/'assets';assets.mkdir(parents=True,exist_ok=True)
         for name in ['index.html','style.css','icon.svg']:
-            shutil.copyfile(ROOT/'apps/btz-observer'/name,assets/name)
-        shutil.copytree(ROOT/'apps/btz-observer/recordings',assets/'recordings',dirs_exist_ok=True)
-        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'apps/btz-observer/app.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/app.mjs'],cwd=ROOT,check=True)
+            shutil.copyfile(ROOT/'apps/b2z-observer'/name,assets/name)
+        shutil.copytree(ROOT/'apps/b2z-observer/recordings',assets/'recordings',dirs_exist_ok=True)
+        subprocess.run([str(ROOT/'node_modules/.bin/esbuild'),'apps/b2z-observer/app.mjs','--bundle','--format=esm','--platform=browser',f'--outfile={assets}/app.mjs'],cwd=ROOT,check=True)
         url=f'http://127.0.0.1:{port}/';server_command+=['--deployment-assets',str(assets)]
         browser_command=[sys.executable,'-B','tools/browser_observer.py','--mode','http','--url',url,'--output',str(args.output)]
     with (args.output/'server.log').open('w') as server_log:

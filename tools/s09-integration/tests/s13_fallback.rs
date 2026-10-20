@@ -195,7 +195,7 @@ fn s13_fallback_policy_trace() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     let mut native_cursor = 0;

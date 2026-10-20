@@ -1,13 +1,13 @@
 //! Native byte-vector emitter. Tooling compares these lines with independently generated fixtures.
 mod spawn_vectors;
-use btz_protocol::{encode, numeric, Command};
+use b2z_protocol::{encode, numeric, Command};
 use dtr_core::{ResumableKernel, Seal};
 use life_conformance::{Board, Cursor};
 fn hex(b: &[u8]) -> String {
     b.iter().map(|x| format!("{x:02x}")).collect()
 }
 fn main() {
-    emit_btz();
+    emit_b2z();
     spawn_vectors::emit();
     for line in include_str!("../../../tests/fixtures/memos.tsv")
         .lines()
@@ -66,9 +66,9 @@ fn main() {
     }
 }
 
-fn emit_btz() {
-    use btz_mechanics::{CutSearch, Fraction, Motion};
-    for (index, line) in include_str!("../../../tests/fixtures/btz-geometry.tsv")
+fn emit_b2z() {
+    use b2z_mechanics::{CutSearch, Fraction, Motion};
+    for (index, line) in include_str!("../../../tests/fixtures/b2z-geometry.tsv")
         .lines()
         .filter(|l| !l.starts_with('#') && !l.is_empty())
         .enumerate()
@@ -89,7 +89,7 @@ fn emit_btz() {
             )
             .unwrap();
         println!(
-            "btz-geometry\t{}\t{}\t{}\t{}\t{}",
+            "b2z-geometry\t{}\t{}\t{}\t{}\t{}",
             index,
             hit.time.numerator(),
             hit.time.denominator(),
@@ -97,7 +97,7 @@ fn emit_btz() {
             u8::from(hit.y)
         );
     }
-    for (index, line) in include_str!("../../../tests/fixtures/btz-connectivity.tsv")
+    for (index, line) in include_str!("../../../tests/fixtures/b2z-connectivity.tsv")
         .lines()
         .filter(|l| !l.starts_with('#') && !l.is_empty())
         .enumerate()
@@ -124,7 +124,7 @@ fn emit_btz() {
             .collect::<Vec<_>>()
             .join(",");
         println!(
-            "btz-cut\t{}\t{}",
+            "b2z-cut\t{}\t{}",
             index,
             if values.is_empty() { "-" } else { &values }
         );

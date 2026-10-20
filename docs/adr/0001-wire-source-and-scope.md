@@ -4,7 +4,7 @@ Status: accepted for the source checkpoint; live deployment gates remain open.
 
 ## Decisions
 
-One compact 8-byte BTZ memo supports two transports without ambiguous precedence. Numeric memo values remain strings/BigInt in JavaScript. A blob plus nonzero legacy memo rejects against the pinned ICP contract.
+One compact 8-byte B2Z memo supports two transports without ambiguous precedence. Numeric memo values remain strings/BigInt in JavaScript. A blob plus nonzero legacy memo rejects against the pinned ICP contract.
 
 Participant identity is the canonical ledger funding account, not an inferred principal. Non-null spenders do not carry cannon-command authority in v1. This deliberately does not support ICRC-2 command payments.
 

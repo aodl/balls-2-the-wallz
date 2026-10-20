@@ -15,7 +15,7 @@ from pathlib import Path
 from verify_s09_local import execute, record_artifact, sha256, start_pocketic, stop_pocketic, version
 
 ROOT=Path(__file__).resolve().parents[1]
-BTZ_GIT='https://github.com/aodl/balls-2-the-wallz'
+B2Z_GIT='https://github.com/aodl/balls-2-the-wallz'
 S10_REVISION='e4405bbdcfccb11533d8a2a98ce709e2d8d02ed0'
 S10_TREE='42c9f5c7b01b94bd1fe6da40cc55bc34513f7220'
 
@@ -32,13 +32,13 @@ def source_provenance(root):
 
 def require_unchanged_source(expected):
     actual=source_provenance(ROOT)
-    if actual!=expected:raise ValueError(f'BTZ source changed during verification: started {expected}, now {actual}')
+    if actual!=expected:raise ValueError(f'B2Z source changed during verification: started {expected}, now {actual}')
 
 def reuse_historical_baseline(wasm,evidence,output):
     if wasm is None or evidence is None or not wasm.is_file() or not evidence.is_file():
         raise ValueError('historical baseline reuse requires existing Wasm and evidence files')
     prior=json.loads(evidence.read_text());source=prior.get('baseline_source',{});module=prior.get('module_provenance',{}).get('baseline',{})
-    if (source.get('remote','').removesuffix('.git')!=BTZ_GIT or source.get('revision')!=S10_REVISION
+    if (source.get('remote','').removesuffix('.git')!=B2Z_GIT or source.get('revision')!=S10_REVISION
       or source.get('tree')!=S10_TREE or module.get('source_revision')!=S10_REVISION or module.get('source_tree')!=S10_TREE
       or module.get('sha256')!=sha256(wasm)):
         raise ValueError('historical baseline reuse provenance is invalid')
@@ -64,17 +64,17 @@ def record_module(report,name,path,source,module_selection):
 def build_historical_baseline(output):
     """Build the pinned S10 module in a disposable checkout outside both source trees."""
     rows=[]
-    with tempfile.TemporaryDirectory(prefix='btz-s10-source-') as directory:
+    with tempfile.TemporaryDirectory(prefix='b2z-s10-source-') as directory:
         temporary=Path(directory);source=temporary/'source';target=temporary/'target'
         commands=[
-          ('historical-source-clone',['git','clone','--filter=blob:none','--no-checkout',BTZ_GIT,str(source)],900,{}),
+          ('historical-source-clone',['git','clone','--filter=blob:none','--no-checkout',B2Z_GIT,str(source)],900,{}),
           ('historical-source-checkout',['git','-C',str(source),'checkout','--detach',S10_REVISION],300,{}),
         ]
         for identifier,command,timeout,environment in commands:
             row=execute(identifier,command,output,timeout,environment);rows.append(row)
             if row['status']!='PASS':return None,None,rows
         provenance=source_provenance(source)
-        if provenance['remote'].removesuffix('.git')!=BTZ_GIT or provenance['revision']!=S10_REVISION or provenance['tree']!=S10_TREE or provenance['working_tree_changes']:
+        if provenance['remote'].removesuffix('.git')!=B2Z_GIT or provenance['revision']!=S10_REVISION or provenance['tree']!=S10_TREE or provenance['working_tree_changes']:
             raise ValueError(f'invalid historical source provenance: {provenance}')
         command=['cargo','+1.94.1','build','--manifest-path',str(source/'canisters/runtime-lab/Cargo.toml'),
           '--release','--target','wasm32-unknown-unknown','--locked']

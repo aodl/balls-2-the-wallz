@@ -1,4 +1,4 @@
-use btz_native::host::BtzHostKernel;
+use b2z_native::host::B2zHostKernel;
 use candid::{CandidType, Deserialize, Principal, decode_one, encode_args};
 use dtr_host::observation::{Publication, publication as native_publication};
 use dtr_host::{Action, Coordinator};
@@ -386,7 +386,7 @@ fn controller() -> Principal {
 
 fn initial_world() -> Vec<u8> {
     let path =
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/btz-v3-golden.json");
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/b2z-v3-golden.json");
     let value: serde_json::Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
     let text = value["cases"][0]["initial_hex"].as_str().unwrap();
     dtr_wire::unhex(text).unwrap()
@@ -2236,7 +2236,7 @@ fn live_autonomous_ledger_browser_reconnect_upgrade_and_replay() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     let mut source_cursor = 0u64;
@@ -2653,7 +2653,7 @@ fn upstream_ledger_archive_to_recovered_publication_matches_native() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     native

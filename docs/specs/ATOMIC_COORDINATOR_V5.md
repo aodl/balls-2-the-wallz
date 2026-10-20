@@ -2,7 +2,7 @@
 
 # Atomic coordinator v5
 
-Status: executed JS reference; matching native source and IC laboratory authored but uncompiled. BTZ gameplay stays v3; this is a host schema version, not a rules change. No implicit import/migration of separate historical v2 inbox/journal images is supported.
+Status: executed JS reference; matching native source and IC laboratory authored but uncompiled. B2Z gameplay stays v3; this is a host schema version, not a rules change. No implicit import/migration of separate historical v2 inbox/journal images is supported.
 
 ## Responsibility and authority
 
@@ -49,6 +49,6 @@ Recording a seal makes replay deterministic; it does not prove cutoff fairness. 
 
 ## Native evidence
 
-`native/dtr-host` imports no game or IC library. BTZ implements its adapter in `native/btz-native/src/host.rs`. A non-BTZ toy kernel is used by authored Rust unit tests; the executed JS host runs both Life and BTZ.
+`native/dtr-host` imports no game or IC library. B2Z implements its adapter in `native/b2z-native/src/host.rs`. A non-B2Z toy kernel is used by authored Rust unit tests; the executed JS host runs both Life and B2Z.
 
 `tools/verify_host_native.py` is an actual native command runner, not a replacement oracle. It requires exact intermediate image comparisons, imported-JS continuations and native-to-JS resumptions. Until it executes, native equivalence is unverified.

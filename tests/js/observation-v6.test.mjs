@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
 import {publication,publishedChunk,PublicationWindow} from '@dtr/timeline-runtime/observation/publication';
-import {projectAnimation} from '../../packages/kernels/btz/animation.mjs';
+import {projectAnimation} from '../../packages/kernels/b2z/animation.mjs';
 import {verifyPinnedPublication,verifyCertificatePublication,verifyRetainedPredecessor,ArtifactAssembler,PublicationSequence} from '@dtr/timeline-runtime/client/verification';
 import {unhex} from '@dtr/timeline-runtime/protocol/bytes';import{decodeCanonical,encodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
 function complete(host,end){host.seal(end);while(host.status().phase==='running')host.advance(127);host.publish(host.status().ready_hash);}
@@ -54,7 +54,7 @@ test('v6 rejects operational metadata, invalid projection shape, and missing cer
  await assert.rejects(verifyCertificatePublication(p.bytes,Uint8Array.of(1),{},undefined),/unavailable/);
  assert.throws(()=>publication(host.publicationRecord(),{render:{format:'x',bytes:'abc'}}),/schema/);
 });
-test('certified/pinned catalog binds a compact BTZ render artifact alongside unchanged audit events',async()=>{
+test('certified/pinned catalog binds a compact B2Z render artifact alongside unchanged audit events',async()=>{
  const {host,records,end}=coordinatorScenario('dense'),initial=unhex(host.committed().state_hex);
  host.ingestPrefix(0n,records,records.length?'ab'.repeat(32):'00'.repeat(32));complete(host,end);
  const h=host.committed(),out=projectAnimation(initial,unhex(h.event_hex)),render={format:out.format,bytes:out.bytes};

@@ -1,5 +1,5 @@
 //! Actual native coordinator fixture comparison. Missing toolchain is not a pass.
-use btz_native::host::BtzHostKernel;
+use b2z_native::host::B2zHostKernel;
 use dtr_host::{Action, Coordinator, Record};
 use dtr_wire::{decode, encode, hash, hex, unhex, Result};
 use serde_json::Value;
@@ -24,7 +24,7 @@ fn main_inner() -> Result<()> {
             }
             let name = text(&row["name"])?;
             let genesis = unhex(text(&row["genesis_hex"])?)?;
-            let mut h = Coordinator::restore(&genesis, &hash(&genesis), BtzHostKernel)?;
+            let mut h = Coordinator::restore(&genesis, &hash(&genesis), B2zHostKernel)?;
             for step in row["actions"].as_array().ok_or("actions")? {
                 h.apply(decode::<Action>(&unhex(text(&step["action_hex"])?)?)?)?;
                 let expected: Record = decode(&unhex(text(&step["image_hex"])?)?)?;
@@ -37,7 +37,7 @@ fn main_inner() -> Result<()> {
                 }
                 // Restore native's own private image; never require another language's working bytes.
                 let own = h.snapshot()?;
-                h = Coordinator::restore(&own, &hash(&own), BtzHostKernel)?;
+                h = Coordinator::restore(&own, &hash(&own), B2zHostKernel)?;
             }
             println!(
                 "host_public\t{name}\t{}",
@@ -65,7 +65,7 @@ fn main_inner() -> Result<()> {
         }
         let genesis = unhex(text(&row["genesis_hex"])?)?;
         let actions = row["actions"].as_array().ok_or("actions")?;
-        let mut host = Coordinator::restore(&genesis, &hash(&genesis), BtzHostKernel)?;
+        let mut host = Coordinator::restore(&genesis, &hash(&genesis), B2zHostKernel)?;
         for (index, step) in actions.iter().enumerate() {
             let action: Action = decode(&unhex(text(&step["action_hex"])?)?)?;
             host.apply(action)?;
@@ -90,7 +90,7 @@ fn main_inner() -> Result<()> {
                 println!("host\t{name}\t{index}\t{}", hash(&bytes));
             }
             // Resume canonical bytes after every actual native operation.
-            host = Coordinator::restore(&bytes, &hash(&bytes), BtzHostKernel)?;
+            host = Coordinator::restore(&bytes, &hash(&bytes), B2zHostKernel)?;
         }
         if args.len() > 1 {
             return Err("export index out of range".into());
@@ -114,7 +114,7 @@ fn main_inner() -> Result<()> {
         // Also import every JS intermediate image and execute all remaining operations.
         for (index, step) in actions.iter().enumerate() {
             let bytes = unhex(text(&step["image_hex"])?)?;
-            let mut resumed = Coordinator::restore(&bytes, &hash(&bytes), BtzHostKernel)?;
+            let mut resumed = Coordinator::restore(&bytes, &hash(&bytes), B2zHostKernel)?;
             for next in actions.iter().skip(index + 1) {
                 resumed.apply(decode(&unhex(text(&next["action_hex"])?)?)?)?;
             }
@@ -131,6 +131,7 @@ fn main_inner() -> Result<()> {
     }
     Ok(())
 }
+// Legacy fixture metadata is preserved byte-for-byte; current application naming is B2Z.
 fn main() {
     if let Err(e) = main_inner() {
         eprintln!("FAIL: {e}");

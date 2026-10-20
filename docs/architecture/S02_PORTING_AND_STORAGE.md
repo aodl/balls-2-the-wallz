@@ -4,11 +4,11 @@ The executable reference fixes semantics before committing to a canister storage
 
 ## What the reference has established
 
-Life and BTZ use the same prepare/step/ready/publish host without game imports in the host. Input application occurs before autonomous evolution and is included in canonical event receipts. Source inbox and runtime have separate monotonic frontiers with an explicit reservation/acknowledgement handoff. The test suite exercises hidden partially disconnected capture state and late/stale operation results.
+Life and B2Z use the same prepare/step/ready/publish host without game imports in the host. Input application occurs before autonomous evolution and is included in canonical event receipts. Source inbox and runtime have separate monotonic frontiers with an explicit reservation/acknowledgement handoff. The test suite exercises hidden partially disconnected capture state and late/stale operation results.
 
 ## Rust port order
 
-Keep exact geometry and simple graph reference algorithms until complete native/JS output parity exists. The new `btz-mechanics` crate already provides fractions, next crossing, reflection, CORDIC and a serialized cut-search cursor. It is uncompiled in this environment. Its snapshots are not the same format as the JS whole-world cursor, and no equivalence claim is made for that entire state machine.
+Keep exact geometry and simple graph reference algorithms until complete native/JS output parity exists. The new `b2z-mechanics` crate already provides fractions, next crossing, reflection, CORDIC and a serialized cut-search cursor. It is uncompiled in this environment. Its snapshots are not the same format as the JS whole-world cursor, and no equivalence claim is made for that entire state machine.
 
 Port the world invariants, command receipts, full batch/cascade rules and score accounting next. Freeze language-independent full-state/event/score vectors before replacing the JS typed-JSON reference with compact Rust encodings. Any change to rules or encoding requires a version boundary. Do not equate passing primitive tests with full Rust/JS parity.
 

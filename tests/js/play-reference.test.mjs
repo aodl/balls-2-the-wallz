@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {cannonReference,operationalText} from '../../apps/btz-observer/play-reference.mjs';
-import {TEST_CONFIG} from '../../packages/kernels/btz/world.mjs';
-import {ballPrice} from '../../packages/kernels/btz/kernel.mjs';
+import {cannonReference,operationalText} from '../../apps/b2z-observer/play-reference.mjs';
+import {TEST_CONFIG} from '../../packages/kernels/b2z/world.mjs';
+import {ballPrice} from '../../packages/kernels/b2z/kernel.mjs';
 test('public price reference agrees with kernel occupancy pricing and capacity',()=>{
   for(const n of [1,2,3,31,32]){
     const world={cannons:[{id:7,account:'ab'.repeat(32),cell:1}],cells:[0,7,7,0],balls:Array.from({length:n},()=>({owner:7}))};

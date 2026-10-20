@@ -6,7 +6,7 @@
 |---|---|---|
 | Atomic input/seal/simulation/retirement | coordinator tests, per-operation before/after fault matrix | JS atomic model, not executed IC stable memory |
 | Saved image portability | five workloads and every saved-image continuation | Native runner authored; native side unexecuted |
-| Game-independent host | Life and BTZ through same JS coordinator; native toy-kernel tests authored | Complete native Life adapter not claimed |
+| Game-independent host | Life and B2Z through same JS coordinator; native toy-kernel tests authored | Complete native Life adapter not claimed |
 | Correct publication bytes | independent Python standard-library constructor, five cases | Source host worlds are implementation-derived |
 | Chunk integrity and bounds | shuffled/duplicate/corrupt/stale/incomplete artifact tests | Not IC certificate authenticity |
 | Certificate fail-closed boundary | missing-verifier, deployment, time and root tests using labelled stubs | No actual BLS/delegation/key verification |
@@ -21,7 +21,7 @@
 
 `observation-v5.json` is independently constructed in Python from those saved worlds. It checks canonical publication and catalog hashing, not independent game physics or ledger truth. Previous independent geometry/topology/placement/collision/large-fraction references are retained unchanged.
 
-The new native gate expects 60 actual comparison lines and four native-to-JavaScript continuations (four BTZ scenarios, seven host operations each, seven imported resumptions each, and one publication comparison each). Do not equate an authored runner or empty test filter with executed evidence.
+The new native gate expects 60 actual comparison lines and four native-to-JavaScript continuations (four B2Z scenarios, seven host operations each, seven imported resumptions each, and one publication comparison each). Do not equate an authored runner or empty test filter with executed evidence.
 
 ## Remaining integration gates
 

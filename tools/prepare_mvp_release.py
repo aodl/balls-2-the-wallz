@@ -40,12 +40,12 @@ def main():
     args=['node','tools/prepare_s14_init.mjs','--output',str(out/'init.did'),'--world-output',str(out/'world.bin'),'--profile-output',str(out/'launch.json')]
     if a.event_horizon:args+=['--event-horizon',a.event_horizon]
     run(*args)
-    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.12.0.tgz','dfx.json','config/economics/prelaunch.json','packages/kernels/btz/economics.generated.mjs','native/btz-native/src/economics_generated.rs','references/S14/mvp-configuration.bin']
+    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.12.0.tgz','dfx.json','config/economics/prelaunch.json','packages/kernels/b2z/economics.generated.mjs','native/b2z-native/src/economics_generated.rs','references/S14/mvp-configuration.bin']
     if run('git','rev-parse','HEAD')!=source_commit or run('git','status','--porcelain'):
         raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
     result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,
       'dtr_revision':DTR,'javascript_package':npm,'dependency_sha256':{name:sha(ROOT/name) for name in paths},
-      'memo_adapter_version':2,'memo_format':'BTZ text/2; binary/numeric compatibility; canonical BTZPAY02 unchanged','normal_features':[],'normal_exports':exports,'artifacts':{path.name:{'sha256':sha(path),'bytes':path.stat().st_size} for path in sorted(out.iterdir()) if path.is_file()},
+      'memo_adapter_version':3,'memo_format':'B2Z text/3 prefix-free; S15 prefixed text and binary/numeric compatibility; canonical BTZPAY02 unchanged','normal_features':[],'normal_exports':exports,'artifacts':{path.name:{'sha256':sha(path),'bytes':path.stat().st_size} for path in sorted(out.iterdir()) if path.is_file()},
       'tools':{name:run(*command) for name,command in {'rustc':['rustc','--version'],'cargo':['cargo','--version'],'node':['node','--version'],'npm':['npm','--version'],'dfx':['dfx','--version'],'python':['python3.11','--version']}.items()},
       'install':'User installs normal.wasm with explicit --wasm; later test builds cannot replace this frozen copy.',
       'observer':'Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.',

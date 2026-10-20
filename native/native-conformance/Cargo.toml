@@ -9,5 +9,5 @@ publish = false
 [dependencies]
 dtr-host.workspace = true
 dtr-wire.workspace = true
-btz-native = { path = "../btz-native" }
+b2z-native = { path = "../b2z-native" }
 serde_json.workspace = true

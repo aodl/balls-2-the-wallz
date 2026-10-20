@@ -7,23 +7,23 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {build} from 'esbuild';
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
-import {PRELAUNCH_CONFIG} from '../packages/kernels/btz/world.mjs';
-import {mainnetPolicy} from '../apps/btz-observer/mainnet.mjs';
+import {PRELAUNCH_CONFIG} from '../packages/kernels/b2z/world.mjs';
+import {mainnetPolicy} from '../apps/b2z-observer/mainnet.mjs';
 const {values}=parseArgs({options:{canister:{type:'string'},'local-test-config':{type:'string'},output:{type:'string',default:'.work/s14/assets'}}});
 const test=Boolean(values['local-test-config']);
 if(test&&values.canister)throw new Error('local test configuration and mainnet canister are exclusive');
 const policy=test?(await import('./fixtures/s14-local-deployment.mjs')).deploymentPolicy(JSON.parse(await readFile(values['local-test-config'],'utf8'))):mainnetPolicy({network:'ic',host:'https://icp-api.io',canister_id:values.canister});
-if(!Buffer.from(await readFile('apps/btz-observer/configuration.bin')).equals(Buffer.from(encodeCanonical(PRELAUNCH_CONFIG))))throw new Error('configuration asset differs from current kernel');
+if(!Buffer.from(await readFile('apps/b2z-observer/configuration.bin')).equals(Buffer.from(encodeCanonical(PRELAUNCH_CONFIG))))throw new Error('configuration asset differs from current kernel');
 const out=resolve(values.output);await mkdir(out,{recursive:true});
 const deployment=JSON.stringify(policy);
-const moduleSource=test?`export default ${deployment}; export {deploymentPolicy,deploymentConnection,deploymentSource} from '${resolve('tools/fixtures/s14-local-deployment.mjs')}';`:(await readFile('apps/btz-observer/deployment.mjs','utf8')).replace('export default null;',`export default ${deployment};`);
-const built=await build({metafile:true,entryPoints:['apps/btz-observer/app.mjs'],bundle:true,format:'esm',platform:'browser',outfile:out+'/app.mjs',
- plugins:[{name:'trusted-deployment',setup(b){b.onLoad({filter:/\/btz-observer\/deployment\.mjs$/},()=>({contents:moduleSource,loader:'js',resolveDir:resolve('apps/btz-observer')}));}}]});
-for(const file of ['style.css','icon.svg','configuration.bin','configuration-legacy.bin'])await cp('apps/btz-observer/'+file,out+'/'+file);
+const moduleSource=test?`export default ${deployment}; export {deploymentPolicy,deploymentConnection,deploymentSource} from '${resolve('tools/fixtures/s14-local-deployment.mjs')}';`:(await readFile('apps/b2z-observer/deployment.mjs','utf8')).replace('export default null;',`export default ${deployment};`);
+const built=await build({metafile:true,entryPoints:['apps/b2z-observer/app.mjs'],bundle:true,format:'esm',platform:'browser',outfile:out+'/app.mjs',
+ plugins:[{name:'trusted-deployment',setup(b){b.onLoad({filter:/\/b2z-observer\/deployment\.mjs$/},()=>({contents:moduleSource,loader:'js',resolveDir:resolve('apps/b2z-observer')}));}}]});
+for(const file of ['style.css','icon.svg','configuration.bin','configuration-legacy.bin'])await cp('apps/b2z-observer/'+file,out+'/'+file);
 // Local acceptance assets permit only their explicitly pinned loopback gateway.
 // Production always permits the single reviewed IC endpoint.
 const connect=test?new URL(policy.host).origin:'https://icp-api.io';
-const html=(await readFile('apps/btz-observer/index.html','utf8')).replace("connect-src 'self'",`connect-src 'self' ${connect}`);
+const html=(await readFile('apps/b2z-observer/index.html','utf8')).replace("connect-src 'self'",`connect-src 'self' ${connect}`);
 await writeFile(out+'/index.html',html);await writeFile(out+'/deployment.json',deployment+'\n');
 if(!test&&Object.keys(built.metafile.inputs).some(p=>p.includes('s14-local-deployment')))throw new Error('test adapter leaked into production');
 console.log(`Built observer for ${policy.canister_id}: ${out}`);
@@ -39,7 +39,7 @@ const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
 let deploymentIds=null;
 try{
  const bytes=await readFile('canister_ids.json'),ids=JSON.parse(bytes);
- if(!test&&ids.btz?.ic&&ids.btz.ic!==policy.canister_id)throw new Error('backend differs from recorded mainnet canister');
+ if(!test&&ids.b2z?.ic&&ids.b2z.ic!==policy.canister_id)throw new Error('backend differs from recorded mainnet canister');
  deploymentIds=createHash('sha256').update(bytes).digest('hex');
 }catch(error){if(error.code!=='ENOENT')throw error;}
 const sourceDirty=git('status','--porcelain','--untracked-files=all').split('\n').filter(Boolean).some(line=>line.slice(3)!=='canister_ids.json');

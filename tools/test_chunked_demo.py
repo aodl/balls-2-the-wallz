@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 class ChunkedDemoTests(unittest.TestCase):
     def run_demo(self,file,*args,success=True):
-        p=subprocess.run(['node','tools/chunked_demo.mjs','btz','admission','--journal',str(file),*args],cwd=ROOT,capture_output=True,text=True,timeout=30)
+        p=subprocess.run(['node','tools/chunked_demo.mjs','b2z','admission','--journal',str(file),*args],cwd=ROOT,capture_output=True,text=True,timeout=30)
         if not success:
             self.assertNotEqual(p.returncode,0);return p
         self.assertEqual(p.returncode,0,p.stderr);return json.loads(p.stdout)

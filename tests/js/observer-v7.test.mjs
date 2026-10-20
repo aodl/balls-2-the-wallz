@@ -1,13 +1,13 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs/promises';
-import {prepareSegment,BtzView,snapshot,SegmentPlayer,timeNumber} from '../../apps/btz-observer/model.mjs';
-import {loadEntry,readBytes,validateIndex} from '../../apps/btz-observer/transport.mjs';
+import {prepareSegment,B2zView,snapshot,SegmentPlayer,timeNumber} from '../../apps/b2z-observer/model.mjs';
+import {loadEntry,readBytes,validateIndex} from '../../apps/b2z-observer/transport.mjs';
 import {PublicationSequence,sha256Web} from '@dtr/timeline-runtime/client/verification';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
-import {projectAnimation} from '../../packages/kernels/btz/animation.mjs';
+import {projectAnimation} from '../../packages/kernels/b2z/animation.mjs';
 import {publication} from '@dtr/timeline-runtime/observation/publication';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
-const root=new URL('../../apps/btz-observer/',import.meta.url);
+const root=new URL('../../apps/b2z-observer/',import.meta.url);
 const index=validateIndex(JSON.parse(await fs.readFile(new URL('recordings/index.json',root),'utf8')));
 const fetcher=async path=>{const b=await fs.readFile(new URL(path,root));return new Response(b);};
 for(const r of index.recordings)test(`observer ${r.id}: every recorded segment verifies, chains and reconstructs`,async()=>{
@@ -21,11 +21,11 @@ for(const r of index.recordings)test(`observer ${r.id}: every recorded segment v
   }
   assert.equal(Number(prior.ticket.publication.head.logical_end),r.logical_end);
 });
-const goldens=JSON.parse(await fs.readFile(new URL('../fixtures/btz-v3-golden.json',import.meta.url),'utf8')).cases;
+const goldens=JSON.parse(await fs.readFile(new URL('../fixtures/b2z-v3-golden.json',import.meta.url),'utf8')).cases;
 for(const g of goldens)test(`observer ${g.name}: visible world agrees with full audit at every event boundary`,()=>{
   const initial=unhex(g.initial_hex),audit=decodeCanonical(unhex(g.outputs.events.hex));
   const p=decodeCanonical(projectAnimation(initial,unhex(g.outputs.events.hex)).bytes);
-  const full=new BtzView(snapshot(initial)),compact=new BtzView(snapshot(initial)),bySequence=new Map(p.events.map(e=>[e.sequence,e]));
+  const full=new B2zView(snapshot(initial)),compact=new B2zView(snapshot(initial)),bySequence=new Map(p.events.map(e=>[e.sequence,e]));
   for(const e of audit.events){
     full.apply(e.kind==='motion'?{kind:'trajectory',ball:e.ball_state,time:e.time}:e);
     if(bySequence.has(e.sequence))compact.apply(bySequence.get(e.sequence));
@@ -50,7 +50,7 @@ for(const [label,change] of [
 });
 test('snapshot rejects non-finite visual time',()=>{const w=decodeCanonical(a.state);w.time=[10n**400n,1n];assert.throws(()=>snapshot(encodeCanonical(w)),/time/);});
 test('snapshot rejects unknown territory owner',()=>{const w=decodeCanonical(a.state);w.cells[0]=65535;assert.throws(()=>snapshot(encodeCanonical(w)),/owner/);});
-test('unknown event fails closed',()=>{const v=new BtzView(snapshot(a.state));assert.throws(()=>v.apply({kind:'mystery',time:[0n,1n]}),/unsupported/);});
+test('unknown event fails closed',()=>{const v=new B2zView(snapshot(a.state));assert.throws(()=>v.apply({kind:'mystery',time:[0n,1n]}),/unsupported/);});
 test('altered final state is rejected by its hash',async()=>{const w=decodeCanonical(b.state);w.received_e8s++;await assert.rejects(prepareSegment(a.state,encodeCanonical(w),b.render,b.ticket.publication),/hash/);});
 test('reader rejects declared oversize before reading',async()=>{await assert.rejects(readBytes('x',3,undefined,async()=>new Response('four',{headers:{'content-length':'4'}})),/limit/);});
 test('reader bounds chunked bodies without a length header',async()=>{await assert.rejects(readBytes('x',3,undefined,async()=>new Response('four')),/limit/);});
@@ -68,7 +68,7 @@ test('render artifact cannot be substituted even with plausible semantics',async
 
 test('ephemeral collision effects survive a verified segment transition without changing ownership',()=>{
  const w=snapshot(unhex(goldens[0].initial_hex));
- const previous=new BtzView(w),next=new BtzView(w);
+ const previous=new B2zView(w),next=new B2zView(w);
  previous.effects=[{kind:'capture',cell:0,t:1.8,owner:1},{kind:'burst',x:1,y:1,t:.1,owner:1}];previous.lastEvent='capture';
  next.continuePresentation(previous,2);
  assert.deepEqual(next.effects,[previous.effects[0]]);assert.equal(next.lastEvent,'capture');

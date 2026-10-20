@@ -1,7 +1,7 @@
 {
   "version": 1,
   "canisters": {
-    "btz": {
+    "b2z": {
       "type": "custom",
       "candid": "canisters/runtime-lab/runtime-lab.did",
       "wasm": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",

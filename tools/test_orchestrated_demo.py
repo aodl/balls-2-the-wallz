@@ -13,9 +13,9 @@ class OrchestratedRecovery(unittest.TestCase):
             self.assertEqual(second['manifest_hash'],baseline['manifest_hash']);self.assertEqual(second['pending_inputs'],0)
             self.assertEqual(second['observer_verification'],'offline-pinned-content')
             if fault=='publish:after':self.assertEqual(second['revision'],first['revision'])
-    def test_btz_seal_crash(self):self.fault_case('admission','seal:after')
-    def test_btz_publish_before(self):self.fault_case('admission','publish:before')
-    def test_btz_lost_publish_ack(self):self.fault_case('admission','publish:after')
+    def test_b2z_seal_crash(self):self.fault_case('admission','seal:after')
+    def test_b2z_publish_before(self):self.fault_case('admission','publish:before')
+    def test_b2z_lost_publish_ack(self):self.fault_case('admission','publish:after')
     def test_life_lost_publish_ack(self):self.fault_case('life','publish:after')
     def test_corruption_does_not_reset_genesis(self):
         with tempfile.TemporaryDirectory()as d:

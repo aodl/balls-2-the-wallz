@@ -12,9 +12,9 @@ def main():
  if not 8<=a.seconds<=25:p.error('bounded capture: 8–25 seconds')
  out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
  assets=out/'assets';assets.mkdir(exist_ok=True)
- subprocess.run(['node_modules/.bin/esbuild','apps/btz-observer/app.mjs','--bundle','--format=esm','--platform=browser','--outfile='+str(assets/'app.mjs')],cwd=ROOT,check=True)
- for name in ['index.html','style.css','icon.svg']:shutil.copyfile(ROOT/'apps/btz-observer'/name,assets/name)
- shutil.copytree(ROOT/'apps/btz-observer/recordings',assets/'recordings',dirs_exist_ok=True)
+ subprocess.run(['node_modules/.bin/esbuild','apps/b2z-observer/app.mjs','--bundle','--format=esm','--platform=browser','--outfile='+str(assets/'app.mjs')],cwd=ROOT,check=True)
+ for name in ['index.html','style.css','icon.svg']:shutil.copyfile(ROOT/'apps/b2z-observer'/name,assets/name)
+ shutil.copytree(ROOT/'apps/b2z-observer/recordings',assets/'recordings',dirs_exist_ok=True)
  # Timing is presentation metadata. Keep all historical catalogs/artifacts/pins byte-identical.
  index=json.loads((assets/'recordings/index.json').read_text());index['recordings'][0]['tick_seconds']=1
  (assets/'recordings/index.json').write_text(json.dumps(index))

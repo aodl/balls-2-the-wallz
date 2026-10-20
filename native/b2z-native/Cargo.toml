@@ -1,0 +1,17 @@
+[package]
+name = "b2z-native"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+dtr-host.workspace = true
+dtr-wire.workspace = true
+b2z-mechanics = { path = "../../kernels/b2z-mechanics" }
+b2z-protocol = { path = "../../crates/b2z-protocol" }
+serde.workspace = true
+serde_json.workspace = true
+num-bigint.workspace = true
+num-rational.workspace = true
+num-traits.workspace = true

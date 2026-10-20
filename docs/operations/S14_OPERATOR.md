@@ -1,3 +1,13 @@
+# Current B2Z upgrade procedure
+
+The current task authorizes a tested in-place upgrade on backend `s34gv-3qaaa-aaaar-qcifa-cai` and an asset update on frontend `s45ab-wiaaa-aaaar-qcifq-cai`, using `codex_local`. Verify `dfx --identity codex_local canister id b2z --network ic` and the observer alias resolve exactly to those principals. Never create another canister to repair an alias. Record modules/controllers/cycles, certified state/scores/source identity/cursor and pending work; prove recovery from the installed S15 module locally; freeze normal Wasm and assets; upgrade backend first, then observer. Use the reviewed DFX 0.31.0 asset-only upload with `NPM_CONFIG_IF_PRESENT=true`. Verify preserved publication bytes while paused, then resume the existing run configuration and validate genuine mainnet certificates and autonomous progress. No reinstall, reset, funding, controller, Event Horizon, price or physics changes are part of this release.
+
+Canonical wallet commands are prefix-free: `ANGLE 37.5`, `ANGLE 225`, `MOVE 83`. The [adapter v3 grammar](../specs/B2Z_TEXT_MEMOS.md) retains published legacy formats. New frontend assets must follow backend acceptance of the new syntax. The alias mapping changes no on-chain principal, subaccount or receiving AccountIdentifier.
+
+The following S14/S15 initial provisioning and transition instructions are historical reference. Their create/install/reset phases are not instructions for this existing deployment. New current operations use the additive upgrade procedure above.
+
+---
+
 # Controlled mainnet MVP — operator runbook
 
 **S15 deployed, 2026-10-20:** normal module `c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4` and the readable-memo observer are live on the same two principals. The upgrade preserved the publication/state/events/scores and source/configuration identity in place. The user resolved the initial cycle shortage. [S15 report](../../checkpoints/S15_TEXT_MEMO_AIMING.md) / [evidence](../../evidence/S15/release.json) record exact provenance and public certificate/copy/aim checks. No real text-memo gameplay payment has yet been verified. The S14 activation/reset text below is historical; it grants no new reset authority.
@@ -12,7 +22,7 @@ This is an experimental, publicly reachable game for a controlled personal exerc
 
 ## Existing deployment and staged UX/pricing release
 
-The existing canisters are **btz `s34gv-3qaaa-aaaar-qcifa-cai`** and **observer `s45ab-wiaaa-aaaar-qcifq-cai`**. Both are installed. The public observer is `https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/`. **Do not run the create/fresh-install examples below against this deployment.** The live backend remains on the original **10 ICP** profile until a separately approved transition. The staged build initializes a **1 ICP** profile; the observer selects prices only from the configuration hash in a verified publication and can honestly display either supported profile.
+The existing canisters are **b2z `s34gv-3qaaa-aaaar-qcifa-cai`** and **observer `s45ab-wiaaa-aaaar-qcifq-cai`**. Both are installed. The public observer is `https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/`. **Do not run the create/fresh-install examples below against this deployment.** The live backend remains on the original **10 ICP** profile until a separately approved transition. The staged build initializes a **1 ICP** profile; the observer selects prices only from the configuration hash in a verified publication and can honestly display either supported profile.
 
 The root npm package intentionally has no `build` script. Use **`NPM_CONFIG_IF_PRESENT=true` on DFX build/install/deploy commands** to preserve the prebuilt observer assets without changing the repository. This was verified on dfx 0.31.0.
 
@@ -29,7 +39,7 @@ After **separate source/artifact and reset approval**, the intended sequence is:
 1. Recheck both existing canister IDs, module hashes, controllers and cycles. Reconfirm the empty-payment conditions above. Never create canisters or change settings/controllers.
 2. Build/freeze from the approved clean checkout into a new release directory with `tools/prepare_mvp_release.py`; record `manifest.json`, `normal.wasm`, `generated.did`, `init.did` and `launch.json`. Generate observer assets for the actual backend using the existing builder and retain its manifest. Do not substitute a test-feature module.
 3. Upload the approved observer assets to **observer only**. It can still display the certified historical 10 ICP price while the old game runs. Check the installed CLI's help first. The targeted route is `NPM_CONFIG_IF_PRESENT=true dfx --identity codex_local build observer --network ic`, followed by `dfx --identity codex_local canister install observer --network ic --mode upgrade --no-asset-upgrade` for an asset-only upload. No `--all`, install, reinstall or canister creation applies to the already-installed observer.
-4. Pause **btz only** through `pause_autonomous`; source reconciliation continues. Recheck no payment/history/score/input appeared. Record the last public state and configuration again. Stop on any mismatch.
+4. Pause **b2z only** through `pause_autonomous`; source reconciliation continues. Recheck no payment/history/score/input appeared. Record the last public state and configuration again. Stop on any mismatch.
 5. **Only with explicit reset approval**, fresh-install the approved module into the same backend using `--mode reinstall`, the exact frozen `--wasm` and `--argument-file init.did`. Keep the interactive destructive confirmation. This is intentionally not described as a state-preserving upgrade. Do not run it merely because a deployment command fails.
 6. Require official index/ledger binding, unchanged subaccount-0 receiving address, healthy source, and the new configuration hash/1 ICP join. Event Horizon remains disabled; fallback remains 60 seconds. Do not change controllers or send funds.
 7. Start once with `(record {segment_ticks=2:nat64;pacing_seconds=1:nat32;work_budget=512:nat32})`. Verify several certified segments and bounded retention. **Reload the observer into a fresh session**: an old session must not silently accept a reset as continuation of its old chain. Do not weaken anti-rollback checks to avoid this explicit restart.
@@ -39,8 +49,8 @@ The concrete backend reset command, **not to be run before the approvals and pre
 
 ```bash
 # PROPOSAL ONLY — separately approved one-time empty-game reset.
-# Verify btz resolves to s34gv-3qaaa-aaaar-qcifa-cai immediately before use.
-dfx --identity codex_local canister install btz --network ic --mode reinstall \
+# Verify b2z resolves to s34gv-3qaaa-aaaar-qcifa-cai immediately before use.
+dfx --identity codex_local canister install b2z --network ic --mode reinstall \
   --wasm .work/ux-pricing/release-final/normal.wasm \
   --argument-file .work/ux-pricing/release-final/init.did
 ```
@@ -55,7 +65,7 @@ If the user approves only the frontend, deploy only the reviewed assets and keep
 
 | Setting | Value |
 |---|---|
-| Network / backend / observer | `ic` / `btz` / `observer` |
+| Network / backend / observer | `ic` / `b2z` / `observer` |
 | ICP ledger | `ryjl3-tyaaa-aaaaa-aaaba-cai` |
 | ICP index | `qhbym-qaaaa-aaaaa-aaafq-cai` |
 | Receiving account | backend principal + numeric subaccount **0**, using ICP AccountIdentifier derivation |
@@ -86,14 +96,14 @@ Official IDs were rechecked on 2026-10-15 against [IC system canisters](https://
 Supply only these public operational choices. Do not supply private keys, identity exports or seed phrases. This example creates one controller, which must be your selected identity's principal. Additional controllers require your separate explicit review; no controller is removed by this procedure.
 
 ```bash
-cd /home/codexdev/src/btz
+cd /home/codexdev/src/b2z
 set -euo pipefail
-BTZ_IDENTITY='YOUR_EXISTING_DEPLOYMENT_IDENTITY_NAME'
-BTZ_CONTROLLER='YOUR_REVIEWED_CONTROLLER_PRINCIPAL'
-BTZ_BACKEND_CYCLES='YOUR_BACKEND_CYCLES_BUDGET_AS_INTEGER'
-BTZ_OBSERVER_CYCLES='YOUR_OBSERVER_CYCLES_BUDGET_AS_INTEGER'
-BTZ_EH_PRINCIPAL='' # disabled unless you supply the reviewed ICP Event Horizon principal
-BTZ_RELEASE='.work/s14/user-release' # choose a NEW directory on subsequent builds
+B2Z_IDENTITY='YOUR_EXISTING_DEPLOYMENT_IDENTITY_NAME'
+B2Z_CONTROLLER='YOUR_REVIEWED_CONTROLLER_PRINCIPAL'
+B2Z_BACKEND_CYCLES='YOUR_BACKEND_CYCLES_BUDGET_AS_INTEGER'
+B2Z_OBSERVER_CYCLES='YOUR_OBSERVER_CYCLES_BUDGET_AS_INTEGER'
+B2Z_EH_PRINCIPAL='' # disabled unless you supply the reviewed ICP Event Horizon principal
+B2Z_RELEASE='.work/s14/user-release' # choose a NEW directory on subsequent builds
 
 git status --short
 git branch --show-current
@@ -103,8 +113,8 @@ test -z "$(git status --porcelain)"
 dfx --version
 dfx identity whoami
 # Explicitly inspect the chosen identity; this does not switch the active identity.
-CHOSEN_PRINCIPAL=$(dfx --identity "$BTZ_IDENTITY" identity get-principal)
-test "$CHOSEN_PRINCIPAL" = "$BTZ_CONTROLLER"
+CHOSEN_PRINCIPAL=$(dfx --identity "$B2Z_IDENTITY" identity get-principal)
+test "$CHOSEN_PRINCIPAL" = "$B2Z_CONTROLLER"
 
 # Refuse unexpected existing mainnet aliases. Never delete these records to bypass this check.
 python3.11 - <<'PY'
@@ -113,19 +123,19 @@ from pathlib import Path
 for path in [Path('canister_ids.json'), Path('.dfx/ic/canister_ids.json')]:
     if path.exists():
         value=json.loads(path.read_text())
-        for name in ['btz','observer']:
+        for name in ['b2z','observer']:
             if value.get(name,{}).get('ic'):
                 raise SystemExit(f'STOP: existing {name} at {path}: {value[name]["ic"]}; inspect/reconcile, do not recreate or reinstall')
 print('No existing mainnet deployment aliases found')
 PY
 
 npm ci --ignore-scripts
-RELEASE_ARGS=(--output "$BTZ_RELEASE")
-if [ -n "$BTZ_EH_PRINCIPAL" ]; then RELEASE_ARGS+=(--event-horizon "$BTZ_EH_PRINCIPAL"); fi
+RELEASE_ARGS=(--output "$B2Z_RELEASE")
+if [ -n "$B2Z_EH_PRINCIPAL" ]; then RELEASE_ARGS+=(--event-horizon "$B2Z_EH_PRINCIPAL"); fi
 python3.11 -B tools/prepare_mvp_release.py "${RELEASE_ARGS[@]}"
-cat "$BTZ_RELEASE/launch.json"
-cat "$BTZ_RELEASE/manifest.json"
-sha256sum "$BTZ_RELEASE/normal.wasm" "$BTZ_RELEASE/generated.did"
+cat "$B2Z_RELEASE/launch.json"
+cat "$B2Z_RELEASE/manifest.json"
+sha256sum "$B2Z_RELEASE/normal.wasm" "$B2Z_RELEASE/generated.did"
 ```
 
 The manifest records the source commit/tree, actual DTR pins/locks/package, tools, normal exports and file hashes. DTR is already published at `1f47c1a0a104875bd13475d561b8d5aa10770d99`, client **0.12.0**, package SHA-256 `933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f`. No DTR publication, sibling override or floating dependency is needed. Normal exports exclude synthetic inputs, test traps, manual steps and old scanner methods. Install the frozen `normal.wasm` with `--wasm`; later test builds cannot substitute their output.
@@ -137,12 +147,12 @@ Stop on any failed preflight. Existing IDs or installed code require inspection,
 Review the chosen cycles budget and existing funded cycles-ledger balance before this expenditure. Conversion/funding of that balance is a separate user action; this procedure never converts ICP automatically.
 
 ```bash
-dfx --identity "$BTZ_IDENTITY" cycles balance --network ic
-dfx --identity "$BTZ_IDENTITY" canister create btz --network ic --no-wallet \
-  --controller "$BTZ_CONTROLLER" --with-cycles "$BTZ_BACKEND_CYCLES"
-BTZ_BACKEND=$(dfx --identity "$BTZ_IDENTITY" canister id btz --network ic)
-printf '%s\n' "$BTZ_BACKEND" > "$BTZ_RELEASE/backend-id.txt"
-dfx --identity "$BTZ_IDENTITY" canister status btz --network ic
+dfx --identity "$B2Z_IDENTITY" cycles balance --network ic
+dfx --identity "$B2Z_IDENTITY" canister create b2z --network ic --no-wallet \
+  --controller "$B2Z_CONTROLLER" --with-cycles "$B2Z_BACKEND_CYCLES"
+B2Z_BACKEND=$(dfx --identity "$B2Z_IDENTITY" canister id b2z --network ic)
+printf '%s\n' "$B2Z_BACKEND" > "$B2Z_RELEASE/backend-id.txt"
+dfx --identity "$B2Z_IDENTITY" canister status b2z --network ic
 ```
 
 Read back the **actual** backend ID, controller and balance. Require an empty module (`Module hash: None`) before phase C. If creation times out, inspect its result/ID records before retrying; do not create another canister blindly.
@@ -150,15 +160,15 @@ Read back the **actual** backend ID, controller and balance. Require an empty mo
 ## C. User installs the backend and checks readiness
 
 ```bash
-dfx --identity "$BTZ_IDENTITY" canister install btz --network ic --mode install \
-  --wasm "$BTZ_RELEASE/normal.wasm" --argument-file "$BTZ_RELEASE/init.did"
-dfx --identity "$BTZ_IDENTITY" canister info btz --network ic
-dfx --identity "$BTZ_IDENTITY" canister status btz --network ic
-dfx --identity "$BTZ_IDENTITY" canister call btz lab_status '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister install b2z --network ic --mode install \
+  --wasm "$B2Z_RELEASE/normal.wasm" --argument-file "$B2Z_RELEASE/init.did"
+dfx --identity "$B2Z_IDENTITY" canister info b2z --network ic
+dfx --identity "$B2Z_IDENTITY" canister status b2z --network ic
+dfx --identity "$B2Z_IDENTITY" canister call b2z lab_status '()' --network ic --query
 
-BTZ_ACCOUNT=$(dfx --identity "$BTZ_IDENTITY" ledger account-id --of-principal "$BTZ_BACKEND" \
+B2Z_ACCOUNT=$(dfx --identity "$B2Z_IDENTITY" ledger account-id --of-principal "$B2Z_BACKEND" \
   --subaccount 0000000000000000000000000000000000000000000000000000000000000000)
-printf '%s\n' "$BTZ_ACCOUNT" > "$BTZ_RELEASE/receiving-account.txt"
+printf '%s\n' "$B2Z_ACCOUNT" > "$B2Z_RELEASE/receiving-account.txt"
 ```
 
 Compare the installed module hash with the manifest's `normal.wasm` SHA-256 and controllers with your choices. Poll `lab_status` until `source.binding_checked=true`, official ledger/index, `network="ic"`, subaccount 0 and no source error. Compare its recipient bytes with the independently derived account above and, in phase D, the certified receiving descriptor. Empty history is valid. Gameplay is initially paused; initialization starts index reconciliation independently. Do not send gameplay payments before readiness and certified identity checks pass.
@@ -168,45 +178,45 @@ Compare the installed module hash with the manifest's `normal.wasm` SHA-256 and 
 Keep the same reviewed source checkout as the backend manifest. The newly generated public `canister_ids.json` is recorded separately in the asset manifest; other source changes must be absent. The ACTUAL backend ID, not a sample ID, is embedded in the bundle. No URL parameter can replace it, its endpoint or root.
 
 ```bash
-node tools/build_observer_mainnet.mjs --canister "$BTZ_BACKEND" --output .work/s14/assets
+node tools/build_observer_mainnet.mjs --canister "$B2Z_BACKEND" --output .work/s14/assets
 cat .work/s14/assets/build-manifest.json
-cp .work/s14/assets/build-manifest.json "$BTZ_RELEASE/observer-build-manifest.json"
+cp .work/s14/assets/build-manifest.json "$B2Z_RELEASE/observer-build-manifest.json"
 # Require local_test_only=false, source_dirty=false, intended backend and network ic.
 # Require no test adapter/root and the single endpoint https://icp-api.io.
-dfx --identity "$BTZ_IDENTITY" canister create observer --network ic --no-wallet \
-  --controller "$BTZ_CONTROLLER" --with-cycles "$BTZ_OBSERVER_CYCLES"
-dfx --identity "$BTZ_IDENTITY" deploy observer --network ic --mode install --no-wallet
-BTZ_OBSERVER=$(dfx --identity "$BTZ_IDENTITY" canister id observer --network ic)
-dfx --identity "$BTZ_IDENTITY" canister status observer --network ic
-dfx --identity "$BTZ_IDENTITY" canister url observer --network ic
-BTZ_OBSERVER_URL="https://${BTZ_OBSERVER}.icp0.io/"
-printf '%s\n' "$BTZ_OBSERVER_URL" > "$BTZ_RELEASE/observer-url.txt"
+dfx --identity "$B2Z_IDENTITY" canister create observer --network ic --no-wallet \
+  --controller "$B2Z_CONTROLLER" --with-cycles "$B2Z_OBSERVER_CYCLES"
+dfx --identity "$B2Z_IDENTITY" deploy observer --network ic --mode install --no-wallet
+B2Z_OBSERVER=$(dfx --identity "$B2Z_IDENTITY" canister id observer --network ic)
+dfx --identity "$B2Z_IDENTITY" canister status observer --network ic
+dfx --identity "$B2Z_IDENTITY" canister url observer --network ic
+B2Z_OBSERVER_URL="https://${B2Z_OBSERVER}.icp0.io/"
+printf '%s\n' "$B2Z_OBSERVER_URL" > "$B2Z_RELEASE/observer-url.txt"
 ```
 
-Open the certified **non-raw** URL. Do not use `raw.icp0.io` or bypass a certificate error. Confirm the tool-reported URL corresponds to this canister. Verify the app shows the intended backend, the exact `$BTZ_ACCOUNT`, SDK mainnet certification, configuration/rules identities and the prices above. Module imports, MIME types, CSP and configuration files must load without browser errors. The production bundle never fetches/trusts a replacement root. The explicit disposable local-test root is compiled only into local acceptance assets; never deploy those to mainnet.
+Open the certified **non-raw** URL. Do not use `raw.icp0.io` or bypass a certificate error. Confirm the tool-reported URL corresponds to this canister. Verify the app shows the intended backend, the exact `$B2Z_ACCOUNT`, SDK mainnet certification, configuration/rules identities and the prices above. Module imports, MIME types, CSP and configuration files must load without browser errors. The production bundle never fetches/trusts a replacement root. The explicit disposable local-test root is compiled only into local acceptance assets; never deploy those to mainnet.
 
 ## E. User starts autonomous play once
 
 ```bash
-dfx --identity "$BTZ_IDENTITY" canister call btz start_autonomous \
+dfx --identity "$B2Z_IDENTITY" canister call b2z start_autonomous \
   '(record {segment_ticks=2:nat64;pacing_seconds=1:nat32;work_budget=512:nat32})' --network ic
-dfx --identity "$BTZ_IDENTITY" canister call btz lab_status '()' --network ic --query
-dfx --identity "$BTZ_IDENTITY" canister call btz retention_status '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister call b2z lab_status '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister call b2z retention_status '()' --network ic --query
 ```
 
 Repeat the status query after a short wait; require multiple completed segments, no run/source error and a fresh observer publication. Close the browser, wait, query again and reopen: advancement must continue independently. Two logical ticks, callback pacing and actual publication spacing are distinct; a segment need not finish every second.
 
 ## F. Play card — user wallet only
 
-**S15 text instructions apply only after the backend's tested adapter-v2 upgrade.** Never publish the text-emitting frontend first. The [text contract](../specs/BTZ_TEXT_MEMOS.md) documents grammar, compatibility and historical replay. Previously published binary/numeric instructions remain supported; new preparation uses readable text.
+**S15 text instructions apply only after the backend's tested adapter-v2 upgrade.** Never publish the text-emitting frontend first. The [text contract](../specs/B2Z_TEXT_MEMOS.md) documents grammar, compatibility and historical replay. Previously published binary/numeric instructions remain supported; new preparation uses readable text.
 
 Use the observer's single action panel: **Start a cannon → aim → prepare**, **Add a ball → selected cannon → aim → prepare**, or **Move cannon → selected cannon → owned cell → prepare**. Require fresh verification and healthy operation, compare the authenticated receiving descriptor, then copy the complete card. Selection is local inspection, not proof that a wallet owns a cannon. No selection sends a command.
 
 | ICRC-1 text / UTF-8 memo | Meaning |
 |---|---|
-| `BTZ ANGLE 37.5` | Start a cannon, or add a ball for the same sending account, clockwise down/right. |
-| `BTZ ANGLE 225` | Start a cannon, or add a ball, clockwise up/left. |
-| `BTZ MOVE 83` | Relocate only if cell 83 is still owned when applied. |
+| `ANGLE 37.5` | Start a cannon, or add a ball for the same sending account, clockwise down/right. |
+| `ANGLE 225` | Start a cannon, or add a ball, clockwise up/left. |
+| `MOVE 83` | Relocate only if cell 83 is still owned when applied. |
 
 The ICRC-1 owner is `s34gv-3qaaa-aaaar-qcifa-cai`, default subaccount omitted/all zero bytes. Its AccountIdentifier is `344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a`; use that representation only in a wallet field requiring it. These are distinct address representations. Use an ICRC-1 text/UTF-8 memo field; if the wallet exposes a hexadecimal ICRC memo instead, the panel copies the exact UTF-8 bytes of the same text. Some wallets lack the required controls. Wallet integration and transaction submission are absent.
 
@@ -227,16 +237,16 @@ The user performs every real transfer. Record its original transaction ID and wa
 Use the configured ICP instance's pinned [subscriber guide](https://github.com/aodl/Event_Horizon/blob/3e2493f526998daa2f8f7a2d4e5c08ff1e3120c5/docs/subscriber-guide.md). Never infer its principal from a poke. If configured before installation, subscription admission can happen later; the backend already accepts only that caller's exact subaccount-0 positive matches. Empty/global, other accounts and neuron targets do no index work. Poke values never prove payment.
 
 ```bash
-# Only if BTZ_EH_PRINCIPAL is the reviewed sender installed in the constructor:
-dfx --identity "$BTZ_IDENTITY" canister call "$BTZ_EH_PRINCIPAL" get_instance '()' \
+# Only if B2Z_EH_PRINCIPAL is the reviewed sender installed in the constructor:
+dfx --identity "$B2Z_IDENTITY" canister call "$B2Z_EH_PRINCIPAL" get_instance '()' \
   --network ic --query --candid interfaces/event-horizon.instance.did
-dfx --identity "$BTZ_IDENTITY" canister call "$BTZ_EH_PRINCIPAL" get_pricing '()' \
+dfx --identity "$B2Z_IDENTITY" canister call "$B2Z_EH_PRINCIPAL" get_pricing '()' \
   --network ic --query --candid interfaces/event-horizon.instance.did
-node tools/prepare_s14_subscription.mjs --subscriber "$BTZ_BACKEND" --subaccount 0 \
+node tools/prepare_s14_subscription.mjs --subscriber "$B2Z_BACKEND" --subaccount 0 \
   --alias YOUR_REVIEWED_JUPITER_ALIAS
 ```
 
-Review instance ICP ledger, current pricing, Jupiter alias and Faucet staking destination. The account declaration is **`<BTZ_BACKEND>.0`**, full routed memo **`<reviewed alias>.<BTZ_BACKEND>.0`**, at most 32 bytes. Never request a global subscription. User alone funds the documented route; no destination/amount is invented here. Admission may take stake-recognition/evidence time (the reviewed guide describes seven-day recognition). First play does not wait for it.
+Review instance ICP ledger, current pricing, Jupiter alias and Faucet staking destination. The account declaration is **`<B2Z_BACKEND>.0`**, full routed memo **`<reviewed alias>.<B2Z_BACKEND>.0`**, at most 32 bytes. Never request a global subscription. User alone funds the documented route; no destination/amount is invented here. Admission may take stake-recognition/evidence time (the reviewed guide describes seven-day recognition). First play does not wait for it.
 
 If no sender is known, leave pokes disabled and use fallback. **Source configuration is immutable in the current application; there is no existing setter.** Enabling/changing a disabled sender later needs a separately reviewed state-preserving configuration upgrade. A routine same-version upgrade preserves the original configuration and cannot enable it; never reinstall a funded backend to change it.
 
@@ -244,16 +254,16 @@ If no sender is known, leave pokes disabled and use fallback. **Source configura
 
 ```bash
 # Public source/run progress; controller-only inbox/phase; funding and retention:
-dfx --identity "$BTZ_IDENTITY" canister call btz lab_status '()' --network ic --query
-dfx --identity "$BTZ_IDENTITY" canister call btz controller_work '()' --network ic --query
-dfx --identity "$BTZ_IDENTITY" canister call btz retention_status '()' --network ic --query
-dfx --identity "$BTZ_IDENTITY" canister status btz --network ic
-dfx --identity "$BTZ_IDENTITY" canister status observer --network ic
+dfx --identity "$B2Z_IDENTITY" canister call b2z lab_status '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister call b2z controller_work '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister call b2z retention_status '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister status b2z --network ic
+dfx --identity "$B2Z_IDENTITY" canister status observer --network ic
 
 # Gameplay pause. This does NOT stop source reconciliation or prevent transfers.
-dfx --identity "$BTZ_IDENTITY" canister call btz pause_autonomous '()' --network ic
+dfx --identity "$B2Z_IDENTITY" canister call b2z pause_autonomous '()' --network ic
 # Resume with the SAME reviewed run settings:
-dfx --identity "$BTZ_IDENTITY" canister call btz start_autonomous \
+dfx --identity "$B2Z_IDENTITY" canister call b2z start_autonomous \
   '(record {segment_ticks=2:nat64;pacing_seconds=1:nat32;work_budget=512:nat32})' --network ic
 ```
 
@@ -262,17 +272,17 @@ dfx --identity "$BTZ_IDENTITY" canister call btz start_autonomous \
 For a reviewed supported upgrade, first pause and record source cursor/pending inputs, committed segment, certified world/scores, module and controllers. Build/freeze the replacement from a clean checkout into a **new** release directory. For a same-version recovery exercise, use the existing frozen module:
 
 ```bash
-dfx --identity "$BTZ_IDENTITY" canister call btz pause_autonomous '()' --network ic
-dfx --identity "$BTZ_IDENTITY" canister install btz --network ic --mode upgrade \
-  --wasm "$BTZ_RELEASE/normal.wasm" --argument '()' --upgrade-unchanged
-dfx --identity "$BTZ_IDENTITY" canister info btz --network ic
-dfx --identity "$BTZ_IDENTITY" canister call btz lab_status '()' --network ic --query
-dfx --identity "$BTZ_IDENTITY" canister call btz controller_work '()' --network ic --query
-dfx --identity "$BTZ_IDENTITY" canister call btz start_autonomous \
+dfx --identity "$B2Z_IDENTITY" canister call b2z pause_autonomous '()' --network ic
+dfx --identity "$B2Z_IDENTITY" canister install b2z --network ic --mode upgrade \
+  --wasm "$B2Z_RELEASE/normal.wasm" --argument '()' --upgrade-unchanged
+dfx --identity "$B2Z_IDENTITY" canister info b2z --network ic
+dfx --identity "$B2Z_IDENTITY" canister call b2z lab_status '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister call b2z controller_work '()' --network ic --query
+dfx --identity "$B2Z_IDENTITY" canister call b2z start_autonomous \
   '(record {segment_ticks=2:nat64;pacing_seconds=1:nat32;work_budget=512:nat32})' --network ic
 ```
 
-Verify fresh certificates/publications, preserved accrued scores, source progress without duplicates and resumed autonomous segments. Never use reinstall, uninstall-code, skip-pre-upgrade or a reset as recovery. Observer playback pause is separate from backend pause. Keep controller keys in the existing identity tooling; never export them for BTZ.
+Verify fresh certificates/publications, preserved accrued scores, source progress without duplicates and resumed autonomous segments. Never use reinstall, uninstall-code, skip-pre-upgrade or a reset as recovery. Observer playback pause is separate from backend pause. Keep controller keys in the existing identity tooling; never export them for B2Z.
 
 ## Local reproduction and final gates
 

@@ -28,7 +28,7 @@ def main():
         # mainnet assets for a disposable test principal. Production-policy
         # inspection uses that real ID; only the explicit local bundle runs here.
         ids=ROOT/'canister_ids.json'
-        production_id=json.loads(ids.read_text()).get('btz',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
+        production_id=json.loads(ids.read_text()).get('b2z',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
         subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',production_id,'--output',str(production)],cwd=ROOT,check=True,timeout=120)
         for directory in [assets,production]:
             assert {'index.html','app.mjs','configuration.bin','deployment.json','build-manifest.json','.ic-assets.json5','style.css','icon.svg'}.issubset({x.name for x in directory.iterdir()})
@@ -48,8 +48,8 @@ def main():
             dfx=json.loads((ROOT/'dfx.json').read_text())
             shutil.copytree(assets,project/'.work/s14/assets')
             dfx['canisters']={'observer':dfx['canisters']['observer']}
-            backend=json.loads((ROOT/'dfx.json').read_text())['canisters']['btz']
-            dfx['canisters']['btz']={**backend,'candid':str(ROOT/backend['candid']),'wasm':os.environ['BTZ_S14_WASM']}
+            backend=json.loads((ROOT/'dfx.json').read_text())['canisters']['b2z']
+            dfx['canisters']['b2z']={**backend,'candid':str(ROOT/backend['candid']),'wasm':os.environ['B2Z_S14_WASM']}
             dfx['networks']={'local':{'providers':[a.gateway],'type':'ephemeral'}}
             (project/'dfx.json').write_text(json.dumps(dfx,indent=2)+'\n')
             def dfx_run(*args):
@@ -64,18 +64,18 @@ def main():
             # A separate disposable constructor probe exercises the same custom
             # backend install route with the generated local Candid arguments.
             # It receives no payments and is deleted with this owned instance.
-            dfx_run('canister','create','btz','--no-wallet')
+            dfx_run('canister','create','b2z','--no-wallet')
             init=project/'local-init.did'
             subprocess.run(['node','tools/prepare_s14_init.mjs','--network','pocketic-local',
                 '--ledger',configuration['ledger'],'--index',configuration['index'],'--output',str(init)],cwd=ROOT,check=True,timeout=30)
-            dfx_run('canister','install','btz','--mode','install','--wasm',os.environ['BTZ_S14_WASM'],'--argument-file',str(init))
-            probe=dfx_run('canister','id','btz')
-            info=dfx_run('canister','info','btz')
+            dfx_run('canister','install','b2z','--mode','install','--wasm',os.environ['B2Z_S14_WASM'],'--argument-file',str(init))
+            probe=dfx_run('canister','id','b2z')
+            info=dfx_run('canister','info','b2z')
             from hashlib import sha256
-            assert sha256(Path(os.environ['BTZ_S14_WASM']).read_bytes()).hexdigest() in info
+            assert sha256(Path(os.environ['B2Z_S14_WASM']).read_bytes()).hexdigest() in info
             deadline=time.monotonic()+15
             while True:
-                status=dfx_run('canister','call','btz','lab_status','()','--query')
+                status=dfx_run('canister','call','b2z','lab_status','()','--query')
                 if 'binding_checked = true' in status:break
                 if time.monotonic()>deadline:raise TimeoutError('generated constructor index binding not ready')
                 time.sleep(.2)
@@ -119,6 +119,10 @@ def main():
                 raise RuntimeError('deployed observer startup: '+message)
             assert page.evaluate('globalThis.__dtrLive.startupRetries')>=1
             record('retired-genesis-restarts-with-fresh-certified-head')
+            assert page.title().startswith('B2Z — Balls 2 The Wallz')
+            assert page.locator('.mark').inner_text()=='B2Z'
+            assert 'BTZ' not in page.locator('body').inner_text()
+            record('B2Z-branding-without-legacy-player-prefix')
             page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             assert page.locator('#receiving-account').text_content()==configuration['recipient']
             assert page.locator('#backend-identity').text_content()==configuration['canister_id']
@@ -138,7 +142,7 @@ def main():
             # Observe arguments while still invoking native clipboard writes under
             # an actual click; do not enable clipboard reading in production.
             page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
-            for selector,expected in [('[data-copy="text"]','BTZ ANGLE 37.5'),('[data-copy="owner"]',configuration['canister_id']),('[data-copy="amount"]','1'),('[data-copy="recipient"]',configuration['recipient']),('[data-copy="hex"]','42545a20414e474c452033372e35')]:
+            for selector,expected in [('[data-copy="text"]','ANGLE 37.5'),('[data-copy="owner"]',configuration['canister_id']),('[data-copy="amount"]','1'),('[data-copy="recipient"]',configuration['recipient']),('[data-copy="hex"]','414e474c452033372e35')]:
                 if 'recipient' in selector:page.locator('#transfer-controls details').evaluate('(node)=>node.open=true')
                 page.locator(selector).click()
                 wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==expected,5000)
@@ -212,7 +216,7 @@ def main():
             assert page.locator('[data-copy="text"]').is_disabled()
             assert 'Refresh' in page.locator('#preparation-note').inner_text()
             page.locator('#prepare-transfer').click();assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
-            assert page.locator('#text-memo').inner_text()=='BTZ ANGLE 37.5'
+            assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
             page.locator('#action-mode').select_option('move')
             page.locator('#move-cell').select_option(index=1)
             cell=int(page.locator('#move-cell').input_value())
@@ -221,7 +225,7 @@ def main():
             page.mouse.click(box['x']+ox+(cell%16+.5)*size,box['y']+oy+(cell//16+.5)*size)
             assert page.locator('#move-cell').input_value()==str(cell)
             page.locator('#prepare-transfer').click()
-            assert page.locator('#text-memo').inner_text()==f'BTZ MOVE {cell}'
+            assert page.locator('#text-memo').inner_text()==f'MOVE {cell}'
             assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
             page.screenshot(path=str(out/'s15-move-selection.png'),full_page=True)
             record('action-price-pairing-stable-card-and-visual-owned-move')
@@ -235,7 +239,7 @@ def main():
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',45000))
             wait_until(page,lambda:page.locator('#prepare-transfer').is_disabled(),20000)
-            page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='BTZ ANGLE 225'
+            page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'
             assert not page.locator('#aim-pad').is_disabled()
             page.locator('#angle-degrees').fill('37.5')
             record('disconnected-local-aim-with-unavailable-payment-preparation')
@@ -276,7 +280,7 @@ def main():
                 assert negative.locator('[data-copy="recipient"]').is_disabled()
                 assert not negative.locator('#angle-degrees').is_disabled()
                 negative.locator('#angle-degrees').fill('225')
-                assert negative.locator('#aim-preview').inner_text()=='BTZ ANGLE 225'
+                assert negative.locator('#aim-preview').inner_text()=='ANGLE 225'
                 assert negative.locator('#prepare-transfer').is_disabled()
                 assert negative.locator('#live-status').inner_text()=='Connection error'
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mainnetPolicy} from '../../apps/btz-observer/mainnet.mjs';
+import {mainnetPolicy} from '../../apps/b2z-observer/mainnet.mjs';
 test('observer mainnet deployment is explicit and cannot carry roots or alternate endpoints',()=>{
  const policy={network:'ic',host:'https://icp-api.io',canister_id:'rwlgt-iiaaa-aaaaa-aaaaa-cai'};
  assert.equal(mainnetPolicy(policy).canister_id,policy.canister_id);
@@ -10,8 +10,8 @@ test('observer mainnet deployment is explicit and cannot carry roots or alternat
 test('displayed prices require configuration bytes bound by the certified identity',async t=>{
  const {readFile}=await import('node:fs/promises');
  const {sha256Web}=await import('@dtr/timeline-runtime/client/verification');
- const {certifiedConfiguration}=await import('../../apps/btz-observer/mainnet.mjs');
- const bytes=new Uint8Array(await readFile(new URL('../../apps/btz-observer/configuration.bin',import.meta.url)));
+ const {certifiedConfiguration}=await import('../../apps/b2z-observer/mainnet.mjs');
+ const bytes=new Uint8Array(await readFile(new URL('../../apps/b2z-observer/configuration.bin',import.meta.url)));
  const ticket={publication:{identity:{config_hash:await sha256Web(bytes)}}};
  let response=bytes;t.mock.method(globalThis,'fetch',async()=>new Response(response));
  const config=await certifiedConfiguration(ticket);assert.equal(config.move_e8s,10000n);assert.equal(config.join_e8s,100000000n);

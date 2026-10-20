@@ -11,6 +11,11 @@ for path in paths:
         target=raw.split(' ',1)[0]
         if target.startswith(('https:','http:','mailto:','#')):continue
         target=unquote(target.split('#',1)[0]);count+=1
-        if target and not(path.parent/target).resolve().exists():problems.append(f'{path.relative_to(ROOT)} -> {target}')
+        resolved=(path.parent/target).resolve()
+        if target and not resolved.exists():
+            # Archived reports retain their exact published links. Verify the renamed destination.
+            historical=path.parent==ROOT/'checkpoints' or (path.name=='STATUS.md' and raw in path.read_text().split('<!-- ARCHIVED_STATUS -->',1)[-1])
+            migrated=(path.parent/target.replace('BTZ_', 'B2Z_').replace('btz', 'b2z')).resolve()
+            if not historical or not migrated.exists():problems.append(f'{path.relative_to(ROOT)} -> {target}')
 if problems:print('\n'.join(problems),file=sys.stderr);raise SystemExit(1)
 print(f'PASS: {count} current-document local links resolve. Historical S00 is retained unchanged.')

@@ -9,7 +9,7 @@ def main():
     command=['cargo','run','--manifest-path','native/Cargo.toml','--quiet','--locked','--offline','-p','native-conformance-v4','--']
     result=subprocess.run(command+(['legacy'] if args.legacy_cursors else ['public']),cwd=ROOT,text=True,capture_output=True,timeout=90)
     if result.returncode:print(result.stderr);return 1
-    golden=json.loads((ROOT/'tests/fixtures/btz-v3-golden.json').read_text())['cases']
+    golden=json.loads((ROOT/'tests/fixtures/b2z-v3-golden.json').read_text())['cases']
     byname={r['name']:r for r in golden};expected=[]
     for row in golden:expected.append('\t'.join(['case',row['name'],*[row['outputs'][k]['sha256']for k in('state','events','scores')]]))
     for i,row in enumerate(json.loads((ROOT/'tests/fixtures/cursor-v4.json').read_text())['rows'] if args.legacy_cursors else []):expected.append(f"cursor\t{i}\t{byname[row['name']]['outputs']['state']['sha256']}")

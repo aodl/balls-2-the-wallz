@@ -1,5 +1,5 @@
 //! Executable native comparison gate. Failures exit nonzero; fixtures are never rewritten.
-use btz_native::{Cursor, Input, Output};
+use b2z_native::{Cursor, Input, Output};
 use dtr_wire::{decode, encode, hash, hex, unhex, Rat, Result};
 use serde_json::Value;
 use std::{env, fs, path::Path};
@@ -43,7 +43,7 @@ fn begin(case: &Value) -> Result<Cursor> {
     let initial = bytes(&case["initial_hex"])?;
     let inputs: Vec<Input> = decode(&bytes(&case["inputs_hex"])?)?;
     let context: Value = decode(&bytes(&case["context_hex"])?)?;
-    let w = btz_native::world::World::decode(&initial)?;
+    let w = b2z_native::world::World::decode(&initial)?;
     if w.encode()? != initial {
         return Err("world roundtrip".into());
     }
@@ -52,7 +52,7 @@ fn begin(case: &Value) -> Result<Cursor> {
 fn main_inner() -> Result<()> {
     let args: Vec<_> = env::args().collect();
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let golden = load(&root, "btz-v3-golden.json")?;
+    let golden = load(&root, "b2z-v3-golden.json")?;
     let cases = golden["cases"].as_array().ok_or("golden cases")?;
     if args.get(1).map(String::as_str) == Some("export") {
         let name = args.get(2).ok_or("export name")?;

@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/btz-protocol", "kernels/btz-mechanics", "tools/conformance-native"]
+members = ["crates/b2z-protocol", "kernels/b2z-mechanics", "tools/conformance-native"]
 exclude = ["canisters/runtime-lab", "native"]
 
 [workspace.package]

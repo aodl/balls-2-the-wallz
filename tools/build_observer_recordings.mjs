@@ -5,11 +5,11 @@ import path from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {coordinatorScenario} from '../tests/scenarios/coordinator.mjs';
 import {publication, CHUNK_BYTES} from '@dtr/timeline-runtime/observation/publication';
-import {projectAnimation, ANIMATION_FORMAT} from '../packages/kernels/btz/animation.mjs';
+import {projectAnimation, ANIMATION_FORMAT} from '../packages/kernels/b2z/animation.mjs';
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
-const DEST=fileURLToPath(new URL('../apps/btz-observer/recordings/',import.meta.url));
+const DEST=fileURLToPath(new URL('../apps/b2z-observer/recordings/',import.meta.url));
 const CONFIG=[
   ['dense','Frontier pressure','32 balls, two territories. Watch the border evolve.',12],
   ['admission','New arrivals','Two synthetic purchases create cannons on an empty board.',12],

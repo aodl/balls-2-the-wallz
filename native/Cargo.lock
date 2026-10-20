@@ -18,18 +18,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "btz-mechanics"
+name = "b2z-mechanics"
 version = "0.5.0"
 dependencies = [
  "dtr-core",
 ]
 
 [[package]]
-name = "btz-native"
+name = "b2z-native"
 version = "0.5.0"
 dependencies = [
- "btz-mechanics",
- "btz-protocol",
+ "b2z-mechanics",
+ "b2z-protocol",
  "dtr-host",
  "dtr-wire",
  "num-bigint",
@@ -40,7 +40,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "btz-protocol"
+name = "b2z-protocol"
 version = "0.5.0"
 
 [[package]]
@@ -139,7 +139,7 @@ checksum = "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98"
 name = "native-conformance-v4"
 version = "0.5.0"
 dependencies = [
- "btz-native",
+ "b2z-native",
  "dtr-host",
  "dtr-wire",
  "serde_json",

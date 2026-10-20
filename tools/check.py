@@ -96,13 +96,14 @@ def run_one(name,command,outdir,kind='normal',requires=(),timeout=90,allow_block
 
 def planned_checks(mode,outdir):
     source=[
+      ('b2z-naming-audit',[sys.executable,'-B','tools/check_b2z_names.py','--output',str(outdir/'naming-audit.json')],'normal',(),120),
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),
       ('protocol-fixtures',[sys.executable,'-B','tools/reference_fixtures.py','--check'],'normal',(),120),
       ('life-reference',[sys.executable,'-B','tools/life_reference.py','--check'],'normal',(),120),
-      ('btz-reference',[sys.executable,'-B','tools/btz_reference.py','--check'],'normal',(),120),
+      ('b2z-reference',[sys.executable,'-B','tools/b2z_reference.py','--check'],'normal',(),120),
       ('spawn-reference',[sys.executable,'-B','tools/spawn_reference.py','--check'],'normal',(),120),
       ('impact-reference',[sys.executable,'-B','tools/impact_reference.py','--check'],'normal',(),120),
-      ('btz-full-traces',['node','tools/btz_vectors.mjs','--check'],'normal',('node',),180),
+      ('b2z-full-traces',['node','tools/b2z_vectors.mjs','--check'],'normal',('node',),180),
       ('numeric-reference',[sys.executable,'-B','tools/numeric_reference.py','--check'],'normal',(),120),
       ('coordinator-vectors',['node','tools/coordinator_vectors.mjs','--check'],'normal',('node',),180),
       ('observation-v6-reference',[sys.executable,'-B','tools/observation_reference.py','--version','6','--check'],'normal',(),120),

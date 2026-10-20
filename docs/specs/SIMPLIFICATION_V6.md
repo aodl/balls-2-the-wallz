@@ -4,7 +4,7 @@ This is the current architectural decision for S06. It supersedes conflicting S0
 
 ## 1. Deliberately unchanged
 
-BTZ v3 rules, pricing, initial placements, causal annihilation, canonical source inputs, state, audit events, scores and seals are unchanged. The same reference fixtures must still pass. Life remains the second kernel. There is no new game, financial subsystem, storage framework, consensus rule or real deployment in this checkpoint.
+B2Z v3 rules, pricing, initial placements, causal annihilation, canonical source inputs, state, audit events, scores and seals are unchanged. The same reference fixtures must still pass. Life remains the second kernel. There is no new game, financial subsystem, storage framework, consensus rule or real deployment in this checkpoint.
 
 ## 2. One coordinator on the current execution path
 
@@ -14,7 +14,7 @@ The only operational authority is the coordinator's outer revision. Old nested c
 
 The current JS store copies trusted typed objects with `structuredClone`, rather than converting them to canonical JSON and immediately parsing them again. Expensive full validation occurs on create/import/restore. Before committing a replacement, the host checks canonical structural and byte limits once. Failed preparation never changes the committed record.
 
-A kernel may provide `fork(cursor)` for an independent copy of trusted in-memory work. BTZ and Life do so. The coordinator keeps a private cursor cache; forked work cannot mutate committed work before the outer commit. Kernels without a fork use restore as the compatibility fallback. Cached cursors never bypass a real import's hash and invariant checks.
+A kernel may provide `fork(cursor)` for an independent copy of trusted in-memory work. B2Z and Life do so. The coordinator keeps a private cursor cache; forked work cannot mutate committed work before the outer commit. Kernels without a fork use restore as the compatibility fallback. Cached cursors never bypass a real import's hash and invariant checks.
 
 Proposals are opaque, single-use capabilities registered by their originating coordinator. A stale, copied or fabricated proposal cannot be committed. Pre-commit failures preserve the previous record. Lost post-commit acknowledgements preserve the committed replacement and recover without reapplying inputs.
 
@@ -60,9 +60,9 @@ The offline demonstration uses `offline-pinned-content`. This proves integrity r
 
 Clients reject mixed v5/v6 sequences until explicit resynchronization. v6 sequencing uses committed segment height, predecessor links and stable catalog digest, not ingestion or private revision counters. The old v5 codec/fixtures remain explicitly named historical adapters; they are not the default protocol.
 
-## 4. BTZ animation projection 1
+## 4. B2Z animation projection 1
 
-`packages/kernels/btz/animation.mjs` derives `btz-animation-1` from a preceding committed snapshot and the original BTZ v3 event artifact. It includes both source hashes, preserves receipts and all non-motion events, and retains increasing source sequence IDs. Gaps are intentional projection omissions, not missing ledger commands.
+`packages/kernels/b2z/animation.mjs` derives `btz-animation-1` from a preceding committed snapshot and the original B2Z v3 event artifact. It includes both source hashes, preserves receipts and all non-motion events, and retains increasing source sequence IDs. Gaps are intentional projection omissions, not missing ledger commands.
 
 For each ball, the renderer needs the trajectory equation `(x0, y0, vx, vy)` and owner/id. Ordinary traversal into another same-owner cell does not change that equation. Such a motion record is omitted. Reflection/trajectory changes are emitted as `trajectory` events. Explicit vertex-blocked effects are retained even when the equation is unchanged. Cannon/ball creation, movement, territory changes, strikes and destruction are preserved.
 
@@ -70,7 +70,7 @@ The preceding snapshot supplies initial balls and board state. Render consumers 
 
 The projection is optional derived presentation data. It does not change the authoritative game-event schema or erase the audit trace. Therefore historical game manifests remain byte-identical. The game kernel still generates its verbose internal/audit events: this checkpoint reduces observer payload, not the kernel's event-production allocation.
 
-All seven complete BTZ traces test exact ball trajectories at every original event boundary and unchanged non-motion events. The dense fixture reduces the observer event payload from 39,928 bytes to 4,502 bytes, omitting 146 unchanged motion events. This is data volume, not a frame-rate or cycle measurement.
+All seven complete B2Z traces test exact ball trajectories at every original event boundary and unchanged non-motion events. The dense fixture reduces the observer event payload from 39,928 bytes to 4,502 bytes, omitting 146 unchanged motion events. This is data volume, not a frame-rate or cycle measurement.
 
 ## 5. Public conformance, private implementation freedom
 
@@ -95,7 +95,7 @@ Planned production upgrades should occur at completed segment boundaries where p
 
 `canisters/arena-lab`, the generic chunk-store experiment and the old independent journal/inbox demonstrations are frozen diagnostics. They remain in the self-contained checkpoint for evidence and reference, not as alternative production platforms to support. The separate interface probe remains a diagnostic tool, not a deployed game component.
 
-The S08 native/publication public-output gates remain required. S09's local slice demonstrates the named certificate, ledger/archive and upgrade behaviors only. It does not establish production retention, finality, capacity or cycle cost. The current native publication source has no BTZ render artifact; the existing JS projection is derived in the browser from authenticated predecessor state and audit events.
+The S08 native/publication public-output gates remain required. S09's local slice demonstrates the named certificate, ledger/archive and upgrade behaviors only. It does not establish production retention, finality, capacity or cycle cost. The current native publication source has no B2Z render artifact; the existing JS projection is derived in the browser from authenticated predecessor state and audit events.
 
 ## 7. Dependencies are not prohibited by an offline environment
 

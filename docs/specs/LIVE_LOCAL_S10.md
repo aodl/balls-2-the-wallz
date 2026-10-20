@@ -1,6 +1,6 @@
 # S10 live-local execution
 
-This specification defines the bounded local-only progression and observation path added in S10. It does not change BTZ v3 rules, publication v6, animation v1, canonical payment memos, audit events, scores or segment seals.
+This specification defines the bounded local-only progression and observation path added in S10. It does not change B2Z v3 rules, publication v6, animation v1, canonical payment memos, audit events, scores or segment seals.
 
 ## Autonomous progression
 

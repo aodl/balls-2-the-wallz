@@ -23,7 +23,7 @@ The fixture records are synthetic normalized decoded examples. They are not raw 
 
 ## Skills are reviewed, not blindly executed
 
-No remote installer, skill-recommended deployment, mainnet call, or fund transfer was performed. The ledger skill includes a blanket recommendation against frontend-originated transfers. That recommendation is not adopted here: BTZ intentionally accepts direct wallet-to-ledger payments and verifies the ledger independently. Its business rules do not rely on a browser intermediary. Likewise, caller identity is captured before an `await`; no behavior depends on interpreting a later `msg_caller()` value.
+No remote installer, skill-recommended deployment, mainnet call, or fund transfer was performed. The ledger skill includes a blanket recommendation against frontend-originated transfers. That recommendation is not adopted here: B2Z intentionally accepts direct wallet-to-ledger payments and verifies the ledger independently. Its business rules do not rely on a browser intermediary. Likewise, caller identity is captured before an `await`; no behavior depends on interpreting a later `msg_caller()` value.
 
 The Jupiter toolchain/dependency versions are candidate pins, not a claim to be the newest available versions. The root workspace has no registry dependencies. The isolated probe selects `ic-cdk 0.20.1`, `candid 0.10.29` and `serde 1.0.228` from Jupiter's lockfile; its own resolution is blocked and no lockfile is fabricated.
 

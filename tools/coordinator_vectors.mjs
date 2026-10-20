@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Legacy fixture metadata is preserved byte-for-byte; current application naming is B2Z.
 /** Golden coordinator bytes are implementation-derived, not an independent source oracle. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';

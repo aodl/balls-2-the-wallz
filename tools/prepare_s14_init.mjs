@@ -4,7 +4,7 @@ import {parseArgs} from 'node:util';
 import {writeFile,mkdir} from 'node:fs/promises';
 import {dirname} from 'node:path';
 import {Principal} from '@icp-sdk/core/principal';
-import {fixtureWorld,encodeWorld,PRELAUNCH_CONFIG,PRELAUNCH_IDENTITY} from '../packages/kernels/btz/world.mjs';
+import {fixtureWorld,encodeWorld,PRELAUNCH_CONFIG,PRELAUNCH_IDENTITY} from '../packages/kernels/b2z/world.mjs';
 const {values}=parseArgs({options:{network:{type:'string',default:'ic'},ledger:{type:'string',default:'ryjl3-tyaaa-aaaaa-aaaba-cai'},index:{type:'string',default:'qhbym-qaaaa-aaaaa-aaafq-cai'},'event-horizon':{type:'string'},subaccount:{type:'string',default:'0'},output:{type:'string',default:'.work/s14/init.did'},'world-output':{type:'string'},'profile-output':{type:'string'}}});
 if(!['ic','pocketic-local'].includes(values.network))throw new Error('network');
 for(const key of ['ledger','index'])Principal.fromText(values[key]);
@@ -17,7 +17,7 @@ const sender=values['event-horizon']?`opt principal "${Principal.fromText(values
 const text=`(blob "${blob}", 0 : nat64, record {network="${values.network}";ledger=principal "${values.ledger}";index=principal "${values.index}";receiving_subaccount=${n} : nat64;event_horizon=${sender};starting_policy=variant {FromBeginning}})\n`;
 if(values['world-output']){await mkdir(dirname(values['world-output']),{recursive:true});await writeFile(values['world-output'],world);}
 if(values['profile-output']){
- const profile={network:values.network,backend_name:'btz',observer_name:'observer',ledger:values.ledger,index:values.index,
+ const profile={network:values.network,backend_name:'b2z',observer_name:'observer',ledger:values.ledger,index:values.index,
   receiving_numeric_subaccount:n.toString(),subaccount_hex:'00'.repeat(24)+n.toString(16).padStart(16,'0'),
   receiving_account:'Derive after creation with dfx ledger account-id; compare with certified source descriptor.',
   event_horizon:values['event-horizon']??'DISABLED',fallback_seconds:60,delayed_rechecks_seconds:[2,10],

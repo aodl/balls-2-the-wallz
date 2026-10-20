@@ -241,18 +241,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "btz-mechanics"
+name = "b2z-mechanics"
 version = "0.5.0"
 dependencies = [
  "dtr-core",
 ]
 
 [[package]]
-name = "btz-native"
+name = "b2z-native"
 version = "0.5.0"
 dependencies = [
- "btz-mechanics",
- "btz-protocol",
+ "b2z-mechanics",
+ "b2z-protocol",
  "dtr-host",
  "dtr-wire",
  "num-bigint",
@@ -263,7 +263,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "btz-protocol"
+name = "b2z-protocol"
 version = "0.5.0"
 
 [[package]]
@@ -639,8 +639,8 @@ dependencies = [
 name = "dtr-s09-integration"
 version = "0.1.0"
 dependencies = [
- "btz-native",
- "btz-protocol",
+ "b2z-native",
+ "b2z-protocol",
  "candid",
  "dtr-host",
  "dtr-wire",

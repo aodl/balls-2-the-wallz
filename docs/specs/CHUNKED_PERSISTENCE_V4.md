@@ -1,6 +1,6 @@
 # Chunked publication and recovery — S04 model
 
-`packages/storage/chunks.mjs` is an executed, game-independent persistence model. It implements the existing `SegmentJournal` document-store contract for Life and BTZ without importing either game. It is NOT an IC certificate, a production stable-memory implementation or an external-call transaction protocol.
+`packages/storage/chunks.mjs` is an executed, game-independent persistence model. It implements the existing `SegmentJournal` document-store contract for Life and B2Z without importing either game. It is NOT an IC certificate, a production stable-memory implementation or an external-call transaction protocol.
 
 ## Commit boundary
 
@@ -27,8 +27,8 @@ The diagnostic image itself uses the 16 MiB canonical codec and hexadecimal chun
 ## Demonstration
 
 ```
-node tools/chunked_demo.mjs btz admission --journal .work/chunks.json --fault chunk:0 --budget 1
-node tools/chunked_demo.mjs btz admission --journal .work/chunks.json --recover yes
+node tools/chunked_demo.mjs b2z admission --journal .work/chunks.json --fault chunk:0 --budget 1
+node tools/chunked_demo.mjs b2z admission --journal .work/chunks.json --recover yes
 ```
 
 The first command saves partial chunk work and reports `INTERRUPTED`, with the original published board. The second explicitly discards only the unpublished upload, resumes the durable cursor, and reaches the same commitment as an uninterrupted run. `--fault before_root` and `--fault after` exercise pre-publication interruption and lost acknowledgement. No wallet or network is used.

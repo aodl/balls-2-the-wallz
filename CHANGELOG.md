@@ -1,3 +1,11 @@
+# B2Z naming and prefix-free memos
+
+- Rename active application packages, paths, symbols and deployment alias to B2Z/b2z. Preserve published protocol bytes, fixtures, deterministic history and both existing canister principals.
+- Adapter v3 emits `ANGLE 37.5` / `MOVE 83`, accepts S15 text and old binary/numeric forms, and distinguishes eight-byte ASCII commands from historic binary by actual magic/layout.
+- Retain v1/v2 raw replay helpers and add shared byte vectors, installed ledger/index coverage and S15 recovery verification.
+
+The entries below retain their original historical spelling.
+
 # S08 — Linux tooling and native validation
 
 Imported and verified the unchanged S07 archive; established its Git baseline; added repeatable user-scoped Linux setup and real lockfiles; repaired minimal Rust compiler/lint defects; executed source, native public-output/own-recovery, Wasm, formatting and Clippy gates; and ran the observer through real local HTTP with pinned Playwright/Chromium and browser-native Web Crypto. Added bounded verification orchestration and small separate CI jobs. No gameplay, IC integration, deployment or financial behavior was added.

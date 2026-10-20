@@ -13,7 +13,7 @@
 | Older rules remain reproducible | Existing v2 test suite targets frozen v2 modules | Automatic v2-to-v3 migration |
 | Numerics are not silently narrowed | Reference test with existing credit above 128 bits | Completed native arbitrary-precision scoring |
 
-Normal checks never regenerate fixtures. `spawn_reference.py --write`, `impact_reference.py --write` and `btz_vectors.mjs --write` are explicit authoring operations; a changed golden requires review of the rules/configuration boundary. All `--check` operations are read-only comparisons.
+Normal checks never regenerate fixtures. `spawn_reference.py --write`, `impact_reference.py --write` and `b2z_vectors.mjs --write` are explicit authoring operations; a changed golden requires review of the rules/configuration boundary. All `--check` operations are read-only comparisons.
 
 The Rust fixture emitter includes spawn outcomes in addition to prior geometry/cut/protocol/Life rows. Native outputs cannot be counted as passed before Cargo actually executes. No source parser is represented as the Rust compiler.
 
@@ -22,7 +22,7 @@ Early negative results are retained: the first spawn fixture accidentally discon
 ## Source-envelope representation regression
 
 `input-canonical.test.mjs` checks canonical fields, bounds and representation
-independence. The generic runner and journal have boundary tests. The BTZ suite
+independence. The generic runner and journal have boundary tests. The B2Z suite
 then checks full state/event/score equality for a join expressed with number,
 string and bigint source positions plus uncommitted transport metadata. This
 prevents identical input roots from selecting different spawn positions.

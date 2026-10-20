@@ -12,7 +12,7 @@ Use immediate physical reflection plus a short pending contested-wall effect. Ma
 
 Use deterministic hash-ranked directed frontier candidates with protected nine-cell insertion. Exclude cannon cells, ball centres including exact patch boundaries, and all defender disconnections. Continue a search across work slices until success or exhaustive absence. Limit the number of admitted searches separately and publish a distinct capacity-rejection reason. Add a final safe interior fallback for a full single-owner board.
 
-Keep v2 source intact in `packages/kernels/btz-v2` and continue testing it. Version 3 does not silently read version-2 worlds or local journals.
+Keep v2 source intact in `packages/kernels/b2z-v2` and continue testing it. Version 3 does not silently read version-2 worlds or local journals.
 
 ## Alternatives considered
 
@@ -30,7 +30,7 @@ The source commitment represents each selected input as an unsigned source posit
 and payload bytes. JavaScript `0`, `"0"` and `0n` are equivalent at that boundary;
 transport metadata is not committed. Before a new staged segment reaches either
 kernel, the shared host now produces only `{position: bigint, payload_hex}`.
-The direct BTZ constructor applies the same normalization. Spawn entropy hashes
+The direct B2Z constructor applies the same normalization. Spawn entropy hashes
 these canonical envelopes, never the original adapter wrapper. Regression tests
 require byte-identical gameplay for equivalent wrappers and extra uncommitted
 metadata. Existing staged snapshots are not silently reinterpreted by this change.

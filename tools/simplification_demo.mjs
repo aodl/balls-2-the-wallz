@@ -2,7 +2,7 @@
 /** Offline demonstration. No wallet, ledger, deployment, certificate or cycles claim. */
 import {coordinatorScenario} from '../tests/scenarios/coordinator.mjs';
 import {publication,PublicationWindow} from '@dtr/timeline-runtime/observation/publication';
-import {projectAnimation} from '../packages/kernels/btz/animation.mjs';
+import {projectAnimation} from '../packages/kernels/b2z/animation.mjs';
 import {verifyPinnedPublication,ArtifactAssembler} from '@dtr/timeline-runtime/client/verification';
 import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
 const {host,end}=coordinatorScenario('dense'),before=publication(host.publicationRecord()),initial=unhex(host.committed().state_hex);
@@ -19,7 +19,7 @@ const renderWindow=new PublicationWindow();const root=renderWindow.retain(host.p
 const renderTicket=await verifyPinnedPublication(renderWindow.catalog(root),root),assembler=new ArtifactAssembler(renderTicket,'render');
 for(let i=0;i<assembler.descriptor.chunks.length;i++)await assembler.accept(i,renderWindow.chunk(root,'render',i));
 if(Buffer.compare(await assembler.finish(),projected.bytes)!==0)throw new Error('render verification failed');
-console.log(JSON.stringify({checkpoint:'S06',game_rules:'unchanged BTZ v3',private_progress_keeps_publication_stable:stable,
+console.log(JSON.stringify({checkpoint:'S06',game_rules:'unchanged B2Z v3',private_progress_keeps_publication_stable:stable,
   preceding_snapshot_downloaded_after_next_commit:true,manifest_hash:host.committed().manifest_hash,
   animation_format:projected.format,audit_event_bytes:audit.length,animation_bytes:projected.bytes.length,
   ...projected.statistics,verification:renderTicket.mode,cycles_consumed:null,

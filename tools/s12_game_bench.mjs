@@ -7,7 +7,7 @@ import {unhex, hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
 import {PublicationWindow, publication} from '@dtr/timeline-runtime/observation/publication';
-import {BtzKernel, BtzCursor} from '../packages/kernels/btz/kernel.mjs';
+import {B2zKernel, B2zCursor} from '../packages/kernels/b2z/kernel.mjs';
 
 const [fixturePath, outputPath, repetitionsText = '3'] = process.argv.slice(2);
 if (!fixturePath || !outputPath) throw new Error('usage: s12_game_bench.mjs FIXTURES OUTPUT [REPETITIONS]');
@@ -18,7 +18,7 @@ const rows = [];
 const multiSegmentCoordinator = [];
 for (const workload of fixture.workloads.filter(row => row.segments > 1)) {
   let host = TimelineCoordinator.create(unhex(workload.initial_state_hex), {source_id: '00'.repeat(32), ...workload.rules},
-    {logical_start: BigInt(workload.logical_start), source_from: 0n}, BtzKernel);
+    {logical_start: BigInt(workload.logical_start), source_from: 0n}, B2zKernel);
   const window = new PublicationWindow({maxSegments: 3});
   const publications = [];
   for (let segment = 0; segment < workload.segments; segment++) {
@@ -31,7 +31,7 @@ for (const workload of fixture.workloads.filter(row => row.segments > 1)) {
     }
     host.apply({kind: 'publish', manifest_hash: host.status().ready_hash});
     const bytes = host.snapshot();
-    host = TimelineCoordinator.restore(bytes, sha256(bytes), BtzKernel);
+    host = TimelineCoordinator.restore(bytes, sha256(bytes), B2zKernel);
     const view = publication(host.publicationRecord());
     window.retain(host.publicationRecord());
     publications.push({segment, callbacks, snapshot_bytes: bytes.length, publication_bytes: view.bytes.length,
@@ -54,7 +54,7 @@ for (const workload of fixture.workloads) {
       for (let segment = 0; segment < workload.segments; segment++) {
         const ticks = BigInt(workload.logical_end) - BigInt(workload.logical_start);
         const start = BigInt(workload.logical_start) + BigInt(segment) * ticks;
-        const cursor = new BtzCursor(chainedState, segment === 0 ? inputs : [], {...workload.rules,
+        const cursor = new B2zCursor(chainedState, segment === 0 ? inputs : [], {...workload.rules,
           logical_start: start, logical_end: start + ticks});
         let segmentWork = 0, segmentCallbacks = 0;
         while (cursor.phase !== 'done') {

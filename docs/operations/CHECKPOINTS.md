@@ -12,9 +12,9 @@ Every public ZIP includes source, generated available lockfiles, specifications,
 
 ## Next substantive checkpoint
 
-S02 should complete the reusable pure runtime contract and its native/Wasm gates where tooling permits, then include a first small-board BTZ geometry/connectivity slice if it remains a bounded coherent delivery. Carry the source/Candid/PocketIC blockers forward; do not split each missing tool into a cosmetic checkpoint. Before full BTZ implementation, fix command application, logical duration/units, exact corner/annihilation causality, and the seal assignment policy. The previous S03–S08 risk gates remain applicable; scope can be bundled, evidence cannot be waived.
+S02 should complete the reusable pure runtime contract and its native/Wasm gates where tooling permits, then include a first small-board B2Z geometry/connectivity slice if it remains a bounded coherent delivery. Carry the source/Candid/PocketIC blockers forward; do not split each missing tool into a cosmetic checkpoint. Before full B2Z implementation, fix command application, logical duration/units, exact corner/annihilation causality, and the seal assignment policy. The previous S03–S08 risk gates remain applicable; scope can be bundled, evidence cannot be waived.
 
 
 ## S02 delivery and next boundary
 
-S02 delivered a larger bundle: journal/inbox reference, Life input application, substantial headless BTZ mechanics, portable Rust primitives, independent fixtures and a real subprocess restart demo. S03 should combine headless game completion, full Rust port/native conformance and performance-oriented changes. Do not fragment each small mechanic into a public checkpoint; retain bounded local checks and recovery archives internally. Live-source/certification/money gates remain separate even when source tasks are bundled.
+S02 delivered a larger bundle: journal/inbox reference, Life input application, substantial headless B2Z mechanics, portable Rust primitives, independent fixtures and a real subprocess restart demo. S03 should combine headless game completion, full Rust port/native conformance and performance-oriented changes. Do not fragment each small mechanic into a public checkpoint; retain bounded local checks and recovery archives internally. Live-source/certification/money gates remain separate even when source tasks are bundled.

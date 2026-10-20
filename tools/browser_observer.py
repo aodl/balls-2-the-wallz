@@ -7,7 +7,7 @@ No browser policy is changed and no browser or package is downloaded.
 import argparse, base64, hashlib, importlib.metadata, json, mimetypes, re, subprocess, sys, time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-APP=ROOT/'apps/btz-observer'
+APP=ROOT/'apps/b2z-observer'
 
 def wait_until(page,predicate,timeout=30000):
     deadline=time.monotonic()+timeout/1000
@@ -75,7 +75,7 @@ def setup_offline(page):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--mode',choices=['offline','http'],default='http')
     p.add_argument('--trust',choices=['offline','local','live'],default='offline')
-    p.add_argument('--url',default='http://127.0.0.1:8080/apps/btz-observer/')
+    p.add_argument('--url',default='http://127.0.0.1:8080/apps/b2z-observer/')
     p.add_argument('--output',type=Path,default=ROOT/'.work/browser');p.add_argument('--browser');p.add_argument('--coordination',type=Path)
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
     if a.trust=='live' and (a.mode!='http' or a.coordination is None):p.error('live trust requires HTTP mode and --coordination')

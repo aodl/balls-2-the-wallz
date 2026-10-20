@@ -5,13 +5,13 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def expected():
     rows=[]
-    for index,line in enumerate(l for l in (ROOT/'tests/fixtures/btz-geometry.tsv').read_text().splitlines() if l and not l.startswith('#')):
-        p=line.split('\t');rows.append('\t'.join(['btz-geometry',str(index),p[8],p[9],p[10],p[11]]))
-    for index,line in enumerate(l for l in (ROOT/'tests/fixtures/btz-connectivity.tsv').read_text().splitlines() if l and not l.startswith('#')):
-        p=line.split('\t');rows.append('\t'.join(['btz-cut',str(index),p[6]]))
+    for index,line in enumerate(l for l in (ROOT/'tests/fixtures/b2z-geometry.tsv').read_text().splitlines() if l and not l.startswith('#')):
+        p=line.split('\t');rows.append('\t'.join(['b2z-geometry',str(index),p[8],p[9],p[10],p[11]]))
+    for index,line in enumerate(l for l in (ROOT/'tests/fixtures/b2z-connectivity.tsv').read_text().splitlines() if l and not l.startswith('#')):
+        p=line.split('\t');rows.append('\t'.join(['b2z-cut',str(index),p[6]]))
     for line in(ROOT/'tests/fixtures/spawn-native.tsv').read_text().splitlines():
         if line and not line.startswith('#'):
-            p=line.split('\t');rows.append('btz-spawn\t'+p[0]+'\t'+p[7])
+            p=line.split('\t');rows.append('b2z-spawn\t'+p[0]+'\t'+p[7])
     for line in(ROOT/'tests/fixtures/memos.tsv').read_text().splitlines():
         if line and not line.startswith('#'):rows.append('memo\t'+line)
     rows.append('seal\t'+(ROOT/'tests/fixtures/seal.hex').read_text().strip())
@@ -24,4 +24,4 @@ if __name__=='__main__':
     if result.returncode:raise SystemExit(result.stderr)
     actual=result.stdout.splitlines();wanted=expected()
     if actual!=wanted:raise SystemExit('FAIL: native canonical vectors differ (missing/extra rows also fail)')
-    print(f'PASS: native canonical bytes match {len(wanted)} independently generated protocol/Life/BTZ vectors.')
+    print(f'PASS: native canonical bytes match {len(wanted)} independently generated protocol/Life/B2Z vectors.')

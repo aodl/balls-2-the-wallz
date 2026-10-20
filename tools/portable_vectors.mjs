@@ -2,14 +2,14 @@
 /** Frozen source-implementation continuations: regression targets, not independent oracles. */
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {BtzCursor} from '../packages/kernels/btz/kernel.mjs';
-import {encodeWorld,BTZ_IDENTITY} from '../packages/kernels/btz/world.mjs';
-import {scenario} from '../tests/scenarios/btz.mjs';
+import {B2zCursor} from '../packages/kernels/b2z/kernel.mjs';
+import {encodeWorld,B2Z_IDENTITY} from '../packages/kernels/b2z/world.mjs';
+import {scenario} from '../tests/scenarios/b2z.mjs';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 const rows=[];
 for(const name of ['admission','near-impact','duel','severance','corner','wall-bounce','dense']){
-  const s=scenario(name), c=new BtzCursor(encodeWorld(s.world),s.inputs??[],{...BTZ_IDENTITY,logical_start:0n,logical_end:s.ticks});
+  const s=scenario(name), c=new B2zCursor(encodeWorld(s.world),s.inputs??[],{...B2Z_IDENTITY,logical_start:0n,logical_end:s.ticks});
   const seen=new Set();let work=0;
   while(true){
     const phase=c.phase+(c.spawnJob?'/'+c.spawnJob.phase:c.job?'/'+c.job.phase:'');

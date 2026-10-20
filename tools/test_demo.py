@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 class DemoTests(unittest.TestCase):
     def command(self,file,budget,slices,name='severance'):
-        p=subprocess.run(['node','tools/demo.mjs','btz',name,'--journal',str(file),'--budget',str(budget),'--slices',str(slices)],
+        p=subprocess.run(['node','tools/demo.mjs','b2z',name,'--journal',str(file),'--budget',str(budget),'--slices',str(slices)],
             cwd=ROOT,capture_output=True,text=True,timeout=30)
         self.assertEqual(p.returncode,0,p.stderr)
         return json.loads(p.stdout)
@@ -36,7 +36,7 @@ class DemoTests(unittest.TestCase):
     def test_mismatched_scenario_and_existing_lock_fail_closed(self):
         with tempfile.TemporaryDirectory()as t:
             file=Path(t)/'demo.json';self.command(file,1,1)
-            cmd=['node','tools/demo.mjs','btz','duel','--journal',str(file)]
+            cmd=['node','tools/demo.mjs','b2z','duel','--journal',str(file)]
             p=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True,timeout=10)
             self.assertNotEqual(p.returncode,0);self.assertIn('mismatch',p.stderr)
             lock=Path(str(file)+'.lock');lock.write_text('external holder')
@@ -45,6 +45,6 @@ class DemoTests(unittest.TestCase):
     def test_corrupted_local_journal_is_not_silently_reset(self):
         with tempfile.TemporaryDirectory()as t:
             file=Path(t)/'demo.json';self.command(file,1,1);file.write_bytes(b'bad data')
-            p=subprocess.run(['node','tools/demo.mjs','btz','severance','--journal',str(file)],cwd=ROOT,capture_output=True,text=True,timeout=10)
+            p=subprocess.run(['node','tools/demo.mjs','b2z','severance','--journal',str(file)],cwd=ROOT,capture_output=True,text=True,timeout=10)
             self.assertNotEqual(p.returncode,0);self.assertEqual(file.read_bytes(),b'bad data')
 if __name__=='__main__':unittest.main()

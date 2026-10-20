@@ -33,7 +33,7 @@ Chunk queries require the expected publication root. A new revision can produce 
 
 `PlayoutClock` is a separate presentation-only module. Only verified, completely downloaded contiguous ranges may extend its available head. It waits for initial headroom, slews speed inside a small envelope, slows as the buffer drains, and clamps exactly at exhaustion. It never invents authoritative future frames. Long tab suspensions have a bounded per-frame catch-up delta. Gaps require deliberate resynchronization.
 
-It neither schedules checkpoint commands nor changes physics/accounting time. This is a tested browser-compatible module, not yet a rendered BTZ browser application. HTTPS/localhost WebCrypto and a production certificate SDK integration remain browser/integration gates.
+It neither schedules checkpoint commands nor changes physics/accounting time. This is a tested browser-compatible module, not yet a rendered B2Z browser application. HTTPS/localhost WebCrypto and a production certificate SDK integration remain browser/integration gates.
 
 ## IC laboratory
 

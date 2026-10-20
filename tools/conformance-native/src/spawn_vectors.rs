@@ -1,5 +1,5 @@
 //! Test-fixture parsing only. The production kernel must derive ranks, never trust caller ranks.
-use btz_mechanics::spawn::{Candidate, SpawnSearch, View};
+use b2z_mechanics::spawn::{Candidate, SpawnSearch, View};
 use dtr_core::ResumableKernel;
 fn hex32(s: &str) -> [u8; 32] {
     let mut a = [0; 32];
@@ -73,6 +73,6 @@ pub fn emit() {
                 )
             },
         );
-        println!("btz-spawn\t{}\t{}", p[0], value);
+        println!("b2z-spawn\t{}\t{}", p[0], value);
     }
 }

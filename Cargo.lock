@@ -3,22 +3,22 @@
 version = 4
 
 [[package]]
-name = "btz-mechanics"
+name = "b2z-mechanics"
 version = "0.5.0"
 dependencies = [
  "dtr-core",
 ]
 
 [[package]]
-name = "btz-protocol"
+name = "b2z-protocol"
 version = "0.5.0"
 
 [[package]]
 name = "conformance-native"
 version = "0.5.0"
 dependencies = [
- "btz-mechanics",
- "btz-protocol",
+ "b2z-mechanics",
+ "b2z-protocol",
  "dtr-core",
  "life-conformance",
 ]

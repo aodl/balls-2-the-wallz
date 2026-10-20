@@ -116,7 +116,7 @@ def environment_record():
                 'heap_increase': 'canbench 64-KiB Wasm pages grown during one benchmark query',
                 'stable_memory_increase': 'canbench 64-KiB stable pages grown; not payload bytes',
                 'elapsed_seconds': 'local host wall time; not mainnet latency',
-                'work_units': 'BTZ deterministic abstract work; not Wasm instructions',
+                'work_units': 'B2Z deterministic abstract work; not Wasm instructions',
             }}
 
 

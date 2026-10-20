@@ -122,7 +122,7 @@ def main():
       'tools':{name:tool_version(command) for name,command in {
         'git':['git','--version'],'node':['node','--version'],'npm':['npm','--version'],
         'cargo':['cargo','+1.94.1','--version'],'rustc':['rustc','+1.94.1','--version']}.items()}}
-    report['btz']={'remote':git_value(ROOT,'remote','get-url','origin'),'revision':git_value(ROOT,'rev-parse','HEAD'),
+    report['b2z']={'remote':git_value(ROOT,'remote','get-url','origin'),'revision':git_value(ROOT,'rev-parse','HEAD'),
       'tree':git_value(ROOT,'rev-parse','HEAD^{tree}'),'working_tree_changes':git_value(ROOT,'status','--porcelain').splitlines()}
     def save():destination.write_text(json.dumps(report,indent=2)+'\n')
     def step(identifier,command,cwd,timeout=600,environment=None):
@@ -133,7 +133,7 @@ def main():
     try:
         # Cargo obtains the exact published Git dependency through its ordinary
         # resolver. No explicit remote Git command or sibling-source override.
-        cache=Path.home()/'.cache/btz-consumers';cache.mkdir(parents=True,exist_ok=True)
+        cache=Path.home()/'.cache/b2z-consumers';cache.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(prefix='dtr-consumers-',dir=cache) as directory:
             temporary=Path(directory);rust=temporary/'rust-consumer'
             shutil.copytree(ROOT/'tools/fixtures/dtr-consumer-rust',rust)

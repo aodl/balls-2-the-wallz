@@ -10,7 +10,7 @@ The previous separate inbox and journal could each be tested atomically, but the
 
 Combine inbox, reservation and journal into one revision-fenced coordinator image. Seal only the full supplied prefix, because interior anchors are not retained. Commit final game publication and source retirement together. Keep the underlying immutable chunk store reusable, but do not mistake durable upload work for public game truth.
 
-Implement the same host byte contract in Rust behind a game-independent trait. Put the BTZ adapter on the game side. Continue exercising the JS host with Life, and require actual native image/recovery equality before promotion.
+Implement the same host byte contract in Rust behind a game-independent trait. Put the B2Z adapter on the game side. Continue exercising the JS host with Life, and require actual native image/recovery equality before promotion.
 
 Use a small flat ordered chunk-hash catalog covered by one publication root, with a separate mandatory certificate-verification dependency. No hand-rolled BLS, new observability framework, shared physics hierarchy or additional canister fleet is introduced. Operational telemetry remains separate and unmeasured values remain null.
 

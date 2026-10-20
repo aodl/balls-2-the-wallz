@@ -11,14 +11,14 @@ name = "s14_index"
 path = "tests/s14_index.rs"
 
 [dependencies]
-btz-protocol = { path = "../../crates/btz-protocol" }
+b2z-protocol = { path = "../../crates/b2z-protocol" }
 candid = "=0.10.37"
 pocket-ic = "=16.1.0"
 serde_json = "=1.0.145"
 serde = { version = "=1.0.228", features = ["derive"] }
 dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
 dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
-btz-native = { path = "../../native/btz-native" }
+b2z-native = { path = "../../native/b2z-native" }
 ic-ledger-types = "=0.16.0"
 ic-agent = { version = "=0.49.2", default-features = false }
 leb128 = "=0.2.7"

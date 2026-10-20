@@ -27,7 +27,7 @@ See [ADR 0003](adr/0003-causal-strikes-and-safe-admission.md), [prior ADR 0002](
 
 Accepted for S03. Equivalent unsigned source positions and identical payload bytes
 must yield identical kernel inputs, irrespective of adapter wrapper types or extra
-metadata. Both generic hosts normalize the two committed fields. BTZ uses that
+metadata. Both generic hosts normalize the two committed fields. B2Z uses that
 normalized batch for spawn entropy. Enforced in generic and full-game regression
 tests; no change to historical source commitment bytes.
 
@@ -58,7 +58,7 @@ See [ADR 0005](adr/0005-atomic-host-and-bounded-publication.md), [coordinator](s
 - D-028/D-033 superseded: cross-language public outcomes and own-implementation recovery are required; identical private cursor/host bytes are optional historical port diagnostics.
 - D-037: publication v6 excludes operational revision/ingestion; a bounded retained window permits old downloads until explicit eviction/resync.
 - D-038: one direct typed coordinator replaces nested hot-path stores/validators; full boundary validation and outer atomic retirement/publication remain.
-- D-039: versioned BTZ animation projection removes unchanged motion equations without changing the authoritative audit-event codec or game outputs.
+- D-039: versioned B2Z animation projection removes unchanged motion equations without changing the authoritative audit-event codec or game outputs.
 - D-040: reviewed pinned standard dependencies are permitted; offline execution capability does not define product dependencies. One current IC lab, not multiple production candidates.
 
 See [current contract](specs/SIMPLIFICATION_V6.md). Old private snapshots and archived sources remain evidence, not permanent implementation obligations.

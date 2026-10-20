@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Legacy fixture metadata is preserved byte-for-byte; current application naming is B2Z.
 """Execute native host comparisons and both directions of saved-host continuation."""
 import argparse, json, shutil, subprocess
 from pathlib import Path

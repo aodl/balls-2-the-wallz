@@ -20,7 +20,7 @@ def observer_dependency_error(root=ROOT):
     missing=[str(package/relative) for relative in REQUIRED_DTR_MODULES if not(package/relative).is_file()]
     if not missing:return None
     return ('installed DTR observer modules are missing: '+', '.join(missing)
-      +'. Run `npm ci --ignore-scripts` from the BTZ repository root before starting the observer.')
+      +'. Run `npm ci --ignore-scripts` from the B2Z repository root before starting the observer.')
 class ObserverHandler(http.server.SimpleHTTPRequestHandler):
     extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript','.bin':'application/octet-stream'}
     def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)
@@ -33,7 +33,7 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
         if DEPLOYMENT_ASSETS is not None and re.fullmatch(r'/recordings/(?:index\.json|(?:dense|admission|severance|near-impact)/[0-9]{3}/(?:catalog|(?:state|events|scores|render)-[0-9]+)\.bin)',raw):
             return self.serve_explicit(DEPLOYMENT_ASSETS/raw.removeprefix('/'))
         if raw=='/':
-            self.send_response(302);self.send_header('Location','/apps/btz-observer/');self.end_headers();return
+            self.send_response(302);self.send_header('Location','/apps/b2z-observer/');self.end_headers();return
         if raw.startswith('/s09-local/'):
             name=raw.removeprefix('/s09-local/')
             if LOCAL_SNAPSHOT is None or name not in {'metadata.json','catalog.bin','certificate.cbor','root-key.der','initial-state.bin','state.bin','events.bin','scores.bin'}:
@@ -48,10 +48,10 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
             if GENERATED_ASSETS is None:self.send_error(404);return
             return self.serve_explicit(GENERATED_ASSETS/'ic-certificate.mjs')
         target=(ROOT/raw.lstrip('/')).resolve()
-        allowed=[ROOT/'apps/btz-observer',ROOT/'packages/protocol',ROOT/'packages/kernels/btz',ROOT/'node_modules/@dtr/timeline-runtime/packages']
+        allowed=[ROOT/'apps/b2z-observer',ROOT/'packages/protocol',ROOT/'packages/kernels/b2z',ROOT/'node_modules/@dtr/timeline-runtime/packages']
         if ('\\' in raw or not target.is_relative_to(ROOT) or not any(target.is_relative_to(d) for d in allowed)
             or (target.is_file() and target.suffix not in {'.html','.css','.mjs','.json','.bin','.svg'})
-            or (target.is_dir() and target!=ROOT/'apps/btz-observer')):
+            or (target.is_dir() and target!=ROOT/'apps/b2z-observer')):
             self.send_error(404);return
         super().do_GET()
     def do_POST(self):
@@ -114,7 +114,7 @@ def main():
         if gateway.scheme!='http' or gateway.hostname not in {'127.0.0.1','localhost','::1'} or gateway.username or gateway.password or gateway.query or gateway.fragment:p.error('--ic-gateway must be loopback HTTP')
         IC_GATEWAY=a.ic_gateway if a.ic_gateway.endswith('/') else a.ic_gateway+'/'
     with http.server.ThreadingHTTPServer(('127.0.0.1',a.port),ObserverHandler) as server:
-        print(f'Observer: http://127.0.0.1:{server.server_port}/apps/btz-observer/',flush=True)
+        print(f'Observer: http://127.0.0.1:{server.server_port}/apps/b2z-observer/',flush=True)
         print('Offline replay is default; explicit S09 snapshot and S10 live-local certificate modes are available. No real funds.',flush=True)
         try:server.serve_forever()
         except KeyboardInterrupt:pass

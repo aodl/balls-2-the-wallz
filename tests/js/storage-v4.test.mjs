@@ -3,7 +3,7 @@ import {ChunkStore,ChunkedJournalStore,descriptor,chunkHash} from '@dtr/timeline
 import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';import {sha256,makeSeal} from '@dtr/timeline-runtime/runtime/seal';
 import {SegmentJournal} from '@dtr/timeline-runtime/runtime/journal';
 import {LifeInputKernel} from '@dtr/timeline-runtime/examples/life-input';import {board,encodeBoard} from '@dtr/timeline-runtime/examples/life';
-import {BtzKernel} from '../../packages/kernels/btz/kernel.mjs';import {BTZ_IDENTITY,encodeWorld} from '../../packages/kernels/btz/world.mjs';import {scenario} from '../scenarios/btz.mjs';
+import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';import {B2Z_IDENTITY,encodeWorld} from '../../packages/kernels/b2z/world.mjs';import {scenario} from '../scenarios/b2z.mjs';
 const bytes=n=>Uint8Array.from({length:n},(_,i)=>i%251);
 function upload(s,b,revision,chunk=16){const d=descriptor(b,revision,chunk),g=s.begin(s.revision(),d);for(let i=0;i<d.chunks.length;i++)s.put(g,i,b.slice(i*chunk,(i+1)*chunk));s.commit(g);return g;}
 const restore=s=>{const b=s.snapshot();return ChunkStore.restore(b,sha256(b));};
@@ -42,7 +42,7 @@ test('domain and index bind chunks',()=>{assert.notEqual(chunkHash(0,bytes(5)),c
 function fresh(game){
  let state,kernel,id,ticks,inputs=[];
  if(game==='life'){state=encodeBoard(board(5,5,Array.from({length:25},(_,i)=>[11,12,13].includes(i)?1:0)));kernel=LifeInputKernel;id={rules_hash:'02'.repeat(32),config_hash:'03'.repeat(32),schema_hash:'04'.repeat(32)};ticks=3n;}
- else{const s=scenario(game);state=encodeWorld(s.world);kernel=BtzKernel;id=BTZ_IDENTITY;ticks=s.ticks;inputs=s.inputs??[];}
+ else{const s=scenario(game);state=encodeWorld(s.world);kernel=B2zKernel;id=B2Z_IDENTITY;ticks=s.ticks;inputs=s.inputs??[];}
  const identity={...id,source_id:'01'.repeat(32)},h=SegmentJournal.create(state,identity,{logical_start:0n,source_from:0n},kernel);
  const seal=makeSeal({...identity,segment_id:0n,logical_start:0n,logical_end:ticks,source_from:0n,source_to_exclusive:BigInt(inputs.length),source_anchor:'00'.repeat(32),previous_state:sha256(state),previous_manifest:'00'.repeat(32)},inputs,BigInt(inputs.length));
  return {h,kernel,seal,inputs};

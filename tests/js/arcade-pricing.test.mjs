@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
-import {formatIcp,transferMemo} from '../../apps/btz-observer/arcade.mjs';
-import {BtzCursor,encodePayment} from '../../packages/kernels/btz/kernel.mjs';
-import {PRELAUNCH_CONFIG,PRELAUNCH_IDENTITY,TEST_CONFIG,BTZ_IDENTITY,fixtureWorld,encodeWorld,decodeWorld} from '../../packages/kernels/btz/world.mjs';
+import {formatIcp,transferMemo} from '../../apps/b2z-observer/arcade.mjs';
+import {B2zCursor,encodePayment} from '../../packages/kernels/b2z/kernel.mjs';
+import {PRELAUNCH_CONFIG,PRELAUNCH_IDENTITY,TEST_CONFIG,B2Z_IDENTITY,fixtureWorld,encodeWorld,decodeWorld} from '../../packages/kernels/b2z/world.mjs';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
@@ -12,8 +12,8 @@ const account='01'.repeat(32);
 function run(amounts,identity=PRELAUNCH_IDENTITY){
  const world=fixtureWorld({width:16,height:8,cells:Array(128).fill(0),cannons:[],balls:[]});
  const inputs=amounts.map((amount,i)=>({position:BigInt(i),payload_hex:hex(encodePayment(account,amount,{kind:'angle',value:0}))}));
- let c=new BtzCursor(encodeWorld(world),inputs,{...identity,logical_start:0n,logical_end:2n});let work=0;
- while(c.phase!=='done'){work+=c.step(13).used;const bytes=c.snapshot();c=BtzCursor.restore(bytes,sha256(bytes));assert.ok(work<100000);}
+ let c=new B2zCursor(encodeWorld(world),inputs,{...identity,logical_start:0n,logical_end:2n});let work=0;
+ while(c.phase!=='done'){work+=c.step(13).used;const bytes=c.snapshot();c=B2zCursor.restore(bytes,sha256(bytes));assert.ok(work<100000);}
  const r=c.result();return {world:decodeWorld(r.state),receipts:decodeCanonical(r.events).receipts};
 }
 test('exact e8s formatting never rounds or accepts floating point',()=>{
@@ -21,7 +21,7 @@ test('exact e8s formatting never rounds or accepts floating point',()=>{
  for(const n of [1,-1n,NaN,'100000000'])assert.throws(()=>formatIcp(n));
 });
 test('aiming emits canonical text and exactly equivalent UTF-8 hex',()=>{
- assert.equal(transferMemo('37.5').text,'BTZ ANGLE 37.5');assert.equal(transferMemo('37.5').blob_hex,Buffer.from('BTZ ANGLE 37.5').toString('hex'));
+ assert.equal(transferMemo('37.5').text,'ANGLE 37.5');assert.equal(transferMemo('37.5').blob_hex,Buffer.from('ANGLE 37.5').toString('hex'));
  for(const n of ['0','37.5','90','180','225','270','359.99'])assert.equal(transferMemo(n).command.value,Math.floor((Math.round(Number(n)*100)*65536+18000)/36000)%65536);
 });
 for(const [amount,reason] of [[99999999n,'UNDERFUNDED'],[100000000n,'ACCEPTED'],[100000001n,'ACCEPTED']])test(`prelaunch join ${amount}: ${reason}, with interruption recovery`,()=>{
@@ -33,13 +33,13 @@ test('same funding account adds a priced ball instead of a duplicate cannon',()=
  assert.equal(r.receipts[1].kind,'ball_spawned');assert.equal(r.receipts[3].kind,'ball_spawned');
 });
 test('historical profile remains 10 ICP and its hash/goldens remain meaningful',()=>{
- assert.equal(TEST_CONFIG.join_e8s,1000000000n);assert.equal(run([100000000n],BTZ_IDENTITY).receipts[0].reason,'UNDERFUNDED');
- assert.equal(BTZ_IDENTITY.config_hash,'3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622');assert.notEqual(PRELAUNCH_IDENTITY.config_hash,BTZ_IDENTITY.config_hash);
+ assert.equal(TEST_CONFIG.join_e8s,1000000000n);assert.equal(run([100000000n],B2Z_IDENTITY).receipts[0].reason,'UNDERFUNDED');
+ assert.equal(B2Z_IDENTITY.config_hash,'3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622');assert.notEqual(PRELAUNCH_IDENTITY.config_hash,B2Z_IDENTITY.config_hash);
 });
 test('canonical source, generated JS/Rust, and certified deployment configurations stay in sync',()=>{
  execFileSync(process.execPath,['tools/generate_economics.mjs','--check']);
  const source=JSON.parse(readFileSync('config/economics/prelaunch.json'));
  for(const key of ['join_e8s','ball_base_e8s','move_e8s'])assert.equal(PRELAUNCH_CONFIG[key],BigInt(source[key]));
- const bytes=readFileSync('apps/btz-observer/configuration.bin');assert.deepEqual(decodeCanonical(bytes),PRELAUNCH_CONFIG);assert.equal(sha256(bytes),PRELAUNCH_IDENTITY.config_hash);
+ const bytes=readFileSync('apps/b2z-observer/configuration.bin');assert.deepEqual(decodeCanonical(bytes),PRELAUNCH_CONFIG);assert.equal(sha256(bytes),PRELAUNCH_IDENTITY.config_hash);
  assert.deepEqual([...encodeCanonical(TEST_CONFIG)],[...readFileSync('references/S14/mvp-configuration.bin')]);
 });

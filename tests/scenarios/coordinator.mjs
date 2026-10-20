@@ -1,8 +1,8 @@
 /** Synthetic host workloads. There is no live ledger in these fixtures. */
 import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
-import {scenario} from './btz.mjs';
-import {BtzKernel} from '../../packages/kernels/btz/kernel.mjs';
-import {BTZ_IDENTITY,encodeWorld} from '../../packages/kernels/btz/world.mjs';
+import {scenario} from './b2z.mjs';
+import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
+import {B2Z_IDENTITY,encodeWorld} from '../../packages/kernels/b2z/world.mjs';
 import {LifeInputKernel,encodeLifeSet} from '@dtr/timeline-runtime/examples/life-input';
 import {board,encodeBoard} from '@dtr/timeline-runtime/examples/life';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
@@ -13,7 +13,7 @@ export function coordinatorScenario(name) {
     return {kernel,host:TimelineCoordinator.create(encodeBoard(board(4,4,Array(16).fill(0))),identity,{logical_start:0n,source_from:0n},kernel),
       records:[hex(encodeLifeSet(1,5)),null,hex(encodeLifeSet(1,6)),hex(encodeLifeSet(1,9)),hex(encodeLifeSet(1,10))],end:2n};
   }
-  const s=scenario(name),kernel=BtzKernel,records=[];
+  const s=scenario(name),kernel=B2zKernel,records=[];
   for(const input of s.inputs??[]) {while(records.length<Number(input.position))records.push(null);records.push(input.payload_hex);}
-  return {kernel,host:TimelineCoordinator.create(encodeWorld(s.world),{source_id,...BTZ_IDENTITY},{logical_start:0n,source_from:0n},kernel),records,end:s.ticks};
+  return {kernel,host:TimelineCoordinator.create(encodeWorld(s.world),{source_id,...B2Z_IDENTITY},{logical_start:0n,source_from:0n},kernel),records,end:s.ticks};
 }

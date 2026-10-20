@@ -1,6 +1,6 @@
 # S07 observer contract
 
-20 September 2026. Current observer specification; it supplements, not replaces, the S06 simplification contract. No BTZ v3 state, event, score, price, memo, input-seal or publication-v6 rule changes.
+20 September 2026. Current observer specification; it supplements, not replaces, the S06 simplification contract. No B2Z v3 state, event, score, price, memo, input-seal or publication-v6 rule changes.
 
 ## S09 local-certified supplement
 
@@ -26,7 +26,7 @@ IC certificate authentication is still required for a future live observer. A ha
 
 ## Recordings and bounded delivery
 
-`tools/build_observer_recordings.mjs` calls the existing TimelineCoordinator and BTZ kernel. It does not synthesize ball positions or hand-author ownership changes. Each simulation interval is sealed and completed before being published. The tool generates four finite synthetic workloads:
+`tools/build_observer_recordings.mjs` calls the existing TimelineCoordinator and B2Z kernel. It does not synthesize ball positions or hand-author ownership changes. Each simulation interval is sealed and completed before being published. The tool generates four finite synthetic workloads:
 
 | Recording | Completed segments | Logical end | What it illustrates |
 |---|---:|---:|---|
@@ -60,7 +60,7 @@ Final visual equality is not a proof of every intermediate game rule, hidden boo
 
 ## Presentation model
 
-`BtzView` updates cell ownership, cannon locations and live trajectory maps from semantic events. `SegmentPlayer` applies them monotonically as the playhead advances. It does not compute collisions, decide captures, allocate territory or award prizes.
+`B2zView` updates cell ownership, cannon locations and live trajectory maps from semantic events. `SegmentPlayer` applies them monotonically as the playhead advances. It does not compute collisions, decide captures, allocate territory or award prizes.
 
 The renderer converts bounded integer intercepts/velocities and rational timestamps to floating-point coordinates for Canvas. The authoritative calculation remains unchanged. Extremely large or non-finite visual values are rejected, not coerced to an arbitrary position. Visual rounding is not game scoring precision.
 

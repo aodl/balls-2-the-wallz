@@ -1,6 +1,6 @@
-> Historical implementation context. The active S15 application is specified in [BTZ application](BTZ_APPLICATION.md) and [text command contract](BTZ_TEXT_MEMOS.md). The rules below describe adapter v1; its old mixed-field rejection is retained only for historical raw replay. Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
+> Historical implementation context. The active B2Z application is specified in [B2Z application](B2Z_APPLICATION.md) and [text command contract](B2Z_TEXT_MEMOS.md). The rules below describe adapter v1; its old mixed-field rejection is retained only for historical raw replay. Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
 
-# BTZ payment protocol, provisional wire version 1
+# B2Z payment protocol, provisional wire version 1
 
 **Implemented:** pure Rust/JavaScript memo codecs, the JavaScript classifier, and one local-only runtime-lab adapter exercised with valueless records from a pinned upstream ICP ledger Wasm. **Not implemented:** public payment admission, wallet transaction execution, refunds/payouts or production destination publication.
 
@@ -8,11 +8,11 @@
 
 | Bytes | Meaning |
 |---|---|
-| 0–2 | ASCII `BTZ` (`42 54 5a`). |
+| 0–2 | Historic ASCII `BTZ` (`42 54 5a`). |
 | 3 | `11` hexadecimal = version 1 ANGLE; `12` hexadecimal = version 1 MOVE. |
 | 4–7 | Big-endian unsigned 32-bit payload. |
 
-ANGLE uses only the low 16 bits; its high 16 bits must be zero. `0`, `16384`, `32768`, `49152` represent 0, 90, 180, 270 degrees. MOVE uses a row-major cell index; board bounds and ownership are checked by the future BTZ kernel, not the byte codec. Direction conversion/physics is not implemented yet.
+ANGLE uses only the low 16 bits; its high 16 bits must be zero. `0`, `16384`, `32768`, `49152` represent 0, 90, 180, 270 degrees. MOVE uses a row-major cell index; board bounds and ownership are checked by the future B2Z kernel, not the byte codec. Direction conversion/physics is not implemented yet.
 
 Tags and reserved bits are protocol machinery, not additional player choices. Unknown versions/opcodes, wrong length, or nonzero ANGLE reserved bits reject. There is no JSON or text parsing on the game path.
 
@@ -39,7 +39,7 @@ For now only direct transfers are command-capable. A Transfer with a non-null `s
 
 Ignore mint/burn/approve, transfers to another destination, and transfers from the recipient account to itself. Unknown operation variants or malformed authoritative wire fields halt ingestion for review; they are not silently treated as donations. The real wire adapter must explicitly handle optional/missing operation representations before it can be promoted.
 
-A valid memo produces a **candidate**. The game later evaluates join/fire/move semantics, current price, capacity and ownership in sealed ledger order. `amount_e8s` is the transferred amount: do not add or subtract the sender's fee. Each ANGLE transaction is provisionally one operation, not an automatic amount-to-many-balls multiplication; this remains a BTZ economics decision before the full kernel.
+A valid memo produces a **candidate**. The game later evaluates join/fire/move semantics, current price, capacity and ownership in sealed ledger order. `amount_e8s` is the transferred amount: do not add or subtract the sender's fee. Each ANGLE transaction is provisionally one operation, not an automatic amount-to-many-balls multiplication; this remains a B2Z economics decision before the full kernel.
 
 Underfunded/invalid/capacity-failed **game** operations retain incoming ICP, with rejection receipts; excess is retained too. This classifier does not move funds or execute that treasury policy. Retained ICP is not itself cycles burned.
 

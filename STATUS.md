@@ -1,3 +1,11 @@
+# Current status — B2Z naming and prefix-free memos
+
+Implementation and local verification are in progress on `checkpoint/b2z-identity-and-memos`. Existing deployed S15 module, history, pricing and account remain the baseline until the state-preserving upgrade is verified. DTR CHANGES: NONE.
+
+<!-- ARCHIVED_STATUS -->
+
+The following S15/S14 records are immutable historical context; current paths and naming are specified above and in the current README.
+
 # Current status — S15 text memos and circular aiming deployed
 
 **PASS, 2026-10-20.** The existing backend was upgraded in place to normal Wasm `c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4`, then the existing observer received the frozen readable-memo/aiming assets. No reset, reinstall, new mainnet canister, controller/price/Event Horizon change, DTR modification, fund transfer by Codex or remote Git action occurred. The user resolved a pre-existing backend liquid-cycles shortage before deployment.

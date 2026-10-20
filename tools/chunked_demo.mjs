@@ -2,17 +2,17 @@
 /** Offline subprocess-restart demo. No network, signing, deployment or token transfers. */
 import fs from 'node:fs';
 import path from 'node:path';
-import {scenario} from '../tests/scenarios/btz.mjs';
-import {BtzKernel, BtzCursor} from '../packages/kernels/btz/kernel.mjs';
-import {BTZ_IDENTITY, encodeWorld, decodeWorld} from '../packages/kernels/btz/world.mjs';
+import {scenario} from '../tests/scenarios/b2z.mjs';
+import {B2zKernel, B2zCursor} from '../packages/kernels/b2z/kernel.mjs';
+import {B2Z_IDENTITY, encodeWorld, decodeWorld} from '../packages/kernels/b2z/world.mjs';
 import {decodeCanonical, encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {SegmentJournal} from '@dtr/timeline-runtime/runtime/journal';
 import {ChunkedJournalStore} from '@dtr/timeline-runtime/storage/chunks';
 import {makeSeal, sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {hex, unhex} from '@dtr/timeline-runtime/protocol/bytes';
-const usage = 'node tools/chunked_demo.mjs btz <scenario> --journal <local-path> [--fault chunk:0|before_root|after] [--recover yes] [--budget 127] [--slices 10000]';
+const usage = 'node tools/chunked_demo.mjs b2z <scenario> --journal <local-path> [--fault chunk:0|before_root|after] [--recover yes] [--budget 127] [--slices 10000]';
 function options(args) {
-  const [game,name,...rest]=args;if(game!=='btz'||!name)throw new Error(usage);
+  const [game,name,...rest]=args;if(game!=='b2z'||!name)throw new Error(usage);
   const out={name,budget:127,slices:10000,fault:null,recover:null};
   for(let i=0;i<rest.length;i+=2){
     if(!['--journal','--budget','--slices','--fault','--recover'].includes(rest[i])||rest[i+1]===undefined)throw new Error(usage);
@@ -42,13 +42,13 @@ try {
   let host;
   if(fs.existsSync(o.journal)){
     const p=decodeCanonical(fs.readFileSync(o.journal));if(p.version!==4||p.scenario!==o.name)throw new Error('journal scenario/version mismatch');
-    host=new SegmentJournal(ChunkedJournalStore.restore(unhex(p.journal_hex),p.journal_hash),BtzKernel);
+    host=new SegmentJournal(ChunkedJournalStore.restore(unhex(p.journal_hex),p.journal_hash),B2zKernel);
   }else{
     const spec=scenario(o.name),state=encodeWorld(spec.world),source_id=sha256(new TextEncoder().encode('DTR_OFFLINE_DEMO_SOURCE'));
-    host=SegmentJournal.create(state,{source_id,...BTZ_IDENTITY},{logical_start:0n,source_from:0n},BtzKernel);
-    const seal=makeSeal({source_id,...BTZ_IDENTITY,segment_id:0n,logical_start:0n,logical_end:spec.ticks,
+    host=SegmentJournal.create(state,{source_id,...B2Z_IDENTITY},{logical_start:0n,source_from:0n},B2zKernel);
+    const seal=makeSeal({source_id,...B2Z_IDENTITY,segment_id:0n,logical_start:0n,logical_end:spec.ticks,
       source_from:0n,source_to_exclusive:BigInt(spec.inputs?.length??0),source_anchor:'00'.repeat(32),previous_state:sha256(state),previous_manifest:'00'.repeat(32)},spec.inputs??[],BigInt(spec.inputs?.length??0));
-    host=new SegmentJournal(ChunkedJournalStore.create(host.store.read()),BtzKernel);
+    host=new SegmentJournal(ChunkedJournalStore.create(host.store.read()),B2zKernel);
     host.prepare(seal,spec.inputs??[]);save(o.journal,host,o.name);
   }
   if(o.recover==='yes'){host.store.discardUnpublished();save(o.journal,host,o.name);}
@@ -65,7 +65,7 @@ try {
   if(!interrupted&&host.store.read().stage?.phase==='ready'){
     host.publish(host.store.read().stage.ready_hash);save(o.journal,host,o.name);
   }
-  const r=host.store.read();const pending=r.stage?BtzCursor.restore(unhex(r.stage.cursor_hex),r.stage.cursor_hash):null;
+  const r=host.store.read();const pending=r.stage?B2zCursor.restore(unhex(r.stage.cursor_hex),r.stage.cursor_hash):null;
   const w=decodeWorld(unhex(r.head.state_hex));
   const report={checkpoint:'S04',scenario:o.name,status:interrupted?'INTERRUPTED':r.stage?'RUNNING':'COMMITTED',unpublished_upload:host.store.pages.pending!==null,kernel_phase:pending?.phase??'done',
     slices_this_process:slices,logical_work_this_process:work,journal_revision:r.revision,

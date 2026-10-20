@@ -1,5 +1,5 @@
 //! S14 installed normal-Wasm account-index integration. Valueless disposable ICP only.
-use btz_native::host::BtzHostKernel;
+use b2z_native::host::B2zHostKernel;
 use candid::{CandidType, Deserialize, Principal, decode_one, encode_args};
 use dtr_host::observation::{Publication, publication};
 use dtr_host::{Action, Coordinator};
@@ -87,7 +87,7 @@ fn initial_world() -> Vec<u8> {
         return std::fs::read(path).unwrap();
     }
     let path =
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/btz-v3-golden.json");
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/b2z-v3-golden.json");
     let value: serde_json::Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
     let text = value["cases"][0]["initial_hex"].as_str().unwrap();
     dtr_wire::unhex(text).unwrap()
@@ -284,7 +284,7 @@ fn replay_head(
     pic: &PocketIc,
     id: Principal,
     p: &Publication,
-    h: &mut Coordinator<BtzHostKernel>,
+    h: &mut Coordinator<B2zHostKernel>,
     payments: &BTreeMap<u64, String>,
     assigned: &mut Vec<u64>,
 ) {
@@ -449,7 +449,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
         encode_args(()).unwrap(),
         Some(controller()),
     );
-    let wasm = bytes("BTZ_S14_WASM");
+    let wasm = bytes("B2Z_S14_WASM");
     let world = initial_world();
     pic.install_canister(
         id,
@@ -504,7 +504,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     let _: Status = get_result(
@@ -954,7 +954,7 @@ fn controlled_index_pagination_lag_failure_and_upgrade() {
         encode_args(()).unwrap(),
         Some(controller()),
     );
-    let wasm = bytes("BTZ_S14_WASM");
+    let wasm = bytes("B2Z_S14_WASM");
     pic.install_canister(
         id,
         wasm.clone(),
@@ -1271,7 +1271,7 @@ fn complete_index_range_backpressure_preserves_both_documents() {
         owner,
     )
     .unwrap();
-    let mut identity = btz_native::identity().unwrap();
+    let mut identity = b2z_native::identity().unwrap();
     identity["source_id"] = serde_json::Value::String(source_id);
     let identity: dtr_host::Identity = serde_json::from_value(identity).unwrap();
     let mut h = Coordinator::create(
@@ -1280,7 +1280,7 @@ fn complete_index_range_backpressure_preserves_both_documents() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     for n in 0..16 {
@@ -1387,7 +1387,7 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
             encode_args((ledger, 90u32, history(vec![100]))).unwrap(),
             Some(controller()),
         );
-        let wasm = bytes("BTZ_S14_WASM");
+        let wasm = bytes("B2Z_S14_WASM");
         pic.install_canister(
             id,
             wasm.clone(),
@@ -1506,10 +1506,10 @@ fn slow_index_calls_coalesce_timers_and_fence_late_responses() {
     }
 }
 
-/// This traps BTZ's reply callback, not the index. Only the first callback traps;
+/// This traps B2Z's reply callback, not the index. Only the first callback traps;
 /// its pre-await durable in-flight flag must recover through ordinary fallback.
 #[test]
-fn btz_callback_trap_recovers_through_fallback_without_reset() {
+fn b2z_callback_trap_recovers_through_fallback_without_reset() {
     let pic = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet()
@@ -1562,7 +1562,7 @@ fn btz_callback_trap_recovers_through_fallback_without_reset() {
     );
     pic.install_canister(
         id,
-        bytes("BTZ_S14_TEST_WASM"),
+        bytes("B2Z_S14_TEST_WASM"),
         encode_args((
             initial_world(),
             0u64,
@@ -1619,7 +1619,7 @@ fn btz_callback_trap_recovers_through_fallback_without_reset() {
     let trapped = status(&pic, id);
     assert!(
         trapped.source.scan_in_flight,
-        "BTZ callback rollback must retain pre-await lease"
+        "B2Z callback rollback must retain pre-await lease"
     );
     assert_eq!(trapped.source.admitted_to_exclusive, 0);
     assert_eq!(
@@ -1664,7 +1664,7 @@ fn btz_callback_trap_recovers_through_fallback_without_reset() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     let payments = BTreeMap::from([(
@@ -1744,7 +1744,7 @@ fn bounded_history_windows_drain_256_257_and_513_without_skipping() {
             encode_args((ids.clone(), recipient.to_string(), funding.to_string())).unwrap(),
         )
         .unwrap();
-        let wasm = bytes("BTZ_S14_WASM");
+        let wasm = bytes("B2Z_S14_WASM");
         let world = initial_world();
         pic.install_canister(
             id,
@@ -1771,7 +1771,7 @@ fn bounded_history_windows_drain_256_257_and_513_without_skipping() {
             0,
             0,
             "00".repeat(32),
-            BtzHostKernel,
+            B2zHostKernel,
         )
         .unwrap();
         let mut upgraded = false;
@@ -1935,7 +1935,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         .unwrap(),
         Some(controller()),
     );
-    let wasm = bytes("BTZ_S14_WASM");
+    let wasm = bytes("B2Z_S14_WASM");
     let world = initial_world();
     pic.install_canister(
         id,
@@ -1968,7 +1968,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
@@ -2119,14 +2119,14 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 before,
                 "unrelated target must not call index"
             );
-            let tx = transfer_text(&pic, ledger, payer, id, 100_000_000, b"BTZ ANGLE 37.5");
+            let tx = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
             first = Some(tx);
             payments.insert(
                 tx,
                 normalized(
                     funding,
                     100_000_000,
-                    btz_protocol::encode(btz_protocol::Command::Angle(6827)),
+                    b2z_protocol::encode(b2z_protocol::Command::Angle(6827)),
                 ),
             );
             pic.update_call(
@@ -2146,20 +2146,20 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 std::thread::sleep(Duration::from_millis(50));
                 continue;
             }
-            let tx = transfer_text(&pic, ledger, payer, id, 10_000_000, b"BTZ ANGLE 225");
+            let tx = transfer_text(&pic, ledger, payer, id, 10_000_000, b"ANGLE 225");
             second = Some(tx);
             payments.insert(
                 tx,
                 normalized(
                     funding,
                     10_000_000,
-                    btz_protocol::encode(btz_protocol::Command::Angle(40960)),
+                    b2z_protocol::encode(b2z_protocol::Command::Angle(40960)),
                 ),
             );
             phase = 2;
         } else if phase == 2 && assigned.contains(&second.unwrap()) {
             let view = publication(&native.record).unwrap();
-            let world = btz_native::world::World::decode(&view.artifacts[0]).unwrap();
+            let world = b2z_native::world::World::decode(&view.artifacts[0]).unwrap();
             assert_eq!(world.cannons.len(), 1, "paid join created one cannon");
             assert_eq!(world.balls.len(), 2, "fallback payment bought second ball");
             let cannon = &world.cannons[0];
@@ -2178,7 +2178,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 payer,
                 id,
                 10_000,
-                format!("BTZ MOVE {target}").as_bytes(),
+                format!("MOVE {target}").as_bytes(),
             );
             third = Some(tx);
             payments.insert(tx, normalized(funding, 10_000, memo));
@@ -2287,7 +2287,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
 /// Explicit old-release probe, never a mainnet operation. The reviewed old
 /// module is supplied separately, so ordinary CI needs no historical checkout.
 #[test]
-#[ignore = "requires BTZ_PRIOR_WASM with the reviewed S14 module"]
+#[ignore = "requires B2Z_PRIOR_WASM with the reviewed S14 module"]
 fn pricing_profile_upgrade_preserves_history_but_does_not_reprice() {
     let pic = PocketIcBuilder::new()
         .with_nns_subnet()
@@ -2339,7 +2339,7 @@ fn pricing_profile_upgrade_preserves_history_but_does_not_reprice() {
         ))
         .unwrap()
     };
-    let old = bytes("BTZ_PRIOR_WASM");
+    let old = bytes("B2Z_PRIOR_WASM");
     assert_eq!(
         dtr_wire::hash(&old),
         "15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703"
@@ -2368,7 +2368,7 @@ fn pricing_profile_upgrade_preserves_history_but_does_not_reprice() {
     );
     pic.upgrade_canister(
         old_game,
-        bytes("BTZ_S14_WASM"),
+        bytes("B2Z_S14_WASM"),
         encode_args(()).unwrap(),
         Some(controller()),
     )
@@ -2395,12 +2395,12 @@ fn pricing_profile_upgrade_preserves_history_but_does_not_reprice() {
     );
     pic.install_canister(
         fresh_game,
-        bytes("BTZ_S14_WASM"),
+        bytes("B2Z_S14_WASM"),
         init(),
         Some(controller()),
     );
     let (_, fresh) = observe(&pic, fresh_game);
-    let identity = btz_native::identity().unwrap();
+    let identity = b2z_native::identity().unwrap();
     assert_eq!(
         fresh.identity.config_hash,
         identity["config_hash"].as_str().unwrap()
@@ -2515,12 +2515,13 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
         Some(controller()),
     );
     let is_historical = prior.is_some();
-    let old = prior.unwrap_or_else(|| bytes("BTZ_S14_WASM"));
+    let old = prior.unwrap_or_else(|| bytes("B2Z_S14_WASM"));
     if is_historical {
-        assert_eq!(
-            dtr_wire::hash(&old),
+        assert!(matches!(
+            dtr_wire::hash(&old).as_str(),
             "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c"
-        );
+                | "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4"
+        ));
     }
     let initial = initial_world();
     pic.install_canister(
@@ -2552,7 +2553,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
         0,
         0,
         "00".repeat(32),
-        BtzHostKernel,
+        B2zHostKernel,
     )
     .unwrap();
     let recipient = source::receiving_account(id, 0);
@@ -2569,15 +2570,15 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
             ),
         );
     };
-    let a = btz_protocol::encode(btz_protocol::Command::Angle(6827));
-    let b = btz_protocol::encode(btz_protocol::Command::Angle(40960));
+    let a = b2z_protocol::encode(b2z_protocol::Command::Angle(6827));
+    let b = b2z_protocol::encode(b2z_protocol::Command::Angle(40960));
     let first = transfer(&pic, ledger, payer, recipient, 100_000_000, a);
     add(first, payer, 100_000_000, a);
     let second = transfer(&pic, ledger, rival, recipient, 100_000_000, b);
     add(second, rival, 100_000_000, b);
-    let invalid = transfer_text(&pic, ledger, payer, id, 1, b"BTZ ANGLE NaN");
+    let invalid = transfer_text(&pic, ledger, payer, id, 1, b"ANGLE NaN");
     add(invalid, payer, 1, [0; 8]);
-    blobs.insert(invalid, b"BTZ ANGLE NaN".to_vec());
+    blobs.insert(invalid, b"ANGLE NaN".to_vec());
     let run = || {
         candid::encode_one(RunConfig {
             segment_ticks: 2,
@@ -2601,7 +2602,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
         receipts: Vec<Receipt>,
     }
     let receipts = std::cell::RefCell::new(BTreeMap::new());
-    let capture = |native: &mut Coordinator<BtzHostKernel>,
+    let capture = |native: &mut Coordinator<B2zHostKernel>,
                    assigned: &mut Vec<u64>,
                    publications: &mut Vec<Publication>,
                    last: &mut Option<Int>,
@@ -2639,27 +2640,27 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     }
     assert_eq!(assigned, vec![first, second, invalid]);
     let before_world =
-        btz_native::world::World::decode(&publication(&native.record).unwrap().artifacts[0])
+        b2z_native::world::World::decode(&publication(&native.record).unwrap().artifacts[0])
             .unwrap();
     assert_eq!(before_world.cannons.len(), 2);
     assert_eq!(before_world.received_e8s, Int(200_000_001u64.into()));
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     // Valid binary blob and text are both downloaded/normalized by the OLD adapter while paused.
-    let binary = btz_protocol::encode(btz_protocol::Command::Angle(8192));
+    let binary = b2z_protocol::encode(b2z_protocol::Command::Angle(8192));
     let pending_binary = transfer_text(&pic, ledger, payer, id, 10_000_000, &binary);
     payments.insert(pending_binary, normalized(funding, 10_000_000, binary));
     blobs.insert(pending_binary, binary.to_vec());
-    let pending_text = transfer_text(&pic, ledger, payer, id, 40_000_000, b"BTZ ANGLE 135");
+    let pending_text = transfer_text(&pic, ledger, payer, id, 40_000_000, b"ANGLE 135");
     let pending_command = if is_historical {
         [0; 8]
     } else {
-        btz_protocol::encode(btz_protocol::Command::Angle(24576))
+        b2z_protocol::encode(b2z_protocol::Command::Angle(24576))
     };
     payments.insert(
         pending_text,
         normalized(funding, 40_000_000, pending_command),
     );
-    blobs.insert(pending_text, b"BTZ ANGLE 135".to_vec());
+    blobs.insert(pending_text, b"ANGLE 135".to_vec());
     for _ in 0..130 {
         tick(&pic);
         capture(
@@ -2690,7 +2691,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     assert!(before_pub.head.segment_id.is_some());
     pic.upgrade_canister(
         id,
-        bytes("BTZ_S14_WASM"),
+        bytes("B2Z_S14_WASM"),
         encode_args(()).unwrap(),
         Some(controller()),
     )
@@ -2740,9 +2741,20 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     let empty = transfer_text(&pic, ledger, payer, id, 1, b"");
     payments.insert(empty, normalized(funding, 1, [0; 8]));
     blobs.insert(empty, vec![]);
-    let text = transfer_text(&pic, ledger, payer, id, 160_000_000, b"BTZ ANGLE 225");
+    // Exactly eight ASCII bytes must take the text grammar, then ordinary game ownership checks.
+    let move123 = transfer_text(&pic, ledger, payer, id, 10_000, b"MOVE 123");
+    payments.insert(
+        move123,
+        normalized(
+            funding,
+            10_000,
+            b2z_protocol::encode(b2z_protocol::Command::Move(123)),
+        ),
+    );
+    blobs.insert(move123, b"MOVE 123".to_vec());
+    let text = transfer_text(&pic, ledger, payer, id, 160_000_000, b"ANGLE 225");
     payments.insert(text, normalized(funding, 160_000_000, b));
-    blobs.insert(text, b"BTZ ANGLE 225".to_vec());
+    blobs.insert(text, b"ANGLE 225".to_vec());
     for _ in 0..140 {
         tick(&pic);
         capture(
@@ -2752,7 +2764,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
             &mut last,
             &payments,
         );
-        if assigned.len() == 7 {
+        if assigned.len() == 8 {
             break;
         }
     }
@@ -2765,6 +2777,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
             pending_binary,
             pending_text,
             empty,
+            move123,
             text
         ]
     );
@@ -2785,7 +2798,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     )
     .unwrap();
     let history = history.unwrap();
-    assert_eq!(history.transactions.len(), 7);
+    assert_eq!(history.transactions.len(), 8);
     for row in &history.transactions {
         if let Some(expected) = blobs.get(&row.id) {
             assert_eq!(row.transaction.icrc1_memo.as_ref(), Some(expected));
@@ -2799,11 +2812,11 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     assert!(status(&pic, id).run.last_error.is_none());
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, text + 1);
     let final_world =
-        btz_native::world::World::decode(&publication(&native.record).unwrap().artifacts[0])
+        b2z_native::world::World::decode(&publication(&native.record).unwrap().artifacts[0])
             .unwrap();
-    assert_eq!(final_world.received_e8s, Int(410_000_002u64.into()));
+    assert_eq!(final_world.received_e8s, Int(410_010_002u64.into()));
     let receipts = receipts.into_inner();
-    assert_eq!(receipts.len(), 7);
+    assert_eq!(receipts.len(), 8);
     assert_eq!(receipts[&first].0, "ACCEPTED");
     assert_eq!(receipts[&second].0, "ACCEPTED");
     assert_ne!(receipts[&invalid].0, "ACCEPTED");
@@ -2812,7 +2825,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     assert_eq!(
         receipts[&pending_text].0 == "ACCEPTED",
         !is_historical,
-        "v1 rejection must not become v2 acceptance"
+        "historical rejection must not become v3 acceptance"
     );
     assert_eq!(receipts[&text].0, "ACCEPTED");
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
@@ -2822,7 +2835,7 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     } else {
         "s15-text-path"
     };
-    let result = serde_json::json!({"status":"PASS","adapter_version":2,"deployed_module_upgrade":is_historical,"before_source_cursor":before_status.source.admitted_to_exclusive,"pending_inputs":before_work.0,"publication_preserved":true,"initial_world_hex":hex(&initial),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned,"receipts":receipts,"raw_index":history.transactions.iter().map(|r|serde_json::json!({"id":r.id,"legacy":r.transaction.memo,"blob_hex":r.transaction.icrc1_memo.as_ref().map(|b|hex(b)),"raw_candid_hex":hex(&candid::encode_one(r).unwrap())})).collect::<Vec<_>>()});
+    let result = serde_json::json!({"status":"PASS","adapter_version":3,"deployed_module_upgrade":is_historical,"before_source_cursor":before_status.source.admitted_to_exclusive,"pending_inputs":before_work.0,"publication_preserved":true,"initial_world_hex":hex(&initial),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned,"receipts":receipts,"raw_index":history.transactions.iter().map(|r|serde_json::json!({"id":r.id,"legacy":r.transaction.memo,"blob_hex":r.transaction.icrc1_memo.as_ref().map(|b|hex(b)),"raw_candid_hex":hex(&candid::encode_one(r).unwrap())})).collect::<Vec<_>>()});
     let path = out.join(format!("{name}-history.json"));
     std::fs::write(&path, serde_json::to_vec_pretty(&result).unwrap()).unwrap();
     assert!(
@@ -2843,7 +2856,18 @@ fn upstream_text_memos_normalize_once_and_preserve_pending_upgrade() {
     s15_text_path(None);
 }
 #[test]
-#[ignore = "requires exact currently deployed BTZ_DEPLOYED_WASM"]
+#[ignore = "requires exact currently deployed B2Z_DEPLOYED_WASM"]
 fn s15_upgrade_from_deployed_module_with_players_publications_and_pending() {
-    s15_text_path(Some(bytes("BTZ_DEPLOYED_WASM")));
+    s15_text_path(Some(bytes("B2Z_DEPLOYED_WASM")));
+}
+
+#[test]
+#[ignore = "requires exact installed S15 B2Z_CURRENT_DEPLOYED_WASM"]
+fn b2z_upgrade_from_s15_with_players_publications_and_pending() {
+    let old = bytes("B2Z_CURRENT_DEPLOYED_WASM");
+    assert_eq!(
+        dtr_wire::hash(&old),
+        "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4"
+    );
+    s15_text_path(Some(old));
 }

@@ -1,3 +1,4 @@
+// Legacy fixture metadata is preserved byte-for-byte; current application naming is B2Z.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
@@ -5,18 +6,18 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {LifeInputKernel,encodeLifeSet} from '@dtr/timeline-runtime/examples/life-input';
 import {board,encodeBoard} from '@dtr/timeline-runtime/examples/life';
-import {BtzKernel} from '../../packages/kernels/btz/kernel.mjs';
-import {BTZ_IDENTITY} from '../../packages/kernels/btz/world.mjs';
+import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
+import {B2Z_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
 import fs from 'node:fs';
-const cases=JSON.parse(fs.readFileSync(new URL('../fixtures/btz-v3-golden.json',import.meta.url),'utf8')).cases;
+const cases=JSON.parse(fs.readFileSync(new URL('../fixtures/b2z-v3-golden.json',import.meta.url),'utf8')).cases;
 const lifeIdentity={source_id:'01'.repeat(32),rules_hash:'02'.repeat(32),config_hash:'03'.repeat(32),schema_hash:'04'.repeat(32)};
 export function setup(game) {
   if(game==='life')return {kernel:LifeInputKernel,host:TimelineCoordinator.create(encodeBoard(board(4,4,Array(16).fill(0))),lifeIdentity,{logical_start:0n,source_from:0n},LifeInputKernel),
     records:[hex(encodeLifeSet(1,5)),null,hex(encodeLifeSet(1,6)),hex(encodeLifeSet(1,9)),hex(encodeLifeSet(1,10))],end:2n};
   const row=cases.find(r=>r.name==='admission');
   const state=unhex(row.initial_hex);
-  return {kernel:BtzKernel,host:TimelineCoordinator.create(state,{source_id:'01'.repeat(32),...BTZ_IDENTITY},{logical_start:0n,source_from:0n},BtzKernel),records:decodeCanonical(unhex(row.inputs_hex)).map(i=>i.payload_hex),end:decodeCanonical(unhex(row.context_hex)).logical_end};
+  return {kernel:B2zKernel,host:TimelineCoordinator.create(state,{source_id:'01'.repeat(32),...B2Z_IDENTITY},{logical_start:0n,source_from:0n},B2zKernel),records:decodeCanonical(unhex(row.inputs_hex)).map(i=>i.payload_hex),end:decodeCanonical(unhex(row.context_hex)).logical_end};
 }
 function restore(host,kernel) {const bytes=host.snapshot();return TimelineCoordinator.restore(bytes,sha256(bytes),kernel);}
 function complete(host,kernel,roundtrip=false,budget=127) {

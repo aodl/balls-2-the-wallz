@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {unhex} from '@dtr/timeline-runtime/protocol/bytes';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
-import {BtzCursor} from '../../packages/kernels/btz/kernel.mjs';
+import {B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
 
 const fixture = JSON.parse(readFileSync(new URL('../../benchmarks/s12/workloads.json', import.meta.url)));
 
 function run(workload, budget) {
-  const cursor = new BtzCursor(
+  const cursor = new B2zCursor(
     unhex(workload.initial_state_hex),
     workload.inputs.map(input => ({position: BigInt(input.position), payload_hex: input.payload_hex})),
     {...workload.rules, logical_start: BigInt(workload.logical_start), logical_end: BigInt(workload.logical_end)}
