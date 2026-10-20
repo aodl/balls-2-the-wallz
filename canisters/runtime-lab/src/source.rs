@@ -1,4 +1,4 @@
-//! ICP account-index adapter v1. Trusts the configured index for account history
+//! ICP account-index adapter v2 (BTZ text/2, binary/numeric compatibility). Trusts the configured index for account history
 //! contents AND completeness. No global-ledger scanning or archive traversal.
 use candid::{CandidType, Deserialize, Nat, Principal};
 use dtr_host::Input;
@@ -503,23 +503,9 @@ fn classify(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<St
     }
 }
 fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
-    let candidate: [u8; 8] = match blob {
-        Some(bytes) if legacy == 0 => match bytes.try_into() {
-            Ok(value) => value,
-            Err(_) => return INVALID_MEMO,
-        },
-        Some(_) => return INVALID_MEMO,
-        None => legacy.to_be_bytes(),
-    };
-    let value = u32::from_be_bytes(candidate[4..].try_into().expect("four bytes"));
-    if &candidate[..3] != b"BTZ"
-        || !matches!(candidate[3], 0x11 | 0x12)
-        || (candidate[3] == 0x11 && value > u32::from(u16::MAX))
-    {
-        INVALID_MEMO
-    } else {
-        candidate
-    }
+    btz_protocol::decode_ledger(legacy, blob)
+        .map(btz_protocol::encode)
+        .unwrap_or(INVALID_MEMO)
 }
 
 #[cfg(test)]
@@ -702,6 +688,40 @@ mod tests {
         assert!(s.page(page(&[], None)).is_err());
     }
     #[test]
+    fn invalid_text_then_valid_payment_preserves_ids_digests_and_pending() {
+        let mut s = fresh();
+        let mut first = tx(41);
+        first.transaction.icrc1_memo = Some(b"BTZ ANGLE NaN".to_vec());
+        let mut second = tx(83);
+        second.transaction.memo = u64::MAX;
+        second.transaction.icrc1_memo = Some(b"BTZ ANGLE 37.5".to_vec());
+        let first_digest = hash(&candid::encode_one(&first).unwrap());
+        let second_digest = hash(&candid::encode_one(&second).unwrap());
+        s.page(History {
+            balance: 0,
+            transactions: vec![second, first],
+            oldest_tx_id: Some(41),
+        })
+        .unwrap();
+        let pending = s.pending.as_ref().unwrap();
+        assert_eq!(pending.rows[0].digest, second_digest);
+        assert_eq!(pending.rows[1].digest, first_digest);
+        // Normalized rows, including an old rejection, are durable bytes, never decoded again.
+        let before = serde_json::to_vec(&s).unwrap();
+        s = serde_json::from_slice(&before).unwrap();
+        assert_eq!(serde_json::to_vec(&s).unwrap(), before);
+        let (end, inputs, _) = s.admission(&"00".repeat(32)).unwrap();
+        assert_eq!(end, 84);
+        assert_eq!(inputs[0].position, Int(41.into()));
+        assert!(inputs[0].payload_hex.ends_with("0000000000000000"));
+        assert_eq!(inputs[1].position, Int(83.into()));
+        assert!(inputs[1].payload_hex.ends_with("42545a1100001aab"));
+        s.admitted(end).unwrap();
+        s.page(page(&[83, 41], Some(41))).unwrap();
+        assert!(s.pending.is_none());
+        assert_eq!(btz_protocol::MEMO_ADAPTER_VERSION, 2);
+    }
+    #[test]
     fn classification_preserves_memo_and_delegation_rules() {
         let recipient = receiving_account(owner(), 0);
         let mut t = tx(1).transaction;
@@ -721,7 +741,7 @@ mod tests {
         assert!(classify(&t, &recipient)
             .unwrap()
             .unwrap()
-            .ends_with("0000000000000000"));
+            .ends_with("42545a1200000001"));
         t.memo = 0;
         t.icrc1_memo = None;
         if let Operation::Transfer { spender, .. } = &mut t.operation {

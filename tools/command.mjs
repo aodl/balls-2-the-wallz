@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /** Offline tools only: no network, wallet access, signing or token transfers. */
-import{readFileSync}from'node:fs';import{describeMemo}from'../packages/protocol/memo.mjs';import{board,LifeCursor}from'@dtr/timeline-runtime/examples/life';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
-const usage='Usage: node tools/command.mjs memo <angle|move> <integer> | replay [case-name] [comma-separated-budgets]';
+import{readFileSync}from'node:fs';import{describeTextMemo}from'../packages/protocol/memo.mjs';import{board,LifeCursor}from'@dtr/timeline-runtime/examples/life';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
+const usage='Usage: node tools/command.mjs memo <angle|move> <degrees-or-cell> | replay [case-name] [comma-separated-budgets]';
 try{
  const[command,arg,value]=process.argv.slice(2);
  if(command==='memo'){
   if(!arg||value===undefined)throw new Error(usage);
-  console.log(JSON.stringify(describeMemo({kind:arg,value}),null,2));
+  console.log(JSON.stringify(describeTextMemo(arg,value),null,2));
  }else if(command==='replay'){
   const data=JSON.parse(readFileSync(new URL('../tests/fixtures/life.json',import.meta.url),'utf8'));
   const selected=arg?data.cases.filter(v=>v.name===arg):data.cases;if(!selected.length)throw new Error('unknown Life case');

@@ -294,6 +294,14 @@ function draw(){
     if(x===v.width-1){ctx.beginPath();ctx.moveTo((x+1)*cell,y*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
     if(y===v.height-1){ctx.beginPath();ctx.moveTo(x*cell,(y+1)*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
   }
+  const selection=arcade.moveSelection();
+  if(selection&&selection.width===v.width&&selection.height===v.height){
+    // Inspection overlay from the latest certified snapshot, never an ownership repaint.
+    ctx.save();ctx.setLineDash([4,3]);ctx.strokeStyle='#ffcc80';ctx.lineWidth=2;
+    for(const n of selection.cells)ctx.strokeRect(n%v.width*cell+3,Math.floor(n/v.width)*cell+3,cell-6,cell-6);
+    if(selection.cell!==null){ctx.setLineDash([]);ctx.lineWidth=3;const n=selection.cell;ctx.strokeRect(n%v.width*cell+5,Math.floor(n/v.width)*cell+5,cell-10,cell-10);}
+    ctx.restore();
+  }
   for(const c of v.cannons.values()){
     const x=(c.cell%v.width+.5)*cell,y=(Math.floor(c.cell/v.width)+.5)*cell,r=cell*.31;
     ctx.fillStyle='#071423';ctx.strokeStyle=color(c.id);ctx.lineWidth=2;ctx.fillRect(x-r,y-r,2*r,2*r);ctx.strokeRect(x-r,y-r,2*r,2*r);
@@ -320,11 +328,24 @@ function frame(now){
   const dt=lastFrame===null?0:Math.min((now-lastFrame)/1000,.25);lastFrame=now;const s=session;
   if(s?.ready&&!s.error&&!paused){
     const current=s.clock.sample(dt*speed/s.recording.tick_seconds);visibleTime=current.playhead;
-    while(s.queue.length&&visibleTime>=s.queue[0].segment.end){const q=s.queue.shift();visible=q.player.advance(q.segment.end);s.bytes-=q.segment.bytes;}
-    if(s.queue.length)visible=s.queue[0].player.advance(visibleTime);
+    function show(q,time){
+      if(!q.presented){q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
+      visible=q.player.advance(time);
+    }
+    while(s.queue.length&&visibleTime>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
+    if(s.queue.length)show(s.queue[0],visibleTime);
+  }
+  if(s?.mode==='live'&&globalThis.__dtrLive){
+    const state=s.clock.state();globalThis.__dtrLive.playback={wall_ms:now,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
+canvas.addEventListener('click',e=>{
+  const s=arcade.moveSelection();if(!s)return;
+  const r=canvas.getBoundingClientRect(),cell=Math.min((r.width-20)/s.width,(r.height-20)/s.height),ox=(r.width-cell*s.width)/2,oy=(r.height-cell*s.height)/2;
+  const x=Math.floor((e.clientX-r.left-ox)/cell),y=Math.floor((e.clientY-r.top-oy)/cell);
+  if(x>=0&&x<s.width&&y>=0&&y<s.height)arcade.chooseCell(y*s.width+x);
+});
 $('pause').addEventListener('click',()=>{paused=!paused;lastFrame=null;updateHud();});
 $('restart').addEventListener('click',()=>{if(session)void (session.mode==='live'?startLive(session.recording):session.mode==='local'?startLocal(session.recording):start(session.recording));});
 $('recording').addEventListener('change',()=>{const r=catalog.recordings.find(r=>r.id===$('recording').value);if(r)void start(r);});

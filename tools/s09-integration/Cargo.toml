@@ -11,6 +11,7 @@ name = "s14_index"
 path = "tests/s14_index.rs"
 
 [dependencies]
+btz-protocol = { path = "../../crates/btz-protocol" }
 candid = "=0.10.37"
 pocket-ic = "=16.1.0"
 serde_json = "=1.0.145"

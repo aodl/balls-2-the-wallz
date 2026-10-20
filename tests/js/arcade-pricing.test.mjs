@@ -20,9 +20,9 @@ test('exact e8s formatting never rounds or accepts floating point',()=>{
  for(const [n,s] of [[0n,'0 ICP'],[1n,'0.00000001 ICP'],[10000n,'0.0001 ICP'],[10000000n,'0.1 ICP'],[100000000n,'1 ICP'],[(1n<<64n)-1n,'184467440737.09551615 ICP']])assert.equal(formatIcp(n),s);
  for(const n of [1,-1n,NaN,'100000000'])assert.throws(()=>formatIcp(n));
 });
-test('join direction controls use the existing exact legacy and blob codec',()=>{
- assert.equal(transferMemo(0).legacy_nat64_decimal,'4779544133607882752');assert.equal(transferMemo(0).blob_hex,'42545a1100000000');
- for(const n of [0,16384,32768,49152])assert.equal(BigInt('0x'+transferMemo(n).blob_hex).toString(),transferMemo(n).legacy_nat64_decimal);
+test('aiming emits canonical text and exactly equivalent UTF-8 hex',()=>{
+ assert.equal(transferMemo('37.5').text,'BTZ ANGLE 37.5');assert.equal(transferMemo('37.5').blob_hex,Buffer.from('BTZ ANGLE 37.5').toString('hex'));
+ for(const n of ['0','37.5','90','180','225','270','359.99'])assert.equal(transferMemo(n).command.value,Math.floor((Math.round(Number(n)*100)*65536+18000)/36000)%65536);
 });
 for(const [amount,reason] of [[99999999n,'UNDERFUNDED'],[100000000n,'ACCEPTED'],[100000001n,'ACCEPTED']])test(`prelaunch join ${amount}: ${reason}, with interruption recovery`,()=>{
  const r=run([amount]);assert.equal(r.receipts[0].reason,reason);assert.equal(r.world.received_e8s,amount);assert.equal(r.world.cannons.length,reason==='ACCEPTED'?1:0);

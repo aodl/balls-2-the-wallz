@@ -6,6 +6,10 @@ BTZ is an authoritative deterministic game on the Internet Computer. Players use
 
 The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains phased deployment/funding commands, launch configuration, exact wallet play card, subscription and pause/upgrade procedures. All remote Git, funding and real-money operations belong to the user. Deploying reviewed code into the two existing mainnet canisters requires explicit user authorization; a destructive reset requires separate approval.
 
+## S15 text memo and aiming extension
+
+The local S15 branch adds bounded ICRC-1 commands such as `BTZ ANGLE 37.5` and `BTZ MOVE 83`, full-circle pointer/touch/keyboard aiming and one authenticated action-preparation card. [Grammar and upgrade boundaries](docs/specs/BTZ_TEXT_MEMOS.md) specify the additive adapter. Backend deployment must precede publishing the new frontend; this paragraph alone does not assert deployment or a real text payment. Prices and game history are unchanged.
+
 ## Live arcade / prelaunch release
 
 The [mainnet observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) now serves the arena-first arcade release and authenticates the **1 ICP** join profile. Ball base remains 0.1 ICP and relocation 0.0001 ICP. The user-approved empty-game transition was performed only after fresh no-payment/score/pending-input checks. Certified browser viewing and autonomous progression pass; [activation evidence](evidence/S14/ux-pricing/mainnet-activation.json) records the deployed source/artifacts. No wallet/login or payout feature was added. Never repeat the one-time reset as routine upgrade recovery.

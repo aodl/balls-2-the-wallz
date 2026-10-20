@@ -13,6 +13,7 @@ pub enum MemoError {
     VersionOpcode,
     ReservedBits,
     MixedFields,
+    Text,
 }
 
 pub fn encode(command: Command) -> [u8; 8] {
@@ -42,7 +43,74 @@ pub fn decode(bytes: &[u8]) -> Result<Command, MemoError> {
 pub fn numeric(command: Command) -> u64 {
     u64::from_be_bytes(encode(command))
 }
+/// Account-index adapter v2; source identity and canonical game input encoding stay unchanged.
+pub const MEMO_ADAPTER_VERSION: u8 = 2;
+pub fn parse_text(bytes: &[u8]) -> Result<Command, MemoError> {
+    if bytes.is_empty() || bytes.len() > 32 {
+        return Err(MemoError::Length);
+    }
+    if !bytes.iter().all(|b| (32..=126).contains(b)) {
+        return Err(MemoError::Text);
+    }
+    let text = std::str::from_utf8(bytes)
+        .map_err(|_| MemoError::Text)?
+        .trim_matches(' ');
+    let mut parts = text.split(' ');
+    let (Some(prefix), Some(op), Some(number), None) =
+        (parts.next(), parts.next(), parts.next(), parts.next())
+    else {
+        return Err(MemoError::Text);
+    };
+    if !prefix.eq_ignore_ascii_case("BTZ") {
+        return Err(MemoError::Text);
+    }
+    let decimal = |s: &str| -> Result<u32, MemoError> {
+        if s.is_empty() || !s.bytes().all(|b| b.is_ascii_digit()) {
+            return Err(MemoError::Text);
+        }
+        s.bytes().try_fold(0u32, |n, b| {
+            n.checked_mul(10)
+                .and_then(|n| n.checked_add(u32::from(b - b'0')))
+                .ok_or(MemoError::Text)
+        })
+    };
+    if op.eq_ignore_ascii_case("MOVE") {
+        return decimal(number).map(Command::Move);
+    }
+    if !op.eq_ignore_ascii_case("ANGLE") {
+        return Err(MemoError::Text);
+    }
+    let mut numbers = number.split('.');
+    let whole = decimal(numbers.next().ok_or(MemoError::Text)?)?;
+    let fraction = match numbers.next() {
+        None => 0,
+        Some(s) if s.len() == 1 => decimal(s)? * 10,
+        Some(s) if s.len() == 2 => decimal(s)?,
+        _ => return Err(MemoError::Text),
+    };
+    if numbers.next().is_some() || whole > 359 {
+        return Err(MemoError::Text);
+    }
+    let centidegrees = whole * 100 + fraction;
+    Ok(Command::Angle(
+        ((u64::from(centidegrees) * 65536 + 18000) / 36000 % 65536) as u16,
+    ))
+}
+pub fn decode_blob(bytes: &[u8]) -> Result<Command, MemoError> {
+    if bytes.len() == 8 && bytes[3] != b' ' {
+        decode(bytes)
+    } else {
+        parse_text(bytes)
+    }
+}
 pub fn decode_ledger(legacy: u64, blob: Option<&[u8]>) -> Result<Command, MemoError> {
+    match blob {
+        Some(bytes) => decode_blob(bytes),
+        None => decode(&legacy.to_be_bytes()),
+    }
+}
+/// Historical raw-history replay. Never reinterpret already normalized pending/committed inputs.
+pub fn decode_ledger_v1(legacy: u64, blob: Option<&[u8]>) -> Result<Command, MemoError> {
     match blob {
         Some(_) if legacy != 0 => Err(MemoError::MixedFields),
         Some(bytes) => decode(bytes),
@@ -52,6 +120,53 @@ pub fn decode_ledger(legacy: u64, blob: Option<&[u8]>) -> Result<Command, MemoEr
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn shared_text_normalization_fixtures() {
+        for line in include_str!("../../../tests/fixtures/text-memos.tsv")
+            .lines()
+            .filter(|l| !l.starts_with('#') && !l.is_empty())
+        {
+            let p: Vec<_> = line.split('\t').collect();
+            let legacy = p[2].parse::<u64>().unwrap();
+            let blob = if p[1] == "-" {
+                None
+            } else {
+                Some(
+                    (0..p[1].len())
+                        .step_by(2)
+                        .map(|i| u8::from_str_radix(&p[1][i..i + 2], 16).unwrap())
+                        .collect::<Vec<_>>(),
+                )
+            };
+            let actual = decode_ledger(legacy, blob.as_deref()).map(|c| {
+                encode(c)
+                    .iter()
+                    .map(|b| format!("{b:02x}"))
+                    .collect::<String>()
+            });
+            if p[3] == "INVALID" {
+                assert!(actual.is_err(), "{}", p[0]);
+            } else {
+                assert_eq!(actual.unwrap(), p[3], "{}", p[0]);
+            }
+        }
+        assert_eq!(MEMO_ADAPTER_VERSION, 2);
+        assert!(decode_ledger_v1(0, Some(b"BTZ ANGLE 37.5")).is_err());
+        assert_eq!(
+            decode_ledger_v1(1, Some(&encode(Command::Move(0)))),
+            Err(MemoError::MixedFields)
+        );
+    }
+    #[test]
+    fn every_centidegree_uses_integer_mapping() {
+        for c in 0..36000u64 {
+            let text = format!("BTZ ANGLE {}.{:02}", c / 100, c % 100);
+            assert_eq!(
+                parse_text(text.as_bytes()),
+                Ok(Command::Angle(((c * 65536 + 18000) / 36000 % 65536) as u16))
+            );
+        }
+    }
     #[test]
     fn every_angle_roundtrips() {
         for n in 0..=u16::MAX {
@@ -73,10 +188,10 @@ mod tests {
         assert_eq!(decode_ledger(0, Some(&encode(c))), Ok(c));
     }
     #[test]
-    fn rejects_ambiguous_fields() {
+    fn blob_precedence_and_historical_decoder() {
         assert_eq!(
             decode_ledger(1, Some(&encode(Command::Move(0)))),
-            Err(MemoError::MixedFields)
+            Ok(Command::Move(0))
         );
     }
     #[test]

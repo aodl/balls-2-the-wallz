@@ -45,7 +45,7 @@ def main():
         raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
     result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,
       'dtr_revision':DTR,'javascript_package':npm,'dependency_sha256':{name:sha(ROOT/name) for name in paths},
-      'normal_features':[],'normal_exports':exports,'artifacts':{path.name:{'sha256':sha(path),'bytes':path.stat().st_size} for path in sorted(out.iterdir()) if path.is_file()},
+      'memo_adapter_version':2,'memo_format':'BTZ text/2; binary/numeric compatibility; canonical BTZPAY02 unchanged','normal_features':[],'normal_exports':exports,'artifacts':{path.name:{'sha256':sha(path),'bytes':path.stat().st_size} for path in sorted(out.iterdir()) if path.is_file()},
       'tools':{name:run(*command) for name,command in {'rustc':['rustc','--version'],'cargo':['cargo','--version'],'node':['node','--version'],'npm':['npm','--version'],'dfx':['dfx','--version'],'python':['python3.11','--version']}.items()},
       'install':'User installs normal.wasm with explicit --wasm; later test builds cannot replace this frozen copy.',
       'observer':'Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.',

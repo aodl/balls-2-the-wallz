@@ -37,6 +37,12 @@ export class BtzView {
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
+  /** Carry only ephemeral effects/status across chained segments; never game state. */
+  continuePresentation(previous,time){
+    if(!previous||previous===this)return;
+    this.effects=previous.effects.filter(e=>time-e.t<.9&&time>=e.t).map(e=>({...e})).slice(-64);
+    this.lastEvent=previous.lastEvent;
+  }
   cell(n){integer(n,this.cells.length-1);return n;}
   removeBalls(ids){for(const id of ids){this.balls.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){

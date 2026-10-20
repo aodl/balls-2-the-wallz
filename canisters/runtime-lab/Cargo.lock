@@ -428,6 +428,7 @@ name = "dtr-runtime-lab"
 version = "0.5.0"
 dependencies = [
  "btz-native",
+ "btz-protocol",
  "candid",
  "candid_parser",
  "dtr-host",

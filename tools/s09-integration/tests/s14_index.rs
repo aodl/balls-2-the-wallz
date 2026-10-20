@@ -2113,16 +2113,16 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 before,
                 "unrelated target must not call index"
             );
-            let tx = transfer(
-                &pic,
-                ledger,
-                payer,
-                recipient,
-                100_000_000,
-                *b"BTZ\x11\0\0\0\0",
-            );
+            let tx = transfer_text(&pic, ledger, payer, id, 100_000_000, b"BTZ ANGLE 37.5");
             first = Some(tx);
-            payments.insert(tx, normalized(funding, 100_000_000, *b"BTZ\x11\0\0\0\0"));
+            payments.insert(
+                tx,
+                normalized(
+                    funding,
+                    100_000_000,
+                    btz_protocol::encode(btz_protocol::Command::Angle(6827)),
+                ),
+            );
             pic.update_call(
                 sender,
                 controller(),
@@ -2140,16 +2140,16 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 std::thread::sleep(Duration::from_millis(50));
                 continue;
             }
-            let tx = transfer(
-                &pic,
-                ledger,
-                payer,
-                recipient,
-                10_000_000,
-                *b"BTZ\x11\0\0\x40\0",
-            );
+            let tx = transfer_text(&pic, ledger, payer, id, 10_000_000, b"BTZ ANGLE 225");
             second = Some(tx);
-            payments.insert(tx, normalized(funding, 10_000_000, *b"BTZ\x11\0\0\x40\0"));
+            payments.insert(
+                tx,
+                normalized(
+                    funding,
+                    10_000_000,
+                    btz_protocol::encode(btz_protocol::Command::Angle(40960)),
+                ),
+            );
             phase = 2;
         } else if phase == 2 && assigned.contains(&second.unwrap()) {
             let view = publication(&native.record).unwrap();
@@ -2166,7 +2166,14 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 .0;
             let mut memo = *b"BTZ\x12\0\0\0\0";
             memo[4..].copy_from_slice(&(target as u32).to_be_bytes());
-            let tx = transfer(&pic, ledger, payer, recipient, 10_000, memo);
+            let tx = transfer_text(
+                &pic,
+                ledger,
+                payer,
+                id,
+                10_000,
+                format!("BTZ MOVE {target}").as_bytes(),
+            );
             third = Some(tx);
             payments.insert(tx, normalized(funding, 10_000, memo));
             pic.update_call(
@@ -2397,4 +2404,440 @@ fn pricing_profile_upgrade_preserves_history_but_does_not_reprice() {
         "PRICE_TRANSITION_RESULT {}",
         serde_json::json!({"status":"PASS","before_segments":before.run.completed_segments,"after_segments":after.run.completed_segments,"old_config":still_old.identity.config_hash,"new_config":fresh.identity.config_hash,"classification":"ordinary upgrade preserves historical price; 1 ICP activation requires separately approved fresh game"})
     );
+}
+
+#[derive(CandidType)]
+struct IcrcTransferArg {
+    to: IcrcAccount,
+    fee: Option<candid::Nat>,
+    memo: Option<Vec<u8>>,
+    from_subaccount: Option<Vec<u8>>,
+    created_at_time: Option<u64>,
+    amount: candid::Nat,
+}
+fn transfer_text(
+    pic: &PocketIc,
+    ledger: Principal,
+    payer: Principal,
+    owner: Principal,
+    amount: u64,
+    memo: &[u8],
+) -> u64 {
+    let reply = pic
+        .update_call(
+            ledger,
+            payer,
+            "icrc1_transfer",
+            candid::encode_one(IcrcTransferArg {
+                to: IcrcAccount {
+                    owner,
+                    subaccount: None,
+                },
+                fee: Some(10_000u64.into()),
+                memo: Some(memo.to_vec()),
+                from_subaccount: None,
+                created_at_time: None,
+                amount: amount.into(),
+            })
+            .unwrap(),
+        )
+        .unwrap();
+    #[derive(CandidType, Deserialize, Debug)]
+    enum TransferError {
+        GenericError {
+            error_code: candid::Nat,
+            message: String,
+        },
+    }
+    decode_one::<Result<candid::Nat, TransferError>>(&reply)
+        .unwrap()
+        .unwrap()
+        .0
+        .to_string()
+        .parse()
+        .unwrap()
+}
+fn work(pic: &PocketIc, id: Principal) -> (u32, u64) {
+    #[derive(CandidType, Deserialize)]
+    struct Work {
+        pending_inputs: u32,
+        source_cursor: u64,
+    }
+    let w: Work = decode_one::<Result<Work, String>>(
+        &pic.query_call(
+            id,
+            controller(),
+            "controller_work",
+            encode_args(()).unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap()
+    .unwrap();
+    (w.pending_inputs, w.source_cursor)
+}
+/// Real upstream ICRC-1 -> real index -> normal adapter -> canonical input ->
+/// installed game -> native/JS replay, with a paused pending inbox at upgrade.
+fn s15_text_path(prior: Option<Vec<u8>>) {
+    let pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    pic.set_time(std::time::SystemTime::now().into());
+    let payer = Principal::self_authenticating([9; 32]);
+    let rival = Principal::self_authenticating([19; 32]);
+    let ledger = deploy_ledger(&pic, &bytes("ICP_LEDGER_WASM"), &[payer, rival]);
+    let index = create_controlled(&pic);
+    let id = create_controlled(&pic);
+    for c in [index, id] {
+        pic.add_cycles(c, 100_000_000_000_000);
+    }
+    pic.install_canister(
+        index,
+        bytes("ICP_INDEX_WASM"),
+        candid::encode_one(Some(IndexArg::Init(IndexInit {
+            ledger_id: ledger,
+            retrieve_blocks_from_ledger_interval_seconds: Some(1),
+        })))
+        .unwrap(),
+        Some(controller()),
+    );
+    let is_historical = prior.is_some();
+    let old = prior.unwrap_or_else(|| bytes("BTZ_S14_WASM"));
+    if is_historical {
+        assert_eq!(
+            dtr_wire::hash(&old),
+            "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c"
+        );
+    }
+    let initial = initial_world();
+    pic.install_canister(
+        id,
+        old,
+        encode_args((
+            initial.clone(),
+            0u64,
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                index,
+                receiving_subaccount: 0,
+                event_horizon: None,
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+        ))
+        .unwrap(),
+        Some(controller()),
+    );
+    let (_, genesis) = observe(&pic, id);
+    assert_eq!(
+        genesis.identity.config_hash,
+        "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+    );
+    let mut native = Coordinator::create(
+        &initial,
+        genesis.identity.clone(),
+        0,
+        0,
+        "00".repeat(32),
+        BtzHostKernel,
+    )
+    .unwrap();
+    let recipient = source::receiving_account(id, 0);
+    let funding = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT);
+    let mut payments = BTreeMap::new();
+    let mut blobs = BTreeMap::new();
+    let mut add = |tx, payer, amount, memo| {
+        payments.insert(
+            tx,
+            normalized(
+                AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT),
+                amount,
+                memo,
+            ),
+        );
+    };
+    let a = btz_protocol::encode(btz_protocol::Command::Angle(6827));
+    let b = btz_protocol::encode(btz_protocol::Command::Angle(40960));
+    let first = transfer(&pic, ledger, payer, recipient, 100_000_000, a);
+    add(first, payer, 100_000_000, a);
+    let second = transfer(&pic, ledger, rival, recipient, 100_000_000, b);
+    add(second, rival, 100_000_000, b);
+    let invalid = transfer_text(&pic, ledger, payer, id, 1, b"BTZ ANGLE NaN");
+    add(invalid, payer, 1, [0; 8]);
+    blobs.insert(invalid, b"BTZ ANGLE NaN".to_vec());
+    let run = || {
+        candid::encode_one(RunConfig {
+            segment_ticks: 2,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap()
+    };
+    get_result::<Status>(&pic, id, "start_autonomous", run());
+    let mut assigned = vec![];
+    let mut publications = vec![];
+    let mut last = None;
+    #[derive(serde::Deserialize)]
+    struct Receipt {
+        position: Int,
+        reason: String,
+        kind: Option<String>,
+    }
+    #[derive(serde::Deserialize)]
+    struct Audit {
+        receipts: Vec<Receipt>,
+    }
+    let receipts = std::cell::RefCell::new(BTreeMap::new());
+    let capture = |native: &mut Coordinator<BtzHostKernel>,
+                   assigned: &mut Vec<u64>,
+                   publications: &mut Vec<Publication>,
+                   last: &mut Option<Int>,
+                   payments: &BTreeMap<u64, String>| {
+        let (_, p) = observe(&pic, id);
+        if p.head.segment_id.is_some() && p.head.segment_id != *last {
+            replay_head(&pic, id, &p, native, payments, assigned);
+            let audit: Audit = decode(&publication(&native.record).unwrap().artifacts[1]).unwrap();
+            for receipt in audit.receipts {
+                let position = receipt.position.0.to_string().parse::<u64>().unwrap();
+                assert!(
+                    receipts
+                        .borrow_mut()
+                        .insert(position, (receipt.reason, receipt.kind))
+                        .is_none(),
+                    "duplicate receipt"
+                );
+            }
+            *last = p.head.segment_id.clone();
+            publications.push(p);
+        }
+    };
+    for _ in 0..140 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if assigned.len() == 3 {
+            break;
+        }
+    }
+    assert_eq!(assigned, vec![first, second, invalid]);
+    let before_world =
+        btz_native::world::World::decode(&publication(&native.record).unwrap().artifacts[0])
+            .unwrap();
+    assert_eq!(before_world.cannons.len(), 2);
+    assert_eq!(before_world.received_e8s, Int(200_000_001u64.into()));
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    // Valid binary blob and text are both downloaded/normalized by the OLD adapter while paused.
+    let binary = btz_protocol::encode(btz_protocol::Command::Angle(8192));
+    let pending_binary = transfer_text(&pic, ledger, payer, id, 10_000_000, &binary);
+    payments.insert(pending_binary, normalized(funding, 10_000_000, binary));
+    blobs.insert(pending_binary, binary.to_vec());
+    let pending_text = transfer_text(&pic, ledger, payer, id, 40_000_000, b"BTZ ANGLE 135");
+    let pending_command = if is_historical {
+        [0; 8]
+    } else {
+        btz_protocol::encode(btz_protocol::Command::Angle(24576))
+    };
+    payments.insert(
+        pending_text,
+        normalized(funding, 40_000_000, pending_command),
+    );
+    blobs.insert(pending_text, b"BTZ ANGLE 135".to_vec());
+    for _ in 0..130 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if status(&pic, id).source.admitted_to_exclusive > pending_text {
+            break;
+        }
+    }
+    assert_eq!(
+        work(&pic, id).0,
+        2,
+        "two already normalized payments wait while paused"
+    );
+    let before_status = status(&pic, id);
+    let before_work = work(&pic, id);
+    let (before_obs, before_pub) = observe(&pic, id);
+    let controllers = pic
+        .canister_status(id, Some(controller()))
+        .unwrap()
+        .settings
+        .controllers;
+    let before_artifacts = publication(&native.record).unwrap().artifacts;
+    assert!(before_pub.head.segment_id.is_some());
+    pic.upgrade_canister(
+        id,
+        bytes("BTZ_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let (after_obs, after_pub) = observe(&pic, id);
+    assert_eq!(
+        before_obs.publication, after_obs.publication,
+        "entire publication/seal/catalog remains byte-identical"
+    );
+    assert_eq!(before_pub.identity, after_pub.identity);
+    assert_eq!(
+        work(&pic, id),
+        before_work,
+        "queued canonical inputs and coordinator progress preserved"
+    );
+    assert_eq!(
+        status(&pic, id).source.admitted_to_exclusive,
+        before_status.source.admitted_to_exclusive
+    );
+    assert_eq!(
+        pic.canister_status(id, Some(controller()))
+            .unwrap()
+            .settings
+            .controllers,
+        controllers
+    );
+    assert_eq!(
+        publication(&native.record).unwrap().artifacts,
+        before_artifacts
+    );
+    get_result::<Status>(&pic, id, "start_autonomous", run());
+    for _ in 0..140 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if assigned.len() == 5 {
+            break;
+        }
+    }
+    assert_eq!(assigned.len(), 5);
+    // Invalid/empty memo followed by valid text must not wedge the source. Never fall back.
+    let empty = transfer_text(&pic, ledger, payer, id, 1, b"");
+    payments.insert(empty, normalized(funding, 1, [0; 8]));
+    blobs.insert(empty, vec![]);
+    let text = transfer_text(&pic, ledger, payer, id, 160_000_000, b"BTZ ANGLE 225");
+    payments.insert(text, normalized(funding, 160_000_000, b));
+    blobs.insert(text, b"BTZ ANGLE 225".to_vec());
+    for _ in 0..140 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if assigned.len() == 7 {
+            break;
+        }
+    }
+    assert_eq!(
+        assigned,
+        vec![
+            first,
+            second,
+            invalid,
+            pending_binary,
+            pending_text,
+            empty,
+            text
+        ]
+    );
+    // The exact same original bytes/IDs must come back through the actual upstream index.
+    let history: source::HistoryResult = decode_one(
+        &pic.query_call(
+            index,
+            controller(),
+            "get_account_identifier_transactions",
+            candid::encode_one(source::HistoryArgs {
+                account_identifier: recipient.to_string(),
+                start: None,
+                max_results: 64,
+            })
+            .unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    let history = history.unwrap();
+    assert_eq!(history.transactions.len(), 7);
+    for row in &history.transactions {
+        if let Some(expected) = blobs.get(&row.id) {
+            assert_eq!(row.transaction.icrc1_memo.as_ref(), Some(expected));
+            assert_eq!(
+                row.transaction.memo, 0,
+                "upstream ICRC-1 sets numeric memo to zero"
+            );
+        }
+    }
+    assert!(status(&pic, id).source.last_error.is_none());
+    assert!(status(&pic, id).run.last_error.is_none());
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, text + 1);
+    let final_world =
+        btz_native::world::World::decode(&publication(&native.record).unwrap().artifacts[0])
+            .unwrap();
+    assert_eq!(final_world.received_e8s, Int(410_000_002u64.into()));
+    let receipts = receipts.into_inner();
+    assert_eq!(receipts.len(), 7);
+    assert_eq!(receipts[&first].0, "ACCEPTED");
+    assert_eq!(receipts[&second].0, "ACCEPTED");
+    assert_ne!(receipts[&invalid].0, "ACCEPTED");
+    assert_ne!(receipts[&empty].0, "ACCEPTED");
+    assert_eq!(receipts[&pending_binary].0, "ACCEPTED");
+    assert_eq!(
+        receipts[&pending_text].0 == "ACCEPTED",
+        !is_historical,
+        "v1 rejection must not become v2 acceptance"
+    );
+    assert_eq!(receipts[&text].0, "ACCEPTED");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let name = if is_historical {
+        "s15-deployed-upgrade"
+    } else {
+        "s15-text-path"
+    };
+    let result = serde_json::json!({"status":"PASS","adapter_version":2,"deployed_module_upgrade":is_historical,"before_source_cursor":before_status.source.admitted_to_exclusive,"pending_inputs":before_work.0,"publication_preserved":true,"initial_world_hex":hex(&initial),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned,"receipts":receipts,"raw_index":history.transactions.iter().map(|r|serde_json::json!({"id":r.id,"legacy":r.transaction.memo,"blob_hex":r.transaction.icrc1_memo.as_ref().map(|b|hex(b)),"raw_candid_hex":hex(&candid::encode_one(r).unwrap())})).collect::<Vec<_>>()});
+    let path = out.join(format!("{name}-history.json"));
+    std::fs::write(&path, serde_json::to_vec_pretty(&result).unwrap()).unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "tools/replay_s14.mjs",
+                path.to_str().unwrap(),
+                out.join(format!("{name}-replay.json")).to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+}
+#[test]
+fn upstream_text_memos_normalize_once_and_preserve_pending_upgrade() {
+    s15_text_path(None);
+}
+#[test]
+#[ignore = "requires exact currently deployed BTZ_DEPLOYED_WASM"]
+fn s15_upgrade_from_deployed_module_with_players_publications_and_pending() {
+    s15_text_path(Some(bytes("BTZ_DEPLOYED_WASM")));
 }

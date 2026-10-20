@@ -10,6 +10,7 @@ test-hooks = []
 [lib]
 crate-type = ["cdylib", "rlib"]
 [dependencies]
+btz-protocol = { path = "../../crates/btz-protocol" }
 ic-cdk = "=0.20.3"
 ic-cdk-timers = "=1.0.0"
 ic-ledger-types = "=0.16.0"

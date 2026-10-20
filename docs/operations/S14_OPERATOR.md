@@ -1,5 +1,7 @@
 # Controlled mainnet MVP — operator runbook
 
+**S15 continuation:** the current task explicitly authorizes a tested state-preserving backend upgrade and subsequent observer asset upload to the existing two IDs under `codex_local`. It does not authorize a reset/reinstall, funding transfer, settings/controller change, Event Horizon change or remote Git action. Record pre-upgrade certified world/scores/configuration/source progress and controllers; freeze the normal artifact with `tools/prepare_mvp_release.py` and pass the exact deployed-module local recovery probe before upgrading. Stop a deployment operation on an actual preservation, funding or authorization blocker. The earlier reset proposal below remains historical and must not be repeated.
+
 **Current deployment, 2026-10-19: activated and verified.** The exact reviewed source `717069497c7e9beb90c37e70320a8b946524531f` passed user-confirmed CI 39306785701. The user explicitly approved the one-time empty-game reset, which was executed after fresh no-obligation checks. The existing backend now runs approved Wasm `2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c`; the existing certified observer displays **1 ICP**. [Activation record](../../evidence/S14/ux-pricing/mainnet-activation.json). The staging/reset proposal below is historical procedure, **not authorization to repeat a reset**. For routine operation use the pause/resume and state-preserving upgrade instructions; never reinstall a participating game.
 
 This is the single deployment procedure for `checkpoint/s14-lean-index-poke`. **Every mainnet action requires explicit operator authorization.** Codex installed the existing baseline under the user’s two-canister authorization; the staged UX/pricing release requires fresh exact-release approval. All real transfers, funding, controller changes and remote Git operations remain user-owned. Use Bash, dfx **0.31.0**, Rust **1.94.1**, Node >=22.16 and Python 3.11. Commands/flags were checked against the installed dfx help; the actual asset-canister route is rehearsed locally in [deployment evidence](../../evidence/S14/mvp-preparation.json). Review CI for the exact candidate before spending funds; new CI is pending user confirmation.
@@ -194,35 +196,29 @@ Repeat the status query after a short wait; require multiple completed segments,
 
 ## F. Play card — user wallet only
 
-Record these actual deployment values before sending:
+**S15 text instructions apply only after the backend's tested adapter-v2 upgrade.** Never publish the text-emitting frontend first. The [text contract](../specs/BTZ_TEXT_MEMOS.md) documents grammar, compatibility and historical replay. Previously published binary/numeric instructions remain supported; new preparation uses readable text.
+
+Use the observer's single action panel: **Start a cannon → aim → prepare**, **Add a ball → selected cannon → aim → prepare**, or **Move cannon → selected cannon → owned cell → prepare**. Require fresh verification and healthy operation, compare the authenticated receiving descriptor, then copy the complete card. Selection is local inspection, not proof that a wallet owns a cannon. No selection sends a command.
+
+| ICRC-1 text / UTF-8 memo | Meaning |
+|---|---|
+| `BTZ ANGLE 37.5` | Start a cannon, or add a ball for the same sending account, clockwise down/right. |
+| `BTZ ANGLE 225` | Start a cannon, or add a ball, clockwise up/left. |
+| `BTZ MOVE 83` | Relocate only if cell 83 is still owned when applied. |
+
+The ICRC-1 owner is `s34gv-3qaaa-aaaar-qcifa-cai`, default subaccount omitted/all zero bytes. Its AccountIdentifier is `344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a`; use that representation only in a wallet field requiring it. These are distinct address representations. Use an ICRC-1 text/UTF-8 memo field; if the wallet exposes a hexadecimal ICRC memo instead, the panel copies the exact UTF-8 bytes of the same text. Some wallets lack the required controls. Wallet integration and transaction submission are absent.
+
+Offline preparation, never signing/sending:
 
 ```bash
-printf 'Observer: %s\nBackend: %s\nReceiving AccountIdentifier: %s\nNumeric subaccount: 0\n' \
-  "$BTZ_OBSERVER_URL" "$BTZ_BACKEND" "$BTZ_ACCOUNT" | tee "$BTZ_RELEASE/play-card.txt"
-node tools/command.mjs memo angle 0
-node tools/command.mjs memo angle 16384
-# Replace 1 with a cell currently owned by YOUR cannon in the certified reference.
-node tools/command.mjs memo move 1
+node tools/command.mjs memo angle 37.5
+node tools/command.mjs memo angle 225
+node tools/command.mjs memo move 83
 ```
 
-| Command example | Legacy numeric memo (exact decimal string) | Equivalent eight bytes (hex) |
-|---|---|---|
-| ANGLE 0, initially right (+x) | `4779544133607882752` | `42545a1100000000` |
-| ANGLE 16384, initially down (+y) | `4779544133607899136` | `42545a1100004000` |
-| MOVE cell 1 **only if owned** | `4779544137902850049` | `42545a1200000001` |
+Join remains **1 ICP**, an additional ball **0.1 ICP × active-ball-count²**, relocation **0.0001 ICP**, with wallet fees separate. The solo join/first extra ball/relocation exercise is **1.1001 ICP plus three fees** only if the current certified ball count still gives 0.1 ICP. Payments and excess are retained; refunds and automatic payouts remain unavailable. Prepared cards are not reservations. A certified change requires explicit full refresh; on-chain changes may still occur later.
 
-Use the **decimal integer** in a wallet's legacy numeric-memo field, preserving every digit. Never round through a JavaScript Number. Do not send ASCII bytes of that decimal string, or paste a hex string into a decimal field. For an explicit eight-byte ICRC memo, use precisely the hex bytes; legacy numeric memo must be zero when a blob is present. The codec's angle range is 0–65535 (one turn); 32768 points left, 49152 up. Actual directions use the existing fixed integer approximation.
-
-A concrete solo exercise, at the unchanged prices with one active ball before purchase, costs **1.1001 ICP plus three wallet fees**: join 1, first additional ball 0.1, relocation 0.0001. An optional opponent's distinct funding account adds **1 ICP plus its wallet fee**: **2.1001 ICP plus four fees** in total. Review those expenditures yourself; these are not tiny test amounts. No prices were reduced for the MVP.
-
-1. Open the observer with no login. Require **Gameplay running**, no source errors and fresh certification. Compare receiving account/backend independently.
-2. In your existing wallet, send **1 ICP** to `$BTZ_ACCOUNT` with ANGLE 0's exact numeric memo. The wallet fee is separate; the recipient must receive the full command amount. Record the ledger transaction ID.
-3. Wait for the **Recent certified command outcomes** table to show that ID exactly once as `ACCEPTED / cannon_spawned`. See your funding AccountIdentifier in the cannon table, starting territory and first moving ball. Reload: the authoritative cannon persists. Older receipts can disappear after reconnect/retention gaps; absence is unresolved, not rejection or loss.
-4. Read your **current certified** ball count and **Next ball** price in the cannon table. With one active ball it is 10,000,000 e8s = **0.1 ICP**. Send that exact current price with ANGLE 16384; do not deliberately underpay to probe. Wait for `ball_spawned` and two balls. A transfer without a poke must still be discovered by fallback.
-5. Pick a cell from **Owned MOVE cell IDs** for your cannon, preferably different from its anchor. Encode that ID offline with `npm run memo -- move CELL_ID`; send **0.0001 ICP** with its exact memo. Wait for `ACCEPTED / cannon_moved`. IDs are row × 16 + column, zero-based from the upper left; the cell must still be yours when applied. Only one move per cannon per segment is allowed.
-6. Optionally repeat the join from a second distinct funding AccountIdentifier for territorial competition. A shared-sender custodial wallet may map several people to one cannon; this is account identity, not one human per player. Some wallets cannot preserve the required memo or expose their funding account: do not use them for this exercise.
-
-The read-only reference uses the latest verified snapshot, which may be ahead of animation playback. Another payment/collision can change price, eligibility or territory before execution. Wait for each outcome before another purchase. There is no guaranteed payment-to-publication deadline: index lag + up to another **60 seconds** fallback + calls/retries + segment completion. If unhealthy/paused, stop purchases and inspect status. Do not resend an unresolved payment merely because an initial index poll is empty.
+The user performs every real transfer. Record its original transaction ID and wait for exactly one certified outcome. An absent receipt is unresolved, not proof of rejection/loss. The index can lag; independent fallback checks every 60 seconds, then calls/retries and segment completion take additional time. Do not resend an unresolved transfer. No text-memo mainnet payment has been verified merely by upgrading code or copying instructions.
 
 ## Event Horizon — optional acceleration after first play
 

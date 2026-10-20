@@ -65,3 +65,13 @@ for(const [name,change] of [
 ])test(`index rejects ${name}`,()=>{const x=structuredClone(index);change(x);assert.throws(()=>validateIndex(x));});
 
 test('render artifact cannot be substituted even with plausible semantics',async()=>{const x=decodeCanonical(b.render);x.receipts=[];x.extra=1;await assert.rejects(prepareSegment(a.state,b.state,encodeCanonical(x),b.ticket.publication),/artifact hash/);});
+
+test('ephemeral collision effects survive a verified segment transition without changing ownership',()=>{
+ const w=snapshot(unhex(goldens[0].initial_hex));
+ const previous=new BtzView(w),next=new BtzView(w);
+ previous.effects=[{kind:'capture',cell:0,t:1.8,owner:1},{kind:'burst',x:1,y:1,t:.1,owner:1}];previous.lastEvent='capture';
+ next.continuePresentation(previous,2);
+ assert.deepEqual(next.effects,[previous.effects[0]]);assert.equal(next.lastEvent,'capture');
+ assert.deepEqual(next.cells,w.cells);assert.notEqual(next.effects[0],previous.effects[0]);
+ next.matches(w);
+});

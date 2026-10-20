@@ -93,7 +93,7 @@ def main():
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
-            context=browser.new_context(permissions=['clipboard-write']);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            context=browser.new_context(permissions=['clipboard-write'],has_touch=True);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             def retire_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -126,7 +126,8 @@ def main():
             assert 'Rules ' in page.locator('#rules-identity').text_content()
             record('certified-backend-receiving-account-and-price-identities')
             page.locator('.diagnostics').evaluate('(node)=>node.open=false')
-            wait_until(page,lambda:not page.locator('[data-copy="recipient"]').is_disabled(),15000)
+            wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),15000)
+            page.locator('#prepare-transfer').click()
             assert page.locator('#join-price').inner_text()=='1 ICP'
             assert page.locator('#hero-join-price').inner_text()=='1 ICP join'
             assert page.locator('#payment-address').inner_text()==configuration['recipient']
@@ -137,15 +138,40 @@ def main():
             # Observe arguments while still invoking native clipboard writes under
             # an actual click; do not enable clipboard reading in production.
             page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
-            for selector,expected in [('[data-copy="recipient"]',configuration['recipient']),('[data-copy="numeric"]','4779544133607882752'),('[data-copy="hex"]','42545a1100000000')]:
-                if 'hex' in selector:page.locator('#transfer-controls details summary').click()
+            for selector,expected in [('[data-copy="text"]','BTZ ANGLE 37.5'),('[data-copy="owner"]',configuration['canister_id']),('[data-copy="amount"]','1'),('[data-copy="recipient"]',configuration['recipient']),('[data-copy="hex"]','42545a20414e474c452033372e35')]:
+                if 'recipient' in selector:page.locator('#transfer-controls details').evaluate('(node)=>node.open=true')
                 page.locator(selector).click()
                 wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==expected,5000)
-            page.locator('[data-angle="16384"]').click()
-            assert page.locator('#numeric-memo').inner_text()=='4779544133607899136'
-            assert page.locator('#hex-memo').inner_text()=='42545a1100004000'
             page.locator('#transfer-controls details').evaluate('(node)=>node.open=false')
-            record('exact-authenticated-transfer-copy-and-angle-controls')
+            record('exact-authenticated-text-and-UTF8-hex-copy')
+            page.evaluate('''()=>{globalThis.__s15Timing=[];setInterval(()=>{const p=globalThis.__dtrLive?.playback;if(p&&globalThis.__s15Timing.length<1200)globalThis.__s15Timing.push({...p,resyncs:globalThis.__dtrLive.resyncs});},250);}''')
+            # Real mouse geometry and pointer capture, every quadrant and non-cardinal defaults.
+            pad=page.locator('#aim-pad');pad.scroll_into_view_if_needed();box=pad.bounding_box()
+            import math
+            for angle in [0,37.5,90,135,180,225,270,315,359.99]:
+                r=math.radians(angle);page.mouse.click(box['x']+box['width']/2+70*math.cos(r),box['y']+box['height']/2+70*math.sin(r))
+                assert abs(float(page.locator('#angle-degrees').input_value())-angle)<.02
+                expected=int((round(angle*100)*65536+18000)//36000)%65536
+                assert abs(int(pad.get_attribute('data-heading'))-expected)<=2
+            page.mouse.move(box['x']+box['width']/2+65,box['y']+box['height']/2);page.mouse.down()
+            page.mouse.move(box['x']+box['width']/2-65,box['y']+box['height']/2-65,steps=10);page.mouse.up()
+            assert page.locator('#angle-degrees').input_value()=='225'
+            pad.focus();page.keyboard.press('Home');page.keyboard.press('ArrowDown');assert page.locator('#angle-degrees').input_value()=='1'
+            page.keyboard.press('Shift+ArrowDown');page.keyboard.press('Alt+ArrowLeft');assert page.locator('#angle-degrees').input_value()=='10.99'
+            page.keyboard.press('End');page.keyboard.press('ArrowRight');assert page.locator('#angle-degrees').input_value()=='0.99'
+            page.locator('#angle-degrees').fill('360');assert page.locator('#angle-degrees').input_value()=='0'
+            page.locator('[data-angle="90"]').click();assert page.locator('[data-angle="90"]').get_attribute('aria-pressed')=='true'
+            assert page.locator('[data-angle="0"]').get_attribute('aria-pressed')=='false'
+            styles=page.locator('[data-angle]').evaluate_all('(els)=>els.map(e=>({selected:e.getAttribute("aria-pressed"),background:getComputedStyle(e).backgroundColor,disabled:e.matches(":disabled")}))')
+            assert len({x['background'] for x in styles})==2 and all(not x['disabled'] for x in styles)
+            # Touch input uses browser-dispatched native touch events, no gesture library.
+            box=pad.bounding_box();cdp=context.new_cdp_session(page)
+            for kind,points in [('touchStart',[{'x':box['x']+box['width']/2,'y':box['y']+box['height']/2-65}]),('touchMove',[{'x':box['x']+box['width']/2+65,'y':box['y']+box['height']/2}]),('touchEnd',[])]:
+                cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':points})
+            assert page.locator('#angle-degrees').input_value()=='0'
+            page.locator('#angle-degrees').fill('37.5')
+            page.locator('#prepare-transfer').click()
+            record('full-circle-pointer-touch-keyboard-and-selected-styling',styles)
             for width,height in [(1440,900),(768,1024),(390,844)]:
                 page.set_viewport_size({'width':width,'height':height});page.evaluate('scrollTo(0,0)')
                 page.wait_for_timeout(150)
@@ -164,6 +190,10 @@ def main():
             (out/'browser-connected').write_text('ready\n')
             wait_until(page,lambda:page.locator('#live-cannons tr').count()==1,60000)
             page.screenshot(path=str(out/'arcade-first-cannon.png'),full_page=True)
+            page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1')
+            page.locator('#prepare-transfer').click()
+            assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
+            assert page.locator('#prepared-action').inner_text()=='Add a ball'
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
             paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
             wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
@@ -177,15 +207,39 @@ def main():
             assert page.locator('#live-cannons').inner_text().find('0.4 ICP')>=0
             assert not page.locator('#empty-arena').is_visible()
             page.screenshot(path=str(out/'arcade-paid-cannon.png'),full_page=True)
-            page.locator('.players details summary').click()
-            page.locator('#selected-cannon').select_option('1')
+            # A new ball changed its next price. The prepared amount must stay stable until refresh.
+            assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
+            assert page.locator('[data-copy="text"]').is_disabled()
+            assert 'Refresh' in page.locator('#preparation-note').inner_text()
+            page.locator('#prepare-transfer').click();assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
+            assert page.locator('#text-memo').inner_text()=='BTZ ANGLE 37.5'
+            page.locator('#action-mode').select_option('move')
             page.locator('#move-cell').select_option(index=1)
-            assert page.locator('#move-memo').inner_text().startswith('47795441379')
-            record('certified-ball-price-and-owned-relocation-reference')
+            cell=int(page.locator('#move-cell').input_value())
+            page.locator('#board').scroll_into_view_if_needed();box=page.locator('#board').bounding_box()
+            size=min((box['width']-20)/16,(box['height']-20)/8);ox=(box['width']-size*16)/2;oy=(box['height']-size*8)/2
+            page.mouse.click(box['x']+ox+(cell%16+.5)*size,box['y']+oy+(cell//16+.5)*size)
+            assert page.locator('#move-cell').input_value()==str(cell)
+            page.locator('#prepare-transfer').click()
+            assert page.locator('#text-memo').inner_text()==f'BTZ MOVE {cell}'
+            assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
+            page.screenshot(path=str(out/'s15-move-selection.png'),full_page=True)
+            record('action-price-pairing-stable-card-and-visual-owned-move')
+            # A publication and resize never reset local aim selection.
+            page.locator('#action-mode').select_option('start');assert page.locator('#angle-degrees').input_value()=='37.5'
+            record('aim-survives-certified-state-updates-and-resize')
 
             page.locator('.diagnostics').evaluate('(node)=>node.open=true')
+            samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
+            report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',45000))
+            wait_until(page,lambda:page.locator('#prepare-transfer').is_disabled(),20000)
+            page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='BTZ ANGLE 225'
+            assert not page.locator('#aim-pad').is_disabled()
+            page.locator('#angle-degrees').fill('37.5')
+            record('disconnected-local-aim-with-unavailable-payment-preparation')
+            # Negative verification below also covers local aiming before authentication.
             page.locator('#network-pause').uncheck()
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.resyncs')>=1 and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=target,30000)
             heads=page.evaluate('globalThis.__dtrLive.heads.slice()');assert all(b>a for a,b in zip(heads,heads[1:])),heads
@@ -220,6 +274,10 @@ def main():
                 except Exception:
                     report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#error-text').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
                 assert negative.locator('[data-copy="recipient"]').is_disabled()
+                assert not negative.locator('#angle-degrees').is_disabled()
+                negative.locator('#angle-degrees').fill('225')
+                assert negative.locator('#aim-preview').inner_text()=='BTZ ANGLE 225'
+                assert negative.locator('#prepare-transfer').is_disabled()
                 assert negative.locator('#live-status').inner_text()=='Connection error'
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
                 if fault=='wrong-certificate-root':

@@ -1,4 +1,4 @@
-> Historical implementation context. The active S14 application is specified in [BTZ application](BTZ_APPLICATION.md). Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
+> Historical implementation context. The active S15 application is specified in [BTZ application](BTZ_APPLICATION.md) and [text command contract](BTZ_TEXT_MEMOS.md). The rules below describe adapter v1; its old mixed-field rejection is retained only for historical raw replay. Existing memo/seal encodings remain; earlier global-scanner, local-only and future-implementation statements below do not define the current application.
 
 # BTZ payment protocol, provisional wire version 1
 

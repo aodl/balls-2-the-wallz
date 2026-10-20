@@ -640,6 +640,7 @@ name = "dtr-s09-integration"
 version = "0.1.0"
 dependencies = [
  "btz-native",
+ "btz-protocol",
  "candid",
  "dtr-host",
  "dtr-wire",

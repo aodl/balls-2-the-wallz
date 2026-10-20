@@ -1,6 +1,6 @@
-# BTZ application contract — S14
+# BTZ application contract — S15 text input extension
 
-This is the current application contract. Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. BTZ v3 mechanics, exact arithmetic, memos, state/events/scores/seal encodings, publication v6 and animation v1 are unchanged. The staged prelaunch profile changes only the join price; deployment requires explicit release and transition approval.
+This is the current application contract. Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. BTZ v3 mechanics, exact arithmetic, internal command encoding, state/events/scores/seal encodings, publication v6 and animation v1 are unchanged. The deployed prelaunch profile remains 1 ICP to join. S15 extends only the input adapter and player presentation; no reset, repricing or physics change is permitted. [Text command contract](BTZ_TEXT_MEMOS.md) defines adapter v2 and historical replay.
 
 ## Payment authority and identity
 
@@ -28,9 +28,9 @@ Pokes prove neither payment nor subscription funding. They can precede index vis
 
 ## Game, payments and observation
 
-Only incoming transfers to the exact account are command candidates. Outgoing/self transfers, mint/burn/approve operations are ignored for gameplay while reconciliation progresses. Funding account, amount and numeric/blob memo come from index records. Existing mixed-memo and delegated-transfer rejection behavior remains. Unknown/malformed wire data halts source work for review. Game-invalid or underfunded payments and excess amounts follow the existing retained-payment policy; no refunds are implemented. Index errors/backpressure never become rejected-payment receipts.
+Only incoming transfers to the exact account are command candidates. Outgoing/self transfers, mint/burn/approve operations are ignored for gameplay while reconciliation progresses. Funding account, amount and numeric/blob memo come from index records. Delegated-transfer rejection remains. Adapter v2 uses the present ICRC blob regardless of the numeric memo value. Unknown/malformed wire data halts source work for review. Game-invalid or underfunded payments and excess amounts follow the existing retained-payment policy; no refunds are implemented. Index errors/backpressure never become rejected-payment receipts.
 
-Memo is eight bytes: `BTZ`, opcode `0x11` ANGLE or `0x12` MOVE, then big-endian u32. ANGLE's high 16 payload bits must be zero. Legacy memo is the big-endian u64 interpretation; blob memo is exactly those bytes. A present blob requires numeric memo zero; malformed blobs never fall back. `npm run memo -- angle 0` / `npm run memo -- move 1` are offline encoders, never senders.
+The primary ICRC-1 memo is bounded ASCII text: `BTZ ANGLE 37.5`, `BTZ ANGLE 225` or `BTZ MOVE 83`, with the exact [text grammar and normalization](BTZ_TEXT_MEMOS.md). It becomes the existing eight-byte command: `BTZ`, opcode `0x11` ANGLE or `0x12` MOVE, then big-endian u32. ANGLE's high 16 payload bits must be zero. Old binary blobs remain supported; legacy numeric decoding applies only when the blob is absent. Malformed/empty blobs never fall back. `npm run memo -- angle 37.5` / `npm run memo -- move 83` are offline text encoders, never senders.
 
 The editable `config/economics/prelaunch.json` generates the new profile: join 100,000,000 e8s (1 ICP), ball base 10,000,000 e8s with unchanged occupancy-squared pricing, relocation 10,000 e8s; transferred amount excludes sender fee. Consult the current authenticated world/rules identity and kernel for eligibility and dynamic ball price. Account history ordering, not poke amounts/order, determines commands. Seals bind actual admitted inputs to checkpoints; timer-dependent discovery can change eligible checkpoints. No exact wall-clock fairness or payment-to-seal deadline is promised.
 
