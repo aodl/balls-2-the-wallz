@@ -1,8 +1,8 @@
-//! Authoritative BTZ host with one account-index adapter and certified observation.
+//! Authoritative B2Z host with one account-index adapter and certified observation.
 //! No wallet, transfer-sending or payout implementation.
 #![forbid(unsafe_code)]
 mod source;
-use btz_native::{host::BtzHostKernel, world::World};
+use b2z_native::{host::B2zHostKernel, world::World};
 use candid::{CandidType, Principal};
 use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
 use dtr_host::{Action, Coordinator, Identity};
@@ -406,15 +406,15 @@ fn status(r: &Root) -> Status {
         },
     }
 }
-fn host(r: &Root) -> AppResult<Coordinator<BtzHostKernel>> {
-    let host = Coordinator::restore(&read_blob(0, &r.image)?, &r.image.sha256, BtzHostKernel)?;
+fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
+    let host = Coordinator::restore(&read_blob(0, &r.image)?, &r.image.sha256, B2zHostKernel)?;
     if number(&host.record.inbox.cursor)? != r.source.cursor {
         return Err("index source/coordinator divergence".into());
     }
     Ok(host)
 }
 fn persist(
-    h: &Coordinator<BtzHostKernel>,
+    h: &Coordinator<B2zHostKernel>,
     old: Option<&Root>,
     source: SourceState,
     run: RunState,
@@ -423,7 +423,7 @@ fn persist(
 }
 
 fn persist_inner(
-    h: &Coordinator<BtzHostKernel>,
+    h: &Coordinator<B2zHostKernel>,
     old: Option<&Root>,
     source: SourceState,
     run: RunState,
@@ -715,7 +715,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
             return Err("genesis logical time".into());
         }
         let (source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
-        let mut identity = btz_native::identity()?;
+        let mut identity = b2z_native::identity()?;
         identity["source_id"] = serde_json::Value::String(source_id);
         let identity: Identity = serde_json::from_value(identity).map_err(|e| e.to_string())?;
         let h = Coordinator::create(
@@ -724,7 +724,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
             logical_start,
             0,
             "00".repeat(32),
-            BtzHostKernel,
+            B2zHostKernel,
         )?;
         let r = persist(&h, None, source, RunState::default())?;
         cache_poke_policy(&r.source);
@@ -1208,7 +1208,7 @@ async fn reconcile() -> AppResult<()> {
             .map_err(|e| format!("index unavailable: {e}"))?;
         #[cfg(feature = "test-hooks")]
         if trap_after_reply {
-            ic_cdk::trap("S14 injected BTZ response-handler trap after index await");
+            ic_cdk::trap("S14 injected B2Z response-handler trap after index await");
         }
         let result: source::HistoryResult = response
             .candid()

@@ -1,4 +1,4 @@
-# BTZ authoritative host; historical crate name retained to keep build paths stable.
+# B2Z authoritative host; historical crate name retained to keep build paths stable.
 [workspace]
 [package]
 name = "dtr-runtime-lab"
@@ -10,7 +10,7 @@ test-hooks = []
 [lib]
 crate-type = ["cdylib", "rlib"]
 [dependencies]
-btz-protocol = { path = "../../crates/btz-protocol" }
+b2z-protocol = { path = "../../crates/b2z-protocol" }
 ic-cdk = "=0.20.3"
 ic-cdk-timers = "=1.0.0"
 ic-ledger-types = "=0.16.0"
@@ -20,7 +20,7 @@ serde = { version = "=1.0.228", features = ["derive"] }
 serde_json = "=1.0.145"
 dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
 dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
-btz-native = { path = "../../native/btz-native" }
+b2z-native = { path = "../../native/b2z-native" }
 [dev-dependencies]
 candid_parser = "=0.4.1"
 [profile.release]

@@ -1,4 +1,4 @@
-//! ICP account-index adapter v2 (BTZ text/2, binary/numeric compatibility). Trusts the configured index for account history
+//! ICP account-index adapter v3 (B2Z text/3, binary/numeric compatibility). Trusts the configured index for account history
 //! contents AND completeness. No global-ledger scanning or archive traversal.
 use candid::{CandidType, Deserialize, Nat, Principal};
 use dtr_host::Input;
@@ -503,8 +503,8 @@ fn classify(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<St
     }
 }
 fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
-    btz_protocol::decode_ledger(legacy, blob)
-        .map(btz_protocol::encode)
+    b2z_protocol::decode_ledger(legacy, blob)
+        .map(b2z_protocol::encode)
         .unwrap_or(INVALID_MEMO)
 }
 
@@ -691,10 +691,10 @@ mod tests {
     fn invalid_text_then_valid_payment_preserves_ids_digests_and_pending() {
         let mut s = fresh();
         let mut first = tx(41);
-        first.transaction.icrc1_memo = Some(b"BTZ ANGLE NaN".to_vec());
+        first.transaction.icrc1_memo = Some(b"ANGLE NaN".to_vec());
         let mut second = tx(83);
         second.transaction.memo = u64::MAX;
-        second.transaction.icrc1_memo = Some(b"BTZ ANGLE 37.5".to_vec());
+        second.transaction.icrc1_memo = Some(b"ANGLE 37.5".to_vec());
         let first_digest = hash(&candid::encode_one(&first).unwrap());
         let second_digest = hash(&candid::encode_one(&second).unwrap());
         s.page(History {
@@ -719,7 +719,7 @@ mod tests {
         s.admitted(end).unwrap();
         s.page(page(&[83, 41], Some(41))).unwrap();
         assert!(s.pending.is_none());
-        assert_eq!(btz_protocol::MEMO_ADAPTER_VERSION, 2);
+        assert_eq!(b2z_protocol::MEMO_ADAPTER_VERSION, 3);
     }
     #[test]
     fn classification_preserves_memo_and_delegation_rules() {
