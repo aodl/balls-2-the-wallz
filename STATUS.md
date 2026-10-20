@@ -1,3 +1,21 @@
+# Current status — S15 text memos and circular aiming deployed
+
+**PASS, 2026-10-20.** The existing backend was upgraded in place to normal Wasm `c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4`, then the existing observer received the frozen readable-memo/aiming assets. No reset, reinstall, new mainnet canister, controller/price/Event Horizon change, DTR modification, fund transfer by Codex or remote Git action occurred. The user resolved a pre-existing backend liquid-cycles shortage before deployment.
+
+The [public observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) authenticates the unchanged **1 ICP** profile and receiving account, and prepares `BTZ ANGLE 37.5` / `BTZ MOVE 83` through one action card. Full-circle pointer/touch/keyboard aiming works while disconnected; copying remains gated on current verification/health. Existing binary/numeric commands remain compatible. Card refresh is explicit when certified price/eligibility changes. No wallet connection, signing or transaction sending was added.
+
+Mainnet upgrade preserved byte-identical publication/state/events/scores at segment **5392**, the source/configuration identity, controllers, source cursor, pending-input count and an already running kernel stage. Same cadence resumed. Standard-root public browser verification/copy/aim/reconnect checks pass; after browser close, certified heads advanced **5426 → 5429** with clear source/run errors. **A real mainnet text-memo gameplay payment remains NOT_RUN; the user sends all real gameplay transfers.**
+
+Local checks pass: **1,268 JS / 137 Python**, 20 workspace / eight portable Rust tests, independent game/host/Life conformance, normal Wasm/Candid and 11 host tests. Actual upstream local `icrc1_transfer` bytes pass through the actual index into canonical admission, certified game outcomes and exact Rust/JS replay. The exact deployed predecessor upgrade probe passes with two players and two normalized pending payments; old invalid text remains invalid. Corrected built/asset-canister browser variants pass **15 / 19 groups**. Initial aggregate/browser races and the obsolete S09 wrapper's missing target are retained honestly in evidence; the original aggregate is not relabelled green. New CI is **NOT_RUN** until user push.
+
+A small impact-effect reset at segment boundaries is fixed. Existing production cadence can still undersupply the observer and cause stalls; no physics, scheduling/cadence or speed multiplier was changed. The X video returned 403 and was not viewed/matched. DTR remains unchanged at `1f47c1a0a104875bd13475d561b8d5aa10770d99`, client 0.12.0. [Report and screenshots](checkpoints/S15_TEXT_MEMO_AIMING.md), [reviewed evidence](evidence/S15/release.json), [text contract](docs/specs/BTZ_TEXT_MEMOS.md).
+
+Source/artifacts were frozen from clean commit `8765320b15b563c2e1ade9b561fec480579768fd` under `.work/s15/release-frozen/`. The final report commit changes documentation/evidence only. User publication: `git push -u origin checkpoint/s15-text-memo-aiming`. No next milestone is started.
+
+---
+
+The S14 status below is preserved historical context. Its staging/approval instructions are superseded by the S15 deployment and the current task's explicit authorization.
+
 # Current status — S14 arcade UI and 1 ICP mainnet activation
 
 **Mainnet activation PASS, 2026-10-19.** The user confirmed CI 39306785701 passed at `717069497c7e9beb90c37e70320a8b946524531f` and explicitly approved the exact release and one-time empty-game reset. After the user resolved a liquid-cycles shortage, fresh certified state/index/inbox checks again proved no transactions, players, scores or payment obligations. The existing observer received an asset-only upgrade; the existing backend received the authorized frozen module `2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c`. Controllers, principals, receiving account and official index remained unchanged. No funds were transferred by Codex.

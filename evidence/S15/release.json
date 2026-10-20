@@ -1,0 +1,521 @@
+{
+  "status": "PASS_DEPLOYED",
+  "recorded_at": "2026-10-20",
+  "branch": "checkpoint/s15-text-memo-aiming",
+  "source_commit": "8765320b15b563c2e1ade9b561fec480579768fd",
+  "dtr_changes": "NONE",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "remote_ci": "NOT_RUN; user push required",
+  "grammar": {
+    "adapter_version": 2,
+    "max_original_bytes": 32,
+    "text": "ASCII encoded as UTF-8",
+    "whitespace": "ASCII SPACE only at edges; exactly one interior SPACE",
+    "keywords": "ASCII case-insensitive",
+    "angle": "unsigned decimal 0..359.99; at most two fractional digits",
+    "move": "unsigned decimal u32; game checks board/ownership",
+    "examples": [
+      "BTZ ANGLE 37.5",
+      "BTZ ANGLE 225",
+      "BTZ MOVE 83"
+    ],
+    "blob_precedence": true,
+    "invalid_blob_fallback": false,
+    "old_binary_numeric_compatibility": true
+  },
+  "direction_diagnosis": {
+    "qualification": "Original reviewed UI isolated in actual HTTP browser; explicit fixture operational transitions. Live deployment independently showed the same inherited disabled states due to insufficient liquid cycles.",
+    "healthy_clicks": [
+      {
+        "angle": 0,
+        "disabled": false,
+        "pressed": "true",
+        "memo": "4779544133607882752"
+      },
+      {
+        "angle": 16384,
+        "disabled": false,
+        "pressed": "true",
+        "memo": "4779544133607899136"
+      },
+      {
+        "angle": 32768,
+        "disabled": false,
+        "pressed": "true",
+        "memo": "4779544133607915520"
+      },
+      {
+        "angle": 49152,
+        "disabled": false,
+        "pressed": "true",
+        "memo": "4779544133607931904"
+      }
+    ],
+    "keyboard_down": "true",
+    "selection_survives_render": "true",
+    "unhealthy": [
+      {
+        "angle": "0",
+        "ownDisabled": false,
+        "inheritedDisabled": true,
+        "pressed": "false"
+      },
+      {
+        "angle": "16384",
+        "ownDisabled": false,
+        "inheritedDisabled": true,
+        "pressed": "true"
+      },
+      {
+        "angle": "32768",
+        "ownDisabled": false,
+        "inheritedDisabled": true,
+        "pressed": "false"
+      },
+      {
+        "angle": "49152",
+        "ownDisabled": false,
+        "inheritedDisabled": true,
+        "pressed": "false"
+      }
+    ]
+  },
+  "checks": {
+    "source": {
+      "status": "PASS",
+      "raw": ".work/s15/source-final/verification.json",
+      "counts": {
+        "node-tests": {
+          "tests": 1268,
+          "pass": 1268,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "python-tool-tests": {
+          "tests": 137
+        }
+      }
+    },
+    "native": {
+      "status": "PASS",
+      "raw": ".work/s15/native/verification.json",
+      "counts": {
+        "cargo-tests": {
+          "passed": 20,
+          "failed": 0,
+          "ignored": 0
+        },
+        "portable-rust-tests": {
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    "wasm": {
+      "status": "PASS",
+      "raw": ".work/s15/wasm/verification.json",
+      "counts": {}
+    }
+  },
+  "http_browser": {
+    "status": "PASS",
+    "raw": ".work/s15/browser-http"
+  },
+  "installed_browser": {
+    "status": "PASS",
+    "groups": 15,
+    "checks": [
+      "real-asset-build-and-mainnet-test-adapter-exclusion",
+      "retired-genesis-restarts-with-fresh-certified-head",
+      "certified-backend-receiving-account-and-price-identities",
+      "exact-authenticated-text-and-UTF8-hex-copy",
+      "full-circle-pointer-touch-keyboard-and-selected-styling",
+      "arcade-responsive-arena-and-empty-state",
+      "fresh-publications-after-browser-connection",
+      "paid-join-ball-fallback-and-legal-move-visible-once",
+      "action-price-pairing-stable-card-and-visual-owned-move",
+      "aim-survives-certified-state-updates-and-resize",
+      "disconnected-local-aim-with-unavailable-payment-preparation",
+      "authenticated-reconnect-after-retention-gap-and-upgrade",
+      "unavailable-or-unbound-configuration-and-wrong-certificate-root-fail-closed",
+      "deployment-bundle-reduced-motion-pauses-playback",
+      "read-only-transport-and-native-webcrypto"
+    ],
+    "sandbox": true,
+    "raw": ".work/s15/replay-fenced/deployment/results.json"
+  },
+  "upstream_text_path": {
+    "status": "PASS",
+    "raw": ".work/s15/full/deployment/s15-text-path-history.json",
+    "qualification": "actual upstream local icrc1_transfer preserves memo bytes in actual index; canonical admission and exact native/JS replay; not fabricated normalized-payment injection"
+  },
+  "deployed_module_upgrade": {
+    "status": "PASS",
+    "predecessor": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
+    "publication_preserved": true,
+    "pending_inputs": 2,
+    "before_source_cursor": 7,
+    "receipts": {
+      "2": [
+        "ACCEPTED",
+        "cannon_spawned"
+      ],
+      "3": [
+        "ACCEPTED",
+        "cannon_spawned"
+      ],
+      "4": [
+        "MALFORMED_MEMO",
+        null
+      ],
+      "5": [
+        "ACCEPTED",
+        "ball_spawned"
+      ],
+      "6": [
+        "MALFORMED_MEMO",
+        null
+      ],
+      "7": [
+        "MALFORMED_MEMO",
+        null
+      ],
+      "8": [
+        "ACCEPTED",
+        "ball_spawned"
+      ]
+    },
+    "players_before_upgrade": 2,
+    "raw": ".work/s15/upgrade-final"
+  },
+  "candidate": {
+    "normal_wasm": {
+      "sha256": "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4",
+      "bytes": 2155157
+    },
+    "candid": {
+      "sha256": "87ace6e282f328df49e3a343e4108ab62991a0ea94df60c1be395162d02ef8cd",
+      "bytes": 2825
+    },
+    "manifest": ".work/s15/release-frozen/manifest.json",
+    "observer_manifest": ".work/s15/release-frozen/observer/build-manifest.json",
+    "observer_files": {
+      "index.html": {
+        "sha256": "122a8db6e836f416370576acc7e2abc631b79af5d452e64111ffb1c034c1a845",
+        "bytes": 13238
+      },
+      "app.mjs": {
+        "sha256": "de26c7312fd82f3ae1af52210fdca70bdee519e6c1859f633ea2f9de08a852f1",
+        "bytes": 537719
+      },
+      "style.css": {
+        "sha256": "0448a464cf0d925c6cfdcd5b90dc141aa875463960e331db03ddb532206cdf64",
+        "bytes": 12172
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "source_clean_at_freeze": true
+  },
+  "mainnet": {
+    "operation": "UPGRADE_BACKEND_THEN_ASSET_UPLOAD",
+    "status": "PASS",
+    "reason": null,
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "deployed_module": "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4",
+    "frontend": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "frontend_module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "frontend_text_ui_deployed": true,
+    "frontend_current_files": {
+      "status": "PASS",
+      "hashes": {
+        "index.html": "122a8db6e836f416370576acc7e2abc631b79af5d452e64111ffb1c034c1a845",
+        "app.mjs": "de26c7312fd82f3ae1af52210fdca70bdee519e6c1859f633ea2f9de08a852f1",
+        "style.css": "0448a464cf0d925c6cfdcd5b90dc141aa875463960e331db03ddb532206cdf64",
+        "configuration.bin": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "configuration-legacy.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "deployment.json": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2"
+      }
+    },
+    "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "subaccount": "0",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+    },
+    "cannons": 0,
+    "balls": 0,
+    "received_e8s": "0",
+    "scores": {
+      "area_time": [],
+      "version": 3
+    },
+    "admitted_to_exclusive": 0,
+    "pending_inputs": 0,
+    "cycle_error": {
+      "available": 3386607392,
+      "required": 110114361537,
+      "qualification": "values from last failed index call, not current liquid-balance estimate",
+      "status": "HISTORICAL_RESOLVED_BY_USER"
+    },
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "real_text_memo_payment": "NOT_RUN; all mainnet gameplay transfers remain user-owned",
+    "old_deployed_module": "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c",
+    "state_preservation": {
+      "status": "PASS",
+      "before_segment": "5392",
+      "after_segment": "5392",
+      "identical": [
+        "publication",
+        "state",
+        "events",
+        "scores",
+        "source descriptor",
+        "controllers",
+        "source cursor",
+        "pending input count",
+        "running kernel stage"
+      ],
+      "normal_module": "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4",
+      "reset_or_reinstall": false
+    },
+    "browser_verification": {
+      "status": "PASS",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+      "sandbox": true,
+      "browser_version": "153.0.8010.12",
+      "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "join_price": "1 ICP",
+      "configuration_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "memo": "BTZ ANGLE 37.5",
+      "copied": [
+        {
+          "field": "text",
+          "value": "BTZ ANGLE 37.5"
+        },
+        {
+          "field": "owner",
+          "value": "s34gv-3qaaa-aaaar-qcifa-cai"
+        },
+        {
+          "field": "amount",
+          "value": "1"
+        },
+        {
+          "field": "recipient",
+          "value": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+        },
+        {
+          "field": "hex",
+          "value": "42545a20414e474c452033372e35"
+        }
+      ],
+      "pointer_angles": [
+        0.0,
+        37.5,
+        90.0,
+        135.0,
+        180.0,
+        225.0,
+        270.0,
+        315.0,
+        359.99
+      ],
+      "keyboard": true,
+      "touch": true,
+      "offline_local_aim_and_payment_gating": true,
+      "reconnect_selection_preserved": true,
+      "post_count": 51,
+      "all_posts_read_only": true,
+      "page_errors": [],
+      "real_gameplay_transfer": "NOT_RUN; no funds sent",
+      "trust": "Standard SDK mainnet root; no substitute root, fetchRootKey or proxy",
+      "first_head": 5408,
+      "last_head": 5412,
+      "certificates": 9,
+      "raw": ".work/s15/mainnet-browser/results.json"
+    },
+    "autonomy": {
+      "status": "PASS",
+      "browser_closed": true,
+      "first_head": "5426",
+      "last_head": "5429",
+      "first_at": "2026-10-20T20:05:05.197Z",
+      "last_at": "2026-10-20T20:05:22.598Z",
+      "source_and_run_errors_clear": true,
+      "raw": ".work/s15/mainnet-autonomy.json"
+    },
+    "funding": "Initial source-cycle blocker resolved by user top-up; assistant transferred no funds.",
+    "user_topup_total_cycles_seen": 2370919224369,
+    "before_upgrade": {
+      "segment_id": "5392",
+      "logical_end": "10786",
+      "state_hash": "93651cfe1e8158769b3a9bd61e1caa7c8f4711828ea61563a2ac3e595817b108"
+    },
+    "after_upgrade": {
+      "segment_id": "5392",
+      "logical_end": "10786",
+      "state_hash": "93651cfe1e8158769b3a9bd61e1caa7c8f4711828ea61563a2ac3e595817b108"
+    },
+    "completed_segments_at_preflight": 5393,
+    "source_errors_after_upgrade": null,
+    "run_errors_after_upgrade": null,
+    "cadence": "same segment_ticks=2 / pacing_seconds=1 / work_budget=512; pause for upgrade then resume only",
+    "backend_cycles_before_user_topup": 227522358984,
+    "backend_cycles_at_final_status": 2326412817479,
+    "phase_before_upgrade": "running"
+  },
+  "economics": {
+    "join_e8s": "100000000",
+    "ball_base_e8s": "10000000",
+    "move_e8s": "10000",
+    "ball_rule": "active count squared",
+    "configuration_unchanged": true,
+    "fees": "separate",
+    "payments": "retained; refunds and automatic payouts unavailable"
+  },
+  "motion": {
+    "status": "PASS",
+    "qualification": "Existing kernel-generated dense recording: 32 non-cardinal balls and two competing territories. Offline content verification, not IC authenticity. All historical artifacts unchanged; only copied playback timing is 1 second/tick.",
+    "video": ".work/s15/motion-playback-reviewed/video/page@a8aec67c99e000fa38a99db798a52452.webm",
+    "normal_playback_rate": 1,
+    "decoded_video_frames_inspected": 345,
+    "rendered_frames": 217,
+    "rendered_fps": 15.5,
+    "max_nearest_ball_frame_displacement_px": 13.857388195858398,
+    "continuity_violations": [],
+    "phases": [
+      "PLAYING"
+    ],
+    "x_reference": "403 Forbidden; clip not viewed; no matching claim",
+    "raw": ".work/s15/motion-playback-reviewed/results.json"
+  },
+  "motion_limitation": {
+    "nominal_observer_ticks_per_second": 1,
+    "existing_segment_ticks": 2,
+    "minimum_callbacks_per_segment": 3,
+    "pacing_seconds": 1,
+    "finding": "production cadence can remain below consumption; buffer does not fix permanent deficit",
+    "unchanged": true,
+    "unfenced_local_sample": {
+      "wall_seconds": 111.3123,
+      "verified_ticks_added": 62,
+      "consumed_ticks": 66,
+      "retrieved_ticks_per_second": 0.556991455571397,
+      "consumed_ticks_per_second": 0.5929263881889064,
+      "stalled_samples": 124,
+      "qualification": "loaded disposable test, before local replay read fencing; finite observation, not a production benchmark"
+    }
+  },
+  "retained_failures": [
+    {
+      "run": ".work/s15/full/results.json",
+      "status": "FAIL",
+      "detail": "17 PASS / 1 browser FAIL / 2 explicit historical probes ignored; assertion used inner_text for collapsed advanced address. Corrected browser case passes separately; no claim this original aggregate was green."
+    },
+    {
+      "run": ".work/s15/browser-corrected",
+      "status": "FAIL",
+      "detail": "strict native replay lost retained chunks during concurrent progress; local capture fence added; corrected case passes"
+    },
+    {
+      "run": ".work/s15/asset-final",
+      "status": "FAIL",
+      "detail": "same test capture race after paid outcomes/reconnect; retained for provenance"
+    },
+    {
+      "run": ".work/s15/s09-entrypoint/results.json",
+      "status": "FAIL",
+      "detail": "pre-existing historical wrapper names removed pocketic_host target; current application uses s14_index; no frozen scanner revived"
+    },
+    {
+      "run": ".work/s15/release-final",
+      "status": "FAIL",
+      "detail": "freeze correctly rejected source edits during preparation; never a valid release. Use only release-frozen manifest/artifacts."
+    }
+  ],
+  "screenshots": [
+    "evidence/S15/aim-desktop.png",
+    "evidence/S15/aim-mobile.png",
+    "evidence/S15/aim-disconnected.png",
+    "evidence/S15/move-desktop.png",
+    "evidence/S15/motion-playback.png"
+  ],
+  "mainnet_writes": true,
+  "funds_transferred": false,
+  "remote_git_actions": false,
+  "reset_or_reinstall": false,
+  "asset_hosting": {
+    "status": "PASS",
+    "groups": 19,
+    "checks": [
+      "real-asset-build-and-mainnet-test-adapter-exclusion",
+      "dfx-normal-backend-generated-constructor-and-binding",
+      "dfx-asset-canister-install",
+      "asset-http-certificate-mime-and-csp",
+      "retired-genesis-restarts-with-fresh-certified-head",
+      "certified-backend-receiving-account-and-price-identities",
+      "exact-authenticated-text-and-UTF8-hex-copy",
+      "full-circle-pointer-touch-keyboard-and-selected-styling",
+      "arcade-responsive-arena-and-empty-state",
+      "fresh-publications-after-browser-connection",
+      "paid-join-ball-fallback-and-legal-move-visible-once",
+      "action-price-pairing-stable-card-and-visual-owned-move",
+      "aim-survives-certified-state-updates-and-resize",
+      "disconnected-local-aim-with-unavailable-payment-preparation",
+      "asset-entry-refresh-authenticates-same-backend",
+      "authenticated-reconnect-after-retention-gap-and-upgrade",
+      "unavailable-or-unbound-configuration-and-wrong-certificate-root-fail-closed",
+      "deployment-bundle-reduced-motion-pauses-playback",
+      "read-only-transport-and-native-webcrypto"
+    ],
+    "raw": ".work/s15/asset-fenced/deployment/results.json",
+    "production_bytes_equal_frozen": true
+  },
+  "mainnet_write_scope": [
+    "pause_autonomous",
+    "upgrade normal Wasm on existing backend",
+    "resume same autonomous configuration",
+    "asset-only upload to existing observer"
+  ],
+  "source_commits": [
+    "d85f58f5cff039456dd704973425aa79daf00f67",
+    "61b1dec",
+    "8765320b15b563c2e1ade9b561fec480579768fd"
+  ],
+  "final_documentation_commit": "recorded in Git log; report does not self-reference its own hash",
+  "remaining": [
+    "Mainnet text-memo gameplay payment is not yet verified; only the user sends gameplay funds.",
+    "Existing production cadence can undersupply nominal observer consumption; no rule/cadence change included.",
+    "Historical verify_s09_local.py wrapper still names removed pocketic_host test target; current s14_index application checks passed.",
+    "Remote CI NOT_RUN until user pushes branch.",
+    "X reference returned 403; clip not viewed or matched."
+  ]
+}

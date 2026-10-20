@@ -8,7 +8,7 @@ The normative [application contract](docs/specs/BTZ_APPLICATION.md) specifies pa
 
 ## S15 text memo and aiming extension
 
-The local S15 branch adds bounded ICRC-1 commands such as `BTZ ANGLE 37.5` and `BTZ MOVE 83`, full-circle pointer/touch/keyboard aiming and one authenticated action-preparation card. [Grammar and upgrade boundaries](docs/specs/BTZ_TEXT_MEMOS.md) specify the additive adapter. Backend deployment must precede publishing the new frontend; this paragraph alone does not assert deployment or a real text payment. Prices and game history are unchanged.
+The [public observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) now prepares bounded ICRC-1 text commands such as `BTZ ANGLE 37.5` and `BTZ MOVE 83`, with full-circle pointer/touch/keyboard aiming and one authenticated action card. Backend module `c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4` was upgraded in place before the frontend upload; certified state, scores, configuration and source progress were preserved. Prices remain unchanged. [Grammar](docs/specs/BTZ_TEXT_MEMOS.md), [report/screenshots](checkpoints/S15_TEXT_MEMO_AIMING.md) and [evidence](evidence/S15/release.json) record local ledger/index, deployed-module recovery and actual public-browser checks. No real mainnet text-memo gameplay payment has yet been verified; all such transfers remain user-owned. Existing cadence can still cause playback stalls, as documented in the report.
 
 ## Live arcade / prelaunch release
 
