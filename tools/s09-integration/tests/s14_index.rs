@@ -2022,6 +2022,11 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let deadline = began + Duration::from_secs(360);
     let mut logged_phase = -2;
     while std::time::Instant::now() < deadline {
+        // Freeze only this disposable instance while the test atomically reads
+        // a retained catalog and all chunks for strict native replay. Without
+        // this fence, make_live can retire the catalog midway through replay
+        // on a loaded host. The browser's reconnect/resync remains unfenced.
+        pic.stop_progress();
         let (_, p) = observe(&pic, id);
         if p.head.segment_id != last {
             // make_live advances independently while HTTP/asset requests run.
@@ -2061,6 +2066,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 publications.push(observed);
             }
         }
+        pic.auto_progress();
         if phase == -1 && out.join("bootstrap-anchor-read").exists() {
             let _: Status = get_result(
                 &pic,
