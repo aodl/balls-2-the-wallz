@@ -19,7 +19,7 @@ const deployment=JSON.stringify(policy);
 const moduleSource=test?`export default ${deployment}; export {deploymentPolicy,deploymentConnection,deploymentSource} from '${resolve('tools/fixtures/s14-local-deployment.mjs')}';`:(await readFile('apps/b2z-observer/deployment.mjs','utf8')).replace('export default null;',`export default ${deployment};`);
 const built=await build({metafile:true,entryPoints:['apps/b2z-observer/app.mjs'],bundle:true,format:'esm',platform:'browser',outfile:out+'/app.mjs',
  plugins:[{name:'trusted-deployment',setup(b){b.onLoad({filter:/\/b2z-observer\/deployment\.mjs$/},()=>({contents:moduleSource,loader:'js',resolveDir:resolve('apps/b2z-observer')}));}}]});
-for(const file of ['style.css','icon.svg','configuration.bin','configuration-legacy.bin'])await cp('apps/b2z-observer/'+file,out+'/'+file);
+for(const file of ['style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin'])await cp('apps/b2z-observer/'+file,out+'/'+file);
 // Local acceptance assets permit only their explicitly pinned loopback gateway.
 // Production always permits the single reviewed IC endpoint.
 const connect=test?new URL(policy.host).origin:'https://icp-api.io';
@@ -30,7 +30,7 @@ console.log(`Built observer for ${policy.canister_id}: ${out}`);
 
 await writeFile(out+'/.ic-assets.json5',JSON.stringify([{match:'**/*',security_policy:'hardened',headers:{'Content-Security-Policy':`default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' ${connect}; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,'Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff','Permissions-Policy':"accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()"}}],null,2)+'\n');
 const files={};
-for(const name of ['index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','deployment.json','.ic-assets.json5']){
+for(const name of ['index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin','deployment.json','.ic-assets.json5']){
  const bytes=await readFile(out+'/'+name);files[name]={sha256:createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length};
 }
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();

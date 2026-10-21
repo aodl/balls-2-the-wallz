@@ -581,3 +581,26 @@ mod tests {
         assert!(CutSearch::restore(&more).is_err());
     }
 }
+
+/// Cell lookup for the explicitly versioned B2Z torus; bounded-board APIs stay unchanged.
+pub fn wrapped_cell(x: i64, y: i64, width: usize, height: usize) -> Result<usize, Error> {
+    if width == 0 || height == 0 || width > 32 || height > 32 || width * height > MAX_CELLS {
+        return Err(Error::Bounds);
+    }
+    Ok(y.rem_euclid(height as i64) as usize * width + x.rem_euclid(width as i64) as usize)
+}
+#[cfg(test)]
+mod wrapping_tests {
+    use super::*;
+    #[test]
+    fn horizontal_vertical_corner_and_bounds() {
+        assert_eq!(wrapped_cell(-1, 0, 32, 32), Ok(31));
+        assert_eq!(wrapped_cell(32, 0, 32, 32), Ok(0));
+        assert_eq!(wrapped_cell(0, -1, 32, 32), Ok(992));
+        assert_eq!(wrapped_cell(0, 32, 32, 32), Ok(0));
+        assert_eq!(wrapped_cell(-1, -1, 32, 32), Ok(1023));
+        assert_eq!(wrapped_cell(32, 32, 32, 32), Ok(0));
+        assert_eq!(wrapped_cell(0, 0, 64, 64), Err(Error::Bounds));
+        assert_eq!(wrapped_cell(0, 0, 0, 32), Err(Error::Bounds));
+    }
+}

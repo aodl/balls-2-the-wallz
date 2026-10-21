@@ -2,9 +2,10 @@
 import {encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat} from './math.mjs';
-import {neighbors, position, Q} from './world.mjs';
+import {neighbors, position, Q,wrapCell} from './world.mjs';
 
-export function seedPatch(cell, width, height) {
+export function seedPatch(cell, width, height,torus=false) {
+  if(torus){const x=cell%width,y=Math.floor(cell/width),out=[];for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)out.push(wrapCell(x+dx,y+dy,width,height));return out;}
   const x = cell % width, y = Math.floor(cell / width);
   if (x < 1 || y < 1 || x + 1 >= width || y + 1 >= height) return null;
   const cells = [];
@@ -30,8 +31,8 @@ export function spawnStep(world, job) {
   if (job.phase === 'enumerate') {
     if (job.scan < world.cells.length) {
       const cell = job.scan++;
-      if (!seedPatch(cell, world.width, world.height)) return false;
-      for (const other of neighbors(cell, world.width, world.height)) {
+      if (!seedPatch(cell, world.width, world.height,world.version===4)) return false;
+      for (const other of neighbors(cell, world.width, world.height,world.version===4)) {
         const a = world.cells[cell], b = world.cells[other];
         if (a !== b) {
           const kind = a && b ? 0 : 1;
@@ -39,7 +40,7 @@ export function spawnStep(world, job) {
         }
       }
       // Neutral is a preference, not permission to steal through a neutral-centred mixed patch.
-      const patch = seedPatch(cell, world.width, world.height);
+      const patch = seedPatch(cell, world.width, world.height,world.version===4);
       const kind = patch.every(c => world.cells[c] === 0) ? 2 : 3;
       job.candidates.push({kind, cell, other: -1, rank: spawnRank(job.seed, kind, cell, -1)});
     } else {
@@ -51,12 +52,13 @@ export function spawnStep(world, job) {
   } else if (job.phase === 'candidate') {
     if (job.candidate >= job.candidates.length) { job.phase = 'done'; return true; }
     job.current = job.candidates[job.candidate++]; job.checked++;
-    job.patch = seedPatch(job.current.cell, world.width, world.height);
+    job.patch = seedPatch(job.current.cell, world.width, world.height,world.version===4);
     if (world.cannons.some(c => job.patch.includes(c.cell))) { reject(job, 'ANCHOR'); return false; }
     const cx = job.current.cell % world.width, cy = Math.floor(job.current.cell / world.width);
     // Inclusive closure protects a ball exactly on a seed edge as well as one in its interior.
     if (world.balls.some(b => {
       const [x, y] = position(b, world.time);
+      if(world.version===4){const inside=(n,c,size)=>[-size*Q,0,size*Q].some(offset=>cmp(n,rat((c-1)*Q+offset))>=0&&cmp(n,rat((c+2)*Q+offset))<=0);return inside(x,cx,world.width)&&inside(y,cy,world.height);}
       return cmp(x, rat((cx - 1) * Q)) >= 0 && cmp(x, rat((cx + 2) * Q)) <= 0
         && cmp(y, rat((cy - 1) * Q)) >= 0 && cmp(y, rat((cy + 2) * Q)) <= 0;
     })) { reject(job, 'BALL'); return false; }
@@ -74,7 +76,7 @@ export function spawnStep(world, job) {
   } else if (job.phase === 'flood') {
     if (job.head < job.queue.length) {
       const cell = job.queue[job.head++], owner = job.owners[job.ownerIndex];
-      for (const n of neighbors(cell, world.width, world.height))
+      for (const n of neighbors(cell, world.width, world.height,world.version===4))
         if (world.cells[n] === owner && !job.seen[n] && !job.patch.includes(n)) { job.seen[n] = true; job.queue.push(n); }
     } else { job.scan = 0; job.phase = 'verify'; }
   } else if (job.phase === 'verify') {

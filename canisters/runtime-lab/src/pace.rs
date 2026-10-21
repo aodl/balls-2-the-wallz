@@ -10,6 +10,7 @@ pub const ECONOMY_EXIT: u128 = 1_000_000_000_000;
 pub const ECONOMY_ENTER: u128 = 1_500_000_000_000;
 pub const NORMAL_EXIT: u128 = 3_000_000_000_000;
 pub const NORMAL_ENTER: u128 = 4_000_000_000_000;
+pub const LARGE_WORLD_CEILING_MILLI: u32 = 500;
 pub const MAX_ACTIONS: usize = 8;
 pub const MAX_WORK: u64 = 2048;
 pub const INSTRUCTION_YIELD: u64 = 600_000_000;
@@ -96,6 +97,15 @@ pub struct Clock {
     pub rest_since_publication: u64,
 }
 impl Clock {
+    pub fn configure_world(&mut self, torus: bool) {
+        self.ceiling_milli = if torus {
+            LARGE_WORLD_CEILING_MILLI
+        } else {
+            1000
+        };
+        self.due = 0;
+    }
+
     pub fn refresh(&mut self, liquid: u128) {
         let mode = select(self.mode, liquid);
         if mode != self.mode {
@@ -233,5 +243,16 @@ mod tests {
         }
         assert_eq!(c.hint().nominal_milli, 551);
         assert!(c.hint().nominal_milli <= 1000);
+    }
+    #[test]
+    fn larger_staged_world_uses_the_measured_shared_envelope() {
+        let mut c = Clock::default();
+        c.configure_world(true);
+        c.refresh(NORMAL_ENTER);
+        assert_eq!(c.hint().nominal_milli, 500);
+        c.refresh(ECONOMY_ENTER);
+        assert_eq!(c.hint().nominal_milli, 250);
+        c.refresh(CONSERVE_ENTER);
+        assert_eq!(c.hint().nominal_milli, 125);
     }
 }

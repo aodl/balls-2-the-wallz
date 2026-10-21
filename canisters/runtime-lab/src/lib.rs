@@ -856,7 +856,11 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
             return Err("genesis logical time".into());
         }
         let (source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
-        let mut identity = b2z_native::identity()?;
+        let mut identity = if w.torus() {
+            b2z_native::torus_identity()?
+        } else {
+            b2z_native::identity()?
+        };
         identity["source_id"] = serde_json::Value::String(source_id);
         let identity: Identity = serde_json::from_value(identity).map_err(|e| e.to_string())?;
         let h = Coordinator::create(
@@ -869,6 +873,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         )?;
         let r = persist(&h, None, source, RunState::default())?;
         cache_poke_policy(&r.source);
+        PACE.with(|p| p.borrow_mut().configure_world(w.torus()));
         refresh_pace();
         install_source_timer();
         request_reconciliation()?;
@@ -920,6 +925,8 @@ fn post_upgrade() {
         save_root_only(&r)?;
         ic_cdk::api::certified_data_set(unhex(&r.publication_hash)?);
         cache_poke_policy(&r.source);
+        let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+        PACE.with(|p| p.borrow_mut().configure_world(w.torus()));
         refresh_pace();
         install_source_timer();
         request_reconciliation()?;

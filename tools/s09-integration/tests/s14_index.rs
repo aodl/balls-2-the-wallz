@@ -367,7 +367,10 @@ fn replay_head_with_artifacts(
     })
     .unwrap();
     while h.record.journal.stage.as_ref().unwrap().phase == "running" {
-        h.apply(Action::Step { budget: 17 }).unwrap();
+        h.apply(Action::Step {
+            budget: if verify_artifacts { 17 } else { 512 },
+        })
+        .unwrap();
     }
     let ready = h
         .record
@@ -2084,18 +2087,17 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                     .expect("live replay requires each intermediate publication still retained");
                     decode::<Publication>(&bytes).unwrap()
                 };
-                // Exact canonical catalog equality binds every native artifact hash.
-                // The concurrent browser independently retrieves/verifies artifact
-                // bytes. Avoid duplicate RPC reads that perturb live production.
-                replay_head_with_artifacts(
-                    &pic,
-                    id,
-                    &observed,
-                    &mut native,
-                    &payments,
-                    &mut assigned,
-                    false,
-                );
+                // Capture seals promptly; defer expensive native replay until the
+                // live browser trace is finished, without pausing IC progression.
+                let seal = observed.head.seal.as_ref().unwrap();
+                let from: u64 = seal.source_from.0.to_string().parse().unwrap();
+                let to: u64 = seal.source_to_exclusive.0.to_string().parse().unwrap();
+                let inputs: Vec<_> = payments.range(from..to).map(|(id, _)| *id).collect();
+                assert_eq!(inputs.len(), seal.input_count as usize);
+                for input in inputs {
+                    assert!(!assigned.contains(&input));
+                    assigned.push(input);
+                }
                 last = observed.head.segment_id.clone();
                 publications.push(observed);
             }
@@ -2206,8 +2208,10 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             );
             phase = 2;
         } else if phase == 2 && assigned.contains(&second.unwrap()) {
-            let view = publication(&native.record).unwrap();
-            let world = b2z_native::world::World::decode(&view.artifacts[0]).unwrap();
+            // This one-time action-selection read precedes the measured trace.
+            pic.stop_progress();
+            let world = arena_world(&pic, id);
+            pic.auto_progress();
             assert_eq!(world.cannons.len(), 1, "paid join created one cannon");
             assert_eq!(world.balls.len(), 2, "fallback payment bought second ball");
             let cannon = &world.cannons[0];
@@ -2308,6 +2312,19 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     }
     assert!(browser.0.wait().unwrap().success());
     pic.stop_live();
+    let mut replay_assigned = vec![];
+    for p in &publications {
+        replay_head_with_artifacts(
+            &pic,
+            id,
+            p,
+            &mut native,
+            &payments,
+            &mut replay_assigned,
+            false,
+        );
+    }
+    assert_eq!(replay_assigned, assigned);
     assert_eq!(
         assigned,
         vec![first.unwrap(), second.unwrap(), third.unwrap()]
@@ -3256,11 +3273,13 @@ fn empty_arena_all_player_elimination_preserves_scores_then_idles() {
             id: 1,
             cell: 6,
             account: "01".repeat(32),
+            heading: None,
         },
         Cannon {
             id: 2,
             cell: 11,
             account: "02".repeat(32),
+            heading: None,
         },
     ];
     w.balls = vec![
@@ -3587,6 +3606,7 @@ fn pace_world() -> b2z_native::world::World {
         id: 1,
         cell: 42,
         account: "01".repeat(32),
+        heading: None,
     }];
     world.balls = vec![Ball {
         id: 1,
@@ -3649,4 +3669,396 @@ fn arena_matched_prior_producer_cost_comparison() {
     )
     .unwrap();
     println!("ARENA_PRODUCER_COST {rows:?}");
+}
+
+#[test]
+fn torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay() {
+    use b2z_native::world::World;
+    let mut w = World::decode(&initial_world()).unwrap();
+    w.version = 4;
+    w.width = 32;
+    w.height = 32;
+    w.cells = vec![0; 1024];
+    let initial = w.encode().unwrap();
+    let (pic, id, ledger, payer) = arena_setup_world(bytes("B2Z_S14_WASM"), initial.clone());
+    let genesis = observe(&pic, id).1;
+    assert_eq!(
+        genesis.identity.rules_hash,
+        b2z_native::torus_identity().unwrap()["rules_hash"]
+            .as_str()
+            .unwrap()
+    );
+    let mut native = Coordinator::create(
+        &initial,
+        genesis.identity.clone(),
+        0,
+        0,
+        "00".repeat(32),
+        B2zHostKernel,
+    )
+    .unwrap();
+    let funding = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT);
+    let mut payments = BTreeMap::new();
+    let mut assigned = vec![];
+    let mut publications = vec![];
+    let mut last = None;
+    let capture = |native: &mut Coordinator<B2zHostKernel>,
+                   assigned: &mut Vec<u64>,
+                   publications: &mut Vec<Publication>,
+                   last: &mut Option<Int>,
+                   payments: &BTreeMap<u64, String>| {
+        let p = observe(&pic, id).1;
+        if p.head.segment_id.is_some() && p.head.segment_id != *last {
+            replay_head(&pic, id, &p, native, payments, assigned);
+            *last = p.head.segment_id.clone();
+            publications.push(p);
+        }
+    };
+    start_arena(&pic, id);
+    let first = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    payments.insert(
+        first,
+        normalized(
+            funding,
+            100_000_000,
+            b2z_protocol::encode(b2z_protocol::Command::Angle(6827)),
+        ),
+    );
+    for _ in 0..180 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if assigned.contains(&first) {
+            break;
+        }
+    }
+    assert_eq!(arena_world(&pic, id).cannons[0].heading, Some(6827));
+    let second = transfer_text(&pic, ledger, payer, id, 10_000_000, b"ANGLE 225");
+    payments.insert(
+        second,
+        normalized(
+            funding,
+            10_000_000,
+            b2z_protocol::encode(b2z_protocol::Command::Angle(40960)),
+        ),
+    );
+    for _ in 0..180 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if assigned.contains(&second) {
+            break;
+        }
+    }
+    assert_eq!(arena_world(&pic, id).cannons[0].heading, Some(40960));
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let world = arena_world(&pic, id);
+    let target = world
+        .cells
+        .iter()
+        .enumerate()
+        .find(|(n, owner)| **owner == 1 && *n != world.cannons[0].cell)
+        .unwrap()
+        .0 as u32;
+    let third = transfer_text(
+        &pic,
+        ledger,
+        payer,
+        id,
+        10_000,
+        format!("MOVE {target}").as_bytes(),
+    );
+    payments.insert(
+        third,
+        normalized(
+            funding,
+            10_000,
+            b2z_protocol::encode(b2z_protocol::Command::Move(target)),
+        ),
+    );
+    let fourth = transfer_text(&pic, ledger, payer, id, 1, b"ANGLE 1");
+    payments.insert(
+        fourth,
+        normalized(
+            funding,
+            1,
+            b2z_protocol::encode(b2z_protocol::Command::Angle(182)),
+        ),
+    );
+    for _ in 0..180 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > fourth {
+            break;
+        }
+    }
+    assert_eq!(work(&pic, id).0, 2);
+    let before = observe(&pic, id).0.publication;
+    let source = status(&pic, id).source.admitted_to_exclusive;
+    let controllers = pic
+        .canister_status(id, Some(controller()))
+        .unwrap()
+        .settings
+        .controllers;
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(observe(&pic, id).0.publication, before);
+    assert_eq!(arena_world(&pic, id), world);
+    assert_eq!(work(&pic, id).0, 2);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, source);
+    assert_eq!(
+        pic.canister_status(id, Some(controller()))
+            .unwrap()
+            .settings
+            .controllers,
+        controllers
+    );
+    start_arena(&pic, id);
+    for _ in 0..180 {
+        tick(&pic);
+        capture(
+            &mut native,
+            &mut assigned,
+            &mut publications,
+            &mut last,
+            &payments,
+        );
+        if assigned.contains(&fourth) {
+            break;
+        }
+    }
+    assert_eq!(assigned, vec![first, second, third, fourth]);
+    let after = arena_world(&pic, id);
+    assert_eq!(after.cannons[0].heading, Some(40960));
+    assert_eq!(after.cannons[0].cell, target as usize);
+    assert_eq!(after.received_e8s, Int(110_010_001u64.into()));
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let trace = serde_json::json!({"status":"PASS","evidence_class":"STAGED_TORUS_LOCAL; no live migration facility","initial_world_hex":hex(&initial),"inputs":payments.iter().map(|(id,payload)|serde_json::json!({"position":id.to_string(),"payload_hex":payload})).collect::<Vec<_>>(),"publications":publications,"assigned":assigned,"heading_survives_upgrade":true,"pending_preserved":2});
+    let path = out.join("torus-history.json");
+    std::fs::write(&path, serde_json::to_vec_pretty(&trace).unwrap()).unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "tools/replay_s14.mjs",
+                path.to_str().unwrap(),
+                out.join("torus-replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+}
+
+#[test]
+fn torus_all_player_elimination_sleeps_without_a_browser() {
+    let fixture: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures/b2z-torus-v4.json"),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    let initial = fixture["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|v| v["name"] == "seam-territory-strike-annihilation")
+        .unwrap()["initial_hex"]
+        .as_str()
+        .unwrap();
+    let (pic, id, _, _) =
+        arena_setup_world(bytes("B2Z_S14_WASM"), dtr_wire::unhex(initial).unwrap());
+    start_arena(&pic, id);
+    for _ in 0..30 {
+        tick(&pic);
+        if status(&pic, id).run.idle == Some(true) {
+            break;
+        }
+    }
+    let before = status(&pic, id);
+    assert_eq!(before.run.idle, Some(true));
+    assert!(arena_world(&pic, id).cannons.is_empty());
+    assert!(arena_world(&pic, id).balls.is_empty());
+    let publication = observe(&pic, id).0.publication;
+    for _ in 0..130 {
+        tick(&pic)
+    }
+    let after = status(&pic, id);
+    assert_eq!(after.run.callback_count, before.run.callback_count);
+    assert_eq!(after.run.completed_segments, before.run.completed_segments);
+    assert_eq!(observe(&pic, id).0.publication, publication);
+    assert!(after.source.index_calls > before.source.index_calls);
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(status(&pic, id).run.idle, Some(true));
+    assert_eq!(observe(&pic, id).0.publication, publication);
+}
+
+#[test]
+fn torus_browser_scene_camera_and_continuous_supported_playback() {
+    use b2z_native::world::{Ball, Cannon, World};
+    let mut w = World::decode(&initial_world()).unwrap();
+    w.version = 4;
+    w.width = 32;
+    w.height = 32;
+    w.cells = (0..1024).map(|n| if n % 32 < 16 { 1 } else { 2 }).collect();
+    w.cannons = vec![
+        Cannon {
+            id: 1,
+            cell: 326,
+            account: "01".repeat(32),
+            heading: Some(8192),
+        },
+        Cannon {
+            id: 2,
+            cell: 666,
+            account: "02".repeat(32),
+            heading: Some(40960),
+        },
+    ];
+    w.balls = [
+        (1, 1, 320, 812, 623),
+        (2, 1, 997, 724, 724),
+        (3, 2, 351, 724, -724),
+        (4, 2, 57, -724, -724),
+    ]
+    .into_iter()
+    .map(|(id, owner, cell, vx, vy)| Ball {
+        id,
+        owner,
+        cell,
+        x0: Int((cell % 32 * 1024 + 512).into()),
+        y0: Int((cell / 32 * 1024 + 512).into()),
+        vx,
+        vy,
+    })
+    .collect();
+    w.next_ball_id = 5;
+    w.next_cannon_id = 3;
+    let initial = w.encode().unwrap();
+    let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_WASM"), initial.clone());
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("torus-scene");
+    std::fs::create_dir_all(&out).unwrap();
+    let config = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    std::fs::write(
+        out.join("configuration.json"),
+        serde_json::to_vec(&config).unwrap(),
+    )
+    .unwrap();
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let genesis = observe(&pic, id).1;
+    let mut native = Coordinator::create(
+        &initial,
+        genesis.identity.clone(),
+        0,
+        0,
+        "00".repeat(32),
+        B2zHostKernel,
+    )
+    .unwrap();
+    let gateway = pic.make_live(None);
+    let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut browser = OwnedBrowser(
+        std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
+            .current_dir(&root)
+            .args([
+                "tools/verify_s14_deployment.py",
+                "--scene-only",
+                "--configuration",
+                out.join("configuration.json").to_str().unwrap(),
+                "--gateway",
+                gateway.as_str(),
+                "--output",
+                out.to_str().unwrap(),
+            ])
+            .stdout(log.try_clone().unwrap())
+            .stderr(log)
+            .spawn()
+            .unwrap(),
+    );
+    let began = std::time::Instant::now();
+    let mut started = false;
+    let mut publications = vec![];
+    let mut next = 0u64;
+    while began.elapsed() < Duration::from_secs(180) {
+        if !started && out.join("browser-scene-ready").exists() {
+            start_arena(&pic, id);
+            started = true;
+        }
+        let p = observe(&pic, id).1;
+        if let Some(segment) = p.head.segment_id.as_ref() {
+            let head: u64 = segment.0.to_string().parse().unwrap();
+            for n in next..=head {
+                let current = if n == head {
+                    p.clone()
+                } else {
+                    let raw: Vec<u8> = get_query(
+                        &pic,
+                        id,
+                        "retained_publication",
+                        candid::encode_one(n).unwrap(),
+                    );
+                    decode(&raw).unwrap()
+                };
+                assert_eq!(current.head.seal.as_ref().unwrap().input_count, 0);
+                publications.push(current);
+                next = n + 1;
+            }
+        }
+        if let Some(code) = browser.0.try_wait().unwrap() {
+            assert!(
+                code.success(),
+                "scene browser failure: {}",
+                out.join("browser.log").display()
+            );
+            break;
+        }
+        std::thread::sleep(Duration::from_millis(100));
+    }
+    assert!(out.join("browser-complete").exists(), "scene timeout");
+    pic.stop_live();
+    let payments = BTreeMap::new();
+    let mut assigned = vec![];
+    for p in &publications {
+        replay_head_with_artifacts(&pic, id, p, &mut native, &payments, &mut assigned, false);
+    }
+    assert!(assigned.is_empty());
+    let history = serde_json::json!({"status":"PASS","evidence_class":"STAGED_TORUS_SYNTHETIC_GENESIS_GENUINE_LOCAL_IC","initial_world_hex":hex(&initial),"inputs":[],"publications":publications,"assigned":[]});
+    let path = out.join("history.json");
+    std::fs::write(&path, serde_json::to_vec_pretty(&history).unwrap()).unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&root)
+            .args([
+                "tools/replay_s14.mjs",
+                path.to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
 }

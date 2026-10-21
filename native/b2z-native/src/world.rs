@@ -5,12 +5,23 @@ use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
 pub const Q: i64 = 1024;
+fn read_heading<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<u16>, D::Error> {
+    u16::deserialize(d).map(Some)
+}
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
 pub struct Cannon {
     pub id: u32,
     pub cell: usize,
     pub account: String,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_heading"
+    )]
+    pub heading: Option<u16>,
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
@@ -83,6 +94,10 @@ pub fn neighbors(cell: usize, width: usize, height: usize) -> Vec<usize> {
     }
     out
 }
+pub fn wrap_cell(x: i64, y: i64, width: usize, height: usize) -> usize {
+    b2z_mechanics::wrapped_cell(x, y, width, height).expect("validated world dimensions")
+}
+
 pub fn position(b: &Ball, t: &Rat) -> Result<[Rat; 2]> {
     let n = t.0.numer();
     let d = t.0.denom();
@@ -92,6 +107,35 @@ pub fn position(b: &Ball, t: &Rat) -> Result<[Rat; 2]> {
     ])
 }
 impl World {
+    pub fn torus(&self) -> bool {
+        self.version == 4
+    }
+    pub fn neighbors(&self, cell: usize) -> Vec<usize> {
+        if !self.torus() {
+            return neighbors(cell, self.width, self.height);
+        }
+        let x = (cell % self.width) as i64;
+        let y = (cell / self.width) as i64;
+        [(x, y - 1), (x - 1, y), (x + 1, y), (x, y + 1)]
+            .into_iter()
+            .map(|(x, y)| wrap_cell(x, y, self.width, self.height))
+            .collect()
+    }
+    pub fn patch(&self, cell: usize) -> Option<Vec<usize>> {
+        if !self.torus() {
+            return crate::spawn::patch(cell, self.width, self.height);
+        }
+        let x = (cell % self.width) as i64;
+        let y = (cell / self.width) as i64;
+        Some(
+            (-1..=1)
+                .flat_map(|dy| {
+                    (-1..=1).map(move |dx| wrap_cell(x + dx, y + dy, self.width, self.height))
+                })
+                .collect(),
+        )
+    }
+
     pub fn decode(bytes: &[u8]) -> Result<Self> {
         let w: Self = decode(bytes)?;
         w.validate()?;
@@ -112,7 +156,7 @@ impl World {
         while i < queue.len() {
             let c = queue[i];
             i += 1;
-            for n in neighbors(c, self.width, self.height) {
+            for n in self.neighbors(c) {
                 if self.cells[n] == owner && !seen[n] {
                     seen[n] = true;
                     queue.push(n);
@@ -127,7 +171,8 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if self.version != 3
+        if ![3, 4].contains(&self.version)
+            || (self.version == 4 && (self.width != 32 || self.height != 32))
             || !(1..=32).contains(&self.width)
             || !(1..=32).contains(&self.height)
             || self.cells.len() != self.width * self.height
@@ -146,7 +191,8 @@ impl World {
         let mut anchors = BTreeSet::new();
         let mut last = 0;
         for c in &self.cannons {
-            if c.id <= last
+            if (self.version == 3 && c.heading.is_some())
+                || c.id <= last
                 || c.id > 65535
                 || c.cell >= self.cells.len()
                 || !account_ok(&c.account)
@@ -221,7 +267,7 @@ impl World {
                     .any(|b| b.id == p.ball && b.owner == p.owner)
                 || p.from >= self.cells.len()
                 || p.to >= self.cells.len()
-                || !neighbors(p.from, self.width, self.height).contains(&p.to)
+                || !self.neighbors(p.from).contains(&p.to)
                 || p.owner == p.defender
                 || p.defender == 0
                 || !matches!(p.axis.as_str(), "x" | "y")

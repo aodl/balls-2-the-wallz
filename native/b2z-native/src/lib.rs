@@ -3,9 +3,10 @@
 mod cursor;
 mod economics_generated;
 pub mod geometry;
+pub mod migration;
 pub mod spawn;
 pub mod topology;
 pub mod world;
-pub use cursor::{identity, Cursor, Input, Output};
+pub use cursor::{identity, torus_identity, Cursor, Input, Output};
 
 pub mod host;

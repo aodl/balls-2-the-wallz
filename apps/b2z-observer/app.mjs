@@ -156,7 +156,7 @@ async function startLive(recording,startupRetries=0){
       // segment zero; reject a server that cannot provide this explicit anchor.
       state=await assembler.finish();
     }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
-    const world=snapshot(state),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
+    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
     resetLiveClock(s,time);visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
@@ -187,7 +187,7 @@ async function admitLive(s,ticket){
 }
 async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
-  const world=snapshot(artifacts.state),time=timeNumber(world.time);s.sequence.resync(ticket);s.previousState=artifacts.state;s.root=ticket.root_hash;
+  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);s.previousState=artifacts.state;s.root=ticket.root_hash;
   resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
@@ -313,10 +313,10 @@ function draw(){
     const n=y*v.width+x,owner=v.cells[n];ctx.fillStyle=color(owner)+(owner?'66':'1d');ctx.fillRect(x*cell,y*cell,cell,cell);
     if(cell>=12){ctx.strokeStyle='#45638455';ctx.lineWidth=.5;ctx.strokeRect(x*cell,y*cell,cell,cell);}
     ctx.strokeStyle=color(owner)+'aa';ctx.lineWidth=1.4;
-    if(x===0||v.cells[n-1]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo(x*cell,(y+1)*cell);ctx.stroke();}
-    if(y===0||v.cells[n-v.width]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo((x+1)*cell,y*cell);ctx.stroke();}
-    if(x===v.width-1){ctx.beginPath();ctx.moveTo((x+1)*cell,y*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
-    if(y===v.height-1){ctx.beginPath();ctx.moveTo(x*cell,(y+1)*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
+    if((x===0&&!v.torus)||v.cells[x?n-1:y*v.width+v.width-1]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo(x*cell,(y+1)*cell);ctx.stroke();}
+    if((y===0&&!v.torus)||v.cells[y?n-v.width:(v.height-1)*v.width+x]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo((x+1)*cell,y*cell);ctx.stroke();}
+    if(x===v.width-1&&(!v.torus||v.cells[y*v.width]!==owner)){ctx.beginPath();ctx.moveTo((x+1)*cell,y*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
+    if(y===v.height-1&&(!v.torus||v.cells[x]!==owner)){ctx.beginPath();ctx.moveTo(x*cell,(y+1)*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
   }
   const selection=arcade.moveSelection();
   if(selection&&selection.width===v.width&&selection.height===v.height){
@@ -328,6 +328,7 @@ function draw(){
   }
   for(const c of v.cannons.values()){
     const x=(c.cell%v.width+.5)*cell,y=(Math.floor(c.cell/v.width)+.5)*cell,r=Math.max(5,cell*.28);
+    const extent=r*2+6;if(x+ox+extent<0||x+ox-extent>rect.width||y+oy+extent<0||y+oy-extent>rect.height)continue;
     ctx.fillStyle='#071423';ctx.strokeStyle=color(c.id);ctx.lineWidth=2;ctx.fillRect(x-r,y-r,2*r,2*r);ctx.strokeRect(x-r,y-r,2*r,2*r);
     ctx.fillStyle=color(c.id);ctx.beginPath();ctx.arc(x,y,Math.max(2,cell*.10),0,Math.PI*2);ctx.fill();
     if(Number.isInteger(c.heading)){const [vx,vy]=heading(c.heading),d=Math.hypot(vx,vy);ctx.strokeStyle=color(c.id);ctx.lineWidth=Math.max(3,cell*.1);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+vx/d*r*1.6,y+vy/d*r*1.6);ctx.stroke();}
@@ -342,6 +343,7 @@ function draw(){
     let bx=(Number(b.x0)+b.vx*visibleTime)/1024,by=(Number(b.y0)+b.vy*visibleTime)/1024;
     if(v.torus){bx=wrap(bx,v.width);by=wrap(by,v.height);}
     const x=bx*cell,y=by*cell,r=Math.max(2.5,cell*.073);
+    if(x+ox+r+12<0||x+ox-r-12>rect.width||y+oy+r+12<0||y+oy-r-12>rect.height)continue;
     ctx.strokeStyle=color(b.owner)+'66';ctx.lineWidth=r;ctx.beginPath();ctx.moveTo(x-b.vx/1024*cell*.12,y-b.vy/1024*cell*.12);ctx.lineTo(x,y);ctx.stroke();
     ctx.shadowBlur=9;ctx.shadowColor=color(b.owner);ctx.fillStyle='#f2fbff';ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
   }
@@ -362,7 +364,7 @@ function drawMinimap(v){
  m.strokeStyle='#fff';m.lineWidth=1.5;for(const r of camera.minimapRects())m.strokeRect(r.x*sx,r.y*sy,r.width*sx,r.height*sy);
 }
 function frame(now){
-  const dt=lastFrame===null?0:Math.min((now-lastFrame)/1000,.25);lastFrame=now;const s=session;
+  const s=session,elapsed=lastFrame===null?0:(now-lastFrame)/1000,dt=Math.min(elapsed,s?.mode==='live'?1:.25);lastFrame=now;
   if(s?.ready&&!s.error&&!paused){
     // Drain a verified terminal empty segment without waiting for nonexistent
     // future empty segments. Use the existing clock API, with no extrapolation.
@@ -377,7 +379,7 @@ function frame(now){
     if(s.queue.length)show(s.queue[0],visibleTime);
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state();globalThis.__dtrLive.playback={wall_ms:now,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state();globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.segment_ticks??2n)};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }

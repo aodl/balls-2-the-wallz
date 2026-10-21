@@ -1,4 +1,4 @@
-use crate::world::{neighbors, Ball, World};
+use crate::world::{Ball, World};
 use dtr_wire::Result;
 use serde::{Deserialize, Serialize};
 
@@ -28,16 +28,14 @@ pub fn capture(
         || !w.cannons.iter().any(|c| c.id == attacker)
         || w.cells[target] == attacker
         || w.cannons.iter().any(|c| c.cell == target)
-        || !neighbors(target, w.width, w.height)
-            .iter()
-            .any(|n| w.cells[*n] == attacker)
+        || !w.neighbors(target).iter().any(|n| w.cells[*n] == attacker)
     {
         return Err("invalid capture".into());
     }
     let defender = w.cells[target];
     let must_search = defender != 0
         && (!optimized
-            || neighbors(target, w.width, w.height)
+            || w.neighbors(target)
                 .iter()
                 .filter(|n| w.cells[**n] == defender)
                 .count()
@@ -105,7 +103,7 @@ pub fn step(w: &mut World, j: &mut TopologyJob) -> Result<bool> {
             if j.head < j.queue.len() {
                 let c = j.queue[j.head];
                 j.head += 1;
-                for n in neighbors(c, w.width, w.height) {
+                for n in w.neighbors(c) {
                     if w.cells[n] == j.defender && !j.seen[n] {
                         j.seen[n] = true;
                         j.queue.push(n);

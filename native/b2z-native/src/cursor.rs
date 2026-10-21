@@ -123,6 +123,12 @@ fn identity_for_profile(current: bool) -> Result<Value> {
         json!({"rules_hash":hash(b"BTZ_SMALL_BOARD_RULES_03"),"config_hash":hash(&encode(&config)?),"schema_hash":hash(b"BTZ_STATE_03_TYPED_JSON")}),
     )
 }
+pub fn torus_identity() -> Result<Value> {
+    let config: Value = json!({"version":4,"topology":"torus","max_cells":1024,"max_width":32,"max_balls":64,"max_cannons":32,"max_per_cannon":32,"max_segment_ticks":64,"speed":1024,"ball_base_e8s":Int(BigInt::from(BALL_BASE_E8S)),"move_e8s":Int(BigInt::from(MOVE_E8S)),"annihilation_distance":64,"annihilation_time_window":Rat::new(1.into(),16.into())?,"join_e8s":Int(BigInt::from(JOIN_E8S)),"max_spawn_searches_per_segment":8});
+    Ok(
+        json!({"rules_hash":hash(b"B2Z_TORUS_RULES_04"),"schema_hash":hash(b"B2Z_STATE_04_TYPED_JSON"),"config_hash":hash(&encode(&config)?)}),
+    )
+}
 fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     if w.time.0.denom() != &BigInt::one() {
         return Err("integer launch checkpoint".into());
@@ -140,6 +146,13 @@ fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
         vy,
     };
     w.next_ball_id = w.next_ball_id.checked_add(1).ok_or("ball ID overflow")?;
+    if w.torus() {
+        w.cannons
+            .iter_mut()
+            .find(|cannon| cannon.id == c.id)
+            .ok_or("launch cannon")?
+            .heading = Some(angle);
+    }
     w.balls.push(b.clone());
     Ok(b)
 }
@@ -228,9 +241,13 @@ fn mutation(
             if count >= 32 || w.balls.len() >= 64 || w.next_ball_id == u32::MAX {
                 return Ok(rejection("BALL_CAPACITY"));
             }
-            Ok(
-                json!({"reason":"ACCEPTED","kind":"ball_spawned","cannon":c.id,"ball":launch(w,&c,angle)?}),
-            )
+            let ball = launch(w, &c, angle)?;
+            let mut out =
+                json!({"reason":"ACCEPTED","kind":"ball_spawned","cannon":c.id,"ball":ball});
+            if w.torus() {
+                out["heading"] = json!(angle);
+            }
+            Ok(out)
         }
     }
 }
@@ -278,13 +295,21 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
             if used.contains(&b.ball) || a.ball == b.ball {
                 continue;
             }
+            let mut distance = a.position.sub(&b.position)?.abs();
+            if w.torus() {
+                let period =
+                    BigInt::from((if a.axis == "x" { w.height } else { w.width }) as i64 * Q)
+                        * distance.0.denom();
+                let n = distance.0.numer() % &period;
+                distance = Rat::new(n.clone().min(&period - &n), distance.0.denom().clone())?;
+            }
             if a.from == b.to
                 && a.to == b.from
                 && a.owner == b.defender
                 && b.owner == a.defender
                 && w.time <= a.deadline
                 && w.time <= b.deadline
-                && a.position.sub(&b.position)?.abs() <= Rat::integer(64)
+                && distance <= Rat::integer(64)
             {
                 used.insert(a.ball);
                 used.insert(b.ball);
@@ -298,8 +323,12 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
 impl Cursor {
     pub fn begin(state: &[u8], inputs: Vec<Input>, context: &Value) -> Result<Self> {
         let current = identity()?;
-        let is_current = context.get("config_hash") == current.get("config_hash");
-        let expected = if is_current {
+        let torus = torus_identity()?;
+        let is_torus = context.get("config_hash") == torus.get("config_hash");
+        let is_current = is_torus || context.get("config_hash") == current.get("config_hash");
+        let expected = if is_torus {
+            torus
+        } else if is_current {
             current
         } else {
             identity_for_profile(false)?
@@ -310,6 +339,9 @@ impl Cursor {
             }
         }
         let world = World::decode(state)?;
+        if world.torus() != is_torus {
+            return Err("world/identity mismatch".into());
+        }
         let start = Rat::integer(context_int(context, "logical_start")?);
         let end = Rat::integer(context_int(context, "logical_end")?);
         if world.time != start
@@ -459,6 +491,11 @@ impl Cursor {
                             id: self.world.next_cannon_id,
                             cell: r.cell,
                             account: payment.account.clone(),
+                            heading: if self.world.torus() {
+                                Some(self.spawn_angle)
+                            } else {
+                                None
+                            },
                         };
                         self.world.next_cannon_id += 1;
                         let previous: Vec<_> =
@@ -653,7 +690,16 @@ impl Cursor {
         let sy = b.vy.signum() as i64;
         let mut vertex_blocked = false;
         if i.crossing.x && i.crossing.y && pass_x && pass_y {
-            let diagonal = (b.cell as i64 + sx + sy * self.world.width as i64) as usize;
+            let diagonal = if self.world.torus() {
+                crate::world::wrap_cell(
+                    (b.cell % self.world.width) as i64 + sx,
+                    (b.cell / self.world.width) as i64 + sy,
+                    self.world.width,
+                    self.world.height,
+                )
+            } else {
+                (b.cell as i64 + sx + sy * self.world.width as i64) as usize
+            };
             if self.world.cells.get(diagonal) != Some(&b.owner)
                 || self.world.cannons.iter().any(|c| c.cell == diagonal)
             {
@@ -670,13 +716,31 @@ impl Cursor {
             reflect(&mut b, "y", i.crossing.ywall);
         }
         let old_cell = b.cell;
-        b.cell = (b.cell as i64
-            + (if pass_x { sx } else { 0 })
-            + (if pass_y {
-                sy * self.world.width as i64
-            } else {
-                0
-            })) as usize;
+        if self.world.torus() {
+            let x = (b.cell % self.world.width) as i64 + if pass_x { sx } else { 0 };
+            let y = (b.cell / self.world.width) as i64 + if pass_y { sy } else { 0 };
+            b.cell = crate::world::wrap_cell(x, y, self.world.width, self.world.height);
+            if x < 0 {
+                b.x0.0 += BigInt::from(self.world.width as i64 * Q)
+            }
+            if x >= self.world.width as i64 {
+                b.x0.0 -= BigInt::from(self.world.width as i64 * Q)
+            }
+            if y < 0 {
+                b.y0.0 += BigInt::from(self.world.height as i64 * Q)
+            }
+            if y >= self.world.height as i64 {
+                b.y0.0 -= BigInt::from(self.world.height as i64 * Q)
+            }
+        } else {
+            b.cell = (b.cell as i64
+                + (if pass_x { sx } else { 0 })
+                + (if pass_y {
+                    sy * self.world.width as i64
+                } else {
+                    0
+                })) as usize;
+        }
         self.world.balls[index] = b.clone();
         self.emit(json!({"kind":"motion","ball":b.id,"from_cell":old_cell,"ball_state":b,"vertex_blocked":vertex_blocked}))?;
         let attack = i.attack.filter(|t| {
@@ -755,8 +819,10 @@ impl Cursor {
         }
         Ok(Output {
             state: self.world.encode()?,
-            events: encode(&json!({"version":3,"receipts":self.receipts,"events":self.events}))?,
-            scores: encode(&json!({"version":3,"area_time":scores}))?,
+            events: encode(
+                &json!({"version":self.world.version,"receipts":self.receipts,"events":self.events}),
+            )?,
+            scores: encode(&json!({"version":self.world.version,"area_time":scores}))?,
         })
     }
     pub fn snapshot(&self) -> Result<Vec<u8>> {

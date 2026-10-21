@@ -69,7 +69,9 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         }
         let x = (b.cell % w.width) as i64 + if axis == "x" { b.vx.signum() as i64 } else { 0 };
         let y = (b.cell / w.width) as i64 + if axis == "y" { b.vy.signum() as i64 } else { 0 };
-        let target = if x < 0 || y < 0 || x >= w.width as i64 || y >= w.height as i64 {
+        let target = if w.torus() {
+            Some(crate::world::wrap_cell(x, y, w.width, w.height))
+        } else if x < 0 || y < 0 || x >= w.width as i64 || y >= w.height as i64 {
             None
         } else {
             Some(y as usize * w.width + x as usize)

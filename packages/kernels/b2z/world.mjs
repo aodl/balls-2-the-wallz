@@ -14,7 +14,11 @@ export const PRELAUNCH_IDENTITY=Object.freeze({...B2Z_IDENTITY,config_hash:sha25
 function integer(n, low, high, label) {
   if (!Number.isSafeInteger(n) || n < low || n > high) throw new Error(label);
 }
-export function neighbors(cell, width, height) {
+export const TORUS_CONFIG=Object.freeze({...PRELAUNCH_CONFIG,version:4,topology:'torus'});
+export const TORUS_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_TORUS_RULES_04')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_04_TYPED_JSON')),config_hash:sha256(encodeCanonical(TORUS_CONFIG))});
+export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
+export function neighbors(cell, width, height, torus=false) {
+  if(torus){const x=cell%width,y=Math.floor(cell/width);return [wrapCell(x,y-1,width,height),wrapCell(x-1,y,width,height),wrapCell(x+1,y,width,height),wrapCell(x,y+1,width,height)];}
   const x = cell % width, y = Math.floor(cell / width), out = [];
   if (y) out.push(cell - width);
   if (x) out.push(cell - 1);
@@ -26,16 +30,17 @@ export function position(ball, time) {
   return [rat(ball.x0 * time[1] + BigInt(ball.vx) * time[0], time[1]),
     rat(ball.y0 * time[1] + BigInt(ball.vy) * time[0], time[1])];
 }
-export function connected(cells, width, height, owner, anchor) {
+export function connected(cells, width, height, owner, anchor, torus=false) {
   if (cells[anchor] !== owner) return false;
   const seen = new Set([anchor]), queue = [anchor];
-  for (let i = 0; i < queue.length; i++) for (const n of neighbors(queue[i], width, height))
+  for (let i = 0; i < queue.length; i++) for (const n of neighbors(queue[i], width, height, torus))
     if (cells[n] === owner && !seen.has(n)) { seen.add(n); queue.push(n); }
   return cells.every((v, i) => v !== owner || seen.has(i));
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (w.version !== 3) throw new Error('B2Z state version');
+  if (![3,4].includes(w.version)) throw new Error('B2Z state version');
+  if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   integer(w.width, 1, 32, 'width'); integer(w.height, 1, 32, 'height');
   if (w.cells.length !== w.width * w.height || w.cells.length > LIMITS.max_cells) throw new Error('board bounds');
   validRat(w.time);
@@ -44,10 +49,11 @@ export function validateWorld(w) {
   const owners = new Set(), accounts = new Set(), anchors = new Set(); let last = 0;
   for (const c of w.cannons) {
     integer(c.id, last + 1, 65535, 'cannon order'); last = c.id;
+    if(c.heading!==undefined){if(w.version!==4)throw new Error('legacy heading');integer(c.heading,0,65535,'cannon heading');}
     integer(c.cell, 0, w.cells.length - 1, 'anchor');
     if (!/^[0-9a-f]{64}$/.test(c.account) || accounts.has(c.account) || anchors.has(c.cell)) throw new Error('account/anchor identity');
     owners.add(c.id); accounts.add(c.account); anchors.add(c.cell);
-    if (!connected(w.cells, w.width, w.height, c.id, c.cell)) throw new Error('territory disconnected');
+    if (!connected(w.cells, w.width, w.height, c.id, c.cell,w.version===4)) throw new Error('territory disconnected');
   }
   for (const owner of w.cells) if (!Number.isInteger(owner) || (owner !== 0 && !owners.has(owner))) throw new Error('unknown cell owner');
   const counts = new Map(); last = 0;
@@ -72,7 +78,7 @@ export function validateWorld(w) {
     integer(p.id, priorStrike + 1, 4294967294, 'strike order'); priorStrike = p.id;
     if (armed.has(p.ball) || !w.balls.some(b => b.id === p.ball && b.owner === p.owner)) throw new Error('pending live ball');
     armed.add(p.ball); integer(p.from, 0, w.cells.length - 1, 'strike origin'); integer(p.to, 0, w.cells.length - 1, 'strike target');
-    if (!neighbors(p.from, w.width, w.height).includes(p.to) || p.owner === p.defender || p.defender === 0) throw new Error('strike edge');
+    if (!neighbors(p.from, w.width, w.height,w.version===4).includes(p.to) || p.owner === p.defender || p.defender === 0) throw new Error('strike edge');
     for (const t of [p.born, p.deadline, p.position]) validRat(t);
     if (cmp(p.born, w.time) > 0 || cmp(p.deadline, w.time) < 0 || cmp(p.deadline, p.born) <= 0) throw new Error('strike clock');
     if (p.axis !== 'x' && p.axis !== 'y') throw new Error('strike axis');
@@ -90,8 +96,8 @@ export function validateWorld(w) {
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }
 export function decodeWorld(bytes) { return validateWorld(decodeCanonical(bytes)); }
-export function fixtureWorld({width, height, cells, cannons, balls, time = rat(0), credits = []}) {
-  const out = {version: 3, width, height, cells: [...cells], cannons: cloneCanonical(cannons), balls: cloneCanonical(balls),
+export function fixtureWorld({width, height, cells, cannons, balls, time = rat(0), credits = [], version=3}) {
+  const out = {version, width, height, cells: [...cells], cannons: cloneCanonical(cannons), balls: cloneCanonical(balls),
     time, next_cannon_id: Math.max(0, ...cannons.map(c => c.id)) + 1, pending: [], next_strike_id: 1, next_ball_id: Math.max(0, ...balls.map(b => b.id)) + 1, received_e8s: 0n, credits: cloneCanonical(credits)};
   return validateWorld(out);
 }

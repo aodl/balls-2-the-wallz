@@ -4,9 +4,9 @@ export function beginCapture(world, target, attacker, optimized = true) {
   if (!world.cannons.some(c => c.id === attacker) || target < 0 || target >= world.cells.length
       || !Number.isInteger(target) || world.cells[target] === attacker || world.cannons.some(c => c.cell === target))
     throw new Error('invalid capture');
-  if (!neighbors(target, world.width, world.height).some(n => world.cells[n] === attacker)) throw new Error('disconnected attack');
+  if (!neighbors(target, world.width, world.height,world.version===4).some(n => world.cells[n] === attacker)) throw new Error('disconnected attack');
   const defender = world.cells[target], anchor = world.cannons.find(c => c.id === defender)?.cell;
-  const mustSearch = defender && (!optimized || neighbors(target, world.width, world.height).filter(n => world.cells[n] === defender).length > 1);
+  const mustSearch = defender && (!optimized || neighbors(target, world.width, world.height,world.version===4).filter(n => world.cells[n] === defender).length > 1);
   const job = {phase: mustSearch ? 'flood' : 'balls', defender, attacker, target, queue: [], head: 0,
     seen: Array(world.cells.length).fill(false), scan: 0, cells: [target], killed: [], survivors: [], eliminated: []};
   world.cells[target] = attacker;
@@ -26,7 +26,7 @@ export function topologyStep(world, job) {
   if (job.phase === 'flood') {
     if (job.head < job.queue.length) {
       const cell = job.queue[job.head++];
-      for (const n of neighbors(cell, world.width, world.height))
+      for (const n of neighbors(cell, world.width, world.height,world.version===4))
         if (world.cells[n] === job.defender && !job.seen[n]) { job.seen[n] = true; job.queue.push(n); }
     } else { job.phase = 'transfer'; job.scan = 0; }
   } else if (job.phase === 'transfer') {

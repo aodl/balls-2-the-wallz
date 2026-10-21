@@ -4,7 +4,7 @@ import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
-import {B2Z_IDENTITY, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld} from './world.mjs';
+import {B2Z_IDENTITY, TORUS_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
@@ -29,6 +29,7 @@ function launch(world, cannon, angle) {
     y = Math.floor(cannon.cell / world.width) * Q + Q / 2;
   const b = {id: world.next_ball_id++, owner: cannon.id, cell: cannon.cell,
     x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy};
+  if(world.version===4)cannon.heading=angle;
   world.balls.push(b); return b;
 }
 function mutation(world, payment, moved, config) {
@@ -58,13 +59,13 @@ function mutation(world, payment, moved, config) {
   if (payment.amount < ballPrice(count,config)) return {reason: 'UNDERFUNDED'};
   if (count >= LIMITS.max_per_cannon || world.balls.length >= LIMITS.max_balls || world.next_ball_id >= 4294967295)
     return {reason: 'BALL_CAPACITY'};
-  return {reason: 'ACCEPTED', kind: 'ball_spawned', cannon: cannon.id, ball: cloneCanonical(launch(world, cannon, command.value))};
+  return {reason: 'ACCEPTED', kind: 'ball_spawned', cannon: cannon.id, ball: cloneCanonical(launch(world, cannon, command.value)),...(world.version===4?{heading:command.value}:{})};
 }
 function classify(world, ball, crossing) {
   const cx = ball.cell % world.width, cy = Math.floor(ball.cell / world.width), targets = [];
   for (const axis of ['x', 'y']) if (crossing[axis]) {
     const x = cx + (axis === 'x' ? Math.sign(ball.vx) : 0), y = cy + (axis === 'y' ? Math.sign(ball.vy) : 0);
-    const target = x < 0 || y < 0 || x >= world.width || y >= world.height ? null : y * world.width + x;
+    const target = world.version===4?wrapCell(x,y,world.width,world.height):x < 0 || y < 0 || x >= world.width || y >= world.height ? null : y * world.width + x;
     const cannon = target !== null && world.cannons.some(c => c.cell === target);
     const pass = target !== null && world.cells[target] === ball.owner && !cannon;
     targets.push({axis, target, pass, capturable: target !== null && !cannon && world.cells[target] !== ball.owner,
@@ -96,7 +97,8 @@ export function matchStrikes(world, incoming) {
     const a = edges[i]; if (used.has(a.ball)) continue;
     for (let j = i + 1; j < edges.length; j++) {
       const b = edges[j]; if (used.has(b.ball) || a.ball === b.ball) continue;
-      const distance = sub(a.position, b.position);
+      let distance = sub(a.position, b.position);
+      if(world.version===4){const period=BigInt((a.axis==='x'?world.height:world.width)*Q)*distance[1];const n=(distance[0]%period+period)%period;distance=[n<=period-n?n:period-n,distance[1]];}
       if (a.from === b.to && a.to === b.from && a.owner === b.defender && b.owner === a.defender
           && cmp(world.time, a.deadline) <= 0 && cmp(world.time, b.deadline) <= 0
           && (distance[0] < 0n ? -distance[0] : distance[0]) <= BigInt(TEST_CONFIG.annihilation_distance) * distance[1]) {
@@ -109,10 +111,10 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
-    if(identity===PRELAUNCH_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    this.world = decodeWorld(state); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
+    this.world = decodeWorld(state);if((this.world.version===4)!==(identity===TORUS_IDENTITY))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
         || cmp(sub(this.end, this.start), rat(LIMITS.max_segment_ticks)) > 0
@@ -163,7 +165,7 @@ export class B2zCursor {
         const r = this.spawnJob.result; let outcome;
         if (!r) outcome = {reason: 'NO_ELIGIBLE_SPAWN', checked: this.spawnJob.checked};
         else {
-          const cannon = {id: this.world.next_cannon_id++, cell: r.cell, account: this.spawnPayment.account};
+          const cannon = {id: this.world.next_cannon_id++, cell: r.cell, account: this.spawnPayment.account,...(this.world.version===4?{heading:this.spawnAngle}:{})};
           const previous_owners = r.patch.map(c => this.world.cells[c]);
           for (const c of r.patch) this.world.cells[c] = cannon.id;
           this.world.cannons.push(cannon);
@@ -224,7 +226,7 @@ export class B2zCursor {
       }
       const sx = Math.sign(b.vx), sy = Math.sign(b.vy); let vertexBlocked = false;
       if (i.x && i.y && passX && passY) {
-        const diagonal = b.cell + sx + sy * this.world.width;
+        const diagonal = this.world.version===4?wrapCell(b.cell%this.world.width+sx,Math.floor(b.cell/this.world.width)+sy,this.world.width,this.world.height):b.cell + sx + sy * this.world.width;
         if (this.world.cells[diagonal] !== b.owner || this.world.cannons.some(c => c.cell === diagonal)) {
           passX = false; passY = false; vertexBlocked = true;
         }
@@ -232,7 +234,11 @@ export class B2zCursor {
       const xy = position(b, this.world.time);
       if (i.x && !passX) reflected(b, 'x', i.xwall);
       if (i.y && !passY) reflected(b, 'y', i.ywall);
-      const oldCell = b.cell; b.cell += (passX ? sx : 0) + (passY ? sy * this.world.width : 0);
+      const oldCell = b.cell;
+      if(this.world.version===4){const x=b.cell%this.world.width+(passX?sx:0),y=Math.floor(b.cell/this.world.width)+(passY?sy:0);b.cell=wrapCell(x,y,this.world.width,this.world.height);
+        if(x<0)b.x0+=BigInt(this.world.width*Q);if(x>=this.world.width)b.x0-=BigInt(this.world.width*Q);
+        if(y<0)b.y0+=BigInt(this.world.height*Q);if(y>=this.world.height)b.y0-=BigInt(this.world.height*Q);
+      }else b.cell += (passX ? sx : 0) + (passY ? sy * this.world.width : 0);
       this.emit({kind: 'motion', ball: b.id, from_cell: oldCell, ball_state: structuredClone(b), vertex_blocked: vertexBlocked});
       const t = i.attack;
       const attack = !vertexBlocked && t && !this.claimed.includes(t.target)
@@ -278,8 +284,8 @@ export class B2zCursor {
     if (this.phase !== 'done') throw new Error('incomplete B2Z segment');
     const scores = this.world.credits.map(s => ({account: s.account,
       units: sub(s.units, this.initialCredits.find(p => p.account === s.account)?.units ?? rat(0))}));
-    return {state: encodeWorld(this.world), events: encodeCanonical({version: 3, receipts: this.receipts, events: this.events}),
-      scores: encodeCanonical({version: 3, area_time: scores})};
+    return {state: encodeWorld(this.world), events: encodeCanonical({version: this.world.version, receipts: this.receipts, events: this.events}),
+      scores: encodeCanonical({version: this.world.version, area_time: scores})};
   }
   snapshot() { return encodeCanonical({version: 3, cursor: {...this}}); }
   static restore(bytes, trustedHash) {

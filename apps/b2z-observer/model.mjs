@@ -1,4 +1,5 @@
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
+import {TORUS_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -15,24 +16,26 @@ function track(b){
   for(const k of ['x0','y0'])check(typeof b[k]==='bigint'&&b[k]>=-100000000000000n&&b[k]<=100000000000000n,'intercept');
   return {id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy};
 }
-export function snapshot(bytes){
+export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check(w.version===3,'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4].includes(w.version),'snapshot version');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=32&&Number.isInteger(w.height)&&w.height>=1&&w.height<=32,'dimensions');
   check(Array.isArray(w.cells)&&w.cells.length===w.width*w.height,'cells');
   check(Array.isArray(w.cannons)&&w.cannons.length<=32&&Array.isArray(w.balls)&&w.balls.length<=64,'entity bounds');
   check(Array.isArray(w.pending)&&w.pending.length<=64,'pending bounds');timeNumber(w.time);
   const ids=new Set(),anchors=new Set();
   for(const c of w.cannons){integer(c.id,65535);integer(c.cell,w.cells.length-1);
+    if(c.heading!==undefined){check(w.version===4,'legacy heading');integer(c.heading,65535);}
     check(c.id!==0&&!ids.has(c.id)&&!anchors.has(c.cell)&&w.cells[c.cell]===c.id,'cannon identity');ids.add(c.id);anchors.add(c.cell);}
   w.cells.forEach(id=>check(id===0||ids.has(id),'cell owner'));
   const balls=new Set();for(const b of w.balls){track(b);check(ids.has(b.owner)&&!balls.has(b.id),'ball identity');balls.add(b.id);}
+  if(w.version===4&&identity)check(Object.keys(TORUS_IDENTITY).every(k=>identity[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   return w;
 }
 /** Mutable presentation state. No ledger account/price/scoring decisions are made here. */
 export class B2zView {
   constructor(w){
-    this.width=w.width;this.height=w.height;this.cells=[...w.cells];
+    this.torus=w.version===4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=[...w.cells];
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
     this.balls=new Map(w.balls.map(b=>[b.id,track(b)]));
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
@@ -52,7 +55,7 @@ export class B2zView {
       check(this.balls.has(e.ball.id),'unknown trajectory');const b=track(e.ball);
       check(this.balls.get(b.id).owner===b.owner,'trajectory owner');this.balls.set(b.id,b);
     }else if(e.kind==='ball_spawned'){
-      const b=track(e.ball);check(!this.balls.has(b.id)&&this.cannons.has(b.owner),'spawned ball');this.balls.set(b.id,b);
+      const b=track(e.ball);check(!this.balls.has(b.id)&&this.cannons.has(b.owner),'spawned ball');this.balls.set(b.id,b);if(this.torus){integer(e.heading,65535);this.cannons.get(b.owner).heading=e.heading;}
     }else if(e.kind==='cannon_spawned'){
       const c=e.cannon;integer(c.id,65535);this.cell(c.cell);check(!this.cannons.has(c.id),'duplicate cannon');
       check(Array.isArray(e.patch)&&e.patch.length===9,'spawn patch');for(const n of e.patch)this.cells[this.cell(n)]=c.id;
@@ -86,7 +89,7 @@ export class B2zView {
   matches(w){
     const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
     check(this.width===w.width&&this.height===w.height&&same(this.cells,w.cells),'final territory mismatch');
-    check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell),'final cannon mismatch');
+    check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell&&this.cannons.get(c.id)?.heading===c.heading),'final cannon mismatch');
     check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy'].every(k=>a[k]===b[k]);}),'final trajectory mismatch');
     return true;
   }
@@ -106,6 +109,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   check(p.source_events_hash===publication.artifacts.find(a=>a.kind==='events')?.sha256,'animation audit binding');
   check(Array.isArray(p.events)&&p.events.length<=MAX_EVENTS&&Array.isArray(p.receipts)&&p.receipts.length<=4096,'animation structure');
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'snapshot timeline');
+  if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'animation event order/range');
@@ -131,6 +135,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   check(p.source_events_hash===events.sha256,'derived audit binding');
   check(Array.isArray(p.events)&&p.events.length<=MAX_EVENTS&&Array.isArray(p.receipts)&&p.receipts.length<=4096,'derived animation structure');
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'derived snapshot timeline');
+  if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'derived animation event order/range');

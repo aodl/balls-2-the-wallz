@@ -8,8 +8,42 @@ from browser_observer import wait_until,wait_file
 from verify_observer_http import free_port,wait_for_server
 ROOT=Path(__file__).resolve().parents[1]
 
+def verify_torus_scene(page,context,out,record,report,save):
+    (out/'browser-scene-ready').write_text('certified genesis visible\n')
+    page.locator('#toolbar-play').click()
+    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+    assert '32 × 32' in page.locator('#world-rules').text_content()
+    assert 'wraparound' in page.locator('#world-rules').text_content()
+    page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1');page.locator('#prepare-transfer').click()
+    assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
+    page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'
+    page.locator('#action-mode').select_option('move');page.locator('#move-cell').select_option('0');page.locator('#pick-move').click()
+    page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
+    point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
+    assert page.locator('#play-dialog').evaluate('(d)=>d.open')
+    assert page.locator('#move-cell').input_value()=='0';page.locator('#prepare-transfer').click();assert page.locator('#text-memo').inner_text()=='MOVE 0'
+    page.keyboard.press('Escape');assert page.locator('#minimap').is_visible();assert page.evaluate('__b2zCamera.minimapRects().length')==4
+    page.screenshot(path=str(out/'torus-seam-move.png'));record('corner-seam-camera-hit-test-prepares-the-underlying-cell-once')
+    # Native touch pan and pinch, preserving the numeric aim alternative.
+    cdp=context.new_cdp_session(page);old=page.evaluate('__b2zCamera.scale')
+    for kind,points in [('touchStart',[{'x':350,'y':350},{'x':550,'y':350}]),('touchMove',[{'x':300,'y':350},{'x':600,'y':350}]),('touchEnd',[])]:cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':points})
+    assert page.evaluate('__b2zCamera.scale')>old
+    page.locator('#board').focus();page.keyboard.press('Home')
+    for w,h in[(1440,900),(768,1024),(390,844)]:
+        page.set_viewport_size({'width':w,'height':h});page.locator('#board').focus();page.keyboard.press('Home');page.wait_for_timeout(100);r=page.locator('#board').bounding_box();assert r['width']==w and r['height']==h;page.screenshot(path=str(out/f'torus-{w}.png'))
+    page.set_viewport_size({'width':1440,'height':900});page.locator('#board').focus();page.keyboard.press('Home')
+    wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    samples=[];start=time.monotonic();report['recording_playback_start_ms']=page.evaluate('performance.now()')
+    while time.monotonic()-start<30:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
+    dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
+    report['scene']={'qualification':'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition','seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED'for x in samples),'nominal_rate':samples[-1]['nominal_rate']}
+    (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['scene']['stalled_samples']==0,report['scene'];record('populated-torus-playback-at-its-supported-shared-pace',report['scene'])
+    # A modal cannot pause the shared backend.
+    page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
+    record('native-dialogs-do-not-pause-shared-gameplay')
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port()
     asset_canister=os.environ.get('S14_ASSET_CANISTER')=='1'
     configuration['host']=a.gateway.rstrip('/') if asset_canister else f'http://127.0.0.1:{port}'
@@ -113,6 +147,11 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
+            if a.scene_only:
+                verify_torus_scene(page,context,out,record,report,save)
+                assert not errors,errors
+                assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
+                report['status']='PASS';report['sandbox']=True;report['page_errors']=errors;save();(out/'browser-complete').write_text('PASS\n');context.close();browser.close();browser=None;return 0
             wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='IDLE',20000)
             assert 'Waiting for players' in page.locator('#live-status').text_content()
             page.screenshot(path=str(out/'healthy-idle.png'))

@@ -1,4 +1,4 @@
-use crate::world::{neighbors, position, World, Q};
+use crate::world::{position, World, Q};
 use dtr_wire::{encode, hash, Rat, Result};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -97,10 +97,10 @@ impl SpawnJob {
                 if self.scan < w.cells.len() {
                     let cell = self.scan;
                     self.scan += 1;
-                    let Some(p) = patch(cell, w.width, w.height) else {
+                    let Some(p) = w.patch(cell) else {
                         return Ok(false);
                     };
-                    for other in neighbors(cell, w.width, w.height) {
+                    for other in w.neighbors(cell) {
                         let a = w.cells[cell];
                         let b = w.cells[other];
                         if a != b {
@@ -143,7 +143,7 @@ impl SpawnJob {
                 let c = self.candidates[self.candidate].clone();
                 self.candidate += 1;
                 self.checked += 1;
-                self.patch = patch(c.cell, w.width, w.height).ok_or("candidate bounds")?;
+                self.patch = w.patch(c.cell).ok_or("candidate bounds")?;
                 self.current = Some(c.clone());
                 if w.cannons.iter().any(|c| self.patch.contains(&c.cell)) {
                     self.reject("ANCHOR");
@@ -153,11 +153,18 @@ impl SpawnJob {
                 let cy = (c.cell / w.width) as i64;
                 for b in &w.balls {
                     let [x, y] = position(b, &w.time)?;
-                    if x >= Rat::integer((cx - 1) * Q)
-                        && x <= Rat::integer((cx + 2) * Q)
-                        && y >= Rat::integer((cy - 1) * Q)
-                        && y <= Rat::integer((cy + 2) * Q)
-                    {
+                    let inside = |v: &Rat, c: i64, size: usize| -> bool {
+                        let offsets: Vec<i64> = if w.torus() {
+                            vec![-(size as i64) * Q, 0, size as i64 * Q]
+                        } else {
+                            vec![0]
+                        };
+                        offsets.into_iter().any(|offset| {
+                            *v >= Rat::integer((c - 1) * Q + offset)
+                                && *v <= Rat::integer((c + 2) * Q + offset)
+                        })
+                    };
+                    if inside(&x, cx, w.width) && inside(&y, cy, w.height) {
                         self.reject("BALL");
                         return Ok(false);
                     }
@@ -203,7 +210,7 @@ impl SpawnJob {
                     let c = self.queue[self.head];
                     self.head += 1;
                     let owner = self.owners[self.owner_index];
-                    for n in neighbors(c, w.width, w.height) {
+                    for n in w.neighbors(c) {
                         if w.cells[n] == owner && !self.seen[n] && !self.patch.contains(&n) {
                             self.seen[n] = true;
                             self.queue.push(n);
