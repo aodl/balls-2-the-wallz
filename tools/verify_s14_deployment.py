@@ -95,14 +95,10 @@ def main():
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             context=browser.new_context(permissions=['clipboard-write'],has_touch=True);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
-            def retire_genesis_before_artifact(route):
+            def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
-                deadline=time.monotonic()+20
-                while not (out/'harness-genesis-retired').exists():
-                    if time.monotonic()>deadline:raise TimeoutError('harness did not publish after genesis observation')
-                    time.sleep(.05)
                 route.continue_()
-            page.route('**/configuration.bin',retire_genesis_before_artifact)
+            page.route('**/configuration.bin',observe_genesis_before_artifact)
             response=page.goto(url,timeout=30000)
             if asset_canister:
                 assert response.status==200
@@ -117,8 +113,10 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            assert page.evaluate('globalThis.__dtrLive.startupRetries')>=1
-            record('retired-genesis-restarts-with-fresh-certified-head')
+            wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='IDLE',20000)
+            assert 'Arena idle' in page.locator('#service-status').text_content()
+            page.screenshot(path=str(out/'healthy-idle.png'))
+            record('certified-idle-genesis-allows-transfer-preparation')
             assert page.title().startswith('B2Z — Balls 2 The Wallz')
             assert page.locator('.mark').inner_text()=='B2Z'
             assert 'BTZ' not in page.locator('body').inner_text()

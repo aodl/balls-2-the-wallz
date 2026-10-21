@@ -2,10 +2,10 @@ import {createArcade,formatIcp} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
-import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber} from './model.mjs';
+import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout} from './model.mjs';
 import {readBytes,validateIndex,loadEntry} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
-import {cannonReference,operationalText} from './play-reference.mjs';
+import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
 const COLORS=['#30415b','#54f0d2','#84b7ff','#e4a4ff','#ffc778','#ff8b9b'];
 const color=id=>COLORS[id===0?0:1+(id-1)%5];
@@ -101,7 +101,7 @@ async function liveArtifacts(s,ticket){
 }
 function resetLiveClock(s,time){
   s.clock=new PlayoutClock({start:time,target:6,low:2,max_frame_delta:1});
-  s.queue=[];s.bytes=0;visibleTime=time;
+  s.queue=[];s.bytes=0;s.idleDrain=false;visibleTime=time;
 }
 async function startLive(recording,startupRetries=0){
   session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
@@ -179,6 +179,7 @@ async function resyncLive(s,ticket){
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
 }
 function updatePlayReference(s,world,events){
+  s.referenceWorld=world;
   if(!s.config)return;
   const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
   $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
@@ -247,10 +248,13 @@ async function pump(now){
     s.previousState=next.state;s.root=next.ticket.root_hash;s.entry++;s.nextDue=performance.now()+600;
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;if(active(s))updateHud();}
 }
+function idleState(s){
+ return Boolean(s?.mode==='live'&&s.ready&&!s.error&&!deliveryPaused&&performance.now()-(s.operationalAt??-Infinity)<15000&&performance.now()-(s.certifiedAt??-Infinity)<30000&&idleArena(s.operational,s.referenceWorld));
+}
 function phase(){
   const s=session;if(bootError||s?.error)return 'ERROR';if(!s?.ready)return 'LOADING';
   if(s.mode!=='live'&&s.entry===s.recording.roots.length&&s.clock.playhead===s.recording.logical_end)return 'COMPLETE';
-  return paused?'PAUSED':s.clock.phase;
+  return paused?'PAUSED':idleState(s)&&s.clock.available===s.clock.playhead?'IDLE':s.clock.phase;
 }
 function updateHud(){
   const s=session,state=s?.clock.state()??{playhead:0,available:0,buffer:0,rate:1};
@@ -268,7 +272,7 @@ function updateHud(){
   $('claimed').textContent=visible?`${Math.round(claimed/visible.cells.length*100)}%`:'—';
   $('empty-arena').hidden=!s?.ready||Boolean(s.error)||!visible||visible.cannons.size!==0;
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length);
-  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused});
+  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE'});
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
       const td=document.createElement('td');td.textContent=v;if(i===0)td.className=`owner-${1+(r.id-1)%5}`;tr.append(td);
@@ -327,6 +331,9 @@ function draw(){
 function frame(now){
   const dt=lastFrame===null?0:Math.min((now-lastFrame)/1000,.25);lastFrame=now;const s=session;
   if(s?.ready&&!s.error&&!paused){
+    // Drain a verified terminal empty segment without waiting for nonexistent
+    // future empty segments. Use the existing clock API, with no extrapolation.
+    prepareIdlePlayout(s,idleState(s));
     const current=s.clock.sample(dt*speed/s.recording.tick_seconds);visibleTime=current.playhead;
     function show(q,time){
       if(!q.presented){q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}

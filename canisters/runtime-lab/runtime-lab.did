@@ -43,6 +43,7 @@ type RunStatus = record {
   last_error : opt text;
   last_segment_work : nat64;
   callback_count : nat64;
+  idle : bool;
   generation : nat64;
   work_budget : nat32;
   total_work : nat64;

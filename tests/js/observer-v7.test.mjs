@@ -75,3 +75,15 @@ test('ephemeral collision effects survive a verified segment transition without 
  assert.deepEqual(next.cells,w.cells);assert.notEqual(next.effects[0],previous.effects[0]);
  next.matches(w);
 });
+
+test('terminal idle playback drains a short verified segment and resumes ordinary buffering',async()=>{
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ const {prepareIdlePlayout}=await import('../../apps/b2z-observer/model.mjs');
+ const s={clock:new PlayoutClock({start:0,target:6,low:2,max_frame_delta:1})};
+ s.clock.append(0,2);assert.equal(s.clock.sample(.1).playhead,0);
+ prepareIdlePlayout(s,true);const clock=s.clock;
+ for(let n=0;n<100;n++){prepareIdlePlayout(s,true);assert.equal(s.clock,clock);assert.ok(s.clock.sample(.1).playhead<=2);}
+ assert.equal(s.clock.playhead,2);assert.equal(s.clock.available,2);
+ prepareIdlePlayout(s,false);s.clock.append(2,4);assert.equal(s.clock.sample(.1).playhead,2);
+ s.clock.append(4,8);assert.ok(s.clock.sample(.1).playhead>2);
+});

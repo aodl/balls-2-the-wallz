@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {cannonReference,operationalText} from '../../apps/b2z-observer/play-reference.mjs';
+import {cannonReference,operationalText,idleArena} from '../../apps/b2z-observer/play-reference.mjs';
 import {TEST_CONFIG} from '../../packages/kernels/b2z/world.mjs';
 import {ballPrice} from '../../packages/kernels/b2z/kernel.mjs';
 test('public price reference agrees with kernel occupancy pricing and capacity',()=>{
@@ -21,4 +21,14 @@ test('operational reference withholds purchase encouragement while paused, unbou
  s.source.binding_checked=false;assert.match(operationalText(s),/binding pending/);
  s.source.last_error=['index unavailable'];assert.match(operationalText(s),/index unavailable/);
  assert.match(operationalText(null),/unavailable — wait/);
+});
+
+test('healthy idle is distinct from pause, errors and an active authenticated world',()=>{
+ const s={run:{running:true,idle:true,last_error:[]},source:{binding_checked:true,last_error:[]}};
+ const empty={cannons:[],balls:[],pending:[]};
+ assert.equal(idleArena(s,empty),true);assert.match(operationalText(s),/Arena idle.*60-second/);
+ for(const field of ['cannons','balls','pending'])assert.equal(idleArena(s,{...empty,[field]:[{}]}),false);
+ assert.equal(idleArena(s,null),false);
+ s.run.running=false;assert.equal(idleArena(s,empty),false);assert.match(operationalText(s),/paused/);
+ s.run.running=true;s.source.last_error=['unavailable'];assert.equal(idleArena(s,empty),false);assert.match(operationalText(s),/Service error/);
 });

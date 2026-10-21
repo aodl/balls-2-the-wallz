@@ -38,6 +38,7 @@ def main():
     p.add_argument('--prior-wasm',type=Path,help='Explicit reviewed S14 module for the ignored local price-transition probe')
     p.add_argument('--deployed-wasm',type=Path,help='Exact deployed 2cd80b module for state-preserving S15 upgrade test')
     p.add_argument('--current-deployed-wasm',type=Path,help='Exact installed S15 c831ec module for B2Z adapter v3 recovery')
+    p.add_argument('--idle-prior-wasm',type=Path,help='Exact installed 187df3 module for idle recovery and measured cost comparison')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -97,6 +98,9 @@ def main():
         if a.current_deployed_wasm:
             if hashlib.sha256(a.current_deployed_wasm.read_bytes()).hexdigest()!='c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4':raise ValueError('B2Z upgrade requires exact installed S15 module')
             env['B2Z_CURRENT_DEPLOYED_WASM']=str(a.current_deployed_wasm.resolve())
+        if a.idle_prior_wasm:
+            if hashlib.sha256(a.idle_prior_wasm.read_bytes()).hexdigest()!='187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1':raise ValueError('idle upgrade requires exact installed module')
+            env['B2Z_IDLE_PRIOR_WASM']=str(a.idle_prior_wasm.resolve())
         if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
@@ -107,6 +111,9 @@ def main():
             run('deployed-module-state-preserving-upgrade',[binaries[0],'s15_upgrade_from_deployed_module_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
         if a.current_deployed_wasm:
             run('installed-s15-state-preserving-upgrade',[binaries[0],'b2z_upgrade_from_s15_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
+        if a.idle_prior_wasm:
+            run('idle-state-preserving-upgrade',[binaries[0],'empty_arena_upgrade_preserves_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
+            run('idle-cost-comparison',[binaries[0],'empty_arena_old_new_cost_comparison','--ignored','--nocapture','--test-threads=1'],900,env)
         if a.test_filter:
             result['overall']='PASS';save();return 0
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)

@@ -1,4 +1,5 @@
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
+import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {cmp, validRat, rat} from '../../packages/kernels/b2z/math.mjs';
@@ -145,5 +146,18 @@ export class SegmentPlayer {
     check(Number.isFinite(time)&&time>=this.time&&time<=this.segment.end,'playhead bounds');this.time=time;
     while(this.index<this.segment.events.length&&timeNumber(this.segment.events[this.index].time)<=time)this.view.apply(this.segment.events[this.index++]);
     return this.view;
+  }
+}
+
+/** Consume only the verified finite remainder when the authoritative arena idles. */
+export function prepareIdlePlayout(session,idle){
+  const {playhead:start,available:end}=session.clock;
+  if(idle&&!session.idleDrain&&end>start){
+    const target=Math.min(.25,(end-start)/2);
+    session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
+    session.clock.append(start,end);session.idleDrain=true;
+  }else if(!idle&&session.idleDrain){
+    session.clock=new PlayoutClock({start,target:6,low:2,max_frame_delta:1});
+    if(end>start)session.clock.append(start,end);session.idleDrain=false;
   }
 }

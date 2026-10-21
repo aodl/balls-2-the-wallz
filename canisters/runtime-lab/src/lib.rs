@@ -14,7 +14,7 @@ use ic_stable_structures::{
 };
 use serde::{Deserialize, Serialize};
 use source::{IndexConfig, PokeMatch, SourceState, SourceStatus};
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::time::Duration;
 const ROOT_LIMIT: usize = 256 * 1024;
 const CHUNKS: u64 = (MAX_ARTIFACT / CHUNK) as u64;
@@ -26,6 +26,8 @@ const SCAN_CALL_TIMEOUT_SECONDS: u32 = 30;
 const SCAN_LEASE_SECONDS: u64 = 45;
 type Memory = VirtualMemory<DefaultMemoryImpl>;
 thread_local! {
+    // Recomputed from the authoritative coordinator on upgrade; never a durable game field.
+    static ARENA_IDLE:Cell<bool>=const { Cell::new(false) };
     static MANAGER:RefCell<MemoryManager<DefaultMemoryImpl>>=RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
     // This is a NEW laboratory schema, not an in-place migration of arena-lab v4.
     static ROOT:RefCell<StableCell<Vec<u8>,Memory>>=RefCell::new(StableCell::init(memory(0),Vec::new()));
@@ -127,6 +129,7 @@ struct RunConfig {
 #[derive(CandidType, Deserialize)]
 struct RunStatus {
     running: bool,
+    idle: bool,
     generation: u64,
     segment_ticks: u64,
     pacing_seconds: u32,
@@ -392,6 +395,7 @@ fn status(r: &Root) -> Status {
         source: r.source.status().expect("validated durable source"),
         run: RunStatus {
             running: r.run.running,
+            idle: r.run.running && ARENA_IDLE.with(Cell::get),
             generation: r.run.generation,
             segment_ticks: r.run.segment_ticks,
             pacing_seconds: r.run.pacing_seconds,
@@ -413,6 +417,16 @@ fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
     }
     Ok(host)
 }
+/// No empty logical-time production. In-flight stages and every queued payment
+/// (including malformed/underfunded ones) must finish before idling.
+fn needs_simulation(h: &Coordinator<B2zHostKernel>) -> AppResult<bool> {
+    if h.record.journal.stage.is_some() || !h.record.inbox.pending.is_empty() {
+        return Ok(true);
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    Ok(!w.cannons.is_empty() || !w.balls.is_empty() || !w.pending.is_empty())
+}
+
 fn persist(
     h: &Coordinator<B2zHostKernel>,
     old: Option<&Root>,
@@ -429,12 +443,13 @@ fn persist_inner(
     run: RunState,
     update_certified_data: bool,
 ) -> AppResult<Root> {
+    let idle = !needs_simulation(h)?;
     let image = h.snapshot()?;
     let image_descriptor = describe(&image)?;
     let view = publication(&h.record)?;
     let mut retention = old.map(|root| root.retention.clone()).unwrap_or_default();
     let mut retained_writes = Vec::<(u64, Vec<u8>)>::new();
-    let mut evicted = Vec::<u64>::new();
+    let mut evicted = Vec::<RetainedMeta>::new();
     if let Some(old) = old.filter(|old| old.publication_hash != view.sha256) {
         let old_bytes = unhex(&old.publication_hex)?;
         let old_publication: Publication = decode(&old_bytes)?;
@@ -489,9 +504,13 @@ fn persist_inner(
     {
         let entry = retention.history.remove(0);
         retained_size -= entry.bytes;
-        evicted.push(entry.segment_id);
+        evicted.push(entry);
     }
-    retained_writes.retain(|(key, _)| !evicted.contains(&(key / RETAINED_STRIDE)));
+    retained_writes.retain(|(key, _)| {
+        !evicted
+            .iter()
+            .any(|entry| entry.segment_id == key / RETAINED_STRIDE)
+    });
     let r = Root {
         version: 7,
         revision: h.record.revision,
@@ -530,22 +549,41 @@ fn persist_inner(
     BLOBS.with(|m| {
         let mut m = m.borrow_mut();
         for (slot, bytes) in writes {
-            for i in 0..CHUNKS {
-                let key = slot * CHUNKS + i;
-                let at = i as usize * CHUNK;
-                if at < bytes.len() {
-                    m.insert(key, bytes[at..bytes.len().min(at + CHUNK)].to_vec());
-                } else {
-                    m.remove(&key);
-                }
+            let previous_length = if slot == 0 {
+                old.map_or(0, |r| r.image.length)
+            } else {
+                old_descriptors
+                    .as_ref()
+                    .map_or(0, |a| a[slot as usize - 1].length)
+            };
+            let count = bytes.len().div_ceil(CHUNK);
+            for (i, chunk) in bytes.chunks(CHUNK).enumerate() {
+                m.insert(slot * CHUNKS + i as u64, chunk.to_vec());
+            }
+            for i in count..previous_length.div_ceil(CHUNK) {
+                m.remove(&(slot * CHUNKS + i as u64));
             }
         }
     });
     RETAINED.with(|map| {
         let mut map = map.borrow_mut();
-        for segment in evicted {
-            for offset in 0..RETAINED_STRIDE {
-                map.remove(&retained_key(segment, offset).expect("validated retained key"));
+        for entry in evicted {
+            // The metadata describes every allocated key; unused capacity has no keys.
+            for chunk in 0..entry.publication_length.div_ceil(CHUNK) {
+                map.remove(
+                    &retained_key(entry.segment_id, chunk as u64).expect("validated retained key"),
+                );
+            }
+            for (kind, length) in entry.artifact_lengths.iter().enumerate() {
+                for chunk in 0..length.div_ceil(CHUNK) {
+                    map.remove(
+                        &retained_key(
+                            entry.segment_id,
+                            PUBLICATION_CHUNKS + kind as u64 * CHUNKS + chunk as u64,
+                        )
+                        .expect("validated retained key"),
+                    );
+                }
             }
         }
         for (key, bytes) in retained_writes {
@@ -555,6 +593,7 @@ fn persist_inner(
     ROOT.with(|c| {
         c.borrow_mut().set(root_bytes);
     });
+    ARENA_IDLE.with(|flag| flag.set(idle));
     if update_certified_data {
         ic_cdk::api::certified_data_set(certified_root);
     }
@@ -613,6 +652,11 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         return Ok(());
     }
     let mut h = host(&r)?;
+    if !needs_simulation(&h)? {
+        ARENA_IDLE.with(|flag| flag.set(true));
+        clear_run_timer();
+        return Ok(());
+    }
 
     let mut run = r.run.clone();
     run.callback_count = run
@@ -668,10 +712,16 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     run.last_error = None;
 
     persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
+    if ARENA_IDLE.with(Cell::get) {
+        clear_run_timer();
+    }
     Ok(())
 }
 fn arm_run_timer(generation: u64, delay: Duration) {
     let timer = ic_cdk_timers::set_timer(delay, async move {
+        RUN_TIMER.with(|slot| {
+            slot.borrow_mut().take();
+        });
         // Rearm from the callback's current time before doing work. A delayed
         // callback therefore executes one bounded coordinator action instead
         // of replaying every missed wall-clock interval. There is no await in
@@ -697,7 +747,7 @@ fn arm_run_timer(generation: u64, delay: Duration) {
 }
 fn install_run_timer(run: &RunState) {
     clear_run_timer();
-    if run.running {
+    if run.running && !ARENA_IDLE.with(Cell::get) {
         arm_run_timer(
             run.generation,
             Duration::from_secs(u64::from(run.pacing_seconds)),
@@ -755,6 +805,8 @@ fn post_upgrade() {
             )?;
         }
         reconcile_completed_segments(&mut r.run, &view.data)?;
+        let idle = !needs_simulation(&h)?;
+        ARENA_IDLE.with(|flag| flag.set(idle));
         r.source.in_flight = false;
         r.source.started_at = 0;
         r.source.wake_scheduled = false;
@@ -1145,6 +1197,9 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         next.started_at = 0;
         next.last_error = None;
         r = persist(&h, Some(&r), next, r.run.clone())?;
+        if RUN_TIMER.with(|slot| slot.borrow().is_none()) {
+            install_run_timer(&r.run);
+        }
     } else {
         next.in_flight = false;
         next.started_at = 0;
@@ -1263,6 +1318,169 @@ fn poke(matches: Vec<PokeMatch>) {
 ic_cdk::export_candid!();
 #[cfg(test)]
 mod tests {
+    use super::*;
+    fn empty_host() -> Coordinator<B2zHostKernel> {
+        let fixture: serde_json::Value =
+            serde_json::from_str(include_str!("../../../tests/fixtures/b2z-v3-golden.json"))
+                .unwrap();
+        let mut w =
+            World::decode(&unhex(fixture["cases"][0]["initial_hex"].as_str().unwrap()).unwrap())
+                .unwrap();
+        w.cannons.clear();
+        w.balls.clear();
+        w.pending.clear();
+        w.cells.fill(0);
+        w.time = dtr_wire::Rat::new(0.into(), 1.into()).unwrap();
+        let mut identity = b2z_native::identity().unwrap();
+        identity["source_id"] = serde_json::Value::String("00".repeat(32));
+        Coordinator::create(
+            &w.encode().unwrap(),
+            serde_json::from_value(identity).unwrap(),
+            0,
+            0,
+            "00".repeat(32),
+            B2zHostKernel,
+        )
+        .unwrap()
+    }
+    #[test]
+    fn empty_history_idles_but_inflight_stage_and_rejected_payment_need_work() {
+        let mut h = empty_host();
+        assert!(!needs_simulation(&h).unwrap());
+        h.apply(Action::IngestOrdered {
+            start: Int(0.into()),
+            end: Int(1.into()),
+            inputs: vec![dtr_host::Input {
+                position: Int(0.into()),
+                payload_hex: hex(&[
+                    b"BTZPAY02".as_slice(),
+                    &[1; 32],
+                    &1u64.to_be_bytes(),
+                    &[0; 8],
+                ]
+                .concat()),
+            }],
+            anchor: "11".repeat(32),
+        })
+        .unwrap();
+        assert!(needs_simulation(&h).unwrap());
+        h.apply(Action::Seal {
+            logical_end: Int(2.into()),
+        })
+        .unwrap();
+        assert!(needs_simulation(&h).unwrap());
+        while h.record.journal.stage.as_ref().unwrap().phase == "running" {
+            h.apply(Action::Step { budget: 512 }).unwrap();
+        }
+        assert!(needs_simulation(&h).unwrap());
+        let manifest_hash = h
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .unwrap()
+            .ready_hash
+            .clone()
+            .unwrap();
+        h.apply(Action::Publish { manifest_hash }).unwrap();
+        assert!(!needs_simulation(&h).unwrap());
+        assert!(h.record.journal.head.segment_id.is_some());
+    }
+    #[test]
+    fn stable_storage_only_contains_described_chunks_after_resize_and_eviction() {
+        let mut h = empty_host();
+        let (source, _) = SourceState::configured(
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger: Principal::self_authenticating([1; 32]),
+                index: Principal::self_authenticating([2; 32]),
+                receiving_subaccount: 0,
+                event_horizon: None,
+                starting_policy: source::StartingPolicy::FromBeginning,
+            },
+            Principal::self_authenticating([3; 32]),
+        )
+        .unwrap();
+        let mut source = source;
+        let payload_hex = hex(&[
+            b"BTZPAY02".as_slice(),
+            &[1; 32],
+            &1u64.to_be_bytes(),
+            &[0; 8],
+        ]
+        .concat());
+        h.apply(Action::IngestOrdered {
+            start: Int(0.into()),
+            end: Int(128.into()),
+            inputs: (0..128)
+                .map(|n| dtr_host::Input {
+                    position: Int(n.into()),
+                    payload_hex: payload_hex.clone(),
+                })
+                .collect(),
+            anchor: "11".repeat(32),
+        })
+        .unwrap();
+        source.cursor = 128;
+        let mut r = persist_inner(&h, None, source, RunState::default(), false).unwrap();
+        assert!(r.image.length > CHUNK, "exercise allocated chunk shrink");
+        for end in (2..=16).step_by(2) {
+            h.apply(Action::Seal {
+                logical_end: Int(end.into()),
+            })
+            .unwrap();
+            r = persist_inner(&h, Some(&r), r.source.clone(), r.run.clone(), false).unwrap();
+            while h.record.journal.stage.as_ref().unwrap().phase == "running" {
+                h.apply(Action::Step { budget: 512 }).unwrap();
+                r = persist_inner(&h, Some(&r), r.source.clone(), r.run.clone(), false).unwrap();
+            }
+            let manifest_hash = h
+                .record
+                .journal
+                .stage
+                .as_ref()
+                .unwrap()
+                .ready_hash
+                .clone()
+                .unwrap();
+            h.apply(Action::Publish { manifest_hash }).unwrap();
+            r = persist_inner(&h, Some(&r), r.source.clone(), r.run.clone(), false).unwrap();
+            let view = publication(&h.record).unwrap();
+            let allocated = r.image.length.div_ceil(CHUNK)
+                + view
+                    .data
+                    .artifacts
+                    .iter()
+                    .map(|a| a.length.div_ceil(CHUNK))
+                    .sum::<usize>();
+            assert_eq!(BLOBS.with(|m| m.borrow().len()), allocated as u64);
+            for (kind, bytes) in view.artifacts.iter().enumerate() {
+                assert_eq!(
+                    read_blob(kind as u64 + 1, &describe(bytes).unwrap()).unwrap(),
+                    *bytes
+                );
+            }
+            let retained = r
+                .retention
+                .history
+                .iter()
+                .map(|m| {
+                    m.publication_length.div_ceil(CHUNK)
+                        + m.artifact_lengths
+                            .iter()
+                            .map(|n| n.div_ceil(CHUNK))
+                            .sum::<usize>()
+                })
+                .sum::<usize>();
+            assert_eq!(RETAINED.with(|m| m.borrow().len()), retained as u64);
+            for meta in &r.retention.history {
+                let bytes = retained_publication_bytes(meta).unwrap();
+                assert_eq!(hash(&bytes), meta.publication_hash);
+            }
+        }
+        assert_eq!(r.retention.history.len(), 2);
+        assert!(r.image.length < CHUNK, "obsolete image chunks removed");
+    }
     #[test]
     fn print_generated_candid() {
         println!(

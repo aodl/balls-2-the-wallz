@@ -111,13 +111,13 @@ export function createArcade(doc){
       // A publication can invalidate a card, but never silently replace its amount or memo.
       if(prepared&&key(candidate())!==key(prepared))stale=true;availability();
     },
-    status({phase,live,verified,fresh,healthy,paused}){
+    status({phase,live,verified,fresh,healthy,paused,idle=false}){
       const wasAvailable=available;available=Boolean(config&&source&&live&&verified&&fresh&&healthy&&phase!=='ERROR');
       if(wasAvailable&&!available&&prepared)stale=true;availability();
-      const label=phase==='ERROR'?'Connection error':!verified?'Waiting for verified state':!live?'Verified replay · not live':!fresh?'Temporarily behind':!healthy?'Checking live service':paused?'Playback paused':['STALLED','BUFFERING'].includes(phase)?'Temporarily behind':'Live and verified';
-      text('live-status',label);$('live-status').dataset.verified=String(label==='Live and verified');
+      const label=phase==='ERROR'?'Connection error':!verified?'Waiting for verified state':!live?'Verified replay · not live':!fresh?'Temporarily behind':!healthy?'Checking live service':paused?'Playback paused':idle?'Arena idle · waiting for payment':['STALLED','BUFFERING'].includes(phase)?'Temporarily behind':'Live and verified';
+      text('live-status',label);$('live-status').dataset.verified=String(label==='Live and verified'||label==='Arena idle · waiting for payment');
       text('payment-health',available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
-      text('arena-note',label==='Live and verified'?'Authoritative game · verified playback':label==='Temporarily behind'?'Waiting for verified game data. No motion is invented.':label);
+      text('arena-note',label==='Arena idle · waiting for payment'?'Arena idle. Waiting for a payment; Index polling continues.':label==='Live and verified'?'Authoritative game · verified playback':label==='Temporarily behind'?'Waiting for verified game data. No motion is invented.':label);
     },
     moveSelection(){const c=selected();return mode()==='move'&&c&&world?{width:world.width,height:world.height,id:c.id,cells:c.owned_cells,cell:selectedCell()}:null;},
     chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owned_cells.includes(cell)){$('move-cell').value=String(cell);clearPreparation();}}
