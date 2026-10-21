@@ -39,6 +39,8 @@ def main():
     p.add_argument('--deployed-wasm',type=Path,help='Exact deployed 2cd80b module for state-preserving S15 upgrade test')
     p.add_argument('--current-deployed-wasm',type=Path,help='Exact installed S15 c831ec module for B2Z adapter v3 recovery')
     p.add_argument('--idle-prior-wasm',type=Path,help='Exact installed 187df3 module for idle recovery and measured cost comparison')
+    p.add_argument('--arena-prior-test-wasm',type=Path,help='Prior disposable idle test-hooks module for unfinished segment recovery')
+    p.add_argument('--arena-prior-wasm',type=Path,help='Exact deployed 1510d8 module for producer/pace upgrade')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -101,6 +103,10 @@ def main():
         if a.idle_prior_wasm:
             if hashlib.sha256(a.idle_prior_wasm.read_bytes()).hexdigest()!='187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1':raise ValueError('idle upgrade requires exact installed module')
             env['B2Z_IDLE_PRIOR_WASM']=str(a.idle_prior_wasm.resolve())
+        if a.arena_prior_wasm:
+            if hashlib.sha256(a.arena_prior_wasm.read_bytes()).hexdigest()!='1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3':raise ValueError('arena upgrade requires exact deployed 1510d8')
+            env['B2Z_ARENA_PRIOR_WASM']=str(a.arena_prior_wasm.resolve())
+        if a.arena_prior_test_wasm:env['B2Z_ARENA_PRIOR_TEST_WASM']=str(a.arena_prior_test_wasm.resolve())
         if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
@@ -114,6 +120,11 @@ def main():
         if a.idle_prior_wasm:
             run('idle-state-preserving-upgrade',[binaries[0],'empty_arena_upgrade_preserves_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
             run('idle-cost-comparison',[binaries[0],'empty_arena_old_new_cost_comparison','--ignored','--nocapture','--test-threads=1'],900,env)
+        if a.arena_prior_wasm:
+            run('arena-state-preserving-upgrade',[binaries[0],'arena_upgrade_from_installed_idle_module','--ignored','--nocapture','--test-threads=1'],900,env)
+            run('arena-matched-producer-cost',[binaries[0],'arena_matched_prior_producer_cost_comparison','--ignored','--nocapture','--test-threads=1'],900,env)
+        if a.arena_prior_test_wasm:
+            run('arena-unfinished-upgrade',[binaries[0],'arena_unfinished_old_segment_survives_upgrade','--ignored','--nocapture','--test-threads=1'],900,env)
         if a.test_filter:
             result['overall']='PASS';save();return 0
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)

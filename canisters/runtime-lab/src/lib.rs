@@ -1,6 +1,7 @@
 //! Authoritative B2Z host with one account-index adapter and certified observation.
 //! No wallet, transfer-sending or payout implementation.
 #![forbid(unsafe_code)]
+mod pace;
 mod source;
 use b2z_native::{host::B2zHostKernel, world::World};
 use candid::{CandidType, Principal};
@@ -25,7 +26,19 @@ const RETAINED_BYTES: usize = 8 * 1024 * 1024;
 const SCAN_CALL_TIMEOUT_SECONDS: u32 = 30;
 const SCAN_LEASE_SECONDS: u64 = 45;
 type Memory = VirtualMemory<DefaultMemoryImpl>;
+#[derive(Clone, Default, CandidType, Deserialize)]
+struct DriverMetrics {
+    messages: u64,
+    seal_instructions: u64,
+    step_instructions: u64,
+    publish_instructions: u64,
+    last_instructions: u64,
+    max_instructions: u64,
+    max_actions: u32,
+}
 thread_local! {
+    static PACE:RefCell<pace::Clock>=RefCell::new(pace::Clock::default());
+    static DRIVER:RefCell<DriverMetrics>=RefCell::new(DriverMetrics::default());
     // Recomputed from the authoritative coordinator on upgrade; never a durable game field.
     static ARENA_IDLE:Cell<bool>=const { Cell::new(false) };
     static MANAGER:RefCell<MemoryManager<DefaultMemoryImpl>>=RefCell::new(MemoryManager::init(DefaultMemoryImpl::default()));
@@ -128,6 +141,7 @@ struct RunConfig {
 }
 #[derive(CandidType, Deserialize)]
 struct RunStatus {
+    pace: pace::Hint,
     running: bool,
     idle: bool,
     generation: u64,
@@ -394,6 +408,7 @@ fn status(r: &Root) -> Status {
         publication_hash: r.publication_hash.clone(),
         source: r.source.status().expect("validated durable source"),
         run: RunStatus {
+            pace: PACE.with(|p| p.borrow().hint()),
             running: r.run.running,
             idle: r.run.running && ARENA_IDLE.with(Cell::get),
             generation: r.run.generation,
@@ -646,113 +661,189 @@ fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
 fn autonomous_once(generation: u64) -> AppResult<()> {
     autonomous_once_inner(generation, true)
 }
+fn refresh_pace() {
+    PACE.with(|p| {
+        p.borrow_mut()
+            .refresh(ic_cdk::api::canister_liquid_cycle_balance())
+    });
+}
 fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     let r = root()?;
     if !r.run.running || r.run.generation != generation {
         return Ok(());
     }
+    refresh_pace();
+    if !PACE.with(|p| p.borrow().hint().admission_open) {
+        return Ok(());
+    }
+    let now = ic_cdk::api::time();
     let mut h = host(&r)?;
     if !needs_simulation(&h)? {
-        ARENA_IDLE.with(|flag| flag.set(true));
+        ARENA_IDLE.with(|f| f.set(true));
         clear_run_timer();
         return Ok(());
     }
-
     let mut run = r.run.clone();
+    let mut actions = 0u32;
+    let mut work = 0u64;
+    if h.record.journal.stage.is_none()
+        && PACE.with(|p| p.borrow_mut().wait(now, run.segment_ticks)) > 0
+    {
+        return Ok(());
+    }
+    let mut phases = [0u64; 3];
+    while actions < (pace::MAX_ACTIONS as u32)
+        && work < pace::MAX_WORK
+        && (actions == 0 || ic_cdk::api::performance_counter(0) < pace::INSTRUCTION_YIELD)
+    {
+        let before = ic_cdk::api::performance_counter(0);
+        let phase = h
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .map(|s| (s.phase.clone(), s.ready_hash.clone()));
+        let index;
+        match phase {
+            None => {
+                index = 0;
+                PACE.with(|p| p.borrow_mut().batch_started = now);
+                let end = number(&h.record.journal.head.logical_end)?
+                    .checked_add(run.segment_ticks)
+                    .ok_or("logical time")?;
+                h.apply(Action::Seal {
+                    logical_end: Int(end.into()),
+                })?;
+                run.current_segment_work = 0;
+            }
+            Some((phase, _)) if phase == "running" => {
+                index = 1;
+                let budget = u64::from(run.work_budget)
+                    .min(pace::MAX_WORK - work)
+                    .min(512);
+                let progress = h
+                    .apply(Action::Step {
+                        budget: budget as usize,
+                    })?
+                    .ok_or("kernel progress")?;
+                let used = progress.used as u64;
+                work += used;
+                run.current_segment_work = run
+                    .current_segment_work
+                    .checked_add(used)
+                    .ok_or("work overflow")?;
+                run.total_work = run.total_work.checked_add(used).ok_or("work overflow")?;
+            }
+            Some((phase, ready)) if phase == "ready" => {
+                index = 2;
+                let ordinary = h.record.journal.stage.as_ref().unwrap().seal.input_count == 0;
+                h.apply(Action::Publish {
+                    manifest_hash: ready.ok_or("ready manifest")?,
+                })?;
+                run.completed_segments = run
+                    .completed_segments
+                    .checked_add(1)
+                    .ok_or("segment counter")?;
+                run.last_segment_work = run.current_segment_work;
+                run.max_segment_work = run.max_segment_work.max(run.current_segment_work);
+                run.current_segment_work = 0;
+                PACE.with(|p| p.borrow_mut().published(now, run.segment_ticks, ordinary));
+            }
+            _ => return Err("coordinator phase".into()),
+        }
+        actions += 1;
+        phases[index] += ic_cdk::api::performance_counter(0) - before;
+        if index == 2 {
+            break;
+        }
+    }
+    if actions == 0 {
+        return Ok(());
+    }
     run.callback_count = run
         .callback_count
         .checked_add(1)
-        .ok_or("autonomous callback counter")?;
-    let phase = h
-        .record
-        .journal
-        .stage
-        .as_ref()
-        .map(|stage| (stage.phase.clone(), stage.ready_hash.clone()));
-    match phase {
-        None => {
-            let logical_end = number(&h.record.journal.head.logical_end)?
-                .checked_add(run.segment_ticks)
-                .ok_or("autonomous logical time")?;
-            h.apply(Action::Seal {
-                logical_end: Int(logical_end.into()),
-            })?;
-            run.current_segment_work = 0;
-        }
-        Some((phase, _)) if phase == "running" => {
-            let progress = h
-                .apply(Action::Step {
-                    budget: run.work_budget as usize,
-                })?
-                .ok_or("autonomous kernel progress")?;
-            let used = progress.used as u64;
-            run.current_segment_work = run
-                .current_segment_work
-                .checked_add(used)
-                .ok_or("autonomous segment work")?;
-            run.total_work = run
-                .total_work
-                .checked_add(used)
-                .ok_or("autonomous total work")?;
-        }
-        Some((phase, ready)) if phase == "ready" => {
-            h.apply(Action::Publish {
-                manifest_hash: ready.ok_or("autonomous ready manifest")?,
-            })?;
-            run.completed_segments = run
-                .completed_segments
-                .checked_add(1)
-                .ok_or("autonomous segment counter")?;
-            run.last_segment_work = run.current_segment_work;
-            run.max_segment_work = run.max_segment_work.max(run.current_segment_work);
-            run.current_segment_work = 0;
-        }
-        Some(_) => return Err("autonomous coordinator phase".into()),
-    }
+        .ok_or("callback counter")?;
     run.last_error = None;
-
     persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
+    let instructions = ic_cdk::api::performance_counter(0);
+    DRIVER.with(|d| {
+        let mut d = d.borrow_mut();
+        d.messages += 1;
+        d.seal_instructions += phases[0];
+        d.step_instructions += phases[1];
+        d.publish_instructions += phases[2];
+        d.last_instructions = instructions;
+        d.max_instructions = d.max_instructions.max(instructions);
+        d.max_actions = d.max_actions.max(actions);
+    });
     if ARENA_IDLE.with(Cell::get) {
         clear_run_timer();
     }
     Ok(())
 }
+fn run_delay(run: &RunState) -> Duration {
+    if !PACE.with(|p| p.borrow().hint().admission_open) {
+        return Duration::from_secs(60);
+    }
+    let wait = PACE.with(|p| {
+        p.borrow_mut()
+            .scheduled_wait(ic_cdk::api::time(), run.segment_ticks)
+    });
+    Duration::from_nanos(wait.max(1_000_000))
+}
 fn arm_run_timer(generation: u64, delay: Duration) {
     let timer = ic_cdk_timers::set_timer(delay, async move {
-        RUN_TIMER.with(|slot| {
-            slot.borrow_mut().take();
-        });
-        // Rearm from the callback's current time before doing work. A delayed
-        // callback therefore executes one bounded coordinator action instead
-        // of replaying every missed wall-clock interval. There is no await in
-        // the action, and the durable generation fences a stale callback.
-        if let Ok(r) = root() {
-            if r.run.running && r.run.generation == generation {
-                arm_run_timer(
-                    generation,
-                    Duration::from_secs(u64::from(r.run.pacing_seconds)),
-                );
-            } else {
-                return;
-            }
-        } else {
+        RUN_TIMER.with(|t| t.borrow_mut().take());
+        let Ok(r) = root() else {
+            return;
+        };
+        if !r.run.running || r.run.generation != generation {
             return;
         }
-        if let Err(error) = autonomous_once(generation) {
-            let _ = stop_run_after_error(generation, error);
+        // A bounded continuation is armed before work; no parallel driver or missed-time replay.
+        arm_run_timer(generation, Duration::from_millis(50));
+        if let Err(e) = autonomous_once(generation) {
+            let _ = stop_run_after_error(generation, e);
             clear_run_timer();
+            return;
+        }
+        if let Ok(next) = root() {
+            clear_run_timer();
+            if next.run.running && !ARENA_IDLE.with(Cell::get) {
+                arm_run_timer(generation, run_delay(&next.run));
+            }
         }
     });
-    RUN_TIMER.with(|slot| *slot.borrow_mut() = Some(timer));
+    RUN_TIMER.with(|t| *t.borrow_mut() = Some(timer));
 }
 fn install_run_timer(run: &RunState) {
     clear_run_timer();
+    refresh_pace();
     if run.running && !ARENA_IDLE.with(Cell::get) {
-        arm_run_timer(
-            run.generation,
-            Duration::from_secs(u64::from(run.pacing_seconds)),
-        );
+        arm_run_timer(run.generation, run_delay(run));
     }
+}
+#[derive(CandidType, Deserialize)]
+struct RuntimeDiagnostics {
+    liquid_cycles: candid::Nat,
+    total_cycles: candid::Nat,
+    metrics: DriverMetrics,
+    phase_action_limit: u32,
+    message_work_limit: u64,
+    instruction_yield: u64,
+}
+#[ic_cdk::query]
+fn controller_runtime() -> std::result::Result<RuntimeDiagnostics, String> {
+    authorized()?;
+    Ok(RuntimeDiagnostics {
+        liquid_cycles: ic_cdk::api::canister_liquid_cycle_balance().into(),
+        total_cycles: ic_cdk::api::canister_cycle_balance().into(),
+        metrics: DRIVER.with(|d| d.borrow().clone()),
+        phase_action_limit: pace::MAX_ACTIONS as u32,
+        message_work_limit: pace::MAX_WORK,
+        instruction_yield: pace::INSTRUCTION_YIELD,
+    })
 }
 #[ic_cdk::init]
 fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
@@ -778,6 +869,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         )?;
         let r = persist(&h, None, source, RunState::default())?;
         cache_poke_policy(&r.source);
+        refresh_pace();
         install_source_timer();
         request_reconciliation()?;
         Ok(())
@@ -828,6 +920,7 @@ fn post_upgrade() {
         save_root_only(&r)?;
         ic_cdk::api::certified_data_set(unhex(&r.publication_hash)?);
         cache_poke_policy(&r.source);
+        refresh_pace();
         install_source_timer();
         request_reconciliation()?;
         install_run_timer(&r.run);
@@ -1072,6 +1165,21 @@ fn pause_autonomous() -> std::result::Result<Status, String> {
     clear_run_timer();
     Ok(status(&r))
 }
+// Disposable-only cycle-policy probe. Excluded from the normal module.
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_liquid_budget(target: u64) -> std::result::Result<Status, String> {
+    authorized()?;
+    let r = root()?;
+    if r.source.network != "pocketic-local" {
+        return Err("disposable only".into());
+    }
+    let liquid = ic_cdk::api::canister_liquid_cycle_balance();
+    ic_cdk::api::cycles_burn(liquid.saturating_sub(u128::from(target)));
+    refresh_pace();
+    install_run_timer(&r.run);
+    Ok(status(&r))
+}
 // Public controller APIs only pause/resume autonomous execution. Explicit
 // coordinator actions are test-only and cannot admit external payment proofs.
 #[cfg(feature = "test-hooks")]
@@ -1134,7 +1242,14 @@ fn matches_lease(source: &SourceState, lease: &Lease) -> bool {
     source.in_flight && source.nonce == lease.nonce && source.index == lease.index.to_text()
 }
 fn begin_reconciliation() -> AppResult<Option<Lease>> {
+    refresh_pace();
     let mut r = root()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < pace::INDEX_FLOOR {
+        r.source.wake_scheduled = false;
+        r.source.requested = true;
+        save_root_only(&r)?;
+        return Ok(None);
+    }
     r.source.wake_scheduled = false;
     let now = ic_cdk::api::time() / 1_000_000_000;
     if r.source.in_flight && now.saturating_sub(r.source.started_at) < SCAN_LEASE_SECONDS {

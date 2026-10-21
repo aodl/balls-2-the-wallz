@@ -87,3 +87,28 @@ test('terminal idle playback drains a short verified segment and resumes ordinar
  prepareIdlePlayout(s,false);s.clock.append(2,4);assert.equal(s.clock.sample(.1).playhead,2);
  s.clock.append(4,8);assert.ok(s.clock.sample(.1).playhead>2);
 });
+test('shared nominal pace is bounded and approaches smooth economy/conserve transitions',async()=>{
+ const {nominalPace,approachPace}=await import('../../apps/b2z-observer/model.mjs');
+ for(const [mode,milli]of[['Normal',1000],['Economy',500],['Conserve',250],['ReserveProtection',0]])assert.equal(nominalPace({run:{pace:{mode,nominal_milli:milli}}}),milli/1000);
+ assert.equal(nominalPace({run:{pace:{mode:'Normal',nominal_milli:1e6}}}),.25);
+ let rate=1;for(let n=0;n<200;n++){const next=approachPace(rate,.25,.016);assert.ok(rate-next<=.004001);rate=next;}assert.equal(rate,.25);
+});
+
+test('shared pace transitions keep the verified clock continuous after startup',async()=>{
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ const {approachPace}=await import('../../apps/b2z-observer/model.mjs');
+ const clock=new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1});
+ let head=0,produced=0,nextHint=0,advertised=1,displayRate=1,started=false,stalls=0;
+ for(let frame=0;frame<120*60;frame++){
+  const t=frame/60,rate=t<30?1:t<60?.5:t<90?.25:1;
+  produced+=rate/60;
+  while(produced>=head+2){clock.append(head,head+2);head+=2;}
+  if(t>=nextHint){advertised=rate;nextHint+=2;}
+  displayRate=approachPace(displayRate,advertised,1/60);
+  const state=clock.sample(displayRate/60);
+  if(state.phase==='PLAYING'||state.phase==='DEGRADED_BUFFER')started=true;
+  if(started&&state.phase==='STALLED')stalls++;
+  assert(state.playhead<=state.available,'never invent motion beyond verified data');
+ }
+ assert(started);assert.equal(stalls,0);
+});

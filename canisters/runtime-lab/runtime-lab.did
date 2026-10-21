@@ -5,6 +5,20 @@ type ControllerWork = record {
   revision : nat64;
   pending_inputs : nat32;
 };
+type DriverMetrics = record {
+  last_instructions : nat64;
+  messages : nat64;
+  max_actions : nat32;
+  seal_instructions : nat64;
+  step_instructions : nat64;
+  publish_instructions : nat64;
+  max_instructions : nat64;
+};
+type Hint = record {
+  nominal_milli : nat32;
+  mode : text;
+  admission_open : bool;
+};
 type IndexConfig = record {
   receiving_subaccount : nat64;
   // Explicitly process existing history too; never silently skip a funded account.
@@ -18,10 +32,11 @@ type Observation = record { certificate : opt blob; publication : blob };
 type PokeMatch = record { target : PokeTarget; max_amount : nat };
 type PokeTarget = variant { neuron_nonce : nat64; subaccount : nat64 };
 type Result = variant { Ok : blob; Err : text };
-type Result_1 = variant { Ok : ControllerWork; Err : text };
-type Result_2 = variant { Ok : Status; Err : text };
-type Result_3 = variant { Ok : Observation; Err : text };
-type Result_4 = variant { Ok : RetentionStatus; Err : text };
+type Result_1 = variant { Ok : RuntimeDiagnostics; Err : text };
+type Result_2 = variant { Ok : ControllerWork; Err : text };
+type Result_3 = variant { Ok : Status; Err : text };
+type Result_4 = variant { Ok : Observation; Err : text };
+type Result_5 = variant { Ok : RetentionStatus; Err : text };
 type RetainedEntry = record {
   segment_id : nat64;
   bytes : nat64;
@@ -44,6 +59,7 @@ type RunStatus = record {
   last_segment_work : nat64;
   callback_count : nat64;
   idle : bool;
+  pace : Hint;
   generation : nat64;
   work_budget : nat32;
   total_work : nat64;
@@ -53,6 +69,14 @@ type RunStatus = record {
   completed_segments : nat64;
   running : bool;
   pacing_seconds : nat32;
+};
+type RuntimeDiagnostics = record {
+  metrics : DriverMetrics;
+  instruction_yield : nat64;
+  message_work_limit : nat64;
+  total_cycles : nat;
+  phase_action_limit : nat32;
+  liquid_cycles : nat;
 };
 type SourceStatus = record {
   last_error : opt text;
@@ -79,15 +103,16 @@ type Status = record {
 };
 service : (blob, nat64, IndexConfig) -> {
   artifact_chunk : (text, nat8, nat16) -> (Result) query;
-  controller_work : () -> (Result_1) query;
-  lab_status : () -> (Result_2) query;
-  observation : () -> (Result_3) query;
-  pause_autonomous : () -> (Result_2);
+  controller_runtime : () -> (Result_1) query;
+  controller_work : () -> (Result_2) query;
+  lab_status : () -> (Result_3) query;
+  observation : () -> (Result_4) query;
+  pause_autonomous : () -> (Result_3);
   poke : (vec PokeMatch) -> ();
   retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result) query;
   retained_publication : (nat64) -> (Result) query;
-  retention_status : () -> (Result_4) query;
+  retention_status : () -> (Result_5) query;
   // Hash this descriptor and compare with the certified publication's source_id.
   source_descriptor : () -> (Result) query;
-  start_autonomous : (RunConfig) -> (Result_2);
+  start_autonomous : (RunConfig) -> (Result_3);
 }

@@ -32,9 +32,9 @@ export function createArcade(doc){
     $('prepare-transfer').disabled=!available||Boolean(current.reason);
     $('prepare-transfer').textContent=prepared?'Refresh transfer instructions':'Prepare transfer instructions';
     $('transfer-controls').disabled=!available||!prepared||stale;
-    text('preparation-note',!available?'Payment preparation unavailable until live destination, prices and service are verified.':stale?'Certified price or eligibility changed. Refresh the complete instructions before copying.':current.reason??(prepared?'Instructions prepared. Later on-chain changes can still affect eligibility.':'Choose your action, then prepare the complete transfer instructions.'));
+    text('preparation-note',!available?'Payment preparation unavailable until live destination, prices and service are verified.':stale?'Selection, price or eligibility changed. Refresh the complete instructions before copying.':current.reason??(prepared?'Instructions prepared. Later on-chain changes can still affect eligibility.':'Choose your action, then prepare the complete transfer instructions.'));
   }
-  function clearPreparation(){prepared=null;stale=false;$('prepared-card').hidden=true;availability();}
+  function clearPreparation(){if(prepared)stale=true;else $('prepared-card').hidden=true;availability();}
   function aim(){
     const memo=transferMemo(degrees),[vx,vy]=heading(memo.command.value),norm=Math.hypot(vx,vy);
     // Draw the actual integer CORDIC velocity, including final quantized heading.
@@ -59,7 +59,7 @@ export function createArcade(doc){
     const centidegrees=Math.round((Math.atan2(y,x)*180/Math.PI+360)%360*100)%36000;
     setAngle((centidegrees/100).toFixed(2));
   }
-  pad.addEventListener('pointerdown',e=>{if(!e.isPrimary||e.button!==0)return;drag=e.pointerId;pad.setPointerCapture(drag);pad.focus();point(e);e.preventDefault();});
+  pad.addEventListener('pointerdown',e=>{if(!e.isPrimary||e.button!==0)return;drag=e.pointerId;pad.setPointerCapture(drag);pad.focus({preventScroll:true});point(e);e.preventDefault();});
   pad.addEventListener('pointermove',e=>{if(e.pointerId===drag)point(e);});
   for(const event of ['pointerup','pointercancel','lostpointercapture'])pad.addEventListener(event,e=>{if(e.pointerId===drag)drag=null;});
   pad.addEventListener('keydown',e=>{
@@ -111,13 +111,14 @@ export function createArcade(doc){
       // A publication can invalidate a card, but never silently replace its amount or memo.
       if(prepared&&key(candidate())!==key(prepared))stale=true;availability();
     },
-    status({phase,live,verified,fresh,healthy,paused,idle=false}){
+    status({phase,live,verified,fresh,healthy,paused,idle=false,pace=null}){
       const wasAvailable=available;available=Boolean(config&&source&&live&&verified&&fresh&&healthy&&phase!=='ERROR');
       if(wasAvailable&&!available&&prepared)stale=true;availability();
-      const label=phase==='ERROR'?'Connection error':!verified?'Waiting for verified state':!live?'Verified replay · not live':!fresh?'Temporarily behind':!healthy?'Checking live service':paused?'Playback paused':idle?'Arena idle · waiting for payment':['STALLED','BUFFERING'].includes(phase)?'Temporarily behind':'Live and verified';
-      text('live-status',label);$('live-status').dataset.verified=String(label==='Live and verified'||label==='Arena idle · waiting for payment');
-      text('payment-health',available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
-      text('arena-note',label==='Arena idle · waiting for payment'?'Arena idle. Waiting for a payment; Index polling continues.':label==='Live and verified'?'Authoritative game · verified playback':label==='Temporarily behind'?'Waiting for verified game data. No motion is invented.':label);
+      const funding=pace?.admission_open===false;
+      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':funding?'Paused for funding':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?'Waiting for players':['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':pace&&['Economy','Conserve'].includes(pace.mode)?(pace.mode==='Conserve'?'Economy · conserve':'Economy'):'Live';
+      text('live-status',label);$('live-status').dataset.verified=String(['Live','Economy','Economy · conserve','Waiting for players'].includes(label));
+      text('payment-health',available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':funding?'Paused for funding. Wait before preparing a new payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
+      text('arena-note',funding?'Ordinary simulation paused for funding. Payments remain pending.':idle?'Waiting for players · Index polling continues':pace?`${pace.mode} · ${(pace.nominal_milli/1000).toFixed(2)} ticks/s`:label);
     },
     selectedCannon(){return selected()?.id??null;},
     selectCannon(id){if(!world?.cannons.some(c=>c.id===id))return false;$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},

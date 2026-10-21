@@ -181,7 +181,14 @@ fn create_controlled(pic: &PocketIc) -> Principal {
 }
 
 #[derive(Clone, Debug, CandidType, Deserialize)]
+struct PaceHint {
+    mode: String,
+    nominal_milli: u32,
+    admission_open: bool,
+}
+#[derive(Clone, Debug, CandidType, Deserialize)]
 struct RunStatus {
+    pace: Option<PaceHint>,
     idle: Option<bool>,
     running: bool,
     callback_count: u64,
@@ -281,6 +288,7 @@ fn get_result<T: for<'de> Deserialize<'de> + CandidType>(
         .unwrap()
         .unwrap()
 }
+// Most source/upgrade tests also compare every returned artifact byte.
 fn replay_head(
     pic: &PocketIc,
     id: Principal,
@@ -288,6 +296,17 @@ fn replay_head(
     h: &mut Coordinator<B2zHostKernel>,
     payments: &BTreeMap<u64, String>,
     assigned: &mut Vec<u64>,
+) {
+    replay_head_with_artifacts(pic, id, p, h, payments, assigned, true)
+}
+fn replay_head_with_artifacts(
+    pic: &PocketIc,
+    id: Principal,
+    p: &Publication,
+    h: &mut Coordinator<B2zHostKernel>,
+    payments: &BTreeMap<u64, String>,
+    assigned: &mut Vec<u64>,
+    verify_artifacts: bool,
 ) {
     let Some(seal) = p.head.seal.as_ref() else {
         return;
@@ -370,30 +389,32 @@ fn replay_head(
         expected.sha256,
         dtr_wire::hash(&encode_publication(p))
     );
-    for (kind, artifact) in expected.artifacts.iter().enumerate() {
-        let mut actual = vec![];
-        for n in 0..artifact.len().div_ceil(16384) {
-            actual.extend(
-                decode_one::<Result<Vec<u8>, String>>(
-                    &pic.query_call(
-                        id,
-                        controller(),
-                        "retained_artifact_chunk",
-                        encode_args((
-                            seal.segment_id.0.to_string().parse::<u64>().unwrap(),
-                            expected.sha256.clone(),
-                            kind as u8,
-                            n as u16,
-                        ))
+    if verify_artifacts {
+        for (kind, artifact) in expected.artifacts.iter().enumerate() {
+            let mut actual = vec![];
+            for n in 0..artifact.len().div_ceil(16384) {
+                actual.extend(
+                    decode_one::<Result<Vec<u8>, String>>(
+                        &pic.query_call(
+                            id,
+                            controller(),
+                            "retained_artifact_chunk",
+                            encode_args((
+                                seal.segment_id.0.to_string().parse::<u64>().unwrap(),
+                                expected.sha256.clone(),
+                                kind as u8,
+                                n as u16,
+                            ))
+                            .unwrap(),
+                        )
                         .unwrap(),
                     )
+                    .unwrap()
                     .unwrap(),
-                )
-                .unwrap()
-                .unwrap(),
-            );
+                );
+            }
+            assert_eq!(&actual, artifact);
         }
-        assert_eq!(&actual, artifact);
     }
 }
 fn encode_publication(p: &Publication) -> Vec<u8> {
@@ -655,7 +676,7 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
             )
             .unwrap()
             .unwrap();
-            if work.phase.is_some() {
+            if status(&pic, id).run.pace.is_some() || work.phase.is_some() {
                 assert!(
                     assigned.contains(&second.unwrap()),
                     "no-poke payment must publish through fallback before upgrade is allowed to wake reconciliation"
@@ -2022,14 +2043,15 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let began = std::time::Instant::now();
     let deadline = began + Duration::from_secs(360);
     let mut logged_phase = -2;
+    let mut timing = vec![];
+    let mut last_timing = 0;
     while std::time::Instant::now() < deadline {
-        // Freeze only this disposable instance while the test atomically reads
-        // a retained catalog and all chunks for strict native replay. Without
-        // this fence, make_live can retire the catalog midway through replay
-        // on a loaded host. The browser's reconnect/resync remains unfenced.
-        pic.stop_progress();
         let (_, p) = observe(&pic, id);
         if p.head.segment_id != last {
+            // Keep live progression unfenced: pausing PocketIC to capture each
+            // publication distorts its wall-clock production rate. All retained
+            // bytes are still fetched by immutable catalog/hash and replayed;
+            // losing retention is an explicit failure, never a skipped seal.
             // make_live advances independently while HTTP/asset requests run.
             // Replay every intervening retained publication; never skip a seal
             // merely because two publications completed between observations.
@@ -2062,12 +2084,22 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                     .expect("live replay requires each intermediate publication still retained");
                     decode::<Publication>(&bytes).unwrap()
                 };
-                replay_head(&pic, id, &observed, &mut native, &payments, &mut assigned);
+                // Exact canonical catalog equality binds every native artifact hash.
+                // The concurrent browser independently retrieves/verifies artifact
+                // bytes. Avoid duplicate RPC reads that perturb live production.
+                replay_head_with_artifacts(
+                    &pic,
+                    id,
+                    &observed,
+                    &mut native,
+                    &payments,
+                    &mut assigned,
+                    false,
+                );
                 last = observed.head.segment_id.clone();
                 publications.push(observed);
             }
         }
-        pic.auto_progress();
         if phase == -1 && out.join("bootstrap-anchor-read").exists() {
             let _: Status = get_result(
                 &pic,
@@ -2091,6 +2123,15 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             .unwrap();
         }
         let s = status(&pic, id);
+        if began.elapsed().as_secs() > last_timing {
+            last_timing = began.elapsed().as_secs();
+            timing.push(serde_json::json!({"wall_ms":began.elapsed().as_millis(),"ic_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"segments":s.run.completed_segments,"pace":s.run.pace.as_ref().map(|p|p.nominal_milli)}));
+            std::fs::write(
+                out.join("producer-timing.json"),
+                serde_json::to_vec(&timing).unwrap(),
+            )
+            .unwrap();
+        }
         assert!(s.source.last_error.is_none(), "{:?}", s.source.last_error);
         assert!(s.run.last_error.is_none());
         if let Some(code) = browser.0.try_wait().unwrap() {
@@ -2101,7 +2142,12 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             );
         }
         if phase == 0 && out.join("browser-connected").exists() && !s.source.scan_in_flight {
-            let before = s.source.index_calls;
+            // Isolate target-filter behaviour from the independent 60s poll.
+            pic.stop_progress();
+            for _ in 0..8 {
+                pic.tick();
+            }
+            let before = status(&pic, id).source.index_calls;
             for target in [PokeTarget::subaccount(1), PokeTarget::neuron_nonce(0)] {
                 pic.update_call(
                     sender,
@@ -2120,6 +2166,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 before,
                 "unrelated target must not call index"
             );
+            pic.auto_progress();
             let tx = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
             first = Some(tx);
             payments.insert(
@@ -2221,7 +2268,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             )
             .unwrap()
             .unwrap();
-            if work.phase.is_some() {
+            if s.run.pace.is_some() || work.phase.is_some() {
                 pic.upgrade_canister(
                     id,
                     wasm.clone(),
@@ -2517,13 +2564,18 @@ fn s15_text_path(prior: Option<Vec<u8>>) {
     );
     let is_historical = prior.is_some();
     let legacy_text = prior.as_ref().is_some_and(|p| {
-        dtr_wire::hash(p) != "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1"
+        !matches!(
+            dtr_wire::hash(p).as_str(),
+            "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1"
+                | "1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3"
+        )
     });
     let old = prior.unwrap_or_else(|| bytes("B2Z_S14_WASM"));
     if is_historical {
         assert!(matches!(
             dtr_wire::hash(&old).as_str(),
-            "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1"
+            "1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3"
+                | "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1"
                 | "2cd80ba464a98bcc56c42e3e29996b10b2dd87e60ed9045fea0043992cfe9a3c"
                 | "c831ecaa2ac1f4b7ed51179e2b880d01f32c19e5d03b3e2214027677f378dde4"
         ));
@@ -3267,4 +3319,334 @@ fn empty_arena_all_player_elimination_preserves_scores_then_idles() {
     assert_eq!(observe(&pic, id).0.publication, publication);
     assert_eq!(status(&pic, id).run.idle, Some(true));
     assert_eq!(arena_world(&pic, id), world);
+}
+
+#[test]
+#[ignore = "requires B2Z_ARENA_PRIOR_WASM exact deployed 1510d8"]
+fn arena_upgrade_from_installed_idle_module() {
+    s15_text_path(Some(bytes("B2Z_ARENA_PRIOR_WASM")));
+}
+
+#[test]
+fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments() {
+    let mut rows = vec![];
+    let mut expected = None;
+    for (mode, target, rate) in [
+        ("Normal", 6_000_000_000_000u64, 1.0),
+        ("Economy", 1_800_000_000_000u64, 0.5),
+        ("Conserve", 600_000_000_000u64, 0.25),
+    ] {
+        let (pic, id, _, _) =
+            arena_setup_world(bytes("B2Z_S14_TEST_WASM"), pace_world().encode().unwrap());
+        let s: Status = get_result(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(target).unwrap(),
+        );
+        assert_eq!(s.run.pace.unwrap().mode, mode);
+        start_arena(&pic, id);
+        let begin = pic.get_time();
+        let balance = pic.cycle_balance(id);
+        let mut steps = 0;
+        while status(&pic, id).run.completed_segments < 16 {
+            pic.advance_time(Duration::from_millis(250));
+            for _ in 0..4 {
+                pic.tick();
+            }
+            steps += 1;
+            assert!(steps < 1000);
+        }
+        get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+        let seconds = (pic.get_time().as_nanos_since_unix_epoch()
+            - begin.as_nanos_since_unix_epoch()) as f64
+            / 1e9;
+        let spent = balance - pic.cycle_balance(id);
+        let final_world = arena_world(&pic, id);
+        assert_eq!(status(&pic, id).run.completed_segments, 16);
+        if let Some(w) = &expected {
+            assert_eq!(
+                &final_world, w,
+                "all modes compute identical logical gameplay"
+            );
+        } else {
+            expected = Some(final_world);
+        }
+        let achieved = 32.0 / seconds;
+        assert!(
+            achieved > rate * 0.9 && achieved < rate * 1.15,
+            "{mode} {achieved} ticks/s over {seconds}s"
+        );
+        println!("PACE_MODE {mode}: seconds={seconds} cycles={spent}");
+        rows.push(serde_json::json!({"mode":mode,"seconds":seconds,"ticks":32,"segments":16,"rate":achieved,"cycles":spent.to_string(),"cycles_per_second":spent as f64/seconds}));
+    }
+    assert!(
+        rows[1]["cycles_per_second"].as_f64().unwrap()
+            < rows[0]["cycles_per_second"].as_f64().unwrap() * 0.7
+    );
+    assert!(
+        rows[2]["cycles_per_second"].as_f64().unwrap()
+            < rows[1]["cycles_per_second"].as_f64().unwrap() * 0.7
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let value = serde_json::json!({"status":"PASS","clock":"PocketIC virtual time; not mainnet wall time","modes":rows});
+    std::fs::write(
+        out.join("pace-results.json"),
+        serde_json::to_vec_pretty(&value).unwrap(),
+    )
+    .unwrap();
+    println!("ARENA_PACE {value}");
+}
+#[test]
+fn arena_reserve_preserves_admitted_and_index_pending_payments() {
+    // A fresh disposable instance avoids treating snapshot rollback of the IC
+    // global timer as a production recovery mechanism. Real upgrades re-arm timers.
+    let (pic, id, ledger, payer) =
+        arena_setup_world(bytes("B2Z_S14_TEST_WASM"), pace_world().encode().unwrap());
+    let first = transfer_text(&pic, ledger, payer, id, 1, b"ANGLE NaN");
+    let second = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..180 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > second {
+            break;
+        }
+    }
+    assert_eq!(work(&pic, id).0, 2);
+    start_arena(&pic, id);
+    get_result::<Status>(
+        &pic,
+        id,
+        "test_liquid_budget",
+        candid::encode_one(180_000_000_000u64).unwrap(),
+    );
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "ReserveProtection");
+    let publication = observe(&pic, id).0.publication;
+    let before = arena_world(&pic, id);
+    let third = transfer_text(&pic, ledger, payer, id, 1, b"ANGLE -1");
+    for _ in 0..65 {
+        tick(&pic)
+    }
+    // Index calls can be unaffordable while timer/call reservations are held.
+    // Keep admitted rows, and leave newer public transfers durable in the Index.
+    assert!(work(&pic, id).0 >= 2);
+    assert_eq!(arena_world(&pic, id), before);
+    assert_eq!(observe(&pic, id).0.publication, publication);
+    assert!(!status(&pic, id).run.pace.unwrap().admission_open);
+    pic.add_cycles(id, 2_000_000_000_000);
+    for _ in 0..200 {
+        tick(&pic);
+        if work(&pic, id).0 == 0 && status(&pic, id).source.admitted_to_exclusive > third {
+            break;
+        }
+    }
+    assert_eq!(work(&pic, id).0, 0);
+    assert!(status(&pic, id).source.admitted_to_exclusive > third);
+    assert!(status(&pic, id).run.pace.unwrap().admission_open);
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(100_000_002u64.into())
+    );
+    assert!(first < second);
+    #[derive(CandidType, Deserialize)]
+    struct Metrics {
+        max_instructions: u64,
+        max_actions: u32,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Diagnostics {
+        metrics: Metrics,
+    }
+    let d: Diagnostics = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
+    assert!(d.metrics.max_instructions < 2_000_000_000);
+    assert!(d.metrics.max_actions >= 3 && d.metrics.max_actions <= 8);
+    let anonymous = pic
+        .query_call(
+            id,
+            Principal::anonymous(),
+            "controller_runtime",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Diagnostics, String>>(&anonymous)
+            .unwrap()
+            .is_err()
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let value = serde_json::json!({"status":"PASS","clock":"PocketIC virtual time; not mainnet wall time","index_pending_payments":1,"max_message_instructions":d.metrics.max_instructions,"max_phase_actions":d.metrics.max_actions,"reserve_payments_preserved":2,"topup_recovery":true});
+    std::fs::write(
+        out.join("reserve-results.json"),
+        serde_json::to_vec_pretty(&value).unwrap(),
+    )
+    .unwrap();
+    println!("ARENA_PACE {value}");
+}
+
+#[test]
+#[ignore = "requires prior idle test-hooks module, never a production installation"]
+fn arena_unfinished_old_segment_survives_upgrade() {
+    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_ARENA_PRIOR_TEST_WASM"));
+    start_arena(&pic, id);
+    let tx = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..150 {
+        tick(&pic);
+        if !arena_world(&pic, id).cannons.is_empty() {
+            break;
+        }
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > tx);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    #[derive(CandidType, Deserialize)]
+    struct Work {
+        revision: u64,
+        phase: Option<String>,
+        pending_inputs: u32,
+        source_cursor: u64,
+    }
+    let mut w: Work = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+    if w.phase.is_none() {
+        let world = arena_world(&pic, id);
+        get_result::<Status>(
+            &pic,
+            id,
+            "test_apply",
+            encode_args((
+                w.revision,
+                dtr_wire::encode(&Action::Seal {
+                    logical_end: Int(world.time.0.to_integer() + 2u32),
+                })
+                .unwrap(),
+            ))
+            .unwrap(),
+        );
+        w = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+    }
+    if w.phase.as_deref() == Some("running") {
+        get_result::<Status>(
+            &pic,
+            id,
+            "test_apply",
+            encode_args((
+                w.revision,
+                dtr_wire::encode(&Action::Step { budget: 1 }).unwrap(),
+            ))
+            .unwrap(),
+        );
+    }
+    let before: Work = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+    assert!(before.phase.is_some());
+    let publication = observe(&pic, id).0.publication;
+    let world = arena_world(&pic, id);
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let after: Work = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+    assert_eq!(
+        (
+            before.revision,
+            before.phase,
+            before.pending_inputs,
+            before.source_cursor
+        ),
+        (
+            after.revision,
+            after.phase,
+            after.pending_inputs,
+            after.source_cursor
+        )
+    );
+    assert_eq!(observe(&pic, id).0.publication, publication);
+    assert_eq!(arena_world(&pic, id), world);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+    start_arena(&pic, id);
+    for _ in 0..20 {
+        tick(&pic);
+        if observe(&pic, id).0.publication != publication {
+            break;
+        }
+    }
+    assert_ne!(observe(&pic, id).0.publication, publication);
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(100_000_000u64.into())
+    );
+}
+
+fn pace_world() -> b2z_native::world::World {
+    use b2z_native::world::{Ball, Cannon, World};
+    let mut world = World::decode(&initial_world()).unwrap();
+    world.cells.fill(1);
+    world.cannons = vec![Cannon {
+        id: 1,
+        cell: 42,
+        account: "01".repeat(32),
+    }];
+    world.balls = vec![Ball {
+        id: 1,
+        owner: 1,
+        cell: 42,
+        x0: Int(10752.into()),
+        y0: Int(2560.into()),
+        vx: 812,
+        vy: 623,
+    }];
+    world.next_cannon_id = 2;
+    world.next_ball_id = 2;
+    world
+}
+
+#[test]
+#[ignore = "requires exact prior producer module"]
+fn arena_matched_prior_producer_cost_comparison() {
+    let mut rows = vec![];
+    let mut expected = None;
+    for (name, module) in [
+        ("prior-one-phase", bytes("B2Z_ARENA_PRIOR_WASM")),
+        ("bounded-driver", bytes("B2Z_S14_WASM")),
+    ] {
+        let (pic, id, _, _) = arena_setup_world(module, pace_world().encode().unwrap());
+        start_arena(&pic, id);
+        let start = pic.get_time();
+        let balance = pic.cycle_balance(id);
+        for _ in 0..600 {
+            pic.advance_time(Duration::from_millis(250));
+            for _ in 0..4 {
+                pic.tick()
+            }
+            if status(&pic, id).run.completed_segments == 16 {
+                break;
+            }
+        }
+        get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+        assert_eq!(status(&pic, id).run.completed_segments, 16);
+        let seconds = (pic.get_time().as_nanos_since_unix_epoch()
+            - start.as_nanos_since_unix_epoch()) as f64
+            / 1e9;
+        let cycles = balance - pic.cycle_balance(id);
+        let world = arena_world(&pic, id);
+        if let Some(w) = expected {
+            assert_eq!(world, w)
+        }
+        expected = Some(world);
+        rows.push(serde_json::json!({"name":name,"segments":16,"ticks":32,"virtual_seconds":seconds,"cycles":cycles.to_string(),"cycles_per_segment":cycles/16,"cycles_per_second":cycles as f64/seconds,"callbacks":status(&pic,id).run.callback_count}));
+    }
+    assert!(
+        rows[1]["cycles_per_segment"].as_u64().unwrap()
+            < rows[0]["cycles_per_segment"].as_u64().unwrap()
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("producer-cost.json"),
+        serde_json::to_vec_pretty(&rows).unwrap(),
+    )
+    .unwrap();
+    println!("ARENA_PRODUCER_COST {rows:?}");
 }

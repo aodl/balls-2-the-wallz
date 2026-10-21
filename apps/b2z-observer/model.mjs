@@ -157,7 +157,18 @@ export function prepareIdlePlayout(session,idle){
     session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
     session.clock.append(start,end);session.idleDrain=true;
   }else if(!idle&&session.idleDrain){
-    session.clock=new PlayoutClock({start,target:6,low:2,max_frame_delta:1});
+    session.clock=new PlayoutClock({start,...liveBufferPolicy(session.operational),max_frame_delta:1});
     if(end>start)session.clock.append(start,end);session.idleDrain=false;
   }
 }
+
+/** Shared operational speed is presentation input only; the verified clock remains the ceiling. */
+export function nominalPace(status){
+ const p=status?.run.pace;if(!p)return .5;
+ if(!['Normal','Economy','Conserve','ReserveProtection','Legacy'].includes(p.mode)||!Number.isInteger(p.nominal_milli)||p.nominal_milli<0||p.nominal_milli>1000)return .25;
+ return p.nominal_milli/1000;
+}
+export function approachPace(current,target,seconds){return current+Math.max(-.25*seconds,Math.min(.25*seconds,target-current));}
+
+/** Two-tick publication plus four wall seconds of measured delivery jitter. */
+export function liveBufferPolicy(status){const pace=nominalPace(status);return {target:2+4*pace,low:Math.max(.5,pace)};}

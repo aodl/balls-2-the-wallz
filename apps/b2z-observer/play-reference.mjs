@@ -9,6 +9,7 @@ export function cannonReference(world,config){
 }
 export function operationalText(status){
   if(!status)return 'Operational status unavailable — wait before making purchases.';
+  if(status.run.pace?.admission_open===false)return 'Paused for funding — pending payments are preserved; wait before making purchases.';
   const error=status.run.last_error[0]??status.source.last_error[0];
   if(error)return `Service error — wait before making purchases: ${error}`;
   if(!status.source.binding_checked)return 'Index binding pending — wait before making purchases.';

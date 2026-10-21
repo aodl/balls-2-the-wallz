@@ -93,7 +93,7 @@ def main():
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
-            context=browser.new_context(permissions=['clipboard-write'],has_touch=True);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            context=browser.new_context(permissions=['clipboard-write'],has_touch=True,viewport={'width':1440,'height':900},record_video_dir=str(out/'video'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -114,24 +114,25 @@ def main():
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
             wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='IDLE',20000)
-            assert 'Arena idle' in page.locator('#service-status').text_content()
+            assert 'Waiting for players' in page.locator('#live-status').text_content()
             page.screenshot(path=str(out/'healthy-idle.png'))
             record('certified-idle-genesis-allows-transfer-preparation')
+            page.locator('#dismiss-empty').click();assert not page.locator('#empty-arena').is_visible()
             assert page.title().startswith('B2Z — Balls 2 The Wallz')
             assert page.locator('.mark').inner_text()=='B2Z'
             assert 'BTZ' not in page.locator('body').inner_text()
             record('B2Z-branding-without-legacy-player-prefix')
-            page.locator('.diagnostics').evaluate('(node)=>node.open=true')
+            page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             assert page.locator('#receiving-account').text_content()==configuration['recipient']
             assert page.locator('#backend-identity').text_content()==configuration['canister_id']
             assert 'join 100000000 e8s; relocation 10000 e8s' in page.locator('#command-prices').text_content()
             assert 'Rules ' in page.locator('#rules-identity').text_content()
             record('certified-backend-receiving-account-and-price-identities')
-            page.locator('.diagnostics').evaluate('(node)=>node.open=false')
+            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
             wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),15000)
             page.locator('#prepare-transfer').click()
             assert page.locator('#join-price').inner_text()=='1 ICP'
-            assert page.locator('#hero-join-price').inner_text()=='1 ICP join'
+            assert page.locator('.hero,footer').count()==0
             assert page.locator('#payment-address').text_content()==configuration['recipient']
             page.bring_to_front()
             if asset_canister:
@@ -152,7 +153,7 @@ def main():
             import math
             for angle in [0,37.5,90,135,180,225,270,315,359.99]:
                 r=math.radians(angle);page.mouse.click(box['x']+box['width']/2+70*math.cos(r),box['y']+box['height']/2+70*math.sin(r))
-                assert abs(float(page.locator('#angle-degrees').input_value())-angle)<.02
+                assert abs(float(page.locator('#angle-degrees').input_value())-angle)<.02,(angle,page.locator('#angle-degrees').input_value(),box,pad.bounding_box())
                 expected=int((round(angle*100)*65536+18000)//36000)%65536
                 assert abs(int(pad.get_attribute('data-heading'))-expected)<=2
             page.mouse.move(box['x']+box['width']/2+65,box['y']+box['height']/2);page.mouse.down()
@@ -179,19 +180,37 @@ def main():
                 page.wait_for_timeout(150)
                 board=page.locator('#board').bounding_box()
                 assert board['y']<height*.4 and board['height']>100
-                assert abs(board['width']/board['height']-2)<.01
+                assert board['width']==width and board['height']==height
                 assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
-                assert page.locator('.hero a[href="#join"]').is_visible()
+                page.keyboard.press('Escape')
                 page.screenshot(path=str(out/f'arcade-empty-{width}x{height}.png'),full_page=True)
-            record('arcade-responsive-arena-and-empty-state')
+            record('arena-fills-desktop-tablet-mobile-without-page-content')
+            assert page.locator('.hero,footer').count()==0
+            for name in ['play','players','rules','view','settings']:
+                page.locator('#toolbar-'+name).click();page.keyboard.press('Tab')
+                assert page.evaluate('document.activeElement.closest("dialog")!==null')
+                page.keyboard.press('Escape');assert page.locator('#toolbar-'+name).evaluate('(e)=>document.activeElement===e')
+            page.locator('#board').focus();page.keyboard.press('Home')
+            page.mouse.move(190,300);anchor=page.evaluate('__b2zCamera.world(190,300)')
+            page.mouse.wheel(0,-240);page.wait_for_timeout(200)
+            actual=page.evaluate('__b2zCamera.world(190,300)');assert abs(actual['x']-anchor['x'])<.001 and abs(actual['y']-anchor['y'])<.001
+            assert page.locator('#minimap').is_visible()
+            before=page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y})')
+            page.mouse.move(180,400);page.mouse.down();page.mouse.move(280,450,steps=8);page.mouse.up()
+            assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y})')!=before
+            page.locator('#minimap').click(position={'x':25,'y':25})
+            page.locator('#board').focus();page.keyboard.press('Home')
+            record('modal-focus-restore-anchored-zoom-pan-and-minimap')
             page.set_viewport_size({'width':1440,'height':900})
 
+            page.locator('#toolbar-play').click()
             initial=page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')
             certificates=page.evaluate('globalThis.__dtrLive.certificates')
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.certificates')>certificates,15000)
             assert page.locator('body').get_attribute('data-phase')=='IDLE'
             assert page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')==initial
             assert page.locator('[data-copy="text"]').is_enabled()
+            assert not page.locator('#empty-arena').is_visible()
             record('fresh-idle-certificates-with-stable-publication-and-copyable-transfer')
             (out/'browser-connected').write_text('ready\n')
             wait_until(page,lambda:page.locator('#live-cannons tr').count()==1,60000)
@@ -205,16 +224,18 @@ def main():
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
             paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
             wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
-            receipts=page.locator('#live-receipts tr').all_inner_texts()
+            page.keyboard.press('Escape');page.locator('#toolbar-players').click()
+            receipts=page.locator('#live-receipts tr').evaluate_all('(rows)=>rows.map(r=>Array.from(r.cells,c=>c.textContent).join("\\t"))')
             for tx,kind in zip(paid,['Joined arena','Launched ball','Moved cannon']):
                 matching=[row for row in receipts if row.split('\t')[0]==str(tx)]
                 assert len(matching)==1 and 'Accepted' in matching[0] and kind in matching[0],receipts
             assert page.locator('#live-cannons tr').count()==1
-            assert 'Gameplay running' in page.locator('#service-status').text_content()
+            assert page.evaluate('globalThis.__dtrLive.operational?.run?.running ?? true')
             record('paid-join-ball-fallback-and-legal-move-visible-once',receipts)
             assert page.locator('#live-cannons').inner_text().find('0.4 ICP')>=0
             assert not page.locator('#empty-arena').is_visible()
             page.screenshot(path=str(out/'arcade-paid-cannon.png'),full_page=True)
+            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
             # A new ball changed its next price. The prepared amount must stay stable until refresh.
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
             assert page.locator('[data-copy="text"]').is_disabled()
@@ -224,9 +245,9 @@ def main():
             page.locator('#action-mode').select_option('move')
             page.locator('#move-cell').select_option(index=1)
             cell=int(page.locator('#move-cell').input_value())
-            page.locator('#board').scroll_into_view_if_needed();box=page.locator('#board').bounding_box()
-            size=min((box['width']-20)/16,(box['height']-20)/8);ox=(box['width']-size*16)/2;oy=(box['height']-size*8)/2
-            page.mouse.click(box['x']+ox+(cell%16+.5)*size,box['y']+oy+(cell//16+.5)*size)
+            page.locator('#pick-move').click()
+            point=page.evaluate('(cell)=>__b2zCamera.screen(cell%16+.5,Math.floor(cell/16)+.5)',cell)
+            page.mouse.click(point['x'],point['y'])
             assert page.locator('#move-cell').input_value()==str(cell)
             page.locator('#prepare-transfer').click()
             assert page.locator('#text-memo').inner_text()==f'MOVE {cell}'
@@ -237,17 +258,27 @@ def main():
             page.locator('#action-mode').select_option('start');assert page.locator('#angle-degrees').input_value()=='37.5'
             record('aim-survives-certified-state-updates-and-resize')
 
-            page.locator('.diagnostics').evaluate('(node)=>node.open=true')
+            page.keyboard.press('Escape')
+            # Inspect sustained populated motion in normal playback, rather than screenshots alone.
+            trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(45000)
             samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
+            steady=[x for x in samples if x['wall_ms']>trace_start+10000]
+            if len(steady)>2:
+                seconds=(steady[-1]['wall_ms']-steady[0]['wall_ms'])/1000
+                report['steady_playback']={'seconds':seconds,'produced_ticks_per_second':(steady[-1]['verified_ticks']-steady[0]['verified_ticks'])/seconds,'consumed_ticks_per_second':(steady[-1]['consumed_ticks']-steady[0]['consumed_ticks'])/seconds,'stalled_samples':sum(x['phase']=='STALLED' for x in steady),'buffer_min':min(x['buffer_ticks'] for x in steady),'buffer_max':max(x['buffer_ticks'] for x in steady),'fetch_ms_max':max(x['fetch_ms'] for x in steady),'verification_ms_max':max(x['verify_ms'] for x in steady),'artifact_ms_max':max(x['artifact_ms'] for x in steady),'backend_reported_ticks_per_second':(steady[-1]['backend_segments']-steady[0]['backend_segments'])*steady[-1]['segment_ticks']/seconds,'nominal_rate':steady[-1]['nominal_rate']}
+                assert report['steady_playback']['stalled_samples']==0,report['steady_playback']
             report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
+            page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',45000))
             wait_until(page,lambda:page.locator('#prepare-transfer').is_disabled(),20000)
+            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
             page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'
             assert not page.locator('#aim-pad').is_disabled()
             page.locator('#angle-degrees').fill('37.5')
             record('disconnected-local-aim-with-unavailable-payment-preparation')
             # Negative verification below also covers local aiming before authentication.
+            page.keyboard.press('Escape');page.locator('#toolbar-settings').click()
             page.locator('#network-pause').uncheck()
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.resyncs')>=1 and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=target,30000)
             heads=page.evaluate('globalThis.__dtrLive.heads.slice()');assert all(b>a for a,b in zip(heads,heads[1:])),heads
@@ -283,10 +314,11 @@ def main():
                     report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#error-text').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
                 assert negative.locator('[data-copy="recipient"]').is_disabled()
                 assert not negative.locator('#angle-degrees').is_disabled()
+                negative.locator('#toolbar-play').click()
                 negative.locator('#angle-degrees').fill('225')
                 assert negative.locator('#aim-preview').inner_text()=='ANGLE 225'
                 assert negative.locator('#prepare-transfer').is_disabled()
-                assert negative.locator('#live-status').inner_text()=='Connection error'
+                assert negative.locator('#live-status').inner_text()=='Disconnected'
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
                 if fault=='wrong-certificate-root':
                     message=negative.locator('#error-text').inner_text().lower()
@@ -297,7 +329,7 @@ def main():
             reduced=browser.new_context(reduced_motion='reduce');still=reduced.new_page();still.goto(url,timeout=30000)
             wait_until(still,lambda:still.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
             assert still.locator('body').get_attribute('data-phase')=='PAUSED'
-            wait_until(still,lambda:still.locator('#live-status').inner_text()=='Playback paused',15000)
+            wait_until(still,lambda:'Catching up' in still.locator('#live-status').inner_text(),15000)
             reduced.close();record('deployment-bundle-reduced-motion-pauses-playback')
 
             assert posts and all(url.endswith(('/query','/read_state')) for url in posts),posts
@@ -305,10 +337,12 @@ def main():
             assert page.evaluate("isSecureContext && typeof crypto.subtle.digest==='function'");assert not errors,errors
             page.screenshot(path=str(out/'deployment.png'),full_page=True)
             report['sandbox']=True;report['browser_version']=browser.version;report['status']='PASS';save()
-            (out/'browser-complete').write_text('PASS\n');browser.close();browser=None
+            (out/'browser-complete').write_text('PASS\n');context.close();browser.close();browser=None
         return 0
     except Exception as error:
         __import__('traceback').print_exc()
+        try:page.screenshot(path=str(out/'failure.png'),full_page=True)
+        except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
         if browser:

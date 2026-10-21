@@ -8,7 +8,7 @@ from verify_s14_local import wasm_exports
 ROOT=Path(__file__).resolve().parents[1]
 DTR='1f47c1a0a104875bd13475d561b8d5aa10770d99'
 PACKAGE_SHA='933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f'
-NORMAL_METHODS={'artifact_chunk','controller_work','lab_status','observation','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
+NORMAL_METHODS={'controller_runtime','artifact_chunk','controller_work','lab_status','observation','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def run(*command):return subprocess.check_output(command,cwd=ROOT,text=True,timeout=900).strip()
 def main():
