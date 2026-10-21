@@ -6,11 +6,17 @@ B2Z is an authoritative deterministic game on the Internet Computer. Players use
 
 The normative [application contract](docs/specs/B2Z_APPLICATION.md) specifies payment interpretation, pagination, sparse IDs, bounded staging, retries, retention and observer trust. The [operator runbook](docs/operations/S14_OPERATOR.md) contains phased deployment/funding commands, launch configuration, exact wallet play card, subscription and pause/upgrade procedures. All remote Git, funding and real-money operations belong to the user. Deploying reviewed code into the two existing mainnet canisters requires explicit user authorization; a destructive reset requires separate approval.
 
+## Arena and shared pacing
+
+The [live observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) fills the viewport, with Play, Players, Rules, View and Settings in local dialogs. Pan, zoom and the minimap change only the view. The bounded producer combines coordinator phases and advertises one shared cycle-aware pace; empty arenas still sleep. The current paid world remains **16×8, bounded v3**. Its legacy cannon has no authenticated last-heading field and therefore uses a neutral symbol.
+
+A **32×32 torus with persistent firing direction is implemented and locally tested, but not activated**. The pinned DTR host cannot commit a rules/schema epoch transition while preserving old commitments. See the [release evidence](checkpoints/B2Z_ARENA_CAMERA_AND_PACING.md), [pacing contract](docs/specs/B2Z_ARENA_AND_PACE.md) and [staged world/migration contract](docs/specs/B2Z_TORUS_V4.md). DTR is unchanged. Never reset the funded backend to bypass this transition boundary. New branch CI is NOT_RUN until the user pushes.
+
 ## B2Z naming and prefix-free memos
 
 The [public observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) prepares `ANGLE 37.5`, `ANGLE 225` and `MOVE 83`, with full-circle aiming and an authenticated action card. Adapter v3 accepts prefix-free text and published S15/binary/numeric compatibility. Backend `187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1` was upgraded in place before the frontend upload; state, scores, retained publications, source progress and identities were preserved. Prices remain 1 ICP to join, 0.1 ICP ball base and 0.0001 ICP MOVE, fees separate. DTR is unchanged.
 
-The checkout is now `/home/codexdev/src/b2z`. See the [grammar](docs/specs/B2Z_TEXT_MEMOS.md), [immutable identifier policy](docs/architecture/LEGACY_IDENTIFIERS.md), [release report/screenshots](checkpoints/B2Z_IDENTITY_AND_MEMOS.md) and [reviewed evidence](evidence/B2Z/release.json). Local real ledger/index transfers, exact S15 recovery, DFX asset hosting and actual public certificate/copy/aim/reconnect checks pass. New CI is **NOT_RUN** pending user push. No real prefix-free mainnet gameplay payment has been verified. Existing intermittent presentation buffering remains; physics/cadence are unchanged.
+The checkout is now `/home/codexdev/src/b2z`. See the [grammar](docs/specs/B2Z_TEXT_MEMOS.md), [immutable identifier policy](docs/architecture/LEGACY_IDENTIFIERS.md), [release report/screenshots](checkpoints/B2Z_IDENTITY_AND_MEMOS.md) and [reviewed evidence](evidence/B2Z/release.json). Local real ledger/index transfers, exact S15 recovery, DFX asset hosting and actual public certificate/copy/aim/reconnect checks pass. New CI is **NOT_RUN** pending user push. No real prefix-free mainnet gameplay payment has been verified. That historical release retained intermittent buffering; the arena/pacing release above corrects its sustained producer/playback mismatch without changing v3 physics.
 
 ## Live arcade / prelaunch release
 

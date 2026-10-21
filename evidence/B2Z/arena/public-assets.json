@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "source_commit": "c0cfc29eccffcc849c21a75fb3d3fa3ccc851c3c",
+  "source_dirty": false,
+  "assets": [
+    {
+      "name": "index.html",
+      "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+      "bytes": 15413,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "app.mjs",
+      "sha256": "8e1f38a45f34a5c253d7fd44ab291bc79f2e6a78bdf2906708b38d0160c5646b",
+      "bytes": 557968,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "style.css",
+      "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+      "bytes": 8044,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "icon.svg",
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "bytes": 235,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "configuration.bin",
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "bytes": 367,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "configuration-legacy.bin",
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "bytes": 368,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "configuration-torus.bin",
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "bytes": 386,
+      "http_status": 200,
+      "ic_certificate": true
+    },
+    {
+      "name": "deployment.json",
+      "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+      "bytes": 89,
+      "http_status": 200,
+      "ic_certificate": true
+    }
+  ]
+}

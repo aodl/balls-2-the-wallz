@@ -1,0 +1,10 @@
+[
+  {
+    "test": "torus_browser_scene",
+    "exit": 0
+  },
+  {
+    "test": "torus_all_player",
+    "exit": 0
+  }
+]

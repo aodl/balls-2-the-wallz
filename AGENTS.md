@@ -4,7 +4,7 @@ Use `STATUS.md` for current status and the relevant specification for the code b
 
 ## Product boundaries
 
-Preserve B2Z v3 state, scoring, original audit events and seal bytes. Publication remains v6; compact presentation remains `btz-animation-1`. Required conformance is public-output equality and each implementation's recovery, not identical private JS/Rust cursor bytes. Keep Life as the second-kernel boundary test and never rewrite historical goldens merely to match a port.
+Preserve B2Z v3 state, scoring, original audit events and seal bytes. The separately identified v4 torus is staged only; see `docs/specs/B2Z_TORUS_V4.md`. Pinned DTR cannot authorize its live history transition; never replace the paid world with a fresh constructor. Publication remains v6; compact presentation remains `btz-animation-1`. Required conformance is public-output equality and each implementation's recovery, not identical private JS/Rust cursor bytes. Keep Life as the second-kernel boundary test and never rewrite historical goldens merely to match a port.
 
 The observer never submits commands or makes gameplay decisions. Offline recording pins prove content consistency, not IC authenticity. The explicit S09 local mode verifies a pinned disposable-PocketIC root, canister identity, certificate freshness/delegation, the flat publication catalog and artifacts; it must never fall back to offline trust after an authentication error. HTTP browser mode must use the actual server, CSP and browser-native Web Crypto; fixture mode remains separately qualified.
 

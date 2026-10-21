@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "javascript_tests": 1349,
+  "python_tests": 137,
+  "rust": {
+    "workspace_mechanics": 11,
+    "workspace_protocol": 11,
+    "native_replay": 8,
+    "native_torus": 2,
+    "runtime_host": 18
+  },
+  "formatting": "PASS",
+  "historical_fixtures": "unchanged",
+  "remote_ci": "NOT_RUN"
+}

@@ -1,0 +1,186 @@
+{
+  "status": "PASS",
+  "mode": "BUILT_DEPLOYMENT_LIVE_LOCAL",
+  "checks": [
+    {
+      "name": "real-asset-build-and-mainnet-test-adapter-exclusion",
+      "status": "PASS",
+      "details": {
+        "source_commit": "caf3702b447bc145af380e87d858c1ce4ae4e050",
+        "source_dirty": true,
+        "canister_ids_sha256": "90813e3a66da5ea1b7a7e0ff188bdb03bc64269131b0ab16dead641deaff9c54",
+        "local_test_only": false,
+        "deployment": {
+          "network": "ic",
+          "host": "https://icp-api.io",
+          "canister_id": "s34gv-3qaaa-aaaar-qcifa-cai"
+        },
+        "inputs": [
+          "apps/b2z-observer/camera.mjs",
+          "apps/b2z-observer/shell.mjs",
+          "packages/kernels/b2z/math.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs",
+          "packages/protocol/memo.mjs",
+          "apps/b2z-observer/play-reference.mjs",
+          "apps/b2z-observer/arcade.mjs",
+          "apps/b2z-observer/configuration.generated.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/client/verification.mjs",
+          "apps/b2z-observer/transport.mjs",
+          "node_modules/@icp-sdk/core/lib/esm/principal/utils/base32.js",
+          "node_modules/@icp-sdk/core/lib/esm/principal/utils/getCrc.js",
+          "node_modules/@noble/hashes/_u64.js",
+          "node_modules/@noble/hashes/utils.js",
+          "node_modules/@noble/hashes/_md.js",
+          "node_modules/@noble/hashes/sha2.js",
+          "node_modules/@icp-sdk/core/lib/esm/principal/principal.js",
+          "node_modules/@icp-sdk/core/lib/esm/principal/index.js",
+          "node_modules/@dfinity/cbor/dist/cbor.mjs",
+          "node_modules/@icp-sdk/core/lib/esm/agent/errors.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/buffer.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/hash.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/bigint-math.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/leb128.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/idl.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/candid-core.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/candid-ui.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/types.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/expiry.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/cbor.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/leb.js",
+          "node_modules/@noble/curves/utils.js",
+          "node_modules/@noble/curves/abstract/modular.js",
+          "node_modules/@noble/curves/abstract/curve.js",
+          "node_modules/@noble/curves/abstract/hash-to-curve.js",
+          "node_modules/@noble/hashes/hmac.js",
+          "node_modules/@noble/curves/abstract/der.js",
+          "node_modules/@noble/curves/abstract/weierstrass.js",
+          "node_modules/@noble/curves/abstract/bls.js",
+          "node_modules/@noble/curves/abstract/tower.js",
+          "node_modules/@noble/curves/bls12-381.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/bls.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/buffer.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/constants.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/certificate.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/readState.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/api.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/request_id.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/auth.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/random.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/types.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/transforms.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/canisterStatus/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/subnetStatus/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/certificateReject.js",
+          "node_modules/@noble/curves/abstract/edwards.js",
+          "node_modules/@noble/curves/abstract/fft.js",
+          "node_modules/@noble/curves/abstract/frost.js",
+          "node_modules/@noble/curves/abstract/montgomery.js",
+          "node_modules/@noble/curves/abstract/oprf.js",
+          "node_modules/@noble/curves/ed25519.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/expirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/indexedDBExpirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/inMemoryExpirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/createExpirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/der.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/public_key.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/observable.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/polling/backoff.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/polling/strategy.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/target.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/polling/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/actor.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/fetch_candid.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/index.js",
+          "node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs",
+          "apps/b2z-observer/mainnet.mjs",
+          "apps/b2z-observer/deployment.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/client/playout.mjs",
+          "apps/b2z-observer/torus-identity.generated.mjs",
+          "packages/kernels/b2z/animation-projection.mjs",
+          "apps/b2z-observer/model.mjs",
+          "apps/b2z-observer/app.mjs"
+        ],
+        "configuration": "configuration.bin",
+        "files": {
+          "index.html": {
+            "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+            "bytes": 15413
+          },
+          "app.mjs": {
+            "sha256": "8e1f38a45f34a5c253d7fd44ab291bc79f2e6a78bdf2906708b38d0160c5646b",
+            "bytes": 557968
+          },
+          "style.css": {
+            "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+            "bytes": 8044
+          },
+          "icon.svg": {
+            "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+            "bytes": 235
+          },
+          "configuration.bin": {
+            "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+            "bytes": 367
+          },
+          "configuration-legacy.bin": {
+            "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+            "bytes": 368
+          },
+          "configuration-torus.bin": {
+            "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+            "bytes": 386
+          },
+          "deployment.json": {
+            "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+            "bytes": 89
+          },
+          ".ic-assets.json5": {
+            "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+            "bytes": 1214
+          }
+        },
+        "npm_lock_sha256": "67c63e19e7373a1c335fe389fe12e79503ba713d30b98c02e1d8481f2c8710ac"
+      }
+    },
+    {
+      "name": "corner-seam-camera-hit-test-prepares-the-underlying-cell-once",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "populated-torus-playback-at-its-supported-shared-pace",
+      "status": "PASS",
+      "details": {
+        "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+        "seconds": 29.048800000000004,
+        "verified_ticks_per_second": 0.4819476191787612,
+        "displayed_ticks_per_second": 0.4890343206273387,
+        "stalled_samples": 0,
+        "nominal_rate": 0.5
+      }
+    },
+    {
+      "name": "native-dialogs-do-not-pause-shared-gameplay",
+      "status": "PASS",
+      "details": ""
+    }
+  ],
+  "qualification": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.",
+  "production_permissions_policy": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+  "recording_playback_start_ms": 16628,
+  "scene": {
+    "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+    "seconds": 29.048800000000004,
+    "verified_ticks_per_second": 0.4819476191787612,
+    "displayed_ticks_per_second": 0.4890343206273387,
+    "stalled_samples": 0,
+    "nominal_rate": 0.5
+  },
+  "sandbox": true,
+  "page_errors": []
+}

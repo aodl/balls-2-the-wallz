@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "qualification": "Actual mainnet wall time; quiescent boundaries exclude outstanding execution/call reservation swings. Includes bounded controller measurement and independent Index costs. No funds or cycles transferred.",
+  "before": {
+    "samples": [
+      {
+        "balance": 1478180808414,
+        "utc": "2026-10-21T21:58:51.257982+00:00",
+        "monotonic": 103909.983559449
+      },
+      {
+        "balance": 1478175724393,
+        "utc": "2026-10-21T21:58:54.411905+00:00",
+        "monotonic": 103913.137458835
+      },
+      {
+        "balance": 1478170640372,
+        "utc": "2026-10-21T21:58:57.870762+00:00",
+        "monotonic": 103916.596318311
+      },
+      {
+        "balance": 1478165556351,
+        "utc": "2026-10-21T21:59:00.706030+00:00",
+        "monotonic": 103919.431586814
+      }
+    ],
+    "peak": {
+      "balance": 1478180808414,
+      "utc": "2026-10-21T21:58:51.257982+00:00",
+      "monotonic": 103909.983559449
+    },
+    "segments": 12764,
+    "callbacks": 38162,
+    "index_calls": 1084,
+    "source_cursor": 39526412,
+    "phase_instructions": {
+      "seal_instructions": 776032577,
+      "step_instructions": 1894691674,
+      "publish_instructions": 1336580263,
+      "max_instructions": 74268056
+    }
+  },
+  "after": {
+    "samples": [
+      {
+        "balance": 1471895058027,
+        "utc": "2026-10-21T22:02:13.506587+00:00",
+        "monotonic": 104112.232147327
+      },
+      {
+        "balance": 1471875632197,
+        "utc": "2026-10-21T22:02:16.435988+00:00",
+        "monotonic": 104115.161544727
+      },
+      {
+        "balance": 1471870548176,
+        "utc": "2026-10-21T22:02:19.724221+00:00",
+        "monotonic": 104118.449778337
+      },
+      {
+        "balance": 1471863573583,
+        "utc": "2026-10-21T22:02:22.765035+00:00",
+        "monotonic": 104121.490590857
+      }
+    ],
+    "peak": {
+      "balance": 1471895058027,
+      "utc": "2026-10-21T22:02:13.506587+00:00",
+      "monotonic": 104112.232147327
+    },
+    "segments": 12787,
+    "callbacks": 38185,
+    "index_calls": 1088,
+    "source_cursor": 39526412,
+    "phase_instructions": {
+      "seal_instructions": 1004703652,
+      "step_instructions": 2445035805,
+      "publish_instructions": 1724790710,
+      "max_instructions": 74268056
+    }
+  },
+  "seconds": 202.24858787799894,
+  "segments": 23,
+  "cycles_spent": 6285750387,
+  "cycles_per_second": 31079328.923629917,
+  "cycles_per_segment": 273293495.0869565,
+  "phase_instruction_deltas": {
+    "seal_instructions": 228671075,
+    "step_instructions": 550344131,
+    "publish_instructions": 388210447
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "callbacks": 48,
+    "cycles": "2605119416",
+    "cycles_per_second": 54273320.51425613,
+    "cycles_per_segment": 162819963,
+    "name": "prior-one-phase",
+    "segments": 16,
+    "ticks": 32,
+    "virtual_seconds": 48.000000577
+  },
+  {
+    "callbacks": 16,
+    "cycles": "1487545955",
+    "cycles_per_second": 49584864.56999546,
+    "cycles_per_segment": 92971622,
+    "name": "bounded-driver",
+    "segments": 16,
+    "ticks": 32,
+    "virtual_seconds": 30.000000361
+  }
+]

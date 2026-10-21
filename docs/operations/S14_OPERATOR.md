@@ -1,3 +1,15 @@
+# Arena and pacing release — current operation
+
+**2026-10-21:** backend `53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec` was upgraded in place on `s34gv-3qaaa-aaaar-qcifa-cai`. The paid v3 world, scores, source cursor, identities, unfinished work and retained bytes were compared before/after. Arena assets are on the existing observer. [Current report](../../checkpoints/B2Z_ARENA_CAMERA_AND_PACING.md) records exact source/assets, public verification and cycle measurements; it supersedes historical release hashes below.
+
+The current shared pace is selected from liquid cycles using hysteresis. Public status exposes only the mode/rate/admission hint; `controller_runtime` holds exact balances and phase counters. Reserve protection retains admitted inputs, holds newer public transfers in the official Index when calls are unaffordable and disables actionable frontend preparation. Never lower freezing settings or transfer funds as an automatic repair. Empty healthy arenas retain their certified publication and independent 60-second Index polling without simulation callbacks. Browser closure and dialogs do not pause shared play.
+
+**Do not deploy a fresh v4 world to the funded backend.** The locally tested 32×32 torus and heading schema need the [narrow authenticated DTR transition](../specs/B2Z_TORUS_V4.md). DTR is unchanged. Existing frontend assets can understand that staged version, but certified identity/configuration decide which world is displayed. A v4 constructor or v4-to-v4 local upgrade does not prove v3-to-v4 migration support.
+
+For this release, use only the exact frozen normal module recorded in evidence, never a later test build. Verify both aliases first, pause the existing run without resetting inputs, compare all certified/retained artifacts and controller work, upgrade explicitly in place, compare again, then resume. The reviewed asset-only route is `NPM_CONFIG_IF_PRESENT=true dfx --identity codex_local deploy observer --network ic --mode upgrade --no-asset-upgrade --no-wallet`; it targets only the existing observer. Do not deploy `--all`. Mainnet code upgrades need explicit task authorization; remote Git, real gameplay transfers and top-ups remain user-owned.
+
+---
+
 # Current B2Z upgrade procedure
 
 **Completed, 2026-10-20:** backend `187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1` and prefix-free B2Z observer assets are deployed on the same two principals. Exact installed-S15 local recovery and public mainnet verification pass. [Release report](../../checkpoints/B2Z_IDENTITY_AND_MEMOS.md) / [evidence](../../evidence/B2Z/release.json). No reset or funds transfer occurred.

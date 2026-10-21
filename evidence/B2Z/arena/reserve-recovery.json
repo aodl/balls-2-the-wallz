@@ -1,0 +1,9 @@
+{
+  "clock": "PocketIC virtual time; not mainnet wall time",
+  "index_pending_payments": 1,
+  "max_message_instructions": 158967716,
+  "max_phase_actions": 5,
+  "reserve_payments_preserved": 2,
+  "status": "PASS",
+  "topup_recovery": true
+}

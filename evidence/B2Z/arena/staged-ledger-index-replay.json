@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "segments": 31,
+  "assigned": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+  "work_budget": 23
+}

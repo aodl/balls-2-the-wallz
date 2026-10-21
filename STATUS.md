@@ -1,3 +1,13 @@
+# Current status — arena and shared pacing live; torus staged
+
+**2026-10-21:** viewport arena, native control dialogs, camera/minimap and bounded cycle-aware pacing are live on the existing two canisters. Backend module `53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec`; frontend clean source `c0cfc29eccffcc849c21a75fb3d3fa3ccc851c3c`. In-place upgrade preserved certified world/scores/retained bytes/source and unfinished work. Prices, memos, receiving account and controllers are unchanged.
+
+Final mainnet trace: 89.55s, 0.246 produced / 0.248 displayed ticks/s, **zero stalls**, Conserve 0.25 target; public certificates/assets/copy/reconnect pass. Matched local same-state cost is **42.9% lower per segment**; Economy/Conserve spend **48.0%/73.0% less per virtual second**. Latest active management balance 1,390,887,289,912 cycles (2026-10-21T22:42:53.845649+00:00; reservations can affect active readings). Official Index healthy, cursor 39,526,412, one paid cannon/ball, received 1 ICP. No mainnet transfer/reset or remote Git action occurred.
+
+**DTR CHANGE REQUIRED before world activation.** The 32×32 torus, persistent accepted cannon heading and placement helper pass local replay, actual ledger/index and browser/upgrade tests. They remain staged because the pinned DTR cannot authenticate a rules/schema epoch transition. Live world remains 16×8 bounded v3; historical direction stays neutral. No DTR changes or hidden overrides. [Report/screenshots/videos](checkpoints/B2Z_ARENA_CAMERA_AND_PACING.md), [reviewed evidence](evidence/B2Z/arena/verification.json), [staged contract](docs/specs/B2Z_TORUS_V4.md). Local regressions: 1,349 JS / 137 Python plus workspace/native/host Rust PASS. New remote CI: NOT_RUN until user push.
+
+---
+
 # Current status — empty-arena idle mode deployed
 
 **PASS, 2026-10-21.** The existing backend now runs `1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3`, followed by verified frontend assets. Empty enabled arenas stop simulation timers while preserving certified publications; the independent 60-second ICP Index poll wakes gameplay for every admitted payment. Active physics, cadence, economics, memos, source/history and DTR remain unchanged. Stable maintenance touches allocated chunk keys.

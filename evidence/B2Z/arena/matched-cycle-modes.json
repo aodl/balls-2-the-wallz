@@ -1,0 +1,33 @@
+{
+  "clock": "PocketIC virtual time; not mainnet wall time",
+  "modes": [
+    {
+      "cycles": "1491034358",
+      "cycles_per_second": 49701144.66859622,
+      "mode": "Normal",
+      "rate": 1.0666666538311111,
+      "seconds": 30.000000361,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "cycles": "1551172274",
+      "cycles_per_second": 25852870.922668003,
+      "mode": "Economy",
+      "rate": 0.5333333269244446,
+      "seconds": 60.000000721,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "cycles": "1611352238",
+      "cycles_per_second": 13427935.155419545,
+      "mode": "Conserve",
+      "rate": 0.2666666634644445,
+      "seconds": 120.000001441,
+      "segments": 16,
+      "ticks": 32
+    }
+  ],
+  "status": "PASS"
+}

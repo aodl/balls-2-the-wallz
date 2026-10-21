@@ -1,0 +1,193 @@
+{
+  "status": "PASS_FOR_DEPLOYED_UI_AND_PACING; WORLD_ACTIVATION_BLOCKED",
+  "recorded_at": "2026-10-21T22:42:53.845649+00:00",
+  "checkout": "/home/codexdev/src/b2z",
+  "branch": "checkpoint/b2z-arena-camera-and-pacing",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "backend_module_sha256": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+  "backend_source_commit": "caf3702b447bc145af380e87d858c1ce4ae4e050",
+  "frontend": "s45ab-wiaaa-aaaar-qcifq-cai",
+  "frontend_module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "frontend_source_commit": "c0cfc29eccffcc849c21a75fb3d3fa3ccc851c3c",
+  "frontend_app_sha256": "8e1f38a45f34a5c253d7fd44ab291bc79f2e6a78bdf2906708b38d0160c5646b",
+  "public_assets_match_frozen": true,
+  "backend_balance_reported_cycles": "1390887289912",
+  "balance_qualification": "Management status while active; outstanding call/execution reservations may temporarily reduce displayed balance. Not a cost-delta endpoint.",
+  "controllers_unchanged": true,
+  "compute_allocation": 0,
+  "memory_allocation": 0,
+  "freezing_threshold_seconds": 2592000,
+  "memory_bytes": 28864294,
+  "idle_cycles_per_day": "4188345346",
+  "preservation": {
+    "status": "PASS",
+    "world_scores_events_and_publication_identical": true,
+    "all_retained_bytes_identical": true,
+    "source_descriptor_cursor_identical": true,
+    "unfinished_stage_and_controller_work_identical": true,
+    "controllers_and_resource_settings_identical": true,
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "module": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec"
+  },
+  "progression": [
+    {
+      "certificate_verified": true,
+      "recorded_at": "2026-10-21T22:39:19.202Z",
+      "publication_segment": "13063",
+      "publication_identity": {
+        "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+        "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+      },
+      "world_version": 3,
+      "dimensions": [
+        16,
+        8
+      ],
+      "time": [
+        "26128",
+        "1"
+      ],
+      "cannons": 1,
+      "balls": 1,
+      "received_e8s": "100000000",
+      "credits": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "9268666496",
+            "18067"
+          ]
+        }
+      ],
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "subaccount": "0",
+        "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+      },
+      "status": {
+        "run": {
+          "last_error": [],
+          "idle": false,
+          "pace": {
+            "nominal_milli": 250,
+            "mode": "Conserve",
+            "admission_open": true
+          },
+          "segment_ticks": "2",
+          "completed_segments": "13064",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "39526412"
+        }
+      }
+    },
+    {
+      "certificate_verified": true,
+      "recorded_at": "2026-10-21T22:42:10.035Z",
+      "publication_segment": "13083",
+      "publication_identity": {
+        "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+        "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+      },
+      "world_version": 3,
+      "dimensions": [
+        16,
+        8
+      ],
+      "time": [
+        "26168",
+        "1"
+      ],
+      "cannons": 1,
+      "balls": 1,
+      "received_e8s": "100000000",
+      "credits": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "9361169536",
+            "18067"
+          ]
+        }
+      ],
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "subaccount": "0",
+        "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+      },
+      "status": {
+        "run": {
+          "last_error": [],
+          "idle": false,
+          "pace": {
+            "nominal_milli": 250,
+            "mode": "Conserve",
+            "admission_open": true
+          },
+          "segment_ticks": "2",
+          "completed_segments": "13085",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "39526412"
+        }
+      }
+    }
+  ],
+  "browser": {
+    "seconds": 89.54639999999999,
+    "produced_verified_ticks_per_second": 0.24568268517774028,
+    "backend_reported_ticks_per_second": 0.24568268517774028,
+    "displayed_ticks_per_second": 0.24775421452683863,
+    "stalled_samples": 0,
+    "nominal_rate": 0.25,
+    "min_buffer": 1.687383382992266
+  },
+  "live_world": "16x8 bounded v3, historical direction unknown",
+  "staged_world": "32x32 torus v4, optional persistent accepted heading, locally tested only",
+  "staged_browser": {
+    "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+    "seconds": 29.048800000000004,
+    "verified_ticks_per_second": 0.4819476191787612,
+    "displayed_ticks_per_second": 0.4890343206273387,
+    "stalled_samples": 0,
+    "nominal_rate": 0.5,
+    "backend_reported_ticks_per_second": 0.4819476191787612,
+    "buffer_min": 2.120886746195435,
+    "buffer_max": 4.251133303349885,
+    "fetch_ms_max": 1155.7000000029802,
+    "verify_ms_max": 424.5,
+    "artifact_ms_max": 430.20000000298023
+  },
+  "transition": "BLOCKED: pinned DTR lacks atomic authenticated history/identity transition; B2Z placement candidate explicitly non-deployable",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "dtr_changes": "NONE",
+  "real_mainnet_gameplay_transfer": "NOT_RUN",
+  "remote_git": "NOT_RUN",
+  "remote_ci": "NOT_RUN",
+  "prices": {
+    "join_e8s": "100000000",
+    "ball_base_e8s": "10000000",
+    "move_e8s": "10000",
+    "ball_multiplier": "active_count_squared",
+    "wallet_fees": "separate",
+    "refunds_and_automatic_payouts": false
+  }
+}

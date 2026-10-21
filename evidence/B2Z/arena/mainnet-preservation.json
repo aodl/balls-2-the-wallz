@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "world_scores_events_and_publication_identical": true,
+  "all_retained_bytes_identical": true,
+  "source_descriptor_cursor_identical": true,
+  "unfinished_stage_and_controller_work_identical": true,
+  "controllers_and_resource_settings_identical": true,
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "module": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec"
+}
