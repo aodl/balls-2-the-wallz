@@ -187,10 +187,16 @@ def main():
             page.set_viewport_size({'width':1440,'height':900})
 
             initial=page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')
-            wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)') is not None and page.evaluate('globalThis.__dtrLive.heads.at(-1)')>initial,30000)
-            record('fresh-publications-after-browser-connection')
+            certificates=page.evaluate('globalThis.__dtrLive.certificates')
+            wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.certificates')>certificates,15000)
+            assert page.locator('body').get_attribute('data-phase')=='IDLE'
+            assert page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')==initial
+            assert page.locator('[data-copy="text"]').is_enabled()
+            record('fresh-idle-certificates-with-stable-publication-and-copyable-transfer')
             (out/'browser-connected').write_text('ready\n')
             wait_until(page,lambda:page.locator('#live-cannons tr').count()==1,60000)
+            assert page.evaluate('globalThis.__dtrLive.heads.at(-1)')>initial
+            record('first-index-payment-wakes-idle-arena')
             page.screenshot(path=str(out/'arcade-first-cannon.png'),full_page=True)
             page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1')
             page.locator('#prepare-transfer').click()

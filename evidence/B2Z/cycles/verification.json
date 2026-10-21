@@ -1,0 +1,905 @@
+{
+  "status": "PASS_DEPLOYED",
+  "implementation_commit": "77be7d27611b174e2a61f4bbbb39d3cb371e3a35",
+  "dtr_changes": "NONE",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "frontend": "s45ab-wiaaa-aaaar-qcifq-cai",
+  "installed_backend_sha256": "1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3",
+  "candidate_backend_sha256": "1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3",
+  "candidate_observer_app_sha256": "febb60ba437c5566662551eae88df4fb0694c3af761b02eef016284876b7dea0",
+  "mainnet": {
+    "upgrade": "PASS_STATE_PRESERVING",
+    "frontend_upload": "PASS_FROZEN_ASSETS",
+    "receiving_account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+    "user_cycle_topup": "User confirmed topped up; restored execution. No funds transferred by Codex.",
+    "baseline": {
+      "before": {
+        "label": "funded-before",
+        "start_epoch": 1792602977.87734,
+        "end_epoch": 1792602980.086761,
+        "cycles": 2398188312592,
+        "idle_cycles_per_day": 4186865195,
+        "callbacks": 32520,
+        "segments": 10840,
+        "index_calls": 801,
+        "total_work": 1420040,
+        "source_cursor": 0,
+        "running": true,
+        "errors": [
+          "null",
+          "null"
+        ]
+      },
+      "after": {
+        "label": "funded-running-b",
+        "start_epoch": 1792603180.243506,
+        "end_epoch": 1792603182.126626,
+        "cycles": 2380918473907,
+        "idle_cycles_per_day": 4186865195,
+        "callbacks": 32665,
+        "segments": 10888,
+        "index_calls": 804,
+        "total_work": 1426328,
+        "source_cursor": 0,
+        "idle": false,
+        "running": true,
+        "errors": [
+          "null",
+          "null"
+        ]
+      },
+      "seconds": 202.36616587638855,
+      "cycles": 17269838685,
+      "cycles_per_second": 85339555.70195933,
+      "callbacks": 145,
+      "completed_segments": 48,
+      "index_calls": 3,
+      "total_work": 6288
+    },
+    "idle_browser_closed": {
+      "before": {
+        "label": "idle-closed-a",
+        "start_epoch": 1792603383.735759,
+        "end_epoch": 1792603387.9378176,
+        "cycles": 2349528671659,
+        "idle_cycles_per_day": 4182689072,
+        "callbacks": 32667,
+        "segments": 10889,
+        "index_calls": 809,
+        "total_work": 1426459,
+        "source_cursor": 0,
+        "idle": true,
+        "running": true,
+        "errors": [
+          "null",
+          "null"
+        ]
+      },
+      "after": {
+        "label": "idle-closed-b",
+        "start_epoch": 1792603591.7711396,
+        "end_epoch": 1792603593.8282578,
+        "cycles": 2349043894555,
+        "idle_cycles_per_day": 4182689072,
+        "callbacks": 32667,
+        "segments": 10889,
+        "index_calls": 812,
+        "total_work": 1426459,
+        "source_cursor": 0,
+        "idle": true,
+        "running": true,
+        "errors": [
+          "null",
+          "null"
+        ]
+      },
+      "seconds": 208.03538060188293,
+      "cycles": 484777104,
+      "cycles_per_second": 2330262.778367096,
+      "callbacks": 0,
+      "completed_segments": 0,
+      "index_calls": 3,
+      "total_work": 0
+    },
+    "idle_burn_reduction_percent": 97.26942241590133,
+    "cycles_at_last_reading": 2349043894555,
+    "installed_backend_sha256": "1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3",
+    "frontend_module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "observer_app_sha256": "febb60ba437c5566662551eae88df4fb0694c3af761b02eef016284876b7dea0",
+    "preservation": {
+      "status": "PASS",
+      "publication_artifacts_retention_exact": true,
+      "source_identity_config_world_scores_equal": true,
+      "controllers_equal": true,
+      "controller_work_exact": true,
+      "head": {
+        "logical_end": "21776",
+        "manifest_hash": "acd324019370db7cd710babe818f686d3927f5ad7b361a35c1e3fad2e45fdf94",
+        "seal": {
+          "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "21776",
+          "logical_start": "21774",
+          "previous_manifest": "ccde9b9b767883ba413d941e98e1149e94faf4d00bc6591034aff07eb7ce889f",
+          "previous_state": "f065bc6dc4e7964233c8c1b54b48964b867fbcdf1ca8f0ce36e4078af9d93baa",
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+          "segment_id": "10887",
+          "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+          "source_from": "0",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+          "source_to_exclusive": "0"
+        },
+        "segment_id": "10887",
+        "source_to_exclusive": "0",
+        "state_hash": "8c684091706fdedd904cfeb54e079909af4ea982fa1baec47a7935898201abe2"
+      },
+      "identity": {
+        "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+        "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+      },
+      "retained": {
+        "max_segments": 3,
+        "max_bytes": 8388608,
+        "retained_bytes": 7926,
+        "entries": [
+          {
+            "segment_id": 10885,
+            "publication_hash": "47551c4abcc6590ea44e1d85408f2c021ed515d4cbce41eec518a9e75f4d3edb",
+            "bytes": 2642,
+            "current": false
+          },
+          {
+            "segment_id": 10886,
+            "publication_hash": "8270de8f023ec0068da39021c28d368cc48e0db312ffa940d1a68583c44796ae",
+            "bytes": 2642,
+            "current": false
+          },
+          {
+            "segment_id": 10887,
+            "publication_hash": "81bd4c40f2456eb0a016ead5c94102f06fe1cdcfe1d39a615bb8a16d6ed30204",
+            "bytes": 2642,
+            "current": true
+          }
+        ]
+      },
+      "before_run": {
+        "label": "paused-before-install",
+        "start_epoch": 1792603190.1636908,
+        "end_epoch": 1792603192.2692275,
+        "cycles": 2380643761646,
+        "idle_cycles_per_day": 4186865195,
+        "callbacks": 32666,
+        "segments": 10888,
+        "index_calls": 804,
+        "total_work": 1426459,
+        "source_cursor": 0,
+        "idle": false,
+        "running": false,
+        "errors": [
+          "null",
+          "null"
+        ]
+      },
+      "after_run": {
+        "label": "paused-after-install",
+        "start_epoch": 1792603242.093011,
+        "end_epoch": 1792603244.033778,
+        "cycles": 2350137932913,
+        "idle_cycles_per_day": 4182689072,
+        "callbacks": 32666,
+        "segments": 10888,
+        "index_calls": 806,
+        "total_work": 1426459,
+        "source_cursor": 0,
+        "idle": false,
+        "running": false,
+        "errors": [
+          "null",
+          "null"
+        ]
+      }
+    },
+    "public_assets": {
+      "status": "PASS",
+      "files": {
+        "index.html": {
+          "sha256": "413ffaf14f76721baaaff6f5ebbbdc5bae72801e6741aadb7e7783a373445bde",
+          "ic_certificate": true,
+          "content_type": "text/html"
+        },
+        "app.mjs": {
+          "sha256": "febb60ba437c5566662551eae88df4fb0694c3af761b02eef016284876b7dea0",
+          "ic_certificate": true,
+          "content_type": "application/javascript"
+        },
+        "style.css": {
+          "sha256": "0448a464cf0d925c6cfdcd5b90dc141aa875463960e331db03ddb532206cdf64",
+          "ic_certificate": true,
+          "content_type": "text/css"
+        },
+        "configuration.bin": {
+          "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "ic_certificate": true,
+          "content_type": "application/octet-stream"
+        },
+        "configuration-legacy.bin": {
+          "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "ic_certificate": true,
+          "content_type": "application/octet-stream"
+        },
+        "deployment.json": {
+          "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+          "ic_certificate": true,
+          "content_type": "application/json"
+        },
+        "icon.svg": {
+          "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+          "ic_certificate": true,
+          "content_type": "image/svg+xml"
+        }
+      }
+    },
+    "browser": {
+      "status": "PASS",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+      "sandbox": true,
+      "browser_version": "153.0.8010.12",
+      "headers": {
+        "access-control-allow-origin": "*",
+        "access-control-expose-headers": "accept-ranges, content-length, content-range, x-request-id, x-ic-canister-id",
+        "content-encoding": "gzip",
+        "content-length": "4994",
+        "content-security-policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Wed, 21 Oct 2026 17:22:08 GMT",
+        "ic-certificate": "version=2, certificate=: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:, tree=:2dn3gwGCBFgg5AD+y2eXfYr9ahsjIAsB2YfM3ARCgVEUFiO0JjZ2MZyDAklodHRwX2V4cHKDAYMBgwJAgwJDPCQ+gwGDAlggiz+kFAmzwEKaattft3q4pBklAV9GoeJP+ILaQb3u1XqDAkCDAYMCWCBSaK6oPkiNL+krGHBdLf5V1ZDNhgW7D7oshEYUrGj+BYIDQIMCWCD3BTHiiOnyIKaRNhFy1oYhT1+2Z7XXN22Jl3/6RAxUYIIDQIMCWCDDBoMy8IBJDNmi2bFehizJZSOK1yegP7c07+8OF+qKE4MCQIMBgwJYIJsIMrq+z9aAXepmLCSvvGLwQ/q/Gyh6eRQQhfTfl/W8ggNAgwJYIMuvAMI/5K7oetz1v9cecBLbU+iHn7sfF0YYg+M9sHEHggNAggRYIMIhUxRQXj1VVcX5hAXu3tHQ6aSVsefiXGMMYQh+FFmPggRYIHwJULeBBNU21U8el8b3DG+WhI9RTo+cg5QpZExNX/AR:, expr_path=:2dn3g2lodHRwX2V4cHJgYzwkPg==:",
+        "ic-certificateexpression": "default_certification(ValidationArgs{certification: Certification{no_request_certification: Empty{}, response_certification: ResponseCertification{certified_response_headers: ResponseHeaderList{headers: [\"content-type\", \"content-encoding\", \"Content-Security-Policy\", \"Permissions-Policy\", \"Referrer-Policy\", \"Set-Cookie\", \"Strict-Transport-Security\", \"X-Content-Type-Options\", \"X-Frame-Options\", \"X-XSS-Protection\"]}}}})",
+        "permissions-policy": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+        "referrer-policy": "no-referrer",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "vary": "origin, access-control-request-method, access-control-request-headers",
+        "x-cache-ttl": "10",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "x-ic-canister-id": "s45ab-wiaaa-aaaar-qcifq-cai",
+        "x-request-id": "01a15f7c-0d6b-76b3-9abd-ab5db1371390",
+        "x-xss-protection": "1; mode=block"
+      },
+      "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "join_price": "1 ICP",
+      "configuration_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "memo": "ANGLE 37.5",
+      "copied": [
+        {
+          "field": "text",
+          "value": "ANGLE 37.5"
+        },
+        {
+          "field": "owner",
+          "value": "s34gv-3qaaa-aaaar-qcifa-cai"
+        },
+        {
+          "field": "amount",
+          "value": "1"
+        },
+        {
+          "field": "recipient",
+          "value": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+        },
+        {
+          "field": "hex",
+          "value": "414e474c452033372e35"
+        }
+      ],
+      "pointer_angles": [
+        0.0,
+        37.5,
+        90.0,
+        135.0,
+        180.0,
+        225.0,
+        270.0,
+        315.0,
+        359.99
+      ],
+      "keyboard": true,
+      "touch": true,
+      "offline_local_aim_and_payment_gating": true,
+      "reconnect_selection_preserved": true,
+      "arena_intentionally_idle": true,
+      "fresh_certificate_without_new_segment": true,
+      "first_head": 10888,
+      "before_offline": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          10888
+        ],
+        "resyncs": 0,
+        "certificates": 14,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "playback": {
+          "wall_ms": 17113.2,
+          "verified_ticks": 21778,
+          "consumed_ticks": 21778,
+          "buffer_ticks": 0,
+          "phase": "IDLE",
+          "rate": 1
+        }
+      },
+      "final": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          10888
+        ],
+        "resyncs": 0,
+        "certificates": 15,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "playback": {
+          "wall_ms": 37779,
+          "verified_ticks": 21778,
+          "consumed_ticks": 21778,
+          "buffer_ticks": 0,
+          "phase": "IDLE",
+          "rate": 1
+        }
+      },
+      "post_count": 47,
+      "all_posts_read_only": true,
+      "page_errors": [],
+      "screenshots": [
+        "mainnet-1440x900.png",
+        "mainnet-768x1024.png",
+        "mainnet-390x844.png"
+      ],
+      "real_gameplay_transfer": "NOT_RUN; no funds sent",
+      "trust": "Standard SDK mainnet root; no substitute root, fetchRootKey or proxy"
+    },
+    "certified_idle": {
+      "retained": null,
+      "status": {
+        "run": {
+          "last_error": [],
+          "idle": true,
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "0"
+        }
+      },
+      "recorded_at": "2026-10-21T17:26:38.200Z",
+      "certificate_verified": true,
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "subaccount": "0",
+        "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+      },
+      "publication": {
+        "artifacts": [
+          {
+            "chunks": [
+              "ab3fd739243dbfd83246a03002270b3c88043065acbd30950a39e27dfe48cf92"
+            ],
+            "kind": "state",
+            "length": 485,
+            "sha256": "ab3fd739243dbfd83246a03002270b3c88043065acbd30950a39e27dfe48cf92"
+          },
+          {
+            "chunks": [
+              "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1"
+            ],
+            "kind": "events",
+            "length": 39,
+            "sha256": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1"
+          },
+          {
+            "chunks": [
+              "936ee9bfa2bf41852d652cdd20ed8023cae8f326d42362832a3cd109438e0cbd"
+            ],
+            "kind": "scores",
+            "length": 28,
+            "sha256": "936ee9bfa2bf41852d652cdd20ed8023cae8f326d42362832a3cd109438e0cbd"
+          }
+        ],
+        "chunk_bytes": 16384,
+        "head": {
+          "logical_end": "21778",
+          "manifest_hash": "90b5a3fac763ecd0ed68c4f61e79ec57c8f8e4bbeb22fa0b2cbbffc55fb876ed",
+          "seal": {
+            "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "21778",
+            "logical_start": "21776",
+            "previous_manifest": "acd324019370db7cd710babe818f686d3927f5ad7b361a35c1e3fad2e45fdf94",
+            "previous_state": "8c684091706fdedd904cfeb54e079909af4ea982fa1baec47a7935898201abe2",
+            "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+            "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+            "segment_id": "10888",
+            "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+            "source_from": "0",
+            "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+            "source_to_exclusive": "0"
+          },
+          "segment_id": "10888",
+          "source_to_exclusive": "0",
+          "state_hash": "ab3fd739243dbfd83246a03002270b3c88043065acbd30950a39e27dfe48cf92"
+        },
+        "identity": {
+          "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "render_format": null,
+        "version": 6
+      },
+      "world": {
+        "balls": [],
+        "cannons": [],
+        "cells": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "credits": [],
+        "height": 8,
+        "next_ball_id": 1,
+        "next_cannon_id": 1,
+        "next_strike_id": 1,
+        "pending": [],
+        "received_e8s": "0",
+        "time": [
+          "21778",
+          "1"
+        ],
+        "version": 3,
+        "width": 16
+      },
+      "scores": {
+        "area_time": [],
+        "version": 3
+      },
+      "events": {
+        "events": [],
+        "receipts": [],
+        "version": 3
+      },
+      "index_history": {
+        "Ok": {
+          "balance": "0",
+          "transactions": [],
+          "oldest_tx_id": []
+        }
+      },
+      "index_history_complete": true
+    },
+    "qualification": "Before: healthy enabled old module after user funding, no browser. After: enabled intentionally idle candidate with our browser closed; no gameplay transfers. Includes three independent Index polls and ordinary storage/measurement costs. The paused upgrade and one-time installation cost are outside both windows. Calls take finite time; rates use sample-start intervals. Populated mainnet cost is not measured because no real gameplay transfers were sent.",
+    "final_certificate_verified": true
+  },
+  "local_cost": {
+    "qualification": "Actual PocketIC application-subnet cycle_balance deltas over 180 seconds of virtual IC time; not mainnet post-upgrade measurements. Old module is the exact installed 187df3 artifact. Active windows restore the same canister snapshot before upgrading; world including credits compares exactly. Index polling remains enabled. Phase buckets include associated timer/coordinator/persistence costs; poll-overlap buckets include concurrent phase work and are not pure Index attribution.",
+    "windows": [
+      {
+        "callbacks": 180,
+        "cycle_buckets": {
+          "index-poll-overlap": {
+            "cycles": "335924973",
+            "seconds": 4
+          },
+          "publish": {
+            "cycles": "2862717221",
+            "seconds": 60
+          },
+          "seal": {
+            "cycles": "2135884625",
+            "seconds": 56
+          },
+          "step": {
+            "cycles": "2844863248",
+            "seconds": 60
+          }
+        },
+        "cycles": "8179390067",
+        "cycles_per_segment": "136323167",
+        "index_calls": 4,
+        "label": "prior-empty-producing",
+        "seconds": 180.00000054,
+        "segments": 60
+      },
+      {
+        "callbacks": 180,
+        "cycle_buckets": {
+          "index-poll-overlap": {
+            "cycles": "355088582",
+            "seconds": 3
+          },
+          "publish": {
+            "cycles": "3558531125",
+            "seconds": 56
+          },
+          "seal": {
+            "cycles": "2446180682",
+            "seconds": 57
+          },
+          "step": {
+            "cycles": "3947855665",
+            "seconds": 64
+          }
+        },
+        "cycles": "10307656054",
+        "cycles_per_segment": "184065286",
+        "index_calls": 3,
+        "label": "prior-one-cannon",
+        "seconds": 180.00000054,
+        "segments": 56
+      },
+      {
+        "callbacks": 180,
+        "cycle_buckets": {
+          "index-poll-overlap": {
+            "cycles": "419116400",
+            "seconds": 4
+          },
+          "publish": {
+            "cycles": "3403888199",
+            "seconds": 56
+          },
+          "seal": {
+            "cycles": "2403562827",
+            "seconds": 56
+          },
+          "step": {
+            "cycles": "3917005299",
+            "seconds": 64
+          }
+        },
+        "cycles": "10143572725",
+        "cycles_per_segment": "181135227",
+        "index_calls": 4,
+        "label": "new-one-cannon",
+        "seconds": 180.00000054,
+        "segments": 56
+      },
+      {
+        "callbacks": 0,
+        "cycle_buckets": {
+          "index-poll-overlap": {
+            "cycles": "188418081",
+            "seconds": 4
+          },
+          "no-simulation": {
+            "cycles": "3553941",
+            "seconds": 176
+          }
+        },
+        "cycles": "191972022",
+        "cycles_per_segment": null,
+        "index_calls": 4,
+        "label": "new-empty-idle",
+        "seconds": 180.00000054,
+        "segments": 0
+      }
+    ],
+    "idle_reduction_percent": 97.6529787621388,
+    "active_reduction_percent": 1.5918587905960013
+  },
+  "checks": {
+    "javascript": "PASS 1322",
+    "python": "PASS 137",
+    "rust_workspace": "PASS 21",
+    "portable_native": "PASS 8",
+    "runtime_host": "PASS 13",
+    "independent_native_vectors": "PASS 445",
+    "native_host_public_outputs_and_recovery": "PASS 8",
+    "installed_idle_and_cost": "PASS 3; exact-upgrade separately PASS",
+    "exact_deployed_module_upgrade": "PASS with players, completed publications and two pending canonical inputs; exact native/JS replay",
+    "browser": "PASS 17 local acceptance groups and actual mainnet browser acceptance; 47 read-only POST requests; no browser errors",
+    "full_installed_suite": "19 PASS / 1 obsolete browser assertion FAIL / 5 ignored in original aggregate. Corrected browser separately PASS; other installed/source tests unchanged. Original result retained, not relabelled green.",
+    "captured_history_js_replay": "PASS 48 publications, actual captured canonical inputs/seals",
+    "frozen_test_artifact_equivalence": "PASS normal Wasm SHA and all production asset hashes equal corrected browser acceptance artifacts"
+  },
+  "remote_ci": "NOT_RUN",
+  "mainnet_gameplay_transfer": "NOT_RUN",
+  "initial_resource_stall": {
+    "upgrade": "BLOCKED",
+    "after_idle_measurement": "NOT_RUN",
+    "frontend_upload": "NOT_RUN_BACKEND_FIRST",
+    "cycles_samples": [
+      {
+        "label": "resumed-a",
+        "start_epoch": 1792601745.466884,
+        "end_epoch": 1792601747.38619,
+        "cycles": 227942290533,
+        "idle_cycles_per_day": 4186865195,
+        "callbacks": 32514,
+        "segments": 10838,
+        "index_calls": 800,
+        "total_work": 1419778,
+        "source_cursor": 0,
+        "running": true,
+        "errors": [
+          "null",
+          "opt \"index unavailable: insufficient liquid cycles balance, available: 3395968809, required: 110114361537\""
+        ]
+      },
+      {
+        "label": "resumed-b",
+        "start_epoch": 1792601972.7862349,
+        "end_epoch": 1792601976.541311,
+        "cycles": 227926400137,
+        "idle_cycles_per_day": 4186865195,
+        "callbacks": 32514,
+        "segments": 10838,
+        "index_calls": 800,
+        "total_work": 1419778,
+        "source_cursor": 0,
+        "running": true,
+        "errors": [
+          "null",
+          "opt \"index unavailable: insufficient liquid cycles balance, available: 3395968809, required: 110114361537\""
+        ]
+      }
+    ],
+    "measured_seconds_between_sample_starts": 227.31935095787048,
+    "cycles_spent": 15890396,
+    "cycles_per_second": 69903.40212147182,
+    "qualification": "Already resource-stalled: callbacks, completed segments and Index calls did not advance. This is not a healthy running-loop baseline. Queries and failed update attempts also occur in raw history. Sample calls take finite time.",
+    "compute_allocation_percent": 0,
+    "memory_allocation_bytes": 0,
+    "memory_bytes": 28842142,
+    "quoted_idle_cycles_per_day": 4186865195,
+    "freezing_threshold_seconds": 2592000,
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "failed_pause": "IC0207 SysTransient: out of cycles; requested at least 752065746 additional cycles. Pause did not occur. No transfer or threshold change performed.",
+    "source_error": [
+      "index unavailable: insufficient liquid cycles balance, available: 3395968809, required: 110114361537"
+    ],
+    "certificate_verified": true,
+    "captured_at": "2026-10-21T17:07:59.571Z",
+    "head": {
+      "logical_end": "21676",
+      "manifest_hash": "efcd90ff6f5491aaf31518890d460541898b968fed2e5caa52dc1b42c434d418",
+      "seal": {
+        "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "21676",
+        "logical_start": "21674",
+        "previous_manifest": "9376313088219b5be33d59ea3da4e7809ac7273b7d5c24838ed742084fe64ad1",
+        "previous_state": "1912d59ae731f318bd760d7bf661abd3b4c86c7248614f49b28c2a070ed7baf8",
+        "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+        "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+        "segment_id": "10837",
+        "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_from": "0",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+        "source_to_exclusive": "0"
+      },
+      "segment_id": "10837",
+      "source_to_exclusive": "0",
+      "state_hash": "f651e9265e0d9a963c548f00bfd16afac7898884c26d68cd441a66fbdbc1e1f4"
+    },
+    "identity": {
+      "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "retention": {
+      "max_segments": 3,
+      "max_bytes": 8388608,
+      "retained_bytes": 7926,
+      "entries": [
+        {
+          "segment_id": 10835,
+          "publication_hash": "7e08f0b189d527250602205339d7f6d1b74eac65dd0ebd328e5c8c1c2ddec151",
+          "bytes": 2642,
+          "current": false
+        },
+        {
+          "segment_id": 10836,
+          "publication_hash": "aae22725c16d57219d546bd7b5c7ad4213eb9cdcda1bef397295cac869f80609",
+          "bytes": 2642,
+          "current": false
+        },
+        {
+          "segment_id": 10837,
+          "publication_hash": "de919bc1b9b75dd9de969236f36674e99b6dc4a90359b66a337439d433019ab0",
+          "bytes": 2642,
+          "current": true
+        }
+      ]
+    },
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "subaccount": "0",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+    },
+    "entity_counts": {
+      "cannons": 0,
+      "balls": 0,
+      "pending": 0
+    },
+    "received_e8s": "0",
+    "scores": {
+      "area_time": [],
+      "version": 3
+    },
+    "official_index_direct_query": {
+      "Ok": {
+        "balance": "0",
+        "transactions": [],
+        "oldest_tx_id": []
+      }
+    }
+  },
+  "recorded_at": "2026-10-21T17:26:34.005588+00:00",
+  "reproduction": [
+    "python3.11 tools/verify_s14_local.py --output .work/cycles-idle/reproduce --index-wasm .work/s14/upstream/ic-icp-index-canister.wasm --browser-python /home/codexdev/dtr-s08-playwright/bin/python",
+    "python3.11 tools/verify_s14_local.py --output .work/cycles-idle/reproduce-upgrade --index-wasm .work/s14/upstream/ic-icp-index-canister.wasm --test-filter empty_arena --idle-prior-wasm .work/cycles-idle/prior-normal.wasm",
+    "LD_LIBRARY_PATH=/home/codexdev/playwright-libs-s08/usr/lib/x86_64-linux-gnu is needed for this host's browser; prior Wasm must match exact 187df3 digest. No mainnet actions are part of these local commands."
+  ],
+  "raw_log_sha256": {
+    "full/logs/installed-index-integration.log": "eb94561250ef7a3f56a76d4ccea6ced5bd104bc399cd45b2d3f5aa317f2b2d7a",
+    "browser-final/logs/installed-index-integration.log": "3e2fbc527a92ed6694aad5f3cb07272a62e5c44719a2a44609826cb606b8369c",
+    "matched/logs/installed-index-integration.log": "cb32b92de502138744443c78154f53f07c839782871ae67afe9b9fe95b967e45",
+    "matched/logs/idle-state-preserving-upgrade.log": "88cb3de73c2a2f0d4ab2ef1b9a052c70d8d7bf9c36a61e3d899d9fcc4eb5ba91",
+    "backend-upgrade.log": "b2537bf191bf1dfcfd9b23c2c5c5cc38ded974fde94ec5397f3107c8f0a4293f",
+    "frontend-upload.log": "459a74350f3262f2c3835e693ca894c70acbb441265f0d1e8ca474d165ceaea9",
+    "funded-before-status.txt": "d04ace7bb5f17d864d33ae35911090dd99db3801d236c0357610dedbd7798e44",
+    "funded-running-b-status.txt": "7ed9ccfa7dc9aeb27d8cb73ce25bb3b799d23e15e26fc6023669d8471a2ef71f",
+    "idle-closed-a-status.txt": "20fdfcd0a9f5e21222c669429fe6a5a0fe531b76dd199eebcf27c9527617bb00",
+    "idle-closed-b-status.txt": "b230ebf895c99fe7bc8ef5ec5033ff7d8efbbb0bf5b41b0f965c91cdd6ac3e5f"
+  },
+  "predecessor_backend_sha256": "187df32c5c95623abf13f52a626c9daeb3ee36591e9f6cf0d27cad8b109f4ce1",
+  "installed_frontend_module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62"
+}

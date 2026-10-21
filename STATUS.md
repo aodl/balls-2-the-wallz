@@ -1,3 +1,15 @@
+# Current status — empty-arena idle mode deployed
+
+**PASS, 2026-10-21.** The existing backend now runs `1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3`, followed by verified frontend assets. Empty enabled arenas stop simulation timers while preserving certified publications; the independent 60-second ICP Index poll wakes gameplay for every admitted payment. Active physics, cadence, economics, memos, source/history and DTR remain unchanged. Stable maintenance touches allocated chunk keys.
+
+Measured mainnet empty-arena consumption fell **97.27%**, from **85.34M to 2.33M cycles/second**. During 208.04 seconds with our browser closed: zero simulation callbacks/segments, three Index calls, clear errors. Final balance **2,349,043,894,555 cycles**. Same-state local active cost fell **184.07M → 181.14M cycles/segment**. The user resolved the initial cycle-liquidity blocker; Codex transferred no funds and changed no threshold/controllers.
+
+Upgrade preserved current/retained publication and artifact bytes, world, scores, configuration/source identity and queued/staged work. The already-ready segment completed once after resume, then head **10888 / 10,889 completed segments** stayed fixed. The live observer clearly shows healthy idle and permits authenticated transfer preparation. Mainnet certificates, text/hex copying, all aim quadrants, responsive layouts and reconnect pass without browser errors or gameplay submissions. Join remains **1 ICP** and the receiving account is unchanged.
+
+[Report and screenshots](checkpoints/B2Z_EMPTY_ARENA_CYCLES.md) / [reviewed evidence](evidence/B2Z/cycles/verification.json). Local source, game, recovery, upstream ledger/index, exact predecessor upgrade, replay and corrected browser checks pass; the earlier aggregate browser assertion failure is retained honestly. DTR CHANGES: **NONE**. New remote CI and real mainnet gameplay transfers are **NOT_RUN**. Local checkout remains `/home/codexdev/src/b2z`, branch `checkpoint/b2z-identity-and-memos`; only the user pushes. No next milestone is started.
+
+---
+
 # Current status — B2Z naming and prefix-free memos
 
 **Deployed and verified, 2026-10-20.** B2Z is the sole current product name. Canonical wallet memos are `ANGLE 37.5`, `ANGLE 225` and `MOVE 83`; adapter v3 retains published old forms and preserves queued canonical rows. Eight-byte ASCII commands are distinguished from legacy binary by actual magic/layout. Active paths, packages, symbols, tools, specifications and deployment aliases use B2Z/b2z. Historical protocol bytes and archived evidence remain unchanged.
