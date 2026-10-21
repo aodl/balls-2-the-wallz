@@ -24,7 +24,7 @@ export function createArcade(doc){
     if(action!=='move'&&!angleValid)return {reason:'Enter an angle from 0 to 359.99 with up to two decimal places.'};
     const memo=action==='move'?describeTextMemo('move',String(cell)):transferMemo(degrees);
     return {action,cannon:action==='start'?null:c.id,amount:action==='start'?config.join_e8s:action==='ball'?c.next_ball_e8s:config.move_e8s,
-      memo:memo.text,hex:memo.blob_hex,owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
+      world_key:`${world.version}/${world.width}/${world.height}`,memo:memo.text,hex:memo.blob_hex,owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
   }
   const key=c=>JSON.stringify(c,(_,v)=>typeof v==='bigint'?v.toString():v);
   function availability(){
@@ -102,7 +102,7 @@ export function createArcade(doc){
   return {
     render(w,c,s){
       world=w;config=c;source=s;if(!config||!source)return;
-      text('join-price',formatIcp(config.join_e8s));text('hero-join-price',`${formatIcp(config.join_e8s)} join`);
+      text('join-price',formatIcp(config.join_e8s));text('empty-price',formatIcp(config.join_e8s));
       $('players-empty').hidden=w.cannons.length>0;
       const prior=$('selected-cannon').value,placeholder=doc.createElement('option');placeholder.value='';placeholder.textContent='Choose a cannon';
       $('selected-cannon').replaceChildren(placeholder);
@@ -119,7 +119,9 @@ export function createArcade(doc){
       text('payment-health',available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
       text('arena-note',label==='Arena idle · waiting for payment'?'Arena idle. Waiting for a payment; Index polling continues.':label==='Live and verified'?'Authoritative game · verified playback':label==='Temporarily behind'?'Waiting for verified game data. No motion is invented.':label);
     },
+    selectedCannon(){return selected()?.id??null;},
+    selectCannon(id){if(!world?.cannons.some(c=>c.id===id))return false;$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},
     moveSelection(){const c=selected();return mode()==='move'&&c&&world?{width:world.width,height:world.height,id:c.id,cells:c.owned_cells,cell:selectedCell()}:null;},
-    chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owned_cells.includes(cell)){$('move-cell').value=String(cell);clearPreparation();}}
+    chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owned_cells.includes(cell)){$('move-cell').value=String(cell);clearPreparation();return true;}return false;}
   };
 }

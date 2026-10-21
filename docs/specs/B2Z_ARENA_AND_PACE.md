@@ -1,0 +1,11 @@
+# B2Z arena, pacing and staged world transition
+
+The viewport is the arena. Local native dialogs hold Play, Players, Rules, View and Settings. Dialogs contain/restore keyboard focus and never pause shared execution. The single aim control moves into a compact dismissible empty-world overlay only after authenticated configuration/source and a healthy verified empty state. It is not recreated during animation. Camera coordinates are cells, independent of canvas/device pixels and authoritative motion. Pointer/touch pan, anchored wheel/pinch zoom, fit, selected-cannon centring and split seam minimap bounds are local. Entity counts and picks refer to one underlying world, including repeated seam copies. Historical cannons with no authenticated heading use a neutral symbol.
+
+## Current live-world boundary
+
+The initial inspected mainnet state on 2026-10-21 contains a real paid cannon/ball, received total 100,000,000 e8s and source cursor 39,526,412. It is a 16×8 bounded v3 world. Never replace this with a new empty constructor.
+
+**DTR CHANGE REQUIRED for live topology/schema migration.** The pinned `dtr-host` coordinator's `Action` enum has no identity/history transition. `validate_record` requires the current head seal to match the journal identity and verifies its original manifest/ack; changing the identity or state in place invalidates that commitment. No DTR code changes are made in this branch. UI, camera and runtime pacing can be deployed using the unchanged existing identity.
+
+The required narrow generic API is an atomic `Transition` at a committed boundary: expected previous manifest/state hash, old identity, new identity, logical boundary, source cursor/anchor, migration identifier and new state/events/scores hashes. It must reject staged work/reservations, preserve inbox pending inputs/cursor/retirement and original manifests, append an authenticated transition record, and let observation verification link old and new epochs without treating the new state as genesis. Migration bytes/placement/topology remain B2Z-owned. A frontend must explicitly recognize this link and invalidate transfer drafts. No topology, camera, cycle policy or treasury machinery belongs in DTR. That dependency would need user publication and immutable pins before any production consumer upgrade.
