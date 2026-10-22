@@ -2009,6 +2009,21 @@ impl Drop for LivePublications {
 
 #[test]
 fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
+    // Longer publications give certified receipt acquisition time during UI
+    // setup. Restore the ordinary two-tick run before every measured trace.
+    fn resume_setup(pic: &PocketIc, id: Principal) {
+        get_result::<Status>(
+            pic,
+            id,
+            "start_autonomous",
+            candid::encode_one(RunConfig {
+                segment_ticks: 8,
+                pacing_seconds: 1,
+                work_budget: 512,
+            })
+            .unwrap(),
+        );
+    }
     let mut pic = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet()
@@ -2118,6 +2133,9 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut first = None;
     let mut second = None;
     let mut third = None;
+    let mut receipt_started = [true, false, false];
+    let mut receipt_held = [false; 3];
+    let mut first_resumed = false;
     // Includes dfx asset hosting, fallback, three responsive captures, clipboard,
     // reconnect/upgrade, three negative pages and reduced-motion verification.
     // Per-page waits remain bounded; the outer deadline includes cold asset
@@ -2151,7 +2169,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 id,
                 "start_autonomous",
                 candid::encode_one(RunConfig {
-                    segment_ticks: 2,
+                    segment_ticks: 8,
                     pacing_seconds: 1,
                     work_budget: 512,
                 })
@@ -2170,7 +2188,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         let s = status(&pic, id);
         if began.elapsed().as_secs() > last_timing {
             last_timing = began.elapsed().as_secs();
-            timing.push(serde_json::json!({"wall_ms":began.elapsed().as_millis(),"ic_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"segments":s.run.completed_segments,"pace":s.run.pace.as_ref().map(|p|p.nominal_milli)}));
+            timing.push(serde_json::json!({"wall_ms":began.elapsed().as_millis(),"ic_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"segments":s.run.completed_segments,"running":s.run.running,"pace":s.run.pace.as_ref().map(|p|p.nominal_milli)}));
             std::fs::write(
                 out.join("producer-timing.json"),
                 serde_json::to_vec(&timing).unwrap(),
@@ -2185,6 +2203,21 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 "browser deployment failed; see {}",
                 out.join("browser.log").display()
             );
+        }
+        // Hold only paid setup receipts, before the measured live trace. The
+        // first payment still wakes an enabled idle arena autonomously. Later
+        // payments are admitted by the real source timer while the game waits.
+        for (n, tx) in [first, second, third].iter().enumerate() {
+            if let Some(tx) = tx {
+                if !receipt_started[n] && s.source.admitted_to_exclusive > *tx {
+                    resume_setup(&pic, id);
+                    receipt_started[n] = true;
+                }
+                if assigned.contains(tx) && !receipt_held[n] {
+                    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+                    receipt_held[n] = true;
+                }
+            }
         }
         if phase == 0 && out.join("browser-connected").exists() && !s.source.scan_in_flight {
             // Isolate target-filter behaviour from the independent 60s poll.
@@ -2214,6 +2247,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             pic.auto_progress();
             let tx = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
             first = Some(tx);
+            std::fs::write(out.join("harness-first-payment"), tx.to_string()).unwrap();
             payments.insert(
                 tx,
                 normalized(
@@ -2234,11 +2268,20 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             )
             .unwrap();
             phase = 1;
-        } else if phase == 1 && assigned.contains(&first.unwrap()) {
+        } else if phase == 1 && receipt_held[0] {
+            if !out.join("browser-first-receipt-seen").exists() {
+                std::thread::sleep(Duration::from_millis(100));
+                continue;
+            }
+            if !first_resumed {
+                resume_setup(&pic, id);
+                first_resumed = true;
+            }
             if !out.join("browser-first-cannon-seen").exists() {
                 std::thread::sleep(Duration::from_millis(50));
                 continue;
             }
+            get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
             let tx = transfer_text(&pic, ledger, payer, id, 10_000_000, b"ANGLE 225");
             second = Some(tx);
             payments.insert(
@@ -2250,11 +2293,18 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
                 ),
             );
             phase = 2;
-        } else if phase == 2 && assigned.contains(&second.unwrap()) {
-            // This one-time action-selection read precedes the measured trace.
-            pic.stop_progress();
+        } else if phase == 2 && receipt_held[1] {
+            std::fs::write(
+                out.join("harness-second-payment"),
+                second.unwrap().to_string(),
+            )
+            .unwrap();
+            if !out.join("browser-second-receipt-seen").exists() {
+                std::thread::sleep(Duration::from_millis(100));
+                continue;
+            }
+            // The game is held at a real publication, with replica/certificates live.
             let world = arena_world(&pic, id);
-            pic.auto_progress();
             assert_eq!(world.cannons.len(), 1, "paid join created one cannon");
             assert_eq!(world.balls.len(), 2, "fallback payment bought second ball");
             let cannon = &world.cannons[0];
@@ -2289,12 +2339,17 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             )
             .unwrap();
             phase = 6;
-        } else if phase == 6 && assigned.contains(&third.unwrap()) {
+        } else if phase == 6 && receipt_held[2] {
             std::fs::write(
                 out.join("harness-payments-done"),
                 serde_json::to_vec(&[first.unwrap(), second.unwrap(), third.unwrap()]).unwrap(),
             )
             .unwrap();
+            if !out.join("browser-paid-receipts-seen").exists() {
+                std::thread::sleep(Duration::from_millis(100));
+                continue;
+            }
+            start_arena(&pic, id);
             phase = 3;
         } else if phase == 3 && out.join("browser-disconnected").exists() {
             pause_segments = s.run.completed_segments;

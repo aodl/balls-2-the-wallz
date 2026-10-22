@@ -319,6 +319,12 @@ def main():
             (out/'browser-connected').write_text('ready\n')
             wait_until(page,lambda:page.locator('#live-cannons tr').count()==1,60000)
             assert page.evaluate('globalThis.__dtrLive.heads.at(-1)')>initial
+            first_tx=wait_file(page,out/'harness-first-payment',30000)
+            receipt_seen=lambda tx:page.locator('#live-receipts tr').evaluate_all('(rows,id)=>rows.some(r=>r.cells[0].textContent===id)',str(tx))
+            wait_until(page,lambda:receipt_seen(first_tx),60000)
+            (out/'browser-first-receipt-seen').write_text('first authenticated receipt observed\n')
+            wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+            report['receipt_coordination']='Controller holds each paid setup publication until its receipt is authenticated; replica and certificates stay live. All holds end before measured playback/reconnect. Retention and full seal replay are unchanged.'
             record('first-index-payment-wakes-idle-arena')
             page.screenshot(path=str(out/'arcade-first-cannon.png'),full_page=True)
             page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1')
@@ -326,6 +332,9 @@ def main():
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
             assert page.locator('#prepared-action').inner_text()=='Add a ball'
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
+            second_tx=wait_file(page,out/'harness-second-payment',120000)
+            wait_until(page,lambda:receipt_seen(second_tx),60000)
+            (out/'browser-second-receipt-seen').write_text('second authenticated receipt observed\n')
             paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
             wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
             page.keyboard.press('Escape');page.locator('#toolbar-players').click()
@@ -334,7 +343,10 @@ def main():
                 matching=[row for row in receipts if row.split('\t')[0]==str(tx)]
                 assert len(matching)==1 and 'Accepted' in matching[0] and kind in matching[0],receipts
             assert page.locator('#live-cannons tr').count()==1
-            assert page.evaluate('globalThis.__dtrLive.operational?.run?.running ?? true')
+            (out/'browser-paid-receipts-seen').write_text('all three authenticated outcomes observed\n')
+            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
+            wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+            page.keyboard.press('Escape');page.locator('#toolbar-players').click()
             record('paid-join-ball-fallback-and-legal-move-visible-once',receipts)
             assert page.locator('#live-cannons').inner_text().find('0.4 ICP')>=0
             assert not page.locator('#empty-arena').is_visible()
