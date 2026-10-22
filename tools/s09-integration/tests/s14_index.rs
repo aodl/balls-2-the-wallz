@@ -94,6 +94,14 @@ fn initial_world() -> Vec<u8> {
 }
 
 fn deploy_ledger(pic: &PocketIc, ledger_wasm: &[u8], payers: &[Principal]) -> Principal {
+    deploy_ledger_fee(pic, ledger_wasm, payers, 10_000)
+}
+fn deploy_ledger_fee(
+    pic: &PocketIc,
+    ledger_wasm: &[u8],
+    payers: &[Principal],
+    fee: u64,
+) -> Principal {
     let ledger = create_controlled(pic);
     let minting = AccountIdentifier::new(
         &Principal::self_authenticating([88; 32]),
@@ -125,7 +133,7 @@ fn deploy_ledger(pic: &PocketIc, ledger_wasm: &[u8], payers: &[Principal]) -> Pr
             max_transactions_per_response: Some(2),
         }),
         send_whitelist: vec![],
-        transfer_fee: Some(Tokens::from_e8s(10_000)),
+        transfer_fee: Some(Tokens::from_e8s(fee)),
         token_symbol: Some("TICP".into()),
         token_name: Some("PocketIC Test ICP".into()),
         feature_flags: Some(FeatureFlags { icrc2: false }),
@@ -2996,6 +3004,13 @@ fn arena_setup_world(
     wasm: Vec<u8>,
     initial: Vec<u8>,
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee(wasm, initial, 10_000)
+}
+fn arena_setup_world_fee(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+) -> (PocketIc, Principal, Principal, Principal) {
     let pic = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet()
@@ -3008,7 +3023,7 @@ fn arena_setup_world(
         .build();
     pic.set_time(std::time::SystemTime::now().into());
     let payer = Principal::self_authenticating([9; 32]);
-    let ledger = deploy_ledger(&pic, &bytes("ICP_LEDGER_WASM"), &[payer]);
+    let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &[payer], fee);
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
     for c in [id, index] {
@@ -4062,3 +4077,6 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
             .success()
     );
 }
+
+#[path = "support/funding.rs"]
+mod funding_tests;

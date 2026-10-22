@@ -52,3 +52,13 @@ The arena-first observer prepares exact memos with the shared codec and displays
 Stable maintenance writes the same chunk keys and bytes. Blob shrink removes only formerly allocated trailing keys, and retention eviction removes the publication/artifact keys described by the evicted metadata. Capacity bounds (64 chunks per artifact, three publications / 8 MiB total) and integrity verification remain unchanged. Idle is a scheduling optimization; it does not accrue logical time or scores while no players exist, and changes no physics, pricing or source admission rules.
 
 The independently staged [32×32 torus v4](B2Z_TORUS_V4.md) has distinct rules/schema/configuration identities and persistent accepted cannon headings. It is not the current paid world and cannot be activated by rewriting the existing journal identity. No live transition or DTR modification is included.
+
+## Locally prepared prelaunch self-funding
+
+The additive B2Z-owned worker is staged, **not deployed**. Its separate stable
+memory 3 and controller-only funding methods do not change this game/source
+contract. It sweeps the actual default-account Ledger balance through the
+fixed CMC self-top-up route, independently of gameplay and the browser.
+[Policy, recovery and future activation](../operations/PRELAUNCH_SELF_FUNDING.md).
+No player payout or refund feature is added. This task authorizes local
+valueless tests only; value-moving deployment needs separate authorization.

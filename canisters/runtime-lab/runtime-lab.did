@@ -1,3 +1,9 @@
+type Completion = record {
+  block_index : nat64;
+  completed_at_ns : nat64;
+  plan : Plan;
+  cycles : text;
+};
 type ControllerWork = record {
   source_cursor : nat64;
   ready_manifest : opt text;
@@ -28,15 +34,38 @@ type IndexConfig = record {
   ledger : principal;
   index : principal;
 };
-type Observation = record { certificate : opt blob; publication : blob };
+type Observation = record { e8s : nat64; observed_at_ns : nat64 };
+type Observation_1 = record { certificate : opt blob; publication : blob };
+type Phase = variant {
+  NotifyPending : record { block_index : nat64; plan : Plan; attempts : nat64 };
+  Idle;
+  TransferPending : record { plan : Plan; attempts : nat64; uncertain : bool };
+};
+type Plan = record {
+  to : blob;
+  cmc : text;
+  created_at_time_ns : nat64;
+  beneficiary : text;
+  memo : nat64;
+  fee_e8s : nat64;
+  amount_e8s : nat64;
+  ledger : text;
+};
 type PokeMatch = record { target : PokeTarget; max_amount : nat };
 type PokeTarget = variant { neuron_nonce : nat64; subaccount : nat64 };
+type Refund = record {
+  plan : Plan;
+  refund_block : opt nat64;
+  transfer_block : nat64;
+  reason : text;
+};
 type Result = variant { Ok : blob; Err : text };
-type Result_1 = variant { Ok : RuntimeDiagnostics; Err : text };
-type Result_2 = variant { Ok : ControllerWork; Err : text };
-type Result_3 = variant { Ok : Status; Err : text };
-type Result_4 = variant { Ok : Observation; Err : text };
-type Result_5 = variant { Ok : RetentionStatus; Err : text };
+type Result_1 = variant { Ok : State; Err : text };
+type Result_2 = variant { Ok : RuntimeDiagnostics; Err : text };
+type Result_3 = variant { Ok : ControllerWork; Err : text };
+type Result_4 = variant { Ok : Status; Err : text };
+type Result_5 = variant { Ok : Observation_1; Err : text };
+type Result_6 = variant { Ok : RetentionStatus; Err : text };
 type RetainedEntry = record {
   segment_id : nat64;
   bytes : nat64;
@@ -94,6 +123,22 @@ type SourceStatus = record {
   scan_in_flight : bool;
 };
 type StartingPolicy = variant { FromBeginning };
+type State = record {
+  last_error : opt text;
+  total_cycles_reported : text;
+  last_plan_ns : nat64;
+  observed_fee : opt Observation;
+  last_refund : opt Refund;
+  total_converted_e8s : text;
+  last_success : opt Completion;
+  version : nat32;
+  lease_started_ns : nat64;
+  nonce : nat64;
+  observed_balance : opt Observation;
+  halted : bool;
+  phase : Phase;
+  paused : bool;
+};
 type Status = record {
   run : RunStatus;
   source : SourceStatus;
@@ -103,16 +148,18 @@ type Status = record {
 };
 service : (blob, nat64, IndexConfig) -> {
   artifact_chunk : (text, nat8, nat16) -> (Result) query;
-  controller_runtime : () -> (Result_1) query;
-  controller_work : () -> (Result_2) query;
-  lab_status : () -> (Result_3) query;
-  observation : () -> (Result_4) query;
-  pause_autonomous : () -> (Result_3);
+  controller_funding : () -> (Result_1) query;
+  controller_runtime : () -> (Result_2) query;
+  controller_work : () -> (Result_3) query;
+  lab_status : () -> (Result_4) query;
+  observation : () -> (Result_5) query;
+  pause_autonomous : () -> (Result_4);
   poke : (vec PokeMatch) -> ();
   retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result) query;
   retained_publication : (nat64) -> (Result) query;
-  retention_status : () -> (Result_5) query;
+  retention_status : () -> (Result_6) query;
+  set_funding_paused : (bool) -> (Result_1);
   // Hash this descriptor and compare with the certified publication's source_id.
   source_descriptor : () -> (Result) query;
-  start_autonomous : (RunConfig) -> (Result_3);
+  start_autonomous : (RunConfig) -> (Result_4);
 }

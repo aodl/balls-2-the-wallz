@@ -81,7 +81,7 @@ def main():
     runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
     # Source includes feature-gated test-hooks methods. The compiled normal-
     # Wasm export check in verify_s14_local.py must still reject every test_ export.
-    if set(runtime_exports)!={'lab_status','retention_status','controller_work','controller_runtime','source_descriptor','observation','retained_publication','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_liquid_budget','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
+    if set(runtime_exports)!={'lab_status','retention_status','controller_work','controller_runtime','controller_funding','set_funding_paused','test_funding_fault','source_descriptor','observation','retained_publication','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_liquid_budget','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
     if 'guard = "poke_guard"' not in runtime or 'is_controller' not in runtime:raise ValueError('application authorization guards missing')
     if any(name in runtime for name in ['query_blocks','ledger_hint','sync_ledger','scan_ledger_inner']):raise ValueError('retired scanner remains active')
     if 'certified_data_set'not in runtime or 'data_certificate()'not in runtime:raise ValueError('runtime certification inventory')

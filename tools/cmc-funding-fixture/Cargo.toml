@@ -1,0 +1,16 @@
+# Disposable CMC notification-contract double only.
+[workspace]
+[package]
+name = "cmc-funding-fixture"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[lib]
+crate-type = ["cdylib"]
+[dependencies]
+ic-cdk = "=0.20.3"
+candid = "=0.10.28"
+serde = { version = "=1.0.228", features = ["derive"] }
+ic-ledger-types = "=0.16.0"
+[profile.release]
+overflow-checks = true
