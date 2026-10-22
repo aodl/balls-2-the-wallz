@@ -51,7 +51,12 @@ The arena-first observer prepares exact memos with the shared codec and displays
 
 Stable maintenance writes the same chunk keys and bytes. Blob shrink removes only formerly allocated trailing keys, and retention eviction removes the publication/artifact keys described by the evicted metadata. Capacity bounds (64 chunks per artifact, three publications / 8 MiB total) and integrity verification remain unchanged. Idle is a scheduling optimization; it does not accrue logical time or scores while no players exist, and changes no physics, pricing or source admission rules.
 
-The independently staged [32×32 torus v4](B2Z_TORUS_V4.md) has distinct rules/schema/configuration identities and persistent accepted cannon headings. It is not the current paid world and cannot be activated by rewriting the existing journal identity. No live transition or DTR modification is included.
+The independently staged [32×32 torus v4](B2Z_TORUS_V4.md) has distinct rules/schema/configuration identities and persistent accepted cannon headings. It is not the current paid world and cannot be activated by rewriting the existing journal identity. The combined candidate implements only the fixed authenticated v3→v4 transition
+specified there, using published DTR `c12af747190f7e24d5e68cdf57dbb1494095a46b`
+and client 0.13.0. Only explicit epoch commit introduces publication v7 and
+v4 rules; original v3 state/history, v6 publications and prices remain intact
+until that operation. No mainnet transition has been executed. The prelaunch
+treasury below remains independent of the cutover and cannot admit gameplay.
 
 ## Locally prepared prelaunch self-funding
 
