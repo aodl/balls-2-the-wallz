@@ -429,7 +429,7 @@ async fn work(n: u64) -> Result<(), String> {
         refresh_lease(&mut s);
         let response = Call::bounded_wait(ledger, "transfer")
             .change_timeout(30)
-            .with_arg(&plan.args())
+            .with_arg(plan.args())
             .await
             .map_err(|e| format!("transfer ambiguous: {e:?}"))?;
         let result = response
