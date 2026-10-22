@@ -15,8 +15,8 @@ num-bigint = "=0.4.6"
 num-rational = "=0.4.2"
 num-traits = "=0.2.19"
 sha2 = "=0.10.9"
-dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
-dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
+dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "c12af747190f7e24d5e68cdf57dbb1494095a46b" }
+dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "c12af747190f7e24d5e68cdf57dbb1494095a46b" }
 
 [profile.release]
 overflow-checks = true

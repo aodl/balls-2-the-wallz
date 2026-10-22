@@ -41,6 +41,7 @@ def main():
     p.add_argument('--idle-prior-wasm',type=Path,help='Exact installed 187df3 module for idle recovery and measured cost comparison')
     p.add_argument('--arena-prior-test-wasm',type=Path,help='Prior disposable idle test-hooks module for unfinished segment recovery')
     p.add_argument('--arena-prior-wasm',type=Path,help='Exact deployed 1510d8 module for producer/pace upgrade')
+    p.add_argument('--torus-prior-wasm',type=Path,help='Exact installed 53b219 module for paid v3→v4 epoch transition')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -60,7 +61,7 @@ def main():
         actual=hashlib.sha256(path.read_bytes()).hexdigest()
         if actual!=expected[name]:result.update(overall='FAIL',reason='pinned runtime/artifact mismatch: '+name);save();return 1
         result['artifacts'].append({'name':name,'sha256':actual,'path':str(path)})
-    if not a.test_filter or 'deployed_bundle' in a.test_filter:
+    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter:
         try:
             probe=__import__('subprocess').run([a.browser_python,'-c',
               "from pathlib import Path; from playwright.sync_api import sync_playwright; p=sync_playwright().start(); assert Path(p.chromium.executable_path).is_file(), 'Chromium missing'; p.stop()"],capture_output=True,text=True,timeout=20)
@@ -91,7 +92,7 @@ def main():
         run('harness-build',cargo+['test','--manifest-path','tools/s09-integration/Cargo.toml','--test','s14_index','--no-run','--locked','--offline','--message-format=json'])
         log=(out/'logs/harness-build.log').read_text();binaries=[json.loads(line)['executable'] for line in log.splitlines() if line.startswith('{') and json.loads(line).get('reason')=='compiler-artifact' and json.loads(line).get('executable')]
         assert len(binaries)==1
-        server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1200)
+        server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1500)
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(POCKET_IC_SERVER_URL=server[3],B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         if a.deployed_wasm:
@@ -107,11 +108,14 @@ def main():
             if hashlib.sha256(a.arena_prior_wasm.read_bytes()).hexdigest()!='1510d8677464944d0d2ddad53370f339b75ab627ff0e3c8180467a3e63fa84f3':raise ValueError('arena upgrade requires exact deployed 1510d8')
             env['B2Z_ARENA_PRIOR_WASM']=str(a.arena_prior_wasm.resolve())
         if a.arena_prior_test_wasm:env['B2Z_ARENA_PRIOR_TEST_WASM']=str(a.arena_prior_test_wasm.resolve())
+        if a.torus_prior_wasm:
+            if hashlib.sha256(a.torus_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('torus transition requires exact installed 53b219 module')
+            env['B2Z_TORUS_PRIOR_WASM']=str(a.torus_prior_wasm.resolve())
         if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
             env['B2Z_PRIOR_WASM']=str(a.prior_wasm.resolve())
-        test_log=run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else []),*(['--ignored'] if a.prior_wasm else []),'--nocapture','--test-threads=1'],900,env)
+        test_log=run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else []),*(['--ignored'] if a.prior_wasm else []),'--nocapture','--test-threads=1'],1200,env)
         if not __import__('re').search(r'test result: ok\. [1-9][0-9]* passed',test_log):raise RuntimeError('No installed tests executed')
         if a.deployed_wasm:
             run('deployed-module-state-preserving-upgrade',[binaries[0],'s15_upgrade_from_deployed_module_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)

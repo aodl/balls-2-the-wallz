@@ -10,8 +10,8 @@ rust-version = "1.85"
 publish = false
 
 [workspace.dependencies]
-dtr-core = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
-life-conformance = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
+dtr-core = { git = "https://github.com/aodl/dtr.git", rev = "c12af747190f7e24d5e68cdf57dbb1494095a46b" }
+life-conformance = { git = "https://github.com/aodl/dtr.git", rev = "c12af747190f7e24d5e68cdf57dbb1494095a46b" }
 
 [profile.release]
 overflow-checks = true

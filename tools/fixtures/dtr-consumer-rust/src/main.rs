@@ -27,6 +27,7 @@ fn main() {
     };
     assert!(matches!(ordered, Action::IngestOrdered {inputs, ..} if inputs.len() == 3));
     let seal = CoreSeal {
+        epoch_hash: None,
         segment_id: 0,
         logical_start: 0,
         logical_end: 1,

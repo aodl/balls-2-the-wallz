@@ -42,13 +42,63 @@ def verify_torus_scene(page,context,out,record,report,save):
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
 
+def verify_epoch_transition(page,context,out,record,report,save):
+    wait_until(page,lambda:'16 × 8' in page.locator('#world-rules').text_content(),30000)
+    page.locator('#toolbar-play').click()
+    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+    page.locator('#action-mode').select_option('move');page.locator('#selected-cannon').select_option('1')
+    cells=page.locator('#move-cell option').evaluate_all('(xs)=>xs.map(x=>x.value).filter(Boolean)');assert cells
+    old_cell=int(cells[0]);page.locator('#move-cell').select_option(str(old_cell));page.locator('#prepare-transfer').click()
+    assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
+    assert page.locator('#payment-address').text_content()==report['receiving_account']
+    page.keyboard.press('Escape');(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n')
+    wait_until(page,lambda:'World transition' in page.locator('#arena-note').text_content(),30000)
+    page.locator('#toolbar-play').click();assert page.locator('#prepare-transfer').is_disabled();assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
+    page.keyboard.press('Escape');(out/'browser-fence-seen').write_text('payment preparation held\n')
+    wait_until(page,lambda:'32 × 32' in page.locator('#world-rules').text_content(),60000)
+    assert 'wraparound' in page.locator('#world-rules').text_content()
+    page.locator('#toolbar-play').click()
+    wait_until(page,lambda:'Refresh' in page.locator('#preparation-note').inner_text(),30000)
+    assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
+    assert 'Refresh' in page.locator('#preparation-note').inner_text()
+    assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
+    mapped=(old_cell//16+12)*32+old_cell%16+8
+    page.locator('#move-cell').select_option(str(mapped));wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000);page.locator('#prepare-transfer').click()
+    assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
+    assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
+    page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
+    page.locator('[data-copy="text"]').click();wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==f'MOVE {mapped}')
+    # The advanced details remain ordinary visible UI; select their summary if necessary.
+    hex_copy=page.locator('[data-copy="hex"]')
+    if not hex_copy.is_visible():page.locator('details').filter(has=hex_copy).locator('summary').click()
+    hex_copy.click();wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==f'MOVE {mapped}'.encode().hex())
+    page.keyboard.press('Escape');page.screenshot(path=str(out/'transition-desktop.png'))
+    for w,h in[(768,1024),(390,844)]:
+        page.set_viewport_size({'width':w,'height':h});page.wait_for_timeout(150);r=page.locator('#board').bounding_box();assert r['width']==w and r['height']==h;page.screenshot(path=str(out/f'transition-{w}.png'))
+    page.set_viewport_size({'width':1440,'height':900})
+    wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    # Reload after several new-epoch publications: fresh startup must not need a
+    # retained old artifact or a remembered browser-only transition/orientation.
+    samples=[];began=time.monotonic()
+    while time.monotonic()-began<20:
+        samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
+    dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
+    report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
+    (out/'epoch-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['epoch_playback']['stalled_samples']==0,report['epoch_playback'];assert samples[-1]['backend_segments']>samples[0]['backend_segments']
+    record('new-epoch-continuous-verified-playback',report['epoch_playback'])
+    page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '32 × 32' in page.locator('#world-rules').text_content(),30000)
+    assert not page.locator('#error').is_visible()
+    report['epoch_transition']={'old_cell':old_cell,'mapped_cell':mapped,'old_draft_stale':True,'reload_new_epoch':True,'qualification':'Genuine disposable IC; synthetic v3 player fixture. Real Ledger/Index paid cutover is verified separately.'}
+    record('authenticated-epoch-crossing-stales-old-MOVE-and-restores-new-world',report['epoch_transition'])
+
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port()
     asset_canister=os.environ.get('S14_ASSET_CANISTER')=='1'
     configuration['host']=a.gateway.rstrip('/') if asset_canister else f'http://127.0.0.1:{port}'
     local=out/'local-test-policy.json';local.write_text(json.dumps(configuration)+'\n')
-    report={'status':'NOT_RUN','mode':'DFX_ASSET_CANISTER_LIVE_LOCAL' if asset_canister else 'BUILT_DEPLOYMENT_LIVE_LOCAL','checks':[],'qualification':'Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.'}
+    report={'receiving_account':configuration['recipient'],'status':'NOT_RUN','mode':'DFX_ASSET_CANISTER_LIVE_LOCAL' if asset_canister else 'BUILT_DEPLOYMENT_LIVE_LOCAL','checks':[],'qualification':'Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.'}
     def record(name,details=''):
         report['checks'].append({'name':name,'status':'PASS','details':details});save()
     def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
@@ -147,8 +197,9 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.scene_only:
-                verify_torus_scene(page,context,out,record,report,save)
+            if a.scene_only or a.transition_only:
+                if a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
+                else:verify_torus_scene(page,context,out,record,report,save)
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
                 report['status']='PASS';report['sandbox']=True;report['page_errors']=errors;save();(out/'browser-complete').write_text('PASS\n');context.close();browser.close();browser=None;return 0

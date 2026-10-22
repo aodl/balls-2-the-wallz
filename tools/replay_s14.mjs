@@ -2,9 +2,10 @@
 /** Independent JS replay of the installed Rust host's captured seals/inputs. */
 import {readFile,writeFile} from 'node:fs/promises';
 import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
-import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {publication} from '@dtr/timeline-runtime/observation/publication';
 import {unhex,hex} from '@dtr/timeline-runtime/protocol/bytes';
+import {stageTorusMigration} from '../packages/kernels/b2z/migration.mjs';
 import {B2zKernel} from '../packages/kernels/b2z/kernel.mjs';
 const [input,output]=process.argv.slice(2);if(!input)throw new Error('usage: replay_s14.mjs trace.json [result.json]');
 const trace=JSON.parse(await readFile(input,'utf8'),(_k,v)=>v&&typeof v==='object'&&Object.keys(v).join(',')==='$integer'?BigInt(v.$integer):v);
@@ -13,6 +14,14 @@ const inputs=trace.inputs.map(i=>({position:BigInt(i.position),payload_hex:i.pay
 const first=trace.publications[0],host=TimelineCoordinator.create(unhex(trace.initial_world_hex),first.identity,{logical_start:0n,source_from:0n},B2zKernel);
 let assigned=[];
 for(const p of trace.publications){
+ if(p.version===7&&p.head.seal===null){
+  const proof=decodeCanonical(unhex(trace.metadata_hex));
+  const proposed=stageTorusMigration(unhex(host.committed().state_hex),{...proof,identity:host.publicationRecord().journal.identity});
+  if(hex(encodeCanonical(proposed.transition))!==trace.metadata_hex)throw new Error('application transition metadata mismatch');
+  host.apply({kind:'transition',epoch:p.epoch,state_hex:hex(proposed.state),event_hex:hex(encodeCanonical({version:4,receipts:[],events:[]})),score_hex:hex(encodeCanonical({version:4,area_time:[]}))});
+  if(hex(publication(host.publicationRecord()).bytes)!==hex(encodeCanonical(p)))throw new Error('transition publication mismatch');
+  continue;
+ }
  const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);
  assigned.push(...selected.map(i=>i.position.toString()));
  if(selected.length===0)host.ingestOrdered(seal.source_from,seal.source_to_exclusive,[],seal.source_anchor);

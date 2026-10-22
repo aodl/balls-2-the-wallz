@@ -58,6 +58,7 @@ type RunStatus = record {
   last_error : opt text;
   last_segment_work : nat64;
   callback_count : nat64;
+  world_transition : bool;
   idle : bool;
   pace : Hint;
   generation : nat64;
@@ -103,16 +104,23 @@ type Status = record {
 };
 service : (blob, nat64, IndexConfig) -> {
   artifact_chunk : (text, nat8, nat16) -> (Result) query;
+  // Derive the new world from the actual durable committed state, once. Expected
+  // manifest protects against a stale operator view; there is no arbitrary replacement.
+  commit_torus_transition : (text) -> (Result);
   controller_runtime : () -> (Result_1) query;
   controller_work : () -> (Result_2) query;
   lab_status : () -> (Result_3) query;
   observation : () -> (Result_4) query;
   pause_autonomous : () -> (Result_3);
   poke : (vec PokeMatch) -> ();
+  // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
+  // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
+  prepare_torus_transition : () -> (Result);
   retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result) query;
   retained_publication : (nat64) -> (Result) query;
   retention_status : () -> (Result_5) query;
   // Hash this descriptor and compare with the certified publication's source_id.
   source_descriptor : () -> (Result) query;
   start_autonomous : (RunConfig) -> (Result_3);
+  torus_transition_status : () -> (Result) query;
 }

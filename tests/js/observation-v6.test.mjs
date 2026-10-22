@@ -79,7 +79,7 @@ for(const defect of ['head','identity','chunks','render-count','version','ingest
 test('a client cannot silently mix legacy and current publication contracts',async()=>{
  const {host}=coordinatorScenario('life'),seq=new PublicationSequence(),old=publication(host.store.read(),{version:5});
  seq.accept(await verifyPinnedPublication(old.bytes,old.sha256));const current=publication(host.publicationRecord());
- const ticket=await verifyPinnedPublication(current.bytes,current.sha256);assert.throws(()=>seq.accept(ticket),/version changed/);
+ const ticket=await verifyPinnedPublication(current.bytes,current.sha256);assert.throws(()=>seq.accept(ticket),/observation deployment\/rules changed/);
 });
 test('render corruption fails integrity even with a valid catalog',async()=>{
  const {host}=coordinatorScenario('life');complete(host,1n);

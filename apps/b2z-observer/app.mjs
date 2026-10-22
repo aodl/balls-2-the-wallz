@@ -173,8 +173,29 @@ async function startLive(recording,startupRetries=0){
     s.error=e;showError(e);
   }finally{s.busy=false;updateHud();draw();}
 }
+async function epochConfiguration(s,ticket){
+  const prior=s.sequence.last?.publication;
+  const crossing=prior&&Object.keys(prior.identity).some(k=>prior.identity[k]!==ticket.publication.identity[k]);
+  if(!crossing)return null;
+  if(prior.version!==6||ticket.publication.version!==7)throw new Error('unsupported world epoch');
+  if(!s.config)return null; // Explicit test harness has no payment-preparation flow.
+  const {certifiedConfiguration}=await import('./mainnet.mjs');
+  return certifiedConfiguration(ticket);
+}
+function applyEpochPresentation(s,world,config){
+  if(config){s.config=config;$('rules-identity').textContent=`Rules ${s.sequence.last.publication.identity.rules_hash}; configuration ${s.sequence.last.publication.identity.config_hash}`;}
+  if(visible&&(visible.version!==world.version||visible.width!==world.width||visible.height!==world.height))camera.initialized=false;
+}
 async function admitLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
+  if(ticket.publication.version===7&&ticket.publication.head.seal===null){
+    const config=await epochConfiguration(s,ticket);if(!active(s))return;
+    const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);
+    s.sequence.accept(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
+    resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
+    updatePlayReference(s,world,artifacts.events);
+    Object.assign(globalThis.__dtrLive,{resyncs:s.resyncs,skipped:true});globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));return;
+  }
   const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);if(!active(s))return;
   if(segment.start!==s.clock.available)throw new Error('live timeline gap');
   if(s.bytes+segment.bytes>8*1024*1024)throw new Error('observer buffer byte capacity');
@@ -187,7 +208,8 @@ async function admitLive(s,ticket){
 }
 async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
-  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);s.previousState=artifacts.state;s.root=ticket.root_hash;
+  const config=await epochConfiguration(s,ticket);if(!active(s))return;
+  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
   resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
@@ -286,8 +308,8 @@ function updateHud(){
   const claimed=visible?[...visible.cells].filter(x=>x!==0).length:0;
   $('claimed').textContent=visible?`${Math.round(claimed/visible.cells.length*100)}%`:'—';
   $('world-rules').textContent=visible?`${visible.width} × ${visible.height} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
-  const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
-  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace});
+  const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
+  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){

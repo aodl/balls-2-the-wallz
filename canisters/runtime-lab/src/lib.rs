@@ -3,6 +3,7 @@
 #![forbid(unsafe_code)]
 mod pace;
 mod source;
+mod transition;
 use b2z_native::{host::B2zHostKernel, world::World};
 use candid::{CandidType, Principal};
 use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
@@ -132,6 +133,8 @@ struct Root {
     run: RunState,
     #[serde(default)]
     retention: RetentionState,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    world_transition: Option<transition::Transition>,
 }
 #[derive(Clone, CandidType, Deserialize)]
 struct RunConfig {
@@ -144,6 +147,7 @@ struct RunStatus {
     pace: pace::Hint,
     running: bool,
     idle: bool,
+    world_transition: bool,
     generation: u64,
     segment_ticks: u64,
     pacing_seconds: u32,
@@ -217,10 +221,13 @@ fn publication_segment(publication: &Publication) -> AppResult<Option<u64>> {
     publication.head.segment_id.as_ref().map(number).transpose()
 }
 fn reconcile_completed_segments(run: &mut RunState, publication: &Publication) -> AppResult<bool> {
-    let committed = publication_segment(publication)?
+    let mut committed = publication_segment(publication)?
         .map(|segment| segment.checked_add(1).ok_or("autonomous segment counter"))
         .transpose()?
         .unwrap_or(0);
+    if publication.epoch.is_some() {
+        committed = committed.checked_sub(1).ok_or("epoch ordinal")?;
+    }
     if run.completed_segments > committed {
         return Err("autonomous/publication segment divergence".into());
     }
@@ -295,6 +302,9 @@ fn root() -> AppResult<Root> {
         return Err("missing/oversize root; no genesis fallback".into());
     }
     let r: Root = decode(&bytes)?;
+    if let Some(t) = &r.world_transition {
+        t.validate()?;
+    }
     if r.version != 7 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_ARTIFACT {
         return Err(
             "incompatible index application schema; no implicit lab-state migration".into(),
@@ -304,12 +314,34 @@ fn root() -> AppResult<Root> {
     let pb = unhex(&r.publication_hex)?;
     let p: Publication = decode(&pb)?;
     if hash(&pb) != r.publication_hash
-        || p.version != 6
+        || !matches!(p.version, 6 | 7)
         || p.render_format.is_some()
         || p.chunk_bytes != CHUNK
         || p.artifacts.len() != 3
     {
         return Err("publication root mismatch".into());
+    }
+    if let Some(e) = &p.epoch {
+        let t = r
+            .world_transition
+            .as_ref()
+            .filter(|t| t.phase == "complete")
+            .ok_or("epoch missing application transition evidence")?;
+        if t.transition_hash.as_ref() != Some(&e.transition_hash)
+            || hash(&unhex(
+                t.metadata_hex
+                    .as_ref()
+                    .ok_or("missing application metadata")?,
+            )?) != e.metadata_hash
+        {
+            return Err("application transition metadata commitment".into());
+        }
+    } else if r
+        .world_transition
+        .as_ref()
+        .is_some_and(|t| t.phase == "complete")
+    {
+        return Err("transition missing authenticated epoch".into());
     }
     validate_run(&r.run)?;
     validate_retention(&r.retention, &p)?;
@@ -411,6 +443,7 @@ fn status(r: &Root) -> Status {
             pace: PACE.with(|p| p.borrow().hint()),
             running: r.run.running,
             idle: r.run.running && ARENA_IDLE.with(Cell::get),
+            world_transition: r.world_transition.as_ref().is_some_and(|t| t.holding()),
             generation: r.run.generation,
             segment_ticks: r.run.segment_ticks,
             pacing_seconds: r.run.pacing_seconds,
@@ -442,6 +475,19 @@ fn needs_simulation(h: &Coordinator<B2zHostKernel>) -> AppResult<bool> {
     Ok(!w.cannons.is_empty() || !w.balls.is_empty() || !w.pending.is_empty())
 }
 
+fn runtime_needs_simulation(
+    h: &Coordinator<B2zHostKernel>,
+    t: Option<&transition::Transition>,
+) -> AppResult<bool> {
+    if t.is_some_and(|t| t.holding()) {
+        return Ok(h.record.journal.stage.is_some()
+            || !h.record.inbox.pending.is_empty()
+            || h.record.inbox.cursor != h.record.inbox.retired_to
+            || h.record.journal.head.seal.is_none());
+    }
+    needs_simulation(h)
+}
+
 fn persist(
     h: &Coordinator<B2zHostKernel>,
     old: Option<&Root>,
@@ -458,7 +504,7 @@ fn persist_inner(
     run: RunState,
     update_certified_data: bool,
 ) -> AppResult<Root> {
-    let idle = !needs_simulation(h)?;
+    let idle = !runtime_needs_simulation(h, old.and_then(|r| r.world_transition.as_ref()))?;
     let image = h.snapshot()?;
     let image_descriptor = describe(&image)?;
     let view = publication(&h.record)?;
@@ -535,6 +581,7 @@ fn persist_inner(
         source,
         run,
         retention,
+        world_transition: old.and_then(|r| r.world_transition.clone()),
     };
     let root_bytes = encode(&r)?;
     if root_bytes.len() > ROOT_LIMIT {
@@ -678,7 +725,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     }
     let now = ic_cdk::api::time();
     let mut h = host(&r)?;
-    if !needs_simulation(&h)? {
+    if !runtime_needs_simulation(&h, r.world_transition.as_ref())? {
         ARENA_IDLE.with(|f| f.set(true));
         clear_run_timer();
         return Ok(());
@@ -902,7 +949,7 @@ fn post_upgrade() {
             )?;
         }
         reconcile_completed_segments(&mut r.run, &view.data)?;
-        let idle = !needs_simulation(&h)?;
+        let idle = !runtime_needs_simulation(&h, r.world_transition.as_ref())?;
         ARENA_IDLE.with(|flag| flag.set(idle));
         r.source.in_flight = false;
         r.source.started_at = 0;
@@ -1258,6 +1305,13 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
         return Ok(None);
     }
     r.source.wake_scheduled = false;
+    if r.world_transition
+        .as_ref()
+        .is_some_and(|t| t.phase == "ready")
+    {
+        save_root_only(&r)?;
+        return Ok(None);
+    }
     let now = ic_cdk::api::time() / 1_000_000_000;
     if r.source.in_flight && now.saturating_sub(r.source.started_at) < SCAN_LEASE_SECONDS {
         return Ok(None);
@@ -1273,7 +1327,13 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
     let lease = Lease {
         nonce: r.source.nonce,
         index: Principal::from_text(&r.source.index).map_err(|e| e.to_string())?,
-        before: r.source.pending.as_ref().map(|p| p.before),
+        before: r.source.pending.as_ref().map(|p| p.before).or(r
+            .world_transition
+            .as_ref()
+            .filter(|t| t.phase == "drain")
+            .and_then(|t| t.ledger_cutover.as_ref())
+            .map(number)
+            .transpose()?),
     };
     save_root_only(&r)?;
     Ok(Some(lease))
@@ -1301,6 +1361,22 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     }
     let mut next = r.source.clone();
     if let Some(page) = page {
+        if let Some(t) = r.world_transition.as_ref().filter(|t| t.phase == "drain") {
+            let cutover = number(t.ledger_cutover.as_ref().ok_or("Ledger cutover")?)?;
+            if page.transactions.iter().any(|tx| tx.id >= cutover) {
+                return Err("Index exceeded reviewed cutover".into());
+            }
+            if page.transactions.is_empty() && next.pending.is_none() {
+                transition::validate_empty_account_page(next.cursor, page.oldest_tx_id, cutover)?;
+                next.in_flight = false;
+                next.started_at = 0;
+                next.last_error = None;
+                r.source = next;
+                r.world_transition.as_mut().unwrap().phase = "ready".into();
+                save_root_only(&r)?;
+                return Ok(());
+            }
+        }
         next.page(page)?;
         r.source = next.clone();
         save_root_only(&r)?; // download survives admission backpressure
@@ -1327,6 +1403,14 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         next.started_at = 0;
         next.last_error = None;
         r.source = next;
+        save_root_only(&r)?;
+    }
+    if r.world_transition
+        .as_ref()
+        .is_some_and(|t| t.phase == "drain")
+        && r.source.pending.is_none()
+    {
+        r.world_transition.as_mut().unwrap().phase = "ready".into();
         save_root_only(&r)?;
     }
     if r.source.requested || r.source.pending.is_some() {
@@ -1361,6 +1445,12 @@ async fn reconcile() -> AppResult<()> {
         r = root()?;
         if !matches_lease(&r.source, &lease) {
             return Ok(());
+        }
+        if r.world_transition
+            .as_ref()
+            .is_some_and(|t| t.phase == "ledger" || t.phase == "index")
+        {
+            return measure_cutover(&lease).await;
         }
         if r.source.pending.as_ref().is_some_and(|p| p.complete) {
             return finish_page(&lease, None);
@@ -1399,6 +1489,179 @@ async fn reconcile() -> AppResult<()> {
     }
     Ok(())
 }
+// These two metadata-only queries establish a global barrier; account history
+// still comes exclusively from the existing configured Index account endpoint.
+#[derive(CandidType, Deserialize)]
+struct LedgerTipArgs {
+    start: u64,
+    length: u64,
+}
+#[derive(CandidType, Deserialize)]
+struct LedgerTip {
+    chain_length: u64,
+}
+#[derive(CandidType, Deserialize)]
+struct IndexWatermark {
+    num_blocks_synced: u64,
+}
+async fn measure_cutover(lease: &Lease) -> AppResult<()> {
+    let r = root()?;
+    let t = r.world_transition.as_ref().ok_or("missing world cutover")?;
+    let phase = t.phase.clone();
+    let observed = if phase == "ledger" {
+        let ledger = Principal::from_text(&r.source.ledger).map_err(|e| e.to_string())?;
+        let response = Call::bounded_wait(ledger, "query_blocks")
+            .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
+            .with_arg(LedgerTipArgs {
+                start: 0,
+                length: 0,
+            })
+            .await
+            .map_err(|e| format!("Ledger cutover query: {e}"))?;
+        response
+            .candid::<LedgerTip>()
+            .map_err(|e| format!("Ledger cutover decode: {e}"))?
+            .chain_length
+    } else if phase == "index" {
+        let response = Call::bounded_wait(lease.index, "status")
+            .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
+            .await
+            .map_err(|e| format!("Index sync query: {e}"))?;
+        response
+            .candid::<IndexWatermark>()
+            .map_err(|e| format!("Index sync decode: {e}"))?
+            .num_blocks_synced
+    } else {
+        return Err("world cutover measurement phase".into());
+    };
+    let mut r = root()?;
+    if !matches_lease(&r.source, lease) {
+        return Ok(());
+    }
+    let t = r.world_transition.as_mut().ok_or("missing world cutover")?;
+    if t.phase != phase {
+        return Err("world cutover phase changed".into());
+    }
+    let advanced = if phase == "ledger" {
+        if observed < r.source.cursor {
+            return Err("Ledger tip below admitted account cursor".into());
+        }
+        t.ledger_cutover = Some(Int(observed.into()));
+        t.phase = "index".into();
+        true
+    } else {
+        t.index_synced = Some(Int(observed.into()));
+        if observed >= number(t.ledger_cutover.as_ref().ok_or("Ledger cutover")?)? {
+            t.phase = "drain".into();
+            true
+        } else {
+            false
+        }
+    };
+    r.source.in_flight = false;
+    r.source.started_at = 0;
+    r.source.last_error = None;
+    r.source.requested = false;
+    save_root_only(&r)?;
+    if advanced {
+        request_reconciliation()?;
+    }
+    Ok(())
+}
+/// Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
+/// caller-supplied Ledger height. The fenced worker obtains its own watermarks.
+#[ic_cdk::update]
+fn prepare_torus_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < pace::CONSERVE_ENTER {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.world_transition {
+        return encode(t);
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 3 || w.width != 16 || w.height != 8 || h.record.journal.epoch.is_some() {
+        return Err("only reviewed v3 world can transition".into());
+    }
+    let expected = b2z_native::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[k] != expected[k])
+    {
+        return Err("unexpected old world identity".into());
+    }
+    if r.source.in_flight || r.source.pending.is_some() {
+        return Err("finish existing source reconciliation before cutover".into());
+    }
+    r.world_transition = Some(transition::Transition::new());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, r.world_transition.as_ref()).expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(r.world_transition.as_ref().unwrap())
+}
+#[ic_cdk::query]
+fn torus_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    encode(&root()?.world_transition)
+}
+/// Derive the new world from the actual durable committed state, once. Expected
+/// manifest protects against a stale operator view; there is no arbitrary replacement.
+#[ic_cdk::update]
+fn commit_torus_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    if let Some(e) = &h.record.journal.epoch {
+        let previous = e.validate()?;
+        if previous.head.manifest_hash != expected_previous_manifest {
+            return Err("conflicting transition retry".into());
+        }
+        return encode(&r.world_transition);
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < pace::CONSERVE_ENTER {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let t = r
+        .world_transition
+        .as_ref()
+        .ok_or("prepare reviewed cutover first")?;
+    let (output, metadata, identity) = transition::candidate(&h, t, &r.source)?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.world_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    r.source.requested = true;
+    r = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    PACE.with(|p| p.borrow_mut().configure_world(true));
+    refresh_pace();
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.world_transition)
+}
+
 // CDK runs the guard before Candid argument decoding. Bound ingress bytes too;
 // receipt/decoding still costs cycles. No custom Candid decoder is used.
 fn poke_guard() -> std::result::Result<(), String> {
@@ -1603,6 +1866,82 @@ mod tests {
         assert_eq!(r.retention.history.len(), 2);
         assert!(r.image.length < CHUNK, "obsolete image chunks removed");
     }
+    #[test]
+    fn transition_metadata_is_bound_and_does_not_forge_source_progress() {
+        let initial = empty_host();
+        let mut w = World::decode(&unhex(&initial.record.journal.head.state_hex).unwrap()).unwrap();
+        w.width = 16;
+        w.height = 8;
+        w.cells = vec![0; 128];
+        let mut h = Coordinator::create(
+            &w.encode().unwrap(),
+            initial.record.journal.identity,
+            0,
+            0,
+            "00".repeat(32),
+            B2zHostKernel,
+        )
+        .unwrap();
+        h.apply(Action::Seal {
+            logical_end: Int(2.into()),
+        })
+        .unwrap();
+        loop {
+            let p = h.apply(Action::Step { budget: 512 }).unwrap().unwrap();
+            if p.complete {
+                break;
+            }
+        }
+        let m = h
+            .record
+            .journal
+            .stage
+            .as_ref()
+            .unwrap()
+            .ready_hash
+            .clone()
+            .unwrap();
+        h.apply(Action::Publish { manifest_hash: m }).unwrap();
+        let (mut source, _) = source::SourceState::configured(
+            source::IndexConfig {
+                network: "pocketic-local".into(),
+                ledger: Principal::self_authenticating([1; 32]),
+                index: Principal::self_authenticating([2; 32]),
+                receiving_subaccount: 0,
+                event_horizon: None,
+                starting_policy: source::StartingPolicy::FromBeginning,
+            },
+            Principal::self_authenticating([3; 32]),
+        )
+        .unwrap();
+        source.binding_checked = true;
+        let mut t = transition::Transition {
+            version: 1,
+            phase: "ready".into(),
+            ledger_cutover: Some(Int(100.into())),
+            index_synced: Some(Int(100.into())),
+            metadata_hex: None,
+            transition_hash: None,
+        };
+        let (output, metadata, identity) = transition::candidate(&h, &t, &source).unwrap();
+        let old = World::decode(&unhex(&h.record.journal.head.state_hex).unwrap()).unwrap();
+        let new = World::decode(&output.state).unwrap();
+        assert_eq!(new.time, old.time);
+        assert_eq!(new.received_e8s, old.received_e8s);
+        assert_eq!(new.credits, old.credits);
+        let proof: serde_json::Value = decode(&metadata).unwrap();
+        assert_eq!(proof["source_cursor"], serde_json::json!(Int(0.into())));
+        let epoch = h
+            .prepare_transition(identity, &output, hash(&metadata))
+            .unwrap();
+        assert_eq!(epoch.source_cursor, Int(0.into()));
+        t.index_synced = Some(Int(99.into()));
+        assert!(transition::candidate(&h, &t, &source).is_err());
+        t.index_synced = Some(Int(100.into()));
+        source.in_flight = true;
+        assert!(transition::candidate(&h, &t, &source).is_err());
+    }
+
     #[test]
     fn print_generated_candid() {
         println!(

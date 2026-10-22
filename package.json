@@ -15,7 +15,7 @@
     "observer:check-recordings": "node tools/build_observer_recordings.mjs --check"
   },
   "dependencies": {
-    "@dtr/timeline-runtime": "file:vendor/dtr/dtr-timeline-runtime-0.12.0.tgz",
+    "@dtr/timeline-runtime": "file:vendor/dtr/dtr-timeline-runtime-0.13.0.tgz",
     "@icp-sdk/core": "6.1.0"
   },
   "devDependencies": {

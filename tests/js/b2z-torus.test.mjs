@@ -61,3 +61,9 @@ test('v4 observer admits only its bound rules/schema and applies heading at the 
  assert.throws(()=>snapshot(initial,PRELAUNCH_IDENTITY),/torus rules\/config\/schema identity/);
  const malformed=decodeCanonical(initial);malformed.cannons[0].heading=null;assert.throws(()=>snapshot(encodeCanonical(malformed)),/integer bounds/);
 });
+
+
+test('old snapshot cannot be silently interpreted with a torus identity',()=>{
+ const old=encodeWorld(fixtureWorld({width:16,height:8,cells:Array(128).fill(0),cannons:[],balls:[],credits:[]}));
+ assert.throws(()=>snapshot(old,TORUS_IDENTITY),/v3 rules\/config\/schema identity/);
+});

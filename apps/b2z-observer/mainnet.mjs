@@ -21,10 +21,10 @@ export async function mainnetConnection(policy){
 /** Operational query only: never authorizes a payment or a game outcome. */
 export function operationalReader(agent,canisterId){
   const actor=Actor.createActor(({IDL})=>IDL.Service({lab_status:IDL.Func([],[IDL.Variant({Err:IDL.Text,Ok:IDL.Record({
-    run:IDL.Record({completed_segments:IDL.Nat64,segment_ticks:IDL.Nat64,running:IDL.Bool,idle:IDL.Opt(IDL.Bool),pace:IDL.Opt(IDL.Record({mode:IDL.Text,nominal_milli:IDL.Nat32,admission_open:IDL.Bool})),last_error:IDL.Opt(IDL.Text)}),
+    run:IDL.Record({completed_segments:IDL.Nat64,segment_ticks:IDL.Nat64,running:IDL.Bool,idle:IDL.Opt(IDL.Bool),world_transition:IDL.Opt(IDL.Bool),pace:IDL.Opt(IDL.Record({mode:IDL.Text,nominal_milli:IDL.Nat32,admission_open:IDL.Bool})),last_error:IDL.Opt(IDL.Text)}),
     source:IDL.Record({binding_checked:IDL.Bool,last_error:IDL.Opt(IDL.Text),pending_records:IDL.Nat32,admitted_to_exclusive:IDL.Nat64})
   })})],['query'])}),{agent,canisterId});
-  return async()=>{const r=await actor.lab_status();if(!r.Ok)throw new Error('status unavailable');r.Ok.run.idle=r.Ok.run.idle?.[0]??false;r.Ok.run.pace=r.Ok.run.pace?.[0]??{mode:'Legacy',nominal_milli:500,admission_open:true};return r.Ok;};
+  return async()=>{const r=await actor.lab_status();if(!r.Ok)throw new Error('status unavailable');r.Ok.run.idle=r.Ok.run.idle?.[0]??false;r.Ok.run.world_transition=r.Ok.run.world_transition?.[0]??false;r.Ok.run.pace=r.Ok.run.pace?.[0]??{mode:'Legacy',nominal_milli:500,admission_open:true};return r.Ok;};
 }
 export async function certifiedSource(policy,ticket){
   policy=mainnetPolicy(policy);

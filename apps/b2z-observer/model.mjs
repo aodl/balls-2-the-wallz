@@ -1,5 +1,5 @@
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {TORUS_IDENTITY} from './torus-identity.generated.mjs';
+import {TORUS_IDENTITY,V3_IDENTITIES} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -29,6 +29,7 @@ export function snapshot(bytes,identity){
     check(c.id!==0&&!ids.has(c.id)&&!anchors.has(c.cell)&&w.cells[c.cell]===c.id,'cannon identity');ids.add(c.id);anchors.add(c.cell);}
   w.cells.forEach(id=>check(id===0||ids.has(id),'cell owner'));
   const balls=new Set();for(const b of w.balls){track(b);check(ids.has(b.owner)&&!balls.has(b.id),'ball identity');balls.add(b.id);}
+  if(w.version===3&&identity)check(V3_IDENTITIES.some(known=>Object.keys(known).every(k=>identity[k]===known[k])),'v3 rules/config/schema identity');
   if(w.version===4&&identity)check(Object.keys(TORUS_IDENTITY).every(k=>identity[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   return w;
 }

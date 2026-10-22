@@ -161,6 +161,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "b2z-mechanics"
+version = "0.5.0"
+dependencies = [
+ "dtr-core",
+]
+
+[[package]]
+name = "b2z-native"
+version = "0.5.0"
+dependencies = [
+ "b2z-mechanics",
+ "b2z-protocol",
+ "dtr-host",
+ "dtr-wire",
+ "num-bigint",
+ "num-rational",
+ "num-traits",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "b2z-protocol"
+version = "0.5.0"
+
+[[package]]
 name = "backon"
 version = "1.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -239,32 +265,6 @@ checksum = "3078c7629b62d3f0439517fa394996acacc5cbc91c5a20d8c658e77abd503a71"
 dependencies = [
  "generic-array",
 ]
-
-[[package]]
-name = "b2z-mechanics"
-version = "0.5.0"
-dependencies = [
- "dtr-core",
-]
-
-[[package]]
-name = "b2z-native"
-version = "0.5.0"
-dependencies = [
- "b2z-mechanics",
- "b2z-protocol",
- "dtr-host",
- "dtr-wire",
- "num-bigint",
- "num-rational",
- "num-traits",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "b2z-protocol"
-version = "0.5.0"
 
 [[package]]
 name = "bumpalo"
@@ -621,13 +621,13 @@ dependencies = [
 
 [[package]]
 name = "dtr-core"
-version = "0.11.0"
-source = "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99"
+version = "0.13.0"
+source = "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
 
 [[package]]
 name = "dtr-host"
-version = "0.11.0"
-source = "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99"
+version = "0.13.0"
+source = "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
 dependencies = [
  "dtr-wire",
  "num-traits",
@@ -657,8 +657,8 @@ dependencies = [
 
 [[package]]
 name = "dtr-wire"
-version = "0.11.0"
-source = "git+https://github.com/aodl/dtr.git?rev=1f47c1a0a104875bd13475d561b8d5aa10770d99#1f47c1a0a104875bd13475d561b8d5aa10770d99"
+version = "0.13.0"
+source = "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
 dependencies = [
  "num-bigint",
  "num-rational",

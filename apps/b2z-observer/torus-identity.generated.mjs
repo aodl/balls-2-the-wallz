@@ -1,2 +1,3 @@
-// Generated from the staged B2Z v4 contract; not a live transition.
+// Generated from the B2Z world contracts; identities do not authorize a transition.
 export const TORUS_IDENTITY=Object.freeze({"rules_hash":"e4d01123f895dd7a1f841332323171bbba1b5159d49dcf66e4c5c7e3c9c8f894","schema_hash":"66a78c3b028d6ba546b4eba1e5b440d72837cb1cf87f9e26b24739383fa9cad6","config_hash":"6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4"});
+export const V3_IDENTITIES=Object.freeze([{"rules_hash":"1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0","config_hash":"3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622","schema_hash":"c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"},{"rules_hash":"1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0","config_hash":"05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42","schema_hash":"c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692"}]);

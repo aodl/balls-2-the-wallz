@@ -17,10 +17,10 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='1f47c1a0a104875bd13475d561b8d5aa10770d99'
-DTR_TREE='467bd2e25b1cf356ecdced7d69e26514a764c045'
+DTR_REV='c12af747190f7e24d5e68cdf57dbb1494095a46b'
+DTR_TREE='59978f78eaf290f3780e4854d0f51b6898fec13c'
 VENDOR_NPM='11.12.1'
-VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.12.0.tgz'
+VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.13.0.tgz'
 
 def digest(path,algorithm='sha256'):
     value=hashlib.new(algorithm)
@@ -92,7 +92,7 @@ def rust_lock_sources(path):
 
 def validate_vendor(source,generated,packaging_npm):
     generated_payload=archive_payload(generated);vendor_payload=archive_payload(VENDOR)
-    if len(generated_payload)!=20 or set(generated_payload)!=set(vendor_payload):raise ValueError('DTR package inventory mismatch')
+    if len(generated_payload)!=23 or set(generated_payload)!=set(vendor_payload):raise ValueError('DTR package inventory mismatch')
     verify_payload(generated_payload,source);verify_payload(vendor_payload,source)
     if generated_payload!=vendor_payload:raise ValueError('vendored and freshly packed DTR payloads differ')
     byte_reproduction={'status':'NOT_RUN','reason':f'vendor used npm {VENDOR_NPM}; current packaging used npm {packaging_npm}'}
@@ -168,7 +168,7 @@ def main():
             distribution=temporary/'distribution';distribution.mkdir()
             step('dtr-npm-install',['npm','ci','--ignore-scripts'],source)
             step('dtr-npm-pack',['npm','pack','--ignore-scripts','--pack-destination',str(distribution)],source,300)
-            generated=distribution/'dtr-timeline-runtime-0.12.0.tgz'
+            generated=distribution/'dtr-timeline-runtime-0.13.0.tgz'
             packaging_npm=report['tools']['npm']['text'].removeprefix('v')
             inventory,vendor_integrity,byte_reproduction=validate_vendor(source,generated,packaging_npm)
             report['package']={'packaging_tool':report['tools']['npm']['text'],'files':inventory,'file_count':len(inventory),

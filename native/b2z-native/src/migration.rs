@@ -1,4 +1,4 @@
-//! Staged game-owned placement only. Pinned DTR cannot commit an identity transition.
+//! Pure game-owned placement. The host authenticates cutover evidence and commits through DTR.
 use crate::world::{World, Q};
 use dtr_wire::{Rat, Result};
 #[derive(Default)]

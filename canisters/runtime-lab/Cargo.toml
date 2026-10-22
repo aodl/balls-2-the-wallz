@@ -18,8 +18,8 @@ candid = "=0.10.28"
 ic-stable-structures = "=0.7.2"
 serde = { version = "=1.0.228", features = ["derive"] }
 serde_json = "=1.0.145"
-dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
-dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "1f47c1a0a104875bd13475d561b8d5aa10770d99" }
+dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "c12af747190f7e24d5e68cdf57dbb1494095a46b" }
+dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "c12af747190f7e24d5e68cdf57dbb1494095a46b" }
 b2z-native = { path = "../../native/b2z-native" }
 [dev-dependencies]
 candid_parser = "=0.4.1"

@@ -23,6 +23,7 @@ fn main() {
         println!("memo\t{}\t{}\t{}\t{}", p[0], n, hex(&encode(c)), numeric(c));
     }
     let s = Seal {
+        epoch_hash: None, // Historical DTRSEAL1 fixture.
         segment_id: 0,
         logical_start: 0,
         logical_end: 10,

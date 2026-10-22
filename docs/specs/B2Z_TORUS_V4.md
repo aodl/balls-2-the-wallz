@@ -36,12 +36,71 @@ A real cutover also needs a ledger boundary, not merely an empty local inbox. Th
 
 The staged helpers reject unfinished work, admitted inputs, downloaded history pages, in-flight reconciliation, missing Index history-barrier evidence or an incomplete barrier. They preserve the source identity in the proposal. The helper returns a **non-deployable candidate**, not an IC-authorized transition or a proof that the supplied operator boundary evidence is genuine. Frontend drafts include version/dimensions and become stale when the world changes. This is not a quote reservation.
 
-## Required shared facility, not implemented here
+## Historical staging requirement (superseded by the activation candidate below)
 
 Pinned `dtr-host::Action` offers Ingest/IngestOrdered/Seal/Step/Publish only. Its validator requires the head seal's identity to equal the journal identity and verifies the original manifest/ack. Replacing identity/state in place violates those commitments.
 
-A narrow generic atomic Transition facility must bind the expected old manifest/state/identity, new identity and migrated-state hash/bytes, logical boundary, preserved source cursor/anchor and application migration-metadata hash. It must reject staged/reserved work, preserve original seals, receipts and retained evidence, and publish an authenticated old/new epoch link recognized by the client verifier. Index cutover logic, placement, topology, camera, orientation and cycle economics remain B2Z-owned. DTR changes require separate scope and user publication before immutable consumer pins and real-remote validation. **DTR CHANGES IN THIS BRANCH: NONE.**
+A narrow generic atomic Transition facility must bind the expected old manifest/state/identity, new identity and migrated-state hash/bytes, logical boundary, preserved source cursor/anchor and application migration-metadata hash. It must reject staged/reserved work, preserve original seals, receipts and retained evidence, and publish an authenticated old/new epoch link recognized by the client verifier. Index cutover logic, placement, topology, camera, orientation and cycle economics remain B2Z-owned. DTR changes require separate scope and user publication before immutable consumer pins and real-remote validation. **DTR extension is now separately published; see the candidate below.**
 
 ## Checks
 
 New v4 fixtures cover horizontal/vertical/corner passage, blocked diagonal seam crossings, competing seam strikes/capture/annihilation, seam-only connectivity, severance and alternate wrap connectivity, spawn exclusion and accepted/rejected heading changes. Native/JS canonical state/events/scores match with interruption recovery. The actual disposable upstream ledger/index path exercises text transfers, persistent orientation, two pending inputs across upgrade and exact captured-seal replay. Browser checks use a genuine pinned disposable IC, with corner-seam MOVE picking, native touch pinch, responsive screenshots and bounded populated playback. Historical v3 replay/recovery remains a separate required gate.
+
+## Authenticated activation candidate
+
+The current transition branch pins published DTR
+`c12af747190f7e24d5e68cdf57dbb1494095a46b`, client 0.13.0, for the generic
+atomic epoch checkpoint. The earlier "required shared facility" section above
+records the original staging boundary; the live game remains v3 until the tested
+candidate is explicitly activated. No treasury implementation is included.
+
+The fixed controller methods are `prepare_torus_transition()`,
+`torus_transition_status()` and `commit_torus_transition(expected_old_manifest)`.
+They accept neither arbitrary state nor caller-selected rules, principals or
+Ledger heights. Preparation requires the existing source reconciliation to be
+between windows. It durably holds admission before measuring the Ledger's
+exclusive `chain_length` with `query_blocks({start:0,length:0})`. This is one
+metadata-only call, never a block scan. The worker then waits for the configured
+Index's `status().num_blocks_synced >= cutover`. Both calls use the existing
+30-second timeout and fenced source lease. Failures preserve the fence and retry
+through bounded maintenance; upgrade invalidates outstanding callbacks.
+
+The account query starts exclusively below the recorded cutover, using the same
+bounded history windows, raw transaction digests, sparse cursor and anchors.
+An empty account page establishes completeness only **after** the independent
+Index sync check. The worker checks the account's oldest ID, finishes all windows
+and never assigns the global Ledger height to the account cursor. Transactions
+at/above the cutover remain durable in the Index for the new epoch. Every older
+command, including invalid or underfunded payments, finishes under v3. While held,
+only an unfinished stage, admitted inputs, unretired source progress or an initial
+uncommitted head requires old-world simulation. Ordinary old-world production
+stops at its committed boundary. Existing operator pause/resume is respected.
+
+Commit requires the controller's exact current old manifest, a drained source,
+no stage/reservation/inputs and actual committed 16×8 prelaunch v3 state. It derives
+the placement internally. New checkpoint events and score **deltas** are empty;
+all accrued credits, received totals and player/ball state remain in the migrated
+world. Application metadata separately records the global Ledger cutover,
+observed Index sync count, account-history completeness through exactly the
+cutover, actual sparse account cursor and anchor. Its hash is bound by the DTR
+epoch proof. The new publication ordinal consumes zero logical time and is not
+counted as a simulated segment. Persistence, retention and certification change
+atomically. Identical commit retries return the existing evidence; a conflicting
+old manifest fails. Later upgrades validate both the epoch and application
+metadata commitments before rearming the same source/runtime timers.
+
+Publication v7 authenticates the predecessor v6 catalog, unchanged logical/source
+boundary, new state/identity and metadata hash. Every later `DTRSEAL2` binds this
+same epoch proof. Old v6 bytes remain unchanged. The frontend verifies this link
+before switching world projections/configuration, explicitly replaces incompatible
+playback, resets the camera fit once and invalidates old transfer drafts. Aim
+selection remains local and retained. A fresh v7 session does not require a cached
+old snapshot; retained-history gaps still require explicit authenticated resync.
+
+Upstream semantic inspection: official ICP Index source at
+`dfinity/ic@6a7e0a3efc521453c8969102cbaee703811cafa4`,
+`rs/ledger_suite/icp/index/src/main.rs`: status reports the global block-log length;
+block append updates account indices synchronously, and account-history `start`
+is exclusive. `oldest_tx_id` is the account's global oldest ID, independent of
+pagination. The existing official Index trust assumption remains; this does not
+claim a separate cryptographic proof of the Ledger's complete history.
