@@ -138,7 +138,7 @@ def planned_checks(mode,outdir):
       ('observer-http-webcrypto',[sys.executable,'-B','tools/verify_observer_http.py','--output',str(outdir/'browser-http')],'normal',(),240),
     ]
     integration=[
-      ('s14-index-poke-local-slice',[sys.executable,'-B','tools/verify_s14_local.py','--output',str(outdir/'s14-local')],'normal',('cargo','node','npm'),3000),
+      ('s14-index-poke-local-slice',[sys.executable,'-B','tools/verify_s14_local.py','--output',str(outdir/'s14-local')],'normal',('cargo','node','npm'),7200),
     ]
     groups={'source':source,'native':native,'wasm':wasm,'browser':browser,'integration':integration}
     if mode=='all':return source+native+wasm+browser+integration

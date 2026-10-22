@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import tomllib
 from verify_s09_local import ROOT, execute, start_pocketic, stop_pocketic
@@ -31,6 +32,15 @@ def wasm_exports(path):
                 size=leb();names.append(data[pos:pos+size].decode());pos+=size+1;leb()
         pos=end
     return names
+
+def installed_test_inventory(listing, ignored_listing, *, ignored=False):
+    """Select exact active tests, recording rather than silently hiding ignored probes."""
+    def names(text):return {line.removesuffix(': test') for line in text.splitlines() if line.endswith(': test')}
+    all_tests=names(listing);ignored_tests=names(ignored_listing)
+    if not ignored_tests<=all_tests:raise ValueError('inconsistent installed test inventory')
+    selected=ignored_tests if ignored else all_tests-ignored_tests
+    if not selected:raise ValueError('No installed tests selected')
+    return sorted(selected),sorted(all_tests-selected)
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=ROOT/'.work/s14/local')
@@ -94,9 +104,8 @@ def main():
         run('harness-build',cargo+['test','--manifest-path','tools/s09-integration/Cargo.toml','--test','s14_index','--no-run','--locked','--offline','--message-format=json'])
         log=(out/'logs/harness-build.log').read_text();binaries=[json.loads(line)['executable'] for line in log.splitlines() if line.startswith('{') and json.loads(line).get('reason')=='compiler-artifact' and json.loads(line).get('executable')]
         assert len(binaries)==1
-        server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=2400)
         env={key:str(path.resolve()) for key,path in files.items()}
-        env.update(POCKET_IC_SERVER_URL=server[3],B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
+        env.update(B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')
@@ -121,26 +130,50 @@ def main():
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
             env['B2Z_PRIOR_WASM']=str(a.prior_wasm.resolve())
-        # Keep each bounded suite's existing timeout. Funding uses its own
-        # disposable Ledger/CMC instances, not more time inside a game test.
-        test_log=run('installed-index-integration',[binaries[0],*([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),*(['--ignored'] if a.prior_wasm else []),'--nocapture','--test-threads=1'],1200,env)
-        if not __import__('re').search(r'test result: ok\. [1-9][0-9]* passed',test_log):raise RuntimeError('No installed tests executed')
+        def installed_suite(identifier, filters=(), *, ignored=False, timeout=900):
+            nonlocal server
+            listing=subprocess.check_output([binaries[0],*filters,'--list','--format','terse'],text=True)
+            ignored_listing=subprocess.check_output([binaries[0],*filters,'--ignored','--list','--format','terse'],text=True)
+            selected, omitted=installed_test_inventory(listing,ignored_listing,ignored=ignored)
+            result.setdefault('installed_suites',[]).append({'id':identifier,'selected':selected,'ignored':omitted});save()
+            combined=[]
+            # Each test already owns disposable IC instances. Give it a fresh
+            # server too: deleted instances/caches cannot accumulate across the
+            # entire game + financial suite, or cascade a dead server into later tests.
+            for name in selected:
+                case_id=identifier+'--'+name.replace('::','-')
+                case_out=out/'instances'/case_id;case_out.mkdir(parents=True,exist_ok=True)
+                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=timeout+60)
+                try:
+                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
+                    row['test']=name;row['pocketic_server_exit']=server[0].poll()
+                    text=(out/row['log']).read_text();combined.append(text)
+                    if row['pocketic_server_exit'] is not None:
+                        row.update(status='FAIL',reason='PocketIC server exited before cleanup: '+str(row['pocketic_server_exit']))
+                    if not __import__('re').search(r'test result: ok\. 1 passed; 0 failed; 0 ignored;',text):
+                        row['status']='FAIL'
+                    result['checks'].append(row);save();print(name,row['status'],flush=True)
+                    if row['status']!='PASS':raise RuntimeError(case_id+' FAIL')
+                finally:
+                    stop_pocketic(*server[:3]);server=None
+            (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm))
         if not a.test_filter:
             cutover_test='funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification'
-            run('installed-funding-integration',[binaries[0],'funding_tests::','--skip',cutover_test,'--nocapture','--test-threads=1'],900,env)
-            run('installed-funding-cutover-integration',[binaries[0],cutover_test,'--exact','--nocapture','--test-threads=1'],300,env)
+            installed_suite('installed-funding-integration',['funding_tests::','--skip',cutover_test])
+            installed_suite('installed-funding-cutover-integration',[cutover_test],timeout=300)
         if a.deployed_wasm:
-            run('deployed-module-state-preserving-upgrade',[binaries[0],'s15_upgrade_from_deployed_module_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
+            installed_suite('deployed-module-state-preserving-upgrade',['s15_upgrade_from_deployed_module_with_players_publications_and_pending'],ignored=True)
         if a.current_deployed_wasm:
-            run('installed-s15-state-preserving-upgrade',[binaries[0],'b2z_upgrade_from_s15_with_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
+            installed_suite('installed-s15-state-preserving-upgrade',['b2z_upgrade_from_s15_with_players_publications_and_pending'],ignored=True)
         if a.idle_prior_wasm:
-            run('idle-state-preserving-upgrade',[binaries[0],'empty_arena_upgrade_preserves_players_publications_and_pending','--ignored','--nocapture','--test-threads=1'],900,env)
-            run('idle-cost-comparison',[binaries[0],'empty_arena_old_new_cost_comparison','--ignored','--nocapture','--test-threads=1'],900,env)
+            installed_suite('idle-state-preserving-upgrade',['empty_arena_upgrade_preserves_players_publications_and_pending'],ignored=True)
+            installed_suite('idle-cost-comparison',['empty_arena_old_new_cost_comparison'],ignored=True)
         if a.arena_prior_wasm:
-            run('arena-state-preserving-upgrade',[binaries[0],'arena_upgrade_from_installed_idle_module','--ignored','--nocapture','--test-threads=1'],900,env)
-            run('arena-matched-producer-cost',[binaries[0],'arena_matched_prior_producer_cost_comparison','--ignored','--nocapture','--test-threads=1'],900,env)
+            installed_suite('arena-state-preserving-upgrade',['arena_upgrade_from_installed_idle_module'],ignored=True)
+            installed_suite('arena-matched-producer-cost',['arena_matched_prior_producer_cost_comparison'],ignored=True)
         if a.arena_prior_test_wasm:
-            run('arena-unfinished-upgrade',[binaries[0],'arena_unfinished_old_segment_survives_upgrade','--ignored','--nocapture','--test-threads=1'],900,env)
+            installed_suite('arena-unfinished-upgrade',['arena_unfinished_old_segment_survives_upgrade'],ignored=True)
         if a.test_filter:
             result['overall']='PASS';save();return 0
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)
