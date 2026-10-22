@@ -4027,7 +4027,8 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
         let p = observe(&pic, id).1;
         if let Some(segment) = p.head.segment_id.as_ref() {
             let head: u64 = segment.0.to_string().parse().unwrap();
-            for n in next..=head {
+            let first_unseen = next;
+            for n in first_unseen..=head {
                 let current = if n == head {
                     p.clone()
                 } else {

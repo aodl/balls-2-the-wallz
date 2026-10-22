@@ -688,6 +688,15 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
         }
     }
     assert_eq!(transition_view(&pic, id).unwrap().phase, "ready");
+    mode(&pic, "processing");
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    let checkpoint_pending = funding(&pic, id);
+    assert!(matches!(
+        checkpoint_pending.phase,
+        Phase::NotifyPending { .. }
+    ));
     let before = arena_world(&pic, id);
     let cursor = status(&pic, id).source.admitted_to_exclusive;
     assert_eq!(cursor, underfunded + 1);
@@ -703,7 +712,7 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
     assert_eq!(arena_world(&pic, id).received_e8s, before.received_e8s);
     assert_eq!(
         candid::encode_one(&funding(&pic, id).phase).unwrap(),
-        candid::encode_one(&pending.phase).unwrap()
+        candid::encode_one(&checkpoint_pending.phase).unwrap()
     );
     pic.upgrade_canister(
         id,
@@ -714,8 +723,9 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
     .unwrap();
     assert_eq!(
         candid::encode_one(&funding(&pic, id).phase).unwrap(),
-        candid::encode_one(&pending.phase).unwrap()
+        candid::encode_one(&checkpoint_pending.phase).unwrap()
     );
+    mode(&pic, "");
     enabled(&pic, id, true);
     maintenance(&pic);
     assert!(matches!(funding(&pic, id).phase, Phase::Idle));

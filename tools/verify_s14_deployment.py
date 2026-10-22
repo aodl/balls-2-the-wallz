@@ -55,7 +55,12 @@ def verify_epoch_transition(page,context,out,record,report,save):
     old_cell=int(cells[0]);page.locator('#move-cell').select_option(str(old_cell));page.locator('#prepare-transfer').click()
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
     assert page.locator('#payment-address').text_content()==report['receiving_account']
-    page.keyboard.press('Escape');(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n')
+    page.keyboard.press('Escape')
+    reconnect=context.new_page();reconnect.goto(page.url,timeout=30000)
+    wait_until(reconnect,lambda:reconnect.evaluate('Boolean(globalThis.__dtrLive?.connected)') and '16 × 8' in reconnect.locator('#world-rules').text_content(),30000)
+    reconnect.locator('#toolbar-settings').click();reconnect.locator('.diagnostics').evaluate('(node)=>node.open=true');reconnect.locator('#network-pause').check();reconnect.keyboard.press('Escape')
+    old_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)')
+    page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n')
     wait_until(page,lambda:'World transition' in page.locator('#arena-note').text_content(),30000)
     page.locator('#toolbar-play').click();assert page.locator('#prepare-transfer').is_disabled();assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
     page.keyboard.press('Escape');(out/'browser-fence-seen').write_text('payment preparation held\n')
@@ -90,6 +95,11 @@ def verify_epoch_transition(page,context,out,record,report,save):
     report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
     (out/'epoch-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['epoch_playback']['stalled_samples']==0,report['epoch_playback'];assert samples[-1]['backend_segments']>samples[0]['backend_segments']
     record('new-epoch-continuous-verified-playback',report['epoch_playback'])
+    reconnect.bring_to_front();reconnect.locator('#toolbar-settings').click();reconnect.locator('#network-pause').uncheck();reconnect.keyboard.press('Escape')
+    wait_until(reconnect,lambda:reconnect.evaluate('globalThis.__dtrLive.resyncs')>=1 and '32 × 32' in reconnect.locator('#world-rules').text_content(),30000)
+    new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
+    assert not reconnect.locator('#error').is_visible();reconnect.close();page.bring_to_front()
+    record('old-session-reconnects-across-epoch-after-retained-history-gap',{'old_head':old_head,'new_head':new_head})
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '32 × 32' in page.locator('#world-rules').text_content(),30000)
     assert not page.locator('#error').is_visible()
     report['epoch_transition']={'old_cell':old_cell,'mapped_cell':mapped,'old_draft_stale':True,'reload_new_epoch':True,'qualification':'Genuine disposable IC; synthetic v3 player fixture. Real Ledger/Index paid cutover is verified separately.'}
