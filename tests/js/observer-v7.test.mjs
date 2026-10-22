@@ -112,3 +112,17 @@ test('shared pace transitions keep the verified clock continuous after startup',
  }
  assert(started);assert.equal(stalls,0);
 });
+
+test('operator resume rebuilds the startup buffer without losing verified time or queued segments',async()=>{
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ const {prepareIdlePlayout}=await import('../../apps/b2z-observer/model.mjs');
+ const queue=[{verified:true}],s={clock:new PlayoutClock({target:6,low:1,max_frame_delta:1}),queue,operational:{run:{running:true,pace:{mode:'Normal',nominal_milli:1000}}}};
+ s.clock.append(0,8);s.clock.sample(1);s.operational.run.running=false;prepareIdlePlayout(s,false);
+ for(let n=0;n<10;n++)s.clock.sample(1);
+ assert.equal(s.clock.playhead,8);assert.equal(s.clock.phase,'STALLED');
+ s.clock.append(8,10);s.operational.run.running=true;prepareIdlePlayout(s,false);
+ assert.equal(s.queue,queue);assert.equal(s.clock.available,10);
+ assert.equal(s.clock.sample(1).phase,'BUFFERING');assert.equal(s.clock.playhead,8);
+ const resumed=s.clock;prepareIdlePlayout(s,false);assert.equal(s.clock,resumed);
+ s.clock.append(10,14);assert.equal(s.clock.sample(1).phase,'PLAYING');assert.ok(s.clock.playhead>8&&s.clock.playhead<=14);
+});

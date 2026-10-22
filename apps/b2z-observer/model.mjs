@@ -158,6 +158,14 @@ export class SegmentPlayer {
 /** Consume only the verified finite remainder when the authoritative arena idles. */
 export function prepareIdlePlayout(session,idle){
   const {playhead:start,available:end}=session.clock;
+  if(session.operational?.run.running===false)session.productionPaused=true;
+  else if(session.productionPaused&&session.operational?.run.running===true){
+    // A known operator pause can exhaust all verified data. Resume with the
+    // ordinary startup buffer, rather than repeatedly starting at the low mark.
+    session.clock=new PlayoutClock({start,...liveBufferPolicy(session.operational),max_frame_delta:1});
+    if(end>start)session.clock.append(start,end);
+    session.productionPaused=false;session.idleDrain=false;
+  }
   if(idle&&!session.idleDrain&&end>start){
     const target=Math.min(.25,(end-start)/2);
     session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
