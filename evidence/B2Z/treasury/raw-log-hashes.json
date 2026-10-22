@@ -1,0 +1,20 @@
+{
+  ".work/treasury/standard-final/results.json": "ccf8996f5d4cafe0c3ba7b2cc9ff949fbd0fef7ee60fa7c4a4b0e1e763ce77b1",
+  ".work/treasury/standard-final/deployment/browser.log": "44a5ef5385eea54f2d79aa2387ef2a4f88f86fa841ef2c2b5d2c611028c7e0d7",
+  ".work/treasury/standard-final/deployment/torus-scene/browser.log": "7a22cef775ec2c03cf7bd156ebfc96c3ee1e0226a3924fed8f34f2ef5bd33316",
+  ".work/treasury/standard-rerun/results.json": "888e47209043e8777d364993416ea5197e716d68b9578a1d4a9405c1cdd27264",
+  ".work/treasury/standard-rerun/logs/installed-index-integration.log": "321b37c587d1dcf2c00ba87da61a81be45b2aebf157022b2c6c0b31f10c31470",
+  ".work/treasury/standard-rerun/logs/installed-funding-integration.log": "97ca2c8097177b05ef62511fcf6b56e5de7176311e22a5d199a5c20f9470b7be",
+  ".work/treasury/standard-rerun/logs/js-captured-history-replay.log": "98622dd1e2b7ed327048fe9868660372d1f9e731415d0ab375e75d0e54e66997",
+  ".work/treasury/source-final/verification.json": "cfd7c98cf92ed0963a958c4d882ea460ec33395acaaf920d868921ac5c43ab48",
+  ".work/treasury/native/verification.json": "53a5948cefa08413e13f42fb4dda0c011c39e0e2fad4be68751f6a957701bfd0",
+  ".work/treasury/clippy.log": "569bc7ab62eb83c7127d7affb6e3bb8af563eb8b23df362b717e347e02d4d331",
+  ".work/treasury/mock-clippy.log": "a9e6c17d61f5d4d8f4d471751a1ba6f6126e304d4f22f20e612c1c0d3db9816b",
+  ".work/treasury/host-tests.log": "831671edd1fc37d3abdfeb4c10eb40b1d369729551f46da8e6903a147e569652",
+  ".work/treasury/mock-build-2.log": "2e79ab913b7ca0b8af10cf48ea7ae5b3dce2e6689b4f8ed8d48f7f80e5831021",
+  ".work/treasury/clippy-final-2.log": "84f910cc116c5f90d0f3d02b7fec63be8a3bb354960aa7b6293ce43f346fe05b",
+  ".work/treasury/freeze-clippy-final.log": "e4ba735784137bd7a6d821875e1c040e2aec9d7acd4dfcba378320f6bcb94cfb",
+  ".work/treasury/funding-lint-final/results.json": "12e07d20b7cd55523bef6893dcc57ad19c104940caf37aa75bcf92645d8dc70d",
+  ".work/treasury/funding-lint-final/logs/installed-index-integration.log": "edcd86fff94b1065958cc3702f5a24eadb0c6a2c6185bc01ea0471de52d82ed5",
+  ".work/treasury/funding-lint-final/logs/host-tests.log": "d18cd75fb3c5d96eb01d81c684ab7bde0919d6755381d01eaf4700f6474e73dc"
+}
