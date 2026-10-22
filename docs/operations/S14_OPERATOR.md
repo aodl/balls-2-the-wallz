@@ -1,3 +1,74 @@
+# Combined torus and treasury candidate — recovery preparation only
+
+The 2026-10-22 recovery performs no mainnet upgrade, transition or transfer.
+Read-only inspection still identifies backend module
+`53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec`;
+neither the torus transition nor the prelaunch treasury is installed. The
+candidate combines published DTR `c12af747190f7e24d5e68cdf57dbb1494095a46b`,
+client 0.13.0, the authenticated epoch transition, and the existing
+[prelaunch self-funding worker](PRELAUNCH_SELF_FUNDING.md). Its journal remains
+v3 until the fixed controller transition commits. The historical procedures
+below grant no new deployment or reset authorization.
+
+Planned state-preserving sequence, after the exact committed release is pushed
+by the user and its GitHub CI passes:
+
+1. Recheck both existing IDs, installed module, controllers, certified paid
+   world/scores, source cursor/anchor, pending work, actual Ledger balance/fee,
+   and liquid cycles. Require the locally rehearsed predecessor above; if it
+   changed, rehearse that exact module first. Use the frozen normal Wasm and
+   frontend from the same reviewed source. Never use constructor files on the
+   funded backend.
+2. Treat treasury activation as part of reviewing this combined installation.
+   **On its first mainnet initialization the treasury is enabled and its first
+   maintenance is scheduled five minutes later.** Gameplay pause and the world
+   fence do not pause it. If migration is to precede money movement, the reviewed
+   installation sequence must immediately call `set_funding_paused(true)` and
+   verify `controller_funding.paused` before that first timer; do not install if
+   that activation boundary cannot be assured. This recovery grants no authority
+   to execute a real sweep. Existing financial plans and pause state, if any,
+   survive upgrade; pausing retains an unresolved transfer/notification.
+3. Pause gameplay, capture the certified publication and retained artifacts,
+   upgrade the same backend in place, and compare those exact bytes plus world,
+   scores, source progress, pending work and controllers. Compare any existing
+   treasury phase/plan separately. Upload the frozen v7-capable observer to the
+   existing frontend using the established asset-only route. It must still
+   authenticate and display v3 before cutover.
+4. Prepare the fixed torus transition between source windows. Its worker records
+   the official Ledger's exclusive chain length from one zero-length metadata
+   query, then waits for the official Index's independent global sync count.
+   Resume the existing gameplay run settings to finish old admitted input and
+   unfinished work. The capped account-history query/pagination admits only IDs
+   below the cutover. Later rows remain in the Index; neither global height
+   replaces the sparse account cursor. Require phase `ready`, no source window
+   or call, no inbox/stage/reservation, and the committed source boundary.
+5. Read the final old manifest and commit using exactly that manifest. The host
+   derives placement from durable paid v3 state and atomically persists the DTR
+   epoch checkpoint, v7 certification and unchanged source/financial stores.
+   Retries with that original manifest return the committed transition;
+   conflicting manifests fail. Verify 32×32 wrapping, old scores/accounts/balls
+   and received totals, the epoch metadata hash, subsequent sealed v7 output,
+   and last accepted headings. Old v6 bytes stay historical. Check an existing
+   observer, a fresh observer and reconnect across an evicted history gap;
+   old-width payment drafts must require explicit refresh.
+6. Any later treasury unpause must follow the reviewed treasury activation
+   boundary. Inspect the fixed CMC destination, original transfer identity,
+   notification result and source continuity. Outgoing sweeps on either side of
+   cutover are non-command account rows. Never replace an ambiguous transfer
+   with a new plan, or infer spendable funds from cumulative received totals.
+
+Ledger/Index call failures retain the fence and retry through the independent
+60-second source timer; a delayed Index cannot release admission. Upgrades
+invalidate old source and funding callback leases and rearm their separate
+timers from durable state. Old-world operator pause is respected, so unfinished
+work cannot drain until the run resumes. Insufficient cycles defer work; they
+do not permit skipping history. A failed commit changes no publication; a
+committed checkpoint is recognized on retry. There is no arbitrary state setter,
+fence-cancelling reset, or supported downgrade to pre-epoch code. Resolve failures
+in place without reinstalling, editing prices or rewriting historical seals.
+
+---
+
 # Arena and pacing release — current operation
 
 **2026-10-21:** backend `53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec` was upgraded in place on `s34gv-3qaaa-aaaar-qcifa-cai`. The paid v3 world, scores, source cursor, identities, unfinished work and retained bytes were compared before/after. Arena assets are on the existing observer. [Current report](../../checkpoints/B2Z_ARENA_CAMERA_AND_PACING.md) records exact source/assets, public verification and cycle measurements; it supersedes historical release hashes below.
