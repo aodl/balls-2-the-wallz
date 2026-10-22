@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "af212f2e79fb6902d5f4d7c752f29676154c15e7",
+  "started_utc": "2026-10-22T06:16:22.505556+00:00",
+  "mode": "source",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "b2z-naming-audit",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/check_b2z_names.py",
+        "--output",
+        ".work/arena-verification-fix/source-final/naming-audit.json"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-naming-audit.log",
+      "elapsed_seconds": 0.517,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "observer-recordings",
+      "command": [
+        "node",
+        "tools/build_observer_recordings.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-recordings.log",
+      "elapsed_seconds": 2.431,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "protocol-fixtures",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/reference_fixtures.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/protocol-fixtures.log",
+      "elapsed_seconds": 0.065,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "life-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/life_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/life-reference.log",
+      "elapsed_seconds": 0.065,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "b2z-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/b2z_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-reference.log",
+      "elapsed_seconds": 0.267,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "spawn-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/spawn_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/spawn-reference.log",
+      "elapsed_seconds": 0.518,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "impact-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/impact_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/impact-reference.log",
+      "elapsed_seconds": 0.065,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "b2z-full-traces",
+      "command": [
+        "node",
+        "tools/b2z_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-full-traces.log",
+      "elapsed_seconds": 0.267,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "numeric-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/numeric_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/numeric-reference.log",
+      "elapsed_seconds": 0.115,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "coordinator-vectors",
+      "command": [
+        "node",
+        "tools/coordinator_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/coordinator-vectors.log",
+      "elapsed_seconds": 0.519,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "observation-v6-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/observation_reference.py",
+        "--version",
+        "6",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-v6-reference.log",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "observation-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/observation_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-reference.log",
+      "elapsed_seconds": 0.066,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "portable-cursors",
+      "command": [
+        "node",
+        "tools/portable_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-cursors.log",
+      "elapsed_seconds": 0.37,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "node-tests",
+      "command": [
+        "node",
+        "--test",
+        "/home/codexdev/src/b2z/tests/js/animation-v1.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/arcade-pricing.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-torus.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-v3.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/camera.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/coordinator-simplified.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/coordinator-vectors.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/coordinator.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/mainnet-policy.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/memo.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation-reference.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation-v6-reference.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-v7.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/payment.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/play-reference.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/portable-v4.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/s12-workloads.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/storage-v4.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/text-memo.test.mjs"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/node-tests.log",
+      "elapsed_seconds": 42.409,
+      "timeout_seconds": 300,
+      "counts": {
+        "tests": 1349,
+        "pass": 1349,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/check_source.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/source-structure.log",
+      "elapsed_seconds": 6.61,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "docs-links",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/check_docs.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/docs-links.log",
+      "elapsed_seconds": 0.12,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "python-tool-tests",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/python-tool-tests.log",
+      "elapsed_seconds": 22.597,
+      "timeout_seconds": 300,
+      "counts": {
+        "tests": 137
+      }
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}

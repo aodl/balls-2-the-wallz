@@ -1,0 +1,30 @@
+{
+  "browser-details.json": {
+    "sha256": "c32efc8050b216c3cc24253b2357d0fb85d6accb6b97c3c18b9ea4c31b5190d1",
+    "bytes": 2425
+  },
+  "browser-first-failed.json": {
+    "sha256": "15634a25c51e6c0c67b321287be32af96c4622dd6cb9122ebcd9da17fff646e9",
+    "bytes": 846
+  },
+  "browser.json": {
+    "sha256": "030a2f812aa2d09170770fbc9af8f12c2dce9e89d6bdb6959a0e43294dc4de91",
+    "bytes": 852
+  },
+  "integration-first-failed.json": {
+    "sha256": "92cd89b0d383d8d87d12b6086651257d3f10846634b78860debe9243f8737193",
+    "bytes": 855
+  },
+  "integration.json": {
+    "sha256": "ec049c2240fcb4fa3f6ec8ed9fda1d44b8e7b12e37e0dd618dba6e3447d95fc5",
+    "bytes": 861
+  },
+  "source.json": {
+    "sha256": "43558599602aa10fe37e5626cc0b260e1348e4c51212d2d954c68f03c0c1badb",
+    "bytes": 7625
+  },
+  "verification.json": {
+    "sha256": "170e5dfa4463f1c061b402dc392b85289e68a2ff45d6a8aa769167ab33c7e747",
+    "bytes": 5115
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "af212f2e79fb6902d5f4d7c752f29676154c15e7",
+  "started_utc": "2026-10-22T06:24:38.007047+00:00",
+  "mode": "integration",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "s14-index-poke-local-slice",
+      "command": [
+        "/home/codexdev/dtr-s08-playwright/bin/python",
+        "-B",
+        "tools/verify_s14_local.py",
+        "--output",
+        ".work/arena-verification-fix/integration-final/s14-local"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/s14-index-poke-local-slice.log",
+      "elapsed_seconds": 626.206,
+      "timeout_seconds": 2400,
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}

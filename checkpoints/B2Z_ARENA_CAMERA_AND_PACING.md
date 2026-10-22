@@ -1,5 +1,7 @@
 # B2Z arena, camera and shared pacing — 2026-10-21
 
+> Verification addendum, 2026-10-22: the published `af212f2` CI run failed its source export inventory and standalone browser navigation checks. The deployment/preservation evidence below remains unchanged. The tooling-only correction and complete standard-gate reruns are recorded in [B2Z_ARENA_VERIFICATION_FIX.md](B2Z_ARENA_VERIFICATION_FIX.md); no production deployment or live-world activation is part of that patch.
+
 **Live:** viewport arena, on-demand accessible controls, pan/zoom/minimap, bounded producer, shared liquid-cycle pacing, parallel verified artifact retrieval and corrected foreground frame timing. **Staged:** 32×32 toroidal rules, persistent accepted cannon heading and a non-deployable migration candidate. The live paid game remains bounded 16×8 v3. **DTR CHANGE REQUIRED for world activation; DTR CHANGES MADE: NONE.**
 
 The same backend `s34gv-3qaaa-aaaar-qcifa-cai` and frontend `s45ab-wiaaa-aaaar-qcifq-cai` were used with `codex_local`. No reinstall/reset, canister creation/deletion, settings/controller change, Event Horizon modification, mainnet transfer or remote Git action occurred.

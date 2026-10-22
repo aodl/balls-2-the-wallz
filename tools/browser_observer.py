@@ -24,6 +24,19 @@ def wait_file(page,path,timeout=30000):
     wait_until(page,path.is_file,timeout)
     return path.read_text().strip()
 
+def open_settings(page):
+    dialog=page.locator('#settings-dialog')
+    if not dialog.is_visible():page.locator('#toolbar-settings').click()
+    dialog.wait_for(state='visible')
+    diagnostics=dialog.locator('.diagnostics')
+    if not diagnostics.evaluate('(node)=>node.open'):diagnostics.locator('summary').click()
+    dialog.locator('#pause').wait_for(state='visible')
+
+def close_settings(page):
+    dialog=page.locator('#settings-dialog')
+    if dialog.is_visible():dialog.locator('[data-close]').click()
+    dialog.wait_for(state='hidden')
+
 def module_url(path,cache):
     path=path.resolve()
     if not path.is_relative_to(ROOT):raise ValueError('module escaped repository')
@@ -116,7 +129,7 @@ def main():
                     if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(e):
                         report['overall']='BLOCKED';record('http-navigation','BLOCKED',str(e));return 2
                     raise
-            page.locator('.diagnostics').evaluate('(node)=>node.open=true')
+            open_settings(page)
             if a.trust=='live':
                 coordination=a.coordination.resolve();coordination.mkdir(parents=True,exist_ok=True)
                 wait_until(page,lambda:page.evaluate("Boolean(globalThis.__dtrLive?.connected)"),20000)
@@ -153,6 +166,7 @@ def main():
                 assert all(b>a for a,b in zip(heads,heads[1:])),heads
                 record('live-anti-rollback-and-continuity','PASS',f'Accepted monotone heads {heads}.')
                 report['resource_observations']=page.evaluate("({max_buffer_segments:globalThis.__dtrLive.maxBufferSegments,max_buffer_logical_ticks:globalThis.__dtrLive.maxBufferLogical,resynchronizations:globalThis.__dtrLive.resyncs,accepted_heads:globalThis.__dtrLive.heads.slice()})")
+                close_settings(page)
                 page.screenshot(path=str(a.output/'live-desktop.png'),full_page=True)
 
                 wrong=context.new_page()
@@ -194,13 +208,16 @@ def main():
             if a.trust=='local':
                 record('authenticated-projection-admitted','PASS','Predecessor, audit binding and final visible state were checked before buffer admission.')
             else:
+                close_settings(page)
                 before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(180)
                 assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before,'canvas pixels did not advance'
                 record('canvas-pixels-change-during-playback','PASS')
+                open_settings(page)
             page.locator('#pause').click();page.wait_for_timeout(220)
             start=page.locator('#playhead').inner_text();page.wait_for_timeout(250)
             assert page.locator('#playhead').inner_text()==start
             record('pause-freezes-presentation','PASS')
+            close_settings(page)
             page.screenshot(path=str(a.output/'desktop.png'),full_page=True)
             assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
             page.set_viewport_size({'width':390,'height':844});page.wait_for_timeout(150)
@@ -208,6 +225,7 @@ def main():
             page.screenshot(path=str(a.output/'mobile.png'),full_page=True)
             record('desktop-and-mobile-layout','PASS','1400×1100 and 390×844 viewports; no horizontal overflow.')
             page.set_viewport_size({'width':1400,'height':1100})
+            open_settings(page)
             if a.trust=='offline':
                 page.locator('#network-pause').check();page.wait_for_timeout(700)
                 available=page.locator('#available').inner_text()
@@ -226,10 +244,10 @@ def main():
                 wait_until(page,lambda:page.locator('#scenario-title').inner_text()=='Mutual destruction' and page.locator('#pause').is_enabled())
                 assert page.locator('#cannons').inner_text()=='2' and page.locator('#balls').inner_text()=='2'
                 assert page.locator('[data-copy="recipient"]').is_disabled()
-                assert page.locator('#live-status').inner_text()=='Verified replay · not live'
-                page.locator('.diagnostics').evaluate('(node)=>node.open=false')
+                assert page.locator('#live-status').inner_text()=='Verified replay'
+                close_settings(page)
                 page.screenshot(path=str(a.output/'competing-cannons.png'),full_page=True)
-                page.locator('.diagnostics').evaluate('(node)=>node.open=true')
+                open_settings(page)
                 record('bundled-competing-cannons-labelled-replay','PASS')
                 page.locator('#pause').click()
                 wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='COMPLETE')
@@ -240,17 +258,19 @@ def main():
                 before=page.locator('#territories').inner_text();page.locator('#pause').click()
                 wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='COMPLETE')
                 assert page.locator('#territories').inner_text()!=before
+                close_settings(page)
                 page.screenshot(path=str(a.output/'territory-change.png'),full_page=True)
                 record('bundled-territory-change-and-elimination','PASS')
             # Reduced-motion preference starts a new independent document paused.
             second=context.new_page();second.emulate_media(reduced_motion='reduce')
             if a.mode=='offline':setup_offline(second)
             else:second.goto(a.url,timeout=30000)
-            second.locator('.diagnostics').evaluate('(node)=>node.open=true')
+            open_settings(second)
             wait_until(second,lambda:second.locator('body').get_attribute('data-phase')=='PAUSED' and not second.locator('#pause').is_disabled())
             paused_state=second.evaluate("({playhead:document.querySelector('#playhead').textContent,min:document.querySelector('#timeline').min,verification:document.querySelector('#verification-label').textContent})")
             assert float(paused_state['playhead'])==float(paused_state['min'] or 0),paused_state
-            record('reduced-motion-starts-paused','PASS');second.locator('#network-pause').check();second.wait_for_timeout(800);second.close()
+            record('reduced-motion-starts-paused','PASS');second.locator('#network-pause').check();second.wait_for_timeout(800);close_settings(second);second.close()
+            open_settings(page)
             if a.mode=='offline':
                 # Deterministic fault injection in test transport ONLY, never in product source.
                 page.locator('#pause').click();page.locator('#network-pause').check()
@@ -262,11 +282,13 @@ def main():
                 assert 'integrity' in page.locator('#error-text').inner_text()
                 assert page.locator('#segments').inner_text()=='0 / 12'
                 assert page.locator('#available').inner_text()=='0.00'
+                close_settings(page)
                 page.screenshot(path=str(a.output/'corruption.png'),full_page=True)
                 record('corruption-never-enters-buffer','PASS')
                 page.locator('#retry').click()
                 wait_until(page,lambda:float(page.locator('#available').inner_text())>=2)
                 record('explicit-retry-preserves-sequence','PASS')
+                open_settings(page)
                 page.locator('#network-pause').check();page.evaluate('window.__fixtureDelay=250')
                 page.locator('#recording').select_option('dense')
                 page.locator('#recording').select_option('near-impact')

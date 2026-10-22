@@ -1,3 +1,9 @@
+# Verification closeout — arena tooling correction, 2026-10-22
+
+Published `af212f2` CI failed source conformance and standalone browser navigation; its installed-IC/native/Wasm/packaged-consumer jobs passed. The focused correction updates the explicit endpoint inventory and navigates Settings through the actual modal UI. Final standard source/browser/installed-IC gates PASS locally: 1,349 JS, 137 Python, 14 browser checks, 25 installed-IC tests with eight unchanged ignored predecessor probes. The first integration receipt timeout is retained alongside the unmodified passing rerun. [Correction and standard gates](checkpoints/B2Z_ARENA_VERIFICATION_FIX.md) / [reviewed results](evidence/B2Z/arena-verification-fix/verification.json). Production deployment evidence below remains historical and unchanged. No live canister operation or DTR change is part of this patch. The 32×32 torus and persistent heading remain staged, pending a separately scoped authenticated history/schema transition. Fresh patch CI is NOT_RUN until user push.
+
+---
+
 # Current status — arena and shared pacing live; torus staged
 
 **2026-10-21:** viewport arena, native control dialogs, camera/minimap and bounded cycle-aware pacing are live on the existing two canisters. Backend module `53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec`; frontend clean source `c0cfc29eccffcc849c21a75fb3d3fa3ccc851c3c`. In-place upgrade preserved certified world/scores/retained bytes/source and unfinished work. Prices, memos, receiving account and controllers are unchanged.
