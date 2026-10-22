@@ -3,7 +3,9 @@
 **Local preparation only:** the [prelaunch self-funding worker](docs/operations/PRELAUNCH_SELF_FUNDING.md)
 can convert retained gameplay ICP into B2Z's own operating cycles using the
 official Ledger/CMC. It is not deployed; this task performs no real transfer.
-Current gameplay, prices, receiving account and DTR pins remain unchanged.
+Live gameplay, prices and receiving account remain unchanged. The combined
+candidate includes the authenticated v3→v4 transition and pins published DTR
+`c12af747190f7e24d5e68cdf57dbb1494095a46b`, client 0.13.0.
 
 B2Z is an authoritative deterministic game on the Internet Computer. Players use existing wallets to transfer ICP with a readable ICRC-1 memo. The backend reconciles **one receiving account through the official ICP index**, runs the existing Rust game autonomously and publishes certified state/events/scores. Event Horizon's authenticated, target-filtered `poke` accelerates checking; an independent 60-second fallback handles missed notifications. The browser only observes.
 
@@ -15,7 +17,7 @@ The normative [application contract](docs/specs/B2Z_APPLICATION.md) specifies pa
 
 The [live observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) fills the viewport, with Play, Players, Rules, View and Settings in local dialogs. Pan, zoom and the minimap change only the view. The bounded producer combines coordinator phases and advertises one shared cycle-aware pace; empty arenas still sleep. The current paid world remains **16×8, bounded v3**. Its legacy cannon has no authenticated last-heading field and therefore uses a neutral symbol.
 
-A **32×32 torus with persistent firing direction is implemented and locally tested, but not activated**. The pinned DTR host cannot commit a rules/schema epoch transition while preserving old commitments. See the [release evidence](checkpoints/B2Z_ARENA_CAMERA_AND_PACING.md), [pacing contract](docs/specs/B2Z_ARENA_AND_PACE.md) and [staged world/migration contract](docs/specs/B2Z_TORUS_V4.md). DTR is unchanged. Never reset the funded backend to bypass this transition boundary. New branch CI is NOT_RUN until the user pushes.
+A **32×32 torus with persistent firing direction is implemented and locally tested, but not activated**. The combined candidate uses the published DTR epoch operation to preserve the paid world and authenticate its fixed Ledger/Index cutover. See the [release evidence](checkpoints/B2Z_ARENA_CAMERA_AND_PACING.md), [pacing contract](docs/specs/B2Z_ARENA_AND_PACE.md) and [staged world/migration contract](docs/specs/B2Z_TORUS_V4.md). B2Z makes no DTR source changes. Never reset the funded backend to bypass this transition boundary. New branch CI is NOT_RUN until the user pushes.
 
 ## B2Z naming and prefix-free memos
 
@@ -31,7 +33,7 @@ The sole editable price source is [prelaunch.json](config/economics/prelaunch.js
 
 ## Local verification
 
-Use Node >=22.16, Python >=3.11 and Rust 1.94.1. Dependencies are immutable: DTR revision `1f47c1a0a104875bd13475d561b8d5aa10770d99` and inspected client package 0.12.0 are now pinned in real locks. Use normal `npm ci` and locked Cargo checks; no sibling-source or development override is required.
+Use Node >=22.16, Python >=3.11 and Rust 1.94.1. Dependencies are immutable: DTR revision `c12af747190f7e24d5e68cdf57dbb1494095a46b` and inspected client package 0.13.0 are pinned in real locks. Use normal `npm ci` and locked Cargo checks; no sibling-source or development override is required.
 
 ```sh
 npm ci --ignore-scripts
@@ -50,7 +52,7 @@ The existing offline observer remains available with `python3.11 -B tools/serve_
 
 ## Ownership and remaining gates
 
-B2Z owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; B2Z consumes DTR without copying its source. Game v3, publication v6 and animation v1 are unchanged. Life and independent game oracles remain regression boundaries.
+B2Z owns payment classification, ICP-index reconciliation, Event Horizon routing, canister assembly, game rules and renderer. DTR owns the generic coordinator, ordered input admission, canonical publication, certificate verification and playout; B2Z consumes DTR without copying its source. Historical game v3 and publication v6 remain unchanged; only an explicit authenticated epoch commit introduces v4/v7. Animation v1, Life and independent game oracles remain regression boundaries.
 
 1. **Implemented and locally verified:** bounded account-history draining, expired-lease recovery, exact filtered pokes, independent fallback, autonomous game, read-only certified observer, actual dfx asset-canister hosting, frozen normal release and public price/cell/outcome reference.
 2. **Mainnet activated and verified:** arcade UI, canonical 1 ICP profile, official index binding, certified observer and autonomous progression. First user wallet gameplay transfer remains user-operated; Event Horizon subscription is optional.
