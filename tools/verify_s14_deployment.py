@@ -32,7 +32,11 @@ def verify_torus_scene(page,context,out,record,report,save):
     for w,h in[(1440,900),(768,1024),(390,844)]:
         page.set_viewport_size({'width':w,'height':h});page.locator('#board').focus();page.keyboard.press('Home');page.wait_for_timeout(100);r=page.locator('#board').bounding_box();assert r['width']==w and r['height']==h;page.screenshot(path=str(out/f'torus-{w}.png'))
     page.set_viewport_size({'width':1440,'height':900});page.locator('#board').focus();page.keyboard.press('Home')
-    wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    try:
+        wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    except Exception:
+        report['epoch_failure_state']=page.evaluate('''() => ({phase:document.body.dataset.phase,live:globalThis.__dtrLive,error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent})''')
+        save();page.screenshot(path=str(out/'epoch-playback-failure.png'));raise
     samples=[];start=time.monotonic();report['recording_playback_start_ms']=page.evaluate('performance.now()')
     while time.monotonic()-start<30:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000

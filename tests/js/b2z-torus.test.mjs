@@ -52,9 +52,9 @@ test('toroidal camera picks, repeated copies and minimap seam outlines share one
  const c=new Camera();c.configure(32,32,1000,600,true);c.zoom(5);c.centre(31.8,31.8);assert.equal(c.cell(...Object.values(c.screen(32.25,32.25))),0);assert.equal(c.minimapRects().length,4);assert(c.copies().length<=4);
 });
 
-test('v4 observer admits only its bound rules/schema and applies heading at the playback event',async()=>{
+for(const version of [6,7])test(`v${version} observer admits only its bound v4 rules/schema and applies heading at the playback event`,async()=>{
  const v=torusCases().find(v=>v.name==='accepted-heading-persists-through-reflection'),{raw}=run(v),initial=encodeWorld(v.world);
- const publication={version:6,render_format:null,identity:TORUS_IDENTITY,artifacts:[{kind:'events',sha256:sha256(raw.events)}],head:{state_hash:sha256(raw.state),seal:{previous_state:sha256(initial),logical_start:0n,logical_end:2n}}};
+ const publication={version,render_format:null,identity:TORUS_IDENTITY,artifacts:[{kind:'events',sha256:sha256(raw.events)}],head:{state_hash:sha256(raw.state),seal:{previous_state:sha256(initial),logical_start:0n,logical_end:2n}}};
  const segment=await prepareDerivedSegment(initial,raw.state,raw.events,publication);
  const {SegmentPlayer}=await import('../../apps/b2z-observer/model.mjs');const player=new SegmentPlayer(segment);assert.equal(player.view.cannons.get(1).heading,undefined);player.advance(0);assert.equal(player.view.cannons.get(1).heading,6827);player.advance(2);assert.equal(player.view.cannons.get(1).heading,6827);
  await assert.rejects(prepareDerivedSegment(initial,raw.state,raw.events,{...publication,identity:PRELAUNCH_IDENTITY}),/torus rules\/config\/schema identity/);

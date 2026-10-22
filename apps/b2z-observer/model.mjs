@@ -124,7 +124,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
  * existing compact presentation from its authenticated predecessor and audit
  * events, then apply the same endpoint validation as recorded playback. */
 export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,publication){
-  check(publication.version===6&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
+  check([6,7].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
   const events=publication.artifacts.find(a=>a.kind==='events');
   check(events&&await sha256Web(eventBytes)===events.sha256,'authenticated audit artifact');
   const initial=snapshot(initialBytes),final=snapshot(finalBytes),projected=projectAnimationEvents(initial,eventBytes),h=publication.head,s=h.seal;

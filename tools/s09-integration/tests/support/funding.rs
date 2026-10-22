@@ -596,3 +596,180 @@ fn funding_bounded_empty_maintenance_overhead() {
         serde_json::json!(measurements)
     );
 }
+
+/// Both durable stores and both timers coexist: outgoing Ledger rows straddle
+/// the exclusive epoch fence while a notification survives commit and upgrade.
+#[test]
+fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification() {
+    let (pic, id, ledger, index, payer) = setup(bytes("B2Z_S14_TEST_WASM"));
+    start_arena(&pic, id);
+    let join = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..120 {
+        tick(&pic);
+        if arena_world(&pic, id).cannons.len() == 1 && work(&pic, id).0 == 0 {
+            break;
+        }
+    }
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(100_000_000u64.into())
+    );
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    let first = funding(&pic, id).last_success.unwrap().block_index;
+    assert!(first > join);
+    // Invalid and underfunded incoming commands must finish under v3 too.
+    let invalid = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
+    let underfunded = transfer_text(&pic, ledger, payer, id, 1, b"ANGLE 225");
+    for _ in 0..120 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > underfunded && work(&pic, id).0 == 0 {
+            break;
+        }
+    }
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(102_000_001u64.into())
+    );
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    settle(&pic);
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "prepare_torus_transition",
+        encode_args(()).unwrap(),
+    );
+    for _ in 0..120 {
+        if transition_view(&pic, id).unwrap().ledger_cutover.is_some() {
+            break;
+        }
+        tick(&pic);
+    }
+    let cutover =
+        u64::try_from(transition_view(&pic, id).unwrap().ledger_cutover.unwrap().0).unwrap();
+    assert!(first < cutover && invalid < cutover && underfunded < cutover);
+    // The treasury remains autonomous during the source hold. Lose its transfer
+    // reply, retain the original plan, and upgrade while that plan is pending.
+    fault(&pic, id, "after-transfer");
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    let pending = funding(&pic, id);
+    assert!(matches!(pending.phase, Phase::TransferPending { .. }));
+    for _ in 0..90 {
+        tick(&pic);
+        if outgoing(&pic, id, index).len() == 2 {
+            break;
+        }
+    }
+    let during = outgoing(&pic, id, index)
+        .into_iter()
+        .map(|r| r.id)
+        .max()
+        .unwrap();
+    assert!(during >= cutover);
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&pending.phase).unwrap()
+    );
+    start_arena(&pic, id);
+    for _ in 0..120 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase == "ready" && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert_eq!(transition_view(&pic, id).unwrap().phase, "ready");
+    let before = arena_world(&pic, id);
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    assert_eq!(cursor, underfunded + 1);
+    assert!(cursor <= cutover);
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_torus_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    assert_eq!(arena_world(&pic, id).credits, before.credits);
+    assert_eq!(arena_world(&pic, id).received_e8s, before.received_e8s);
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&pending.phase).unwrap()
+    );
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&pending.phase).unwrap()
+    );
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    assert!(matches!(funding(&pic, id).phase, Phase::Idle));
+    assert_eq!(stats(&pic).credits, 2);
+    assert_eq!(
+        outgoing(&pic, id, index).len(),
+        2,
+        "retry must not duplicate transfer"
+    );
+    // A third sweep after activation remains an outgoing non-command in v4.
+    let last = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    for _ in 0..120 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > last + 1 && work(&pic, id).0 == 0 {
+            break;
+        }
+    }
+    let out = outgoing(&pic, id, index);
+    assert_eq!(out.len(), 3);
+    assert!(out.iter().any(|r| r.id > last));
+    for row in &out {
+        let (mut adapter, _) = source::SourceState::configured(
+            IndexConfig {
+                network: "pocketic-local".into(),
+                ledger,
+                index,
+                receiving_subaccount: 0,
+                event_horizon: None,
+                starting_policy: StartingPolicy::FromBeginning,
+            },
+            id,
+        )
+        .unwrap();
+        adapter
+            .page(source::History {
+                balance: 0,
+                oldest_tx_id: Some(row.id),
+                transactions: vec![row.clone()],
+            })
+            .unwrap();
+        assert!(adapter.admission(&"00".repeat(32)).unwrap().1.is_empty());
+    }
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(104_000_001u64.into())
+    );
+    assert_eq!(arena_world(&pic, id).version, 4);
+    assert_eq!(arena_world(&pic, id).width, 32);
+    assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    assert_eq!(stats(&pic).credits, 3);
+    println!(
+        "FUNDING_TORUS_CUTOVER PASS cutover={cutover} before={first} during={during} after={:?}",
+        out.iter().map(|r| r.id).collect::<Vec<_>>()
+    );
+}

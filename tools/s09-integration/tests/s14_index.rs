@@ -4092,6 +4092,18 @@ fn transition_view(pic: &PocketIc, id: Principal) -> Option<TransitionView> {
     let bytes: Vec<u8> = get_query(pic, id, "torus_transition_status", encode_args(()).unwrap());
     decode(&bytes).unwrap()
 }
+fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
+    #[derive(CandidType, Deserialize)]
+    struct BoundaryWork {
+        phase: Option<String>,
+        pending_inputs: u32,
+    }
+    let w: BoundaryWork = get_query(pic, id, "controller_work", encode_args(()).unwrap());
+    w.phase.is_none()
+        && w.pending_inputs == 0
+        && observe(pic, id).1.head.source_to_exclusive
+            == Int(status(pic, id).source.admitted_to_exclusive.into())
+}
 /// Real account history around the global Ledger/Index barrier. No normalized
 /// payment injection, no canister reset, and replay uses this run's exact seals.
 #[test]
@@ -4247,12 +4259,21 @@ fn torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade() {
         assert_eq!(transition_view(&pic, id).unwrap().ledger_cutover, Some(cut));
     }
     start_arena(&pic, id);
-    // Reject both transition control operations from an ordinary caller.
-    for method in ["prepare_torus_transition", "torus_transition_status"] {
+    // Reject every transition operation from an ordinary caller.
+    for method in [
+        "prepare_torus_transition",
+        "torus_transition_status",
+        "commit_torus_transition",
+    ] {
         let reply = if method == "torus_transition_status" {
             pic.query_call(id, payer, method, encode_args(()).unwrap())
         } else {
-            pic.update_call(id, payer, method, encode_args(()).unwrap())
+            let args = if method == "commit_torus_transition" {
+                candid::encode_one("00".repeat(32)).unwrap()
+            } else {
+                encode_args(()).unwrap()
+            };
+            pic.update_call(id, payer, method, args)
         }
         .unwrap();
         assert!(
@@ -4379,6 +4400,12 @@ fn torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade() {
         scores: dtr_wire::encode(&serde_json::json!({"version":4,"area_time":[]})).unwrap(),
     };
     let transition = transition_view(&pic, id).unwrap();
+    assert_eq!(transition.version, 1);
+    assert!(transition.index_synced.as_ref().unwrap() >= &Int(cutover.into()));
+    assert_eq!(
+        transition.transition_hash.as_ref().unwrap(),
+        &epoch.transition_hash
+    );
     assert_eq!(
         dtr_wire::hash(&unhex(transition.metadata_hex.as_ref().unwrap()).unwrap()),
         epoch.metadata_hash
@@ -4597,3 +4624,133 @@ fn torus_browser_authenticated_epoch_recovers_and_stales_old_move() {
 }
 #[path = "support/funding.rs"]
 mod funding_tests;
+
+#[test]
+fn torus_delayed_official_index_paginates_old_history_and_holds_new_rows() {
+    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_S14_WASM"));
+    let index = status(&pic, id).source.index;
+    start_arena(&pic, id);
+    let join = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..120 {
+        tick(&pic);
+        if arena_world(&pic, id).cannons.len() == 1 && work(&pic, id).0 == 0 {
+            break;
+        }
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    pic.stop_canister(index, Some(controller())).unwrap();
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    assert!(cursor > join);
+    let mut old = vec![];
+    for n in 0..70 {
+        old.push(transfer_text(
+            &pic,
+            ledger,
+            payer,
+            id,
+            1,
+            format!("bad {n}").as_bytes(),
+        ));
+    }
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_torus_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    for _ in 0..120 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase == "index"
+            && status(&pic, id).source.last_error.is_some()
+        {
+            break;
+        }
+    }
+    assert_eq!(transition_view(&pic, id).unwrap().phase, "index");
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+    let cutover = transition_view(&pic, id).unwrap().ledger_cutover.unwrap();
+    // A callback failure and upgrade cannot release the fence or remeasure it.
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        transition_view(&pic, id).unwrap().ledger_cutover,
+        Some(cutover.clone())
+    );
+    let new = transfer_text(&pic, ledger, payer, id, 10_000_000, b"ANGLE 225");
+    assert!(Int(new.into()) >= cutover);
+    pic.start_canister(index, Some(controller())).unwrap();
+    let calls = status(&pic, id).source.index_calls;
+    start_arena(&pic, id);
+    let mut committed = false;
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase != "ready" {
+            continue;
+        }
+        assert_eq!(
+            status(&pic, id).source.admitted_to_exclusive,
+            old.last().unwrap() + 1
+        );
+        let manifest = observe(&pic, id).1.head.manifest_hash;
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "commit_torus_transition",
+                candid::encode_one(manifest).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            committed = true;
+            break;
+        }
+    }
+    assert!(
+        committed,
+        "old work did not drain after official Index recovered"
+    );
+    assert!(
+        status(&pic, id).source.index_calls >= calls + 2,
+        "must paginate more than one account page"
+    );
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(100_000_070u64.into())
+    );
+    for _ in 0..180 {
+        tick(&pic);
+        if arena_world(&pic, id).received_e8s == Int(110_000_070u64.into()) {
+            break;
+        }
+    }
+    let after = arena_world(&pic, id);
+    assert_eq!(after.received_e8s, Int(110_000_070u64.into()));
+    assert_eq!(after.cannons[0].heading, Some(40960));
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, new + 1);
+    println!(
+        "TORUS_DELAYED_INDEX PASS old_rows=70 cutover={cutover:?} old_cursor={cursor} final_cursor={}",
+        new + 1
+    );
+}

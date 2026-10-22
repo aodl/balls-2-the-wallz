@@ -32,7 +32,7 @@ The pure JS/Rust placement embeds the old 16×8 rectangle at offset (8,12):
 
 Other cells start neutral. Translate x/y intercepts by 8×1024 and 12×1024; retain velocities and logical time. Map cannon/ball cells and strike endpoints, translating the strike's orthogonal coordinate exactly. Keep accounts, IDs/next IDs, all entities, received totals and earned rational credits. Unknown historical cannon directions stay unknown. No already published bytes or seals are rewritten.
 
-A real cutover also needs a ledger boundary, not merely an empty local inbox. The B2Z adapter must obtain an exclusive cutover from the configured official Index's sync watermark, drain the receiving account's old-width history through that boundary under v3, and complete the old segment. Do not scan global blocks or archives. Do not pad/advance the account source cursor to an unrelated global height. Record the distinct cutover watermark, actual source cursor and anchor. Later public transfers remain durable in the Index while admission is held at this boundary; resume the same source path after an atomic transition. Transactions below the cutover cannot be silently interpreted using width 32.
+A real cutover also needs a ledger boundary, not merely an empty local inbox. The B2Z adapter must obtain an exclusive cutover from the official Ledger's zero-length metadata query, wait for the configured official Index's global sync watermark to reach it, drain the receiving account's old-width history through that boundary under v3, and complete the old segment. Do not scan global blocks or archives. Do not pad/advance the account source cursor to an unrelated global height. Record the distinct cutover watermark, actual source cursor and anchor. Later public transfers remain durable in the Index while admission is held at this boundary; resume the same source path after an atomic transition. Transactions below the cutover cannot be silently interpreted using width 32.
 
 The staged helpers reject unfinished work, admitted inputs, downloaded history pages, in-flight reconciliation, missing Index history-barrier evidence or an incomplete barrier. They preserve the source identity in the proposal. The helper returns a **non-deployable candidate**, not an IC-authorized transition or a proof that the supplied operator boundary evidence is genuine. Frontend drafts include version/dimensions and become stale when the world changes. This is not a quote reservation.
 
@@ -52,7 +52,12 @@ The current transition branch pins published DTR
 `c12af747190f7e24d5e68cdf57dbb1494095a46b`, client 0.13.0, for the generic
 atomic epoch checkpoint. The earlier "required shared facility" section above
 records the original staging boundary; the live game remains v3 until the tested
-candidate is explicitly activated. No treasury implementation is included.
+candidate is explicitly activated. The recovered candidate also includes the durable
+prelaunch treasury from `checkpoint/b2z-prelaunch-self-funding`; its state uses
+separate stable memory (ID 3) and its five-minute timer remains independent.
+See `../operations/PRELAUNCH_SELF_FUNDING.md` for its fixed Ledger/CMC route.
+Outgoing sweeps remain non-command account-history rows on either side of the
+fence; epoch commit changes neither a pending financial plan nor its retry identity.
 
 The fixed controller methods are `prepare_torus_transition()`,
 `torus_transition_status()` and `commit_torus_transition(expected_old_manifest)`.
