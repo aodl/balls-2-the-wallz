@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+  "source_tree": "abaa7bb99597a61c7f10348e2b04b52da9f346b6",
+  "dtr_revision": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+  "javascript_package": {
+    "version": "0.12.0",
+    "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.12.0.tgz",
+    "integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+    "dependencies": {
+      "@icp-sdk/core": "6.1.0"
+    },
+    "engines": {
+      "node": ">=22.16.0"
+    }
+  },
+  "dependency_sha256": {
+    "Cargo.lock": "fec01499b9a5e9164864e56620e9a5fe4cf0f931b9f1dc20bdbb1b3ca9433c18",
+    "native/Cargo.lock": "f9c689fe66ded9de78db2611cdba67c4ddcefacf89ef4c1c0ae2627c85bbd719",
+    "canisters/runtime-lab/Cargo.lock": "9418fee624bad091d78170b19edd780d46e5dbf09bf3d9e3ff23aec093af37ea",
+    "tools/s09-integration/Cargo.lock": "f8f3f344d871161d3980a15f372b3983887929215dee843b2b18787fd10f0829",
+    "package-lock.json": "67c63e19e7373a1c335fe389fe12e79503ba713d30b98c02e1d8481f2c8710ac",
+    "vendor/dtr/dtr-timeline-runtime-0.12.0.tgz": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+    "dfx.json": "12de00be1b8949cde90eb299ca8f35b010aafcc6d332d66e75db3c8162153ad1",
+    "config/economics/prelaunch.json": "e45452ef0220547ea74e044afd28a2362713efaed49148d17a9d5f761e8bc147",
+    "packages/kernels/b2z/economics.generated.mjs": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+    "native/b2z-native/src/economics_generated.rs": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9",
+    "references/S14/mvp-configuration.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+  },
+  "memo_adapter_version": 3,
+  "memo_format": "B2Z text/3 prefix-free; S15 prefixed text and binary/numeric compatibility; canonical BTZPAY02 unchanged",
+  "normal_features": [],
+  "normal_exports": [
+    "memory",
+    "canister_init",
+    "canister_post_upgrade",
+    "canister_query artifact_chunk",
+    "canister_query controller_funding",
+    "canister_query controller_runtime",
+    "canister_query controller_work",
+    "canister_query lab_status",
+    "canister_query observation",
+    "canister_query retained_artifact_chunk",
+    "canister_query retained_publication",
+    "canister_query retention_status",
+    "canister_query source_descriptor",
+    "canister_update pause_autonomous",
+    "canister_update poke",
+    "canister_update set_funding_paused",
+    "canister_update start_autonomous",
+    "get_candid_pointer",
+    "canister_global_timer",
+    "canister_update <ic-cdk internal> timer_executor",
+    "__data_end",
+    "__heap_base"
+  ],
+  "artifacts": {
+    "generated.did": {
+      "sha256": "ddf5419c652ac62775adb1eec6b7e5851659e544ea2a00a2d2e3635a15319b18",
+      "bytes": 4673
+    },
+    "init.did": {
+      "sha256": "b97570e0408e3cf50fc2a5099d65012b831e8492c922eddd443430703998a912",
+      "bytes": 1670
+    },
+    "launch.json": {
+      "sha256": "32fa1e760439d0ea854846c095526e701d23e7269e473e6f387387d0998c7396",
+      "bytes": 1807
+    },
+    "normal.wasm": {
+      "sha256": "55ccda3d024ea5ba9cfd7cc7b5e61eb5d55c7864ce7843ef6bf462fc018aeea3",
+      "bytes": 2417843
+    },
+    "world.bin": {
+      "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae",
+      "bytes": 481
+    }
+  },
+  "tools": {
+    "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "cargo 1.94.1 (29ea6fb6a 2026-03-24)",
+    "node": "v24.15.0",
+    "npm": "11.12.1",
+    "dfx": "dfx 0.31.0",
+    "python": "Python 3.11.14"
+  },
+  "install": "User installs normal.wasm with explicit --wasm; later test builds cannot replace this frozen copy.",
+  "observer": "Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.",
+  "mainnet": "NOT_RUN",
+  "remote_ci": "NOT_RUN"
+}

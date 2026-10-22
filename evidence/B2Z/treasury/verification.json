@@ -1,0 +1,514 @@
+{
+  "status": "PASS",
+  "qualification": "Local preparation only; valueless upstream ICP Ledger/Index and CMC notification-contract double. No live CMC conversion or mainnet deployment.",
+  "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+  "source_tree": "abaa7bb99597a61c7f10348e2b04b52da9f346b6",
+  "normal_wasm": {
+    "sha256": "55ccda3d024ea5ba9cfd7cc7b5e61eb5d55c7864ce7843ef6bf462fc018aeea3",
+    "bytes": 2417843
+  },
+  "test_hooks_wasm": "a15cced27d68fdb6a0a195444309875a3aab3e05f7353418d30f9f3da74f0c9e",
+  "cmc_fixture_wasm": "d336165b2f81ca4e587ed5e749dbda69717c941c33c3c1086f667f3d706f7cb5",
+  "upgraded_from_recorded_deployed_module": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+  "checks": [
+    {
+      "id": "source",
+      "status": "PASS",
+      "javascript_tests": 1349,
+      "python_tests": 138,
+      "raw": ".work/treasury/source-final/verification.json",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "native",
+      "status": "PASS",
+      "raw": ".work/treasury/native/verification.json",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "host",
+      "status": "PASS",
+      "tests": 22,
+      "candid": "PASS",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "cmc-fixture-clippy",
+      "status": "PASS",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "prepare-operator-genesis",
+      "command": [
+        "node",
+        "tools/prepare_s14_init.mjs",
+        "--world-output",
+        "/home/codexdev/src/b2z/.work/treasury/standard-rerun/genesis-world.bin",
+        "--output",
+        "/home/codexdev/src/b2z/.work/treasury/standard-rerun/example-init.did"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.224,
+      "timeout_seconds": 60,
+      "log": "logs/prepare-operator-genesis.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "build-normal",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 74.889,
+      "timeout_seconds": 900,
+      "log": "logs/build-normal.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "build-test-hooks",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline",
+        "--features",
+        "test-hooks"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 43.785,
+      "timeout_seconds": 900,
+      "log": "logs/build-test-hooks.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "host-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 5.644,
+      "timeout_seconds": 900,
+      "log": "logs/host-tests.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "build-slow-index-fixture",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "tools/s14-index-fixture/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.42,
+      "timeout_seconds": 900,
+      "log": "logs/build-slow-index-fixture.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "build-cmc-fixture",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "tools/cmc-funding-fixture/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.367,
+      "timeout_seconds": 900,
+      "log": "logs/build-cmc-fixture.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "harness-build",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--test",
+        "s14_index",
+        "--no-run",
+        "--locked",
+        "--offline",
+        "--message-format=json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 1.984,
+      "timeout_seconds": 900,
+      "log": "logs/harness-build.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "installed-index-integration",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-d2fbf8bd748fbf86",
+        "--skip",
+        "funding_tests::",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 627.119,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "installed-funding-integration",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-d2fbf8bd748fbf86",
+        "funding_tests::",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 206.067,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "js-captured-history-replay",
+      "command": [
+        "node",
+        "tools/replay_s14.mjs",
+        "/home/codexdev/src/b2z/.work/treasury/standard-rerun/index-trace.json",
+        "/home/codexdev/src/b2z/.work/treasury/standard-rerun/js-replay.json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.668,
+      "timeout_seconds": 180,
+      "log": "logs/js-captured-history-replay.log",
+      "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848"
+    },
+    {
+      "id": "prepare-operator-genesis",
+      "command": [
+        "node",
+        "tools/prepare_s14_init.mjs",
+        "--world-output",
+        "/home/codexdev/src/b2z/.work/treasury/funding-lint-final/genesis-world.bin",
+        "--output",
+        "/home/codexdev/src/b2z/.work/treasury/funding-lint-final/example-init.did"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.065,
+      "timeout_seconds": 60,
+      "log": "logs/prepare-operator-genesis.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "build-normal",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.114,
+      "timeout_seconds": 900,
+      "log": "logs/build-normal.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "build-test-hooks",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline",
+        "--features",
+        "test-hooks"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 21.506,
+      "timeout_seconds": 900,
+      "log": "logs/build-test-hooks.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "host-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 4.131,
+      "timeout_seconds": 900,
+      "log": "logs/host-tests.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "build-slow-index-fixture",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "tools/s14-index-fixture/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.165,
+      "timeout_seconds": 900,
+      "log": "logs/build-slow-index-fixture.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "build-cmc-fixture",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "tools/cmc-funding-fixture/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 900,
+      "log": "logs/build-cmc-fixture.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "harness-build",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--test",
+        "s14_index",
+        "--no-run",
+        "--locked",
+        "--offline",
+        "--message-format=json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.315,
+      "timeout_seconds": 900,
+      "log": "logs/harness-build.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "installed-index-integration",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-d2fbf8bd748fbf86",
+        "funding_tests::",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 206.428,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration.log",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "scope": "Final normal module and funding suite"
+    },
+    {
+      "id": "final-host-clippy",
+      "source_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "status": "PASS",
+      "warnings_denied": true,
+      "raw": ".work/treasury/clippy-final-2.log"
+    }
+  ],
+  "installed_tests": {
+    "existing_pass": 25,
+    "funding_pass": 7,
+    "historical_ignored": 8
+  },
+  "replay": {
+    "status": "PASS",
+    "segments": 77,
+    "assigned": [
+      "7",
+      "8"
+    ],
+    "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+    "work_budget": 23
+  },
+  "route": {
+    "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+    "subaccount_hex": "0a000000000230120a0101000000000000000000000000000000000000000000",
+    "cmc_account_identifier": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+    "top_up_memo": 1347768404
+  },
+  "policy": {
+    "interval_seconds": 300,
+    "liquid_call_floor_cycles": "200000000000",
+    "minimum_net_e8s": "max(1000000,100*observed_fee)",
+    "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "initial_mainnet": "enabled only upon future separately authorized activation",
+    "initial_local": "paused",
+    "state_version": 1,
+    "stable_memory_id": 3
+  },
+  "upgrade_preserved": [
+    "world",
+    "publication",
+    "source cursor",
+    "pending funding phase",
+    "immutable transfer identity",
+    "accepted Ledger block"
+  ],
+  "upgrade_observed_total_memory_bytes": {
+    "before": 32008810,
+    "after": 40572817,
+    "delta": 8564007,
+    "qualification": "Total canister memory; includes one new 8 MiB stable-manager bucket and module/heap changes."
+  },
+  "maintenance_measurement": {
+    "clock": "PocketIC virtual time, not mainnet wall time",
+    "windows": [
+      {
+        "cycles_spent": "210320571",
+        "funding_enabled": false,
+        "index_calls": 3,
+        "maintenance_intervals": 3,
+        "segments": 0,
+        "virtual_seconds": 912.0
+      },
+      {
+        "cycles_spent": "252225742",
+        "funding_enabled": true,
+        "index_calls": 3,
+        "maintenance_intervals": 3,
+        "segments": 0,
+        "virtual_seconds": 912.0
+      }
+    ],
+    "increment_cycles_per_check": 13968390.333333334,
+    "qualification": "Enabled zero-balance observations versus paused worker in same candidate; includes matched Index work. Not a forecast of mainnet burn."
+  },
+  "historical_failures": [
+    {
+      "run": ".work/treasury/standard-final/results.json",
+      "status": "FAIL",
+      "reason": "900-second gate timeout, after browser receipt-list timeout and staged scene five stalled samples (0.407 verified ticks/s vs 0.5 target).",
+      "rerun": "Same implementation/assertions passed full gate in standard-rerun; no UI/pace changes."
+    },
+    {
+      "run": ".work/treasury/clippy.log",
+      "status": "FAIL",
+      "reason": "needless_borrows_for_generic_args on transfer argument encoding",
+      "resolved_by_commit": "642d45e8fc461450fb877e20ed2cf61be36d7ac5",
+      "verification": ".work/treasury/clippy-final-2.log PASS; final module funding suite seven PASS"
+    }
+  ],
+  "dependencies": {
+    "dtr_rust_commit": "1f47c1a0a104875bd13475d561b8d5aa10770d99",
+    "javascript": {
+      "version": "0.12.0",
+      "integrity": "sha512-OHPZuFQU6B/0kQz6YsAZ/8O9VZ0/bQUOp25uF71a+DIBUSo7k4ef5PSo3JWAcUA1CDTeG0ZS+G5jPEC0xvBG1w==",
+      "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.12.0.tgz"
+    },
+    "vendor_sha256": "933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f",
+    "overrides": "NONE"
+  },
+  "preserved": {
+    "join_e8s": 100000000,
+    "ball_base_e8s": 10000000,
+    "ball_rule": "active-count squared",
+    "move_e8s": 10000,
+    "receiving_account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+    "game_rules_schema_source": "UNCHANGED",
+    "frontend": "UNCHANGED"
+  },
+  "mainnet_actions": "NONE",
+  "real_icp_transfers": "NONE",
+  "remote_git_operations": "NONE",
+  "new_remote_ci": "NOT_RUN",
+  "dtr_code_changes": "NONE",
+  "precursor_full_gate": {
+    "source_commit": "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848",
+    "normal_wasm_sha256": "c0ab51d7b76046f00bb0bcbbff22fc855ca18004c624c213b654c776be22ddde",
+    "status": "PASS",
+    "existing_integration_tests": 25,
+    "funding_tests": 7,
+    "replay_publications": 77,
+    "raw": ".work/treasury/standard-rerun/results.json",
+    "subsequent_change": "Only .with_arg(&plan.args()) -> .with_arg(plan.args()), removing a Clippy needless borrow. No transfer fields, policies, kernel, source or frontend change."
+  },
+  "final_verification_scope": "Final module: strict normal export/Candid checks, 22 host tests, Clippy, seven actual upstream Ledger/Index + CMC-double funding/recovery tests. Source/native and all 25 existing integration cases passed on the one-borrow precursor; those code paths are unchanged."
+}

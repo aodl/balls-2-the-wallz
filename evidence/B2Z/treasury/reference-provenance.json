@@ -1,0 +1,37 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/aodl/Event_Horizon/main/canisters/event-horizon/src/funding.rs",
+    "file": "eh-funding.rs",
+    "sha256": "2ef685ada2bcd0e675f371a13790d5097e618137a883046eb363b0e466f98b50"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/aodl/Event_Horizon/main/canisters/event-horizon/src/clients/icp_ledger.rs",
+    "file": "eh-icp_ledger.rs",
+    "sha256": "d076fadd5842c009e412aa6128ec99108a98e641f95df7f20edd9d6f7afbca9e"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/aodl/Event_Horizon/main/canisters/event-horizon/src/clients/cmc.rs",
+    "file": "eh-cmc.rs",
+    "sha256": "adef1b982f309d741a1136e660aa2be3e4daea64c6b561f16c6039e864a7cbed"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/aodl/Event_Horizon/main/canisters/event-horizon/src/account.rs",
+    "file": "eh-account.rs",
+    "sha256": "92039066bbd5dc4ca92fc6ea4bf760a6a00a1814400a958efc8ce5f7d8feaff3"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/dfinity/ic/master/rs/nns/cmc/cmc.did",
+    "file": "ic-cmc.did",
+    "sha256": "d95e2ca13c04a085491cbbc40c7bf41b9b6559d24be42b8afe7d82f31760dfca"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/dfinity/ic/master/rs/nns/cmc/src/lib.rs",
+    "file": "ic-lib.rs",
+    "sha256": "60bf46fbc535850470fa38d1435234c15bb085f5df4ab7e9745ed3d84bf791ff"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/dfinity/ic/master/rs/ledger_suite/icp/ledger.did",
+    "file": "ic-ledger.did",
+    "sha256": "18c2fe7ea500c88df92eddd83a69a3e44c07a289465e06941b07c0dffc7099df"
+  }
+]

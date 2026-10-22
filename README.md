@@ -1,5 +1,10 @@
 # Balls 2 The Wallz — lean account-index application
 
+**Local preparation only:** the [prelaunch self-funding worker](docs/operations/PRELAUNCH_SELF_FUNDING.md)
+can convert retained gameplay ICP into B2Z's own operating cycles using the
+official Ledger/CMC. It is not deployed; this task performs no real transfer.
+Current gameplay, prices, receiving account and DTR pins remain unchanged.
+
 B2Z is an authoritative deterministic game on the Internet Computer. Players use existing wallets to transfer ICP with a readable ICRC-1 memo. The backend reconciles **one receiving account through the official ICP index**, runs the existing Rust game autonomously and publishes certified state/events/scores. Event Horizon's authenticated, target-filtered `poke` accelerates checking; an independent 60-second fallback handles missed notifications. The browser only observes.
 
 **No sign-in, wallet connection or transaction-sending frontend. Automatic payouts and refunds are unavailable.** Area-time scores preserve the intended revenue-sharing direction. A controlled operator mainnet exercise is separate from opening public paid/prize participation; no guaranteed distributions are advertised.

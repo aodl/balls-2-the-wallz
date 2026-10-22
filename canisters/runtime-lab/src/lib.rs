@@ -1,6 +1,7 @@
 //! Authoritative B2Z host with one account-index adapter and certified observation.
-//! No wallet, transfer-sending or payout implementation.
+//! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
+mod funding;
 mod pace;
 mod source;
 mod transition;
@@ -881,6 +882,22 @@ struct RuntimeDiagnostics {
     instruction_yield: u64,
 }
 #[ic_cdk::query]
+fn controller_funding() -> std::result::Result<funding::State, String> {
+    authorized()?;
+    funding::read()
+}
+#[ic_cdk::update]
+fn set_funding_paused(paused: bool) -> std::result::Result<funding::State, String> {
+    authorized()?;
+    funding::pause(paused)
+}
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_funding_fault(point: String) -> std::result::Result<(), String> {
+    authorized()?;
+    funding::set_fault(point)
+}
+#[ic_cdk::query]
 fn controller_runtime() -> std::result::Result<RuntimeDiagnostics, String> {
     authorized()?;
     Ok(RuntimeDiagnostics {
@@ -924,6 +941,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         refresh_pace();
         install_source_timer();
         request_reconciliation()?;
+        funding::initialize()?;
         Ok(())
     };
     if let Err(e) = initialize() {
@@ -978,6 +996,7 @@ fn post_upgrade() {
         install_source_timer();
         request_reconciliation()?;
         install_run_timer(&r.run);
+        funding::initialize()?;
         Ok(())
     };
     if let Err(e) = verify() {

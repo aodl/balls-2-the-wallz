@@ -1,3 +1,41 @@
+# Current preparation — prelaunch self-funding, not deployed
+
+**2026-10-22:** B2Z's small autonomous Ledger/CMC worker is implemented and
+verified locally, with durable transfer/notification recovery and controller-only
+observed balance/status. **Mainnet actions: NONE; real ICP transfers: NONE.**
+The current backend/frontend and paid game are unchanged. Activating the frozen
+normal module requires separate authorization because its scheduled sweep moves
+real value. No reset, controller change, DTR runtime change or dependency update.
+
+Source (1,349 JS / 138 Python), native, 22 host/Candid tests, strict normal export
+inventory and Clippy PASS. Final installed-IC gate: **25 existing + seven funding
+cases PASS**, with eight explicitly ignored historical predecessor probes;
+exact captured JavaScript replay: 77 publications PASS. Those full regressions
+ran on the one-borrow precursor; the final Clippy correction changes only
+transfer argument ownership during encoding. The final frozen module separately
+passed all seven funding cases, 22 host/Candid tests and strict Clippy. Initial browser receipt
+and staged-scene failures plus the 900-second aggregate timeout are retained;
+the unchanged full rerun passed. Maintenance adds ~14M cycles per five-minute
+zero-balance check over a paused-worker baseline in PocketIC, with zero game
+segments. These are local measurements, not mainnet burn forecasts.
+
+Clean implementation `642d45e8fc461450fb877e20ed2cf61be36d7ac5`, frozen normal
+Wasm `55ccda3d024ea5ba9cfd7cc7b5e61eb5d55c7864ce7843ef6bf462fc018aeea3`.
+[Report](checkpoints/B2Z_PRELAUNCH_SELF_FUNDING.md) /
+[reviewed evidence](evidence/B2Z/treasury/verification.json) /
+[policy and proposed activation](docs/operations/PRELAUNCH_SELF_FUNDING.md).
+DTR stays pinned to published S14 `1f47c1a`, client 0.12.0; its independent local
+master audit changes documentation/refs only. The authenticated transition is
+not implemented; 32×32 torus and accepted cannon heading remain staged.
+
+The preceding verification correction was user-published and CI run
+[39735811814](https://github.com/aodl/balls-2-the-wallz/actions/runs/39735811814)
+passed at `d491c204e04bc45491ed6146ab274f678cf78757`. **New treasury CI:
+NOT_RUN** until the user publishes this branch. No remote Git operation occurs
+in this preparation.
+
+---
+
 # Verification closeout — arena tooling correction, 2026-10-22
 
 Published `af212f2` CI failed source conformance and standalone browser navigation; its installed-IC/native/Wasm/packaged-consumer jobs passed. The focused correction updates the explicit endpoint inventory and navigates Settings through the actual modal UI. Final standard source/browser/installed-IC gates PASS locally: 1,349 JS, 137 Python, 14 browser checks, 25 installed-IC tests with eight unchanged ignored predecessor probes. The first integration receipt timeout is retained alongside the unmodified passing rerun. [Correction and standard gates](checkpoints/B2Z_ARENA_VERIFICATION_FIX.md) / [reviewed results](evidence/B2Z/arena-verification-fix/verification.json). Production deployment evidence below remains historical and unchanged. No live canister operation or DTR change is part of this patch. The 32×32 torus and persistent heading remain staged, pending a separately scoped authenticated history/schema transition. Fresh patch CI is NOT_RUN until user push.
