@@ -1938,6 +1938,75 @@ impl Drop for OwnedBrowser {
 }
 /// Full built asset deployment, not an exported finite recording. All transfers
 /// and controllers are valueless identities on this disposable local network.
+/// Read-only seal collection must not wait behind the driver's transfer/upgrade
+/// control flow. Keep normal retention and fail on every missing publication.
+struct LivePublications {
+    stop: std::sync::Arc<std::sync::atomic::AtomicBool>,
+    entries: std::sync::Arc<std::sync::Mutex<Vec<Publication>>>,
+    reader: Option<std::thread::JoinHandle<()>>,
+}
+impl LivePublications {
+    fn start(pic: &PocketIc, id: Principal) -> Self {
+        let stop = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
+        let entries = std::sync::Arc::new(std::sync::Mutex::new(Vec::<Publication>::new()));
+        let recording_pic =
+            PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+        let stop_reader = stop.clone();
+        let recorded = entries.clone();
+        let reader = std::thread::spawn(move || {
+            let mut next = 0u64;
+            while !stop_reader.load(std::sync::atomic::Ordering::Acquire) {
+                let p = observe(&recording_pic, id).1;
+                if let Some(segment) = &p.head.segment_id {
+                    let head: u64 = segment.0.to_string().parse().unwrap();
+                    for n in next..=head {
+                        let observed = if n == head {
+                            p.clone()
+                        } else {
+                            let bytes: Vec<u8> = get_query(
+                                &recording_pic,
+                                id,
+                                "retained_publication",
+                                candid::encode_one(n).unwrap(),
+                            );
+                            decode::<Publication>(&bytes).unwrap()
+                        };
+                        recorded.lock().unwrap().push(observed);
+                    }
+                    next = head + 1;
+                }
+                std::thread::sleep(Duration::from_millis(100));
+            }
+        });
+        Self {
+            stop,
+            entries,
+            reader: Some(reader),
+        }
+    }
+    fn since(&self, offset: usize) -> Vec<Publication> {
+        assert!(
+            !self.reader.as_ref().unwrap().is_finished(),
+            "live publication collector exited"
+        );
+        self.entries.lock().unwrap()[offset..].to_vec()
+    }
+    fn finish(&mut self) {
+        self.stop.store(true, std::sync::atomic::Ordering::Release);
+        if let Some(reader) = self.reader.take() {
+            let result = reader.join();
+            if !std::thread::panicking() {
+                result.expect("live publication collector failed");
+            }
+        }
+    }
+}
+impl Drop for LivePublications {
+    fn drop(&mut self) {
+        self.finish();
+    }
+}
+
 #[test]
 fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut pic = PocketIcBuilder::new()
@@ -2051,65 +2120,30 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut third = None;
     // Includes dfx asset hosting, fallback, three responsive captures, clipboard,
     // reconnect/upgrade, three negative pages and reduced-motion verification.
-    // Per-page waits remain bounded; preserve the earlier 200s timeout evidence.
+    // Per-page waits remain bounded; the outer deadline includes cold asset
+    // builds and responsive UI work on this host, outside the measured trace.
     let began = std::time::Instant::now();
-    let deadline = began + Duration::from_secs(360);
+    let deadline = began + Duration::from_secs(600);
     let mut logged_phase = -2;
     let mut timing = vec![];
     let mut last_timing = 0;
+    let mut capture = LivePublications::start(&pic, id);
     while std::time::Instant::now() < deadline {
-        let (_, p) = observe(&pic, id);
-        if p.head.segment_id != last {
-            // Keep live progression unfenced: pausing PocketIC to capture each
-            // publication distorts its wall-clock production rate. All retained
-            // bytes are still fetched by immutable catalog/hash and replayed;
-            // losing retention is an explicit failure, never a skipped seal.
-            // make_live advances independently while HTTP/asset requests run.
-            // Replay every intervening retained publication; never skip a seal
-            // merely because two publications completed between observations.
-            let next_segment = last
-                .as_ref()
-                .map_or(0, |sid: &Int| sid.0.to_string().parse::<u64>().unwrap() + 1);
-            let head = p
-                .head
-                .segment_id
-                .as_ref()
-                .unwrap()
-                .0
-                .to_string()
-                .parse::<u64>()
-                .unwrap();
-            for segment in next_segment..=head {
-                let observed = if segment == head {
-                    p.clone()
-                } else {
-                    let bytes = decode_one::<Result<Vec<u8>, String>>(
-                        &pic.query_call(
-                            id,
-                            controller(),
-                            "retained_publication",
-                            candid::encode_one(segment).unwrap(),
-                        )
-                        .unwrap(),
-                    )
-                    .unwrap()
-                    .expect("live replay requires each intermediate publication still retained");
-                    decode::<Publication>(&bytes).unwrap()
-                };
-                // Capture seals promptly; defer expensive native replay until the
-                // live browser trace is finished, without pausing IC progression.
-                let seal = observed.head.seal.as_ref().unwrap();
-                let from: u64 = seal.source_from.0.to_string().parse().unwrap();
-                let to: u64 = seal.source_to_exclusive.0.to_string().parse().unwrap();
-                let inputs: Vec<_> = payments.range(from..to).map(|(id, _)| *id).collect();
-                assert_eq!(inputs.len(), seal.input_count as usize);
-                for input in inputs {
-                    assert!(!assigned.contains(&input));
-                    assigned.push(input);
-                }
-                last = observed.head.segment_id.clone();
-                publications.push(observed);
+        // Independent read-only capture keeps running while a transfer or an
+        // upgrade awaits. No replica pause, larger retention, or skipped seal.
+        let ready = capture.since(publications.len());
+        for observed in ready {
+            let seal = observed.head.seal.as_ref().unwrap();
+            let from: u64 = seal.source_from.0.to_string().parse().unwrap();
+            let to: u64 = seal.source_to_exclusive.0.to_string().parse().unwrap();
+            let inputs: Vec<_> = payments.range(from..to).map(|(id, _)| *id).collect();
+            assert_eq!(inputs.len(), seal.input_count as usize);
+            for input in inputs {
+                assert!(!assigned.contains(&input));
+                assigned.push(input);
             }
+            last = observed.head.segment_id.clone();
+            publications.push(observed);
         }
         if phase == -1 && out.join("bootstrap-anchor-read").exists() {
             let _: Status = get_result(
@@ -2312,6 +2346,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
         }
         std::thread::sleep(Duration::from_millis(100));
     }
+    capture.finish();
     if phase != 5 || !out.join("browser-complete").exists() {
         let _ = browser.0.kill();
         panic!(

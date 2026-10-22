@@ -42,6 +42,15 @@ def installed_test_inventory(listing, ignored_listing, *, ignored=False):
     if not selected:raise ValueError('No installed tests selected')
     return sorted(selected),sorted(all_tests-selected)
 
+def installed_case_result(row, log, server_exit):
+    """A passing Rust process cannot hide a dead server or an empty selection."""
+    row={**row,'pocketic_server_exit':server_exit}
+    if server_exit is not None:
+        row.update(status='FAIL',reason='PocketIC server exited before cleanup: '+str(server_exit))
+    elif not __import__('re').search(r'test result: ok\. 1 passed; 0 failed; 0 ignored;',log):
+        row.update(status='FAIL',reason='Expected exactly one passing installed test')
+    return row
+
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=ROOT/'.work/s14/local')
     p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts');p.add_argument('--index-wasm',type=Path);p.add_argument('--test-filter');p.add_argument('--browser-python',default=sys.executable)
@@ -130,6 +139,7 @@ def main():
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
             env['B2Z_PRIOR_WASM']=str(a.prior_wasm.resolve())
+        failed_installed=[]
         def installed_suite(identifier, filters=(), *, ignored=False, timeout=900):
             nonlocal server
             listing=subprocess.check_output([binaries[0],*filters,'--list','--format','terse'],text=True)
@@ -149,14 +159,11 @@ def main():
                 server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=timeout+60,idle_ttl_seconds=timeout+30)
                 try:
                     row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
-                    row['test']=name;row['pocketic_server_exit']=server[0].poll()
+                    row['test']=name
                     text=(out/row['log']).read_text();combined.append(text)
-                    if row['pocketic_server_exit'] is not None:
-                        row.update(status='FAIL',reason='PocketIC server exited before cleanup: '+str(row['pocketic_server_exit']))
-                    if not __import__('re').search(r'test result: ok\. 1 passed; 0 failed; 0 ignored;',text):
-                        row['status']='FAIL'
+                    row=installed_case_result(row,text,server[0].poll())
                     result['checks'].append(row);save();print(name,row['status'],flush=True)
-                    if row['status']!='PASS':raise RuntimeError(case_id+' FAIL')
+                    if row['status']!='PASS':failed_installed.append(name)
                 finally:
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
@@ -177,6 +184,7 @@ def main():
             installed_suite('arena-matched-producer-cost',['arena_matched_prior_producer_cost_comparison'],ignored=True)
         if a.arena_prior_test_wasm:
             installed_suite('arena-unfinished-upgrade',['arena_unfinished_old_segment_survives_upgrade'],ignored=True)
+        if failed_installed:raise RuntimeError('Installed tests failed: '+', '.join(failed_installed))
         if a.test_filter:
             result['overall']='PASS';save();return 0
         run('js-captured-history-replay',['node','tools/replay_s14.mjs',str(out/'index-trace.json'),str(out/'js-replay.json')],180)

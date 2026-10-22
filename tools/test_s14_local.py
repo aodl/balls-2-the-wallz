@@ -18,4 +18,21 @@ class InstalledInventoryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'inconsistent'):
             installed_test_inventory('a: test\n','missing: test\n')
 
+
+class InstalledResultTests(unittest.TestCase):
+    log='test result: ok. 1 passed; 0 failed; 0 ignored;'
+
+    def test_success_needs_live_server(self):
+        from verify_s14_local import installed_case_result
+        self.assertEqual(installed_case_result({'status':'PASS'},self.log,None)['status'],'PASS')
+        self.assertEqual(installed_case_result({'status':'PASS'},self.log,0)['status'],'FAIL')
+
+    def test_empty_rust_run_cannot_pass(self):
+        from verify_s14_local import installed_case_result
+        self.assertEqual(installed_case_result({'status':'PASS'},'test result: ok. 0 passed; 0 failed; 0 ignored;',None)['status'],'FAIL')
+
+    def test_process_failure_is_never_overridden(self):
+        from verify_s14_local import installed_case_result
+        self.assertEqual(installed_case_result({'status':'FAIL'},self.log,None)['status'],'FAIL')
+
 if __name__=='__main__':unittest.main()
