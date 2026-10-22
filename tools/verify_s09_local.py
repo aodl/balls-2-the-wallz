@@ -21,14 +21,14 @@ from check import classify
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def start_pocketic(binary,output,timeout=30,*,hard_ttl_seconds=900):
+def start_pocketic(binary,output,timeout=30,*,hard_ttl_seconds=900,idle_ttl_seconds=60):
     """Start one owned server so the runner can reliably stop it."""
     port_file=output/'pocketic.port'
     port_file.unlink(missing_ok=True)
     log_path=output/'logs'/'pocketic-server.log';log_path.parent.mkdir(parents=True,exist_ok=True)
     stream=log_path.open('w')
     process=subprocess.Popen(
-        [str(binary),'--ttl','60','--hard-ttl',str(hard_ttl_seconds),'--port-file',str(port_file)],
+        [str(binary),'--ttl',str(idle_ttl_seconds),'--hard-ttl',str(hard_ttl_seconds),'--port-file',str(port_file)],
         cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,text=True,start_new_session=True,
     )
     started=time.monotonic()

@@ -143,7 +143,10 @@ def main():
             for name in selected:
                 case_id=identifier+'--'+name.replace('::','-')
                 case_out=out/'instances'/case_id;case_out.mkdir(parents=True,exist_ok=True)
-                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=timeout+60)
+                # Native replay can compute for more than the shared helper's
+                # default 60-second idle TTL without making an IC request.
+                # The test deadline and independent server hard TTL stay bounded.
+                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=timeout+60,idle_ttl_seconds=timeout+30)
                 try:
                     row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
                     row['test']=name;row['pocketic_server_exit']=server[0].poll()
