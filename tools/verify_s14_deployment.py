@@ -4,7 +4,7 @@ The Rust acceptance harness owns valueless transfers, upgrade and service startu
 """
 import argparse,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
-from browser_observer import wait_until,wait_file
+from browser_observer import wait_until,wait_file,open_settings,close_settings
 from verify_observer_http import free_port,wait_for_server
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -375,6 +375,16 @@ def main():
             record('aim-survives-certified-state-updates-and-resize')
 
             page.keyboard.press('Escape')
+            # Receipt setup deliberately holds production at authenticated outcomes.
+            # Start the continuous-motion measurement from a fresh certified anchor
+            # after those holds, through the same restart control available to users.
+            page.evaluate('globalThis.__beforeSteadyLive=globalThis.__dtrLive')
+            open_settings(page);page.locator('#restart').click()
+            wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected && globalThis.__dtrLive !== globalThis.__beforeSteadyLive)'),30000)
+            assert page.locator('#receiving-account').text_content()==configuration['recipient']
+            assert page.locator('#angle-degrees').input_value()=='37.5'
+            close_settings(page)
+            report['steady_setup']='Fresh certified restart after controlled receipt holds; ordinary production remains running throughout the trace and reconnect.'
             # Inspect sustained populated motion in normal playback, rather than screenshots alone.
             trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(45000)
             samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
