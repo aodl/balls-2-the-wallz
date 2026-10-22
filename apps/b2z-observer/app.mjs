@@ -264,7 +264,7 @@ async function pumpLive(now,s){
     }
     s.retryFailures=0;s.nextDue=performance.now()+500;
   }catch(e){
-    if(!active(s))return;s.retryFailures++;
+    if(!active(s))return;s.retryFailures++;s.deliveryError=String(e?.message??e).slice(0,160);
     if(s.retryFailures>=5){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
   }finally{s.busy=false;if(active(s))updateHud();}
 }
@@ -401,7 +401,7 @@ function frame(now){
     if(s.queue.length)show(s.queue[0],visibleTime);
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state();globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state();globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.segment_ticks??2n)};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }

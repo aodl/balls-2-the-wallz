@@ -1975,7 +1975,7 @@ impl LivePublications {
                     }
                     next = head + 1;
                 }
-                std::thread::sleep(Duration::from_millis(100));
+                std::thread::sleep(Duration::from_millis(500));
             }
         });
         Self {
@@ -2270,7 +2270,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             phase = 1;
         } else if phase == 1 && receipt_held[0] {
             if !out.join("browser-first-receipt-seen").exists() {
-                std::thread::sleep(Duration::from_millis(100));
+                std::thread::sleep(Duration::from_millis(500));
                 continue;
             }
             if !first_resumed {
@@ -2300,7 +2300,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             )
             .unwrap();
             if !out.join("browser-second-receipt-seen").exists() {
-                std::thread::sleep(Duration::from_millis(100));
+                std::thread::sleep(Duration::from_millis(500));
                 continue;
             }
             // The game is held at a real publication, with replica/certificates live.
@@ -2346,7 +2346,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             )
             .unwrap();
             if !out.join("browser-paid-receipts-seen").exists() {
-                std::thread::sleep(Duration::from_millis(100));
+                std::thread::sleep(Duration::from_millis(500));
                 continue;
             }
             start_arena(&pic, id);
@@ -2399,7 +2399,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             );
             logged_phase = phase;
         }
-        std::thread::sleep(Duration::from_millis(100));
+        std::thread::sleep(Duration::from_millis(500));
     }
     capture.finish();
     if phase != 5 || !out.join("browser-complete").exists() {
