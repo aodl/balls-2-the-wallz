@@ -46,6 +46,50 @@ def verify_torus_scene(page,context,out,record,report,save):
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
 
+def verify_million_scene(page,context,out,record,report,save):
+    (out/'browser-million-ready').write_text('certified million-cell genesis visible\n')
+    assert '1,000 × 1,000' in page.locator('#world-rules').text_content()
+    assert 'wraparound' in page.locator('#world-rules').text_content()
+    page.locator('#toolbar-play').click()
+    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+    page.locator('#action-mode').select_option('move');page.locator('#selected-cannon').select_option('1')
+    # The selector is intentionally sparse; exact camera picking adds one
+    # authenticated owned cell instead of constructing 1,000,000 DOM options.
+    assert page.locator('#move-cell option').count()<=2
+    page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
+    point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
+    assert page.locator('#move-cell').input_value()=='0'
+    page.locator('#prepare-transfer').click();assert page.locator('#text-memo').inner_text()=='MOVE 0'
+    page.keyboard.press('Escape');assert page.locator('#minimap').is_visible();assert page.evaluate('__b2zCamera.minimapRects().length')==4
+    page.screenshot(path=str(out/'million-seam-pick.png'))
+    record('million-cell-culling-seam-picking-and-sparse-move-selector')
+    page.locator('#board').focus();page.keyboard.press('Home')
+    wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    normal=[];began=time.monotonic()
+    while time.monotonic()-began<20:normal.append(page.evaluate('({...__dtrLive.playback})'));page.wait_for_timeout(500)
+    dt=(normal[-1]['wall_ms']-normal[0]['wall_ms'])/1000
+    normal_result={'seconds':dt,'verified_ticks_per_second':(normal[-1]['verified_ticks']-normal[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(normal[-1]['consumed_ticks']-normal[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in normal),'nominal_rate':normal[-1]['nominal_rate']}
+    report['million_normal_playback']=normal_result;(out/'million-normal-telemetry.json').write_text(json.dumps(normal,indent=2))
+    assert normal_result['stalled_samples']==0,normal_result
+    assert .8<=normal_result['displayed_ticks_per_second']<=1.2,normal_result
+    (out/'browser-million-normal-complete').write_text('normal playback measured\n')
+    record('million-cell-normal-certified-playback',normal_result)
+    wait_until(page,lambda:'Lifeline' in page.locator('#arena-note').text_content(),30000)
+    wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000)
+    slow=[];began=time.monotonic()
+    while time.monotonic()-began<50:slow.append(page.evaluate('({...__dtrLive.playback})'));page.wait_for_timeout(500)
+    dt=(slow[-1]['wall_ms']-slow[0]['wall_ms'])/1000
+    displayed=(slow[-1]['consumed_ticks']-slow[0]['consumed_ticks'])/dt
+    distinct=len({round(x['consumed_ticks'],3) for x in slow})
+    slow_result={'seconds':dt,'verified_ticks_per_second':(slow[-1]['verified_ticks']-slow[0]['verified_ticks'])/dt,'displayed_ticks_per_second':displayed,'distinct_playheads':distinct,'stalled_samples':sum(x['phase']=='STALLED' for x in slow),'target_rate':slow[-1]['target_rate']}
+    report['million_lifeline_playback']=slow_result;(out/'million-lifeline-telemetry.json').write_text(json.dumps(slow,indent=2))
+    assert slow_result['stalled_samples']==0,slow_result
+    assert .035<=displayed<=.065 and distinct>=60,slow_result
+    record('million-cell-lifeline-smooth-verified-interpolation',slow_result)
+    page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '1,000 × 1,000' in page.locator('#world-rules').text_content(),30000)
+    assert not page.locator('#error').is_visible()
+    record('million-cell-cold-browser-reconnect')
+
 def verify_epoch_transition(page,context,out,record,report,save):
     wait_until(page,lambda:'16 × 8' in page.locator('#world-rules').text_content(),30000)
     page.locator('#toolbar-play').click()
@@ -107,7 +151,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port()
     asset_canister=os.environ.get('S14_ASSET_CANISTER')=='1'
     configuration['host']=a.gateway.rstrip('/') if asset_canister else f'http://127.0.0.1:{port}'
@@ -211,8 +255,9 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.scene_only or a.transition_only:
+            if a.scene_only or a.million_scene_only or a.transition_only:
                 if a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
+                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save)
                 else:verify_torus_scene(page,context,out,record,report,save)
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)

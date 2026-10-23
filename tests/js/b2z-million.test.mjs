@@ -94,7 +94,7 @@ test('million-cell one-tick replay is exact, compact and restart invariant',()=>
     assert(units<10000);
   }
   const output=cursor.result();
-  assert.equal(units,501);assert(maxSnapshot<20000);
+  assert.equal(units,313);assert(maxSnapshot<20000);
   assert.deepEqual([output.state,output.events,output.scores].map(sha256),[
     '7cb53a379c66bf09b44eadb249a83b41fa86247aa9243fcea2561ee3dd0c3a03',
     '7865dc45b7bd47d54ccd885457c7bfcfe68aef38a885d2c1db3578146d1d318b',

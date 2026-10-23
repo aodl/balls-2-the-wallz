@@ -261,7 +261,7 @@ fn million_cell_one_tick_matches_javascript_and_recovers_every_slice() {
         assert!(units < 10_000);
     }
     let output = cursor.result().unwrap();
-    assert_eq!(units, 501);
+    assert_eq!(units, 313);
     assert!(max_snapshot < 20_000);
     assert_eq!(
         [

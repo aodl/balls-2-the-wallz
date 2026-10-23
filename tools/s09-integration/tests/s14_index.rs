@@ -3813,6 +3813,156 @@ fn pace_world() -> b2z_native::world::World {
     world
 }
 
+fn million_population_world(ball_count: usize) -> b2z_native::world::World {
+    use b2z_native::world::{Ball, Cannon, World};
+    assert!((1..=64).contains(&ball_count));
+    let cannon_count = if ball_count > 32 { 2 } else { 1 };
+    let mut world = World::decode(&initial_world()).unwrap();
+    world.version = 4;
+    world.width = 32;
+    world.height = 32;
+    world.cells = (0..1024)
+        .map(|cell| {
+            if cannon_count == 1 || cell % 32 < 16 {
+                1
+            } else {
+                2
+            }
+        })
+        .collect();
+    world.ownership = None;
+    world.cannons = (0..cannon_count)
+        .map(|n| Cannon {
+            id: (n + 1) as u32,
+            cell: 16 * 32 + if n == 0 { 7 } else { 23 },
+            account: format!("{:02x}", n + 1).repeat(32),
+            heading: Some(0),
+        })
+        .collect();
+    world.balls = (0..ball_count)
+        .map(|n| {
+            let owner = if n < 32 || cannon_count == 1 { 1 } else { 2 };
+            let x = if owner == 1 { 5 } else { 27 };
+            let y = n % 32;
+            Ball {
+                id: (n + 1) as u32,
+                owner,
+                cell: y * 32 + x,
+                x0: Int(((x * 1024 + 512) as i64).into()),
+                y0: Int(((y * 1024 + 512) as i64).into()),
+                vx: 0,
+                vy: 1024,
+            }
+        })
+        .collect();
+    world.next_cannon_id = cannon_count as u32 + 1;
+    world.next_ball_id = ball_count as u32 + 1;
+    world.pending.clear();
+    world.next_strike_id = 1;
+    world.validate().unwrap();
+    b2z_native::migration::stage_million_world(&world).unwrap()
+}
+
+#[test]
+#[ignore = "bounded million-cell maximum-population production probe"]
+fn million_max_population_production_probe() {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let world = million_population_world(64);
+    assert_eq!(
+        (world.width, world.height, world.balls.len()),
+        (1000, 1000, 64)
+    );
+    let (pic, id, _, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), world.encode().unwrap());
+    let funding: FundingPause = get_result(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(true).unwrap(),
+    );
+    assert!(funding.paused);
+    start_arena(&pic, id);
+    let before = status(&pic, id);
+    let before_cycles = pic.cycle_balance(id);
+    let virtual_start = pic.get_time();
+    let wall_start = std::time::Instant::now();
+    let target = before.run.completed_segments + 8;
+    let mut steps = 0;
+    while status(&pic, id).run.completed_segments < target {
+        // Unfinished bounded work rearms at 50 ms. Advancing by 250 ms in one
+        // jump executes only the first callback at that timestamp and falsely
+        // starves the four continuations that real wall time would deliver.
+        pic.advance_time(Duration::from_millis(50));
+        for _ in 0..4 {
+            pic.tick();
+        }
+        steps += 1;
+        if steps > 240 {
+            let stalled = status(&pic, id);
+            panic!("maximum-population production stalled: {:?}", stalled.run);
+        }
+    }
+    let wall_seconds = wall_start.elapsed().as_secs_f64();
+    let measured = status(&pic, id);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let virtual_seconds = (pic.get_time().as_nanos_since_unix_epoch()
+        - virtual_start.as_nanos_since_unix_epoch()) as f64
+        / 1e9;
+    let ticks = measured.run.completed_segments - before.run.completed_segments;
+    let virtual_rate = ticks as f64 / virtual_seconds;
+    let pace = measured.run.pace.as_ref().unwrap();
+    assert_eq!(measured.run.publication_ticks, Some(1));
+    assert_eq!(pace.mode, "Normal");
+    assert_eq!(pace.nominal_milli, 1000);
+    assert_eq!(pace.supported_milli, 1000);
+    assert!(!pace.performance_limited);
+    assert!(ticks >= 8);
+    assert!(
+        (0.9..=1.2).contains(&virtual_rate),
+        "maximum-population production rate was {virtual_rate}"
+    );
+    let (observation, publication) = observe(&pic, id);
+    let artifact_bytes = publication
+        .artifacts
+        .iter()
+        .map(|artifact| artifact.length)
+        .sum::<usize>();
+    assert!(
+        publication
+            .artifacts
+            .iter()
+            .all(|artifact| artifact.length <= dtr_host::observation::MAX_ARTIFACT)
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("million-max-population.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "status":"PASS",
+            "clock":"PocketIC virtual scheduling plus local harness wall time; not mainnet wall time",
+            "world":[1000,1000],
+            "balls":64,
+            "ticks":ticks,
+            "virtual_seconds":virtual_seconds,
+            "virtual_ticks_per_second":virtual_rate,
+            "harness_wall_seconds":wall_seconds,
+            "harness_ticks_per_second":ticks as f64/wall_seconds,
+            "cycles":(before_cycles-pic.cycle_balance(id)).to_string(),
+            "publication_bytes":observation.publication.len(),
+            "artifact_bytes":artifact_bytes,
+            "state_bytes":publication.artifacts[0].length,
+            "event_bytes":publication.artifacts[1].length,
+            "score_bytes":publication.artifacts[2].length,
+            "stable_memory_bytes":pic.get_stable_memory(id).len(),
+            "pace":{"mode":pace.mode,"nominal_milli":pace.nominal_milli,"supported_milli":pace.supported_milli,"performance_limited":pace.performance_limited}
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
+
 #[test]
 #[ignore = "requires exact prior producer module"]
 fn arena_matched_prior_producer_cost_comparison() {
@@ -4258,6 +4408,96 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     );
 }
 
+#[test]
+#[ignore = "bounded million-cell browser Normal/Lifeline probe"]
+fn million_browser_normal_lifeline_and_cold_reconnect() {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let initial = million_population_world(4).encode().unwrap();
+    let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), initial.clone());
+    let funding: FundingPause = get_result(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(true).unwrap(),
+    );
+    assert!(funding.paused);
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let out =
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("million-browser");
+    std::fs::create_dir_all(&out).unwrap();
+    let config = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    std::fs::write(
+        out.join("configuration.json"),
+        serde_json::to_vec(&config).unwrap(),
+    )
+    .unwrap();
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let gateway = pic.make_live(None);
+    let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut browser = OwnedBrowser(
+        std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
+            .current_dir(&root)
+            .args([
+                "tools/verify_s14_deployment.py",
+                "--million-scene-only",
+                "--configuration",
+                out.join("configuration.json").to_str().unwrap(),
+                "--gateway",
+                gateway.as_str(),
+                "--output",
+                out.to_str().unwrap(),
+            ])
+            .stdout(log.try_clone().unwrap())
+            .stderr(log)
+            .spawn()
+            .unwrap(),
+    );
+    let began = std::time::Instant::now();
+    let mut started = false;
+    let mut lifeline = false;
+    while began.elapsed() < Duration::from_secs(210) {
+        if !started && out.join("browser-million-ready").exists() {
+            start_arena(&pic, id);
+            started = true;
+        }
+        if started && !lifeline && out.join("browser-million-normal-complete").exists() {
+            let status: Status = get_result(
+                &pic,
+                id,
+                "test_liquid_budget",
+                candid::encode_one(2_800_000_000_000u64).unwrap(),
+            );
+            assert_eq!(status.run.pace.unwrap().mode, "Lifeline");
+            lifeline = true;
+        }
+        if let Some(code) = browser.0.try_wait().unwrap() {
+            assert!(
+                code.success(),
+                "million browser failure: {}",
+                out.join("browser.log").display()
+            );
+            break;
+        }
+        std::thread::sleep(Duration::from_millis(250));
+    }
+    assert!(
+        started && lifeline,
+        "million browser coordination incomplete"
+    );
+    assert!(
+        out.join("browser-complete").exists(),
+        "million browser timeout"
+    );
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "Lifeline");
+    let world = arena_world(&pic, id);
+    assert_eq!((world.width, world.height), (1000, 1000));
+    pic.stop_live();
+}
+
 #[derive(Deserialize)]
 struct TransitionView {
     version: u32,
@@ -4549,7 +4789,7 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     assert_eq!(pace.supported_milli, 1000);
     assert!(!pace.performance_limited);
     assert!(
-        ticks >= 14 && ticks <= 16,
+        (14..=16).contains(&ticks),
         "million-cell backend produced {ticks} ticks in {elapsed}s"
     );
     let (observation, publication) = observe(&pic, id);

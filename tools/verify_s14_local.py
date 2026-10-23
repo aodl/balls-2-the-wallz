@@ -82,7 +82,7 @@ def main():
         actual=hashlib.sha256(path.read_bytes()).hexdigest()
         if actual!=expected[name]:result.update(overall='FAIL',reason='pinned runtime/artifact mismatch: '+name);save();return 1
         result['artifacts'].append({'name':name,'sha256':actual,'path':str(path)})
-    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter:
+    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter or 'million_browser' in a.test_filter:
         try:
             probe=__import__('subprocess').run([a.browser_python,'-c',
               "from pathlib import Path; from playwright.sync_api import sync_playwright; p=sync_playwright().start(); assert Path(p.chromium.executable_path).is_file(), 'Chromium missing'; p.stop()"],capture_output=True,text=True,timeout=20)
@@ -171,7 +171,11 @@ def main():
                 finally:
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
-        multi_epoch_development=a.test_filter=='million_paid_v4_cutover_preserves_state_and_uses_second_epoch'
+        multi_epoch_development=a.test_filter in {
+            'million_paid_v4_cutover_preserves_state_and_uses_second_epoch',
+            'million_max_population_production_probe',
+            'million_browser_normal_lifeline_and_cold_reconnect',
+        }
         if multi_epoch_development and os.environ.get('S14_DTR_REVISION')!='e1bfcf25071d11190d14f461288e12a21ca26cf8':
             raise RuntimeError('million-cell transition test requires the reviewed DTR multi-epoch development revision')
         installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or multi_epoch_development)

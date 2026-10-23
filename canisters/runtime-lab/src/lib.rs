@@ -8,7 +8,7 @@ mod transition;
 use b2z_native::{host::B2zHostKernel, world::World};
 use candid::{CandidType, Principal};
 use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
-use dtr_host::{Action, Coordinator, Identity};
+use dtr_host::{Action, Coordinator, Identity, MAX_IMAGE};
 use dtr_wire::{decode, encode, hash, hex, unhex, Int, Result as AppResult};
 use ic_cdk::call::Call;
 use ic_stable_structures::{
@@ -21,6 +21,10 @@ use std::cell::{Cell, RefCell};
 use std::time::Duration;
 const ROOT_LIMIT: usize = 256 * 1024;
 const CHUNKS: u64 = (MAX_ARTIFACT / CHUNK) as u64;
+const IMAGE_CHUNKS: u64 = MAX_IMAGE.div_ceil(CHUNK) as u64;
+// Preserve slots 0..=3 exactly. Larger coordinator images continue in a new,
+// disjoint range after the three public artifact slots.
+const IMAGE_OVERFLOW_BASE: u64 = 4 * CHUNKS;
 const PUBLICATION_CHUNKS: u64 = dtr_host::observation::MAX_PUBLICATION.div_ceil(CHUNK) as u64;
 const RETAINED_STRIDE: u64 = PUBLICATION_CHUNKS + 3 * CHUNKS;
 const RETAINED_SEGMENTS: usize = 3;
@@ -225,6 +229,15 @@ fn describe(bytes: &[u8]) -> AppResult<Blob> {
         sha256: hash(bytes),
     })
 }
+fn describe_image(bytes: &[u8]) -> AppResult<Blob> {
+    if bytes.len() > MAX_IMAGE {
+        return Err("coordinator image capacity".into());
+    }
+    Ok(Blob {
+        length: bytes.len(),
+        sha256: hash(bytes),
+    })
+}
 fn number(value: &Int) -> AppResult<u64> {
     value
         .0
@@ -369,7 +382,7 @@ fn root() -> AppResult<Root> {
         }
     }
     active_transition(&r)?;
-    if r.version != 7 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_ARTIFACT {
+    if r.version != 7 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_IMAGE {
         return Err(
             "incompatible index application schema; no implicit lab-state migration".into(),
         );
@@ -408,7 +421,7 @@ fn root() -> AppResult<Root> {
     Ok(r)
 }
 fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
-    if slot >= 4 || b.length > MAX_ARTIFACT {
+    if slot >= 4 || b.length > if slot == 0 { MAX_IMAGE } else { MAX_ARTIFACT } {
         return Err("blob bounds".into());
     }
     let mut out = Vec::with_capacity(b.length);
@@ -416,7 +429,7 @@ fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
         let m = m.borrow();
         for index in 0..b.length.div_ceil(CHUNK) {
             let bytes = m
-                .get(&(slot * CHUNKS + index as u64))
+                .get(&blob_key(slot, index as u64)?)
                 .ok_or("missing stable chunk")?;
             if bytes.len() != CHUNK.min(b.length - index * CHUNK) {
                 return Err("stable chunk length".into());
@@ -429,6 +442,21 @@ fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
         return Err("stable blob integrity".into());
     }
     Ok(out)
+}
+fn blob_key(slot: u64, chunk: u64) -> AppResult<u64> {
+    let capacity = if slot == 0 { IMAGE_CHUNKS } else { CHUNKS };
+    if slot >= 4 || chunk >= capacity {
+        return Err("stable blob key bounds".into());
+    }
+    if slot == 0 && chunk >= CHUNKS {
+        IMAGE_OVERFLOW_BASE
+            .checked_add(chunk - CHUNKS)
+            .ok_or_else(|| "stable blob key".into())
+    } else {
+        slot.checked_mul(CHUNKS)
+            .and_then(|base| base.checked_add(chunk))
+            .ok_or_else(|| "stable blob key".into())
+    }
 }
 fn retained_key(segment_id: u64, offset: u64) -> AppResult<u64> {
     if offset >= RETAINED_STRIDE {
@@ -576,7 +604,7 @@ fn persist_inner(
     let transition = old.map(active_transition).transpose()?.flatten();
     let idle = !runtime_needs_simulation(h, transition)?;
     let image = h.snapshot()?;
-    let image_descriptor = describe(&image)?;
+    let image_descriptor = describe_image(&image)?;
     let view = publication(&h.record)?;
     let mut retention = old.map(|root| root.retention.clone()).unwrap_or_default();
     let mut retained_writes = Vec::<(u64, Vec<u8>)>::new();
@@ -691,10 +719,13 @@ fn persist_inner(
             };
             let count = bytes.len().div_ceil(CHUNK);
             for (i, chunk) in bytes.chunks(CHUNK).enumerate() {
-                m.insert(slot * CHUNKS + i as u64, chunk.to_vec());
+                m.insert(
+                    blob_key(slot, i as u64).expect("validated blob size"),
+                    chunk.to_vec(),
+                );
             }
             for i in count..previous_length.div_ceil(CHUNK) {
-                m.remove(&(slot * CHUNKS + i as u64));
+                m.remove(&blob_key(slot, i as u64).expect("validated previous blob size"));
             }
         }
     });
@@ -1003,7 +1034,9 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
             return Err("genesis logical time".into());
         }
         let (source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
-        let mut identity = if w.torus() {
+        let mut identity = if w.version == 5 {
+            b2z_native::million_identity()?
+        } else if w.torus() {
             b2z_native::torus_identity()?
         } else {
             b2z_native::identity()?
@@ -2079,6 +2112,21 @@ ic_cdk::export_candid!();
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn coordinator_image_overflow_preserves_existing_blob_slots() {
+        assert_eq!(blob_key(0, 0).unwrap(), 0);
+        assert_eq!(blob_key(0, CHUNKS - 1).unwrap(), CHUNKS - 1);
+        assert_eq!(blob_key(1, 0).unwrap(), CHUNKS);
+        assert_eq!(blob_key(3, CHUNKS - 1).unwrap(), IMAGE_OVERFLOW_BASE - 1);
+        assert_eq!(blob_key(0, CHUNKS).unwrap(), IMAGE_OVERFLOW_BASE);
+        assert_eq!(
+            blob_key(0, IMAGE_CHUNKS - 1).unwrap(),
+            IMAGE_OVERFLOW_BASE + IMAGE_CHUNKS - CHUNKS - 1
+        );
+        assert!(blob_key(0, IMAGE_CHUNKS).is_err());
+        assert!(blob_key(1, CHUNKS).is_err());
+    }
+
     fn empty_host() -> Coordinator<B2zHostKernel> {
         let fixture: serde_json::Value =
             serde_json::from_str(include_str!("../../../tests/fixtures/b2z-v3-golden.json"))
