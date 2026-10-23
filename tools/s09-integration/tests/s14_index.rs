@@ -3069,23 +3069,27 @@ fn empty_arena_upgrade_preserves_players_publications_and_pending() {
 
 fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
     let (_, p) = observe(pic, id);
+    let root = dtr_wire::hash(&encode_publication(&p));
     if let Some(segment) = &p.head.segment_id {
-        let bundled: Vec<Vec<u8>> = get_query(
-            pic,
+        // The installed e1e7 predecessor predates atomic bundle delivery. Keep
+        // the authenticated chunk fallback so the upgrade rehearsal starts from
+        // the exact production module rather than the candidate.
+        if let Ok(reply) = pic.query_call(
             id,
+            controller(),
             "artifact_bundle",
-            encode_args((
-                segment.0.to_string().parse::<u64>().unwrap(),
-                dtr_wire::hash(&encode_publication(&p)),
-            ))
-            .unwrap(),
-        );
-        assert_eq!(bundled.len(), p.artifacts.len());
-        for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
-            assert_eq!(bytes.len(), descriptor.length);
-            assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+            encode_args((segment.0.to_string().parse::<u64>().unwrap(), root.clone())).unwrap(),
+        ) {
+            let bundled: Vec<Vec<u8>> = decode_one::<Result<Vec<Vec<u8>>, String>>(&reply)
+                .unwrap()
+                .unwrap();
+            assert_eq!(bundled.len(), p.artifacts.len());
+            for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
+                assert_eq!(bytes.len(), descriptor.length);
+                assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+            }
+            return b2z_native::world::World::decode(&bundled[0]).unwrap();
         }
-        return b2z_native::world::World::decode(&bundled[0]).unwrap();
     }
     let mut data = Vec::new();
     for n in 0..p.artifacts[0].chunks.len() {
@@ -3093,7 +3097,7 @@ fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
             pic,
             id,
             "artifact_chunk",
-            encode_args((dtr_wire::hash(&encode_publication(&p)), 0u8, n as u16)).unwrap(),
+            encode_args((root.clone(), 0u8, n as u16)).unwrap(),
         );
         data.extend(chunk);
     }
@@ -4266,6 +4270,148 @@ fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
         && w.pending_inputs == 0
         && observe(pic, id).1.head.source_to_exclusive
             == Int(status(pic, id).source.admitted_to_exclusive.into())
+}
+
+#[test]
+#[ignore = "requires exact installed e1e7 torus module"]
+fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let predecessor = bytes("B2Z_PACING_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac"
+    );
+    let (pic, id, ledger, payer) = arena_setup(predecessor);
+    assert!(
+        get_result::<FundingPause>(
+            &pic,
+            id,
+            "set_funding_paused",
+            candid::encode_one(true).unwrap()
+        )
+        .paused
+    );
+    start_arena(&pic, id);
+    let join = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..240 {
+        tick(&pic);
+        if arena_world(&pic, id).received_e8s == Int(100_000_000u64.into())
+            && status(&pic, id).source.admitted_to_exclusive > join
+        {
+            break;
+        }
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let paid_v3 = arena_world(&pic, id);
+    assert_eq!(paid_v3.cannons.len(), 1);
+    assert_eq!(paid_v3.received_e8s, Int(100_000_000u64.into()));
+
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_torus_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    start_arena(&pic, id);
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase == "ready" && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert_eq!(transition_view(&pic, id).unwrap().phase, "ready");
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_torus_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    for _ in 0..240 {
+        tick(&pic);
+        if observe(&pic, id).1.head.seal.is_some() {
+            break;
+        }
+    }
+    assert!(observe(&pic, id).1.head.seal.is_some());
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+
+    let before = arena_world(&pic, id);
+    let publication = observe(&pic, id).0.publication;
+    let source_cursor = status(&pic, id).source.admitted_to_exclusive;
+    assert_eq!((before.version, before.width, before.height), (4, 32, 32));
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(arena_world(&pic, id), before);
+    assert_eq!(observe(&pic, id).0.publication, publication);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_cursor);
+    assert!(
+        get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+    );
+
+    start_arena(&pic, id);
+    let start = pic.get_time();
+    let segments = status(&pic, id).run.completed_segments;
+    let expected_segments = segments + 16;
+    let mut steps = 0;
+    while status(&pic, id).run.completed_segments < expected_segments {
+        pic.advance_time(Duration::from_millis(250));
+        for _ in 0..4 {
+            pic.tick();
+        }
+        steps += 1;
+        assert!(steps < 300);
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let final_status = status(&pic, id);
+    let seconds = (pic.get_time().as_nanos_since_unix_epoch() - start.as_nanos_since_unix_epoch())
+        as f64
+        / 1e9;
+    let ticks = (final_status.run.completed_segments - segments) * 2;
+    assert_eq!(ticks, 32);
+    let rate = ticks as f64 / seconds;
+    let pace = final_status.run.pace.unwrap();
+    assert_eq!(pace.mode, "Normal");
+    assert_eq!(pace.nominal_milli, 1000);
+    assert!(rate > 0.9 && rate < 1.1, "{ticks} ticks in {seconds}s");
+    let after = arena_world(&pic, id);
+    assert_eq!(after.received_e8s, before.received_e8s);
+    assert_eq!(after.cannons.len(), before.cannons.len());
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("pacing-exact-upgrade.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+          "status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_PACING_PRIOR_WASM")),
+          "publication_preserved":true,"source_cursor":source_cursor,"received_e8s":after.received_e8s,
+          "world":[after.width,after.height],"ticks":ticks,"seconds":seconds,"ticks_per_second":rate,
+          "mode":pace.mode,"nominal_milli":pace.nominal_milli,"funding_paused":true
+        }))
+        .unwrap(),
+    )
+    .unwrap();
 }
 /// Real account history around the global Ledger/Index barrier. No normalized
 /// payment injection, no canister reset, and replay uses this run's exact seals.
