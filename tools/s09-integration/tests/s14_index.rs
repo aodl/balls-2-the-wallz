@@ -3072,23 +3072,27 @@ fn empty_arena_upgrade_preserves_players_publications_and_pending() {
 
 fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
     let (_, p) = observe(pic, id);
+    let root = dtr_wire::hash(&encode_publication(&p));
     if let Some(segment) = &p.head.segment_id {
-        let bundled: Vec<Vec<u8>> = get_query(
-            pic,
+        // The installed e1e7 predecessor predates atomic bundle delivery. Keep
+        // the authenticated chunk fallback so this helper can exercise a real
+        // predecessor upgrade instead of accidentally installing the candidate.
+        if let Ok(reply) = pic.query_call(
             id,
+            controller(),
             "artifact_bundle",
-            encode_args((
-                segment.0.to_string().parse::<u64>().unwrap(),
-                dtr_wire::hash(&encode_publication(&p)),
-            ))
-            .unwrap(),
-        );
-        assert_eq!(bundled.len(), p.artifacts.len());
-        for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
-            assert_eq!(bytes.len(), descriptor.length);
-            assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+            encode_args((segment.0.to_string().parse::<u64>().unwrap(), root.clone())).unwrap(),
+        ) {
+            let bundled: Vec<Vec<u8>> = decode_one::<Result<Vec<Vec<u8>>, String>>(&reply)
+                .unwrap()
+                .unwrap();
+            assert_eq!(bundled.len(), p.artifacts.len());
+            for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
+                assert_eq!(bytes.len(), descriptor.length);
+                assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+            }
+            return b2z_native::world::World::decode(&bundled[0]).unwrap();
         }
-        return b2z_native::world::World::decode(&bundled[0]).unwrap();
     }
     let mut data = Vec::new();
     for n in 0..p.artifacts[0].chunks.len() {
@@ -3096,7 +3100,7 @@ fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
             pic,
             id,
             "artifact_chunk",
-            encode_args((dtr_wire::hash(&encode_publication(&p)), 0u8, n as u16)).unwrap(),
+            encode_args((root.clone(), 0u8, n as u16)).unwrap(),
         );
         data.extend(chunk);
     }
@@ -4296,7 +4300,12 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
         std::env::var("S14_DTR_REVISION").unwrap(),
         "e1bfcf25071d11190d14f461288e12a21ca26cf8"
     );
-    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_S14_WASM"));
+    let predecessor = bytes("B2Z_MILLION_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac"
+    );
+    let (pic, id, ledger, payer) = arena_setup(predecessor);
     let funding: FundingPause = get_result(
         &pic,
         id,
@@ -4343,9 +4352,7 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     start_arena(&pic, id);
     for _ in 0..240 {
         tick(&pic);
-        if transition_view(&pic, id).unwrap().phase == "ready"
-            && transition_drained(&pic, id)
-        {
+        if transition_view(&pic, id).unwrap().phase == "ready" && transition_drained(&pic, id) {
             break;
         }
     }
@@ -4379,13 +4386,9 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     .unwrap();
     assert_eq!(arena_world(&pic, id), before_upgrade);
     assert_eq!(observe(&pic, id).0.publication, publication_before_upgrade);
-    assert!(get_query::<FundingPause>(
-        &pic,
-        id,
-        "controller_funding",
-        encode_args(()).unwrap()
-    )
-    .paused);
+    assert!(
+        get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+    );
     let before_old_move = arena_world(&pic, id);
     let cannon = before_old_move.cannons[0].clone();
     let old_target = before_old_move
@@ -4468,7 +4471,10 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     assert_eq!(status(&pic, id).run.publication_ticks, Some(1));
     assert!(million.encode().unwrap().len() < 64 * 1024);
     let completed = transition_view_for(&pic, id, "million_transition_status").unwrap();
-    assert_eq!(completed.transition_hash.as_ref(), Some(&epoch.transition_hash));
+    assert_eq!(
+        completed.transition_hash.as_ref(),
+        Some(&epoch.transition_hash)
+    );
     assert_eq!(
         dtr_wire::hash(&unhex(completed.metadata_hex.as_ref().unwrap()).unwrap()),
         epoch.metadata_hash
@@ -4491,13 +4497,9 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     .unwrap();
     assert_eq!(arena_world(&pic, id), million);
     assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
-    assert!(get_query::<FundingPause>(
-        &pic,
-        id,
-        "controller_funding",
-        encode_args(()).unwrap()
-    )
-    .paused);
+    assert!(
+        get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+    );
 
     // A post-cutover MOVE uses the million-cell coordinate space exactly once.
     let cannon = million.cannons[0].clone();
@@ -4537,8 +4539,8 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
         tick(&pic);
     }
     let measured = status(&pic, id);
-    let elapsed = (pic.get_time().as_nanos_since_unix_epoch()
-        - began.as_nanos_since_unix_epoch()) as f64
+    let elapsed = (pic.get_time().as_nanos_since_unix_epoch() - began.as_nanos_since_unix_epoch())
+        as f64
         / 1e9;
     let ticks = measured.run.completed_segments - before.run.completed_segments;
     let pace = measured.run.pace.as_ref().unwrap();
