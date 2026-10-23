@@ -114,11 +114,13 @@ export function createArcade(doc){
     status({phase,live,verified,fresh,healthy,paused,idle=false,pace=null,transitioning=false}){
       const wasAvailable=available;available=Boolean(config&&source&&live&&verified&&fresh&&healthy&&phase!=='ERROR');
       if(wasAvailable&&!available&&prepared)stale=true;availability();
-      const funding=pace?.admission_open===false;
-      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':transitioning?'Catching up':funding?'Paused for funding':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?'Waiting for players':['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':pace&&['Economy','Conserve'].includes(pace.mode)?(pace.mode==='Conserve'?'Economy · conserve':'Economy'):'Live';
-      text('live-status',label);$('live-status').dataset.verified=String(['Live','Economy','Economy · conserve','Waiting for players'].includes(label));
-      text('payment-health',transitioning?'World transition in progress. Prepare fresh instructions after it completes.':available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':funding?'Paused for funding. Wait before preparing a new payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
-      text('arena-note',transitioning?'World transition · waiting for verified new world':funding?'Ordinary simulation paused for funding. Payments remain pending.':idle?'Waiting for players · Index polling continues':pace?`${pace.mode} · ${(pace.nominal_milli/1000).toFixed(2)} ticks/s`:label);
+      const protectedMode=pace?.admission_open===false;
+      const reduced=pace&&['Cruise','Economy','Steady','Conserve','Survival','Lifeline'].includes(pace.mode);
+      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':transitioning?'Catching up':protectedMode?'Reserve protection':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?'Waiting for players':['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':reduced?pace.mode:'Live';
+      text('live-status',label);$('live-status').dataset.verified=String(['Live','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Waiting for players'].includes(label));
+      text('payment-health',transitioning?'World transition in progress. Prepare fresh instructions after it completes.':available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':protectedMode?'Reserve protection is active. Funding recovery continues; wait before preparing a new payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
+      const actual=pace?.supported_milli??pace?.nominal_milli;
+      text('arena-note',transitioning?'World transition · waiting for verified new world':protectedMode?'Reserve protection · funding maintenance remains active':idle?'Waiting for players · Index polling continues':pace?`${pace.mode} · ${(actual/1000).toFixed(2)} ticks/s${pace.performance_limited?` (target ${(pace.nominal_milli/1000).toFixed(2)})`:''}`:label);
     },
     selectedCannon(){return selected()?.id??null;},
     selectCannon(id){if(!world?.cannons.some(c=>c.id===id))return false;$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},

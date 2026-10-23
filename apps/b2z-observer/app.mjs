@@ -98,6 +98,19 @@ async function certifiedTicket(s,response){
 async function liveArtifacts(s,ticket){
   const segment=Number(ticket.publication.head.segment_id);if(!Number.isSafeInteger(segment)||segment<0)throw new Error('live segment id');
   const started=performance.now();
+  if(typeof s.client.bundle==='function'){
+    try{
+      const bytes=await s.client.bundle(segment,ticket.root_hash);
+      if(bytes.length!==ticket.publication.artifacts.length)throw new Error('artifact bundle shape');
+      const entries=await Promise.all(bytes.map(async(value,kindIndex)=>{
+        const descriptor=ticket.publication.artifacts[kindIndex],assembler=new ArtifactAssembler(ticket,descriptor.kind);
+        if(value.length!==descriptor.length)throw new Error('artifact bundle shape');
+        for(let index=0;index<descriptor.chunks.length;index++)await assembler.accept(index,value.slice(index*16384,(index+1)*16384));
+        return [descriptor.kind,await assembler.finish()];
+      }));
+      s.artifactMs=performance.now()-started;s.bundleUsed=true;s.bundleError=null;return Object.fromEntries(entries);
+    }catch(error){s.bundleFallbacks=(s.bundleFallbacks??0)+1;s.bundleError=String(error?.message??error).slice(0,160);}
+  }
   const results=await Promise.allSettled(['state','events','scores'].map(async(kind,kindIndex)=>{
     const assembler=new ArtifactAssembler(ticket,kind);
     for(let index=0;index<assembler.descriptor.chunks.length;index++){
@@ -143,7 +156,9 @@ async function startLive(recording,startupRetries=0){
       if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
       const module=await import('/s09-assets/ic-certificate.mjs');
       s.verifyCertificate=module.localCertificateVerifier(rootKey,{network:recording.network,maxAgeInMinutes:5});
-      s.client=await module.localLiveClient(rootKey,{network:recording.network,canister_id:recording.canister_id,host:location.origin});
+      const base=await module.localLiveClient(rootKey,{network:recording.network,canister_id:recording.canister_id,host:location.origin});
+      const {artifactBundleClient}=await import('./mainnet.mjs');
+      s.client=await artifactBundleClient({network:recording.network,rootKey,canister_id:recording.canister_id,host:location.origin},base);
       ticket=await certifiedTicket(s,await s.client.observation());
     }
     if(!active(s))return;
@@ -241,7 +256,7 @@ async function refreshOperational(now){
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
-  if(now<s.nextDue||s.queue.length>=4||s.clock.state().buffer>=10)return;s.busy=true;
+  if(now<s.nextDue||s.queue.length>=8||s.clock.state().buffer>=16)return;s.busy=true;
   try{
     const started=performance.now(),response=await s.client.observation();s.fetchMs=performance.now()-started;const verifying=performance.now();
     const current=await certifiedTicket(s,response);s.verifyMs=performance.now()-verifying;if(!active(s))return;
@@ -401,7 +416,7 @@ function frame(now){
     if(s.queue.length)show(s.queue[0],visibleTime);
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state();globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }

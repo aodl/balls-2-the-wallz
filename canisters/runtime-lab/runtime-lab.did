@@ -12,9 +12,14 @@ type ControllerWork = record {
   pending_inputs : nat32;
 };
 type DriverMetrics = record {
+  last_persist_instructions : nat64;
+  last_publish_instructions : nat64;
+  last_seal_instructions : nat64;
+  last_step_instructions : nat64;
   last_instructions : nat64;
   messages : nat64;
   max_actions : nat32;
+  persist_instructions : nat64;
   seal_instructions : nat64;
   step_instructions : nat64;
   publish_instructions : nat64;
@@ -22,6 +27,8 @@ type DriverMetrics = record {
 };
 type Hint = record {
   nominal_milli : nat32;
+  supported_milli : nat32;
+  performance_limited : bool;
   mode : text;
   admission_open : bool;
 };
@@ -36,6 +43,10 @@ type IndexConfig = record {
 };
 type Observation = record { e8s : nat64; observed_at_ns : nat64 };
 type Observation_1 = record { certificate : opt blob; publication : blob };
+type ObservationBundle = record {
+  observation : Observation_1;
+  artifacts : vec blob;
+};
 type Phase = variant {
   NotifyPending : record { block_index : nat64; plan : Plan; attempts : nat64 };
   Idle;
@@ -66,6 +77,8 @@ type Result_3 = variant { Ok : ControllerWork; Err : text };
 type Result_4 = variant { Ok : Status; Err : text };
 type Result_5 = variant { Ok : Observation_1; Err : text };
 type Result_6 = variant { Ok : RetentionStatus; Err : text };
+type Result_7 = variant { Ok : vec blob; Err : text };
+type Result_8 = variant { Ok : ObservationBundle; Err : text };
 type RetainedEntry = record {
   segment_id : nat64;
   bytes : nat64;
@@ -95,6 +108,7 @@ type RunStatus = record {
   total_work : nat64;
   current_segment_work : nat64;
   segment_ticks : nat64;
+  publication_ticks : nat64;
   max_segment_work : nat64;
   completed_segments : nat64;
   running : bool;
@@ -148,6 +162,7 @@ type Status = record {
   publication_hash : text;
 };
 service : (blob, nat64, IndexConfig) -> {
+  artifact_bundle : (nat64, text) -> (Result_7) query;
   artifact_chunk : (text, nat8, nat16) -> (Result) query;
   // Derive the new world from the actual durable committed state, once. Expected
   // manifest protects against a stale operator view; there is no arbitrary replacement.
@@ -157,6 +172,7 @@ service : (blob, nat64, IndexConfig) -> {
   controller_work : () -> (Result_3) query;
   lab_status : () -> (Result_4) query;
   observation : () -> (Result_5) query;
+  observation_bundle : () -> (Result_8) query;
   pause_autonomous : () -> (Result_4);
   poke : (vec PokeMatch) -> ();
   // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a

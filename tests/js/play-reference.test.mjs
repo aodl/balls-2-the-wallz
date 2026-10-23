@@ -34,5 +34,5 @@ test('healthy idle is distinct from pause, errors and an active authenticated wo
 });
 test('reserve protection disables encouragement and never disguises preserved pending payments',()=>{
  const s={run:{running:true,idle:false,pace:{mode:'ReserveProtection',nominal_milli:0,admission_open:false},last_error:[]},source:{binding_checked:true,last_error:[],pending_records:5}};
- assert.match(operationalText(s),/Paused for funding.*pending payments are preserved/);
+ assert.match(operationalText(s),/Reserve protection.*pending payments are preserved.*funding recovery remains active/);
 });

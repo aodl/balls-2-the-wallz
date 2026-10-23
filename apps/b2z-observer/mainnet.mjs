@@ -16,15 +16,51 @@ export function mainnetPolicy(value){
 export async function mainnetConnection(policy){
   policy=mainnetPolicy(policy);
   const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
-  return {verifyCertificate:certificateVerifier({network:'ic'}),client:await liveClient(policy),readStatus:operationalReader(agent,policy.canister_id)};
+  const base=await liveClient(policy),client=artifactDeliveryClient(agent,policy.canister_id,base);
+  return {verifyCertificate:certificateVerifier({network:'ic'}),client,readStatus:operationalReader(agent,policy.canister_id)};
+}
+function artifactBundleReader(agent,canisterId){
+ const actor=Actor.createActor(({IDL})=>IDL.Service({artifact_bundle:IDL.Func([IDL.Nat64,IDL.Text],[IDL.Variant({Ok:IDL.Vec(IDL.Vec(IDL.Nat8)),Err:IDL.Text})],['query'])}),{agent,canisterId});
+ return async(segment,publication)=>{const value=await actor.artifact_bundle(BigInt(segment),publication);if(!value.Ok)throw new Error(String(value.Err??'artifact bundle unavailable'));return value.Ok.map(bytes=>Uint8Array.from(bytes));};
+}
+function artifactDeliveryClient(agent,canisterId,base){
+ const bundle=artifactBundleReader(agent,canisterId);
+ const actor=Actor.createActor(({IDL})=>IDL.Service({observation_bundle:IDL.Func([],[IDL.Variant({Ok:IDL.Record({observation:IDL.Record({publication:IDL.Vec(IDL.Nat8),certificate:IDL.Opt(IDL.Vec(IDL.Nat8))}),artifacts:IDL.Vec(IDL.Vec(IDL.Nat8))}),Err:IDL.Text})],['query'])}),{agent,canisterId});
+ let cached=null,atomicAvailable=true;
+ return Object.freeze({...base,
+  observation:async()=>{
+   let failure;
+   for(let attempt=0;atomicAvailable&&attempt<2;attempt++){
+    try{
+     const result=await actor.observation_bundle();
+     if(!result.Ok){failure=new Error(String(result.Err??'observation bundle unavailable'));break;}
+     const observation={publication:Uint8Array.from(result.Ok.observation.publication),certificate:result.Ok.observation.certificate.length?Uint8Array.from(result.Ok.observation.certificate[0]):null};
+     cached={publication:await sha256Web(observation.publication),artifacts:result.Ok.artifacts.map(bytes=>Uint8Array.from(bytes))};
+     return observation;
+    }catch(error){failure=error;}
+   }
+   if(failure)atomicAvailable=false;
+   const observation=await base.observation();cached={publication:await sha256Web(observation.publication),failure:failure??new Error('atomic artifact bundle unavailable')};return observation;
+  },
+  bundle:async(segment,publication)=>{
+   if(cached?.publication===publication){const result=cached;cached=null;if(result.failure)throw result.failure;return result.artifacts;}
+   return bundle(segment,publication);
+  }
+ });
+}
+/** Local acceptance uses the same atomic delivery query with its pinned root. */
+export async function artifactBundleClient({network,rootKey,canister_id,host},base){
+ if(network!=='pocketic-local'||!(rootKey instanceof Uint8Array)||rootKey.length<32||rootKey.length>1024)throw new Error('configured local bundle root required');
+ const agent=await HttpAgent.create({host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1});
+ return artifactDeliveryClient(agent,Principal.fromText(canister_id),base);
 }
 /** Operational query only: never authorizes a payment or a game outcome. */
 export function operationalReader(agent,canisterId){
   const actor=Actor.createActor(({IDL})=>IDL.Service({lab_status:IDL.Func([],[IDL.Variant({Err:IDL.Text,Ok:IDL.Record({
-    run:IDL.Record({completed_segments:IDL.Nat64,segment_ticks:IDL.Nat64,running:IDL.Bool,idle:IDL.Opt(IDL.Bool),world_transition:IDL.Opt(IDL.Bool),pace:IDL.Opt(IDL.Record({mode:IDL.Text,nominal_milli:IDL.Nat32,admission_open:IDL.Bool})),last_error:IDL.Opt(IDL.Text)}),
+    run:IDL.Record({completed_segments:IDL.Nat64,segment_ticks:IDL.Nat64,publication_ticks:IDL.Opt(IDL.Nat64),running:IDL.Bool,idle:IDL.Opt(IDL.Bool),world_transition:IDL.Opt(IDL.Bool),pace:IDL.Opt(IDL.Record({mode:IDL.Text,nominal_milli:IDL.Nat32,supported_milli:IDL.Opt(IDL.Nat32),performance_limited:IDL.Opt(IDL.Bool),admission_open:IDL.Bool})),last_error:IDL.Opt(IDL.Text)}),
     source:IDL.Record({binding_checked:IDL.Bool,last_error:IDL.Opt(IDL.Text),pending_records:IDL.Nat32,admitted_to_exclusive:IDL.Nat64})
   })})],['query'])}),{agent,canisterId});
-  return async()=>{const r=await actor.lab_status();if(!r.Ok)throw new Error('status unavailable');r.Ok.run.idle=r.Ok.run.idle?.[0]??false;r.Ok.run.world_transition=r.Ok.run.world_transition?.[0]??false;r.Ok.run.pace=r.Ok.run.pace?.[0]??{mode:'Legacy',nominal_milli:500,admission_open:true};return r.Ok;};
+  return async()=>{const r=await actor.lab_status();if(!r.Ok)throw new Error('status unavailable');r.Ok.run.idle=r.Ok.run.idle?.[0]??false;r.Ok.run.world_transition=r.Ok.run.world_transition?.[0]??false;r.Ok.run.publication_ticks=r.Ok.run.publication_ticks?.[0]??r.Ok.run.segment_ticks;r.Ok.run.pace=r.Ok.run.pace?.[0]??{mode:'Legacy',nominal_milli:500,admission_open:true};r.Ok.run.pace.supported_milli=r.Ok.run.pace.supported_milli?.[0]??r.Ok.run.pace.nominal_milli;r.Ok.run.pace.performance_limited=r.Ok.run.pace.performance_limited?.[0]??false;return r.Ok;};
 }
 export async function certifiedSource(policy,ticket){
   policy=mainnetPolicy(policy);

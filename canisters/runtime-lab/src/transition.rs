@@ -8,6 +8,8 @@ use dtr_host::{Coordinator, Identity, Output};
 use dtr_wire::{encode, hash, unhex, Int, Result};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+/// World migration headroom is independent of ordinary gameplay pacing bands.
+pub const MIN_LIQUID_CYCLES: u128 = 500_000_000_000;
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Transition {

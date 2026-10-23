@@ -87,30 +87,47 @@ test('terminal idle playback drains a short verified segment and resumes ordinar
  prepareIdlePlayout(s,false);s.clock.append(2,4);assert.equal(s.clock.sample(.1).playhead,2);
  s.clock.append(4,8);assert.ok(s.clock.sample(.1).playhead>2);
 });
-test('shared nominal pace is bounded and approaches smooth economy/conserve transitions',async()=>{
+test('shared graduated pace uses supported rate without misreporting its cycle target',async()=>{
  const {nominalPace,approachPace}=await import('../../apps/b2z-observer/model.mjs');
- for(const [mode,milli]of[['Normal',1000],['Economy',500],['Conserve',250],['ReserveProtection',0]])assert.equal(nominalPace({run:{pace:{mode,nominal_milli:milli}}}),milli/1000);
+ for(const [mode,milli]of[['Normal',1000],['Cruise',750],['Economy',500],['Steady',300],['Conserve',200],['Survival',100],['Lifeline',50],['ReserveProtection',0]])assert.equal(nominalPace({run:{pace:{mode,nominal_milli:milli,supported_milli:milli}}}),milli/1000);
+ assert.equal(nominalPace({run:{pace:{mode:'Normal',nominal_milli:1000,supported_milli:400,performance_limited:true}}}),.4);
  assert.equal(nominalPace({run:{pace:{mode:'Normal',nominal_milli:1e6}}}),.25);
- let rate=1;for(let n=0;n<200;n++){const next=approachPace(rate,.25,.016);assert.ok(rate-next<=.004001);rate=next;}assert.equal(rate,.25);
+ let rate=1;for(let n=0;n<200;n++){const next=approachPace(rate,.2,.016);assert.ok(rate-next<=.004001);rate=next;}assert.ok(rate<.21);
 });
 
-test('shared pace transitions keep the verified clock continuous after startup',async()=>{
+test('every neighbouring active pace transition keeps verified playback continuous',async()=>{
  const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
- const {approachPace}=await import('../../apps/b2z-observer/model.mjs');
- const clock=new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1});
- let head=0,produced=0,nextHint=0,advertised=1,displayRate=1,started=false,stalls=0;
- for(let frame=0;frame<120*60;frame++){
-  const t=frame/60,rate=t<30?1:t<60?.5:t<90?.25:1;
-  produced+=rate/60;
-  while(produced>=head+2){clock.append(head,head+2);head+=2;}
-  if(t>=nextHint){advertised=rate;nextHint+=2;}
-  displayRate=approachPace(displayRate,advertised,1/60);
-  const state=clock.sample(displayRate/60);
-  if(state.phase==='PLAYING'||state.phase==='DEGRADED_BUFFER')started=true;
-  if(started&&state.phase==='STALLED')stalls++;
-  assert(state.playhead<=state.available,'never invent motion beyond verified data');
+ const {approachPace,liveBufferPolicy}=await import('../../apps/b2z-observer/model.mjs');
+ const rates=[1,.75,.5,.3,.2,.1,.05],names=['Normal','Cruise','Economy','Steady','Conserve','Survival','Lifeline'];
+ for(let pair=0;pair<rates.length-1;pair++)for(const reverse of [false,true]){
+  const from=reverse?pair+1:pair,to=reverse?pair:pair+1;
+  let status={run:{publication_ticks:rates[from]<=.1?1:2,pace:{mode:names[from],nominal_milli:rates[from]*1000,supported_milli:rates[from]*1000}}};
+  const clock=new PlayoutClock({start:0,...liveBufferPolicy(status),max_frame_delta:1});clock.append(0,8);
+  let head=8,produced=8,displayRate=rates[from],stalls=0;
+  for(let frame=0;frame<1800;frame++){
+   const t=frame/10,rate=t<20?rates[from]:rates[to],mode=t<20?from:to,pub=rate<=.1?1:2;
+   status={run:{publication_ticks:pub,pace:{mode:names[mode],nominal_milli:rate*1000,supported_milli:rate*1000}}};
+   Object.assign(clock,liveBufferPolicy(status));produced+=rate/10;
+   while(produced>=head+pub){clock.append(head,head+pub);head+=pub;}
+   displayRate=approachPace(displayRate,rate,.1);const state=clock.sample(displayRate/10);
+   if(state.phase==='STALLED')stalls++;
+   assert(state.playhead<=state.available,'never invent motion beyond verified data');
+  }
+  assert.equal(stalls,0,`${names[from]} to ${names[to]}`);
  }
- assert(started);assert.equal(stalls,0);
+});
+
+test('Lifeline starts within two publications and interpolates only verified motion',async()=>{
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ const {liveBufferPolicy}=await import('../../apps/b2z-observer/model.mjs');
+ const status={run:{publication_ticks:1,pace:{mode:'Lifeline',nominal_milli:50,supported_milli:50}}},policy=liveBufferPolicy(status);
+ assert.deepEqual(policy,{target:1.4,low:.05});
+ const clock=new PlayoutClock({start:0,...policy,max_frame_delta:1});clock.append(0,1);
+ assert.equal(clock.sample(.05).phase,'BUFFERING');
+ clock.append(1,2);let prior=clock.playhead;
+ for(let second=0;second<20;second++){const state=clock.sample(.05);assert(state.playhead>prior);assert(state.playhead<=state.available);prior=state.playhead;}
+ const stopped=clock.playhead;for(let second=0;second<40;second++)clock.sample(0);
+ assert.equal(clock.playhead,stopped,'a disconnected viewer invents no future motion');
 });
 
 test('operator resume rebuilds the startup buffer without losing verified time or queued segments',async()=>{
@@ -124,5 +141,5 @@ test('operator resume rebuilds the startup buffer without losing verified time o
  assert.equal(s.queue,queue);assert.equal(s.clock.available,10);
  assert.equal(s.clock.sample(1).phase,'BUFFERING');assert.equal(s.clock.playhead,8);
  const resumed=s.clock;prepareIdlePlayout(s,false);assert.equal(s.clock,resumed);
- s.clock.append(10,14);assert.equal(s.clock.sample(1).phase,'PLAYING');assert.ok(s.clock.playhead>8&&s.clock.playhead<=14);
+ s.clock.append(10,18);assert.equal(s.clock.sample(1).phase,'PLAYING');assert.ok(s.clock.playhead>8&&s.clock.playhead<=18);
 });

@@ -402,6 +402,22 @@ fn replay_head_with_artifacts(
         dtr_wire::hash(&encode_publication(p))
     );
     if verify_artifacts {
+        let bundled = decode_one::<Result<Vec<Vec<u8>>, String>>(
+            &pic.query_call(
+                id,
+                controller(),
+                "artifact_bundle",
+                encode_args((
+                    seal.segment_id.0.to_string().parse::<u64>().unwrap(),
+                    expected.sha256.clone(),
+                ))
+                .unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap()
+        .unwrap();
+        assert_eq!(bundled, expected.artifacts);
         for (kind, artifact) in expected.artifacts.iter().enumerate() {
             let mut actual = vec![];
             for n in 0..artifact.len().div_ceil(16384) {
@@ -3053,6 +3069,24 @@ fn empty_arena_upgrade_preserves_players_publications_and_pending() {
 
 fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
     let (_, p) = observe(pic, id);
+    if let Some(segment) = &p.head.segment_id {
+        let bundled: Vec<Vec<u8>> = get_query(
+            pic,
+            id,
+            "artifact_bundle",
+            encode_args((
+                segment.0.to_string().parse::<u64>().unwrap(),
+                dtr_wire::hash(&encode_publication(&p)),
+            ))
+            .unwrap(),
+        );
+        assert_eq!(bundled.len(), p.artifacts.len());
+        for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
+            assert_eq!(bytes.len(), descriptor.length);
+            assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+        }
+        return b2z_native::world::World::decode(&bundled[0]).unwrap();
+    }
     let mut data = Vec::new();
     for n in 0..p.artifacts[0].chunks.len() {
         let chunk: Vec<u8> = get_query(
@@ -3454,12 +3488,29 @@ fn arena_upgrade_from_installed_idle_module() {
 
 #[test]
 fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments() {
+    #[derive(CandidType, Deserialize)]
+    struct PaceMetrics {
+        seal_instructions: u64,
+        step_instructions: u64,
+        publish_instructions: u64,
+        persist_instructions: u64,
+        max_instructions: u64,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct PaceDiagnostics {
+        metrics: PaceMetrics,
+    }
     let mut rows = vec![];
     let mut expected = None;
     for (mode, target, rate) in [
-        ("Normal", 6_000_000_000_000u64, 1.0),
-        ("Economy", 1_800_000_000_000u64, 0.5),
-        ("Conserve", 600_000_000_000u64, 0.25),
+        ("Normal", 45_000_000_000_000u64, 1.0),
+        ("Cruise", 27_000_000_000_000u64, 0.75),
+        ("Economy", 17_000_000_000_000u64, 0.5),
+        ("Steady", 11_000_000_000_000u64, 0.3),
+        ("Conserve", 6_000_000_000_000u64, 0.2),
+        ("Survival", 3_700_000_000_000u64, 0.1),
+        // Falling from a faster band retains Survival at or above its 3T exit.
+        ("Lifeline", 2_800_000_000_000u64, 0.05),
     ] {
         let (pic, id, _, _) =
             arena_setup_world(bytes("B2Z_S14_TEST_WASM"), pace_world().encode().unwrap());
@@ -3474,13 +3525,20 @@ fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments()
         let begin = pic.get_time();
         let balance = pic.cycle_balance(id);
         let mut steps = 0;
-        while status(&pic, id).run.completed_segments < 16 {
-            pic.advance_time(Duration::from_millis(250));
+        let publication_ticks = if rate <= 0.1 { 1 } else { 2 };
+        let expected_segments = 32 / publication_ticks;
+        let advance = if rate <= 0.1 {
+            Duration::from_secs(2)
+        } else {
+            Duration::from_millis(250)
+        };
+        while status(&pic, id).run.completed_segments < expected_segments {
+            pic.advance_time(advance);
             for _ in 0..4 {
                 pic.tick();
             }
             steps += 1;
-            assert!(steps < 1000);
+            assert!(steps < 3000);
         }
         get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
         let seconds = (pic.get_time().as_nanos_since_unix_epoch()
@@ -3488,7 +3546,15 @@ fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments()
             / 1e9;
         let spent = balance - pic.cycle_balance(id);
         let final_world = arena_world(&pic, id);
-        assert_eq!(status(&pic, id).run.completed_segments, 16);
+        let diagnostics: PaceDiagnostics =
+            get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
+        let (observation, publication) = observe(&pic, id);
+        let artifact_bytes = publication
+            .artifacts
+            .iter()
+            .map(|artifact| artifact.length)
+            .sum::<usize>();
+        assert_eq!(status(&pic, id).run.completed_segments, expected_segments);
         if let Some(w) = &expected {
             assert_eq!(
                 &final_world, w,
@@ -3503,16 +3569,19 @@ fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments()
             "{mode} {achieved} ticks/s over {seconds}s"
         );
         println!("PACE_MODE {mode}: seconds={seconds} cycles={spent}");
-        rows.push(serde_json::json!({"mode":mode,"seconds":seconds,"ticks":32,"segments":16,"rate":achieved,"cycles":spent.to_string(),"cycles_per_second":spent as f64/seconds}));
+        rows.push(serde_json::json!({"mode":mode,"seconds":seconds,"ticks":32,"segments":expected_segments,"publication_ticks":publication_ticks,"rate":achieved,"cycles":spent.to_string(),"cycles_per_second":spent as f64/seconds,
+          "instructions":{"seal":diagnostics.metrics.seal_instructions,"step":diagnostics.metrics.step_instructions,"publish":diagnostics.metrics.publish_instructions,"stable_persist":diagnostics.metrics.persist_instructions,"max_message":diagnostics.metrics.max_instructions},
+          "bytes":{"stable_memory":pic.get_stable_memory(id).len(),"publication":observation.publication.len(),"artifacts":artifact_bytes}}));
     }
-    assert!(
-        rows[1]["cycles_per_second"].as_f64().unwrap()
-            < rows[0]["cycles_per_second"].as_f64().unwrap() * 0.7
-    );
-    assert!(
-        rows[2]["cycles_per_second"].as_f64().unwrap()
-            < rows[1]["cycles_per_second"].as_f64().unwrap() * 0.7
-    );
+    for adjacent in rows.windows(2) {
+        assert!(
+            adjacent[1]["cycles_per_second"].as_f64().unwrap()
+                < adjacent[0]["cycles_per_second"].as_f64().unwrap(),
+            "{} must spend less per wall second than {}",
+            adjacent[1]["mode"],
+            adjacent[0]["mode"]
+        );
+    }
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let value = serde_json::json!({"status":"PASS","clock":"PocketIC virtual time; not mainnet wall time","modes":rows});
@@ -3558,7 +3627,7 @@ fn arena_reserve_preserves_admitted_and_index_pending_payments() {
     assert_eq!(arena_world(&pic, id), before);
     assert_eq!(observe(&pic, id).0.publication, publication);
     assert!(!status(&pic, id).run.pace.unwrap().admission_open);
-    pic.add_cycles(id, 2_000_000_000_000);
+    pic.add_cycles(id, 3_000_000_000_000);
     for _ in 0..200 {
         tick(&pic);
         if work(&pic, id).0 == 0 && status(&pic, id).source.admitted_to_exclusive > third {
@@ -4143,7 +4212,10 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
             );
             break;
         }
-        std::thread::sleep(Duration::from_millis(100));
+        // PocketIC serializes ingress to this disposable instance. Four
+        // capture polls per two-second publication preserve exact replay
+        // coverage without starving the simultaneous certified browser query.
+        std::thread::sleep(Duration::from_millis(500));
     }
     assert!(out.join("browser-complete").exists(), "scene timeout");
     pic.stop_live();

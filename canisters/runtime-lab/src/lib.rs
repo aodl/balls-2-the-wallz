@@ -25,6 +25,7 @@ const PUBLICATION_CHUNKS: u64 = dtr_host::observation::MAX_PUBLICATION.div_ceil(
 const RETAINED_STRIDE: u64 = PUBLICATION_CHUNKS + 3 * CHUNKS;
 const RETAINED_SEGMENTS: usize = 3;
 const RETAINED_BYTES: usize = 8 * 1024 * 1024;
+const ARTIFACT_BUNDLE_BYTES: usize = 1024 * 1024;
 const SCAN_CALL_TIMEOUT_SECONDS: u32 = 30;
 const SCAN_LEASE_SECONDS: u64 = 45;
 type Memory = VirtualMemory<DefaultMemoryImpl>;
@@ -34,6 +35,11 @@ struct DriverMetrics {
     seal_instructions: u64,
     step_instructions: u64,
     publish_instructions: u64,
+    persist_instructions: u64,
+    last_seal_instructions: u64,
+    last_step_instructions: u64,
+    last_publish_instructions: u64,
+    last_persist_instructions: u64,
     last_instructions: u64,
     max_instructions: u64,
     max_actions: u32,
@@ -151,6 +157,7 @@ struct RunStatus {
     world_transition: bool,
     generation: u64,
     segment_ticks: u64,
+    publication_ticks: u64,
     pacing_seconds: u32,
     work_budget: u32,
     callback_count: u64,
@@ -187,6 +194,11 @@ struct Status {
 struct Observation {
     publication: Vec<u8>,
     certificate: Option<Vec<u8>>,
+}
+#[derive(CandidType, Deserialize)]
+struct ObservationBundle {
+    observation: Observation,
+    artifacts: Vec<Vec<u8>>,
 }
 #[derive(CandidType, Deserialize)]
 struct ControllerWork {
@@ -447,6 +459,7 @@ fn status(r: &Root) -> Status {
             world_transition: r.world_transition.as_ref().is_some_and(|t| t.holding()),
             generation: r.run.generation,
             segment_ticks: r.run.segment_ticks,
+            publication_ticks: PACE.with(|p| p.borrow().publication_ticks(r.run.segment_ticks)),
             pacing_seconds: r.run.pacing_seconds,
             work_budget: r.run.work_budget,
             callback_count: r.run.callback_count,
@@ -732,10 +745,11 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         return Ok(());
     }
     let mut run = r.run.clone();
+    let publication_ticks = PACE.with(|p| p.borrow().publication_ticks(run.segment_ticks));
     let mut actions = 0u32;
     let mut work = 0u64;
     if h.record.journal.stage.is_none()
-        && PACE.with(|p| p.borrow_mut().wait(now, run.segment_ticks)) > 0
+        && PACE.with(|p| p.borrow_mut().wait(now, publication_ticks)) > 0
     {
         return Ok(());
     }
@@ -757,7 +771,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
                 index = 0;
                 PACE.with(|p| p.borrow_mut().batch_started = now);
                 let end = number(&h.record.journal.head.logical_end)?
-                    .checked_add(run.segment_ticks)
+                    .checked_add(publication_ticks)
                     .ok_or("logical time")?;
                 h.apply(Action::Seal {
                     logical_end: Int(end.into()),
@@ -784,7 +798,11 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
             }
             Some((phase, ready)) if phase == "ready" => {
                 index = 2;
-                let ordinary = h.record.journal.stage.as_ref().unwrap().seal.input_count == 0;
+                let seal = &h.record.journal.stage.as_ref().unwrap().seal;
+                let ordinary = seal.input_count == 0;
+                let completed_ticks = number(&seal.logical_end)?
+                    .checked_sub(number(&seal.logical_start)?)
+                    .ok_or("logical segment order")?;
                 h.apply(Action::Publish {
                     manifest_hash: ready.ok_or("ready manifest")?,
                 })?;
@@ -795,7 +813,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
                 run.last_segment_work = run.current_segment_work;
                 run.max_segment_work = run.max_segment_work.max(run.current_segment_work);
                 run.current_segment_work = 0;
-                PACE.with(|p| p.borrow_mut().published(now, run.segment_ticks, ordinary));
+                PACE.with(|p| p.borrow_mut().published(now, completed_ticks, ordinary));
             }
             _ => return Err("coordinator phase".into()),
         }
@@ -813,14 +831,21 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         .checked_add(1)
         .ok_or("callback counter")?;
     run.last_error = None;
+    let before_persist = ic_cdk::api::performance_counter(0);
     persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
     let instructions = ic_cdk::api::performance_counter(0);
+    let persist_instructions = instructions - before_persist;
     DRIVER.with(|d| {
         let mut d = d.borrow_mut();
         d.messages += 1;
         d.seal_instructions += phases[0];
         d.step_instructions += phases[1];
         d.publish_instructions += phases[2];
+        d.persist_instructions += persist_instructions;
+        d.last_seal_instructions = phases[0];
+        d.last_step_instructions = phases[1];
+        d.last_publish_instructions = phases[2];
+        d.last_persist_instructions = persist_instructions;
         d.last_instructions = instructions;
         d.max_instructions = d.max_instructions.max(instructions);
         d.max_actions = d.max_actions.max(actions);
@@ -835,8 +860,9 @@ fn run_delay(run: &RunState) -> Duration {
         return Duration::from_secs(60);
     }
     let wait = PACE.with(|p| {
-        p.borrow_mut()
-            .scheduled_wait(ic_cdk::api::time(), run.segment_ticks)
+        let mut p = p.borrow_mut();
+        let ticks = p.publication_ticks(run.segment_ticks);
+        p.scheduled_wait(ic_cdk::api::time(), ticks)
     });
     Duration::from_nanos(wait.max(1_000_000))
 }
@@ -937,7 +963,6 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         )?;
         let r = persist(&h, None, source, RunState::default())?;
         cache_poke_policy(&r.source);
-        PACE.with(|p| p.borrow_mut().configure_world(w.torus()));
         refresh_pace();
         install_source_timer();
         request_reconciliation()?;
@@ -990,8 +1015,6 @@ fn post_upgrade() {
         save_root_only(&r)?;
         ic_cdk::api::certified_data_set(unhex(&r.publication_hash)?);
         cache_poke_policy(&r.source);
-        let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
-        PACE.with(|p| p.borrow_mut().configure_world(w.torus()));
         refresh_pace();
         install_source_timer();
         request_reconciliation()?;
@@ -1098,6 +1121,53 @@ fn observation() -> std::result::Result<Observation, String> {
         certificate: ic_cdk::api::data_certificate(),
     })
 }
+/// Returns one atomic certified snapshot and its small public artifacts. The
+/// byte cap keeps the query bounded; clients retain the chunked fallback.
+#[ic_cdk::query]
+fn observation_bundle() -> std::result::Result<ObservationBundle, String> {
+    let r = root()?;
+    let publication_bytes = unhex(&r.publication_hex)?;
+    let publication: Publication = decode(&publication_bytes)?;
+    let total = publication
+        .artifacts
+        .iter()
+        .try_fold(0usize, |sum, descriptor| {
+            sum.checked_add(descriptor.length)
+                .ok_or("artifact bundle byte count")
+        })?;
+    if total > ARTIFACT_BUNDLE_BYTES {
+        return Err("artifact bundle capacity".into());
+    }
+    let artifacts = publication
+        .artifacts
+        .iter()
+        .enumerate()
+        .map(|(kind, descriptor)| {
+            let bytes = read_blob(
+                kind as u64 + 1,
+                &Blob {
+                    length: descriptor.length,
+                    sha256: descriptor.sha256.clone(),
+                },
+            )?;
+            for (index, expected) in descriptor.chunks.iter().enumerate() {
+                let start = index * CHUNK;
+                let end = (start + CHUNK).min(bytes.len());
+                if hash(&bytes[start..end]) != *expected {
+                    return Err("artifact bundle integrity".into());
+                }
+            }
+            Ok(bytes)
+        })
+        .collect::<AppResult<Vec<_>>>()?;
+    Ok(ObservationBundle {
+        observation: Observation {
+            publication: publication_bytes,
+            certificate: ic_cdk::api::data_certificate(),
+        },
+        artifacts,
+    })
+}
 #[ic_cdk::query]
 fn retained_publication(segment_id: u64) -> std::result::Result<Vec<u8>, String> {
     let r = root()?;
@@ -1142,6 +1212,81 @@ fn artifact_chunk(
         return Err("public chunk integrity".into());
     }
     Ok(bytes)
+}
+/// One bounded query avoids three independent artifact round trips for ordinary
+/// small publications. Larger publications retain the existing chunk fallback.
+#[ic_cdk::query]
+fn artifact_bundle(
+    segment_id: u64,
+    expected_publication: String,
+) -> std::result::Result<Vec<Vec<u8>>, String> {
+    let r = root()?;
+    let current_bytes = unhex(&r.publication_hex)?;
+    let current: Publication = decode(&current_bytes)?;
+    let current_segment = publication_segment(&current)?;
+    let (publication, retained) = if current_segment == Some(segment_id) {
+        if expected_publication != r.publication_hash {
+            return Err("stale observation publication".into());
+        }
+        (current, false)
+    } else {
+        let meta = r
+            .retention
+            .history
+            .iter()
+            .find(|entry| entry.segment_id == segment_id)
+            .ok_or("publication unavailable: snapshot resync required")?;
+        if expected_publication != meta.publication_hash {
+            return Err("stale retained publication".into());
+        }
+        (decode(&retained_publication_bytes(meta)?)?, true)
+    };
+    let total = publication
+        .artifacts
+        .iter()
+        .try_fold(0usize, |sum, descriptor| {
+            sum.checked_add(descriptor.length)
+                .ok_or("artifact bundle byte count")
+        })?;
+    if total > ARTIFACT_BUNDLE_BYTES {
+        return Err("artifact bundle capacity".into());
+    }
+    publication
+        .artifacts
+        .iter()
+        .enumerate()
+        .map(|(kind, descriptor)| {
+            let mut artifact = Vec::with_capacity(descriptor.length);
+            for (index, expected) in descriptor.chunks.iter().enumerate() {
+                let bytes = if retained {
+                    let key = retained_key(
+                        segment_id,
+                        PUBLICATION_CHUNKS + kind as u64 * CHUNKS + index as u64,
+                    )?;
+                    RETAINED
+                        .with(|map| map.borrow().get(&key))
+                        .ok_or("missing retained chunk")?
+                } else {
+                    BLOBS
+                        .with(|map| {
+                            map.borrow()
+                                .get(&((kind as u64 + 1) * CHUNKS + index as u64))
+                        })
+                        .ok_or("missing public chunk")?
+                };
+                if bytes.len() != CHUNK.min(descriptor.length - index * CHUNK)
+                    || hash(&bytes) != *expected
+                {
+                    return Err("artifact bundle integrity".into());
+                }
+                artifact.extend(bytes);
+            }
+            if artifact.len() != descriptor.length || hash(&artifact) != descriptor.sha256 {
+                return Err("artifact bundle integrity".into());
+            }
+            Ok(artifact)
+        })
+        .collect()
 }
 #[ic_cdk::query]
 fn retained_artifact_chunk(
@@ -1592,7 +1737,7 @@ async fn measure_cutover(lease: &Lease) -> AppResult<()> {
 #[ic_cdk::update]
 fn prepare_torus_transition() -> std::result::Result<Vec<u8>, String> {
     authorized()?;
-    if ic_cdk::api::canister_liquid_cycle_balance() < pace::CONSERVE_ENTER {
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
         return Err("insufficient liquid cycles for safe transition".into());
     }
     let mut r = root()?;
@@ -1650,7 +1795,7 @@ fn commit_torus_transition(
         }
         return encode(&r.world_transition);
     }
-    if ic_cdk::api::canister_liquid_cycle_balance() < pace::CONSERVE_ENTER {
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
         return Err("insufficient liquid cycles for safe transition".into());
     }
     if h.record.journal.head.manifest_hash != expected_previous_manifest {
@@ -1674,7 +1819,6 @@ fn commit_torus_transition(
     t.transition_hash = Some(epoch.transition_hash);
     r.source.requested = true;
     r = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
-    PACE.with(|p| p.borrow_mut().configure_world(true));
     refresh_pace();
     install_run_timer(&r.run);
     request_reconciliation()?;

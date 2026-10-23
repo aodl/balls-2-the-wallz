@@ -468,6 +468,7 @@ fn funding_low_liquid_cycles_defer_then_recover_without_browser() {
     enabled(&pic, id, true);
     maintenance(&pic);
     let s = funding(&pic, id);
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "ReserveProtection");
     assert!(matches!(s.phase, Phase::Idle));
     assert!(s.last_error.unwrap().contains("insufficient liquid cycles"));
     assert_eq!(balance(&pic, ledger, id), 100_000_000);
@@ -476,6 +477,11 @@ fn funding_low_liquid_cycles_defer_then_recover_without_browser() {
     maintenance(&pic);
     assert_eq!(stats(&pic).credits, 1);
     assert_eq!(balance(&pic, ledger, id), 0);
+    assert_eq!(
+        status(&pic, id).run.pace.unwrap().mode,
+        "ReserveProtection",
+        "treasury recovery must not depend on gameplay admission reopening"
+    );
 }
 
 #[test]

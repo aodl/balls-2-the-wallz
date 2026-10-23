@@ -179,10 +179,18 @@ export function prepareIdlePlayout(session,idle){
 /** Shared operational speed is presentation input only; the verified clock remains the ceiling. */
 export function nominalPace(status){
  const p=status?.run.pace;if(!p)return .5;
- if(!['Normal','Economy','Conserve','ReserveProtection','Legacy'].includes(p.mode)||!Number.isInteger(p.nominal_milli)||p.nominal_milli<0||p.nominal_milli>1000)return .25;
- return p.nominal_milli/1000;
+ const modes=['Normal','Cruise','Economy','Steady','Conserve','Survival','Lifeline','ReserveProtection','Legacy'];
+ const milli=p.supported_milli??p.nominal_milli;
+ if(!modes.includes(p.mode)||!Number.isInteger(p.nominal_milli)||p.nominal_milli<0||p.nominal_milli>1000||!Number.isInteger(milli)||milli<0||milli>p.nominal_milli)return .25;
+ return milli/1000;
 }
 export function approachPace(current,target,seconds){return current+Math.max(-.25*seconds,Math.min(.25*seconds,target-current));}
 
-/** Two-tick publication plus four wall seconds of measured delivery jitter. */
-export function liveBufferPolicy(status){const pace=nominalPace(status);return {target:2+4*pace,low:Math.max(.5,pace)};}
+/** One publication plus eight wall seconds of delivery jitter, expressed in ticks.
+ * Slow modes publish one-tick segments, bounding Lifeline cold start to two
+ * authenticated publications instead of several minutes of accumulated play. */
+export function liveBufferPolicy(status){
+ const pace=nominalPace(status),raw=Number(status?.run.publication_ticks??status?.run.segment_ticks??2);
+ const ticks=Number.isInteger(raw)&&raw>=1&&raw<=64?raw:2;
+ return {target:ticks+8*pace,low:Math.max(.05,pace)};
+}
