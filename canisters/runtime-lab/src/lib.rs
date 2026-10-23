@@ -1642,9 +1642,7 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         r.source = next;
         save_root_only(&r)?;
     }
-    if active_transition(&r)?.is_some_and(|t| t.phase == "drain")
-        && r.source.pending.is_none()
-    {
+    if active_transition(&r)?.is_some_and(|t| t.phase == "drain") && r.source.pending.is_none() {
         active_transition_mut(&mut r)?
             .ok_or("missing active cutover")?
             .phase = "ready".into();
@@ -1683,9 +1681,7 @@ async fn reconcile() -> AppResult<()> {
         if !matches_lease(&r.source, &lease) {
             return Ok(());
         }
-        if active_transition(&r)?
-            .is_some_and(|t| t.phase == "ledger" || t.phase == "index")
-        {
+        if active_transition(&r)?.is_some_and(|t| t.phase == "ledger" || t.phase == "index") {
             return measure_cutover(&lease).await;
         }
         if r.source.pending.as_ref().is_some_and(|p| p.complete) {
