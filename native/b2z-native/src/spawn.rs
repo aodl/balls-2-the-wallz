@@ -94,15 +94,34 @@ impl SpawnJob {
         match self.phase.as_str() {
             "done" => return Ok(true),
             "enumerate" => {
-                if self.scan < w.cells.len() {
-                    let cell = self.scan;
+                let limit = if w.version == 5 { 1024 } else { w.cell_count() };
+                if self.scan < limit {
+                    let probe = self.scan;
                     self.scan += 1;
+                    let cell = if w.version == 5 {
+                        let digest = rank(&self.seed, 4, probe, -2)?;
+                        u64::from_str_radix(&digest[..15], 16).map_err(|_| "spawn probe")? as usize
+                            % w.cell_count()
+                    } else {
+                        probe
+                    };
                     let Some(p) = w.patch(cell) else {
                         return Ok(false);
                     };
+                    if w.version == 5 {
+                        if p.iter().all(|c| w.owner(*c) == Some(0)) {
+                            self.candidates.push(Candidate {
+                                kind: 2,
+                                cell,
+                                other: -1,
+                                rank: rank(&self.seed, 2, cell, -1)?,
+                            });
+                        }
+                        return Ok(false);
+                    }
                     for other in w.neighbors(cell) {
-                        let a = w.cells[cell];
-                        let b = w.cells[other];
+                        let a = w.owner(cell).ok_or("spawn cell")?;
+                        let b = w.owner(other).ok_or("spawn neighbor")?;
                         if a != b {
                             let kind = if a != 0 && b != 0 { 0 } else { 1 };
                             self.candidates.push(Candidate {
@@ -113,7 +132,7 @@ impl SpawnJob {
                             });
                         }
                     }
-                    let kind = if p.iter().all(|c| w.cells[*c] == 0) {
+                    let kind = if p.iter().all(|c| w.owner(*c) == Some(0)) {
                         2
                     } else {
                         3
@@ -172,7 +191,9 @@ impl SpawnJob {
                 self.owners = self
                     .patch
                     .iter()
-                    .map(|c| w.cells[*c])
+                    .map(|c| w.owner(*c).ok_or_else(|| "spawn patch".into()))
+                    .collect::<Result<Vec<_>>>()?
+                    .into_iter()
                     .filter(|o| *o != 0)
                     .collect::<BTreeSet<_>>()
                     .into_iter()
@@ -201,7 +222,7 @@ impl SpawnJob {
                     .cell;
                 self.queue = vec![anchor];
                 self.head = 0;
-                self.seen = vec![false; w.cells.len()];
+                self.seen = vec![false; w.cell_count()];
                 self.seen[anchor] = true;
                 self.phase = "flood".into();
             }
@@ -211,7 +232,7 @@ impl SpawnJob {
                     self.head += 1;
                     let owner = self.owners[self.owner_index];
                     for n in w.neighbors(c) {
-                        if w.cells[n] == owner && !self.seen[n] && !self.patch.contains(&n) {
+                        if w.owner(n) == Some(owner) && !self.seen[n] && !self.patch.contains(&n) {
                             self.seen[n] = true;
                             self.queue.push(n);
                         }
@@ -222,10 +243,10 @@ impl SpawnJob {
                 }
             }
             "verify" => {
-                if self.scan < w.cells.len() {
+                if self.scan < w.cell_count() {
                     let c = self.scan;
                     self.scan += 1;
-                    if w.cells[c] == self.owners[self.owner_index]
+                    if w.owner(c) == Some(self.owners[self.owner_index])
                         && !self.patch.contains(&c)
                         && !self.seen[c]
                     {

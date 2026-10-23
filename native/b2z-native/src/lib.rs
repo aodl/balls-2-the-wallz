@@ -7,6 +7,6 @@ pub mod migration;
 pub mod spawn;
 pub mod topology;
 pub mod world;
-pub use cursor::{identity, torus_identity, Cursor, Input, Output};
+pub use cursor::{identity, million_identity, torus_identity, Cursor, Input, Output};
 
 pub mod host;

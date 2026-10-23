@@ -198,7 +198,7 @@ const ATAN: [i64; 24] = [
 ];
 /// Fixed integer CORDIC. Constants and rounding are protocol data.
 pub fn heading(angle: u16, speed: u16) -> Result<(i32, i32), Error> {
-    if speed == 0 || speed > 4096 {
+    if speed == 0 {
         return Err(Error::Bounds);
     }
     let q = angle / 16384;

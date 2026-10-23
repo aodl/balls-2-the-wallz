@@ -2,7 +2,7 @@
 import {encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat} from './math.mjs';
-import {neighbors, position, Q,wrapCell} from './world.mjs';
+import {cellCount,neighbors,ownerAt,position,Q,wrapCell} from './world.mjs';
 
 export function seedPatch(cell, width, height,torus=false) {
   if(torus){const x=cell%width,y=Math.floor(cell/width),out=[];for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)out.push(wrapCell(x+dx,y+dy,width,height));return out;}
@@ -29,19 +29,21 @@ function reject(job, reason) {
 export function spawnStep(world, job) {
   if (job.phase === 'done') return true;
   if (job.phase === 'enumerate') {
-    if (job.scan < world.cells.length) {
-      const cell = job.scan++;
-      if (!seedPatch(cell, world.width, world.height,world.version===4)) return false;
-      for (const other of neighbors(cell, world.width, world.height,world.version===4)) {
-        const a = world.cells[cell], b = world.cells[other];
+    const enumerateLimit=world.version===5?1024:cellCount(world);
+    if (job.scan < enumerateLimit) {
+      const probe=job.scan++,cell=world.version===5?Number(BigInt(`0x${spawnRank(job.seed,4,probe,-2).slice(0,15)}`)%BigInt(cellCount(world))):probe;
+      if (!seedPatch(cell, world.width, world.height,world.version>=4)) return false;
+      if(world.version===5){const patch=seedPatch(cell,world.width,world.height,true);if(patch.every(c=>ownerAt(world,c)===0))job.candidates.push({kind:2,cell,other:-1,rank:spawnRank(job.seed,2,cell,-1)});return false;}
+      for (const other of neighbors(cell, world.width, world.height,world.version>=4)) {
+        const a = ownerAt(world,cell), b = ownerAt(world,other);
         if (a !== b) {
           const kind = a && b ? 0 : 1;
           job.candidates.push({kind, cell, other, rank: spawnRank(job.seed, kind, cell, other)});
         }
       }
       // Neutral is a preference, not permission to steal through a neutral-centred mixed patch.
-      const patch = seedPatch(cell, world.width, world.height,world.version===4);
-      const kind = patch.every(c => world.cells[c] === 0) ? 2 : 3;
+      const patch = seedPatch(cell, world.width, world.height,world.version>=4);
+      const kind = patch.every(c => ownerAt(world,c) === 0) ? 2 : 3;
       job.candidates.push({kind, cell, other: -1, rank: spawnRank(job.seed, kind, cell, -1)});
     } else {
       // At most five candidates per cell; this bounded sort is not an instruction quota.
@@ -52,17 +54,17 @@ export function spawnStep(world, job) {
   } else if (job.phase === 'candidate') {
     if (job.candidate >= job.candidates.length) { job.phase = 'done'; return true; }
     job.current = job.candidates[job.candidate++]; job.checked++;
-    job.patch = seedPatch(job.current.cell, world.width, world.height,world.version===4);
+    job.patch = seedPatch(job.current.cell, world.width, world.height,world.version>=4);
     if (world.cannons.some(c => job.patch.includes(c.cell))) { reject(job, 'ANCHOR'); return false; }
     const cx = job.current.cell % world.width, cy = Math.floor(job.current.cell / world.width);
     // Inclusive closure protects a ball exactly on a seed edge as well as one in its interior.
     if (world.balls.some(b => {
       const [x, y] = position(b, world.time);
-      if(world.version===4){const inside=(n,c,size)=>[-size*Q,0,size*Q].some(offset=>cmp(n,rat((c-1)*Q+offset))>=0&&cmp(n,rat((c+2)*Q+offset))<=0);return inside(x,cx,world.width)&&inside(y,cy,world.height);}
+      if(world.version>=4){const inside=(n,c,size)=>[-size*Q,0,size*Q].some(offset=>cmp(n,rat((c-1)*Q+offset))>=0&&cmp(n,rat((c+2)*Q+offset))<=0);return inside(x,cx,world.width)&&inside(y,cy,world.height);}
       return cmp(x, rat((cx - 1) * Q)) >= 0 && cmp(x, rat((cx + 2) * Q)) <= 0
         && cmp(y, rat((cy - 1) * Q)) >= 0 && cmp(y, rat((cy + 2) * Q)) <= 0;
     })) { reject(job, 'BALL'); return false; }
-    job.owners = [...new Set(job.patch.map(c => world.cells[c]).filter(Boolean))].sort((a, b) => a - b);
+    job.owners = [...new Set(job.patch.map(c => ownerAt(world,c)).filter(Boolean))].sort((a, b) => a - b);
     job.ownerIndex = 0; job.phase = 'owner';
   } else if (job.phase === 'owner') {
     if (job.ownerIndex >= job.owners.length) {
@@ -71,18 +73,18 @@ export function spawnStep(world, job) {
       job.phase = 'done'; return true;
     }
     const anchor = world.cannons.find(c => c.id === job.owners[job.ownerIndex]).cell;
-    job.queue = [anchor]; job.head = 0; job.seen = Array(world.cells.length).fill(false); job.seen[anchor] = true;
+    job.queue = [anchor]; job.head = 0; job.seen = Array(cellCount(world)).fill(false); job.seen[anchor] = true;
     job.phase = 'flood';
   } else if (job.phase === 'flood') {
     if (job.head < job.queue.length) {
       const cell = job.queue[job.head++], owner = job.owners[job.ownerIndex];
-      for (const n of neighbors(cell, world.width, world.height,world.version===4))
-        if (world.cells[n] === owner && !job.seen[n] && !job.patch.includes(n)) { job.seen[n] = true; job.queue.push(n); }
+      for (const n of neighbors(cell, world.width, world.height,world.version>=4))
+        if (ownerAt(world,n) === owner && !job.seen[n] && !job.patch.includes(n)) { job.seen[n] = true; job.queue.push(n); }
     } else { job.scan = 0; job.phase = 'verify'; }
   } else if (job.phase === 'verify') {
-    if (job.scan < world.cells.length) {
+    if (job.scan < cellCount(world)) {
       const c = job.scan++;
-      if (world.cells[c] === job.owners[job.ownerIndex] && !job.patch.includes(c) && !job.seen[c]) reject(job, 'SPLIT');
+      if (ownerAt(world,c) === job.owners[job.ownerIndex] && !job.patch.includes(c) && !job.seen[c]) reject(job, 'SPLIT');
     } else { job.ownerIndex++; job.phase = 'owner'; }
   } else throw new Error('spawn phase');
   return job.phase === 'done';

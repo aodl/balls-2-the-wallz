@@ -13,7 +13,7 @@ const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext(
 const COLORS=['#30415b','#54f0d2','#84b7ff','#e4a4ff','#ffc778','#ff8b9b'];
 const color=id=>COLORS[id===0?0:1+(id-1)%5];
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
-let deliveryPaused=false,visible=null,visibleTime=0;
+let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
 const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),cell:(n,p)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
@@ -192,18 +192,18 @@ async function epochConfiguration(s,ticket){
   const prior=s.sequence.last?.publication;
   const crossing=prior&&Object.keys(prior.identity).some(k=>prior.identity[k]!==ticket.publication.identity[k]);
   if(!crossing)return null;
-  if(prior.version!==6||ticket.publication.version!==7)throw new Error('unsupported world epoch');
+  if(!((prior.version===6&&ticket.publication.version===7)||([7,8].includes(prior.version)&&ticket.publication.version===8)))throw new Error('unsupported world epoch');
   if(!s.config)return null; // Explicit test harness has no payment-preparation flow.
   const {certifiedConfiguration}=await import('./mainnet.mjs');
   return certifiedConfiguration(ticket);
 }
 function applyEpochPresentation(s,world,config){
   if(config){s.config=config;$('rules-identity').textContent=`Rules ${s.sequence.last.publication.identity.rules_hash}; configuration ${s.sequence.last.publication.identity.config_hash}`;}
-  if(visible&&(visible.version!==world.version||visible.width!==world.width||visible.height!==world.height))camera.initialized=false;
+  if(!visible||visible.version!==world.version||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version===5;}
 }
 async function admitLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
-  if(ticket.publication.version===7&&ticket.publication.head.seal===null){
+  if([7,8].includes(ticket.publication.version)&&ticket.publication.head.seal===null){
     const config=await epochConfiguration(s,ticket);if(!active(s))return;
     const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);
     s.sequence.accept(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
@@ -234,7 +234,7 @@ function updatePlayReference(s,world,events){
   if(!s.config)return;
   const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
   $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
-    `#${c.id}`,`${c.owned_cells.length} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
+    `#${c.id}`,`${c.owned_count} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
   ])));
   [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].className=`owner-${1+(world.cannons[i].id-1)%5}`;});
   arcade.render(world,s.config,s.source);
@@ -320,8 +320,8 @@ function updateHud(){
   $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':s?.mode==='live'?(s.skipped?'Live delivery resumed from a certified snapshot; unavailable animation was skipped.':'Live certified delivery · bounded retained catch-up.'):
     p==='COMPLETE'?'End of finite recording. Restart to replay.':s?.mode==='local'?'Authenticated local snapshot · finite playback.':'Finite recording · staged local delivery.';
   $('balls').textContent=visible?.balls.size??'—';$('cannons').textContent=visible?.cannons.size??'—';
-  const claimed=visible?[...visible.cells].filter(x=>x!==0).length:0;
-  $('claimed').textContent=visible?`${Math.round(claimed/visible.cells.length*100)}%`:'—';
+  const claimed=visible?.claimedCells()??0;
+  $('claimed').textContent=visible?`${Math.round(claimed/(visible.width*visible.height)*100)}%`:'—';
   $('world-rules').textContent=visible?`${visible.width} × ${visible.height} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
@@ -332,6 +332,27 @@ function updateHud(){
     }rows.push(tr);
   }$('territories').replaceChildren(...rows);$('event-label').textContent=visible?.lastEvent??'—';
 }
+function drawTerritory(v,tile,bounds,cell){
+  if(cell<3){
+    for(const r of v.ownershipRects()){
+      if(r.x+tile.x+r.width<bounds.x||r.x+tile.x>bounds.x+bounds.width||r.y+tile.y+r.height<bounds.y||r.y+tile.y>bounds.y+bounds.height)continue;
+      ctx.fillStyle=color(r.owner)+(r.owner?'66':'1d');ctx.fillRect(r.x*cell,r.y*cell,r.width*cell,r.height*cell);
+    }
+    return;
+  }
+  const x0=Math.max(0,Math.floor(bounds.x-tile.x)),x1=Math.min(v.width,Math.ceil(bounds.x+bounds.width-tile.x));
+  const y0=Math.max(0,Math.floor(bounds.y-tile.y)),y1=Math.min(v.height,Math.ceil(bounds.y+bounds.height-tile.y));
+  for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){
+    const n=y*v.width+x,owner=v.owner(n);ctx.fillStyle=color(owner)+(owner?'66':'1d');ctx.fillRect(x*cell,y*cell,cell,cell);
+    if(cell>=12){ctx.strokeStyle='#45638455';ctx.lineWidth=.5;ctx.strokeRect(x*cell,y*cell,cell,cell);}
+    ctx.strokeStyle=color(owner)+'aa';ctx.lineWidth=1.4;
+    const left=x? n-1:y*v.width+v.width-1,up=y?n-v.width:(v.height-1)*v.width+x;
+    if((x===0&&!v.torus)||v.owner(left)!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo(x*cell,(y+1)*cell);ctx.stroke();}
+    if((y===0&&!v.torus)||v.owner(up)!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo((x+1)*cell,y*cell);ctx.stroke();}
+    if(x===v.width-1&&(!v.torus||v.owner(y*v.width)!==owner)){ctx.beginPath();ctx.moveTo((x+1)*cell,y*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
+    if(y===v.height-1&&(!v.torus||v.owner(x)!==owner)){ctx.beginPath();ctx.moveTo(x*cell,(y+1)*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
+  }
+}
 function draw(){
   if(!ctx)return;
   const rect=canvas.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2);
@@ -341,20 +362,12 @@ function draw(){
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
   if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the arena…',rect.width/2,rect.height/2);return;}
   const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
+  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c){camera.scale=Math.min(camera.fitScale*24,Math.max(camera.fitScale,8));camera.centre(c.cell%v.width+.5,Math.floor(c.cell/v.width)+.5);}focusOnNextDraw=false;}
   const cell=camera.scale,bounds=camera.bounds();
   for(const tile of camera.copies()){
   const origin=camera.screen(tile.x,tile.y),ox=origin.x,oy=origin.y;
   ctx.save();ctx.translate(ox,oy);
-  for(let y=0;y<v.height;y++)for(let x=0;x<v.width;x++){
-    if(x+tile.x+1<bounds.x||x+tile.x>bounds.x+bounds.width||y+tile.y+1<bounds.y||y+tile.y>bounds.y+bounds.height)continue;
-    const n=y*v.width+x,owner=v.cells[n];ctx.fillStyle=color(owner)+(owner?'66':'1d');ctx.fillRect(x*cell,y*cell,cell,cell);
-    if(cell>=12){ctx.strokeStyle='#45638455';ctx.lineWidth=.5;ctx.strokeRect(x*cell,y*cell,cell,cell);}
-    ctx.strokeStyle=color(owner)+'aa';ctx.lineWidth=1.4;
-    if((x===0&&!v.torus)||v.cells[x?n-1:y*v.width+v.width-1]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo(x*cell,(y+1)*cell);ctx.stroke();}
-    if((y===0&&!v.torus)||v.cells[y?n-v.width:(v.height-1)*v.width+x]!==owner){ctx.beginPath();ctx.moveTo(x*cell,y*cell);ctx.lineTo((x+1)*cell,y*cell);ctx.stroke();}
-    if(x===v.width-1&&(!v.torus||v.cells[y*v.width]!==owner)){ctx.beginPath();ctx.moveTo((x+1)*cell,y*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
-    if(y===v.height-1&&(!v.torus||v.cells[x]!==owner)){ctx.beginPath();ctx.moveTo(x*cell,(y+1)*cell);ctx.lineTo((x+1)*cell,(y+1)*cell);ctx.stroke();}
-  }
+  drawTerritory(v,tile,bounds,cell);
   const selection=arcade.moveSelection();
   if(selection&&selection.width===v.width&&selection.height===v.height){
     // Inspection overlay from the latest certified snapshot, never an ownership repaint.
@@ -396,7 +409,7 @@ function draw(){
 function drawMinimap(v){
  const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=!camera.minimapUseful;if(map.hidden)return;
  const m=map.getContext('2d'),sx=map.width/v.width,sy=map.height/v.height;m.clearRect(0,0,map.width,map.height);
- for(let n=0;n<v.cells.length;n++){m.fillStyle=color(v.cells[n]);m.globalAlpha=v.cells[n]?.65:.15;m.fillRect(n%v.width*sx,Math.floor(n/v.width)*sy,sx,sy);}m.globalAlpha=1;
+ for(const r of v.ownershipRects()){m.fillStyle=color(r.owner);m.globalAlpha=r.owner?0.65:0.15;m.fillRect(r.x*sx,r.y*sy,Math.max(sx,r.width*sx),Math.max(sy,r.height*sy));}m.globalAlpha=1;
  for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
  m.strokeStyle='#fff';m.lineWidth=1.5;for(const r of camera.minimapRects())m.strokeRect(r.x*sx,r.y*sy,r.width*sx,r.height*sy);
 }

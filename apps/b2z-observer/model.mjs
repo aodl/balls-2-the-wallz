@@ -1,7 +1,7 @@
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {TORUS_IDENTITY,V3_IDENTITIES} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
-import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
+import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {cmp, validRat, rat} from '../../packages/kernels/b2z/math.mjs';
 import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-projection.mjs';
@@ -10,35 +10,45 @@ const MAX_EVENTS=131072;
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
 function integer(n,max=4294967295){check(Number.isSafeInteger(n)&&n>=0&&n<=max,'integer bounds');return n;}
 export function timeNumber(r){validRat(r);const n=Number(r[0])/Number(r[1]);check(Number.isFinite(n)&&n>=0&&n<=1e9,'time bounds');return n;}
-function track(b){
+const cellCount=w=>w.width*w.height;
+const baseCell=(w,cell)=>Math.floor(Math.floor(cell/w.width)*w.ownership.source_height/w.height)*w.ownership.source_width+Math.floor((cell%w.width)*w.ownership.source_width/w.width);
+function ownerAt(w,cell){
+  if(w.version<5)return w.cells[cell];let low=0,high=w.ownership.overrides.length;
+  while(low<high){const mid=(low+high)>>1;if(w.ownership.overrides[mid].start<=cell)low=mid+1;else high=mid;}
+  return low&&cell<w.ownership.overrides[low-1].end?w.ownership.overrides[low-1].owner:w.ownership.base[baseCell(w,cell)];
+}
+function track(b,maxVelocity=4096){
   check(b&&typeof b==='object','ball');integer(b.id);integer(b.owner,65535);
-  for(const k of ['vx','vy'])check(Number.isSafeInteger(b[k])&&Math.abs(b[k])<=4096,'velocity');
+  for(const k of ['vx','vy'])check(Number.isSafeInteger(b[k])&&Math.abs(b[k])<=maxVelocity,'velocity');
   for(const k of ['x0','y0'])check(typeof b[k]==='bigint'&&b[k]>=-100000000000000n&&b[k]<=100000000000000n,'intercept');
   return {id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy};
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4].includes(w.version),'snapshot version');
-  check(Number.isInteger(w.width)&&w.width>=1&&w.width<=32&&Number.isInteger(w.height)&&w.height>=1&&w.height<=32,'dimensions');
-  check(Array.isArray(w.cells)&&w.cells.length===w.width*w.height,'cells');
+  const w=decodeCanonical(bytes);check([3,4,5].includes(w.version),'snapshot version');
+  check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
+  if(w.version<5)check(Array.isArray(w.cells)&&w.cells.length===cellCount(w)&&w.ownership===undefined,'cells');
+  else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
   check(Array.isArray(w.cannons)&&w.cannons.length<=32&&Array.isArray(w.balls)&&w.balls.length<=64,'entity bounds');
   check(Array.isArray(w.pending)&&w.pending.length<=64,'pending bounds');timeNumber(w.time);
   const ids=new Set(),anchors=new Set();
-  for(const c of w.cannons){integer(c.id,65535);integer(c.cell,w.cells.length-1);
-    if(c.heading!==undefined){check(w.version===4,'legacy heading');integer(c.heading,65535);}
-    check(c.id!==0&&!ids.has(c.id)&&!anchors.has(c.cell)&&w.cells[c.cell]===c.id,'cannon identity');ids.add(c.id);anchors.add(c.cell);}
-  w.cells.forEach(id=>check(id===0||ids.has(id),'cell owner'));
-  const balls=new Set();for(const b of w.balls){track(b);check(ids.has(b.owner)&&!balls.has(b.id),'ball identity');balls.add(b.id);}
+  for(const c of w.cannons){integer(c.id,65535);integer(c.cell,cellCount(w)-1);
+    if(c.heading!==undefined){check(w.version>=4,'legacy heading');integer(c.heading,65535);}
+    check(c.id!==0&&!ids.has(c.id)&&!anchors.has(c.cell)&&ownerAt(w,c.cell)===c.id,'cannon identity');ids.add(c.id);anchors.add(c.cell);}
+  const represented=w.version===5?[...w.ownership.base,...w.ownership.overrides.map(r=>r.owner)]:w.cells;represented.forEach(id=>check(id===0||ids.has(id),'cell owner'));
+  const balls=new Set();for(const b of w.balls){track(b,w.version===5?65536:4096);check(ids.has(b.owner)&&!balls.has(b.id)&&ownerAt(w,b.cell)===b.owner,'ball identity');balls.add(b.id);}
   if(w.version===3&&identity)check(V3_IDENTITIES.some(known=>Object.keys(known).every(k=>identity[k]===known[k])),'v3 rules/config/schema identity');
   if(w.version===4&&identity)check(Object.keys(TORUS_IDENTITY).every(k=>identity[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
+  if(w.version===5&&identity)check(Object.keys(MILLION_IDENTITY).every(k=>identity[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   return w;
 }
 /** Mutable presentation state. No ledger account/price/scoring decisions are made here. */
 export class B2zView {
   constructor(w){
-    this.torus=w.version===4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=[...w.cells];
+    this.torus=w.version>=4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=w.version<5?[...w.cells]:null;
+    this.ownership=w.version===5?structuredClone(w.ownership):null;
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
-    this.balls=new Map(w.balls.map(b=>[b.id,track(b)]));
+    this.balls=new Map(w.balls.map(b=>[b.id,track(b,w.version===5?65536:4096)]));
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
@@ -48,19 +58,37 @@ export class B2zView {
     this.effects=previous.effects.filter(e=>time-e.t<.9&&time>=e.t).map(e=>({...e})).slice(-64);
     this.lastEvent=previous.lastEvent;
   }
-  cell(n){integer(n,this.cells.length-1);return n;}
+  cell(n){integer(n,this.width*this.height-1);return n;}
+  owner(n){this.cell(n);return ownerAt(this,n);}
+  setRange(start,end,previous,owner){
+    if(this.version<5){for(let cell=start;cell<end;cell++){check(this.cells[cell]===previous,'territory predecessor');this.cells[cell]=owner;}return;}
+    check(start<end&&start>=0&&end<=this.width*this.height,'territory range');const next=[];
+    for(const r of this.ownership.overrides){if(r.end<=start||r.start>=end){next.push({...r});continue;}if(r.start<start)next.push({start:r.start,end:start,owner:r.owner});if(r.end>end)next.push({start:end,end:r.end,owner:r.owner});}
+    if(end!==start+1||this.ownership.base[baseCell(this,start)]!==owner)next.push({start,end,owner});next.sort((a,b)=>a.start-b.start);this.ownership.overrides=[];
+    for(const r of next){const last=this.ownership.overrides.at(-1);if(last&&last.end===r.start&&last.owner===r.owner)last.end=r.end;else this.ownership.overrides.push(r);}
+    const adjust=(id,delta)=>{if(!id)return;const at=this.ownership.counts.findIndex(c=>c.owner>=id);if(at>=0&&this.ownership.counts[at].owner===id){const cells=this.ownership.counts[at].cells+delta;check(cells>=0,'territory count');if(cells)this.ownership.counts[at].cells=cells;else this.ownership.counts.splice(at,1);}else{check(delta>0,'territory count');this.ownership.counts.splice(at<0?this.ownership.counts.length:at,0,{owner:id,cells:delta});}};
+    adjust(previous,start-end);adjust(owner,end-start);
+  }
+  setOwner(cell,owner){const previous=this.owner(cell);this.setRange(cell,cell+1,previous,owner);}
+  clearOwner(owner){if(this.version<5){for(let cell=0;cell<this.cells.length;cell++)if(this.cells[cell]===owner)this.cells[cell]=0;return;}for(let at=0;at<this.ownership.base.length;at++)if(this.ownership.base[at]===owner)this.ownership.base[at]=0;for(const r of this.ownership.overrides)if(r.owner===owner)r.owner=0;this.ownership.counts=this.ownership.counts.filter(c=>c.owner!==owner);}
+  *ownershipRects(){
+    if(this.version<5){for(let y=0;y<this.height;y++)for(let x=0;x<this.width;x++)yield{x,y,width:1,height:1,owner:this.cells[y*this.width+x]};return;}
+    for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const x=Math.ceil(sx*this.width/32),y=Math.ceil(sy*this.height/32);yield{x,y,width:Math.ceil((sx+1)*this.width/32)-x,height:Math.ceil((sy+1)*this.height/32)-y,owner:this.ownership.base[sy*32+sx]};}
+    for(const r of this.ownership.overrides)for(let cell=r.start;cell<r.end;){const y=Math.floor(cell/this.width),end=Math.min(r.end,(y+1)*this.width);yield{x:cell%this.width,y,width:end-cell,height:1,owner:r.owner};cell=end;}
+  }
+  claimedCells(){return this.version===5?this.ownership.counts.reduce((n,c)=>n+c.cells,0):this.cells.filter(owner=>owner!==0).length;}
   removeBalls(ids){for(const id of ids){this.balls.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
     if(e.kind==='trajectory'){
-      check(this.balls.has(e.ball.id),'unknown trajectory');const b=track(e.ball);
+      check(this.balls.has(e.ball.id),'unknown trajectory');const b=track(e.ball,this.version===5?65536:4096);
       check(this.balls.get(b.id).owner===b.owner,'trajectory owner');this.balls.set(b.id,b);
     }else if(e.kind==='ball_spawned'){
-      const b=track(e.ball);check(!this.balls.has(b.id)&&this.cannons.has(b.owner),'spawned ball');this.balls.set(b.id,b);if(this.torus){integer(e.heading,65535);this.cannons.get(b.owner).heading=e.heading;}
+      const b=track(e.ball,this.version===5?65536:4096);check(!this.balls.has(b.id)&&this.cannons.has(b.owner),'spawned ball');this.balls.set(b.id,b);if(this.torus){integer(e.heading,65535);this.cannons.get(b.owner).heading=e.heading;}
     }else if(e.kind==='cannon_spawned'){
       const c=e.cannon;integer(c.id,65535);this.cell(c.cell);check(!this.cannons.has(c.id),'duplicate cannon');
-      check(Array.isArray(e.patch)&&e.patch.length===9,'spawn patch');for(const n of e.patch)this.cells[this.cell(n)]=c.id;
-      const b=track(e.ball);check(b.owner===c.id&&!this.balls.has(b.id),'initial ball');
+      check(Array.isArray(e.patch)&&e.patch.length===9,'spawn patch');for(const n of e.patch)this.setOwner(this.cell(n),c.id);
+      const b=track(e.ball,this.version===5?65536:4096);check(b.owner===c.id&&!this.balls.has(b.id),'initial ball');
       this.cannons.set(c.id,{...c});this.balls.set(b.id,b);this.effects.push({kind:'spawn',cell:c.cell,t,owner:c.id});
     }else if(e.kind==='cannon_moved'){
       check(this.cannons.has(e.cannon),'moved cannon');this.cannons.get(e.cannon).cell=this.cell(e.after);
@@ -74,14 +102,14 @@ export class B2zView {
         this.removeBalls(pair);
       }
     }else if(e.kind==='capture'||e.kind==='annihilation_cleanup'){
-      check(Array.isArray(e.cells)&&e.cells.length<=1024&&Array.isArray(e.destroyed_balls)&&e.destroyed_balls.length<=64
+      const changes=this.version===5?e.cell_ranges:e.cells;check(Array.isArray(changes)&&changes.length<=(this.version===5?131072:1024)&&Array.isArray(e.destroyed_balls)&&e.destroyed_balls.length<=64
         &&Array.isArray(e.eliminated_cannons)&&e.eliminated_cannons.length<=32,'topology event');
       if(e.kind==='capture'){
-        check(this.cannons.has(e.attacker),'capture attacker');for(const n of e.cells)this.cells[this.cell(n)]=e.attacker;
+        check(this.cannons.has(e.attacker),'capture attacker');if(this.version===5){let end=0;for(const range of changes){check(Array.isArray(range)&&range.length===2,'capture range');const [start,next]=range;this.cell(start);integer(next,this.width*this.height);check(start<next&&start>=end,'capture range');const previous=this.owner(start);this.setRange(start,next,previous,e.attacker);end=next;}}else for(const n of changes)this.cells[this.cell(n)]=e.attacker;
         this.effects.push({kind:'capture',cell:this.cell(e.target),t,owner:e.attacker});
       }
       this.removeBalls(e.destroyed_balls);
-      const gone=new Set(e.eliminated_cannons);for(let n=0;n<this.cells.length;n++)if(gone.has(this.cells[n]))this.cells[n]=0;
+      const gone=new Set(e.eliminated_cannons);for(const id of gone)this.clearOwner(id);
       for(const id of gone)this.cannons.delete(id);if(e.strike!==undefined)this.pending.delete(e.strike);
     }else throw new Error('observer: unsupported event '+String(e.kind));
     // Visual effects are bounded and ephemeral, never consensus state.
@@ -89,12 +117,13 @@ export class B2zView {
   }
   matches(w){
     const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
-    check(this.width===w.width&&this.height===w.height&&same(this.cells,w.cells),'final territory mismatch');
+    const ownershipSame=()=>{const a=encodeCanonical(this.ownership),b=encodeCanonical(w.ownership);return a.length===b.length&&a.every((v,i)=>v===b[i]);};
+    check(this.width===w.width&&this.height===w.height&&(this.version===5?ownershipSame():same(this.cells,w.cells)),'final territory mismatch');
     check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell&&this.cannons.get(c.id)?.heading===c.heading),'final cannon mismatch');
     check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy'].every(k=>a[k]===b[k]);}),'final trajectory mismatch');
     return true;
   }
-  stats(){return [...this.cannons.values()].map(c=>({id:c.id,area:this.cells.filter(n=>n===c.id).length,
+  stats(){const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
     balls:[...this.balls.values()].filter(b=>b.owner===c.id).length})).sort((a,b)=>b.area-a.area||a.id-b.id);}
 }
 /** Integrity links + exact ordering + end-state visual conformance BEFORE buffer admission.
@@ -111,6 +140,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   check(Array.isArray(p.events)&&p.events.length<=MAX_EVENTS&&Array.isArray(p.receipts)&&p.receipts.length<=4096,'animation structure');
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
+  if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'animation event order/range');
@@ -124,7 +154,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
  * existing compact presentation from its authenticated predecessor and audit
  * events, then apply the same endpoint validation as recorded playback. */
 export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,publication){
-  check([6,7].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
+  check([6,7,8].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
   const events=publication.artifacts.find(a=>a.kind==='events');
   check(events&&await sha256Web(eventBytes)===events.sha256,'authenticated audit artifact');
   const initial=snapshot(initialBytes),final=snapshot(finalBytes),projected=projectAnimationEvents(initial,eventBytes),h=publication.head,s=h.seal;
@@ -137,6 +167,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   check(Array.isArray(p.events)&&p.events.length<=MAX_EVENTS&&Array.isArray(p.receipts)&&p.receipts.length<=4096,'derived animation structure');
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'derived snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
+  if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'derived animation event order/range');

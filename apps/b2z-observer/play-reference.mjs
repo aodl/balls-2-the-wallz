@@ -1,10 +1,12 @@
 /** Read-only reference from already authenticated snapshots/configuration. */
 export function cannonReference(world,config){
+  const ownerAt=cell=>{if(world.version<5)return world.cells[cell];let low=0,high=world.ownership.overrides.length;while(low<high){const mid=(low+high)>>1;if(world.ownership.overrides[mid].start<=cell)low=mid+1;else high=mid;}if(low&&cell<world.ownership.overrides[low-1].end)return world.ownership.overrides[low-1].owner;const x=cell%world.width,y=Math.floor(cell/world.width),source=Math.floor(y*world.ownership.source_height/world.height)*world.ownership.source_width+Math.floor(x*world.ownership.source_width/world.width);return world.ownership.base[source];};
   return world.cannons.map(c=>{
     const balls=world.balls.filter(b=>b.owner===c.id).length;
+    const owned_count=world.version===5?(world.ownership.counts.find(n=>n.owner===c.id)?.cells??0):world.cells.filter(owner=>owner===c.id).length;
     return {id:c.id,account:c.account,cell:c.cell,balls,
       next_ball_e8s:balls>=config.max_per_cannon||world.balls.length>=config.max_balls?null:config.ball_base_e8s*BigInt(balls)**2n,
-      owned_cells:world.cells.flatMap((owner,n)=>owner===c.id?[n]:[])};
+      owned_count,owned_cells:world.version===5?[c.cell]:world.cells.flatMap((owner,n)=>owner===c.id?[n]:[]),owns:cell=>Number.isSafeInteger(cell)&&cell>=0&&cell<world.width*world.height&&ownerAt(cell)===c.id};
   });
 }
 export function operationalText(status){

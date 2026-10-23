@@ -20,7 +20,7 @@ export function createArcade(doc){
     if(action!=='start'&&!c)return {reason:'Choose a selected cannon to inspect.'};
     if(action==='start'&&world.cannons.length>=config.max_cannons)return {reason:'The arena is at cannon capacity.'};
     if(action==='ball'&&c.next_ball_e8s===null)return {reason:'The selected cannon or arena is at ball capacity.'};
-    if(action==='move'&&!c.owned_cells.includes(cell))return {reason:'Choose a currently owned destination cell.'};
+    if(action==='move'&&!c.owns(cell))return {reason:'Choose a currently owned destination cell.'};
     if(action!=='move'&&!angleValid)return {reason:'Enter an angle from 0 to 359.99 with up to two decimal places.'};
     const memo=action==='move'?describeTextMemo('move',String(cell)):transferMemo(degrees);
     return {action,cannon:action==='start'?null:c.id,amount:action==='start'?config.join_e8s:action==='ball'?c.next_ball_e8s:config.move_e8s,
@@ -125,6 +125,6 @@ export function createArcade(doc){
     selectedCannon(){return selected()?.id??null;},
     selectCannon(id){if(!world?.cannons.some(c=>c.id===id))return false;$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},
     moveSelection(){const c=selected();return mode()==='move'&&c&&world?{width:world.width,height:world.height,id:c.id,cells:c.owned_cells,cell:selectedCell()}:null;},
-    chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owned_cells.includes(cell)){$('move-cell').value=String(cell);clearPreparation();return true;}return false;}
+    chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owns(cell)){if(![...$('move-cell').options].some(o=>o.value===String(cell))){const o=doc.createElement('option');o.value=String(cell);o.textContent=`Cell ${cell} · row ${Math.floor(cell/world.width)}, column ${cell%world.width}`;$('move-cell').append(o);}$('move-cell').value=String(cell);clearPreparation();return true;}return false;}
   };
 }

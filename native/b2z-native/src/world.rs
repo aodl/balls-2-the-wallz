@@ -2,7 +2,7 @@ use dtr_wire::{decode, encode, Int, Rat, Result};
 use num_bigint::BigInt;
 use num_traits::Signed;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 
 pub const Q: i64 = 1024;
 fn read_heading<'de, D: serde::Deserializer<'de>>(
@@ -54,13 +54,76 @@ pub struct Credit {
     pub account: String,
     pub units: Rat,
 }
+/// Compact v5 ownership.  The authenticated v4 32x32 ownership grid is the
+/// compact base; each base cell expands to its exact proportional rectangle in
+/// the million-cell arena. Gameplay writes are a sorted last-value map, while
+/// owner elimination may compact the base itself.
+/// This makes every v5 cell independently mutable without putting a million
+/// JSON integers in every DTR state artifact.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct CellOverride {
+    pub start: usize,
+    pub end: usize,
+    pub owner: u32,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct OwnerCount {
+    pub owner: u32,
+    pub cells: usize,
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct ScaledOwnership {
+    pub format: String,
+    pub source_width: usize,
+    pub source_height: usize,
+    pub base: Vec<u32>,
+    pub overrides: Vec<CellOverride>,
+    pub counts: Vec<OwnerCount>,
+}
+impl ScaledOwnership {
+    pub fn from_32x32(base: Vec<u32>, width: usize, height: usize) -> Result<Self> {
+        if base.len() != 1024 || width != 1000 || height != 1000 {
+            return Err("v5 ownership base".into());
+        }
+        let mut counts = BTreeMap::new();
+        for sy in 0..32 {
+            let y0 = (sy * height).div_ceil(32);
+            let y1 = ((sy + 1) * height).div_ceil(32);
+            for sx in 0..32 {
+                let owner = base[sy * 32 + sx];
+                if owner != 0 {
+                    let x0 = (sx * width).div_ceil(32);
+                    let x1 = ((sx + 1) * width).div_ceil(32);
+                    *counts.entry(owner).or_insert(0usize) += (x1 - x0) * (y1 - y0);
+                }
+            }
+        }
+        Ok(Self {
+            format: "scaled32-v1".into(),
+            source_width: 32,
+            source_height: 32,
+            base,
+            overrides: vec![],
+            counts: counts
+                .into_iter()
+                .map(|(owner, cells)| OwnerCount { owner, cells })
+                .collect(),
+        })
+    }
+}
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
 pub struct World {
     pub version: u32,
     pub width: usize,
     pub height: usize,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub cells: Vec<u32>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ownership: Option<ScaledOwnership>,
     pub cannons: Vec<Cannon>,
     pub balls: Vec<Ball>,
     pub time: Rat,
@@ -95,7 +158,12 @@ pub fn neighbors(cell: usize, width: usize, height: usize) -> Vec<usize> {
     out
 }
 pub fn wrap_cell(x: i64, y: i64, width: usize, height: usize) -> usize {
-    b2z_mechanics::wrapped_cell(x, y, width, height).expect("validated world dimensions")
+    if width <= 32 && height <= 32 {
+        return b2z_mechanics::wrapped_cell(x, y, width, height)
+            .expect("validated world dimensions");
+    }
+    debug_assert!(width <= 1000 && height <= 1000 && width > 0 && height > 0);
+    y.rem_euclid(height as i64) as usize * width + x.rem_euclid(width as i64) as usize
 }
 
 pub fn position(b: &Ball, t: &Rat) -> Result<[Rat; 2]> {
@@ -108,7 +176,172 @@ pub fn position(b: &Ball, t: &Rat) -> Result<[Rat; 2]> {
 }
 impl World {
     pub fn torus(&self) -> bool {
-        self.version == 4
+        self.version >= 4
+    }
+    pub fn cell_count(&self) -> usize {
+        self.width.saturating_mul(self.height)
+    }
+    fn scaled_base_cell(&self, cell: usize) -> Option<usize> {
+        let ownership = self.ownership.as_ref()?;
+        if cell >= self.cell_count() {
+            return None;
+        }
+        let x = cell % self.width;
+        let y = cell / self.width;
+        Some(
+            (y * ownership.source_height / self.height) * ownership.source_width
+                + x * ownership.source_width / self.width,
+        )
+    }
+    pub fn owner(&self, cell: usize) -> Option<u32> {
+        if self.version < 5 {
+            return self.cells.get(cell).copied();
+        }
+        let ownership = self.ownership.as_ref()?;
+        let base = self.scaled_base_cell(cell)?;
+        let at = ownership
+            .overrides
+            .partition_point(|change| change.start <= cell);
+        if at > 0 && cell < ownership.overrides[at - 1].end {
+            Some(ownership.overrides[at - 1].owner)
+        } else {
+            ownership.base.get(base).copied()
+        }
+    }
+    pub fn set_owner(&mut self, cell: usize, owner: u32) -> Result<u32> {
+        let previous = self.owner(cell).ok_or("cell bounds")?;
+        if previous == owner {
+            return Ok(previous);
+        }
+        if self.version < 5 {
+            self.cells[cell] = owner;
+            return Ok(previous);
+        }
+        self.set_owner_range(cell, cell + 1, previous, owner)?;
+        Ok(previous)
+    }
+    pub fn set_owner_range(
+        &mut self,
+        start: usize,
+        end: usize,
+        previous: u32,
+        owner: u32,
+    ) -> Result<()> {
+        if self.version != 5 || start >= end || end > self.cell_count() {
+            return Err("ownership range".into());
+        }
+        let base_cell = self.scaled_base_cell(start).ok_or("cell bounds")?;
+        let ownership = self.ownership.as_mut().ok_or("v5 ownership")?;
+        let mut next = Vec::with_capacity(ownership.overrides.len() + 1);
+        for change in &ownership.overrides {
+            if change.end <= start || change.start >= end {
+                next.push(change.clone());
+                continue;
+            }
+            if change.start < start {
+                next.push(CellOverride {
+                    start: change.start,
+                    end: start,
+                    owner: change.owner,
+                });
+            }
+            if change.end > end {
+                next.push(CellOverride {
+                    start: end,
+                    end: change.end,
+                    owner: change.owner,
+                });
+            }
+        }
+        if end != start + 1 || ownership.base[base_cell] != owner {
+            next.push(CellOverride { start, end, owner });
+        }
+        next.sort_by_key(|change| change.start);
+        let mut compacted: Vec<CellOverride> = Vec::with_capacity(next.len());
+        for change in next {
+            if let Some(last) = compacted
+                .last_mut()
+                .filter(|last| last.end == change.start && last.owner == change.owner)
+            {
+                last.end = change.end;
+            } else {
+                compacted.push(change);
+            }
+        }
+        ownership.overrides = compacted;
+        let adjust = |counts: &mut Vec<OwnerCount>, id: u32, delta: i64| -> Result<()> {
+            if id == 0 {
+                return Ok(());
+            }
+            match counts.binary_search_by_key(&id, |c| c.owner) {
+                Ok(at) => {
+                    let next = (counts[at].cells as i64)
+                        .checked_add(delta)
+                        .filter(|n| *n >= 0)
+                        .ok_or("ownership count")? as usize;
+                    if next == 0 {
+                        counts.remove(at);
+                    } else {
+                        counts[at].cells = next;
+                    }
+                }
+                Err(at) if delta > 0 => counts.insert(
+                    at,
+                    OwnerCount {
+                        owner: id,
+                        cells: delta as usize,
+                    },
+                ),
+                Err(_) => return Err("ownership count".into()),
+            }
+            Ok(())
+        };
+        let length = i64::try_from(end - start).map_err(|_| "ownership range")?;
+        adjust(&mut ownership.counts, previous, -length)?;
+        adjust(&mut ownership.counts, owner, length)?;
+        Ok(())
+    }
+    pub fn ownership_counts(&self) -> Vec<(u32, usize)> {
+        if let Some(ownership) = &self.ownership {
+            return ownership
+                .counts
+                .iter()
+                .map(|c| (c.owner, c.cells))
+                .collect();
+        }
+        let mut counts = BTreeMap::new();
+        for owner in &self.cells {
+            if *owner != 0 {
+                *counts.entry(*owner).or_insert(0usize) += 1;
+            }
+        }
+        counts.into_iter().collect()
+    }
+    pub fn clear_owner(&mut self, owner: u32) -> Result<()> {
+        if owner == 0 {
+            return Err("cannot clear neutral owner".into());
+        }
+        if self.version < 5 {
+            for cell in &mut self.cells {
+                if *cell == owner {
+                    *cell = 0;
+                }
+            }
+            return Ok(());
+        }
+        let ownership = self.ownership.as_mut().ok_or("v5 ownership")?;
+        for base in &mut ownership.base {
+            if *base == owner {
+                *base = 0;
+            }
+        }
+        for change in &mut ownership.overrides {
+            if change.owner == owner {
+                change.owner = 0;
+            }
+        }
+        ownership.counts.retain(|count| count.owner != owner);
+        Ok(())
     }
     pub fn neighbors(&self, cell: usize) -> Vec<usize> {
         if !self.torus() {
@@ -146,10 +379,10 @@ impl World {
         encode(self)
     }
     pub fn connected(&self, owner: u32, anchor: usize) -> bool {
-        if self.cells.get(anchor) != Some(&owner) {
+        if self.owner(anchor) != Some(owner) {
             return false;
         }
-        let mut seen = vec![false; self.cells.len()];
+        let mut seen = vec![false; self.cell_count()];
         seen[anchor] = true;
         let mut queue = vec![anchor];
         let mut i = 0;
@@ -157,27 +390,86 @@ impl World {
             let c = queue[i];
             i += 1;
             for n in self.neighbors(c) {
-                if self.cells[n] == owner && !seen[n] {
+                if self.owner(n) == Some(owner) && !seen[n] {
                     seen[n] = true;
                     queue.push(n);
                 }
             }
         }
-        self.cells
-            .iter()
-            .enumerate()
-            .all(|(i, o)| *o != owner || seen[i])
+        (0..self.cell_count()).all(|i| self.owner(i) != Some(owner) || seen[i])
     }
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4].contains(&self.version)
+        if ![3, 4, 5].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
-            || !(1..=32).contains(&self.width)
-            || !(1..=32).contains(&self.height)
-            || self.cells.len() != self.width * self.height
+            || (self.version == 5 && (self.width != 1000 || self.height != 1000))
+            || !(1..=1000).contains(&self.width)
+            || !(1..=1000).contains(&self.height)
+            || (self.version < 5
+                && (self.cells.len() != self.cell_count() || self.ownership.is_some()))
+            || (self.version == 5 && (!self.cells.is_empty() || self.ownership.is_none()))
         {
             return fail("world dimensions/version");
+        }
+        if self.version == 5 {
+            let o = self.ownership.as_ref().unwrap();
+            if o.format != "scaled32-v1"
+                || o.source_width != 32
+                || o.source_height != 32
+                || o.base.len() != 1024
+                || o.overrides.len() > self.cell_count()
+                || o.overrides.windows(2).any(|p| p[0].end > p[1].start)
+                || o.overrides
+                    .iter()
+                    .any(|p| p.start >= p.end || p.end > self.cell_count())
+            {
+                return fail("v5 ownership encoding");
+            }
+            let mut expected: BTreeMap<u32, usize> = BTreeMap::new();
+            for sy in 0..o.source_height {
+                let y0 = (sy * self.height).div_ceil(o.source_height);
+                let y1 = ((sy + 1) * self.height).div_ceil(o.source_height);
+                for sx in 0..o.source_width {
+                    let owner = o.base[sy * o.source_width + sx];
+                    if owner != 0 {
+                        let x0 = (sx * self.width).div_ceil(o.source_width);
+                        let x1 = ((sx + 1) * self.width).div_ceil(o.source_width);
+                        *expected.entry(owner).or_insert(0) += (x1 - x0) * (y1 - y0);
+                    }
+                }
+            }
+            for change in &o.overrides {
+                let mut cell = change.start;
+                while cell < change.end {
+                    let x = cell % self.width;
+                    let y = cell / self.width;
+                    let sx = x * o.source_width / self.width;
+                    let sy = y * o.source_height / self.height;
+                    let x_end = ((sx + 1) * self.width)
+                        .div_ceil(o.source_width)
+                        .min(self.width);
+                    let length = (x_end - x).min(change.end - cell);
+                    let base = o.base[sy * o.source_width + sx];
+                    if base != 0 {
+                        let count = expected.get_mut(&base).ok_or("ownership count")?;
+                        *count = count.checked_sub(length).ok_or("ownership count")?;
+                    }
+                    cell += length;
+                }
+                if change.owner != 0 {
+                    *expected.entry(change.owner).or_insert(0) += change.end - change.start;
+                }
+            }
+            expected.retain(|_, n| *n != 0);
+            if o.counts
+                != expected
+                    .into_iter()
+                    .map(|(owner, cells)| OwnerCount { owner, cells })
+                    .collect::<Vec<_>>()
+            {
+                return fail("v5 ownership counts");
+            }
         }
         self.time.check()?;
         if self.time < Rat::integer(0) || self.time > Rat::integer(1_000_000_000) {
@@ -194,7 +486,7 @@ impl World {
             if (self.version == 3 && c.heading.is_some())
                 || c.id <= last
                 || c.id > 65535
-                || c.cell >= self.cells.len()
+                || c.cell >= self.cell_count()
                 || !account_ok(&c.account)
                 || !accounts.insert(c.account.clone())
                 || !anchors.insert(c.cell)
@@ -203,22 +495,35 @@ impl World {
             }
             ids.insert(c.id);
             last = c.id;
-            if !self.connected(c.id, c.cell) {
+            // v5 states are authenticated successors of a fully checked migration.
+            // Connectivity is maintained by the resumable topology operation; a
+            // million-cell rescan here would put it back on every ordinary tick.
+            if self.version < 5 && !self.connected(c.id, c.cell) {
                 return fail("disconnected territory");
             }
         }
-        if self.cells.iter().any(|o| *o != 0 && !ids.contains(o)) {
+        if self
+            .ownership_counts()
+            .iter()
+            .any(|(owner, _)| !ids.contains(owner))
+            || self.ownership.as_ref().is_some_and(|o| {
+                o.base
+                    .iter()
+                    .chain(o.overrides.iter().map(|p| &p.owner))
+                    .any(|owner| *owner != 0 && !ids.contains(owner))
+            })
+        {
             return fail("unknown cell owner");
         }
         last = 0;
         for b in &self.balls {
             if b.id <= last
                 || b.id == u32::MAX
-                || b.cell >= self.cells.len()
+                || b.cell >= self.cell_count()
                 || !ids.contains(&b.owner)
-                || self.cells[b.cell] != b.owner
-                || !(-4096..=4096).contains(&b.vx)
-                || !(-4096..=4096).contains(&b.vy)
+                || self.owner(b.cell) != Some(b.owner)
+                || !(-65536..=65536).contains(&b.vx)
+                || !(-65536..=65536).contains(&b.vy)
                 || (b.vx == 0 && b.vy == 0)
             {
                 return fail("ball bounds/identity");
@@ -265,8 +570,8 @@ impl World {
                     .balls
                     .iter()
                     .any(|b| b.id == p.ball && b.owner == p.owner)
-                || p.from >= self.cells.len()
-                || p.to >= self.cells.len()
+                || p.from >= self.cell_count()
+                || p.to >= self.cell_count()
                 || !self.neighbors(p.from).contains(&p.to)
                 || p.owner == p.defender
                 || p.defender == 0
@@ -307,8 +612,8 @@ impl World {
         self.balls
             .iter()
             .any(|b| b.id == p.ball && b.owner == p.owner)
-            && self.cells.get(p.from) == Some(&p.owner)
-            && self.cells.get(p.to) == Some(&p.defender)
+            && self.owner(p.from) == Some(p.owner)
+            && self.owner(p.to) == Some(p.defender)
             && !self.cannons.iter().any(|c| c.cell == p.to)
     }
     pub fn accrue(&mut self, dt: &Rat, areas: &[(u32, usize)]) -> Result<()> {
@@ -324,12 +629,22 @@ impl World {
                 .find(|c| c.id == *id)
                 .ok_or("area owner missing")?
                 .account;
+            // v5 retains the historic score scale: a full arena is worth 1024
+            // area-time units per tick even though it now has 1,000,000 cells.
+            let delta = if self.version == 5 {
+                Rat::new(
+                    dt.0.numer() * BigInt::from(*area) * BigInt::from(1024),
+                    dt.0.denom() * BigInt::from(1_000_000),
+                )?
+            } else {
+                dt.mul_i(*area as i64)?
+            };
             if let Some(c) = credits.iter_mut().find(|c| &c.account == account) {
-                c.units = c.units.add(&dt.mul_i(*area as i64)?)?;
+                c.units = c.units.add(&delta)?;
             } else {
                 credits.push(Credit {
                     account: account.clone(),
-                    units: dt.mul_i(*area as i64)?,
+                    units: delta,
                 });
             }
         }
