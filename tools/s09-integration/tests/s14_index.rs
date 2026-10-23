@@ -4459,7 +4459,7 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
     let began = std::time::Instant::now();
     let mut started = false;
     let mut lifeline = false;
-    while began.elapsed() < Duration::from_secs(210) {
+    while began.elapsed() < Duration::from_secs(240) {
         if !started && out.join("browser-million-ready").exists() {
             start_arena(&pic, id);
             started = true;
@@ -4475,14 +4475,22 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
             lifeline = true;
         }
         if let Some(code) = browser.0.try_wait().unwrap() {
+            let backend = status(&pic, id);
             assert!(
                 code.success(),
-                "million browser failure: {}",
-                out.join("browser.log").display()
+                "million browser failure: {}; backend={:?}",
+                out.join("browser.log").display(),
+                backend.run
             );
             break;
         }
-        std::thread::sleep(Duration::from_millis(250));
+        if started && out.join("browser-million-drive").exists() {
+            // Live mode advances PocketIC time from the wall clock. Poll one
+            // bounded callback, then give the certified HTTP gateway equal rest;
+            // manually advancing here can race live time into the past.
+            pic.tick();
+        }
+        std::thread::sleep(Duration::from_millis(100));
     }
     assert!(
         started && lifeline,

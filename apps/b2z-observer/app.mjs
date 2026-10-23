@@ -322,7 +322,7 @@ function updateHud(){
   $('balls').textContent=visible?.balls.size??'—';$('cannons').textContent=visible?.cannons.size??'—';
   const claimed=visible?.claimedCells()??0;
   $('claimed').textContent=visible?`${Math.round(claimed/(visible.width*visible.height)*100)}%`:'—';
-  $('world-rules').textContent=visible?`${visible.width} × ${visible.height} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
+  $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));

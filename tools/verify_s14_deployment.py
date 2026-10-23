@@ -47,7 +47,7 @@ def verify_torus_scene(page,context,out,record,report,save):
     record('native-dialogs-do-not-pause-shared-gameplay')
 
 def verify_million_scene(page,context,out,record,report,save):
-    (out/'browser-million-ready').write_text('certified million-cell genesis visible\n')
+    (out/'browser-million-ready').write_text('certified million-cell genesis visible; begin production\n')
     assert '1,000 × 1,000' in page.locator('#world-rules').text_content()
     assert 'wraparound' in page.locator('#world-rules').text_content()
     page.locator('#toolbar-play').click()
@@ -56,6 +56,7 @@ def verify_million_scene(page,context,out,record,report,save):
     # The selector is intentionally sparse; exact camera picking adds one
     # authenticated owned cell instead of constructing 1,000,000 DOM options.
     assert page.locator('#move-cell option').count()<=2
+    page.locator('#pick-move').click()
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
     assert page.locator('#move-cell').input_value()=='0'
@@ -64,7 +65,11 @@ def verify_million_scene(page,context,out,record,report,save):
     page.screenshot(path=str(out/'million-seam-pick.png'))
     record('million-cell-culling-seam-picking-and-sparse-move-selector')
     page.locator('#board').focus();page.keyboard.press('Home')
-    wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    (out/'browser-million-drive').write_text('begin explicit disposable-IC clock progression\n')
+    try:wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    except Exception:
+        report['million_startup_failure']=page.evaluate('''() => ({phase:document.body.dataset.phase,live:globalThis.__dtrLive,error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent,arena:document.querySelector('#arena-note').textContent})''')
+        save();page.screenshot(path=str(out/'million-startup-failure.png'));raise
     normal=[];began=time.monotonic()
     while time.monotonic()-began<20:normal.append(page.evaluate('({...__dtrLive.playback})'));page.wait_for_timeout(500)
     dt=(normal[-1]['wall_ms']-normal[0]['wall_ms'])/1000

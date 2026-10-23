@@ -74,6 +74,10 @@ export function createArcade(doc){
     const c=selected(),prior=$('move-cell').value,placeholder=doc.createElement('option');placeholder.value='';placeholder.textContent='Choose an owned cell';
     $('move-cell').replaceChildren(placeholder);
     if(c)for(const i of c.owned_cells){const o=doc.createElement('option');o.value=String(i);o.textContent=`Cell ${i} · row ${Math.floor(i/world.width)}, column ${i%world.width}`;$('move-cell').append(o);}
+    const picked=/^\d+$/.test(prior)?Number(prior):null;
+    if(c&&picked!==null&&c.owns(picked)&&![...$('move-cell').options].some(o=>o.value===prior)){
+      const o=doc.createElement('option');o.value=prior;o.textContent=`Cell ${prior} · row ${Math.floor(picked/world.width)}, column ${picked%world.width}`;$('move-cell').append(o);
+    }
     $('move-cell').value=prior;
   }
   function localMode(){
