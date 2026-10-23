@@ -361,10 +361,9 @@ fn root() -> AppResult<Root> {
     }
     if let Some(t) = &r.million_transition {
         t.validate()?;
-        if !r
-            .world_transition
+        if r.world_transition
             .as_ref()
-            .is_some_and(|old| old.phase == "complete")
+            .is_none_or(|old| old.phase != "complete")
         {
             return Err("million transition requires completed torus epoch".into());
         }
@@ -379,7 +378,7 @@ fn root() -> AppResult<Root> {
     let pb = unhex(&r.publication_hex)?;
     let p: Publication = decode(&pb)?;
     if hash(&pb) != r.publication_hash
-        || !matches!(p.version, 6 | 7 | 8)
+        || !matches!(p.version, 6..=8)
         || p.render_format.is_some()
         || p.chunk_bytes != CHUNK
         || p.artifacts.len() != 3
