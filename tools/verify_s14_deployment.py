@@ -38,10 +38,18 @@ def verify_torus_scene(page,context,out,record,report,save):
         report['epoch_failure_state']=page.evaluate('''() => ({phase:document.body.dataset.phase,live:globalThis.__dtrLive,error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent})''')
         save();page.screenshot(path=str(out/'epoch-playback-failure.png'));raise
     samples=[];start=time.monotonic();report['recording_playback_start_ms']=page.evaluate('performance.now()')
-    while time.monotonic()-start<30:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
+    while time.monotonic()-start<90:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
     report['scene']={'qualification':'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition','seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED'for x in samples),'nominal_rate':samples[-1]['nominal_rate']}
-    (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['scene']['stalled_samples']==0,report['scene'];record('populated-torus-playback-at-its-supported-shared-pace',report['scene'])
+    report['scene']['backend_ticks_per_second']=(samples[-1]['backend_segments']-samples[0]['backend_segments'])*samples[-1]['segment_ticks']/dt
+    report['scene']['resyncs']=samples[-1]['resyncs']-samples[0]['resyncs']
+    (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));save()
+    assert report['scene']['stalled_samples']==0,report['scene']
+    assert report['scene']['nominal_rate']==1,report['scene']
+    for key in ['backend_ticks_per_second','verified_ticks_per_second','displayed_ticks_per_second']:
+        assert .9<=report['scene'][key]<=1.15,(key,report['scene'])
+    assert report['scene']['resyncs']==0,report['scene']
+    record('populated-torus-sustained-authenticated-normal-playback',report['scene'])
     # A modal cannot pause the shared backend.
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')

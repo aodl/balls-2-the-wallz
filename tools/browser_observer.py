@@ -209,8 +209,8 @@ def main():
                 record('authenticated-projection-admitted','PASS','Predecessor, audit binding and final visible state were checked before buffer admission.')
             else:
                 close_settings(page)
-                before=page.locator('#board').evaluate('(c)=>c.toDataURL()');page.wait_for_timeout(180)
-                assert page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before,'canvas pixels did not advance'
+                before=page.locator('#board').evaluate('(c)=>c.toDataURL()')
+                wait_until(page,lambda:page.locator('#board').evaluate('(c)=>c.toDataURL()')!=before,5000)
                 record('canvas-pixels-change-during-playback','PASS')
                 open_settings(page)
             page.locator('#pause').click();page.wait_for_timeout(220)
