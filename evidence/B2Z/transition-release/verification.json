@@ -1,0 +1,1006 @@
+{
+  "status": "PASS",
+  "frozen_implementation_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+  "final_local_counts": {
+    "javascript": {
+      "passed": 1352,
+      "failed": 0,
+      "skipped": 0
+    },
+    "python": {
+      "passed": 145,
+      "failed": 0
+    },
+    "rust_workspace": {
+      "passed": 22,
+      "failed": 0
+    },
+    "rust_portable": {
+      "passed": 10,
+      "failed": 0
+    },
+    "host_and_candid": {
+      "passed": 24,
+      "failed": 0
+    },
+    "standalone_browser_checks": {
+      "passed": 14,
+      "failed": 0
+    },
+    "active_s14_harness_cases": {
+      "passed": 36,
+      "failed": 0,
+      "installed_ic_cases": 26,
+      "source_unit_cases": 10,
+      "funding_cases": 8,
+      "explicitly_ignored_historical_cases": 8
+    }
+  },
+  "gates": [
+    {
+      "name": "source",
+      "status": "PASS",
+      "source_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+      "raw": {
+        "path": ".work/torus-recovery/source-py311-final/verification.json",
+        "sha256": "f285b8cc5c735da2d1e4de120e3d36c349d343ade9ff9c3dc098c94878a34d78"
+      },
+      "checks": [
+        {
+          "id": "b2z-naming-audit",
+          "status": "PASS",
+          "elapsed_seconds": 0.77
+        },
+        {
+          "id": "observer-recordings",
+          "status": "PASS",
+          "elapsed_seconds": 2.983
+        },
+        {
+          "id": "protocol-fixtures",
+          "status": "PASS",
+          "elapsed_seconds": 0.118
+        },
+        {
+          "id": "life-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.115
+        },
+        {
+          "id": "b2z-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.372
+        },
+        {
+          "id": "spawn-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.72
+        },
+        {
+          "id": "impact-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.116
+        },
+        {
+          "id": "b2z-full-traces",
+          "status": "PASS",
+          "elapsed_seconds": 0.423
+        },
+        {
+          "id": "numeric-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.117
+        },
+        {
+          "id": "coordinator-vectors",
+          "status": "PASS",
+          "elapsed_seconds": 0.823
+        },
+        {
+          "id": "observation-v6-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.064
+        },
+        {
+          "id": "observation-reference",
+          "status": "PASS",
+          "elapsed_seconds": 0.119
+        },
+        {
+          "id": "portable-cursors",
+          "status": "PASS",
+          "elapsed_seconds": 0.47
+        },
+        {
+          "id": "node-tests",
+          "status": "PASS",
+          "counts": {
+            "tests": 1352,
+            "pass": 1352,
+            "fail": 0,
+            "cancelled": 0,
+            "skipped": 0
+          },
+          "elapsed_seconds": 44.466
+        },
+        {
+          "id": "source-structure",
+          "status": "PASS",
+          "elapsed_seconds": 11.643
+        },
+        {
+          "id": "docs-links",
+          "status": "PASS",
+          "elapsed_seconds": 0.276
+        },
+        {
+          "id": "python-tool-tests",
+          "status": "PASS",
+          "counts": {
+            "tests": 145
+          },
+          "elapsed_seconds": 26.734
+        }
+      ]
+    },
+    {
+      "name": "native",
+      "status": "PASS",
+      "source_commit": "8f2af4e46a142e1bd0eaf8514e929defddb8d37f",
+      "raw": {
+        "path": ".work/torus-recovery/native/verification.json",
+        "sha256": "365c6fd14649ae47f02d450ba12e743f77474a2b05e4e18a36eb42ec382a6c4e"
+      },
+      "checks": [
+        {
+          "id": "cargo-lock",
+          "status": "PASS",
+          "elapsed_seconds": 0.168
+        },
+        {
+          "id": "cargo-tests",
+          "status": "PASS",
+          "counts": {
+            "passed": 22,
+            "failed": 0,
+            "ignored": 0
+          },
+          "elapsed_seconds": 4.259
+        },
+        {
+          "id": "native-vectors",
+          "status": "PASS",
+          "elapsed_seconds": 0.926
+        },
+        {
+          "id": "portable-lock",
+          "status": "PASS",
+          "elapsed_seconds": 0.27
+        },
+        {
+          "id": "portable-rust-tests",
+          "status": "PASS",
+          "counts": {
+            "passed": 10,
+            "failed": 0,
+            "ignored": 0
+          },
+          "elapsed_seconds": 10.865
+        },
+        {
+          "id": "native-public-game",
+          "status": "PASS",
+          "elapsed_seconds": 6.098
+        },
+        {
+          "id": "native-public-host",
+          "status": "PASS",
+          "elapsed_seconds": 10.681
+        },
+        {
+          "id": "portable-format",
+          "status": "PASS",
+          "elapsed_seconds": 1.434
+        },
+        {
+          "id": "portable-clippy",
+          "status": "PASS",
+          "elapsed_seconds": 0.883
+        },
+        {
+          "id": "cargo-format",
+          "status": "PASS",
+          "elapsed_seconds": 0.836
+        },
+        {
+          "id": "cargo-clippy",
+          "status": "PASS",
+          "elapsed_seconds": 0.789
+        }
+      ]
+    },
+    {
+      "name": "normal-wasm",
+      "status": "PASS",
+      "source_commit": "8f2af4e46a142e1bd0eaf8514e929defddb8d37f",
+      "raw": {
+        "path": ".work/torus-recovery/wasm/verification.json",
+        "sha256": "85ec2f96f8dd50055070c7c5cdae4ccc64c544f68b400edefc8404bbb0ee1a5f"
+      },
+      "checks": [
+        {
+          "id": "runtime-lab-lock",
+          "status": "PASS",
+          "elapsed_seconds": 0.166
+        },
+        {
+          "id": "runtime-lab-wasm",
+          "status": "PASS",
+          "elapsed_seconds": 111.842
+        },
+        {
+          "id": "runtime-lab-candid",
+          "status": "PASS",
+          "elapsed_seconds": 2.69
+        },
+        {
+          "id": "runtime-lab-format",
+          "status": "PASS",
+          "elapsed_seconds": 1.182
+        },
+        {
+          "id": "runtime-lab-clippy",
+          "status": "PASS",
+          "elapsed_seconds": 20.999
+        }
+      ]
+    },
+    {
+      "name": "browser-http-webcrypto",
+      "status": "PASS",
+      "source_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+      "raw": {
+        "path": ".work/torus-recovery/browser-combined-final/verification.json",
+        "sha256": "b66d24126a3eefeb4c309bf58477d85fdafbed5c2a9b4adbb815bb0fdf2e85e8"
+      },
+      "checks": [
+        {
+          "id": "observer-http-webcrypto",
+          "status": "PASS",
+          "elapsed_seconds": 36.64
+        }
+      ]
+    },
+    {
+      "name": "packaged-dtr-consumers",
+      "status": "PASS",
+      "source_commit": null,
+      "raw": {
+        "path": ".work/torus-recovery/dtr-consumers/results.json",
+        "sha256": "d93edba3c7d7649ec40e76369730c5306ab22b181ec6ba942645c9a7d117c684"
+      },
+      "checks": [
+        {
+          "id": "rust-consumer-published",
+          "status": "PASS",
+          "elapsed_seconds": 60.972
+        },
+        {
+          "id": "published-source-location",
+          "status": "PASS",
+          "elapsed_seconds": 0.827
+        },
+        {
+          "id": "published-source-archive",
+          "status": "PASS",
+          "elapsed_seconds": 0.022
+        },
+        {
+          "id": "dtr-npm-install",
+          "status": "PASS",
+          "elapsed_seconds": 3.551
+        },
+        {
+          "id": "dtr-npm-pack",
+          "status": "PASS",
+          "elapsed_seconds": 1.728
+        },
+        {
+          "id": "javascript-consumer-lock",
+          "status": "PASS",
+          "elapsed_seconds": 3.492
+        },
+        {
+          "id": "javascript-consumer-install",
+          "status": "PASS",
+          "elapsed_seconds": 3.595
+        },
+        {
+          "id": "javascript-consumer-api",
+          "status": "PASS",
+          "elapsed_seconds": 1.28
+        }
+      ]
+    }
+  ],
+  "native_and_wasm_provenance": "Both gates ran at 8f2af4e; scoped Cargo/kernel/native/runtime sources and locks have no diff through frozen implementation 96c8537. Later changes affect observer, fixtures, tools and current documentation.",
+  "strict_fixture_checks": [
+    {
+      "status": "PASS",
+      "raw": {
+        "path": ".work/torus-recovery/integration-clippy-final.log",
+        "sha256": "05c99b8f0493c882e407c00c70cf28c266f207556f13ad924aa097c1d58bd347"
+      }
+    },
+    {
+      "status": "PASS",
+      "raw": {
+        "path": ".work/torus-recovery/receipt-setup-clippy.log",
+        "sha256": "0a3864941d9b19149345d55bb5f6238b0d9b78a3c83512a619e32a4e3a066d26"
+      }
+    },
+    {
+      "status": "PASS",
+      "raw": {
+        "path": ".work/torus-recovery/cmc-format.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "status": "PASS",
+      "raw": {
+        "path": ".work/torus-recovery/cmc-clippy.log",
+        "sha256": "d7e55802d4663303f476b0097816c4a50e28f036a4bcd61e6c2107062653cf3c"
+      }
+    }
+  ],
+  "full_installed_gate": {
+    "raw": {
+      "path": ".work/torus-recovery/combined-full/results.json",
+      "sha256": "9a071307dbed1b571a460d91d542d5e4361e1b6ef1f66e5b4135c4e242099e06"
+    },
+    "overall": "PASS",
+    "suites": [
+      {
+        "id": "installed-index-integration",
+        "selected": [
+          "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+          "arena_reserve_preserves_admitted_and_index_pending_payments",
+          "b2z_callback_trap_recovers_through_fallback_without_reset",
+          "bounded_history_windows_drain_256_257_and_513_without_skipping",
+          "complete_index_range_backpressure_preserves_both_documents",
+          "controlled_index_pagination_lag_failure_and_upgrade",
+          "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "empty_arena_all_player_elimination_preserves_scores_then_idles",
+          "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+          "slow_index_calls_coalesce_timers_and_fence_late_responses",
+          "source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+          "source::tests::classification_preserves_memo_and_delegation_rules",
+          "source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+          "source::tests::durable_pending_and_capacity_never_advance_admission",
+          "source::tests::empty_history_and_unchanged_account_are_safe",
+          "source::tests::exact_numeric_subaccount_derivation",
+          "source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+          "source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+          "source::tests::poke_target_positive_nat_and_bounded_vector",
+          "source::tests::sparse_pages_frozen_high_and_oldest_first",
+          "torus_all_player_elimination_sleeps_without_a_browser",
+          "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+          "torus_browser_scene_camera_and_continuous_supported_playback",
+          "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+          "torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+          "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+          "upstream_index_poke_fallback_upgrade_and_replay",
+          "upstream_text_memos_normalize_once_and_preserve_pending_upgrade"
+        ],
+        "ignored": [
+          "arena_matched_prior_producer_cost_comparison",
+          "arena_unfinished_old_segment_survives_upgrade",
+          "arena_upgrade_from_installed_idle_module",
+          "b2z_upgrade_from_s15_with_players_publications_and_pending",
+          "empty_arena_old_new_cost_comparison",
+          "empty_arena_upgrade_preserves_players_publications_and_pending",
+          "pricing_profile_upgrade_preserves_history_but_does_not_reprice",
+          "s15_upgrade_from_deployed_module_with_players_publications_and_pending"
+        ]
+      },
+      {
+        "id": "installed-funding-integration",
+        "selected": [
+          "funding_tests::funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+          "funding_tests::funding_bounded_empty_maintenance_overhead",
+          "funding_tests::funding_expired_ambiguous_transfer_never_creates_replacement",
+          "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+          "funding_tests::funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+          "funding_tests::funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+          "funding_tests::funding_refund_and_terminal_notification_halt_with_evidence"
+        ],
+        "ignored": []
+      },
+      {
+        "id": "installed-funding-cutover-integration",
+        "selected": [
+          "funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification"
+        ],
+        "ignored": []
+      }
+    ],
+    "cases": [
+      {
+        "test": "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+        "status": "PASS",
+        "elapsed_seconds": 102.123,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "arena_reserve_preserves_admitted_and_index_pending_payments",
+        "status": "PASS",
+        "elapsed_seconds": 25.981,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "b2z_callback_trap_recovers_through_fallback_without_reset",
+        "status": "PASS",
+        "elapsed_seconds": 13.771,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "bounded_history_windows_drain_256_257_and_513_without_skipping",
+        "status": "PASS",
+        "elapsed_seconds": 78.135,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "complete_index_range_backpressure_preserves_both_documents",
+        "status": "PASS",
+        "elapsed_seconds": 1.725,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "controlled_index_pagination_lag_failure_and_upgrade",
+        "status": "PASS",
+        "elapsed_seconds": 14.567,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "status": "PASS",
+        "elapsed_seconds": 148.173,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "empty_arena_all_player_elimination_preserves_scores_then_idles",
+        "status": "PASS",
+        "elapsed_seconds": 17.549,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+        "status": "PASS",
+        "elapsed_seconds": 42.748,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "slow_index_calls_coalesce_timers_and_fence_late_responses",
+        "status": "PASS",
+        "elapsed_seconds": 23.965,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+        "status": "PASS",
+        "elapsed_seconds": 2.074,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::classification_preserves_memo_and_delegation_rules",
+        "status": "PASS",
+        "elapsed_seconds": 0.009,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+        "status": "PASS",
+        "elapsed_seconds": 0.009,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::durable_pending_and_capacity_never_advance_admission",
+        "status": "PASS",
+        "elapsed_seconds": 0.165,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::empty_history_and_unchanged_account_are_safe",
+        "status": "PASS",
+        "elapsed_seconds": 0.017,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::exact_numeric_subaccount_derivation",
+        "status": "PASS",
+        "elapsed_seconds": 0.008,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+        "status": "PASS",
+        "elapsed_seconds": 0.009,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+        "status": "PASS",
+        "elapsed_seconds": 0.01,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::poke_target_positive_nat_and_bounded_vector",
+        "status": "PASS",
+        "elapsed_seconds": 0.006,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "source::tests::sparse_pages_frozen_high_and_oldest_first",
+        "status": "PASS",
+        "elapsed_seconds": 0.017,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "torus_all_player_elimination_sleeps_without_a_browser",
+        "status": "PASS",
+        "elapsed_seconds": 22.036,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+        "status": "PASS",
+        "elapsed_seconds": 55.678,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "torus_browser_scene_camera_and_continuous_supported_playback",
+        "status": "PASS",
+        "elapsed_seconds": 79.082,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+        "status": "PASS",
+        "elapsed_seconds": 22.697,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+        "status": "PASS",
+        "elapsed_seconds": 193.8,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+        "status": "PASS",
+        "elapsed_seconds": 37.135,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "upstream_index_poke_fallback_upgrade_and_replay",
+        "status": "PASS",
+        "elapsed_seconds": 34.671,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "upstream_text_memos_normalize_once_and_preserve_pending_upgrade",
+        "status": "PASS",
+        "elapsed_seconds": 41.881,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+        "status": "PASS",
+        "elapsed_seconds": 34.991,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_bounded_empty_maintenance_overhead",
+        "status": "PASS",
+        "elapsed_seconds": 19.294,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_expired_ambiguous_transfer_never_creates_replacement",
+        "status": "PASS",
+        "elapsed_seconds": 23.546,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+        "status": "PASS",
+        "elapsed_seconds": 16.437,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+        "status": "PASS",
+        "elapsed_seconds": 110.584,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+        "status": "PASS",
+        "elapsed_seconds": 29.26,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_refund_and_terminal_notification_halt_with_evidence",
+        "status": "PASS",
+        "elapsed_seconds": 53.9,
+        "pocketic_server_exit": null
+      },
+      {
+        "test": "funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification",
+        "status": "PASS",
+        "elapsed_seconds": 45.966,
+        "pocketic_server_exit": null
+      }
+    ],
+    "qualification": "Actual checksum-pinned disposable upstream ICP Ledger/Index. CMC is a local contract mock at the fixed CMC principal; no production CMC or real funds. Ten source unit cases are separately counted."
+  },
+  "captured_replays": {
+    "source-history": {
+      "status": "PASS",
+      "publications": 77,
+      "assigned_once": [
+        "7",
+        "8"
+      ],
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/js-replay.json",
+        "sha256": "c6350d0e59aa3117fcbebc0bcfccaf6327c82fb6b7d46b539c95ffac24a620a0"
+      }
+    },
+    "browser-history": {
+      "status": "PASS",
+      "publications": 42,
+      "assigned_once": [
+        "1",
+        "2",
+        "3"
+      ],
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/replay.json",
+        "sha256": "c3776ebfe9da830508e6459cbcee9c6e9a0f3b4bef0faf1799a1a27e19896da7"
+      }
+    },
+    "torus-headings": {
+      "status": "PASS",
+      "publications": 18,
+      "assigned_once": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/torus-replay.json",
+        "sha256": "83f8a45aeb0b61adf1087755ca0774dece31138bed85afc15940168b4b947bb3"
+      }
+    },
+    "paid-cutover": {
+      "status": "PASS",
+      "publications": 4,
+      "assigned_once": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/world-transition-replay.json",
+        "sha256": "260b015ff825f61df6a5c283d0024e34784362dc38f8ea874ba8f676e05c301d"
+      }
+    },
+    "text-memos": {
+      "status": "PASS",
+      "publications": 33,
+      "assigned_once": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/s15-text-path-replay.json",
+        "sha256": "c6c843d20371a4738b701c812ff4d73df5799cca30f1f7989cdb63184b7f7d78"
+      }
+    }
+  },
+  "browser": {
+    "normal": {
+      "status": "PASS",
+      "checks": 18,
+      "sandbox": true,
+      "qualification": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.",
+      "playback": {
+        "seconds": 34.78189999999999,
+        "produced_ticks_per_second": 0.9775199169683084,
+        "consumed_ticks_per_second": 0.9796662161833865,
+        "stalled_samples": 0,
+        "buffer_min": 2.458691066784965,
+        "buffer_max": 6.676179107029284,
+        "fetch_ms_max": 2275.100000023842,
+        "verification_ms_max": 153,
+        "artifact_ms_max": 491.89999997615814,
+        "backend_reported_ticks_per_second": 0.9775199169683084,
+        "nominal_rate": 1
+      },
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/results.json",
+        "sha256": "4779cad0c11aefd87866baf28983a58bdd932f1cfedc5b40f114efa24c749e94"
+      }
+    },
+    "epoch": {
+      "status": "PASS",
+      "checks": 4,
+      "sandbox": true,
+      "qualification": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.",
+      "playback": {
+        "seconds": 19.832600000000003,
+        "verified_ticks_per_second": 0.5042203241128242,
+        "displayed_ticks_per_second": 0.48983888810315507,
+        "stalled_samples": 0,
+        "nominal_rate": 0.5,
+        "qualification": "One-ball authenticated v7 epoch on local IC wall time"
+      },
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/transition-browser/results.json",
+        "sha256": "194fd6cbb727eb12070f98953040c73052d80ec91e39d6e788c8813be0503e9b"
+      }
+    },
+    "scene": {
+      "status": "PASS",
+      "checks": 4,
+      "sandbox": true,
+      "qualification": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.",
+      "playback": {
+        "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+        "seconds": 29.698799999999995,
+        "verified_ticks_per_second": 0.4713995178256361,
+        "displayed_ticks_per_second": 0.4882053526963089,
+        "stalled_samples": 0,
+        "nominal_rate": 0.5
+      },
+      "raw": {
+        "path": ".work/torus-recovery/combined-full/deployment/torus-scene/results.json",
+        "sha256": "2e87f191defe29063b4daa23b675ef4fa3dda7f8c8a5715d4a5865b21ec18ee8"
+      }
+    }
+  },
+  "previous_failed_runs": [
+    {
+      "raw": {
+        "path": ".work/torus-recovery/browser-diagnosis/deployment/torus-scene/results.json",
+        "sha256": "f7617d01515505fabe8a4ed8dc6c8cccedbe3fa92297f7674cbd43e9aa622835"
+      },
+      "status": "FAIL",
+      "reason": "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-VzTUtC --remote-debugging-pipe --no-startup-window\\n<launched> pid=1515478\\n[pid=1515478][err] /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell: error while loading shared libraries: libatk-1.0.so.0: cannot open shared object file: No such file or directory\\nCall log:\\n  - <launching> /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-VzTUtC --remote-debugging-pipe --no-startup-window\\n  - <launched> pid=1515478\\n  - [pid=1515478][err] /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell: error while loading shared libraries: libatk-1.0.so.0: cannot open shared object file: No such file or directory\\n  - [pid=1515478] <gracefully close start>\\n  - [pid=1515478] <kill>\\n  - [pid=1515478] <will force kill>\\n  - [pid=1515478] exception while trying to kill process: Error: kill ESRCH\\n  - [pid=1515478] <process did exit: exitCode=127, signal=null>\\n  - [pid=1515478] starting temporary directories cleanup\\n  - [pid=1515478] finished temporary directories cleanup\\n  - [pid=1515478] <gracefully close end>\\n')",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/browser-diagnosis/deployment/transition-browser/results.json",
+        "sha256": "e67d59180efbaa91c3424e9389cebe442aef2a619be6f6866c546c435717e67d"
+      },
+      "status": "FAIL",
+      "reason": "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-2Ij7h3 --remote-debugging-pipe --no-startup-window\\n<launched> pid=1514837\\n[pid=1514837][err] /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell: error while loading shared libraries: libatk-1.0.so.0: cannot open shared object file: No such file or directory\\nCall log:\\n  - <launching> /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/tmp/playwright_chromiumdev_profile-2Ij7h3 --remote-debugging-pipe --no-startup-window\\n  - <launched> pid=1514837\\n  - [pid=1514837][err] /home/codexdev/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell: error while loading shared libraries: libatk-1.0.so.0: cannot open shared object file: No such file or directory\\n  - [pid=1514837] <gracefully close start>\\n  - [pid=1514837] <kill>\\n  - [pid=1514837] <will force kill>\\n  - [pid=1514837] exception while trying to kill process: Error: kill ESRCH\\n  - [pid=1514837] <process did exit: exitCode=127, signal=null>\\n  - [pid=1514837] starting temporary directories cleanup\\n  - [pid=1514837] finished temporary directories cleanup\\n  - [pid=1514837] <gracefully close end>\\n')",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/browser-diagnosis/results.json",
+        "sha256": "9f388df5831ebc19ca394cc5e929308c2e21bb6f08f49dd14251d3845ddada74"
+      },
+      "status": "FAIL",
+      "reason": "installed-index-integration FAIL",
+      "failed_checks": [
+        "installed-index-integration"
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/cutover-edges/results.json",
+        "sha256": "df81694f65f010d86c5156d380a24b31c79c3f1e87706d403f1039bf91fbc83a"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+          "exit": 0,
+          "seconds": 89.229
+        },
+        {
+          "test": "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+          "exit": 101,
+          "seconds": 256.951
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-capture-fixed/deployment/results.json",
+        "sha256": "0d66c8b60d6b122b20da9e917619f819dd7c1bed37a3c955a6cb96dcb024d238"
+      },
+      "status": "FAIL",
+      "reason": "TimeoutError('condition not met within 30000ms')",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-capture-fixed/results.json",
+        "sha256": "f8373d930622cf3af2ec6eba9d0c43e85c8ba0f78e9f8133b4c396f088a740d6"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "exit": 101,
+          "seconds": 289.886
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-load-fixed/deployment/results.json",
+        "sha256": "9d5a27a91b593b9605a1918bcee8be98ebda326c8e54157da80d697182816fea"
+      },
+      "status": "FAIL",
+      "reason": "AssertionError({'seconds': 34.6653, 'produced_ticks_per_second': 0.9808078972344102, 'consumed_ticks_per_second': 0.8853253888893916, 'stalled_samples': 13, 'buffer_min': 0, 'buffer_max': 6.738846137779397, 'fetch_ms_max': 625.9000000059605, 'verification_ms_max': 456.09999999403954, 'artifact_ms_max': 3523.5999999940395, 'backend_reported_ticks_per_second': 0.9808078972344102, 'nominal_rate': 1})",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-load-fixed/results.json",
+        "sha256": "67b36e9b3eb720e66f9a36850ec6599bd3aeb9dd0daa815c347df18eb6e5996b"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "exit": 101,
+          "seconds": 178.118
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-receipts-fixed/deployment/results.json",
+        "sha256": "592d43a3fc7372b4fdb8cbf877a2e974c4b156e4fbd3062cddcf2fac1af0a894"
+      },
+      "status": "FAIL",
+      "reason": "AssertionError({'seconds': 34.731899999999996, 'produced_ticks_per_second': 0.9789271534237979, 'consumed_ticks_per_second': 0.9407513422669018, 'stalled_samples': 5, 'buffer_min': 0, 'buffer_max': 5.81348242958083, 'fetch_ms_max': 2043.4000000059605, 'verification_ms_max': 486.69999998807907, 'artifact_ms_max': 2010.5999999940395, 'backend_reported_ticks_per_second': 0.9789271534237979, 'nominal_rate': 1})",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-receipts-fixed/results.json",
+        "sha256": "676655eaa91b3d77af396f5db22044dcbfbebf058283e68626dcaf150f46bfc7"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "exit": 101,
+          "seconds": 242.257
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-resume-fixed/deployment/results.json",
+        "sha256": "cf292619e2b1564e25dff49ff249cd3e6b569db8173ca94ea87f471d24d6254c"
+      },
+      "status": "FAIL",
+      "reason": "AssertionError({'seconds': 34.43189999999999, 'produced_ticks_per_second': 1.1036277405545443, 'consumed_ticks_per_second': 1.1238342375993648, 'stalled_samples': 58, 'buffer_min': 0, 'buffer_max': 7.844981867987848, 'fetch_ms_max': 580.7000000178814, 'verification_ms_max': 664.4000000059605, 'artifact_ms_max': 1221.2999999821186, 'backend_reported_ticks_per_second': 1.0455420699990419, 'nominal_rate': 1})",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/deployed-resume-fixed/results.json",
+        "sha256": "f64cc718f6467990a49a69977e3de9304cf39cf4e44154953ad9e53440e0f0d4"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "exit": 101,
+          "seconds": 180.678
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/epoch-fixed/deployment/transition-browser/results.json",
+        "sha256": "a9ed3e91e88f78bdb19009be885dbb025b3f96236144c666067c0298342767b7"
+      },
+      "status": "FAIL",
+      "reason": "AssertionError({'seconds': 19.515900000000002, 'verified_ticks_per_second': 0.0, 'displayed_ticks_per_second': 0.08964224042959834, 'stalled_samples': 23, 'nominal_rate': 0.5, 'qualification': 'One-ball authenticated v7 epoch on local IC wall time'})",
+      "failed_checks": []
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/epoch-fixed/results.json",
+        "sha256": "eb349026c2dd9cc201ea4b621b724fdebf2a67351946ebaae0bc2d5703e1b90a"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+          "exit": 101,
+          "seconds": 125.047
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/integration-final/results.json",
+        "sha256": "208ab6c831153478ae76b2ee010612d46930072fe52e4352102a66a44b1b4c00"
+      },
+      "status": "FAIL",
+      "reason": "installed-index-integration FAIL",
+      "failed_checks": [
+        "installed-index-integration"
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/integration-isolated/results.json",
+        "sha256": "e783f5acc03692c8c7ce2cd549a8b5d0eed82de5f3c4811ff7407cb20386ace7"
+      },
+      "status": "FAIL",
+      "reason": "installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade FAIL",
+      "failed_checks": [
+        "installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade"
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/paid-isolated/results.json",
+        "sha256": "40c7367a709e930697c7ba97b606282244a049927387ac3742e9c5cb0fee8748"
+      },
+      "status": "FAIL",
+      "cases": [
+        {
+          "test": "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+          "exit": -15,
+          "seconds": 316.511
+        }
+      ]
+    },
+    {
+      "raw": {
+        "path": ".work/torus-recovery/source-combined-final/verification.json",
+        "sha256": "593a58434491c28e126835c5ed6966cd5f6cc33c397ab8ee25091ed6645252f1"
+      },
+      "status": "FAIL",
+      "reason": "Incorrect local Python 3.10 invocation; tomllib unavailable. 134 Python cases ran with 13 import errors; source-structure failed. Correct Python 3.11 rerun passed all 145."
+    }
+  ],
+  "failure_resolution": [
+    "Missing user-local browser shared-library path restored; sandbox kept enabled.",
+    "v7 sealed publication projection accepted through existing authenticated verification.",
+    "Fresh bounded PocketIC servers per case; idle lifetime covers native replay; zero-test and dead-server results fail.",
+    "Independent readonly publication capture prevents control/UI calls from losing retained intermediate seals.",
+    "Certified receipt setup held until UI acknowledgements; ordinary two-tick production restored before a fresh certified restart and unchanged zero-stall measurement.",
+    "Observed operator pause/resume rebuilds verified playout buffering without dropping queued data; regression passes."
+  ],
+  "normal_module_no_test_exports": {
+    "status": "PASS",
+    "public_method_count": 18,
+    "frozen_manifest": "backend-frozen.json"
+  },
+  "remote_ci_for_combined_release": "NOT_RUN; user must push the exact release commit",
+  "mainnet_upgrade_transition_transfer": "NOT_RUN"
+}

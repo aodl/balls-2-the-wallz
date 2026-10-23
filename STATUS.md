@@ -1,3 +1,63 @@
+# Current candidate — authenticated torus and treasury combined, locally verified
+
+**2026-10-23:** interrupted transition work was preserved in WIP `f576843`, then
+merged with the published self-funding branch in `8f2af4e`. No work was discarded.
+The combined implementation is committed locally and frozen from clean source
+`96c853752f547a3352a7eab1573478ae2a596271`. The entries below remain historical;
+this candidate supersedes their statements about unavailable epoch support.
+
+Local gates PASS: **1,352 JavaScript, 145 Python, 22 workspace Rust, 10 portable
+Rust, 24 host/Candid tests**, normal Wasm/export checks, format and strict Clippy,
+eight packaged-consumer checks, and 14 standalone HTTP/Web Crypto browser checks.
+The complete S14 run passes **36 active harness cases: 26 installed-IC cases and
+10 source unit cases**, including all eight treasury cases. Eight historical
+predecessor probes remain explicitly ignored. Bundled browser checks pass 18
+normal, four epoch and four torus-scene groups, with zero stalls in each measured
+playback interval. Genuine prior failures and their corrections remain recorded.
+
+Actual disposable ICP Ledger/Index tests preserve paid history across the exact
+installed `53b219…` predecessor upgrade, fence old/new commands at an exclusive
+Ledger boundary without replacing the sparse account cursor, and authenticate
+the DTR v7 epoch. Delayed Index pagination and upgrades, pending new inputs,
+accepted cannon headings, old-session reconnect after eviction and fresh v7
+startup pass. Ledger/CMC-mock tests preserve both transfer and notification plans
+through the checkpoint and upgrades; outgoing blocks before/during/after cutover
+remain non-commands, with no duplicate transfer. CMC evidence is local mock
+contract coverage, not a real conversion or production-readiness claim.
+
+DTR is pinned to published `c12af747190f7e24d5e68cdf57dbb1494095a46b`, client
+0.13.0, package SHA-256
+`324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c`.
+No DTR source change or development override. Frozen normal Wasm SHA-256:
+`e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac`.
+The production observer is frozen from the same clean source; all file hashes
+are in its reviewed manifest. Gameplay economics and the receiving account stay
+unchanged; automatic player payouts remain unavailable.
+
+**Mainnet actions: NONE.** Read-only closeout still verifies backend `53b219…`,
+publication v6 / world v3, 16×8, one paid cannon/ball, received 1 ICP and account
+cursor 39,526,412. Liquid backend cycles were **1,380,891,907,397** at closeout,
+above the 500B transition floor; recheck before a later installation. Neither
+32×32 nor the treasury is installed. Published DTR and self-funding CI runs were
+verified successful; **combined release CI is NOT_RUN until the user pushes the
+exact release commit**. No remote Git operation, deployment, reset, reinstall,
+mainnet transition, ICP transfer or CMC conversion occurred.
+
+[Reviewed verification and retained failures](evidence/B2Z/transition-release/verification.json),
+[recovery](evidence/B2Z/transition-release/recovery.json),
+[cutover and finance](evidence/B2Z/transition-release/transition.json),
+[backend freeze](evidence/B2Z/transition-release/backend-frozen.json),
+[frontend freeze](evidence/B2Z/transition-release/frontend-frozen.json),
+[read-only mainnet status](evidence/B2Z/transition-release/deployment.json).
+The [combined operator sequence](docs/operations/S14_OPERATOR.md) describes
+watermark, drain, commit/retry and independent financial recovery. First mainnet
+initialization enables the treasury with a five-minute first timer; review and
+assure that activation boundary before any future installation. This recovery
+authorizes no real sweep. Raw results and frozen binaries/assets stay under
+`.work/torus-recovery/`; no release ZIP was created.
+
+---
+
 # Current preparation — prelaunch self-funding, not deployed
 
 **2026-10-22:** B2Z's small autonomous Ledger/CMC worker is implemented and

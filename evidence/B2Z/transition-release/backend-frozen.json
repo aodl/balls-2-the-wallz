@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "source_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+  "source_tree": "2af948dba4d8305805c467107f397a2153941f69",
+  "dtr_revision": "c12af747190f7e24d5e68cdf57dbb1494095a46b",
+  "javascript_package": {
+    "version": "0.13.0",
+    "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.13.0.tgz",
+    "integrity": "sha512-zCZNuGGeqrFj7g/FP4y6GQzHC3WWQUA4ehhbdeE1PGbG2lzNoz1tIwma9L0ToHibulGv1PNa/asaX25XjOpEsw==",
+    "dependencies": {
+      "@icp-sdk/core": "6.1.0"
+    },
+    "engines": {
+      "node": ">=22.16.0"
+    }
+  },
+  "dependency_sha256": {
+    "Cargo.lock": "97e83715fd8815341a8cc7a046b6feb0889ca2d3f48b4bd7f3ce86ab072ec371",
+    "native/Cargo.lock": "ecf340e4f7e0010751a4e30217af69ec50bfc0dc0f31334bf9983295a091750a",
+    "canisters/runtime-lab/Cargo.lock": "9bc0986d12082429bff37d8198d65859f306fbd018ae6e154c1d4f3042ae906f",
+    "tools/s09-integration/Cargo.lock": "23a1b4962cc9f148ed159370a3867b1f919d39185d3a0c0417b8ebaa23a6456e",
+    "package-lock.json": "e7067a9f4bfd7c34d29dbf70300044236390027931470bd35b591d6561110080",
+    "vendor/dtr/dtr-timeline-runtime-0.13.0.tgz": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c",
+    "dfx.json": "12de00be1b8949cde90eb299ca8f35b010aafcc6d332d66e75db3c8162153ad1",
+    "config/economics/prelaunch.json": "e45452ef0220547ea74e044afd28a2362713efaed49148d17a9d5f761e8bc147",
+    "packages/kernels/b2z/economics.generated.mjs": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+    "native/b2z-native/src/economics_generated.rs": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9",
+    "references/S14/mvp-configuration.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+  },
+  "memo_adapter_version": 3,
+  "memo_format": "B2Z text/3 prefix-free; S15 prefixed text and binary/numeric compatibility; canonical BTZPAY02 unchanged",
+  "normal_features": [],
+  "normal_exports": [
+    "memory",
+    "canister_init",
+    "canister_post_upgrade",
+    "canister_query artifact_chunk",
+    "canister_query controller_funding",
+    "canister_query controller_runtime",
+    "canister_query controller_work",
+    "canister_query lab_status",
+    "canister_query observation",
+    "canister_query retained_artifact_chunk",
+    "canister_query retained_publication",
+    "canister_query retention_status",
+    "canister_query source_descriptor",
+    "canister_query torus_transition_status",
+    "canister_update commit_torus_transition",
+    "canister_update pause_autonomous",
+    "canister_update poke",
+    "canister_update prepare_torus_transition",
+    "canister_update set_funding_paused",
+    "canister_update start_autonomous",
+    "get_candid_pointer",
+    "canister_global_timer",
+    "canister_update <ic-cdk internal> timer_executor",
+    "__data_end",
+    "__heap_base"
+  ],
+  "artifacts": {
+    "generated.did": {
+      "sha256": "a3732debbef17e013896139484ca1c42b95448f556c8eeb78287c0d592f08107",
+      "bytes": 5180
+    },
+    "init.did": {
+      "sha256": "b97570e0408e3cf50fc2a5099d65012b831e8492c922eddd443430703998a912",
+      "bytes": 1670
+    },
+    "launch.json": {
+      "sha256": "32fa1e760439d0ea854846c095526e701d23e7269e473e6f387387d0998c7396",
+      "bytes": 1807
+    },
+    "normal.wasm": {
+      "sha256": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+      "bytes": 2611293
+    },
+    "world.bin": {
+      "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae",
+      "bytes": 481
+    }
+  },
+  "tools": {
+    "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "cargo 1.94.1 (29ea6fb6a 2026-03-24)",
+    "node": "v24.15.0",
+    "npm": "11.12.1",
+    "dfx": "dfx 0.31.0",
+    "python": "Python 3.11.14"
+  },
+  "install": "User installs normal.wasm with explicit --wasm; later test builds cannot replace this frozen copy.",
+  "observer": "Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.",
+  "world_transition": "Fixed controller-prepared v3-to-v4 epoch checkpoint; never use generated init examples on the existing funded canister.",
+  "mainnet": "NOT_RUN",
+  "remote_ci": "NOT_RUN"
+}

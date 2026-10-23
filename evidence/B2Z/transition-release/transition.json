@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "raw_trace": ".work/torus-recovery/combined-full/deployment/world-transition.json",
+  "raw_trace_sha256": "bcc6041b7e035d93ef756d26e76fdca81d838134d54ce69251175c1bedb06c49",
+  "predecessor_sha256": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+  "source_cursor": 3,
+  "ledger_cutover": 5,
+  "index_synced": "6",
+  "assigned_once": [
+    1,
+    2,
+    5,
+    6
+  ],
+  "world": {
+    "before": [
+      3,
+      16,
+      8
+    ],
+    "checkpoint": [
+      4,
+      32,
+      32
+    ],
+    "players": 1,
+    "balls_at_checkpoint": 1,
+    "received_e8s_preserved": "100010000",
+    "credits_preserved": true,
+    "logical_boundary_preserved": true
+  },
+  "transition_hash": "b459b6712e24277f2625bea21519bff05cd32ad163c629377c34a9b467a9a7f9",
+  "metadata_sha256": "99b1007837871dfe73087e5b540b79247e4df9528e64b2c95cdfc5ac08b98f4b",
+  "old_publication_sha256": "349da101e6807a8d8a5abc60ecd10354a5b5cb1b8afe5a8fee7f92862248a894",
+  "checkpoint_publication_sha256": "dd94e501b52259fa8bf9a60219f49bdcc83e355a7e42e34b85f160a1bc7c8e6f",
+  "controllers_preserved": [
+    "fo76k-ecero-uccwk-zx7jh-w5c7w-4uo7t-y5j4z-m7fiq-z6sgk-vobym-cae"
+  ],
+  "publication_count": 4,
+  "source_boundary_semantics": "Host-measured exclusive global Ledger chain length from official zero-length query_blocks; wait official Index global num_blocks_synced; capped receiving-account history and complete historical pagination remain separate from sparse account cursor. Older admitted work drains under v3; rows at/above fence remain for v4.",
+  "paid_state_preservation": "Actual committed paid 16x8 state is translated into the centered 32x32 torus. Accounts, balls, velocities, received totals, scores and logical/source boundaries persist; historical v6 bytes remain unchanged.",
+  "dtr": "Published generic epoch checkpoint operation; atomic v7 certification binds prior catalog/new state/identity/application metadata hash. No arbitrary state replacement endpoint.",
+  "frontend": "Existing verified session crosses epoch and stales old-width drafts; paused old second session reconnects after head 3 -> 13 retention gap; fresh reload verifies v7 without cached old artifacts.",
+  "delayed_official_index": {
+    "status": "PASS",
+    "older_rows": 70,
+    "exclusive_cutover": 72,
+    "old_sparse_account_cursor": 2,
+    "final_cursor": 73,
+    "upgrade_while_waiting": true
+  },
+  "treasury_coexistence": {
+    "status": "PASS",
+    "exclusive_cutover": 5,
+    "outgoing_blocks_before_during_after": [
+      2,
+      5,
+      7
+    ],
+    "transfer_pending_survives_upgrade": true,
+    "notify_pending_survives_epoch_commit_and_upgrade": true,
+    "outgoing_rows_are_gameplay_commands": false,
+    "duplicate_transfers": 0,
+    "raw": {
+      "path": ".work/torus-recovery/combined-full/logs/installed-funding-cutover-integration--funding_tests-funding_torus_cutover_preserves_pending_finance_and_outgoing_classification.log",
+      "sha256": "038e864d8d6777c6c74516b8cf8f347861d61cac52a69796b2eb221ca13a46d1"
+    }
+  },
+  "recovery_sequence": "See docs/operations/S14_OPERATOR.md, Combined torus and treasury candidate. Source call failure retains fence; independent 60-second fallback retries. Upgrade invalidates callback leases. Existing pause respected. Exact old manifest required; committed retry returns original transition. Treasury keeps its original transfer/notification plan across independent five-minute maintenance and upgrades."
+}

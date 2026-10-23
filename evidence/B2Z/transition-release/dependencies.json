@@ -1,0 +1,131 @@
+{
+  "revision": "c12af747190f7e24d5e68cdf57dbb1494095a46b",
+  "locks": {
+    "Cargo.lock": {
+      "sha256": "97e83715fd8815341a8cc7a046b6feb0889ca2d3f48b4bd7f3ce86ab072ec371",
+      "entries": {
+        "dtr-core": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "life-conformance": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+      }
+    },
+    "native/Cargo.lock": {
+      "sha256": "ecf340e4f7e0010751a4e30217af69ec50bfc0dc0f31334bf9983295a091750a",
+      "entries": {
+        "dtr-core": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-host": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-wire": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+      }
+    },
+    "canisters/runtime-lab/Cargo.lock": {
+      "sha256": "9bc0986d12082429bff37d8198d65859f306fbd018ae6e154c1d4f3042ae906f",
+      "entries": {
+        "dtr-core": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-host": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-wire": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+      }
+    },
+    "tools/s09-integration/Cargo.lock": {
+      "sha256": "23a1b4962cc9f148ed159370a3867b1f919d39185d3a0c0417b8ebaa23a6456e",
+      "entries": {
+        "dtr-core": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-host": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-wire": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+      }
+    },
+    "tools/fixtures/dtr-consumer-rust/Cargo.lock": {
+      "sha256": "91f68ab04deffeca3c11295c0cf612f11a858c10f6eb1772d660b254bdb815c6",
+      "entries": {
+        "dtr-core": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-host": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-source-model": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "dtr-wire": "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+      }
+    }
+  },
+  "npm": {
+    "version": "0.13.0",
+    "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.13.0.tgz",
+    "integrity": "sha512-zCZNuGGeqrFj7g/FP4y6GQzHC3WWQUA4ehhbdeE1PGbG2lzNoz1tIwma9L0ToHibulGv1PNa/asaX25XjOpEsw==",
+    "dependencies": {
+      "@icp-sdk/core": "6.1.0"
+    },
+    "engines": {
+      "node": ">=22.16.0"
+    }
+  },
+  "tarball_sha256": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c",
+  "dtr_source_changes": "NONE",
+  "development_override": "NONE",
+  "packaged_consumer_status": "PASS",
+  "packaged_consumer_evidence": {
+    "path": ".work/torus-recovery/dtr-consumers/results.json",
+    "sha256": "d93edba3c7d7649ec40e76369730c5306ab22b181ec6ba942645c9a7d117c684"
+  },
+  "packaging_reproduction": {
+    "packaging_tool": "11.12.1",
+    "files": [
+      "README.md",
+      "docs/EPOCH_TRANSITION.md",
+      "index.mjs",
+      "package.json",
+      "packages/client/ic-certificate.mjs",
+      "packages/client/playout.mjs",
+      "packages/client/verification.mjs",
+      "packages/kernels/life-input.mjs",
+      "packages/kernels/life.mjs",
+      "packages/observation/publication.mjs",
+      "packages/protocol/bytes.mjs",
+      "packages/protocol/epoch-codec.mjs",
+      "packages/protocol/seal-codec.mjs",
+      "packages/runtime/canonical.mjs",
+      "packages/runtime/coordinator.mjs",
+      "packages/runtime/epoch.mjs",
+      "packages/runtime/journal.mjs",
+      "packages/runtime/runner.mjs",
+      "packages/runtime/seal.mjs",
+      "packages/source/inbox.mjs",
+      "packages/source/scan.mjs",
+      "packages/source/wakeup.mjs",
+      "packages/storage/chunks.mjs"
+    ],
+    "file_count": 23,
+    "fresh_sha256": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c",
+    "fresh_integrity": "sha512-zCZNuGGeqrFj7g/FP4y6GQzHC3WWQUA4ehhbdeE1PGbG2lzNoz1tIwma9L0ToHibulGv1PNa/asaX25XjOpEsw==",
+    "vendor_sha256": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c",
+    "vendor_integrity": "sha512-zCZNuGGeqrFj7g/FP4y6GQzHC3WWQUA4ehhbdeE1PGbG2lzNoz1tIwma9L0ToHibulGv1PNa/asaX25XjOpEsw==",
+    "vendor_packaging_tool": "npm 11.12.1",
+    "payload_source_correspondence": "PASS",
+    "byte_reproduction": {
+      "status": "PASS",
+      "qualification": "same npm version and normalized source modes"
+    }
+  },
+  "upstream_ci": {
+    "queried_at": "2026-10-22 23:55:19 UTC",
+    "via": "GitHub plugin GET only; no remote Git operations",
+    "runs": [
+      {
+        "id": 39828541946,
+        "name": "verification",
+        "head_branch": "checkpoint/authenticated-epoch-transition",
+        "head_sha": "c12af747190f7e24d5e68cdf57dbb1494095a46b",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/aodl/dtr/actions/runs/39828541946",
+        "created_at": "2026-10-22T18:06:58Z",
+        "updated_at": "2026-10-22T18:07:41Z"
+      },
+      {
+        "id": 39819805116,
+        "name": "verification",
+        "head_branch": "checkpoint/b2z-prelaunch-self-funding",
+        "head_sha": "7e8e2ed7fefaaadedf029e7defe6e85bda8b0aad",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/39819805116",
+        "created_at": "2026-10-22T17:06:46Z",
+        "updated_at": "2026-10-22T17:20:33Z"
+      }
+    ]
+  }
+}

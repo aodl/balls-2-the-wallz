@@ -1,0 +1,77 @@
+{
+  "status": "PREPARED_LOCALLY_NOT_PUBLISHED_OR_INSTALLED",
+  "recorded_at": "2026-10-23T00:20:13.598Z",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "frontend": "s45ab-wiaaa-aaaar-qcifq-cai",
+  "installed_backend_module": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+  "required_predecessor_module": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+  "installed_frontend_module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "certificate_verified": true,
+  "world": {
+    "version": 3,
+    "width": 16,
+    "height": 8,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "subaccount": "0",
+    "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+  },
+  "operational_status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 164,
+        "mode": "Conserve",
+        "admission_open": true
+      },
+      "segment_ticks": "2",
+      "completed_segments": "19643",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "39526412"
+    }
+  },
+  "backend_total_cycles": 1506542267777,
+  "backend_liquid_cycles": 1380891907397,
+  "transition_minimum_liquid_cycles": 500000000000,
+  "frontend_cycles": 2773231632206,
+  "current_reserve_problem": "NONE observed; balances change over time and must be rechecked before installation.",
+  "treasury_installed": false,
+  "torus_live": false,
+  "mainnet_actions": "Read-only module/status/certified state/account history only; no upgrade/reset/reinstall, transition methods, Ledger transfer or CMC conversion.",
+  "frozen_backend": "backend-frozen.json",
+  "frozen_frontend": "frontend-frozen.json",
+  "future_activation_boundary": "Treasury is enabled on its first mainnet initialization, with first timer five minutes later. Review the installation/activation sequence; if migration precedes money movement, immediately pause treasury and verify before that timer. Gameplay pause and source fence do not pause treasury. This recovery authorizes no real sweep.",
+  "ci": "DTR and published self-funding CI verified successful; combined release CI NOT_RUN until user push.",
+  "raw": [
+    {
+      "path": ".work/torus-recovery/mainnet-closeout.json",
+      "sha256": "127a281079e220368fa81febd172536f33221423ca90ee32968336bb2cf5b043"
+    },
+    {
+      "path": ".work/torus-recovery/mainnet-closeout-runtime.log",
+      "sha256": "d06f872e4b89e9b8de497577779a2e2cb496493e4fa1077b469252c1405d86c3"
+    },
+    {
+      "path": ".work/torus-recovery/mainnet-closeout-backend-status.log",
+      "sha256": "4c51a98b2a4ee000e45b33a6f893a65cfbb2f94ac4a0d2eebf9e3e14f6510e43"
+    },
+    {
+      "path": ".work/torus-recovery/mainnet-closeout-frontend-status.log",
+      "sha256": "38001351d3f7692495d538ee5ed5ecd60e3643f4f5671b4a1e0a764d9772d744"
+    }
+  ]
+}

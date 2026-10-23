@@ -1,0 +1,187 @@
+{
+  "original_branch": "checkpoint/b2z-torus-activation",
+  "original_head": "d491c204e04bc45491ed6146ab274f678cf78757",
+  "staged_files": [
+    "AGENTS.md",
+    "Cargo.lock",
+    "Cargo.toml",
+    "apps/b2z-observer/app.mjs",
+    "apps/b2z-observer/arcade.mjs",
+    "apps/b2z-observer/mainnet.mjs",
+    "apps/b2z-observer/model.mjs",
+    "apps/b2z-observer/play-reference.mjs",
+    "apps/b2z-observer/torus-identity.generated.mjs",
+    "canisters/runtime-lab/Cargo.lock",
+    "canisters/runtime-lab/Cargo.toml",
+    "canisters/runtime-lab/runtime-lab.did",
+    "canisters/runtime-lab/src/lib.rs",
+    "canisters/runtime-lab/src/transition.rs",
+    "docs/specs/B2Z_TORUS_V4.md",
+    "native/Cargo.lock",
+    "native/Cargo.toml",
+    "native/b2z-native/src/migration.rs",
+    "package-lock.json",
+    "package.json",
+    "packages/kernels/b2z/migration.mjs",
+    "tests/js/b2z-torus.test.mjs",
+    "tests/js/observation-v6.test.mjs",
+    "tools/check_source.py",
+    "tools/conformance-native/src/main.rs",
+    "tools/fixtures/dtr-consumer-rust/Cargo.lock",
+    "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+    "tools/fixtures/dtr-consumer-rust/src/main.rs",
+    "tools/generate_economics.mjs",
+    "tools/prepare_mvp_release.py",
+    "tools/replay_s14.mjs",
+    "tools/s09-integration/Cargo.lock",
+    "tools/s09-integration/Cargo.toml",
+    "tools/s09-integration/tests/s14_index.rs",
+    "tools/verify_dtr_consumers.py",
+    "tools/verify_s14_deployment.py",
+    "tools/verify_s14_local.py",
+    "vendor/dtr/README.md",
+    "vendor/dtr/dtr-timeline-runtime-0.13.0.tgz"
+  ],
+  "unstaged_files": [],
+  "untracked_source_files": [],
+  "new_commits_after_interruption": false,
+  "prior_verification": [
+    {
+      "path": ".work/transition/browser-final/browser-http/results.json",
+      "status": "PASS",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/browser-final/verification.json",
+      "status": "PASS",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/cutover-first/results.json",
+      "status": "FAIL",
+      "reason": "host-tests FAIL"
+    },
+    {
+      "path": ".work/transition/cutover-second/results.json",
+      "status": "FAIL",
+      "reason": "harness-build FAIL"
+    },
+    {
+      "path": ".work/transition/cutover-third/results.json",
+      "status": "FAIL",
+      "reason": "installed-index-integration FAIL"
+    },
+    {
+      "path": ".work/transition/dtr-consumers/results.json",
+      "status": "FAIL",
+      "reason": "vendored DTR package integrity does not match package-lock.json"
+    },
+    {
+      "path": ".work/transition/dtr-consumers-final/results.json",
+      "status": "PASS",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/epoch-browser-fixed/results.json",
+      "status": "FAIL",
+      "reason": "installed-index-integration FAIL"
+    },
+    {
+      "path": ".work/transition/integration-final/s14-local/results.json",
+      "status": "FAIL",
+      "reason": "installed-index-integration FAIL"
+    },
+    {
+      "path": ".work/transition/integration-final/verification.json",
+      "status": "FAIL",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/native/verification.json",
+      "status": "FAIL",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/native-final/verification.json",
+      "status": "PASS",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/source-final/verification.json",
+      "status": "PASS",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/source-first/verification.json",
+      "status": "FAIL",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/source-second/verification.json",
+      "status": "PASS",
+      "reason": null
+    },
+    {
+      "path": ".work/transition/torus-local/results.json",
+      "status": "FAIL",
+      "reason": "installed-index-integration FAIL"
+    },
+    {
+      "path": ".work/transition/wasm-final/verification.json",
+      "status": "PASS",
+      "reason": null
+    }
+  ],
+  "recovery_commit": "f576843a96c3fc8296d1f8109cf533072cfce6f1",
+  "self_funding_head": "7e8e2ed7fefaaadedf029e7defe6e85bda8b0aad",
+  "merge_commit": "8f2af4e46a142e1bd0eaf8514e929defddb8d37f",
+  "work_discarded": false,
+  "remote_git_commands": false,
+  "reviewed_at": "2026-10-23T00:22:54.790761+00:00",
+  "preservation_wip_commit": "f576843a96c3fc8296d1f8109cf533072cfce6f1",
+  "self_funding_merge_commit": "8f2af4e46a142e1bd0eaf8514e929defddb8d37f",
+  "self_funding_parent": "7e8e2ed7fefaaadedf029e7defe6e85bda8b0aad",
+  "frozen_implementation_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+  "recovery_refs": [
+    "recovery/b2z-torus-interrupted-20261022",
+    "recovery/b2z-torus-wip-20261022"
+  ],
+  "remote_git_operations": "NONE",
+  "local_commit_inventory": [
+    "96c853752f547a3352a7eab1573478ae2a596271 Measure continuous browser playback from a fresh certified anchor",
+    "5502f7079d5458f0a7414aae5a096597a7f337c3 Reduce browser test recorder load and expose delivery retry telemetry",
+    "0bef7ef240ceab6d45a2b13bf1b161a7869f35af Rebuffer verified playback after an observed operator pause",
+    "6369575ab6de75cd7c496301145ba62b9e127935 Coordinate certified receipt setup before continuous browser measurements",
+    "67316de672715b99dc7fe53c42596f34a37eb55f Capture live seals independently of browser control calls",
+    "37e892ca914e60e1658ca4046f9573f708a4e5eb Update current dependency and combined candidate documentation",
+    "e76abd82972e8540d3a1ade96931c646276846cc Keep PocketIC alive during bounded native replay between IC calls",
+    "8bdd71bc6e4531c6b6bdbab87434c8d8eb3e6f8f Isolate installed test servers and record every active case and server exit",
+    "b1beaf14554c08592e3c51ef6df61b40e21f91bb Align application contract with the authenticated transition candidate",
+    "9a3d6ca3625415422f667d2215d11494036d9b79 Document combined release activation and durable recovery boundaries",
+    "7053e617dc5e27675e126611a1936df68b136076 Exercise disconnected epoch recovery and both pending treasury phases",
+    "bced9c28c56d7c0d3ccd9d4d24967f8b596af990 Complete v7 playback and cover treasury coexistence at the Ledger cutover",
+    "8f2af4e46a142e1bd0eaf8514e929defddb8d37f Merge prelaunch self-funding into authenticated torus transition",
+    "f576843a96c3fc8296d1f8109cf533072cfce6f1 WIP: preserve interrupted authenticated torus transition",
+    "7e8e2ed7fefaaadedf029e7defe6e85bda8b0aad Record local treasury recovery verification and activation boundary",
+    "642d45e8fc461450fb877e20ed2cf61be36d7ac5 Remove needless borrow from funding transfer encoding",
+    "a6f9d4de78c7b29bf13f108ca0b3711b1ef99848 Prepare durable B2Z prelaunch self-funding through official Ledger and CMC"
+  ],
+  "merge_review": {
+    "conflicts_resolved": [
+      "canisters/runtime-lab/runtime-lab.did",
+      "tools/check_source.py",
+      "tools/prepare_mvp_release.py",
+      "tools/s09-integration/tests/s14_index.rs",
+      "tools/verify_s14_local.py"
+    ],
+    "funding_source_blob_unchanged_from_published_branch": "90474138733fe670f82ac0353fbce4627ea83cae",
+    "stable_memory_ids": {
+      "root": 0,
+      "blobs": 1,
+      "retained": 2,
+      "funding": 3
+    },
+    "funding_maintenance_seconds": 300,
+    "source_fallback_seconds": 60
+  }
+}
