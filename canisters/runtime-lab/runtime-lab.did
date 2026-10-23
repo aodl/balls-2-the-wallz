@@ -12,25 +12,27 @@ type ControllerWork = record {
   pending_inputs : nat32;
 };
 type DriverMetrics = record {
-  last_persist_instructions : nat64;
-  last_publish_instructions : nat64;
   last_seal_instructions : nat64;
   last_step_instructions : nat64;
   last_instructions : nat64;
   messages : nat64;
   max_actions : nat32;
-  persist_instructions : nat64;
   seal_instructions : nat64;
   step_instructions : nat64;
   publish_instructions : nat64;
+  last_publish_instructions : nat64;
   max_instructions : nat64;
+  persist_instructions : nat64;
+  last_persist_instructions : nat64;
 };
 type Hint = record {
+  // Funding-selected gameplay target. This is never reduced because of world size.
   nominal_milli : nat32;
+  // Actual scheduler target after the independently measured performance envelope.
   supported_milli : nat32;
-  performance_limited : bool;
   mode : text;
   admission_open : bool;
+  performance_limited : bool;
 };
 type IndexConfig = record {
   receiving_subaccount : nat64;
@@ -42,11 +44,11 @@ type IndexConfig = record {
   index : principal;
 };
 type Observation = record { e8s : nat64; observed_at_ns : nat64 };
-type Observation_1 = record { certificate : opt blob; publication : blob };
 type ObservationBundle = record {
-  observation : Observation_1;
   artifacts : vec blob;
+  observation : Observation_1;
 };
+type Observation_1 = record { certificate : opt blob; publication : blob };
 type Phase = variant {
   NotifyPending : record { block_index : nat64; plan : Plan; attempts : nat64 };
   Idle;
@@ -70,15 +72,15 @@ type Refund = record {
   transfer_block : nat64;
   reason : text;
 };
-type Result = variant { Ok : blob; Err : text };
-type Result_1 = variant { Ok : State; Err : text };
-type Result_2 = variant { Ok : RuntimeDiagnostics; Err : text };
-type Result_3 = variant { Ok : ControllerWork; Err : text };
-type Result_4 = variant { Ok : Status; Err : text };
-type Result_5 = variant { Ok : Observation_1; Err : text };
-type Result_6 = variant { Ok : RetentionStatus; Err : text };
-type Result_7 = variant { Ok : vec blob; Err : text };
-type Result_8 = variant { Ok : ObservationBundle; Err : text };
+type Result = variant { Ok : vec blob; Err : text };
+type Result_1 = variant { Ok : blob; Err : text };
+type Result_2 = variant { Ok : State; Err : text };
+type Result_3 = variant { Ok : RuntimeDiagnostics; Err : text };
+type Result_4 = variant { Ok : ControllerWork; Err : text };
+type Result_5 = variant { Ok : Status; Err : text };
+type Result_6 = variant { Ok : Observation_1; Err : text };
+type Result_7 = variant { Ok : ObservationBundle; Err : text };
+type Result_8 = variant { Ok : RetentionStatus; Err : text };
 type RetainedEntry = record {
   segment_id : nat64;
   bytes : nat64;
@@ -162,28 +164,32 @@ type Status = record {
   publication_hash : text;
 };
 service : (blob, nat64, IndexConfig) -> {
-  artifact_bundle : (nat64, text) -> (Result_7) query;
-  artifact_chunk : (text, nat8, nat16) -> (Result) query;
+  // One bounded query avoids three independent artifact round trips for ordinary
+  // small publications. Larger publications retain the existing chunk fallback.
+  artifact_bundle : (nat64, text) -> (Result) query;
+  artifact_chunk : (text, nat8, nat16) -> (Result_1) query;
   // Derive the new world from the actual durable committed state, once. Expected
   // manifest protects against a stale operator view; there is no arbitrary replacement.
-  commit_torus_transition : (text) -> (Result);
-  controller_funding : () -> (Result_1) query;
-  controller_runtime : () -> (Result_2) query;
-  controller_work : () -> (Result_3) query;
-  lab_status : () -> (Result_4) query;
-  observation : () -> (Result_5) query;
-  observation_bundle : () -> (Result_8) query;
-  pause_autonomous : () -> (Result_4);
+  commit_torus_transition : (text) -> (Result_1);
+  controller_funding : () -> (Result_2) query;
+  controller_runtime : () -> (Result_3) query;
+  controller_work : () -> (Result_4) query;
+  lab_status : () -> (Result_5) query;
+  observation : () -> (Result_6) query;
+  // Returns one atomic certified snapshot and its small public artifacts. The
+  // byte cap keeps the query bounded; clients retain the chunked fallback.
+  observation_bundle : () -> (Result_7) query;
+  pause_autonomous : () -> (Result_5);
   poke : (vec PokeMatch) -> ();
   // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
   // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
-  prepare_torus_transition : () -> (Result);
-  retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result) query;
-  retained_publication : (nat64) -> (Result) query;
-  retention_status : () -> (Result_6) query;
-  set_funding_paused : (bool) -> (Result_1);
+  prepare_torus_transition : () -> (Result_1);
+  retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result_1) query;
+  retained_publication : (nat64) -> (Result_1) query;
+  retention_status : () -> (Result_8) query;
+  set_funding_paused : (bool) -> (Result_2);
   // Hash this descriptor and compare with the certified publication's source_id.
-  source_descriptor : () -> (Result) query;
-  start_autonomous : (RunConfig) -> (Result_4);
-  torus_transition_status : () -> (Result) query;
+  source_descriptor : () -> (Result_1) query;
+  start_autonomous : (RunConfig) -> (Result_5);
+  torus_transition_status : () -> (Result_1) query;
 }
