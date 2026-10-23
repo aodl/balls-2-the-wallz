@@ -27,6 +27,11 @@ one component. A genuinely large severance remains bounded and resumable, with
 deterministic output across work budgets. V5 spawn searches use a fixed,
 deterministic candidate budget rather than scanning one million cells.
 
+V5 publications contain one logical tick. This does not reduce the gameplay
+rate: Normal still schedules one publication per second, and slower funding
+modes schedule the same tick at their stated rate. The one-tick boundary keeps
+the maximum 64-ball verified motion artifact below DTR's fixed 1 MiB limit.
+
 ## Migration and scoring
 
 The v4 base is expanded without moving ownership across an old toroidal seam,

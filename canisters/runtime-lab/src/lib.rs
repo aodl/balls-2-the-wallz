@@ -1393,17 +1393,25 @@ fn retained_artifact_chunk(
 fn start_autonomous(config: RunConfig) -> std::result::Result<Status, String> {
     authorized()?;
     let mut r = root()?;
+    let h = host(&r)?;
+    let world = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
     let current: Publication = decode(&unhex(&r.publication_hex)?)?;
     reconcile_completed_segments(&mut r.run, &current)?;
     let requested = RunState {
-        segment_ticks: config.segment_ticks,
+        // One v5 tick can contain up to 64 balls × ~32 verified crossings.
+        // Keep that worst-case event artifact below DTR's fixed 1 MiB bound.
+        segment_ticks: if world.version == 5 {
+            1
+        } else {
+            config.segment_ticks
+        },
         pacing_seconds: config.pacing_seconds,
         work_budget: config.work_budget,
         ..r.run.clone()
     };
     validate_run(&requested)?;
     if r.run.running {
-        if r.run.segment_ticks != config.segment_ticks
+        if r.run.segment_ticks != requested.segment_ticks
             || r.run.pacing_seconds != config.pacing_seconds
             || r.run.work_budget != config.work_budget
         {
@@ -2023,6 +2031,9 @@ fn commit_million_transition(
     t.metadata_hex = Some(hex(&metadata));
     t.transition_hash = Some(epoch.transition_hash);
     t.previous_manifest = Some(expected_previous_manifest);
+    // V5 publishes one logical tick at a time so a maximum-population motion
+    // artifact remains bounded without changing any mode's tick rate.
+    r.run.segment_ticks = 1;
     r.source.requested = true;
     r = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
     refresh_pace();

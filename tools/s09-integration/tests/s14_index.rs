@@ -192,6 +192,8 @@ fn create_controlled(pic: &PocketIc) -> Principal {
 struct PaceHint {
     mode: String,
     nominal_milli: u32,
+    supported_milli: u32,
+    performance_limited: bool,
     admission_open: bool,
 }
 #[derive(Clone, Debug, CandidType, Deserialize)]
@@ -202,6 +204,7 @@ struct RunStatus {
     running: bool,
     callback_count: u64,
     completed_segments: u64,
+    publication_ticks: Option<u64>,
     last_error: Option<String>,
 }
 #[derive(Clone, CandidType, Deserialize)]
@@ -4462,6 +4465,7 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     assert_eq!(million.received_e8s, old_world.received_e8s);
     assert_eq!(million.cannons.len(), old_world.cannons.len());
     assert_eq!(million.balls.len(), old_world.balls.len());
+    assert_eq!(status(&pic, id).run.publication_ticks, Some(1));
     assert!(million.encode().unwrap().len() < 64 * 1024);
     let completed = transition_view_for(&pic, id, "million_transition_status").unwrap();
     assert_eq!(completed.transition_hash.as_ref(), Some(&epoch.transition_hash));
@@ -4523,6 +4527,65 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     assert_eq!(after.cannons[0].cell, new_target);
     assert_eq!(after.received_e8s, Int(100_020_000u64.into()));
     assert!(status(&pic, id).source.admitted_to_exclusive > new_move);
+
+    // Measure production separately from the nominal UI label. One v5
+    // publication is one logical tick, so segment progress is tick progress.
+    let before = status(&pic, id);
+    let before_cycles = pic.cycle_balance(id);
+    let began = pic.get_time();
+    for _ in 0..15 {
+        tick(&pic);
+    }
+    let measured = status(&pic, id);
+    let elapsed = (pic.get_time().as_nanos_since_unix_epoch()
+        - began.as_nanos_since_unix_epoch()) as f64
+        / 1e9;
+    let ticks = measured.run.completed_segments - before.run.completed_segments;
+    let pace = measured.run.pace.as_ref().unwrap();
+    assert_eq!(pace.mode, "Normal");
+    assert_eq!(pace.nominal_milli, 1000);
+    assert_eq!(pace.supported_milli, 1000);
+    assert!(!pace.performance_limited);
+    assert!(
+        ticks >= 14 && ticks <= 16,
+        "million-cell backend produced {ticks} ticks in {elapsed}s"
+    );
+    let (observation, publication) = observe(&pic, id);
+    let artifact_bytes = publication
+        .artifacts
+        .iter()
+        .map(|artifact| artifact.length)
+        .sum::<usize>();
+    assert!(
+        publication
+            .artifacts
+            .iter()
+            .all(|artifact| artifact.length <= dtr_host::observation::MAX_ARTIFACT)
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("million-performance.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "status":"PASS",
+            "clock":"PocketIC virtual time; not mainnet wall time",
+            "world":[1000,1000],
+            "balls":after.balls.len(),
+            "ticks":ticks,
+            "seconds":elapsed,
+            "ticks_per_second":ticks as f64/elapsed,
+            "cycles":(before_cycles-pic.cycle_balance(id)).to_string(),
+            "publication_bytes":observation.publication.len(),
+            "artifact_bytes":artifact_bytes,
+            "state_bytes":publication.artifacts[0].length,
+            "event_bytes":publication.artifacts[1].length,
+            "score_bytes":publication.artifacts[2].length,
+            "stable_memory_bytes":pic.get_stable_memory(id).len(),
+            "pace":{"mode":pace.mode,"nominal_milli":pace.nominal_milli,"supported_milli":pace.supported_milli,"performance_limited":pace.performance_limited}
+        }))
+        .unwrap(),
+    )
+    .unwrap();
 }
 
 /// Real account history around the global Ledger/Index barrier. No normalized
