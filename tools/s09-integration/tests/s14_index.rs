@@ -4275,6 +4275,48 @@ fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
 #[test]
 #[ignore = "requires exact installed e1e7 torus module"]
 fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
+    fn retained_bytes(pic: &PocketIc, id: Principal) -> BTreeMap<u64, Vec<Vec<u8>>> {
+        #[derive(CandidType, Deserialize)]
+        struct Entry {
+            segment_id: u64,
+        }
+        #[derive(CandidType, Deserialize)]
+        struct Retention {
+            entries: Vec<Entry>,
+        }
+        let retained: Retention = get_query(pic, id, "retention_status", encode_args(()).unwrap());
+        retained
+            .entries
+            .into_iter()
+            .map(|entry| {
+                let raw: Vec<u8> = get_query(
+                    pic,
+                    id,
+                    "retained_publication",
+                    candid::encode_one(entry.segment_id).unwrap(),
+                );
+                let publication: Publication = decode(&raw).unwrap();
+                let mut bytes = vec![raw];
+                for (kind, artifact) in publication.artifacts.iter().enumerate() {
+                    for index in 0..artifact.chunks.len() {
+                        bytes.push(get_query(
+                            pic,
+                            id,
+                            "retained_artifact_chunk",
+                            encode_args((
+                                entry.segment_id,
+                                dtr_wire::hash(&bytes[0]),
+                                kind as u8,
+                                index as u16,
+                            ))
+                            .unwrap(),
+                        ));
+                    }
+                }
+                (entry.segment_id, bytes)
+            })
+            .collect()
+    }
     #[derive(CandidType, Deserialize)]
     struct FundingPause {
         paused: bool,
@@ -4356,6 +4398,7 @@ fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
     let before = arena_world(&pic, id);
     let publication = observe(&pic, id).0.publication;
     let source_cursor = status(&pic, id).source.admitted_to_exclusive;
+    let retained = retained_bytes(&pic, id);
     assert_eq!((before.version, before.width, before.height), (4, 32, 32));
     pic.upgrade_canister(
         id,
@@ -4367,6 +4410,7 @@ fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
     assert_eq!(arena_world(&pic, id), before);
     assert_eq!(observe(&pic, id).0.publication, publication);
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_cursor);
+    assert_eq!(retained_bytes(&pic, id), retained);
     assert!(
         get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
     );
@@ -4405,7 +4449,7 @@ fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
         out.join("pacing-exact-upgrade.json"),
         serde_json::to_vec_pretty(&serde_json::json!({
           "status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_PACING_PRIOR_WASM")),
-          "publication_preserved":true,"source_cursor":source_cursor,"received_e8s":after.received_e8s,
+          "publication_preserved":true,"retained_publications_and_chunks_preserved":retained.len(),"source_cursor":source_cursor,"received_e8s":after.received_e8s,
           "world":[after.width,after.height],"ticks":ticks,"seconds":seconds,"ticks_per_second":rate,
           "mode":pace.mode,"nominal_milli":pace.nominal_milli,"funding_paused":true
         }))
