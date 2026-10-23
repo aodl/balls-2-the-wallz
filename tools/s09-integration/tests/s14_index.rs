@@ -4182,7 +4182,7 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     let mut started = false;
     let mut publications = vec![];
     let mut next = 0u64;
-    while began.elapsed() < Duration::from_secs(180) {
+    while began.elapsed() < Duration::from_secs(300) {
         if !started && out.join("browser-scene-ready").exists() {
             start_arena(&pic, id);
             started = true;

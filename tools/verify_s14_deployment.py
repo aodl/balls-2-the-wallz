@@ -40,7 +40,7 @@ def verify_torus_scene(page,context,out,record,report,save):
     samples=[];start=time.monotonic();report['recording_playback_start_ms']=page.evaluate('performance.now()')
     while time.monotonic()-start<90:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
-    report['scene']={'qualification':'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition','seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED'for x in samples),'nominal_rate':samples[-1]['nominal_rate']}
+    report['scene']={'qualification':'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition','seconds':dt,'verified_ticks_per_second':(samples[-1]['admitted_ticks']-samples[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['played_ticks']-samples[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED'for x in samples),'nominal_rate':samples[-1]['nominal_rate']}
     report['scene']['backend_ticks_per_second']=(samples[-1]['backend_segments']-samples[0]['backend_segments'])*samples[-1]['segment_ticks']/dt
     report['scene']['resyncs']=samples[-1]['resyncs']-samples[0]['resyncs']
     (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));save()

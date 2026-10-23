@@ -211,10 +211,12 @@ async function admitLive(s,ticket){
     updatePlayReference(s,world,artifacts.events);
     Object.assign(globalThis.__dtrLive,{resyncs:s.resyncs,skipped:true});globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));return;
   }
-  const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);if(!active(s))return;
+  const deriving=performance.now();
+  const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);s.deriveMs=performance.now()-deriving;if(!active(s))return;
   if(segment.start!==s.clock.available)throw new Error('live timeline gap');
   if(s.bytes+segment.bytes>8*1024*1024)throw new Error('observer buffer byte capacity');
   s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
+  s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
   updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
   globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
@@ -407,7 +409,9 @@ function frame(now){
     // future empty segments. Use the existing clock API, with no extrapolation.
     prepareIdlePlayout(s,idleState(s));
     const target=s.mode==='live'?nominalPace(s.operational):speed;s.nominalRate=approachPace(s.nominalRate??target,target,dt);
+    const previous=s.clock.playhead;
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
+    s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
     function show(q,time){
       if(!q.presented){q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
       visible=q.player.advance(time);
@@ -416,7 +420,7 @@ function frame(now){
     if(s.queue.length)show(s.queue[0],visibleTime);
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
