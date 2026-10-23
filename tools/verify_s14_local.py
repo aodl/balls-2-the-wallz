@@ -61,6 +61,7 @@ def main():
     p.add_argument('--arena-prior-test-wasm',type=Path,help='Prior disposable idle test-hooks module for unfinished segment recovery')
     p.add_argument('--arena-prior-wasm',type=Path,help='Exact deployed 1510d8 module for producer/pace upgrade')
     p.add_argument('--torus-prior-wasm',type=Path,help='Exact installed 53b219 module for paid v3→v4 epoch transition')
+    p.add_argument('--million-prior-wasm',type=Path,help='Exact installed e1e7b4 torus module for v4→v5 upgrade and epoch transition')
     p.add_argument('--funding-prior-wasm',type=Path,help='Exact installed 53b219 module for funding state-preserving upgrade')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
@@ -135,6 +136,9 @@ def main():
         if a.torus_prior_wasm:
             if hashlib.sha256(a.torus_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('torus transition requires exact installed 53b219 module')
             env['B2Z_TORUS_PRIOR_WASM']=str(a.torus_prior_wasm.resolve())
+        if a.million_prior_wasm:
+            if hashlib.sha256(a.million_prior_wasm.read_bytes()).hexdigest()!='e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac':raise ValueError('million transition requires exact installed e1e7b4 module')
+            env['B2Z_MILLION_PRIOR_WASM']=str(a.million_prior_wasm.resolve())
         if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
@@ -167,7 +171,10 @@ def main():
                 finally:
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
-        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm))
+        multi_epoch_development=a.test_filter=='million_paid_v4_cutover_preserves_state_and_uses_second_epoch'
+        if multi_epoch_development and os.environ.get('S14_DTR_REVISION')!='e1bfcf25071d11190d14f461288e12a21ca26cf8':
+            raise RuntimeError('million-cell transition test requires the reviewed DTR multi-epoch development revision')
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or multi_epoch_development)
         if not a.test_filter:
             cutover_test='funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification'
             installed_suite('installed-funding-integration',['funding_tests::','--skip',cutover_test])

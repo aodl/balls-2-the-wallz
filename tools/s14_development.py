@@ -5,6 +5,7 @@ No Git/network operation, URL rewrite or permanent path dependency is installed.
 Run commands after `--`; Cargo receives an explicit command-scoped patch file.
 """
 import argparse
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -30,9 +31,15 @@ def main():
         config=Path(directory)/'patch.toml'
         config.write_text('[patch."https://github.com/aodl/dtr.git"]\n'+''.join(f'{name} = {{ path = "{dtr}/crates/{name}" }}\n' for name in ['dtr-core','dtr-source-model','dtr-host','dtr-wire']))
         try:
-            # Deliberate temporary resolution; all actual checks still use --locked.
+            # Deliberate temporary resolution. A new unpublished DTR version is
+            # not selected from an older lock merely because a patch exists, so
+            # refresh each disposable lock first and then require --locked.
             for manifest in ['Cargo.toml','native/Cargo.toml','canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml']:
-                subprocess.run(['cargo','--config',str(config),'metadata','--format-version','1','--offline','--manifest-path',manifest],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+                subprocess.run(['cargo','--config',str(config),'update','--offline','--manifest-path',manifest],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+                metadata=json.loads(subprocess.check_output(['cargo','--config',str(config),'metadata','--locked','--format-version','1','--offline','--manifest-path',manifest],cwd=ROOT,text=True))
+                used=[Path(package['manifest_path']).resolve() for package in metadata['packages'] if package['name'] in {'dtr-core','dtr-source-model','dtr-host','dtr-wire'}]
+                if not used or any(dtr not in path.parents for path in used):
+                    raise SystemExit(f'unpublished DTR override was not used by {manifest}')
             env={**os.environ,'S14_DTR_CONFIG':str(config),'S14_DTR_REVISION':actual}
             if command[:2]==['cargo','clippy']:command=['cargo','clippy','--config',str(config),*command[2:]]
             elif command[0]=='cargo':command=[command[0],'--config',str(config),*command[1:]]

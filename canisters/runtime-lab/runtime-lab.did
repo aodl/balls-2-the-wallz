@@ -164,6 +164,9 @@ type Status = record {
 service : (blob, nat64, IndexConfig) -> {
   artifact_bundle : (nat64, text) -> (Result_7) query;
   artifact_chunk : (text, nat8, nat16) -> (Result) query;
+  // Commit the reviewed compact 1000×1000 state through DTR's generic next
+  // epoch operation. No state or identity is accepted from the caller.
+  commit_million_transition : (text) -> (Result);
   // Derive the new world from the actual durable committed state, once. Expected
   // manifest protects against a stale operator view; there is no arbitrary replacement.
   commit_torus_transition : (text) -> (Result);
@@ -171,10 +174,14 @@ service : (blob, nat64, IndexConfig) -> {
   controller_runtime : () -> (Result_2) query;
   controller_work : () -> (Result_3) query;
   lab_status : () -> (Result_4) query;
+  million_transition_status : () -> (Result) query;
   observation : () -> (Result_5) query;
   observation_bundle : () -> (Result_8) query;
   pause_autonomous : () -> (Result_4);
   poke : (vec PokeMatch) -> ();
+  // Begins only the reviewed v4→v5 cutover. The existing v3→v4 evidence is
+  // retained independently, and the worker obtains fresh global watermarks.
+  prepare_million_transition : () -> (Result);
   // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
   // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
   prepare_torus_transition : () -> (Result);

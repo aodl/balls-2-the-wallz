@@ -142,6 +142,8 @@ struct Root {
     retention: RetentionState,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     world_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    million_transition: Option<transition::Transition>,
 }
 #[derive(Clone, CandidType, Deserialize)]
 struct RunConfig {
@@ -230,6 +232,39 @@ fn number(value: &Int) -> AppResult<u64> {
         .parse()
         .map_err(|_| "unsigned 64-bit field".into())
 }
+fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
+    let old = r.world_transition.as_ref().filter(|t| t.holding());
+    let million = r.million_transition.as_ref().filter(|t| t.holding());
+    match (old, million) {
+        (Some(_), Some(_)) => Err("multiple active world transitions".into()),
+        (Some(t), None) | (None, Some(t)) => Ok(Some(t)),
+        (None, None) => Ok(None),
+    }
+}
+fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Transition>> {
+    let old = r.world_transition.as_ref().is_some_and(|t| t.holding());
+    let million = r.million_transition.as_ref().is_some_and(|t| t.holding());
+    match (old, million) {
+        (true, true) => Err("multiple active world transitions".into()),
+        (true, false) => Ok(r.world_transition.as_mut()),
+        (false, true) => Ok(r.million_transition.as_mut()),
+        (false, false) => Ok(None),
+    }
+}
+fn transition_evidence<'a>(
+    r: &'a Root,
+    transition_hash: &str,
+) -> AppResult<&'a transition::Transition> {
+    let matches = [r.world_transition.as_ref(), r.million_transition.as_ref()]
+        .into_iter()
+        .flatten()
+        .filter(|t| t.phase == "complete" && t.transition_hash.as_deref() == Some(transition_hash))
+        .collect::<Vec<_>>();
+    if matches.len() != 1 {
+        return Err("epoch missing unique application transition evidence".into());
+    }
+    Ok(matches[0])
+}
 fn publication_segment(publication: &Publication) -> AppResult<Option<u64>> {
     publication.head.segment_id.as_ref().map(number).transpose()
 }
@@ -238,9 +273,15 @@ fn reconcile_completed_segments(run: &mut RunState, publication: &Publication) -
         .map(|segment| segment.checked_add(1).ok_or("autonomous segment counter"))
         .transpose()?
         .unwrap_or(0);
-    if publication.epoch.is_some() {
-        committed = committed.checked_sub(1).ok_or("epoch ordinal")?;
-    }
+    let epoch_checkpoints = match publication.version {
+        6 => 0,
+        7 => 1,
+        8 => 2,
+        _ => return Err("publication version".into()),
+    };
+    committed = committed
+        .checked_sub(epoch_checkpoints)
+        .ok_or("epoch ordinal")?;
     if run.completed_segments > committed {
         return Err("autonomous/publication segment divergence".into());
     }
@@ -318,6 +359,17 @@ fn root() -> AppResult<Root> {
     if let Some(t) = &r.world_transition {
         t.validate()?;
     }
+    if let Some(t) = &r.million_transition {
+        t.validate()?;
+        if !r
+            .world_transition
+            .as_ref()
+            .is_some_and(|old| old.phase == "complete")
+        {
+            return Err("million transition requires completed torus epoch".into());
+        }
+    }
+    active_transition(&r)?;
     if r.version != 7 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_ARTIFACT {
         return Err(
             "incompatible index application schema; no implicit lab-state migration".into(),
@@ -327,7 +379,7 @@ fn root() -> AppResult<Root> {
     let pb = unhex(&r.publication_hex)?;
     let p: Publication = decode(&pb)?;
     if hash(&pb) != r.publication_hash
-        || !matches!(p.version, 6 | 7)
+        || !matches!(p.version, 6 | 7 | 8)
         || p.render_format.is_some()
         || p.chunk_bytes != CHUNK
         || p.artifacts.len() != 3
@@ -335,11 +387,7 @@ fn root() -> AppResult<Root> {
         return Err("publication root mismatch".into());
     }
     if let Some(e) = &p.epoch {
-        let t = r
-            .world_transition
-            .as_ref()
-            .filter(|t| t.phase == "complete")
-            .ok_or("epoch missing application transition evidence")?;
+        let t = transition_evidence(&r, &e.transition_hash)?;
         if t.transition_hash.as_ref() != Some(&e.transition_hash)
             || hash(&unhex(
                 t.metadata_hex
@@ -349,10 +397,10 @@ fn root() -> AppResult<Root> {
         {
             return Err("application transition metadata commitment".into());
         }
-    } else if r
-        .world_transition
-        .as_ref()
-        .is_some_and(|t| t.phase == "complete")
+    } else if [r.world_transition.as_ref(), r.million_transition.as_ref()]
+        .into_iter()
+        .flatten()
+        .any(|t| t.phase == "complete")
     {
         return Err("transition missing authenticated epoch".into());
     }
@@ -456,7 +504,7 @@ fn status(r: &Root) -> Status {
             pace: PACE.with(|p| p.borrow().hint()),
             running: r.run.running,
             idle: r.run.running && ARENA_IDLE.with(Cell::get),
-            world_transition: r.world_transition.as_ref().is_some_and(|t| t.holding()),
+            world_transition: active_transition(r).is_ok_and(|t| t.is_some()),
             generation: r.run.generation,
             segment_ticks: r.run.segment_ticks,
             publication_ticks: PACE.with(|p| p.borrow().publication_ticks(r.run.segment_ticks)),
@@ -494,10 +542,18 @@ fn runtime_needs_simulation(
     t: Option<&transition::Transition>,
 ) -> AppResult<bool> {
     if t.is_some_and(|t| t.holding()) {
+        let pending_world_work = if t.is_some_and(|t| t.version == 2) {
+            !World::decode(&unhex(&h.record.journal.head.state_hex)?)?
+                .pending
+                .is_empty()
+        } else {
+            false
+        };
         return Ok(h.record.journal.stage.is_some()
             || !h.record.inbox.pending.is_empty()
             || h.record.inbox.cursor != h.record.inbox.retired_to
-            || h.record.journal.head.seal.is_none());
+            || h.record.journal.head.seal.is_none()
+            || pending_world_work);
     }
     needs_simulation(h)
 }
@@ -518,7 +574,8 @@ fn persist_inner(
     run: RunState,
     update_certified_data: bool,
 ) -> AppResult<Root> {
-    let idle = !runtime_needs_simulation(h, old.and_then(|r| r.world_transition.as_ref()))?;
+    let transition = old.map(active_transition).transpose()?.flatten();
+    let idle = !runtime_needs_simulation(h, transition)?;
     let image = h.snapshot()?;
     let image_descriptor = describe(&image)?;
     let view = publication(&h.record)?;
@@ -596,6 +653,7 @@ fn persist_inner(
         run,
         retention,
         world_transition: old.and_then(|r| r.world_transition.clone()),
+        million_transition: old.and_then(|r| r.million_transition.clone()),
     };
     let root_bytes = encode(&r)?;
     if root_bytes.len() > ROOT_LIMIT {
@@ -739,7 +797,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     }
     let now = ic_cdk::api::time();
     let mut h = host(&r)?;
-    if !runtime_needs_simulation(&h, r.world_transition.as_ref())? {
+    if !runtime_needs_simulation(&h, active_transition(&r)?)? {
         ARENA_IDLE.with(|f| f.set(true));
         clear_run_timer();
         return Ok(());
@@ -992,7 +1050,7 @@ fn post_upgrade() {
             )?;
         }
         reconcile_completed_segments(&mut r.run, &view.data)?;
-        let idle = !runtime_needs_simulation(&h, r.world_transition.as_ref())?;
+        let idle = !runtime_needs_simulation(&h, active_transition(&r)?)?;
         ARENA_IDLE.with(|flag| flag.set(idle));
         r.source.in_flight = false;
         r.source.started_at = 0;
@@ -1469,10 +1527,13 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
         return Ok(None);
     }
     r.source.wake_scheduled = false;
-    if r.world_transition
-        .as_ref()
-        .is_some_and(|t| t.phase == "ready")
-    {
+    let transition_phase = active_transition(&r)?.map(|t| t.phase.clone());
+    let transition_cutover = active_transition(&r)?
+        .filter(|t| t.phase == "drain")
+        .and_then(|t| t.ledger_cutover.as_ref())
+        .map(number)
+        .transpose()?;
+    if transition_phase.as_deref() == Some("ready") {
         save_root_only(&r)?;
         return Ok(None);
     }
@@ -1491,13 +1552,12 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
     let lease = Lease {
         nonce: r.source.nonce,
         index: Principal::from_text(&r.source.index).map_err(|e| e.to_string())?,
-        before: r.source.pending.as_ref().map(|p| p.before).or(r
-            .world_transition
+        before: r
+            .source
+            .pending
             .as_ref()
-            .filter(|t| t.phase == "drain")
-            .and_then(|t| t.ledger_cutover.as_ref())
-            .map(number)
-            .transpose()?),
+            .map(|p| p.before)
+            .or(transition_cutover),
     };
     save_root_only(&r)?;
     Ok(Some(lease))
@@ -1525,8 +1585,11 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     }
     let mut next = r.source.clone();
     if let Some(page) = page {
-        if let Some(t) = r.world_transition.as_ref().filter(|t| t.phase == "drain") {
-            let cutover = number(t.ledger_cutover.as_ref().ok_or("Ledger cutover")?)?;
+        let cutover = active_transition(&r)?
+            .filter(|t| t.phase == "drain")
+            .map(|t| number(t.ledger_cutover.as_ref().ok_or("Ledger cutover")?))
+            .transpose()?;
+        if let Some(cutover) = cutover {
             if page.transactions.iter().any(|tx| tx.id >= cutover) {
                 return Err("Index exceeded reviewed cutover".into());
             }
@@ -1536,7 +1599,9 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
                 next.started_at = 0;
                 next.last_error = None;
                 r.source = next;
-                r.world_transition.as_mut().unwrap().phase = "ready".into();
+                active_transition_mut(&mut r)?
+                    .ok_or("missing active cutover")?
+                    .phase = "ready".into();
                 save_root_only(&r)?;
                 return Ok(());
             }
@@ -1569,12 +1634,12 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         r.source = next;
         save_root_only(&r)?;
     }
-    if r.world_transition
-        .as_ref()
-        .is_some_and(|t| t.phase == "drain")
+    if active_transition(&r)?.is_some_and(|t| t.phase == "drain")
         && r.source.pending.is_none()
     {
-        r.world_transition.as_mut().unwrap().phase = "ready".into();
+        active_transition_mut(&mut r)?
+            .ok_or("missing active cutover")?
+            .phase = "ready".into();
         save_root_only(&r)?;
     }
     if r.source.requested || r.source.pending.is_some() {
@@ -1610,8 +1675,7 @@ async fn reconcile() -> AppResult<()> {
         if !matches_lease(&r.source, &lease) {
             return Ok(());
         }
-        if r.world_transition
-            .as_ref()
+        if active_transition(&r)?
             .is_some_and(|t| t.phase == "ledger" || t.phase == "index")
         {
             return measure_cutover(&lease).await;
@@ -1670,7 +1734,7 @@ struct IndexWatermark {
 }
 async fn measure_cutover(lease: &Lease) -> AppResult<()> {
     let r = root()?;
-    let t = r.world_transition.as_ref().ok_or("missing world cutover")?;
+    let t = active_transition(&r)?.ok_or("missing world cutover")?;
     let phase = t.phase.clone();
     let observed = if phase == "ledger" {
         let ledger = Principal::from_text(&r.source.ledger).map_err(|e| e.to_string())?;
@@ -1702,12 +1766,13 @@ async fn measure_cutover(lease: &Lease) -> AppResult<()> {
     if !matches_lease(&r.source, lease) {
         return Ok(());
     }
-    let t = r.world_transition.as_mut().ok_or("missing world cutover")?;
+    let source_cursor = r.source.cursor;
+    let t = active_transition_mut(&mut r)?.ok_or("missing world cutover")?;
     if t.phase != phase {
         return Err("world cutover phase changed".into());
     }
     let advanced = if phase == "ledger" {
-        if observed < r.source.cursor {
+        if observed < source_cursor {
             return Err("Ledger tip below admitted account cursor".into());
         }
         t.ledger_cutover = Some(Int(observed.into()));
@@ -1764,7 +1829,8 @@ fn prepare_torus_transition() -> std::result::Result<Vec<u8>, String> {
     save_root_only(&r)?;
     ARENA_IDLE.with(|f| {
         f.set(
-            !runtime_needs_simulation(&h, r.world_transition.as_ref()).expect("validated runtime"),
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
         )
     });
     install_run_timer(&r.run);
@@ -1788,12 +1854,34 @@ fn commit_torus_transition(
     }
     let mut r = root()?;
     let mut h = host(&r)?;
-    if let Some(e) = &h.record.journal.epoch {
-        let previous = e.validate()?;
-        if previous.head.manifest_hash != expected_previous_manifest {
+    let t = r
+        .world_transition
+        .as_ref()
+        .ok_or("prepare reviewed cutover first")?;
+    if t.phase == "complete" {
+        let e = h
+            .record
+            .journal
+            .epoch
+            .as_ref()
+            .ok_or("completed transition missing epoch")?;
+        if t.transition_hash.as_ref() != Some(&e.transition_hash) {
+            return Err("torus transition has been superseded".into());
+        }
+        e.validate()?;
+        let previous_manifest = if let Some(manifest) = &t.previous_manifest {
+            manifest.clone()
+        } else {
+            let previous: Publication = decode(&unhex(&e.previous_publication_hex)?)?;
+            previous.head.manifest_hash
+        };
+        if previous_manifest != expected_previous_manifest {
             return Err("conflicting transition retry".into());
         }
         return encode(&r.world_transition);
+    }
+    if h.record.journal.epoch.is_some() {
+        return Err("unexpected authenticated epoch before torus transition".into());
     }
     if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
         return Err("insufficient liquid cycles for safe transition".into());
@@ -1801,10 +1889,6 @@ fn commit_torus_transition(
     if h.record.journal.head.manifest_hash != expected_previous_manifest {
         return Err("old committed manifest changed".into());
     }
-    let t = r
-        .world_transition
-        .as_ref()
-        .ok_or("prepare reviewed cutover first")?;
     let (output, metadata, identity) = transition::candidate(&h, t, &r.source)?;
     let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
     h.apply(Action::Transition {
@@ -1817,12 +1901,134 @@ fn commit_torus_transition(
     t.phase = "complete".into();
     t.metadata_hex = Some(hex(&metadata));
     t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
     r.source.requested = true;
     r = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
     refresh_pace();
     install_run_timer(&r.run);
     request_reconciliation()?;
     encode(&r.world_transition)
+}
+
+/// Begins only the reviewed v4→v5 cutover. The existing v3→v4 evidence is
+/// retained independently, and the worker obtains fresh global watermarks.
+#[ic_cdk::update]
+fn prepare_million_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.million_transition {
+        return encode(t);
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let old_transition = r
+        .world_transition
+        .as_ref()
+        .filter(|t| t.phase == "complete")
+        .ok_or("authenticated v4 transition evidence required")?;
+    let old_epoch = h
+        .record
+        .journal
+        .epoch
+        .as_ref()
+        .filter(|e| old_transition.transition_hash.as_ref() == Some(&e.transition_hash))
+        .ok_or("current v4 epoch does not match application evidence")?;
+    old_epoch.validate()?;
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 4 || w.width != 32 || w.height != 32 {
+        return Err("only reviewed v4 torus can transition".into());
+    }
+    let expected = b2z_native::torus_identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("unexpected v4 world identity".into());
+    }
+    if r.source.in_flight || r.source.pending.is_some() {
+        return Err("finish existing source reconciliation before cutover".into());
+    }
+    r.million_transition = Some(transition::Transition::million());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(r.million_transition.as_ref().unwrap())
+}
+
+#[ic_cdk::query]
+fn million_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    encode(&root()?.million_transition)
+}
+
+/// Commit the reviewed compact 1000×1000 state through DTR's generic next
+/// epoch operation. No state or identity is accepted from the caller.
+#[ic_cdk::update]
+fn commit_million_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .million_transition
+        .as_ref()
+        .ok_or("prepare reviewed million-cell cutover first")?;
+    if t.phase == "complete" {
+        let e = h
+            .record
+            .journal
+            .epoch
+            .as_ref()
+            .ok_or("completed transition missing epoch")?;
+        if t.transition_hash.as_ref() != Some(&e.transition_hash)
+            || t.previous_manifest.as_deref() != Some(&expected_previous_manifest)
+        {
+            return Err("conflicting transition retry".into());
+        }
+        e.validate()?;
+        return encode(&r.million_transition);
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let (output, metadata, identity) = transition::million_candidate(&h, t, &r.source)?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.million_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    r.source.requested = true;
+    r = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.million_transition)
 }
 
 // CDK runs the guard before Candid argument decoding. Bound ingress bytes too;
@@ -2085,6 +2291,7 @@ mod tests {
             index_synced: Some(Int(100.into())),
             metadata_hex: None,
             transition_hash: None,
+            previous_manifest: None,
         };
         let (output, metadata, identity) = transition::candidate(&h, &t, &source).unwrap();
         let old = World::decode(&unhex(&h.record.journal.head.state_hex).unwrap()).unwrap();

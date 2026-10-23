@@ -3230,7 +3230,16 @@ fn cost_window(pic: &PocketIc, id: Principal, label: &str, seconds: u64) -> serd
 }
 #[test]
 fn empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation() {
-    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_S14_WASM"));
+    let prior = std::env::var("B2Z_MILLION_PRIOR_WASM")
+        .map(|path| std::fs::read(path).unwrap())
+        .unwrap_or_else(|_| bytes("B2Z_S14_WASM"));
+    if std::env::var("B2Z_MILLION_PRIOR_WASM").is_ok() {
+        assert_eq!(
+            dtr_wire::hash(&prior),
+            "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac"
+        );
+    }
+    let (pic, id, ledger, payer) = arena_setup(prior);
     start_arena(&pic, id);
     let before = status(&pic, id);
     let publication = observe(&pic, id).0.publication;
@@ -4252,7 +4261,10 @@ struct TransitionView {
     transition_hash: Option<String>,
 }
 fn transition_view(pic: &PocketIc, id: Principal) -> Option<TransitionView> {
-    let bytes: Vec<u8> = get_query(pic, id, "torus_transition_status", encode_args(()).unwrap());
+    transition_view_for(pic, id, "torus_transition_status")
+}
+fn transition_view_for(pic: &PocketIc, id: Principal, method: &str) -> Option<TransitionView> {
+    let bytes: Vec<u8> = get_query(pic, id, method, encode_args(()).unwrap());
     decode(&bytes).unwrap()
 }
 fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
@@ -4267,6 +4279,252 @@ fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
         && observe(pic, id).1.head.source_to_exclusive
             == Int(status(pic, id).source.admitted_to_exclusive.into())
 }
+
+/// This is deliberately explicit until the committed generic DTR multi-epoch
+/// revision is published and B2Z can replace its immutable 0.13 pins.
+#[test]
+#[ignore = "requires unpublished DTR 0.14 multi-epoch development override"]
+fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    assert_eq!(
+        std::env::var("S14_DTR_REVISION").unwrap(),
+        "e1bfcf25071d11190d14f461288e12a21ca26cf8"
+    );
+    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_S14_WASM"));
+    let funding: FundingPause = get_result(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(true).unwrap(),
+    );
+    assert!(funding.paused);
+    start_arena(&pic, id);
+    let join = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..240 {
+        tick(&pic);
+        let world = arena_world(&pic, id);
+        if world.received_e8s == Int(100_000_000u64.into())
+            && status(&pic, id).source.admitted_to_exclusive > join
+        {
+            break;
+        }
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let paid_v3 = arena_world(&pic, id);
+    assert_eq!(paid_v3.cannons.len(), 1);
+    assert_eq!(paid_v3.received_e8s, Int(100_000_000u64.into()));
+
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_torus_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    start_arena(&pic, id);
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase == "ready"
+            && transition_drained(&pic, id)
+        {
+            break;
+        }
+    }
+    assert_eq!(transition_view(&pic, id).unwrap().phase, "ready");
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_torus_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    assert_eq!(observe(&pic, id).1.version, 7);
+
+    // A second epoch needs a committed successor to the first checkpoint.
+    for _ in 0..240 {
+        tick(&pic);
+        if observe(&pic, id).1.head.seal.is_some() {
+            break;
+        }
+    }
+    assert!(observe(&pic, id).1.head.seal.is_some());
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let before_upgrade = arena_world(&pic, id);
+    let publication_before_upgrade = observe(&pic, id).0.publication;
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(arena_world(&pic, id), before_upgrade);
+    assert_eq!(observe(&pic, id).0.publication, publication_before_upgrade);
+    assert!(get_query::<FundingPause>(
+        &pic,
+        id,
+        "controller_funding",
+        encode_args(()).unwrap()
+    )
+    .paused);
+    let before_old_move = arena_world(&pic, id);
+    let cannon = before_old_move.cannons[0].clone();
+    let old_target = before_old_move
+        .cells
+        .iter()
+        .enumerate()
+        .find(|(cell, owner)| **owner == cannon.id && *cell != cannon.cell)
+        .unwrap()
+        .0;
+    let old_move = transfer_text(
+        &pic,
+        ledger,
+        payer,
+        id,
+        10_000,
+        format!("MOVE {old_target}").as_bytes(),
+    );
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_million_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    start_arena(&pic, id);
+    for _ in 0..360 {
+        tick(&pic);
+        let transition = transition_view_for(&pic, id, "million_transition_status").unwrap();
+        if transition.phase == "ready"
+            && transition_drained(&pic, id)
+            && arena_world(&pic, id).pending.is_empty()
+        {
+            break;
+        }
+    }
+    let transition = transition_view_for(&pic, id, "million_transition_status").unwrap();
+    assert_eq!(transition.version, 2);
+    assert_eq!(transition.phase, "ready");
+    let source_boundary = status(&pic, id).source.admitted_to_exclusive;
+    assert!(source_boundary > old_move);
+    let old_world = arena_world(&pic, id);
+    assert_eq!(old_world.version, 4);
+    assert_eq!(old_world.cannons[0].cell, old_target);
+    let predecessor = observe(&pic, id).1;
+    let expected = b2z_native::migration::stage_million_world(&old_world).unwrap();
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_million_transition",
+        candid::encode_one(predecessor.head.manifest_hash.clone()).unwrap(),
+    );
+    let checkpoint_bytes = observe(&pic, id).0.publication;
+    let checkpoint = observe(&pic, id).1;
+    let epoch = checkpoint.epoch.as_ref().unwrap();
+    assert_eq!(checkpoint.version, 8);
+    assert_eq!(epoch.version, 2);
+    assert_eq!(epoch.source_cursor, Int(source_boundary.into()));
+    let million = arena_world(&pic, id);
+    assert_eq!(million, expected);
+    assert_eq!((million.width, million.height), (1000, 1000));
+    assert_eq!(million.cell_count(), 1_000_000);
+    assert!(million.cells.is_empty());
+    assert_eq!(million.credits, old_world.credits);
+    assert_eq!(million.received_e8s, old_world.received_e8s);
+    assert_eq!(million.cannons.len(), old_world.cannons.len());
+    assert_eq!(million.balls.len(), old_world.balls.len());
+    assert!(million.encode().unwrap().len() < 64 * 1024);
+    let completed = transition_view_for(&pic, id, "million_transition_status").unwrap();
+    assert_eq!(completed.transition_hash.as_ref(), Some(&epoch.transition_hash));
+    assert_eq!(
+        dtr_wire::hash(&unhex(completed.metadata_hex.as_ref().unwrap()).unwrap()),
+        epoch.metadata_hash
+    );
+
+    // The exact retry is idempotent, including after an in-place upgrade.
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_million_transition",
+        candid::encode_one(predecessor.head.manifest_hash.clone()).unwrap(),
+    );
+    assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(arena_world(&pic, id), million);
+    assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
+    assert!(get_query::<FundingPause>(
+        &pic,
+        id,
+        "controller_funding",
+        encode_args(()).unwrap()
+    )
+    .paused);
+
+    // A post-cutover MOVE uses the million-cell coordinate space exactly once.
+    let cannon = million.cannons[0].clone();
+    let new_target = (1..million.cell_count())
+        .map(|offset| (cannon.cell + offset) % million.cell_count())
+        .find(|cell| million.owner(*cell) == Some(cannon.id))
+        .unwrap();
+    let new_move = transfer_text(
+        &pic,
+        ledger,
+        payer,
+        id,
+        10_000,
+        format!("MOVE {new_target}").as_bytes(),
+    );
+    start_arena(&pic, id);
+    for _ in 0..360 {
+        tick(&pic);
+        let world = arena_world(&pic, id);
+        if status(&pic, id).source.admitted_to_exclusive > new_move
+            && world.cannons[0].cell == new_target
+        {
+            break;
+        }
+    }
+    let after = arena_world(&pic, id);
+    assert_eq!(after.cannons[0].cell, new_target);
+    assert_eq!(after.received_e8s, Int(100_020_000u64.into()));
+    assert!(status(&pic, id).source.admitted_to_exclusive > new_move);
+}
+
 /// Real account history around the global Ledger/Index barrier. No normalized
 /// payment injection, no canister reset, and replay uses this run's exact seals.
 #[test]
