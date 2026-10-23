@@ -1,3 +1,40 @@
+# Current activation — blocked by replica installation cycles
+
+**2026-10-23:** the user authorized exact release `4c0cfa6`, torus activation and
+fixed CMC self-funding. CI run [39908809597](https://github.com/aodl/balls-2-the-wallz/actions/runs/39908809597)
+completed successfully at that exact commit, including installed-IC integration.
+Frozen Wasm/Candid/export inventory and all production frontend asset hashes
+were verified before the mainnet attempt.
+
+Gameplay was paused and its certified publication plus all three retained
+publications/artifacts captured. The replica rejected the exact approved upgrade
+with **IC0207**, requiring **at least 144,415,141,736 additional cycles** at that
+attempt. The application 500B transition floor passed; the replica installation
+reservation is separate. The attempt consumed cycles, so the quoted shortfall
+is not a guaranteed later retry amount. No protection threshold or canister
+setting was changed and no cycles were transferred.
+
+**The old backend `53b219…` remains installed.** Certified world, scores, events,
+source progress, current/retained bytes, pending work and controllers compare
+equal before/after rejection. World stays v3 16×8 with its paid cannon/ball,
+received 1 ICP, cursor 39,526,412. Gameplay is deliberately **paused**; independent
+source polling remains active. Post-rejection total/liquid balances were
+992,328,967,216 / 860,372,873,626 cycles. Recheck before a later retry.
+
+Immediate treasury pause/verification calls were attempted; both correctly
+reported missing methods on the predecessor. The new treasury is not installed.
+No frontend upload, transition prepare/commit, funding activation, ICP transfer,
+CMC notification, reset/reinstall, controller change or remote Git operation
+occurred. The Ledger still holds 1 ICP; fee remains 10,000 e8s. External cycles
+are required before resuming the approved sequence; no manual replacement
+ICP/CMC transfer was attempted.
+
+[Reviewed rejection and complete preservation evidence](evidence/B2Z/torus-activation/blocker.json).
+Raw operations remain under `.work/torus-activation/`. The combined local
+verification and frozen release below remain unchanged.
+
+---
+
 # Current candidate — authenticated torus and treasury combined, locally verified
 
 **2026-10-23:** interrupted transition work was preserved in WIP `f576843`, then

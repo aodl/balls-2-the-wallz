@@ -1,0 +1,290 @@
+{
+  "status": "BLOCKED_FUNDING",
+  "recorded_at": "2026-10-23T06:30:32.789308+00:00",
+  "approved_release_commit": "4c0cfa61c2bb38d6103b2c07aa1eadac3e8983ae",
+  "frozen_implementation_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+  "ci": {
+    "run": {
+      "id": 39908809597,
+      "head_sha": "4c0cfa61c2bb38d6103b2c07aa1eadac3e8983ae",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/39908809597",
+      "run_attempt": 1
+    },
+    "jobs": [
+      {
+        "id": 120266798031,
+        "name": "S14 index, filtered poke, fallback and upgrade",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798241,
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798307,
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798337,
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798352,
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798375,
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798387,
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "production_inventory_job": "Informational outstanding-production inventory, not executed production evidence"
+  },
+  "approved_artifacts": {
+    "normal_wasm_sha256": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+    "backend_manifest": "evidence/B2Z/transition-release/backend-frozen.json",
+    "frontend_manifest": "evidence/B2Z/transition-release/frontend-frozen.json",
+    "all_frozen_files_candid_and_normal_exports_verified": true,
+    "frontend_deployed": false
+  },
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "frontend": "s45ab-wiaaa-aaaar-qcifq-cai",
+  "actions": {
+    "pause_autonomous": "SUCCESS",
+    "backend_upgrade": "REJECTED_IC0207_SYS_TRANSIENT_INSUFFICIENT_CYCLES",
+    "immediate_treasury_pause": "ATTEMPTED; old module has no set_funding_paused method",
+    "treasury_verification": "Old module has no controller_funding method; new worker not installed",
+    "frontend_upload": "NOT_RUN",
+    "prepare_torus_transition": "NOT_RUN",
+    "commit_torus_transition": "NOT_RUN",
+    "funding_unpause": "NOT_RUN",
+    "icp_transfer": "NONE",
+    "cmc_notify": "NONE",
+    "cycles_transfer": "NONE",
+    "controller_or_settings_changes": "NONE",
+    "remote_git_operations": "NONE"
+  },
+  "rejection": {
+    "replica_quoted_minimum_additional_cycles": 144415141736,
+    "message": "Error: Failed during wasm installation call\nCaused by: The replica returned a rejection error: reject code SysTransient, reject message Canister installation failed with `Canister s34gv-3qaaa-aaaar-qcifa-cai is out of cycles: please top up the canister with at least 144_415_141_736 additional cycles`.\nTop up the canister with more cycles. See documentation: https://docs.internetcomputer.org/references/execution-errors#install-code-not-enough-cycles, error code Some(\"IC0207\")",
+    "explanation": "500B application transition floor passed, but replica installation reservation is separate. The rejected attempt consumed cycles and increased allocated memory/freezing reserve; recheck before any retry. No lower threshold or manual financial workaround."
+  },
+  "upgrade_attempt": {
+    "started_at": "2026-10-23T06:26:28.826579+00:00",
+    "completed_at": "2026-10-23T06:26:37.807223+00:00",
+    "install_exit": 255,
+    "pause_exit": 255,
+    "verify_exit": 255
+  },
+  "installed_module_sha256": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+  "controllers": [
+    "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+    "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+  ],
+  "world": {
+    "version": 3,
+    "width": 16,
+    "height": 8,
+    "cannons": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "cell": 42,
+        "id": 1
+      }
+    ],
+    "balls": [
+      {
+        "cell": 108,
+        "id": 1,
+        "owner": 1,
+        "vx": -812,
+        "vy": 623,
+        "x0": "34833176",
+        "y0": "-26709198"
+      }
+    ],
+    "credits": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "units": [
+          "48013564800",
+          "18067"
+        ]
+      }
+    ],
+    "received_e8s": "100000000"
+  },
+  "preservation": {
+    "status": "PASS",
+    "world_scores_events_source_current_and_retained_publications_artifacts_equal": true,
+    "pending_work_equal": true,
+    "controllers_equal": true,
+    "gameplay_paused": true,
+    "official_index_account_history_and_balance_equal": true
+  },
+  "certification": {
+    "mainnet_standard_root_verified": true,
+    "publication_version": 6,
+    "segment": "21440",
+    "manifest_before_and_after": "3a8979deb2d99c218e613390f9e145a01dcacb90d5396203026d58471005d3e7",
+    "publication_sha256_before_and_after": "63bc9c2185daa235d04ad3499058bfc024bfa7a71c67f4c8263927955979a2e8",
+    "new_v7_publication": null,
+    "dtr_epoch_transition_hash": null
+  },
+  "source": {
+    "descriptor": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "subaccount": "0",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+    },
+    "cursor": "39526412",
+    "anchor": "82f7c4d779c2c0b4168b1b33d88867f6ae599131a0f4634912cb340e299988e2",
+    "operational_status": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "39526412"
+    },
+    "pending_work": {
+      "pending_inputs": 0,
+      "phase": [],
+      "ready_manifest": [],
+      "revision": "64351",
+      "source_cursor": "39526412"
+    }
+  },
+  "cycles": {
+    "total": 992328967216,
+    "liquid": 860372873626,
+    "transition_floor": 500000000000,
+    "frontend_preflight": 2772552142976
+  },
+  "ledger": {
+    "recorded_at": "2026-10-23T06:28:42.649Z",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "balance_e8s": "100000000",
+    "fee_e8s": "10000",
+    "num_blocks_synced": "39581374"
+  },
+  "treasury": {
+    "installed": false,
+    "pause_state": "UNAVAILABLE; worker not installed",
+    "converted_e8s": 0,
+    "transfer_block": null,
+    "cmc_result": null
+  },
+  "gameplay": {
+    "paused": true,
+    "reason": "Safe paused state retained after rejected installation; independent source polling remains active.",
+    "public_playback": "NOT_RETESTED; game intentionally paused and frontend unchanged",
+    "new_accepted_angle": "NOT_RUN; no real gameplay ICP sent"
+  },
+  "required_next_step": "External cycle top-up sufficient for the quoted installation shortfall plus attempt cost/reserve changes, then a fresh preflight before resuming the authorized sequence. No substitute ICP transfer, threshold change, reinstall or reset.",
+  "raw": [
+    {
+      "path": ".work/torus-activation/ci.json",
+      "sha256": "a0ed1fd5f890133e6af55b9f46fd174cdeff1077c66af71ce0e4cff3d2c2ea30"
+    },
+    {
+      "path": ".work/torus-activation/backend-preflight.log",
+      "sha256": "17951c69983c3148a9336d9ea9c6f63a8640eb6cc0400d6b8106c3ccf7da4f1e"
+    },
+    {
+      "path": ".work/torus-activation/frontend-preflight.log",
+      "sha256": "61339882e4a1f9aa44b09109e70ebef9286cea91e25d1a1b420dd75fbd106e57"
+    },
+    {
+      "path": ".work/torus-activation/runtime-preflight.log",
+      "sha256": "c6ce33d8a804eb83a2eddc7c5672d12c247649bf7472d95b94ec6da2adbf58d2"
+    },
+    {
+      "path": ".work/torus-activation/status-preflight.json",
+      "sha256": "181fa64ef7e3818f611904f299f47edaf6139cda87869517bec17df51e34a5cd"
+    },
+    {
+      "path": ".work/torus-activation/work-preflight.json",
+      "sha256": "9a51b951f940fb58607d02f7a4375654f561ec74b2fc78c2c315f030a9388985"
+    },
+    {
+      "path": ".work/torus-activation/ledger-preflight.json",
+      "sha256": "f6e9f39d6d40106ab0408e44f033ede63a9bb5fc68b00613a978db228c17a9ce"
+    },
+    {
+      "path": ".work/torus-activation/before-upgrade.json",
+      "sha256": "030036b481dcffc6abf98cfe1f7d0adb7b1f3c907bc8f76d1ffd6da09551cc49"
+    },
+    {
+      "path": ".work/torus-activation/work-before-upgrade.json",
+      "sha256": "4745edbfa2e5c8942419cd1687609db3c9a9735c67198aed948ee327f2dccf4f"
+    },
+    {
+      "path": ".work/torus-activation/pause-before-upgrade.json",
+      "sha256": "0cc01fb12cbc41b76d79c27cc71fc4d08cbbe33007556b25f506c0e57826c35e"
+    },
+    {
+      "path": ".work/torus-activation/backend-upgrade.log",
+      "sha256": "174294104038a4dd8175e7105ab7190b5bd3b5efc05ac7353cda1b374e0123e9"
+    },
+    {
+      "path": ".work/torus-activation/funding-immediate-pause.log",
+      "sha256": "f9c95664342daf354378cdd7bc239e957e6ce53c3718a9cbdd1a436903fc8257"
+    },
+    {
+      "path": ".work/torus-activation/funding-paused-verify.log",
+      "sha256": "146669c82994d1b2faf7a806e90449f8d6071d67ca45e79b53952cbdadaf14bd"
+    },
+    {
+      "path": ".work/torus-activation/backend-after-rejection.log",
+      "sha256": "c886e9437cfb26b31970a0ce058842e9dcc3206f357a04d0dd89ee9433f48dc4"
+    },
+    {
+      "path": ".work/torus-activation/runtime-after-rejection.json",
+      "sha256": "af859f6a4c57a12c7f84b3d2abeee1094fda97a95365a813221b644ae8a9e47a"
+    },
+    {
+      "path": ".work/torus-activation/work-after-rejection.json",
+      "sha256": "4745edbfa2e5c8942419cd1687609db3c9a9735c67198aed948ee327f2dccf4f"
+    },
+    {
+      "path": ".work/torus-activation/after-upgrade.json",
+      "sha256": "ad69eb28a17e90e6717e8267f436f0914360d04a9a81cf7e1fa3938c6c093444"
+    },
+    {
+      "path": ".work/torus-activation/ledger-after-rejection.json",
+      "sha256": "0f02cecc902279166c7deb9568e7b7b2851793f5b8316915fa4d58fbd2eed212"
+    },
+    {
+      "path": ".work/torus-activation/site-status.json",
+      "sha256": "e9178febf373bd4d844d70056d62ddaf6a83c71f4f133cac886bd6f8c616a24e"
+    }
+  ],
+  "website": {
+    "http_status": 200,
+    "index_sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+    "ic_certificate_header_present": true,
+    "qualification": "HTTP reachability only; browser playback not retested after the installation funding blocker."
+  }
+}
