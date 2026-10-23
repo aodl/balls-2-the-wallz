@@ -1,10 +1,10 @@
 {
   "status": "BLOCKED_BEFORE_RELEASE",
-  "recorded_at": "2026-10-23T16:01:57Z",
+  "recorded_at": "2026-10-23T16:40:37Z",
   "implementation": {
     "branch": "checkpoint/b2z-million-cell-pace",
-    "commit": "f02c89832c13f69f92d31d142ea1b20264e23bcd",
-    "tree": "6a301105e34ffa0aecec427c3a419daee78be670",
+    "commit": "3973e150a47129cedd1db5e9ebfacd2d2aa1fc46",
+    "tree": "028970c6ff9308f03b4f98866cd545e4eb4f2005",
     "world": {
       "version": 5,
       "width": 1000,
@@ -103,10 +103,13 @@
         "preservation": "Disposable real Ledger/Index paid state, source ordering, scores, payments, funding pause state, old publications and authenticated v7 history survive the upgrade, cutover and v8 checkpoint."
       },
       "browser_normal_lifeline_reconnect": {
-        "status": "BLOCKED",
-        "completed_prerequisites": ["normal Wasm build", "test-hooks Wasm build", "host tests", "fixture builds", "installed harness build", "Playwright Python import", "Chromium executable presence"],
-        "blocker": "Chromium exits 127 because libatk-1.0.so.0 is unavailable on the host.",
-        "policy": "No sudo/system package installation and no browser sandbox weakening were attempted."
+        "status": "FAIL_PERFORMANCE_ACCEPTANCE",
+        "completed_prerequisites": ["normal Wasm build", "test-hooks Wasm build", "host tests", "fixture builds", "installed harness build", "sandboxed Chromium launch", "authenticated v5 startup", "1,000 x 1,000 rendering", "wrapped seam cell picking", "sparse MOVE 0 preparation", "minimap wrap copies"],
+        "browser": {"connected": true, "phase": "BUFFERING", "certificates": 10, "resyncs": 7, "delivery_failures": 0, "backend_segments_observed": 75, "verified_tick": 69, "buffer_ticks": 0},
+        "backend_at_failure": {"completed_segments": 82, "mode": "Normal", "nominal_milli": 1000, "supported_milli": 726, "performance_limited": true},
+        "failure": "The shared PocketIC producer and certified gateway could not retain a playable lead. The browser repeatedly crossed the three-publication retention window and resynchronized, so Normal playback did not start within 60 seconds.",
+        "lifeline": "NOT_RUN because the required Normal playback prerequisite failed.",
+        "qualification": "This is a real bounded local failure, not represented as sustainable 1 tick/second performance. Chromium used user-scoped runtime libraries; no sudo, system installation or sandbox weakening was used."
       }
     }
   },
@@ -131,18 +134,26 @@
     {"path": ".work/s14/million-max-population-f02c898/deployment/million-max-population.json", "sha256": "ec30a2b0824cc44ec333b6021643caaa4acda6d237983d5305d11635b23fd746"},
     {"path": ".work/s14/million-transition-exact-f02c898/results.json", "sha256": "9698d9932ba470f38b0118fa5f46a676ad8b9b59dd127afced82976d1b2cf43e"},
     {"path": ".work/s14/million-transition-exact-f02c898/deployment/million-performance.json", "sha256": "13aae6ca9f2d53aba27e9ceb8283f26c222ba824cee1a9cc292109ad27b675bc"},
-    {"path": ".work/s14/million-browser-f02c898/results.json", "sha256": "1c4ee52ccb8b875bfbdfb6dd6388589f47cc5bf650de5169f8f6977ae2661ccb"},
-    {"path": ".work/s14/million-browser-f02c898/deployment/million-browser/browser.log", "sha256": "524ceff3672696a60288df306aeec3b9f9baf1f174e3fc624dc342c744b39117"}
+    {"path": ".work/s14/million-browser-f02c898-libs-v8/results.json", "sha256": "7d6f259a369099670bcf19db41bc8da7ae5043ebde8be36180fe18d211f440b6"},
+    {"path": ".work/s14/million-browser-f02c898-libs-v8/deployment/million-browser/results.json", "sha256": "5585c9acf8df7006a7ac1f68d09d3b94a7f6d9d80dae73b540fef273d52210c7"},
+    {"path": ".work/s14/million-browser-f02c898-libs-v8/deployment/million-browser/browser.log", "sha256": "a1234ae3181e39e7cc2cb96811567f9f5c9c5ce8eccf6c586eb4ae6282e4f7b4"},
+    {"path": ".work/s14/million-browser-f02c898-libs-v8/deployment/million-browser/million-seam-pick.png", "sha256": "b1e2d5ae2d4ab48b4318751f96d04c81c1c381927484f54e46470f0e6b1ca30c"},
+    {"path": ".work/s14/million-browser-f02c898-libs-v8/deployment/million-browser/million-startup-failure.png", "sha256": "3a76e726967bb31b17ea5208726c207aa7254933233fea5c7f84b35bdbefebc9"}
   ],
   "genuine_failures_corrected": [
     "The first maximum-population run exceeded the mistakenly shared 1 MiB internal image cap; internal images now use DTR's existing 8 MiB bound while public artifacts remain at 1 MiB.",
     "The next run exposed per-ball durable serialization and reduced supported_milli to 695; bounded v5 entity-pass batching restored supported_milli to 1000 without changing public hashes.",
     "The first Python tool-test invocation named a nonexistent module; the correct seven-test suite passed.",
-    "Strict integration Clippy found a manual inclusive-range comparison; the equivalent RangeInclusive check passed on rerun."
+    "Strict integration Clippy found a manual inclusive-range comparison; the equivalent RangeInclusive check passed on rerun.",
+    "The browser initially lacked 13 shared libraries. Checksum-recorded Ubuntu Jammy packages were unpacked under ignored .work only; sandboxed Chromium then launched without system installation.",
+    "The first browser assertions exposed unformatted million-world dimensions and a sparse MOVE selection lost on each certified rerender; both UI defects were corrected before measuring playback.",
+    "The browser harness initially raced PocketIC live time and callback polling. The final run uses live wall time and bounded callback service, then records the production/delivery failure rather than weakening playback assertions."
   ],
   "external_blockers": [
-    "DTR commit e1bfcf25071d11190d14f461288e12a21ca26cf8 and @dtr/timeline-runtime 0.14.0 are not remotely published. B2Z remains correctly pinned to published DTR 0.13.0 until the user publishes the immutable DTR revision/package.",
-    "The host lacks libatk-1.0.so.0, so the actual Chromium Normal/Lifeline/cold-reconnect acceptance cannot run under the required sandboxed browser configuration."
+    "DTR commit e1bfcf25071d11190d14f461288e12a21ca26cf8 and @dtr/timeline-runtime 0.14.0 are not remotely published. B2Z remains correctly pinned to published DTR 0.13.0 until the user publishes the immutable DTR revision/package."
+  ],
+  "acceptance_blockers": [
+    "The representative four-ball sandboxed browser run cannot accumulate verified playback at the Normal target on the shared PocketIC host. Backend supported_milli fell to 726 and the browser repeatedly resynchronized across the three-publication retention window. Further production/persistence or delivery optimization is required before the million-cell release can be frozen."
   ],
   "ci": {
     "torus_evidence_commit": {
