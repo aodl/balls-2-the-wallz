@@ -201,8 +201,8 @@ function applyEpochPresentation(s,world,config){
   if(config){s.config=config;$('rules-identity').textContent=`Rules ${s.sequence.last.publication.identity.rules_hash}; configuration ${s.sequence.last.publication.identity.config_hash}`;}
   if(visible&&(visible.version!==world.version||visible.width!==world.width||visible.height!==world.height))camera.initialized=false;
 }
-async function admitLive(s,ticket){
-  const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
+async function admitLive(s,ticket,prefetched){
+  const artifacts=prefetched??await liveArtifacts(s,ticket);if(!active(s))return;
   if(ticket.publication.version===7&&ticket.publication.head.seal===null){
     const config=await epochConfiguration(s,ticket);if(!active(s))return;
     const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);
@@ -258,7 +258,7 @@ async function refreshOperational(now){
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
-  if(now<s.nextDue||s.queue.length>=8||s.clock.state().buffer>=16)return;s.busy=true;
+  if(now<s.nextDue||s.queue.length>=24||s.clock.state().buffer>=32)return;s.busy=true;
   try{
     const started=performance.now(),response=await s.client.observation();s.fetchMs=performance.now()-started;const verifying=performance.now();
     const current=await certifiedTicket(s,response);s.verifyMs=performance.now()-verifying;if(!active(s))return;
@@ -269,17 +269,26 @@ async function pumpLive(now,s){
     const expected=past===null?0n:past+1n;
     if(next===expected)await admitLive(s,current);
     else{
-      const reverse=[current];let successor=current,complete=true;
-      for(let segment=next-1n;segment>=expected;segment--){
-        try{const predecessor=await verifyRetainedPredecessor(await s.client.publication(Number(segment)),successor);
+      const reverse=[current];let successor=current,complete=next-expected<16n;
+      // Fetch the bounded independent catalogs together before retention can
+      // evict another predecessor. Still authenticate their chain in order.
+      const catalogs=complete?await Promise.allSettled(Array.from({length:Number(next-expected)},(_,i)=>s.client.publication(Number(next-1n-BigInt(i))))):[];
+      for(const result of catalogs){
+        try{if(result.status==='rejected')throw result.reason;
+          const predecessor=await verifyRetainedPredecessor(result.value,successor);
           reverse.push(predecessor);successor=predecessor;
         }catch(error){if(!String(error?.message??error).includes('snapshot resync required'))throw error;complete=false;break;}
-        if(segment===0n)break;
       }
       if(!complete)await resyncLive(s,current);
-      else for(const ticket of reverse.reverse())await admitLive(s,ticket);
+      else{
+        const ordered=reverse.reverse();
+        const artifacts=await Promise.all(ordered.map(ticket=>liveArtifacts(s,ticket)));
+        for(let i=0;i<ordered.length;i++)await admitLive(s,ordered[i],artifacts[i]);
+      }
     }
-    s.retryFailures=0;s.nextDue=performance.now()+500;
+    // A changed head may already have a successor. Do not add a fixed rest to
+    // authenticated catch-up; unchanged heads retain the bounded poll interval.
+    s.retryFailures=0;s.nextDue=performance.now();
   }catch(e){
     if(!active(s))return;s.retryFailures++;s.deliveryError=String(e?.message??e).slice(0,160);
     if(s.retryFailures>=5){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);

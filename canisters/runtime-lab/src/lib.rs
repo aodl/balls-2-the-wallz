@@ -23,7 +23,9 @@ const ROOT_LIMIT: usize = 256 * 1024;
 const CHUNKS: u64 = (MAX_ARTIFACT / CHUNK) as u64;
 const PUBLICATION_CHUNKS: u64 = dtr_host::observation::MAX_PUBLICATION.div_ceil(CHUNK) as u64;
 const RETAINED_STRIDE: u64 = PUBLICATION_CHUNKS + 3 * CHUNKS;
-const RETAINED_SEGMENTS: usize = 3;
+// Normal produces a publication every two seconds. Keep a bounded recovery
+// window beyond the measured multi-second authenticated retrieval delays.
+const RETAINED_SEGMENTS: usize = 16;
 const RETAINED_BYTES: usize = 8 * 1024 * 1024;
 const ARTIFACT_BUNDLE_BYTES: usize = 1024 * 1024;
 const SCAN_CALL_TIMEOUT_SECONDS: u32 = 30;

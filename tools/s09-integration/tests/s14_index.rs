@@ -841,10 +841,10 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
     )
     .unwrap()
     .unwrap();
-    assert_eq!(retention.max_segments, 3);
+    assert_eq!(retention.max_segments, 16);
     assert_eq!(retention.max_bytes, 8 * 1024 * 1024);
     assert!(retention.retained_bytes <= retention.max_bytes);
-    assert_eq!(retention.entries.len(), 3);
+    assert_eq!(retention.entries.len(), 16);
     assert!(
         retention
             .entries
@@ -4216,10 +4216,10 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
             );
             break;
         }
-        // PocketIC serializes ingress to this disposable instance. Four
-        // capture polls per two-second publication preserve exact replay
-        // coverage without starving the simultaneous certified browser query.
-        std::thread::sleep(Duration::from_millis(500));
+        // PocketIC serializes capture API calls with the live gateway.
+        // One poll per publication, with the retained window for catch-up,
+        // captures every seal without adding an artificial query storm.
+        std::thread::sleep(Duration::from_secs(2));
     }
     assert!(out.join("browser-complete").exists(), "scene timeout");
     pic.stop_live();

@@ -85,7 +85,7 @@ test('terminal idle playback drains a short verified segment and resumes ordinar
  for(let n=0;n<100;n++){prepareIdlePlayout(s,true);assert.equal(s.clock,clock);assert.ok(s.clock.sample(.1).playhead<=2);}
  assert.equal(s.clock.playhead,2);assert.equal(s.clock.available,2);
  prepareIdlePlayout(s,false);s.clock.append(2,4);assert.equal(s.clock.sample(.1).playhead,2);
- s.clock.append(4,8);assert.ok(s.clock.sample(.1).playhead>2);
+ s.clock.append(4,12);assert.ok(s.clock.sample(.1).playhead>2);
 });
 test('shared graduated pace uses supported rate without misreporting its cycle target',async()=>{
  const {nominalPace,approachPace}=await import('../../apps/b2z-observer/model.mjs');
@@ -141,5 +141,18 @@ test('operator resume rebuilds the startup buffer without losing verified time o
  assert.equal(s.queue,queue);assert.equal(s.clock.available,10);
  assert.equal(s.clock.sample(1).phase,'BUFFERING');assert.equal(s.clock.playhead,8);
  const resumed=s.clock;prepareIdlePlayout(s,false);assert.equal(s.clock,resumed);
- s.clock.append(10,18);assert.equal(s.clock.sample(1).phase,'PLAYING');assert.ok(s.clock.playhead>8&&s.clock.playhead<=18);
+ s.clock.append(10,26);assert.equal(s.clock.sample(1).phase,'PLAYING');assert.ok(s.clock.playhead>8&&s.clock.playhead<=26);
 });
+
+ test('Normal delivery reserve remains reachable for one-tick publications',async()=>{
+ const {liveBufferPolicy}=await import('../../apps/b2z-observer/model.mjs');
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ for(const ticks of [1,2]){
+  const policy=liveBufferPolicy({run:{publication_ticks:ticks,pace:{mode:'Normal',nominal_milli:1000,supported_milli:1000}}});
+  const clock=new PlayoutClock({start:0,...policy,max_frame_delta:1});
+  const segments=Math.ceil(policy.target/ticks);assert.ok(segments<=24);
+  for(let i=0;i<segments;i++)clock.append(i*ticks,(i+1)*ticks);
+  assert.equal(clock.sample(1).phase,'PLAYING');
+  for(let second=0;second<15;second++)assert.notEqual(clock.sample(1).phase,'STALLED');
+ }
+ });
