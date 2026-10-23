@@ -1,0 +1,875 @@
+{
+  "status": "PASS_ACTIVATED_MAINNET",
+  "recorded_at": "2026-10-23T07:02:15.890663+00:00",
+  "approved_release_commit": "4c0cfa61c2bb38d6103b2c07aa1eadac3e8983ae",
+  "frozen_implementation_commit": "96c853752f547a3352a7eab1573478ae2a596271",
+  "ci": {
+    "run": {
+      "id": 39908809597,
+      "head_sha": "4c0cfa61c2bb38d6103b2c07aa1eadac3e8983ae",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/39908809597",
+      "run_attempt": 1
+    },
+    "jobs": [
+      {
+        "id": 120266798031,
+        "name": "S14 index, filtered poke, fallback and upgrade",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798241,
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798307,
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798337,
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798352,
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798375,
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120266798387,
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "production_inventory_job": "Informational outstanding-production inventory, not executed production evidence"
+  },
+  "backend": {
+    "principal": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "predecessor_sha256": "53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec",
+    "installed_sha256": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "controllers_unchanged": true,
+    "normal_exports_and_generated_candid_verified": true,
+    "upgrade_preserved_world_scores_events_source_current_and_all_retained_bytes": true,
+    "treasury_immediately_paused_and_verified": {
+      "started_at": "2026-10-23T06:37:48.606424+00:00",
+      "completed_at": "2026-10-23T06:37:59.140562+00:00",
+      "install_exit": 0,
+      "pause_exit": 0,
+      "verify_exit": 0
+    },
+    "no_reinstall_or_constructor": true
+  },
+  "frontend": {
+    "principal": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+    "asset_only_update": true,
+    "module_sha256_unchanged": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "frozen_manifest": "evidence/B2Z/transition-release/frontend-frozen.json",
+    "published_files_and_csp": {
+      "verified_at": "2026-10-23T06:39:34.691Z",
+      "files": {
+        "index.html": {
+          "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+          "status": 200
+        },
+        "app.mjs": {
+          "sha256": "8fcc57bc8e8c36b817bd8550febd37283143ef0175865f7e5f2dd1e669410b30",
+          "status": 200
+        },
+        "style.css": {
+          "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+          "status": 200
+        },
+        "icon.svg": {
+          "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+          "status": 200
+        },
+        "configuration.bin": {
+          "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "status": 200
+        },
+        "configuration-legacy.bin": {
+          "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "status": 200
+        },
+        "configuration-torus.bin": {
+          "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+          "status": 200
+        },
+        "deployment.json": {
+          "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+          "status": 200
+        }
+      },
+      "csp": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "certificate_header": true
+    },
+    "authenticated_v3_before_cutover": true
+  },
+  "dtr": {
+    "revision": "c12af747190f7e24d5e68cdf57dbb1494095a46b",
+    "javascript_client": "0.13.0",
+    "tarball_sha256": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c",
+    "changes": "NONE"
+  },
+  "transition": {
+    "status": "PASS",
+    "old_publication_sha256": "ca09f345cab947e437aea4cc8e7f86778f3efed87ef1afc457acae4bfbfd62b5",
+    "checkpoint_publication_sha256": "ffcc60b0607a618c05595b548b630bee7adffe26a0d972bf8274ca6cfaec006c",
+    "old_manifest": "feddb465b5da3aafce3c9273555ead6cb29d216e0f0874a437837f4a2ce79988",
+    "new_manifest": "09fea5a79ae9df736eb3d73ec7802e9665f0ccec431562d8cfd6d64cfae2d052",
+    "transition_hash": "09fea5a79ae9df736eb3d73ec7802e9665f0ccec431562d8cfd6d64cfae2d052",
+    "metadata_sha256": "ca9e86f517112860120181eda5e0f8ef9ec3969054b0190d651ee01d1c50f687",
+    "metadata": {
+      "account_history_complete_through": "39581836",
+      "index_synced": "39581837",
+      "ledger_cutover": "39581836",
+      "logical_boundary": [
+        "42902",
+        "1"
+      ],
+      "migration": "B2Z_EMBED_16X8_IN_32_TORUS_01",
+      "new_identity": {
+        "config_hash": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "rules_hash": "e4d01123f895dd7a1f841332323171bbba1b5159d49dcf66e4c5c7e3c9c8f894",
+        "schema_hash": "66a78c3b028d6ba546b4eba1e5b440d72837cb1cf87f9e26b24739383fa9cad6",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+      },
+      "new_state": "e60819add9f91040989d8d91472db1793de3dc35dc9f66c22b11f3f4970d77fb",
+      "old_identity": {
+        "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+        "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+      },
+      "previous_state": "717c2dc8f603f50f2531333b41bcbb54089b705608024a1bb6905e1cc9215549",
+      "source_anchor": "82f7c4d779c2c0b4168b1b33d88867f6ae599131a0f4634912cb340e299988e2",
+      "source_cursor": "39526412",
+      "version": 1
+    },
+    "world": {
+      "version": 4,
+      "width": 32,
+      "height": 32,
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 466,
+          "id": 1
+        }
+      ],
+      "balls": [
+        {
+          "cell": 459,
+          "id": 1,
+          "owner": 1,
+          "vx": 812,
+          "vy": 623,
+          "x0": "-34824984",
+          "y0": "-26713294"
+        }
+      ],
+      "credits": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "48059816320",
+            "18067"
+          ]
+        }
+      ],
+      "received_e8s": "100000000"
+    },
+    "source_cursor": "39526412",
+    "historical_unknown_heading": "neutral; no heading introduced",
+    "pure_paid_state_migration_exact": true,
+    "certificate_verified": true,
+    "treasury": "paused separately; not activated"
+  },
+  "final_certified_publication": {
+    "observed_at": "2026-10-23T07:00:08.223Z",
+    "version": 7,
+    "segment": "21553",
+    "sha256": "c328347916a8f1dbac84bd0f8b1da6931eef92266d9fde68818776e7ae084c0c",
+    "manifest_hash": "4d2a79aba2e5c5dccecf91d427d396a27956e52d87eb0cd12a7e14802b838293",
+    "seal": {
+      "config_hash": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "epoch_hash": "09fea5a79ae9df736eb3d73ec7802e9665f0ccec431562d8cfd6d64cfae2d052",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": "43106",
+      "logical_start": "43104",
+      "previous_manifest": "21f5c2a00f747d2cd5257136d50ed8bd15b040c14336e7f75db70765e2b161fd",
+      "previous_state": "235660cc12d22138e819c17d9ace0ee1554c132b6d4c00fe40e31cc95384e8c0",
+      "rules_hash": "e4d01123f895dd7a1f841332323171bbba1b5159d49dcf66e4c5c7e3c9c8f894",
+      "schema_hash": "66a78c3b028d6ba546b4eba1e5b440d72837cb1cf87f9e26b24739383fa9cad6",
+      "segment_id": "21553",
+      "source_anchor": "5ffb14b7020b1f492bd7b961784ca5c49399d294337583277489a0a71cd81b96",
+      "source_from": "39582091",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+      "source_to_exclusive": "39582091"
+    },
+    "certificate_verified": true
+  },
+  "world": {
+    "version": 4,
+    "width": 32,
+    "height": 32,
+    "cannons": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "cell": 466,
+        "id": 1
+      }
+    ],
+    "balls": [
+      {
+        "cell": 495,
+        "id": 1,
+        "owner": 1,
+        "vx": -812,
+        "vy": -623,
+        "x0": "35017496",
+        "y0": "26870990"
+      }
+    ],
+    "received_e8s": "100000000",
+    "credits_at_migration_preserved": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "units": [
+          "48059816320",
+          "18067"
+        ]
+      }
+    ],
+    "credits_at_final_snapshot": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "units": [
+          "48577362384",
+          "18067"
+        ]
+      }
+    ],
+    "qualification": "Exact paid state/credits preserved at checkpoint; autonomous play subsequently accrues scores. Existing unknown cannon heading remains neutral; no real gameplay ANGLE or MOVE was sent."
+  },
+  "source": {
+    "descriptor": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "subaccount": "0",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+    },
+    "operational_status": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "39582091"
+    },
+    "cursor": "39582091",
+    "anchor": "5ffb14b7020b1f492bd7b961784ca5c49399d294337583277489a0a71cd81b96",
+    "index_global_synced": "39582239",
+    "outgoing_transfer_admitted_with_zero_gameplay_inputs": true,
+    "qualification": "Sparse account cursor remains distinct from global Index watermark; only new account row was the actual outgoing treasury transfer."
+  },
+  "gameplay": {
+    "last_error": [],
+    "world_transition": false,
+    "idle": false,
+    "pace": {
+      "nominal_milli": 500,
+      "mode": "Normal",
+      "admission_open": true
+    },
+    "segment_ticks": "2",
+    "completed_segments": "21554",
+    "running": true
+  },
+  "funding": {
+    "review": {
+      "status": "PASS",
+      "block_index": "39582090",
+      "amount_e8s": "99990000",
+      "fee_e8s": "10000",
+      "plan": {
+        "amount_e8s": "99990000",
+        "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+        "created_at_time_ns": "1792738377093856899",
+        "fee_e8s": "10000",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "memo": "1347768404",
+        "to": [
+          250,
+          76,
+          14,
+          201,
+          17,
+          25,
+          66,
+          23,
+          213,
+          212,
+          243,
+          236,
+          39,
+          247,
+          172,
+          38,
+          167,
+          241,
+          158,
+          116,
+          251,
+          238,
+          186,
+          57,
+          212,
+          105,
+          228,
+          242,
+          64,
+          113,
+          184,
+          222
+        ]
+      },
+      "cmc_reported_cycles": "2_044_295_550_000",
+      "net_cycles_increase": 2042758946150,
+      "balance_delta_qualification": "Runtime snapshots include elapsed burn and reservations/refunds; durable reported cycles are the CMC response.",
+      "world_scores_events_current_publication_unchanged_while_paused": true,
+      "outgoing_transfer_count": 1,
+      "outgoing_pending_inputs": 0,
+      "source_cursor": "39582091",
+      "remaining_ledger_e8s": "0",
+      "funding_paused": false,
+      "funding_phase": "Idle"
+    },
+    "durable_state": {
+      "halted": false,
+      "last_error": [],
+      "last_plan_ns": "1792738377093856899",
+      "last_refund": [],
+      "last_success": [
+        {
+          "block_index": "39582090",
+          "completed_at_ns": "1792738388208803977",
+          "cycles": "2_044_295_550_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1792738377093856899",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              250,
+              76,
+              14,
+              201,
+              17,
+              25,
+              66,
+              23,
+              213,
+              212,
+              243,
+              236,
+              39,
+              247,
+              172,
+              38,
+              167,
+              241,
+              158,
+              116,
+              251,
+              238,
+              186,
+              57,
+              212,
+              105,
+              228,
+              242,
+              64,
+              113,
+              184,
+              222
+            ]
+          }
+        }
+      ],
+      "lease_started_ns": "1792738675396534568",
+      "nonce": "3",
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1792738675396534568"
+        }
+      ],
+      "observed_fee": [
+        {
+          "e8s": "10000",
+          "observed_at_ns": "1792738679346279651"
+        }
+      ],
+      "paused": false,
+      "phase": {
+        "Idle": null
+      },
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "2044295550000",
+      "version": 1
+    },
+    "first_completed_conversion": {
+      "block_index": "39582090",
+      "completed_at_ns": "1792738388208803977",
+      "cycles": "2_044_295_550_000",
+      "plan": {
+        "amount_e8s": "99990000",
+        "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+        "created_at_time_ns": "1792738377093856899",
+        "fee_e8s": "10000",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "memo": "1347768404",
+        "to": [
+          250,
+          76,
+          14,
+          201,
+          17,
+          25,
+          66,
+          23,
+          213,
+          212,
+          243,
+          236,
+          39,
+          247,
+          172,
+          38,
+          167,
+          241,
+          158,
+          116,
+          251,
+          238,
+          186,
+          57,
+          212,
+          105,
+          228,
+          242,
+          64,
+          113,
+          184,
+          222
+        ]
+      }
+    },
+    "actual_ledger_account_history": {
+      "balance": "0",
+      "oldest_tx_id": [
+        "39526411"
+      ],
+      "transactions": [
+        {
+          "id": "39582090",
+          "transaction": {
+            "created_at_time": [
+              {
+                "timestamp_nanos": "1792738377093856899"
+              }
+            ],
+            "icrc1_memo": [],
+            "memo": "1347768404",
+            "operation": {
+              "Transfer": {
+                "amount": {
+                  "e8s": "99990000"
+                },
+                "fee": {
+                  "e8s": "10000"
+                },
+                "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+                "spender": [],
+                "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de"
+              }
+            },
+            "timestamp": [
+              {
+                "timestamp_nanos": "1792738378936110163"
+              }
+            ]
+          }
+        },
+        {
+          "id": "39526411",
+          "transaction": {
+            "created_at_time": [
+              {
+                "timestamp_nanos": "1792611199324000000"
+              }
+            ],
+            "icrc1_memo": [
+              [
+                65,
+                78,
+                71,
+                76,
+                69,
+                32,
+                51,
+                55,
+                46,
+                53
+              ]
+            ],
+            "memo": "0",
+            "operation": {
+              "Transfer": {
+                "amount": {
+                  "e8s": "100000000"
+                },
+                "fee": {
+                  "e8s": "10000"
+                },
+                "from": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+                "spender": [],
+                "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+              }
+            },
+            "timestamp": [
+              {
+                "timestamp_nanos": "1792611202715245756"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "remaining_ledger_e8s": "0",
+    "current_fee_e8s": "10000",
+    "subsequent_zero_balance_maintenance_observed": true,
+    "automatic_future_qualifying_sweeps_enabled": true,
+    "no_manual_transfer_or_notification": true,
+    "world_and_scores_preserved_during_first_conversion": true
+  },
+  "cycles": {
+    "observed_at": "2026-10-23T07:00:41.094197+00:00",
+    "total": 4955231201394,
+    "liquid": 4811369333244,
+    "cmc_reported_minted": 2044295550000,
+    "first_conversion_snapshot_delta": 2042758946150,
+    "qualification": "Balance snapshots include intervening burn and call reservations/refunds; durable completed cycles are the actual CMC notify_top_up response.",
+    "freezing_settings_changed": false
+  },
+  "browser": {
+    "post_conversion": {
+      "status": "PASS",
+      "trust": "actual mainnet SDK root, no substitute root",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "join": "1 ICP",
+      "browser_errors": [],
+      "read_only_posts": 271,
+      "real_gameplay_transfer": "NOT_RUN",
+      "summary": {
+        "seconds": 88.6132,
+        "produced_verified_ticks_per_second": 0.49654001886852067,
+        "backend_reported_ticks_per_second": 0.49654001886852067,
+        "displayed_ticks_per_second": 0.494082537402449,
+        "stalled_samples": 0,
+        "nominal_rate": 0.5,
+        "min_buffer": 1.9614181561482837
+      }
+    },
+    "epoch_sessions": {
+      "status": "PASS",
+      "trust": "Actual mainnet standard root, native Web Crypto, Chromium sandbox",
+      "checks": [
+        {
+          "name": "authenticated-fenced-v3-payment-preparation-disabled",
+          "status": "PASS",
+          "details": ""
+        },
+        {
+          "name": "existing-fenced-v3-session-authenticates-v7-world-switch",
+          "status": "PASS",
+          "details": ""
+        },
+        {
+          "name": "unchanged-prices-account-prefix-free-angle-move-and-native-copy",
+          "status": "PASS",
+          "details": {
+            "move_cell": "392",
+            "join": "1 ICP",
+            "ball": "0.1 ICP",
+            "move": "0.0001 ICP"
+          }
+        },
+        {
+          "name": "responsive-square-camera-pan-zoom-and-minimap",
+          "status": "PASS",
+          "details": ""
+        },
+        {
+          "name": "continuous-authenticated-mainnet-playback",
+          "status": "PASS",
+          "details": {
+            "seconds": 89.64640000000001,
+            "verified_ticks_per_second": 0.245408627674954,
+            "displayed_ticks_per_second": 0.2484103674886471,
+            "stalled_samples": 0,
+            "nominal_rate": 0.25,
+            "buffer_min": 1.7202468917676015
+          }
+        },
+        {
+          "name": "old-v3-session-reconnect-after-epoch-retention-gap",
+          "status": "PASS",
+          "details": {
+            "old_head": 21450,
+            "new_head": 21465
+          }
+        },
+        {
+          "name": "fresh-v7-startup-after-old-publication-eviction",
+          "status": "PASS",
+          "details": ""
+        }
+      ],
+      "qualification": "Reconnected while v3 cutover already fenced. Earlier prepared-draft session timed out before prepare; exact old-draft invalidation is covered by release CI, not claimed by this session.",
+      "csp": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "playback": {
+        "seconds": 89.64640000000001,
+        "verified_ticks_per_second": 0.245408627674954,
+        "displayed_ticks_per_second": 0.2484103674886471,
+        "stalled_samples": 0,
+        "nominal_rate": 0.25,
+        "buffer_min": 1.7202468917676015
+      },
+      "browser_errors": [],
+      "read_only_posts": 443,
+      "real_gameplay_transfers": "NONE"
+    },
+    "read_only": true,
+    "native_web_crypto_and_sandbox": true,
+    "current_errors": []
+  },
+  "honest_limitations": {
+    "old_width_prepared_MOVE_staleness": "Initial mainnet prepared-draft observer timed out waiting for the operator prepare call and closed before commit. Preserved as FAIL. Recovery verifies fenced old-session crossing/reconnect and fresh startup; exact prepared-MOVE staleness remains release-CI evidence, not a claimed mainnet observation.",
+    "new_accepted_ANGLE_heading": "Persistence verified by reviewed installed-IC tests; no real gameplay payment sent during deployment. Historical unknown heading is neutral.",
+    "playback": "Two finite mainnet traces, not an uptime or throughput guarantee."
+  },
+  "earlier_failures_retained": [
+    {
+      "status": "BLOCKED_FUNDING_RESOLVED_BY_USER_TOPUP",
+      "evidence": "evidence/B2Z/torus-activation/blocker.json"
+    },
+    {
+      "status": "FAIL_OBSERVATION_ORCHESTRATION",
+      "raw": {
+        "path": ".work/torus-activation-resume/browser/results.json",
+        "sha256": "41865c53047447529ee8c74cec934c6910f0fd39b721bc78a27ed8372d025ea5"
+      },
+      "reason": "30-second browser wait elapsed before operator prepare call; host later reached ready normally."
+    },
+    {
+      "status": "FAIL_OBSERVATION_ORCHESTRATION",
+      "raw": {
+        "path": ".work/torus-activation-resume/transition-status.json",
+        "sha256": "b794875c501b93a05f1d3ec9f3e64e213c69753604c3153b405e446390aa27f1"
+      },
+      "reason": "Temporary readiness observer waited for the failed browser marker, despite host phase ready; no bypass or reset."
+    },
+    {
+      "status": "EXPECTED_MOVING_SNAPSHOT_RESYNC",
+      "raw": {
+        "path": ".work/torus-activation-resume/closeout.log",
+        "sha256": "48967d9581059400b5b71af8f75ae24671d878cc372f3970b27987d64d25a4fc"
+      },
+      "reason": "Current publication retired during operator artifact acquisition. Fresh certified closeout-resync succeeded; no authentication error ignored."
+    }
+  ],
+  "boundaries": {
+    "remote_git_operations": "NONE",
+    "gameplay_icp_transfers": "NONE",
+    "manual_financial_transfers": "NONE",
+    "prize_payouts_or_buybacks": "NONE",
+    "controller_or_settings_changes": "NONE",
+    "prices_event_horizon_scoring_changes": "NONE",
+    "reinstall_reset_new_canisters": "NONE"
+  },
+  "raw": [
+    {
+      "path": ".work/torus-activation-resume/backend-preflight.log",
+      "sha256": "d65ebe1e0097ae526588b17d28ec5db8f80b59ab4f16ae108411fed57291fe13"
+    },
+    {
+      "path": ".work/torus-activation-resume/runtime-preflight.json",
+      "sha256": "c89cde94b4e426d5e8464ec9d0739b844263eece25f77c1da1ee416d4bc03bba"
+    },
+    {
+      "path": ".work/torus-activation-resume/before-upgrade.json",
+      "sha256": "0d57610d61dcb47ffd6ec8f3174e493d77f64437b9ccdc60058180a631b56e78"
+    },
+    {
+      "path": ".work/torus-activation-resume/backend-upgrade.log",
+      "sha256": "0fe0445a54788ef48a3f79a639886ee865bdb2879e8a610565d446e07a02091f"
+    },
+    {
+      "path": ".work/torus-activation-resume/upgrade-operation.json",
+      "sha256": "bbf379c3af0bbcd90aa7c103631e9bee38f6c74fd94c494fa02a17c666488529"
+    },
+    {
+      "path": ".work/torus-activation-resume/funding-paused-verify.log",
+      "sha256": "93fc62f230a1683a29c0f51fa0f38f0ab7fb7d2932e15fcbb0091889a8fdc841"
+    },
+    {
+      "path": ".work/torus-activation-resume/after-upgrade.json",
+      "sha256": "f506d2c27203ca80e032c0047b7333afa7eeeabc9708d1deca9fad81c0e4145a"
+    },
+    {
+      "path": ".work/torus-activation-resume/frontend-deploy.log",
+      "sha256": "459a74350f3262f2c3835e693ca894c70acbb441265f0d1e8ca474d165ceaea9"
+    },
+    {
+      "path": ".work/torus-activation-resume/frontend-hashes.json",
+      "sha256": "ec689938247248a875f94f0219b445a3d4ae4c1dc1a7db9d07286fdfdb0f55bc"
+    },
+    {
+      "path": ".work/torus-activation-resume/prepare.json",
+      "sha256": "38f4e818357550660b973e2549595d710f482294ff74339b63df82dd24bc48f5"
+    },
+    {
+      "path": ".work/torus-activation-resume/transition-before-commit.json",
+      "sha256": "3507c175efe749f31a1068548d2780bb298b6b3d3262035e5a7d59d81ec0ba88"
+    },
+    {
+      "path": ".work/torus-activation-resume/work-before-commit.json",
+      "sha256": "07f36f76dfd403691f243080b03f558de9e55ce58d3dd45a87dffbd2a3c92406"
+    },
+    {
+      "path": ".work/torus-activation-resume/before-commit.json",
+      "sha256": "fd21f94597b6efe033d407fd90ae314f31f57154bebd4deb71f1cb8ff35e4f5c"
+    },
+    {
+      "path": ".work/torus-activation-resume/commit.json",
+      "sha256": "82dba9bd0318bd6eee9a7c5fe7174cf9e5ee58693e522f5907993f441f41026f"
+    },
+    {
+      "path": ".work/torus-activation-resume/checkpoint.json",
+      "sha256": "28272f053c2ba46ef5dc8165b72266734da70a0a7c5b3cbe826cb499c53cf467"
+    },
+    {
+      "path": ".work/torus-activation-resume/checkpoint-review.json",
+      "sha256": "4974921ddeff0bd7c9fa84d9897b8ac3a25b4a39b74536e7e47d86152d14b3d7"
+    },
+    {
+      "path": ".work/torus-activation-resume/commit-idempotent-retry.json",
+      "sha256": "82dba9bd0318bd6eee9a7c5fe7174cf9e5ee58693e522f5907993f441f41026f"
+    },
+    {
+      "path": ".work/torus-activation-resume/start-v4.json",
+      "sha256": "6b0788135cdab2ce5d951e659ad50fc8cc26df9e94cc6d4aa90b7083936a757f"
+    },
+    {
+      "path": ".work/torus-activation-resume/browser/results.json",
+      "sha256": "41865c53047447529ee8c74cec934c6910f0fd39b721bc78a27ed8372d025ea5"
+    },
+    {
+      "path": ".work/torus-activation-resume/browser-recovery/results.json",
+      "sha256": "41d5b7cfc7aa13fba33d36e1e7a4c0abf3b685302eb4448365a033cce7b0104a"
+    },
+    {
+      "path": ".work/torus-activation-resume/before-funding.json",
+      "sha256": "7195271de1762f8b7bcd5914040ad25af97bcbd3162b652f246839acd00c8ad3"
+    },
+    {
+      "path": ".work/torus-activation-resume/funding-unpause.json",
+      "sha256": "9851e2f9d5ce534885e1de48e4b1ebd447ebfd511d7d64bf8541ae1f71f0b9ca"
+    },
+    {
+      "path": ".work/torus-activation-resume/funding-observations.json",
+      "sha256": "048b4f9164c0bf07cac20e9295137984c31d78a5de829bbe2cab0479ffff88a7"
+    },
+    {
+      "path": ".work/torus-activation-resume/funding-success.json",
+      "sha256": "3f0912162a0e32ed0cef1da758729364c3fb87f3dc93570de52776acf728bb41"
+    },
+    {
+      "path": ".work/torus-activation-resume/treasury-index-history.json",
+      "sha256": "8e4fac21732805a337df26107dd5ea7dc931a3d7af6a7a69caadbb0d0bf34e47"
+    },
+    {
+      "path": ".work/torus-activation-resume/after-funding.json",
+      "sha256": "b2cee12e82578ed1ca4971641045e2c5e450b70fed11c0946c80d1fe52a08286"
+    },
+    {
+      "path": ".work/torus-activation-resume/funding-review.json",
+      "sha256": "207b5911e671079cf49014ad072ed6898db3129f00f89c04d7ccadce40c32452"
+    },
+    {
+      "path": ".work/torus-activation-resume/start-after-funding.json",
+      "sha256": "834fa415e8de06a35d6d401fffaa856fc80ec3b2d3b2098c559085cc0056d9fb"
+    },
+    {
+      "path": ".work/torus-activation-resume/final-browser/results.json",
+      "sha256": "2b2e364724a335d2217f4ecc86c0fc65eac266a5556a399adac037f01f10b76d"
+    },
+    {
+      "path": ".work/torus-activation-resume/final-browser/trace.json",
+      "sha256": "c909a83c976fd6db2f7d8c558a51451153c0a67cc0d615f5fc9eea7bc2ac758e"
+    },
+    {
+      "path": ".work/torus-activation-resume/funding-closeout.json",
+      "sha256": "2d5cf086875753d5b173091f167664fc3fa2c9cd4dd8fd9ff6184f91d7680b0d"
+    },
+    {
+      "path": ".work/torus-activation-resume/runtime-record.json",
+      "sha256": "3cff7429beb286bb7eb0c76fbcb93a9b2f26655d2cbcd08e9861f8afd4dec826"
+    },
+    {
+      "path": ".work/torus-activation-resume/backend-record.log",
+      "sha256": "2665482188bd515b013b63482ef74fd336122a572fb776bad988c45e5016d319"
+    },
+    {
+      "path": ".work/torus-activation-resume/frontend-installed.log",
+      "sha256": "623d9819daa1e2d112be7e0d87a528ca9349cbe02e2d73a155f0527b8d660e03"
+    },
+    {
+      "path": ".work/torus-activation-resume/ledger-closeout.json",
+      "sha256": "93bfac2a755ee95156469b69dcb07b15aef631b762f85ca64f3821ce4d7e2a2f"
+    },
+    {
+      "path": ".work/torus-activation-resume/closeout-resync.json",
+      "sha256": "435dd06ae0774f0baa957311f064a245c9b244080cc4941f11eba2610bf822fd"
+    }
+  ]
+}

@@ -1,3 +1,30 @@
+# Current prelaunch treasury — active on the existing backend
+
+**2026-10-23:** the user explicitly authorized the reviewed automatic CMC route,
+first eligible conversion and subsequent qualifying sweeps. Approved release
+`4c0cfa6` is installed, including the authenticated torus transition. The worker
+was paused immediately after upgrade and enabled after v7/browser verification.
+It is now **unpaused, Idle and healthy**.
+
+First actual sweep: Ledger block **39,582,090**, **99,990,000 e8s** net plus
+**10,000 e8s** fee to the fixed CMC AccountIdentifier below, for backend
+`s34gv-3qaaa-aaaar-qcifa-cai`. CMC reported **2,044,295,550,000 cycles**. Ledger
+balance became zero. The financial operation preserved world/credits exactly
+during a brief gameplay pause; its outgoing Index row produced no game input.
+A subsequent zero-balance maintenance returned Idle without a duplicate transfer.
+[Actual activation evidence](../../evidence/B2Z/torus-activation/activation.json).
+
+The five-minute policy and recovery rules below remain current. Gameplay pause
+is separate from funding pause. Keep any pending transfer/notification identity
+through pauses and upgrades; never send a manual replacement. Scores and gross
+received totals are historical gameplay state, not spendable balances. Player
+payouts, rewards and buybacks remain unavailable. No unrelated financial action
+or future policy change is authorized by this activation record.
+
+The original local-preparation record follows as historical context.
+
+---
+
 # Prelaunch self-funding — local preparation only
 
 **Not deployed. No mainnet operation or real ICP transfer occurs in this task.**

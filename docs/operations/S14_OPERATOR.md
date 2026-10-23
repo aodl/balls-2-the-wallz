@@ -1,3 +1,37 @@
+# Current mainnet operation — torus and self-funding active
+
+**2026-10-23:** user-approved release `4c0cfa6` passed exact-commit CI and was
+upgraded in place on backend `s34gv-3qaaa-aaaar-qcifa-cai`. Normal Wasm SHA-256:
+`e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac`.
+Frozen observer assets are uploaded to existing frontend
+`s45ab-wiaaa-aaaar-qcifq-cai`. Both principals/controllers remain unchanged.
+
+The one-time authenticated transition is **complete**, certified v7 / world v4,
+32×32 wrapping. The exact paid v3 state/credits were preserved at the checkpoint;
+autonomous play has resumed. Never reinstall/reset or attempt another migration.
+The original manifest's idempotent commit retry was verified live. Source uses
+the same official Index and account; global watermark and sparse cursor remain
+separate. Prices, prefix-free adapter v3 memos and scoring are unchanged.
+
+Automatic prelaunch funding is **enabled and Idle**. The first real Ledger/CMC
+conversion succeeded (block 39,582,090; 0.9999 ICP net plus fee; CMC reported
+2,044,295,550,000 cycles). Exact evidence, frozen hashes, certificates, cutover,
+financial plan and finite public playback traces are in
+[activation.json](../../evidence/B2Z/torus-activation/activation.json).
+
+Gameplay pause does **not** pause treasury maintenance. Use its separate
+controller pause when an authorized operation requires financial quiescence;
+pausing cannot cancel an already submitted call and must retain pending plans.
+Keep controller-only status and the fixed
+[CMC route/recovery policy](PRELAUNCH_SELF_FUNDING.md). Do not replace an ambiguous
+transfer or clear a terminal halt arbitrarily. Future upgrades must preserve
+both stores, original financial identities and callback fencing.
+
+The procedures below are retained preparation/history; they grant no reset,
+new transfer destination, repricing, controller change or further migration.
+
+---
+
 # Combined torus and treasury candidate — recovery preparation only
 
 The 2026-10-22 recovery performs no mainnet upgrade, transition or transfer.

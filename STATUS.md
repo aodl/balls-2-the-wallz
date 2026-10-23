@@ -1,3 +1,58 @@
+# Current mainnet — 32×32 torus and prelaunch self-funding active
+
+**2026-10-23:** exact user-approved release `4c0cfa6` is deployed on the existing
+backend/frontend, after CI [39908809597](https://github.com/aodl/balls-2-the-wallz/actions/runs/39908809597)
+passed including installed-IC integration. The user resolved the earlier replica
+installation-cycle blocker. Backend normal module SHA-256 is
+`e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac`.
+All published frontend asset hashes match the frozen production observer.
+
+The authenticated v3→v4 transition is complete: **32×32 wrapping world**, same
+paid cannon/ball/accounts, exact migrated credits and received 1 ICP. The host
+measured exclusive Ledger cutover **39,581,836**, waited for Index watermark
+**39,581,837**, and preserved sparse account cursor **39,526,412**. Original v6
+bytes remain history. Certified v7 epoch hash:
+`09fea5a79ae9df736eb3d73ec7802e9665f0ccec431562d8cfd6d64cfae2d052`.
+Exact JS placement equality and the mainnet certificate/proof pass; identical
+commit retry returned the original result. Historical unknown heading remains
+neutral. No real gameplay ANGLE/MOVE payment was sent.
+
+The treasury was immediately paused after upgrade, then enabled only after
+transition/public-browser verification. Its first automatic conversion sent
+**0.9999 ICP + 0.0001 ICP fee**, block **39,582,090**, through the fixed CMC route
+for this backend. CMC reported **2,044,295,550,000 cycles**. Exact plan/destination,
+memo, amount, fee, timestamp and block match the official Index. The worker is
+**enabled, Idle, not halted, with no error**; a later zero-balance maintenance
+completed without another transfer. Actual Ledger balance at closeout is zero;
+historical received remains 1 ICP. No manual transfer/notification was submitted.
+World, credits, events and publication stayed byte-identical during the brief
+paused financial observation. The outgoing row advanced source to **39,582,091**
+with zero gameplay inputs; autonomous play then resumed with the original run
+configuration. Scores continue to accrue normally. Automatic player payouts
+remain unavailable.
+
+Public mainnet certificate, square layouts, prices/memos/native copying, camera,
+minimap, existing-session epoch crossing, reconnect after eviction and fresh v7
+startup pass. Final **88.61s** trace: **0.497 verified / 0.494 displayed ticks/s**
+at supported **0.5** pace, **zero stalls and browser errors**. The first prepared-
+draft observer timed out before operator preparation; it is retained honestly.
+Exact old-MOVE draft staleness/new accepted-heading persistence retain their
+release-CI qualification; no synthetic events or gameplay transfers were used.
+A moving operator snapshot was reacquired through a fresh verified publication.
+
+Observed 07:00:41 UTC: total **4,955,231,201,394**, liquid
+**4,811,369,333,244 cycles**. Source healthy, no pending inputs; game running and
+transition complete. Controllers, principals, prices, Event Horizon and scoring
+are unchanged. No reset, reinstall, new canister, remote Git operation, unrelated
+transfer, prize payout or buyback occurred. DTR remains published `c12af747…`,
+client 0.13.0. [Live observer](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) /
+[reviewed deployment evidence](evidence/B2Z/torus-activation/activation.json) /
+[current operator procedure](docs/operations/S14_OPERATOR.md).
+Raw results remain under `.work/torus-activation-resume/`. Prior records below
+are historical and preserved.
+
+---
+
 # Current activation — blocked by replica installation cycles
 
 **2026-10-23:** the user authorized exact release `4c0cfa6`, torus activation and
