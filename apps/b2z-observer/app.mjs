@@ -90,10 +90,13 @@ async function startLocal(recording){
 }
 async function certifiedTicket(s,response){
   if(!response.certificate)throw new Error('live IC certificate missing');
-  return verifyCertificatePublication(response.publication,response.certificate,{
+  const ticket=await verifyCertificatePublication(response.publication,response.certificate,{
     canister_id:s.recording.canister_id,network:s.recording.network,now_ns:BigInt(Date.now())*1000000n,
     max_age_ns:300000000000n,max_future_ns:30000000000n,
   },s.verifyCertificate);
+  s.certificateTimeNs=String(ticket.certificate_time_ns);
+  s.certificateAgeMs=(Date.now()*1e6-Number(ticket.certificate_time_ns))/1e6;
+  return ticket;
 }
 async function liveArtifacts(s,ticket){
   const segment=Number(ticket.publication.head.segment_id);if(!Number.isSafeInteger(segment)||segment<0)throw new Error('live segment id');
@@ -269,6 +272,7 @@ async function pumpLive(now,s){
     const expected=past===null?0n:past+1n;
     if(next===expected)await admitLive(s,current);
     else{
+      const catchupStarted=performance.now();s.catchupSegments=Number(next-expected)+1;
       const reverse=[current];let successor=current,complete=next-expected<16n;
       // Fetch the bounded independent catalogs together before retention can
       // evict another predecessor. Still authenticate their chain in order.
@@ -285,6 +289,7 @@ async function pumpLive(now,s){
         const artifacts=await Promise.all(ordered.map(ticket=>liveArtifacts(s,ticket)));
         for(let i=0;i<ordered.length;i++)await admitLive(s,ordered[i],artifacts[i]);
       }
+      s.catchupMs=performance.now()-catchupStarted;
     }
     // A changed head may already have a successor. Do not add a fixed rest to
     // authenticated catch-up; unchanged heads retain the bounded poll interval.
@@ -429,7 +434,7 @@ function frame(now){
     if(s.queue.length)show(s.queue[0],visibleTime);
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }

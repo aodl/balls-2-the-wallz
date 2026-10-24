@@ -1938,6 +1938,16 @@ mod tests {
     }
     #[test]
     fn stable_storage_only_contains_described_chunks_after_resize_and_eviction() {
+        use ic_stable_structures::Memory as _;
+        use std::collections::{BTreeMap, BTreeSet};
+        fn reopen(backing: &DefaultMemoryImpl) {
+            MANAGER.with(|m| *m.borrow_mut() = MemoryManager::init(backing.clone()));
+            ROOT.with(|r| *r.borrow_mut() = StableCell::init(memory(0), Vec::new()));
+            BLOBS.with(|m| *m.borrow_mut() = StableBTreeMap::init(memory(1)));
+            RETAINED.with(|m| *m.borrow_mut() = StableBTreeMap::init(memory(2)));
+        }
+        let backing = DefaultMemoryImpl::default();
+        reopen(&backing);
         let mut h = empty_host();
         let (source, _) = SourceState::configured(
             IndexConfig {
@@ -1974,7 +1984,10 @@ mod tests {
         source.cursor = 128;
         let mut r = persist_inner(&h, None, source, RunState::default(), false).unwrap();
         assert!(r.image.length > CHUNK, "exercise allocated chunk shrink");
-        for end in (2..=16).step_by(2) {
+        let mut expected = BTreeMap::new();
+        let mut settled_pages = 0;
+        for ordinal in 1..=48 {
+            let end = ordinal * 2;
             h.apply(Action::Seal {
                 logical_end: Int(end.into()),
             })
@@ -1996,6 +2009,12 @@ mod tests {
             h.apply(Action::Publish { manifest_hash }).unwrap();
             r = persist_inner(&h, Some(&r), r.source.clone(), r.run.clone(), false).unwrap();
             let view = publication(&h.record).unwrap();
+            let segment = publication_segment(&view.data).unwrap().unwrap();
+            expected.insert(segment, (view.bytes.clone(), view.artifacts.clone()));
+            assert_eq!(r.retention.history.len(), (ordinal - 1).min(15));
+            if ordinal == 8 {
+                assert_eq!(r.retention.history.len(), 7);
+            }
             let allocated = r.image.length.div_ceil(CHUNK)
                 + view
                     .data
@@ -2023,13 +2042,106 @@ mod tests {
                 })
                 .sum::<usize>();
             assert_eq!(RETAINED.with(|m| m.borrow().len()), retained as u64);
+            let mut expected_keys = BTreeSet::new();
             for meta in &r.retention.history {
                 let bytes = retained_publication_bytes(meta).unwrap();
                 assert_eq!(hash(&bytes), meta.publication_hash);
+                let (original, artifacts) = &expected[&meta.segment_id];
+                assert_eq!(&bytes, original);
+                for chunk in 0..meta.publication_length.div_ceil(CHUNK) {
+                    expected_keys.insert(retained_key(meta.segment_id, chunk as u64).unwrap());
+                }
+                let catalog: Publication = decode(&bytes).unwrap();
+                for (kind, artifact) in catalog.artifacts.iter().enumerate() {
+                    let mut actual = Vec::new();
+                    for chunk in 0..artifact.chunks.len() {
+                        let key = retained_key(
+                            meta.segment_id,
+                            PUBLICATION_CHUNKS + kind as u64 * CHUNKS + chunk as u64,
+                        )
+                        .unwrap();
+                        expected_keys.insert(key);
+                        let bytes = RETAINED.with(|m| m.borrow().get(&key).unwrap());
+                        assert_eq!(hash(&bytes), artifact.chunks[chunk]);
+                        actual.extend(bytes);
+                    }
+                    assert_eq!(hash(&actual), artifact.sha256);
+                    assert_eq!(actual, artifacts[kind]);
+                }
+            }
+            assert_eq!(
+                RETAINED.with(|m| m.borrow().keys().collect::<BTreeSet<_>>()),
+                expected_keys
+            );
+            if ordinal > RETAINED_SEGMENTS {
+                let oldest = r.retention.history.first().unwrap().segment_id;
+                assert!(oldest > 0, "genuine eviction, not just eight publications");
+                assert!(
+                    RETAINED.with(|m| m.borrow().keys().all(|key| key / RETAINED_STRIDE >= oldest))
+                );
+            }
+            assert!(ROOT.with(|c| c.borrow().get().len()) <= ROOT_LIMIT);
+            assert!(r.image.length <= MAX_ARTIFACT);
+            assert!(
+                r.retention.history.iter().map(|m| m.bytes).sum::<usize>()
+                    + publication_size(&view.bytes, &view.data).unwrap()
+                    <= RETAINED_BYTES
+            );
+            assert!(
+                backing.size() * 65536 <= 64 * 1024 * 1024,
+                "bounded physical stable allocation for this fixture"
+            );
+            if ordinal == 32 {
+                settled_pages = backing.size();
             }
         }
-        assert_eq!(r.retention.history.len(), 2);
+        assert_eq!(r.retention.history.len(), 15);
+        assert_eq!(
+            backing.size(),
+            settled_pages,
+            "eviction reuses allocated pages"
+        );
         assert!(r.image.length < CHUNK, "obsolete image chunks removed");
+        let current = publication(&h.record).unwrap().data;
+        let mut over_budget = r.retention.clone();
+        for meta in &mut over_budget.history {
+            meta.artifact_lengths = [MAX_ARTIFACT; 3];
+            meta.bytes = meta.publication_length + 3 * MAX_ARTIFACT;
+        }
+        assert_eq!(
+            validate_retention(&over_budget, &current).unwrap_err(),
+            "retention bounds"
+        );
+        let mut too_many = r.retention.clone();
+        too_many
+            .history
+            .push(too_many.history.last().unwrap().clone());
+        assert_eq!(
+            validate_retention(&too_many, &current).unwrap_err(),
+            "retention count"
+        );
+        let original_root = ROOT.with(|c| c.borrow().get().clone());
+        ROOT.with(|c| c.borrow_mut().set(vec![0; ROOT_LIMIT + 1]));
+        assert_eq!(
+            root().err().unwrap(),
+            "missing/oversize root; no genesis fallback"
+        );
+        ROOT.with(|c| c.borrow_mut().set(original_root.clone()));
+        reopen(&backing);
+        let recovered = root().unwrap();
+        let restored = host(&recovered).unwrap();
+        assert_eq!(ROOT.with(|c| c.borrow().get().clone()), original_root);
+        assert_eq!(
+            publication(&restored.record).unwrap().bytes,
+            publication(&h.record).unwrap().bytes
+        );
+        assert_eq!(recovered.retention.history.len(), 15);
+        for meta in &recovered.retention.history {
+            assert_eq!(
+                retained_publication_bytes(meta).unwrap(),
+                expected[&meta.segment_id].0
+            );
+        }
     }
     #[test]
     fn transition_metadata_is_bound_and_does_not_forge_source_progress() {

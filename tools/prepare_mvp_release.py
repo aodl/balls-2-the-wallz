@@ -2,7 +2,7 @@
 """Build/freeze one normal MVP backend. Offline; never calls dfx or deploys.
 Requires a clean committed source and a new output directory. npm ci precedes it.
 """
-import argparse,hashlib,json,subprocess,tomllib
+import argparse,hashlib,json,os,subprocess,tomllib
 from pathlib import Path
 from verify_s14_local import wasm_exports
 ROOT=Path(__file__).resolve().parents[1]
@@ -44,6 +44,10 @@ def main():
     if run('git','rev-parse','HEAD')!=source_commit or run('git','status','--porcelain'):
         raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
     result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,
+      'build_environment':{'checkout':str(ROOT),'cargo_home':os.environ.get('CARGO_HOME',str(Path.home()/'.cargo')),
+        'rustflags':{key:os.environ.get(key,'') for key in ['RUSTFLAGS','CARGO_ENCODED_RUSTFLAGS','CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS']},
+        'path_packages':[{'name':p['name'],'id':p['id']} for p in json.loads(run('cargo','metadata','--manifest-path','canisters/runtime-lab/Cargo.toml','--format-version','1','--locked','--offline'))['packages'] if p['source'] is None],
+        'cross_directory_byte_equality':'not claimed; Cargo path package identities, Rust symbol hashes and embedded source paths vary; identify and test every installed artifact by its exact SHA-256'},
       'dtr_revision':DTR,'javascript_package':npm,'dependency_sha256':{name:sha(ROOT/name) for name in paths},
       'memo_adapter_version':3,'memo_format':'B2Z text/3 prefix-free; S15 prefixed text and binary/numeric compatibility; canonical BTZPAY02 unchanged','normal_features':[],'normal_exports':exports,'artifacts':{path.name:{'sha256':sha(path),'bytes':path.stat().st_size} for path in sorted(out.iterdir()) if path.is_file()},
       'tools':{name:run(*command) for name,command in {'rustc':['rustc','--version'],'cargo':['cargo','--version'],'node':['node','--version'],'npm':['npm','--version'],'dfx':['dfx','--version'],'python':['python3.11','--version']}.items()},

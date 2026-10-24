@@ -4181,6 +4181,7 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     let began = std::time::Instant::now();
     let mut started = false;
     let mut publications = vec![];
+    let mut publication_timing = vec![];
     let mut next = 0u64;
     while began.elapsed() < Duration::from_secs(300) {
         if !started && out.join("browser-scene-ready").exists() {
@@ -4204,6 +4205,7 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
                     decode(&raw).unwrap()
                 };
                 assert_eq!(current.head.seal.as_ref().unwrap().input_count, 0);
+                publication_timing.push(serde_json::json!({"segment_id":n,"logical_end":current.head.logical_end,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"capture_elapsed_ms":began.elapsed().as_millis(),"capture_poll_seconds":2}));
                 publications.push(current);
                 next = n + 1;
             }
@@ -4223,6 +4225,11 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     }
     assert!(out.join("browser-complete").exists(), "scene timeout");
     pic.stop_live();
+    std::fs::write(
+        out.join("publication-timing.json"),
+        serde_json::to_vec_pretty(&publication_timing).unwrap(),
+    )
+    .unwrap();
     let payments = BTreeMap::new();
     let mut assigned = vec![];
     for p in &publications {
@@ -4443,13 +4450,26 @@ fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
     let after = arena_world(&pic, id);
     assert_eq!(after.received_e8s, before.received_e8s);
     assert_eq!(after.cannons.len(), before.cannons.len());
+    let full_window = retained_bytes(&pic, id);
+    assert_eq!(full_window.len(), 16);
+    let full_publication = observe(&pic, id).0.publication;
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(retained_bytes(&pic, id), full_window);
+    assert_eq!(observe(&pic, id).0.publication, full_publication);
+    assert_eq!(arena_world(&pic, id), after);
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     std::fs::write(
         out.join("pacing-exact-upgrade.json"),
         serde_json::to_vec_pretty(&serde_json::json!({
           "status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_PACING_PRIOR_WASM")),
-          "publication_preserved":true,"retained_publications_and_chunks_preserved":retained.len(),"source_cursor":source_cursor,"received_e8s":after.received_e8s,
+          "publication_preserved":true,"retained_publications_and_chunks_preserved":retained.len(),"full_window_upgrade_preserved":full_window.len(),"source_cursor":source_cursor,"received_e8s":after.received_e8s,
           "world":[after.width,after.height],"ticks":ticks,"seconds":seconds,"ticks_per_second":rate,
           "mode":pace.mode,"nominal_milli":pace.nominal_milli,"funding_paused":true
         }))
