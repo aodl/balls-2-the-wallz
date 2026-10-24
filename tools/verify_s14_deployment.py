@@ -89,10 +89,11 @@ def verify_million_scene(page,context,out,record,report,save):
         while time.monotonic()-began<seconds:
             rows.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs,certificates:__dtrLive.certificates})'));page.wait_for_timeout(500)
         dt=(rows[-1]['wall_ms']-rows[0]['wall_ms'])/1000
-        result={'seconds':dt,'backend_ticks_per_second':(rows[-1]['backend_segments']-rows[0]['backend_segments'])*rows[-1]['segment_ticks']/dt,'admitted_ticks_per_second':(rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(rows[-1]['played_ticks']-rows[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in rows),'resyncs':rows[-1]['resyncs']-rows[0]['resyncs'],'nominal_rate':rows[-1]['nominal_rate'],'performance_limited':any(x['performance_limited'] for x in rows),'queue_segments':{'min':min(x['queue_segments'] for x in rows),'max':max(x['queue_segments'] for x in rows)},'buffer_ticks':{'min':min(x['buffer_ticks'] for x in rows),'max':max(x['buffer_ticks'] for x in rows)},'latency_ms':{k:{'median':sorted(x[k] for x in rows)[len(rows)//2],'max':max(x[k] for x in rows)} for k in ['fetch_ms','verify_ms','artifact_ms','derive_ms','catchup_ms']},'max_catchup_segments':max(x['catchup_segments'] for x in rows),'certified_publications_per_second':(rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'])/dt,'authenticated_observation_queries_per_second':(rows[-1]['certificates']-rows[0]['certificates'])/dt,'timing_qualification':'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.'}
+        result={'seconds':dt,'backend_ticks_per_second':(rows[-1]['backend_segments']-rows[0]['backend_segments'])*rows[-1]['segment_ticks']/dt,'admitted_ticks_per_second':(rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(rows[-1]['played_ticks']-rows[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in rows),'resyncs':rows[-1]['resyncs']-rows[0]['resyncs'],'nominal_rate':rows[-1]['nominal_rate'],'performance_limited':any(x['performance_limited'] for x in rows),'queue_segments':{'min':min(x['queue_segments'] for x in rows),'max':max(x['queue_segments'] for x in rows)},'buffer_ticks':{'min':min(x['buffer_ticks'] for x in rows),'max':max(x['buffer_ticks'] for x in rows)},'latency_ms':{k:{'median':sorted(x[k] for x in rows)[len(rows)//2],'max':max(x[k] for x in rows)} for k in ['fetch_ms','verify_ms','artifact_ms','derive_ms','catchup_ms']},'max_catchup_segments':max(x['catchup_segments'] for x in rows),'buffer_bytes':{'min':min(x['buffer_bytes'] for x in rows),'max':max(x['buffer_bytes'] for x in rows)},'buffer_target_ticks':{'min':min(x['buffer_target_ticks'] for x in rows),'max':max(x['buffer_target_ticks'] for x in rows)},'distinct_playheads':len({round(x['played_ticks'],3) for x in rows}),'certified_publications_per_second':(rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'])/dt,'authenticated_observation_queries_per_second':(rows[-1]['certificates']-rows[0]['certificates'])/dt,'timing_qualification':'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.'}
         report['million_'+name+'_playback']=result;(out/('million-'+name+'-telemetry.json')).write_text(json.dumps(rows,indent=2));save()
         assert result['stalled_samples']==0 and result['resyncs']==0,result
-        assert result['queue_segments']['max']<=24,result
+        assert result['queue_segments']['max']<=24 and result['buffer_bytes']['max']<=8*1024*1024,result
+        if name=='lifeline':assert result['distinct_playheads']>=60,result
         assert not result['performance_limited'],result
         for key in ['backend_ticks_per_second','admitted_ticks_per_second','displayed_ticks_per_second']:assert lower<=result[key]<=upper,(key,result)
         record('million-cell-'+name+'-certified-playback',result)
@@ -103,16 +104,7 @@ def verify_million_scene(page,context,out,record,report,save):
     (out/'browser-million-economy-complete').write_text('economy playback measured\n')
     wait_until(page,lambda:'Lifeline' in page.locator('#arena-note').text_content(),30000)
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000);page.wait_for_timeout(4000)
-    slow=[];began=time.monotonic()
-    while time.monotonic()-began<50:slow.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
-    dt=(slow[-1]['wall_ms']-slow[0]['wall_ms'])/1000
-    displayed=(slow[-1]['played_ticks']-slow[0]['played_ticks'])/dt
-    distinct=len({round(x['consumed_ticks'],3) for x in slow})
-    slow_result={'seconds':dt,'verified_ticks_per_second':(slow[-1]['admitted_ticks']-slow[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':displayed,'distinct_playheads':distinct,'stalled_samples':sum(x['phase']=='STALLED' for x in slow),'target_rate':slow[-1]['target_rate']}
-    report['million_lifeline_playback']=slow_result;(out/'million-lifeline-telemetry.json').write_text(json.dumps(slow,indent=2))
-    assert slow_result['stalled_samples']==0,slow_result
-    assert .035<=displayed<=.065 and distinct>=60,slow_result
-    record('million-cell-lifeline-smooth-verified-interpolation',slow_result)
+    measure_mode('lifeline',50,.035,.065)
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '1,000 × 1,000' in page.locator('#world-rules').text_content(),30000)
     assert not page.locator('#error').is_visible()
     wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='PLAYING',60000)
