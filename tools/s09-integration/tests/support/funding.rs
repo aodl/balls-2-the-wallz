@@ -1,6 +1,6 @@
 //! Valueless upstream Ledger/Index + narrow real-contract CMC double only.
 use super::*;
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Plan {
     ledger: String,
     beneficiary: String,
@@ -11,7 +11,7 @@ struct Plan {
     memo: u64,
     created_at_time_ns: u64,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 enum Phase {
     Idle,
     TransferPending {
@@ -25,26 +25,26 @@ enum Phase {
         attempts: u64,
     },
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Observation {
     e8s: u64,
     observed_at_ns: u64,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Completion {
     plan: Plan,
     block_index: u64,
     cycles: String,
     completed_at_ns: u64,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Refund {
     plan: Plan,
     transfer_block: u64,
     refund_block: Option<u64>,
     reason: String,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Funding {
     version: u32,
     paused: bool,
@@ -173,6 +173,21 @@ fn setup_fee(wasm: Vec<u8>, fee: u64) -> (PocketIc, Principal, Principal, Princi
         Some(controller()),
     );
     (pic, id, ledger, index, payer)
+}
+pub(super) fn predecessor_setup(
+    wasm: Vec<u8>,
+) -> (PocketIc, Principal, Principal, Principal, Principal) {
+    setup(wasm)
+}
+pub(super) fn complete_predecessor_treasury(pic: &PocketIc, id: Principal) {
+    enabled(pic, id, true);
+    maintenance(pic);
+    assert!(funding(pic, id).last_success.is_some());
+    assert!(matches!(funding(pic, id).phase, Phase::Idle));
+}
+pub(super) fn preserved_finance(pic: &PocketIc, id: Principal) -> serde_json::Value {
+    let f = funding(pic, id);
+    serde_json::json!({"paused":f.paused,"halted":f.halted,"phase":f.phase,"last_success":f.last_success,"last_refund":f.last_refund,"total_converted_e8s":f.total_converted_e8s,"total_cycles_reported":f.total_cycles_reported,"last_plan_ns":f.last_plan_ns})
 }
 fn outgoing(pic: &PocketIc, id: Principal, index: Principal) -> Vec<source::TransactionWithId> {
     rows(pic,id,index).transactions.into_iter().filter(|r|matches!(&r.transaction.operation,source::Operation::Transfer{from,..} if from==&AccountIdentifier::new(&id,&DEFAULT_SUBACCOUNT).to_hex())).collect()

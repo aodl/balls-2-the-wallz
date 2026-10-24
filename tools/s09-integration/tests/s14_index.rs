@@ -4789,7 +4789,7 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
         dtr_wire::hash(&predecessor),
         "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db"
     );
-    let (pic, id, ledger, payer) = arena_setup(predecessor);
+    let (pic, id, ledger, _index, payer) = funding_tests::predecessor_setup(predecessor);
     let funding: FundingPause = get_result(
         &pic,
         id,
@@ -4866,6 +4866,9 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     }
     assert_eq!(retained_bytes(&pic, id).len(), 16);
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    funding_tests::complete_predecessor_treasury(&pic, id);
+    let finance_before_upgrade = funding_tests::preserved_finance(&pic, id);
+    assert_eq!(finance_before_upgrade["paused"], false);
     let retained_before_upgrade = retained_bytes(&pic, id);
     let source_before_upgrade = status(&pic, id).source.admitted_to_exclusive;
     let before_upgrade = arena_world(&pic, id);
@@ -4877,6 +4880,10 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
         Some(controller()),
     )
     .unwrap();
+    assert_eq!(
+        funding_tests::preserved_finance(&pic, id),
+        finance_before_upgrade
+    );
     assert_eq!(arena_world(&pic, id), before_upgrade);
     assert_eq!(retained_bytes(&pic, id), retained_before_upgrade);
     assert_eq!(
@@ -4885,10 +4892,10 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     );
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
-    std::fs::write(out.join("million-wasm-upgrade.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_MILLION_PRIOR_WASM")),"world_hash":dtr_wire::hash(&before_upgrade.encode().unwrap()),"publication_hash":dtr_wire::hash(&publication_before_upgrade),"retained_publications":retained_before_upgrade.len(),"source_cursor":source_before_upgrade,"world_preserved":true,"scores_credits_accounts_balls_cannons_preserved":true})).unwrap()).unwrap();
+    std::fs::write(out.join("million-wasm-upgrade.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_MILLION_PRIOR_WASM")),"world_hash":dtr_wire::hash(&before_upgrade.encode().unwrap()),"publication_hash":dtr_wire::hash(&publication_before_upgrade),"retained_publications":retained_before_upgrade.len(),"source_cursor":source_before_upgrade,"world_preserved":true,"scores_credits_accounts_balls_cannons_preserved":true,"treasury_preserved":finance_before_upgrade})).unwrap()).unwrap();
     assert_eq!(observe(&pic, id).0.publication, publication_before_upgrade);
     assert!(
-        get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+        !get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
     );
     let before_old_move = arena_world(&pic, id);
     let cannon = before_old_move.cannons[0].clone();
@@ -5061,6 +5068,10 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
             .unwrap()
             .success()
     );
+    assert_eq!(
+        funding_tests::preserved_finance(&pic, id),
+        finance_before_upgrade
+    );
     let million = arena_world(&pic, id);
     assert_eq!(million, expected);
     let retained_after_transition = retained_bytes(&pic, id);
@@ -5108,7 +5119,7 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     assert_eq!(arena_world(&pic, id), million);
     assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
     assert!(
-        get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+        !get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
     );
 
     let conflict = pic
