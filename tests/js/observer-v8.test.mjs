@@ -13,7 +13,7 @@ import {stageMillionWorld,stageTorusMigration} from '../../packages/kernels/b2z/
 import {MILLION_IDENTITY,PRELAUNCH_IDENTITY,TORUS_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 
 const clientPackage=JSON.parse(fs.readFileSync(new URL('../../node_modules/@dtr/timeline-runtime/package.json',import.meta.url)));
-const supportsSecondEpoch=Number(clientPackage.version.split('.')[1])>=14;
+assert.equal(clientPackage.version,'0.14.0','real immutable DTR 0.14 package required');
 const fixture=JSON.parse(fs.readFileSync(new URL('../fixtures/b2z-torus-v4.json',import.meta.url)));
 
 function finish(host,end){
@@ -42,9 +42,7 @@ async function artifact(ticket,record,kind){
   return reader.finish();
 }
 
-test('v8 observer authenticates the second epoch, reconstructs v5, and follows its first segment',{
-  skip:supportsSecondEpoch?false:'requires unpublished DTR 0.14 development package',
-},async()=>{
+test('v8 observer authenticates the second epoch, reconstructs v5, and follows its first segment',async()=>{
   const source_id='11'.repeat(32),oldIdentity={source_id,...PRELAUNCH_IDENTITY};
   const host=TimelineCoordinator.create(unhex(fixture.migration.old_hex),oldIdentity,{logical_start:0n,source_from:0n},B2zKernel);
   finish(host,1n);

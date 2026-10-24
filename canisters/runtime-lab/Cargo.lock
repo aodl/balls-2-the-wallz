@@ -409,13 +409,13 @@ dependencies = [
 
 [[package]]
 name = "dtr-core"
-version = "0.13.0"
-source = "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+version = "0.14.0"
+source = "git+https://github.com/aodl/dtr.git?rev=e1bfcf25071d11190d14f461288e12a21ca26cf8#e1bfcf25071d11190d14f461288e12a21ca26cf8"
 
 [[package]]
 name = "dtr-host"
-version = "0.13.0"
-source = "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+version = "0.14.0"
+source = "git+https://github.com/aodl/dtr.git?rev=e1bfcf25071d11190d14f461288e12a21ca26cf8#e1bfcf25071d11190d14f461288e12a21ca26cf8"
 dependencies = [
  "dtr-wire",
  "num-traits",
@@ -443,8 +443,8 @@ dependencies = [
 
 [[package]]
 name = "dtr-wire"
-version = "0.13.0"
-source = "git+https://github.com/aodl/dtr.git?rev=c12af747190f7e24d5e68cdf57dbb1494095a46b#c12af747190f7e24d5e68cdf57dbb1494095a46b"
+version = "0.14.0"
+source = "git+https://github.com/aodl/dtr.git?rev=e1bfcf25071d11190d14f461288e12a21ca26cf8#e1bfcf25071d11190d14f461288e12a21ca26cf8"
 dependencies = [
  "num-bigint",
  "num-rational",

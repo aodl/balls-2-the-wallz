@@ -59,9 +59,29 @@ keeps the original v6 publications and v7 epoch interpretation intact while
 authenticating the bounded predecessor summary and new state. An exact retry
 returns the committed result; a stale manifest or different retry fails.
 
-The implementation depends on DTR 0.14 multi-epoch support. B2Z must not replace
-its published DTR 0.13 pins until the reviewed DTR commit and package are
-published at immutable references and their hashes can be locked reproducibly.
+The implementation pins published DTR 0.14 at immutable revision
+`e1bfcf25071d11190d14f461288e12a21ca26cf8`. The vendored JavaScript archive is
+reproduced from that Git tree with the isolated consumer verifier, not a registry
+release or sibling checkout override. Its SHA-256 is
+`ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`.
+
+## Bounded observer buffering
+
+The client queue holds at most 24 segments and 8 MiB of verified projected data.
+The ordinary fast-mode reserve remains one publication plus sixteen seconds of
+play. At Normal, one-tick v5 publications therefore target 17 ticks, leaving
+seven queue slots; this replaces the old impossible nine-tick/eight-slot pairing.
+The target is capped further from the largest observed segment size, reserving a
+quarter of feasible slots where possible. If a partial head occupies the entire
+byte budget after a known pause, the verified remainder can resume without
+waiting for an inadmissible successor. Catch-up admission respects both caps.
+
+Backend retention is separate: at most 16 publications under an 8 MiB cap.
+Sixteen is an upper bound, not a promise when large artifacts force earlier
+byte-based eviction. Reconnect verifies the retained chain when available and
+uses an authenticated snapshot when it has been evicted. This may legitimately
+skip presentation; admission/playout counters never count that jump as work.
+Authoritative funding tiers and Normal's 1 tick/second target are unchanged.
 
 ## Presentation
 

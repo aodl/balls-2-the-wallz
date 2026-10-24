@@ -1,13 +1,13 @@
 # DTR JavaScript package
 
-B2Z consumes `@dtr/timeline-runtime@0.13.0` from `dtr-timeline-runtime-0.13.0.tgz`.
+B2Z consumes `@dtr/timeline-runtime@0.14.0` from `dtr-timeline-runtime-0.14.0.tgz`.
 
 - source: `https://github.com/aodl/dtr.git`
-- published revision: `c12af747190f7e24d5e68cdf57dbb1494095a46b`
-- source tree: `59978f78eaf290f3780e4854d0f51b6898fec13c`
-- SHA-256: `324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c`
-- npm integrity: `sha512-zCZNuGGeqrFj7g/FP4y6GQzHC3WWQUA4ehhbdeE1PGbG2lzNoz1tIwma9L0ToHibulGv1PNa/asaX25XjOpEsw==`
-- npm shasum: `88a818dd6c03437f0f2463399d528a799ede9298`
+- published revision: `e1bfcf25071d11190d14f461288e12a21ca26cf8`
+- source tree: `fd5c687fd9a558d536c5ed47de771fad543cd032`
+- SHA-256: `ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`
+- npm integrity: `sha512-oJknKDDWjpmkYd1g7CNPiaV3MuTKWuquCZZiuRLJ3KsADHSDENTpYiKyiibANflPF59mKDtN/DaaHBDsNYDb1w==`
+- npm shasum: `dc905ef38bedca648d5b85ec1ac0e4e6fe946375`
 - packaging: Node24.15.0 / npm11.12.1; 23 files, normalized0644 source modes.
 
 `tools/verify_dtr_consumers.py` resolves the exact published Rust revision through
@@ -19,3 +19,5 @@ The 0.12.0 archive is historical S14 evidence: revision
 `1f47c1a0a104875bd13475d561b8d5aa10770d99`, SHA-256
 `933f42b1187c45083c4f6c69e6851fe2c77e15e8fa8fd198e13187ad3ff13d8f`.
 The 0.11.0 archive remains historical S11–S13 evidence only.
+
+The 0.13.0 archive remains immutable historical pacing-release evidence.

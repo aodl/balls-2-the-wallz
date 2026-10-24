@@ -802,6 +802,143 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
     assert_eq!(arena_world(&pic, id).width, 32);
     assert_eq!(arena_world(&pic, id).cannons.len(), 1);
     assert_eq!(stats(&pic).credits, 3);
+    // Continue from the authenticated v4 history into v5 with a genuinely
+    // ambiguous treasury transfer crossing the second source fence.
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    settle(&pic);
+    for attempt in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_million_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            break;
+        }
+        assert!(attempt < 89);
+        tick(&pic);
+    }
+    for _ in 0..120 {
+        if transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .ledger_cutover
+            .is_some()
+        {
+            break;
+        }
+        tick(&pic);
+    }
+    let million_cutover = transition_view_for(&pic, id, "million_transition_status")
+        .unwrap()
+        .ledger_cutover
+        .unwrap();
+    let held = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
+    assert!(Int(held.into()) >= million_cutover);
+    fault(&pic, id, "after-transfer");
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    let million_pending = funding(&pic, id);
+    assert!(matches!(
+        million_pending.phase,
+        Phase::TransferPending { .. }
+    ));
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&million_pending.phase).unwrap()
+    );
+    start_arena(&pic, id);
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .phase
+            == "ready"
+            && transition_drained(&pic, id)
+        {
+            break;
+        }
+    }
+    assert_eq!(
+        transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .phase,
+        "ready"
+    );
+    assert!(status(&pic, id).source.admitted_to_exclusive <= held);
+    let v4 = arena_world(&pic, id);
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_million_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    assert_eq!(
+        arena_world(&pic, id),
+        b2z_native::migration::stage_million_world(&v4).unwrap()
+    );
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&million_pending.phase).unwrap()
+    );
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&million_pending.phase).unwrap()
+    );
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    assert!(matches!(funding(&pic, id).phase, Phase::Idle));
+    assert_eq!(stats(&pic).credits, 4);
+    assert_eq!(
+        outgoing(&pic, id, index).len(),
+        4,
+        "ambiguous transfer retry must not duplicate"
+    );
+    let v5_deposit = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    for _ in 0..240 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > v5_deposit + 1 && work(&pic, id).0 == 0 {
+            break;
+        }
+    }
+    assert_eq!(stats(&pic).credits, 5);
+    assert_eq!(outgoing(&pic, id, index).len(), 5);
+    assert_eq!(arena_world(&pic, id).version, 5);
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(108_000_001u64.into())
+    );
+    assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    let evidence = serde_json::json!({"status":"PASS","world_version":5,"cutover":million_cutover,"held_payment":held,"post_migration_deposit":v5_deposit,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"cmc_credits":stats(&pic).credits,"outgoing_transfers":outgoing(&pic,id,index).len(),"pending_finance_survived_transition_and_two_upgrades":true});
+    std::fs::write(
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+            .join("million-funding-cutover.json"),
+        serde_json::to_vec_pretty(&evidence).unwrap(),
+    )
+    .unwrap();
     println!(
         "FUNDING_TORUS_CUTOVER PASS cutover={cutover} before={first} during={during} after={:?}",
         out.iter().map(|r| r.id).collect::<Vec<_>>()

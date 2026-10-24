@@ -193,7 +193,7 @@ export function prepareIdlePlayout(session,idle){
   else if(session.productionPaused&&session.operational?.run.running===true){
     // A known operator pause can exhaust all verified data. Resume with the
     // ordinary startup buffer, rather than repeatedly starting at the low mark.
-    session.clock=new PlayoutClock({start,...liveBufferPolicy(session.operational),max_frame_delta:1});
+    session.clock=new PlayoutClock({start,...liveSessionBufferPolicy(session),max_frame_delta:1});
     if(end>start)session.clock.append(start,end);
     session.productionPaused=false;session.idleDrain=false;
   }
@@ -202,7 +202,7 @@ export function prepareIdlePlayout(session,idle){
     session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
     session.clock.append(start,end);session.idleDrain=true;
   }else if(!idle&&session.idleDrain){
-    session.clock=new PlayoutClock({start,...liveBufferPolicy(session.operational),max_frame_delta:1});
+    session.clock=new PlayoutClock({start,...liveSessionBufferPolicy(session),max_frame_delta:1});
     if(end>start)session.clock.append(start,end);session.idleDrain=false;
   }
 }
@@ -221,8 +221,25 @@ export function approachPace(current,target,seconds){return current+Math.max(-.2
  * eight at slow rates, expressed in ticks.
  * Slow modes publish one-tick segments, bounding Lifeline cold start to two
  * authenticated publications instead of several minutes of accumulated play. */
-export function liveBufferPolicy(status){
+export const LIVE_BUFFER_LIMITS=Object.freeze({segments:24,bytes:8*1024*1024});
+export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=Infinity){
  const pace=nominalPace(status),raw=Number(status?.run.publication_ticks??status?.run.segment_ticks??2);
  const ticks=Number.isInteger(raw)&&raw>=1&&raw<=64?raw:2;
- return {target:ticks+(pace>=.5?16:8)*pace,low:Math.max(.05,pace)};
+ const byteSlots=largestSegmentBytes>0?Math.floor(LIVE_BUFFER_LIMITS.bytes/largestSegmentBytes):LIVE_BUFFER_LIMITS.segments;
+ const slots=Math.max(1,Math.min(LIVE_BUFFER_LIMITS.segments,byteSlots));
+ // Reserve a quarter of the feasible queue for delivery jitter. A single
+ // maximum-size segment can start by itself rather than wait for a second.
+ const usable=Math.max(1,slots-Math.max(1,Math.ceil(slots/4)));
+ const target=Math.min(ticks+(pace>=.5?16:8)*pace,usable*ticks,bufferAtCapacity>0?bufferAtCapacity:Infinity);
+ return {target,low:Math.min(target/2,Math.max(.05,pace))};
+}
+
+
+/** A partial head segment still occupies bytes/one slot after an operator pause.
+ * If no successor can fit, resume from that verified remainder instead of
+ * waiting for bytes which cannot be admitted until playout resumes. */
+export function liveSessionBufferPolicy(session){
+ const full=(session.queue?.length??0)>=LIVE_BUFFER_LIMITS.segments||
+   (session.bytes??0)+(session.largestSegmentBytes??0)>LIVE_BUFFER_LIMITS.bytes;
+ return liveBufferPolicy(session.operational,session.largestSegmentBytes,full?session.clock.state().buffer:Infinity);
 }

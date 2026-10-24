@@ -6,8 +6,8 @@ import argparse,hashlib,json,os,subprocess,tomllib
 from pathlib import Path
 from verify_s14_local import wasm_exports
 ROOT=Path(__file__).resolve().parents[1]
-DTR='c12af747190f7e24d5e68cdf57dbb1494095a46b'
-PACKAGE_SHA='324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c'
+DTR='e1bfcf25071d11190d14f461288e12a21ca26cf8'
+PACKAGE_SHA='ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc'
 NORMAL_METHODS={'prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','controller_runtime','controller_funding','set_funding_paused','artifact_bundle','artifact_chunk','controller_work','lab_status','observation','observation_bundle','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def run(*command):return subprocess.check_output(command,cwd=ROOT,text=True,timeout=900).strip()
@@ -21,10 +21,10 @@ def main():
     for name in ['dtr-host','dtr-wire']:
         source=next(x['source'] for x in lock['package'] if x['name']==name)
         if source!=f'git+https://github.com/aodl/dtr.git?rev={DTR}#{DTR}':raise SystemExit('Unexpected DTR source')
-    package=ROOT/'vendor/dtr/dtr-timeline-runtime-0.13.0.tgz'
+    package=ROOT/'vendor/dtr/dtr-timeline-runtime-0.14.0.tgz'
     if sha(package)!=PACKAGE_SHA:raise SystemExit('Unexpected packaged DTR identity')
     npm=json.loads((ROOT/'package-lock.json').read_text())['packages']['node_modules/@dtr/timeline-runtime']
-    if npm['version']!='0.13.0' or json.loads((ROOT/'node_modules/@dtr/timeline-runtime/package.json').read_text())['version']!='0.13.0':raise SystemExit('Run npm ci --ignore-scripts with the committed lock')
+    if npm['version']!='0.14.0' or json.loads((ROOT/'node_modules/@dtr/timeline-runtime/package.json').read_text())['version']!='0.14.0':raise SystemExit('Run npm ci --ignore-scripts with the committed lock')
     run('node','tools/generate_economics.mjs','--check')
     out.mkdir(parents=True)
     run('cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline')
@@ -40,7 +40,7 @@ def main():
     args=['node','tools/prepare_s14_init.mjs','--output',str(out/'init.did'),'--world-output',str(out/'world.bin'),'--profile-output',str(out/'launch.json')]
     if a.event_horizon:args+=['--event-horizon',a.event_horizon]
     run(*args)
-    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.13.0.tgz','dfx.json','config/economics/prelaunch.json','packages/kernels/b2z/economics.generated.mjs','native/b2z-native/src/economics_generated.rs','references/S14/mvp-configuration.bin']
+    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.14.0.tgz','dfx.json','config/economics/prelaunch.json','packages/kernels/b2z/economics.generated.mjs','native/b2z-native/src/economics_generated.rs','references/S14/mvp-configuration.bin']
     if run('git','rev-parse','HEAD')!=source_commit or run('git','status','--porcelain'):
         raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
     result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,

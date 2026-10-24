@@ -5,7 +5,7 @@ import {createArcade,formatIcp} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
-import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy} from './model.mjs';
+import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
 import {readBytes,validateIndex,loadEntry} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
@@ -126,8 +126,8 @@ async function liveArtifacts(s,ticket){
   return artifacts;
 }
 function resetLiveClock(s,time){
-  s.clock=new PlayoutClock({start:time,...liveBufferPolicy(s.operational),max_frame_delta:1});
-  s.queue=[];s.bytes=0;s.idleDrain=false;visibleTime=time;
+  s.queue=[];s.bytes=0;s.largestSegmentBytes=0;s.idleDrain=false;visibleTime=time;
+  s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),max_frame_delta:1});
 }
 async function startLive(recording,startupRetries=0){
   session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
@@ -217,7 +217,11 @@ async function admitLive(s,ticket,prefetched){
   const deriving=performance.now();
   const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);s.deriveMs=performance.now()-deriving;if(!active(s))return;
   if(segment.start!==s.clock.available)throw new Error('live timeline gap');
-  if(s.bytes+segment.bytes>8*1024*1024)throw new Error('observer buffer byte capacity');
+  if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer segment byte capacity');
+  s.largestSegmentBytes=Math.max(s.largestSegmentBytes??0,segment.bytes);
+  Object.assign(s.clock,liveSessionBufferPolicy(s));
+  if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
+
   s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
@@ -256,12 +260,12 @@ function updatePlayReference(s,world,events){
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
   s.statusBusy=true;s.statusDue=now+2000;
-  try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();if(!s.idleDrain)Object.assign(s.clock,liveBufferPolicy(status));$('service-status').textContent=operationalText(status);}}
+  try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));$('service-status').textContent=operationalText(status);}}
   catch{if(active(s)){s.operational=null;$('service-status').textContent=operationalText(null);}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
-  if(now<s.nextDue||s.queue.length>=24||s.clock.state().buffer>=32)return;s.busy=true;
+  if(now<s.nextDue||s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.clock.state().buffer>=32)return;s.busy=true;
   try{
     const started=performance.now(),response=await s.client.observation();s.fetchMs=performance.now()-started;const verifying=performance.now();
     const current=await certifiedTicket(s,response);s.verifyMs=performance.now()-verifying;if(!active(s))return;
@@ -270,7 +274,8 @@ async function pumpLive(now,s){
     if(current.root_hash===prior.root_hash){s.retryFailures=0;s.nextDue=performance.now()+Math.max(0,500-s.fetchMs);return;}
     if(next===null||past!==null&&next<=past){s.sequence.accept(current);s.nextDue=performance.now()+500;return;}
     const expected=past===null?0n:past+1n;
-    if(next===expected)await admitLive(s,current);
+    let deferred=false;
+    if(next===expected)deferred=await admitLive(s,current)===false;
     else{
       const catchupStarted=performance.now();s.catchupSegments=Number(next-expected)+1;
       const reverse=[current];let successor=current,complete=next-expected<16n;
@@ -285,15 +290,15 @@ async function pumpLive(now,s){
       }
       if(!complete)await resyncLive(s,current);
       else{
-        const ordered=reverse.reverse();
+        const ordered=reverse.reverse().slice(0,LIVE_BUFFER_LIMITS.segments-s.queue.length);
         const artifacts=await Promise.all(ordered.map(ticket=>liveArtifacts(s,ticket)));
-        for(let i=0;i<ordered.length;i++)await admitLive(s,ordered[i],artifacts[i]);
+        for(let i=0;i<ordered.length;i++){if(await admitLive(s,ordered[i],artifacts[i])===false){deferred=true;break;}}
       }
       s.catchupMs=performance.now()-catchupStarted;
     }
     // A changed head may already have a successor. Do not add a fixed rest to
     // authenticated catch-up; unchanged heads retain the bounded poll interval.
-    s.retryFailures=0;s.nextDue=performance.now();
+    s.retryFailures=0;s.nextDue=performance.now()+(deferred?250:0);
   }catch(e){
     if(!active(s))return;s.retryFailures++;s.deliveryError=String(e?.message??e).slice(0,160);
     if(s.retryFailures>=5){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
@@ -447,7 +452,7 @@ function frame(now){
     if(s.queue.length)show(s.queue[0],visibleTime);
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
