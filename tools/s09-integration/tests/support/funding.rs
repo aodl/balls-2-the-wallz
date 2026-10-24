@@ -955,6 +955,7 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
         Int(108_000_001u64.into())
     );
     assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    std::fs::create_dir_all(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).unwrap();
     let evidence = serde_json::json!({"status":"PASS","world_version":5,"cutover":million_cutover,"held_payment":held,"post_migration_deposit":v5_deposit,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"cmc_credits":stats(&pic).credits,"outgoing_transfers":outgoing(&pic,id,index).len(),"pending_finance_survived_transition_and_two_upgrades":true});
     std::fs::write(
         PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
