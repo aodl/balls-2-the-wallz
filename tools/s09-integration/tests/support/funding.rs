@@ -828,7 +828,7 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
     assert_eq!(arena_world(&pic, id).cannons.len(), 1);
     assert_eq!(stats(&pic).credits, 3);
     // Continue from the authenticated v4 history into v5 with a genuinely
-    // ambiguous treasury transfer crossing the second source fence.
+    // pending CMC notification crossing the second source fence.
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     settle(&pic);
     for attempt in 0..90 {
@@ -865,15 +865,12 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
         .unwrap();
     let held = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
     assert!(Int(held.into()) >= million_cutover);
-    fault(&pic, id, "after-transfer");
+    mode(&pic, "processing");
     enabled(&pic, id, true);
     maintenance(&pic);
     enabled(&pic, id, false);
     let million_pending = funding(&pic, id);
-    assert!(matches!(
-        million_pending.phase,
-        Phase::TransferPending { .. }
-    ));
+    assert!(matches!(million_pending.phase, Phase::NotifyPending { .. }));
     pic.upgrade_canister(
         id,
         bytes("B2Z_S14_WASM"),
@@ -931,6 +928,7 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
         candid::encode_one(&funding(&pic, id).phase).unwrap(),
         candid::encode_one(&million_pending.phase).unwrap()
     );
+    mode(&pic, "");
     enabled(&pic, id, true);
     maintenance(&pic);
     assert!(matches!(funding(&pic, id).phase, Phase::Idle));
