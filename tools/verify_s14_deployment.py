@@ -262,6 +262,24 @@ def main():
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             context=browser.new_context(permissions=['clipboard-write'],has_touch=True,viewport={'width':1440,'height':900},record_video_dir=str(out/'video'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
+            wire_packets=[];wire_errors=[];wire_bytes=0
+            if a.million_scene_only:
+                wire=out/'wire-catalogs';wire.mkdir()
+                def capture_catalog(response):
+                    nonlocal wire_bytes
+                    request=response.request
+                    if request.method!='POST' or not request.url.endswith('/query'):return
+                    body=request.post_data_buffer or b''
+                    method=next((name for name in ['observation_bundle','retained_publication','observation'] if name.encode() in body),None)
+                    if not method:return
+                    try:
+                        data=response.body()
+                        if len(wire_packets)>=1024 or wire_bytes+len(data)>64*1024*1024:raise ValueError('wire capture bound')
+                        name=f'{len(wire_packets):04}.cbor';(wire/name).write_bytes(data);wire_bytes+=len(data)
+                        wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
+                    except Exception as error:wire_errors.append(str(error))
+                page.on('response',capture_catalog)
+
             def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
                 route.continue_()
@@ -546,6 +564,8 @@ def main():
         except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
+        if a.million_scene_only and 'wire_packets' in locals():
+            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes},indent=2))
         if browser:
             try:browser.close()
             except Exception:pass

@@ -4457,6 +4457,7 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
     )
     .unwrap();
     std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("initial-world.bin"), &initial).unwrap();
     std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
     let gateway = pic.make_live(None);
     let log = std::fs::File::create(out.join("browser.log")).unwrap();
@@ -4555,6 +4556,26 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
     )
     .unwrap();
     pic.stop_live();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&root)
+            .args(["tools/capture_million_history.mjs", out.to_str().unwrap()])
+            .status()
+            .unwrap()
+            .success()
+    );
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&root)
+            .args([
+                "tools/replay_s14.mjs",
+                out.join("history.json").to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
 }
 
 #[derive(Deserialize)]
