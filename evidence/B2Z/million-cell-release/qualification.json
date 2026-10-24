@@ -1,0 +1,756 @@
+{
+  "recorded_at": "2026-10-24T23:41:52.605308+00:00",
+  "status": "LOCAL GATES PASS; RELEASE CANDIDATE FOR USER-OWNED PUBLICATION AND EXACT-COMMIT CI",
+  "tested_implementation_commit": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+  "baseline": {
+    "status": "PASS",
+    "merge_commit": "9cff05f9d9e00e532ab5c6fa1690c0e5bf431171",
+    "master": "e052f77de7bbe0322196c1bf4f5eee5f890d381b",
+    "histories_rewritten": false,
+    "pacing_module": "unchanged from merged production master; seven active modes and Reserve Protection"
+  },
+  "dtr": {
+    "status": "PASS",
+    "immutable_revision": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "source_tree": "fd5c687fd9a558d536c5ed47de771fad543cd032",
+    "javascript_version": "0.14.0",
+    "archive": {
+      "path": "vendor/dtr/dtr-timeline-runtime-0.14.0.tgz",
+      "sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc"
+    },
+    "npm_integrity": "sha512-oJknKDDWjpmkYd1g7CNPiaV3MuTKWuquCZZiuRLJ3KsADHSDENTpYiKyiibANflPF59mKDtN/DaaHBDsNYDb1w==",
+    "consumer_checks": 8,
+    "consumer_evidence": {
+      "path": ".work/million-release/dtr-consumers-final/results.json",
+      "sha256": "01f1509a090f00aa3832adb71c98cc5bd9d3ae16f99a327b16ffae9e2d299a60"
+    },
+    "v8_observer_tests": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": ".work/million-release/gates/source-final/logs/node-tests.log"
+    }
+  },
+  "buffering": {
+    "status": "PASS",
+    "regressions": 18,
+    "client_segments": 24,
+    "client_byte_cap": 8388608,
+    "backend_publications_including_current": 16,
+    "backend_byte_cap": 8388608,
+    "normal_one_tick_startup_target": 17,
+    "policy": "Cap startup/resume target by feasible byte/segment capacity with a quarter headroom; allow a full partial head to resume from its verified remainder; defer admission at hard caps. Four bounded fetch lanes and ordered verified-prefix admission.",
+    "rates": "Normal remains 1 tick/s; Lifeline remains 0.05 tick/s; no funding/economic policy change",
+    "evidence": ".work/million-release/buffering-concurrency.log"
+  },
+  "gates": [
+    {
+      "gate": "source",
+      "status": "PASS",
+      "source_commit": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+      "evidence": {
+        "path": ".work/million-release/gates/source-final/verification.json",
+        "sha256": "fdf3f651f6ef26d7b397568caf641411f9bc0d5cbb5c2371136afb965fa25b0c"
+      },
+      "counts": {
+        "node-tests": {
+          "tests": 1379,
+          "pass": 1379,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "python-tool-tests": {
+          "tests": 145
+        }
+      }
+    },
+    {
+      "gate": "native",
+      "status": "PASS",
+      "source_commit": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+      "evidence": {
+        "path": ".work/million-release/gates/native-final/verification.json",
+        "sha256": "0715d3ec57fdfd4183007b7d01541bb66a7ca32a03975aa746d9059250e73675"
+      },
+      "counts": {
+        "cargo-tests": {
+          "passed": 22,
+          "failed": 0,
+          "ignored": 0
+        },
+        "portable-rust-tests": {
+          "passed": 14,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    {
+      "gate": "wasm",
+      "status": "PASS",
+      "source_commit": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+      "evidence": {
+        "path": ".work/million-release/gates/wasm-final/verification.json",
+        "sha256": "9100d064e16518f00ba3275ac0fd8990d0805d1b90cac53d3c57d21217bcce49"
+      },
+      "counts": {}
+    },
+    {
+      "gate": "browser",
+      "status": "PASS",
+      "source_commit": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+      "evidence": {
+        "path": ".work/million-release/gates/browser-final/verification.json",
+        "sha256": "441d75d9d5e69a55dbdab768106f2b5969467090c1540f2a3abbcfa869c13b7a"
+      },
+      "counts": {}
+    }
+  ],
+  "installed_ic": {
+    "status": "PASS",
+    "selected_cases": 40,
+    "genuine_installed_cases": 30,
+    "source_unit_cases": 10,
+    "host_tests": 25,
+    "runner_checks": 48,
+    "evidence": {
+      "path": ".work/million-release/gates/installed-final/s14-local/results.json",
+      "sha256": "7438c639d4bcf16db2f6cf753cc11e11f2898cea2f9faa15798aaa02d5ef42e6"
+    }
+  },
+  "performance": {
+    "status": "PASS repeated current quiet-window runs",
+    "environment": "Two-CPU Linux host; genuine disposable installed IC, sandboxed Chromium, production normal Wasm during Normal; same canister upgraded to test hooks only for low-budget controls. Valueless fixtures only.",
+    "runs": [
+      {
+        "run": "complete-installed-suite",
+        "status": "PASS",
+        "browser_evidence": {
+          "path": ".work/million-release/gates/installed-final/s14-local/deployment/million-browser/results.json",
+          "sha256": "cb92b3ff7d3d69c1042a006db35510c7a9cb9f5a696d5faf83cf34e361ede70b"
+        },
+        "replay_evidence": {
+          "path": ".work/million-release/gates/installed-final/s14-local/deployment/million-browser/replay.json",
+          "sha256": "adc4b35301702f93aa0e2f2da87698bf61dd052d026486dcfa7609816da19df6"
+        },
+        "replay": {
+          "status": "PASS",
+          "segments": 136,
+          "assigned": [],
+          "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+          "work_budget": 23
+        },
+        "measurements": {
+          "million_normal_playback": {
+            "seconds": 89.8465,
+            "backend_ticks_per_second": 0.9460579989203808,
+            "admitted_ticks_per_second": 0.9683181871302721,
+            "displayed_ticks_per_second": 0.9921928709047148,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 1,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 12,
+              "max": 18
+            },
+            "buffer_ticks": {
+              "min": 11.913107281260707,
+              "max": 17.901004119137923
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 68.30000001192093,
+                "max": 3731.400000035763
+              },
+              "verify_ms": {
+                "median": 61.80000001192093,
+                "max": 107.89999997615814
+              },
+              "artifact_ms": {
+                "median": 0.40000003576278687,
+                "max": 3608.7999999523163
+              },
+              "derive_ms": {
+                "median": 4.199999988079071,
+                "max": 19.5
+              },
+              "catchup_ms": {
+                "median": 312.60000002384186,
+                "max": 3758.600000023842
+              }
+            },
+            "max_catchup_segments": 4,
+            "buffer_bytes": {
+              "min": 450484,
+              "max": 677466
+            },
+            "buffer_target_ticks": {
+              "min": 17,
+              "max": 17
+            },
+            "distinct_playheads": 172,
+            "certified_publications_per_second": 0.9683181871302721,
+            "authenticated_observation_queries_per_second": 1.6138636452171202,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          },
+          "million_economy_playback": {
+            "seconds": 39.86509999999999,
+            "backend_ticks_per_second": 0.5016919561220217,
+            "admitted_ticks_per_second": 0.5016919561220217,
+            "displayed_ticks_per_second": 0.5146880114415937,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 0.5,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 11,
+              "max": 13
+            },
+            "buffer_ticks": {
+              "min": 10.011576706823433,
+              "max": 12.077852504927009
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 60.299999952316284,
+                "max": 2184.800000011921
+              },
+              "verify_ms": {
+                "median": 61.90000003576279,
+                "max": 92.80000001192093
+              },
+              "artifact_ms": {
+                "median": 0.5,
+                "max": 0.7000000476837158
+              },
+              "derive_ms": {
+                "median": 5,
+                "max": 9.399999976158142
+              },
+              "catchup_ms": {
+                "median": 764.1000000238419,
+                "max": 764.1000000238419
+              }
+            },
+            "max_catchup_segments": 7,
+            "buffer_bytes": {
+              "min": 413183,
+              "max": 489385
+            },
+            "buffer_target_ticks": {
+              "min": 9,
+              "max": 9
+            },
+            "distinct_playheads": 77,
+            "certified_publications_per_second": 0.5016919561220217,
+            "authenticated_observation_queries_per_second": 1.806091042039278,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          },
+          "million_lifeline_playback": {
+            "seconds": 49.864699999999985,
+            "backend_ticks_per_second": 0.040108533692171024,
+            "admitted_ticks_per_second": 0.040108533692171024,
+            "displayed_ticks_per_second": 0.05149999999995982,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 0.05,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 11,
+              "max": 12
+            },
+            "buffer_ticks": {
+              "min": 10.228203388758118,
+              "max": 11.240997238758041
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 64.59999996423721,
+                "max": 4707.200000047684
+              },
+              "verify_ms": {
+                "median": 62.90000003576279,
+                "max": 116.30000001192093
+              },
+              "artifact_ms": {
+                "median": 0.699999988079071,
+                "max": 0.699999988079071
+              },
+              "derive_ms": {
+                "median": 6.699999988079071,
+                "max": 7.099999964237213
+              },
+              "catchup_ms": {
+                "median": 764.1000000238419,
+                "max": 764.1000000238419
+              }
+            },
+            "max_catchup_segments": 7,
+            "buffer_bytes": {
+              "min": 413183,
+              "max": 450828
+            },
+            "buffer_target_ticks": {
+              "min": 1.4,
+              "max": 1.4
+            },
+            "distinct_playheads": 95,
+            "certified_publications_per_second": 0.040108533692171024,
+            "authenticated_observation_queries_per_second": 1.484015746610328,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          }
+        },
+        "query_timing_evidence": {
+          "path": ".work/million-release/gates/installed-final/s14-local/deployment/million-browser/wire-index.json",
+          "sha256": "85294538777f1e8133cc99630eb3e2e0d5a99d346b6a1a6a33f7dbfd8b995e83"
+        }
+      },
+      {
+        "run": "independent-repeat",
+        "status": "PASS",
+        "browser_evidence": {
+          "path": ".work/million-release/browser-final-repeat/deployment/million-browser/results.json",
+          "sha256": "7c5736c77833334c11763cf85dc0a11202d7871ab516fe65da1e3a193cbd195c"
+        },
+        "replay_evidence": {
+          "path": ".work/million-release/browser-final-repeat/deployment/million-browser/replay.json",
+          "sha256": "930e2d90243f07c71972e2feecc109e1a097bc2bcfbcc46dd7fababb238c7c2b"
+        },
+        "replay": {
+          "status": "PASS",
+          "segments": 137,
+          "assigned": [],
+          "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+          "work_budget": 23
+        },
+        "measurements": {
+          "million_normal_playback": {
+            "seconds": 89.763,
+            "backend_ticks_per_second": 0.9469380479707674,
+            "admitted_ticks_per_second": 0.9692189432171384,
+            "displayed_ticks_per_second": 0.9927402145450285,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 1,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 12,
+              "max": 18
+            },
+            "buffer_ticks": {
+              "min": 11.482841313651107,
+              "max": 17.652964834704818
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 69.90000003576279,
+                "max": 5287.600000023842
+              },
+              "verify_ms": {
+                "median": 64.40000003576279,
+                "max": 110
+              },
+              "artifact_ms": {
+                "median": 0.5,
+                "max": 265.69999998807907
+              },
+              "derive_ms": {
+                "median": 4.200000047683716,
+                "max": 14.199999988079071
+              },
+              "catchup_ms": {
+                "median": 322.30000001192093,
+                "max": 495.80000001192093
+              }
+            },
+            "max_catchup_segments": 6,
+            "buffer_bytes": {
+              "min": 450342,
+              "max": 677466
+            },
+            "buffer_target_ticks": {
+              "min": 17,
+              "max": 17
+            },
+            "distinct_playheads": 172,
+            "certified_publications_per_second": 0.9692189432171384,
+            "authenticated_observation_queries_per_second": 1.648786248231454,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          },
+          "million_economy_playback": {
+            "seconds": 39.781699999999994,
+            "backend_ticks_per_second": 0.5027437238730372,
+            "admitted_ticks_per_second": 0.5027437238730372,
+            "displayed_ticks_per_second": 0.51458071643286,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 0.5,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 10,
+              "max": 12
+            },
+            "buffer_ticks": {
+              "min": 9.91722120036134,
+              "max": 11.839980105260324
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 61.89999997615814,
+                "max": 2043.5
+              },
+              "verify_ms": {
+                "median": 60.10000002384186,
+                "max": 130.70000004768372
+              },
+              "artifact_ms": {
+                "median": 0.6000000238418579,
+                "max": 2.600000023841858
+              },
+              "derive_ms": {
+                "median": 4.800000011920929,
+                "max": 12.099999964237213
+              },
+              "catchup_ms": {
+                "median": 833.5,
+                "max": 833.5
+              }
+            },
+            "max_catchup_segments": 7,
+            "buffer_bytes": {
+              "min": 376450,
+              "max": 451740
+            },
+            "buffer_target_ticks": {
+              "min": 9,
+              "max": 9
+            },
+            "distinct_playheads": 76,
+            "certified_publications_per_second": 0.5027437238730372,
+            "authenticated_observation_queries_per_second": 1.8601517783302375,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          },
+          "million_lifeline_playback": {
+            "seconds": 49.58129999999999,
+            "backend_ticks_per_second": 0.04033778864208886,
+            "admitted_ticks_per_second": 0.04033778864208886,
+            "displayed_ticks_per_second": 0.05149999999994967,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 0.05,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 11,
+              "max": 12
+            },
+            "buffer_ticks": {
+              "min": 10.117623719143566,
+              "max": 11.142432519143725
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 58.60000002384186,
+                "max": 1763
+              },
+              "verify_ms": {
+                "median": 60.80000001192093,
+                "max": 118
+              },
+              "artifact_ms": {
+                "median": 0.40000003576278687,
+                "max": 0.5
+              },
+              "derive_ms": {
+                "median": 4.5,
+                "max": 4.800000011920929
+              },
+              "catchup_ms": {
+                "median": 833.5,
+                "max": 833.5
+              }
+            },
+            "max_catchup_segments": 7,
+            "buffer_bytes": {
+              "min": 413183,
+              "max": 450882
+            },
+            "buffer_target_ticks": {
+              "min": 1.4,
+              "max": 1.4
+            },
+            "distinct_playheads": 96,
+            "certified_publications_per_second": 0.04033778864208886,
+            "authenticated_observation_queries_per_second": 1.5126670740783321,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          }
+        },
+        "query_timing_evidence": {
+          "path": ".work/million-release/browser-final-repeat/deployment/million-browser/wire-index.json",
+          "sha256": "21bf47455e34d3dbd464fbcae3205b09b6f19e7bf19dc2b412c59b4c771e5def"
+        }
+      }
+    ],
+    "counters": "Admission and display counters exclude resynchronization jumps. Backend progress is controller-observed publication count over wall time.",
+    "timestamp_limit": "Publication timing records first-observed replica timestamps at about two-second polling intervals; certificate time is not publication creation time. Frame latency summaries sample last-operation durations.",
+    "earlier_probes": [
+      {
+        "run": "browser-normal-quiet",
+        "status": "PASS",
+        "evidence": ".work/million-release/browser-normal-quiet/results.json"
+      },
+      {
+        "run": "browser-normal-quiet-repeat",
+        "status": "FAIL",
+        "reason": "Produced 0.981, admitted 0.736, displayed 0.694 tick/s; one retention-gap resync. Quiet-host local delivery tail reached 9-10 seconds plus catch-up; certificate verification median 65.9ms. This failed run remains failed.",
+        "evidence": ".work/million-release/browser-normal-quiet-repeat/results.json"
+      },
+      {
+        "run": "browser-query-probe",
+        "status": "FAIL overall; Normal phase PASS",
+        "reason": "Economy admission included Normal backlog after the deliberate normal-to-hooks upgrade. Added a bounded catch-up wait before steady Economy; all rate bounds retained. Per-query timings identify server-response waits, not certificate verification, as the long latency stage.",
+        "evidence": ".work/million-release/browser-query-probe/results.json"
+      }
+    ],
+    "limits": "Passing repeated local acceptance does not promise uninterrupted delivery during outages longer than bounded retention. Deliberate retention-gap reconnect remains a separately tested recovery path. No general performance redesign or rate reduction."
+  },
+  "upgrade_rehearsal": {
+    "status": "PASS",
+    "exact_predecessor_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+    "wasm_upgrade": {
+      "predecessor_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+      "publication_hash": "9b4a4e4603f6077ddf8842282015e07ba9d26072ef456287e94e14e5fee8aa25",
+      "retained_publications": 16,
+      "scores_credits_accounts_balls_cannons_preserved": true,
+      "source_cursor": 2,
+      "status": "PASS",
+      "treasury_preserved": {
+        "halted": false,
+        "last_plan_ns": 1792884540840241792,
+        "last_refund": null,
+        "last_success": {
+          "block_index": 2,
+          "completed_at_ns": 1792884541140241792,
+          "cycles": "1_000_000_000_000",
+          "plan": {
+            "amount_e8s": 99990000,
+            "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": 1792884540840241792,
+            "fee_e8s": 10000,
+            "ledger": "dllsh-pd777-77776-qaaaa-cai",
+            "memo": 1347768404,
+            "to": [
+              86,
+              90,
+              129,
+              252,
+              58,
+              158,
+              239,
+              1,
+              139,
+              239,
+              112,
+              35,
+              240,
+              54,
+              3,
+              74,
+              31,
+              75,
+              94,
+              164,
+              2,
+              37,
+              89,
+              176,
+              68,
+              106,
+              222,
+              133,
+              230,
+              199,
+              188,
+              10
+            ]
+          }
+        },
+        "paused": false,
+        "phase": "Idle",
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1000000000000"
+      },
+      "world_hash": "0e38e05431312cddcd48be7f7ecc051a9df8cf10251c64bcba8bd286c77373e1",
+      "world_preserved": true
+    },
+    "authenticated_world_transition": {
+      "accounts": [
+        {
+          "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+          "units": [
+            {
+              "$integer": "9984768"
+            },
+            {
+              "$integer": "18067"
+            }
+          ]
+        }
+      ],
+      "fenced_transfer": 4,
+      "interrupted_upgrade_recovery": true,
+      "ledger_cutover": {
+        "$integer": "4"
+      },
+      "new_world_hash": "bb375448a75d57faf3abed2cd950d033db8e3eedf8c5048adfa39eb49f7bf64e",
+      "old_world_hash": "7edad5a2f5f15dfd667f9ec9c0100d77c2aed25af23591580798a8f87a48aeeb",
+      "receipts_and_publications_preserved": true,
+      "retained_predecessors_verified": 15,
+      "score_artifact_before": "341f69de36a260ed4a0ff5954d0d8d4f0569e30165278c9956c655508cb6338f",
+      "source_cursor": 4,
+      "stale_manifest_rejected": true,
+      "status": "PASS",
+      "transition_hash": "7d02f56f2ecd194bb3004e6306634cacfb7c84706e870fa4bd5824752c4ae7c4"
+    },
+    "actual_v8_sdk_authentication": {
+      "status": "PASS",
+      "trust": "explicit disposable IC SDK root and certificate; no offline fallback",
+      "publication_version": 8,
+      "epoch_version": 2,
+      "world": [
+        1000,
+        1000
+      ],
+      "root_hash": "b373db68cfa04444e235019bc2dc097528678c0cb94b6abfe10cee08706108e9",
+      "verified_artifacts": [
+        "state",
+        "events",
+        "scores"
+      ]
+    },
+    "pending_finance_and_post_migration_ingestion": {
+      "cmc_credits": 5,
+      "cutover": {
+        "$integer": "8"
+      },
+      "held_payment": 8,
+      "outgoing_transfers": 5,
+      "pending_finance_survived_transition_and_two_upgrades": true,
+      "post_migration_deposit": 10,
+      "source_cursor": 12,
+      "status": "PASS",
+      "world_version": 5
+    },
+    "raw_evidence_directory": ".work/million-release/gates/installed-final/s14-local/deployment",
+    "steps": "Normal Wasm upgrade and authenticated v4-to-v5 world transition are separate. Accounts, cannon/ball state, scores, credits, receipts, source progress, treasury and retained bytes are compared; interrupted transitions, stale manifests, exact/conflicting retries and fences are asserted."
+  },
+  "max_population": {
+    "status": "PASS mechanics and artifact bounds; not a real-time browser throughput claim",
+    "result": {
+      "artifact_bytes": 513075,
+      "balls": 64,
+      "clock": "PocketIC virtual scheduling plus local harness wall time; not mainnet wall time",
+      "cycles": "126791556952",
+      "event_bytes": 503120,
+      "harness_ticks_per_second": 0.3155617679580208,
+      "harness_wall_seconds": 25.351613574,
+      "pace": {
+        "mode": "Normal",
+        "nominal_milli": 1000,
+        "performance_limited": false,
+        "supported_milli": 1000
+      },
+      "publication_bytes": 4086,
+      "score_bytes": 277,
+      "stable_memory_bytes": 33619968,
+      "state_bytes": 9678,
+      "status": "PASS",
+      "ticks": 8,
+      "virtual_seconds": 7.15000043,
+      "virtual_ticks_per_second": 1.1188810515917689,
+      "world": [
+        1000,
+        1000
+      ]
+    }
+  },
+  "artifacts": {
+    "normal_wasm_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "test_hooks_sha256": "05ea8348c7f3394ece47441a3a13f5af8f3600292814e4bd5ab752c5293912d2",
+    "production_frontend_files": {
+      "index.html": {
+        "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+        "bytes": 15413
+      },
+      "app.mjs": {
+        "sha256": "3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732",
+        "bytes": 593382
+      },
+      "style.css": {
+        "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+        "bytes": 8044
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "configuration-torus.bin": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "configuration-million.bin": {
+        "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "bytes": 469
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "frontend_manifest_evidence": {
+      "path": ".work/million-release/gates/installed-final/s14-local/deployment/million-browser/mainnet-assets/build-manifest.json",
+      "sha256": "5b7937d51cce6cfd6dffe71d221223f8037f1baba167f0d5d5ab21c510e9f7d5"
+    },
+    "freeze_output": ".work/million-release/candidate",
+    "provenance": "Final candidate freeze uses tools/prepare_mvp_release.py and tools/build_observer_mainnet.mjs from clean committed source. Normal artifact must match the installed-test SHA above. Checkout-dependent Rust binary identities are recorded; CI bytes are not a substitute for this tested artifact."
+  },
+  "reproduction": {
+    "environment": [
+      "DFX_IDENTITY=codex_local",
+      "TMPDIR=/home/codexdev/.cache/b2z-tmp",
+      "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu"
+    ],
+    "commands": [
+      "python -B tools/check.py source --output .work/million-release/gates/source-final",
+      "python -B tools/check.py native --output .work/million-release/gates/native-final",
+      "python -B tools/check.py wasm --output .work/million-release/gates/wasm-final",
+      "python -B tools/check.py browser --output .work/million-release/gates/browser-final",
+      "python -B tools/check.py integration --output .work/million-release/gates/installed-final",
+      "python -B tools/verify_dtr_consumers.py --output .work/million-release/dtr-consumers-final"
+    ],
+    "python": "/home/codexdev/.local/dtr-s11-browser-venv/bin/python",
+    "repeat": "Repeat the full integration gate in a quiet window; the focused browser runner is preserved as raw local evidence only."
+  },
+  "ci": {
+    "status": "BLOCKED pending user-owned publication; no exact-candidate GitHub result exists yet",
+    "workflow": ".github/workflows/verification.yml",
+    "previous_pacing_ci": "Historical only; does not qualify this candidate"
+  },
+  "mainnet_operations": "NONE",
+  "remote_git_operations": "NONE",
+  "release_boundary": "LOCAL CANDIDATE ONLY; no mainnet upgrade, world activation, controller change, transfer or cycle purchase authorized/performed"
+}

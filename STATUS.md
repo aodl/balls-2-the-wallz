@@ -1,43 +1,45 @@
-# Million-cell v5 — local qualification in progress; no deployment
+# Million-cell v5 — local gates pass; candidate for exact-commit CI
 
-**2026-10-24:** the million-cell branch merges production `master` at `e052f77`
-without rewriting either history. DTR Rust/npm pins now use published immutable
-`e1bfcf25071d11190d14f461288e12a21ca26cf8`, client **0.14.0**. Isolated clean
-consumers reproduce the reviewed JS archive SHA-256
+**2026-10-24:** production `master` at `e052f77` is merged without rewriting
+history. Rust/npm use immutable DTR `e1bfcf25071d11190d14f461288e12a21ca26cf8`,
+client **0.14.0**. Clean isolated consumers reproduce package SHA-256
 `ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`.
 The v8 observer test executes: **1 PASS, 0 skipped**.
 
-The client retains production's 24-segment/8 MiB queue and sixteen-publication
-backend retention. Startup targets are capped from feasible segment/byte capacity
-with headroom; a full partial head can resume from its verified remainder.
-Catch-up respects queue caps, fetches at most four requests concurrently and
-admits verified prefixes without waiting for the whole tail. All 18 buffering
-and concurrency regressions pass; authoritative rates/economics are unchanged.
+Current gates pass: **1,379 JS**, **145 Python**, **22 workspace + 14 portable
+Rust**, **25 canister host tests**, Wasm/Candid/Clippy, **14 HTTP browser groups**,
+**8 isolated DTR-consumer checks**, and the complete installed-IC runner:
+**40 selected cases / 48 checks** (30 genuine installed cases plus 10 source units).
 
-The exact installed pacing predecessor `c7c69ddf…` is committed as a compressed,
-checksum-verified test fixture. Normal-Wasm code upgrade preserves the paid v4
-state, enabled treasury/completed conversion, source cursor and all 16 retained
-publication/chunk sets. The separately checked authenticated v4→v5 transition
-passes interrupted recovery, fencing, stale manifests, exact/conflicting retries
-and real SDK verification of the actual v8 certificate/artifacts. Pending CMC
-notification recovery and a subsequent v5 sweep pass. The 64-ball installed
-mechanics/artifact-bound fixture passes; virtual scheduling/manual-harness timing
-is not real-time browser performance evidence.
+Two successive current four-ball Normal samples on the actual normal Wasm
+measured **0.946 / 0.968 / 0.992** and **0.947 / 0.969 / 0.993**
+produced / authenticated-admitted / displayed ticks per second. Both have zero
+stalls/resynchronizations and no performance limit. Economy, Lifeline, cold
+reconnect and exact independent replay of **136 / 137** captured publications
+pass. Earlier failed probes remain explicitly failed in the evidence.
 
-**Not a release candidate yet.** Repeated sustained Normal qualification is
-incomplete. CPU contention repeatedly saturated this two-CPU host. One brief quiet
-window passed browser phases (Normal 0.991 produced / 0.902 admitted / 0.980
-displayed ticks/s; Economy and Lifeline also passed), but the overall case failed
-in wire-recording post-processing. That recorder has been corrected; the original
-failure remains recorded. Another contended repeat correctly reported reduced
-sustainable throughput. The current harness now uses the actual **normal Wasm**
-for Normal and upgrades to test hooks only for disposable low-budget controls.
-Clean repeat runs and the complete current installed-IC suite remain mandatory.
+Production's seven active pacing tiers and Reserve Protection are preserved.
+The client queue is 24 segments / 8 MiB, separate from backend retention of
+16 publications / 8 MiB. Bounded startup/resume capacity and ordered catch-up
+pass all 18 buffering/concurrency regressions; Normal stays exactly 1 tick/s.
 
-[Reviewed progress, PASS/FAIL distinctions and raw evidence paths](evidence/B2Z/million-cell-release/progress.json).
-No mainnet read/write/deployment, activation, financial action or remote Git
-operation was performed in this development task. Production pacing below is
-unchanged by this work.
+The exact installed predecessor `c7c69ddf…` passes state-preserving normal-Wasm
+upgrade, followed by a separately authenticated v4→v5 transition. Paid state,
+source progress, all retained publication/chunk bytes and enabled treasury are
+preserved. Interrupted recovery, manifests, fencing and exact/conflicting
+retries pass; actual v8 SDK certificate/artifact verification passes. Pending CMC
+notification survives transition/two upgrades and completes once; post-migration
+payment ingestion and treasury sweep pass. The 64-ball normal-Wasm fixture passes.
+
+Qualified normal Wasm SHA-256:
+`7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51`.
+Production frontend `app.mjs` SHA-256:
+`3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732`.
+
+[Reviewed acceptance, artifact hashes, measurements and reproduction paths](evidence/B2Z/million-cell-release/qualification.json).
+[Earlier development/failed-probe record](evidence/B2Z/million-cell-release/progress.json).
+Exact-candidate remote CI remains pending the **user-owned push**. No mainnet
+operation, world activation, financial action or remote Git operation was performed.
 
 ---
 
