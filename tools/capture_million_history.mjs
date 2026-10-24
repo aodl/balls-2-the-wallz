@@ -16,7 +16,7 @@ for(const packet of index.packets){
  const envelope=Cbor.decode(await readFile(`${dir}/wire-catalogs/${packet.file}`));
  if(get(envelope,'status')!=='replied')continue;
  const type=packet.method==='retained_publication'?catalogType:packet.method==='observation'?IDL.Record({publication:catalogType}):observationType;
- const result=IDL.decode([IDL.Variant({Ok:type,Err:IDL.Text})],get(get(envelope,'reply'),'arg'))[0];
+ const result=IDL.decode([IDL.Variant({Ok:type,Err:IDL.Text})],Uint8Array.from(get(get(envelope,'reply'),'arg')))[0];
  if(!result.Ok)continue;
  const raw=packet.method==='retained_publication'?result.Ok:packet.method==='observation'?result.Ok.publication:result.Ok.observation.publication;
  const publication=decodeCanonical(raw);successfulReplies++;
