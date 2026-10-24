@@ -1,4 +1,46 @@
-# Graduated pacing — local qualification passed; publication and CI pending
+# Graduated pacing — installed on mainnet
+
+**2026-10-24:** published release `2b5e61746cab6b992afe969d5cc60363d32f6a66`
+passed [CI 40091977098](https://github.com/aodl/balls-2-the-wallz/actions/runs/40091977098),
+including all 25 host tests and the complete installed-IC runner (37 active cases).
+After the user supplied cycles, the existing backend `s34gv-3qaaa-aaaar-qcifa-cai`
+was upgraded in place using the exact frozen normal Wasm:
+`c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db`.
+The CI-built variant was not substituted. DTR remains immutable `c12af747…`,
+client **0.13.0**; no million-cell work was performed.
+
+Paused before/after comparisons pass for exact paid 32×32 v4 world, credits,
+scores, events, source identity/cursor, current publication, all three retained
+publication/chunk sets and pending work. Logical time was **53,428** on both sides.
+The advertised retention limit changes from 3 to 16 as intended; existing bytes
+and the 8 MiB cap remain preserved. Backend and observer controllers are unchanged.
+The existing observer's eight public files match the frozen release; `app.mjs` is
+`975769cf19225671830403ac103a1299aa9ac42638eba05f5cabf55413bd140d`.
+
+Resumed with the same `segment_ticks=2`, `pacing_seconds=1`, `work_budget=512`.
+Actual liquid cycles are **19,892,335,131,245**, selecting **Economy**, target and
+supported rate **0.5 tick/s**, `performance_limited=false`. Certified browser
+measurement over **88.9964 seconds**: produced **0.5169**, authenticated admitted
+**0.4944**, displayed **0.4940 ticks/s**, zero stalls/resynchronizations or browser
+errors. Normal remains exactly 1 tick/s and requires 40T entry; Economy is the
+correct funding selection. All seven modes, hysteresis and Lifeline 0.05 remain
+covered by the passing release tests.
+
+The independent treasury ran after upgrade on its five-minute timer, with fresh
+successful Ledger balance/fee observations. It is enabled, not halted, Idle with
+no pending transfer and **zero ICP** available to convert. Its old insufficient
+liquid-cycles error is retained history: the zero-balance return does not clear
+that field. No real financial probe or agent transfer was performed. Last
+successful conversion and funding history survive the upgrade.
+
+[Reviewed activation, exact hashes and preservation evidence](evidence/B2Z/graduated-pacing/activation.json).
+Raw deployment/certified/browser records are under `.work/pacing-activation/`.
+No reset, reinstall, new canister, settings/controller change or remote Git
+operation occurred. Earlier staging and blocked captures below are historical.
+
+---
+
+# Graduated pacing — previous local qualification
 
 **2026-10-24:** the pacing follow-up passes all 25 host tests and the complete
 installed-IC runner: 37 active cases, followed by exact captured-history JS replay.
