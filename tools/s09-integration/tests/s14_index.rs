@@ -3890,7 +3890,7 @@ fn million_max_population_production_probe() {
         (world.width, world.height, world.balls.len()),
         (1000, 1000, 64)
     );
-    let (pic, id, _, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), world.encode().unwrap());
+    let (pic, id, _, _) = arena_setup_world(bytes("B2Z_S14_WASM"), world.encode().unwrap());
     let funding: FundingPause = get_result(
         &pic,
         id,
@@ -4438,7 +4438,7 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
         paused: bool,
     }
     let initial = million_population_world(4).encode().unwrap();
-    let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), initial.clone());
+    let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_WASM"), initial.clone());
     let funding: FundingPause = get_result(
         &pic,
         id,
@@ -4492,6 +4492,15 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
             started = true;
         }
         if started && !economy && out.join("browser-million-normal-complete").exists() {
+            // Normal qualification uses the exact normal artifact. Only the
+            // disposable low-funding phases need test-only budget controls.
+            pic.upgrade_canister(
+                id,
+                bytes("B2Z_S14_TEST_WASM"),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap();
             let status: Status = get_result(
                 &pic,
                 id,
