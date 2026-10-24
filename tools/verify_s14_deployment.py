@@ -47,6 +47,7 @@ def verify_torus_scene(page,context,out,record,report,save):
     report['scene']['buffer_ticks']={'min':min(x['buffer_ticks'] for x in samples),'max':max(x['buffer_ticks'] for x in samples)}
     report['scene']['latency_ms']={key:{'median':sorted(x[key] for x in samples)[len(samples)//2],'max':max(x[key] for x in samples)} for key in ['fetch_ms','verify_ms','artifact_ms','derive_ms','catchup_ms']}
     report['scene']['max_catchup_segments']=max(x['catchup_segments'] for x in samples)
+    report['scene']['latency_qualification']='Frame-sampled last-operation durations. Atomic observation query includes artifact network delivery; artifact_ms normally measures cached bundle validation, and includes a network query for retained bundles.'
     report['scene']['timestamp_qualification']='Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound.'
     (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));save()
     assert report['scene']['stalled_samples']==0,report['scene']
@@ -401,6 +402,7 @@ def main():
             close_settings(page)
             report['steady_setup']='Fresh certified restart after controlled receipt holds; ordinary production remains running throughout the trace and reconnect.'
             # Inspect sustained populated motion in normal playback, rather than screenshots alone.
+            wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
             trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(45000)
             samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
             steady=[x for x in samples if x['wall_ms']>trace_start+10000]
@@ -408,6 +410,10 @@ def main():
                 seconds=(steady[-1]['wall_ms']-steady[0]['wall_ms'])/1000
                 report['steady_playback']={'seconds':seconds,'produced_ticks_per_second':(steady[-1]['admitted_ticks']-steady[0]['admitted_ticks'])/seconds,'consumed_ticks_per_second':(steady[-1]['played_ticks']-steady[0]['played_ticks'])/seconds,'stalled_samples':sum(x['phase']=='STALLED' for x in steady),'buffer_min':min(x['buffer_ticks'] for x in steady),'buffer_max':max(x['buffer_ticks'] for x in steady),'fetch_ms_max':max(x['fetch_ms'] for x in steady),'verification_ms_max':max(x['verify_ms'] for x in steady),'artifact_ms_max':max(x['artifact_ms'] for x in steady),'backend_reported_ticks_per_second':(steady[-1]['backend_segments']-steady[0]['backend_segments'])*steady[-1]['segment_ticks']/seconds,'nominal_rate':steady[-1]['nominal_rate']}
                 assert report['steady_playback']['stalled_samples']==0,report['steady_playback']
+                assert report['steady_playback']['nominal_rate']==1,report['steady_playback']
+                for key in ['produced_ticks_per_second','consumed_ticks_per_second','backend_reported_ticks_per_second']:
+                    assert .9<=report['steady_playback'][key]<=1.15,(key,report['steady_playback'])
+                assert steady[-1]['resyncs']==steady[0]['resyncs'],report['steady_playback']
             report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
             page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
