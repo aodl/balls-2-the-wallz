@@ -79,9 +79,11 @@ def verify_million_scene(page,context,out,record,report,save):
     page.screenshot(path=str(out/'million-seam-pick.png'))
     record('million-cell-culling-seam-picking-and-sparse-move-selector')
     page.locator('#board').focus();page.keyboard.press('Home')
+    page.evaluate('''()=>{globalThis.__millionTiming=[];setInterval(()=>{const p=globalThis.__dtrLive?.playback;if(p&&__millionTiming.length<2400)__millionTiming.push({...p,resyncs:__dtrLive.resyncs});},250);}''')
     (out/'browser-million-drive').write_text('begin explicit disposable-IC clock progression\n')
     try:wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
     except Exception:
+        (out/'million-startup-telemetry.json').write_text(json.dumps(page.evaluate('globalThis.__millionTiming'),indent=2))
         report['million_startup_failure']=page.evaluate('''() => ({phase:document.body.dataset.phase,live:globalThis.__dtrLive,error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent,arena:document.querySelector('#arena-note').textContent})''')
         save();page.screenshot(path=str(out/'million-startup-failure.png'));raise
     def measure_mode(name,seconds,lower,upper):

@@ -4527,14 +4527,15 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
                 publication_timing.push(serde_json::json!({"segment_id":current.run.completed_segments,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"wall_seconds":began.elapsed().as_secs_f64(),"status_query_ms":query_started.elapsed().as_secs_f64()*1000.,"pace":current.run.pace}));
                 last_observed = current.run.completed_segments;
             }
+            std::fs::write(
+                out.join("publication-timing.json"),
+                serde_json::to_vec_pretty(&publication_timing).unwrap(),
+            )
+            .unwrap();
             next_observation = std::time::Instant::now() + Duration::from_secs(2);
         }
-        if started && out.join("browser-million-drive").exists() {
-            // Live mode advances PocketIC time from the wall clock. Poll one
-            // bounded callback, then give the certified HTTP gateway equal rest;
-            // manually advancing here can race live time into the past.
-            pic.tick();
-        }
+        // make_live owns wall-clock progression. Explicit tick() calls here
+        // serialize against gateway queries and manufacture delivery stalls.
         std::thread::sleep(Duration::from_millis(100));
     }
     assert!(
