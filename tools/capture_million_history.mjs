@@ -2,7 +2,7 @@
  * This proves content consistency; IC authenticity is the browser/SDK gate. */
 import assert from 'node:assert/strict';
 import {readFile,writeFile} from 'node:fs/promises';
-import {decode as decodeCbor} from '@dfinity/cbor';
+import {Cbor} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
@@ -13,7 +13,7 @@ const get=(value,key)=>value instanceof Map?value.get(key):value?.[key];
 const history=new Map();let successfulReplies=0;
 for(const packet of index.packets){
  if(packet.status!==200)continue;
- const envelope=decodeCbor(await readFile(`${dir}/wire-catalogs/${packet.file}`));
+ const envelope=Cbor.decode(await readFile(`${dir}/wire-catalogs/${packet.file}`));
  if(get(envelope,'status')!=='replied')continue;
  const type=packet.method==='retained_publication'?catalogType:packet.method==='observation'?IDL.Record({publication:catalogType}):observationType;
  const result=IDL.decode([IDL.Variant({Ok:type,Err:IDL.Text})],get(get(envelope,'reply'),'arg'))[0];
