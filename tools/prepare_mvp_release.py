@@ -53,7 +53,7 @@ def main():
       'tools':{name:run(*command) for name,command in {'rustc':['rustc','--version'],'cargo':['cargo','--version'],'node':['node','--version'],'npm':['npm','--version'],'dfx':['dfx','--version'],'python':['python3.11','--version']}.items()},
       'install':'User installs normal.wasm with explicit --wasm; later test builds cannot replace this frozen copy.',
       'observer':'Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.',
-      'world_transition':'Fixed controller-prepared v3-to-v4 epoch checkpoint; never use generated init examples on the existing funded canister.',
+      'world_transition':'Separate state-preserving code upgrade from the reviewed authenticated v4-to-v5 epoch transition; preserve v3-to-v4 evidence; never use generated constructor examples on a funded canister.',
       'mainnet':'NOT_RUN','remote_ci':'NOT_RUN'}
     (out/'manifest.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
 if __name__=='__main__':main()

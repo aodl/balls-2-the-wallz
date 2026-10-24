@@ -188,7 +188,7 @@ fn create_controlled(pic: &PocketIc) -> Principal {
     )
 }
 
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct PaceHint {
     mode: String,
     nominal_milli: u32,
@@ -5060,6 +5060,21 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
         get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
     );
 
+    let conflict = pic
+        .update_call(
+            id,
+            controller(),
+            "commit_million_transition",
+            candid::encode_one("ff".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&conflict)
+            .unwrap()
+            .is_err()
+    );
+    assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
+    assert_eq!(arena_world(&pic, id), million);
     // A post-cutover MOVE uses the million-cell coordinate space exactly once.
     let cannon = million.cannons[0].clone();
     let new_target = (1..million.cell_count())

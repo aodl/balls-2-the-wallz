@@ -147,7 +147,7 @@ jobs:
           retention-days: 14
 
   local-ic-integration:
-    name: S14 index, filtered poke, fallback and upgrade
+    name: S14 and million-cell installed-IC qualification
     # The browser and PocketIC remain live concurrently with Chromium's sandbox enabled.
     runs-on: ubuntu-22.04
     env:
@@ -184,6 +184,8 @@ jobs:
             .work/ci-integration/s14-local/logs/**
             .work/ci-integration/s14-local/deployment/browser.log
             .work/ci-integration/s14-local/deployment/results.json
+            .work/ci-integration/s14-local/deployment/million-*.json
+            .work/ci-integration/s14-local/deployment/million-browser/**
             .work/ci-integration/s14-local/*.wasm
             .work/ci-integration/s14-local/snapshot/**
           if-no-files-found: warn
