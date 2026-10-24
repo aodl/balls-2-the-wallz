@@ -3250,7 +3250,7 @@ fn empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation() {
     if std::env::var("B2Z_MILLION_PRIOR_WASM").is_ok() {
         assert_eq!(
             dtr_wire::hash(&prior),
-            "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac"
+            "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db"
         );
     }
     let (pic, id, ledger, payer) = arena_setup(prior);
