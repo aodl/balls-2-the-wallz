@@ -60,7 +60,7 @@ def verify_torus_scene(page,context,out,record,report,save):
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
 
-def verify_million_scene(page,context,out,record,report,save):
+def verify_million_scene(page,context,out,record,report,save,stop_capture):
     (out/'browser-million-ready').write_text('certified million-cell genesis visible; begin production\n')
     assert '1,000 × 1,000' in page.locator('#world-rules').text_content()
     assert 'wraparound' in page.locator('#world-rules').text_content()
@@ -107,6 +107,7 @@ def verify_million_scene(page,context,out,record,report,save):
     wait_until(page,lambda:'Lifeline' in page.locator('#arena-note').text_content(),30000)
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000);page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)
+    stop_capture()
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '1,000 × 1,000' in page.locator('#world-rules').text_content(),30000)
     assert not page.locator('#error').is_visible()
     wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='PLAYING',60000)
@@ -300,7 +301,7 @@ def main():
                 raise RuntimeError('deployed observer startup: '+message)
             if a.scene_only or a.million_scene_only or a.transition_only:
                 if a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
-                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save)
+                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save,lambda:page.remove_listener('response',capture_catalog))
                 else:verify_torus_scene(page,context,out,record,report,save)
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
