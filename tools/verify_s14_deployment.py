@@ -263,7 +263,7 @@ def main():
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             context=browser.new_context(permissions=['clipboard-write'],has_touch=True,viewport={'width':1440,'height':900},record_video_dir=str(out/'video'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
-            wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None
+            wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None;query_timings=[]
             if a.million_scene_only:
                 wire=out/'wire-catalogs';wire.mkdir()
                 def capture_catalog(response):
@@ -280,6 +280,12 @@ def main():
                         wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
                     except Exception as error:wire_errors.append(str(error))
                 page.on('response',capture_catalog)
+                def capture_query_timing(request):
+                    if request.method!='POST' or not request.url.endswith('/query'):return
+                    body=request.post_data_buffer or b''
+                    method=next((name for name in ['observation_bundle','retained_publication','artifact_bundle','lab_status','observation'] if name.encode() in body),None)
+                    if method and len(query_timings)<4096:query_timings.append({'method':method,'timing':request.timing})
+                page.on('requestfinished',capture_query_timing)
                 def stop_wire_capture():
                     nonlocal wire_complete_through
                     wire_complete_through=page.evaluate('globalThis.__dtrLive.heads.at(-1)')
@@ -570,7 +576,7 @@ def main():
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
         if a.million_scene_only and 'wire_packets' in locals():
-            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes,'complete_through':wire_complete_through},indent=2))
+            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes,'complete_through':wire_complete_through,'query_timings':query_timings},indent=2))
         if browser:
             try:browser.close()
             except Exception:pass
