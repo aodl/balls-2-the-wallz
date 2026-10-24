@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PlayoutClock} from '@dtr/timeline-runtime/client/playout';
 import {LIVE_BUFFER_LIMITS,liveBufferPolicy,prepareIdlePlayout} from '../../apps/b2z-observer/model.mjs';
+import {prefetchRetained} from '../../apps/b2z-observer/transport.mjs';
 
 const modes=[['Normal',1000],['Cruise',750],['Economy',500],['Steady',300],['Conserve',200],['Survival',100],['Lifeline',50],['ReserveProtection',0]];
 const status=(mode,milli)=>({run:{running:true,publication_ticks:1,pace:{mode,nominal_milli:milli,supported_milli:milli}}});
@@ -48,4 +49,25 @@ test('a larger observed segment makes a previously unreachable startup target at
  Object.assign(clock,liveBufferPolicy(operational,2_000_000));
  assert.equal(clock.sample(1).phase,'PLAYING');
  assert.equal(operational.run.pace.nominal_milli,1000);
+});
+
+test('retained catch-up bounds RPCs and exposes the oldest result before a slow tail',async()=>{
+ let active=0,maximum=0,tailFinished=false;
+ const work=prefetchRetained(Array.from({length:16},(_,i)=>i),async i=>{
+  maximum=Math.max(maximum,++active);
+  await new Promise(resolve=>setTimeout(resolve,i===15?30:1));
+  active--;if(i===15)tailFinished=true;return i;
+ });
+ assert.deepEqual(await work[0],{status:'fulfilled',value:0});
+ assert.equal(tailFinished,false,'a slow tail must not block verified prefix admission');
+ assert.deepEqual((await Promise.all(work)).map(x=>x.value),Array.from({length:16},(_,i)=>i));
+ assert.equal(maximum,4);
+});
+
+test('retained fetch failures stay explicit and oversized batches are rejected',async()=>{
+ const failure=new Error('artifact integrity');
+ const results=await Promise.all(prefetchRetained([0,1,2,3,4],async n=>{if(n===0)throw failure;return n;}));
+ assert.equal(results[0].status,'rejected');assert.equal(results[0].reason,failure);
+ assert.equal(results[4].value,4);
+ assert.throws(()=>prefetchRetained(Array(17),()=>{}),/prefetch bound/);
 });
