@@ -1,3 +1,46 @@
+# Million-cell v5 — local qualification in progress; no deployment
+
+**2026-10-24:** the million-cell branch merges production `master` at `e052f77`
+without rewriting either history. DTR Rust/npm pins now use published immutable
+`e1bfcf25071d11190d14f461288e12a21ca26cf8`, client **0.14.0**. Isolated clean
+consumers reproduce the reviewed JS archive SHA-256
+`ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`.
+The v8 observer test executes: **1 PASS, 0 skipped**.
+
+The client retains production's 24-segment/8 MiB queue and sixteen-publication
+backend retention. Startup targets are capped from feasible segment/byte capacity
+with headroom; a full partial head can resume from its verified remainder.
+Catch-up respects queue caps, fetches at most four requests concurrently and
+admits verified prefixes without waiting for the whole tail. All 18 buffering
+and concurrency regressions pass; authoritative rates/economics are unchanged.
+
+The exact installed pacing predecessor `c7c69ddf…` is committed as a compressed,
+checksum-verified test fixture. Normal-Wasm code upgrade preserves the paid v4
+state, enabled treasury/completed conversion, source cursor and all 16 retained
+publication/chunk sets. The separately checked authenticated v4→v5 transition
+passes interrupted recovery, fencing, stale manifests, exact/conflicting retries
+and real SDK verification of the actual v8 certificate/artifacts. Pending CMC
+notification recovery and a subsequent v5 sweep pass. The 64-ball installed
+mechanics/artifact-bound fixture passes; virtual scheduling/manual-harness timing
+is not real-time browser performance evidence.
+
+**Not a release candidate yet.** Repeated sustained Normal qualification is
+incomplete. CPU contention repeatedly saturated this two-CPU host. One brief quiet
+window passed browser phases (Normal 0.991 produced / 0.902 admitted / 0.980
+displayed ticks/s; Economy and Lifeline also passed), but the overall case failed
+in wire-recording post-processing. That recorder has been corrected; the original
+failure remains recorded. Another contended repeat correctly reported reduced
+sustainable throughput. The current harness now uses the actual **normal Wasm**
+for Normal and upgrades to test hooks only for disposable low-budget controls.
+Clean repeat runs and the complete current installed-IC suite remain mandatory.
+
+[Reviewed progress, PASS/FAIL distinctions and raw evidence paths](evidence/B2Z/million-cell-release/progress.json).
+No mainnet read/write/deployment, activation, financial action or remote Git
+operation was performed in this development task. Production pacing below is
+unchanged by this work.
+
+---
+
 # Graduated pacing — installed on mainnet
 
 **2026-10-24:** published release `2b5e61746cab6b992afe969d5cc60363d32f6a66`

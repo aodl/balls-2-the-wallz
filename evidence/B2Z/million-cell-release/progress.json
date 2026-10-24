@@ -1,0 +1,718 @@
+{
+  "recorded_at": "2026-10-24T15:54:09.426671+00:00",
+  "status": "DEVELOPMENT; NOT A RELEASE CANDIDATE",
+  "baseline_merge": "9cff05f",
+  "production_master": "e052f77de7bbe0322196c1bf4f5eee5f890d381b",
+  "development_checkpoint": "fca7e89e0fbeafb7573c63bd0b1c0fa3939ede38",
+  "DTR": {
+    "status": "PASS",
+    "DTR_revision": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "cargo_locks": {
+      "Cargo.lock": [
+        "dtr-core",
+        "life-conformance"
+      ],
+      "native/Cargo.lock": [
+        "dtr-core",
+        "dtr-host",
+        "dtr-wire"
+      ],
+      "canisters/runtime-lab/Cargo.lock": [
+        "dtr-core",
+        "dtr-host",
+        "dtr-wire"
+      ],
+      "tools/s09-integration/Cargo.lock": [
+        "dtr-core",
+        "dtr-host",
+        "dtr-wire"
+      ],
+      "tools/fixtures/dtr-consumer-rust/Cargo.lock": [
+        "dtr-core",
+        "dtr-host",
+        "dtr-source-model",
+        "dtr-wire"
+      ]
+    },
+    "javascript": {
+      "version": "0.14.0",
+      "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.14.0.tgz",
+      "integrity": "sha512-oJknKDDWjpmkYd1g7CNPiaV3MuTKWuquCZZiuRLJ3KsADHSDENTpYiKyiibANflPF59mKDtN/DaaHBDsNYDb1w==",
+      "dependencies": {
+        "@icp-sdk/core": "6.1.0"
+      },
+      "engines": {
+        "node": ">=22.16.0"
+      }
+    },
+    "package_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc",
+    "predecessor_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db"
+  },
+  "package_consumers": {
+    "status": "PASS",
+    "evidence": ".work/million-release/dtr-consumers/results.json"
+  },
+  "gates": [
+    {
+      "gate": "source-current",
+      "status": "PASS",
+      "evidence": ".work/million-release/gates/source-current/verification.json",
+      "revision": "506a7cf42faae51562b99bb1856f25b99e886576",
+      "counts": {
+        "node-tests": {
+          "tests": 1379,
+          "pass": 1379,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "python-tool-tests": {
+          "tests": 145
+        }
+      }
+    },
+    {
+      "gate": "native",
+      "status": "PASS",
+      "evidence": ".work/million-release/gates/native/verification.json",
+      "revision": "9cff05f9d9e00e532ab5c6fa1690c0e5bf431171",
+      "counts": {
+        "cargo-tests": {
+          "passed": 22,
+          "failed": 0,
+          "ignored": 0
+        },
+        "portable-rust-tests": {
+          "passed": 14,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    {
+      "gate": "wasm",
+      "status": "PASS",
+      "evidence": ".work/million-release/gates/wasm/verification.json",
+      "revision": "9cff05f9d9e00e532ab5c6fa1690c0e5bf431171",
+      "counts": {}
+    },
+    {
+      "gate": "browser",
+      "status": "PASS",
+      "evidence": ".work/million-release/gates/browser/verification.json",
+      "revision": "07bb8f1d958b683adfaf7982703025e80f4fb4f0",
+      "counts": {}
+    }
+  ],
+  "exact_predecessor": {
+    "status": "PASS",
+    "evidence": ".work/million-release/treasury-upgrade-rerun/results.json",
+    "code_upgrade": {
+      "predecessor_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+      "publication_hash": "9a68d679a7048c56ef647a686382839a0b7381dd6d50095ffc332ef5659e221b",
+      "retained_publications": 16,
+      "scores_credits_accounts_balls_cannons_preserved": true,
+      "source_cursor": 2,
+      "status": "PASS",
+      "treasury_preserved": {
+        "halted": false,
+        "last_plan_ns": 1792852415258491790,
+        "last_refund": null,
+        "last_success": {
+          "block_index": 2,
+          "completed_at_ns": 1792852415558491790,
+          "cycles": "1_000_000_000_000",
+          "plan": {
+            "amount_e8s": 99990000,
+            "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": 1792852415258491790,
+            "fee_e8s": 10000,
+            "ledger": "dllsh-pd777-77776-qaaaa-cai",
+            "memo": 1347768404,
+            "to": [
+              86,
+              90,
+              129,
+              252,
+              58,
+              158,
+              239,
+              1,
+              139,
+              239,
+              112,
+              35,
+              240,
+              54,
+              3,
+              74,
+              31,
+              75,
+              94,
+              164,
+              2,
+              37,
+              89,
+              176,
+              68,
+              106,
+              222,
+              133,
+              230,
+              199,
+              188,
+              10
+            ]
+          }
+        },
+        "paused": false,
+        "phase": "Idle",
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1000000000000"
+      },
+      "world_hash": "0e38e05431312cddcd48be7f7ecc051a9df8cf10251c64bcba8bd286c77373e1",
+      "world_preserved": true
+    },
+    "authenticated_transition": {
+      "accounts": [
+        {
+          "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+          "units": [
+            {
+              "$integer": "9984768"
+            },
+            {
+              "$integer": "18067"
+            }
+          ]
+        }
+      ],
+      "fenced_transfer": 4,
+      "interrupted_upgrade_recovery": true,
+      "ledger_cutover": {
+        "$integer": "4"
+      },
+      "new_world_hash": "bb375448a75d57faf3abed2cd950d033db8e3eedf8c5048adfa39eb49f7bf64e",
+      "old_world_hash": "7edad5a2f5f15dfd667f9ec9c0100d77c2aed25af23591580798a8f87a48aeeb",
+      "receipts_and_publications_preserved": true,
+      "retained_predecessors_verified": 15,
+      "score_artifact_before": "341f69de36a260ed4a0ff5954d0d8d4f0569e30165278c9956c655508cb6338f",
+      "source_cursor": 4,
+      "stale_manifest_rejected": true,
+      "status": "PASS",
+      "transition_hash": "0423043a3d55e5e65817e7f99894a6fdf3136e7ae35dc91c0aaad497fd851dfe"
+    },
+    "actual_v8_sdk_certificate": {
+      "status": "PASS",
+      "trust": "explicit disposable IC SDK root and certificate; no offline fallback",
+      "publication_version": 8,
+      "epoch_version": 2,
+      "world": [
+        1000,
+        1000
+      ],
+      "root_hash": "68e76a63a4cb73d89f6da6a39ba14d7abdac9cbe515ea8a10cbcdd33556ab7c3",
+      "verified_artifacts": [
+        "state",
+        "events",
+        "scores"
+      ]
+    }
+  },
+  "funding_migration": {
+    "status": "PASS",
+    "evidence": ".work/million-release/funding-cutover-rerun/results.json",
+    "result": {
+      "cmc_credits": 5,
+      "cutover": {
+        "$integer": "8"
+      },
+      "held_payment": 8,
+      "outgoing_transfers": 5,
+      "pending_finance_survived_transition_and_two_upgrades": true,
+      "post_migration_deposit": 10,
+      "source_cursor": 12,
+      "status": "PASS",
+      "world_version": 5
+    }
+  },
+  "64_ball_fixture": {
+    "status": "PASS mechanics/artifact bounds, not real-time browser qualification",
+    "evidence": ".work/million-release/max-population/results.json",
+    "result": {
+      "artifact_bytes": 513075,
+      "balls": 64,
+      "clock": "PocketIC virtual scheduling plus local harness wall time; not mainnet wall time",
+      "cycles": "126791566306",
+      "event_bytes": 503120,
+      "harness_ticks_per_second": 0.04986610048601595,
+      "harness_wall_seconds": 160.429628987,
+      "pace": {
+        "mode": "Normal",
+        "nominal_milli": 1000,
+        "performance_limited": false,
+        "supported_milli": 1000
+      },
+      "publication_bytes": 4086,
+      "score_bytes": 277,
+      "stable_memory_bytes": 33619968,
+      "state_bytes": 9678,
+      "status": "PASS",
+      "ticks": 8,
+      "virtual_seconds": 7.15000043,
+      "virtual_ticks_per_second": 1.1188810515917689,
+      "world": [
+        1000,
+        1000
+      ]
+    }
+  },
+  "performance": {
+    "status": "FAIL repeated sustained qualification; one browser-phase pass is insufficient",
+    "runs": [
+      {
+        "run": "browser-first",
+        "browser_status": "FAIL",
+        "installed_case_status": "FAIL",
+        "measurements": {
+          "million_startup_failure": {
+            "phase": "BUFFERING",
+            "live": {
+              "connected": true,
+              "startupRetries": 0,
+              "heads": [
+                0,
+                1,
+                2,
+                19,
+                21,
+                43,
+                44,
+                45
+              ],
+              "resyncs": 3,
+              "certificates": 9,
+              "skipped": true,
+              "maxBufferSegments": 3,
+              "maxBufferLogical": 3,
+              "playback": {
+                "wall_ms": 83286.7,
+                "frame_ms": 99.89999999999418,
+                "verified_ticks": 46,
+                "consumed_ticks": 44,
+                "admitted_ticks": 5,
+                "played_ticks": 0,
+                "buffer_ticks": 2,
+                "buffer_target_ticks": 17,
+                "buffer_bytes": 75073,
+                "queue_segments": 2,
+                "certificate_time_ns": "1792853164717046819",
+                "certificate_age_ms": 1037.95328,
+                "catchup_segments": 11,
+                "catchup_ms": 25.900000035762787,
+                "phase": "BUFFERING",
+                "rate": 1,
+                "nominal_rate": 1,
+                "target_rate": 1,
+                "performance_limited": false,
+                "fetch_ms": 10855.599999964237,
+                "verify_ms": 173,
+                "artifact_ms": 0.5,
+                "derive_ms": 22.80000001192093,
+                "artifact_bundle": true,
+                "artifact_bundle_fallbacks": 0,
+                "artifact_bundle_error": null,
+                "delivery_failures": 0,
+                "delivery_error": null,
+                "backend_segments": 47,
+                "segment_ticks": 1
+              }
+            },
+            "error": "",
+            "service": "Gameplay running; index cursor 0; 0 history rows pending. Index lag and the 60-second fallback can delay discovery.",
+            "arena": "Normal \u00b7 1.00 ticks/s"
+          }
+        },
+        "evidence": ".work/million-release/browser-first/deployment/million-browser/results.json"
+      },
+      {
+        "run": "browser-passive",
+        "browser_status": "FAIL",
+        "installed_case_status": "FAIL",
+        "measurements": {
+          "million_normal_playback": {
+            "seconds": 89.663,
+            "backend_ticks_per_second": 0.925688411050266,
+            "admitted_ticks_per_second": 0.24536319329043196,
+            "displayed_ticks_per_second": 0.29269346068724056,
+            "stalled_samples": 14,
+            "resyncs": 4,
+            "nominal_rate": 1,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 0,
+              "max": 18
+            },
+            "buffer_ticks": {
+              "min": 0,
+              "max": 17.00419916659999
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 588,
+                "max": 7881.400000035763
+              },
+              "verify_ms": {
+                "median": 84.79999995231628,
+                "max": 193.5999999642372
+              },
+              "artifact_ms": {
+                "median": 0.6000000238418579,
+                "max": 8126.099999964237
+              },
+              "derive_ms": {
+                "median": 10.300000011920929,
+                "max": 19.5
+              },
+              "catchup_ms": {
+                "median": 10573.299999952316,
+                "max": 16375.5
+              }
+            },
+            "max_catchup_segments": 24,
+            "buffer_bytes": {
+              "min": 0,
+              "max": 675155
+            },
+            "buffer_target_ticks": {
+              "min": 17,
+              "max": 17
+            },
+            "distinct_playheads": 52,
+            "certified_publications_per_second": 0.24536319329043196,
+            "authenticated_observation_queries_per_second": 0.43496202446940213,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          }
+        },
+        "evidence": ".work/million-release/browser-passive/deployment/million-browser/results.json"
+      },
+      {
+        "run": "browser-bounded",
+        "browser_status": "FAIL",
+        "installed_case_status": "FAIL",
+        "measurements": {
+          "million_startup_failure": {
+            "phase": "BUFFERING",
+            "live": {
+              "connected": true,
+              "startupRetries": 0,
+              "heads": [
+                10,
+                48
+              ],
+              "resyncs": 2,
+              "certificates": 5,
+              "skipped": true,
+              "maxBufferSegments": 0,
+              "maxBufferLogical": 0,
+              "playback": {
+                "wall_ms": 116811.7,
+                "frame_ms": 233.3000000000029,
+                "verified_ticks": 49,
+                "consumed_ticks": 49,
+                "admitted_ticks": 0,
+                "played_ticks": 0,
+                "buffer_ticks": 0,
+                "buffer_target_ticks": 9.432,
+                "buffer_bytes": 0,
+                "queue_segments": 0,
+                "certificate_time_ns": "1792854207052116011",
+                "certificate_age_ms": 1923.884032,
+                "catchup_segments": 6,
+                "catchup_ms": 67.29999995231628,
+                "phase": "BUFFERING",
+                "rate": 1,
+                "nominal_rate": 0.527,
+                "target_rate": 1,
+                "performance_limited": true,
+                "fetch_ms": 10454.799999952316,
+                "verify_ms": 363.2000000476837,
+                "artifact_ms": 11.899999976158142,
+                "derive_ms": 0,
+                "artifact_bundle": true,
+                "artifact_bundle_fallbacks": 0,
+                "artifact_bundle_error": null,
+                "delivery_failures": 0,
+                "delivery_error": null,
+                "backend_segments": 55,
+                "segment_ticks": 1
+              }
+            },
+            "error": "",
+            "service": "Gameplay running; index cursor 0; 0 history rows pending. Index lag and the 60-second fallback can delay discovery.",
+            "arena": "Normal \u00b7 0.53 ticks/s (target 1.00)"
+          }
+        },
+        "evidence": ".work/million-release/browser-bounded/deployment/million-browser/results.json"
+      },
+      {
+        "run": "browser-quiet",
+        "browser_status": "PASS",
+        "installed_case_status": "FAIL",
+        "measurements": {
+          "million_normal_playback": {
+            "seconds": 89.84639999999999,
+            "backend_ticks_per_second": 0.9905794778644443,
+            "admitted_ticks_per_second": 0.901538625921573,
+            "displayed_ticks_per_second": 0.9798908472852176,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 1,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 5,
+              "max": 18
+            },
+            "buffer_ticks": {
+              "min": 4.227631454057203,
+              "max": 17.5217446164381
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 93,
+                "max": 12624.399999976158
+              },
+              "verify_ms": {
+                "median": 68.10000002384186,
+                "max": 147.19999998807907
+              },
+              "artifact_ms": {
+                "median": 0.5999999642372131,
+                "max": 6717.800000011921
+              },
+              "derive_ms": {
+                "median": 5.800000011920929,
+                "max": 26
+              },
+              "catchup_ms": {
+                "median": 134.80000001192093,
+                "max": 6900.399999976158
+              }
+            },
+            "max_catchup_segments": 11,
+            "buffer_bytes": {
+              "min": 187429,
+              "max": 675662
+            },
+            "buffer_target_ticks": {
+              "min": 17,
+              "max": 17
+            },
+            "distinct_playheads": 171,
+            "certified_publications_per_second": 0.901538625921573,
+            "authenticated_observation_queries_per_second": 0.9905794778644443,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          },
+          "million_economy_playback": {
+            "seconds": 39.49840000000001,
+            "backend_ticks_per_second": 0.45571466185972076,
+            "admitted_ticks_per_second": 0.43039718064529187,
+            "displayed_ticks_per_second": 0.5141750848167168,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 0.5,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 13,
+              "max": 17
+            },
+            "buffer_ticks": {
+              "min": 12.553975560436271,
+              "max": 16.110708060436025
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 99.59999996423721,
+                "max": 3596.300000011921
+              },
+              "verify_ms": {
+                "median": 70.09999996423721,
+                "max": 277.9000000357628
+              },
+              "artifact_ms": {
+                "median": 0.6000000238418579,
+                "max": 231.20000004768372
+              },
+              "derive_ms": {
+                "median": 5.5,
+                "max": 27.600000023841858
+              },
+              "catchup_ms": {
+                "median": 120.5,
+                "max": 1338.5
+              }
+            },
+            "max_catchup_segments": 2,
+            "buffer_bytes": {
+              "min": 489331,
+              "max": 639910
+            },
+            "buffer_target_ticks": {
+              "min": 9,
+              "max": 9
+            },
+            "distinct_playheads": 74,
+            "certified_publications_per_second": 0.43039718064529187,
+            "authenticated_observation_queries_per_second": 1.3671439855791623,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          },
+          "million_lifeline_playback": {
+            "seconds": 49.798,
+            "backend_ticks_per_second": 0.04016225551226957,
+            "admitted_ticks_per_second": 0.04016225551226957,
+            "displayed_ticks_per_second": 0.05149999999998671,
+            "stalled_samples": 0,
+            "resyncs": 0,
+            "nominal_rate": 0.05,
+            "performance_limited": false,
+            "queue_segments": {
+              "min": 14,
+              "max": 15
+            },
+            "buffer_ticks": {
+              "min": 13.191405819061657,
+              "max": 14.168230819061662
+            },
+            "latency_ms": {
+              "fetch_ms": {
+                "median": 182.30000001192093,
+                "max": 1889.800000011921
+              },
+              "verify_ms": {
+                "median": 237.9000000357628,
+                "max": 326.30000001192093
+              },
+              "artifact_ms": {
+                "median": 1.699999988079071,
+                "max": 598.7000000476837
+              },
+              "derive_ms": {
+                "median": 22.400000035762787,
+                "max": 24.30000001192093
+              },
+              "catchup_ms": {
+                "median": 1215.5,
+                "max": 1215.5
+              }
+            },
+            "max_catchup_segments": 4,
+            "buffer_bytes": {
+              "min": 526118,
+              "max": 563807
+            },
+            "buffer_target_ticks": {
+              "min": 1.4,
+              "max": 1.4
+            },
+            "distinct_playheads": 80,
+            "certified_publications_per_second": 0.04016225551226957,
+            "authenticated_observation_queries_per_second": 1.1647054098558174,
+            "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps."
+          }
+        },
+        "evidence": ".work/million-release/browser-quiet/deployment/million-browser/results.json"
+      },
+      {
+        "run": "browser-quiet-repeat",
+        "browser_status": "FAIL",
+        "installed_case_status": "FAIL",
+        "measurements": {
+          "million_startup_failure": {
+            "phase": "BUFFERING",
+            "live": {
+              "connected": true,
+              "startupRetries": 0,
+              "heads": [
+                18,
+                22,
+                41,
+                42,
+                43,
+                44,
+                45
+              ],
+              "resyncs": 3,
+              "certificates": 8,
+              "skipped": true,
+              "maxBufferSegments": 4,
+              "maxBufferLogical": 4,
+              "playback": {
+                "wall_ms": 100097.6,
+                "frame_ms": 383.40000000000873,
+                "verified_ticks": 46,
+                "consumed_ticks": 42,
+                "admitted_ticks": 4,
+                "played_ticks": 0,
+                "buffer_ticks": 4,
+                "buffer_target_ticks": 4.584,
+                "buffer_bytes": 150145,
+                "queue_segments": 4,
+                "certificate_time_ns": "1792856267519994954",
+                "certificate_age_ms": 467.005184,
+                "catchup_segments": 7,
+                "catchup_ms": 10670.399999976158,
+                "phase": "BUFFERING",
+                "rate": 1,
+                "nominal_rate": 0.448,
+                "target_rate": 1,
+                "performance_limited": true,
+                "fetch_ms": 3956.300000011921,
+                "verify_ms": 226.10000002384186,
+                "artifact_ms": 394.19999998807907,
+                "derive_ms": 51.19999998807907,
+                "artifact_bundle": true,
+                "artifact_bundle_fallbacks": 0,
+                "artifact_bundle_error": null,
+                "delivery_failures": 0,
+                "delivery_error": null,
+                "backend_segments": 52,
+                "segment_ticks": 1
+              }
+            },
+            "error": "",
+            "service": "Gameplay running; index cursor 0; 0 history rows pending. Index lag and the 60-second fallback can delay discovery.",
+            "arena": "Normal \u00b7 0.45 ticks/s (target 1.00)"
+          }
+        },
+        "evidence": ".work/million-release/browser-quiet-repeat/deployment/million-browser/results.json"
+      }
+    ],
+    "host_contention": "Other Docker/apt/Rust/C++/PocketIC workloads repeatedly saturated both CPUs. A brief >90% idle gap allowed one 89.8-second browser phase pass; the repeat was again saturated and actually performance-limited. Awaiting uninterrupted quiet window.",
+    "normal_wasm_note": "Earlier multi-mode browser probes used the test-hooks artifact. The current harness now starts with exact normal Wasm and upgrades to hooks only after Normal for disposable low-budget controls; this stronger fixture has not yet run."
+  },
+  "current_inputs": {
+    "normal_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "test_hooks_sha256": "05ea8348c7f3394ece47441a3a13f5af8f3600292814e4bd5ab752c5293912d2",
+    "qualification": "Staged test inputs; not frozen as an accepted release candidate"
+  },
+  "replay": {
+    "status": "BLOCKED clean installed browser gate; diagnostic content replay passed 133 consecutive actual v5 publications",
+    "diagnostic": "wire-replay-probe is a copied dataset with an explicit expected navigation cancellation excluded. Original browser-quiet installed test stays FAIL; this diagnostic is not acceptance evidence.",
+    "original_failure": "Wire recorder attempted response.body during deliberate reload; fixed to stop capture first. Buffer offset copying corrected for Candid. Current capture is bounded by final admitted head."
+  },
+  "complete_installed_suite": {
+    "status": "NOT_COMPLETE on current source",
+    "diagnostic": ".work/million-release/gates/installed/s14-local/results.json",
+    "note": "Interrupted after stale predecessor guard failure; guard corrected and focused idle recovery PASS. Full current run remains mandatory."
+  },
+  "remaining": [
+    "Uninterrupted quiet window for repeated Normal qualification on the actual normal Wasm",
+    "Clean captured browser history replay and lower-mode/reconnect proof",
+    "Complete installed-IC suite on current source",
+    "Refresh final source/browser/package checks as needed, freeze reviewed candidate only after all local gates pass",
+    "User-owned push and exact-commit GitHub CI; no mainnet actions"
+  ],
+  "mainnet_operations": "NONE",
+  "remote_git_operations": "NONE"
+}
