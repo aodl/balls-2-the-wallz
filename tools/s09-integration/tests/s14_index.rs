@@ -2146,6 +2146,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut last = None;
     let mut phase = -1;
     let mut pause_segments = 0;
+    let mut reconnect_gap = 0;
     let mut first = None;
     let mut second = None;
     let mut third = None;
@@ -2369,8 +2370,14 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             phase = 3;
         } else if phase == 3 && out.join("browser-disconnected").exists() {
             pause_segments = s.run.completed_segments;
+            #[derive(CandidType, Deserialize)]
+            struct Window {
+                max_segments: u16,
+            }
+            let window: Window = get_query(&pic, id, "retention_status", encode_args(()).unwrap());
+            reconnect_gap = u64::from(window.max_segments) + 1;
             phase = 4;
-        } else if phase == 4 && s.run.completed_segments >= pause_segments + 5 {
+        } else if phase == 4 && s.run.completed_segments >= pause_segments + reconnect_gap {
             #[derive(CandidType, Deserialize)]
             struct Work {
                 phase: Option<String>,

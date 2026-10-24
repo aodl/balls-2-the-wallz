@@ -1941,7 +1941,12 @@ mod tests {
         use ic_stable_structures::Memory as _;
         use std::collections::{BTreeMap, BTreeSet};
         fn reopen(backing: &DefaultMemoryImpl) {
-            MANAGER.with(|m| *m.borrow_mut() = MemoryManager::init(backing.clone()));
+            // Host tests share an Rc-backed memory; the Wasm alias is a Copy handle.
+            #[cfg(not(target_arch = "wasm32"))]
+            let manager = MemoryManager::init(backing.clone());
+            #[cfg(target_arch = "wasm32")]
+            let manager = MemoryManager::init(*backing);
+            MANAGER.with(|m| *m.borrow_mut() = manager);
             ROOT.with(|r| *r.borrow_mut() = StableCell::init(memory(0), Vec::new()));
             BLOBS.with(|m| *m.borrow_mut() = StableBTreeMap::init(memory(1)));
             RETAINED.with(|m| *m.borrow_mut() = StableBTreeMap::init(memory(2)));

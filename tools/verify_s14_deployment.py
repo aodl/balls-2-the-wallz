@@ -108,6 +108,8 @@ def verify_epoch_transition(page,context,out,record,report,save):
     report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['admitted_ticks']-samples[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['played_ticks']-samples[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
     (out/'epoch-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['epoch_playback']['stalled_samples']==0,report['epoch_playback'];assert samples[-1]['backend_segments']>samples[0]['backend_segments']
     record('new-epoch-continuous-verified-playback',report['epoch_playback'])
+    # Prove a real gap beyond the sixteen-publication window before reconnecting.
+    wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=old_head+17,90000)
     reconnect.bring_to_front();reconnect.locator('#toolbar-settings').click();reconnect.locator('#network-pause').uncheck();reconnect.keyboard.press('Escape')
     wait_until(reconnect,lambda:reconnect.evaluate('globalThis.__dtrLive.resyncs')>=1 and '32 × 32' in reconnect.locator('#world-rules').text_content(),30000)
     new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
@@ -409,7 +411,7 @@ def main():
             report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
             page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
-            target=int(wait_file(page,out/'harness-upgrade-ready',45000))
+            target=int(wait_file(page,out/'harness-upgrade-ready',90000))
             wait_until(page,lambda:page.locator('#prepare-transfer').is_disabled(),20000)
             page.keyboard.press('Escape');page.locator('#toolbar-play').click()
             page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'
