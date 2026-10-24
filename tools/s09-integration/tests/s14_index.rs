@@ -5010,6 +5010,57 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     assert_eq!(checkpoint.version, 8);
     assert_eq!(epoch.version, 2);
     assert_eq!(epoch.source_cursor, Int(source_boundary.into()));
+    // Authenticate the real v8 checkpoint and every artifact with the actual
+    // DTR JavaScript SDK, explicit disposable root and freshness policy.
+    let directory = out.join("million-certified-checkpoint");
+    std::fs::create_dir_all(&directory).unwrap();
+    let observation = observe(&pic, id).0;
+    std::fs::write(directory.join("catalog.bin"), &observation.publication).unwrap();
+    std::fs::write(
+        directory.join("certificate.cbor"),
+        observation.certificate.unwrap(),
+    )
+    .unwrap();
+    std::fs::write(directory.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    std::fs::write(directory.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string()})).unwrap()).unwrap();
+    for (kind, name) in ["state", "events", "scores"].iter().enumerate() {
+        let mut data = Vec::new();
+        for index in 0..checkpoint.artifacts[kind].chunks.len() {
+            let chunk: Vec<u8> = get_query(
+                &pic,
+                id,
+                "retained_artifact_chunk",
+                encode_args((
+                    checkpoint
+                        .head
+                        .segment_id
+                        .as_ref()
+                        .unwrap()
+                        .0
+                        .to_string()
+                        .parse::<u64>()
+                        .unwrap(),
+                    dtr_wire::hash(&checkpoint_bytes),
+                    kind as u8,
+                    index as u16,
+                ))
+                .unwrap(),
+            );
+            data.extend(chunk);
+        }
+        std::fs::write(directory.join(format!("{name}.bin")), data).unwrap();
+    }
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "tools/verify_million_checkpoint.mjs",
+                directory.to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
     let million = arena_world(&pic, id);
     assert_eq!(million, expected);
     let retained_after_transition = retained_bytes(&pic, id);

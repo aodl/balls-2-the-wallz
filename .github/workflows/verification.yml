@@ -186,6 +186,7 @@ jobs:
             .work/ci-integration/s14-local/deployment/results.json
             .work/ci-integration/s14-local/deployment/million-*.json
             .work/ci-integration/s14-local/deployment/million-browser/**
+            .work/ci-integration/s14-local/deployment/million-certified-checkpoint/**
             .work/ci-integration/s14-local/*.wasm
             .work/ci-integration/s14-local/snapshot/**
           if-no-files-found: warn
