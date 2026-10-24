@@ -102,6 +102,10 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture):
     measure_mode('normal',90,.9,1.15)
     (out/'browser-million-normal-complete').write_text('normal playback measured\n')
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.5,30000);page.wait_for_timeout(4000)
+    # The normal-to-hooks code upgrade may hold an in-flight query. Bound the
+    # recovery before measuring steady Economy, so old Normal publications do
+    # not count as newly produced Economy ticks. Keep all throughput bounds.
+    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback;return p.phase==='PLAYING'&&p.verified_ticks>=p.backend_segments*p.segment_ticks-2;}'''),30000)
     measure_mode('economy',40,.4,.6)
     (out/'browser-million-economy-complete').write_text('economy playback measured\n')
     wait_until(page,lambda:'Lifeline' in page.locator('#arena-note').text_content(),30000)
