@@ -1,4 +1,59 @@
-# Graduated pacing — local candidate, performance qualification blocked
+# Graduated pacing — local qualification passed; publication and CI pending
+
+**2026-10-24:** the pacing follow-up passes all 25 host tests and the complete
+installed-IC runner: 37 active cases, followed by exact captured-history JS replay.
+Source, native, HTTP/Web Crypto browser, Wasm/Candid/format/Clippy and all eight
+DTR-consumer checks pass. DTR remains immutable `c12af747…`, client **0.13.0**.
+No million-cell work was performed.
+
+The failed published CI run [40075939494](https://github.com/aodl/balls-2-the-wallz/actions/runs/40075939494)
+expected two retained predecessors after eight publications. The corrected test
+checks seven, then forces eviction through 48 publications, verifies exact
+publication/chunk hashes and the allocated key set, bounds root/artifact/stable
+memory, and recovers the same backing memory. Both exact `e1e7b491…` predecessor
+upgrade rehearsals preserve the paid world and original three retained publications;
+a second upgrade preserves the full 16-publication window. The client verification
+helper now enforces the actual 16-entry/8 MiB policy with storage-integrity checks.
+
+**Four repeated authenticated four-ball runs pass:** approximately 89 seconds each,
+produced/admitted **0.962–1.008 ticks/s**, displayed **0.983–1.019 ticks/s**, zero
+stalls and zero resynchronizations. Counters exclude resynchronization jumps.
+The quiet local and downloaded-CI binaries both pass without another buffer or
+retention increase. Host contention dominated the prior 0.112 admitted / 0.108
+displayed result. Normal remains exactly **1 tick/s**; Lifeline remains **0.05**.
+The default paid browser test now measures after initial buffering completes.
+
+The selected normal Wasm remains
+`c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db`;
+production observer `app.mjs` is
+`975769cf19225671830403ac103a1299aa9ac42638eba05f5cabf55413bd140d`.
+The different CI Wasm `99b03642…` contains different checkout paths and Rust
+symbol hashes. Relocating the same published source reproduces path-sensitive
+variation; cross-directory byte reproducibility is not claimed. Exact binaries
+were tested separately. Release manifests record the final source and environment.
+
+**Mainnet unchanged.** At 2026-10-24 10:08 UTC the installed module is still
+`e1e7b491…`, total/liquid cycles **516,103,600,769 / 372,241,732,619**, Reserve
+Protection, running, with no run/source error. Poll counts advance; the independent
+treasury is enabled, not halted, but budget-deferred, with no pending plan and
+**zero ICP** in the actual receiving Ledger account. The paid 32×32 world, scores,
+cursor and certified publication match the first capture exactly. Current Reserve
+is consistent with the old **500B recovery entry**, not the candidate 2.5T floor.
+The historical 602B query cannot establish the old update-context selection balance.
+
+**Release gates remaining:** user-owned push, green CI on that exact final commit,
+cycle headroom, and immediate predecessor/controller/liquid-cycle/state recheck.
+The suggested 1T user-owned top-up provides existing-module headroom; it is not
+enough for the candidate's 3T active entry or 40T Normal entry. No deployment,
+transfer, settings change or remote Git operation was performed.
+
+[Reviewed follow-up evidence and exact asset hashes](evidence/B2Z/graduated-pacing/followup.json).
+Final frozen manifests are under `.work/pacing-followup/production/`.
+Earlier blocked results below remain historical evidence.
+
+---
+
+# Graduated pacing — previous qualification attempt
 
 **2026-10-23:** pacing checkout `/home/codexdev/b2z-pacing-release`, branch
 `checkpoint/b2z-graduated-pacing-release`, has committed delivery/recovery changes
