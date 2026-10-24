@@ -1,5 +1,16 @@
 /** Read-only local recording transport. No ledger, identity, wallet or certificate API. */
 import {verifyPinnedPublication, ArtifactAssembler} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
+/** Bound retained catch-up RPC bursts; each result can be consumed in order
+ * without waiting for an unrelated slow tail. Rejections remain explicit. */
+export function prefetchRetained(values,load){
+  if(values.length>16)throw new Error('retained prefetch bound');
+  const lanes=Array.from({length:4},()=>Promise.resolve());
+  return values.map((value,index)=>{
+    const lane=index%lanes.length,task=lanes[lane].then(()=>load(value));
+    lanes[lane]=task.catch(()=>{});
+    return task.then(value=>({status:'fulfilled',value}),reason=>({status:'rejected',reason}));
+  });
+}
 export function validateIndex(x){
   if(x?.version!==1||x.trust!=='offline-pinned-content'||!Array.isArray(x.recordings)||x.recordings.length<1||x.recordings.length>16)throw new Error('recording index');
   const ids=new Set();for(const r of x.recordings){

@@ -6,7 +6,7 @@ import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from 
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
-import {readBytes,validateIndex,loadEntry} from './transport.mjs';
+import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
@@ -281,7 +281,7 @@ async function pumpLive(now,s){
       const reverse=[current];let successor=current,complete=next-expected<16n;
       // Fetch the bounded independent catalogs together before retention can
       // evict another predecessor. Still authenticate their chain in order.
-      const catalogs=complete?await Promise.allSettled(Array.from({length:Number(next-expected)},(_,i)=>s.client.publication(Number(next-1n-BigInt(i))))):[];
+      const catalogs=complete?await Promise.all(prefetchRetained(Array.from({length:Number(next-expected)},(_,i)=>Number(next-1n-BigInt(i))),segment=>s.client.publication(segment))):[];
       for(const result of catalogs){
         try{if(result.status==='rejected')throw result.reason;
           const predecessor=await verifyRetainedPredecessor(result.value,successor);
@@ -291,8 +291,11 @@ async function pumpLive(now,s){
       if(!complete)await resyncLive(s,current);
       else{
         const ordered=reverse.reverse().slice(0,LIVE_BUFFER_LIMITS.segments-s.queue.length);
-        const artifacts=await Promise.all(ordered.map(ticket=>liveArtifacts(s,ticket)));
-        for(let i=0;i<ordered.length;i++){if(await admitLive(s,ordered[i],artifacts[i])===false){deferred=true;break;}}
+        const artifacts=prefetchRetained(ordered,ticket=>liveArtifacts(s,ticket));
+        for(let i=0;i<ordered.length;i++){
+          const result=await artifacts[i];if(result.status==='rejected')throw result.reason;
+          if(await admitLive(s,ordered[i],result.value)===false){deferred=true;break;}
+        }
       }
       s.catchupMs=performance.now()-catchupStarted;
     }
