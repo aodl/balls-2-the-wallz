@@ -26,7 +26,9 @@ for(const packet of index.packets){
  if(history.has(segment))assert.equal(history.get(segment).encoded,encoded);
  history.set(segment,{publication,encoded});
 }
-const ordered=[...history].sort((a,b)=>a[0]-b[0]);
+assert.ok(Number.isSafeInteger(index.complete_through),'completed capture boundary required');
+const ordered=[...history].filter(([segment])=>segment<=index.complete_through).sort((a,b)=>a[0]-b[0]);
+assert.equal(ordered.at(-1)?.[0],index.complete_through,'missing final admitted publication');
 assert.ok(ordered.length>=80,'sustained captured history required');
 ordered.forEach(([segment],i)=>assert.equal(segment,i,'captured publication gap'));
 const initial=new Uint8Array(await readFile(`${dir}/initial-world.bin`));

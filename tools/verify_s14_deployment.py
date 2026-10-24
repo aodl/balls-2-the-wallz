@@ -263,7 +263,7 @@ def main():
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             context=browser.new_context(permissions=['clipboard-write'],has_touch=True,viewport={'width':1440,'height':900},record_video_dir=str(out/'video'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
-            wire_packets=[];wire_errors=[];wire_bytes=0
+            wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None
             if a.million_scene_only:
                 wire=out/'wire-catalogs';wire.mkdir()
                 def capture_catalog(response):
@@ -280,6 +280,10 @@ def main():
                         wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
                     except Exception as error:wire_errors.append(str(error))
                 page.on('response',capture_catalog)
+                def stop_wire_capture():
+                    nonlocal wire_complete_through
+                    wire_complete_through=page.evaluate('globalThis.__dtrLive.heads.at(-1)')
+                    page.remove_listener('response',capture_catalog)
 
             def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -301,7 +305,7 @@ def main():
                 raise RuntimeError('deployed observer startup: '+message)
             if a.scene_only or a.million_scene_only or a.transition_only:
                 if a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
-                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save,lambda:page.remove_listener('response',capture_catalog))
+                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture)
                 else:verify_torus_scene(page,context,out,record,report,save)
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
@@ -566,7 +570,7 @@ def main():
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
         if a.million_scene_only and 'wire_packets' in locals():
-            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes},indent=2))
+            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes,'complete_through':wire_complete_through},indent=2))
         if browser:
             try:browser.close()
             except Exception:pass
