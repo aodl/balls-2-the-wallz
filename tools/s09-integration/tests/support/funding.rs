@@ -155,7 +155,15 @@ fn setup(wasm: Vec<u8>) -> (PocketIc, Principal, Principal, Principal, Principal
     setup_fee(wasm, 10_000)
 }
 fn setup_fee(wasm: Vec<u8>, fee: u64) -> (PocketIc, Principal, Principal, Principal, Principal) {
-    let (pic, id, ledger, payer) = arena_setup_world_fee(wasm, initial_world(), fee);
+    setup_fee_clock(wasm, fee, 0)
+}
+fn setup_fee_clock(
+    wasm: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+) -> (PocketIc, Principal, Principal, Principal, Principal) {
+    let (pic, id, ledger, payer) =
+        arena_setup_world_fee_clock(wasm, initial_world(), fee, seconds_ago);
     let index = status(&pic, id).source.index;
     pic.create_canister_with_id(
         Some(controller()),
@@ -177,7 +185,9 @@ fn setup_fee(wasm: Vec<u8>, fee: u64) -> (PocketIc, Principal, Principal, Princi
 pub(super) fn predecessor_setup(
     wasm: Vec<u8>,
 ) -> (PocketIc, Principal, Principal, Principal, Principal) {
-    setup(wasm)
+    // Offset before installing any canister, not a rollback of running time.
+    // The five-minute maintenance jump then remains inside SDK freshness bounds.
+    setup_fee_clock(wasm, 10_000, 300)
 }
 pub(super) fn complete_predecessor_treasury(pic: &PocketIc, id: Principal) {
     enabled(pic, id, true);

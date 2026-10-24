@@ -3150,6 +3150,14 @@ fn arena_setup_world_fee(
     initial: Vec<u8>,
     fee: u64,
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee_clock(wasm, initial, fee, 0)
+}
+fn arena_setup_world_fee_clock(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+) -> (PocketIc, Principal, Principal, Principal) {
     let pic = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet()
@@ -3160,7 +3168,7 @@ fn arena_setup_world_fee(
                 .unwrap(),
         )
         .build();
-    pic.set_time(std::time::SystemTime::now().into());
+    pic.set_time((std::time::SystemTime::now() - Duration::from_secs(seconds_ago)).into());
     let payer = Principal::self_authenticating([9; 32]);
     let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &[payer], fee);
     let index = create_controlled(&pic);
