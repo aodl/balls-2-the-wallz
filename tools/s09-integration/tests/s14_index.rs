@@ -844,10 +844,10 @@ fn upstream_index_poke_fallback_upgrade_and_replay() {
     )
     .unwrap()
     .unwrap();
-    assert_eq!(retention.max_segments, 3);
+    assert_eq!(retention.max_segments, 16);
     assert_eq!(retention.max_bytes, 8 * 1024 * 1024);
     assert!(retention.retained_bytes <= retention.max_bytes);
-    assert_eq!(retention.entries.len(), 3);
+    assert_eq!(retention.entries.len(), 16);
     assert!(
         retention
             .entries
@@ -2149,6 +2149,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     let mut last = None;
     let mut phase = -1;
     let mut pause_segments = 0;
+    let mut reconnect_gap = 0;
     let mut first = None;
     let mut second = None;
     let mut third = None;
@@ -2372,8 +2373,14 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             phase = 3;
         } else if phase == 3 && out.join("browser-disconnected").exists() {
             pause_segments = s.run.completed_segments;
+            #[derive(CandidType, Deserialize)]
+            struct Window {
+                max_segments: u16,
+            }
+            let window: Window = get_query(&pic, id, "retention_status", encode_args(()).unwrap());
+            reconnect_gap = u64::from(window.max_segments) + 1;
             phase = 4;
-        } else if phase == 4 && s.run.completed_segments >= pause_segments + 5 {
+        } else if phase == 4 && s.run.completed_segments >= pause_segments + reconnect_gap {
             #[derive(CandidType, Deserialize)]
             struct Work {
                 phase: Option<String>,
@@ -4343,8 +4350,9 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     let began = std::time::Instant::now();
     let mut started = false;
     let mut publications = vec![];
+    let mut publication_timing = vec![];
     let mut next = 0u64;
-    while began.elapsed() < Duration::from_secs(180) {
+    while began.elapsed() < Duration::from_secs(300) {
         if !started && out.join("browser-scene-ready").exists() {
             start_arena(&pic, id);
             started = true;
@@ -4366,6 +4374,7 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
                     decode(&raw).unwrap()
                 };
                 assert_eq!(current.head.seal.as_ref().unwrap().input_count, 0);
+                publication_timing.push(serde_json::json!({"segment_id":n,"logical_end":current.head.logical_end,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"capture_elapsed_ms":began.elapsed().as_millis(),"capture_poll_seconds":2}));
                 publications.push(current);
                 next = n + 1;
             }
@@ -4378,13 +4387,18 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
             );
             break;
         }
-        // PocketIC serializes ingress to this disposable instance. Four
-        // capture polls per two-second publication preserve exact replay
-        // coverage without starving the simultaneous certified browser query.
-        std::thread::sleep(Duration::from_millis(500));
+        // PocketIC serializes capture API calls with the live gateway.
+        // One poll per publication, with the retained window for catch-up,
+        // captures every seal without adding an artificial query storm.
+        std::thread::sleep(Duration::from_secs(2));
     }
     assert!(out.join("browser-complete").exists(), "scene timeout");
     pic.stop_live();
+    std::fs::write(
+        out.join("publication-timing.json"),
+        serde_json::to_vec_pretty(&publication_timing).unwrap(),
+    )
+    .unwrap();
     let payments = BTreeMap::new();
     let mut assigned = vec![];
     for p in &publications {
@@ -4535,6 +4549,204 @@ fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
             == Int(status(pic, id).source.admitted_to_exclusive.into())
 }
 
+#[test]
+#[ignore = "requires exact installed e1e7 torus module"]
+fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
+    fn retained_bytes(pic: &PocketIc, id: Principal) -> BTreeMap<u64, Vec<Vec<u8>>> {
+        #[derive(CandidType, Deserialize)]
+        struct Entry {
+            segment_id: u64,
+        }
+        #[derive(CandidType, Deserialize)]
+        struct Retention {
+            entries: Vec<Entry>,
+        }
+        let retained: Retention = get_query(pic, id, "retention_status", encode_args(()).unwrap());
+        retained
+            .entries
+            .into_iter()
+            .map(|entry| {
+                let raw: Vec<u8> = get_query(
+                    pic,
+                    id,
+                    "retained_publication",
+                    candid::encode_one(entry.segment_id).unwrap(),
+                );
+                let publication: Publication = decode(&raw).unwrap();
+                let mut bytes = vec![raw];
+                for (kind, artifact) in publication.artifacts.iter().enumerate() {
+                    for index in 0..artifact.chunks.len() {
+                        bytes.push(get_query(
+                            pic,
+                            id,
+                            "retained_artifact_chunk",
+                            encode_args((
+                                entry.segment_id,
+                                dtr_wire::hash(&bytes[0]),
+                                kind as u8,
+                                index as u16,
+                            ))
+                            .unwrap(),
+                        ));
+                    }
+                }
+                (entry.segment_id, bytes)
+            })
+            .collect()
+    }
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let predecessor = bytes("B2Z_PACING_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac"
+    );
+    let (pic, id, ledger, payer) = arena_setup(predecessor);
+    assert!(
+        get_result::<FundingPause>(
+            &pic,
+            id,
+            "set_funding_paused",
+            candid::encode_one(true).unwrap()
+        )
+        .paused
+    );
+    start_arena(&pic, id);
+    let join = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..240 {
+        tick(&pic);
+        if arena_world(&pic, id).received_e8s == Int(100_000_000u64.into())
+            && status(&pic, id).source.admitted_to_exclusive > join
+        {
+            break;
+        }
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let paid_v3 = arena_world(&pic, id);
+    assert_eq!(paid_v3.cannons.len(), 1);
+    assert_eq!(paid_v3.received_e8s, Int(100_000_000u64.into()));
+
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_torus_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    start_arena(&pic, id);
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase == "ready" && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert_eq!(transition_view(&pic, id).unwrap().phase, "ready");
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_torus_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    for _ in 0..240 {
+        tick(&pic);
+        if observe(&pic, id).1.head.seal.is_some() {
+            break;
+        }
+    }
+    assert!(observe(&pic, id).1.head.seal.is_some());
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+
+    let before = arena_world(&pic, id);
+    let publication = observe(&pic, id).0.publication;
+    let source_cursor = status(&pic, id).source.admitted_to_exclusive;
+    let retained = retained_bytes(&pic, id);
+    assert_eq!((before.version, before.width, before.height), (4, 32, 32));
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(arena_world(&pic, id), before);
+    assert_eq!(observe(&pic, id).0.publication, publication);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_cursor);
+    assert_eq!(retained_bytes(&pic, id), retained);
+    assert!(
+        get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+    );
+
+    start_arena(&pic, id);
+    let start = pic.get_time();
+    let segments = status(&pic, id).run.completed_segments;
+    let expected_segments = segments + 16;
+    let mut steps = 0;
+    while status(&pic, id).run.completed_segments < expected_segments {
+        pic.advance_time(Duration::from_millis(250));
+        for _ in 0..4 {
+            pic.tick();
+        }
+        steps += 1;
+        assert!(steps < 300);
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let final_status = status(&pic, id);
+    let seconds = (pic.get_time().as_nanos_since_unix_epoch() - start.as_nanos_since_unix_epoch())
+        as f64
+        / 1e9;
+    let ticks = (final_status.run.completed_segments - segments) * 2;
+    assert_eq!(ticks, 32);
+    let rate = ticks as f64 / seconds;
+    let pace = final_status.run.pace.unwrap();
+    assert_eq!(pace.mode, "Normal");
+    assert_eq!(pace.nominal_milli, 1000);
+    assert!(rate > 0.9 && rate < 1.1, "{ticks} ticks in {seconds}s");
+    let after = arena_world(&pic, id);
+    assert_eq!(after.received_e8s, before.received_e8s);
+    assert_eq!(after.cannons.len(), before.cannons.len());
+    let full_window = retained_bytes(&pic, id);
+    assert_eq!(full_window.len(), 16);
+    let full_publication = observe(&pic, id).0.publication;
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(retained_bytes(&pic, id), full_window);
+    assert_eq!(observe(&pic, id).0.publication, full_publication);
+    assert_eq!(arena_world(&pic, id), after);
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("pacing-exact-upgrade.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+          "status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_PACING_PRIOR_WASM")),
+          "publication_preserved":true,"retained_publications_and_chunks_preserved":retained.len(),"full_window_upgrade_preserved":full_window.len(),"source_cursor":source_cursor,"received_e8s":after.received_e8s,
+          "world":[after.width,after.height],"ticks":ticks,"seconds":seconds,"ticks_per_second":rate,
+          "mode":pace.mode,"nominal_milli":pace.nominal_milli,"funding_paused":true
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
 /// This is deliberately explicit until the committed generic DTR multi-epoch
 /// revision is published and B2Z can replace its immutable 0.13 pins.
 #[test]

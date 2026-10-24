@@ -1,5 +1,23 @@
 # B2Z arena, pacing and staged world transition
 
+## Graduated pacing release candidate (2026-10-23)
+
+This candidate preserves the installed paid v4 32×32 world and treasury. The older staged-world and 0.5 tick/s descriptions below are historical. It uses published DTR 0.13.0 unchanged. Normal targets 1 tick/s independently of world dimensions; the separately measured supported ceiling is exposed honestly.
+
+| Mode | Entry / exit liquid cycles (T) | Target ticks/s |
+| --- | --- | --- |
+| Normal | 40 / 30 | 1 |
+| Cruise | 25 / 20 | 0.75 |
+| Economy | 15 / 12 | 0.5 |
+| Steady | 10 / 7.5 | 0.3 |
+| Conserve | 5 / 4 | 0.2 |
+| Survival | 3.5 / 3 | 0.1 |
+| Lifeline | 3 / 2.5 | 0.05 |
+
+Below Lifeline's exit, Reserve Protection suspends simulation. The independent treasury worker remains available subject to its own call reserve. Funding hysteresis and supported performance are separate.
+
+Retention holds up to sixteen publications under the unchanged 8 MiB byte cap. The observer fetches bounded missing catalogs and artifacts concurrently, validates predecessor links in order, and admits only fully authenticated, endpoint-validated segments. Its fetch high-water marks are 24 queued segments and 32 logical ticks; a catch-up batch is bounded to sixteen segments and every admission still enforces the existing 8 MiB client bound. Startup reserves one publication plus sixteen seconds at rates of at least 0.5 tick/s, eight seconds below that. Lifeline still starts within two one-tick publications. This adds delivery reserve, not a rate cap. Diagnostic admitted/played counters exclude snapshot-resynchronization jumps; backend production, retrieval, derivation, resynchronization and playout are measured separately. Qualification remains pending the sustained authenticated browser gate.
+
 The viewport is the arena. Local native dialogs hold Play, Players, Rules, View and Settings. Dialogs contain/restore keyboard focus and never pause shared execution. The single aim control moves into a compact dismissible empty-world overlay only after authenticated configuration/source and a healthy verified empty state. It is not recreated during animation. Camera coordinates are cells, independent of canvas/device pixels and authoritative motion. Pointer/touch pan, anchored wheel/pinch zoom, fit, selected-cannon centring and split seam minimap bounds are local. Entity counts and picks refer to one underlying world, including repeated seam copies. Historical cannons with no authenticated heading use a neutral symbol.
 
 ## Current live-world boundary

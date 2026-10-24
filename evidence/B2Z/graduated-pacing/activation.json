@@ -1,0 +1,613 @@
+{
+  "date": "2026-10-24",
+  "status": "PACING INSTALLED ON MAINNET; certified playback and preservation PASS",
+  "release_source_commit": "2b5e61746cab6b992afe969d5cc60363d32f6a66",
+  "branch": "checkpoint/b2z-graduated-pacing-release",
+  "ci": {
+    "run": 40091977098,
+    "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40091977098",
+    "status": "completed",
+    "conclusion": "success",
+    "installed_evidence_sha256": "de5bd1331daa7d467ca0a443c3a4169c507f86166aa1d2997c7eb0270cf75a17",
+    "installed_runner": "PASS 45 checks including 25 host tests and 37 active cases; exact source revision matches release",
+    "all_jobs": [
+      {
+        "name": "Packaged DTR and clean consumers",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source conformance",
+        "conclusion": "success"
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "conclusion": "success"
+      },
+      {
+        "name": "Native conformance",
+        "conclusion": "success"
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "conclusion": "success"
+      },
+      {
+        "name": "S14 index, filtered poke, fallback and upgrade",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "conclusion": "success"
+      }
+    ],
+    "informational_job": "BLOCKED production inventory is not deployment evidence; actual mainnet checks recorded here"
+  },
+  "backend": {
+    "id": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "predecessor_sha256": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+    "installed_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+    "frozen_wasm": ".work/pacing-followup/production/backend/normal.wasm",
+    "operation": "dfx --identity codex_local canister install --mode upgrade with explicit frozen normal.wasm; no constructor/reset",
+    "controllers_unchanged": true,
+    "runtime": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "19_892_335_131_245",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "236946298",
+        "last_persist_instructions": "28917511",
+        "last_publish_instructions": "37094689",
+        "last_seal_instructions": "25652910",
+        "last_step_instructions": "118907024",
+        "max_actions": 5,
+        "max_instructions": "251147294",
+        "messages": "68",
+        "persist_instructions": "1907441274",
+        "publish_instructions": "2336905611",
+        "seal_instructions": "1559517398",
+        "step_instructions": "8666288368"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "20_036_250_755_045"
+    },
+    "pace": {
+      "admission_open": true,
+      "mode": "Economy",
+      "nominal_milli": 500,
+      "performance_limited": false,
+      "supported_milli": 500
+    },
+    "run": {
+      "callback_count": "52950",
+      "completed_segments": "26745",
+      "current_segment_work": "0",
+      "generation": "21",
+      "idle": false,
+      "last_error": [],
+      "last_segment_work": "1056",
+      "max_segment_work": "7209",
+      "pace": {
+        "admission_open": true,
+        "mode": "Economy",
+        "nominal_milli": 500,
+        "performance_limited": false,
+        "supported_milli": 500
+      },
+      "pacing_seconds": 1,
+      "publication_ticks": "2",
+      "running": true,
+      "segment_ticks": "2",
+      "total_work": "10260072",
+      "work_budget": 512,
+      "world_transition": false
+    },
+    "source": {
+      "admitted_to_exclusive": "39582091",
+      "binding_checked": true,
+      "event_horizon": [],
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "index_calls": "4690",
+      "last_error": [],
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "network": "ic",
+      "pending_records": 0,
+      "receiving_subaccount": "0",
+      "recipient_account": [
+        52,
+        72,
+        133,
+        239,
+        62,
+        56,
+        35,
+        25,
+        77,
+        188,
+        3,
+        103,
+        205,
+        2,
+        196,
+        203,
+        230,
+        159,
+        125,
+        202,
+        11,
+        167,
+        100,
+        241,
+        95,
+        42,
+        134,
+        231,
+        13,
+        190,
+        202,
+        122
+      ],
+      "reconciliation_requested": false,
+      "scan_in_flight": false
+    }
+  },
+  "preservation": {
+    "status": "PASS",
+    "before": "2026-10-24T13:02:06.614Z",
+    "after": "2026-10-24T13:03:54.165Z",
+    "paused_during_comparison": true,
+    "world_scores_events_publication_source_exactly_equal": true,
+    "retained_catalogs_and_chunks_equal": true,
+    "retained_catalogs_and_chunks": [
+      {
+        "segment": 26712,
+        "catalog_sha256": "08097ee26848cc8590f8cd0d86f4368775e59ae0b6b125a41061ca5c255cc6d2",
+        "chunks": [
+          {
+            "kind": "state",
+            "index": 0,
+            "sha256": "213c3787b50c987c0ff33b65db142b5d0d92c60a0e45bd9a0d0f9aab3d5b59b7"
+          },
+          {
+            "kind": "events",
+            "index": 0,
+            "sha256": "8d91ddb9bc0cefea9f55480ec8fe640a498cbebd9e279a3c9c65d0b50edad080"
+          },
+          {
+            "kind": "scores",
+            "index": 0,
+            "sha256": "913f4b35d85e62d90103e612c5f6c13a433f3b9de77e522d1b15fc2db7728a26"
+          }
+        ]
+      },
+      {
+        "segment": 26713,
+        "catalog_sha256": "b579ee8be960ef7d1a3e9b459a30b151e9f6b594c7a488c03fab22f51d84a0c9",
+        "chunks": [
+          {
+            "kind": "state",
+            "index": 0,
+            "sha256": "0a2371f72590715c294a2ad76ad3cfd4992a785032849b548ba4ba4f52ccd166"
+          },
+          {
+            "kind": "events",
+            "index": 0,
+            "sha256": "1dd0fe410e68f00fabb3af1604ffa7f1d0ca2a61a682e385795ef82498dae0bb"
+          },
+          {
+            "kind": "scores",
+            "index": 0,
+            "sha256": "913f4b35d85e62d90103e612c5f6c13a433f3b9de77e522d1b15fc2db7728a26"
+          }
+        ]
+      },
+      {
+        "segment": 26714,
+        "catalog_sha256": "eafaee09b89e79ca7c150ac6b975af7e377eb25199aff88ea5f5e4c09ad4af75",
+        "chunks": [
+          {
+            "kind": "state",
+            "index": 0,
+            "sha256": "eda964a9b98f186e13fcac94e34fcfa7ea03e628626be21b3295eebc9e09ff8b"
+          },
+          {
+            "kind": "events",
+            "index": 0,
+            "sha256": "564849be52be0d92dfce01d86a277e259daf07a2bdae81d8c39829d842b1768d"
+          },
+          {
+            "kind": "scores",
+            "index": 0,
+            "sha256": "a6feebcfa4bafb8fc2e5ddcff41352479e17e2d2b4f2a1e5c892f04ff5ac24c3"
+          }
+        ]
+      }
+    ],
+    "retained_status": {
+      "before": {
+        "max_segments": 3,
+        "max_bytes": 8388608,
+        "retained_bytes": 32884,
+        "entries": [
+          {
+            "segment_id": 26712,
+            "publication_hash": "08097ee26848cc8590f8cd0d86f4368775e59ae0b6b125a41061ca5c255cc6d2",
+            "bytes": 10736,
+            "current": false
+          },
+          {
+            "segment_id": 26713,
+            "publication_hash": "b579ee8be960ef7d1a3e9b459a30b151e9f6b594c7a488c03fab22f51d84a0c9",
+            "bytes": 11237,
+            "current": false
+          },
+          {
+            "segment_id": 26714,
+            "publication_hash": "eafaee09b89e79ca7c150ac6b975af7e377eb25199aff88ea5f5e4c09ad4af75",
+            "bytes": 10911,
+            "current": true
+          }
+        ]
+      },
+      "after": {
+        "max_segments": 16,
+        "max_bytes": 8388608,
+        "retained_bytes": 32884,
+        "entries": [
+          {
+            "segment_id": 26712,
+            "publication_hash": "08097ee26848cc8590f8cd0d86f4368775e59ae0b6b125a41061ca5c255cc6d2",
+            "bytes": 10736,
+            "current": false
+          },
+          {
+            "segment_id": 26713,
+            "publication_hash": "b579ee8be960ef7d1a3e9b459a30b151e9f6b594c7a488c03fab22f51d84a0c9",
+            "bytes": 11237,
+            "current": false
+          },
+          {
+            "segment_id": 26714,
+            "publication_hash": "eafaee09b89e79ca7c150ac6b975af7e377eb25199aff88ea5f5e4c09ad4af75",
+            "bytes": 10911,
+            "current": true
+          }
+        ]
+      }
+    },
+    "retention_check_note": "Initial ad hoc comparison included the advertised policy limit and rejected expected max_segments 3->16. Inspection established this was the sole difference; publication/chunk bytes, entries, retained bytes and 8 MiB cap all match. Corrected preservation checks pass; no data-loss failure occurred.",
+    "controller_work_equal": true,
+    "funding_last_success_equal": true,
+    "world_version": 4,
+    "dimensions": [
+      32,
+      32
+    ],
+    "paid_cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000",
+    "credits": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "units": [
+          "170092236906",
+          "18067"
+        ]
+      }
+    ],
+    "scores": {
+      "area_time": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "379450",
+            "203"
+          ]
+        }
+      ],
+      "version": 4
+    },
+    "logical_time_before_after": [
+      [
+        "53428",
+        "1"
+      ],
+      [
+        "53428",
+        "1"
+      ]
+    ],
+    "state_sha256_before_after": [
+      "eda964a9b98f186e13fcac94e34fcfa7ea03e628626be21b3295eebc9e09ff8b",
+      "eda964a9b98f186e13fcac94e34fcfa7ea03e628626be21b3295eebc9e09ff8b"
+    ],
+    "publication_sha256_before_after": [
+      "eafaee09b89e79ca7c150ac6b975af7e377eb25199aff88ea5f5e4c09ad4af75",
+      "eafaee09b89e79ca7c150ac6b975af7e377eb25199aff88ea5f5e4c09ad4af75"
+    ],
+    "source_cursor": "39582091",
+    "resume_config": {
+      "segment_ticks": 2,
+      "pacing_seconds": 1,
+      "work_budget": 512
+    }
+  },
+  "frontend": {
+    "id": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "operation": "existing observer only; reviewed --mode upgrade --no-asset-upgrade --no-wallet route",
+    "asset_module_sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "controllers_unchanged": true,
+    "public_files_verified_against_frozen": {
+      "index.html": {
+        "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+        "bytes": 15413
+      },
+      "app.mjs": {
+        "sha256": "975769cf19225671830403ac103a1299aa9ac42638eba05f5cabf55413bd140d",
+        "bytes": 576070
+      },
+      "style.css": {
+        "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+        "bytes": 8044
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "configuration-torus.bin": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      }
+    },
+    "asset_policy_sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+    "source_commit": "2b5e61746cab6b992afe969d5cc60363d32f6a66"
+  },
+  "browser": {
+    "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+    "seconds": 88.9964,
+    "errors": [],
+    "backend_ticks_per_second": 0.5168748398811638,
+    "admitted_ticks_per_second": 0.4944020207558958,
+    "displayed_ticks_per_second": 0.49400583527255887,
+    "resyncs_during_sample": 0,
+    "stalled_samples": 0,
+    "first": {
+      "wall_ms": 19580,
+      "frame_ms": 16.599999999998545,
+      "verified_ticks": 53444,
+      "consumed_ticks": 53434.16664999998,
+      "admitted_ticks": 10,
+      "played_ticks": 0.1666499999773805,
+      "buffer_ticks": 9.83335000002262,
+      "queue_segments": 5,
+      "certificate_time_ns": "1792847171624477573",
+      "certificate_age_ms": 1357.522432,
+      "catchup_segments": 0,
+      "catchup_ms": 0,
+      "phase": "PLAYING",
+      "rate": 1,
+      "nominal_rate": 0.5,
+      "target_rate": 0.5,
+      "performance_limited": false,
+      "fetch_ms": 75.10000002384186,
+      "verify_ms": 40.700000047683716,
+      "artifact_ms": 0.10000002384185791,
+      "derive_ms": 1.0999999642372131,
+      "artifact_bundle": true,
+      "artifact_bundle_fallbacks": 0,
+      "artifact_bundle_error": null,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "backend_segments": 26721,
+      "segment_ticks": 2,
+      "resyncs": 0,
+      "certificates": 34
+    },
+    "last": {
+      "wall_ms": 108576.4,
+      "frame_ms": 16.59999999999127,
+      "verified_ticks": 53488,
+      "consumed_ticks": 53478.13139091823,
+      "admitted_ticks": 54,
+      "played_ticks": 44.131390918228135,
+      "buffer_ticks": 9.868609081771865,
+      "queue_segments": 5,
+      "certificate_time_ns": "1792847259970441308",
+      "certificate_age_ms": 1982.55872,
+      "catchup_segments": 0,
+      "catchup_ms": 0,
+      "phase": "PLAYING",
+      "rate": 1,
+      "nominal_rate": 0.5,
+      "target_rate": 0.5,
+      "performance_limited": false,
+      "fetch_ms": 116.19999998807907,
+      "verify_ms": 46.19999998807907,
+      "artifact_ms": 0.09999996423721313,
+      "derive_ms": 2.199999988079071,
+      "artifact_bundle": true,
+      "artifact_bundle_fallbacks": 0,
+      "artifact_bundle_error": null,
+      "delivery_failures": 0,
+      "delivery_error": "observation rollback",
+      "backend_segments": 26744,
+      "segment_ticks": 2,
+      "resyncs": 0,
+      "certificates": 203
+    }
+  },
+  "treasury": {
+    "continuity": "PASS existing enabled worker ran after upgrade on its independent 300-second timer; fresh successful Ledger balance and fee observations, no pending plan, zero ICP, no new conversion",
+    "state": {
+      "halted": false,
+      "last_error": [
+        "funding deferred: insufficient liquid cycles for calls"
+      ],
+      "last_plan_ns": "1792738377093856899",
+      "last_refund": [],
+      "last_success": [
+        {
+          "block_index": "39582090",
+          "completed_at_ns": "1792738388208803977",
+          "cycles": "2_044_295_550_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1792738377093856899",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              250,
+              76,
+              14,
+              201,
+              17,
+              25,
+              66,
+              23,
+              213,
+              212,
+              243,
+              236,
+              39,
+              247,
+              172,
+              38,
+              167,
+              241,
+              158,
+              116,
+              251,
+              238,
+              186,
+              57,
+              212,
+              105,
+              228,
+              242,
+              64,
+              113,
+              184,
+              222
+            ]
+          }
+        }
+      ],
+      "lease_started_ns": "1792847317120962190",
+      "nonce": "294",
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1792847317120962190"
+        }
+      ],
+      "observed_fee": [
+        {
+          "e8s": "10000",
+          "observed_at_ns": "1792847319820690360"
+        }
+      ],
+      "paused": false,
+      "phase": {
+        "Idle": null
+      },
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "2044295550000",
+      "version": 1
+    },
+    "observations_after_upgrade_verified": true,
+    "last_error_interpretation": "Historical low-cycle message remains latched. Code records balance/fee then returns when zero balance is not worthwhile, without clearing last_error; successful post-upgrade observations prove current calls are not blocked. No state mutation to clear diagnostics.",
+    "local_low_cycle_evidence": "Passing release CI and prior installed tests cover independent Lifeline and Reserve recovery, pending transfer/notification upgrades, fee/dust/refund and cutover cases. No production draining or financial probes."
+  },
+  "certified_progress": {
+    "recorded_at": "2026-10-24T13:07:41.635Z",
+    "certificate_verified": true,
+    "paused_boundary_tick": "53428",
+    "resumed_tick": [
+      "53486",
+      "1"
+    ],
+    "resumed_segment": "26743",
+    "source_cursor": "39582091",
+    "ledger_balance": {
+      "e8s": "0"
+    },
+    "note": "World/score evolution after resume is ordinary gameplay, not a preservation mismatch."
+  },
+  "policy": {
+    "qualification": "All seven modes/hysteresis verified by source, host and installed tests; production observes actual Economy only. No cycle draining to force other modes. Normal target remains exactly 1 tick/s independent of board dimensions.",
+    "modes": [
+      {
+        "mode": "Normal",
+        "ticks_per_second": 1,
+        "entry_T": 40,
+        "exit_T": 30
+      },
+      {
+        "mode": "Cruise",
+        "ticks_per_second": 0.75,
+        "entry_T": 25,
+        "exit_T": 20
+      },
+      {
+        "mode": "Economy",
+        "ticks_per_second": 0.5,
+        "entry_T": 15,
+        "exit_T": 12
+      },
+      {
+        "mode": "Steady",
+        "ticks_per_second": 0.3,
+        "entry_T": 10,
+        "exit_T": 7.5
+      },
+      {
+        "mode": "Conserve",
+        "ticks_per_second": 0.2,
+        "entry_T": 5,
+        "exit_T": 4
+      },
+      {
+        "mode": "Survival",
+        "ticks_per_second": 0.1,
+        "entry_T": 3.5,
+        "exit_T": 3
+      },
+      {
+        "mode": "Lifeline",
+        "ticks_per_second": 0.05,
+        "entry_T": 3,
+        "exit_T": 2.5
+      }
+    ],
+    "reserve_explanation": "User-owned top-up restored the old module to Normal (old 32x32 ceiling 0.5) before upgrade. New module selects Economy at ~19.9T. Prior sub-500B Reserve was consistent with old recovery entry. Historical 602B query does not recover update-context selection balance."
+  },
+  "provenance": {
+    "selected_binary": "Exact locally tested c7 Wasm installed; CI binary not substituted",
+    "cross_directory_builds": "Path-dependent Cargo/Rust binary variation remains documented in followup.json; no false byte-reproducibility claim",
+    "DTR_revision": "c12af747190f7e24d5e68cdf57dbb1494095a46b",
+    "javascript_package_version": "0.13.0",
+    "package_sha256": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c"
+  },
+  "boundaries": {
+    "no_agent_financial_transfers": true,
+    "no_settings_or_controller_changes": true,
+    "no_new_canister_or_reinstall": true,
+    "no_remote_git_operations": true,
+    "million_cell_untouched": true
+  },
+  "raw_evidence": ".work/pacing-activation"
+}

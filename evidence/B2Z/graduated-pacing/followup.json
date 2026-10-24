@@ -1,0 +1,1016 @@
+{
+  "date": "2026-10-24",
+  "scope": "pacing-only; no million-cell work",
+  "status": "LOCAL_GATES_AND_PERFORMANCE_PASS; PUBLICATION_AND_EXACT_COMMIT_CI_PENDING; MAINNET_UNCHANGED",
+  "tested_implementation_commit": "bbf7c5dce3f50d02c2980f74fe422f7e746bb21c",
+  "ci": {
+    "published_commit": "7f59e70f6c603e4eace6c2e88b59a7778db513fa",
+    "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40075939494",
+    "conclusion": "FAILURE",
+    "failure": "host test stable_storage_only_contains_described_chunks_after_resize_and_eviction expected 2 predecessors; eight publications correctly retain 7",
+    "downloaded_evidence": ".work/pacing-followup/ci",
+    "new_commit_ci": "NOT_RUN; user owns push; green exact published commit required before upgrade"
+  },
+  "correction": {
+    "normal_runtime_unchanged": true,
+    "storage_test": [
+      "Eight publications assert seven retained predecessors",
+      "48 publications force real eviction; current plus fifteen predecessors",
+      "Exact catalog/chunk/artifact bytes and SHA-256 hashes checked for every retained publication",
+      "Exact stable key set and allocated chunk byte counts; evicted chunks absent",
+      "Root <=256 KiB; current and retained artifacts <=8 MiB; per-image maximum enforced",
+      "Fixture stable memory <=64 MiB and no growth between publications 32 and 48",
+      "Reopen same backing memory; reject malformed root/budget metadata; installed second upgrade preserves full 16-publication window"
+    ],
+    "additional_fixes": [
+      "Reconnect integration uses advertised retention plus one to force actual eviction",
+      "SDK validation helper corrected from stale max 3 to max 16 with contiguous IDs, exact aggregate bytes, one current entry and hash validation",
+      "Paid browser throughput starts after PLAYING so initial 18-tick fill is excluded",
+      "Counters exclude resynchronization jumps; diagnostics expose queue, certificate and catch-up timings"
+    ],
+    "earlier_local_failures_preserved": [
+      ".work/pacing-followup/gates/wasm",
+      ".work/pacing-followup/gates/installed-ic"
+    ],
+    "policy": "No economics, seven-mode thresholds, DTR revision, retention size or playout buffer increased in this follow-up"
+  },
+  "gates": [
+    {
+      "name": "final-source",
+      "status": "PASS",
+      "summary": "1354 JS and 145 Python tests plus references/docs",
+      "source_revision": "bbf7c5dce3f50d02c2980f74fe422f7e746bb21c",
+      "raw_results": ".work/pacing-followup/gates/final-source/verification.json",
+      "raw_results_sha256": "fc9cab354cf3d173e84b18ea840a3abc739e097c949c73615823583c06f13534"
+    },
+    {
+      "name": "native",
+      "status": "PASS",
+      "summary": "22 workspace and 10 portable Rust tests, vectors, format and Clippy",
+      "source_revision": "83a703e856d9525bc8baf4453bd9f78a218bc7f6",
+      "raw_results": ".work/pacing-followup/gates/native/verification.json",
+      "raw_results_sha256": "bce476aa5296b6435eac9a18bc839f55d7632e713a3cf1562a3dcd8a9cc49086"
+    },
+    {
+      "name": "browser",
+      "status": "PASS",
+      "summary": "14 HTTP/CSP/native Web Crypto browser groups",
+      "source_revision": "501521068e960833f2cb823bee7bdd9fbe7d2f9d",
+      "raw_results": ".work/pacing-followup/gates/browser/verification.json",
+      "raw_results_sha256": "bb8a14f341f43233711f3cdafaf3a7b5c34c138b65987f051acc49f8a8d4d7ff"
+    },
+    {
+      "name": "wasm-final",
+      "status": "PASS",
+      "summary": "normal Wasm, Candid, format and strict Clippy",
+      "source_revision": "83a703e856d9525bc8baf4453bd9f78a218bc7f6",
+      "raw_results": ".work/pacing-followup/gates/wasm-final/verification.json",
+      "raw_results_sha256": "c1870f75678a820bde78fdc5caa6324f4cd61e3c4898a32d284012a676cc30cc"
+    },
+    {
+      "name": "dtr-consumers",
+      "status": "PASS",
+      "summary": "8 immutable Rust/npm consumer checks",
+      "source_revision": "83a703e856d9525bc8baf4453bd9f78a218bc7f6",
+      "raw_results": ".work/pacing-followup/gates/dtr-consumers/results.json",
+      "raw_results_sha256": "24a0d365191515674728be21ac406233b4d57bef5be17b466456f58e0aa0584a"
+    },
+    {
+      "name": "installed-ic-final",
+      "status": "PASS",
+      "summary": "25 host tests; 37 active cases (27 IC + 10 source tests); captured-history JS replay",
+      "source_revision": "bbf7c5dce3f50d02c2980f74fe422f7e746bb21c",
+      "raw_results": ".work/pacing-followup/gates/installed-ic-final/results.json",
+      "raw_results_sha256": "e3cbd8c95c8cdc25de897ff0cc727f9ae8d41d877c769a1ffc819e1d26c09cf2"
+    }
+  ],
+  "gate_revision_note": "Native/runtime/dependency inputs unchanged after their listed passing revisions; later changes are test harness, diagnostics and docs. Full installed suite and final source gate ran on bbf7c5d. Final report-only commit does not change tested code.",
+  "performance": {
+    "previous_contended": {
+      "backend_ticks_per_second": 0.92,
+      "authenticated_admitted_ticks_per_second": 0.112,
+      "displayed_ticks_per_second": 0.108,
+      "host_load": "14-15 on 2 logical CPUs",
+      "raw": ".work/pacing-release/bounded-capture"
+    },
+    "repeated_runs": [
+      {
+        "name": "quiet-local",
+        "status": "PASS",
+        "raw_results": ".work/pacing-release/quiet-baseline/deployment/torus-scene/results.json",
+        "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+        "seconds": 89.813,
+        "verified_ticks_per_second": 1.0020821039270484,
+        "displayed_ticks_per_second": 0.9874046401168075,
+        "stalled_samples": 0,
+        "nominal_rate": 1,
+        "backend_ticks_per_second": 1.0020821039270484,
+        "resyncs": 0
+      },
+      {
+        "name": "quiet-ci-binary",
+        "status": "PASS",
+        "raw_results": ".work/pacing-release/quiet-ci-artifact/deployment/torus-scene/results.json",
+        "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+        "seconds": 89.6964,
+        "verified_ticks_per_second": 1.003384751227474,
+        "displayed_ticks_per_second": 1.0188904372227106,
+        "stalled_samples": 0,
+        "nominal_rate": 1,
+        "backend_ticks_per_second": 1.003384751227474,
+        "resyncs": 0
+      },
+      {
+        "name": "first-full-run",
+        "status": "PASS",
+        "raw_results": ".work/pacing-followup/gates/installed-ic/deployment/torus-scene/results.json",
+        "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+        "seconds": 89.27969999999999,
+        "verified_ticks_per_second": 1.0080679034539768,
+        "displayed_ticks_per_second": 0.9922288276987526,
+        "stalled_samples": 0,
+        "nominal_rate": 1,
+        "backend_ticks_per_second": 1.0080679034539768,
+        "resyncs": 0,
+        "queue_segments": {
+          "min": 7,
+          "max": 10
+        },
+        "buffer_ticks": {
+          "min": 13.465013809212827,
+          "max": 19.620340613048512
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 324.69999998807907,
+            "max": 2501.800000011921
+          },
+          "verify_ms": {
+            "median": 107,
+            "max": 456.5
+          },
+          "artifact_ms": {
+            "median": 0.19999998807907104,
+            "max": 257.2000000476837
+          },
+          "derive_ms": {
+            "median": 3.199999988079071,
+            "max": 24.5
+          },
+          "catchup_ms": {
+            "median": 1134.5,
+            "max": 1134.5
+          }
+        },
+        "max_catchup_segments": 2,
+        "timestamp_qualification": "Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound."
+      },
+      {
+        "name": "clean-full-run",
+        "status": "PASS",
+        "raw_results": ".work/pacing-followup/gates/installed-ic-final/deployment/torus-scene/results.json",
+        "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+        "seconds": 89.4298,
+        "verified_ticks_per_second": 0.9616481307125813,
+        "displayed_ticks_per_second": 0.9832821075103185,
+        "stalled_samples": 0,
+        "nominal_rate": 1,
+        "backend_ticks_per_second": 0.9616481307125813,
+        "resyncs": 0,
+        "queue_segments": {
+          "min": 8,
+          "max": 10
+        },
+        "buffer_ticks": {
+          "min": 14.673826832876983,
+          "max": 19.13497158637344
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 297.89999997615814,
+            "max": 2267.899999976158
+          },
+          "verify_ms": {
+            "median": 101.89999997615814,
+            "max": 395.19999998807907
+          },
+          "artifact_ms": {
+            "median": 0.19999998807907104,
+            "max": 228
+          },
+          "derive_ms": {
+            "median": 2.899999976158142,
+            "max": 30.600000023841858
+          },
+          "catchup_ms": {
+            "median": 0,
+            "max": 462.30000001192093
+          }
+        },
+        "max_catchup_segments": 2,
+        "latency_qualification": "Frame-sampled last-operation durations. Atomic observation query includes artifact network delivery; artifact_ms normally measures cached bundle validation, and includes a network query for retained bundles.",
+        "timestamp_qualification": "Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound."
+      }
+    ],
+    "counters": "Authenticated admission and played ticks are monotonic work counters excluding snapshot/resync jumps; backend logical progress counted separately",
+    "normal_target_ticks_per_second": 1,
+    "acceptance": "Each representative four-ball run >=~89 seconds after startup; rates 0.9..1.15, zero stalls and zero resyncs; all pass",
+    "diagnosis": "Host contention dominated the previous loss. Dedicated quiet local and CI-binary runs pass without further delivery tuning. App overhead remains measured, not assumed zero. Later full-suite runs also pass. No stronger claim of CPU isolation for the shared host.",
+    "timing_limitations": "Frame-sampled last-operation durations, not independent per-request latency percentiles. Atomic observation fetch includes artifact network delivery. artifact_ms mostly cached-bundle validation; retained bundles include network. First-observed publication replica timestamps have two-second polling bound; certificate timestamps are not publication creation timestamps."
+  },
+  "artifact_provenance": {
+    "local": {
+      "sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+      "bytes": 2637918,
+      "artifact": ".work/pacing-release/backend-final-frozen/normal.wasm",
+      "sample_source_paths": [
+        "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.1/src/inline_lazy.rs",
+        "/home/codexdev/b2z-pacing-release/native/b2z-native/src/geometry.rs",
+        "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ic-cdk-executor-2.0.0/src/machinery.rs",
+        "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slotmap-1.1.1/src/secondary.rs"
+      ]
+    },
+    "github": {
+      "sha256": "99b03642cdcb41381b520ff1a84f4b35cc43751b194dbb1bfd121ef9e29d2bf6",
+      "bytes": 2637918,
+      "artifact": ".work/pacing-followup/ci/pacing-failed-ic/s14-local/normal.wasm",
+      "sample_source_paths": [
+        "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.1/src/inline_lazy.rs",
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/native/b2z-native/src/geometry.rs",
+        "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ic-cdk-executor-2.0.0/src/machinery.rs",
+        "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slotmap-1.1.1/src/secondary.rs"
+      ]
+    },
+    "relocated_published_source": {
+      "sha256": "fb3583756b49e522fd1e8445ba873f659ac1043a1290683bf6fc9505ac925549",
+      "bytes": 2638046,
+      "artifact": "/home/codexdev/.cache/b2z-pacing-path-repro/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+      "sample_source_paths": [
+        "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.1/src/inline_lazy.rs",
+        "/home/codexdev/.cache/b2z-pacing-path-repro/7f59e70/native/b2z-native/src/geometry.rs",
+        "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ic-cdk-executor-2.0.0/src/machinery.rs",
+        "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slotmap-1.1.1/src/secondary.rs"
+      ]
+    },
+    "diagnostic_path_remap": {
+      "sha256": "2fb568b932556da70930a6c600eaeb1ade6691a6104a50618bf80ba070871e0b",
+      "bytes": 2637918,
+      "artifact": ".work/pacing-followup/repro/ci-path-remap.wasm",
+      "sample_source_paths": [
+        "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.1/src/inline_lazy.rs",
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/native/b2z-native/src/geometry.rs",
+        "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ic-cdk-executor-2.0.0/src/machinery.rs",
+        "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slotmap-1.1.1/src/secondary.rs"
+      ]
+    },
+    "local_path_package_ids": [
+      {
+        "name": "b2z-mechanics",
+        "id": "path+file:///home/codexdev/b2z-pacing-release/kernels/b2z-mechanics#0.5.0"
+      },
+      {
+        "name": "b2z-native",
+        "id": "path+file:///home/codexdev/b2z-pacing-release/native/b2z-native#0.5.0"
+      },
+      {
+        "name": "b2z-protocol",
+        "id": "path+file:///home/codexdev/b2z-pacing-release/crates/b2z-protocol#0.5.0"
+      },
+      {
+        "name": "dtr-runtime-lab",
+        "id": "path+file:///home/codexdev/b2z-pacing-release/canisters/runtime-lab#dtr-runtime-lab@0.5.0"
+      }
+    ],
+    "relocated_path_package_ids": [
+      {
+        "name": "b2z-mechanics",
+        "id": "path+file:///home/codexdev/.cache/b2z-pacing-path-repro/7f59e70/kernels/b2z-mechanics#0.5.0"
+      },
+      {
+        "name": "b2z-native",
+        "id": "path+file:///home/codexdev/.cache/b2z-pacing-path-repro/7f59e70/native/b2z-native#0.5.0"
+      },
+      {
+        "name": "b2z-protocol",
+        "id": "path+file:///home/codexdev/.cache/b2z-pacing-path-repro/7f59e70/crates/b2z-protocol#0.5.0"
+      },
+      {
+        "name": "dtr-runtime-lab",
+        "id": "path+file:///home/codexdev/.cache/b2z-pacing-path-repro/7f59e70/canisters/runtime-lab#dtr-runtime-lab@0.5.0"
+      }
+    ],
+    "normal_runtime_source_before_test_module_unchanged": true,
+    "source_prefix_sha256": "ca9689d2fe71dabb07296aa2a67effcfc71738dd390d162b4ba02d3a42ab706b",
+    "overlapping_canonical_publications": {
+      "count": 58,
+      "byte_content_equal": true
+    },
+    "conclusion": "Same pinned compiler/dependencies, but Cargo path-package IDs, Rust mangled symbol hashes and embedded panic/error paths vary with checkout paths. Existing build is deterministic per tested path, not cross-directory byte reproducible. Do not identify different hashes as the same artifact; freeze and verify the exact selected binary. Path remapping alone changes diagnostic paths but does not normalize Cargo crate identities.",
+    "references": [
+      "https://doc.rust-lang.org/cargo/reference/pkgid-spec.html",
+      "https://rustc-dev-guide.rust-lang.org/backend/libs-and-metadata.html",
+      "https://doc.rust-lang.org/beta/rustc/remap-source-paths.html"
+    ]
+  },
+  "selected_production": {
+    "normal_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+    "frontend_public_files": {
+      "index.html": {
+        "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+        "bytes": 15413
+      },
+      "app.mjs": {
+        "sha256": "975769cf19225671830403ac103a1299aa9ac42638eba05f5cabf55413bd140d",
+        "bytes": 576070
+      },
+      "style.css": {
+        "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+        "bytes": 8044
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "configuration-torus.bin": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "freeze_location": ".work/pacing-followup/production",
+    "note": "Freeze after report-only commit; manifest records final source commit and environment. No cross-directory Wasm byte reproducibility claim. Never substitute an unidentified CI binary."
+  },
+  "exact_predecessor_rehearsals": {
+    "followup-exact-local": {
+      "full_window_upgrade_preserved": 16,
+      "funding_paused": true,
+      "mode": "Normal",
+      "nominal_milli": 1000,
+      "predecessor_sha256": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+      "publication_preserved": true,
+      "received_e8s": {
+        "$integer": "100000000"
+      },
+      "retained_publications_and_chunks_preserved": 3,
+      "seconds": 30.000000361,
+      "source_cursor": 2,
+      "status": "PASS",
+      "ticks": 32,
+      "ticks_per_second": 1.0666666538311111,
+      "world": [
+        32,
+        32
+      ]
+    },
+    "followup-exact-ci": {
+      "full_window_upgrade_preserved": 16,
+      "funding_paused": true,
+      "mode": "Normal",
+      "nominal_milli": 1000,
+      "predecessor_sha256": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+      "publication_preserved": true,
+      "received_e8s": {
+        "$integer": "100000000"
+      },
+      "retained_publications_and_chunks_preserved": 3,
+      "seconds": 30.000000361,
+      "source_cursor": 2,
+      "status": "PASS",
+      "ticks": 32,
+      "ticks_per_second": 1.0666666538311111,
+      "world": [
+        32,
+        32
+      ]
+    }
+  },
+  "funding_continuity": {
+    "local": "PASS Lifeline and Reserve recovery independently of gameplay/browser, pending transfer/notification upgrades, fee/dust/refund and cutover cases",
+    "live": "Enabled and not halted; budget-deferred with no pending plan and zero receiving Ledger balance. Last success unchanged. No real conversion attempted by agent.",
+    "tests_are": "Disposable PocketIC, valueless ICP Ledger records and CMC fixture; not mainnet finance evidence"
+  },
+  "mainnet": {
+    "installed_module": "e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac",
+    "status": "read-only observations; no repair command or transfer executed",
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "first": {
+      "lab": {
+        "publication_hash": "2f97d8786b440a519655c45ad61a9628728812292623fb75fbc6d189f6ebb759",
+        "revision": "93757",
+        "run": {
+          "callback_count": "52885",
+          "completed_segments": "26681",
+          "current_segment_work": "0",
+          "generation": "19",
+          "idle": false,
+          "last_error": [],
+          "last_segment_work": "1049",
+          "max_segment_work": "7209",
+          "pace": {
+            "admission_open": false,
+            "mode": "ReserveProtection",
+            "nominal_milli": 0
+          },
+          "pacing_seconds": 1,
+          "running": true,
+          "segment_ticks": "2",
+          "total_work": "10190969",
+          "work_budget": 512,
+          "world_transition": false
+        },
+        "source": {
+          "admitted_to_exclusive": "39582091",
+          "binding_checked": true,
+          "event_horizon": [],
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "index_calls": "4552",
+          "last_error": [],
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "network": "ic",
+          "pending_records": 0,
+          "receiving_subaccount": "0",
+          "recipient_account": [
+            52,
+            72,
+            133,
+            239,
+            62,
+            56,
+            35,
+            25,
+            77,
+            188,
+            3,
+            103,
+            205,
+            2,
+            196,
+            203,
+            230,
+            159,
+            125,
+            202,
+            11,
+            167,
+            100,
+            241,
+            95,
+            42,
+            134,
+            231,
+            13,
+            190,
+            202,
+            122
+          ],
+          "reconciliation_requested": true,
+          "scan_in_flight": false
+        },
+        "version": 7
+      },
+      "runtime": {
+        "instruction_yield": "600000000",
+        "liquid_cycles": "404_772_238_772",
+        "message_work_limit": "2048",
+        "metrics": {
+          "last_instructions": "237562187",
+          "max_actions": 5,
+          "max_instructions": "257747588",
+          "messages": "6046",
+          "publish_instructions": "192522675925",
+          "seal_instructions": "130327926355",
+          "step_instructions": "750400148433"
+        },
+        "phase_action_limit": 8,
+        "total_cycles": "548_634_106_922"
+      },
+      "recorded_file_utc": "2026-10-24T08:23:30.990166+00:00"
+    },
+    "second": {
+      "lab": {
+        "publication_hash": "2f97d8786b440a519655c45ad61a9628728812292623fb75fbc6d189f6ebb759",
+        "revision": "93757",
+        "run": {
+          "callback_count": "52885",
+          "completed_segments": "26681",
+          "current_segment_work": "0",
+          "generation": "19",
+          "idle": false,
+          "last_error": [],
+          "last_segment_work": "1049",
+          "max_segment_work": "7209",
+          "pace": {
+            "admission_open": false,
+            "mode": "ReserveProtection",
+            "nominal_milli": 0
+          },
+          "pacing_seconds": 1,
+          "running": true,
+          "segment_ticks": "2",
+          "total_work": "10190969",
+          "work_budget": 512,
+          "world_transition": false
+        },
+        "source": {
+          "admitted_to_exclusive": "39582091",
+          "binding_checked": true,
+          "event_horizon": [],
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "index_calls": "4555",
+          "last_error": [],
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "network": "ic",
+          "pending_records": 0,
+          "receiving_subaccount": "0",
+          "recipient_account": [
+            52,
+            72,
+            133,
+            239,
+            62,
+            56,
+            35,
+            25,
+            77,
+            188,
+            3,
+            103,
+            205,
+            2,
+            196,
+            203,
+            230,
+            159,
+            125,
+            202,
+            11,
+            167,
+            100,
+            241,
+            95,
+            42,
+            134,
+            231,
+            13,
+            190,
+            202,
+            122
+          ],
+          "reconciliation_requested": false,
+          "scan_in_flight": false
+        },
+        "version": 7
+      },
+      "runtime": {
+        "instruction_yield": "600000000",
+        "liquid_cycles": "403_958_286_503",
+        "message_work_limit": "2048",
+        "metrics": {
+          "last_instructions": "237562187",
+          "max_actions": 5,
+          "max_instructions": "257747588",
+          "messages": "6046",
+          "publish_instructions": "192522675925",
+          "seal_instructions": "130327926355",
+          "step_instructions": "750400148433"
+        },
+        "phase_action_limit": 8,
+        "total_cycles": "547_820_154_653"
+      },
+      "recorded_file_utc": "2026-10-24T08:25:37.540764+00:00"
+    },
+    "poll_counter_delta": 3,
+    "funding": {
+      "halted": false,
+      "last_error": [
+        "funding deferred: insufficient liquid cycles for calls"
+      ],
+      "last_plan_ns": "1792738377093856899",
+      "last_refund": [],
+      "last_success": [
+        {
+          "block_index": "39582090",
+          "completed_at_ns": "1792738388208803977",
+          "cycles": "2_044_295_550_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1792738377093856899",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              250,
+              76,
+              14,
+              201,
+              17,
+              25,
+              66,
+              23,
+              213,
+              212,
+              243,
+              236,
+              39,
+              247,
+              172,
+              38,
+              167,
+              241,
+              158,
+              116,
+              251,
+              238,
+              186,
+              57,
+              212,
+              105,
+              228,
+              242,
+              64,
+              113,
+              184,
+              222
+            ]
+          }
+        }
+      ],
+      "lease_started_ns": "1792828217272399148",
+      "nonce": "291",
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1792828220232900155"
+        }
+      ],
+      "observed_fee": [
+        {
+          "e8s": "10000",
+          "observed_at_ns": "1792827923449234127"
+        }
+      ],
+      "paused": false,
+      "phase": {
+        "Idle": null
+      },
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "2044295550000",
+      "version": 1
+    },
+    "ledger_balance": {
+      "e8s": "0"
+    },
+    "certificate_verified": true,
+    "publication_identity": {
+      "config_hash": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "rules_hash": "e4d01123f895dd7a1f841332323171bbba1b5159d49dcf66e4c5c7e3c9c8f894",
+      "schema_hash": "66a78c3b028d6ba546b4eba1e5b440d72837cb1cf87f9e26b24739383fa9cad6",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "epoch": {
+      "event_hash": "3a8bf25c6501d3ccc0905278874237fa1351a83f1bad81c7bec8bea037dc3be2",
+      "logical_boundary": "42902",
+      "metadata_hash": "ca9e86f517112860120181eda5e0f8ef9ec3969054b0190d651ee01d1c50f687",
+      "new_identity": {
+        "config_hash": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "rules_hash": "e4d01123f895dd7a1f841332323171bbba1b5159d49dcf66e4c5c7e3c9c8f894",
+        "schema_hash": "66a78c3b028d6ba546b4eba1e5b440d72837cb1cf87f9e26b24739383fa9cad6",
+        "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+      },
+      "previous_publication_hex": "7b22617274696661637473223a5b7b226368756e6b73223a5b2237313763326463386636303366353066323533313333336234316263626235343038396237303536303830323461316262363930356531636339323135353439225d2c226b696e64223a227374617465222c226c656e677468223a3833302c22736861323536223a2237313763326463386636303366353066323533313333336234316263626235343038396237303536303830323461316262363930356531636339323135353439227d2c7b226368756e6b73223a5b2233313134373836313232303030386235376262663533656164313434613065343763643737376535323164623865346133626637666339383039363032663736225d2c226b696e64223a226576656e7473222c226c656e677468223a3738362c22736861323536223a2233313134373836313232303030386235376262663533656164313434613065343763643737376535323164623865346133626637666339383039363032663736227d2c7b226368756e6b73223a5b2236333064373763613435613234656561393533666335633634363930333361313735326461306362333238353936323963396537313835383039626364646363225d2c226b696e64223a2273636f726573222c226c656e677468223a3135322c22736861323536223a2236333064373763613435613234656561393533666335633634363930333361313735326461306362333238353936323963396537313835383039626364646363227d5d2c226368756e6b5f6279746573223a31363338342c2268656164223a7b226c6f676963616c5f656e64223a7b2224696e7465676572223a223432393032227d2c226d616e69666573745f68617368223a2266656464623436356235646133616166636533633932373335353565616436636232396432313665306630383734613433373833376634613263653739393838222c227365616c223a7b22636f6e6669675f68617368223a2230356639623334326333376437646435653533643666313264636539306432626135333938386563336331636366656165646438393036663531303432613432222c22696e7075745f636f756e74223a302c22696e7075745f726f6f74223a2234656632643337633238306432353636663365336464376432343265373931363537653866333563383339366630343564633962323338353264393537313832222c226c6f676963616c5f656e64223a7b2224696e7465676572223a223432393032227d2c226c6f676963616c5f7374617274223a7b2224696e7465676572223a223432393030227d2c2270726576696f75735f6d616e6966657374223a2234646138363033666538363831376463383338626433383131663565356664616639323163633732656437303737356233623732343234613939656666313733222c2270726576696f75735f7374617465223a2261636165636638653339393166613163323936313537636661636533383030643732326263363035313831313235373963393165636539313263343234333137222c2272756c65735f68617368223a2231363437313837656330336134363864393537636266666438346232393238313130636234616164613965303562363731646466316233653865396464656530222c22736368656d615f68617368223a2263316530613536656332303864363961396630633038626165336565316665303266663062643066366163313164653566383664636333663032663439363932222c227365676d656e745f6964223a7b2224696e7465676572223a223231343530227d2c22736f757263655f616e63686f72223a2238326637633464373739633263306234313638623162333364383838363766366165353939313331613066343633343931326362333430653239393938386532222c22736f757263655f66726f6d223a7b2224696e7465676572223a223339353236343132227d2c22736f757263655f6964223a2262623964313464376637666536613532336630666439393436656366353336626536353734636264393531353865633663616439646131623663326332363032222c22736f757263655f746f5f6578636c7573697665223a7b2224696e7465676572223a223339353236343132227d7d2c227365676d656e745f6964223a7b2224696e7465676572223a223231343530227d2c22736f757263655f746f5f6578636c7573697665223a7b2224696e7465676572223a223339353236343132227d2c2273746174655f68617368223a2237313763326463386636303366353066323533313333336234316263626235343038396237303536303830323461316262363930356531636339323135353439227d2c226964656e74697479223a7b22636f6e6669675f68617368223a2230356639623334326333376437646435653533643666313264636539306432626135333938386563336331636366656165646438393036663531303432613432222c2272756c65735f68617368223a2231363437313837656330336134363864393537636266666438346232393238313130636234616164613965303562363731646466316233653865396464656530222c22736368656d615f68617368223a2263316530613536656332303864363961396630633038626165336565316665303266663062643066366163313164653566383664636333663032663439363932222c22736f757263655f6964223a2262623964313464376637666536613532336630666439393436656366353336626536353734636264393531353865633663616439646131623663326332363032227d2c2272656e6465725f666f726d6174223a6e756c6c2c2276657273696f6e223a367d",
+      "score_hash": "0af2774379125ce3a4946cd42f58e46fa6389934d765a9d08602793dc7506206",
+      "segment_id": "21451",
+      "source_anchor": "82f7c4d779c2c0b4168b1b33d88867f6ae599131a0f4634912cb340e299988e2",
+      "source_cursor": "39526412",
+      "state_hash": "e60819add9f91040989d8d91472db1793de3dc35dc9f66c22b11f3f4970d77fb",
+      "transition_hash": "09fea5a79ae9df736eb3d73ec7802e9665f0ccec431562d8cfd6d64cfae2d052",
+      "version": 1
+    },
+    "world": {
+      "version": 4,
+      "width": 32,
+      "height": 32,
+      "received_e8s": "100000000",
+      "time": [
+        "53362",
+        "1"
+      ],
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 466,
+          "id": 1
+        }
+      ],
+      "balls": [
+        {
+          "cell": 318,
+          "id": 1,
+          "owner": 1,
+          "vx": -812,
+          "vy": -623,
+          "x0": "43361048",
+          "y0": "33254606"
+        }
+      ],
+      "credits": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "168978492864",
+            "18067"
+          ]
+        }
+      ]
+    },
+    "interpretation": [
+      "Old module policy is 500B Conserve entry / 250B exit; the candidate 2.5T threshold is not installed.",
+      "After the scheduled polling interval the hint remained Reserve, source polling advanced and the queried balance was below the old 500B recovery entry. Running=true and no run/source error are reported.",
+      "The historical 602B query does not expose the prior update-context liquid balance. IC execution/call reservations differ across message contexts; last selection balance/time were not exported by this module, so the exact historical value is unrecoverable.",
+      "The treasury is enabled, not halted, Idle with no pending plan, but budget-deferred. Zero Ledger ICP cannot self-fund without income and enough call headroom."
+    ],
+    "top_up": {
+      "old_entry_bare_query_shortfall": "96041713497",
+      "qualification": "lower bound before in-update/call reservations, burn or upgrade prepayment; not a guaranteed safe amount",
+      "suggested_old_module_headroom_cycles": "1000000000000",
+      "candidate_lifeline_entry_cycles": "3000000000000",
+      "candidate_normal_entry_cycles": "40000000000000",
+      "user_only_command": "dfx --identity YOUR_FUNDED_IDENTITY cycles top-up --network ic s34gv-3qaaa-aaaar-qcifa-cai 1000000000000",
+      "note": "1T is for existing-module headroom, not enough to activate candidate gameplay; no funds/settings changed by the agent",
+      "final_old_entry_bare_query_shortfall": "127758267381"
+    },
+    "cycle_semantics_reference": "https://docs.internetcomputer.org/references/ic-interface-spec/canister-interface/",
+    "final_observation": {
+      "recorded_at": "2026-10-24T10:08:04.688Z",
+      "runtime": {
+        "instruction_yield": "600000000",
+        "liquid_cycles": "372_241_732_619",
+        "message_work_limit": "2048",
+        "metrics": {
+          "last_instructions": "237562187",
+          "max_actions": 5,
+          "max_instructions": "257747588",
+          "messages": "6046",
+          "publish_instructions": "192522675925",
+          "seal_instructions": "130327926355",
+          "step_instructions": "750400148433"
+        },
+        "phase_action_limit": 8,
+        "total_cycles": "516_103_600_769"
+      },
+      "lab_status": {
+        "publication_hash": "2f97d8786b440a519655c45ad61a9628728812292623fb75fbc6d189f6ebb759",
+        "revision": "93757",
+        "run": {
+          "callback_count": "52885",
+          "completed_segments": "26681",
+          "current_segment_work": "0",
+          "generation": "19",
+          "idle": false,
+          "last_error": [],
+          "last_segment_work": "1049",
+          "max_segment_work": "7209",
+          "pace": {
+            "admission_open": false,
+            "mode": "ReserveProtection",
+            "nominal_milli": 0
+          },
+          "pacing_seconds": 1,
+          "running": true,
+          "segment_ticks": "2",
+          "total_work": "10190969",
+          "work_budget": 512,
+          "world_transition": false
+        },
+        "source": {
+          "admitted_to_exclusive": "39582091",
+          "binding_checked": true,
+          "event_horizon": [],
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "index_calls": "4656",
+          "last_error": [],
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "network": "ic",
+          "pending_records": 0,
+          "receiving_subaccount": "0",
+          "recipient_account": [
+            52,
+            72,
+            133,
+            239,
+            62,
+            56,
+            35,
+            25,
+            77,
+            188,
+            3,
+            103,
+            205,
+            2,
+            196,
+            203,
+            230,
+            159,
+            125,
+            202,
+            11,
+            167,
+            100,
+            241,
+            95,
+            42,
+            134,
+            231,
+            13,
+            190,
+            202,
+            122
+          ],
+          "reconciliation_requested": false,
+          "scan_in_flight": false
+        },
+        "version": 7
+      },
+      "funding": {
+        "halted": false,
+        "last_error": [
+          "funding deferred: insufficient liquid cycles for calls"
+        ],
+        "last_plan_ns": "1792738377093856899",
+        "last_refund": [],
+        "last_success": [
+          {
+            "block_index": "39582090",
+            "completed_at_ns": "1792738388208803977",
+            "cycles": "2_044_295_550_000",
+            "plan": {
+              "amount_e8s": "99990000",
+              "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+              "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+              "created_at_time_ns": "1792738377093856899",
+              "fee_e8s": "10000",
+              "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+              "memo": "1347768404",
+              "to": [
+                250,
+                76,
+                14,
+                201,
+                17,
+                25,
+                66,
+                23,
+                213,
+                212,
+                243,
+                236,
+                39,
+                247,
+                172,
+                38,
+                167,
+                241,
+                158,
+                116,
+                251,
+                238,
+                186,
+                57,
+                212,
+                105,
+                228,
+                242,
+                64,
+                113,
+                184,
+                222
+              ]
+            }
+          }
+        ],
+        "lease_started_ns": "1792828217272399148",
+        "nonce": "291",
+        "observed_balance": [
+          {
+            "e8s": "0",
+            "observed_at_ns": "1792828220232900155"
+          }
+        ],
+        "observed_fee": [
+          {
+            "e8s": "10000",
+            "observed_at_ns": "1792827923449234127"
+          }
+        ],
+        "paused": false,
+        "phase": {
+          "Idle": null
+        },
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "2044295550000",
+        "version": 1
+      },
+      "ledger_balance": {
+        "e8s": "0"
+      },
+      "certificate_verified": true,
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ]
+    },
+    "gameplay_before_after": {
+      "before": "2026-10-24T08:24:29.815Z",
+      "after": "2026-10-24T10:08:04.688Z",
+      "world_scores_publication_equal": true,
+      "world_version": 4,
+      "dimensions": [
+        32,
+        32
+      ],
+      "cannons": 1,
+      "balls": 1,
+      "received_e8s": "100000000",
+      "logical_time": "53362",
+      "score": {
+        "area_time": [
+          {
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "units": [
+              "1868",
+              "1"
+            ]
+          }
+        ],
+        "version": 4
+      },
+      "credits": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "168978492864",
+            "18067"
+          ]
+        }
+      ],
+      "source_cursor": "39582091",
+      "publication_sha256": "2f97d8786b440a519655c45ad61a9628728812292623fb75fbc6d189f6ebb759",
+      "state_sha256": "1a1e111104484f20f24d48be7cee2f34266a640c0c6e7fa5fadd92f0b00e1a51",
+      "scores_sha256": "913f4b35d85e62d90103e612c5f6c13a433f3b9de77e522d1b15fc2db7728a26",
+      "epoch_hash": "09fea5a79ae9df736eb3d73ec7802e9665f0ccec431562d8cfd6d64cfae2d052",
+      "live_produced_ticks_per_second": 0,
+      "deployed": false
+    },
+    "certified_browser": {
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+      "samples": 16,
+      "seconds": 16.083099999964237,
+      "errors": [],
+      "certificates_before": 1,
+      "certificates_after": 25,
+      "head": 26681,
+      "logical_tick": 53362,
+      "produced_ticks_per_second": 0,
+      "displayed_ticks_per_second": 0,
+      "phase": "BUFFERING",
+      "nominal_rate": 0,
+      "resyncs": 0,
+      "note": "Unchanged installed frontend. Its internal interpolation rate field is 1 while nominal_rate is 0; observed tick deltas are zero, consistent with Reserve. Do not label this live Normal.",
+      "raw": ".work/pacing-followup/live/browser-final.json"
+    }
+  },
+  "dtr": {
+    "revision": "c12af747190f7e24d5e68cdf57dbb1494095a46b",
+    "javascript_version": "0.13.0",
+    "package_sha256": "324f764deeeeaf1762b2d5a3d1368287009c0c08ba7e2e3806a943e3bf42e86c",
+    "package_integrity": "sha512-zCZNuGGeqrFj7g/FP4y6GQzHC3WWQUA4ehhbdeE1PGbG2lzNoz1tIwma9L0ToHibulGv1PNa/asaX25XjOpEsw==",
+    "locks_unchanged": true
+  },
+  "remaining_release_gates": [
+    "User pushes final local commit",
+    "GitHub CI green on that exact published commit; inspect and identify all artifacts",
+    "User supplies cycle headroom; 1T old-module operating headroom is insufficient for candidate 3T active or 40T Normal entry",
+    "Immediately recheck predecessor/controllers/genuine liquid cycles/paid state, then conditional state-preserving upgrade only"
+  ]
+}

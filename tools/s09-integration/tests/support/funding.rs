@@ -456,6 +456,24 @@ fn funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments() {
 }
 
 #[test]
+fn funding_lifeline_recovers_without_gameplay_or_browser() {
+    let (pic, id, ledger, _, payer) = setup(bytes("B2Z_S14_TEST_WASM"));
+    deposit(&pic, ledger, payer, id, 100_000_000);
+    get_result::<Status>(
+        &pic,
+        id,
+        "test_liquid_budget",
+        candid::encode_one(2_800_000_000_000u64).unwrap(),
+    );
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "Lifeline");
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    assert_eq!(stats(&pic).credits, 1);
+    assert_eq!(balance(&pic, ledger, id), 0);
+    assert!(!funding(&pic, id).halted);
+}
+
+#[test]
 fn funding_low_liquid_cycles_defer_then_recover_without_browser() {
     let (pic, id, ledger, _, payer) = setup(bytes("B2Z_S14_TEST_WASM"));
     deposit(&pic, ledger, payer, id, 100_000_000);

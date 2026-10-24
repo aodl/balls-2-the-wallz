@@ -1,3 +1,145 @@
+# Graduated pacing — installed on mainnet
+
+**2026-10-24:** published release `2b5e61746cab6b992afe969d5cc60363d32f6a66`
+passed [CI 40091977098](https://github.com/aodl/balls-2-the-wallz/actions/runs/40091977098),
+including all 25 host tests and the complete installed-IC runner (37 active cases).
+After the user supplied cycles, the existing backend `s34gv-3qaaa-aaaar-qcifa-cai`
+was upgraded in place using the exact frozen normal Wasm:
+`c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db`.
+The CI-built variant was not substituted. DTR remains immutable `c12af747…`,
+client **0.13.0**; no million-cell work was performed.
+
+Paused before/after comparisons pass for exact paid 32×32 v4 world, credits,
+scores, events, source identity/cursor, current publication, all three retained
+publication/chunk sets and pending work. Logical time was **53,428** on both sides.
+The advertised retention limit changes from 3 to 16 as intended; existing bytes
+and the 8 MiB cap remain preserved. Backend and observer controllers are unchanged.
+The existing observer's eight public files match the frozen release; `app.mjs` is
+`975769cf19225671830403ac103a1299aa9ac42638eba05f5cabf55413bd140d`.
+
+Resumed with the same `segment_ticks=2`, `pacing_seconds=1`, `work_budget=512`.
+Actual liquid cycles are **19,892,335,131,245**, selecting **Economy**, target and
+supported rate **0.5 tick/s**, `performance_limited=false`. Certified browser
+measurement over **88.9964 seconds**: produced **0.5169**, authenticated admitted
+**0.4944**, displayed **0.4940 ticks/s**, zero stalls/resynchronizations or browser
+errors. Normal remains exactly 1 tick/s and requires 40T entry; Economy is the
+correct funding selection. All seven modes, hysteresis and Lifeline 0.05 remain
+covered by the passing release tests.
+
+The independent treasury ran after upgrade on its five-minute timer, with fresh
+successful Ledger balance/fee observations. It is enabled, not halted, Idle with
+no pending transfer and **zero ICP** available to convert. Its old insufficient
+liquid-cycles error is retained history: the zero-balance return does not clear
+that field. No real financial probe or agent transfer was performed. Last
+successful conversion and funding history survive the upgrade.
+
+[Reviewed activation, exact hashes and preservation evidence](evidence/B2Z/graduated-pacing/activation.json).
+Raw deployment/certified/browser records are under `.work/pacing-activation/`.
+No reset, reinstall, new canister, settings/controller change or remote Git
+operation occurred. Earlier staging and blocked captures below are historical.
+
+---
+
+# Graduated pacing — previous local qualification
+
+**2026-10-24:** the pacing follow-up passes all 25 host tests and the complete
+installed-IC runner: 37 active cases, followed by exact captured-history JS replay.
+Source, native, HTTP/Web Crypto browser, Wasm/Candid/format/Clippy and all eight
+DTR-consumer checks pass. DTR remains immutable `c12af747…`, client **0.13.0**.
+No million-cell work was performed.
+
+The failed published CI run [40075939494](https://github.com/aodl/balls-2-the-wallz/actions/runs/40075939494)
+expected two retained predecessors after eight publications. The corrected test
+checks seven, then forces eviction through 48 publications, verifies exact
+publication/chunk hashes and the allocated key set, bounds root/artifact/stable
+memory, and recovers the same backing memory. Both exact `e1e7b491…` predecessor
+upgrade rehearsals preserve the paid world and original three retained publications;
+a second upgrade preserves the full 16-publication window. The client verification
+helper now enforces the actual 16-entry/8 MiB policy with storage-integrity checks.
+
+**Four repeated authenticated four-ball runs pass:** approximately 89 seconds each,
+produced/admitted **0.962–1.008 ticks/s**, displayed **0.983–1.019 ticks/s**, zero
+stalls and zero resynchronizations. Counters exclude resynchronization jumps.
+The quiet local and downloaded-CI binaries both pass without another buffer or
+retention increase. Host contention dominated the prior 0.112 admitted / 0.108
+displayed result. Normal remains exactly **1 tick/s**; Lifeline remains **0.05**.
+The default paid browser test now measures after initial buffering completes.
+
+The selected normal Wasm remains
+`c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db`;
+production observer `app.mjs` is
+`975769cf19225671830403ac103a1299aa9ac42638eba05f5cabf55413bd140d`.
+The different CI Wasm `99b03642…` contains different checkout paths and Rust
+symbol hashes. Relocating the same published source reproduces path-sensitive
+variation; cross-directory byte reproducibility is not claimed. Exact binaries
+were tested separately. Release manifests record the final source and environment.
+
+**Mainnet unchanged.** At 2026-10-24 10:08 UTC the installed module is still
+`e1e7b491…`, total/liquid cycles **516,103,600,769 / 372,241,732,619**, Reserve
+Protection, running, with no run/source error. Poll counts advance; the independent
+treasury is enabled, not halted, but budget-deferred, with no pending plan and
+**zero ICP** in the actual receiving Ledger account. The paid 32×32 world, scores,
+cursor and certified publication match the first capture exactly. Current Reserve
+is consistent with the old **500B recovery entry**, not the candidate 2.5T floor.
+The historical 602B query cannot establish the old update-context selection balance.
+
+**Release gates remaining:** user-owned push, green CI on that exact final commit,
+cycle headroom, and immediate predecessor/controller/liquid-cycle/state recheck.
+The suggested 1T user-owned top-up provides existing-module headroom; it is not
+enough for the candidate's 3T active entry or 40T Normal entry. No deployment,
+transfer, settings change or remote Git operation was performed.
+
+[Reviewed follow-up evidence and exact asset hashes](evidence/B2Z/graduated-pacing/followup.json).
+Final frozen manifests are under `.work/pacing-followup/production/`.
+Earlier blocked results below remain historical evidence.
+
+---
+
+# Graduated pacing — previous qualification attempt
+
+**2026-10-23:** pacing checkout `/home/codexdev/b2z-pacing-release`, branch
+`checkpoint/b2z-graduated-pacing-release`, has committed delivery/recovery changes
+and frozen artifacts from `54fbf69c8a8558f4d0dcff4a1f1b7f8ef072cf56`.
+Normal Wasm is `c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db`.
+DTR remains published `c12af747…`, client 0.13.0, with unchanged immutable locks
+and package integrity. Seven active modes and their hysteresis are covered;
+Normal targets 1 tick/s independently of dimensions and Lifeline targets 0.05.
+
+Source (1,354 JS / 145 Python), native (22 workspace / 10 portable Rust),
+normal Wasm/Candid/format/Clippy, standalone HTTP/Web Crypto browser and eight
+DTR consumer checks pass. Exact installed `e1e7b491…` predecessor upgrade passes
+with paid 32×32 state, source cursor, current publication and **all three retained
+publications and artifact chunks unchanged**. Independent treasury recovery passes
+in Lifeline and Reserve using disposable Ledger/CMC-mock tests. This is local
+state-preservation evidence, not a mainnet upgrade or real conversion.
+
+**Sustained authenticated Normal playback FAILS; complete installed-suite and CI
+qualification remain incomplete.** Traces expose multi-second query delays,
+resynchronizations, buffer exhaustion and, in one run, genuine supported-rate
+reduction to 0.405. Counter fixes now exclude snapshot jumps from measured
+admission/playout. Bounded concurrent catch-up, continuous polling after progress,
+sixteen-publication retention under the unchanged 8 MiB cap and a larger fast-mode
+buffer are committed but are **not performance-qualified**. This two-CPU host had
+load averages around 14–15 during isolated runs. A quiet host or isolated CI is
+needed to distinguish remaining application limits from contention. No failure is
+relabeled a pass; an earlier full suite stopped after a PocketIC compiler RPC
+failure and does not establish the complete installed-IC gate.
+
+**Mainnet writes: NONE; pushes: NONE; million-cell work: deferred.** Live module
+remains `e1e7b491…`, in Reserve Protection, with final observed total/liquid cycles
+746,022,785,849 / 602,160,917,699. Authenticated read-only captures preserve the
+same paid cannon/ball, scores, received 1 ICP, source cursor 39,582,091 and
+publication. The short certified browser sample produces/displays zero ticks/s,
+consistent with Reserve. No Normal mainnet claim is made. The original conditional
+upgrade authorization remains gated on exact publication, successful complete CI,
+performance and immediate predecessor/controller/liquid-cycle/preservation checks.
+
+[Reviewed gates, exact hashes, live state and retained failures](evidence/B2Z/graduated-pacing/verification.json).
+Raw results and frozen artifacts remain under `.work/pacing-release/`. The
+million-cell checkout and DTR 0.14.0 pins were not changed while priority 1 is blocked.
+
+---
+
 # Current mainnet — 32×32 torus and prelaunch self-funding active
 
 **2026-10-23:** exact user-approved release `4c0cfa6` is deployed on the existing

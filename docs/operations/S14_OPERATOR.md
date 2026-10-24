@@ -1,5 +1,52 @@
 # Current mainnet operation — torus and self-funding active
 
+## Pacing-only qualification and current Reserve status (2026-10-24)
+
+The installed module remains `e1e7b491…`, with its original 0.5T Conserve entry
+and 0.25T exit. The seven-mode candidate is not installed. Fresh read-only checks
+found about 404B liquid cycles, Reserve Protection, `running=true`, no run/source
+error, and a source poll count advancing after the 60-second interval. The paid
+32×32 world and certified publication did not advance in Reserve. The official
+Ledger account balance is zero. The treasury is enabled, not halted and Idle,
+with no pending transfer/notification plan, but defers unaffordable calls.
+
+Reserve does not reopen at its exit threshold: it needs the 0.5T entry in the
+installed module. A query snapshot is also not the liquid balance during a prior
+update/callback: the IC deducts execution and call reservations, then returns
+unused reservations. See the [IC cycle-balance specification](https://docs.internetcomputer.org/references/ic-interface-spec/canister-interface/).
+Thus the earlier 602B query alone cannot prove that an update could select
+Conserve. The old module does not expose its last selection balance/time, so
+that exact historical value cannot be recovered. The fresh below-entry balance
+and progressing polling support a current budget suspension, not an operator
+pause or run error. Do not apply the candidate's 2.5T exit to this installed code.
+
+Top-ups are user-owned. At a 404B query balance the bare shortfall to 0.5T is
+about 96B **before** update/call reserves, installation cost and intervening burn;
+that is not a safe guaranteed top-up. An additional 1T gives useful headroom for
+the existing module. From the user's existing funded cycles-ledger account:
+
+```sh
+# USER ONLY: substitute the user's funded identity. Never run this as an agent action.
+dfx --identity YOUR_FUNDED_IDENTITY cycles top-up --network ic s34gv-3qaaa-aaaar-qcifa-cai 1000000000000
+```
+
+This sends existing cycles, without a gameplay ICP transfer, manual CMC route,
+controller change or freezing-setting change. Recheck the controller diagnostics,
+selected mode and worker after a timer interval. A 1T top-up does **not** reopen
+the candidate's gameplay: its Lifeline entry is 3T liquid and Normal entry is 40T,
+plus the same execution/installation headroom. Compute any later shortfall from
+fresh balances; never infer Normal from its nominal 1 tick/s target.
+
+Release builds embed source paths and Cargo path-package identities. Identical
+locked sources/toolchains can therefore produce different Wasm bytes at different
+checkout paths. `prepare_mvp_release.py` records the checkout, Cargo home, path
+package IDs, flags and exact artifact digest. Local `c7c69ddf…` and uploaded CI
+`99b03642…` are distinct identified binaries, not interchangeable names. Both
+passed isolated four-ball playback and their first 58 canonical publications
+match exactly. A later installation must use the explicitly frozen/tested SHA,
+and exact published-commit CI must pass; compilation or an environment-variation
+explanation alone does not satisfy installed-IC or preservation gates.
+
 **2026-10-23:** user-approved release `4c0cfa6` passed exact-commit CI and was
 upgraded in place on backend `s34gv-3qaaa-aaaar-qcifa-cai`. Normal Wasm SHA-256:
 `e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac`.

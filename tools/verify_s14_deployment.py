@@ -38,10 +38,24 @@ def verify_torus_scene(page,context,out,record,report,save):
         report['epoch_failure_state']=page.evaluate('''() => ({phase:document.body.dataset.phase,live:globalThis.__dtrLive,error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent})''')
         save();page.screenshot(path=str(out/'epoch-playback-failure.png'));raise
     samples=[];start=time.monotonic();report['recording_playback_start_ms']=page.evaluate('performance.now()')
-    while time.monotonic()-start<30:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
+    while time.monotonic()-start<90:samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
-    report['scene']={'qualification':'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition','seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED'for x in samples),'nominal_rate':samples[-1]['nominal_rate']}
-    (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['scene']['stalled_samples']==0,report['scene'];record('populated-torus-playback-at-its-supported-shared-pace',report['scene'])
+    report['scene']={'qualification':'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition','seconds':dt,'verified_ticks_per_second':(samples[-1]['admitted_ticks']-samples[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['played_ticks']-samples[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED'for x in samples),'nominal_rate':samples[-1]['nominal_rate']}
+    report['scene']['backend_ticks_per_second']=(samples[-1]['backend_segments']-samples[0]['backend_segments'])*samples[-1]['segment_ticks']/dt
+    report['scene']['resyncs']=samples[-1]['resyncs']-samples[0]['resyncs']
+    report['scene']['queue_segments']={'min':min(x['queue_segments'] for x in samples),'max':max(x['queue_segments'] for x in samples)}
+    report['scene']['buffer_ticks']={'min':min(x['buffer_ticks'] for x in samples),'max':max(x['buffer_ticks'] for x in samples)}
+    report['scene']['latency_ms']={key:{'median':sorted(x[key] for x in samples)[len(samples)//2],'max':max(x[key] for x in samples)} for key in ['fetch_ms','verify_ms','artifact_ms','derive_ms','catchup_ms']}
+    report['scene']['max_catchup_segments']=max(x['catchup_segments'] for x in samples)
+    report['scene']['latency_qualification']='Frame-sampled last-operation durations. Atomic observation query includes artifact network delivery; artifact_ms normally measures cached bundle validation, and includes a network query for retained bundles.'
+    report['scene']['timestamp_qualification']='Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound.'
+    (out/'scene-telemetry.json').write_text(json.dumps(samples,indent=2));save()
+    assert report['scene']['stalled_samples']==0,report['scene']
+    assert report['scene']['nominal_rate']==1,report['scene']
+    for key in ['backend_ticks_per_second','verified_ticks_per_second','displayed_ticks_per_second']:
+        assert .9<=report['scene'][key]<=1.15,(key,report['scene'])
+    assert report['scene']['resyncs']==0,report['scene']
+    record('populated-torus-sustained-authenticated-normal-playback',report['scene'])
     # A modal cannot pause the shared backend.
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
@@ -141,9 +155,11 @@ def verify_epoch_transition(page,context,out,record,report,save):
     while time.monotonic()-began<20:
         samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
-    report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['verified_ticks']-samples[0]['verified_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['consumed_ticks']-samples[0]['consumed_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
+    report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['admitted_ticks']-samples[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['played_ticks']-samples[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
     (out/'epoch-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['epoch_playback']['stalled_samples']==0,report['epoch_playback'];assert samples[-1]['backend_segments']>samples[0]['backend_segments']
     record('new-epoch-continuous-verified-playback',report['epoch_playback'])
+    # Prove a real gap beyond the sixteen-publication window before reconnecting.
+    wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=old_head+17,90000)
     reconnect.bring_to_front();reconnect.locator('#toolbar-settings').click();reconnect.locator('#network-pause').uncheck();reconnect.keyboard.press('Escape')
     wait_until(reconnect,lambda:reconnect.evaluate('globalThis.__dtrLive.resyncs')>=1 and '32 × 32' in reconnect.locator('#world-rules').text_content(),30000)
     new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
@@ -436,17 +452,22 @@ def main():
             close_settings(page)
             report['steady_setup']='Fresh certified restart after controlled receipt holds; ordinary production remains running throughout the trace and reconnect.'
             # Inspect sustained populated motion in normal playback, rather than screenshots alone.
+            wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
             trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(45000)
             samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
             steady=[x for x in samples if x['wall_ms']>trace_start+10000]
             if len(steady)>2:
                 seconds=(steady[-1]['wall_ms']-steady[0]['wall_ms'])/1000
-                report['steady_playback']={'seconds':seconds,'produced_ticks_per_second':(steady[-1]['verified_ticks']-steady[0]['verified_ticks'])/seconds,'consumed_ticks_per_second':(steady[-1]['consumed_ticks']-steady[0]['consumed_ticks'])/seconds,'stalled_samples':sum(x['phase']=='STALLED' for x in steady),'buffer_min':min(x['buffer_ticks'] for x in steady),'buffer_max':max(x['buffer_ticks'] for x in steady),'fetch_ms_max':max(x['fetch_ms'] for x in steady),'verification_ms_max':max(x['verify_ms'] for x in steady),'artifact_ms_max':max(x['artifact_ms'] for x in steady),'backend_reported_ticks_per_second':(steady[-1]['backend_segments']-steady[0]['backend_segments'])*steady[-1]['segment_ticks']/seconds,'nominal_rate':steady[-1]['nominal_rate']}
+                report['steady_playback']={'seconds':seconds,'produced_ticks_per_second':(steady[-1]['admitted_ticks']-steady[0]['admitted_ticks'])/seconds,'consumed_ticks_per_second':(steady[-1]['played_ticks']-steady[0]['played_ticks'])/seconds,'stalled_samples':sum(x['phase']=='STALLED' for x in steady),'buffer_min':min(x['buffer_ticks'] for x in steady),'buffer_max':max(x['buffer_ticks'] for x in steady),'fetch_ms_max':max(x['fetch_ms'] for x in steady),'verification_ms_max':max(x['verify_ms'] for x in steady),'artifact_ms_max':max(x['artifact_ms'] for x in steady),'backend_reported_ticks_per_second':(steady[-1]['backend_segments']-steady[0]['backend_segments'])*steady[-1]['segment_ticks']/seconds,'nominal_rate':steady[-1]['nominal_rate']}
                 assert report['steady_playback']['stalled_samples']==0,report['steady_playback']
+                assert report['steady_playback']['nominal_rate']==1,report['steady_playback']
+                for key in ['produced_ticks_per_second','consumed_ticks_per_second','backend_reported_ticks_per_second']:
+                    assert .9<=report['steady_playback'][key]<=1.15,(key,report['steady_playback'])
+                assert steady[-1]['resyncs']==steady[0]['resyncs'],report['steady_playback']
             report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
             page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
-            target=int(wait_file(page,out/'harness-upgrade-ready',45000))
+            target=int(wait_file(page,out/'harness-upgrade-ready',90000))
             wait_until(page,lambda:page.locator('#prepare-transfer').is_disabled(),20000)
             page.keyboard.press('Escape');page.locator('#toolbar-play').click()
             page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'

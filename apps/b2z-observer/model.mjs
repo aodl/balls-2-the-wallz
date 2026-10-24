@@ -217,11 +217,12 @@ export function nominalPace(status){
 }
 export function approachPace(current,target,seconds){return current+Math.max(-.25*seconds,Math.min(.25*seconds,target-current));}
 
-/** One publication plus eight wall seconds of delivery jitter, expressed in ticks.
+/** One publication plus sixteen wall seconds of delivery jitter at faster rates,
+ * eight at slow rates, expressed in ticks.
  * Slow modes publish one-tick segments, bounding Lifeline cold start to two
  * authenticated publications instead of several minutes of accumulated play. */
 export function liveBufferPolicy(status){
  const pace=nominalPace(status),raw=Number(status?.run.publication_ticks??status?.run.segment_ticks??2);
  const ticks=Number.isInteger(raw)&&raw>=1&&raw<=64?raw:2;
- return {target:ticks+8*pace,low:Math.max(.05,pace)};
+ return {target:ticks+(pace>=.5?16:8)*pace,low:Math.max(.05,pace)};
 }
