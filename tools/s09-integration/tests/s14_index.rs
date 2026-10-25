@@ -4442,11 +4442,88 @@ fn million_browser_sustained_normal_and_cold_lifeline() {
     million_browser_qualification(true);
 }
 
+fn claim_million_browser_output(base: &Path, sustained: bool) -> std::io::Result<PathBuf> {
+    std::fs::create_dir_all(base)?;
+    let out = base.join(if sustained {
+        "million-browser-sustained"
+    } else {
+        "million-browser-normal"
+    });
+    // Claim a fresh test root before writing configuration, markers or captures.
+    // An existing root is evidence, not scratch space that may be reused.
+    std::fs::create_dir(&out)?;
+    Ok(out)
+}
+
+#[test]
+fn million_browser_output_isolation_preserves_existing_evidence() {
+    let base = std::env::temp_dir().join(format!(
+        "b2z-million-browser-isolation-{}-{}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos()
+    ));
+    std::fs::create_dir(&base).unwrap();
+    let legacy = base.join("million-browser");
+    std::fs::create_dir(&legacy).unwrap();
+    std::fs::write(legacy.join("historical-evidence"), b"legacy").unwrap();
+    let normal = claim_million_browser_output(&base, false).unwrap();
+    std::fs::write(
+        normal.join("browser-million-normal-complete"),
+        b"normal marker",
+    )
+    .unwrap();
+    std::fs::create_dir(normal.join("wire-catalogs")).unwrap();
+    std::fs::write(normal.join("wire-catalogs/0000.cbor"), b"normal capture").unwrap();
+    let sustained = claim_million_browser_output(&base, true).unwrap();
+    assert_ne!(normal, sustained);
+    assert!(!sustained.join("browser-million-normal-complete").exists());
+    assert!(!sustained.join("wire-catalogs").exists());
+    std::fs::create_dir(sustained.join("wire-catalogs")).unwrap();
+    std::fs::write(
+        sustained.join("wire-catalogs/0000.cbor"),
+        b"sustained capture",
+    )
+    .unwrap();
+    for mode in [false, true] {
+        assert_eq!(
+            claim_million_browser_output(&base, mode)
+                .unwrap_err()
+                .kind(),
+            std::io::ErrorKind::AlreadyExists
+        );
+    }
+    assert_eq!(
+        std::fs::read(normal.join("wire-catalogs/0000.cbor")).unwrap(),
+        b"normal capture"
+    );
+    assert_eq!(
+        std::fs::read(normal.join("browser-million-normal-complete")).unwrap(),
+        b"normal marker"
+    );
+    assert_eq!(
+        std::fs::read(sustained.join("wire-catalogs/0000.cbor")).unwrap(),
+        b"sustained capture"
+    );
+    assert_eq!(
+        std::fs::read(legacy.join("historical-evidence")).unwrap(),
+        b"legacy"
+    );
+    std::fs::remove_dir_all(base).unwrap();
+}
+
 fn million_browser_qualification(sustained: bool) {
     #[derive(CandidType, Deserialize)]
     struct FundingPause {
         paused: bool,
     }
+    let out = claim_million_browser_output(
+        &PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()),
+        sustained,
+    )
+    .expect("million browser evidence requires a fresh test output directory");
     let initial = million_population_world(4).encode().unwrap();
     let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_WASM"), initial.clone());
     let funding: FundingPause = get_result(
@@ -4457,9 +4534,6 @@ fn million_browser_qualification(sustained: bool) {
     );
     assert!(funding.paused);
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let out =
-        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("million-browser");
-    std::fs::create_dir_all(&out).unwrap();
     let config = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
     std::fs::write(
         out.join("configuration.json"),
