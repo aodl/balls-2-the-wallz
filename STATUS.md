@@ -1,5 +1,31 @@
 # Million-cell final qualification — NO-GO pending strict sustained Normal and new harness CI
 
+## Harness isolation correction — 2026-10-25
+
+CI `40184288465` on `cab1d0f6` failed before sustained measurement because
+both browser cases reused `million-browser/wire-catalogs`. Commit `af9485a`
+claims fresh, independent `million-browser-normal` and
+`million-browser-sustained` roots before writing any configuration or markers.
+Existing directories are rejected; wire-catalog creation remains strict.
+The workflow collects both roots. The isolation regression, source gate
+(1,379 JavaScript and 151 Python tests), and harness Clippy pass.
+
+The corrected installed sustained case completed: **FAIL**, with no directory
+collision. Across 900.247 seconds, production is **0.9875–0.9931 ticks/s**,
+authenticated admission **0.9697**, display **0.9692**. Buffer conservation,
+bounded occupancy and rolling stability pass (**17.173 → 17.638 ticks**),
+but one stall/rebuffer episode and one resynchronization fail continuity.
+There are **zero performance-limited samples**. Thus this failure is not solely
+brief adaptive throttling. Cold Lifeline passes across six subsequent
+publications. The original qualification FAIL and all acceptance criteria remain
+unchanged. No production source or frozen artifact was changed.
+
+The full integration rerun is not started because the focused installed test did
+not pass. Publication remains user-owned; new exact-commit CI is pending and no
+prior CI success applies to this correction. Reviewed detail and raw evidence
+references: `evidence/B2Z/million-cell-release/harness-isolation.json`.
+No merge or mainnet action is authorised.
+
 **2026-10-25:** published candidate `ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf`
 passed exact-commit [CI 40144120473](https://github.com/aodl/balls-2-the-wallz/actions/runs/40144120473):
 all six substantive jobs, including 40 installed/source cases and 48 runner checks.
