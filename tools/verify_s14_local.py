@@ -165,14 +165,15 @@ def main():
             # server too: deleted instances/caches cannot accumulate across the
             # entire game + financial suite, or cascade a dead server into later tests.
             for name in selected:
+                case_timeout=2100 if name=='million_browser_sustained_normal_and_cold_lifeline' else timeout
                 case_id=identifier+'--'+name.replace('::','-')
                 case_out=out/'instances'/case_id;case_out.mkdir(parents=True,exist_ok=True)
                 # Native replay can compute for more than the shared helper's
                 # default 60-second idle TTL without making an IC request.
                 # The test deadline and independent server hard TTL stay bounded.
-                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=timeout+60,idle_ttl_seconds=timeout+30)
+                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=case_timeout+60,idle_ttl_seconds=case_timeout+30)
                 try:
-                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
+                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,case_timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
                     row['test']=name
                     text=(out/row['log']).read_text();combined.append(text)
                     row=installed_case_result(row,text,server[0].poll())
@@ -181,7 +182,7 @@ def main():
                 finally:
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
-        million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect'}
+        million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect','million_browser_sustained_normal_and_cold_lifeline'}
         installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests)
         if not a.test_filter:
             installed_suite('installed-million-integration',['million_'],ignored=True)

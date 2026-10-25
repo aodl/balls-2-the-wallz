@@ -4433,6 +4433,16 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
 #[test]
 #[ignore = "bounded million-cell browser Normal/Lifeline probe"]
 fn million_browser_normal_lifeline_and_cold_reconnect() {
+    million_browser_qualification(false);
+}
+
+#[test]
+#[ignore = "bounded 15-minute Normal observation and extended cold Lifeline reconnect"]
+fn million_browser_sustained_normal_and_cold_lifeline() {
+    million_browser_qualification(true);
+}
+
+fn million_browser_qualification(sustained: bool) {
     #[derive(CandidType, Deserialize)]
     struct FundingPause {
         paused: bool,
@@ -4461,19 +4471,22 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
     std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
     let gateway = pic.make_live(None);
     let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut command = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap());
+    command.current_dir(&root).args([
+        "tools/verify_s14_deployment.py",
+        "--million-scene-only",
+        "--configuration",
+        out.join("configuration.json").to_str().unwrap(),
+        "--gateway",
+        gateway.as_str(),
+        "--output",
+        out.to_str().unwrap(),
+    ]);
+    if sustained {
+        command.arg("--million-sustained");
+    }
     let mut browser = OwnedBrowser(
-        std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
-            .current_dir(&root)
-            .args([
-                "tools/verify_s14_deployment.py",
-                "--million-scene-only",
-                "--configuration",
-                out.join("configuration.json").to_str().unwrap(),
-                "--gateway",
-                gateway.as_str(),
-                "--output",
-                out.to_str().unwrap(),
-            ])
+        command
             .stdout(log.try_clone().unwrap())
             .stderr(log)
             .spawn()
@@ -4486,7 +4499,7 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
     let mut started = false;
     let mut economy = false;
     let mut lifeline = false;
-    while began.elapsed() < Duration::from_secs(420) {
+    while began.elapsed() < Duration::from_secs(if sustained { 1800 } else { 420 }) {
         if !started && out.join("browser-million-ready").exists() {
             start_arena(&pic, id);
             started = true;
@@ -4532,9 +4545,19 @@ fn million_browser_normal_lifeline_and_cold_reconnect() {
         }
         if started && std::time::Instant::now() >= next_observation {
             let query_started = std::time::Instant::now();
+            let query_started_epoch_ms = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_secs_f64()
+                * 1000.;
             let current = status(&pic, id);
-            if current.run.completed_segments != last_observed {
-                publication_timing.push(serde_json::json!({"segment_id":current.run.completed_segments,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"wall_seconds":began.elapsed().as_secs_f64(),"status_query_ms":query_started.elapsed().as_secs_f64()*1000.,"pace":current.run.pace}));
+            let query_completed_epoch_ms = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_secs_f64()
+                * 1000.;
+            if sustained || current.run.completed_segments != last_observed {
+                publication_timing.push(serde_json::json!({"segment_id":current.run.completed_segments,"publication_ticks":current.run.publication_ticks.expect("publication tick count"),"query_started_epoch_ms":query_started_epoch_ms,"query_completed_epoch_ms":query_completed_epoch_ms,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"wall_seconds":began.elapsed().as_secs_f64(),"status_query_ms":query_started.elapsed().as_secs_f64()*1000.,"pace":current.run.pace}));
                 last_observed = current.run.completed_segments;
             }
             std::fs::write(
