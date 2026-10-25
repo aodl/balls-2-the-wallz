@@ -299,7 +299,14 @@ def main():
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
-            context=browser.new_context(permissions=['clipboard-write'],has_touch=True,viewport={'width':1440,'height':900},record_video_dir=str(out/'video'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            context_options={'permissions':['clipboard-write'],'has_touch':True,'viewport':{'width':1440,'height':900}}
+            # Video encoding is optional evidence, not part of observer delivery.
+            # Keep the original 90-second cases recorded; the 15-minute timing
+            # gate retains screenshots, raw wire data and dense telemetry without
+            # the extra software screen-capture/GPU/ffmpeg workload on this host.
+            if not a.million_sustained:context_options['record_video_dir']=str(out/'video')
+            report['capture']={'video':not a.million_sustained,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
+            context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None;query_timings=[]
             if a.million_scene_only:
