@@ -4469,7 +4469,25 @@ fn million_browser_qualification(sustained: bool) {
     std::fs::write(out.join("metadata.json"), b"{}").unwrap();
     std::fs::write(out.join("initial-world.bin"), &initial).unwrap();
     std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
-    let gateway = pic.make_live(None);
+    // Both are genuine IC HTTP APIs with the same pinned root/signature checks.
+    // The sustained A/B probe removes only PocketIC's extra HTTP-gateway hop;
+    // normal 90-second/asset-gateway acceptance remains a separate unchanged test.
+    let gateway = if sustained {
+        pic.auto_progress()
+    } else {
+        pic.make_live(None)
+    };
+    std::fs::write(
+        out.join("delivery-path.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "path": if sustained { "direct-instance-ic-api" } else { "pocketic-http-gateway" },
+            "endpoint": gateway.as_str(),
+            "query_signatures_and_fresh_pinned_root_certificates": true,
+            "production_artifacts_changed": false
+        }))
+        .unwrap(),
+    )
+    .unwrap();
     let log = std::fs::File::create(out.join("browser.log")).unwrap();
     let mut command = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap());
     command.current_dir(&root).args([
