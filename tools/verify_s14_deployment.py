@@ -2,7 +2,7 @@
 """Actual deployment bundle against an owned live PocketIC. No wallet/update calls.
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
-import argparse,json,os,shutil,signal,subprocess,sys,time
+import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
 from browser_observer import wait_until,wait_file,open_settings,close_settings
 from verify_observer_http import free_port,wait_for_server
@@ -294,7 +294,8 @@ def main():
             record('dfx-asset-canister-install',{'observer':observer,'url':url,'configuration':'dfx.json observer type=assets; owned disposable gateway'})
         else:
             with (out/'server.log').open('w') as log:
-                server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id']],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+                proxy_trace=['--proxy-trace',str(out/'proxy-timing.jsonl')] if a.million_scene_only else []
+                server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id'],*proxy_trace],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
@@ -325,12 +326,18 @@ def main():
                         wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
                     except Exception as error:wire_errors.append(str(error))
                 page.on('response',capture_catalog)
-                def capture_query_timing(request):
-                    if request.method!='POST' or not request.url.endswith('/query'):return
+                def capture_query_timing(request,failed=False):
+                    if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
                     body=request.post_data_buffer or b''
-                    method=next((name for name in ['observation_bundle','retained_publication','artifact_bundle','lab_status','observation'] if name.encode() in body),None)
-                    if method and len(query_timings)<(8192 if a.million_sustained else 4096):query_timings.append({'method':method,'timing':request.timing})
+                    from serve_observer import query_method
+                    method=query_method(body) if request.url.endswith('/query') else 'read_state'
+                    if method and len(query_timings)<(8192 if a.million_sustained else 4096):
+                        # Use cached request metadata only: no extra browser RPC
+                        # or body read from this timing callback. HTTP status is
+                        # recorded by the independently correlated proxy trace.
+                        query_timings.append({'method':method,'timing':request.timing,'request_sha256':hashlib.sha256(body).hexdigest(),'failure':request.failure if failed else None})
                 page.on('requestfinished',capture_query_timing)
+                page.on('requestfailed',lambda request:capture_query_timing(request,True))
                 def stop_wire_capture():
                     nonlocal wire_complete_through
                     wire_complete_through=page.evaluate('globalThis.__dtrLive.heads.at(-1)')

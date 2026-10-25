@@ -1,5 +1,33 @@
 # Million-cell final qualification — NO-GO pending strict sustained Normal and new harness CI
 
+## Authenticated-delivery investigation — 2026-10-25
+
+Existing raw captures trace the interruption to multi-second HTTP first-byte
+waits, followed by catch-up catalog waits and retained-artifact expiry.
+Production and rendering continued. The 11.51-second artifact HTTP request
+waited about 11.49 seconds for its first byte; this is not local verification
+time or an inferred sum of SDK retries. Old captures do not identify the exact
+failing artifact or separate host pressure from gateway/connection scheduling.
+
+Diagnostic tooling now records bounded, fresh per-hop proxy timings and request
+digests, plus browser failures, read-state and fallback chunk requests. No
+production code, artifact, DTR pin, rate, buffer, retention or acceptance rule
+changed. Four new fault cases cover delayed headers/body, concurrent independent
+queries, upstream errors without proxy retries, and bounded fresh trace files.
+All 17 observer-server tests and the source gate (1,379 JavaScript / 155 Python)
+pass. A short diagnostic installed case and 137-publication replay pass; an
+earlier diagnostic capture/conversion failure is preserved separately.
+
+Repeated upstream header waits reach 13.13 seconds, with about 1.74 milliseconds
+of additional proxy processing for that request. The video-recorded diagnostic
+host had median 5% CPU idle, so the cause cannot yet be assigned exclusively to
+an application defect or the environment. The smallest next observation is one
+video-free sustained run with per-hop diagnostics and measured CPU headroom,
+without changing the strict gate. No production correction is justified yet.
+Reviewed findings: `evidence/B2Z/million-cell-release/delivery-interruption.json`.
+Published `657baf5` CI `40190420326` was still running at the recorded check;
+that run does not verify this new diagnostic tooling. No merge/deployment approval.
+
 ## Harness isolation correction — 2026-10-25
 
 CI `40184288465` on `cab1d0f6` failed before sustained measurement because

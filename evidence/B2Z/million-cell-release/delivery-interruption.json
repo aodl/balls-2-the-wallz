@@ -1,0 +1,524 @@
+{
+  "recorded_at": "2026-10-25T12:16:39.607250+00:00",
+  "scope": "Root-cause investigation, diagnostic tooling and regression only; no release acceptance waiver or production change.",
+  "baseline_commit": "657baf5a42c162f0abf2eebc78224d3975935193",
+  "conclusion": {
+    "proven": "Admission was blocked by real multi-second HTTP first-byte delays; production and rendering continued. Subsequent retained-artifact unavailability triggered the expected resync and rebuffer.",
+    "not_proven": "Why the local upstream request path produced those tails: CPU contention, upstream connection handling and PocketIC gateway scheduling are not separated by the original evidence.",
+    "production_correction_justified": false,
+    "diagnostic_instrumentation_justified": true,
+    "strict_release_decision": "FAIL remains; not solely adaptive limiting; no merge/deployment approval."
+  },
+  "incident_timeline_seconds_from_normal_window_start": [
+    {
+      "start": 89.417,
+      "end": 93.049,
+      "event": "observation_bundle HTTP request, 3632.5ms total; about 3603ms from request start to first response byte"
+    },
+    {
+      "start": 93.167,
+      "end": 93.249,
+      "event": "Three retained catalogs decoded successfully for segments 194,195,196"
+    },
+    {
+      "start": 93.33,
+      "end": 104.835,
+      "event": "One artifact_bundle HTTP request: 11505.1ms total; requestStart=2.971ms, responseStart=11493.644ms, responseEnd=11505.1ms. About 11490.7ms waiting for first byte, 11.5ms receiving body. Application last-operation artifact_ms=11570.2 includes remaining SDK/assembly work."
+    },
+    {
+      "start": 104.966,
+      "end": 105.014,
+      "event": "Next observation_bundle completes promptly; captured catalog is segment209"
+    },
+    {
+      "start": 105.134,
+      "end": 109.225,
+      "event": "Eleven retained catalogs for segments198..208, four bounded lanes. Every captured catalog succeeds; last response is segment201. Oldest candidate198 completes at106.918 but artifacts are requested only after all catalogs and chain checks finish."
+    },
+    {
+      "start": 109.32,
+      "end": 110.462,
+      "event": "Artifact batch begins; telemetry reports one bundle fallback and delivery error publication unavailable: snapshot resync required. Buffer hits zero. Exact failing segment and fallback chunk HTTP timings were not captured in the old evidence."
+    },
+    {
+      "start": 111.529,
+      "end": 128.128,
+      "event": "Resync count becomes1 and buffering resumes; PLAYING by128.128. Later recovery does not erase failed continuity."
+    }
+  ],
+  "stage_assessment": [
+    {
+      "stage": "production",
+      "finding": "Direct backend polls: segment195 at89.931s to215 at110.052s, approximately0.994ticks/s; query times about20\u20131172ms in this interval. No adaptive limiting in original900s window. Polls are observations, not exact publication creation timestamps."
+    },
+    {
+      "stage": "local verification and rendering",
+      "finding": {
+        "max_verification_ms": 102.70000004768372,
+        "max_derivation_ms": 11.599999964237213,
+        "median_frame_ms": 16.70000000001164,
+        "max_frame_ms": 49.89999999999418,
+        "interpretation": "No multi-second browser-frame freeze is visible in incident samples; a local verification-only explanation cannot account for an11.49s HTTP first-byte wait."
+      }
+    },
+    {
+      "stage": "retention and catch-up",
+      "finding": "Catalog batch waits and ordered admission expose older artifacts to expiry. Oldest candidate198 was fetched as metadata but may expire before artifact lookup; exact failing artifact identity is unknown. Resync is an observed consequence of delivery delay, not proof that the16-publication retention policy must be enlarged or that expiry was unavoidable under prompt delivery."
+    },
+    {
+      "stage": "fallback and SDK retries",
+      "finding": "Bundle fallback counter increases and snapshot-resync error is observed. Old HTTP timing list omits fallback chunk/read_state/failed requests and artifact request arguments. No absence-of-retry claim is made. The11.5s tail is one actual HTTP request, not an inferred sum of retries. Repeated body hashes can also be independent calls because SDK ingress expiry is rounded; hashes alone do not identify retries."
+    },
+    {
+      "stage": "proxy/upstream path",
+      "finding": "Short diagnostic repeats reproduce upstream-header waits, with response read/forward overhead usually below2ms for the largest tails. This localizes repeated tails upstream of the proxy body-forwarding step; it does not distinguish connection establishment from PocketIC scheduling or host pressure."
+    }
+  ],
+  "original_strict_summary": {
+    "status": "FAIL",
+    "seconds": 900.2471999511719,
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": false,
+      "no_resynchronization": false,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "production_endpoint_tick_bounds": {
+      "start": [
+        105,
+        108
+      ],
+      "end": [
+        997,
+        999
+      ]
+    },
+    "produced_ticks_bounds": [
+      889,
+      894
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9875065427009583,
+      0.993060572749895
+    ],
+    "admitted_ticks": 873,
+    "displayed_ticks": 872.5345085050683,
+    "admitted_ticks_per_second": 0.9697336465443606,
+    "displayed_ticks_per_second": 0.9692165757942856,
+    "buffer_start": 17.172953494162073,
+    "buffer_end": 17.63844498903245,
+    "buffer_change": 0.46549149487037766,
+    "admitted_minus_displayed": 0.4654914949317117,
+    "buffer_conservation_error": -6.133404895081185e-11,
+    "rolling_buffer_minutes": [
+      {
+        "minute": 0,
+        "samples": 114,
+        "start": 17.172953494162073,
+        "end": 14.986703908567534,
+        "mean": 16.315807268727088,
+        "min": 10.05856141956724,
+        "max": 17.811303570497557
+      },
+      {
+        "minute": 1,
+        "samples": 113,
+        "start": 15.468941386567536,
+        "end": 9,
+        "mean": 11.068170994364587,
+        "min": 0,
+        "max": 16.661310973366824
+      },
+      {
+        "minute": 2,
+        "samples": 116,
+        "start": 9,
+        "end": 17.63849184907241,
+        "mean": 15.848489616376446,
+        "min": 9,
+        "max": 17.7273330498802
+      },
+      {
+        "minute": 3,
+        "samples": 115,
+        "start": 17.070134255161634,
+        "end": 15.111364747532718,
+        "mean": 16.735164677610737,
+        "min": 13.155267747536868,
+        "max": 17.861147660118547
+      },
+      {
+        "minute": 4,
+        "samples": 117,
+        "start": 14.6103597475323,
+        "end": 16.27352784281834,
+        "mean": 15.20486577271766,
+        "min": 9.46878024466514,
+        "max": 16.865196357327022
+      },
+      {
+        "minute": 5,
+        "samples": 116,
+        "start": 15.783166724362673,
+        "end": 14.966733626787004,
+        "mean": 16.31191073010684,
+        "min": 11.223632863740363,
+        "max": 17.657366513090153
+      },
+      {
+        "minute": 6,
+        "samples": 115,
+        "start": 14.481733626786536,
+        "end": 15.955666622219383,
+        "mean": 15.836844943208215,
+        "min": 10.52102962678282,
+        "max": 17.831227772937893
+      },
+      {
+        "minute": 7,
+        "samples": 116,
+        "start": 15.468616211414371,
+        "end": 16.952832166877442,
+        "mean": 16.05313502188879,
+        "min": 12.184807171920625,
+        "max": 17.306626293664863
+      },
+      {
+        "minute": 8,
+        "samples": 116,
+        "start": 17.45343256747799,
+        "end": 17.176004532787374,
+        "mean": 16.829423875981682,
+        "min": 13.472234176437723,
+        "max": 17.76633733657411
+      },
+      {
+        "minute": 9,
+        "samples": 115,
+        "start": 17.659288232588665,
+        "end": 14.915218302272251,
+        "mean": 16.219351602768068,
+        "min": 12.414718380186514,
+        "max": 17.855013405874047
+      },
+      {
+        "minute": 10,
+        "samples": 115,
+        "start": 15.413310908084213,
+        "end": 16.406405004318344,
+        "mean": 15.937358283135445,
+        "min": 11.82561767578136,
+        "max": 17.14856635808269
+      },
+      {
+        "minute": 11,
+        "samples": 115,
+        "start": 16.896619588100066,
+        "end": 16.84297873582034,
+        "mean": 16.239841754110184,
+        "min": 9.506537117173593,
+        "max": 17.778714604450215
+      },
+      {
+        "minute": 12,
+        "samples": 115,
+        "start": 17.324846298894613,
+        "end": 17.827406256806057,
+        "mean": 16.885669079969716,
+        "min": 11.813827684427679,
+        "max": 18.010552087158658
+      },
+      {
+        "minute": 13,
+        "samples": 114,
+        "start": 17.273735025867495,
+        "end": 17.317658230700317,
+        "mean": 17.13718112409876,
+        "min": 13.965526477067783,
+        "max": 18.049812216268265
+      },
+      {
+        "minute": 14,
+        "samples": 115,
+        "start": 16.799882483626106,
+        "end": 17.15589347743105,
+        "mean": 17.020493277639694,
+        "min": 12.847241569023595,
+        "max": 17.92598249147568
+      }
+    ],
+    "buffer_regression_ticks_per_second": 0.0027188471409383616,
+    "last_three_minus_first_three_minute_mean": 2.6036252007466842,
+    "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+    "backend_observation_age_ms": {
+      "median_upper": 1145.089111328125,
+      "max_upper": 3380.467041015625
+    },
+    "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+    "phases": {
+      "BUFFERING": 32,
+      "DEGRADED_BUFFER": 2,
+      "PLAYING": 1692,
+      "STALLED": 2
+    },
+    "resynchronizations": 1,
+    "performance_limited": false,
+    "dense_phase_samples": {
+      "BUFFERING": 67,
+      "DEGRADED_BUFFER": 5,
+      "PLAYING": 3525,
+      "STALLED": 4
+    }
+  },
+  "diagnostics": {
+    "tooling_changes": [
+      "Optional exclusive-create16MiB proxy JSONL: epoch/monotonic timings, upstream headers/body completion, forwarding completion, status, public anonymous request digest/bounded body, small artifact-error response; no headers logged. Explicit truncation marker if cap reached.",
+      "Browser capture adds failed requests, read_state, current/retained chunk methods and digests using cached request metadata; no added response-body/RPC call in timing callback.",
+      "No changes to retries, retention, buffers, authoritative rate, DTR pins, or strict assertions."
+    ],
+    "fault_injection": "17 observer-server tests PASS, including4 new cases: delayed upstream headers with independent concurrent query; delayed body distinguished from headers;503 byte/status preservation with no proxy retry; bounded fresh trace refusing existing evidence.",
+    "first_short_run": {
+      "browser_checks": "PASS",
+      "installed_case": "FAIL after browser checks: raw wire body unavailable around navigation; preserved, not suppressed",
+      "path": ".work/million-delivery/diagnostic/results.json",
+      "note": "Initial new callback used an extra request.response RPC. It was removed before repeat; no claim that this proves the race root cause."
+    },
+    "second_short_run": {
+      "installed_case": "PASS:1 test,137 consecutive publications independently replayed",
+      "path": ".work/million-delivery/diagnostic-cached-metadata/results.json",
+      "normal": {
+        "seconds": 89.57979999999999,
+        "backend_ticks_per_second": 0.9488746346832657,
+        "admitted_ticks_per_second": 0.9823643276720869,
+        "displayed_ticks_per_second": 0.9894448114263658,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 8,
+          "max": 18
+        },
+        "buffer_ticks": {
+          "min": 7.033538609361933,
+          "max": 17.92832225245799
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 70.79999995231628,
+            "max": 9341.5
+          },
+          "verify_ms": {
+            "median": 63,
+            "max": 124.90000003576279
+          },
+          "artifact_ms": {
+            "median": 0.5,
+            "max": 1041.800000011921
+          },
+          "derive_ms": {
+            "median": 3.900000035762787,
+            "max": 26.599999964237213
+          },
+          "catchup_ms": {
+            "median": 289.39999997615814,
+            "max": 2181.800000011921
+          }
+        },
+        "max_catchup_segments": 10,
+        "buffer_bytes": {
+          "min": 299790,
+          "max": 677466
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 171,
+        "certified_publications_per_second": 0.9823643276720869,
+        "authenticated_observation_queries_per_second": 1.4847097225044041,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 16.8334,
+        "buffer_end": 16.19913168138828,
+        "admitted_ticks": 88,
+        "displayed_ticks": 88.63426831861155,
+        "phase_samples": {
+          "PLAYING": 171
+        }
+      },
+      "proxy_requests": 530,
+      "max_upstream_headers_ms": 13129.232446022797,
+      "largest_tails": [
+        {
+          "method": "lab_status",
+          "started_epoch_ms": 1792930108185.275,
+          "upstream_headers_ms": 5967.251983995084,
+          "upstream_complete_ms": 5967.335584980901,
+          "finished_ms": 5967.542288010009,
+          "status": 200
+        },
+        {
+          "method": "lab_status",
+          "started_epoch_ms": 1792930124319.9578,
+          "upstream_headers_ms": 6613.705938972998,
+          "upstream_complete_ms": 6613.788240007125,
+          "finished_ms": 6613.9903430012055,
+          "status": 200
+        },
+        {
+          "method": "observation_bundle",
+          "started_epoch_ms": 1792930154258.1372,
+          "upstream_headers_ms": 8275.050692027435,
+          "upstream_complete_ms": 8275.182493031025,
+          "finished_ms": 8275.585898023564,
+          "status": 200
+        },
+        {
+          "method": "observation_bundle",
+          "started_epoch_ms": 1792930088389.667,
+          "upstream_headers_ms": 9299.798484018538,
+          "upstream_complete_ms": 9299.929185013752,
+          "finished_ms": 9300.279489019886,
+          "status": 200
+        },
+        {
+          "method": "lab_status",
+          "started_epoch_ms": 1792930149166.5137,
+          "upstream_headers_ms": 13129.232446022797,
+          "upstream_complete_ms": 13129.31244703941,
+          "finished_ms": 13130.968067038339,
+          "status": 200
+        }
+      ],
+      "qualification": "Short video-recorded diagnostic only; not a replacement sustained pass. Final tooling-only shutdown ordering and read_state-label cleanup were subsequently regression-tested."
+    },
+    "host": {
+      "scope": "Whole diagnostic overlap; not a trace of original 900s incident. First vmstat since-boot row excluded.",
+      "samples": 419,
+      "idle_median": 5,
+      "io_wait_median": 0,
+      "run_queue_median": 4
+    },
+    "environmental_limit": "Median5%CPU idle and4 runnable processes during overlapping video-recorded diagnostic samples; no matching continuous host trace exists for the original video-free incident. Neither an exclusively environmental nor a production-client defect conclusion is proven."
+  },
+  "next_controlled_observation": {
+    "plan": "One video-free900-second Normal observation using the existing sustained fixture and frozen normal Wasm on an otherwise quiet host with demonstrable CPU headroom; enable new proxy/browser diagnostics and timestamped vmstat before startup. Keep full untrimmed window, all strict assertions, default buffers, retention and1tick/s target. No new full-suite run is needed solely to collect this evidence.",
+    "decision_rule": "If tails track CPU saturation, repeat on a host with measured headroom. If long upstream-header waits persist with headroom, inspect PocketIC16.1.0 gateway scheduling/connection timings using matching request identities and direct backend polls before proposing any production correction. A successful short diagnostic is not release approval."
+  },
+  "verification": {
+    "source": {
+      "overall": "PASS",
+      "counts": [
+        {
+          "tests": 1379,
+          "pass": 1379,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        {
+          "tests": 155
+        }
+      ]
+    },
+    "observer_server_tests": "17 PASS on final code",
+    "final_source_structure": "PASS",
+    "full_suite": "Not repeated; existing900s failure and prior evidence preserved",
+    "ci": {
+      "run_id": 40190420326,
+      "head_sha": "657baf5a42c162f0abf2eebc78224d3975935193",
+      "status": "in_progress",
+      "conclusion": null,
+      "jobs": [
+        {
+          "name": "BLOCKED production inventory (not a pass)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native conformance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Runtime-lab Wasm",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Packaged DTR and clean consumers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Browser HTTP and Web Crypto",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Source conformance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "S14 and million-cell installed-IC qualification",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    },
+    "ci_attribution": "Published657baf5 CI does not verify this new diagnostic tooling; new commit requires its own user-owned publication and exact-commit verification."
+  },
+  "artifacts": {
+    "normal_wasm_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "frontend_app_sha256": "3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732",
+    "frontend_manifest_sha256": "6bdaa08ae70f33f5864ddcd619b6321edad1dd7aa3b6a92b31a9fed6d0364a92",
+    "dtr_revision": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "dtr_archive_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc",
+    "historical_report_unchanged_sha256": "ed47bd940071c899439a34e382d220953c15765288e1efa03186655d9a37b91e"
+  },
+  "evidence": {
+    "original_inputs": [
+      {
+        "path": ".work/million-isolation/focused/deployment/million-browser-sustained/wire-index.json",
+        "sha256": "747fde388a8d4deadf4ef58923c49420d9a219af8e42fe7ea433c00f974d8785"
+      },
+      {
+        "path": ".work/million-isolation/focused/deployment/million-browser-sustained/publication-timing.json",
+        "sha256": "15674538f36b680eb330646da5b255bde900656daae25c3ec60fb98dde1b1666"
+      },
+      {
+        "path": ".work/million-isolation/focused/deployment/million-browser-sustained/million-normal_sustained-telemetry.json",
+        "sha256": "5cace280889798a171df713c68f4e5cafe2c45e80d964f0f4e78d70e84f8b6cc"
+      },
+      {
+        "path": ".work/million-isolation/focused/deployment/million-browser-sustained/million-sustained-aligned.json",
+        "sha256": "aa0478c0538a17d2bf121a2ae448967c501b0e0f29263b7b85bb8228288c55cb"
+      },
+      {
+        "path": ".work/million-isolation/focused/deployment/million-browser-sustained/server.log",
+        "sha256": "ef53c602c82643a7a7a7ad794f48e8a58f70f3bf45dc61fcc462e2436b9ac14d"
+      },
+      {
+        "path": ".work/million-isolation/focused/logs/pocketic-server.log",
+        "sha256": "452413b25e3038aa27965f70db9d011eecb2c0fe55a7699bad20eb98f7acbc6c"
+      }
+    ],
+    "correlation": ".work/million-delivery/existing-correlation.json",
+    "decoded_wire": ".work/million-delivery/decoded-wire.json",
+    "diagnostic_proxy": ".work/million-delivery/diagnostic-cached-metadata/deployment/million-browser-normal/proxy-timing.jsonl",
+    "diagnostic_decoded": ".work/million-delivery/diagnostic-cached-decoded.json",
+    "host": ".work/million-delivery/host-vmstat.log",
+    "fault_regression": ".work/million-delivery/proxy-tests-final.log",
+    "source_gate": ".work/million-delivery/source/verification.json",
+    "raw_checksums": {
+      "path": ".work/million-delivery/SHA256SUMS",
+      "sha256": "a12897680743d1fba5af71495e0017e67302cdd4feb1f1ba3de229629863d9bc",
+      "file_count": 844
+    }
+  },
+  "boundaries": "No push, merge, mainnet mutation, world activation, controller/financial/treasury action; production source and qualified artifacts unchanged."
+}
