@@ -1,7 +1,8 @@
 """HTTP-serving behavior, independent of Chromium's environment navigation policy."""
-import http.client, http.server, tempfile, threading, unittest
+import http.client, http.server, tempfile, threading, unittest, os, urllib.request, urllib.error
+from unittest.mock import patch
 from pathlib import Path
-from serve_observer import ObserverHandler, observer_dependency_error
+from serve_observer import ObserverHandler, observer_dependency_error, open_loopback_query
 class Quiet(ObserverHandler):
     def log_message(self,*args):pass
 class ObserverServerTests(unittest.TestCase):
@@ -50,4 +51,42 @@ class ObserverServerTests(unittest.TestCase):
             for relative in ('packages/client/playout.mjs','packages/client/verification.mjs','packages/runtime/canonical.mjs'):
                 path=root/'node_modules/@dtr/timeline-runtime'/relative;path.parent.mkdir(parents=True,exist_ok=True);path.touch()
             self.assertIsNone(observer_dependency_error(root))
+class LoopbackQueryTests(unittest.TestCase):
+    def test_environment_proxy_cannot_delay_or_receive_owned_ic_queries(self):
+        seen=[]
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_POST(self):
+                seen.append((self.server.server_port,self.rfile.read(int(self.headers['Content-Length']))))
+                self.send_response(200);self.send_header('Content-Length','5');self.end_headers();self.wfile.write(b'exact')
+            def log_message(self,*args):pass
+        upstream=http.server.ThreadingHTTPServer(('127.0.0.1',0),Handler)
+        proxy=http.server.ThreadingHTTPServer(('127.0.0.1',0),Handler)
+        threads=[threading.Thread(target=s.serve_forever,daemon=True)for s in [upstream,proxy]]
+        for t in threads:t.start()
+        try:
+            proxy_url=f'http://127.0.0.1:{proxy.server_port}'
+            with patch.dict(os.environ,{'http_proxy':proxy_url,'HTTP_PROXY':proxy_url,'no_proxy':'','NO_PROXY':''}):
+                request=urllib.request.Request(f'http://127.0.0.1:{upstream.server_port}/api/v3/canister/local/query',data=b'public-query')
+                with open_loopback_query(request)as response:self.assertEqual(response.read(),b'exact')
+            self.assertEqual(seen,[(upstream.server_port,b'public-query')])
+        finally:
+            for s in [upstream,proxy]:s.shutdown();s.server_close()
+            for t in threads:t.join()
+
+    def test_non_loopback_and_credentialed_targets_are_rejected_before_network(self):
+        for url in ['http://example.org/','https://127.0.0.1/','http://user:password@localhost/','http://localhost/?redirect=1']:
+            with self.subTest(url=url),self.assertRaises(ValueError):open_loopback_query(urllib.request.Request(url))
+
+    def test_loopback_redirect_cannot_escape_the_validated_target(self):
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(302);self.send_header('Location','http://127.0.0.1:1/not-followed');self.end_headers()
+            def log_message(self,*args):pass
+        server=http.server.ThreadingHTTPServer(('127.0.0.1',0),Handler)
+        thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+        try:
+            with self.assertRaises(urllib.error.HTTPError)as error:open_loopback_query(urllib.request.Request(f'http://127.0.0.1:{server.server_port}/'))
+            self.assertEqual(error.exception.code,302)
+        finally:server.shutdown();server.server_close();thread.join()
+
 if __name__=='__main__':unittest.main()
