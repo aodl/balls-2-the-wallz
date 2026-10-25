@@ -1,3 +1,48 @@
+# Million-cell final qualification — NO-GO pending strict sustained Normal and new harness CI
+
+**2026-10-25:** published candidate `ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf`
+passed exact-commit [CI 40144120473](https://github.com/aodl/balls-2-the-wallz/actions/runs/40144120473):
+all six substantive jobs, including 40 installed/source cases and 48 runner checks.
+All six evidence archives were downloaded and checksum-verified. The informational
+BLOCKED inventory job is not deployment approval. New harness code is separately
+committed and locally checked; that old CI result does not qualify changed code.
+
+Existing successful 90-second tests remain **PASS**. The video-on 900-second
+extension is **FAIL** (16 resynchronizations and stalls). Removing only optional
+software video recording resolves delivery stalls in the full comparison while
+preserving real sandboxed rendering, authentication, raw wire data, telemetry,
+rates and buffer bounds. No production/backend/frontend source or artifact changed.
+
+The video-free **900.23-second** run produces **0.992–0.996 ticks/s** including
+backend polling uncertainty, admits **0.99308**, and displays **0.99392**.
+Buffer **17.1573 → 16.4035** ticks; all 15 rolling-minute buckets retained;
+zero stalls, rebuffering or resynchronizations. These rate/buffer subchecks pass.
+**The strict overall gate remains FAIL:** Normal's target stays 1 tick/s, but
+performance protection reports supported 0.777 and 0.971 tick/s during one brief
+episode (16 sampled rows). This failure is not waived or renamed PASS. Cold
+Lifeline reconnect passes across six subsequent authenticated publications.
+Independent replay passes 1,040 consecutive captured v5 publications.
+
+The earlier 87 admitted / 89.145 displayed sample consumes exactly 2.145 buffered
+ticks. New aligned counters, conservation checks, rolling trends, timed independent
+backend polls and supported-rate episodes are preserved in the review evidence.
+Suitable exact-commit CI qualification of the extended harness remains required;
+no further performance redesign or acceptance relaxation was attempted.
+
+Frozen normal Wasm remains
+`7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51`;
+the complete frontend set is unchanged (`app.mjs`
+`3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732`).
+DTR remains immutable 0.14 at `e1bfcf25071d11190d14f461288e12a21ca26cf8`.
+Exact-predecessor paid-state/treasury preservation evidence remains PASS.
+
+[Final acceptance and provenance](evidence/B2Z/million-cell-release/final-qualification.json)
+· [Prepared future preflight/activation order](docs/operations/B2Z_MILLION_PREFLIGHT.md).
+No mainnet call/mutation, v5 activation, master merge, financial/controller action
+or remote Git mutation was performed. Stop at this qualification boundary.
+
+---
+
 # Million-cell v5 — local gates pass; candidate for exact-commit CI
 
 **2026-10-24:** production `master` at `e052f77` is merged without rewriting

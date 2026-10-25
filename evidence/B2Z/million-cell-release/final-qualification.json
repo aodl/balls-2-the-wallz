@@ -1,0 +1,1086 @@
+{
+  "recorded_at": "2026-10-25T01:12:56.905932+00:00",
+  "release_decision": "NO-GO: strict sustained Normal FAIL; extended-harness CI and future mainnet preflight BLOCKED",
+  "commits": {
+    "original_tested_implementation": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+    "original_evidence_candidate": "ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf",
+    "original_ci_commit": "ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf",
+    "baseline_extended_harness": "6aa4f4cdfcbed8d43f4f89635a2a1b92428dc18e",
+    "video_free_harness": "e32212e262cc980d2955d3ebe1e55007ff9bcd1f",
+    "enclosing_evidence_commit": "The Git commit containing this report; exact SHA also recorded in the review-bundle manifest.",
+    "production_source_diff_from_candidate": []
+  },
+  "acceptance_matrix": [
+    {
+      "gate": "Published candidate exact-commit CI",
+      "status": "PASS",
+      "detail": "40144120473 / ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf; six substantive jobs, complete 40-case/48-check installed-IC suite. Informational inventory is not approval."
+    },
+    {
+      "gate": "Continuous 900-second rates, buffer accounting and bounded occupancy",
+      "status": "PASS subchecks only",
+      "detail": "All samples retained, no stalls/rebuffer/resync; production polling uncertainty is explicit. Includes a disclosed transient supported-rate reduction; not an unlimited-Normal pass."
+    },
+    {
+      "gate": "Strict sustained unlimited Normal",
+      "status": "FAIL",
+      "detail": "Normal funding target stayed 1 tick/s, but performance protection reported 777 then 971 milli-ticks/s in one brief episode. Existing no-performance-limit check remains failed."
+    },
+    {
+      "gate": "Cold Lifeline reconnect across subsequent publications",
+      "status": "PASS",
+      "detail": "120-second observation; six authenticated publications; no stalls/resync."
+    },
+    {
+      "gate": "Frozen normal Wasm and complete frontend asset identity",
+      "status": "PASS",
+      "detail": "Original 7c078fb3 normal and 3c593c54 app retained; every frontend file checked; original verification.json unchanged."
+    },
+    {
+      "gate": "Exact pacing predecessor upgrade and paid-state/treasury preservation",
+      "status": "PASS previous completed evidence",
+      "detail": "Exact c7c69ddf predecessor; Wasm upgrade and authenticated v4-to-v5 transition separately evidenced. Production inputs are unchanged."
+    },
+    {
+      "gate": "1040-publication deterministic content replay",
+      "status": "PASS",
+      "detail": "All captured contiguous publications replayed against exact canonical Rust history; content consistency, not a replacement for browser IC authentication."
+    },
+    {
+      "gate": "Extended harness exact-commit GitHub CI",
+      "status": "BLOCKED",
+      "detail": "New harness has local verification only. Old ae3ef1c CI is not attributed to changed code; publication remains user-owned."
+    },
+    {
+      "gate": "Future fresh mainnet preflight and mutation authorization",
+      "status": "BLOCKED / not executed",
+      "detail": "Procedure prepared; no mainnet call, mutation, activation, merge, transfer, cycle purchase or controller change performed."
+    }
+  ],
+  "ci": {
+    "status": "PASS for published candidate only",
+    "run_id": 40144120473,
+    "run_attempt": 1,
+    "head_sha": "ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 121021739009,
+        "name": "Packaged DTR and clean consumers",
+        "conclusion": "success",
+        "counts_as_qualification": true
+      },
+      {
+        "id": 121021739077,
+        "name": "Runtime-lab Wasm",
+        "conclusion": "success",
+        "counts_as_qualification": true
+      },
+      {
+        "id": 121021739101,
+        "name": "S14 and million-cell installed-IC qualification",
+        "conclusion": "success",
+        "counts_as_qualification": true
+      },
+      {
+        "id": 121021739104,
+        "name": "BLOCKED production inventory (not a pass)",
+        "conclusion": "success",
+        "counts_as_qualification": false
+      },
+      {
+        "id": 121021739113,
+        "name": "Browser HTTP and Web Crypto",
+        "conclusion": "success",
+        "counts_as_qualification": true
+      },
+      {
+        "id": 121021739136,
+        "name": "Native conformance",
+        "conclusion": "success",
+        "counts_as_qualification": true
+      },
+      {
+        "id": 121021739167,
+        "name": "Source conformance",
+        "conclusion": "success",
+        "counts_as_qualification": true
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12580921058,
+        "name": "local-ic-evidence",
+        "sha256": "d4b650b9e5750c0fad8200e7f0a502502c71fcf846fb52f2cd39dcaac6d56895",
+        "path": ".work/million-final/ci/local-ic-evidence.zip"
+      },
+      {
+        "id": 12579868031,
+        "name": "browser-evidence",
+        "sha256": "ad149bed61e44db2918391cce5ee3a20e505a09ebb3f0a72bfcb4a093733d016",
+        "path": ".work/million-final/ci/browser-evidence.zip"
+      },
+      {
+        "id": 12579848128,
+        "name": "source-evidence",
+        "sha256": "1243d9d88d9df94fc959a00362708e7e3588843ca2cf4deddedf1830e540bcc6",
+        "path": ".work/million-final/ci/source-evidence.zip"
+      },
+      {
+        "id": 12579688311,
+        "name": "native-evidence",
+        "sha256": "8840968990a1d5b6ab2fb78780e38d90572ffce44413f948896dcd0968515bf9",
+        "path": ".work/million-final/ci/native-evidence.zip"
+      },
+      {
+        "id": 12579473705,
+        "name": "wasm-evidence",
+        "sha256": "8930847d6cb3e8ac848fceac981b52f68167f400df31a76959dd11259b958e92",
+        "path": ".work/million-final/ci/wasm-evidence.zip"
+      },
+      {
+        "id": 12579369497,
+        "name": "package-consumer-evidence",
+        "sha256": "a11899806a59a376b5fed08912dda0795d55b2dc9758e5037cd69435b341786f",
+        "path": ".work/million-final/ci/package-consumer-evidence.zip"
+      }
+    ],
+    "verification": {
+      "path": ".work/million-final/ci/verification.json",
+      "sha256": "f888a290349ec81f0eb66008cfc635781da0f0151addc70e8d2585b6b94090f7"
+    },
+    "informational_inventory_is_deployment_approval": false
+  },
+  "short_window_question": {
+    "evidence": ".work/million-release/gates/installed-final/s14-local/deployment/million-browser/million-normal-telemetry.json",
+    "seconds": 89.8465,
+    "admitted_ticks": 87,
+    "displayed_ticks": 89.14505677574046,
+    "buffer_start": 16.8167,
+    "buffer_end": 14.6716432242591,
+    "buffer_change": -2.145056775740901,
+    "cached_backend_ticks": 85,
+    "qualification": "The admission/display difference is real buffer consumption within that short window. Cached backend counts were sampled at independently delayed operational polls; no retrospective exact production interval is asserted."
+  },
+  "continuous_observations": {
+    "video_on": {
+      "status": "FAIL; retained unchanged",
+      "case_evidence": {
+        "path": ".work/million-final/sustained/results.json",
+        "sha256": "d3762f7c4fdc969663bd87c0677a554f332f7da222db6461ae9ac913bdc3902c"
+      },
+      "analysis": {
+        "status": "FAIL",
+        "seconds": 900.0472998046876,
+        "checks": {
+          "rates": false,
+          "no_stall_or_rebuffer": false,
+          "no_resynchronization": false,
+          "normal_not_performance_limited": true,
+          "buffer_accounting": false,
+          "bounded_queue": true,
+          "no_sustained_buffer_deficit": false
+        },
+        "production_endpoint_tick_bounds": {
+          "start": [
+            106,
+            106
+          ],
+          "end": [
+            993,
+            995
+          ]
+        },
+        "produced_ticks_bounds": [
+          887,
+          889
+        ],
+        "produced_ticks_per_second_bounds": [
+          0.9855037620717058,
+          0.9877258675104243
+        ],
+        "admitted_ticks": 617,
+        "displayed_ticks": 590.6604207800299,
+        "admitted_ticks_per_second": 0.6855195278446927,
+        "displayed_ticks_per_second": 0.656254866725565,
+        "buffer_start": 16.86434859725614,
+        "buffer_end": 0.6439715278324911,
+        "buffer_change": -16.220377069423648,
+        "admitted_minus_displayed": 26.33957921997012,
+        "buffer_conservation_error": -42.55995628939377,
+        "rolling_buffer_minutes": [
+          {
+            "minute": 0,
+            "samples": 114,
+            "start": 16.86434859725614,
+            "end": 11,
+            "mean": 12.639916688697506,
+            "min": 0,
+            "max": 18.790608016995193
+          },
+          {
+            "minute": 1,
+            "samples": 111,
+            "start": 11,
+            "end": 4,
+            "mean": 11.013959680666202,
+            "min": 0,
+            "max": 17.223271015963576
+          },
+          {
+            "minute": 2,
+            "samples": 113,
+            "start": 5,
+            "end": 12,
+            "mean": 10.491030315494774,
+            "min": 0,
+            "max": 17.113362466676193
+          },
+          {
+            "minute": 3,
+            "samples": 111,
+            "start": 13,
+            "end": 10.998633315617155,
+            "mean": 16.961056735284355,
+            "min": 10.164381963759126,
+            "max": 19.887468965799997
+          },
+          {
+            "minute": 4,
+            "samples": 112,
+            "start": 10.513730315617352,
+            "end": 0,
+            "mean": 12.900045567548268,
+            "min": 0,
+            "max": 17.536358308694616
+          },
+          {
+            "minute": 5,
+            "samples": 113,
+            "start": 0,
+            "end": 9.752501779161378,
+            "mean": 13.868379587180119,
+            "min": 0,
+            "max": 23.62310583200042
+          },
+          {
+            "minute": 6,
+            "samples": 112,
+            "start": 9.235200779161403,
+            "end": 15,
+            "mean": 9.642353390996599,
+            "min": 0,
+            "max": 15
+          },
+          {
+            "minute": 7,
+            "samples": 110,
+            "start": 15,
+            "end": 12,
+            "mean": 9.273333949881188,
+            "min": 0,
+            "max": 17.044636404170546
+          },
+          {
+            "minute": 8,
+            "samples": 112,
+            "start": 12,
+            "end": 19.934966710622916,
+            "mean": 11.050771616339414,
+            "min": 0,
+            "max": 22.509389984807854
+          },
+          {
+            "minute": 9,
+            "samples": 112,
+            "start": 19.43716771062293,
+            "end": 5.036000822404731,
+            "mean": 10.394697824815571,
+            "min": 0,
+            "max": 19.43716771062293
+          },
+          {
+            "minute": 10,
+            "samples": 110,
+            "start": 4.292398822405062,
+            "end": 10.515539821819516,
+            "mean": 8.483557276043928,
+            "min": 0,
+            "max": 17.065766505729698
+          },
+          {
+            "minute": 11,
+            "samples": 111,
+            "start": 10.014340821819701,
+            "end": 10,
+            "mean": 5.6682129661269745,
+            "min": 0,
+            "max": 11.513141821819772
+          },
+          {
+            "minute": 12,
+            "samples": 112,
+            "start": 10,
+            "end": 4,
+            "mean": 11.681444613372411,
+            "min": 0,
+            "max": 23.468125642999667
+          },
+          {
+            "minute": 13,
+            "samples": 109,
+            "start": 7,
+            "end": 17.61245746748,
+            "mean": 15.359240416944445,
+            "min": 7,
+            "max": 17.729130831387693
+          },
+          {
+            "minute": 14,
+            "samples": 109,
+            "start": 17.042118026897924,
+            "end": 1.1288745278325223,
+            "mean": 11.1402768775563,
+            "min": 0.6624715278325084,
+            "max": 17.795909019028272
+          }
+        ],
+        "buffer_regression_ticks_per_second": -0.0029340527958456497,
+        "last_three_minus_first_three_minute_mean": 1.345351741004892,
+        "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+        "backend_observation_age_ms": {
+          "median_upper": 1263.5762939453125,
+          "max_upper": 4591.43212890625
+        },
+        "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+        "phases": {
+          "BUFFERING": 512,
+          "DEGRADED_BUFFER": 14,
+          "PLAYING": 1100,
+          "STALLED": 46
+        },
+        "resynchronizations": 16,
+        "performance_limited": false,
+        "dense_phase_samples": {
+          "BUFFERING": 1111,
+          "DEGRADED_BUFFER": 28,
+          "PLAYING": 2366,
+          "STALLED": 96
+        }
+      },
+      "analysis_evidence": {
+        "path": ".work/million-final/sustained/deployment/million-browser/million-sustained-analysis.json",
+        "sha256": "cb8377a4d9f399203bce536568c46fc3bec0064e5800080a169d9a2417fde52d"
+      },
+      "raw_telemetry": {
+        "path": ".work/million-final/sustained/deployment/million-browser/million-normal_sustained-telemetry.json",
+        "sha256": "6fbbd0e67cc73a96620365c80e534951dee92b80d6d3644c4121bacc34a78247"
+      }
+    },
+    "video_free": {
+      "status": "FAIL strict overall gate; rate/buffer/continuity subchecks PASS",
+      "case_evidence": {
+        "path": ".work/million-final/sustained-no-video/results.json",
+        "sha256": "9f9067e35cf9406fa2566129bfecc1b7b3eb37d6b8a82d11a73aaca41b73af1e"
+      },
+      "analysis": {
+        "status": "FAIL",
+        "seconds": 900.2306999511719,
+        "checks": {
+          "rates": true,
+          "no_stall_or_rebuffer": true,
+          "no_resynchronization": true,
+          "normal_not_performance_limited": false,
+          "buffer_accounting": true,
+          "bounded_queue": true,
+          "no_sustained_buffer_deficit": true
+        },
+        "production_endpoint_tick_bounds": {
+          "start": [
+            106,
+            108
+          ],
+          "end": [
+            1001,
+            1003
+          ]
+        },
+        "produced_ticks_bounds": [
+          893,
+          897
+        ],
+        "produced_ticks_per_second_bounds": [
+          0.991967947825414,
+          0.9964112533027955
+        ],
+        "admitted_ticks": 894,
+        "displayed_ticks": 894.7537981908523,
+        "admitted_ticks_per_second": 0.9930787741947593,
+        "displayed_ticks_per_second": 0.9939161131023229,
+        "buffer_start": 17.157277090085287,
+        "buffer_end": 16.40347889921236,
+        "buffer_change": -0.7537981908729279,
+        "admitted_minus_displayed": -0.7537981908523079,
+        "buffer_conservation_error": -2.0619950191758107e-11,
+        "rolling_buffer_minutes": [
+          {
+            "minute": 0,
+            "samples": 117,
+            "start": 17.157277090085287,
+            "end": 17.316688836511844,
+            "mean": 16.921211298204266,
+            "min": 12.831405015387105,
+            "max": 17.869741070606068
+          },
+          {
+            "minute": 1,
+            "samples": 116,
+            "start": 16.799033133976792,
+            "end": 13.52099409266981,
+            "mean": 16.96660039158566,
+            "min": 12.912424033136432,
+            "max": 17.996076311218985
+          },
+          {
+            "minute": 2,
+            "samples": 115,
+            "start": 16.970822958069846,
+            "end": 17.821760657721654,
+            "mean": 17.031071058153252,
+            "min": 13.881333598964488,
+            "max": 18.10911929403204
+          },
+          {
+            "minute": 3,
+            "samples": 114,
+            "start": 17.26888492365032,
+            "end": 16.949465365778565,
+            "mean": 16.43720971532134,
+            "min": 11.286477900978696,
+            "max": 18.036133928121615
+          },
+          {
+            "minute": 4,
+            "samples": 114,
+            "start": 17.416842888178564,
+            "end": 17.377820723290426,
+            "mean": 16.959526743538987,
+            "min": 13.184229091709312,
+            "max": 17.93558664357238
+          },
+          {
+            "minute": 5,
+            "samples": 116,
+            "start": 17.87635605941483,
+            "end": 17.145351522553256,
+            "mean": 16.933676518338242,
+            "min": 11.892510084413118,
+            "max": 17.95572539253874
+          },
+          {
+            "minute": 6,
+            "samples": 115,
+            "start": 17.6087848315737,
+            "end": 17.134023318098684,
+            "mean": 17.070449996947197,
+            "min": 11.779645055475726,
+            "max": 18.181839030925516
+          },
+          {
+            "minute": 7,
+            "samples": 116,
+            "start": 17.597601533297166,
+            "end": 17.128046445023983,
+            "mean": 16.967214220579084,
+            "min": 11.610168218626313,
+            "max": 18.030573796838894
+          },
+          {
+            "minute": 8,
+            "samples": 115,
+            "start": 17.608952669109726,
+            "end": 17.134794275338095,
+            "mean": 17.080946430696237,
+            "min": 12.88601852960062,
+            "max": 18.09353940038818
+          },
+          {
+            "minute": 9,
+            "samples": 115,
+            "start": 17.617790565761197,
+            "end": 17.31496512502042,
+            "mean": 17.062188852814018,
+            "min": 12.438234902179488,
+            "max": 18.071101271632983
+          },
+          {
+            "minute": 10,
+            "samples": 114,
+            "start": 17.696701357269603,
+            "end": 13.531577752321482,
+            "mean": 17.03475683864187,
+            "min": 13.074474039713095,
+            "max": 18.047378767767782
+          },
+          {
+            "minute": 11,
+            "samples": 115,
+            "start": 13.046674752322588,
+            "end": 16.2393869649959,
+            "mean": 15.940067552549289,
+            "min": 8.563355812775512,
+            "max": 18.115206693999994
+          },
+          {
+            "minute": 12,
+            "samples": 115,
+            "start": 15.733710815583208,
+            "end": 17.057561260813827,
+            "mean": 16.268483656734954,
+            "min": 12.458344752210678,
+            "max": 17.318760017811314
+          },
+          {
+            "minute": 13,
+            "samples": 114,
+            "start": 16.512425671736764,
+            "end": 17.2725992187394,
+            "mean": 16.834197364176628,
+            "min": 13.483404161211979,
+            "max": 17.673302196722148
+          },
+          {
+            "minute": 14,
+            "samples": 114,
+            "start": 16.75521233965617,
+            "end": 16.93057402517229,
+            "mean": 15.549042489767627,
+            "min": 12.526431894767029,
+            "max": 17.258392609058888
+          }
+        ],
+        "buffer_regression_ticks_per_second": -0.0009427887560195322,
+        "last_three_minus_first_three_minute_mean": -0.7557197457546572,
+        "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+        "backend_observation_age_ms": {
+          "median_upper": 1103.1636962890625,
+          "max_upper": 3896.300048828125
+        },
+        "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+        "phases": {
+          "PLAYING": 1726
+        },
+        "resynchronizations": 0,
+        "performance_limited": true,
+        "dense_phase_samples": {
+          "PLAYING": 3600
+        }
+      },
+      "analysis_evidence": {
+        "path": ".work/million-final/sustained-no-video/deployment/million-browser/million-sustained-analysis.json",
+        "sha256": "bba777d217231321c1469d6148e79eb3fa95051ac1f507ee73b5d6be67516224"
+      },
+      "raw_telemetry": {
+        "path": ".work/million-final/sustained-no-video/deployment/million-browser/million-normal_sustained-telemetry.json",
+        "sha256": "d7579fceb20eca8b4a20d562945b283c37a6367b103ec75f4f1fea0e897a7ce6"
+      },
+      "aligned_counters_and_backend_observation_ages": {
+        "path": ".work/million-final/sustained-no-video/deployment/million-browser/million-sustained-aligned.json",
+        "sha256": "cb9a82da0ee5f568c47926dbf18b44ac7e0d79dad9f80a582699d41347da693d"
+      },
+      "independent_backend_polls": {
+        "path": ".work/million-final/sustained-no-video/deployment/million-browser/publication-timing.json",
+        "sha256": "48c17b3df30d7ad1958403d1c518744cdfc3415d1cd7ec232ba861f4d0714634"
+      },
+      "performance_limits": {
+        "normal_target_ticks_per_second": 1,
+        "performance_limited_samples": 16,
+        "total_samples": 1726,
+        "episodes_observed_in_browser": [
+          {
+            "start_seconds": 200.192,
+            "end_seconds": 207.9582998046875,
+            "samples": 16,
+            "supported_rate_samples": [
+              0.777,
+              0.8603249999999975,
+              0.8749999999999993,
+              0.971
+            ]
+          }
+        ],
+        "independent_controller_observations": [
+          {
+            "first_observed_replica_time_ns": "1792889430801650779",
+            "pace": {
+              "admission_open": true,
+              "mode": "Normal",
+              "nominal_milli": 1000,
+              "performance_limited": true,
+              "supported_milli": 777
+            },
+            "publication_ticks": 1,
+            "query_completed_epoch_ms": 1792889430851.1826,
+            "query_started_epoch_ms": 1792889430842.2246,
+            "segment_id": 306,
+            "status_query_ms": 11.523544,
+            "wall_seconds": 308.76758011
+          },
+          {
+            "first_observed_replica_time_ns": "1792889432793752761",
+            "pace": {
+              "admission_open": true,
+              "mode": "Normal",
+              "nominal_milli": 1000,
+              "performance_limited": true,
+              "supported_milli": 777
+            },
+            "publication_ticks": 1,
+            "query_completed_epoch_ms": 1792889432881.644,
+            "query_started_epoch_ms": 1792889432873.0745,
+            "segment_id": 308,
+            "status_query_ms": 13.344666,
+            "wall_seconds": 310.800250298
+          },
+          {
+            "first_observed_replica_time_ns": "1792889434845952889",
+            "pace": {
+              "admission_open": true,
+              "mode": "Normal",
+              "nominal_milli": 1000,
+              "performance_limited": true,
+              "supported_milli": 971
+            },
+            "publication_ticks": 1,
+            "query_completed_epoch_ms": 1792889435116.4849,
+            "query_started_epoch_ms": 1792889434898.7507,
+            "segment_id": 310,
+            "status_query_ms": 221.520364,
+            "wall_seconds": 313.034102692
+          },
+          {
+            "first_observed_replica_time_ns": "1792889436892809832",
+            "pace": {
+              "admission_open": true,
+              "mode": "Normal",
+              "nominal_milli": 1000,
+              "performance_limited": true,
+              "supported_milli": 971
+            },
+            "publication_ticks": 1,
+            "query_completed_epoch_ms": 1792889437145.796,
+            "query_started_epoch_ms": 1792889437132.7766,
+            "segment_id": 312,
+            "status_query_ms": 16.769009,
+            "wall_seconds": 315.063376415
+          }
+        ],
+        "classification": "FAIL strict unlimited-Normal gate. Overall rates and buffer bounds pass; no requirement removed or relaxed."
+      },
+      "cold_lifeline": {
+        "seconds": 119.9952,
+        "backend_ticks_per_second": 0.0500020000800032,
+        "admitted_ticks_per_second": 0.0500020000800032,
+        "displayed_ticks_per_second": 0.05007864649688871,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 0.05,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 2,
+          "max": 3
+        },
+        "buffer_ticks": {
+          "min": 1.0590204410752904,
+          "max": 2.0743405978712417
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 28.69999998807907,
+            "max": 2281.300000011921
+          },
+          "verify_ms": {
+            "median": 34.90000003576279,
+            "max": 67
+          },
+          "artifact_ms": {
+            "median": 0.40000003576278687,
+            "max": 0.5
+          },
+          "derive_ms": {
+            "median": 5.699999988079071,
+            "max": 7.199999988079071
+          },
+          "catchup_ms": {
+            "median": 0,
+            "max": 0
+          }
+        },
+        "max_catchup_segments": 0,
+        "buffer_bytes": {
+          "min": 75814,
+          "max": 113721
+        },
+        "buffer_target_ticks": {
+          "min": 1.4,
+          "max": 1.4
+        },
+        "distinct_playheads": 236,
+        "certified_publications_per_second": 0.0500020000800032,
+        "authenticated_observation_queries_per_second": 1.6834006693601078,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 1.9925043479429405,
+        "buffer_end": 1.9833071458194809,
+        "admitted_ticks": 6,
+        "displayed_ticks": 6.00919720212346,
+        "phase_samples": {
+          "PLAYING": 236
+        }
+      },
+      "cold_raw_telemetry": {
+        "path": ".work/million-final/sustained-no-video/deployment/million-browser/million-lifeline_reconnect-telemetry.json",
+        "sha256": "a8707f79ebbe2c80c405502b5f17c4da3a88f4e22e19257422df90f0f94cc8dd"
+      },
+      "content_replay": {
+        "status": "PASS",
+        "segments": 1040,
+        "assigned": [],
+        "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+        "work_budget": 23
+      }
+    }
+  },
+  "interpretation": {
+    "short_sample": "87 admitted versus 89.145 displayed is actual consumption of 2.145 prebuffered ticks, not an accounting jump. That short interval alone does not establish a permanent deficit. Old cached production counters have independent polling delay; they are not retrospectively treated as aligned production.",
+    "long_sample": "The video-free 900.23-second sample consumed 0.754 buffered tick. Whole-window regression and all fifteen rolling-minute buckets satisfy the predeclared one-tick stability tolerance. However performance protection engaged for sixteen browser samples, so this does not establish unlimited 1 tick/s operation.",
+    "limiting_stage": "The recorded video-on failure is dominated by long IC-query/retrieval waits (up to the 15-second local relay deadline), rather than certificate verification or logical derivation. Shared two-CPU capture overhead is an observed contributing factor: removing optional video eliminates stalls/resync in the complete comparison but does not eliminate the brief backend performance-limit episode.",
+    "bounded_change": "Only optional video capture/encoding is disabled for the extended timing gate. Original short recorded tests remain intact; sandbox, real rendering, SDK signature/fresh pinned-root certificate verification, raw wire/telemetry, client queue, backend retention and all authoritative rates/rate bounds are unchanged.",
+    "no_acceptance_dilution": "The performance-limit failure is not waived or relabelled PASS. No further optimization/redesign attempted. Suitable isolated CI qualification remains required."
+  },
+  "rejected_diagnostics": [
+    {
+      "hypothesis": "Environment HTTP proxy routing",
+      "status": "REJECTED",
+      "evidence": {
+        "path": ".work/million-final/proxy-comparison.json",
+        "sha256": "bc60248c1be25ad5e48a340354f29c146fe822ca20ea20d0c9903173d8240c26"
+      },
+      "reason": "No environment HTTP/HTTPS proxy is configured. The speculative proxy change was reverted; no proxy bypass remains."
+    },
+    {
+      "hypothesis": "Extra PocketIC HTTP gateway hop alone causes the issue",
+      "status": "FAIL diagnostic; not a complete 900-second gate",
+      "evidence": {
+        "path": ".work/million-final/sustained-direct/diagnostic-disposition.json",
+        "sha256": "0384797ef85bc9f668cf3314a0d7c4217ba07d05d0ef28f127a6fa1c514f1429"
+      },
+      "reason": "Direct API still resynchronized. Diagnostic route change was reverted; original gateway is used by the final comparison."
+    }
+  ],
+  "new_local_gates": [
+    {
+      "gate": "source",
+      "status": "PASS",
+      "tested_commit": "e32212e262cc980d2955d3ebe1e55007ff9bcd1f",
+      "evidence": {
+        "path": ".work/million-final/gates/source/verification.json",
+        "sha256": "daa2d3d6799c1d7a90ec19d3cd84dab8f3c308cbc64c88e05e6392b064724dfa"
+      },
+      "counts": {
+        "node-tests": {
+          "tests": 1379,
+          "pass": 1379,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "python-tool-tests": {
+          "tests": 151
+        }
+      }
+    },
+    {
+      "gate": "browser",
+      "status": "PASS",
+      "tested_commit": "e32212e262cc980d2955d3ebe1e55007ff9bcd1f",
+      "evidence": {
+        "path": ".work/million-final/gates/browser/verification.json",
+        "sha256": "6207e18c1297c0c6e3b43dce895d50840da8a308f8d695b7d92f9ece1adc81c4"
+      },
+      "counts": {}
+    }
+  ],
+  "rust_harness_checks": {
+    "compile": "PASS --locked --offline",
+    "format": "PASS",
+    "clippy": "PASS -D warnings",
+    "evidence": {
+      "path": ".work/million-final/new-harness-gates.log",
+      "sha256": "2e9cf7ca6df8fcb22a8f3029bd4c85f225e2feda6f501a8a6c4c4e3d44f35031"
+    }
+  },
+  "artifacts": {
+    "status": "PASS",
+    "normal_wasm_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "frontend_app_sha256": "3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732",
+    "complete_frontend_files": {
+      "index.html": {
+        "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+        "bytes": 15413
+      },
+      "app.mjs": {
+        "sha256": "3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732",
+        "bytes": 593382
+      },
+      "style.css": {
+        "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+        "bytes": 8044
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "configuration-torus.bin": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "configuration-million.bin": {
+        "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "bytes": 469
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "frontend_manifest_sha256": "6bdaa08ae70f33f5864ddcd619b6321edad1dd7aa3b6a92b31a9fed6d0364a92",
+    "original_verification": {
+      "path": ".work/million-release/candidate/verification.json",
+      "sha256": "2e6b7bcaa09b1633338e345c492c18270e69ef99f63bd4825d022bbc326fa963"
+    },
+    "backend_manifest": {
+      "path": ".work/million-release/candidate/backend/manifest.json",
+      "sha256": "c292275b670a4c185971a5160c28fce67f9285da615af770f6eac3c2f77cd5d3"
+    },
+    "normal_candid": {
+      "path": ".work/million-release/candidate/backend/generated.did",
+      "sha256": "b2b3b2f669050af3f00ca93c7a75a896cf3ed907d59e9d0c38ceb8f255d8fd21"
+    },
+    "ci_wasm_variant_sha256": "ebc07e2835cac3085398c871fbe738b2e5a3fc13a07eb9991342c48a4c846609",
+    "ci_variant_substituted": false,
+    "identity_note": "Original verification.json retains its historical CI-pending text byte-for-byte. Current CI outcome is a separate record. Checkout-dependent builds remain distinct identified artifacts."
+  },
+  "dependency_provenance": {
+    "status": "PASS",
+    "immutable_revision": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "source_tree": "fd5c687fd9a558d536c5ed47de771fad543cd032",
+    "javascript_version": "0.14.0",
+    "archive": {
+      "path": "vendor/dtr/dtr-timeline-runtime-0.14.0.tgz",
+      "sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc"
+    },
+    "npm_integrity": "sha512-oJknKDDWjpmkYd1g7CNPiaV3MuTKWuquCZZiuRLJ3KsADHSDENTpYiKyiibANflPF59mKDtN/DaaHBDsNYDb1w==",
+    "consumer_checks": 8,
+    "consumer_evidence": {
+      "path": ".work/million-release/dtr-consumers-final/results.json",
+      "sha256": "01f1509a090f00aa3832adb71c98cc5bd9d3ae16f99a327b16ffae9e2d299a60"
+    },
+    "v8_observer_tests": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": ".work/million-release/gates/source-final/logs/node-tests.log"
+    }
+  },
+  "prior_upgrade_and_treasury_evidence": {
+    "status": "PASS",
+    "exact_predecessor_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+    "wasm_upgrade": {
+      "predecessor_sha256": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+      "publication_hash": "9b4a4e4603f6077ddf8842282015e07ba9d26072ef456287e94e14e5fee8aa25",
+      "retained_publications": 16,
+      "scores_credits_accounts_balls_cannons_preserved": true,
+      "source_cursor": 2,
+      "status": "PASS",
+      "treasury_preserved": {
+        "halted": false,
+        "last_plan_ns": 1792884540840241792,
+        "last_refund": null,
+        "last_success": {
+          "block_index": 2,
+          "completed_at_ns": 1792884541140241792,
+          "cycles": "1_000_000_000_000",
+          "plan": {
+            "amount_e8s": 99990000,
+            "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": 1792884540840241792,
+            "fee_e8s": 10000,
+            "ledger": "dllsh-pd777-77776-qaaaa-cai",
+            "memo": 1347768404,
+            "to": [
+              86,
+              90,
+              129,
+              252,
+              58,
+              158,
+              239,
+              1,
+              139,
+              239,
+              112,
+              35,
+              240,
+              54,
+              3,
+              74,
+              31,
+              75,
+              94,
+              164,
+              2,
+              37,
+              89,
+              176,
+              68,
+              106,
+              222,
+              133,
+              230,
+              199,
+              188,
+              10
+            ]
+          }
+        },
+        "paused": false,
+        "phase": "Idle",
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1000000000000"
+      },
+      "world_hash": "0e38e05431312cddcd48be7f7ecc051a9df8cf10251c64bcba8bd286c77373e1",
+      "world_preserved": true
+    },
+    "authenticated_world_transition": {
+      "accounts": [
+        {
+          "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+          "units": [
+            {
+              "$integer": "9984768"
+            },
+            {
+              "$integer": "18067"
+            }
+          ]
+        }
+      ],
+      "fenced_transfer": 4,
+      "interrupted_upgrade_recovery": true,
+      "ledger_cutover": {
+        "$integer": "4"
+      },
+      "new_world_hash": "bb375448a75d57faf3abed2cd950d033db8e3eedf8c5048adfa39eb49f7bf64e",
+      "old_world_hash": "7edad5a2f5f15dfd667f9ec9c0100d77c2aed25af23591580798a8f87a48aeeb",
+      "receipts_and_publications_preserved": true,
+      "retained_predecessors_verified": 15,
+      "score_artifact_before": "341f69de36a260ed4a0ff5954d0d8d4f0569e30165278c9956c655508cb6338f",
+      "source_cursor": 4,
+      "stale_manifest_rejected": true,
+      "status": "PASS",
+      "transition_hash": "7d02f56f2ecd194bb3004e6306634cacfb7c84706e870fa4bd5824752c4ae7c4"
+    },
+    "actual_v8_sdk_authentication": {
+      "status": "PASS",
+      "trust": "explicit disposable IC SDK root and certificate; no offline fallback",
+      "publication_version": 8,
+      "epoch_version": 2,
+      "world": [
+        1000,
+        1000
+      ],
+      "root_hash": "b373db68cfa04444e235019bc2dc097528678c0cb94b6abfe10cee08706108e9",
+      "verified_artifacts": [
+        "state",
+        "events",
+        "scores"
+      ]
+    },
+    "pending_finance_and_post_migration_ingestion": {
+      "cmc_credits": 5,
+      "cutover": {
+        "$integer": "8"
+      },
+      "held_payment": 8,
+      "outgoing_transfers": 5,
+      "pending_finance_survived_transition_and_two_upgrades": true,
+      "post_migration_deposit": 10,
+      "source_cursor": 12,
+      "status": "PASS",
+      "world_version": 5
+    },
+    "raw_evidence_directory": ".work/million-release/gates/installed-final/s14-local/deployment",
+    "steps": "Normal Wasm upgrade and authenticated v4-to-v5 world transition are separate. Accounts, cannon/ball state, scores, credits, receipts, source progress, treasury and retained bytes are compared; interrupted transitions, stale manifests, exact/conflicting retries and fences are asserted."
+  },
+  "prior_64_ball_evidence": {
+    "status": "PASS mechanics and artifact bounds; not a real-time browser throughput claim",
+    "result": {
+      "artifact_bytes": 513075,
+      "balls": 64,
+      "clock": "PocketIC virtual scheduling plus local harness wall time; not mainnet wall time",
+      "cycles": "126791556952",
+      "event_bytes": 503120,
+      "harness_ticks_per_second": 0.3155617679580208,
+      "harness_wall_seconds": 25.351613574,
+      "pace": {
+        "mode": "Normal",
+        "nominal_milli": 1000,
+        "performance_limited": false,
+        "supported_milli": 1000
+      },
+      "publication_bytes": 4086,
+      "score_bytes": 277,
+      "stable_memory_bytes": 33619968,
+      "state_bytes": 9678,
+      "status": "PASS",
+      "ticks": 8,
+      "virtual_seconds": 7.15000043,
+      "virtual_ticks_per_second": 1.1188810515917689,
+      "world": [
+        1000,
+        1000
+      ]
+    }
+  },
+  "reproduction": {
+    "python": "/home/codexdev/.local/dtr-s11-browser-venv/bin/python",
+    "environment": [
+      "DFX_IDENTITY=codex_local",
+      "TMPDIR=/home/codexdev/.cache/b2z-tmp",
+      "LD_LIBRARY_PATH=/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu"
+    ],
+    "frozen_artifact_runner": ".work/million-final/run-no-video.py",
+    "frozen_normal_input": ".work/million-release/candidate/backend/normal.wasm",
+    "standard_extended_test": "python -B tools/verify_s14_local.py --test-filter million_browser_sustained_normal_and_cold_lifeline --output NEW_OUTPUT",
+    "standard_runner_note": "Standard runner identifies its own build. It must not replace the preserved frozen artifact. The recorded local runner installs the exact original 7c078fb3 file.",
+    "raw_evidence_base": ".work/million-final"
+  },
+  "preflight_procedure": "docs/operations/B2Z_MILLION_PREFLIGHT.md",
+  "mainnet_operations": "NONE",
+  "remote_git_mutations": "NONE",
+  "merge_to_master": "NOT_PERFORMED",
+  "review_bundle": ".work/million-final/b2z-million-cell-release-review.tar.gz"
+}
