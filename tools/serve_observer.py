@@ -15,20 +15,6 @@ LIVE_CANISTER=None
 IC_GATEWAY=None
 GENERATED_ASSETS=None
 DEPLOYMENT_ASSETS=None
-
-class NoLoopbackRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self,*_args):return None
-
-# Only the explicitly configured owned loopback IC is reachable here. Do not
-# send its requests through environment HTTP proxies, or follow redirects out
-# of that boundary. Browser/SDK signature and certificate checks are unchanged.
-LOOPBACK_QUERIES=urllib.request.build_opener(urllib.request.ProxyHandler({}),NoLoopbackRedirect())
-def open_loopback_query(request):
-    target=urlsplit(request.full_url)
-    if target.scheme!='http' or target.hostname not in {'127.0.0.1','localhost','::1'} or target.username or target.password or target.query or target.fragment:
-        raise ValueError('IC query target must be loopback HTTP')
-    return LOOPBACK_QUERIES.open(request,timeout=15)
-
 def observer_dependency_error(root=ROOT):
     package=root/'node_modules/@dtr/timeline-runtime'
     missing=[str(package/relative) for relative in REQUIRED_DTR_MODULES if not(package/relative).is_file()]
@@ -81,7 +67,7 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
         body=self.rfile.read(int(declared))
         request=urllib.request.Request(IC_GATEWAY+raw.lstrip('/'),data=body,method='POST',headers={'Content-Type':'application/cbor'})
         try:
-            with open_loopback_query(request) as response:
+            with urllib.request.urlopen(request,timeout=15) as response:
                 content=response.read(2*1024*1024+1);status=response.status;content_type=response.headers.get('Content-Type','application/cbor')
         except urllib.error.HTTPError as error:
             content=error.read(2*1024*1024+1);status=error.code;content_type=error.headers.get('Content-Type','application/cbor')
