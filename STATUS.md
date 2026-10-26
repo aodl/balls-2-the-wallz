@@ -1,3 +1,29 @@
+# Production v5 / deployed frontend — bounded cost investigation complete
+
+**2026-10-26:** frontend commit `e2fc63d6bc73b77e60c87f3b37134c7f9cc09abc`
+is deployed to the existing observer; exact-commit CI `40387721386` and public
+IC-root v8 desktop/mobile verification passed. The backend remains the approved
+`7c078fb3…` module, running the paid 1,000×1,000 v5 world. Earlier status entries
+below describe their original pre-release snapshots.
+
+A read-only ten-minute production study measured **2.187T cycles/hour**, **3.112B
+cycles/tick/publication**, at Conserve with **three balls**. No treasury credit
+arrived during the window. The earlier two-ball ~1T/hour sample is a different
+workload. [Cost attribution, runway and ranked proposal](evidence/B2Z/million-cell-cost/REPORT.md)
+distinguish measured balances/instructions from modelled cycle allocations and
+unassigned overhead. No backend optimisation, instrumentation, pacing change or
+deployment was implemented. This local investigation branch contains documentation
+and reviewed evidence only; the published frontend branch remains at `e2fc63d6`.
+
+The frontend integration PR is fully prepared, but GitHub integration rejected PR
+creation with 403; [draft body/provenance](evidence/B2Z/million-cell-cost/frontend-pr.md)
+and creation details are retained. Preserve release commits and require all six
+substantive jobs on the exact resulting master head after any user-owned promotion.
+Do not redeploy unchanged assets. Operational runway assumes no future receipts;
+consult the dated measurements rather than treating this status as live telemetry.
+
+---
+
 # Million-cell frontend visual candidate — local PASS; not deployed
 
 The live v5 backend and existing production frontend remain unchanged by this

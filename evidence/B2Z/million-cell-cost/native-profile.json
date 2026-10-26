@@ -1,0 +1,91 @@
+{
+  "kind": "Native release CPU microbenchmark on captured authenticated current v5 state, not Wasm instructions or IC cycles",
+  "no_mainnet_workload": true,
+  "output_hashes_equal_all_budgets_and_checkpoint_paths": [
+    "fae1bd7708af0a223129c89735ea0c7bfab35e75f072e18c4333df55aafca0a7",
+    "c348ffb1164a30914545c11c8f3ecd19bb0756821749cdfe796acbc236894129",
+    "cf4a9aea067e13287ff9d80f9339aebe5556c3c2aa79c58f5e182a9f2599c093"
+  ],
+  "rows": [
+    {
+      "budget": 128,
+      "durable_cursor_roundtrip_per_step": false,
+      "max_cursor_bytes": 0,
+      "mean_step_calls": 5.0,
+      "mean_work": 603.0,
+      "total_begin_ms": 51.941831,
+      "total_raw_step_ms": 1000.509102,
+      "total_restore_ms": 0.0,
+      "total_result_ms": 150.102911,
+      "total_snapshot_ms": 0.0,
+      "trials": 60
+    },
+    {
+      "budget": 128,
+      "durable_cursor_roundtrip_per_step": true,
+      "max_cursor_bytes": 31837,
+      "mean_step_calls": 5.0,
+      "mean_work": 603.0,
+      "total_begin_ms": 52.204832,
+      "total_raw_step_ms": 1162.030761,
+      "total_restore_ms": 1234.491845,
+      "total_result_ms": 188.253583,
+      "total_snapshot_ms": 404.064391,
+      "trials": 60
+    },
+    {
+      "budget": 512,
+      "durable_cursor_roundtrip_per_step": false,
+      "max_cursor_bytes": 0,
+      "mean_step_calls": 2.0,
+      "mean_work": 603.0,
+      "total_begin_ms": 62.606662,
+      "total_raw_step_ms": 1289.792141,
+      "total_restore_ms": 0.0,
+      "total_result_ms": 251.677946,
+      "total_snapshot_ms": 0.0,
+      "trials": 60
+    },
+    {
+      "budget": 512,
+      "durable_cursor_roundtrip_per_step": true,
+      "max_cursor_bytes": 31837,
+      "mean_step_calls": 2.0,
+      "mean_work": 603.0,
+      "total_begin_ms": 57.403193,
+      "total_raw_step_ms": 1248.586532,
+      "total_restore_ms": 591.783078,
+      "total_result_ms": 218.528947,
+      "total_snapshot_ms": 196.844186,
+      "trials": 60
+    },
+    {
+      "budget": 1024,
+      "durable_cursor_roundtrip_per_step": false,
+      "max_cursor_bytes": 0,
+      "mean_step_calls": 1.0,
+      "mean_work": 603.0,
+      "total_begin_ms": 56.076076,
+      "total_raw_step_ms": 971.001174,
+      "total_restore_ms": 0.0,
+      "total_result_ms": 177.904053,
+      "total_snapshot_ms": 0.0,
+      "trials": 60
+    },
+    {
+      "budget": 1024,
+      "durable_cursor_roundtrip_per_step": true,
+      "max_cursor_bytes": 4165,
+      "mean_step_calls": 1.0,
+      "mean_work": 603.0,
+      "total_begin_ms": 60.122424,
+      "total_raw_step_ms": 1214.359228,
+      "total_restore_ms": 78.884052,
+      "total_result_ms": 254.410281,
+      "total_snapshot_ms": 10.153526,
+      "trials": 60
+    }
+  ],
+  "state_sha256": "662e7125e20b8db74b86e367c522c3fc0b41f68ee0f4c9102db6355fa28182c9",
+  "status": "PASS"
+}

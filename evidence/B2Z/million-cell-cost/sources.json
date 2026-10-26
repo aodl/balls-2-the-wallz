@@ -1,0 +1,13 @@
+{
+  "fee_table": "https://docs.internetcomputer.org/references/cycle-costs/",
+  "subnet_scaling": "https://docs.internetcomputer.org/references/subnet-types/",
+  "fee_assumption": {
+    "reference_nodes": 13,
+    "observed_certified_node_keys": 34,
+    "cycles_per_instruction": 2.6153846153846154,
+    "update_message_base_cycles": 13076923.076923076,
+    "xnet_call_base_cycles": 680000.0,
+    "xnet_byte_cycles": 2615.3846153846152
+  },
+  "qualification": "Documented fee schedule used to estimate cost of measured instruction buckets, not a direct disaggregation of cycle debits. All unexplained balance debits remain residual."
+}
