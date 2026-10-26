@@ -46,7 +46,7 @@ export function snapshot(bytes,identity){
 export class B2zView {
   constructor(w){
     this.torus=w.version>=4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=w.version<5?[...w.cells]:null;
-    this.ownership=w.version===5?structuredClone(w.ownership):null;
+    this.ownership=w.version===5?structuredClone(w.ownership):null;this.territoryRevision=0;
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
     this.balls=new Map(w.balls.map(b=>[b.id,track(b,w.version===5?65536:4096)]));
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
@@ -61,6 +61,7 @@ export class B2zView {
   cell(n){integer(n,this.width*this.height-1);return n;}
   owner(n){this.cell(n);return ownerAt(this,n);}
   setRange(start,end,previous,owner){
+    this.territoryRevision++;
     if(this.version<5){for(let cell=start;cell<end;cell++){check(this.cells[cell]===previous,'territory predecessor');this.cells[cell]=owner;}return;}
     check(start<end&&start>=0&&end<=this.width*this.height,'territory range');const next=[];
     for(const r of this.ownership.overrides){if(r.end<=start||r.start>=end){next.push({...r});continue;}if(r.start<start)next.push({start:r.start,end:start,owner:r.owner});if(r.end>end)next.push({start:end,end:r.end,owner:r.owner});}
@@ -70,7 +71,7 @@ export class B2zView {
     adjust(previous,start-end);adjust(owner,end-start);
   }
   setOwner(cell,owner){const previous=this.owner(cell);this.setRange(cell,cell+1,previous,owner);}
-  clearOwner(owner){if(this.version<5){for(let cell=0;cell<this.cells.length;cell++)if(this.cells[cell]===owner)this.cells[cell]=0;return;}for(let at=0;at<this.ownership.base.length;at++)if(this.ownership.base[at]===owner)this.ownership.base[at]=0;for(const r of this.ownership.overrides)if(r.owner===owner)r.owner=0;this.ownership.counts=this.ownership.counts.filter(c=>c.owner!==owner);}
+  clearOwner(owner){this.territoryRevision++;if(this.version<5){for(let cell=0;cell<this.cells.length;cell++)if(this.cells[cell]===owner)this.cells[cell]=0;return;}for(let at=0;at<this.ownership.base.length;at++)if(this.ownership.base[at]===owner)this.ownership.base[at]=0;for(const r of this.ownership.overrides)if(r.owner===owner)r.owner=0;this.ownership.counts=this.ownership.counts.filter(c=>c.owner!==owner);}
   *ownershipRects(){
     if(this.version<5){for(let y=0;y<this.height;y++)for(let x=0;x<this.width;x++)yield{x,y,width:1,height:1,owner:this.cells[y*this.width+x]};return;}
     for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const x=Math.ceil(sx*this.width/32),y=Math.ceil(sy*this.height/32);yield{x,y,width:Math.ceil((sx+1)*this.width/32)-x,height:Math.ceil((sy+1)*this.height/32)-y,owner:this.ownership.base[sy*32+sx]};}

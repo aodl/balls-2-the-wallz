@@ -1,3 +1,20 @@
+# Million-cell frontend visual candidate — local PASS; not deployed
+
+The live v5 backend and existing production frontend remain unchanged by this
+feature. Branch `feature/b2z-million-cell-visuals` corrects only arena rendering,
+camera framing and zoom: seamless opaque effective ownership, proportional
+world-space pieces/tails, true-cell grid and 96 px/cell close inspection.
+
+Local source checks (1,386 JavaScript / 155 Python), HTTP/Web Crypto browser
+checks, geometric regressions and actual read-only v8 desktop/mobile browser
+checks pass. [Before/after visual gallery](evidence/B2Z/million-cell-visuals/index.html)
+and [reviewed measurements/scope](evidence/B2Z/million-cell-visuals/verification.json)
+are ready for visual approval. Exact-commit CI and any modified-frontend mainnet
+publication remain pending user-owned publication and separate authorisation.
+The dated qualification entries below are retained history.
+
+---
+
 # Million-cell development qualification — PASS; master promotion gated by exact-commit CI
 
 **2026-10-26:** the established development acceptance gates are complete. The

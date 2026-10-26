@@ -1,0 +1,878 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-26T18:34:16.916126+00:00",
+  "decision": "LOCAL VERIFICATION PASS; VISUAL APPROVAL AND EXACT-COMMIT CI REQUIRED; NOT DEPLOYED",
+  "branch": "feature/b2z-million-cell-visuals",
+  "base_commit": "5899df61f0a5f540d91956dc5b6006ec708a5a1e",
+  "candidate_commit": "The commit containing this report; the clean frozen frontend build manifest records the exact commit without a self-referential report hash.",
+  "defects_and_corrections": [
+    {
+      "before": "Translucent overlapping compact base/override rectangles; base storage subdivisions show seams",
+      "after": "Opaque precomposed owner colours; disjoint final ownership runs merge into seamless rectangles; true owner boundaries derived from final effective ownership"
+    },
+    {
+      "before": "Pixel-minimum cannon/ball bodies, fixed-width outlines, rings and glow",
+      "after": "Fixed world-cell dimensions multiplied by camera scale, including barrel, selection, strikes, effects and velocity tails; no world-piece pixel floor"
+    },
+    {
+      "before": "Overview reveals internal 32x32 representation; medium zoom fills individual cells per frame",
+      "after": "One cached territory raster rebuilt only on effective ownership changes; per-frame image source clipped to viewport; fine grid fades in above 12 px/cell on actual integer coordinates"
+    },
+    {
+      "before": "Max v5 zoom is fitScale*24, only 8.424 px/cell at 390px width",
+      "after": "96 px/cell usable close zoom on mobile/desktop, preserving aspect, pointer anchors, pan, toroidal copies and picking"
+    },
+    {
+      "before": "Fresh v5 connections remain in distant overview; only transition path frames a cannon",
+      "after": "Fresh v5 view frames an active cannon at 24 px/cell; ordinary publications/reconnect preserve deliberate camera position"
+    }
+  ],
+  "geometry_world_cell_units": {
+    "cannon_body_radius": 0.28,
+    "cannon_outline": 0.05,
+    "cannon_core_radius": 0.1,
+    "barrel_length": 0.448,
+    "barrel_width": 0.1,
+    "selection_radius": 0.4,
+    "selection_width": 0.04,
+    "ball_radius": 0.073,
+    "tail_width": 0.073,
+    "tail_distance": "signed velocity / 1024 * 0.12 logical ticks; original interpolated position unchanged",
+    "glow": 0.18,
+    "interaction": "Invisible 8px minimum hit target remains separate from rendered geometry. Fixed-size minimap dots are navigation locators, not arena bodies."
+  },
+  "regressions": {
+    "source_gate": "PASS",
+    "JavaScript_tests": 1386,
+    "Python_tests": 155,
+    "targeted_camera_and_render_tests": 10,
+    "HTTP_CSP_native_WebCrypto_suite": "PASS",
+    "visual_fixture": "PASS, 28 fixed-camera before/after screenshots, opaque replacement pixel tests and same-owner seam pixel tests",
+    "actual_v8_mainnet_observation": "PASS, normal candidate bundle on real local HTTP server, production CSP, browser-native Web Crypto, SDK IC root and fresh v8 data; only query/read_state POSTs",
+    "live_desktop_and_mobile": [
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "status": "PASS",
+        "actual_IC_root_and_v8": true,
+        "baseline_default": {
+          "x": 500,
+          "y": 500,
+          "scale": 0.81
+        },
+        "baseline_max_scale": 19.44,
+        "candidate_max_scale": 96,
+        "default_camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 24
+        },
+        "publications_and_reconnect_preserve_deliberate_camera": true,
+        "wheel_pinch_pan_minimap_picking_payment_preparation": true,
+        "read_only_posts": 25,
+        "errors": [],
+        "frame_callback_ms": {
+          "samples": 241,
+          "median": 0.5,
+          "p95": 1.2999999523162842,
+          "max": 4.600000023841858
+        },
+        "frame_interval_ms": {
+          "samples": 240,
+          "median": 16.699999999999818,
+          "p95": 83.29999999999973,
+          "max": 116.59999999999991
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "status": "PASS",
+        "actual_IC_root_and_v8": true,
+        "baseline_default": {
+          "x": 500,
+          "y": 500,
+          "scale": 0.35100000000000003
+        },
+        "baseline_max_scale": 8.424000000000001,
+        "candidate_max_scale": 96,
+        "default_camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 24
+        },
+        "publications_and_reconnect_preserve_deliberate_camera": true,
+        "wheel_pinch_pan_minimap_picking_payment_preparation": true,
+        "read_only_posts": 23,
+        "errors": [],
+        "frame_callback_ms": {
+          "samples": 280,
+          "median": 0.40000003576278687,
+          "p95": 1.100000023841858,
+          "max": 2.5
+        },
+        "frame_interval_ms": {
+          "samples": 279,
+          "median": 16.699999999999818,
+          "p95": 33.299999999999955,
+          "max": 83.39999999999986
+        }
+      }
+    ],
+    "unit_coverage": [
+      "Disjoint compact ownership rectangles equal effective ownership, including row-crossing and unowned overrides",
+      "No base-grid boundaries for equal owners; genuine half-world boundaries at x=500 and toroidal edge remain",
+      "Body/outline/core/barrel/ring/tail/glow/effect dimensions double/halve with board scale, including subpixel sizes",
+      "Fine-grid lines lie on true integer 1x1 coordinates and fade by zoom",
+      "Viewport-only texture blit and cache reuse for static frames and trajectory-only new snapshots",
+      "Ownership changes invalidate cache; seam copies retain body and tail even if viewport itself has not crossed the seam",
+      "Desktop/mobile 96px/cell maximum, pointer picking and camera persistence"
+    ]
+  },
+  "performance": {
+    "renderer_fixed_reference_runs": [
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "scene": "overview",
+        "baseline": true,
+        "frames": 90,
+        "draw_ms": {
+          "median": 4.399999976158142,
+          "p95": 7.400000035762787,
+          "max": 10.5
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999932,
+          "p95": 16.799999999999955,
+          "max": 33.299999999999955
+        }
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "scene": "medium",
+        "baseline": true,
+        "frames": 90,
+        "draw_ms": {
+          "median": 29.19999998807907,
+          "p95": 64.19999998807907,
+          "max": 79.30000001192093
+        },
+        "frame_interval_ms": {
+          "median": 50.099999999999454,
+          "p95": 116.60000000000036,
+          "max": 133.29999999999927
+        }
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "scene": "close-ball",
+        "baseline": true,
+        "frames": 90,
+        "draw_ms": {
+          "median": 2.399999976158142,
+          "p95": 5.400000035762787,
+          "max": 8.699999988079071
+        },
+        "frame_interval_ms": {
+          "median": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "max": 33.400000000000546
+        }
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "scene": "overview",
+        "baseline": false,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.3999999761581421,
+          "p95": 0.5999999642372131,
+          "max": 2.400000035762787
+        },
+        "frame_interval_ms": {
+          "median": 16.69999999999999,
+          "p95": 16.700000000000045,
+          "max": 16.800000000000182
+        }
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "scene": "medium",
+        "baseline": false,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.19999998807907104,
+          "p95": 0.30000001192092896,
+          "max": 1.9000000357627869
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000273,
+          "max": 16.800000000000182
+        }
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "scene": "close-ball",
+        "baseline": false,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.20000004768371582,
+          "p95": 0.3999999761581421,
+          "max": 4.399999976158142
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.800000000000182,
+          "max": 33.399999999999636
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scene": "overview",
+        "baseline": true,
+        "frames": 90,
+        "draw_ms": {
+          "median": 3.899999976158142,
+          "p95": 8.199999988079071,
+          "max": 10.900000035762787
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000045,
+          "max": 16.799999999999955
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scene": "medium",
+        "baseline": true,
+        "frames": 90,
+        "draw_ms": {
+          "median": 7.5,
+          "p95": 13.5,
+          "max": 21.5
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.799999999999727,
+          "max": 33.40000000000009
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scene": "close-ball",
+        "baseline": true,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.9000000357627869,
+          "p95": 2.600000023841858,
+          "max": 5.300000011920929
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "max": 16.800000000000182
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scene": "overview",
+        "baseline": false,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.3999999761581421,
+          "p95": 0.6000000238418579,
+          "max": 2.100000023841858
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999932,
+          "p95": 16.700000000000045,
+          "max": 16.80000000000001
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scene": "medium",
+        "baseline": false,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.10000002384185791,
+          "p95": 0.20000004768371582,
+          "max": 0.30000001192092896
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000273,
+          "max": 16.800000000000182
+        }
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scene": "close-ball",
+        "baseline": false,
+        "frames": 90,
+        "draw_ms": {
+          "median": 0.20000004768371582,
+          "p95": 0.30000001192092896,
+          "max": 0.3999999761581421
+        },
+        "frame_interval_ms": {
+          "median": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "max": 16.800000000000182
+        }
+      }
+    ],
+    "qualification": "90 real sandboxed Chromium animation frames per scene; same pinned state and exact camera/scale for before/after. Sequential local observations under variable shared-host load, not a hardware-normalised throughput guarantee. Live frame intervals include existing certificate work, network processing, HUD and scheduling; draw callback times are recorded separately. No stable 60fps claim is made.",
+    "cache": "Compact ownership sweep once per effective ownership change; unchanged certified snapshots reuse the raster. Uniform million-cell world becomes one opaque rectangle with zero ownership boundary edges. No million-element cell expansion or per-frame per-cell fills. Fine grid is O(visible rows+columns).",
+    "live_interval_tail_disclosed": true
+  },
+  "comparison": {
+    "gallery": "index.html",
+    "captured_state_sha256": "013b7268a1b378b62f9a56d57e549365e2448ee45f44733c7bf44da644024bd4",
+    "capture_recorded_at": "2026-10-26T18:10:33.423Z",
+    "fixed_time": [
+      "112810",
+      "1"
+    ],
+    "qualification": "Exact baseline drawing functions, shared camera coordinates and scale, fixed captured v5 state. Close-up baseline views may exceed the former UI zoom limit; old UI limits are verified separately. Ownership fixture explicitly synthetic. Fresh mainnet certificate verification is a separate live gate.",
+    "synthetic_cases": "Ownership/override and wrapped-ball fixtures are explicitly labelled render-only synthetic cases, never presented as certified geography. Captured production territory is uniformly owned; its real broad geography is retained.",
+    "screenshots": [
+      {
+        "path": "1440-overview-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 500,
+          "y": 500,
+          "scale": 0.81
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-medium-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 8
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-close-cannon-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-close-ball-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-maximum-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 96
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-seam-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "wrapped-ball",
+        "baseline": true,
+        "camera": {
+          "x": 999.8,
+          "y": 999.8,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-overrides-before.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "ownership",
+        "baseline": true,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 16
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-overview-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 500,
+          "y": 500,
+          "scale": 0.81
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-medium-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 8
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-close-cannon-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-close-ball-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-maximum-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 96
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-seam-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "wrapped-ball",
+        "baseline": false,
+        "camera": {
+          "x": 999.8,
+          "y": 999.8,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "1440-overrides-after.png",
+        "viewport": [
+          1440,
+          900
+        ],
+        "scenario": "ownership",
+        "baseline": false,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 16
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-overview-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 500,
+          "y": 500,
+          "scale": 0.351
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-medium-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 8
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-close-cannon-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-close-ball-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-maximum-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": true,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 96
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-seam-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "wrapped-ball",
+        "baseline": true,
+        "camera": {
+          "x": 999.8,
+          "y": 999.8,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-overrides-before.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "ownership",
+        "baseline": true,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 16
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-overview-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 500,
+          "y": 500,
+          "scale": 0.351
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-medium-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 8
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-close-cannon-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-close-ball-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-maximum-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "captured",
+        "baseline": false,
+        "camera": {
+          "x": 666.8603515625,
+          "y": 691.6689453125,
+          "scale": 96
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-seam-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "wrapped-ball",
+        "baseline": false,
+        "camera": {
+          "x": 999.8,
+          "y": 999.8,
+          "scale": 48
+        },
+        "world_time": 112810
+      },
+      {
+        "path": "390-overrides-after.png",
+        "viewport": [
+          390,
+          844
+        ],
+        "scenario": "ownership",
+        "baseline": false,
+        "camera": {
+          "x": 297.5,
+          "y": 47.5,
+          "scale": 16
+        },
+        "world_time": 112810
+      }
+    ],
+    "live_UI_images": "Separate before/after default framing and UI maximum screenshots; these are fresh live observations, not fixed-state paired shots."
+  },
+  "candidate_assets": {
+    "files": {
+      "index.html": {
+        "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+        "bytes": 15413
+      },
+      "app.mjs": {
+        "sha256": "a5fe170a2a6f0498f24ea6f043eee2417571c41032e7b3405a3f92faf11d508d",
+        "bytes": 600149
+      },
+      "style.css": {
+        "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+        "bytes": 8044
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "configuration-torus.bin": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "configuration-million.bin": {
+        "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "bytes": 469
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      }
+    },
+    "proposed_app_sha256": "a5fe170a2a6f0498f24ea6f043eee2417571c41032e7b3405a3f92faf11d508d",
+    "DTR_revision_unchanged": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "npm_lock_sha256": "ccec111e2747a264962c8676bd5f65e18a1becad191453d6d127b156725ba37f",
+    "freeze": "After committing, build with existing tools/build_observer_mainnet.mjs from a clean worktree, assert app/file equality to tested assets and source_dirty=false, preserve complete manifest and SHA256SUMS in independent local read-only evidence directory. No mainnet upload authorised."
+  },
+  "scope": {
+    "production_files": [
+      "apps/b2z-observer/app.mjs",
+      "apps/b2z-observer/camera.mjs",
+      "apps/b2z-observer/model.mjs",
+      "apps/b2z-observer/render.mjs",
+      "apps/b2z-observer/shell.mjs"
+    ],
+    "model_change": "Presentation-only territory cache invalidation counter; no state/ownership rules, physics or authoritative formats altered.",
+    "backend_DTR_locks_payments_treasury_pacing_unchanged": true,
+    "mainnet_mutations": false,
+    "remote_git_changes": false,
+    "historical_goldens_changed": false
+  },
+  "CI": {
+    "status": "NOT_RUN for this new feature commit",
+    "publication": "User-owned git push -u origin feature/b2z-million-cell-visuals",
+    "gate": "Require successful verification workflow on the exact candidate commit before any later authorised frontend-only deployment."
+  },
+  "raw_evidence": {
+    "work_directory": ".work/million-visuals",
+    "durable_copy": "Preserved independently outside checkout after final commit; see final delivery for directory and checksum manifest",
+    "earlier_attempts": "Retained under .work. Harness-only failures: CSP-incompatible Playwright string predicate, missing explicit cannon selection, floating-point equality and CSS-vs-canvas minimap/pointer coordinates. Production security policy was preserved; final real gesture and payment preparation tests pass."
+  },
+  "exact_changed_file_inventory": "changed-files.json"
+}

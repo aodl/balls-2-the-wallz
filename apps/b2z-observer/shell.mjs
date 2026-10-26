@@ -11,7 +11,7 @@ export function createShell(doc,camera,arcade,onPick){
  $('empty-prepare').addEventListener('click',()=>open('play-dialog'));
  $('pick-move').addEventListener('click',()=>{$('play-dialog').close();$('board').focus();$('camera-help').textContent='Choose a highlighted owned cell. Clicking prepares a memo; it never executes a move.';});
  $('fit-world').addEventListener('click',()=>camera.fit());
- $('centre-cannon').addEventListener('click',()=>{const c=onPick.selected();if(c)camera.centre(c.cell%camera.width+.5,Math.floor(c.cell/camera.width)+.5);});
+ $('centre-cannon').addEventListener('click',()=>{const c=onPick.selected();if(c)camera.frameCell(c.cell);});
  for(const [id,factor]of[['zoom-in',1.5],['zoom-out',1/1.5]])$(id).addEventListener('click',()=>camera.zoom(factor));
  const canvas=$('board'),pointers=new Map();let gesture=null;
  const point=e=>{const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
