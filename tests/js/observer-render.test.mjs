@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {territoryLayout,territoryColor,pieceGeometry,gridLines,createArenaRenderer} from '../../apps/b2z-observer/render.mjs';
+import {boundaryIndex,territoryLayout,territoryColor,pieceGeometry,gridLines,createArenaRenderer} from '../../apps/b2z-observer/render.mjs';
 import {Camera} from '../../apps/b2z-observer/camera.mjs';
 import {B2zView} from '../../apps/b2z-observer/model.mjs';
 import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
@@ -46,14 +46,14 @@ test('production renderer draws proportional geometry and reuses its opaque, cul
  const camera=new Camera();camera.configure(1000,1000,390,844,true);camera.centre(500.5,500.5);
  const run=scale=>{camera.scale=scale;const ctx=mock();renderer.draw(ctx,v,camera,{selected:1});return ctx;};
  const a=run(24),fills=paint.calls.filter(c=>c[0]==='fillRect').length,b=run(48);
- assert.equal(allocations,1);assert.equal(paint.calls.filter(c=>c[0]==='fillRect').length,fills,'static territory is not rebuilt per frame');
+ assert.equal(allocations,2);assert.equal(paint.calls.filter(c=>c[0]==='fillRect').length,fills,'static territory is not rebuilt per frame');
  const arcs=c=>c.calls.filter(x=>x[0]==='arc').map(x=>x[3]);assert.equal(arcs(a).length,3);arcs(a).forEach((r,i)=>near(arcs(b)[i],r*2));
  const next=view();next.ownership.base.fill(1);next.ownership.overrides=[];renderer.draw(mock(),next,camera);assert.equal(paint.calls.filter(c=>c[0]==='fillRect').length,fills,'trajectory-only new snapshots reuse the terrain');
  const strokes=c=>c.calls.filter(x=>x[0]==='set'&&x[1]==='lineWidth').map(x=>x[2]);strokes(a).forEach((width,i)=>near(strokes(b)[i],width*2));
  const glow=c=>c.calls.find(x=>x[0]==='set'&&x[1]==='shadowBlur'&&x[2]>0)[2];near(glow(b),glow(a)*2);
  const body=c=>c.calls.find(x=>x[0]==='fillRect');near(body(b)[3],body(a)[3]*2);
  const image=b.calls.find(c=>c[0]==='drawImage');assert.ok(image[4]<30&&image[5]<30,'only the visible source rectangle is drawn');
- v.setRange(500500,500501,1,2);run(48);assert.ok(paint.calls.filter(c=>c[0]==='fillRect').length>fills,'certified ownership changes invalidate the raster');assert.equal(allocations,1);
+ v.setRange(500500,500501,1,2);run(48);assert.ok(paint.calls.filter(c=>c[0]==='fillRect').length>fills,'certified ownership changes invalidate the raster');assert.equal(allocations,2);
 });
 test('wrapped ball bodies and velocity tails survive a seam even before the viewport crosses it',()=>{
  const v=view();v.ownership.base.fill(1);v.ownership.overrides=[];v.cannons.clear();v.pending.clear();
@@ -63,4 +63,35 @@ test('wrapped ball bodies and velocity tails survive a seam even before the view
  const ctx=mock(),renderer=createArenaRenderer(()=>({getContext:()=>mock()}));renderer.draw(ctx,v,camera);
  assert.ok(ctx.calls.some(c=>c[0]==='arc'),'wrapped body portion is culled with its physical extent, not just its centre');
  const tail=ctx.calls.find(c=>c[0]==='moveTo'&&Math.abs(c[1]-(10/1024-.12)*96)<1e-8);assert.ok(tail,'tail uses original signed velocity and follows its own wrapped ball');
+});
+
+test('boundary bins equal brute traversal, deduplicate long edges and preserve outer seams',()=>{
+ for(const width of [32,1000]){
+  const edges=[{x1:0,y1:0,x2:width,y2:0},{x1:width,y1:0,x2:width,y2:width},{x1:0,y1:width,x2:width,y2:width},{x1:16,y1:0,x2:16,y2:width}];
+  const index=boundaryIndex(edges,width,width);
+  for(const [x0,y0,x1,y1] of [[0,0,width,width],[width,0,width,width],[0,width,width,width],[7,5,18,22],[17,9,23,20]]){
+   const expected=edges.filter(e=>!(Math.max(e.x1,e.x2)<x0||Math.min(e.x1,e.x2)>x1||Math.max(e.y1,e.y2)<y0||Math.min(e.y1,e.y2)>y1)),found=[];
+   index.visit(x0,y0,x1,y1,e=>found.push(e));assert.deepEqual(new Set(found),new Set(expected));assert.equal(found.length,expected.length);
+  }
+ }
+ const edges=Array.from({length:50000},(_,i)=>({x1:i%1000,y1:Math.floor(i/1000)*20,x2:i%1000,y2:Math.floor(i/1000)*20+1}));
+ assert.ok(boundaryIndex(edges,1000,1000).visit(496,496,504,504,()=>{})<200,'offscreen edges are not traversed');
+});
+test('single bounded viewport overlay is invalidated by camera, DPR and ownership only',()=>{
+ const v=view();v.ownership.base.fill(1);v.ownership.overrides=[];
+ const canvases=[],renderer=createArenaRenderer(()=>{const context=mock(),c={getContext:()=>context,context};canvases.push(c);return c;});
+ const camera=new Camera();camera.configure(1000,1000,390,844,true);camera.scale=48;camera.centre(500,500);
+ const draw=(ratio=1)=>renderer.draw(mock(),v,camera,{ratio});draw();const overlay=canvases[1],clears=()=>overlay.context.calls.filter(c=>c[0]==='clearRect').length;assert.equal(clears(),1);
+ draw();assert.equal(clears(),1);camera.x+=.1;draw();assert.equal(clears(),2);camera.scale*=2;draw();assert.equal(clears(),3);draw(2);assert.equal(clears(),4);assert.equal(overlay.width,780);assert.equal(overlay.height,1688);
+ camera.viewport.width=400;draw(2);assert.equal(clears(),5);v.setRange(500500,500501,1,2);draw(2);assert.equal(clears(),6);assert.equal(canvases.length,2);
+});
+
+test('overview pans reuse a bounded boundary raster and preserve both halves of toroidal seam strokes',()=>{
+ const v=view();v.ownership.base=v.ownership.base.map((_,i)=>i%32<16?1:2);v.ownership.overrides=[];
+ const canvases=[],renderer=createArenaRenderer(()=>{const context=mock(),c={getContext:()=>context,context};canvases.push(c);return c;});
+ const camera=new Camera();camera.configure(1000,1000,1440,900,true);camera.fit();renderer.draw(mock(),v,camera);
+ const raster=canvases[1],calls=raster.context.calls.length;assert.equal(raster.width,2000);assert.equal(raster.height,2000);
+ assert.ok(raster.context.calls.some(c=>c[0]==='moveTo'&&c[1]===1000),'wrapped half of x=0 boundary');
+ renderer.terrain(v).index.visit=()=>{throw Error('overview must not traverse edges when panning');};
+ camera.x+=.5;renderer.draw(mock(),v,camera);assert.equal(raster.context.calls.length,calls);assert.equal(canvases.length,2);
 });

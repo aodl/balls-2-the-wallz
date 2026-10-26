@@ -72,8 +72,29 @@ export function gridLines(bounds,width,height,scale){
   const axis=(start,length,max)=>Array.from({length:Math.max(0,Math.floor(Math.min(max,start+length))-Math.ceil(Math.max(0,start))+1)},(_,i)=>Math.ceil(Math.max(0,start))+i);
   return {x:axis(bounds.x,bounds.width,width),y:axis(bounds.y,bounds.height,height),alpha:Math.min(1,(scale-12)/12)};
 }
+/** Fixed spatial bins; each query visits only intersecting bins and emits once.
+ * The stamp array avoids allocating a Set/list of edges during camera movement.
+ */
+export function boundaryIndex(edges,width,height){
+  const size=32,columns=Math.ceil(width/size),rows=Math.ceil(height/size),bins=Array.from({length:columns*rows},()=>[]),seen=new Uint32Array(edges.length);let stamp=0;
+  edges.forEach((e,id)=>{
+    const x0=Math.min(columns-1,Math.max(0,Math.floor(Math.min(e.x1,e.x2)/size))),x1=Math.min(columns-1,Math.floor(Math.max(e.x1,e.x2)/size));
+    const y0=Math.min(rows-1,Math.max(0,Math.floor(Math.min(e.y1,e.y2)/size))),y1=Math.min(rows-1,Math.floor(Math.max(e.y1,e.y2)/size));
+    for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)bins[y*columns+x].push(id);
+  });
+  return {visit(x0,y0,x1,y1,emit){
+    if(++stamp===0x100000000){seen.fill(0);stamp=1;}
+    let visited=0;
+    const left=Math.min(columns-1,Math.max(0,Math.floor(x0/size))),right=Math.min(columns-1,Math.floor(x1/size)),top=Math.min(rows-1,Math.max(0,Math.floor(y0/size))),bottom=Math.min(rows-1,Math.floor(y1/size));
+    for(let y=top;y<=bottom;y++)for(let x=left;x<=right;x++)for(const id of bins[y*columns+x]){
+      if(seen[id]===stamp)continue;seen[id]=stamp;visited++;const e=edges[id];
+      if(Math.max(e.x1,e.x2)<x0||Math.min(e.x1,e.x2)>x1||Math.max(e.y1,e.y2)<y0||Math.min(e.y1,e.y2)>y1)continue;emit(e);
+    }
+    return visited;
+  }};
+}
 export function createArenaRenderer(canvasFactory=()=>document.createElement('canvas')){
-  let cache=null;
+  let cache=null,overlay=null,overlayKey=null,overview=null,overviewLayer=null;
   function terrain(v){
     if(cache?.view===v&&cache.revision===v.territoryRevision)return cache;
     // New certified segments often change only trajectories/time. Reuse the
@@ -87,7 +108,37 @@ export function createArenaRenderer(canvasFactory=()=>document.createElement('ca
     const image=cache?.image??canvasFactory();image.width=v.width;image.height=v.height;
     const layout=territoryLayout(v),context=image.getContext('2d');
     for(const r of layout.rects){context.fillStyle=territoryColor(r.owner);context.fillRect(r.x,r.y,r.width,r.height);}
-    cache={view:v,revision:v.territoryRevision,image,...layout};return cache;
+    cache={view:v,revision:v.territoryRevision,image,...layout,index:boundaryIndex(layout.edges,v.width,v.height)};overlayKey=null;overviewLayer=null;return cache;
+  }
+  // Low zoom uses a bounded 2-pixel-per-cell boundary raster. Its exact world
+  // coordinates/coverage survive pan and wrap without rebuilding a huge path.
+  function overviewBoundaries(v,layer){
+    if(overviewLayer===layer)return overview;
+    overview??=canvasFactory();overview.width=v.width*2;overview.height=v.height*2;
+    const context=overview.getContext('2d');context.setTransform(2,0,0,2,0,0);context.strokeStyle='#b6c9df66';context.lineWidth=.035;context.beginPath();
+    for(const e of layer.edges){
+      context.moveTo(e.x1,e.y1);context.lineTo(e.x2,e.y2);
+      // Preserve both half-strokes on a toroidal raster seam.
+      if(v.torus&&e.x1===0&&e.x2===0){context.moveTo(v.width,e.y1);context.lineTo(v.width,e.y2);}
+      if(v.torus&&e.y1===0&&e.y2===0){context.moveTo(e.x1,v.height);context.lineTo(e.x2,v.height);}
+    }context.stroke();overviewLayer=layer;return overview;
+  }
+  function boundaries(v,camera,layer,ratio){
+    const {width,height}=camera.viewport,cell=camera.scale;
+    if(overlayKey&&overlayKey.x===camera.x&&overlayKey.y===camera.y&&overlayKey.scale===cell&&overlayKey.width===width&&overlayKey.height===height&&overlayKey.ratio===ratio)return overlay;
+    overlay??=canvasFactory();const w=Math.round(width*ratio),h=Math.round(height*ratio);
+    if(overlay.width!==w||overlay.height!==h){overlay.width=w;overlay.height=h;}
+    const context=overlay.getContext('2d'),bounds=camera.bounds();context.setTransform(ratio,0,0,ratio,0,0);context.clearRect(0,0,width,height);
+    for(const tile of camera.copies()){
+      const origin=camera.screen(tile.x,tile.y),x0=Math.max(0,Math.floor(bounds.x-tile.x)),y0=Math.max(0,Math.floor(bounds.y-tile.y)),x1=Math.min(v.width,Math.ceil(bounds.x+bounds.width-tile.x)),y1=Math.min(v.height,Math.ceil(bounds.y+bounds.height-tile.y));
+      if(x1<=x0||y1<=y0)continue;
+      context.save();context.translate(origin.x,origin.y);context.strokeStyle='#b6c9df66';context.lineWidth=.035*cell;context.beginPath();
+      layer.index.visit(x0,y0,x1,y1,e=>{context.moveTo(e.x1*cell,e.y1*cell);context.lineTo(e.x2*cell,e.y2*cell);});context.stroke();
+      const grid=gridLines({x:x0,y:y0,width:x1-x0,height:y1-y0},v.width,v.height,cell);
+      if(grid.alpha){context.globalAlpha=grid.alpha;context.strokeStyle='#45638455';context.lineWidth=.0125*cell;context.beginPath();for(const x of grid.x){context.moveTo(x*cell,y0*cell);context.lineTo(x*cell,y1*cell);}for(const y of grid.y){context.moveTo(x0*cell,y*cell);context.lineTo(x1*cell,y*cell);}context.stroke();context.globalAlpha=1;}
+      context.restore();
+    }
+    overlayKey={x:camera.x,y:camera.y,scale:cell,width,height,ratio};return overlay;
   }
   function draw(ctx,v,camera,{time=0,selection=null,selected=null,ratio=1}={}){
     const cell=camera.scale,bounds=camera.bounds(),layer=terrain(v),g=pieceGeometry(cell),viewport=camera.viewport;
@@ -96,12 +147,10 @@ export function createArenaRenderer(canvasFactory=()=>document.createElement('ca
       if(x1<=x0||y1<=y0)continue;
       ctx.save();ctx.translate(origin.x,origin.y);ctx.imageSmoothingEnabled=false;
       ctx.drawImage(layer.image,x0,y0,x1-x0,y1-y0,x0*cell,y0*cell,(x1-x0)*cell,(y1-y0)*cell);
-      ctx.strokeStyle='#b6c9df66';ctx.lineWidth=.035*cell;ctx.beginPath();
-      for(const e of layer.edges){if(Math.max(e.x1,e.x2)<x0||Math.min(e.x1,e.x2)>x1||Math.max(e.y1,e.y2)<y0||Math.min(e.y1,e.y2)>y1)continue;ctx.moveTo(e.x1*cell,e.y1*cell);ctx.lineTo(e.x2*cell,e.y2*cell);}ctx.stroke();
-      const grid=gridLines({x:x0,y:y0,width:x1-x0,height:y1-y0},v.width,v.height,cell);
-      if(grid.alpha){ctx.globalAlpha=grid.alpha;ctx.strokeStyle='#45638455';ctx.lineWidth=.0125*cell;ctx.beginPath();for(const x of grid.x){ctx.moveTo(x*cell,y0*cell);ctx.lineTo(x*cell,y1*cell);}for(const y of grid.y){ctx.moveTo(x0*cell,y*cell);ctx.lineTo(x1*cell,y*cell);}ctx.stroke();ctx.globalAlpha=1;}
+      if(cell<=2){ctx.imageSmoothingEnabled=true;ctx.drawImage(overviewBoundaries(v,layer),x0*2,y0*2,(x1-x0)*2,(y1-y0)*2,x0*cell,y0*cell,(x1-x0)*cell,(y1-y0)*cell);}
       ctx.restore();
     }
+    if(cell>2)ctx.drawImage(boundaries(v,camera,layer,ratio),0,0,viewport.width,viewport.height);
     let margin=.6;for(const b of v.balls.values())margin=Math.max(margin,Math.hypot(b.vx,b.vy)/1024*.12+.3);
     const onScreen=(x,y,extent)=>x+extent>=0&&x-extent<=viewport.width&&y+extent>=0&&y-extent<=viewport.height;
     for(const tile of camera.copies(margin)){

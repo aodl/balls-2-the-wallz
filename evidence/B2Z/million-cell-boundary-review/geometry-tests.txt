@@ -1,0 +1,21 @@
+✔ camera preserves world aspect and pointer anchor at bounded zoom (1.297716ms)
+✔ pan, resize and publications preserve local camera centre and picking (0.414006ms)
+✔ wrap picking and split minimap rectangles refer to one underlying world (1.284416ms)
+✔ million-cell desktop and mobile reach a useful absolute cell scale without losing pointer picking (0.489506ms)
+✔ opaque territory partitions compact ownership exactly, including cross-row and unowned overrides (31.04488ms)
+✔ storage divisions disappear for a single owner and genuine integer geography remains (14.811081ms)
+✔ every body, outline, barrel, ring, tail, glow and effect scales with cells without a pixel floor (1.294116ms)
+✔ fine grid fades in at resolvable zoom and uses only actual integer cell coordinates (0.788909ms)
+✔ production renderer draws proportional geometry and reuses its opaque, culled territory raster (18.505926ms)
+✔ wrapped ball bodies and velocity tails survive a seam even before the viewport crosses it (7.053586ms)
+✔ boundary bins equal brute traversal, deduplicate long edges and preserve outer seams (20.834755ms)
+✔ single bounded viewport overlay is invalidated by camera, DPR and ownership only (14.059872ms)
+✔ overview pans reuse a bounded boundary raster and preserve both halves of toroidal seam strokes (10.845533ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 334.56599
