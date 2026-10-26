@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "snapshot_root": "/home/codexdev/b2z-release-evidence/million-cell-v5-12fe4b6c-20261026",
+  "storage": "Verified read-only LOCAL snapshot outside the checkout. No remote upload or off-host backup is claimed.",
+  "inventory": {
+    "path": "SNAPSHOT.SHA256SUMS",
+    "sha256": "e53c43e55654a0586d273bcfc8fc73752665b0307e805bd1fc4343425a5eaa4b",
+    "entries": 22751,
+    "copied_files": 22750,
+    "bytes": 1123545498
+  },
+  "snapshot_metadata": {
+    "path": "SNAPSHOT.json",
+    "sha256": "1d970acc46e46d2383c5e9045dc7ef51fe43c75a0c5ece052448cd1b510ab044"
+  },
+  "original_frozen_observation_manifest": {
+    "snapshot_path": ".work/million-frozen-controlled/final-SHA256SUMS",
+    "committed_copy": "evidence/B2Z/million-cell-release/frozen-observation.SHA256SUMS",
+    "sha256": "6626acc3721e2d709ad51c06a5cad808c40e3c0b557ecfcc5a8d6f7b6c33cffc",
+    "entries": 2623
+  },
+  "verification": "Verify inventory SHA against this committed record, then run sha256sum -c SNAPSHOT.SHA256SUMS and sha256sum -c .work/million-frozen-controlled/final-SHA256SUMS from snapshot_root. Original relative paths are preserved.",
+  "contents": [
+    "Frozen successful observation, installed-module proof, frontend manifests, exact Wasm/assets/DTR archive, raw HTTP/wire/playback/resource evidence and analysis",
+    "Historical video-on/video-free failures, isolation failure, diagnostic runs and supplementary retry; original reports unchanged",
+    "Original candidate verification/manifests, exact-predecessor/treasury evidence, package-consumer/source evidence",
+    "Exact12fe4b6 CI run/job/artifact provenance and downloaded installed-IC/Wasm evidence"
+  ],
+  "release_candidate_tag": "rc/b2z-million-cell-v5-20261026",
+  "immutability": "Annotated local tag created without force after closure commit; publish once, verify its tag-object and peeled commit IDs, and never move/delete it. Snapshot inventory and original manifest digests are pinned here."
+}

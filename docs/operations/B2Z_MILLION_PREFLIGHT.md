@@ -1,38 +1,59 @@
 # Million-cell candidate: future deployment preflight and activation order
 
-This is a prepared procedure, **not authorization to execute it**. The current
-qualification task performs no mainnet mutation, v5 activation, merge to master,
+This is a prepared procedure, **not authorization to execute it**. This
+closure performs no mainnet mutation, v5 activation, merge to master,
 financial action or controller change. Historical statements about an authorized
 "current task" in S14_OPERATOR.md do not authorize this candidate.
 
-## Identity and evidence to carry forward
+## Development qualification and identity to carry forward
 
-- Published candidate/evidence commit: `ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf`.
-  Its tested implementation is `62ace9f718d48e18793e7ddbd91bd7f5cd020ca9`;
-  the candidate adds status/evidence documents. Exact-candidate CI run:
-  [40144120473](https://github.com/aodl/balls-2-the-wallz/actions/runs/40144120473).
-  Record actual final conclusions; an informational inventory job is not approval.
-- The extended observation has a separate harness commit and local result.
-  Record that SHA and its own CI outcome separately. Old CI never qualifies a
-  changed harness or product source. Remote publication remains user-owned.
+Development qualification is **PASS**. The unchanged 900.297-second frozen-artifact
+Normal gate passed: zero stalls, resynchronizations and adaptive limiting; stable
+verified buffering; measured CPU headroom. Lifeline reconnect and independent
+replay of 1,037 installed publications pass. Historical FAIL reports remain
+unchanged and the upstream-delivery risk remains unresolved and accepted for
+source integration. Another speculative engineering pass is not a promotion gate.
+
+- Tested source/harness: `12fe4b6c0395b7e04a8b19b3997cd6fd90c8ffff`.
+  [CI 40193219784](https://github.com/aodl/balls-2-the-wallz/actions/runs/40193219784)
+  passed all six substantive jobs, including the full 50-check installed suite.
+  Original implementation: `62ace9f718d48e18793e7ddbd91bd7f5cd020ca9`;
+  original evidence candidate: `ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf`.
+- The documentation/evidence closure is a **new commit**. Require green CI on
+  that exact published commit before promotion, using the guards in
+  [B2Z_MILLION_PROMOTION.md](B2Z_MILLION_PROMOTION.md). Do not reuse the older
+  run as verification of a changed commit. Preserve the development checkpoint
+  and annotated candidate tag `rc/b2z-million-cell-v5-20261026`; never move it.
 - Frozen normal Wasm SHA-256:
   `7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51`.
+  The controlled observation confirmed this exact installed disposable module.
 - Frozen production app SHA-256:
   `3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732`.
-  Verify **every** frontend file against its build manifest, not just the app.
+  Verify **every** production frontend file against its original build manifest
+  (SHA-256 `6bdaa08ae70f33f5864ddcd619b6321edad1dd7aa3b6a92b31a9fed6d0364a92`).
+- The approved disposable-root adapter actually served during qualification was
+  `eb9c7cdd07e706c95738c5167f6674eda30692afb7b1ca956c06d191d2fd4451`.
+  It has a separate trust configuration. Future mainnet assets come from the
+  frozen **production** frontend directory, not the local adapter directory.
 - DTR Rust/npm revision: `e1bfcf25071d11190d14f461288e12a21ca26cf8`;
   reviewed 0.14.0 archive SHA-256:
   `ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`.
-- Keep original candidate verification.json unchanged. A later report describes
-  CI and observation results without rewriting its historical provenance.
-  Checkout-dependent Cargo/Rust binary hashes do not authorize substituting a
-  CI binary or a fresh rebuild for the frozen, installed-tested artifact.
+- [Final closure](../../evidence/B2Z/million-cell-release/frozen-qualification-closure.json)
+  and [durable evidence index](../../evidence/B2Z/million-cell-release/raw-evidence-index.json)
+  pin the complete raw snapshot and the byte-identical original frozen manifest.
+  The verified read-only local snapshot is
+  `/home/codexdev/b2z-release-evidence/million-cell-v5-12fe4b6c-20261026`.
+  Resolve original `.work/...` references relative to that snapshot root.
+  Qualified installation inputs are under
+  `.work/million-frozen-controlled/qualified-artifacts/` inside the snapshot.
+- Keep original candidate verification.json, historical PASS/FAIL reports and
+  manifests unchanged. Checkout-dependent Cargo/Rust bytes do not authorise
+  substituting a CI build (`ebc07e28…`) or a fresh rebuild for frozen `7c078fb3…`.
 
-The extended timing gate uses the real sandboxed observer, normal rendering,
-screenshots, certified wire replies and dense raw telemetry, without optional
-software video encoding. The original short recorded cases remain separate.
-The video-on 900-second run failed and remains recorded as FAIL; the current
-review report must state the video-free gate's actual outcome independently.
+**Mainnet remains v4 pending separate authorisation.** This document is prepared
+only; closure did not query or change live state. Master promotion alone does not
+install the Wasm or activate the authenticated v4→v5 world transition. The
+informational production-inventory CI job is not deployment approval.
 
 ## Fresh read-only preflight, immediately before any separately authorized change
 

@@ -1,4 +1,53 @@
-# Million-cell final qualification — NO-GO pending strict sustained Normal and new harness CI
+# Million-cell development qualification — PASS; master promotion gated by exact-commit CI
+
+**2026-10-26:** the established development acceptance gates are complete. The
+reviewed frozen normal Wasm `7c078fb3…` passed the unchanged **900.297-second**
+four-ball 1,000×1,000 v5 observation in a real sandboxed browser and disposable IC.
+Management status independently confirmed the installed frozen module. Normal
+stayed selected with a **1 tick/s target and supported rate**.
+
+Production was **0.9886–0.9930 ticks/s** including polling uncertainty;
+authenticated admission **0.98967**, display **0.98934**. Buffer
+**17.434 → 17.735 ticks**, conservation and rolling stability pass. There were
+**zero stalls, resynchronizations or adaptive-limiting samples**. The fresh
+10-minute baseline had **97% median CPU idle**; the measured window had **30%**
+median idle and at least **3.4 GB** available memory. I/O pauses are retained.
+Lifeline reconnect and exact independent replay of **1,037 publications** pass.
+The documented resource-only I/O-screen revision did not change application
+acceptance criteria; its earlier rejected baseline remains preserved.
+
+Published source/harness commit `12fe4b6c0395b7e04a8b19b3997cd6fd90c8ffff` passed
+[CI 40193219784](https://github.com/aodl/balls-2-the-wallz/actions/runs/40193219784):
+all six substantive jobs, including the complete **50-check / 42-selected-case**
+installed-IC suite. This documentation/evidence closure creates a new commit;
+**require green CI on that exact commit before master promotion**. Do not
+attribute the earlier run to the new commit. No full suite was repeated locally.
+
+The frozen production app remains `3c593c54…`; the separately identified
+local-root adapter served for the authorised test is `eb9c7cdd…`. The complete
+frozen frontend manifest, Wasm and immutable DTR 0.14 inputs are unchanged.
+Raw successful and failed observations, original manifests, artifacts and CI
+provenance are retained in a verified read-only snapshot outside the checkout:
+`/home/codexdev/b2z-release-evidence/million-cell-v5-12fe4b6c-20261026`.
+
+[Final qualification closure](evidence/B2Z/million-cell-release/frozen-qualification-closure.json)
+· [Durable evidence index](evidence/B2Z/million-cell-release/raw-evidence-index.json)
+· [User-owned publication and fast-forward procedure](docs/operations/B2Z_MILLION_PROMOTION.md)
+· [Separate future deployment preflight](docs/operations/B2Z_MILLION_PREFLIGHT.md).
+
+The historical upstream-delivery risk remains documented and accepted for source
+integration; this pass does not establish its cause or guarantee continuity under
+arbitrary delays. No speculative engineering pass is required before integration.
+**Mainnet remains on the 32×32 v4 world pending separate authorisation.** No new
+live-state inventory is claimed by this closure. Source promotion is not a Wasm
+upgrade or world activation; neither is authorised or performed here.
+
+The dated entries below describe earlier states. Their FAIL/BLOCKED records and
+original reports are retained; they are not the current development decision.
+
+---
+
+## Historical status — earlier qualification blockers
 
 ## Authenticated-delivery investigation — 2026-10-25
 

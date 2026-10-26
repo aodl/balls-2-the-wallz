@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-26T06:58:29.324660+00:00",
+  "development_qualification": "PASS",
+  "promotion": "Gated on exactCI for the commit containing this documentation/evidence closure; no remote branch changes performed.",
+  "tested_source_commit": "12fe4b6c0395b7e04a8b19b3997cd6fd90c8ffff",
+  "original_implementation_commit": "62ace9f718d48e18793e7ddbd91bd7f5cd020ca9",
+  "closure_commit": "The Git commit containing this report, anchored by the annotated release-candidate tag; no self-referential SHA is embedded.",
+  "release_candidate_tag": "rc/b2z-million-cell-v5-20261026",
+  "CI": {
+    "run_id": 40193219784,
+    "head_sha": "12fe4b6c0395b7e04a8b19b3997cd6fd90c8ffff",
+    "conclusion": "success",
+    "substantive_jobs": 6,
+    "installed_runner_checks": 50,
+    "selected_cases": 42,
+    "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40193219784",
+    "informational_inventory_is_deployment_approval": false,
+    "prior_CI_does_not_qualify_new_closure_commit": true
+  },
+  "artifacts": {
+    "normal_wasm_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "installed_disposable_Normal_module_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "frozen_production_app_sha256": "3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732",
+    "frontend_manifest_sha256": "6bdaa08ae70f33f5864ddcd619b6321edad1dd7aa3b6a92b31a9fed6d0364a92",
+    "served_local_adapter_app_sha256": "eb9c7cdd07e706c95738c5167f6674eda30692afb7b1ca956c06d191d2fd4451",
+    "DTR_revision": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "DTR_archive_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc",
+    "CI_build_variant_not_substituted": "ebc07e2835cac3085398c871fbe738b2e5a3fc13a07eb9991342c48a4c846609",
+    "artifact_snapshot_directory": ".work/million-frozen-controlled/qualified-artifacts",
+    "original_candidate_verification": ".work/million-release/candidate/verification.json"
+  },
+  "Normal_observation": {
+    "window_utc": [
+      "2026-10-25T23:55:26.430200+00:00",
+      "2026-10-26T00:10:26.727500+00:00"
+    ],
+    "seconds": 900.2973000488281,
+    "video": false,
+    "real_sandboxed_browser": true,
+    "world": "1000x1000v5, representative four-ball fixture",
+    "funding_mode": "Normal",
+    "authoritative_target_ticks_per_second": 1,
+    "supported_milli_ticks_per_second": 1000,
+    "produced_ticks_per_second_bounds": [
+      0.9885623337443424,
+      0.9930053105252159
+    ],
+    "admitted_ticks_per_second": 0.9896730779395608,
+    "displayed_ticks_per_second": 0.9893393297733564,
+    "admitted_ticks": 891,
+    "displayed_ticks": 890.6995274270699,
+    "buffer_start": 17.43438871426183,
+    "buffer_end": 17.734861287110448,
+    "buffer_conservation_error": -8.144240837282268e-11,
+    "buffer_OLS_ticks_per_second": -0.0006076315517950921,
+    "last_three_minus_first_three_minute_mean_ticks": -0.5923276758730793,
+    "stalls": 0,
+    "resynchronizations": 0,
+    "performance_limited": false,
+    "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production."
+  },
+  "strict_checks": {
+    "rates": true,
+    "no_stall_or_rebuffer": true,
+    "no_resynchronization": true,
+    "normal_not_performance_limited": true,
+    "buffer_accounting": true,
+    "bounded_queue": true,
+    "no_sustained_buffer_deficit": true
+  },
+  "resources": {
+    "CPU_count": 2,
+    "baseline_seconds": 599.7751416669926,
+    "baseline_CPU_idle_median_percent": 97,
+    "runtime_CPU_idle_percent": {
+      "samples": 899,
+      "min": 4,
+      "median": 30,
+      "p95": 35,
+      "max": 40
+    },
+    "runtime_run_queue": {
+      "samples": 899,
+      "min": 0,
+      "median": 2,
+      "p95": 5,
+      "max": 10
+    },
+    "runtime_IO_wait_percent": {
+      "samples": 899,
+      "min": 0,
+      "median": 0,
+      "p95": 24,
+      "max": 46
+    },
+    "minimum_available_memory_bytes": 3405737984,
+    "CPU_some_pressure_fraction_percent": 26.201612743045416,
+    "memory_full_pressure_fraction_percent": 0.008696025770161315,
+    "IO_full_pressure_fraction_percent": 3.3942568665840667,
+    "swap_in_out": 0,
+    "resource_sample_max_gap_seconds": 1.128840087890625,
+    "resource_screen_disclosure": "Initial self-imposed maxIO-pressure<1%screen rejected a brief disk flush; original rejection retained. Before a fresh600s window, resource-onlyR2 required IO-full avg10peak<5% AND whole-window IO-full stalled fraction<1%, with unchanged CPU/memory/queue/gap criteria. No application assertion changed."
+  },
+  "acceptance_matrix": [
+    {
+      "gate": "Runtime-lab Wasm",
+      "status": "PASS",
+      "evidence": "CI40193219784, exact12fe4b6",
+      "informational": false
+    },
+    {
+      "gate": "Packaged DTR and clean consumers",
+      "status": "PASS",
+      "evidence": "CI40193219784, exact12fe4b6",
+      "informational": false
+    },
+    {
+      "gate": "Source conformance",
+      "status": "PASS",
+      "evidence": "CI40193219784, exact12fe4b6",
+      "informational": false
+    },
+    {
+      "gate": "Native conformance",
+      "status": "PASS",
+      "evidence": "CI40193219784, exact12fe4b6",
+      "informational": false
+    },
+    {
+      "gate": "S14 and million-cell installed-IC qualification",
+      "status": "PASS",
+      "evidence": "CI40193219784, exact12fe4b6",
+      "informational": false
+    },
+    {
+      "gate": "Browser HTTP and Web Crypto",
+      "status": "PASS",
+      "evidence": "CI40193219784, exact12fe4b6",
+      "informational": false
+    },
+    {
+      "gate": "Exact frozen backend installation",
+      "status": "PASS",
+      "detail": "Management canister_status confirms7c078fb3 on owned disposable IC before Normal."
+    },
+    {
+      "gate": "Complete frozen frontend and approved local adapter",
+      "status": "PASS",
+      "detail": "Production3c hash/full manifest verified; distinct served local adaptereb9c recorded. Production app trust is not bypassed."
+    },
+    {
+      "gate": "Unchanged900-second Normal rates/buffering/continuity/limits",
+      "status": "PASS",
+      "detail": "All7 strict checks pass, including zero stalls/resync/performance limiting; no observation trimming."
+    },
+    {
+      "gate": "Measured quiet baseline and runtime headroom",
+      "status": "PASS",
+      "detail": "Fresh10-minute baseline; twoCPUs,97%baseline/30%runtime median idle; IO pauses disclosed."
+    },
+    {
+      "gate": "Economy/Lifeline/cold reconnect/toroidal browser checks",
+      "status": "PASS",
+      "detail": "Existing focused fixture passes; five subsequent authenticated Lifeline publications over119.979s."
+    },
+    {
+      "gate": "Independent deterministic publication replay",
+      "status": "PASS",
+      "detail": "1037 consecutive installed Rust publications exactly replayed in JS."
+    },
+    {
+      "gate": "Exact pacing-predecessor paid-state/treasury and authenticated v4\u2192v5 preservation",
+      "status": "PREVIOUSLY PASS",
+      "evidence": "final-qualification.json:prior_upgrade_and_treasury_evidence; durable raw snapshot retained"
+    },
+    {
+      "gate": "Development qualification",
+      "status": "PASS",
+      "detail": "Accepted by user; historical delivery risk does not require speculative changes before source integration."
+    },
+    {
+      "gate": "Documentation/evidence closure exact-commitCI",
+      "status": "REQUIRED BEFORE PROMOTION",
+      "detail": "This new commit is unpublished at creation. Run40193219784 verifies12fe4b6 only. Consult Actions for the exact closure commit after user-owned publication."
+    },
+    {
+      "gate": "Master promotion",
+      "status": "NOT PERFORMED",
+      "detail": "User-owned history-preserving fast-forward only after exact closureCI; re-fetch and recheck ancestry immediately before promotion."
+    },
+    {
+      "gate": "Mainnet backend/world activation",
+      "status": "NOT AUTHORISED",
+      "detail": "Mainnet remains v4 per operator statement; no live query/mutation in closure. Fresh preflight and separate authorisation required."
+    }
+  ],
+  "historical_failures": [
+    {
+      "report": "final-qualification.json",
+      "detail": "Video-on900s FAIL with16 resyncs; video-free900s strictFAIL due16 adaptive-limiting samples despite passing rates/buffering/continuity. Both remain FAIL."
+    },
+    {
+      "report": "harness-isolation.json",
+      "detail": "EarlierCI FileExistsError and subsequent local stall/resync retained; no performance-limited samples in the interruption run."
+    },
+    {
+      "report": "delivery-interruption.json",
+      "detail": "Original11.5s upstream wait, retention expiry and resync remain unresolved; first short diagnostic capture failure retained."
+    },
+    {
+      "raw": ".work/million-integration/sustained-retry",
+      "detail": "Supplemental strict stability failure retained; not converted into passing evidence."
+    }
+  ],
+  "residual_risk": {
+    "accepted_for_source_integration": true,
+    "root_cause_resolved": false,
+    "observation": "Successful frozen run still records upstream-header waits of6.619s for observations,6.331s for lab_status and3.865s for retained artifacts. Shared upstream-path delay, not artifact-only compute, is supported; upstream connection/gateway scheduling/IO causes remain unseparated.",
+    "impact": "Long or compounded delays can exhaust finite verified buffering and16-publication retention, forcing authenticated observer recovery. One controlled900s pass is not a permanent continuity guarantee.",
+    "policy": "No speculative production redesign, buffer/retention increase, pacing change or acceptance relaxation is required before source integration. Mainnet remains separately gated."
+  },
+  "durable_evidence": {
+    "index": "raw-evidence-index.json",
+    "committed_original_manifest": "frozen-observation.SHA256SUMS",
+    "snapshot_root": "/home/codexdev/b2z-release-evidence/million-cell-v5-12fe4b6c-20261026",
+    "snapshot_inventory_sha256": "e53c43e55654a0586d273bcfc8fc73752665b0307e805bd1fc4343425a5eaa4b",
+    "raw_qualification_path": ".work/million-frozen-controlled/qualification.json",
+    "raw_qualification_sha256": "2593219f39c587d343f33ae58b2decebea5eae98fbe72b2362f9f25c9c9307bb",
+    "aligned_data": ".work/million-frozen-controlled/analysis/aligned-performance-resources.jsonl",
+    "all_original_FAIL_reports_and_raw_inputs_preserved": true
+  },
+  "scope": "Only documentation/evidence changes are intended. Frozen production application, Wasm/frontend bytes, DTR pins, locks, acceptance criteria and prior reports remain unchanged. No mainnet/merge/financial/controller operation."
+}
