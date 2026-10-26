@@ -1,6 +1,6 @@
 /** Pure B2Z placement candidate. Only the host can attest the Index cutover and commit it. */
 import {cloneCanonical} from '@dtr/timeline-runtime/runtime/canonical';
-import {decodeWorld,encodeWorld,Q,TORUS_IDENTITY,PRELAUNCH_IDENTITY} from './world.mjs';
+import {decodeWorld,encodeWorld,Q,TORUS_IDENTITY,PRELAUNCH_IDENTITY,MILLION_IDENTITY,position,scaledOwnership} from './world.mjs';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 export function stageTorusMigration(bytes,{staged=false,pending_inputs=0,source_pending=false,source_in_flight=false,source_cursor,ledger_cutover,account_history_complete_through,index_synced=account_history_complete_through,source_anchor,identity}={}){
  if(staged||pending_inputs||source_pending||source_in_flight)throw new Error('Drain old inputs and complete the old segment before transition; pending MOVE bytes cannot be reinterpreted.');
@@ -18,3 +18,15 @@ export function stageTorusMigration(bytes,{staged=false,pending_inputs=0,source_
  const state=encodeWorld(w);
  return {state,transition:{version:1,migration:'B2Z_EMBED_16X8_IN_32_TORUS_01',old_identity:identity,new_identity:{...TORUS_IDENTITY,source_id:identity.source_id},previous_state:sha256(bytes),new_state:sha256(state),logical_boundary:old.time,source_cursor,ledger_cutover,account_history_complete_through,index_synced,source_anchor},deployable:false,blocked_by:'Placement candidate requires host-authenticated cutover and atomic DTR Transition'};
 }
+export function stageMillionWorld(bytes){
+ const old=decodeWorld(bytes);if(old.version!==4||old.width!==32||old.height!==32||old.time[1]!==1n||old.pending.length)throw new Error('old committed torus boundary');
+ const w=cloneCanonical(old),period=BigInt(1000*Q);
+ const axis=value=>{let n=value[0]*1000n/(value[1]*32n);n=(n%period+period)%period;return Number(n);};
+ const velocity=v=>Math.trunc((v*1000+(v>=0?16:-16))/32);
+ const center=cell=>{const x=cell%32,y=Math.floor(cell/32),x0=Math.ceil(x*1000/32),x1=Math.ceil((x+1)*1000/32),y0=Math.ceil(y*1000/32),y1=Math.ceil((y+1)*1000/32);return Math.floor((y0+y1-1)/2)*1000+Math.floor((x0+x1-1)/2);};
+ w.version=5;w.width=1000;w.height=1000;w.ownership=scaledOwnership(old.cells);delete w.cells;
+ w.cannons=w.cannons.map(c=>({...c,cell:center(c.cell)}));
+ w.balls=w.balls.map(b=>{const [ox,oy]=position(b,old.time),x=axis(ox),y=axis(oy),vx=velocity(b.vx),vy=velocity(b.vy);return {...b,cell:Math.floor(y/Q)*1000+Math.floor(x/Q),x0:BigInt(x)-BigInt(vx)*old.time[0],y0:BigInt(y)-BigInt(vy)*old.time[0],vx,vy};});
+ return encodeWorld(w);
+}
+export {MILLION_IDENTITY};

@@ -188,10 +188,12 @@ fn create_controlled(pic: &PocketIc) -> Principal {
     )
 }
 
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct PaceHint {
     mode: String,
     nominal_milli: u32,
+    supported_milli: u32,
+    performance_limited: bool,
     admission_open: bool,
 }
 #[derive(Clone, Debug, CandidType, Deserialize)]
@@ -202,6 +204,7 @@ struct RunStatus {
     running: bool,
     callback_count: u64,
     completed_segments: u64,
+    publication_ticks: Option<u64>,
     last_error: Option<String>,
 }
 #[derive(Clone, CandidType, Deserialize)]
@@ -3079,8 +3082,8 @@ fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
     let root = dtr_wire::hash(&encode_publication(&p));
     if let Some(segment) = &p.head.segment_id {
         // The installed e1e7 predecessor predates atomic bundle delivery. Keep
-        // the authenticated chunk fallback so the upgrade rehearsal starts from
-        // the exact production module rather than the candidate.
+        // the authenticated chunk fallback so this helper can exercise a real
+        // predecessor upgrade instead of accidentally installing the candidate.
         if let Ok(reply) = pic.query_call(
             id,
             controller(),
@@ -3147,6 +3150,14 @@ fn arena_setup_world_fee(
     initial: Vec<u8>,
     fee: u64,
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee_clock(wasm, initial, fee, 0)
+}
+fn arena_setup_world_fee_clock(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+) -> (PocketIc, Principal, Principal, Principal) {
     let pic = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet()
@@ -3157,7 +3168,7 @@ fn arena_setup_world_fee(
                 .unwrap(),
         )
         .build();
-    pic.set_time(std::time::SystemTime::now().into());
+    pic.set_time((std::time::SystemTime::now() - Duration::from_secs(seconds_ago)).into());
     let payer = Principal::self_authenticating([9; 32]);
     let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &[payer], fee);
     let index = create_controlled(&pic);
@@ -3241,7 +3252,16 @@ fn cost_window(pic: &PocketIc, id: Principal, label: &str, seconds: u64) -> serd
 }
 #[test]
 fn empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation() {
-    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_S14_WASM"));
+    let prior = std::env::var("B2Z_MILLION_PRIOR_WASM")
+        .map(|path| std::fs::read(path).unwrap())
+        .unwrap_or_else(|_| bytes("B2Z_S14_WASM"));
+    if std::env::var("B2Z_MILLION_PRIOR_WASM").is_ok() {
+        assert_eq!(
+            dtr_wire::hash(&prior),
+            "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db"
+        );
+    }
+    let (pic, id, ledger, payer) = arena_setup(prior);
     start_arena(&pic, id);
     let before = status(&pic, id);
     let publication = observe(&pic, id).0.publication;
@@ -3808,6 +3828,156 @@ fn pace_world() -> b2z_native::world::World {
     world
 }
 
+fn million_population_world(ball_count: usize) -> b2z_native::world::World {
+    use b2z_native::world::{Ball, Cannon, World};
+    assert!((1..=64).contains(&ball_count));
+    let cannon_count = if ball_count > 32 { 2 } else { 1 };
+    let mut world = World::decode(&initial_world()).unwrap();
+    world.version = 4;
+    world.width = 32;
+    world.height = 32;
+    world.cells = (0..1024)
+        .map(|cell| {
+            if cannon_count == 1 || cell % 32 < 16 {
+                1
+            } else {
+                2
+            }
+        })
+        .collect();
+    world.ownership = None;
+    world.cannons = (0..cannon_count)
+        .map(|n| Cannon {
+            id: (n + 1) as u32,
+            cell: 16 * 32 + if n == 0 { 7 } else { 23 },
+            account: format!("{:02x}", n + 1).repeat(32),
+            heading: Some(0),
+        })
+        .collect();
+    world.balls = (0..ball_count)
+        .map(|n| {
+            let owner = if n < 32 || cannon_count == 1 { 1 } else { 2 };
+            let x = if owner == 1 { 5 } else { 27 };
+            let y = n % 32;
+            Ball {
+                id: (n + 1) as u32,
+                owner,
+                cell: y * 32 + x,
+                x0: Int(((x * 1024 + 512) as i64).into()),
+                y0: Int(((y * 1024 + 512) as i64).into()),
+                vx: 0,
+                vy: 1024,
+            }
+        })
+        .collect();
+    world.next_cannon_id = cannon_count as u32 + 1;
+    world.next_ball_id = ball_count as u32 + 1;
+    world.pending.clear();
+    world.next_strike_id = 1;
+    world.validate().unwrap();
+    b2z_native::migration::stage_million_world(&world).unwrap()
+}
+
+#[test]
+#[ignore = "bounded million-cell maximum-population production probe"]
+fn million_max_population_production_probe() {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let world = million_population_world(64);
+    assert_eq!(
+        (world.width, world.height, world.balls.len()),
+        (1000, 1000, 64)
+    );
+    let (pic, id, _, _) = arena_setup_world(bytes("B2Z_S14_WASM"), world.encode().unwrap());
+    let funding: FundingPause = get_result(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(true).unwrap(),
+    );
+    assert!(funding.paused);
+    start_arena(&pic, id);
+    let before = status(&pic, id);
+    let before_cycles = pic.cycle_balance(id);
+    let virtual_start = pic.get_time();
+    let wall_start = std::time::Instant::now();
+    let target = before.run.completed_segments + 8;
+    let mut steps = 0;
+    while status(&pic, id).run.completed_segments < target {
+        // Unfinished bounded work rearms at 50 ms. Advancing by 250 ms in one
+        // jump executes only the first callback at that timestamp and falsely
+        // starves the four continuations that real wall time would deliver.
+        pic.advance_time(Duration::from_millis(50));
+        for _ in 0..4 {
+            pic.tick();
+        }
+        steps += 1;
+        if steps > 240 {
+            let stalled = status(&pic, id);
+            panic!("maximum-population production stalled: {:?}", stalled.run);
+        }
+    }
+    let wall_seconds = wall_start.elapsed().as_secs_f64();
+    let measured = status(&pic, id);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let virtual_seconds = (pic.get_time().as_nanos_since_unix_epoch()
+        - virtual_start.as_nanos_since_unix_epoch()) as f64
+        / 1e9;
+    let ticks = measured.run.completed_segments - before.run.completed_segments;
+    let virtual_rate = ticks as f64 / virtual_seconds;
+    let pace = measured.run.pace.as_ref().unwrap();
+    assert_eq!(measured.run.publication_ticks, Some(1));
+    assert_eq!(pace.mode, "Normal");
+    assert_eq!(pace.nominal_milli, 1000);
+    assert_eq!(pace.supported_milli, 1000);
+    assert!(!pace.performance_limited);
+    assert!(ticks >= 8);
+    assert!(
+        (0.9..=1.2).contains(&virtual_rate),
+        "maximum-population production rate was {virtual_rate}"
+    );
+    let (observation, publication) = observe(&pic, id);
+    let artifact_bytes = publication
+        .artifacts
+        .iter()
+        .map(|artifact| artifact.length)
+        .sum::<usize>();
+    assert!(
+        publication
+            .artifacts
+            .iter()
+            .all(|artifact| artifact.length <= dtr_host::observation::MAX_ARTIFACT)
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("million-max-population.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "status":"PASS",
+            "clock":"PocketIC virtual scheduling plus local harness wall time; not mainnet wall time",
+            "world":[1000,1000],
+            "balls":64,
+            "ticks":ticks,
+            "virtual_seconds":virtual_seconds,
+            "virtual_ticks_per_second":virtual_rate,
+            "harness_wall_seconds":wall_seconds,
+            "harness_ticks_per_second":ticks as f64/wall_seconds,
+            "cycles":(before_cycles-pic.cycle_balance(id)).to_string(),
+            "publication_bytes":observation.publication.len(),
+            "artifact_bytes":artifact_bytes,
+            "state_bytes":publication.artifacts[0].length,
+            "event_bytes":publication.artifacts[1].length,
+            "score_bytes":publication.artifacts[2].length,
+            "stable_memory_bytes":pic.get_stable_memory(id).len(),
+            "pace":{"mode":pace.mode,"nominal_milli":pace.nominal_milli,"supported_milli":pace.supported_milli,"performance_limited":pace.performance_limited}
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
+
 #[test]
 #[ignore = "requires exact prior producer module"]
 fn arena_matched_prior_producer_cost_comparison() {
@@ -4260,6 +4430,260 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     );
 }
 
+#[test]
+#[ignore = "bounded million-cell browser Normal/Lifeline probe"]
+fn million_browser_normal_lifeline_and_cold_reconnect() {
+    million_browser_qualification(false);
+}
+
+#[test]
+#[ignore = "bounded 15-minute Normal observation and extended cold Lifeline reconnect"]
+fn million_browser_sustained_normal_and_cold_lifeline() {
+    million_browser_qualification(true);
+}
+
+fn claim_million_browser_output(base: &Path, sustained: bool) -> std::io::Result<PathBuf> {
+    std::fs::create_dir_all(base)?;
+    let out = base.join(if sustained {
+        "million-browser-sustained"
+    } else {
+        "million-browser-normal"
+    });
+    // Claim a fresh test root before writing configuration, markers or captures.
+    // An existing root is evidence, not scratch space that may be reused.
+    std::fs::create_dir(&out)?;
+    Ok(out)
+}
+
+#[test]
+fn million_browser_output_isolation_preserves_existing_evidence() {
+    let base = std::env::temp_dir().join(format!(
+        "b2z-million-browser-isolation-{}-{}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos()
+    ));
+    std::fs::create_dir(&base).unwrap();
+    let legacy = base.join("million-browser");
+    std::fs::create_dir(&legacy).unwrap();
+    std::fs::write(legacy.join("historical-evidence"), b"legacy").unwrap();
+    let normal = claim_million_browser_output(&base, false).unwrap();
+    std::fs::write(
+        normal.join("browser-million-normal-complete"),
+        b"normal marker",
+    )
+    .unwrap();
+    std::fs::create_dir(normal.join("wire-catalogs")).unwrap();
+    std::fs::write(normal.join("wire-catalogs/0000.cbor"), b"normal capture").unwrap();
+    let sustained = claim_million_browser_output(&base, true).unwrap();
+    assert_ne!(normal, sustained);
+    assert!(!sustained.join("browser-million-normal-complete").exists());
+    assert!(!sustained.join("wire-catalogs").exists());
+    std::fs::create_dir(sustained.join("wire-catalogs")).unwrap();
+    std::fs::write(
+        sustained.join("wire-catalogs/0000.cbor"),
+        b"sustained capture",
+    )
+    .unwrap();
+    for mode in [false, true] {
+        assert_eq!(
+            claim_million_browser_output(&base, mode)
+                .unwrap_err()
+                .kind(),
+            std::io::ErrorKind::AlreadyExists
+        );
+    }
+    assert_eq!(
+        std::fs::read(normal.join("wire-catalogs/0000.cbor")).unwrap(),
+        b"normal capture"
+    );
+    assert_eq!(
+        std::fs::read(normal.join("browser-million-normal-complete")).unwrap(),
+        b"normal marker"
+    );
+    assert_eq!(
+        std::fs::read(sustained.join("wire-catalogs/0000.cbor")).unwrap(),
+        b"sustained capture"
+    );
+    assert_eq!(
+        std::fs::read(legacy.join("historical-evidence")).unwrap(),
+        b"legacy"
+    );
+    std::fs::remove_dir_all(base).unwrap();
+}
+
+fn million_browser_qualification(sustained: bool) {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let out = claim_million_browser_output(
+        &PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()),
+        sustained,
+    )
+    .expect("million browser evidence requires a fresh test output directory");
+    let initial = million_population_world(4).encode().unwrap();
+    let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_WASM"), initial.clone());
+    let funding: FundingPause = get_result(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(true).unwrap(),
+    );
+    assert!(funding.paused);
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let config = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    std::fs::write(
+        out.join("configuration.json"),
+        serde_json::to_vec(&config).unwrap(),
+    )
+    .unwrap();
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("initial-world.bin"), &initial).unwrap();
+    std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let gateway = pic.make_live(None);
+    let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut command = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap());
+    command.current_dir(&root).args([
+        "tools/verify_s14_deployment.py",
+        "--million-scene-only",
+        "--configuration",
+        out.join("configuration.json").to_str().unwrap(),
+        "--gateway",
+        gateway.as_str(),
+        "--output",
+        out.to_str().unwrap(),
+    ]);
+    if sustained {
+        command.arg("--million-sustained");
+    }
+    let mut browser = OwnedBrowser(
+        command
+            .stdout(log.try_clone().unwrap())
+            .stderr(log)
+            .spawn()
+            .unwrap(),
+    );
+    let began = std::time::Instant::now();
+    let mut publication_timing = Vec::new();
+    let mut last_observed = 0;
+    let mut next_observation = std::time::Instant::now();
+    let mut started = false;
+    let mut economy = false;
+    let mut lifeline = false;
+    while began.elapsed() < Duration::from_secs(if sustained { 1800 } else { 420 }) {
+        if !started && out.join("browser-million-ready").exists() {
+            start_arena(&pic, id);
+            started = true;
+        }
+        if started && !economy && out.join("browser-million-normal-complete").exists() {
+            // Normal qualification uses the exact normal artifact. Only the
+            // disposable low-funding phases need test-only budget controls.
+            pic.upgrade_canister(
+                id,
+                bytes("B2Z_S14_TEST_WASM"),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap();
+            let status: Status = get_result(
+                &pic,
+                id,
+                "test_liquid_budget",
+                candid::encode_one(17_000_000_000_000u64).unwrap(),
+            );
+            assert_eq!(status.run.pace.unwrap().mode, "Economy");
+            economy = true;
+        }
+        if economy && !lifeline && out.join("browser-million-economy-complete").exists() {
+            let status: Status = get_result(
+                &pic,
+                id,
+                "test_liquid_budget",
+                candid::encode_one(2_800_000_000_000u64).unwrap(),
+            );
+            assert_eq!(status.run.pace.unwrap().mode, "Lifeline");
+            lifeline = true;
+        }
+        if let Some(code) = browser.0.try_wait().unwrap() {
+            let backend = status(&pic, id);
+            assert!(
+                code.success(),
+                "million browser failure: {}; backend={:?}",
+                out.join("browser.log").display(),
+                backend.run
+            );
+            break;
+        }
+        if started && std::time::Instant::now() >= next_observation {
+            let query_started = std::time::Instant::now();
+            let query_started_epoch_ms = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_secs_f64()
+                * 1000.;
+            let current = status(&pic, id);
+            let query_completed_epoch_ms = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_secs_f64()
+                * 1000.;
+            if sustained || current.run.completed_segments != last_observed {
+                publication_timing.push(serde_json::json!({"segment_id":current.run.completed_segments,"publication_ticks":current.run.publication_ticks.expect("publication tick count"),"query_started_epoch_ms":query_started_epoch_ms,"query_completed_epoch_ms":query_completed_epoch_ms,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"wall_seconds":began.elapsed().as_secs_f64(),"status_query_ms":query_started.elapsed().as_secs_f64()*1000.,"pace":current.run.pace}));
+                last_observed = current.run.completed_segments;
+            }
+            std::fs::write(
+                out.join("publication-timing.json"),
+                serde_json::to_vec_pretty(&publication_timing).unwrap(),
+            )
+            .unwrap();
+            next_observation = std::time::Instant::now() + Duration::from_secs(2);
+        }
+        // make_live owns wall-clock progression. Explicit tick() calls here
+        // serialize against gateway queries and manufacture delivery stalls.
+        std::thread::sleep(Duration::from_millis(100));
+    }
+    assert!(
+        started && lifeline,
+        "million browser coordination incomplete"
+    );
+    assert!(
+        out.join("browser-complete").exists(),
+        "million browser timeout"
+    );
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "Lifeline");
+    let world = arena_world(&pic, id);
+    assert_eq!((world.width, world.height), (1000, 1000));
+    std::fs::write(
+        out.join("publication-timing.json"),
+        serde_json::to_vec_pretty(&publication_timing).unwrap(),
+    )
+    .unwrap();
+    pic.stop_live();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&root)
+            .args(["tools/capture_million_history.mjs", out.to_str().unwrap()])
+            .status()
+            .unwrap()
+            .success()
+    );
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&root)
+            .args([
+                "tools/replay_s14.mjs",
+                out.join("history.json").to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+}
+
 #[derive(Deserialize)]
 struct TransitionView {
     version: u32,
@@ -4270,7 +4694,10 @@ struct TransitionView {
     transition_hash: Option<String>,
 }
 fn transition_view(pic: &PocketIc, id: Principal) -> Option<TransitionView> {
-    let bytes: Vec<u8> = get_query(pic, id, "torus_transition_status", encode_args(()).unwrap());
+    transition_view_for(pic, id, "torus_transition_status")
+}
+fn transition_view_for(pic: &PocketIc, id: Principal, method: &str) -> Option<TransitionView> {
+    let bytes: Vec<u8> = get_query(pic, id, method, encode_args(()).unwrap());
     decode(&bytes).unwrap()
 }
 fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
@@ -4286,51 +4713,52 @@ fn transition_drained(pic: &PocketIc, id: Principal) -> bool {
             == Int(status(pic, id).source.admitted_to_exclusive.into())
 }
 
+fn retained_bytes(pic: &PocketIc, id: Principal) -> BTreeMap<u64, Vec<Vec<u8>>> {
+    #[derive(CandidType, Deserialize)]
+    struct Entry {
+        segment_id: u64,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Retention {
+        entries: Vec<Entry>,
+    }
+    let retained: Retention = get_query(pic, id, "retention_status", encode_args(()).unwrap());
+    retained
+        .entries
+        .into_iter()
+        .map(|entry| {
+            let raw: Vec<u8> = get_query(
+                pic,
+                id,
+                "retained_publication",
+                candid::encode_one(entry.segment_id).unwrap(),
+            );
+            let publication: Publication = decode(&raw).unwrap();
+            let mut bytes = vec![raw];
+            for (kind, artifact) in publication.artifacts.iter().enumerate() {
+                for index in 0..artifact.chunks.len() {
+                    bytes.push(get_query(
+                        pic,
+                        id,
+                        "retained_artifact_chunk",
+                        encode_args((
+                            entry.segment_id,
+                            dtr_wire::hash(&bytes[0]),
+                            kind as u8,
+                            index as u16,
+                        ))
+                        .unwrap(),
+                    ));
+                }
+            }
+            (entry.segment_id, bytes)
+        })
+        .collect()
+}
+
 #[test]
 #[ignore = "requires exact installed e1e7 torus module"]
 fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
-    fn retained_bytes(pic: &PocketIc, id: Principal) -> BTreeMap<u64, Vec<Vec<u8>>> {
-        #[derive(CandidType, Deserialize)]
-        struct Entry {
-            segment_id: u64,
-        }
-        #[derive(CandidType, Deserialize)]
-        struct Retention {
-            entries: Vec<Entry>,
-        }
-        let retained: Retention = get_query(pic, id, "retention_status", encode_args(()).unwrap());
-        retained
-            .entries
-            .into_iter()
-            .map(|entry| {
-                let raw: Vec<u8> = get_query(
-                    pic,
-                    id,
-                    "retained_publication",
-                    candid::encode_one(entry.segment_id).unwrap(),
-                );
-                let publication: Publication = decode(&raw).unwrap();
-                let mut bytes = vec![raw];
-                for (kind, artifact) in publication.artifacts.iter().enumerate() {
-                    for index in 0..artifact.chunks.len() {
-                        bytes.push(get_query(
-                            pic,
-                            id,
-                            "retained_artifact_chunk",
-                            encode_args((
-                                entry.segment_id,
-                                dtr_wire::hash(&bytes[0]),
-                                kind as u8,
-                                index as u16,
-                            ))
-                            .unwrap(),
-                        ));
-                    }
-                }
-                (entry.segment_id, bytes)
-            })
-            .collect()
-    }
     #[derive(CandidType, Deserialize)]
     struct FundingPause {
         paused: bool,
@@ -4484,6 +4912,456 @@ fn pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate() {
     )
     .unwrap();
 }
+/// Rehearse the separately evidenced code upgrade and authenticated second epoch.
+#[test]
+#[ignore = "requires exact installed c7c69d pacing predecessor; standard runner supplies it"]
+fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
+    #[derive(CandidType, Deserialize)]
+    struct FundingPause {
+        paused: bool,
+    }
+    let predecessor = bytes("B2Z_MILLION_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db"
+    );
+    let (pic, id, ledger, _index, payer) = funding_tests::predecessor_setup(predecessor);
+    let funding: FundingPause = get_result(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(true).unwrap(),
+    );
+    assert!(funding.paused);
+    start_arena(&pic, id);
+    let join = transfer_text(&pic, ledger, payer, id, 100_000_000, b"ANGLE 37.5");
+    for _ in 0..240 {
+        tick(&pic);
+        let world = arena_world(&pic, id);
+        if world.received_e8s == Int(100_000_000u64.into())
+            && status(&pic, id).source.admitted_to_exclusive > join
+        {
+            break;
+        }
+    }
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let paid_v3 = arena_world(&pic, id);
+    assert_eq!(paid_v3.cannons.len(), 1);
+    assert_eq!(paid_v3.received_e8s, Int(100_000_000u64.into()));
+
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_torus_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    start_arena(&pic, id);
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view(&pic, id).unwrap().phase == "ready" && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert_eq!(transition_view(&pic, id).unwrap().phase, "ready");
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_torus_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    assert_eq!(observe(&pic, id).1.version, 7);
+
+    // A second epoch needs a committed successor to the first checkpoint.
+    for _ in 0..240 {
+        tick(&pic);
+        if observe(&pic, id).1.head.seal.is_some() {
+            break;
+        }
+    }
+    assert!(observe(&pic, id).1.head.seal.is_some());
+    for _ in 0..120 {
+        if retained_bytes(&pic, id).len() == 16 {
+            break;
+        }
+        tick(&pic);
+    }
+    assert_eq!(retained_bytes(&pic, id).len(), 16);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    funding_tests::complete_predecessor_treasury(&pic, id);
+    let finance_before_upgrade = funding_tests::preserved_finance(&pic, id);
+    assert_eq!(finance_before_upgrade["paused"], false);
+    let retained_before_upgrade = retained_bytes(&pic, id);
+    let source_before_upgrade = status(&pic, id).source.admitted_to_exclusive;
+    let before_upgrade = arena_world(&pic, id);
+    let publication_before_upgrade = observe(&pic, id).0.publication;
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        funding_tests::preserved_finance(&pic, id),
+        finance_before_upgrade
+    );
+    assert_eq!(arena_world(&pic, id), before_upgrade);
+    assert_eq!(retained_bytes(&pic, id), retained_before_upgrade);
+    assert_eq!(
+        status(&pic, id).source.admitted_to_exclusive,
+        source_before_upgrade
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(out.join("million-wasm-upgrade.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","predecessor_sha256":dtr_wire::hash(&bytes("B2Z_MILLION_PRIOR_WASM")),"world_hash":dtr_wire::hash(&before_upgrade.encode().unwrap()),"publication_hash":dtr_wire::hash(&publication_before_upgrade),"retained_publications":retained_before_upgrade.len(),"source_cursor":source_before_upgrade,"world_preserved":true,"scores_credits_accounts_balls_cannons_preserved":true,"treasury_preserved":finance_before_upgrade})).unwrap()).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, publication_before_upgrade);
+    assert!(
+        !get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+    );
+    let before_old_move = arena_world(&pic, id);
+    let cannon = before_old_move.cannons[0].clone();
+    let old_target = before_old_move
+        .cells
+        .iter()
+        .enumerate()
+        .find(|(cell, owner)| **owner == cannon.id && *cell != cannon.cell)
+        .unwrap()
+        .0;
+    let old_move = transfer_text(
+        &pic,
+        ledger,
+        payer,
+        id,
+        10_000,
+        format!("MOVE {old_target}").as_bytes(),
+    );
+    let mut prepared = false;
+    for _ in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_million_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            prepared = true;
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(prepared);
+    for _ in 0..90 {
+        if transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .ledger_cutover
+            .is_some()
+        {
+            break;
+        }
+        tick(&pic);
+    }
+    let cutover = transition_view_for(&pic, id, "million_transition_status")
+        .unwrap()
+        .ledger_cutover
+        .unwrap();
+    let fenced = transfer_text(&pic, ledger, payer, id, 10_000, b"MOVE 999999");
+    assert!(Int(fenced.into()) >= cutover);
+    let interrupted = transition_view_for(&pic, id, "million_transition_status").unwrap();
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .ledger_cutover,
+        interrupted.ledger_cutover
+    );
+    start_arena(&pic, id);
+    for _ in 0..360 {
+        tick(&pic);
+        let transition = transition_view_for(&pic, id, "million_transition_status").unwrap();
+        if transition.phase == "ready"
+            && transition_drained(&pic, id)
+            && arena_world(&pic, id).pending.is_empty()
+        {
+            break;
+        }
+    }
+    let transition = transition_view_for(&pic, id, "million_transition_status").unwrap();
+    assert_eq!(transition.version, 2);
+    assert_eq!(transition.phase, "ready");
+    let source_boundary = status(&pic, id).source.admitted_to_exclusive;
+    assert!(source_boundary > old_move);
+    assert!(
+        source_boundary <= fenced,
+        "post-fence transfer must wait for v5"
+    );
+    let old_world = arena_world(&pic, id);
+    assert_eq!(old_world.version, 4);
+    assert_eq!(old_world.cannons[0].cell, old_target);
+    let predecessor = observe(&pic, id).1;
+    let expected = b2z_native::migration::stage_million_world(&old_world).unwrap();
+    let retained_before_transition = retained_bytes(&pic, id);
+    let stale = pic
+        .update_call(
+            id,
+            controller(),
+            "commit_million_transition",
+            candid::encode_one("00".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&stale)
+            .unwrap()
+            .is_err()
+    );
+    assert_eq!(arena_world(&pic, id), old_world);
+    assert_eq!(retained_bytes(&pic, id), retained_before_transition);
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_million_transition",
+        candid::encode_one(predecessor.head.manifest_hash.clone()).unwrap(),
+    );
+    let checkpoint_bytes = observe(&pic, id).0.publication;
+    let checkpoint = observe(&pic, id).1;
+    let epoch = checkpoint.epoch.as_ref().unwrap();
+    assert_eq!(checkpoint.version, 8);
+    assert_eq!(epoch.version, 2);
+    assert_eq!(epoch.source_cursor, Int(source_boundary.into()));
+    // Authenticate the real v8 checkpoint and every artifact with the actual
+    // DTR JavaScript SDK, explicit disposable root and freshness policy.
+    let directory = out.join("million-certified-checkpoint");
+    std::fs::create_dir_all(&directory).unwrap();
+    let observation = observe(&pic, id).0;
+    std::fs::write(directory.join("catalog.bin"), &observation.publication).unwrap();
+    std::fs::write(
+        directory.join("certificate.cbor"),
+        observation.certificate.unwrap(),
+    )
+    .unwrap();
+    std::fs::write(directory.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    std::fs::write(directory.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string()})).unwrap()).unwrap();
+    for (kind, name) in ["state", "events", "scores"].iter().enumerate() {
+        let mut data = Vec::new();
+        for index in 0..checkpoint.artifacts[kind].chunks.len() {
+            let chunk: Vec<u8> = get_query(
+                &pic,
+                id,
+                "retained_artifact_chunk",
+                encode_args((
+                    checkpoint
+                        .head
+                        .segment_id
+                        .as_ref()
+                        .unwrap()
+                        .0
+                        .to_string()
+                        .parse::<u64>()
+                        .unwrap(),
+                    dtr_wire::hash(&checkpoint_bytes),
+                    kind as u8,
+                    index as u16,
+                ))
+                .unwrap(),
+            );
+            data.extend(chunk);
+        }
+        std::fs::write(directory.join(format!("{name}.bin")), data).unwrap();
+    }
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "tools/verify_million_checkpoint.mjs",
+                directory.to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+    assert_eq!(
+        funding_tests::preserved_finance(&pic, id),
+        finance_before_upgrade
+    );
+    let million = arena_world(&pic, id);
+    assert_eq!(million, expected);
+    let retained_after_transition = retained_bytes(&pic, id);
+    let oldest = retained_before_transition.keys().next().copied().unwrap();
+    for (segment, bytes) in &retained_before_transition {
+        if *segment != oldest {
+            assert_eq!(retained_after_transition.get(segment), Some(bytes));
+        }
+    }
+    std::fs::write(out.join("million-authenticated-transition.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","old_world_hash":dtr_wire::hash(&old_world.encode().unwrap()),"new_world_hash":dtr_wire::hash(&million.encode().unwrap()),"accounts":old_world.credits,"score_artifact_before":predecessor.artifacts[2].sha256,"receipts_and_publications_preserved":true,"retained_predecessors_verified":retained_before_transition.len()-1,"ledger_cutover":cutover,"source_cursor":source_boundary,"fenced_transfer":fenced,"interrupted_upgrade_recovery":true,"stale_manifest_rejected":true,"transition_hash":epoch.transition_hash})).unwrap()).unwrap();
+    assert_eq!((million.width, million.height), (1000, 1000));
+    assert_eq!(million.cell_count(), 1_000_000);
+    assert!(million.cells.is_empty());
+    assert_eq!(million.credits, old_world.credits);
+    assert_eq!(million.received_e8s, old_world.received_e8s);
+    assert_eq!(million.cannons.len(), old_world.cannons.len());
+    assert_eq!(million.balls.len(), old_world.balls.len());
+    assert_eq!(status(&pic, id).run.publication_ticks, Some(1));
+    assert!(million.encode().unwrap().len() < 64 * 1024);
+    let completed = transition_view_for(&pic, id, "million_transition_status").unwrap();
+    assert_eq!(
+        completed.transition_hash.as_ref(),
+        Some(&epoch.transition_hash)
+    );
+    assert_eq!(
+        dtr_wire::hash(&unhex(completed.metadata_hex.as_ref().unwrap()).unwrap()),
+        epoch.metadata_hash
+    );
+
+    // The exact retry is idempotent, including after an in-place upgrade.
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_million_transition",
+        candid::encode_one(predecessor.head.manifest_hash.clone()).unwrap(),
+    );
+    assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(arena_world(&pic, id), million);
+    assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
+    assert!(
+        !get_query::<FundingPause>(&pic, id, "controller_funding", encode_args(()).unwrap()).paused
+    );
+
+    let conflict = pic
+        .update_call(
+            id,
+            controller(),
+            "commit_million_transition",
+            candid::encode_one("ff".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&conflict)
+            .unwrap()
+            .is_err()
+    );
+    assert_eq!(observe(&pic, id).0.publication, checkpoint_bytes);
+    assert_eq!(arena_world(&pic, id), million);
+    // A post-cutover MOVE uses the million-cell coordinate space exactly once.
+    let cannon = million.cannons[0].clone();
+    let new_target = (1..million.cell_count())
+        .map(|offset| (cannon.cell + offset) % million.cell_count())
+        .find(|cell| million.owner(*cell) == Some(cannon.id))
+        .unwrap();
+    let new_move = transfer_text(
+        &pic,
+        ledger,
+        payer,
+        id,
+        10_000,
+        format!("MOVE {new_target}").as_bytes(),
+    );
+    start_arena(&pic, id);
+    for _ in 0..360 {
+        tick(&pic);
+        let world = arena_world(&pic, id);
+        if status(&pic, id).source.admitted_to_exclusive > new_move
+            && world.cannons[0].cell == new_target
+        {
+            break;
+        }
+    }
+    let after = arena_world(&pic, id);
+    assert_eq!(after.cannons[0].cell, new_target);
+    assert_eq!(after.received_e8s, Int(100_030_000u64.into()));
+    assert!(status(&pic, id).source.admitted_to_exclusive > new_move);
+
+    // Measure production separately from the nominal UI label. One v5
+    // publication is one logical tick, so segment progress is tick progress.
+    let before = status(&pic, id);
+    let before_cycles = pic.cycle_balance(id);
+    let began = pic.get_time();
+    for _ in 0..15 {
+        tick(&pic);
+    }
+    let measured = status(&pic, id);
+    let elapsed = (pic.get_time().as_nanos_since_unix_epoch() - began.as_nanos_since_unix_epoch())
+        as f64
+        / 1e9;
+    let ticks = measured.run.completed_segments - before.run.completed_segments;
+    let pace = measured.run.pace.as_ref().unwrap();
+    assert_eq!(pace.mode, "Normal");
+    assert_eq!(pace.nominal_milli, 1000);
+    assert_eq!(pace.supported_milli, 1000);
+    assert!(!pace.performance_limited);
+    assert!(
+        (14..=16).contains(&ticks),
+        "million-cell backend produced {ticks} ticks in {elapsed}s"
+    );
+    let (observation, publication) = observe(&pic, id);
+    let artifact_bytes = publication
+        .artifacts
+        .iter()
+        .map(|artifact| artifact.length)
+        .sum::<usize>();
+    assert!(
+        publication
+            .artifacts
+            .iter()
+            .all(|artifact| artifact.length <= dtr_host::observation::MAX_ARTIFACT)
+    );
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(
+        out.join("million-performance.json"),
+        serde_json::to_vec_pretty(&serde_json::json!({
+            "status":"PASS",
+            "clock":"PocketIC virtual time; not mainnet wall time",
+            "world":[1000,1000],
+            "balls":after.balls.len(),
+            "ticks":ticks,
+            "seconds":elapsed,
+            "ticks_per_second":ticks as f64/elapsed,
+            "cycles":(before_cycles-pic.cycle_balance(id)).to_string(),
+            "publication_bytes":observation.publication.len(),
+            "artifact_bytes":artifact_bytes,
+            "state_bytes":publication.artifacts[0].length,
+            "event_bytes":publication.artifacts[1].length,
+            "score_bytes":publication.artifacts[2].length,
+            "stable_memory_bytes":pic.get_stable_memory(id).len(),
+            "pace":{"mode":pace.mode,"nominal_milli":pace.nominal_milli,"supported_milli":pace.supported_milli,"performance_limited":pace.performance_limited}
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
+
 /// Real account history around the global Ledger/Index barrier. No normalized
 /// payment injection, no canister reset, and replay uses this run's exact seals.
 #[test]

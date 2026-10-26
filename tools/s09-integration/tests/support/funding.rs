@@ -1,6 +1,6 @@
 //! Valueless upstream Ledger/Index + narrow real-contract CMC double only.
 use super::*;
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Plan {
     ledger: String,
     beneficiary: String,
@@ -11,7 +11,7 @@ struct Plan {
     memo: u64,
     created_at_time_ns: u64,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 enum Phase {
     Idle,
     TransferPending {
@@ -25,26 +25,26 @@ enum Phase {
         attempts: u64,
     },
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Observation {
     e8s: u64,
     observed_at_ns: u64,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Completion {
     plan: Plan,
     block_index: u64,
     cycles: String,
     completed_at_ns: u64,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Refund {
     plan: Plan,
     transfer_block: u64,
     refund_block: Option<u64>,
     reason: String,
 }
-#[derive(Clone, Debug, CandidType, Deserialize)]
+#[derive(Clone, Debug, CandidType, Deserialize, serde::Serialize)]
 struct Funding {
     version: u32,
     paused: bool,
@@ -155,7 +155,15 @@ fn setup(wasm: Vec<u8>) -> (PocketIc, Principal, Principal, Principal, Principal
     setup_fee(wasm, 10_000)
 }
 fn setup_fee(wasm: Vec<u8>, fee: u64) -> (PocketIc, Principal, Principal, Principal, Principal) {
-    let (pic, id, ledger, payer) = arena_setup_world_fee(wasm, initial_world(), fee);
+    setup_fee_clock(wasm, fee, 0)
+}
+fn setup_fee_clock(
+    wasm: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+) -> (PocketIc, Principal, Principal, Principal, Principal) {
+    let (pic, id, ledger, payer) =
+        arena_setup_world_fee_clock(wasm, initial_world(), fee, seconds_ago);
     let index = status(&pic, id).source.index;
     pic.create_canister_with_id(
         Some(controller()),
@@ -173,6 +181,23 @@ fn setup_fee(wasm: Vec<u8>, fee: u64) -> (PocketIc, Principal, Principal, Princi
         Some(controller()),
     );
     (pic, id, ledger, index, payer)
+}
+pub(super) fn predecessor_setup(
+    wasm: Vec<u8>,
+) -> (PocketIc, Principal, Principal, Principal, Principal) {
+    // Offset before installing any canister, not a rollback of running time.
+    // The five-minute maintenance jump then remains inside SDK freshness bounds.
+    setup_fee_clock(wasm, 10_000, 300)
+}
+pub(super) fn complete_predecessor_treasury(pic: &PocketIc, id: Principal) {
+    enabled(pic, id, true);
+    maintenance(pic);
+    assert!(funding(pic, id).last_success.is_some());
+    assert!(matches!(funding(pic, id).phase, Phase::Idle));
+}
+pub(super) fn preserved_finance(pic: &PocketIc, id: Principal) -> serde_json::Value {
+    let f = funding(pic, id);
+    serde_json::json!({"paused":f.paused,"halted":f.halted,"phase":f.phase,"last_success":f.last_success,"last_refund":f.last_refund,"total_converted_e8s":f.total_converted_e8s,"total_cycles_reported":f.total_cycles_reported,"last_plan_ns":f.last_plan_ns})
 }
 fn outgoing(pic: &PocketIc, id: Principal, index: Principal) -> Vec<source::TransactionWithId> {
     rows(pic,id,index).transactions.into_iter().filter(|r|matches!(&r.transaction.operation,source::Operation::Transfer{from,..} if from==&AccountIdentifier::new(&id,&DEFAULT_SUBACCOUNT).to_hex())).collect()
@@ -802,6 +827,142 @@ fn funding_torus_cutover_preserves_pending_finance_and_outgoing_classification()
     assert_eq!(arena_world(&pic, id).width, 32);
     assert_eq!(arena_world(&pic, id).cannons.len(), 1);
     assert_eq!(stats(&pic).credits, 3);
+    // Continue from the authenticated v4 history into v5 with a genuinely
+    // pending CMC notification crossing the second source fence.
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    settle(&pic);
+    for attempt in 0..90 {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_million_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        if decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_ok()
+        {
+            break;
+        }
+        assert!(attempt < 89);
+        tick(&pic);
+    }
+    for _ in 0..120 {
+        if transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .ledger_cutover
+            .is_some()
+        {
+            break;
+        }
+        tick(&pic);
+    }
+    let million_cutover = transition_view_for(&pic, id, "million_transition_status")
+        .unwrap()
+        .ledger_cutover
+        .unwrap();
+    let held = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
+    assert!(Int(held.into()) >= million_cutover);
+    mode(&pic, "processing");
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    let million_pending = funding(&pic, id);
+    assert!(matches!(million_pending.phase, Phase::NotifyPending { .. }));
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&million_pending.phase).unwrap()
+    );
+    start_arena(&pic, id);
+    for _ in 0..240 {
+        tick(&pic);
+        if transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .phase
+            == "ready"
+            && transition_drained(&pic, id)
+        {
+            break;
+        }
+    }
+    assert_eq!(
+        transition_view_for(&pic, id, "million_transition_status")
+            .unwrap()
+            .phase,
+        "ready"
+    );
+    assert!(status(&pic, id).source.admitted_to_exclusive <= held);
+    let v4 = arena_world(&pic, id);
+    let manifest = observe(&pic, id).1.head.manifest_hash;
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_million_transition",
+        candid::encode_one(manifest).unwrap(),
+    );
+    assert_eq!(
+        arena_world(&pic, id),
+        b2z_native::migration::stage_million_world(&v4).unwrap()
+    );
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&million_pending.phase).unwrap()
+    );
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(
+        candid::encode_one(&funding(&pic, id).phase).unwrap(),
+        candid::encode_one(&million_pending.phase).unwrap()
+    );
+    mode(&pic, "");
+    enabled(&pic, id, true);
+    maintenance(&pic);
+    assert!(matches!(funding(&pic, id).phase, Phase::Idle));
+    assert_eq!(stats(&pic).credits, 4);
+    assert_eq!(
+        outgoing(&pic, id, index).len(),
+        4,
+        "ambiguous transfer retry must not duplicate"
+    );
+    let v5_deposit = transfer_text(&pic, ledger, payer, id, 2_000_000, b"ANGLE NaN");
+    maintenance(&pic);
+    enabled(&pic, id, false);
+    for _ in 0..240 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > v5_deposit + 1 && work(&pic, id).0 == 0 {
+            break;
+        }
+    }
+    assert_eq!(stats(&pic).credits, 5);
+    assert_eq!(outgoing(&pic, id, index).len(), 5);
+    assert_eq!(arena_world(&pic, id).version, 5);
+    assert_eq!(
+        arena_world(&pic, id).received_e8s,
+        Int(108_000_001u64.into())
+    );
+    assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    std::fs::create_dir_all(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).unwrap();
+    let evidence = serde_json::json!({"status":"PASS","world_version":5,"cutover":million_cutover,"held_payment":held,"post_migration_deposit":v5_deposit,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"cmc_credits":stats(&pic).credits,"outgoing_transfers":outgoing(&pic,id,index).len(),"pending_finance_survived_transition_and_two_upgrades":true});
+    std::fs::write(
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+            .join("million-funding-cutover.json"),
+        serde_json::to_vec_pretty(&evidence).unwrap(),
+    )
+    .unwrap();
     println!(
         "FUNDING_TORUS_CUTOVER PASS cutover={cutover} before={first} during={during} after={:?}",
         out.iter().map(|r| r.id).collect::<Vec<_>>()

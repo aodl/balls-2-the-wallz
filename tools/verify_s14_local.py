@@ -61,6 +61,7 @@ def main():
     p.add_argument('--arena-prior-test-wasm',type=Path,help='Prior disposable idle test-hooks module for unfinished segment recovery')
     p.add_argument('--arena-prior-wasm',type=Path,help='Exact deployed 1510d8 module for producer/pace upgrade')
     p.add_argument('--torus-prior-wasm',type=Path,help='Exact installed 53b219 module for paid v3→v4 epoch transition')
+    p.add_argument('--million-prior-wasm',type=Path,help='Exact installed c7c69d pacing module for v4→v5 upgrade and epoch transition')
     p.add_argument('--pacing-prior-wasm',type=Path,help='Exact installed e1e7 torus module for the pacing-only upgrade')
     p.add_argument('--funding-prior-wasm',type=Path,help='Exact installed 53b219 module for funding state-preserving upgrade')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
@@ -82,7 +83,7 @@ def main():
         actual=hashlib.sha256(path.read_bytes()).hexdigest()
         if actual!=expected[name]:result.update(overall='FAIL',reason='pinned runtime/artifact mismatch: '+name);save();return 1
         result['artifacts'].append({'name':name,'sha256':actual,'path':str(path)})
-    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter:
+    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter or 'million_browser' in a.test_filter:
         try:
             probe=__import__('subprocess').run([a.browser_python,'-c',
               "from pathlib import Path; from playwright.sync_api import sync_playwright; p=sync_playwright().start(); assert Path(p.chromium.executable_path).is_file(), 'Chromium missing'; p.stop()"],capture_output=True,text=True,timeout=20)
@@ -136,6 +137,14 @@ def main():
         if a.torus_prior_wasm:
             if hashlib.sha256(a.torus_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('torus transition requires exact installed 53b219 module')
             env['B2Z_TORUS_PRIOR_WASM']=str(a.torus_prior_wasm.resolve())
+        if not a.million_prior_wasm:
+            import gzip
+            prior=out/'pacing-predecessor.wasm'
+            prior.write_bytes(gzip.decompress((ROOT/'vendor/b2z/pacing-c7c69ddf.wasm.gz').read_bytes()))
+            a.million_prior_wasm=prior
+        if a.million_prior_wasm:
+            if hashlib.sha256(a.million_prior_wasm.read_bytes()).hexdigest()!='c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db':raise ValueError('million transition requires exact installed c7c69d pacing module')
+            env['B2Z_MILLION_PRIOR_WASM']=str(a.million_prior_wasm.resolve())
         if a.pacing_prior_wasm:
             if a.test_filter!='pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate':raise ValueError('pacing predecessor requires its exact focused test')
             if hashlib.sha256(a.pacing_prior_wasm.read_bytes()).hexdigest()!='e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac':raise ValueError('pacing upgrade requires exact installed e1e7 module')
@@ -156,14 +165,15 @@ def main():
             # server too: deleted instances/caches cannot accumulate across the
             # entire game + financial suite, or cascade a dead server into later tests.
             for name in selected:
+                case_timeout=2100 if name=='million_browser_sustained_normal_and_cold_lifeline' else timeout
                 case_id=identifier+'--'+name.replace('::','-')
                 case_out=out/'instances'/case_id;case_out.mkdir(parents=True,exist_ok=True)
                 # Native replay can compute for more than the shared helper's
                 # default 60-second idle TTL without making an IC request.
                 # The test deadline and independent server hard TTL stay bounded.
-                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=timeout+60,idle_ttl_seconds=timeout+30)
+                server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=case_timeout+60,idle_ttl_seconds=case_timeout+30)
                 try:
-                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
+                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,case_timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
                     row['test']=name
                     text=(out/row['log']).read_text();combined.append(text)
                     row=installed_case_result(row,text,server[0].poll())
@@ -172,7 +182,10 @@ def main():
                 finally:
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
-        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm))
+        million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect','million_browser_sustained_normal_and_cold_lifeline'}
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests)
+        if not a.test_filter:
+            installed_suite('installed-million-integration',['million_'],ignored=True)
         if not a.test_filter:
             cutover_test='funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification'
             installed_suite('installed-funding-integration',['funding_tests::','--skip',cutover_test])

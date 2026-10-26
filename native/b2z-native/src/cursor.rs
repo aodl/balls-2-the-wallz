@@ -129,11 +129,18 @@ pub fn torus_identity() -> Result<Value> {
         json!({"rules_hash":hash(b"B2Z_TORUS_RULES_04"),"schema_hash":hash(b"B2Z_STATE_04_TYPED_JSON"),"config_hash":hash(&encode(&config)?)}),
     )
 }
+pub fn million_identity() -> Result<Value> {
+    let config: Value = json!({"version":5,"topology":"torus","width":1000,"height":1000,"ownership":"scaled32-v1","score_area_numerator":1024,"score_area_denominator":1000000,"max_balls":64,"max_cannons":32,"max_per_cannon":32,"max_segment_ticks":64,"speed":32000,"ball_base_e8s":Int(BigInt::from(BALL_BASE_E8S)),"move_e8s":Int(BigInt::from(MOVE_E8S)),"annihilation_distance":64,"annihilation_time_window":Rat::new(1.into(),16.into())?,"join_e8s":Int(BigInt::from(JOIN_E8S)),"max_spawn_searches_per_segment":8});
+    Ok(
+        json!({"rules_hash":hash(b"B2Z_MILLION_TORUS_RULES_05"),"schema_hash":hash(b"B2Z_STATE_05_SCALED_OWNERSHIP"),"config_hash":hash(&encode(&config)?)}),
+    )
+}
 fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     if w.time.0.denom() != &BigInt::one() {
         return Err("integer launch checkpoint".into());
     }
-    let (vx, vy) = b2z_mechanics::heading(angle, 1024).map_err(|e| format!("heading: {e:?}"))?;
+    let speed = if w.version == 5 { 32_000 } else { 1024 };
+    let (vx, vy) = b2z_mechanics::heading(angle, speed).map_err(|e| format!("heading: {e:?}"))?;
     let x = (c.cell % w.width) as i64 * Q + Q / 2;
     let y = (c.cell / w.width) as i64 * Q + Q / 2;
     let b = Ball {
@@ -212,7 +219,7 @@ fn mutation(
             if moved.contains(&c.id) {
                 return Ok(rejection("MOVE_LIMIT"));
             }
-            if w.cells.get(cell as usize) != Some(&c.id) {
+            if w.owner(cell as usize) != Some(c.id) {
                 return Ok(rejection("NOT_OWN_TERRITORY"));
             }
             w.cannons
@@ -324,9 +331,14 @@ impl Cursor {
     pub fn begin(state: &[u8], inputs: Vec<Input>, context: &Value) -> Result<Self> {
         let current = identity()?;
         let torus = torus_identity()?;
+        let million = million_identity()?;
+        let is_million = context.get("config_hash") == million.get("config_hash");
         let is_torus = context.get("config_hash") == torus.get("config_hash");
-        let is_current = is_torus || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_torus {
+        let is_current =
+            is_million || is_torus || context.get("config_hash") == current.get("config_hash");
+        let expected = if is_million {
+            million
+        } else if is_torus {
             torus
         } else if is_current {
             current
@@ -339,7 +351,15 @@ impl Cursor {
             }
         }
         let world = World::decode(state)?;
-        if world.torus() != is_torus {
+        if world.version
+            != if is_million {
+                5
+            } else if is_torus {
+                4
+            } else {
+                3
+            }
+        {
             return Err("world/identity mismatch".into());
         }
         let start = Rat::integer(context_int(context, "logical_start")?);
@@ -498,10 +518,13 @@ impl Cursor {
                             },
                         };
                         self.world.next_cannon_id += 1;
-                        let previous: Vec<_> =
-                            r.patch.iter().map(|c| self.world.cells[*c]).collect();
+                        let previous: Vec<_> = r
+                            .patch
+                            .iter()
+                            .map(|c| self.world.owner(*c).ok_or_else(|| "spawn patch".into()))
+                            .collect::<Result<_>>()?;
                         for c in &r.patch {
-                            self.world.cells[*c] = cannon.id;
+                            self.world.set_owner(*c, cannon.id)?;
                         }
                         self.world.cannons.push(cannon.clone());
                         let b = launch(&mut self.world, &cannon, self.spawn_angle)?;
@@ -543,14 +566,18 @@ impl Cursor {
                         self.areas = self.world.cannons.iter().map(|c| (c.id, 0)).collect();
                         self.scan = 0;
                     } else {
-                        self.scan = self.world.cells.len();
+                        self.scan = self.world.cell_count();
                     }
                     self.phase = "area".into();
                 }
             }
             "area" => {
-                if self.scan < self.world.cells.len() {
-                    let owner = self.world.cells[self.scan];
+                if self.world.version == 5 && self.scan == 0 {
+                    self.areas = self.world.ownership_counts();
+                    self.scan = self.world.cell_count();
+                }
+                if self.scan < self.world.cell_count() {
+                    let owner = self.world.owner(self.scan).ok_or("area cell")?;
                     self.scan += 1;
                     if let Some(a) = self.areas.iter_mut().find(|a| a.0 == owner) {
                         a.1 += 1;
@@ -646,7 +673,15 @@ impl Cursor {
                     let mut j = self.job.take().ok_or("missing topology job")?;
                     j.cells.sort_unstable();
                     let meta = self.job_meta.take().ok_or("missing topology event")?;
-                    self.emit(merge(meta,json!({"cells":j.cells,"destroyed_balls":j.killed,"eliminated_cannons":j.eliminated})))?;
+                    let changes = if self.world.version == 5 {
+                        json!({"cell_ranges":j.changed_ranges.iter().map(|r| [r.start,r.end]).collect::<Vec<_>>()})
+                    } else {
+                        json!({"cells":j.cells})
+                    };
+                    self.emit(merge(
+                        merge(meta, changes),
+                        json!({"destroyed_balls":j.killed,"eliminated_cannons":j.eliminated}),
+                    ))?;
                     self.area_dirty = true;
                     self.phase = self.after_topology.clone();
                 }
@@ -677,7 +712,7 @@ impl Cursor {
         for t in &i.targets {
             let pass = t.pass
                 && t.target.is_some_and(|c| {
-                    self.world.cells[c] == b.owner
+                    self.world.owner(c) == Some(b.owner)
                         && !self.world.cannons.iter().any(|a| a.cell == c)
                 });
             if t.axis == "x" {
@@ -700,7 +735,7 @@ impl Cursor {
             } else {
                 (b.cell as i64 + sx + sy * self.world.width as i64) as usize
             };
-            if self.world.cells.get(diagonal) != Some(&b.owner)
+            if self.world.owner(diagonal) != Some(b.owner)
                 || self.world.cannons.iter().any(|c| c.cell == diagonal)
             {
                 pass_x = false;
@@ -747,7 +782,7 @@ impl Cursor {
             !vertex_blocked
                 && t.target.is_some_and(|target| {
                     !self.claimed.contains(&target)
-                        && self.world.cells[target] == t.defender
+                        && self.world.owner(target) == Some(t.defender)
                         && !self.world.cannons.iter().any(|c| c.cell == target)
                 })
                 && !self.world.pending.iter().any(|p| p.ball == b.id)
@@ -795,7 +830,19 @@ impl Cursor {
         }
         let mut used = 0;
         while self.phase != "done" && used < budget {
+            let batched = (self.world.version == 5
+                && matches!(self.phase.as_str(), "search" | "resolve"))
+            .then(|| self.phase.clone());
             self.work()?;
+            // v5 has at most 64 balls. One bounded entity pass is one durable
+            // work unit, avoiding a full coordinator serialization after every
+            // individual lookup while preserving deterministic interruption.
+            for _ in 0..64 {
+                if batched.as_ref() != Some(&self.phase) {
+                    break;
+                }
+                self.work()?;
+            }
             used += 1;
         }
         Ok((used, self.phase == "done"))
@@ -861,7 +908,7 @@ impl Cursor {
             || c.world.time > c.end
             || c.input_index > c.inputs.len()
             || c.receipts.len() != c.input_index
-            || c.world.cells.len() > 1024
+            || c.world.cell_count() > 1_000_000
             || c.events.len() > 131072
             || c.world.balls.len() > 64
             || c.intents.len() > 64

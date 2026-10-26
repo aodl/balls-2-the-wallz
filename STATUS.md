@@ -1,3 +1,196 @@
+# Million-cell development qualification — PASS; master promotion gated by exact-commit CI
+
+**2026-10-26:** the established development acceptance gates are complete. The
+reviewed frozen normal Wasm `7c078fb3…` passed the unchanged **900.297-second**
+four-ball 1,000×1,000 v5 observation in a real sandboxed browser and disposable IC.
+Management status independently confirmed the installed frozen module. Normal
+stayed selected with a **1 tick/s target and supported rate**.
+
+Production was **0.9886–0.9930 ticks/s** including polling uncertainty;
+authenticated admission **0.98967**, display **0.98934**. Buffer
+**17.434 → 17.735 ticks**, conservation and rolling stability pass. There were
+**zero stalls, resynchronizations or adaptive-limiting samples**. The fresh
+10-minute baseline had **97% median CPU idle**; the measured window had **30%**
+median idle and at least **3.4 GB** available memory. I/O pauses are retained.
+Lifeline reconnect and exact independent replay of **1,037 publications** pass.
+The documented resource-only I/O-screen revision did not change application
+acceptance criteria; its earlier rejected baseline remains preserved.
+
+Published source/harness commit `12fe4b6c0395b7e04a8b19b3997cd6fd90c8ffff` passed
+[CI 40193219784](https://github.com/aodl/balls-2-the-wallz/actions/runs/40193219784):
+all six substantive jobs, including the complete **50-check / 42-selected-case**
+installed-IC suite. This documentation/evidence closure creates a new commit;
+**require green CI on that exact commit before master promotion**. Do not
+attribute the earlier run to the new commit. No full suite was repeated locally.
+
+The frozen production app remains `3c593c54…`; the separately identified
+local-root adapter served for the authorised test is `eb9c7cdd…`. The complete
+frozen frontend manifest, Wasm and immutable DTR 0.14 inputs are unchanged.
+Raw successful and failed observations, original manifests, artifacts and CI
+provenance are retained in a verified read-only snapshot outside the checkout:
+`/home/codexdev/b2z-release-evidence/million-cell-v5-12fe4b6c-20261026`.
+
+[Final qualification closure](evidence/B2Z/million-cell-release/frozen-qualification-closure.json)
+· [Durable evidence index](evidence/B2Z/million-cell-release/raw-evidence-index.json)
+· [User-owned publication and fast-forward procedure](docs/operations/B2Z_MILLION_PROMOTION.md)
+· [Separate future deployment preflight](docs/operations/B2Z_MILLION_PREFLIGHT.md).
+
+The historical upstream-delivery risk remains documented and accepted for source
+integration; this pass does not establish its cause or guarantee continuity under
+arbitrary delays. No speculative engineering pass is required before integration.
+**Mainnet remains on the 32×32 v4 world pending separate authorisation.** No new
+live-state inventory is claimed by this closure. Source promotion is not a Wasm
+upgrade or world activation; neither is authorised or performed here.
+
+The dated entries below describe earlier states. Their FAIL/BLOCKED records and
+original reports are retained; they are not the current development decision.
+
+---
+
+## Historical status — earlier qualification blockers
+
+## Authenticated-delivery investigation — 2026-10-25
+
+Existing raw captures trace the interruption to multi-second HTTP first-byte
+waits, followed by catch-up catalog waits and retained-artifact expiry.
+Production and rendering continued. The 11.51-second artifact HTTP request
+waited about 11.49 seconds for its first byte; this is not local verification
+time or an inferred sum of SDK retries. Old captures do not identify the exact
+failing artifact or separate host pressure from gateway/connection scheduling.
+
+Diagnostic tooling now records bounded, fresh per-hop proxy timings and request
+digests, plus browser failures, read-state and fallback chunk requests. No
+production code, artifact, DTR pin, rate, buffer, retention or acceptance rule
+changed. Four new fault cases cover delayed headers/body, concurrent independent
+queries, upstream errors without proxy retries, and bounded fresh trace files.
+All 17 observer-server tests and the source gate (1,379 JavaScript / 155 Python)
+pass. A short diagnostic installed case and 137-publication replay pass; an
+earlier diagnostic capture/conversion failure is preserved separately.
+
+Repeated upstream header waits reach 13.13 seconds, with about 1.74 milliseconds
+of additional proxy processing for that request. The video-recorded diagnostic
+host had median 5% CPU idle, so the cause cannot yet be assigned exclusively to
+an application defect or the environment. The smallest next observation is one
+video-free sustained run with per-hop diagnostics and measured CPU headroom,
+without changing the strict gate. No production correction is justified yet.
+Reviewed findings: `evidence/B2Z/million-cell-release/delivery-interruption.json`.
+Published `657baf5` CI `40190420326` was still running at the recorded check;
+that run does not verify this new diagnostic tooling. No merge/deployment approval.
+
+## Harness isolation correction — 2026-10-25
+
+CI `40184288465` on `cab1d0f6` failed before sustained measurement because
+both browser cases reused `million-browser/wire-catalogs`. Commit `af9485a`
+claims fresh, independent `million-browser-normal` and
+`million-browser-sustained` roots before writing any configuration or markers.
+Existing directories are rejected; wire-catalog creation remains strict.
+The workflow collects both roots. The isolation regression, source gate
+(1,379 JavaScript and 151 Python tests), and harness Clippy pass.
+
+The corrected installed sustained case completed: **FAIL**, with no directory
+collision. Across 900.247 seconds, production is **0.9875–0.9931 ticks/s**,
+authenticated admission **0.9697**, display **0.9692**. Buffer conservation,
+bounded occupancy and rolling stability pass (**17.173 → 17.638 ticks**),
+but one stall/rebuffer episode and one resynchronization fail continuity.
+There are **zero performance-limited samples**. Thus this failure is not solely
+brief adaptive throttling. Cold Lifeline passes across six subsequent
+publications. The original qualification FAIL and all acceptance criteria remain
+unchanged. No production source or frozen artifact was changed.
+
+The full integration rerun is not started because the focused installed test did
+not pass. Publication remains user-owned; new exact-commit CI is pending and no
+prior CI success applies to this correction. Reviewed detail and raw evidence
+references: `evidence/B2Z/million-cell-release/harness-isolation.json`.
+No merge or mainnet action is authorised.
+
+**2026-10-25:** published candidate `ae3ef1ce38cee8a6b33b051c924a66d9bcba3dbf`
+passed exact-commit [CI 40144120473](https://github.com/aodl/balls-2-the-wallz/actions/runs/40144120473):
+all six substantive jobs, including 40 installed/source cases and 48 runner checks.
+All six evidence archives were downloaded and checksum-verified. The informational
+BLOCKED inventory job is not deployment approval. New harness code is separately
+committed and locally checked; that old CI result does not qualify changed code.
+
+Existing successful 90-second tests remain **PASS**. The video-on 900-second
+extension is **FAIL** (16 resynchronizations and stalls). Removing only optional
+software video recording resolves delivery stalls in the full comparison while
+preserving real sandboxed rendering, authentication, raw wire data, telemetry,
+rates and buffer bounds. No production/backend/frontend source or artifact changed.
+
+The video-free **900.23-second** run produces **0.992–0.996 ticks/s** including
+backend polling uncertainty, admits **0.99308**, and displays **0.99392**.
+Buffer **17.1573 → 16.4035** ticks; all 15 rolling-minute buckets retained;
+zero stalls, rebuffering or resynchronizations. These rate/buffer subchecks pass.
+**The strict overall gate remains FAIL:** Normal's target stays 1 tick/s, but
+performance protection reports supported 0.777 and 0.971 tick/s during one brief
+episode (16 sampled rows). This failure is not waived or renamed PASS. Cold
+Lifeline reconnect passes across six subsequent authenticated publications.
+Independent replay passes 1,040 consecutive captured v5 publications.
+
+The earlier 87 admitted / 89.145 displayed sample consumes exactly 2.145 buffered
+ticks. New aligned counters, conservation checks, rolling trends, timed independent
+backend polls and supported-rate episodes are preserved in the review evidence.
+Suitable exact-commit CI qualification of the extended harness remains required;
+no further performance redesign or acceptance relaxation was attempted.
+
+Frozen normal Wasm remains
+`7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51`;
+the complete frontend set is unchanged (`app.mjs`
+`3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732`).
+DTR remains immutable 0.14 at `e1bfcf25071d11190d14f461288e12a21ca26cf8`.
+Exact-predecessor paid-state/treasury preservation evidence remains PASS.
+
+[Final acceptance and provenance](evidence/B2Z/million-cell-release/final-qualification.json)
+· [Prepared future preflight/activation order](docs/operations/B2Z_MILLION_PREFLIGHT.md).
+No mainnet call/mutation, v5 activation, master merge, financial/controller action
+or remote Git mutation was performed. Stop at this qualification boundary.
+
+---
+
+# Million-cell v5 — local gates pass; candidate for exact-commit CI
+
+**2026-10-24:** production `master` at `e052f77` is merged without rewriting
+history. Rust/npm use immutable DTR `e1bfcf25071d11190d14f461288e12a21ca26cf8`,
+client **0.14.0**. Clean isolated consumers reproduce package SHA-256
+`ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`.
+The v8 observer test executes: **1 PASS, 0 skipped**.
+
+Current gates pass: **1,379 JS**, **145 Python**, **22 workspace + 14 portable
+Rust**, **25 canister host tests**, Wasm/Candid/Clippy, **14 HTTP browser groups**,
+**8 isolated DTR-consumer checks**, and the complete installed-IC runner:
+**40 selected cases / 48 checks** (30 genuine installed cases plus 10 source units).
+
+Two successive current four-ball Normal samples on the actual normal Wasm
+measured **0.946 / 0.968 / 0.992** and **0.947 / 0.969 / 0.993**
+produced / authenticated-admitted / displayed ticks per second. Both have zero
+stalls/resynchronizations and no performance limit. Economy, Lifeline, cold
+reconnect and exact independent replay of **136 / 137** captured publications
+pass. Earlier failed probes remain explicitly failed in the evidence.
+
+Production's seven active pacing tiers and Reserve Protection are preserved.
+The client queue is 24 segments / 8 MiB, separate from backend retention of
+16 publications / 8 MiB. Bounded startup/resume capacity and ordered catch-up
+pass all 18 buffering/concurrency regressions; Normal stays exactly 1 tick/s.
+
+The exact installed predecessor `c7c69ddf…` passes state-preserving normal-Wasm
+upgrade, followed by a separately authenticated v4→v5 transition. Paid state,
+source progress, all retained publication/chunk bytes and enabled treasury are
+preserved. Interrupted recovery, manifests, fencing and exact/conflicting
+retries pass; actual v8 SDK certificate/artifact verification passes. Pending CMC
+notification survives transition/two upgrades and completes once; post-migration
+payment ingestion and treasury sweep pass. The 64-ball normal-Wasm fixture passes.
+
+Qualified normal Wasm SHA-256:
+`7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51`.
+Production frontend `app.mjs` SHA-256:
+`3c593c54fe09997eabada19d3aee02f2cc7c39d1d5a0baea59b3e3516f61b732`.
+
+[Reviewed acceptance, artifact hashes, measurements and reproduction paths](evidence/B2Z/million-cell-release/qualification.json).
+[Earlier development/failed-probe record](evidence/B2Z/million-cell-release/progress.json).
+Exact-candidate remote CI remains pending the **user-owned push**. No mainnet
+operation, world activation, financial action or remote Git operation was performed.
+
+---
+
 # Graduated pacing — installed on mainnet
 
 **2026-10-24:** published release `2b5e61746cab6b992afe969d5cc60363d32f6a66`

@@ -2,7 +2,7 @@
 """Actual deployment bundle against an owned live PocketIC. No wallet/update calls.
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
-import argparse,json,os,shutil,signal,subprocess,sys,time
+import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
 from browser_observer import wait_until,wait_file,open_settings,close_settings
 from verify_observer_http import free_port,wait_for_server
@@ -59,6 +59,97 @@ def verify_torus_scene(page,context,out,record,report,save):
     # A modal cannot pause the shared backend.
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
+
+def verify_million_scene(page,context,out,record,report,save,stop_capture,sustained=False):
+    (out/'browser-million-ready').write_text('certified million-cell genesis visible; begin production\n')
+    assert '1,000 × 1,000' in page.locator('#world-rules').text_content()
+    assert 'wraparound' in page.locator('#world-rules').text_content()
+    page.locator('#toolbar-play').click()
+    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+    page.locator('#action-mode').select_option('move');page.locator('#selected-cannon').select_option('1')
+    # The selector is intentionally sparse; exact camera picking adds one
+    # authenticated owned cell instead of constructing 1,000,000 DOM options.
+    assert page.locator('#move-cell option').count()<=2
+    page.locator('#pick-move').click()
+    page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
+    point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
+    assert page.locator('#move-cell').input_value()=='0'
+    page.locator('#prepare-transfer').click();assert page.locator('#text-memo').inner_text()=='MOVE 0'
+    page.keyboard.press('Escape');assert page.locator('#minimap').is_visible();assert page.evaluate('__b2zCamera.minimapRects().length')==4
+    page.screenshot(path=str(out/'million-seam-pick.png'))
+    record('million-cell-culling-seam-picking-and-sparse-move-selector')
+    page.locator('#board').focus();page.keyboard.press('Home')
+    page.evaluate('''limit=>{globalThis.__millionTiming=[];setInterval(()=>{const p=globalThis.__dtrLive?.playback;if(p&&__millionTiming.length<limit)__millionTiming.push({...p,wall_epoch_ms:performance.timeOrigin+p.wall_ms,resyncs:__dtrLive.resyncs});},250);}''',6400 if sustained else 2400)
+    (out/'browser-million-drive').write_text('begin explicit disposable-IC clock progression\n')
+    try:wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+    except Exception:
+        (out/'million-startup-telemetry.json').write_text(json.dumps(page.evaluate('globalThis.__millionTiming'),indent=2))
+        report['million_startup_failure']=page.evaluate('''() => ({phase:document.body.dataset.phase,live:globalThis.__dtrLive,error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent,arena:document.querySelector('#arena-note').textContent})''')
+        save();page.screenshot(path=str(out/'million-startup-failure.png'));raise
+    def measure_mode(name,seconds,lower,upper,continuous=False):
+        rows=[];began=time.monotonic()
+        while time.monotonic()-began<seconds or continuous and rows and rows[-1]['wall_epoch_ms']-rows[0]['wall_epoch_ms']<seconds*1000:
+            rows.append(page.evaluate('({...__dtrLive.playback,wall_epoch_ms:performance.timeOrigin+__dtrLive.playback.wall_ms,resyncs:__dtrLive.resyncs,certificates:__dtrLive.certificates})'))
+            if continuous and len(rows)%20==0:
+                (out/('million-'+name+'-telemetry.json')).write_text(json.dumps(rows,indent=2))
+                (out/'sustained-progress.json').write_text(json.dumps({'elapsed':time.monotonic()-began,'first':rows[0],'latest':rows[-1]},indent=2))
+            page.wait_for_timeout(500)
+        dt=(rows[-1]['wall_ms']-rows[0]['wall_ms'])/1000
+        result={'seconds':dt,'backend_ticks_per_second':(rows[-1]['backend_segments']-rows[0]['backend_segments'])*rows[-1]['segment_ticks']/dt,'admitted_ticks_per_second':(rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(rows[-1]['played_ticks']-rows[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in rows),'resyncs':rows[-1]['resyncs']-rows[0]['resyncs'],'nominal_rate':rows[-1]['nominal_rate'],'performance_limited':any(x['performance_limited'] for x in rows),'queue_segments':{'min':min(x['queue_segments'] for x in rows),'max':max(x['queue_segments'] for x in rows)},'buffer_ticks':{'min':min(x['buffer_ticks'] for x in rows),'max':max(x['buffer_ticks'] for x in rows)},'latency_ms':{k:{'median':sorted(x[k] for x in rows)[len(rows)//2],'max':max(x[k] for x in rows)} for k in ['fetch_ms','verify_ms','artifact_ms','derive_ms','catchup_ms']},'max_catchup_segments':max(x['catchup_segments'] for x in rows),'buffer_bytes':{'min':min(x['buffer_bytes'] for x in rows),'max':max(x['buffer_bytes'] for x in rows)},'buffer_target_ticks':{'min':min(x['buffer_target_ticks'] for x in rows),'max':max(x['buffer_target_ticks'] for x in rows)},'distinct_playheads':len({round(x['played_ticks'],3) for x in rows}),'certified_publications_per_second':(rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'])/dt,'authenticated_observation_queries_per_second':(rows[-1]['certificates']-rows[0]['certificates'])/dt,'timing_qualification':'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.'}
+        result.update(buffer_start=rows[0]['buffer_ticks'],buffer_end=rows[-1]['buffer_ticks'],
+                      admitted_ticks=rows[-1]['admitted_ticks']-rows[0]['admitted_ticks'],
+                      displayed_ticks=rows[-1]['played_ticks']-rows[0]['played_ticks'],
+                      phase_samples={p:sum(x['phase']==p for x in rows) for p in sorted({x['phase'] for x in rows})})
+        report['million_'+name+'_playback']=result;(out/('million-'+name+'-telemetry.json')).write_text(json.dumps(rows,indent=2));save()
+        if continuous:
+            # Wait only for a subsequent independent poll to bracket the fixed
+            # endpoint. The 900-second measurement is neither trimmed nor reset.
+            page.wait_for_timeout(4000)
+            from playback_qualification import continuous_summary
+            summary,aligned=continuous_summary(rows,json.loads((out/'publication-timing.json').read_text()))
+            dense=page.evaluate('globalThis.__millionTiming')
+            (out/'million-all-telemetry.json').write_text(json.dumps(dense,indent=2))
+            dense=[r for r in dense if rows[0]['wall_epoch_ms']<=r['wall_epoch_ms']<=rows[-1]['wall_epoch_ms']]
+            summary['dense_phase_samples']={p:sum(r['phase']==p for r in dense) for p in sorted({r['phase'] for r in dense})}
+            if any(r['phase'] not in ['PLAYING','DEGRADED_BUFFER'] for r in dense):
+                summary['checks']['no_stall_or_rebuffer']=False;summary['status']='FAIL'
+            report['million_sustained_analysis']=summary
+            (out/'million-sustained-aligned.json').write_text(json.dumps(aligned,indent=2))
+            (out/'million-sustained-analysis.json').write_text(json.dumps(summary,indent=2));save()
+            if summary['status']=='PASS':record('million-cell-continuous-15-minute-normal',summary)
+            else:report['checks'].append({'name':'million-cell-continuous-15-minute-normal','status':'FAIL','details':summary});save()
+            return result
+        assert result['stalled_samples']==0 and result['resyncs']==0,result
+        assert result['queue_segments']['max']<=24 and result['buffer_bytes']['max']<=8*1024*1024,result
+        if name=='lifeline':assert result['distinct_playheads']>=60,result
+        assert not result['performance_limited'],result
+        for key in ['backend_ticks_per_second','admitted_ticks_per_second','displayed_ticks_per_second']:assert lower<=result[key]<=upper,(key,result)
+        record('million-cell-'+name+'-certified-playback',result)
+        return result
+    measure_mode('normal',90,.9,1.15)
+    if sustained:measure_mode('normal_sustained',900,.9,1.15,continuous=True)
+    (out/'browser-million-normal-complete').write_text('normal playback measured\n')
+    wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.5,30000);page.wait_for_timeout(4000)
+    # The normal-to-hooks code upgrade may hold an in-flight query. Bound the
+    # recovery before measuring steady Economy, so old Normal publications do
+    # not count as newly produced Economy ticks. Keep all throughput bounds.
+    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback;return p.phase==='PLAYING'&&p.verified_ticks>=p.backend_segments*p.segment_ticks-2;}'''),30000)
+    measure_mode('economy',40,.4,.6)
+    (out/'browser-million-economy-complete').write_text('economy playback measured\n')
+    wait_until(page,lambda:'Lifeline' in page.locator('#arena-note').text_content(),30000)
+    wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000);page.wait_for_timeout(4000)
+    measure_mode('lifeline',50,.035,.065)
+    stop_capture()
+    page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '1,000 × 1,000' in page.locator('#world-rules').text_content(),30000)
+    assert not page.locator('#error').is_visible()
+    wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='PLAYING',60000)
+    assert page.evaluate('__dtrLive.playback.nominal_rate')==.05
+    record('million-cell-cold-browser-reconnect')
+    if sustained:
+        cold=measure_mode('lifeline_reconnect',120,.035,.065)
+        assert cold['admitted_ticks']>=5 and set(cold['phase_samples'])<= {'PLAYING','DEGRADED_BUFFER'},cold
+        record('million-cell-cold-lifeline-five-subsequent-publications',cold)
+        assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
 
 def verify_epoch_transition(page,context,out,record,report,save):
     wait_until(page,lambda:'16 × 8' in page.locator('#world-rules').text_content(),30000)
@@ -123,7 +214,8 @@ def verify_epoch_transition(page,context,out,record,report,save):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    if a.million_sustained and not a.million_scene_only:p.error('--million-sustained requires --million-scene-only')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port()
     asset_canister=os.environ.get('S14_ASSET_CANISTER')=='1'
     configuration['host']=a.gateway.rstrip('/') if asset_canister else f'http://127.0.0.1:{port}'
@@ -202,13 +294,55 @@ def main():
             record('dfx-asset-canister-install',{'observer':observer,'url':url,'configuration':'dfx.json observer type=assets; owned disposable gateway'})
         else:
             with (out/'server.log').open('w') as log:
-                server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id']],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+                proxy_trace=['--proxy-trace',str(out/'proxy-timing.jsonl')] if a.million_scene_only else []
+                server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id'],*proxy_trace],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
-            context=browser.new_context(permissions=['clipboard-write'],has_touch=True,viewport={'width':1440,'height':900},record_video_dir=str(out/'video'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            context_options={'permissions':['clipboard-write'],'has_touch':True,'viewport':{'width':1440,'height':900}}
+            # Video encoding is optional evidence, not part of observer delivery.
+            # Keep the original 90-second cases recorded; the 15-minute timing
+            # gate retains screenshots, raw wire data and dense telemetry without
+            # the extra software screen-capture/GPU/ffmpeg workload on this host.
+            if not a.million_sustained:context_options['record_video_dir']=str(out/'video')
+            report['capture']={'video':not a.million_sustained,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
+            context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
+            wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None;query_timings=[]
+            if a.million_scene_only:
+                wire=out/'wire-catalogs';wire.mkdir()
+                def capture_catalog(response):
+                    nonlocal wire_bytes
+                    request=response.request
+                    if request.method!='POST' or not request.url.endswith('/query'):return
+                    body=request.post_data_buffer or b''
+                    method=next((name for name in ['observation_bundle','retained_publication','observation'] if name.encode() in body),None)
+                    if not method:return
+                    try:
+                        data=response.body()
+                        if len(wire_packets)>=(4096 if a.million_sustained else 1024) or wire_bytes+len(data)>(128 if a.million_sustained else 64)*1024*1024:raise ValueError('wire capture bound')
+                        name=f'{len(wire_packets):04}.cbor';(wire/name).write_bytes(data);wire_bytes+=len(data)
+                        wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
+                    except Exception as error:wire_errors.append(str(error))
+                page.on('response',capture_catalog)
+                def capture_query_timing(request,failed=False):
+                    if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
+                    body=request.post_data_buffer or b''
+                    from serve_observer import query_method
+                    method=query_method(body) if request.url.endswith('/query') else 'read_state'
+                    if method and len(query_timings)<(8192 if a.million_sustained else 4096):
+                        # Use cached request metadata only: no extra browser RPC
+                        # or body read from this timing callback. HTTP status is
+                        # recorded by the independently correlated proxy trace.
+                        query_timings.append({'method':method,'timing':request.timing,'request_sha256':hashlib.sha256(body).hexdigest(),'failure':request.failure if failed else None})
+                page.on('requestfinished',capture_query_timing)
+                page.on('requestfailed',lambda request:capture_query_timing(request,True))
+                def stop_wire_capture():
+                    nonlocal wire_complete_through
+                    wire_complete_through=page.evaluate('globalThis.__dtrLive.heads.at(-1)')
+                    page.remove_listener('response',capture_catalog)
+
             def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
                 route.continue_()
@@ -227,8 +361,9 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.scene_only or a.transition_only:
+            if a.scene_only or a.million_scene_only or a.transition_only:
                 if a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
+                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
                 else:verify_torus_scene(page,context,out,record,report,save)
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
@@ -492,6 +627,8 @@ def main():
         except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
+        if a.million_scene_only and 'wire_packets' in locals():
+            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes,'complete_through':wire_complete_through,'query_timings':query_timings},indent=2))
         if browser:
             try:browser.close()
             except Exception:pass

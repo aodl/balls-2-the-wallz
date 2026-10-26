@@ -1,6 +1,8 @@
 """HTTP-serving behavior, independent of Chromium's environment navigation policy."""
-import http.client, http.server, tempfile, threading, unittest
+import concurrent.futures, hashlib, http.client, http.server, json, tempfile, threading, unittest
 from pathlib import Path
+from unittest.mock import patch
+import serve_observer
 from serve_observer import ObserverHandler, observer_dependency_error
 class Quiet(ObserverHandler):
     def log_message(self,*args):pass
@@ -50,4 +52,77 @@ class ObserverServerTests(unittest.TestCase):
             for relative in ('packages/client/playout.mjs','packages/client/verification.mjs','packages/runtime/canonical.mjs'):
                 path=root/'node_modules/@dtr/timeline-runtime'/relative;path.parent.mkdir(parents=True,exist_ok=True);path.touch()
             self.assertIsNone(observer_dependency_error(root))
+class ProxyDiagnosticTests(unittest.TestCase):
+    def setUp(self):
+        self.entered=threading.Event();self.release=threading.Event();self.calls=[]
+        owner=self
+        class Upstream(http.server.BaseHTTPRequestHandler):
+            def log_message(self,*args):pass
+            def do_POST(self):
+                body=self.rfile.read(int(self.headers['Content-Length']));owner.calls.append(body)
+                if b'headers-delay' in body:
+                    owner.entered.set();owner.release.wait(5)
+                reply=b'reply:'+body;status=503 if body==b'artifact_bundle unavailable' else 200
+                self.send_response(status);self.send_header('Content-Length',str(len(reply)));self.end_headers();self.wfile.flush()
+                if b'body-delay' in body:
+                    owner.entered.set();owner.release.wait(5)
+                self.wfile.write(reply)
+        self.upstream=http.server.ThreadingHTTPServer(('127.0.0.1',0),Upstream)
+        self.proxy=http.server.ThreadingHTTPServer(('127.0.0.1',0),Quiet)
+        self.threads=[]
+        for server in [self.upstream,self.proxy]:
+            thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start();self.threads.append(thread)
+        self.directory=tempfile.TemporaryDirectory();self.addCleanup(self.directory.cleanup)
+        self.path=Path(self.directory.name)/'proxy.jsonl';self.trace=serve_observer.ProxyTrace(self.path)
+        self.patches=[patch.object(serve_observer,'IC_GATEWAY',f'http://127.0.0.1:{self.upstream.server_port}/'),
+            patch.object(serve_observer,'LIVE_CANISTER','aaaaa-aa'),patch.object(serve_observer,'PROXY_TRACE',self.trace)]
+        for item in self.patches:item.start()
+    def tearDown(self):
+        self.release.set()
+        for server in [self.proxy,self.upstream]:server.shutdown();server.server_close()
+        for thread in self.threads:thread.join()
+        for item in reversed(self.patches):item.stop()
+        self.trace.close()
+    def post(self,body):
+        c=http.client.HTTPConnection('127.0.0.1',self.proxy.server_port,timeout=5)
+        c.request('POST','/api/v3/canister/aaaaa-aa/query',body,headers={'Authorization':'not-recorded'})
+        response=c.getresponse();result=response.status,response.read();c.close();return result
+    def delayed(self,stage):
+        body=b'artifact_bundle '+stage.encode()+b'-delay'
+        with concurrent.futures.ThreadPoolExecutor() as pool:
+            future=pool.submit(self.post,body)
+            try:
+                self.assertTrue(self.entered.wait(3))
+                self.assertEqual(self.post(b'lab_status'),(200,b'reply:lab_status'))
+                self.assertFalse(future.done(),'slow request must remain blocked while independent query finishes')
+            finally:self.release.set()
+            self.assertEqual(future.result(),(200,b'reply:'+body))
+        rows=[json.loads(line)for line in self.path.read_text().splitlines()]
+        self.assertEqual(len(rows),2);fast,slow=rows
+        self.assertEqual([fast['method'],slow['method']],['lab_status','artifact_bundle'])
+        self.assertEqual(slow['request_sha256'],hashlib.sha256(body).hexdigest())
+        self.assertEqual(bytes.fromhex(slow['request_body_hex']),body)
+        self.assertEqual(slow['response_sha256'],hashlib.sha256(b'reply:'+body).hexdigest())
+        self.assertNotIn('Authorization',self.path.read_text());self.assertNotIn('not-recorded',self.path.read_text())
+        fast_end=fast['started_epoch_ms']+fast['finished_ms']
+        self.assertGreater(slow['started_epoch_ms']+slow['upstream_complete_ms'],fast_end)
+        if stage=='headers':self.assertGreater(slow['started_epoch_ms']+slow['upstream_headers_ms'],fast_end)
+        else:self.assertLess(slow['started_epoch_ms']+slow['upstream_headers_ms'],fast['started_epoch_ms'])
+        self.assertEqual(self.calls.count(body),1,'proxy must not add retries')
+    def test_slow_upstream_headers_do_not_block_other_queries(self):self.delayed('headers')
+    def test_slow_upstream_body_is_distinguished_from_header_wait(self):self.delayed('body')
+    def test_upstream_error_is_preserved_without_proxy_retry(self):
+        body=b'artifact_bundle unavailable';self.assertEqual(self.post(body),(503,b'reply:'+body))
+        row=json.loads(self.path.read_text());self.assertEqual(row['status'],503)
+        self.assertEqual(self.calls,[body]);self.assertIn('upstream_headers_ms',row)
+    def test_trace_refuses_old_output_and_bounds_new_output(self):
+        before=self.path.read_bytes()
+        with self.assertRaises(FileExistsError):serve_observer.ProxyTrace(self.path)
+        self.assertEqual(self.path.read_bytes(),before)
+        path=Path(self.directory.name)/'bounded.jsonl';trace=serve_observer.ProxyTrace(path,max_bytes=256)
+        try:
+            for _ in range(10):trace.write({'large':'x'*200})
+        finally:trace.close()
+        self.assertEqual(path.read_text(),'{"truncated":true}\n')
+        self.assertLessEqual(path.stat().st_size,256)
 if __name__=='__main__':unittest.main()

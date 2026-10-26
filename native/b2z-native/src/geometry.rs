@@ -77,7 +77,7 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
             Some(y as usize * w.width + x as usize)
         };
         let anchor = target.is_some_and(|t| w.cannons.iter().any(|c| c.cell == t));
-        let defender = target.map(|t| w.cells[t]).unwrap_or(0);
+        let defender = target.and_then(|t| w.owner(t)).unwrap_or(0);
         targets.push(Target {
             axis: axis.into(),
             target,

@@ -28,7 +28,7 @@ const GAIN_INVERSE_Q30 = 652032874n;
 function nearest(n, d) { return n < 0n ? -((-n + d / 2n) / d) : (n + d / 2n) / d; }
 /** Integer CORDIC: a fixed, versioned approximation, not a host trig function. */
 export function heading(angle, speed = 1024) {
-  if (!Number.isInteger(angle) || angle < 0 || angle > 65535 || !Number.isInteger(speed) || speed < 1 || speed > 4096)
+  if (!Number.isInteger(angle) || angle < 0 || angle > 65535 || !Number.isInteger(speed) || speed < 1 || speed > 65535)
     throw new Error('heading bounds');
   const q = Math.floor(angle / 16384), a = angle % 16384;
   let x, y;
