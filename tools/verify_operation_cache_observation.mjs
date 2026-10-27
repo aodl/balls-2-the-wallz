@@ -24,17 +24,22 @@ const verify=meta.virtual_clock ? async(bytes,deployment)=>{
  return {network:'pocketic-local',canister_id:canister.toText(),certified_data_hex:Buffer.from(data).toString('hex'),certificate_time_ns:ns};
 } : localCertificateVerifier(root);
 const ticket=await verifyCertificatePublication(catalog,certificate,policy,verify);
-// Empty-arena genesis is an explicitly labelled v6 fixture. Every paid/recovery
-// observation still requires v8: never infer a permitted downgrade from metadata.
-assert.equal(meta.publication_version,meta.zero_genesis ? 6 : 8);
-assert.equal(ticket.publication.version,meta.publication_version);
-if(meta.zero_genesis){assert.equal(ticket.publication.head.segment_id,null);assert.equal(ticket.publication.epoch,undefined);}
-if(meta.publication_version===8)assert.equal(ticket.publication.epoch.version,2);
+// Profile worlds are initialized in disposable IC, so their DTR history is v6.
+// Paid recovery is a distinct authenticated v8/epoch-2 scenario. Never accept a
+// downgrade there or reinterpret a profile as a paid checkpoint.
+const scenario=meta.scenario??(meta.virtual_clock?(meta.zero_genesis?'empty-v5-genesis-v6':'paid-v8'):'v5-profile-v6');
+assert(['paid-v8','v5-profile-v6','empty-v5-genesis-v6'].includes(scenario));
+const expected=scenario==='paid-v8'?8:6;
+assert.equal(meta.publication_version,expected);
+assert.equal(ticket.publication.version,expected);
+if(scenario==='paid-v8')assert.equal(ticket.publication.epoch.version,2);
+else assert.equal(ticket.publication.epoch,undefined);
+if(scenario==='empty-v5-genesis-v6')assert.equal(ticket.publication.head.segment_id,null);
 for(const kind of ['state','events','scores']){
  const assembler=new ArtifactAssembler(ticket,kind),data=await read(`${kind}.bin`);
  for(let i=0;i<assembler.descriptor.chunks.length;i++)await assembler.accept(i,data.slice(i*16384,(i+1)*16384));
- const bytes=await assembler.finish();if(kind==='state'){const world=snapshot(bytes,ticket.publication.identity);assert.equal(world.version,5);assert.equal(world.width,1000);assert.equal(world.height,1000);if(meta.zero_genesis){assert.equal(world.cannons.length,0);assert.equal(world.balls.length,0);}}
+ const bytes=await assembler.finish();if(kind==='state'){const world=snapshot(bytes,ticket.publication.identity);assert.equal(world.version,5);assert.equal(world.width,1000);assert.equal(world.height,1000);if(scenario==='empty-v5-genesis-v6'){assert.equal(world.cannons.length,0);assert.equal(world.balls.length,0);}}
 }
 await assert.rejects(()=>verifyCertificatePublication(catalog,certificate,{...policy,canister_id:'2vxsx-fae'},verify));
 await assert.rejects(()=>verifyCertificatePublication(catalog,certificate,{...policy,now_ns:policy.now_ns+600000000000n},verify));
-await writeFile(`${dir}/verification.json`,JSON.stringify({status:'PASS',trust:'explicit disposable root, canister binding and certificate freshness',publication_version:ticket.publication.version,root_hash:ticket.root_hash,artifacts:['state','events','scores']},null,2)+'\n');
+await writeFile(`${dir}/verification.json`,JSON.stringify({status:'PASS',scenario,trust:'explicit disposable root, canister binding and certificate freshness',publication_version:ticket.publication.version,root_hash:ticket.root_hash,artifacts:['state','events','scores']},null,2)+'\n');

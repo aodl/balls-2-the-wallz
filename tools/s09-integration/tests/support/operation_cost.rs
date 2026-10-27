@@ -86,7 +86,7 @@ fn authenticate(pic: &PocketIc, id: Principal, out: &Path) {
         let world = arena_world(pic, id);
         assert!(world.cannons.is_empty() && world.balls.is_empty());
     }
-    std::fs::write(out.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":expected_version,"zero_genesis":zero_genesis,"virtual_clock":true})).unwrap()).unwrap();
+    std::fs::write(out.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":expected_version,"zero_genesis":zero_genesis,"scenario":if zero_genesis {"empty-v5-genesis-v6"} else {"paid-v8"},"virtual_clock":true})).unwrap()).unwrap();
     assert!(
         std::process::Command::new("node")
             .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))

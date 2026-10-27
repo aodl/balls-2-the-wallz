@@ -6349,7 +6349,11 @@ fn operation_cache_profile() {
             )
             .unwrap();
             std::fs::write(directory.join("root-key.der"), pic.root_key().unwrap()).unwrap();
-            std::fs::write(directory.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":p.version})).unwrap()).unwrap();
+            assert_eq!(
+                p.version, 6,
+                "fresh disposable profile has no authenticated epoch transition"
+            );
+            std::fs::write(directory.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":6,"scenario":"v5-profile-v6"})).unwrap()).unwrap();
             for (kind, data) in ["state", "events", "scores"].iter().zip(&bundle) {
                 std::fs::write(directory.join(format!("{kind}.bin")), data).unwrap();
             }
