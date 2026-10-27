@@ -10,7 +10,9 @@ use dtr_host::{Input, Kernel, Output, Progress, Seal};
 use dtr_wire::{hash, Result};
 use std::cell::RefCell;
 
-const CACHE_BYTES: usize = 256 * 1024;
+// Keep one operation bounded while covering valid near-1MiB event/cursor images.
+// A1 remains frozen at 256KiB; every oversized image still takes full restore.
+const CACHE_BYTES: usize = 1024 * 1024;
 
 struct Entry {
     bytes: Vec<u8>,
