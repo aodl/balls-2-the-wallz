@@ -1,6 +1,5 @@
 //! B2Z-only cutover fences and reviewed placements. Not a state replacement API.
 use b2z_native::{
-    host::B2zHostKernel,
     migration::{stage_million_world, stage_world, Boundary},
     world::World,
 };
@@ -84,8 +83,8 @@ impl Transition {
         Ok(())
     }
 }
-pub fn candidate(
-    h: &Coordinator<B2zHostKernel>,
+pub fn candidate<K: dtr_host::Kernel>(
+    h: &Coordinator<K>,
     t: &Transition,
     source: &super::SourceState,
 ) -> Result<(Output, Vec<u8>, Identity)> {
@@ -145,8 +144,8 @@ pub fn candidate(
 
 /// Derive only the reviewed v4→v5 million-cell successor from the current
 /// committed v4 state. The host owns the source fence and DTR authentication.
-pub fn million_candidate(
-    h: &Coordinator<B2zHostKernel>,
+pub fn million_candidate<K: dtr_host::Kernel>(
+    h: &Coordinator<K>,
     t: &Transition,
     source: &super::SourceState,
 ) -> Result<(Output, Vec<u8>, Identity)> {

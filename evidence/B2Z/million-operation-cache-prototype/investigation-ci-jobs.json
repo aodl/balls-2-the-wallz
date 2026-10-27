@@ -1,0 +1,53 @@
+{
+  "jobs": [
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:37Z",
+      "completed_at": "2026-10-27T07:13:38Z"
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:37Z",
+      "completed_at": "2026-10-27T06:36:10Z"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:38Z",
+      "completed_at": "2026-10-27T06:35:01Z"
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:38Z",
+      "completed_at": "2026-10-27T06:34:15Z"
+    },
+    {
+      "name": "Native conformance",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:38Z",
+      "completed_at": "2026-10-27T06:34:19Z"
+    },
+    {
+      "name": "Source conformance",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:38Z",
+      "completed_at": "2026-10-27T06:34:09Z"
+    },
+    {
+      "name": "BLOCKED production inventory (not a pass)",
+      "conclusion": "success",
+      "status": "completed",
+      "started_at": "2026-10-27T06:33:38Z",
+      "completed_at": "2026-10-27T06:33:40Z"
+    }
+  ]
+}

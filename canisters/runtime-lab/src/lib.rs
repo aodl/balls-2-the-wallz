@@ -2,10 +2,11 @@
 //! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
 mod funding;
+mod operation_kernel;
 mod pace;
 mod source;
 mod transition;
-use b2z_native::{host::B2zHostKernel, world::World};
+use b2z_native::world::World;
 use candid::{CandidType, Principal};
 use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
 use dtr_host::{Action, Coordinator, Identity, MAX_IMAGE};
@@ -15,6 +16,7 @@ use ic_stable_structures::{
     memory_manager::{MemoryId, MemoryManager, VirtualMemory},
     DefaultMemoryImpl, StableBTreeMap, StableCell,
 };
+use operation_kernel::OperationKernel as B2zHostKernel;
 use serde::{Deserialize, Serialize};
 use source::{IndexConfig, PokeMatch, SourceState, SourceStatus};
 use std::cell::{Cell, RefCell};
@@ -550,7 +552,11 @@ fn status(r: &Root) -> Status {
     }
 }
 fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
-    let host = Coordinator::restore(&read_blob(0, &r.image)?, &r.image.sha256, B2zHostKernel)?;
+    let host = Coordinator::restore(
+        &read_blob(0, &r.image)?,
+        &r.image.sha256,
+        B2zHostKernel::default(),
+    )?;
     if number(&host.record.inbox.cursor)? != r.source.cursor {
         return Err("index source/coordinator divergence".into());
     }
@@ -1051,7 +1057,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
             logical_start,
             0,
             "00".repeat(32),
-            B2zHostKernel,
+            B2zHostKernel::default(),
         )?;
         let r = persist(&h, None, source, RunState::default())?;
         cache_poke_policy(&r.source);
@@ -2149,7 +2155,7 @@ mod tests {
             0,
             0,
             "00".repeat(32),
-            B2zHostKernel,
+            B2zHostKernel::default(),
         )
         .unwrap()
     }
@@ -2421,7 +2427,7 @@ mod tests {
             0,
             0,
             "00".repeat(32),
-            B2zHostKernel,
+            B2zHostKernel::default(),
         )
         .unwrap();
         h.apply(Action::Seal {

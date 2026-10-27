@@ -1,3 +1,22 @@
+# Operation-cache prototype — local PASS; production Reserve Protection
+
+**2026-10-27 07:51 UTC:** read-only production observation: 2.767T liquid,
+ReserveProtection, zero supported ticks, admission closed. Certified v8 paid v5
+state remains intact; source/treasury maintenance continues, Ledger balance zero.
+No production mutation was performed. Earlier active-play burn is not current burn.
+
+Accepted investigation `79c8521c` passed all six substantive exact-commit CI jobs
+in run `40461823074`; its independent checksum snapshot is intact. Separate branch
+`prototype/b2z-operation-cache` adds a bounded operation-scoped validated cursor/output
+memo, preserving the immutable DTR pin, public interfaces, authoritative rules,
+budgets, pacing and durable layout. Actual disposable-IC captured-three-ball cost
+fell 43.36%; two/three/four-ball, boundary, authenticated v8 and frozen-predecessor
+interrupted/torn recovery checks pass. **GO for further qualification only.**
+See [measurements, current health, limitations and evidence](evidence/B2Z/million-operation-cache-prototype/REPORT.md).
+No new prototype CI or production deployment is claimed. Dated historical status follows.
+
+---
+
 # Production v5 / deployed frontend — bounded cost investigation complete
 
 **2026-10-26:** frontend commit `e2fc63d6bc73b77e60c87f3b37134c7f9cc09abc`
