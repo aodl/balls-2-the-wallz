@@ -78,7 +78,15 @@ fn authenticate(pic: &PocketIc, id: Principal, out: &Path) {
     for (k, b) in ["state", "events", "scores"].iter().zip(&data) {
         std::fs::write(out.join(format!("{k}.bin")), b).unwrap();
     }
-    std::fs::write(out.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":8,"virtual_clock":true})).unwrap()).unwrap();
+    let zero_genesis = std::env::var("B2Z_PROFILE_ZERO").as_deref() == Ok("1");
+    let expected_version = if zero_genesis { 6 } else { 8 };
+    assert_eq!(p.version, expected_version);
+    if zero_genesis {
+        assert!(p.head.segment_id.is_none());
+        let world = arena_world(pic, id);
+        assert!(world.cannons.is_empty() && world.balls.is_empty());
+    }
+    std::fs::write(out.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":expected_version,"zero_genesis":zero_genesis,"virtual_clock":true})).unwrap()).unwrap();
     assert!(
         std::process::Command::new("node")
             .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))

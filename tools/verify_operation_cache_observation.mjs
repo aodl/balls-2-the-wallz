@@ -24,12 +24,16 @@ const verify=meta.virtual_clock ? async(bytes,deployment)=>{
  return {network:'pocketic-local',canister_id:canister.toText(),certified_data_hex:Buffer.from(data).toString('hex'),certificate_time_ns:ns};
 } : localCertificateVerifier(root);
 const ticket=await verifyCertificatePublication(catalog,certificate,policy,verify);
+// Empty-arena genesis is an explicitly labelled v6 fixture. Every paid/recovery
+// observation still requires v8: never infer a permitted downgrade from metadata.
+assert.equal(meta.publication_version,meta.zero_genesis ? 6 : 8);
 assert.equal(ticket.publication.version,meta.publication_version);
+if(meta.zero_genesis){assert.equal(ticket.publication.head.segment_id,null);assert.equal(ticket.publication.epoch,undefined);}
 if(meta.publication_version===8)assert.equal(ticket.publication.epoch.version,2);
 for(const kind of ['state','events','scores']){
  const assembler=new ArtifactAssembler(ticket,kind),data=await read(`${kind}.bin`);
  for(let i=0;i<assembler.descriptor.chunks.length;i++)await assembler.accept(i,data.slice(i*16384,(i+1)*16384));
- const bytes=await assembler.finish();if(kind==='state'){const world=snapshot(bytes,ticket.publication.identity);assert.equal(world.version,5);assert.equal(world.width,1000);assert.equal(world.height,1000);}
+ const bytes=await assembler.finish();if(kind==='state'){const world=snapshot(bytes,ticket.publication.identity);assert.equal(world.version,5);assert.equal(world.width,1000);assert.equal(world.height,1000);if(meta.zero_genesis){assert.equal(world.cannons.length,0);assert.equal(world.balls.length,0);}}
 }
 await assert.rejects(()=>verifyCertificatePublication(catalog,certificate,{...policy,canister_id:'2vxsx-fae'},verify));
 await assert.rejects(()=>verifyCertificatePublication(catalog,certificate,{...policy,now_ns:policy.now_ns+600000000000n},verify));
