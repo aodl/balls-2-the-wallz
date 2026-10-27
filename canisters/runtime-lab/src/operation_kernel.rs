@@ -1,8 +1,11 @@
 //! One-coordinator-lifetime memo, never durable or shared across messages.
-//! Every previously unseen byte string still passes Cursor::restore, including
-//! its hash, bounds, schema roundtrip and world checks. Generated snapshots are
-//! deliberately NOT inserted: the host must validate those bytes normally.
-use b2z_native::{host::B2zHostKernel, Cursor};
+//! Every external byte string still passes Cursor::restore, including
+//! its hash, bounds, schema roundtrip and world checks. Private typed sessions
+//! validate generated images with the same invariant checks and canonical writer;
+//! no caller can mutate their typed state or forge their origin.
+use b2z_native::host::{B2zHostKernel, ExecutionSession};
+#[cfg(test)]
+use b2z_native::Cursor;
 use dtr_host::{Input, Kernel, Output, Progress, Seal};
 use dtr_wire::{hash, Result};
 use std::cell::RefCell;
@@ -12,7 +15,7 @@ const CACHE_BYTES: usize = 256 * 1024;
 struct Entry {
     bytes: Vec<u8>,
     digest: String,
-    cursor: Cursor,
+    cursor: ExecutionSession,
     output: Option<Output>,
 }
 
@@ -36,7 +39,7 @@ impl OperationKernel {
             return action(entry);
         }
         let digest = expected.map(str::to_owned).unwrap_or_else(|| hash(bytes));
-        let cursor = Cursor::restore(bytes, &digest)?;
+        let cursor = ExecutionSession::restore(bytes, &digest, CACHE_BYTES)?;
         let mut entry = Entry {
             bytes: Vec::new(),
             digest,
@@ -65,9 +68,14 @@ impl Kernel for OperationKernel {
 
     fn step(&self, bytes: &[u8], budget: usize) -> Result<(Vec<u8>, Progress)> {
         self.access(bytes, None, |entry| {
-            let mut cursor = entry.cursor.clone();
-            let (used, complete) = cursor.step(budget)?;
-            Ok((cursor.snapshot()?, Progress { used, complete }))
+            let (bytes, progress, next) = entry.cursor.propose_step(budget, CACHE_BYTES)?;
+            if let Some(next) = next {
+                entry.digest = hash(&bytes);
+                entry.bytes = bytes.clone();
+                entry.cursor = next;
+                entry.output = None;
+            }
+            Ok((bytes, progress))
         })
     }
 
@@ -126,7 +134,7 @@ mod tests {
     }
 
     #[test]
-    fn generated_continuations_still_require_first_validation_and_match_baseline() {
+    fn typed_continuations_match_full_restore_and_stateless_baseline() {
         let kernel = OperationKernel::default();
         let mut bytes = cursor().snapshot().unwrap();
         loop {
@@ -138,7 +146,10 @@ mod tests {
                 (progress.used, progress.complete),
                 (expected.used, expected.complete)
             );
-            assert_eq!(kernel.entry.borrow().as_ref().unwrap().bytes, bytes);
+            assert_eq!(kernel.entry.borrow().as_ref().unwrap().bytes, next);
+            // Independent legacy import validates every proposed typed image.
+            Cursor::restore(&next, &hash(&next)).unwrap();
+            assert!(kernel.validate_cursor(&next, &"00".repeat(32)).is_err());
             kernel.validate_cursor(&next, &hash(&next)).unwrap();
             bytes = next;
             if progress.complete {
