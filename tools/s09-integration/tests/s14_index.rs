@@ -6207,6 +6207,10 @@ fn operation_cache_profile() {
                 )
                 .paused
             );
+            // Settle setup messages before opening the accounting window.
+            for _ in 0..8 {
+                pic.tick();
+            }
             // Start the accounting window while paused, before the start call:
             // no partial first driver message can escape either cost counter.
             let memory_before = pic.canister_status(id, Some(controller())).unwrap();
@@ -6251,12 +6255,21 @@ fn operation_cache_profile() {
                     );
                     boundaries.push(dtr_wire::hash(&observe(&pic, id).0.publication));
                     let balance = pic.cycle_balance(id);
-                    tick_costs.push((previous_cycles - balance).to_string());
+                    tick_costs.push(if previous_cycles >= balance {
+                        (previous_cycles - balance).to_string()
+                    } else {
+                        format!("-{}", balance - previous_cycles)
+                    });
                     previous_cycles = balance;
                     replayed = p.head.segment_id;
                 }
             }
             get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+            // Timer/self-call response reservations can be refunded after the
+            // final publication. Drain existing callbacks without advancing time.
+            for _ in 0..8 {
+                pic.tick();
+            }
             // Settle existing source calls/refunds before taking the total debit;
             // no virtual time advance and no new game work after the pause.
             for _ in 0..32 {
@@ -6352,7 +6365,7 @@ fn operation_cache_profile() {
                     .success()
             );
             let detail: ProfileStatus = get_query(&pic, id, "lab_status", encode_args(()).unwrap());
-            rows.push(serde_json::json!({"label":label,"balls":balls,"ticks":ticks,"cycles":spent.to_string(),"instructions":{"seal":after.seal_instructions-before.seal_instructions,"step":after.step_instructions-before.step_instructions,"publish":after.publish_instructions-before.publish_instructions,"persist":after.persist_instructions-before.persist_instructions},"messages":after.messages-before.messages,"max_instructions":after.max_instructions,"before_max_instructions":before.max_instructions,"source_calls":status(&pic,id).source.index_calls-initial.source.index_calls,"reserved_cycles_before":memory_before.reserved_cycles.to_string(),"reserved_cycles_after":memory_after.reserved_cycles.to_string(),"publication_sha256":dtr_wire::hash(&o.publication),"artifact_sha256":bundle.iter().map(|b|dtr_wire::hash(b)).collect::<Vec<_>>(),"tick_cycle_debits":tick_costs,"accounting_tail_cycles":(spent-tick_costs.iter().map(|s|s.parse::<u128>().unwrap()).sum::<u128>()).to_string(),"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"simulated_turns_50ms":turns,"fiduciary_fixture":std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref()==Ok("1"),"initial_world_bytes":initial_bytes,"initial_overrides":initial_overrides,"fragments_requested":fragments,"final_artifact_bytes":bundle.iter().map(|b|b.len()).collect::<Vec<_>>(),"normal_Wasm":std::env::var("B2Z_PROFILE_DIAGNOSTIC").as_deref()!=Ok("1"),"publication_version":p.version,"last_segment_work":detail.run.last_segment_work,"work_budget":detail.run.work_budget,"native_replay":true}));
+            rows.push(serde_json::json!({"label":label,"balls":balls,"ticks":ticks,"cycles":spent.to_string(),"instructions":{"seal":after.seal_instructions-before.seal_instructions,"step":after.step_instructions-before.step_instructions,"publish":after.publish_instructions-before.publish_instructions,"persist":after.persist_instructions-before.persist_instructions},"messages":after.messages-before.messages,"max_instructions":after.max_instructions,"before_max_instructions":before.max_instructions,"source_calls":status(&pic,id).source.index_calls-initial.source.index_calls,"reserved_cycles_before":memory_before.reserved_cycles.to_string(),"reserved_cycles_after":memory_after.reserved_cycles.to_string(),"publication_sha256":dtr_wire::hash(&o.publication),"artifact_sha256":bundle.iter().map(|b|dtr_wire::hash(b)).collect::<Vec<_>>(),"tick_cycle_debits":tick_costs,"accounting_tail_cycles":((spent as i128)-tick_costs.iter().map(|s|s.parse::<i128>().unwrap()).sum::<i128>()).to_string(),"callback_drain_rounds":8,"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"simulated_turns_50ms":turns,"fiduciary_fixture":std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref()==Ok("1"),"initial_world_bytes":initial_bytes,"initial_overrides":initial_overrides,"fragments_requested":fragments,"final_artifact_bytes":bundle.iter().map(|b|b.len()).collect::<Vec<_>>(),"normal_Wasm":std::env::var("B2Z_PROFILE_DIAGNOSTIC").as_deref()!=Ok("1"),"publication_version":p.version,"last_segment_work":detail.run.last_segment_work,"work_budget":detail.run.work_budget,"native_replay":true}));
             let path = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
             std::fs::create_dir_all(&path).unwrap();
             std::fs::write(
@@ -6613,6 +6626,9 @@ fn operation_cache_v8_recovery(
         assert_eq!(retained_bytes(pic, id), retained);
         assert_eq!(funding_tests::preserved_finance(pic, id), finance);
         assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
+        for _ in 0..8 {
+            pic.tick();
+        }
         let memory_before = pic.canister_status(id, Some(controller())).unwrap();
         let initial_completed = status(pic, id).run.completed_segments;
         let metric_before = metrics(pic, id);
@@ -6650,11 +6666,18 @@ fn operation_cache_v8_recovery(
                 boundary_bytes.push(head.clone());
                 previous_head = head;
                 let balance = pic.cycle_balance(id);
-                per_tick.push((previous_cycles - balance).to_string());
+                per_tick.push(if previous_cycles >= balance {
+                    (previous_cycles - balance).to_string()
+                } else {
+                    format!("-{}", balance - previous_cycles)
+                });
                 previous_cycles = balance;
             }
         }
         get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+        for _ in 0..8 {
+            pic.tick();
+        }
         let spent = cycle_before - pic.cycle_balance(id);
         let metric_after = metrics(pic, id);
         let memory_after = pic.canister_status(id, Some(controller())).unwrap();
