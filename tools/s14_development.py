@@ -15,8 +15,16 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import tomllib
 
 ROOT=Path(__file__).resolve().parents[1]
+DTR_PACKAGES={'dtr-core','dtr-source-model','dtr-host','dtr-wire'}
+
+def frozen_dependencies(data):
+    """Keep every unrelated locked version/source/checksum, including duplicates."""
+    packages=tomllib.loads(data.decode())['package']
+    return {(p['name'],p['version'],p.get('source','')):p.get('checksum')
+            for p in packages if p['name'] not in DTR_PACKAGES}
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -59,9 +67,18 @@ def main():
                 installed.replace(backup);replacement.replace(installed)
             # Deliberate temporary resolution. A new unpublished DTR version is
             # not selected from an older lock merely because a patch exists, so
-            # refresh each disposable lock first and then require --locked.
+            # refresh only its DTR packages, preserve every other locked package,
+            # and then require --locked.
             for manifest in ['Cargo.toml','native/Cargo.toml','canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml']:
-                subprocess.run(['cargo','--config',str(config),'update','--offline','--manifest-path',manifest],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+                lock_path=ROOT/Path(manifest).with_suffix('.lock')
+                original=locks[lock_path]
+                selected=sorted(p['name'] for p in tomllib.loads(original.decode())['package'] if p['name'] in DTR_PACKAGES)
+                if not selected:raise SystemExit('missing locked DTR packages: '+manifest)
+                command_update=['cargo','--config',str(config),'update','--offline','--manifest-path',manifest]
+                for name in selected:command_update.extend(['--package',name])
+                subprocess.run(command_update,cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+                if frozen_dependencies(original)!=frozen_dependencies(lock_path.read_bytes()):
+                    raise SystemExit('unrelated dependency resolution changed: '+manifest)
                 metadata=json.loads(subprocess.check_output(['cargo','--config',str(config),'metadata','--locked','--format-version','1','--offline','--manifest-path',manifest],cwd=ROOT,text=True))
                 used=[Path(package['manifest_path']).resolve() for package in metadata['packages'] if package['name'] in {'dtr-core','dtr-source-model','dtr-host','dtr-wire'}]
                 if not used or any(dtr not in path.parents for path in used):

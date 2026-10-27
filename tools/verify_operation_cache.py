@@ -11,8 +11,8 @@ FROZEN='7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51'
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  p.add_argument('--baseline',type=Path,required=True);p.add_argument('--prototype',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
- p.add_argument('--faults-only',action='store_true');p.add_argument('--harness-bin',type=Path);p.add_argument('--harness-sha256');p.add_argument('--initial-cycles',type=int);p.add_argument('--quiet-seconds',type=int,default=300);p.add_argument('--paused-recovery',action='store_true');p.add_argument('--fault-wasm',type=Path);p.add_argument('--fragments',type=int,default=0);p.add_argument('--diagnostic',action='store_true');p.add_argument('--paid-balls',type=int,default=1);p.add_argument('--a1',type=Path);p.add_argument('--ticks',type=int,default=8);p.add_argument('--fiduciary',action='store_true')
- p.add_argument('--mode',choices=['profile','recovery','quiet'],default='profile');p.add_argument('--counts',default='2,3,4');p.add_argument('--work-budget',type=int,default=512);p.add_argument('--capture',type=Path);p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts')
+ p.add_argument('--pending-notify',action='store_true');p.add_argument('--faults-only',action='store_true');p.add_argument('--harness-bin',type=Path);p.add_argument('--harness-sha256');p.add_argument('--initial-cycles',type=int);p.add_argument('--quiet-seconds',type=int,default=300);p.add_argument('--paused-recovery',action='store_true');p.add_argument('--fault-wasm',type=Path);p.add_argument('--fragments',type=int,default=0);p.add_argument('--diagnostic',action='store_true');p.add_argument('--paid-balls',type=int,default=1);p.add_argument('--a1',type=Path);p.add_argument('--ticks',type=int,default=8);p.add_argument('--fiduciary',action='store_true')
+ p.add_argument('--mode',choices=['profile','recovery','quiet','zero'],default='profile');p.add_argument('--counts',default='2,3,4');p.add_argument('--work-budget',type=int,default=512);p.add_argument('--capture',type=Path);p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts')
  a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);digest=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
  assert digest(a.baseline)==FROZEN,'exact frozen production predecessor required'
  counts=[int(n) for n in a.counts.split(',')];assert counts and all(0<=n<=64 for n in counts);assert a.work_budget in [511,512,513]
@@ -53,7 +53,10 @@ def main():
  else:env.pop('B2Z_PROFILE_FIDUCIARY',None)
  env.pop('B2Z_PROFILE_CAPTURE',None);env.pop('S14_GENESIS_WORLD',None)
  if a.capture:env['B2Z_PROFILE_CAPTURE']=str(a.capture.resolve())
- test='operation_cost::quiet_profile' if a.mode=='quiet' else 'operation_cache_profile'
+ env['B2Z_PROFILE_PENDING_NOTIFY']='1' if a.pending_notify else '0'
+ env['B2Z_PROFILE_ZERO']='1' if a.mode=='zero' else '0'
+ if a.mode=='profile' and 0 in counts:p.error('use --mode zero for the valid empty-arena idle case')
+ test='operation_cost::quiet_profile' if a.mode in ['quiet','zero'] else 'operation_cache_profile'
  if a.mode=='recovery':
   test='million_paid_v4_cutover_preserves_state_and_uses_second_epoch';env.pop('B2Z_PROFILE_FIXED_TIME_NS',None)
   prior=out/'v4-predecessor.wasm';prior.write_bytes(gzip.decompress((ROOT/'vendor/b2z/pacing-c7c69ddf.wasm.gz').read_bytes()));assert digest(prior)=='c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db'

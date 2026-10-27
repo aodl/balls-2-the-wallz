@@ -30,6 +30,26 @@ fn fault(pic: &PocketIc, id: Principal, point: &str) {
     );
 }
 fn bundle(pic: &PocketIc, id: Principal, p: &Publication, catalog: &[u8]) -> Vec<Vec<u8>> {
+    if p.head.segment_id.is_none() {
+        return p
+            .artifacts
+            .iter()
+            .enumerate()
+            .map(|(kind, desc)| {
+                let mut bytes = vec![];
+                for index in 0..desc.chunks.len() {
+                    let chunk: Vec<u8> = get_query(
+                        pic,
+                        id,
+                        "artifact_chunk",
+                        encode_args((dtr_wire::hash(catalog), kind as u8, index as u16)).unwrap(),
+                    );
+                    bytes.extend(chunk);
+                }
+                bytes
+            })
+            .collect();
+    }
     get_query(
         pic,
         id,
@@ -271,10 +291,25 @@ fn quiet_profile() {
     modules.push(("prototype", bytes("B2Z_S14_WASM")));
     let mut rows = vec![];
     for (label, module) in modules {
-        let world = b2z_native::world::World::decode(
-            &std::fs::read(std::env::var("B2Z_PROFILE_CAPTURE").unwrap()).unwrap(),
-        )
-        .unwrap();
+        let zero = std::env::var("B2Z_PROFILE_ZERO").as_deref() == Ok("1");
+        let world = if zero {
+            let mut v4 = b2z_native::world::World::decode(&initial_world()).unwrap();
+            v4.version = 4;
+            v4.width = 32;
+            v4.height = 32;
+            v4.cells = vec![0; 1024];
+            v4.ownership = None;
+            v4.cannons.clear();
+            v4.balls.clear();
+            v4.pending.clear();
+            v4.validate().unwrap();
+            b2z_native::migration::stage_million_world(&v4).unwrap()
+        } else {
+            b2z_native::world::World::decode(
+                &std::fs::read(std::env::var("B2Z_PROFILE_CAPTURE").unwrap()).unwrap(),
+            )
+            .unwrap()
+        };
         let (pic, id, _, _) = arena_setup_world(module, world.encode().unwrap());
         let before = status(&pic, id);
         let catalog = observe(&pic, id).0.publication;
@@ -289,15 +324,110 @@ fn quiet_profile() {
         let debit = cycles - pic.cycle_balance(id);
         let after = status(&pic, id);
         let view: View = get_query(&pic, id, "lab_status", encode_args(()).unwrap());
-        assert_eq!(view.run.pace.mode, "ReserveProtection");
-        assert_eq!(view.run.pace.supported_milli, 0);
-        assert!(!view.run.pace.admission_open);
+        if zero {
+            assert!(world.cannons.is_empty() && world.balls.is_empty());
+        } else {
+            assert_eq!(view.run.pace.mode, "ReserveProtection");
+            assert_eq!(view.run.pace.supported_milli, 0);
+            assert!(!view.run.pace.admission_open);
+        }
         assert_eq!(after.run.completed_segments, before.run.completed_segments);
         assert_eq!(observe(&pic, id).0.publication, catalog);
         assert!(after.source.index_calls >= before.source.index_calls + seconds / 60 - 1);
         let finance = funding_tests::full_finance(&pic, id);
         assert_eq!(finance["total_cycles_reported"], serde_json::json!("0"));
+        if zero {
+            authenticate(
+                &pic,
+                id,
+                &PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+                    .join(format!("zero-{label}")),
+            );
+        }
         rows.push(serde_json::json!({"label":label,"cycles":debit.to_string(),"virtual_ns":(pic.get_time().as_nanos_since_unix_epoch()-started.as_nanos_since_unix_epoch()).to_string(),"index_calls":after.source.index_calls-before.source.index_calls,"segments":0,"mode":view.run.pace.mode,"source_error":after.source.last_error,"treasury":finance,"normal_Wasm":true,"fiduciary_fixture":true}));
     }
-    std::fs::write(PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("quiet-profile.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","seconds":seconds,"includes_start_cost":true,"rows":rows})).unwrap()).unwrap();
+    std::fs::write(PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if std::env::var("B2Z_PROFILE_ZERO").as_deref()==Ok("1") {"zero-profile.json"} else {"quiet-profile.json"}),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","seconds":seconds,"includes_start_cost":true,"rows":rows})).unwrap()).unwrap();
+}
+
+/// Genuine valueless Ledger transfer with a stopped local CMC produces a durable
+/// NotifyPending on the exact normal predecessor, without manufacturing state.
+pub(super) fn prepare_notify_pending(
+    pic: &PocketIc,
+    id: Principal,
+    ledger: Principal,
+    payer: Principal,
+) {
+    get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let cmc = Principal::from_text("rkp4c-7iaaa-aaaaa-aaaca-cai").unwrap();
+    pic.stop_canister(cmc, Some(controller())).unwrap();
+    transfer_text(pic, ledger, payer, id, 100_000_000, b"ANGLE NaN");
+    for _ in 0..3 {
+        pic.advance_time(Duration::from_secs(300));
+        for _ in 0..80 {
+            pic.tick();
+        }
+        if funding_tests::full_finance(pic, id)["phase"]
+            .get("NotifyPending")
+            .is_some()
+        {
+            return;
+        }
+    }
+    panic!(
+        "normal predecessor did not retain genuine NotifyPending: {:?}",
+        funding_tests::full_finance(pic, id)
+    );
+}
+pub(super) fn finish_notify_pending(pic: &PocketIc, id: Principal, out: &Path) {
+    let before = funding_tests::full_finance(pic, id);
+    let plan = before["phase"]["NotifyPending"]["plan"].clone();
+    let block = before["phase"]["NotifyPending"]["block_index"].clone();
+    assert!(!plan.is_null());
+    let world = arena_world(pic, id);
+    let catalog = observe(pic, id).0.publication;
+    let retained = retained_bytes(pic, id);
+    pic.start_canister(
+        Principal::from_text("rkp4c-7iaaa-aaaaa-aaaca-cai").unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let mut after = before.clone();
+    for _ in 0..3 {
+        pic.advance_time(Duration::from_secs(300));
+        for _ in 0..80 {
+            pic.tick();
+        }
+        after = funding_tests::full_finance(pic, id);
+        if after["phase"] == serde_json::json!("Idle") {
+            break;
+        }
+    }
+    assert_eq!(after["phase"], serde_json::json!("Idle"));
+    assert_eq!(after["last_success"]["plan"], plan);
+    assert_eq!(after["last_success"]["block_index"], block);
+    let old: u128 = before["total_cycles_reported"]
+        .as_str()
+        .unwrap()
+        .parse()
+        .unwrap();
+    let new: u128 = after["total_cycles_reported"]
+        .as_str()
+        .unwrap()
+        .parse()
+        .unwrap();
+    assert_eq!(new - old, 1_000_000_000_000);
+    assert_eq!(arena_world(pic, id), world);
+    assert_eq!(observe(pic, id).0.publication, catalog);
+    assert_eq!(retained_bytes(pic, id), retained);
+    let once = after["total_cycles_reported"].clone();
+    pic.advance_time(Duration::from_secs(300));
+    for _ in 0..80 {
+        pic.tick();
+    }
+    assert_eq!(
+        funding_tests::full_finance(pic, id)["total_cycles_reported"],
+        once
+    );
+    authenticate(pic, id, &out.join("pending-notify-recovered"));
+    std::fs::write(out.join("pending-notify-recovery.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","origin":"exact frozen normal predecessor, genuine Ledger transaction, stopped local CMC","before":before,"after":after,"one_credit":true,"paid_world_and_retention_unchanged":true,"normal_Wasm":true})).unwrap()).unwrap();
 }
