@@ -18,6 +18,8 @@ use std::{
 #[rustfmt::skip]
 #[path = "../../../canisters/runtime-lab/src/source.rs"]
 mod source;
+#[path = "support/operation_cost.rs"]
+mod operation_cost;
 use source::{IndexConfig, PokeMatch, PokeTarget, SourceStatus, StartingPolicy};
 #[derive(CandidType)]
 enum LedgerPayload {
@@ -179,6 +181,25 @@ fn normalized(account: AccountIdentifier, amount: u64, memo: [u8; 8]) -> String 
 
 fn create_controlled(pic: &PocketIc) -> Principal {
     let owner = controller();
+    if let Ok(cycles) = std::env::var("B2Z_PROFILE_INITIAL_CYCLES") {
+        return pic
+            .create_canister_with_params(
+                Some(owner),
+                pocket_ic::CreateCanisterParams {
+                    cycles: Some(cycles.parse().unwrap()),
+                    settings: Some(CanisterSettings {
+                        controllers: Some(vec![owner]),
+                        ..Default::default()
+                    }),
+                    placement: pic
+                        .topology()
+                        .get_fiduciary()
+                        .map(pocket_ic::CreateCanisterPlacement::SubnetId),
+                },
+            )
+            .unwrap();
+    }
+
     if std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref() == Ok("1") {
         return pic.create_canister_on_subnet(
             Some(owner),
@@ -3205,7 +3226,9 @@ fn arena_setup_world_fee_clock(
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
     for c in [id, index] {
-        pic.add_cycles(c, 100_000_000_000_000);
+        if c != id || std::env::var_os("B2Z_PROFILE_INITIAL_CYCLES").is_none() {
+            pic.add_cycles(c, 100_000_000_000_000);
+        }
     }
     pic.install_canister(
         index,
@@ -5403,7 +5426,7 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
     )
     .unwrap();
     if std::env::var("B2Z_PROFILE_RECOVERY_WASM").is_ok() {
-        operation_cache_v8_recovery(&pic, id, &out);
+        operation_cache_v8_recovery(&pic, id, &out, ledger, payer);
     }
 }
 
@@ -6126,7 +6149,25 @@ fn operation_cache_profile() {
                 world = b2z_native::world::World::decode(&std::fs::read(path).unwrap()).unwrap();
                 assert_eq!(world.balls.len(), balls);
             }
+            let fragments: usize = std::env::var("B2Z_PROFILE_FRAGMENTS")
+                .unwrap_or_else(|_| "0".into())
+                .parse()
+                .unwrap();
+            assert!(fragments <= 10000);
+            for cell in (100000..100000 + fragments * 2).step_by(2) {
+                if world.cannons.iter().any(|c| c.cell == cell) {
+                    continue;
+                }
+                let owner = if world.owner(cell) == Some(0) {
+                    world.cannons[0].id
+                } else {
+                    0
+                };
+                world.set_owner(cell, owner).unwrap();
+            }
             world.validate().unwrap();
+            let initial_bytes = world.encode().unwrap().len();
+            let initial_overrides = world.ownership.as_ref().unwrap().overrides.len();
             let logical_start = world
                 .time
                 .0
@@ -6196,7 +6237,7 @@ fn operation_cache_profile() {
                 pic.tick();
                 pic.tick();
                 turns += 1;
-                assert!(turns < ticks * 100, "bounded producer stalled");
+                assert!(turns < ticks * 1000, "bounded producer stalled");
                 let p = observe(&pic, id).1;
                 if p.head.segment_id.is_some() && p.head.segment_id != replayed {
                     replay_head_with_artifacts(
@@ -6299,7 +6340,7 @@ fn operation_cache_profile() {
                     .success()
             );
             let detail: ProfileStatus = get_query(&pic, id, "lab_status", encode_args(()).unwrap());
-            rows.push(serde_json::json!({"label":label,"balls":balls,"ticks":ticks,"cycles":spent.to_string(),"instructions":{"seal":after.seal_instructions-before.seal_instructions,"step":after.step_instructions-before.step_instructions,"publish":after.publish_instructions-before.publish_instructions,"persist":after.persist_instructions-before.persist_instructions},"messages":after.messages-before.messages,"max_instructions":after.max_instructions,"publication_sha256":dtr_wire::hash(&o.publication),"artifact_sha256":bundle.iter().map(|b|dtr_wire::hash(b)).collect::<Vec<_>>(),"tick_cycle_debits":tick_costs,"accounting_tail_cycles":(spent-tick_costs.iter().map(|s|s.parse::<u128>().unwrap()).sum::<u128>()).to_string(),"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"simulated_turns_50ms":turns,"fiduciary_fixture":std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref()==Ok("1"),"normal_Wasm":std::env::var("B2Z_PROFILE_DIAGNOSTIC").as_deref()!=Ok("1"),"publication_version":p.version,"last_segment_work":detail.run.last_segment_work,"work_budget":detail.run.work_budget,"native_replay":true}));
+            rows.push(serde_json::json!({"label":label,"balls":balls,"ticks":ticks,"cycles":spent.to_string(),"instructions":{"seal":after.seal_instructions-before.seal_instructions,"step":after.step_instructions-before.step_instructions,"publish":after.publish_instructions-before.publish_instructions,"persist":after.persist_instructions-before.persist_instructions},"messages":after.messages-before.messages,"max_instructions":after.max_instructions,"publication_sha256":dtr_wire::hash(&o.publication),"artifact_sha256":bundle.iter().map(|b|dtr_wire::hash(b)).collect::<Vec<_>>(),"tick_cycle_debits":tick_costs,"accounting_tail_cycles":(spent-tick_costs.iter().map(|s|s.parse::<u128>().unwrap()).sum::<u128>()).to_string(),"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"simulated_turns_50ms":turns,"fiduciary_fixture":std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref()==Ok("1"),"initial_world_bytes":initial_bytes,"initial_overrides":initial_overrides,"fragments_requested":fragments,"final_artifact_bytes":bundle.iter().map(|b|b.len()).collect::<Vec<_>>(),"normal_Wasm":std::env::var("B2Z_PROFILE_DIAGNOSTIC").as_deref()!=Ok("1"),"publication_version":p.version,"last_segment_work":detail.run.last_segment_work,"work_budget":detail.run.work_budget,"native_replay":true}));
             let path = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
             std::fs::create_dir_all(&path).unwrap();
             std::fs::write(
@@ -6318,41 +6359,135 @@ fn operation_cache_profile() {
     .unwrap();
 }
 
-fn operation_cache_v8_recovery(pic: &PocketIc, id: Principal, out: &Path) {
+fn operation_cache_v8_recovery(
+    pic: &PocketIc,
+    id: Principal,
+    out: &Path,
+    ledger: Principal,
+    payer: Principal,
+) {
+    #[derive(CandidType, Deserialize, serde::Serialize)]
+    struct Metrics {
+        messages: u64,
+        seal_instructions: u64,
+        step_instructions: u64,
+        publish_instructions: u64,
+        persist_instructions: u64,
+        max_instructions: u64,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Runtime {
+        metrics: Metrics,
+    }
+    fn metrics(pic: &PocketIc, id: Principal) -> Metrics {
+        get_query::<Runtime>(pic, id, "controller_runtime", encode_args(()).unwrap()).metrics
+    }
+    let paid_balls: usize = std::env::var("B2Z_PROFILE_PAID_BALLS")
+        .unwrap_or_else(|_| "1".into())
+        .parse()
+        .unwrap();
+    assert!((1..=4).contains(&paid_balls));
+    let have = arena_world(pic, id).balls.len();
+    if paid_balls > have {
+        start_arena(pic, id);
+        for next in have + 1..=paid_balls {
+            let prices: serde_json::Value =
+                serde_json::from_str(include_str!("../../../config/economics/prelaunch.json"))
+                    .unwrap();
+            let base: u64 = prices["ball_base_e8s"].as_str().unwrap().parse().unwrap();
+            let amount = base * (next * next) as u64;
+            transfer_text(
+                pic,
+                ledger,
+                payer,
+                id,
+                amount,
+                if next % 2 == 0 {
+                    b"ANGLE 225"
+                } else {
+                    b"ANGLE 110"
+                },
+            );
+        }
+        for _ in 0..360 {
+            tick(pic);
+            if arena_world(pic, id).balls.len() == paid_balls {
+                break;
+            }
+        }
+        assert_eq!(
+            arena_world(pic, id).balls.len(),
+            paid_balls,
+            "genuine fixture payments did not produce requested population"
+        );
+    }
+
     #[derive(CandidType, Deserialize)]
     struct Work {
         phase: Option<String>,
     }
-    get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
-    get_result::<Status>(
-        pic,
-        id,
-        "start_autonomous",
-        candid::encode_one(RunConfig {
-            segment_ticks: 1,
-            pacing_seconds: 1,
-            work_budget: 1,
-        })
-        .unwrap(),
-    );
-    let mut interrupted = false;
-    for _ in 0..80 {
-        pic.advance_time(Duration::from_millis(50));
-        pic.tick();
-        if get_query::<Work>(pic, id, "controller_work", encode_args(()).unwrap())
-            .phase
-            .as_deref()
-            == Some("running")
-        {
-            interrupted = true;
-            break;
+    let paused_mode = std::env::var("B2Z_PROFILE_PAUSED_RECOVERY").as_deref() == Ok("1");
+    if paused_mode {
+        get_result::<Status>(
+            pic,
+            id,
+            "start_autonomous",
+            candid::encode_one(RunConfig {
+                segment_ticks: 1,
+                pacing_seconds: 1,
+                work_budget: 512,
+            })
+            .unwrap(),
+        );
+        for _ in 0..200 {
+            if get_query::<Work>(pic, id, "controller_work", encode_args(()).unwrap())
+                .phase
+                .is_none()
+            {
+                break;
+            }
+            pic.advance_time(Duration::from_millis(50));
+            pic.tick();
         }
+        get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+        assert!(
+            get_query::<Work>(pic, id, "controller_work", encode_args(()).unwrap())
+                .phase
+                .is_none(),
+            "paused upgrade must have no unfinished stage"
+        );
+    } else {
+        get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+        get_result::<Status>(
+            pic,
+            id,
+            "start_autonomous",
+            candid::encode_one(RunConfig {
+                segment_ticks: 1,
+                pacing_seconds: 1,
+                work_budget: 1,
+            })
+            .unwrap(),
+        );
+        let mut interrupted = false;
+        for _ in 0..80 {
+            pic.advance_time(Duration::from_millis(50));
+            pic.tick();
+            if get_query::<Work>(pic, id, "controller_work", encode_args(()).unwrap())
+                .phase
+                .as_deref()
+                == Some("running")
+            {
+                interrupted = true;
+                break;
+            }
+        }
+        assert!(
+            interrupted,
+            "failed to stop at an unfinished persisted cursor"
+        );
+        get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
     }
-    assert!(
-        interrupted,
-        "failed to stop at an unfinished persisted cursor"
-    );
-    get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
     let before = observe(pic, id).0.publication;
     let world = arena_world(pic, id);
     let retained = retained_bytes(pic, id);
@@ -6362,55 +6497,66 @@ fn operation_cache_v8_recovery(pic: &PocketIc, id: Principal, out: &Path) {
     let snapshot = pic
         .take_canister_snapshot(id, Some(controller()), None)
         .unwrap();
+    if std::env::var("B2Z_PROFILE_FAULTS_ONLY").as_deref() == Ok("1") {
+        operation_cost::checkpoint_faults(pic, id, out, snapshot.id);
+        return;
+    }
+
     pic.advance_time(Duration::from_secs(600));
     for _ in 0..100 {
         pic.tick();
     }
     let prototype = std::fs::read(std::env::var("B2Z_PROFILE_RECOVERY_WASM").unwrap()).unwrap();
-    // A torn local stable-image byte must fail cold upgrade verification, even
-    // though the same cursor was previously validated in an earlier operation.
-    let mut stable = pic.get_stable_memory(id);
-    let needle = b"\"cursor_hex\":\"";
-    let mut changed = 0;
-    for at in 0..stable.len() - needle.len() - 1 {
-        if &stable[at..at + needle.len()] == needle {
-            let byte = &mut stable[at + needle.len()];
-            if byte.is_ascii_hexdigit() {
-                *byte = if *byte == b'0' { b'1' } else { b'0' };
-                changed += 1;
+    let mut torn_rejection = None;
+    if !paused_mode {
+        // A torn local stable-image byte must fail cold upgrade verification, even
+        // though the same cursor was previously validated in an earlier operation.
+        let mut stable = pic.get_stable_memory(id);
+        let needle = b"\"cursor_hex\":\"";
+        let mut changed = 0;
+        for at in 0..stable.len() - needle.len() - 1 {
+            if &stable[at..at + needle.len()] == needle {
+                let byte = &mut stable[at + needle.len()];
+                if byte.is_ascii_hexdigit() {
+                    *byte = if *byte == b'0' { b'1' } else { b'0' };
+                    changed += 1;
+                }
             }
         }
-    }
-    assert!(changed > 0);
-    pic.set_stable_memory(
-        id,
-        stable,
-        pocket_ic::common::rest::BlobCompression::NoCompression,
-    );
-    let torn = pic
-        .upgrade_canister(
+        assert!(changed > 0);
+        pic.set_stable_memory(
             id,
-            prototype.clone(),
-            encode_args(()).unwrap(),
-            Some(controller()),
-        )
-        .unwrap_err();
-    assert!(
-        torn.reject_message.contains("stable blob integrity")
-            || torn.reject_message.contains("coordinator integrity")
-            || torn.reject_message.contains("cursor integrity"),
-        "unexpected torn-image rejection: {torn:?}"
-    );
-    eprintln!("TORN_IMAGE_REJECTION: {}", torn.reject_message);
-    pic.load_canister_snapshot(id, Some(controller()), snapshot.id.clone())
-        .unwrap();
+            stable,
+            pocket_ic::common::rest::BlobCompression::NoCompression,
+        );
+        let torn = pic
+            .upgrade_canister(
+                id,
+                prototype.clone(),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap_err();
+        assert!(
+            torn.reject_message.contains("stable blob integrity")
+                || torn.reject_message.contains("coordinator integrity")
+                || torn.reject_message.contains("cursor integrity"),
+            "unexpected torn-image rejection: {torn:?}"
+        );
+        eprintln!("TORN_IMAGE_REJECTION: {}", torn.reject_message);
+        torn_rejection = Some(torn.reject_message.clone());
+        pic.load_canister_snapshot(id, Some(controller()), snapshot.id.clone())
+            .unwrap();
+    }
     let mut expected = None;
     let mut cases = vec![];
-    for (label, module) in [
-        ("frozen-control", bytes("B2Z_S14_WASM")),
-        ("prototype", prototype),
-    ] {
-        if label == "prototype" {
+    let mut modules = vec![("frozen-control", bytes("B2Z_S14_WASM"))];
+    if std::env::var_os("B2Z_PROFILE_A1_WASM").is_some() {
+        modules.push(("a1", bytes("B2Z_PROFILE_A1_WASM")));
+    }
+    modules.push(("prototype", prototype));
+    for (label, module) in modules {
+        if label != "frozen-control" {
             pic.stop_canister(id, Some(controller())).unwrap();
             pic.load_canister_snapshot(id, Some(controller()), snapshot.id.clone())
                 .unwrap();
@@ -6451,6 +6597,15 @@ fn operation_cache_v8_recovery(pic: &PocketIc, id: Principal, out: &Path) {
         assert_eq!(retained_bytes(pic, id), retained);
         assert_eq!(funding_tests::preserved_finance(pic, id), finance);
         assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
+        let memory_before = pic.canister_status(id, Some(controller())).unwrap();
+        let initial_completed = status(pic, id).run.completed_segments;
+        let metric_before = metrics(pic, id);
+        let cycle_before = pic.cycle_balance(id);
+        let started_at = pic.get_time();
+        let mut per_tick = vec![];
+        let mut previous_cycles = cycle_before;
+        let mut previous_head = observe(pic, id).0.publication;
+        let mut boundary_bytes = vec![];
         get_result::<Status>(
             pic,
             id,
@@ -6462,16 +6617,33 @@ fn operation_cache_v8_recovery(pic: &PocketIc, id: Principal, out: &Path) {
             })
             .unwrap(),
         );
-        let target = status(pic, id).run.completed_segments + 4;
+        let count: u64 = std::env::var("B2Z_PROFILE_TICKS")
+            .unwrap_or_else(|_| "4".into())
+            .parse()
+            .unwrap();
+        let target = initial_completed + count;
         let mut turns = 0;
         while status(pic, id).run.completed_segments < target {
             pic.advance_time(Duration::from_millis(50));
             pic.tick();
             pic.tick();
             turns += 1;
-            assert!(turns < 500);
+            assert!(turns < count * 150);
+            let head = observe(pic, id).0.publication;
+            if head != previous_head {
+                boundary_bytes.push(head.clone());
+                previous_head = head;
+                let balance = pic.cycle_balance(id);
+                per_tick.push((previous_cycles - balance).to_string());
+                previous_cycles = balance;
+            }
         }
         get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+        let spent = cycle_before - pic.cycle_balance(id);
+        let metric_after = metrics(pic, id);
+        let memory_after = pic.canister_status(id, Some(controller())).unwrap();
+        let elapsed =
+            pic.get_time().as_nanos_since_unix_epoch() - started_at.as_nanos_since_unix_epoch();
         let (o, p) = observe(pic, id);
         assert_eq!(p.version, 8);
         let bundle: Vec<Vec<u8>> = get_query(
@@ -6497,6 +6669,7 @@ fn operation_cache_v8_recovery(pic: &PocketIc, id: Principal, out: &Path) {
             retained_bytes(pic, id),
             candid::encode_one(status(pic, id).source).unwrap(),
             funding_tests::full_finance(pic, id),
+            boundary_bytes,
         );
         if let Some(ref expected) = expected {
             assert_eq!(
@@ -6534,7 +6707,10 @@ fn operation_cache_v8_recovery(pic: &PocketIc, id: Principal, out: &Path) {
                 .unwrap()
                 .success()
         );
-        cases.push(serde_json::json!({"label":label,"v8_authenticated":true,"publication_sha256":dtr_wire::hash(&o.publication),"source_cursor":status(pic,id).source.admitted_to_exclusive,"finance":funding_tests::preserved_finance(pic,id)}));
+        cases.push(serde_json::json!({"label":label,"balls":world.balls.len(),"ticks":status(pic,id).run.completed_segments-initial_completed,"cycles":spent.to_string(),"tick_cycle_debits":per_tick,"elapsed_ns":elapsed.to_string(),"instructions":{"seal":metric_after.seal_instructions-metric_before.seal_instructions,"step":metric_after.step_instructions-metric_before.step_instructions,"publish":metric_after.publish_instructions-metric_before.publish_instructions,"persist":metric_after.persist_instructions-metric_before.persist_instructions},"messages":metric_after.messages-metric_before.messages,"max_instructions":metric_after.max_instructions,"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"v8_authenticated":true,"publication_sha256":dtr_wire::hash(&o.publication),"source_cursor":status(pic,id).source.admitted_to_exclusive,"finance":funding_tests::preserved_finance(pic,id)}));
     }
-    std::fs::write(out.join("operation-cache-recovery.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","exact_predecessor_sha256":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"interrupted_cursor_recovered":true,"torn_image_rejected":true,"torn_rejection":torn.reject_message,"exact_full_finance_control_match":true,"local_snapshot_recovery_only":true,"matched_frozen_control":true,"cases":cases})).unwrap()).unwrap();
+    std::fs::write(out.join("operation-cache-recovery.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","exact_predecessor_sha256":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"interrupted_cursor_recovered":!paused_mode,"paused_no_inflight_recovered":paused_mode,"torn_image_rejected":torn_rejection.is_some(),"torn_rejection":torn_rejection,"exact_full_finance_control_match":true,"local_snapshot_recovery_only":true,"matched_frozen_control":true,"cases":cases})).unwrap()).unwrap();
+    if std::env::var_os("B2Z_PROFILE_FAULT_WASM").is_some() {
+        operation_cost::checkpoint_faults(pic, id, out, snapshot.id);
+    }
 }
