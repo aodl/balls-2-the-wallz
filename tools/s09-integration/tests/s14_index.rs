@@ -179,6 +179,18 @@ fn normalized(account: AccountIdentifier, amount: u64, memo: [u8; 8]) -> String 
 
 fn create_controlled(pic: &PocketIc) -> Principal {
     let owner = controller();
+    if std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref() == Ok("1") {
+        return pic.create_canister_on_subnet(
+            Some(owner),
+            Some(CanisterSettings {
+                controllers: Some(vec![owner]),
+                ..Default::default()
+            }),
+            pic.topology()
+                .get_fiduciary()
+                .expect("fiduciary fixture subnet"),
+        );
+    }
     pic.create_canister_with_settings(
         Some(owner),
         Some(CanisterSettings {
@@ -3167,9 +3179,15 @@ fn arena_setup_world_fee_clock(
     fee: u64,
     seconds_ago: u64,
 ) -> (PocketIc, Principal, Principal, Principal) {
-    let pic = PocketIcBuilder::new()
+    let builder = PocketIcBuilder::new()
         .with_nns_subnet()
-        .with_application_subnet()
+        .with_application_subnet();
+    let builder = if std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref() == Ok("1") {
+        builder.with_fiduciary_subnet()
+    } else {
+        builder
+    };
+    let pic = builder
         .with_server_url(
             std::env::var("POCKET_IC_SERVER_URL")
                 .unwrap()
@@ -6077,14 +6095,24 @@ fn operation_cache_profile() {
         .split(',')
         .map(|s| s.parse().unwrap())
         .collect();
+    let ticks: u64 = std::env::var("B2Z_PROFILE_TICKS")
+        .unwrap_or_else(|_| "8".into())
+        .parse()
+        .unwrap();
+    assert!((1..=128).contains(&ticks));
     for balls in counts {
         let mut expected = None;
         let mut expected_id = None;
-        for (label, wasm) in [
-            ("frozen", bytes("B2Z_PROFILE_FROZEN_WASM")),
-            ("prototype", bytes("B2Z_S14_WASM")),
-        ] {
-            let mut world = million_population_world(balls);
+        let mut modules = vec![("frozen", bytes("B2Z_PROFILE_FROZEN_WASM"))];
+        if std::env::var_os("B2Z_PROFILE_A1_WASM").is_some() {
+            modules.push(("a1", bytes("B2Z_PROFILE_A1_WASM")));
+        }
+        modules.push(("prototype", bytes("B2Z_S14_WASM")));
+        for (label, wasm) in modules {
+            let mut world = million_population_world(balls.max(1));
+            if balls == 0 {
+                world.balls.clear();
+            }
             for (ball, (vx, vy)) in world.balls.iter_mut().zip([
                 (-2156, -31938),
                 (27875, -15688),
@@ -6140,6 +6168,7 @@ fn operation_cache_profile() {
             );
             // Start the accounting window while paused, before the start call:
             // no partial first driver message can escape either cost counter.
+            let memory_before = pic.canister_status(id, Some(controller())).unwrap();
             let before = runtime(&pic, id);
             let before_cycles = pic.cycle_balance(id);
             let initial = status(&pic, id);
@@ -6157,14 +6186,17 @@ fn operation_cache_profile() {
                 })
                 .unwrap(),
             );
-            let target = initial.run.completed_segments + 8;
+            let target = initial.run.completed_segments + ticks;
+            let mut boundaries = vec![];
+            let mut tick_costs = vec![];
+            let mut previous_cycles = before_cycles;
             let mut turns = 0;
             while status(&pic, id).run.completed_segments < target {
                 pic.advance_time(Duration::from_millis(50));
                 pic.tick();
                 pic.tick();
                 turns += 1;
-                assert!(turns < 500, "bounded producer stalled");
+                assert!(turns < ticks * 100, "bounded producer stalled");
                 let p = observe(&pic, id).1;
                 if p.head.segment_id.is_some() && p.head.segment_id != replayed {
                     replay_head_with_artifacts(
@@ -6176,12 +6208,29 @@ fn operation_cache_profile() {
                         &mut assigned,
                         false,
                     );
+                    boundaries.push(dtr_wire::hash(&observe(&pic, id).0.publication));
+                    let balance = pic.cycle_balance(id);
+                    tick_costs.push((previous_cycles - balance).to_string());
+                    previous_cycles = balance;
                     replayed = p.head.segment_id;
                 }
             }
             get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
             let after = runtime(&pic, id);
             let spent = before_cycles - pic.cycle_balance(id);
+            if std::env::var("B2Z_PROFILE_DIAGNOSTIC").as_deref() == Ok("1") {
+                let logs = pic.fetch_canister_logs(id, controller()).unwrap();
+                let path = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+                std::fs::write(
+                    path.join(format!("{balls}-{label}-scope.log")),
+                    logs.into_iter()
+                        .map(|r| String::from_utf8_lossy(&r.content).into_owned())
+                        .collect::<Vec<_>>()
+                        .join("\n"),
+                )
+                .unwrap();
+            }
+            let memory_after = pic.canister_status(id, Some(controller())).unwrap();
             let (o, p) = observe(&pic, id);
             let bundle: Vec<Vec<u8>> = get_query(
                 &pic,
@@ -6206,6 +6255,8 @@ fn operation_cache_profile() {
                 status(&pic, id).source.admitted_to_exclusive,
                 candid::encode_one(status(&pic, id).source).unwrap(),
                 funding_tests::preserved_finance(&pic, id),
+                boundaries,
+                retained_bytes(&pic, id),
             );
             if let Some(ref expected) = expected {
                 assert_eq!(expected, &output, "exact outputs/source/finance differ");
@@ -6248,7 +6299,7 @@ fn operation_cache_profile() {
                     .success()
             );
             let detail: ProfileStatus = get_query(&pic, id, "lab_status", encode_args(()).unwrap());
-            rows.push(serde_json::json!({"label":label,"balls":balls,"ticks":8,"cycles":spent.to_string(),"instructions":{"seal":after.seal_instructions-before.seal_instructions,"step":after.step_instructions-before.step_instructions,"publish":after.publish_instructions-before.publish_instructions,"persist":after.persist_instructions-before.persist_instructions},"messages":after.messages-before.messages,"max_instructions":after.max_instructions,"publication_sha256":dtr_wire::hash(&o.publication),"artifact_sha256":bundle.iter().map(|b|dtr_wire::hash(b)).collect::<Vec<_>>(),"normal_Wasm":true,"publication_version":p.version,"last_segment_work":detail.run.last_segment_work,"work_budget":detail.run.work_budget,"native_replay":true}));
+            rows.push(serde_json::json!({"label":label,"balls":balls,"ticks":ticks,"cycles":spent.to_string(),"instructions":{"seal":after.seal_instructions-before.seal_instructions,"step":after.step_instructions-before.step_instructions,"publish":after.publish_instructions-before.publish_instructions,"persist":after.persist_instructions-before.persist_instructions},"messages":after.messages-before.messages,"max_instructions":after.max_instructions,"publication_sha256":dtr_wire::hash(&o.publication),"artifact_sha256":bundle.iter().map(|b|dtr_wire::hash(b)).collect::<Vec<_>>(),"tick_cycle_debits":tick_costs,"accounting_tail_cycles":(spent-tick_costs.iter().map(|s|s.parse::<u128>().unwrap()).sum::<u128>()).to_string(),"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"simulated_turns_50ms":turns,"fiduciary_fixture":std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref()==Ok("1"),"normal_Wasm":std::env::var("B2Z_PROFILE_DIAGNOSTIC").as_deref()!=Ok("1"),"publication_version":p.version,"last_segment_work":detail.run.last_segment_work,"work_budget":detail.run.work_budget,"native_replay":true}));
             let path = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
             std::fs::create_dir_all(&path).unwrap();
             std::fs::write(

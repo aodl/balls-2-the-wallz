@@ -156,6 +156,67 @@ mod tests {
     }
 
     #[test]
+    fn malformed_inputs_and_returned_copies_cannot_poison_a_valid_entry() {
+        let kernel = OperationKernel::default();
+        let mut bytes = cursor().snapshot().unwrap();
+        loop {
+            let (next, progress) = kernel.step(&bytes, 512).unwrap();
+            bytes = next;
+            if progress.complete {
+                break;
+            }
+        }
+        kernel.validate_cursor(&bytes, &hash(&bytes)).unwrap();
+        let expected = kernel.result(&bytes).unwrap();
+        let mut copy = kernel.result(&bytes).unwrap();
+        copy.state.clear();
+        copy.events.push(0);
+        copy.scores.clear();
+        for bad in [
+            b"".as_slice(),
+            b"{}",
+            b"[]",
+            b" { }",
+            b"{\"version\":3,\"version\":3}",
+            b"\xff",
+        ] {
+            assert_eq!(
+                kernel.validate_cursor(bad, &hash(bad)),
+                B2zHostKernel.validate_cursor(bad, &hash(bad))
+            );
+            assert!(kernel.step(bad, 512).is_err());
+        }
+        let actual = kernel.result(&bytes).unwrap();
+        assert_eq!(actual.state, expected.state);
+        assert_eq!(actual.events, expected.events);
+        assert_eq!(actual.scores, expected.scores);
+        // A failed step is isolated from the validated cursor kept in the memo.
+        let before = kernel
+            .entry
+            .borrow()
+            .as_ref()
+            .unwrap()
+            .cursor
+            .snapshot()
+            .unwrap();
+        assert_eq!(
+            kernel.step(&bytes, 0).err(),
+            B2zHostKernel.step(&bytes, 0).err()
+        );
+        assert_eq!(
+            kernel
+                .entry
+                .borrow()
+                .as_ref()
+                .unwrap()
+                .cursor
+                .snapshot()
+                .unwrap(),
+            before
+        );
+    }
+
+    #[test]
     fn large_valid_continuations_use_uncached_validation() {
         let mut cursor = cursor();
         cursor
