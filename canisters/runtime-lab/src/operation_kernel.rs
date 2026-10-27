@@ -230,6 +230,31 @@ mod tests {
     }
 
     #[test]
+    fn oversized_outputs_match_stateless_without_retention() {
+        let mut bytes = cursor().snapshot().unwrap();
+        loop {
+            let (next, progress) = B2zHostKernel.step(&bytes, 512).unwrap();
+            bytes = next;
+            if progress.complete {
+                break;
+            }
+        }
+        let mut completed = Cursor::restore(&bytes, &hash(&bytes)).unwrap();
+        completed
+            .events
+            .push(json!({"test_only_padding": "x".repeat(CACHE_BYTES)}));
+        let bytes = completed.snapshot().unwrap();
+        let kernel = OperationKernel::default();
+        let expected = B2zHostKernel.result(&bytes).unwrap();
+        let actual = kernel.result(&bytes).unwrap();
+        assert!(actual.events.len() > CACHE_BYTES);
+        assert_eq!(actual.state, expected.state);
+        assert_eq!(actual.events, expected.events);
+        assert_eq!(actual.scores, expected.scores);
+        assert!(kernel.entry.borrow().is_none());
+    }
+
+    #[test]
     fn large_valid_continuations_use_uncached_validation() {
         let mut cursor = cursor();
         cursor

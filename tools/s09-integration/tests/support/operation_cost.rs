@@ -144,7 +144,14 @@ pub(super) fn checkpoint_faults(
         .unwrap();
     let mut expected = None;
     let mut cases = vec![];
-    for (point, stage) in [
+    let allocation = std::env::var("B2Z_PROFILE_ALLOCATION_FAULTS").as_deref() == Ok("1");
+    let allocation_points = [
+        ("control", "none"),
+        ("allocation:512", "allocation-512"),
+        ("allocation:32768", "allocation-32768"),
+        ("allocation:65536", "allocation-65536"),
+    ];
+    let checkpoint_points = [
         ("control", "none"),
         ("persistence:before-write", "before-write"),
         ("persistence:after-image", "after-image"),
@@ -155,7 +162,13 @@ pub(super) fn checkpoint_faults(
             "persistence-publish:after-certification",
             "after-certification",
         ),
-    ] {
+    ];
+    let points: &[(&str, &str)] = if allocation {
+        &allocation_points
+    } else {
+        &checkpoint_points
+    };
+    for &(point, stage) in points {
         if point != "control" {
             pic.stop_canister(id, Some(controller())).unwrap();
         }
@@ -178,7 +191,11 @@ pub(super) fn checkpoint_faults(
                 })
                 .unwrap(),
             );
-            let marker = format!("B2Z_PERSISTENCE_FAULT {stage}");
+            let marker = if allocation {
+                "B2Z_FORCED_ALLOCATION_FAILURE".to_string()
+            } else {
+                format!("B2Z_PERSISTENCE_FAULT {stage}")
+            };
             let mut trapped = match start {
                 Err(e) => {
                     assert!(e.reject_message.contains(&marker), "unexpected {e:?}");
@@ -218,7 +235,15 @@ pub(super) fn checkpoint_faults(
             authenticate(pic, id, &out.join(format!("fault-{stage}-trapped")));
             // Inspect authenticated state first; only then clear the local fault
             // and resume from the genuine prior checkpoint. No compensation.
-            fault(pic, id, "persistence:clear");
+            fault(
+                pic,
+                id,
+                if allocation {
+                    "allocation:clear"
+                } else {
+                    "persistence:clear"
+                },
+            );
             // start_autonomous is deliberately idempotent while running. A
             // trapped one-shot callback needs an explicit controller pause/start
             // to replace its timer reservation; never infer progress from true.
@@ -267,7 +292,7 @@ pub(super) fn checkpoint_faults(
         authenticate(pic, id, &out.join(format!("fault-{stage}-recovered")));
         cases.push(serde_json::json!({"point":point,"status":"PASS","trapped":point!="control","paid_state_and_retained_bytes_preserved":true,"authenticated_before_retry":point!="control","recovered_control_match":true,"publication_sha256":dtr_wire::hash(&o.publication)}));
     }
-    std::fs::write(out.join("checkpoint-faults.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","test_hook_build_only":true,"wasm_sha256":dtr_wire::hash(&module),"starting_module":"exact frozen production snapshot","cases":cases})).unwrap()).unwrap();
+    std::fs::write(out.join(if allocation { "allocation-faults.json" } else { "checkpoint-faults.json" }),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","test_hook_build_only":true,"wasm_sha256":dtr_wire::hash(&module),"starting_module":"exact frozen production snapshot","cases":cases})).unwrap()).unwrap();
 }
 
 #[test]
