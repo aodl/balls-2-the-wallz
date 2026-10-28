@@ -1,0 +1,158 @@
+{
+  "complete_to_index_reported_oldest": true,
+  "oldest_tx_id": [
+    "39526411"
+  ],
+  "rows": [
+    {
+      "id": "39526411",
+      "direction": "incoming",
+      "amount_e8s": 100000000,
+      "fee_e8s": 10000,
+      "from": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 37.5",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39582090",
+      "direction": "outgoing",
+      "amount_e8s": 99990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    },
+    {
+      "id": "39630823",
+      "direction": "incoming",
+      "amount_e8s": 100000000,
+      "fee_e8s": 10000,
+      "from": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 270",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39631047",
+      "direction": "outgoing",
+      "amount_e8s": 99990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    },
+    {
+      "id": "39631215",
+      "direction": "incoming",
+      "amount_e8s": 100000000,
+      "fee_e8s": 10000,
+      "from": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 273.88",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39631236",
+      "direction": "outgoing",
+      "amount_e8s": 99990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    },
+    {
+      "id": "39631581",
+      "direction": "incoming",
+      "amount_e8s": 20000000,
+      "fee_e8s": 10000,
+      "from": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 150.64",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39631735",
+      "direction": "outgoing",
+      "amount_e8s": 19990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    },
+    {
+      "id": "39632173",
+      "direction": "incoming",
+      "amount_e8s": 100000000,
+      "fee_e8s": 10000,
+      "from": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 129.07",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39632296",
+      "direction": "outgoing",
+      "amount_e8s": 99990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    },
+    {
+      "id": "39710842",
+      "direction": "incoming",
+      "amount_e8s": 100000000,
+      "fee_e8s": 10000,
+      "from": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 37.5",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39710934",
+      "direction": "outgoing",
+      "amount_e8s": 99990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    },
+    {
+      "id": "39711108",
+      "direction": "incoming",
+      "amount_e8s": 100000000,
+      "fee_e8s": 10000,
+      "from": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+      "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "memo": "ANGLE 37.5",
+      "source_reinstall_action": "admit BTZPAY02 payload again"
+    },
+    {
+      "id": "39711126",
+      "direction": "outgoing",
+      "amount_e8s": 99990000,
+      "fee_e8s": 10000,
+      "from": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+      "to": "fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de",
+      "memo": "1347768404",
+      "source_reinstall_action": "ignore as gameplay; hash into source anchor"
+    }
+  ],
+  "incoming_e8s": 620000000,
+  "outgoing_e8s": 619930000,
+  "outgoing_fees_e8s": 70000,
+  "wallet_fees_e8s": 70000,
+  "certified_received_e8s": "620000000",
+  "actual_ledger_balance": {
+    "e8s": "0"
+  },
+  "ownership": "two account IDs observed; operator says test funds; cryptographic wallet control not established by account IDs",
+  "command_acceptance": "source admission is not successful gameplay; old per-command outcomes not all available in current 16 retained publications"
+}
