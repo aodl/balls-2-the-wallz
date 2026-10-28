@@ -1,3 +1,26 @@
+# A2 pinned release artifact — local checks PASS; delivery/CI still gated
+
+DTR77 is now published at the exact reviewed commit/tree and its standalone CI
+passes. Five Rust lock graphs resolve the immutable Git revision normally, with
+unrelated dependency tuples unchanged. The original npm 0.14.0 bytes are preserved.
+
+Frozen normal Wasm: `2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb`.
+An empty-target build and the normal Wasm/Candid gate reproduce it. Nine focused
+cost/recovery/browser cases pass, including exact A0 paid-v8 upgrades, interrupted
+work/torn images, timer traps and pending treasury callbacks. Fixed-fixture A2
+costs preserve research results within 0.08%; no production code optimisation was added.
+Local source/native/Wasm/HTTP browser and fresh remote consumer checks pass.
+
+**Release NO-GO:** the unchanged sustained-delivery prerequisite rejects this host
+(52.6% median idle, 11.95% peak I/O full pressure, competing process). Neither
+900-second window started. Exact final B2Z CI remains pending user-owned publication.
+No B2Z remote write, mainnet mutation or funding action occurred.
+
+[Pinned source/build identities, measurements, evidence and remaining requirements](evidence/B2Z/fiduciary-cycle-optimisation/pinned-release/REPORT.md).
+Earlier dated reports below retain their original FAIL/BLOCKED outcomes.
+
+---
+
 # A2 bounded qualification — savings preserved; release remains NO-GO
 
 **2026-10-28:** A0/A1/A2 and the 7,255-file independent historical snapshot

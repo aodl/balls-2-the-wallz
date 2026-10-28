@@ -1,0 +1,442 @@
+{
+  "decision": "NO-GO",
+  "artifact": {
+    "source": "3f71a5acaffc8069668547229c339d93f6176cc9",
+    "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+    "sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+    "normal_no_test_exports": true,
+    "reproduced_source_commit": "ac65063eff989e2e1de346b9f6ab36f2e3178ad3",
+    "clean_empty_target_reproduction": "PASS",
+    "upstream_tree": "068c66829619741b6784306929b51e292cb58bcf"
+  },
+  "remote_rust_consumers_and_unchanged_JS": "PASS",
+  "upstream_DTR_CI": {
+    "run": 40763780824,
+    "status": "PASS"
+  },
+  "dependency_tuple_comparison": "PASS; all unrelated package tuples unchanged in five locks",
+  "source": "PASS corrected source anchor; prior failed gate retained",
+  "native": "PASS",
+  "wasm_Candid_format_clippy": "PASS",
+  "HTTP_WebCrypto_browser": "PASS",
+  "runtime_cases": [
+    {
+      "name": "small",
+      "status": "PASS"
+    },
+    {
+      "name": "captured-canonical",
+      "status": "PASS"
+    },
+    {
+      "name": "fragments",
+      "status": "PASS"
+    },
+    {
+      "name": "population",
+      "status": "PASS"
+    },
+    {
+      "name": "paid-paused",
+      "status": "PASS"
+    },
+    {
+      "name": "paid-inflight",
+      "status": "PASS"
+    },
+    {
+      "name": "timer",
+      "status": "PASS"
+    },
+    {
+      "name": "browser",
+      "status": "PASS"
+    },
+    {
+      "name": "paid-pending-notify",
+      "status": "PASS"
+    }
+  ],
+  "sustained_delivery": {
+    "samples": 13,
+    "accepted": false,
+    "reasons": [
+      "CPU idle median <70% or minimum <40%",
+      "I/O full PSI avg10 >2%",
+      "another process uses >0.25 CPU core"
+    ],
+    "cpu_idle_median": 0.526,
+    "cpu_PSI_max": 3.8,
+    "io_full_PSI_max": 11.95,
+    "case_windows_started": false
+  },
+  "B2Z_exact_final_CI": "BLOCKED_USER_OWNED_PUBLICATION",
+  "measured_mainnet_savings": false,
+  "measurements": [
+    {
+      "case": "small",
+      "balls": 2,
+      "label": "frozen",
+      "ticks": 8,
+      "cycles": "9877296951",
+      "cycles_per_tick": 1234662118.875,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 455676950,
+      "publication_sha256": "4556c5abb089da85bb80c193ae0d6499bf56be9a6abd4ebe93872938fc4169be"
+    },
+    {
+      "case": "small",
+      "balls": 2,
+      "label": "a1",
+      "ticks": 8,
+      "cycles": "6747403435",
+      "cycles_per_tick": 843425429.375,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 302868460,
+      "publication_sha256": "4556c5abb089da85bb80c193ae0d6499bf56be9a6abd4ebe93872938fc4169be"
+    },
+    {
+      "case": "small",
+      "balls": 2,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "4262445071",
+      "cycles_per_tick": 532805633.875,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 179528510,
+      "publication_sha256": "4556c5abb089da85bb80c193ae0d6499bf56be9a6abd4ebe93872938fc4169be"
+    },
+    {
+      "case": "small",
+      "balls": 3,
+      "label": "frozen",
+      "ticks": 8,
+      "cycles": "17997210012",
+      "cycles_per_tick": 2249651251.5,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 851362198,
+      "publication_sha256": "01d1a9889c49046d98c0fb0d9ca54189874c555a5993a58d8da8f6d53c5821cb"
+    },
+    {
+      "case": "small",
+      "balls": 3,
+      "label": "a1",
+      "ticks": 8,
+      "cycles": "12260136310",
+      "cycles_per_tick": 1532517038.75,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 571830380,
+      "publication_sha256": "01d1a9889c49046d98c0fb0d9ca54189874c555a5993a58d8da8f6d53c5821cb"
+    },
+    {
+      "case": "small",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "7032130879",
+      "cycles_per_tick": 879016359.875,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 313900612,
+      "publication_sha256": "01d1a9889c49046d98c0fb0d9ca54189874c555a5993a58d8da8f6d53c5821cb"
+    },
+    {
+      "case": "small",
+      "balls": 4,
+      "label": "frozen",
+      "ticks": 8,
+      "cycles": "28228130857",
+      "cycles_per_tick": 3528516357.125,
+      "messages": 16,
+      "source_calls": 1,
+      "max_instructions": 795911353,
+      "publication_sha256": "d2dd3cc92b37e1ffac4a2b12413650ffccb1e9e04c7d186a20459ba2c5449c12"
+    },
+    {
+      "case": "small",
+      "balls": 4,
+      "label": "a1",
+      "ticks": 8,
+      "cycles": "15497291788",
+      "cycles_per_tick": 1937161473.5,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 731044944,
+      "publication_sha256": "d2dd3cc92b37e1ffac4a2b12413650ffccb1e9e04c7d186a20459ba2c5449c12"
+    },
+    {
+      "case": "small",
+      "balls": 4,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "8948799358",
+      "cycles_per_tick": 1118599919.75,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 408401654,
+      "publication_sha256": "d2dd3cc92b37e1ffac4a2b12413650ffccb1e9e04c7d186a20459ba2c5449c12"
+    },
+    {
+      "case": "captured-canonical",
+      "balls": 3,
+      "label": "frozen",
+      "ticks": 8,
+      "cycles": "22888611410",
+      "cycles_per_tick": 2861076426.25,
+      "messages": 15,
+      "source_calls": 1,
+      "max_instructions": 768702951,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    },
+    {
+      "case": "captured-canonical",
+      "balls": 3,
+      "label": "a1",
+      "ticks": 8,
+      "cycles": "12963696560",
+      "cycles_per_tick": 1620462070.0,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 604267875,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    },
+    {
+      "case": "captured-canonical",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "7462989691",
+      "cycles_per_tick": 932873711.375,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 333843501,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    },
+    {
+      "case": "fragments",
+      "balls": 3,
+      "label": "frozen",
+      "ticks": 2,
+      "cycles": "21966600970",
+      "cycles_per_tick": 10983300485.0,
+      "messages": 6,
+      "source_calls": 1,
+      "max_instructions": 1450856444,
+      "publication_sha256": "d6214033aaf8658bca66789f86fdcfee07164a313581669d4ef9d494a9edaa80"
+    },
+    {
+      "case": "fragments",
+      "balls": 3,
+      "label": "a1",
+      "ticks": 2,
+      "cycles": "16308395251",
+      "cycles_per_tick": 8154197625.5,
+      "messages": 6,
+      "source_calls": 1,
+      "max_instructions": 1304266163,
+      "publication_sha256": "d6214033aaf8658bca66789f86fdcfee07164a313581669d4ef9d494a9edaa80"
+    },
+    {
+      "case": "fragments",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 2,
+      "cycles": "8978918107",
+      "cycles_per_tick": 4489459053.5,
+      "messages": 4,
+      "source_calls": 1,
+      "max_instructions": 873768020,
+      "publication_sha256": "d6214033aaf8658bca66789f86fdcfee07164a313581669d4ef9d494a9edaa80"
+    },
+    {
+      "case": "population",
+      "balls": 64,
+      "label": "frozen",
+      "ticks": 1,
+      "cycles": "38673751388",
+      "cycles_per_tick": 38673751388.0,
+      "messages": 4,
+      "source_calls": 1,
+      "max_instructions": 5323203156,
+      "publication_sha256": "d944e59142ef517f90661a61f83e2107e5b880b5c55b5f501a3d9bfad6cea364"
+    },
+    {
+      "case": "population",
+      "balls": 64,
+      "label": "a1",
+      "ticks": 1,
+      "cycles": "37703030245",
+      "cycles_per_tick": 37703030245.0,
+      "messages": 4,
+      "source_calls": 1,
+      "max_instructions": 5367627785,
+      "publication_sha256": "d944e59142ef517f90661a61f83e2107e5b880b5c55b5f501a3d9bfad6cea364"
+    },
+    {
+      "case": "population",
+      "balls": 64,
+      "label": "prototype",
+      "ticks": 1,
+      "cycles": "17445000510",
+      "cycles_per_tick": 17445000510.0,
+      "messages": 4,
+      "source_calls": 1,
+      "max_instructions": 2083192728,
+      "publication_sha256": "d944e59142ef517f90661a61f83e2107e5b880b5c55b5f501a3d9bfad6cea364"
+    },
+    {
+      "case": "paid-paused",
+      "balls": 3,
+      "label": "frozen-control",
+      "ticks": 8,
+      "cycles": "18709975897",
+      "cycles_per_tick": 2338746987.125,
+      "messages": 8,
+      "source_calls": null,
+      "max_instructions": 862610739,
+      "publication_sha256": "4485925bc0f9921daef0bd363946168cc00773dda26d8f70606259dd35052bae"
+    },
+    {
+      "case": "paid-paused",
+      "balls": 3,
+      "label": "a1",
+      "ticks": 8,
+      "cycles": "13038022631",
+      "cycles_per_tick": 1629752828.875,
+      "messages": 8,
+      "source_calls": null,
+      "max_instructions": 584975679,
+      "publication_sha256": "4485925bc0f9921daef0bd363946168cc00773dda26d8f70606259dd35052bae"
+    },
+    {
+      "case": "paid-paused",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "7322429297",
+      "cycles_per_tick": 915303662.125,
+      "messages": 8,
+      "source_calls": null,
+      "max_instructions": 309820389,
+      "publication_sha256": "4485925bc0f9921daef0bd363946168cc00773dda26d8f70606259dd35052bae"
+    },
+    {
+      "case": "paid-inflight",
+      "balls": 3,
+      "label": "frozen-control",
+      "ticks": 2,
+      "cycles": "4853838715",
+      "cycles_per_tick": 2426919357.5,
+      "messages": 2,
+      "source_calls": null,
+      "max_instructions": 843228810,
+      "publication_sha256": "263392df86e261ca28bafc67602737ab2a3ae3d0d7a76bfccd5c0173ac2493dc"
+    },
+    {
+      "case": "paid-inflight",
+      "balls": 3,
+      "label": "a1",
+      "ticks": 2,
+      "cycles": "3444672912",
+      "cycles_per_tick": 1722336456.0,
+      "messages": 2,
+      "source_calls": null,
+      "max_instructions": 573290913,
+      "publication_sha256": "263392df86e261ca28bafc67602737ab2a3ae3d0d7a76bfccd5c0173ac2493dc"
+    },
+    {
+      "case": "paid-inflight",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 2,
+      "cycles": "2071818114",
+      "cycles_per_tick": 1035909057.0,
+      "messages": 2,
+      "source_calls": null,
+      "max_instructions": 302444680,
+      "publication_sha256": "263392df86e261ca28bafc67602737ab2a3ae3d0d7a76bfccd5c0173ac2493dc"
+    }
+  ],
+  "unchanged_research_comparison": {
+    "status": "PASS",
+    "fixed_fixture_comparison": [
+      {
+        "balls": 2,
+        "label": "frozen",
+        "prior_cycles": "9877296951",
+        "release_cycles": "9877296951",
+        "percent_change": 0.0,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 2,
+        "label": "a1",
+        "prior_cycles": "6747403435",
+        "release_cycles": "6747403435",
+        "percent_change": 0.0,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 2,
+        "label": "prototype",
+        "prior_cycles": "4265581907",
+        "release_cycles": "4262445071",
+        "percent_change": -0.07353829016510938,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 3,
+        "label": "frozen",
+        "prior_cycles": "17997210012",
+        "release_cycles": "17997210012",
+        "percent_change": 0.0,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 3,
+        "label": "a1",
+        "prior_cycles": "12260136310",
+        "release_cycles": "12260136310",
+        "percent_change": 0.0,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 3,
+        "label": "prototype",
+        "prior_cycles": "7032135757",
+        "release_cycles": "7032130879",
+        "percent_change": -6.93672615015295e-05,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 4,
+        "label": "frozen",
+        "prior_cycles": "28228130857",
+        "release_cycles": "28228130857",
+        "percent_change": 0.0,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 4,
+        "label": "a1",
+        "prior_cycles": "15497291788",
+        "release_cycles": "15497291788",
+        "percent_change": 0.0,
+        "publication_and_artifact_commitments_identical": true
+      },
+      {
+        "balls": 4,
+        "label": "prototype",
+        "prior_cycles": "8953385379",
+        "release_cycles": "8948799358",
+        "percent_change": -0.051221083488228736,
+        "publication_and_artifact_commitments_identical": true
+      }
+    ]
+  }
+}
