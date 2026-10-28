@@ -1,3 +1,38 @@
+# A2 bounded qualification — savings preserved; release remains NO-GO
+
+**2026-10-28:** A0/A1/A2 and the 7,255-file independent historical snapshot
+verify. The paid-v8 64-tick measurement remains **44.77% saving versus A1**,
+**68.04% versus A0**, using actual local fiduciary charges. No further backend
+optimisation or production change was introduced.
+
+Normal A0/A2 timer-trap control preserves paid state in both cases and establishes
+the same need for explicit controlled recovery. A genuine paid-v8/epoch-2 browser
+scene and cold reconnect pass on research Wasm `0d86ac64…`. Generic DTR77 source,
+full E1 diff and independent Rust/old-JS/threaded consumer evidence are reviewable.
+Final local source conformance passes 1,389 JavaScript / 162 Python tests.
+
+**Continuous delivery remains unresolved.** Historical 900-second FAIL is retained.
+The predeclared A0/A2 comparison could not start either window: its fixed 20-minute
+host prerequisite rejected sustained foreign CPU/I/O work. This is BLOCKED, not a
+pass or an attribution of the historical failure's cause.
+
+Research CI `40651755603` passed all six substantive jobs, but its actual graph is
+**E1**, Wasm `a861b12b…`, not DTR77/A2. DTR77 remains unpublished; immutable Git
+pinning, a fresh final normal artifact and exact final six-job CI remain BLOCKED.
+New CI guards reject E1/path/mixed-revision A2 qualification. No remote write occurred.
+
+**09:30 UTC production:** 2.245111T liquid, Reserve Protection, zero supported ticks
+and stationary authenticated paid state. Source/treasury maintenance continues;
+Ledger balance is zero. Earlier positive cycle movement is unexplained by treasury
+credits. The latest short net maintenance-only interval is about 0.0213T/hour,
+not an active-game runway forecast. Protected reserve and release funding are
+insufficient; no intervention was performed.
+
+[Acceptance matrix, actual source review, failed attempts, evidence and future steps](evidence/B2Z/fiduciary-cycle-optimisation/qualification-20261028/REPORT.md).
+Dated historical entries below remain unchanged.
+
+---
+
 # Fiduciary cycle optimisation — measured savings; release qualification NO-GO
 
 **2026-10-28 01:03 UTC:** read-only production check: **2.420881T liquid**,

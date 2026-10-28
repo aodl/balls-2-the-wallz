@@ -1,0 +1,348 @@
+{
+  "observations": [
+    {
+      "observed_at": "2026-10-28T08:02:45.716803+00:00",
+      "liquid_cycles": 2055960986063,
+      "total_cycles": 2202819338633,
+      "total_minus_liquid": 146858352570,
+      "reserved_freezing_split": "not separately exposed in read-only controller query",
+      "pace": {
+        "admission_open": false,
+        "mode": "ReserveProtection",
+        "nominal_milli": 0,
+        "performance_limited": false,
+        "supported_milli": 0
+      },
+      "running_flag": true,
+      "completed_segments": 63379,
+      "publication_hash": "95c7dc5c0d0d2def4ca17f999ad552db247a6f1c73c7db994e910f44dd6f3e34",
+      "certificate_verified": true,
+      "publication_version": 8,
+      "epoch_version": 2,
+      "world_version": 5,
+      "dimensions": [
+        1000,
+        1000
+      ],
+      "cannons": 1,
+      "balls": 3,
+      "source_cursor": 39711127,
+      "index_calls": 10094,
+      "index_global_synced": 39763536,
+      "source_pending": 0,
+      "source_error": [],
+      "work": {
+        "pending_inputs": 0,
+        "phase": [],
+        "ready_manifest": [],
+        "revision": "269224",
+        "source_cursor": "39711127"
+      },
+      "treasury_phase": {
+        "Idle": null
+      },
+      "treasury_error": [],
+      "treasury_nonce": 1383,
+      "treasury_total_cycles_reported": 12110272820000,
+      "last_success": [
+        {
+          "block_index": "39711126",
+          "completed_at_ns": "1793054263556287562",
+          "cycles": "1_909_908_990_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1793054253027365551",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              250,
+              76,
+              14,
+              201,
+              17,
+              25,
+              66,
+              23,
+              213,
+              212,
+              243,
+              236,
+              39,
+              247,
+              172,
+              38,
+              167,
+              241,
+              158,
+              116,
+              251,
+              238,
+              186,
+              57,
+              212,
+              105,
+              228,
+              242,
+              64,
+              113,
+              184,
+              222
+            ]
+          }
+        }
+      ],
+      "ledger_e8s": 0
+    },
+    {
+      "observed_at": "2026-10-28T09:07:57.382652+00:00",
+      "liquid_cycles": 2253257969040,
+      "total_cycles": 2400116321610,
+      "total_minus_liquid": 146858352570,
+      "reserved_freezing_split": "not separately exposed in read-only controller query",
+      "pace": {
+        "admission_open": false,
+        "mode": "ReserveProtection",
+        "nominal_milli": 0,
+        "performance_limited": false,
+        "supported_milli": 0
+      },
+      "running_flag": true,
+      "completed_segments": 63379,
+      "publication_hash": "95c7dc5c0d0d2def4ca17f999ad552db247a6f1c73c7db994e910f44dd6f3e34",
+      "certificate_verified": true,
+      "publication_version": 8,
+      "epoch_version": 2,
+      "world_version": 5,
+      "dimensions": [
+        1000,
+        1000
+      ],
+      "cannons": 1,
+      "balls": 3,
+      "source_cursor": 39711127,
+      "index_calls": 10158,
+      "index_global_synced": 39766127,
+      "source_pending": 0,
+      "source_error": [],
+      "work": {
+        "pending_inputs": 0,
+        "phase": [],
+        "ready_manifest": [],
+        "revision": "269224",
+        "source_cursor": "39711127"
+      },
+      "treasury_phase": {
+        "Idle": null
+      },
+      "treasury_error": [],
+      "treasury_nonce": 1396,
+      "treasury_total_cycles_reported": 12110272820000,
+      "last_success": [
+        {
+          "block_index": "39711126",
+          "completed_at_ns": "1793054263556287562",
+          "cycles": "1_909_908_990_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1793054253027365551",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              250,
+              76,
+              14,
+              201,
+              17,
+              25,
+              66,
+              23,
+              213,
+              212,
+              243,
+              236,
+              39,
+              247,
+              172,
+              38,
+              167,
+              241,
+              158,
+              116,
+              251,
+              238,
+              186,
+              57,
+              212,
+              105,
+              228,
+              242,
+              64,
+              113,
+              184,
+              222
+            ]
+          }
+        }
+      ],
+      "ledger_e8s": 0
+    },
+    {
+      "observed_at": "2026-10-28T09:30:54.811296+00:00",
+      "liquid_cycles": 2245110882267,
+      "total_cycles": 2391969234837,
+      "total_minus_liquid": 146858352570,
+      "reserved_freezing_split": "not separately exposed in read-only controller query",
+      "pace": {
+        "admission_open": false,
+        "mode": "ReserveProtection",
+        "nominal_milli": 0,
+        "performance_limited": false,
+        "supported_milli": 0
+      },
+      "running_flag": true,
+      "completed_segments": 63379,
+      "publication_hash": "95c7dc5c0d0d2def4ca17f999ad552db247a6f1c73c7db994e910f44dd6f3e34",
+      "certificate_verified": true,
+      "publication_version": 8,
+      "epoch_version": 2,
+      "world_version": 5,
+      "dimensions": [
+        1000,
+        1000
+      ],
+      "cannons": 1,
+      "balls": 3,
+      "source_cursor": 39711127,
+      "index_calls": 10181,
+      "index_global_synced": 39766922,
+      "source_pending": 0,
+      "source_error": [],
+      "work": {
+        "pending_inputs": 0,
+        "phase": [],
+        "ready_manifest": [],
+        "revision": "269224",
+        "source_cursor": "39711127"
+      },
+      "treasury_phase": {
+        "Idle": null
+      },
+      "treasury_error": [],
+      "treasury_nonce": 1400,
+      "treasury_total_cycles_reported": 12110272820000,
+      "last_success": [
+        {
+          "block_index": "39711126",
+          "completed_at_ns": "1793054263556287562",
+          "cycles": "1_909_908_990_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1793054253027365551",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              250,
+              76,
+              14,
+              201,
+              17,
+              25,
+              66,
+              23,
+              213,
+              212,
+              243,
+              236,
+              39,
+              247,
+              172,
+              38,
+              167,
+              241,
+              158,
+              116,
+              251,
+              238,
+              186,
+              57,
+              212,
+              105,
+              228,
+              242,
+              64,
+              113,
+              184,
+              222
+            ]
+          }
+        }
+      ],
+      "ledger_e8s": 0
+    }
+  ],
+  "elapsed_seconds": 5289.094493,
+  "net_total_cycle_movement": 189149896204,
+  "net_liquid_cycle_movement": 189149896204,
+  "treasury_reported_credit_delta": 0,
+  "cycle_consumption": "NOT_IDENTIFIABLE: positive net movement without treasury-reported credit; do not call this negative burn or assign a source without evidence.",
+  "state_equality": {
+    "world": true,
+    "scores": true,
+    "events": true,
+    "publication": true,
+    "retained": true
+  },
+  "operational_decision": "NO-GO: Reserve Protection, zero gameplay progress, below protected reserve before release allowance. Source and treasury maintenance observed separately.",
+  "release_budget": {
+    "protected_reserve_T": 3,
+    "measured_research_A2_fixture_upgrade_T": 0.055335424358,
+    "two_upgrade_allowances_T": 0.110670848716,
+    "24h_maintenance_scenario_T": 0.5110306804300783,
+    "30min_Conserve_residual_held_scenario_T": 0.5455,
+    "additional_recovery_verification_margin_T": 0.25,
+    "basis": "Measured local research-Wasm install debit, latest short net maintenance-only interval and historical active-work model; NOT final-artifact production upper bounds.",
+    "illustrative_total_T": 4.417201529146078,
+    "illustrative_shortfall_T": 2.1720906468790786,
+    "reserve_only_shortfall_T": 0.7548891177330002,
+    "status": "PROVISIONAL_NOT_SUFFICIENT_FOR_DEPLOYMENT_APPROVAL",
+    "limitations": [
+      "Final Git-pinned artifact and then-current production image not yet measured.",
+      "Latest short net debit interval is maintenance-only and not an upper bound or active-game runway.",
+      "Earlier unexplained positive cycle movement remains unassigned; no promised replenishment.",
+      "1.091T/h active Conserve is a historical conditional model, not current observed candidate operation.",
+      "Each extra 0.01T/h maintenance adds 0.24T to this 24h scenario."
+    ],
+    "recent_net_maintenance_only_rate_T_per_hour": 0.021292945017919927
+  },
+  "observation_intervals": [
+    {
+      "start": "2026-10-28T08:02:45.716803+00:00",
+      "end": "2026-10-28T09:07:57.382652+00:00",
+      "seconds": 3911.665849,
+      "net_total_cycle_debit": -197296982977,
+      "treasury_credit_delta": 0,
+      "supported_ticks_per_second": 0,
+      "net_maintenance_only_debit_T_per_hour": null,
+      "gross_consumption": "not independently separable from other unobserved credits/refunds; first interval has unexplained positive movement"
+    },
+    {
+      "start": "2026-10-28T09:07:57.382652+00:00",
+      "end": "2026-10-28T09:30:54.811296+00:00",
+      "seconds": 1377.428644,
+      "net_total_cycle_debit": 8147086773,
+      "treasury_credit_delta": 0,
+      "supported_ticks_per_second": 0,
+      "net_maintenance_only_debit_T_per_hour": 0.021292945017919927,
+      "gross_consumption": "not independently separable from other unobserved credits/refunds; first interval has unexplained positive movement"
+    }
+  ]
+}

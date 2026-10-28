@@ -1,0 +1,157 @@
+{
+  "scope": "local qualification tooling only; selected B2Z/DTR implementations unchanged",
+  "passed": [
+    {
+      "name": "DTR77 Rust/format/Clippy/old-JS",
+      "receipt": "raw/dtr-tests.json",
+      "exit_code": 0
+    },
+    {
+      "name": "clean unrelated Rust + unchanged npm consumers",
+      "receipt": "raw/clean-consumer.json",
+      "exit_code": 0
+    },
+    {
+      "name": "generic E1/DTR77 concurrency, reentrancy, unwind and exact bytes",
+      "receipt": "raw/thread-consumer.json and raw/thread-equivalence.json",
+      "exit_code": 0
+    },
+    {
+      "name": "17 proxy regressions after completed-write test synchronisation",
+      "log": "raw/proxy-tests-resolved.log",
+      "exit_code": 0
+    },
+    {
+      "name": "full source gate before final documentation/guard extension",
+      "receipt": "raw/source-resolved/verification.json",
+      "exit_code": 0,
+      "source": "ff7eb39e41ed58cecb6f73a063829f889c27dd1f"
+    },
+    {
+      "name": "final provenance/resource focused regressions",
+      "command": [
+        "python3.11",
+        "-B",
+        "-m",
+        "unittest",
+        "tools/test_dtr_provenance.py",
+        "tools/test_host_resources.py"
+      ],
+      "log": "raw/final-provenance-resource-unit.log",
+      "tests": 6,
+      "exit_code": 0
+    },
+    {
+      "name": "real sandboxed Chromium diagnostic-wrapper preservation",
+      "log": "raw/boundary-trace-unit.log",
+      "exit_code": 0
+    },
+    {
+      "name": "normal A0/A2 controlled timer recovery",
+      "receipt": "raw/normal-timer-control/process.json and normal-timer-recovery.json",
+      "exit_code": 0,
+      "ignored_test": "million_paid_v4_cutover_preserves_state_and_uses_second_epoch",
+      "mode": "B2Z_PROFILE_NORMAL_TIMER=1; normal module trap, no diagnostic Wasm"
+    },
+    {
+      "name": "final test harness build/format/Clippy",
+      "logs": [
+        "raw/v8-fixed-build.log",
+        "raw/v8-fixed-format.log",
+        "raw/v8-fixed-clippy.log"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "final full source gate",
+      "receipt": "raw/source-final/verification.json",
+      "source": "94385eac94ba97018f13818a856665d175a91e12",
+      "exit_code": 0
+    },
+    {
+      "name": "all 17 proxy tests after header-receipt synchronisation",
+      "log": "raw/proxy-headers-receipt-resolved.log",
+      "exit_code": 0
+    },
+    {
+      "name": "five repeats of formerly racy body-delay test",
+      "log": "raw/proxy-headers-repeated.log",
+      "exit_code": 0
+    },
+    {
+      "name": "direct v8 harness format/build/Clippy",
+      "logs": [
+        "raw/v8-direct-format-final.log",
+        "raw/v8-direct-build-final.log",
+        "raw/v8-direct-clippy-final.log"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "final corrected full source gate",
+      "receipt": "raw/source-final-3/verification.json",
+      "exit_code": 0,
+      "source": "a978d7a8692904767b5be4041b082d8caa8d439d",
+      "JavaScript_tests": 1389,
+      "Python_tests": 162
+    },
+    {
+      "name": "genuine paid-v8 normal A2 browser PLAYING and cold reconnect",
+      "receipt": "raw/paid-v8-direct-invocation.json",
+      "exit_code": 0,
+      "module_sha256": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d"
+    }
+  ],
+  "failed_resolved": [
+    {
+      "name": "initial full source Python proxy test",
+      "cause": "test read trace before handler finally-write; production proxy unchanged",
+      "proof": "raw/source-checks/ and raw/source-resolved/"
+    },
+    {
+      "name": "historical decoder initial Buffer slice use",
+      "proof": "raw/historical-parser-resolution.json"
+    },
+    {
+      "name": "paid-v8 browser first attempt",
+      "status": "FAIL_BEFORE_BROWSER",
+      "cause": "new fixture omitted root-key.der and metadata.json for existing proxy prerequisite",
+      "recovery_comparison": "PASS before browser startup failure",
+      "proof": "raw/paid-v8-functional/",
+      "resolution": "two fixture writes only; focused retry separately retained"
+    },
+    {
+      "name": "paid-v8 browser second attempt",
+      "status": "FAIL_FRESHNESS_CORRECTLY_ENFORCED",
+      "cause": "disposable recovery cooldowns left IC time about 40 minutes in future",
+      "proof": "raw/paid-v8-functional-resolved/",
+      "resolution": "start recovery fixture 2 hours in past before any install; forward-only alignment to real wall clock; browser clock and freshness unchanged"
+    },
+    {
+      "name": "paid-v8 past-clock trial",
+      "status": "FAIL_BEFORE_BROWSER_AT_EARLY_CHECKPOINT",
+      "cause": "2-hour initial offset made earlier strict SDK checkpoint stale",
+      "proof": "raw/paid-v8-clock-aligned/",
+      "resolution": "rejected offset; direct genuine paid-v8 browser mode avoids recovery cooldowns; no verifier/freshness changes"
+    },
+    {
+      "name": "final source second proxy timing race",
+      "status": "FAIL_PRESERVED",
+      "cause": "upstream flush event preceded actual proxy header receipt by 0.64ms",
+      "proof": "raw/source-final-2/",
+      "resolution": "test-only synchronisation at real response body-read entry; same assertions and unchanged production proxy"
+    }
+  ],
+  "blocked": [
+    {
+      "name": "predeclared sequential 900-second A0/A2 comparison",
+      "proof": "raw/matched/outcomes.json; raw/matched-summary.json",
+      "reason": "no acceptable host prerequisite in bounded 20-minute wait; neither case started"
+    },
+    {
+      "name": "final remote dependency graph / artifact / exact-commit six-job CI",
+      "reason": "DTR77 not remotely available; user-owned publication required before deliberate pins and final-artifact build"
+    }
+  ],
+  "pending": []
+}
