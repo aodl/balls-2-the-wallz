@@ -187,14 +187,7 @@ pub(super) fn predecessor_setup(
 ) -> (PocketIc, Principal, Principal, Principal, Principal) {
     // Offset before installing any canister, not a rollback of running time.
     // The five-minute maintenance jump then remains inside SDK freshness bounds.
-    let seconds_ago = if std::env::var("B2Z_PROFILE_V8_BROWSER").as_deref() == Ok("1") {
-        // The focused recovery/browser case includes bounded install cooldowns.
-        // Start before them; never falsify browser time or roll back IC time.
-        7200
-    } else {
-        300
-    };
-    setup_fee_clock(wasm, 10_000, seconds_ago)
+    setup_fee_clock(wasm, 10_000, 300)
 }
 pub(super) fn complete_predecessor_treasury(pic: &PocketIc, id: Principal) {
     enabled(pic, id, true);

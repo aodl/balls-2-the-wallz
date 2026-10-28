@@ -598,15 +598,22 @@ pub(super) fn paid_v8_browser(pic: &PocketIc, id: Principal, out: &Path) {
     std::fs::create_dir(&dir).unwrap();
     let before_clock_alignment = observe(pic, id).0.publication;
     let prior_time = pic.get_time();
-    let fresh = pocket_ic::Time::from(std::time::SystemTime::now());
-    assert!(
-        prior_time <= fresh,
-        "browser fixture exhausted its declared past-clock allowance"
-    );
+    let alignment_started = std::time::Instant::now();
+    let mut fresh = pocket_ic::Time::from(std::time::SystemTime::now());
+    // Existing transition steps can end a few seconds ahead of wall time.
+    // Wait for actual time, without changing IC/browser time or freshness rules.
+    while prior_time > fresh {
+        assert!(
+            alignment_started.elapsed() < Duration::from_secs(120),
+            "browser fixture is more than the bounded real-time alignment wait ahead"
+        );
+        std::thread::sleep(Duration::from_millis(200));
+        fresh = pocket_ic::Time::from(std::time::SystemTime::now());
+    }
     pic.set_time(fresh);
     pic.tick();
     assert_eq!(observe(pic, id).0.publication, before_clock_alignment);
-    std::fs::write(dir.join("clock-alignment.json"),serde_json::to_vec(&serde_json::json!({"prior_ic_time_ns":prior_time.as_nanos_since_unix_epoch().to_string(),"aligned_host_time_ns":fresh.as_nanos_since_unix_epoch().to_string(),"only_forward":true,"browser_clock_or_freshness_modified":false,"paid_publication_unchanged":true})).unwrap()).unwrap();
+    std::fs::write(dir.join("clock-alignment.json"),serde_json::to_vec(&serde_json::json!({"prior_ic_time_ns":prior_time.as_nanos_since_unix_epoch().to_string(),"aligned_host_time_ns":fresh.as_nanos_since_unix_epoch().to_string(),"real_wait_ms":alignment_started.elapsed().as_millis(),"maximum_real_wait_seconds":120,"only_forward":true,"browser_clock_or_freshness_modified":false,"paid_publication_unchanged":true})).unwrap()).unwrap();
     std::fs::write(dir.join("root-key.der"), pic.root_key().unwrap()).unwrap();
     std::fs::write(dir.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"publication_version":8,"epoch_version":2,"scenario":"paid-v8-live-browser"})).unwrap()).unwrap();
     let source = status(pic, id).source;

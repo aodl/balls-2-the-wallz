@@ -5432,6 +5432,11 @@ fn million_paid_v4_cutover_preserves_state_and_uses_second_epoch() {
         .unwrap(),
     )
     .unwrap();
+    if std::env::var("B2Z_PROFILE_V8_BROWSER_ONLY").as_deref() == Ok("1") {
+        get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+        operation_cost::paid_v8_browser(&pic, id, &out);
+        return;
+    }
     if std::env::var("B2Z_PROFILE_RECOVERY_WASM").is_ok() {
         operation_cache_v8_recovery(&pic, id, &out, ledger, payer);
     }
