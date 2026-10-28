@@ -464,3 +464,177 @@ pub(super) fn finish_notify_pending(pic: &PocketIc, id: Principal, out: &Path) {
     authenticate(pic, id, &out.join("pending-notify-recovered"));
     std::fs::write(out.join("pending-notify-recovery.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","origin":"exact frozen normal predecessor, genuine Ledger transaction, stopped local CMC","before":before,"after":after,"one_credit":true,"paid_world_and_retention_unchanged":true,"normal_Wasm":true})).unwrap()).unwrap();
 }
+
+/// Exact normal modules, with a disposable system memory ceiling to force OOM.
+/// This changes no canister code and is not an unattended-liveness claim.
+pub(super) fn normal_timer_recovery(pic: &PocketIc, id: Principal, out: &Path, snapshot: Vec<u8>) {
+    let mut rows = vec![];
+    let mut expected = None;
+    for (label, module) in [
+        ("A0", bytes("B2Z_S14_WASM")),
+        ("A2", bytes("B2Z_PROFILE_RECOVERY_WASM")),
+    ] {
+        pic.stop_canister(id, Some(controller())).unwrap();
+        pic.load_canister_snapshot(id, Some(controller()), snapshot.clone())
+            .unwrap();
+        pic.update_canister_settings(
+            id,
+            Some(controller()),
+            CanisterSettings {
+                wasm_memory_limit: Some(0u64.into()),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let cycles_before = pic.cycle_balance(id);
+        bounded_upgrade(pic, id, &module);
+        let upgrade_debit = cycles_before - pic.cycle_balance(id);
+        pic.start_canister(id, Some(controller())).unwrap();
+        let before = observe(pic, id).0.publication;
+        let world = arena_world(pic, id);
+        let retained = retained_bytes(pic, id);
+        let finance = funding_tests::preserved_finance(pic, id);
+        pic.update_canister_settings(
+            id,
+            Some(controller()),
+            CanisterSettings {
+                wasm_memory_limit: Some(2_621_440u64.into()),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        start_arena(pic, id);
+        for _ in 0..20 {
+            pic.advance_time(Duration::from_secs(1));
+            pic.tick();
+            pic.tick();
+        }
+        pic.update_canister_settings(
+            id,
+            Some(controller()),
+            CanisterSettings {
+                wasm_memory_limit: Some(0u64.into()),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let logs = pic.fetch_canister_logs(id, controller()).unwrap();
+        let messages: Vec<_> = logs
+            .iter()
+            .map(|x| String::from_utf8_lossy(&x.content).into_owned())
+            .collect();
+        assert!(
+            messages
+                .iter()
+                .any(|x| x.contains("memory") || x.contains("alloc")),
+            "normal memory trap not witnessed: {messages:?}"
+        );
+        assert_eq!(observe(pic, id).0.publication, before);
+        assert_eq!(arena_world(pic, id), world);
+        assert_eq!(retained_bytes(pic, id), retained);
+        assert_eq!(funding_tests::preserved_finance(pic, id), finance);
+        authenticate(pic, id, &out.join(format!("normal-timer-{label}-trapped")));
+        start_arena(pic, id); // The same running configuration is intentionally idempotent.
+        for _ in 0..20 {
+            pic.advance_time(Duration::from_secs(1));
+            pic.tick();
+            pic.tick();
+        }
+        assert_eq!(
+            observe(pic, id).0.publication,
+            before,
+            "idempotent start unexpectedly recovered timer"
+        );
+        get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+        start_arena(pic, id);
+        let completed = status(pic, id).run.completed_segments;
+        for _ in 0..100 {
+            if status(pic, id).run.completed_segments >= completed + 2 {
+                break;
+            }
+            pic.advance_time(Duration::from_millis(50));
+            pic.tick();
+            pic.tick();
+        }
+        get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+        assert_eq!(status(pic, id).run.completed_segments, completed + 2);
+        let result = (
+            observe(pic, id).0.publication,
+            arena_world(pic, id),
+            retained_bytes(pic, id),
+            funding_tests::preserved_finance(pic, id),
+        );
+        if let Some(ref prior) = expected {
+            assert_eq!(prior, &result);
+        } else {
+            expected = Some(result);
+        }
+        authenticate(
+            pic,
+            id,
+            &out.join(format!("normal-timer-{label}-recovered")),
+        );
+        rows.push(serde_json::json!({"label":label,"normal_wasm":true,"module_sha256":dtr_wire::hash(&module),"upgrade_cycle_debit":upgrade_debit.to_string(),"system_memory_limit_forced_trap":2621440,"idempotent_start_rearmed":false,"explicit_pause_start_recovered":true,"paid_and_retained_preserved":true,"logs":messages}));
+    }
+    std::fs::write(
+        out.join("normal-timer-recovery.json"),
+        serde_json::to_vec_pretty(
+            &serde_json::json!({"status":"PASS","cases":rows,"no_mainnet_mutation":true}),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+}
+
+pub(super) fn paid_v8_browser(pic: &PocketIc, id: Principal, out: &Path) {
+    assert_eq!(observe(pic, id).1.version, 8);
+    assert_eq!(
+        pic.canister_status(id, Some(controller()))
+            .unwrap()
+            .module_hash,
+        Some(unhex(&dtr_wire::hash(&bytes("B2Z_PROFILE_RECOVERY_WASM"))).unwrap())
+    );
+    let dir = out.join("paid-v8-browser");
+    std::fs::create_dir(&dir).unwrap();
+    let source = status(pic, id).source;
+    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":source.ledger.to_text(),"index":source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    std::fs::write(
+        dir.join("configuration.json"),
+        serde_json::to_vec(&configuration).unwrap(),
+    )
+    .unwrap();
+    std::fs::write(dir.join("normal-module-identity.json"),serde_json::to_vec(&serde_json::json!({"module_sha256":dtr_wire::hash(&bytes("B2Z_PROFILE_RECOVERY_WASM")),"publication_version":8,"epoch_version":2,"world_version":5})).unwrap()).unwrap();
+    start_arena(pic, id);
+    let mut live = PocketIc::new_from_existing_instance(
+        std::env::var("POCKET_IC_SERVER_URL")
+            .unwrap()
+            .parse()
+            .unwrap(),
+        pic.instance_id(),
+        None,
+    );
+    let gateway = live.make_live(None);
+    let result = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .args([
+            "tools/verify_s14_deployment.py",
+            "--paid-v8-scene-only",
+            "--configuration",
+            dir.join("configuration.json").to_str().unwrap(),
+            "--gateway",
+            gateway.as_str(),
+            "--output",
+            dir.to_str().unwrap(),
+        ])
+        .output()
+        .unwrap();
+    std::fs::write(
+        dir.join("browser.log"),
+        [result.stdout, result.stderr].concat(),
+    )
+    .unwrap();
+    live.stop_live();
+    assert!(result.status.success(), "paid-v8 browser failed");
+    get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+    authenticate(pic, id, &dir.join("final-authenticated"));
+}

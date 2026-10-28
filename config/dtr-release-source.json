@@ -1,0 +1,6 @@
+{
+  "required_rust_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "status": "candidate publication and deliberate immutable pin pending; old E1 is not A2",
+  "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.14.0.tgz",
+  "npm_archive_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc"
+}

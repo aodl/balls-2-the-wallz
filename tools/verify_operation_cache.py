@@ -11,7 +11,7 @@ FROZEN='7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51'
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  p.add_argument('--baseline',type=Path,required=True);p.add_argument('--prototype',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
- p.add_argument('--allocation-faults',action='store_true');p.add_argument('--pending-notify',action='store_true');p.add_argument('--faults-only',action='store_true');p.add_argument('--harness-bin',type=Path);p.add_argument('--harness-sha256');p.add_argument('--initial-cycles',type=int);p.add_argument('--quiet-seconds',type=int,default=300);p.add_argument('--paused-recovery',action='store_true');p.add_argument('--fault-wasm',type=Path);p.add_argument('--fragments',type=int,default=0);p.add_argument('--diagnostic',action='store_true');p.add_argument('--paid-balls',type=int,default=1);p.add_argument('--a1',type=Path);p.add_argument('--ticks',type=int,default=8);p.add_argument('--fiduciary',action='store_true')
+ p.add_argument('--normal-timer-recovery',action='store_true');p.add_argument('--allocation-faults',action='store_true');p.add_argument('--pending-notify',action='store_true');p.add_argument('--faults-only',action='store_true');p.add_argument('--harness-bin',type=Path);p.add_argument('--harness-sha256');p.add_argument('--initial-cycles',type=int);p.add_argument('--quiet-seconds',type=int,default=300);p.add_argument('--paused-recovery',action='store_true');p.add_argument('--fault-wasm',type=Path);p.add_argument('--fragments',type=int,default=0);p.add_argument('--diagnostic',action='store_true');p.add_argument('--paid-balls',type=int,default=1);p.add_argument('--a1',type=Path);p.add_argument('--ticks',type=int,default=8);p.add_argument('--fiduciary',action='store_true')
  p.add_argument('--mode',choices=['profile','recovery','quiet','zero'],default='profile');p.add_argument('--counts',default='2,3,4');p.add_argument('--work-budget',type=int,default=512);p.add_argument('--capture',type=Path);p.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts')
  a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);digest=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
  assert digest(a.baseline)==FROZEN,'exact frozen production predecessor required'
@@ -41,6 +41,7 @@ def main():
  env['B2Z_PROFILE_PAUSED_RECOVERY']='1' if a.paused_recovery else '0'
  if a.faults_only and not a.fault_wasm:p.error('--faults-only requires --fault-wasm')
  if a.allocation_faults and not (a.fault_wasm and a.faults_only):p.error('--allocation-faults requires the explicit diagnostic --fault-wasm and --faults-only')
+ env['B2Z_PROFILE_NORMAL_TIMER']='1' if a.normal_timer_recovery else '0'
  env['B2Z_PROFILE_ALLOCATION_FAULTS']='1' if a.allocation_faults else '0'
  env['B2Z_PROFILE_FAULTS_ONLY']='1' if a.faults_only else '0'
  if a.fault_wasm:env['B2Z_PROFILE_FAULT_WASM']=str(a.fault_wasm.resolve())
@@ -70,6 +71,6 @@ def main():
  try:
   env['POCKET_IC_SERVER_URL']=server[3];args=[binaries[0],test,'--exact','--ignored','--nocapture','--test-threads=1']
   result=subprocess.run(args,cwd=ROOT,env=env,stdout=(out/'test.log').open('w'),stderr=subprocess.STDOUT,timeout=deadline)
-  report={'status':'PASS' if result.returncode==0 else 'FAIL','exit_code':result.returncode,'baseline_sha256':digest(a.baseline),'prototype_sha256':digest(a.prototype),'mode':a.mode,'mainnet_mutations':False,'normal_artifacts':not a.diagnostic,'instrumented':a.diagnostic};(out/'process.json').write_text(json.dumps(report,indent=2)+'\n');assert result.returncode==0,'local test failed; preserve test.log'
+  report={'status':'PASS' if result.returncode==0 else 'FAIL','exit_code':result.returncode,'baseline_sha256':digest(a.baseline),'prototype_sha256':digest(a.prototype),'mode':a.mode,'mainnet_mutations':False,'normal_artifacts':not (a.diagnostic or a.fault_wasm),'instrumented':a.diagnostic or a.allocation_faults,'fault_wasm_sha256':digest(a.fault_wasm) if a.fault_wasm else None};(out/'process.json').write_text(json.dumps(report,indent=2)+'\n');assert result.returncode==0,'local test failed; preserve test.log'
  finally:stop_pocketic(*server[:3])
 if __name__=='__main__':main()

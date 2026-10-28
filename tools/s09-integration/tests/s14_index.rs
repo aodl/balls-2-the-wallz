@@ -4605,6 +4605,13 @@ fn million_browser_qualification(sustained: bool) {
     std::fs::write(out.join("metadata.json"), b"{}").unwrap();
     std::fs::write(out.join("initial-world.bin"), &initial).unwrap();
     std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let installed = pic.canister_status(id, Some(controller())).unwrap();
+    let expected_module = dtr_wire::hash(&bytes("B2Z_S14_WASM"));
+    assert_eq!(
+        installed.module_hash,
+        Some(unhex(&expected_module).unwrap())
+    );
+    std::fs::write(out.join("normal-module-identity.json"),serde_json::to_vec_pretty(&serde_json::json!({"module_sha256":expected_module,"world_version":5,"publication_version":observe(&pic,id).1.version,"fiduciary":std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref()==Ok("1")})).unwrap()).unwrap();
     let gateway = pic.make_live(None);
     let log = std::fs::File::create(out.join("browser.log")).unwrap();
     let mut command = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap());
@@ -6530,6 +6537,10 @@ fn operation_cache_v8_recovery(
     let snapshot = pic
         .take_canister_snapshot(id, Some(controller()), None)
         .unwrap();
+    if std::env::var("B2Z_PROFILE_NORMAL_TIMER").as_deref() == Ok("1") {
+        operation_cost::normal_timer_recovery(pic, id, out, snapshot.id);
+        return;
+    }
     if std::env::var("B2Z_PROFILE_FAULTS_ONLY").as_deref() == Ok("1") {
         operation_cost::checkpoint_faults(pic, id, out, snapshot.id);
         return;
@@ -6599,6 +6610,7 @@ fn operation_cache_v8_recovery(
         for _ in 0..100 {
             pic.tick();
         }
+        let upgrade_cycle_before = pic.cycle_balance(id);
         let mut installed = false;
         for attempt in 0..3 {
             match pic.upgrade_canister(
@@ -6624,6 +6636,7 @@ fn operation_cache_v8_recovery(
             }
         }
         assert!(installed);
+        let upgrade_cycle_debit = upgrade_cycle_before - pic.cycle_balance(id);
         pic.start_canister(id, Some(controller())).unwrap();
         assert_eq!(observe(pic, id).0.publication, before);
         assert_eq!(arena_world(pic, id), world);
@@ -6750,11 +6763,14 @@ fn operation_cache_v8_recovery(
                 .unwrap()
                 .success()
         );
-        cases.push(serde_json::json!({"label":label,"balls":world.balls.len(),"ticks":status(pic,id).run.completed_segments-initial_completed,"cycles":spent.to_string(),"tick_cycle_debits":per_tick,"elapsed_ns":elapsed.to_string(),"instructions":{"seal":metric_after.seal_instructions-metric_before.seal_instructions,"step":metric_after.step_instructions-metric_before.step_instructions,"publish":metric_after.publish_instructions-metric_before.publish_instructions,"persist":metric_after.persist_instructions-metric_before.persist_instructions},"messages":metric_after.messages-metric_before.messages,"max_instructions":metric_after.max_instructions,"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"v8_authenticated":true,"publication_sha256":dtr_wire::hash(&o.publication),"source_cursor":status(pic,id).source.admitted_to_exclusive,"finance":funding_tests::preserved_finance(pic,id)}));
+        cases.push(serde_json::json!({"label":label,"balls":world.balls.len(),"ticks":status(pic,id).run.completed_segments-initial_completed,"cycles":spent.to_string(),"upgrade_cycle_debit":upgrade_cycle_debit.to_string(),"tick_cycle_debits":per_tick,"elapsed_ns":elapsed.to_string(),"instructions":{"seal":metric_after.seal_instructions-metric_before.seal_instructions,"step":metric_after.step_instructions-metric_before.step_instructions,"publish":metric_after.publish_instructions-metric_before.publish_instructions,"persist":metric_after.persist_instructions-metric_before.persist_instructions},"messages":metric_after.messages-metric_before.messages,"max_instructions":metric_after.max_instructions,"memory_before":format!("{:?}",memory_before.memory_metrics),"memory_after":format!("{:?}",memory_after.memory_metrics),"v8_authenticated":true,"publication_sha256":dtr_wire::hash(&o.publication),"source_cursor":status(pic,id).source.admitted_to_exclusive,"finance":funding_tests::preserved_finance(pic,id)}));
     }
     std::fs::write(out.join("operation-cache-recovery.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","exact_predecessor_sha256":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"interrupted_cursor_recovered":!paused_mode,"paused_no_inflight_recovered":paused_mode,"torn_image_rejected":torn_rejection.is_some(),"torn_rejection":torn_rejection,"exact_full_finance_control_match":true,"local_snapshot_recovery_only":true,"matched_frozen_control":true,"cases":cases})).unwrap()).unwrap();
     if pending_notify {
         operation_cost::finish_notify_pending(pic, id, out);
+    }
+    if std::env::var("B2Z_PROFILE_V8_BROWSER").as_deref() == Ok("1") {
+        operation_cost::paid_v8_browser(pic, id, out);
     }
     if std::env::var_os("B2Z_PROFILE_FAULT_WASM").is_some() {
         operation_cost::checkpoint_faults(pic, id, out, snapshot.id);
