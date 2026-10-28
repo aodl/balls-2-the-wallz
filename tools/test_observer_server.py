@@ -73,7 +73,14 @@ class ProxyDiagnosticTests(unittest.TestCase):
         for server in [self.upstream,self.proxy]:
             thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start();self.threads.append(thread)
         self.directory=tempfile.TemporaryDirectory();self.addCleanup(self.directory.cleanup)
-        self.path=Path(self.directory.name)/'proxy.jsonl';self.trace=serve_observer.ProxyTrace(self.path)
+        self.path=Path(self.directory.name)/'proxy.jsonl'
+        self.trace_complete=threading.Condition();self.trace_rows=0
+        class CompleteTrace(serve_observer.ProxyTrace):
+            def write(trace,row):
+                super().write(row)
+                with owner.trace_complete:
+                    owner.trace_rows+=1;owner.trace_complete.notify_all()
+        self.trace=CompleteTrace(self.path)
         self.patches=[patch.object(serve_observer,'IC_GATEWAY',f'http://127.0.0.1:{self.upstream.server_port}/'),
             patch.object(serve_observer,'LIVE_CANISTER','aaaaa-aa'),patch.object(serve_observer,'PROXY_TRACE',self.trace)]
         for item in self.patches:item.start()
@@ -87,6 +94,10 @@ class ProxyDiagnosticTests(unittest.TestCase):
         c=http.client.HTTPConnection('127.0.0.1',self.proxy.server_port,timeout=5)
         c.request('POST','/api/v3/canister/aaaaa-aa/query',body,headers={'Authorization':'not-recorded'})
         response=c.getresponse();result=response.status,response.read();c.close();return result
+    def wait_trace(self,count):
+        # Receiving the response body is not a join of the proxy handler's
+        # finally block. Synchronise with the completed diagnostic write.
+        with self.trace_complete:self.assertTrue(self.trace_complete.wait_for(lambda:self.trace_rows>=count,timeout=5))
     def delayed(self,stage):
         body=b'artifact_bundle '+stage.encode()+b'-delay'
         with concurrent.futures.ThreadPoolExecutor() as pool:
@@ -94,9 +105,11 @@ class ProxyDiagnosticTests(unittest.TestCase):
             try:
                 self.assertTrue(self.entered.wait(3))
                 self.assertEqual(self.post(b'lab_status'),(200,b'reply:lab_status'))
+                self.wait_trace(1)
                 self.assertFalse(future.done(),'slow request must remain blocked while independent query finishes')
             finally:self.release.set()
             self.assertEqual(future.result(),(200,b'reply:'+body))
+        self.wait_trace(2)
         rows=[json.loads(line)for line in self.path.read_text().splitlines()]
         self.assertEqual(len(rows),2);fast,slow=rows
         self.assertEqual([fast['method'],slow['method']],['lab_status','artifact_bundle'])
@@ -112,7 +125,7 @@ class ProxyDiagnosticTests(unittest.TestCase):
     def test_slow_upstream_headers_do_not_block_other_queries(self):self.delayed('headers')
     def test_slow_upstream_body_is_distinguished_from_header_wait(self):self.delayed('body')
     def test_upstream_error_is_preserved_without_proxy_retry(self):
-        body=b'artifact_bundle unavailable';self.assertEqual(self.post(body),(503,b'reply:'+body))
+        body=b'artifact_bundle unavailable';self.assertEqual(self.post(body),(503,b'reply:'+body));self.wait_trace(1)
         row=json.loads(self.path.read_text());self.assertEqual(row['status'],503)
         self.assertEqual(self.calls,[body]);self.assertIn('upstream_headers_ms',row)
     def test_trace_refuses_old_output_and_bounds_new_output(self):
