@@ -596,6 +596,17 @@ pub(super) fn paid_v8_browser(pic: &PocketIc, id: Principal, out: &Path) {
     );
     let dir = out.join("paid-v8-browser");
     std::fs::create_dir(&dir).unwrap();
+    let before_clock_alignment = observe(pic, id).0.publication;
+    let prior_time = pic.get_time();
+    let fresh = pocket_ic::Time::from(std::time::SystemTime::now());
+    assert!(
+        prior_time <= fresh,
+        "browser fixture exhausted its declared past-clock allowance"
+    );
+    pic.set_time(fresh);
+    pic.tick();
+    assert_eq!(observe(pic, id).0.publication, before_clock_alignment);
+    std::fs::write(dir.join("clock-alignment.json"),serde_json::to_vec(&serde_json::json!({"prior_ic_time_ns":prior_time.as_nanos_since_unix_epoch().to_string(),"aligned_host_time_ns":fresh.as_nanos_since_unix_epoch().to_string(),"only_forward":true,"browser_clock_or_freshness_modified":false,"paid_publication_unchanged":true})).unwrap()).unwrap();
     std::fs::write(dir.join("root-key.der"), pic.root_key().unwrap()).unwrap();
     std::fs::write(dir.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"publication_version":8,"epoch_version":2,"scenario":"paid-v8-live-browser"})).unwrap()).unwrap();
     let source = status(pic, id).source;
