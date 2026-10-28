@@ -1,0 +1,69 @@
+{
+  "starting_HEAD": "b2955d694968c056a638b2bb1f88c544a6b2211d",
+  "starting_working_tree": "clean; no pre-existing user modifications",
+  "B2Z_functional_and_test_source_HEAD": "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+  "DTR_source_HEAD": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "B2Z_branch": "research/b2z-fiduciary-cost",
+  "DTR_branch": "experiment/b2z-thread-compatible-record-proof",
+  "B2Z_changed_files": [
+    "M\tcanisters/runtime-lab/src/lib.rs",
+    "M\tcanisters/runtime-lab/src/operation_kernel.rs",
+    "M\tnative/b2z-native/src/cursor.rs",
+    "M\tnative/b2z-native/src/host.rs",
+    "A\tnative/b2z-native/tests/session.rs",
+    "A\ttools/build_cost_experiment.py",
+    "M\ttools/s09-integration/tests/s14_index.rs",
+    "A\ttools/s09-integration/tests/support/operation_cost.rs",
+    "M\ttools/s14_development.py",
+    "M\ttools/test_s14_local.py",
+    "M\ttools/verify_operation_cache.py",
+    "M\ttools/verify_operation_cache_observation.mjs"
+  ],
+  "DTR_changed_files": [
+    "M\tCargo.lock",
+    "M\tCargo.toml",
+    "M\tcrates/dtr-host/src/lib.rs",
+    "M\tcrates/dtr-host/tests/coordinator.rs",
+    "A\tcrates/dtr-host/tests/thread_compatibility.rs",
+    "M\tcrates/dtr-wire/src/lib.rs"
+  ],
+  "B2Z_ordered_commits": [
+    "6df8d02b37f9b68ddf23bf93019dde704a1d64e7 test: compare frozen A0 A1 candidates on disposable fiduciary fixtures",
+    "d7e73e2319cbc634bc537ff3297ffd46fff34576 test: add bounded paid-v8 cost, maintenance and checkpoint fault rehearsals",
+    "c86f9cc457682d37d7b923a400f6e789220bd749 experiment: validate private typed cursor proposals without decoding their own snapshots",
+    "3420d94ebeee71831f1b8946f58ee28afd96f74a test: settle callback charges and record cycle reservations in cost samples",
+    "4e3764f0fc11848e8b9d7c8e44472d42e2e0ee21 test: preserve all unrelated locks and cover valid idle and pending treasury recovery",
+    "677a864c56b70a6e6e88982e3a477dcde090262b test: settle outstanding response reservations and allow signed sample refunds",
+    "545b882b72ea65d12880b8214428e9303016606f test: authenticate empty v6 genesis explicitly while requiring v8 for paid recovery",
+    "8785a9d2c21185df035bb6fb15bcba5b22233180 test: distinguish disposable v6 cost profiles from authenticated paid v8 checkpoints",
+    "fae11d8b7bc8c2e9657668261cb22a5ad4d00a44 experiment: bound B2Z operation reuse at one MiB for supported large publications",
+    "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165 test: cover oversized output fallback and forced allocator rollback rehearsals"
+  ],
+  "DTR_ordered_commits": [
+    "dc843d3df4b657dd1c93f67617798b2114711267 perf(wire): encode canonical lowercase hex without per-byte formatting",
+    "ba25231009323318038f6b05282686bb5c27e681 perf(wire): write validated canonical JSON without rebuilding value trees",
+    "f82baa6f6ae7f6963a8c42792f58633d69fc785b perf(host): reuse an exact immutable committed-head proof within a coordinator",
+    "1a0548be7066bd5aaccb471ecc114db1e0b44759 experiment(host): retain exact validated records and canonical snapshots within one operation",
+    "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68 fix(host): retain native concurrency and unwind compatibility for bounded proofs"
+  ],
+  "all_local_refs": [
+    "refs/heads/experiment/b2z-allocation-profile 39da7a1e10310940a3989d5599522745b0d2b311",
+    "refs/heads/experiment/b2z-bounded-large-operation-cache ccbe3aed728f2ba40b46927e897660509c1d83cc",
+    "refs/heads/experiment/b2z-next-crossing-cache 0a9ec5b978fe7e3c968ca10eeae1e7cd023ce588",
+    "refs/heads/experiment/b2z-ownership-validation-proof 91026a162276d9254a64aabb1bd334a8dc8605a0",
+    "refs/heads/experiment/b2z-pinned-codec-stages d569eb5fb5939a490ec143536603a1e9e8922bca",
+    "refs/heads/experiment/b2z-stable-chunk-compare 0d3d6d6e0b1ce5a91ea99b78e9bf8bdf60769be8",
+    "refs/heads/experiment/b2z-strike-discrete-filter 77215650722290c9537846908d44a33cb042afe5",
+    "refs/heads/experiment/b2z-typed-cursor-session f97ff37d62fa3b8dcd001497c96c56f12a5c7e98",
+    "refs/heads/prototype/b2z-operation-cache b2955d694968c056a638b2bb1f88c544a6b2211d",
+    "refs/heads/research/b2z-fiduciary-cost d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+    "refs/heads/research/b2z-final-cost-oracle d27cb10792999d66e0df7e4d00f01a8962e268d5"
+  ],
+  "production_dependency_pin_unchanged": true,
+  "frontend_changed": false,
+  "mainnet_mutation": false,
+  "remote_refs_written": false,
+  "stable_layout_migration": false,
+  "Class_C_changes": false,
+  "final_documentation_commit": "recorded in final handoff; it will add reviewed evidence and STATUS only"
+}

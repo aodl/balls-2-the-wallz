@@ -1,3 +1,39 @@
+# Fiduciary cycle optimisation — measured savings; release qualification NO-GO
+
+**2026-10-28 01:03 UTC:** read-only production check: **2.420881T liquid**,
+**ReserveProtection**, zero supported ticks and no gameplay progress. Authenticated
+paid v8/epoch-2 v5 state, source maintenance, modules and controllers remain intact;
+actual Ledger balance is zero and treasury is Idle. No replenishment was observed.
+Maintenance-only debit is about 0.01940T/hour. The protected 3T reserve is short by
+0.579119T before an upgrade allowance. No production action was performed.
+
+Separate local branch `research/b2z-fiduciary-cost` preserves A0/A1 and freezes
+B2Z `d6c2e593…` + unpublished DTR `77ba46cb…`, normal Wasm `0d86ac64…`.
+The authentic paid-v8 64-tick comparison saves **44.77% versus A1**, **68.04% versus
+A0**, with identical authoritative outputs and preserved source/financial/retained
+state. All 19 matched normal-Wasm invocations, exact-predecessor upgrade/recovery,
+checkpoint/allocation traps, Rust/JS/Candid/clippy and two clean builds passed.
+
+**The unchanged 900.031-second browser gate FAILED:** 14 sampled stalls,
+5 resynchronisations and rebuffering. Producer throughput remained approximately
+0.988–0.996 ticks/s at Normal; playback delivery fell below its gate. The isolated
+short test and subsequent Lifeline/cold recovery passed. The long failure remains
+unresolved and is not waived or replaced by a favourable repeat.
+
+A1 CI `40555604193` passed all six substantive jobs. Combined-candidate exact CI
+is **BLOCKED** pending user-owned DTR publication, immutable pinning and publication
+of the exact B2Z commit. Production DTR/npm pins, authoritative rules, economic
+policy, pacing, durable layout and deployed visual frontend remain unchanged.
+This is a measured engineering candidate, **not release qualification or deployment
+approval**. No master merge, remote Git write, mainnet mutation or financial action
+was performed. The 34-node fiduciary subnet remains fixed.
+
+[Full report, measurements, failed gates and reproducible artifacts](evidence/B2Z/fiduciary-cycle-optimisation/REPORT.md).
+The independent read-only snapshot verifies all **7,255 checksums**. Dated historical
+status follows unchanged.
+
+---
+
 # Operation-cache prototype — local PASS; production Reserve Protection
 
 **2026-10-27 07:51 UTC:** read-only production observation: 2.767T liquid,
