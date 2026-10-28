@@ -4647,7 +4647,11 @@ fn million_browser_qualification(sustained: bool) {
             start_arena(&pic, id);
             started = true;
         }
-        if started && !economy && out.join("browser-million-normal-complete").exists() {
+        if started
+            && !economy
+            && std::env::var("S14_QUAL_NORMAL_ONLY").as_deref() != Ok("1")
+            && out.join("browser-million-normal-complete").exists()
+        {
             // Normal qualification uses the exact normal artifact. Only the
             // disposable low-funding phases need test-only budget controls.
             pic.upgrade_canister(
@@ -4715,14 +4719,21 @@ fn million_browser_qualification(sustained: bool) {
         std::thread::sleep(Duration::from_millis(100));
     }
     assert!(
-        started && lifeline,
+        started && (lifeline || std::env::var("S14_QUAL_NORMAL_ONLY").as_deref() == Ok("1")),
         "million browser coordination incomplete"
     );
     assert!(
         out.join("browser-complete").exists(),
         "million browser timeout"
     );
-    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "Lifeline");
+    assert_eq!(
+        status(&pic, id).run.pace.unwrap().mode,
+        if std::env::var("S14_QUAL_NORMAL_ONLY").as_deref() == Ok("1") {
+            "Normal"
+        } else {
+            "Lifeline"
+        }
+    );
     let world = arena_world(&pic, id);
     assert_eq!((world.width, world.height), (1000, 1000));
     std::fs::write(
@@ -6780,4 +6791,27 @@ fn operation_cache_v8_recovery(
     if std::env::var_os("B2Z_PROFILE_FAULT_WASM").is_some() {
         operation_cost::checkpoint_faults(pic, id, out, snapshot.id);
     }
+}
+
+#[test]
+#[ignore = "preparation-only validation of frozen public delivery bindings"]
+fn delivery_public_binding() {
+    let (pic, id, ledger, _payer) = arena_setup_world(
+        bytes("B2Z_S14_WASM"),
+        million_population_world(4).encode().unwrap(),
+    );
+    let index = status(&pic, id).source.index;
+    let actual = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap()),"host":"http://127.0.0.1:18765"});
+    let expected: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("../../vendor/b2z/delivery/local-policy.json"),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    assert_eq!(
+        actual, expected,
+        "frozen public root/canister binding changed"
+    );
 }

@@ -163,6 +163,11 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
         return result
     measure_mode('normal',90,.9,1.15)
     if sustained:measure_mode('normal_sustained',900,.9,1.15,continuous=True)
+    if sustained and os.environ.get('S14_QUAL_NORMAL_ONLY')=='1':
+        stop_capture()
+        assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
+        record('normal-only-exact-production-artifact-no-fault-phases')
+        return
     (out/'browser-million-normal-complete').write_text('normal playback measured\n')
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.5,30000);page.wait_for_timeout(4000)
     # The normal-to-hooks code upgrade may hold an in-flight query. Bound the
@@ -268,13 +273,20 @@ def main():
     server=None;browser=None
     try:
         assets=out/'assets';production=out/'mainnet-assets'
-        subprocess.run(['node','tools/build_observer_mainnet.mjs','--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
-        # A committed real deployment mapping must never be bypassed to build
-        # mainnet assets for a disposable test principal. Production-policy
-        # inspection uses that real ID; only the explicit local bundle runs here.
-        ids=ROOT/'canister_ids.json'
-        production_id=json.loads(ids.read_text()).get('b2z',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
-        subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',production_id,'--output',str(production)],cwd=ROOT,check=True,timeout=120)
+        if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
+            prebuilt=Path(os.environ['S14_QUAL_PREBUILT_ROOT'])
+            assert configuration==json.loads((prebuilt/'local-policy.json').read_text()),'prepared local root/canister/endpoint binding differs'
+            shutil.copytree(prebuilt/'local-assets',assets)
+            shutil.copytree(prebuilt/'mainnet-assets',production)
+            production_id=json.loads((production/'build-manifest.json').read_text())['deployment']['canister_id']
+        else:
+            subprocess.run(['node','tools/build_observer_mainnet.mjs','--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
+            # A committed real deployment mapping must never be bypassed to build
+            # mainnet assets for a disposable test principal. Production-policy
+            # inspection uses that real ID; only the explicit local bundle runs here.
+            ids=ROOT/'canister_ids.json'
+            production_id=json.loads(ids.read_text()).get('b2z',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
+            subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',production_id,'--output',str(production)],cwd=ROOT,check=True,timeout=120)
         for directory in [assets,production]:
             assert {'index.html','app.mjs','configuration.bin','deployment.json','build-manifest.json','.ic-assets.json5','style.css','icon.svg'}.issubset({x.name for x in directory.iterdir()})
         manifest=json.loads((production/'build-manifest.json').read_text());assert manifest['deployment']['canister_id']==production_id;assert not manifest['local_test_only'];assert not any('s14-local-deployment' in name for name in manifest['inputs'])
@@ -286,6 +298,8 @@ def main():
         assert 'clipboard-write=(self)' in permissions and 'clipboard-read=()' in permissions
         report['production_permissions_policy']=permissions
         record('real-asset-build-and-mainnet-test-adapter-exclusion',manifest)
+        if os.environ.get('S14_QUAL_PRODUCTION_REFERENCE'):
+            assert manifest['files']==json.loads(Path(os.environ['S14_QUAL_PRODUCTION_REFERENCE']).read_text())['files'],'original production frontend assets differ'
         local_identity=json.loads((assets/'build-manifest.json').read_text())['files']
         (out/'local-assets-identity.json').write_text(json.dumps(local_identity,indent=2)+'\n')
         if os.environ.get('S14_QUAL_ASSET_REFERENCE'):

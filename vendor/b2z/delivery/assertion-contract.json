@@ -1,0 +1,10 @@
+{
+  "base": "eae3eb97c448588a428da0147dc331ae915b8b60",
+  "measure_mode_ast_sha256": "806e047fa47ba3ce1825d69eedf35fdddb74738e4f8948ea565f49e71a21dd25",
+  "files": {
+    "tools/playback_qualification.py": "f1d834cd56148224206ccd160eab17b68404dc216bd1927496600cccaecc7aed",
+    "tools/build_observer_mainnet.mjs": "915e0e0ca6ff6c31a6252832e1dbc03fcab21a3f1763689ec1d5f40c9b610d38",
+    "tools/browser-requirements.txt": "8c366ddcdc9b447b3a90a2ebcf680e087ca128fe156e461ef2b5be7d4cd534b5",
+    "tools/s09-artifacts.json": "aaf2798012513296654ed79a9ce184d4daa4485377d495d928ba87674db4e99b"
+  }
+}
