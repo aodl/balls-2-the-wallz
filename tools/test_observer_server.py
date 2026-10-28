@@ -54,7 +54,7 @@ class ObserverServerTests(unittest.TestCase):
             self.assertIsNone(observer_dependency_error(root))
 class ProxyDiagnosticTests(unittest.TestCase):
     def setUp(self):
-        self.entered=threading.Event();self.release=threading.Event();self.calls=[]
+        self.entered=threading.Event();self.release=threading.Event();self.headers_observed=threading.Event();self.calls=[]
         owner=self
         class Upstream(http.server.BaseHTTPRequestHandler):
             def log_message(self,*args):pass
@@ -81,8 +81,21 @@ class ProxyDiagnosticTests(unittest.TestCase):
                 with owner.trace_complete:
                     owner.trace_rows+=1;owner.trace_complete.notify_all()
         self.trace=CompleteTrace(self.path)
+        real_urlopen=serve_observer.urllib.request.urlopen
+        def observed_urlopen(request,*args,**kwargs):
+            response=real_urlopen(request,*args,**kwargs)
+            if b'body-delay' in request.data:
+                read=response.read
+                def observed_read(*read_args,**read_kwargs):
+                    # The production proxy records header arrival immediately
+                    # before read. Upstream flush alone does not prove receipt.
+                    owner.headers_observed.set()
+                    return read(*read_args,**read_kwargs)
+                response.read=observed_read
+            return response
         self.patches=[patch.object(serve_observer,'IC_GATEWAY',f'http://127.0.0.1:{self.upstream.server_port}/'),
-            patch.object(serve_observer,'LIVE_CANISTER','aaaaa-aa'),patch.object(serve_observer,'PROXY_TRACE',self.trace)]
+            patch.object(serve_observer,'LIVE_CANISTER','aaaaa-aa'),patch.object(serve_observer,'PROXY_TRACE',self.trace),
+            patch.object(serve_observer.urllib.request,'urlopen',observed_urlopen)]
         for item in self.patches:item.start()
     def tearDown(self):
         self.release.set()
@@ -104,6 +117,7 @@ class ProxyDiagnosticTests(unittest.TestCase):
             future=pool.submit(self.post,body)
             try:
                 self.assertTrue(self.entered.wait(3))
+                if stage=='body':self.assertTrue(self.headers_observed.wait(3))
                 self.assertEqual(self.post(b'lab_status'),(200,b'reply:lab_status'))
                 self.wait_trace(1)
                 self.assertFalse(future.done(),'slow request must remain blocked while independent query finishes')
