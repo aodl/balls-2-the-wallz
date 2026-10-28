@@ -3,13 +3,13 @@
 import argparse,hashlib,json,subprocess,tomllib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-MANIFESTS=['Cargo.toml','native/Cargo.toml','canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml']
+MANIFESTS=['Cargo.toml','native/Cargo.toml','canisters/runtime-lab/Cargo.toml','tools/s09-integration/Cargo.toml','tools/fixtures/dtr-consumer-rust/Cargo.toml']
 
 def check_packages(packages,expected):
  rows=[]
  for package in packages:
-  if package['name']not in {'dtr-core','dtr-wire','dtr-host','dtr-source-model'}:continue
   source=package.get('source')or''
+  if package['name']not in {'dtr-core','dtr-wire','dtr-host','dtr-source-model','life-conformance'}and not source.startswith('git+https://github.com/aodl/dtr.git'):continue
   if not source.startswith('git+https://github.com/aodl/dtr.git?rev='+expected+'#')or source.split('#')[-1]!=expected:raise ValueError('unqualified DTR package source: '+package['name']+' '+source)
   rows.append({k:package.get(k)for k in ['name','version','source','checksum']})
  if not rows:raise ValueError('no resolved DTR packages')

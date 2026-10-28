@@ -596,6 +596,8 @@ pub(super) fn paid_v8_browser(pic: &PocketIc, id: Principal, out: &Path) {
     );
     let dir = out.join("paid-v8-browser");
     std::fs::create_dir(&dir).unwrap();
+    std::fs::write(dir.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    std::fs::write(dir.join("metadata.json"),serde_json::to_vec(&serde_json::json!({"canister_id":id.to_text(),"publication_version":8,"epoch_version":2,"scenario":"paid-v8-live-browser"})).unwrap()).unwrap();
     let source = status(pic, id).source;
     let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":source.ledger.to_text(),"index":source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
     std::fs::write(

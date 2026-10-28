@@ -9,6 +9,9 @@ class Provenance(unittest.TestCase):
   rev='7'*40;good={'name':'dtr-host','version':'0.14.1-cost.1','source':'git+https://github.com/aodl/dtr.git?rev='+rev+'#'+rev}
   self.assertEqual(len(check_packages([good],rev)),1)
   with self.assertRaises(ValueError):check_packages([good,{**good,'name':'dtr-wire','source':None}],rev)
+  for name in ['life-conformance','dtr-source-model']:
+   with self.subTest(name=name),self.assertRaises(ValueError):check_packages([good,{**good,'name':name,'source':None}],rev)
+  with self.assertRaises(ValueError):check_packages([good,{**good,'name':'another-upstream-crate','source':'git+https://github.com/aodl/dtr.git?rev='+rev+'#'+'e'*40}],rev)
  def test_no_dtr_is_not_a_pass(self):
   with self.assertRaises(ValueError):check_packages([{'name':'other'}],'7'*40)
 if __name__=='__main__':unittest.main()
