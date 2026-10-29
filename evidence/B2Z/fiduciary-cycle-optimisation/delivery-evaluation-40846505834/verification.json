@@ -1,0 +1,544 @@
+{
+  "tested_commit": "b96c64b43a412c022143787cd9d6ed94da2bbc67",
+  "delivery_run": 40846505834,
+  "delivery_artifact": 12884987721,
+  "delivery_artifact_sha256": "bf610b2081c2f044e54a15bceca91f2208e00b1ded7826a4d56fec81dfa13295",
+  "manifest_verified_entries": {
+    "DELIVERY_SHA256SUMS": 117,
+    "delivery-inputs/SHA256SUMS": 29,
+    "delivery-pair/PREDECLARATION.sha256": 1
+  },
+  "predeclaration_input_hashes_verified": 38,
+  "frozen_normal_modules": {
+    "A0": {
+      "sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "gzip_sha256": "4e7aec89e97329101492b77eb9cff102282d280df43096c12a6e9b64b858923b",
+      "installed": true
+    },
+    "A2": {
+      "sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+      "gzip_sha256": "2fde8cf962498a8267757ccd4ca505196261f33263ae32c0a04bdcdc6c42b17b",
+      "installed": false
+    }
+  },
+  "harness_sha256": "20ecd7716612a4554e8e753f13d68d41cf05437943ebb27d3a8784312239b507",
+  "production_frontend_entries_verified": 10,
+  "provisioning": "PASS",
+  "offline_provenance": "PASS",
+  "plan": {
+    "normal_only": true,
+    "preflight": {
+      "window_seconds": 60,
+      "maximum_wait_seconds": 180,
+      "idle_median_min": 0.7,
+      "idle_sample_min": 0.4,
+      "memory_available_min_GiB": 2,
+      "CPU_PSI_avg10_max": 10,
+      "IO_full_PSI_avg10_max": 2,
+      "swap_out_delta": 0,
+      "cgroup_throttle_delta": 0,
+      "foreign_single_process_core_max": 0.25,
+      "active_compiler_or_other_PocketIC_core_max": 0.01,
+      "cooldown_adjustment": {
+        "previous_hosted_allowance_seconds": 75,
+        "selected_allowance_seconds": 180,
+        "reason": "Hosted workflow selects 180 seconds for transient provisioning CPU/I/O pressure; qualifying window remains 60 seconds and all resource and delivery acceptance predicates are unchanged."
+      }
+    },
+    "subnet": "disposable fiduciary 34 nodes; same in both cases",
+    "sandbox": true,
+    "scope": "Normal only: 90-second Normal prelude and untrimmed 900-second strict Normal measurement per candidate; no Economy, Lifeline, low-funding or cold-reconnect phases."
+  },
+  "resource_prerequisite": {
+    "status": "PASS; independently reconstructed from the last samples before launch",
+    "reason_no_accepted_log_line": "Prerequisites are logged every 15 seconds; the successful check between log writes breaks out before an accepted record is written. The unchanged quiet() predicate independently passes the retained pre-launch samples.",
+    "sample_count": 12,
+    "first_sample_epoch_ms": 1793264747708.9172,
+    "last_sample_epoch_ms": 1793264802798.046,
+    "idle_median_percent": 99.82493730600899,
+    "idle_minimum_percent": 99.2496248124062,
+    "available_memory_minimum_GiB": 14.460586547851562,
+    "cpu_PSI_avg10_max": 1.89,
+    "io_full_PSI_avg10_max": 0.93,
+    "swap_out_delta": 0,
+    "cgroup_throttled_usec_delta": {
+      "/sys/fs/cgroup/system.slice/hosted-compute-agent.service": 0,
+      "/sys/fs/cgroup": 0
+    },
+    "host_log_samples": 24,
+    "host_log_seconds": 115.22929638671874,
+    "cpu_count": 4,
+    "cpu_affinity": 4
+  },
+  "A0": {
+    "case_outcome": {
+      "label": "A0",
+      "status": "BLOCKED_ENVIRONMENT",
+      "exit_code": -15,
+      "module_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "started_epoch_ms": 1793264803728.317,
+      "finished_epoch_ms": 1793264823787.0781,
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/delivery-inputs/harness",
+        "million_browser_sustained_normal_and_cold_lifeline",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ]
+    },
+    "case_elapsed_seconds": 20.05876123046875,
+    "prelude": "INCOMPLETE: no complete 90-second prelude",
+    "strict_900_second_window": "NOT_RUN",
+    "interruption": {
+      "reason": "predeclared foreign workload overlap",
+      "sample_epoch_ms": 1793264822871.603,
+      "processes": [
+        {
+          "pid": "1613",
+          "name": "provjobd4930979",
+          "state": "S",
+          "cores": 0.7598113947336544
+        }
+      ]
+    },
+    "foreign_process_ancestry": [
+      {
+        "pid": "1613",
+        "name": "provjobd4930979",
+        "parent_pid": 1611,
+        "process_group": 1598
+      },
+      {
+        "pid": "1611",
+        "name": "sudo",
+        "parent_pid": 1598,
+        "process_group": 1598
+      },
+      {
+        "pid": "1598",
+        "name": "hosted-compute-",
+        "parent_pid": 1,
+        "process_group": 1598
+      },
+      {
+        "pid": "1",
+        "name": "systemd",
+        "parent_pid": 0,
+        "process_group": 1
+      }
+    ],
+    "partial_browser_report_status": "NOT_RUN",
+    "completed_partial_checks": [
+      "real-asset-build-and-mainnet-test-adapter-exclusion",
+      "million-cell-culling-seam-picking-and-sparse-move-selector"
+    ],
+    "authentication": "Initial certified genesis/transfer-preparation scene reached with actual verifier and pinned disposable root; no complete authenticated-playback assertion",
+    "rates_buffer_stalls_resynchronisations": "NOT_EVALUATED: no completed prelude or strict telemetry; no inferred PASS",
+    "partial_publication_polls": 7,
+    "partial_first_segment_id": 0,
+    "partial_last_segment_id": 13,
+    "partial_observed_span_seconds": 12.198001238,
+    "partial_nominal_modes": [
+      "Normal"
+    ],
+    "partial_http": {
+      "qualification": "Startup/early-prelude observations only; not 900-second evidence",
+      "proxy_request_count": 49,
+      "proxy_status_counts": {
+        "200": 49
+      },
+      "proxy_timing_ms": {
+        "upstream_headers_ms": {
+          "count": 49,
+          "median": 5.3335919999994985,
+          "max": 130.37160800001857
+        },
+        "upstream_complete_ms": {
+          "count": 49,
+          "median": 5.417338999961885,
+          "max": 130.4574090000301
+        },
+        "finished_ms": {
+          "count": 49,
+          "median": 5.616360999965764,
+          "max": 130.64441900002066
+        }
+      },
+      "captured_observation_count": 38,
+      "captured_observation_status_counts": {
+        "200": 38
+      },
+      "browser_timing_ms": {
+        "responseStart": {
+          "median": 6.558,
+          "max": 131.985
+        },
+        "responseEnd": {
+          "median": 16.4325,
+          "max": 143.211
+        }
+      },
+      "wire_capture_errors": []
+    }
+  },
+  "A2": {
+    "case": "NOT_RUN",
+    "prerequisite": "NOT_RUN",
+    "prelude": "NOT_RUN",
+    "strict_900_second_window": "NOT_RUN"
+  },
+  "delivery_verdict": "BLOCKED_ENVIRONMENT; neither strict window started",
+  "capacity_or_regression_attribution": "Neither test-host four-ball capacity nor A2-specific or shared delivery regression is established by this interruption",
+  "minimum_corrective_action": "Use a genuinely isolated host without the observed provider workload for a separately authorised single unchanged sequential comparison; retain all thresholds and frozen inputs. No automatic retry, process allowlist or acceptance relaxation.",
+  "release": "NO-GO",
+  "new_test_runs_launched": 0,
+  "production_preflight_and_funding_estimate": "NOT_PREPARED: sustained delivery condition not met",
+  "mainnet_actions": [],
+  "ordinary_verification": {
+    "run_id": 40846505855,
+    "exact_commit": "b96c64b43a412c022143787cd9d6ed94da2bbc67",
+    "workflow_status": "completed",
+    "workflow_conclusion": "success",
+    "substantive_jobs_pass": 6,
+    "informational_production_inventory_excluded": true,
+    "integration_artifact_id": 12887293483,
+    "integration_artifact_sha256": "512069a6e096f219fc1aa4458fcab8b3f35a8c9e86b6e880b5932fe2919b540d",
+    "integration_checks": 50,
+    "integration_checks_all_pass": true,
+    "installed_suites": [
+      {
+        "id": "installed-index-integration",
+        "executed_tests": 29,
+        "explicitly_ignored": 16
+      },
+      {
+        "id": "installed-million-integration",
+        "executed_tests": 4,
+        "explicitly_ignored": 1
+      },
+      {
+        "id": "installed-funding-integration",
+        "executed_tests": 8,
+        "explicitly_ignored": 0
+      },
+      {
+        "id": "installed-funding-cutover-integration",
+        "executed_tests": 1,
+        "explicitly_ignored": 0
+      }
+    ],
+    "normal_module_identity": {
+      "fiduciary": false,
+      "module_sha256": "da25be812867e40d5bb69f64af776df5f831533460037fbaeeb1daf39f3fcfda",
+      "publication_version": 6,
+      "world_version": 5
+    },
+    "scope_qualification": "Ordinary CI application-subnet fixture (fiduciary=false), separately compiled da25be81 normal binary; NOT the fixed 34-node approved-2c289fdf sequential delivery comparison. No quiet-host monitor or pairwise A0/A2 qualification is supplied by this CI artifact.",
+    "strict_summary_recomputed": true,
+    "strict_summary": {
+      "status": "PASS",
+      "seconds": 900.0973000488282,
+      "checks": {
+        "rates": true,
+        "no_stall_or_rebuffer": true,
+        "no_resynchronization": true,
+        "normal_not_performance_limited": true,
+        "buffer_accounting": true,
+        "bounded_queue": true,
+        "no_sustained_buffer_deficit": true
+      },
+      "production_endpoint_tick_bounds": {
+        "start": [
+          105,
+          107
+        ],
+        "end": [
+          1005,
+          1007
+        ]
+      },
+      "produced_ticks_bounds": [
+        898,
+        902
+      ],
+      "produced_ticks_per_second_bounds": [
+        0.9976699185202373,
+        1.0021138825225546
+      ],
+      "admitted_ticks": 900,
+      "displayed_ticks": 899.9638281165078,
+      "admitted_ticks_per_second": 0.999891900521396,
+      "displayed_ticks_per_second": 0.9998517138843621,
+      "buffer_start": 17.22086939775903,
+      "buffer_end": 17.2570412814606,
+      "buffer_change": 0.036171883701570096,
+      "admitted_minus_displayed": 0.036171883492215784,
+      "buffer_conservation_error": 2.0935431166435592e-10,
+      "buffer_regression_ticks_per_second": 1.6895680196852107e-05,
+      "last_three_minus_first_three_minute_mean": 0.01880741069865266,
+      "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+      "backend_observation_age_ms": {
+        "median_upper": 1012.7685546875,
+        "max_upper": 2029.7626953125
+      },
+      "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+      "phases": {
+        "PLAYING": 1769
+      },
+      "resynchronizations": 0,
+      "performance_limited": false,
+      "dense_phase_samples": {
+        "PLAYING": 3600
+      }
+    },
+    "strict_playback": {
+      "seconds": 900.0973,
+      "backend_ticks_per_second": 0.9998919005756377,
+      "admitted_ticks_per_second": 0.9998919005756377,
+      "displayed_ticks_per_second": 0.9998517139386017,
+      "stalled_samples": 0,
+      "resyncs": 0,
+      "nominal_rate": 1,
+      "performance_limited": false,
+      "queue_segments": {
+        "min": 17,
+        "max": 18
+      },
+      "buffer_ticks": {
+        "min": 16.257144085759194,
+        "max": 17.802168610983074
+      },
+      "latency_ms": {
+        "fetch_ms": {
+          "median": 24.199999999953434,
+          "max": 144.5
+        },
+        "verify_ms": {
+          "median": 24.399999999906868,
+          "max": 51.59999999962747
+        },
+        "artifact_ms": {
+          "median": 0.2999999998137355,
+          "max": 0.6000000000931323
+        },
+        "derive_ms": {
+          "median": 2.699999999953434,
+          "max": 7.300000000046566
+        },
+        "catchup_ms": {
+          "median": 0,
+          "max": 0
+        }
+      },
+      "max_catchup_segments": 0,
+      "buffer_bytes": {
+        "min": 638979,
+        "max": 682205
+      },
+      "buffer_target_ticks": {
+        "min": 17,
+        "max": 17
+      },
+      "distinct_playheads": 1769,
+      "certified_publications_per_second": 0.9998919005756377,
+      "authenticated_observation_queries_per_second": 2.7319268705727704,
+      "buffer_start": 17.22086939775903,
+      "buffer_end": 17.2570412814606,
+      "admitted_ticks": 900,
+      "displayed_ticks": 899.9638281165078,
+      "phase_samples": {
+        "PLAYING": 1769
+      }
+    },
+    "normal_prelude": {
+      "seconds": 89.77969999999999,
+      "backend_ticks_per_second": 0.9913154087171154,
+      "admitted_ticks_per_second": 0.9913154087171154,
+      "displayed_ticks_per_second": 0.993112745109372,
+      "stalled_samples": 0,
+      "resyncs": 0,
+      "nominal_rate": 1,
+      "performance_limited": false,
+      "queue_segments": {
+        "min": 16,
+        "max": 18
+      },
+      "buffer_ticks": {
+        "min": 15.874654945800001,
+        "max": 17.536811201069654
+      },
+      "latency_ms": {
+        "fetch_ms": {
+          "median": 23.5,
+          "max": 46.800000000046566
+        },
+        "verify_ms": {
+          "median": 25,
+          "max": 40.4000000001397
+        },
+        "artifact_ms": {
+          "median": 0.19999999995343387,
+          "max": 0.4000000001396984
+        },
+        "derive_ms": {
+          "median": 2.699999999953434,
+          "max": 3.7999999998137355
+        },
+        "catchup_ms": {
+          "median": 0,
+          "max": 0
+        }
+      },
+      "max_catchup_segments": 0,
+      "buffer_bytes": {
+        "min": 593856,
+        "max": 677466
+      },
+      "buffer_target_ticks": {
+        "min": 17,
+        "max": 17
+      },
+      "distinct_playheads": 178,
+      "certified_publications_per_second": 0.9913154087171154,
+      "authenticated_observation_queries_per_second": 2.7177635924379344,
+      "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+      "buffer_start": 16.9,
+      "buffer_end": 16.738635677902764,
+      "admitted_ticks": 89,
+      "displayed_ticks": 89.16136432209588,
+      "phase_samples": {
+        "PLAYING": 178
+      }
+    },
+    "browser_checks": [
+      {
+        "name": "real-asset-build-and-mainnet-test-adapter-exclusion",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-culling-seam-picking-and-sparse-move-selector",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-normal-certified-playback",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-continuous-15-minute-normal",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-economy-certified-playback",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-lifeline-certified-playback",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-cold-browser-reconnect",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-lifeline_reconnect-certified-playback",
+        "status": "PASS"
+      },
+      {
+        "name": "million-cell-cold-lifeline-five-subsequent-publications",
+        "status": "PASS"
+      }
+    ],
+    "certificates_first": 293,
+    "certificates_last": 2752,
+    "page_errors": [],
+    "sandbox": true,
+    "strict_window_http": {
+      "requests_starting_in_window": 2909,
+      "status_counts": {
+        "200": 2909
+      },
+      "timings_ms": {
+        "upstream_headers_ms": {
+          "median": 5.376236000074641,
+          "max": 132.59718599965709,
+          "count": 2909
+        },
+        "upstream_complete_ms": {
+          "median": 5.454236000105084,
+          "max": 132.68335699967793,
+          "count": 2909
+        },
+        "finished_ms": {
+          "median": 5.646105999858264,
+          "max": 132.90233599991552,
+          "count": 2909
+        }
+      }
+    },
+    "dedicated_delivery_verdict_unchanged": "BLOCKED_ENVIRONMENT; frozen fiduciary A0/A2 strict windows NOT_RUN"
+  },
+  "reviewed_utc": "2026-10-29T09:53:01.322038+00:00",
+  "workflow_artifacts_verified": [
+    {
+      "id": 12887293483,
+      "name": "local-ic-evidence",
+      "size_in_bytes": 22076469,
+      "digest": "sha256:512069a6e096f219fc1aa4458fcab8b3f35a8c9e86b6e880b5932fe2919b540d",
+      "expires_at": "2026-11-12T09:49:19Z"
+    },
+    {
+      "id": 12885685932,
+      "name": "browser-evidence",
+      "size_in_bytes": 1245223,
+      "digest": "sha256:ce3cf6bb52c70a8c3681c024dde37390475806ca9bae78598955a6ccbac01496",
+      "expires_at": "2026-11-12T09:03:52Z"
+    },
+    {
+      "id": 12885586339,
+      "name": "wasm-evidence",
+      "size_in_bytes": 5880,
+      "digest": "sha256:f6f5ddef801d63c5c19e65b06de47004a96e16c6ad9115d12cf9d914d4dd2ff3",
+      "expires_at": "2026-11-12T09:04:16Z"
+    },
+    {
+      "id": 12885466498,
+      "name": "source-evidence",
+      "size_in_bytes": 28425,
+      "digest": "sha256:607f19e703b931d1ff230acbf4585c2fa264f28ee763615096bbe89223ba0cb9",
+      "expires_at": "2026-11-12T09:03:34Z"
+    },
+    {
+      "id": 12885406554,
+      "name": "native-evidence",
+      "size_in_bytes": 7790,
+      "digest": "sha256:2b88cf5c4da5187ebfdce92a6e0f9e92fc5131a9aec2888293e70c2532bcd56c",
+      "expires_at": "2026-11-12T09:02:57Z"
+    },
+    {
+      "id": 12884733587,
+      "name": "package-consumer-evidence",
+      "size_in_bytes": 15380,
+      "digest": "sha256:55e124f48f16635fb555bd161d6e4d8ff77bb7559008850c4429c422c9b8e152",
+      "expires_at": "2026-11-12T09:02:49Z"
+    },
+    {
+      "id": 12884987721,
+      "name": "pinned-a2-matched-delivery-40846505834",
+      "size_in_bytes": 57056160,
+      "digest": "sha256:bf610b2081c2f044e54a15bceca91f2208e00b1ded7826a4d56fec81dfa13295",
+      "expires_at": "2027-01-27T09:02:20Z"
+    }
+  ],
+  "initial_world": {
+    "version": 5,
+    "width": 1000,
+    "height": 1000,
+    "balls": 4,
+    "cannons": 1
+  },
+  "independent_archive": "/home/codexdev/b2z-release-evidence/a2-delivery-40846505834-evaluation-20261029",
+  "archive_manifest_sha256": "3aca674c95634695b5ea872f08511594cd1b233eb2457b2e21a9e12086b79422",
+  "archive_verified_file_count": 3909,
+  "raw_evidence_root": "/home/codexdev/src/b2z/.work/a2-delivery-evaluation"
+}

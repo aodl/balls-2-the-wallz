@@ -1,3 +1,26 @@
+# Published A2 delivery — provisioning/CI PASS; fiduciary comparison environmentally blocked
+
+Exact `b96c64b43a412c022143787cd9d6ed94da2bbc67` ordinary CI `40846505855`
+finished SUCCESS with all six substantive jobs PASS. Its separately identified
+application-subnet, CI-built `da25be81…` Normal trace passes the full 900.097-second
+gate; it does not replace the frozen approved-A2 / 34-node comparison.
+
+Dedicated run `40846505834` passed corrected provisioning and its initial resource
+screen. A foreign hosted-runner process then used 0.759811 core against the 0.25
+limit, so the monitor stopped A0 after 20.059 seconds. Its 90-second prelude was
+incomplete; A0's strict 900-second window and the entire A2 case are **NOT_RUN**.
+The dedicated result is **BLOCKED_ENVIRONMENT**, with no capacity or A2-regression
+attribution. Complete original artifacts/logs, successful ordinary measurements,
+failed partial observations and SHA-256 manifests are independently preserved.
+
+**Release remains NO-GO.** Minimum next step: an isolated host without the observed
+provider workload, then a separately authorised unchanged single comparison.
+No rerun, implementation change, production preflight/funding estimate, mainnet
+action, transfer, merge or deployment was performed.
+[Definitive workflow results, measurement boundaries and retained evidence](evidence/B2Z/fiduciary-cycle-optimisation/delivery-evaluation-40846505834/REPORT.md).
+
+---
+
 # A2 delivery provisioning corrected locally — hosted qualification pending publication
 
 The dedicated run `40843327791` at `737b264…` failed before resource screening:
