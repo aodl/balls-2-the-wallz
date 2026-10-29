@@ -1,0 +1,24 @@
+{
+  "started_utc": "2026-10-29T13:48:19.307869+00:00",
+  "status": "BLOCKED",
+  "reasons": [
+    "CPU idle median <70% or minimum <40%",
+    "I/O full PSI avg10 >2%",
+    "another process uses >0.25 CPU core"
+  ],
+  "sampler_exit_code": 0,
+  "samples": 13,
+  "idle_median_percent": 69.90437083730986,
+  "IO_full_PSI_avg10_max": 28.66,
+  "comparison_started": false,
+  "foreign_work": {
+    "228586": {
+      "name": "python",
+      "max_cores": 0.45899611042081734,
+      "parent_pid": 228432
+    }
+  },
+  "next_check_utc": "2026-10-29T14:18:19Z",
+  "independent_archive": "/home/codexdev/b2z-release-evidence/isolated-delivery-poll-002-20261029",
+  "archive_manifest_sha256": "4143cedb4e890f35e2bd3bbfb602def4dbdc56481b07325f63ef8ae1efe8d356"
+}

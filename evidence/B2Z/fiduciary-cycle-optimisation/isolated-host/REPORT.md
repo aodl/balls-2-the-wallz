@@ -19,3 +19,7 @@ The required comparison remains A0 then approved A2, 34-node disposable fiduciar
 ## Scheduled screen 001 — 13:18 UTC
 
 After provisioning completed and work stopped, the scheduled unchanged screen was **BLOCKED**: CPU idle median **42.471%**, I/O full PSI peak **3.05%**, and two foreign Python processes peaking at **0.986 / 0.994 core**. Thirteen samples and every rejection are retained with an independently verified manifest in [poll-001.json](poll-001.json). No comparison was claimed or started. As requested, the next screen is scheduled for **13:48 UTC**, with no comparison retry or infrastructure purchase.
+
+## Scheduled screen 002 — 13:48 UTC
+
+The next requested screen was **BLOCKED**: CPU idle median **69.904%**, I/O full PSI peak **28.66%**, and foreign work above 0.25 core. All 13 samples and independent checksums are retained in [poll-002.json](poll-002.json). No comparison was started. Continue the authorized waiting cadence; the next screen is **14:18 UTC**. No requirement was rounded down or relaxed.
