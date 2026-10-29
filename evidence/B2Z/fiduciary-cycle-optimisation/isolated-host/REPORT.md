@@ -23,3 +23,7 @@ After provisioning completed and work stopped, the scheduled unchanged screen wa
 ## Scheduled screen 002 — 13:48 UTC
 
 The next requested screen was **BLOCKED**: CPU idle median **69.904%**, I/O full PSI peak **28.66%**, and foreign work above 0.25 core. All 13 samples and independent checksums are retained in [poll-002.json](poll-002.json). No comparison was started. Continue the authorized waiting cadence; the next screen is **14:18 UTC**. No requirement was rounded down or relaxed.
+
+## Scheduled screen 003 — 2026-10-29T14:18:19.308112+00:00
+
+Status **BLOCKED**; CPU idle median **93.277%**, I/O full PSI maximum **6.36%**. Exact rejection reasons and independently retained raw samples/checksums: [poll-003.json](poll-003.json). No comparison started. Next authorized screen: **2026-10-29T14:48:19.308112+00:00**.
