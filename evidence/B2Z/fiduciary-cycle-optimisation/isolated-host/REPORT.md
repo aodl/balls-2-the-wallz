@@ -27,3 +27,7 @@ The next requested screen was **BLOCKED**: CPU idle median **69.904%**, I/O full
 ## Scheduled screen 003 — 2026-10-29T14:18:19.308112+00:00
 
 Status **BLOCKED**; CPU idle median **93.277%**, I/O full PSI maximum **6.36%**. Exact rejection reasons and independently retained raw samples/checksums: [poll-003.json](poll-003.json). No comparison started. Next authorized screen: **2026-10-29T14:48:19.308112+00:00**.
+
+## Scheduled screen 004 — 2026-10-29T14:48:19.308320+00:00
+
+Status **PASS**; CPU idle median **96.395%**, I/O full PSI maximum **0.00%**. Exact rejection reasons and independently retained raw samples/checksums: [poll-004.json](poll-004.json). No comparison started. The unchanged runner must requalify the host before each case.
