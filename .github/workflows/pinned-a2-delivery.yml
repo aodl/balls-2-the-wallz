@@ -7,6 +7,9 @@ permissions:
   contents: read
 jobs:
   matched:
+    # Retired after infrastructure interference in 40846505834. Execute the
+    # frozen baseline directly on an authorised quiet host; never retry here.
+    if: ${{ false }}
     runs-on: ubuntu-22.04
     timeout-minutes: 90
     env:

@@ -1,3 +1,26 @@
+# Frozen delivery package ready — waiting on this VM at 30-minute intervals
+
+The user selected this existing VM and requested waiting/polling every 30 minutes.
+The initial unchanged prerequisite rejected I/O full PSI **36.3%** (limit 2%) and
+foreign CPU work above 0.25 core. No comparison window started. Its two CPUs and
+7.75 GiB RAM are recorded; recommended larger-host specs are not new predicates.
+
+Portable package verification PASS (1,288 manifest entries); provisioning PASS:
+all five locked DTR77 graphs, exact original browser inventory, real sandbox
+launch, native b96 harness compilation and disposable public fixture binding.
+The native harness is rebuilt only to relocate its compiled source path; both
+frozen comparison Wasm modules and all frontend bytes remain exact reviewed inputs.
+Focused tooling checks: **21 PASS**. Full preparation/failure logs and an
+independent checksum archive are retained. No new infrastructure was provisioned.
+
+The next operation is the user-requested quiet-host check, then one unchanged
+sequential comparison only if admitted. The hosted Actions comparison is disabled
+in the local change; no remote publication occurred. Release remains **NO-GO**
+pending both frozen fiduciary Normal windows. No mainnet or financial operation.
+[Preparation, polling policy and portable execution procedure](evidence/B2Z/fiduciary-cycle-optimisation/isolated-host/REPORT.md).
+
+---
+
 # Published A2 delivery — provisioning/CI PASS; fiduciary comparison environmentally blocked
 
 Exact `b96c64b43a412c022143787cd9d6ed94da2bbc67` ordinary CI `40846505855`
