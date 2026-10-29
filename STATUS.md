@@ -1,3 +1,23 @@
+# A2 delivery provisioning corrected locally — hosted qualification pending publication
+
+The dedicated run `40843327791` at `737b264…` failed before resource screening:
+the offline provenance check preceded dependency fetching. All five locked Cargo
+fetches now precede the unchanged checker. Empty-cache local fetch/provenance and
+source conformance PASS (1,389 JavaScript / 166 Python tests). The original failed
+job log and checksum-verified uploaded artifact are preserved independently.
+
+Hosted cooldown allowance is 180 seconds (previously 75); the complete 60-second
+resource prerequisite, sequential Normal-only A0/A2 90-second preludes and strict
+900-second measurements retain every threshold and frozen input. Neither window
+ran in the failed hosted job. Original `eae3eb97…` CI has all six substantive PASS;
+the correction's exact-commit CI requires user-owned publication.
+
+**Release remains NO-GO.** No hosted quiet-resource or sustained-delivery result,
+remote write, production preflight, funding or mainnet action is claimed.
+[Correction, retained failure, validation and publication boundary](evidence/B2Z/fiduciary-cycle-optimisation/cold-runner-correction/REPORT.md).
+
+---
+
 # A2 pinned release artifact — local checks PASS; delivery/CI still gated
 
 DTR77 is now published at the exact reviewed commit/tree and its standalone CI

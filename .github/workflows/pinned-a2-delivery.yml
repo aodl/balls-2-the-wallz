@@ -40,6 +40,11 @@ jobs:
           python -m pip install --require-hashes -r tools/browser-requirements.txt
           python -m playwright install chromium
           rustup toolchain install 1.94.1 --profile minimal --target wasm32-unknown-unknown
+          cargo +1.94.1 fetch --manifest-path Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path tools/fixtures/dtr-consumer-rust/Cargo.toml --locked
           python -B tools/fetch_s09_artifacts.py --destination "$HOME/dtr-s09-artifacts" --record .work/delivery-downloads.json
           python -B tools/check_dtr_provenance.py --output .work/delivery-provenance.json
           python -B tools/prepare_delivery_ci.py
@@ -52,7 +57,7 @@ jobs:
             --a2-sha256 2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb \
             --artifacts "$HOME/dtr-s09-artifacts" --proxy-port 18765 \
             --browser-python "$(command -v python)" --ready .work/delivery-inputs/ready \
-            --prerequisite-wait-seconds 75
+            --prerequisite-wait-seconds 180
       - name: Preserve complete evidence even on failure
         if: always()
         run: |
