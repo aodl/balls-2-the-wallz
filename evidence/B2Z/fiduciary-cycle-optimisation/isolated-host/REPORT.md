@@ -15,3 +15,7 @@ Provisioning resolved a Python virtualenv symlink-home issue in the new launcher
 Focused packaging/orchestration/resource/playback tests: **21 PASS**, including permanent single-attempt claims, rejection of missing/changed prerequisites, preservation of missing cases as unexecuted, and exclusion of installed dependency trees from transport archives. This is tooling validation, not a delivery PASS. Historical hosted failures and the separately qualified ordinary-CI trace remain unchanged.
 
 The required comparison remains A0 then approved A2, 34-node disposable fiduciary, original four-ball world, complete 90-second preludes and untrimmed 900-second strict Normal windows. All original rates, certification, zero-stall/rebuffer/resynchronisation, buffer-accounting and queue checks remain unchanged. No mainnet operation, funding, merge, remote publication or performance research is part of this work. A fresh production preflight/funding estimate is conditional on both frozen strict windows passing.
+
+## Scheduled screen 001 — 13:18 UTC
+
+After provisioning completed and work stopped, the scheduled unchanged screen was **BLOCKED**: CPU idle median **42.471%**, I/O full PSI peak **3.05%**, and two foreign Python processes peaking at **0.986 / 0.994 core**. Thirteen samples and every rejection are retained with an independently verified manifest in [poll-001.json](poll-001.json). No comparison was claimed or started. As requested, the next screen is scheduled for **13:48 UTC**, with no comparison retry or infrastructure purchase.
