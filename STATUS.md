@@ -1,3 +1,30 @@
+# Frozen fiduciary comparison completed — overall FAIL / release NO-GO
+
+After waiting on this VM at the user-requested 30-minute cadence, the 14:48 UTC
+screen passed and one sequential A0/A2 comparison ran. Both original Normal
+preludes and both full strict windows completed on the same disposable 34-node
+fiduciary configuration with the exact frozen Wasm and original frontend.
+
+**A0: 900.264-second strict FAIL**, solely on performance limiting: its backend
+supported rate temporarily fell to 0.434 ticks/s. Rates, zero stall/rebuffer,
+zero resynchronisation and all buffer/queue checks passed. **A2: 900.314-second
+strict PASS** on all seven original checks, but its native case then **FAILed**
+history capture on `Response.body: Target page, context or browser has been closed`.
+Original independent replay did not run. The original error assertion remains intact.
+
+The two-CPU host showed heavy own-work pressure; this supports a headroom
+limitation for A0, not an A2 regression. The A2 failure is consistent with an
+in-flight capture callback during browser teardown. No predicate, A2/DTR/backend/
+frontend code or frozen binary changed; no failed window was repeated.
+
+Full raw evidence and independent SHA-256 manifests are retained. **No production
+preflight/funding estimate was initiated:** both-window PASS and complete native
+qualification remain unmet. No new infrastructure, remote publication, mainnet
+action, transfer, reset, merge or deployment occurred.
+[Complete measured results, capture diagnosis and minimum follow-up](evidence/B2Z/fiduciary-cycle-optimisation/isolated-host/RUN_REPORT.md).
+
+---
+
 # Frozen delivery package ready — waiting on this VM at 30-minute intervals
 
 The user selected this existing VM and requested waiting/polling every 30 minutes.

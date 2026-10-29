@@ -1,5 +1,7 @@
 # Portable frozen comparison and current-VM waiting
 
+**Final outcome:** the authorized comparison completed. A0's full strict window FAILed on backend performance limiting; A2's full strict window PASSed, but its subsequent original capture gate FAILed. Overall FAIL / release NO-GO, with no repeat. See the [complete run report](RUN_REPORT.md). The earlier preparation and waiting checkpoints follow unchanged.
+
 The user has selected **this existing VM**, waiting and polling every **30 minutes** for the unchanged resource prerequisite. No paid host is being provisioned. Delivery remains **NOT_RUN / BLOCKED pending quietness**; neither frozen Wasm nor any acceptance predicate has changed.
 
 The initial existing-host diagnostic collected 13 samples over **60.112 seconds**. This x86-64 Ubuntu/glibc-2.35 host reports **two CPUs**, two-CPU affinity and **7.754 GiB RAM**. The recommended eight dedicated CPUs/32 GiB are not new acceptance requirements. CPU idle median/minimum were **75.464% / 64.965%**, available memory at least **5.685 GiB**, CPU PSI peak **2.72%**. The actual rejection was **I/O full PSI peak 36.3%** (limit 2%) and another process above **0.25 core**. This is a prerequisite rejection, not a gameplay failure or proof of inadequate sustained capacity.
