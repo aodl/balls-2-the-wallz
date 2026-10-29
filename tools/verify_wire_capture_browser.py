@@ -41,7 +41,7 @@ def main():
             self.send_response(200);self.send_header('Content-Type','application/cbor');self.send_header('Content-Length',str(len(body)+(100 if mode=='incomplete'and i==0 else 0)));self.end_headers()
             with contextlib.suppress(BrokenPipeError,ConnectionResetError):
                 half=min(64,len(body));self.wfile.write(body[:half]);self.wfile.flush()
-                if mode in ['timeout','cancel']and i==0:time.sleep(2)
+                if mode in ['timeout','cancel','abort_scope']and i==0:time.sleep(2)
                 elif mode=='delayed'and i in [0,1,80]:time.sleep(.8)
                 if mode=='incomplete'and i==0:self.close_connection=True;return
                 self.wfile.write(body[half:]);self.wfile.flush()
@@ -61,7 +61,7 @@ def main():
         from playwright.sync_api import sync_playwright
         with sync_playwright()as pw:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True);assert browser.version=='153.0.8010.12';report['browser_version']=browser.version;report['sandbox']=True
-            scenarios=[('delayed',list(range(81)),True),('incomplete',[0],False),('cancel',[0],False),('timeout',[0],False),('malformed',list(range(81)),True),('missing',[i for i in range(81)if i!=17],True),('close_before_fence',[0],False)]
+            scenarios=[('delayed',list(range(81)),True),('incomplete',[0],False),('cancel',[0],False),('timeout',[0],False),('malformed',list(range(81)),True),('missing',[i for i in range(81)if i!=17],True),('close_before_fence',[0],False),('abort_scope',[0],False)]
             for mode,ids,expect_capture in scenarios:
                 case=out/mode;case.mkdir();context=browser.new_context();page=context.new_page();page.goto(f'http://127.0.0.1:{server.server_port}/')
                 capture=WireCapture(page,case/'wire-catalogs',max_packets=4096,max_bytes=128*1024*1024,timeout_seconds=.2 if mode=='timeout'else 10)
@@ -72,11 +72,21 @@ def main():
                 if mode=='cancel':page.evaluate('aborters[0].abort()')
                 if mode=='close_before_fence':context.close()
                 final_error=None;began=time.monotonic()
-                try:capture.finish(lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)'))
-                except Exception as e:final_error=str(e)
+                try:
+                    if mode=='abort_scope':
+                        with contextlib.ExitStack()as finalizers:
+                            finalizers.push(capture)
+                            raise SystemExit(143)
+                    else:capture.finish(lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)'))
+                except (Exception,SystemExit)as e:final_error=str(e)
                 elapsed=time.monotonic()-began
                 assert (final_error is None)==expect_capture,(mode,final_error)
                 if mode=='timeout':assert elapsed<1.5,(mode,elapsed)
+                if mode=='abort_scope':
+                    assert final_error=='143'and not capture.pending
+                    assert page.evaluate('1+1')==2  # driver/context still alive after bounded abort
+                    assert (case/'wire-catalogs/0000.cbor').read_bytes()==packets[0]
+                    assert capture.finalization['status']=='FAIL'and capture.fence is None
                 if expect_capture:
                     assert not capture.pending
                     if mode=='delayed':

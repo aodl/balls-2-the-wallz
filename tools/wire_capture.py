@@ -28,6 +28,17 @@ class WireCapture:
         page.on('response', self.capture)
         page.on('requestfailed', self.request_failed)
 
+    def __exit__(self, _kind, error, _traceback):
+        # Register inside the Playwright scope: exceptional exits must finalise
+        # before its context manager stops the driver. Preserve the original
+        # exception while keeping every abort/drain error in the capture index.
+        try:
+            self.abort()
+        except Exception:
+            if error is None:
+                raise
+        return False
+
     @staticmethod
     def method(request):
         if request.method != 'POST' or not request.url.endswith('/query'):
@@ -78,8 +89,10 @@ class WireCapture:
                                       'body_completed_epoch_ms': time.time()*1000,
                                       'body_read_ms': (time.monotonic()-context['body_started_monotonic'])*1000,
                                       'response_sha256': hashlib.sha256(data).hexdigest()}
-        except Exception as error:
+        except BaseException as error:
             self.fail(error, context)
+            if not isinstance(error, Exception):
+                raise  # preserve interruption/cancellation as well as its context
         finally:
             self.pending.pop(sequence, None)
             self.responses.pop(id(request), None)
@@ -114,7 +127,6 @@ class WireCapture:
 
     def _drain(self, incomplete=False):
         self.accepting = False
-        self.page.remove_listener('response', self.capture)
         started = time.monotonic()
         deadline = started + self.timeout_seconds
         self.finalization = {'status': 'DRAINING', 'fence': self.fence,
@@ -122,6 +134,7 @@ class WireCapture:
                              'pending_at_fence': sorted(self.pending), 'peak_pending': self.peak_pending,
                              'timeout_seconds': self.timeout_seconds}
         try:
+            self.page.remove_listener('response', self.capture)
             while self.pending and time.monotonic() < deadline:
                 # Public sync API yields to the same dispatcher as body(). No
                 # threads/private Playwright APIs, sleeps, or application fetches.
@@ -132,10 +145,11 @@ class WireCapture:
                 if not self.pending:
                     self.fail('wire capture drain deadline exceeded', {'stage': 'drain'})
             if self.errors or incomplete:
+                self.finalization['status'] = 'FAIL'
                 raise RuntimeError('wire capture finalisation failed: ' + '; '.join(self.errors))
             self.finalization['status'] = 'PASS'
         except BaseException as error:
-            if not self.errors:
+            if self.finalization['status'] != 'FAIL':
                 self.fail(error, {'stage': 'drain'})
             self.finalization['status'] = 'FAIL'
             raise
@@ -146,7 +160,12 @@ class WireCapture:
             # Pending body handlers can still report genuine close errors after
             # explicit timeout failure. Leave requestfailed attached until close.
             if not self.pending:
-                self.page.remove_listener('requestfailed', self.request_failed)
+                try:
+                    self.page.remove_listener('requestfailed', self.request_failed)
+                except BaseException as error:
+                    self.fail(error, {'stage': 'detach_requestfailed'})
+                    self.finalization['status'] = 'FAIL'
+                    raise
 
     def index(self, query_timings):
         if self.finalization['status'] != 'PASS' and not self.errors:

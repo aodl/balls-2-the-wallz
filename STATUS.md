@@ -1,20 +1,28 @@
-# A2 capture correction verified locally — one independent qualification pending
+# A2 capture correction verified — single A2-only attempt environmentally BLOCKED
 
 The user's prospective pre-launch policy makes A0 non-gating while preserving the
-historical pair's **FAIL** and every original A2 requirement. The capture-only fix
-reserves response identity before re-entrant body reads and drains dispatched
-callbacks at the original publication fence before browser teardown, with a
-15-second fatal deadline and full error context. No application Wasm was rebuilt.
+historical pair's **FAIL** and every original A2 requirement. The one authorised
+A2-only attempt ran at `0fc72f2f8700bf84502f6fc9275ac8c65940f05b`: prerequisite and
+90-second prelude PASS; a foreign `rustc` used 0.047691 core against the unchanged
+0.01 compiler limit. The strict window was stopped with 259.106 seconds of saved
+samples. It is **BLOCKED_ENVIRONMENT**, not a completed PASS or an A2 gameplay FAIL.
+Capture has no final publication fence; independent history/replay is **NOT_RUN**.
+The failed index, partial measurements and teardown diagnostics remain untouched.
 
-Source checks (1,389 JavaScript / 182 Python), 21 focused unit checks, seven real
-HTTP/browser lifecycle scenarios, original HTTP/Web Crypto browser checks, native
-Clippy and frozen A2 disposable binding/isolation checks **PASS**. Both frozen Wasm
-identities and all original browser inventory files remain exact. The positive
-content fixture passes unchanged independent replay; negative capture/history
-cases remain failures. One new full A2-only Normal attempt is authorised after
-the unchanged resource prerequisite. It has **NOT_RUN at this source freeze**.
-Exact-commit CI awaits user-owned publication; no mainnet action is authorised.
-[Capture correction and focused evidence](evidence/B2Z/fiduciary-cycle-optimisation/a2-capture-closeout/CAPTURE_FIX.md).
+The capture-only fix reserves identity before re-entrant reads, stops admission at
+the original publication fence and drains callbacks before teardown with a fatal
+15-second deadline. Forced-abort evidence exposed an additional cleanup-order gap;
+the final follow-up also finalises exceptional exits before Playwright stops its
+driver, preserving the original interruption and all capture errors. No second
+long attempt ran. Focused source/browser/regression checks PASS, including an
+81-publication positive fixture through unchanged independent replay. Negative
+capture/history cases remain failures. Both frozen Wasm and all original browser
+identities remain exact; no application rebuild occurred.
+
+Technical release remains **NO-GO / BLOCKED**. Exact-commit CI awaits user-owned
+publication. Fresh production preflight/funding is deferred until successful
+qualification; no mainnet action, new infrastructure, remote push or repeat.
+[Complete attempt, capture correction, checksums and minimum next step](evidence/B2Z/fiduciary-cycle-optimisation/a2-capture-closeout/REPORT.md).
 
 ---
 

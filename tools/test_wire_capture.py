@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+from contextlib import ExitStack
 from pathlib import Path
 from types import SimpleNamespace
 from wire_capture import WireCapture
@@ -55,6 +56,39 @@ class CaptureSafety(unittest.TestCase):
             c=WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100,timeout_seconds=.01);c.pending[0]={'sequence':0}
             with self.assertRaisesRegex(RuntimeError,'drain timeout'):c.finish(lambda:80)
             self.assertEqual(c.index([])['capture_finalization']['status'],'FAIL')
+
+    def test_exceptional_scope_drains_before_driver_exit_and_preserves_failure(self):
+        with tempfile.TemporaryDirectory()as d:
+            page=Page();c=WireCapture(page,Path(d)/'wire',max_packets=4,max_bytes=100)
+            c.pending[0]={'sequence':0}
+            page.wait_for_timeout=lambda _ms:c.pending.pop(0)
+            with self.assertRaisesRegex(SystemExit,'143'):
+                with ExitStack()as finalizers:
+                    finalizers.push(c)
+                    raise SystemExit(143)
+            self.assertFalse(c.pending);self.assertFalse(c.accepting)
+            self.assertEqual(c.index([])['capture_finalization']['status'],'FAIL')
+
+    def test_drain_dispatch_error_is_retained_even_during_incomplete_abort(self):
+        with tempfile.TemporaryDirectory()as d:
+            c=WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100)
+            def fail(*_):raise RuntimeError('driver unexpectedly closed')
+            c.page.remove_listener=fail
+            with self.assertRaisesRegex(RuntimeError,'driver unexpectedly closed'):c.abort()
+            self.assertEqual(c.finalization['status'],'FAIL')
+            self.assertIn('driver unexpectedly closed',c.index([])['errors'])
+
+    def test_interrupted_body_retains_response_context_and_original_interrupt(self):
+        with tempfile.TemporaryDirectory()as d:
+            c=WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100);r=response()
+            def interrupted():raise SystemExit(143)
+            r.body=interrupted
+            with self.assertRaisesRegex(SystemExit,'143'):
+                with ExitStack()as finalizers:
+                    finalizers.push(c);c.capture(r)
+            self.assertEqual(c.finalization['status'],'FAIL')
+            self.assertEqual(c.error_context[0]['sequence'],0)
+            self.assertIn('143',c.errors)
 
 
 if __name__=='__main__':unittest.main()

@@ -4,6 +4,7 @@ The Rust acceptance harness owns valueless transfers, upgrade and service startu
 """
 import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
+from contextlib import ExitStack
 from browser_observer import wait_until,wait_file,open_settings,close_settings
 from verify_observer_http import free_port,wait_for_server
 from wire_capture import WireCapture
@@ -356,7 +357,7 @@ def main():
                 server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id'],*proxy_trace],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
-        with sync_playwright() as pw:
+        with sync_playwright() as pw, ExitStack() as capture_finalizers:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
             report['browser_version']=browser.version;save()
             context_options={'permissions':['clipboard-write'],'has_touch':True,'viewport':{'width':1440,'height':900}}
@@ -373,6 +374,7 @@ def main():
                 wire_capture=WireCapture(page,out/'wire-catalogs',
                     max_packets=4096 if a.million_sustained else 1024,
                     max_bytes=(128 if a.million_sustained else 64)*1024*1024)
+                capture_finalizers.push(wire_capture)
                 def capture_query_timing(request,failed=False):
                     if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
                     body=request.post_data_buffer or b''

@@ -1,0 +1,58 @@
+{
+  "measured_source_commit": "0fc72f2f8700bf84502f6fc9275ac8c65940f05b",
+  "post_attempt_capture_only_followup": "Exceptional-exit scope drains before Playwright shutdown; no second measured attempt",
+  "source_sha256": {
+    "tools/wire_capture.py": "f3769db047f57b83853e342144e3de7a36e2f57cb36a148e1d5b0602e0b5e736",
+    "tools/verify_s14_deployment.py": "6ee8f707d9efc8c78cb5a6545e07645364f7490e59dd7c21522819220aca9e9b",
+    "tools/run_matched_delivery.py": "fa40d22461673e4d063b4b019d318898f986b92d727a6adc52005186b026e0a5",
+    "tools/verify_wire_capture_browser.py": "0adc013512bf1f609f945881c881e7c885d6384d39b285e294284ad7fc21c042",
+    "tools/test_wire_capture.py": "2d3c1600e4b34199f8185894894d67bd4d8ee1c58cc30be3b65a88d845347fa9",
+    "tools/test_a2_policy.py": "f70c7c8d6eadf587ef20ac9afde61ee6d5b46138996bbfec459250865c61fadd",
+    ".github/workflows/verification.yml": "b8238f65bdf0086aead5ed0dc68b0dd66e9fd433e482b36285d8a11a79bfc0f0",
+    "tools/playback_qualification.py": "f1d834cd56148224206ccd160eab17b68404dc216bd1927496600cccaecc7aed",
+    "tools/capture_million_history.mjs": "86dc7a32db4456afd010b1601168f5c67e66e5f9e4abe59fe6b17965eaa85965",
+    "tools/replay_s14.mjs": "6413e5418f8452072768e6f9fcacfa47bdc30d6bbbdebeb88e41a12d60c03f38",
+    "tools/sample_host_resources.py": "b649b06bf97e2b83f7f3c9a1e0a6773e858adb9c97c0140851953f311816d523",
+    "tools/s09-integration/tests/s14_index.rs": "8cfb84cfa917d881ae02b928aec2353e0031d1967978756e47ac1185b844c0d9",
+    "packages/kernels/b2z/kernel.mjs": "96aa74324d013ca67becadb31367ac7f62a1bf4baa4cfe22fc9ce6a9e97e24b3",
+    "packages/kernels/b2z/migration.mjs": "cdc08df9a48c8020c662f14cba5d1d47e18e156f0e48bf73f778ce379b40ff92",
+    "package.json": "f01cecbf06b6b13990bffc7132b985e3b86a03d1680d71bbe9207dd141105200",
+    "package-lock.json": "ccec111e2747a264962c8676bd5f65e18a1becad191453d6d127b156725ba37f",
+    "tools/browser-requirements.txt": "8c366ddcdc9b447b3a90a2ebcf680e087ca128fe156e461ef2b5be7d4cd534b5"
+  },
+  "original_measure_mode_AST_unchanged": true,
+  "unchanged_reference_and_acceptance_files": [
+    "tools/playback_qualification.py",
+    "tools/capture_million_history.mjs",
+    "tools/replay_s14.mjs",
+    "tools/sample_host_resources.py",
+    "tools/s09-integration/tests/s14_index.rs",
+    "packages/kernels/b2z/kernel.mjs",
+    "packages/kernels/b2z/migration.mjs",
+    "package.json",
+    "package-lock.json",
+    "tools/browser-requirements.txt"
+  ],
+  "native_executable_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "application_A2_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+  "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "application_rebuilt": false,
+  "frozen_module_pins": {
+    "A0": {
+      "compressed": "4e7aec89e97329101492b77eb9cff102282d280df43096c12a6e9b64b858923b",
+      "decompressed": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "bytes": 2795039
+    },
+    "A2": {
+      "compressed": "2fde8cf962498a8267757ccd4ca505196261f33263ae32c0a04bdcdc6c42b17b",
+      "decompressed": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+      "bytes": 2800907
+    }
+  },
+  "browser": {
+    "version": "153.0.8010.12",
+    "sandbox": true,
+    "verified_files": 594,
+    "inventory_sha256": "dd8199e566e03ecde85b0c817dd90c44334c193186e6c7d6ef2f7ebbf23e34e9"
+  }
+}
