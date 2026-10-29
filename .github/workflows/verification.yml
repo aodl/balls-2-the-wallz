@@ -141,6 +141,8 @@ jobs:
       - run: python -m playwright install chromium
       - name: Assert exact DTR release provenance
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-browser.json
+      - name: Capture lifecycle HTTP/browser and independent replay regressions
+        run: python -B tools/verify_wire_capture_browser.py --output .work/ci-wire-capture
       - run: python -B tools/check.py browser --output .work/ci-browser
       - name: Upload browser evidence
         if: always()
@@ -153,6 +155,7 @@ jobs:
             .work/ci-browser/logs/**
             .work/ci-browser/browser-http/results.json
             .work/ci-browser/browser-http/*.png
+            .work/ci-wire-capture/**
           if-no-files-found: warn
           retention-days: 14
 

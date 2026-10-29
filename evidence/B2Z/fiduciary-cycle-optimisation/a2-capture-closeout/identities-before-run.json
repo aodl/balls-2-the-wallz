@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "checked_epoch_ms": 1793302043981.9685,
+  "modules": {
+    "A0": {
+      "compressed": "4e7aec89e97329101492b77eb9cff102282d280df43096c12a6e9b64b858923b",
+      "decompressed": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "bytes": 2795039
+    },
+    "A2": {
+      "compressed": "2fde8cf962498a8267757ccd4ca505196261f33263ae32c0a04bdcdc6c42b17b",
+      "decompressed": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+      "bytes": 2800907
+    }
+  },
+  "browser": {
+    "version": "153.0.8010.12",
+    "sandbox": true,
+    "verified_files": 594,
+    "inventory_sha256": "dd8199e566e03ecde85b0c817dd90c44334c193186e6c7d6ef2f7ebbf23e34e9"
+  },
+  "no_application_rebuild": true,
+  "unchanged_from_b96": [
+    "canisters",
+    "crates",
+    "native",
+    "observer",
+    "sdk",
+    "tools/s09-integration",
+    "Cargo.toml",
+    "Cargo.lock",
+    "rust-toolchain.toml",
+    "vendor/b2z/delivery",
+    "tools/playback_qualification.py",
+    "tools/capture_million_history.mjs",
+    "tools/replay_s14.mjs",
+    "tools/sample_host_resources.py"
+  ],
+  "historical_report_bytes_unchanged": true,
+  "native_harness_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "source_sha256": {
+    "tools/wire_capture.py": "ed178cc7cb21a165699bf5704d3909403cf52e058e9ed485d796819a26b7e803",
+    "tools/verify_s14_deployment.py": "07d50165d5a2cc8c46a934937d787f1d9b121c0a20168a0cf2e92348a7ac61a5",
+    "tools/run_matched_delivery.py": "fa40d22461673e4d063b4b019d318898f986b92d727a6adc52005186b026e0a5",
+    "tools/verify_wire_capture_browser.py": "374f624a07ab2c4d1e2c5c0ac8f4822e6fbb4ae9ddec90c306b8e8255e2c2cd9",
+    "tools/test_wire_capture.py": "4d0de304561e9d9a54bca8eb2581abbf5e2a02173a588666651c98feee97b10d",
+    "tools/test_a2_policy.py": "f70c7c8d6eadf587ef20ac9afde61ee6d5b46138996bbfec459250865c61fadd",
+    ".github/workflows/verification.yml": "b8238f65bdf0086aead5ed0dc68b0dd66e9fd433e482b36285d8a11a79bfc0f0",
+    "tools/playback_qualification.py": "f1d834cd56148224206ccd160eab17b68404dc216bd1927496600cccaecc7aed",
+    "tools/capture_million_history.mjs": "86dc7a32db4456afd010b1601168f5c67e66e5f9e4abe59fe6b17965eaa85965",
+    "tools/replay_s14.mjs": "6413e5418f8452072768e6f9fcacfa47bdc30d6bbbdebeb88e41a12d60c03f38",
+    "tools/s09-integration/tests/s14_index.rs": "8cfb84cfa917d881ae02b928aec2353e0031d1967978756e47ac1185b844c0d9"
+  },
+  "dtr_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68"
+}

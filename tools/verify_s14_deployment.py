@@ -6,6 +6,7 @@ import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
 from browser_observer import wait_until,wait_file,open_settings,close_settings
 from verify_observer_http import free_port,wait_for_server
+from wire_capture import WireCapture
 ROOT=Path(__file__).resolve().parents[1]
 
 def verify_torus_scene(page,context,out,record,report,save):
@@ -270,7 +271,7 @@ def main():
     def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
     def terminated(_signal,_frame):raise SystemExit(143)
     signal.signal(signal.SIGTERM,terminated)
-    server=None;browser=None
+    server=None;browser=None;wire_capture=None
     try:
         assets=out/'assets';production=out/'mainnet-assets'
         if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
@@ -367,23 +368,11 @@ def main():
             report['capture']={'video':not (a.million_sustained or a.paid_v8_scene_only),'sandbox':True,'screenshots_and_raw_telemetry':True};save()
             context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
-            wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None;query_timings=[]
+            query_timings=[]
             if a.million_scene_only or a.paid_v8_scene_only:
-                wire=out/'wire-catalogs';wire.mkdir()
-                def capture_catalog(response):
-                    nonlocal wire_bytes
-                    request=response.request
-                    if request.method!='POST' or not request.url.endswith('/query'):return
-                    body=request.post_data_buffer or b''
-                    method=next((name for name in ['observation_bundle','retained_publication','observation'] if name.encode() in body),None)
-                    if not method:return
-                    try:
-                        data=response.body()
-                        if len(wire_packets)>=(4096 if a.million_sustained else 1024) or wire_bytes+len(data)>(128 if a.million_sustained else 64)*1024*1024:raise ValueError('wire capture bound')
-                        name=f'{len(wire_packets):04}.cbor';(wire/name).write_bytes(data);wire_bytes+=len(data)
-                        wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
-                    except Exception as error:wire_errors.append(str(error))
-                page.on('response',capture_catalog)
+                wire_capture=WireCapture(page,out/'wire-catalogs',
+                    max_packets=4096 if a.million_sustained else 1024,
+                    max_bytes=(128 if a.million_sustained else 64)*1024*1024)
                 def capture_query_timing(request,failed=False):
                     if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
                     body=request.post_data_buffer or b''
@@ -397,9 +386,7 @@ def main():
                 page.on('requestfinished',capture_query_timing)
                 page.on('requestfailed',lambda request:capture_query_timing(request,True))
                 def stop_wire_capture():
-                    nonlocal wire_complete_through
-                    wire_complete_through=page.evaluate('globalThis.__dtrLive.heads.at(-1)')
-                    page.remove_listener('response',capture_catalog)
+                    return wire_capture.finish(lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)'))
 
             def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -424,6 +411,7 @@ def main():
                 elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
                 elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
                 else:verify_torus_scene(page,context,out,record,report,save)
+                if wire_capture:stop_wire_capture()
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
                 report['status']='PASS';report['sandbox']=True;report['page_errors']=errors;save();(out/'browser-complete').write_text('PASS\n');context.close();browser.close();browser=None;return 0
@@ -686,11 +674,14 @@ def main():
         except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
-        if (a.million_scene_only or a.paid_v8_scene_only) and 'wire_packets' in locals():
-            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes,'complete_through':wire_complete_through,'query_timings':query_timings},indent=2))
+        if wire_capture:
+            try:wire_capture.abort()
+            except Exception:pass  # abort records explicit failure; never a PASS path
         if browser:
             try:browser.close()
             except Exception:pass
+        if wire_capture:
+            (out/'wire-index.json').write_text(json.dumps(wire_capture.index(query_timings),indent=2))
         if server and server.poll() is None:
             os.killpg(server.pid,signal.SIGTERM)
             try:server.wait(timeout=5)

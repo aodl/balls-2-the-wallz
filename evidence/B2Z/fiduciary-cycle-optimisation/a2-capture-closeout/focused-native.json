@@ -1,0 +1,9 @@
+{
+  "native_executable_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "rust_source_unchanged_from": "b96c64b43a412c022143787cd9d6ed94da2bbc67",
+  "application_wasm_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+  "checks": [
+    "output isolation PASS",
+    "frozen A2 public disposable binding PASS"
+  ]
+}

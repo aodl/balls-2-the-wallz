@@ -1,4 +1,24 @@
-# Frozen fiduciary comparison completed — overall FAIL / release NO-GO
+# A2 capture correction verified locally — one independent qualification pending
+
+The user's prospective pre-launch policy makes A0 non-gating while preserving the
+historical pair's **FAIL** and every original A2 requirement. The capture-only fix
+reserves response identity before re-entrant body reads and drains dispatched
+callbacks at the original publication fence before browser teardown, with a
+15-second fatal deadline and full error context. No application Wasm was rebuilt.
+
+Source checks (1,389 JavaScript / 182 Python), 21 focused unit checks, seven real
+HTTP/browser lifecycle scenarios, original HTTP/Web Crypto browser checks, native
+Clippy and frozen A2 disposable binding/isolation checks **PASS**. Both frozen Wasm
+identities and all original browser inventory files remain exact. The positive
+content fixture passes unchanged independent replay; negative capture/history
+cases remain failures. One new full A2-only Normal attempt is authorised after
+the unchanged resource prerequisite. It has **NOT_RUN at this source freeze**.
+Exact-commit CI awaits user-owned publication; no mainnet action is authorised.
+[Capture correction and focused evidence](evidence/B2Z/fiduciary-cycle-optimisation/a2-capture-closeout/CAPTURE_FIX.md).
+
+---
+
+# Frozen fiduciary comparison completed — overall FAIL / historical release NO-GO
 
 After waiting on this VM at the user-requested 30-minute cadence, the 14:48 UTC
 screen passed and one sequential A0/A2 comparison ran. Both original Normal

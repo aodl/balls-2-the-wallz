@@ -16,18 +16,37 @@ def foreign_work(sample,roots):
   owned.update(pid for pid,v in sample['processes'].items()if str(v.get('parent_pid'))in owned or str(v.get('process_group'))in groups)
  return [{'pid':pid,**v}for pid,v in sample.get('process_cpu_cores',{}).items()if pid not in owned and(v['cores']>.25 or v['name']in {'rustc','cc1','ld','ld.lld','wasm-opt','cargo','pocket-ic'}and v['cores']>.01)]
 
+def selected_cases(a):
+ if a.a2_only:
+  if not a.normal_only or not a.asset_reference:raise ValueError('A2-only requires --normal-only and --asset-reference')
+  if a.a2_sha256!='2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb':raise ValueError('A2-only requires the frozen approved normal binary')
+  return [('A2',a.a2)]
+ if not a.a0:raise ValueError('paired comparison requires --a0')
+ return [('A0',a.a0),('A2',a.a2)]
+
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,required=True);ap.add_argument('--harness',type=Path,required=True);ap.add_argument('--harness-sha256',required=True);ap.add_argument('--a0',type=Path,required=True);ap.add_argument('--a2',type=Path,required=True);ap.add_argument('--a2-sha256',default='2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb');ap.add_argument('--test-hooks',type=Path);ap.add_argument('--normal-only',action='store_true');ap.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts');ap.add_argument('--prerequisite-wait-seconds',type=int,default=1200);ap.add_argument('--browser-python',required=True);ap.add_argument('--proxy-port',type=int,default=0);ap.add_argument('--ready',type=Path,required=True);a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
- assert digest(a.a0)=='7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51';assert digest(a.a2)==a.a2_sha256;assert digest(a.harness)==a.harness_sha256
+ ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,required=True);ap.add_argument('--harness',type=Path,required=True);ap.add_argument('--harness-sha256',required=True);ap.add_argument('--a0',type=Path);ap.add_argument('--a2',type=Path,required=True);ap.add_argument('--a2-sha256',default='2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb');ap.add_argument('--test-hooks',type=Path);ap.add_argument('--normal-only',action='store_true');ap.add_argument('--a2-only',action='store_true');ap.add_argument('--asset-reference',type=Path);ap.add_argument('--artifacts',type=Path,default=Path.home()/'dtr-s09-artifacts');ap.add_argument('--prerequisite-wait-seconds',type=int,default=1200);ap.add_argument('--browser-python',required=True);ap.add_argument('--proxy-port',type=int,default=0);ap.add_argument('--ready',type=Path,required=True);a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
+ try:cases=selected_cases(a)
+ except ValueError as error:ap.error(str(error))
+ if not a.a2_only:assert digest(a.a0)=='7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51'
+ assert digest(a.a2)==a.a2_sha256;assert digest(a.harness)==a.harness_sha256
  if not a.normal_only and not a.test_hooks:ap.error('--test-hooks required outside normal-only mode')
  with socket.socket()as sock:sock.bind(('127.0.0.1',a.proxy_port));port=sock.getsockname()[1]
- inputs={str(p):digest(p)for p in [a.harness,a.a0,a.a2,*([a.test_hooks]if a.test_hooks else[]),ROOT/'tools/verify_s14_deployment.py',ROOT/'tools/serve_observer.py',ROOT/'tools/sample_host_resources.py',ROOT/'tools/run_matched_delivery.py']}
+ inputs={str(p):digest(p)for p in [a.harness,*([a.a0]if not a.a2_only else[]),a.a2,*([a.asset_reference]if a.a2_only else[]),*([a.test_hooks]if a.test_hooks else[]),ROOT/'tools/verify_s14_deployment.py',ROOT/'tools/serve_observer.py',ROOT/'tools/sample_host_resources.py',ROOT/'tools/run_matched_delivery.py',ROOT/'tools/wire_capture.py']}
  if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
   inputs.update({str(p):digest(p)for p in sorted(Path(os.environ['S14_QUAL_PREBUILT_ROOT']).rglob('*'))if p.is_file()})
- plan={'created_epoch_ms':time.time()*1000,'order':['A0','A2'],'one_window_each':True,'test':'million_browser_sustained_normal_and_cold_lifeline','normal_only':a.normal_only,'normal_window_seconds':900,'assertions_unchanged':True,'frontend_fixed_proxy_port':port,'frontend_bytes_must_match':True,'viewport':[1440,900],'sandbox':True,'subnet':'disposable fiduciary 34 nodes; same in both cases','historical_fixture_difference':'Historical failed browser fixture used default application subnet; these two cases both explicitly use fiduciary. No mainnet subnet change.','catalog':'v5 world with v6 genesis, NOT paid v8','clock':'same real-time auto-progression and host clock; absolute dates differ, no freshness spoofing','input_sha256':inputs,'resource_interval_seconds':5,'preflight':{'window_seconds':60,'maximum_wait_seconds':a.prerequisite_wait_seconds,'idle_median_min':.70,'idle_sample_min':.40,'memory_available_min_GiB':2,'CPU_PSI_avg10_max':10,'IO_full_PSI_avg10_max':2,'swap_out_delta':0,'cgroup_throttle_delta':0,'foreign_single_process_core_max':.25,'active_compiler_or_other_PocketIC_core_max':.01},'during_window':'record every sample; abort once exposed foreign heavy work or a foreign compiler overlaps; retain partial evidence and do not repeat automatically; own case workload is not an environment rejection','after_pair':'No repeat unless a demonstrated harness/environment defect justifies a separately disclosed change.'}
+ plan={'created_epoch_ms':time.time()*1000,'order':[label for label,_ in cases],'one_window_each':True,'test':'million_browser_sustained_normal_and_cold_lifeline','normal_only':a.normal_only,'normal_window_seconds':900,'assertions_unchanged':True,'frontend_fixed_proxy_port':port,'frontend_bytes_must_match':True,'viewport':[1440,900],'sandbox':True,'subnet':'disposable fiduciary 34 nodes; same in both cases','historical_fixture_difference':'Historical failed browser fixture used default application subnet; these two cases both explicitly use fiduciary. No mainnet subnet change.','catalog':'v5 world with v6 genesis, NOT paid v8','clock':'same real-time auto-progression and host clock; absolute dates differ, no freshness spoofing','input_sha256':inputs,'resource_interval_seconds':5,'preflight':{'window_seconds':60,'maximum_wait_seconds':a.prerequisite_wait_seconds,'idle_median_min':.70,'idle_sample_min':.40,'memory_available_min_GiB':2,'CPU_PSI_avg10_max':10,'IO_full_PSI_avg10_max':2,'swap_out_delta':0,'cgroup_throttle_delta':0,'foreign_single_process_core_max':.25,'active_compiler_or_other_PocketIC_core_max':.01},'during_window':'record every sample; abort once exposed foreign heavy work or a foreign compiler overlaps; retain partial evidence and do not repeat automatically; own case workload is not an environment rejection','after_pair':'No repeat unless a demonstrated harness/environment defect justifies a separately disclosed change.'}
  if a.normal_only:
   plan['comparison_scope']='Normal only: 90-second Normal prelude and untrimmed 900-second strict Normal measurement per candidate; no Economy, Lifeline, low-funding or cold-reconnect phases.'
   plan['preflight']['cooldown_adjustment']={'previous_hosted_allowance_seconds':75,'selected_allowance_seconds':a.prerequisite_wait_seconds,'reason':'Hosted workflow selects 180 seconds for transient provisioning CPU/I/O pressure; qualifying window remains 60 seconds and all resource and delivery acceptance predicates are unchanged.'}
+ if a.a2_only:
+  plan['comparison_scope']='A2-only Normal qualification: 90-second Normal prelude and untrimmed 900-second strict Normal measurement; no new A0, Economy, Lifeline, low-funding or cold-reconnect phases.'
+  plan['subnet']='disposable fiduciary 34 nodes, identical configuration to the preserved historical pair'
+  plan['historical_fixture_difference']='The original application-subnet CI result is separate evidence; this A2-only case explicitly uses fiduciary. No mainnet subnet change.'
+  plan['release_acceptance_policy']='prelaunch-a2-independent-normal-capture-replay-1'
+  plan['historical_control']='A0 historical pair at 37aecd16039f4ccf9dd52133fac74748be23eaaf remains FAIL; A0 passing is not a release prerequisite under explicit user policy.'
+  plan['source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+  assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(),'freeze and commit qualification changes before measurement'
  (out/'PREDECLARATION.json').write_text(json.dumps(plan,indent=2)+'\n');(out/'PREDECLARATION.sha256').write_text(digest(out/'PREDECLARATION.json')+'  PREDECLARATION.json\n')
  while not a.ready.exists():time.sleep(2)
  artifacts=a.artifacts.resolve();
@@ -36,7 +55,7 @@ def main():
  sampler=subprocess.Popen(['python3.11','-B','tools/sample_host_resources.py','--output',str(out/'host.jsonl'),'--seconds','7200'],cwd=ROOT)
  outcomes=[]
  try:
-  for label,module in [('A0',a.a0),('A2',a.a2)]:
+  for label,module in cases:
    waiting=time.monotonic();next_record=0;passed=False
    while time.monotonic()-waiting<a.prerequisite_wait_seconds:
     rows=read_samples(out/'host.jsonl');ok,reasons=quiet(rows)
@@ -53,7 +72,7 @@ def main():
     if a.test_hooks:env['B2Z_S14_TEST_WASM']=str(a.test_hooks.resolve())
     else:env.pop('B2Z_S14_TEST_WASM',None)
     env.pop('B2Z_PROFILE_FIXED_TIME_NS',None)
-    if label=='A2':env['S14_QUAL_ASSET_REFERENCE']=str(out/'A0/million-browser-sustained/local-assets-identity.json')
+    if label=='A2':env['S14_QUAL_ASSET_REFERENCE']=str(a.asset_reference.resolve()if a.a2_only else out/'A0/million-browser-sustained/local-assets-identity.json')
     else:env.pop('S14_QUAL_ASSET_REFERENCE',None)
     cmd=[str(a.harness.resolve()),plan['test'],'--exact','--ignored','--nocapture','--test-threads=1'];began=time.time()*1000
     interrupted=None
@@ -79,5 +98,5 @@ def main():
  finally:
   sampler.terminate();sampler.wait(timeout=15)
  print(json.dumps(outcomes,indent=2))
- if len(outcomes)!=2 or any(x['status']!='PASS'for x in outcomes):raise SystemExit(1)
+ if len(outcomes)!=len(cases) or any(x['status']!='PASS'for x in outcomes):raise SystemExit(1)
 if __name__=='__main__':main()
