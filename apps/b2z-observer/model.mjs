@@ -190,7 +190,7 @@ export class SegmentPlayer {
   }
 }
 
-/** Consume only the verified finite remainder when the authoritative arena idles. */
+/** Drain only verified data when production idles or an operator pauses it. */
 export function prepareIdlePlayout(session,idle){
   const {playhead:start,available:end}=session.clock;
   if(session.operational?.run.running===false)session.productionPaused=true;
@@ -201,11 +201,12 @@ export function prepareIdlePlayout(session,idle){
     if(end>start)session.clock.append(start,end);
     session.productionPaused=false;session.idleDrain=false;
   }
-  if(idle&&!session.idleDrain&&end>start){
+  const finite=idle||session.productionPaused;
+  if(finite&&!session.idleDrain&&end>start){
     const target=Math.min(.25,(end-start)/2);
     session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
     session.clock.append(start,end);session.idleDrain=true;
-  }else if(!idle&&session.idleDrain){
+  }else if(!finite&&session.idleDrain){
     session.clock=new PlayoutClock({start,...liveSessionBufferPolicy(session),max_frame_delta:1});
     if(end>start)session.clock.append(start,end);session.idleDrain=false;
   }

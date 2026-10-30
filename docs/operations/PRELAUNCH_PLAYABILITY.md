@@ -29,7 +29,9 @@ changes and are independently revalidated before copying. A confirmed receipt is
 shown separately from buffered presentation. The optional Show confirmed state
 button moves presentation forward to the already authenticated snapshot; it does
 not change the monotonic accepted head, camera, certificate path or game state.
-New own cannons are located when they enter presentation; normal publications do
+A known operator pause drains the finite verified remainder instead of waiting
+for a startup buffer that the paused producer cannot fill. It resumes the ordinary
+startup policy when production resumes. New own cannons are located when they enter presentation; normal publications do
 not reset the camera. Overview uses CSS-pixel coverage on both axes; the minimap
 shows the whole world. Bodies retain their cell proportions.
 
