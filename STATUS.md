@@ -17,8 +17,15 @@ Wasm/DTR/frontend, sandbox, fiduciary configuration and thresholds were preserve
 Fresh public production reads confirm the existing A0 module/controllers,
 unchanged certified paid-v8 world/source/scores and 34-node fiduciary placement.
 Funding/guarded upgrade preparation is separate: Normal entry requires 40T liquid,
-so the old 8T target is a Conserve budget, not Normal. Controller financial queries
-await explicit query-only acknowledgement of DFX's plaintext-identity guard.
+so the old 8T target is a Conserve budget, not Normal. The user-authorised
+controller assessment is now complete. Fresh production
+is active A0 Steady; a later public sample is performance-limited to 0.231 ticks/s.
+Maintenance-only burn cannot be isolated. Conditional
+funding targets are 8T Conserve / 47T Normal; exact release preparation and
+remaining signing/refresh/approval gates are recorded in
+[evidence](evidence/B2Z/fiduciary-cycle-optimisation/a2-release-preparation/OPERATOR_PLAN.md).
+Exact-commit CI `41016815115` now passes all six substantive jobs on the
+published evidence-only commit `7f447a3a2d20d2aac477e71749c287165b0fc6b5`.
 No mainnet mutation, transfer, upgrade, pause, frontend deployment, push or merge.
 [Complete qualification, evidence and production preparation](evidence/B2Z/fiduciary-cycle-optimisation/a2-final-qualification/REPORT.md).
 

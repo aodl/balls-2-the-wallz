@@ -1,0 +1,43 @@
+{
+  "run_id": 41016815115,
+  "head_sha": "7f447a3a2d20d2aac477e71749c287165b0fc6b5",
+  "status": "completed",
+  "conclusion": "success",
+  "completed_at": "2026-10-30T07:41:09Z",
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/41016815115",
+  "substantive_jobs": [
+    {
+      "id": 123934905928,
+      "name": "S14 and million-cell installed-IC qualification",
+      "conclusion": "success"
+    },
+    {
+      "id": 123934906095,
+      "name": "Packaged DTR and clean consumers",
+      "conclusion": "success"
+    },
+    {
+      "id": 123934906156,
+      "name": "Browser HTTP and Web Crypto",
+      "conclusion": "success"
+    },
+    {
+      "id": 123934906158,
+      "name": "Native conformance",
+      "conclusion": "success"
+    },
+    {
+      "id": 123934906179,
+      "name": "Runtime-lab Wasm",
+      "conclusion": "success"
+    },
+    {
+      "id": 123934906347,
+      "name": "Source conformance",
+      "conclusion": "success"
+    }
+  ],
+  "excluded_placeholder": "BLOCKED production inventory (not a pass)",
+  "artifact_count": 6,
+  "qualification_scope": "Ordinary CI; its application-subnet sustained result is not the frozen fiduciary gate, which retains the separately accepted original evidence."
+}

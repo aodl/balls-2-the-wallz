@@ -1,0 +1,190 @@
+{
+  "start": "2026-10-30T07:15:22.637781+00:00",
+  "closing": "2026-10-30T07:16:56.924545+00:00",
+  "seconds": 93.84947094726563,
+  "liquid_start": 10429026684637,
+  "liquid_closing": 10342576667048,
+  "total_start": 10575885037207,
+  "total_closing": 10489435019618,
+  "net_total_debit": 86450017589,
+  "reservation_gap_start": 146858352570,
+  "reservation_gap_closing": 146858352570,
+  "pace_start": {
+    "admission_open": true,
+    "mode": "Steady",
+    "nominal_milli": 300,
+    "performance_limited": false,
+    "supported_milli": 300
+  },
+  "pace_closing": {
+    "admission_open": true,
+    "mode": "Steady",
+    "nominal_milli": 300,
+    "performance_limited": false,
+    "supported_milli": 300
+  },
+  "segments_start": "63383",
+  "segments_closing": "63410",
+  "treasury_credit_delta": 0,
+  "treasury_closing": {
+    "halted": false,
+    "last_error": [],
+    "last_plan_ns": "1793054253027365551",
+    "last_refund": [],
+    "last_success": [
+      {
+        "block_index": "39711126",
+        "completed_at_ns": "1793054263556287562",
+        "cycles": "1_909_908_990_000",
+        "plan": {
+          "amount_e8s": "99990000",
+          "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+          "created_at_time_ns": "1793054253027365551",
+          "fee_e8s": "10000",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "memo": "1347768404",
+          "to": [
+            250,
+            76,
+            14,
+            201,
+            17,
+            25,
+            66,
+            23,
+            213,
+            212,
+            243,
+            236,
+            39,
+            247,
+            172,
+            38,
+            167,
+            241,
+            158,
+            116,
+            251,
+            238,
+            186,
+            57,
+            212,
+            105,
+            228,
+            242,
+            64,
+            113,
+            184,
+            222
+          ]
+        }
+      }
+    ],
+    "lease_started_ns": "1793344405478861056",
+    "nonce": "1948",
+    "observed_balance": [
+      {
+        "e8s": "0",
+        "observed_at_ns": "1793344405478861056"
+      }
+    ],
+    "observed_fee": [
+      {
+        "e8s": "10000",
+        "observed_at_ns": "1793344408307215337"
+      }
+    ],
+    "paused": false,
+    "phase": {
+      "Idle": null
+    },
+    "total_converted_e8s": "619930000",
+    "total_cycles_reported": "12110272820000",
+    "version": 1
+  },
+  "work_closing": {
+    "pending_inputs": 0,
+    "phase": [],
+    "ready_manifest": [],
+    "revision": "269352",
+    "source_cursor": "39711127"
+  },
+  "maintenance_only": "NOT_IDENTIFIABLE: gameplay active/state advancing; no subtraction of a model to manufacture a maintenance measurement",
+  "combined_net_debit_T_h": 3.3161621496542666,
+  "planning_m_T_h": 0.05,
+  "planning_m_status": "Explicit proposed 24h allowance, not fresh measured maintenance or upper bound; historical maintenance-only sample was 0.021292945T/h",
+  "cutover_delay_minutes": 2,
+  "C": {
+    "formula_T": 7.023609383056,
+    "rounded_target_cycles": 8000000000000,
+    "additional": 0,
+    "total_account_debit": 0,
+    "blocker": "Current Steady 0.3 cannot be forced to Conserve 0.2 by adding cycles; immediate exact 0.2 pilot unavailable without a separately authorised change or natural tier descent."
+  },
+  "N": {
+    "formula_T": 46.051354302912,
+    "rounded_target_cycles": 47000000000000,
+    "additional": 36657423332952,
+    "withdrawal_fee": 100000000,
+    "total_account_debit": 36657523332952
+  },
+  "public_snapshot": {
+    "recorded_at": "2026-10-30T07:15:43.678Z",
+    "certificate_verified": true,
+    "segment": "63387",
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "subaccount": "0",
+      "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+    },
+    "ledger_balance": {
+      "e8s": "0"
+    },
+    "balls": 3,
+    "retained_verified": 16,
+    "subnet": {
+      "time": "2026-10-30T07:16:59.723Z",
+      "fee": "100000000",
+      "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+      "nodes": 34
+    }
+  },
+  "warning_scope": "Only individual DFX query subprocesses; ten allowed queries total; no persistent setting, key inspection or update",
+  "public_closing": {
+    "recorded_at": "2026-10-30T07:20:52.273Z",
+    "certificate_verified": true,
+    "segment": "63470",
+    "retained_artifact_bodies_rechecked": false,
+    "status": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 300,
+          "supported_milli": 231,
+          "mode": "Steady",
+          "admission_open": true,
+          "performance_limited": true
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "63470",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "39711127"
+      }
+    },
+    "identity_equal_to_first": true,
+    "source_equal_to_first": true,
+    "prior_anchor_sha256": "95c7dc5c0d0d2def4ca17f999ad552db247a6f1c73c7db994e910f44dd6f3e34"
+  }
+}
