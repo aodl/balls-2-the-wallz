@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-10-30T19:18:47.084640+00:00",
+  "byte_equal": {
+    "publication": {
+      "equal": true,
+      "sha256": "4d7f99fd91836e74ee47f5eae25a05703c5b41859d9a042ceb9f6f4ef8c94356"
+    },
+    "state": {
+      "equal": true,
+      "sha256": "fe774218b418bb6e7e07ddb99d8836344ec49cf75e849b828b5d18004ca01c8b"
+    },
+    "events": {
+      "equal": true,
+      "sha256": "9d56e56de6f4abfe4ab5dc35ecb49b45201fec618d66cf913d5e26140c908d10"
+    },
+    "scores": {
+      "equal": true,
+      "sha256": "cf4a9aea067e13287ff9d80f9339aebe5556c3c2aa79c58f5e182a9f2599c093"
+    },
+    "source-descriptor": {
+      "equal": true,
+      "sha256": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "configuration": {
+      "equal": true,
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03"
+    }
+  },
+  "retained_publications_equal": 16,
+  "financial_totals_and_obligations": "preserved",
+  "source_binding_and_cursor": "preserved",
+  "treasury_nonce_before": "2092",
+  "treasury_nonce_after": "2093",
+  "treasury_phase_after": {
+    "Idle": null
+  },
+  "post_upgrade_runtime": {
+    "instruction_yield": "600000000",
+    "liquid_cycles": "6_053_636_546_795",
+    "message_work_limit": "2048",
+    "metrics": {
+      "last_instructions": "0",
+      "last_persist_instructions": "0",
+      "last_publish_instructions": "0",
+      "last_seal_instructions": "0",
+      "last_step_instructions": "0",
+      "max_actions": 0,
+      "max_instructions": "0",
+      "messages": "0",
+      "persist_instructions": "0",
+      "publish_instructions": "0",
+      "seal_instructions": "0",
+      "step_instructions": "0"
+    },
+    "phase_action_limit": 8,
+    "total_cycles": "6_198_004_055_765"
+  }
+}
