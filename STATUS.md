@@ -1,28 +1,22 @@
-# V6 clarification implemented locally: balls belong to players and current islands
+# V6 island interpreter implemented locally; host/browser release pending
 
-The operator removed launch-cannon ball attachment. The developing v6 model now
-stores player-owned balls and independent connected-island labels. Every cannon
-on a ball-bearing island is active; a ball-free island releases ordinary land,
-retains cannon markers and starts their grace deadlines. Splits, shared-pool
-pricing and reactivation agree in Rust/JS with exact synthetic state/fence bytes.
-The bridge-cut cases exercise the formerly ambiguous scenario directly; no
-launcher-based attack-cancellation exception remains pending.
+The operator's current-island model now runs through complete pure Rust and JS
+segments: bounded batch payments, multiple-cannon placement, targeted moves,
+atomic defended captures, mutual destruction and island-based dormancy. State,
+event and score hashes agree across 14 synthetic segment cases with continuation
+recovery. Ball-free islands retain cannon markers; unpaired survivors are never
+silently deleted. No ongoing launch-cannon attachment remains.
 
-Development verification: 41 native tests, strict Clippy, formatting, 1,478 JS
-tests and 185 Python tool tests pass. The original source wrapper retains its
-FAIL for the new document's filename; the corrected naming audit passes after
-renaming that new document. Every other source check passed. Historical v3/v4/v5
-goldens are unchanged; only unpublished draft v6 fixtures were regenerated for
-the operator's new semantics. [Rules](docs/specs/B2Z_PLAYABILITY_V6.md) and
-[development evidence](evidence/BTZ/island-ball-pools/REPORT.md).
+All source checks PASS: 1,516 JS and 185 Python tests, unchanged historical
+fixtures, source/naming/docs checks. The locked native workspace passes 45 tests;
+formatting and strict Clippy pass. Original failed development invocations remain
+preserved with corrected results. [Development evidence](evidence/BTZ/v6-interpreter/REPORT.md).
 
-V6 constructors still fail closed while the command/capture orchestration,
-completion-time facts, host timer/activation, browser/API integration and final
-consolidated qualification remain unfinished. Do not describe these helper
-checks as an installed v6 release. Production was queried only: at 23:08 UTC,
-3.855942438226T liquid, Survival 0.1 ticks/s, running, no source/runtime error,
-no pending source records and Idle healthy treasury. No production mutation,
-financial operation or remote push occurred for this clarification.
+The pure v6 constructors are enabled locally. Results require an explicit elapsed
+time fact; IC-host completion-time plumbing, idle expiry, authenticated activation,
+presentation/browser/API integration, capacity screening and the final consolidated
+installed qualification remain unfinished. Production remains release 1 / v5.
+Draft limits are unqualified targets. No production mutation or remote push occurred.
 
 ---
 

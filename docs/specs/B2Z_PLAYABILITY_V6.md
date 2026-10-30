@@ -51,7 +51,23 @@ player remain unqualified engineering targets. The final supported limits must
 come from the bounded admission screen. Moves cannot leave a ball-bearing island
 without its last cannon. Dormant movement remains disallowed until revival.
 
-Implementation helpers and synthetic cross-language fixtures are development
-evidence. The host's versioned activation, completion-time facts, expiry worker,
-full capture/command orchestration, public APIs and dual-version browser replay
-must be integrated and qualified before the authorised second release.
+The pure Rust and JS interpreters now execute targeted/batched commands and
+atomic capture proposals. Work continuations preserve payment totals and item
+prices; incomplete proposals cannot change the committed world. Captures inspect
+current occupants before transfer: a direct opposing occupant takes priority,
+otherwise the lowest live unanchored defender is paired with the attacker. Both
+die and the whole proposed transfer is cancelled. Unpaired balls survive.
+Ownership operations reconstruct compact storage independently, including empty
+island pruning, split labels and friendly-island merges. Discovering that all
+adjacent seeds remain connected retains the early-connectivity shortcut.
+
+A logical segment's result remains unavailable until an explicit completion-time
+fact is supplied. That fact stamps new dormant deadlines and is included in the
+authenticated event output for independent replay. The host must supply IC time;
+the pure kernel and reference have no clock. Idle expiry continues to require a
+separate zero-logical-time application checkpoint, never fabricated Ledger input.
+
+Synthetic cross-language fixtures are development evidence. IC-host activation,
+completion-time plumbing and expiry scheduling, public APIs, dual-version browser
+replay and the consolidated installed qualification remain required before the
+authorised second release. No v6 state or capacity has been deployed.

@@ -1,0 +1,30 @@
+{
+  "scope": "Pure v6 interpreter development; not installed-IC, capacity, browser or release qualification",
+  "parent_commit": "4b7caf86b27fe6204056f85a1add34e8b578b6fb",
+  "js_tests": 1516,
+  "python_tests": 185,
+  "native_workspace_tests": 45,
+  "source_checks": "PASS",
+  "strict_native_clippy": "PASS",
+  "format": "PASS",
+  "native_rules_cases": 14,
+  "native_rules_checkpoint_budget": 3,
+  "js_rules_checkpoint_budget": 1,
+  "capture_cases": 12,
+  "raw_files": 50,
+  "raw_manifest_sha256": "67bc17fcb127f5bc069ef1ea11d347bbabbd0fca372f6326cfbb5a95c29b865f",
+  "historical_goldens": "unchanged",
+  "production_mutations": 0,
+  "remote_pushes": 0,
+  "preserved_failures": [
+    "Invalid degrees in initial synthetic vector generator; corrected new inputs",
+    "Revival test expected marker-only area after a whole logical tick; corrected assertion at the command boundary; subsequent ordinary captures are valid"
+  ],
+  "remaining": [
+    "IC completion-time plumbing and earliest-deadline maintenance",
+    "fenced v5-to-v6 authenticated activation",
+    "presentation metadata deltas, dual-version browser and public API integration",
+    "bounded population screen",
+    "consolidated installed preservation/replay/browser gate and exact-commit CI"
+  ]
+}

@@ -1,6 +1,8 @@
 //! Complete S03 reference rule port. Source-only until the native conformance gate executes.
 #![forbid(unsafe_code)]
+pub mod capture_v6;
 mod cursor;
+mod cursor_v6;
 mod economics_generated;
 pub mod geometry;
 pub mod lifecycle_v6;

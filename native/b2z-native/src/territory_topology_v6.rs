@@ -7,6 +7,7 @@ use crate::{
 };
 use dtr_wire::Result;
 use serde::{Deserialize, Serialize};
+use serde_json::{json, Value};
 use std::collections::BTreeSet;
 const MAX_SCRATCH: usize = 65536;
 fn has(rs: &[[usize; 2]], cell: usize) -> bool {
@@ -152,6 +153,10 @@ pub struct SplitJob {
     range: usize,
     pub fences: Vec<Fence>,
     pub unanchored_balls: Vec<u32>,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    connected_shortcut: bool,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    operations: Vec<Value>,
 }
 impl SplitJob {
     pub fn new(w: &World, label: u32, removed: usize, fill: u32) -> Result<Self> {
@@ -180,7 +185,23 @@ impl SplitJob {
             range: 0,
             fences: vec![],
             unanchored_balls: vec![],
+            connected_shortcut: false,
+            operations: vec![],
         })
+    }
+    /// For an actual capture, the predecessor label is connected and the
+    /// captured cell has no cannon or ball. Reaching every adjacent seed proves
+    /// no split without traversing the remainder of a large unchanged island.
+    pub fn for_capture(w: &World, label: u32, removed: usize, fill: u32) -> Result<Self> {
+        let mut j = Self::new(w, label, removed, fill)?;
+        j.connected_shortcut = true;
+        if j.seeds.len() <= 1 {
+            j.phase = "done".into();
+        }
+        Ok(j)
+    }
+    pub fn take_operations(&mut self) -> Vec<Value> {
+        std::mem::take(&mut self.operations)
     }
     /// Caller keeps the original capture state separately; this mutates only its
     /// private proposal. needs_pair forbids commit and reports the live occupants.
@@ -188,7 +209,10 @@ impl SplitJob {
         match self.phase.as_str() {
             "discover" => {
                 if let Some(f) = self.flood.as_mut() {
-                    if f.step(w)? {
+                    let done = f.step(w)?;
+                    if self.connected_shortcut && self.seeds.iter().all(|s| has(&f.ranges, *s)) {
+                        self.phase = "done".into();
+                    } else if done {
                         let f = self.flood.take().unwrap();
                         let cannons = w
                             .cannons
@@ -280,6 +304,7 @@ impl SplitJob {
                         let [a, b] = p.ranges[self.range];
                         if p.label != self.label {
                             w.set_owner_range(a, b, self.label, p.label)?;
+                            self.operations.push(json!({"kind":"set_range","start":a,"end":b,"from":self.label,"to":p.label}));
                         }
                         self.range += 1;
                     }
@@ -293,7 +318,18 @@ impl SplitJob {
                     let p = &self.parts[self.part];
                     if !p.cannons.is_empty() {
                         if p.balls.is_empty() {
+                            let cells: Vec<_> = w
+                                .cannons
+                                .iter()
+                                .filter(|c| w.owner(c.cell) == Some(p.label))
+                                .map(|c| c.cell)
+                                .collect();
                             self.fences.extend(territory_v6::prune_empty(w, p.label)?);
+                            self.operations
+                                .push(json!({"kind":"clear","owner":p.label}));
+                            for c in cells {
+                                self.operations.push(json!({"kind":"set","cell":c,"owner":w.owner(c).ok_or("MARKER_CELL")?}));
+                            }
                         } else {
                             revive_territory(w, p.label)?;
                         }

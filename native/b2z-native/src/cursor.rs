@@ -21,13 +21,13 @@ pub struct Input {
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-struct PaymentSaved {
-    account: String,
-    amount: Int,
+pub(crate) struct PaymentSaved {
+    pub account: String,
+    pub amount: Int,
 }
-struct Payment {
-    saved: PaymentSaved,
-    memo: Vec<u8>,
+pub(crate) struct Payment {
+    pub saved: PaymentSaved,
+    pub memo: Vec<u8>,
 }
 pub struct Output {
     pub state: Vec<u8>,
@@ -38,6 +38,8 @@ pub struct Output {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Cursor {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(crate) v6: Option<crate::cursor_v6::State>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub join_e8s: Option<Int>,
     pub world: World,
@@ -86,7 +88,7 @@ fn merge(mut a: Value, b: Value) -> Value {
     }
     a
 }
-fn read_payment(s: &str) -> Result<Payment> {
+pub(crate) fn read_payment(s: &str) -> Result<Payment> {
     let b = unhex(s)?;
     if b.len() != 56 || &b[..8] != b"BTZPAY02" {
         return Err("unreadable normalized payment".into());
@@ -336,11 +338,17 @@ impl Cursor {
         let current = identity()?;
         let torus = torus_identity()?;
         let million = million_identity()?;
+        let playability = crate::playability::identity()?;
+        let is_playability = context.get("config_hash") == playability.get("config_hash");
         let is_million = context.get("config_hash") == million.get("config_hash");
         let is_torus = context.get("config_hash") == torus.get("config_hash");
-        let is_current =
-            is_million || is_torus || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_million {
+        let is_current = is_playability
+            || is_million
+            || is_torus
+            || context.get("config_hash") == current.get("config_hash");
+        let expected = if is_playability {
+            playability
+        } else if is_million {
             million
         } else if is_torus {
             torus
@@ -356,7 +364,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_million {
+            != if is_playability {
+                6
+            } else if is_million {
                 5
             } else if is_torus {
                 4
@@ -390,6 +400,7 @@ impl Cursor {
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
+            v6: is_playability.then(crate::cursor_v6::State::default),
             join_e8s: is_current.then(|| Int(BigInt::from(JOIN_E8S))),
             world,
             inputs,
@@ -421,7 +432,7 @@ impl Cursor {
             spawn_searches: 0,
         })
     }
-    fn emit(&mut self, event: Value) -> Result<()> {
+    pub(crate) fn emit(&mut self, event: Value) -> Result<()> {
         if self.events.len() >= 131072 {
             return Err("event capacity".into());
         }
@@ -431,7 +442,7 @@ impl Cursor {
         ));
         Ok(())
     }
-    fn receipt(&mut self, p: &PaymentSaved, outcome: Value) -> Result<()> {
+    pub(crate) fn receipt(&mut self, p: &PaymentSaved, outcome: Value) -> Result<()> {
         let pos = self
             .inputs
             .get(self.input_index)
@@ -448,7 +459,7 @@ impl Cursor {
         }
         Ok(())
     }
-    fn restart_search(&mut self) -> Result<()> {
+    pub(crate) fn restart_search(&mut self) -> Result<()> {
         self.phase = "search".into();
         self.scan = 0;
         self.candidates.clear();
@@ -468,6 +479,9 @@ impl Cursor {
         Ok(())
     }
     pub fn work(&mut self) -> Result<()> {
+        if self.world.version == 6 && self.v6_work()? {
+            return Ok(());
+        }
         match self.phase.as_str() {
             "commands" => {
                 if self.input_index >= self.inputs.len() {
@@ -576,8 +590,8 @@ impl Cursor {
                 }
             }
             "area" => {
-                if self.world.version == 5 && self.scan == 0 {
-                    self.areas = self.world.ownership_counts();
+                if self.world.version >= 5 && self.scan == 0 {
+                    self.areas = self.world.score_areas()?;
                     self.scan = self.world.cell_count();
                 }
                 if self.scan < self.world.cell_count() {
@@ -622,6 +636,9 @@ impl Cursor {
                 }
                 let pairs = match_strikes(&self.world, arrivals)?;
                 if !pairs.is_empty() {
+                    if self.world.version == 6 {
+                        return self.v6_cleanup(&pairs);
+                    }
                     self.emit(json!({"kind":"annihilation","pairs":pairs}))?;
                     self.job = Some(topology::cleanup(
                         &mut self.world,
@@ -651,6 +668,9 @@ impl Cursor {
                 let p = &due[0];
                 self.world.pending.retain(|s| s.id != p.id);
                 if self.world.valid_strike(p) {
+                    if self.world.version == 6 {
+                        return self.v6_capture(p.to, p.ball, "expire", json!({"strike":p.id}));
+                    }
                     self.job = Some(topology::capture(
                         &mut self.world,
                         p.to,
@@ -753,7 +773,7 @@ impl Cursor {
             !vertex_blocked
                 && t.target.is_some_and(|target| {
                     !self.claimed.contains(&target)
-                        && self.world.owner(target) == Some(t.defender)
+                        && self.world.player_at(target) == Some(t.defender)
                         && !self.world.cannons.iter().any(|c| c.cell == target)
                 })
                 && !self.world.pending.iter().any(|p| p.ball == b.id)
@@ -781,6 +801,9 @@ impl Cursor {
                 self.emit(json!({"kind":"strike_armed","strike":p}))?;
             } else {
                 self.claimed.push(target);
+                if self.world.version == 6 {
+                    return self.v6_capture(target, b.id, "resolve", json!({}));
+                }
                 self.job = Some(topology::capture(
                     &mut self.world,
                     target,
@@ -822,6 +845,9 @@ impl Cursor {
         if self.phase != "done" {
             return Err("incomplete segment".into());
         }
+        if self.needs_elapsed() {
+            return Err("missing lifecycle time".into());
+        }
         let mut scores = Vec::new();
         for s in &self.world.credits {
             let initial = self
@@ -859,11 +885,15 @@ impl Cursor {
         {
             return Err("cursor economics".into());
         }
-        if version != 3
+        if (c.world.version == 6) != c.v6.is_some()
+            || version != 3
             || !matches!(
                 c.phase.as_str(),
                 "commands"
                     | "spawn"
+                    | "v6_spawn"
+                    | "v6_purchase"
+                    | "v6_topology"
                     | "search"
                     | "area"
                     | "batch"
@@ -878,20 +908,40 @@ impl Cursor {
             || c.receipts.len() != c.input_index
             || c.world.cell_count() > 1_000_000
             || c.events.len() > 131072
-            || c.world.balls.len() > 64
-            || c.intents.len() > 64
-            || c.world.pending.len() > 64
-            || c.spawn_job
-                .as_ref()
-                .is_some_and(|j| j.candidates.len() > 5120)
+            || c.world.balls.len()
+                > if c.world.version == 6 {
+                    crate::playability::MAX_BALLS
+                } else {
+                    64
+                }
+            || c.intents.len()
+                > if c.world.version == 6 {
+                    crate::playability::MAX_BALLS
+                } else {
+                    64
+                }
+            || c.world.pending.len()
+                > if c.world.version == 6 {
+                    crate::playability::MAX_BALLS
+                } else {
+                    64
+                }
+            || c.spawn_job.as_ref().is_some_and(|j| {
+                j.candidates.len() > if c.world.version == 6 { 8192 } else { 5120 }
+            })
         {
             return Err("cursor bounds".into());
         }
-        if matches!(
-            c.phase.as_str(),
-            "done" | "commands" | "spawn" | "search" | "area"
-        ) {
+        if c.world.version == 6
+            || matches!(
+                c.phase.as_str(),
+                "done" | "commands" | "spawn" | "search" | "area"
+            )
+        {
             c.world.validate()?;
+        }
+        if c.world.version == 6 {
+            c.validate_v6()?;
         }
         Ok(())
     }

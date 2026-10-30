@@ -1,11 +1,12 @@
-import {playerForCannon} from './playability.mjs';
+import {workV6,captureV6,cleanupV6,finalizeCursorElapsed,validateV6Cursor} from './cursor-v6.mjs';
+import {scoreAreas,V6_POLICY,playerForCannon} from './playability.mjs';
 /** Version 3 reference. Pure logical-time gameplay; no IC calls or presentation authority. */
 import {ascii, be, concat, hex, Reader, unhex, uint} from '../../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
-import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts} from './world.mjs';
+import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
@@ -84,11 +85,7 @@ export function passage(world,b,i){
  }
  return {passX,passY,vertexBlocked:false};
 }
-export function validStrike(world, p) {
-  return world.balls.some(b => b.id === p.ball && b.owner === p.owner)
-    && playerAt(world,p.from) === p.owner && playerAt(world,p.to) === p.defender
-    && !world.cannons.some(c => c.cell === p.to);
-}
+export {validStrike};
 function incomingStrike(world, intent) {
   const t = intent.attack;
   if (!t || !t.defender || world.pending.some(p => p.ball === intent.ball)) return null;
@@ -121,10 +118,10 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
     if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    this.world = decodeWorld(state);if(this.world.version!==(identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    this.world = decodeWorld(state);if(identity===PLAYABILITY_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false};if(this.world.version!==(identity===PLAYABILITY_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
         || cmp(sub(this.end, this.start), rat(LIMITS.max_segment_ticks)) > 0
@@ -158,6 +155,7 @@ export class B2zCursor {
     this.world.pending = valid;
   }
   work() {
+    if(this.world.version===6&&workV6(this,readPayment))return;
     if (this.phase === 'commands') {
       if (this.inputIndex < this.inputs.length) {
         const i = this.inputs[this.inputIndex], payment = readPayment(i.payload_hex);
@@ -200,17 +198,17 @@ export class B2zCursor {
         this.phase = 'area';
       }
     } else if (this.phase === 'area') {
-      if(this.world.version===5&&this.scan===0){this.areas=ownershipCounts(this.world);this.scan=cellCount(this.world);}
+      if(this.world.version>=5&&this.scan===0){this.areas=scoreAreas(this.world);this.scan=cellCount(this.world);}
       if (this.scan < cellCount(this.world)) {
         const owner = ownerAt(this.world,this.scan++), item = this.areas.find(a => a[0] === owner);
         if (item) item[1]++;
       } else {
         const dt = sub(this.nextTime, this.world.time);
         for (const [id, area] of this.areas) {
-          const account = this.world.cannons.find(c => c.id === id).account;
+          const account = this.world.version===6?this.world.playability.players.find(p=>p.id===id).account:this.world.cannons.find(c => c.id === id).account;
           let s = this.world.credits.find(s => s.account === account);
           if (!s) { s = {account, units: rat(0)}; this.world.credits.push(s); }
-          const delta=this.world.version===5?rat(dt[0]*BigInt(area)*1024n,dt[1]*1000000n):mulInt(dt,area);
+          const delta=this.world.version>=5?rat(dt[0]*BigInt(area)*1024n,dt[1]*1000000n):mulInt(dt,area);
           s.units = add(s.units, delta);
         }
         this.world.credits.sort((a, b) => a.account < b.account ? -1 : a.account > b.account ? 1 : 0);
@@ -223,6 +221,7 @@ export class B2zCursor {
         .sort((a, b) => a.owner - b.owner || a.ball - b.ball);
       const pairs = matchStrikes(this.world, this.intents.map(i => incomingStrike(this.world, i)).filter(Boolean));
       if (pairs.length) {
+        if(this.world.version===6){cleanupV6(this,pairs);return;}
         this.emit({kind: 'annihilation', pairs});
         this.job = beginCleanup(this.world, pairs.flat()); this.jobMeta = {kind: 'annihilation_cleanup'};
         this.afterTopology = 'resolve'; this.phase = 'topology';
@@ -244,7 +243,7 @@ export class B2zCursor {
       this.emit({kind: 'motion', ball: b.id, from_cell: oldCell, ball_state: structuredClone(b), vertex_blocked: vertexBlocked});
       const t = i.attack;
       const attack = !vertexBlocked && t && !this.claimed.includes(t.target)
-        && ownerAt(this.world,t.target) === t.defender && !this.world.cannons.some(c => c.cell === t.target)
+        && playerAt(this.world,t.target) === t.defender && !this.world.cannons.some(c => c.cell === t.target)
         && !this.world.pending.some(p => p.ball === b.id) ? t : null;
       if (attack && attack.defender) {
         if (this.world.next_strike_id >= 4294967295) throw new Error('strike ID exhausted');
@@ -254,6 +253,7 @@ export class B2zCursor {
         this.world.pending.push(p); this.emit({kind: 'strike_armed', strike: cloneCanonical(p)});
       } else if (attack) {
         this.claimed.push(attack.target);
+        if(this.world.version===6){captureV6(this,attack.target,b.id,'resolve');return;}
         this.job = beginCapture(this.world, attack.target, b.owner, this.fastTopology);
         this.jobMeta = {kind: 'capture', attacker: b.owner, ball: b.id, target: attack.target};
         this.afterTopology = 'resolve'; this.phase = 'topology';
@@ -264,6 +264,7 @@ export class B2zCursor {
       if (!due.length) { validateWorld(this.world); this.restartSearch(); return; }
       const p = due[0]; this.world.pending = this.world.pending.filter(s => s.id !== p.id);
       if (validStrike(this.world, p)) {
+        if(this.world.version===6){captureV6(this,p.to,p.ball,'expire',{strike:p.id});return;}
         this.job = beginCapture(this.world, p.to, p.owner, this.fastTopology);
         this.jobMeta = {kind: 'capture', attacker: p.owner, ball: p.ball, target: p.to, strike: p.id};
         this.afterTopology = 'expire'; this.phase = 'topology';
@@ -290,8 +291,10 @@ export class B2zCursor {
     }
     return {used, complete: this.phase === 'done'};
   }
+  needsElapsed(){return this.world.version===6&&this.phase==='done'&&!this.v6.finalized;}
+  finalizeElapsed(observedNs){finalizeCursorElapsed(this,observedNs);}
   result() {
-    if (this.phase !== 'done') throw new Error('incomplete B2Z segment');
+    if (this.phase !== 'done'||this.needsElapsed()) throw new Error('incomplete B2Z segment');
     const scores = this.world.credits.map(s => ({account: s.account,
       units: sub(s.units, this.initialCredits.find(p => p.account === s.account)?.units ?? rat(0))}));
     return {state: encodeWorld(this.world), events: encodeCanonical({version: this.world.version, receipts: this.receipts, events: this.events}),
@@ -301,17 +304,19 @@ export class B2zCursor {
   static restore(bytes, trustedHash) {
     if (sha256(bytes) !== trustedHash) throw new Error('B2Z snapshot integrity');
     const p = decodeCanonical(bytes);
-    if (p.version !== 3 || !p.cursor || !['commands','spawn','search','area','batch','resolve','expire','topology','done'].includes(p.cursor.phase))
+    if (p.version !== 3 || !p.cursor || !['commands','spawn','v6_spawn','v6_purchase','v6_topology','search','area','batch','resolve','expire','topology','done'].includes(p.cursor.phase))
       throw new Error('B2Z cursor schema');
     const c = Object.assign(Object.create(B2zCursor.prototype), p.cursor);
     if(c.joinE8s!==undefined&&c.joinE8s!==PRELAUNCH_CONFIG.join_e8s)throw new Error('B2Z cursor economics');
     validRat(c.world.time); validRat(c.start); validRat(c.end);
     if (cmp(c.world.time, c.start) < 0 || cmp(c.world.time, c.end) > 0 || c.inputIndex > c.inputs.length
         || c.inputIndex < 0 || c.receipts.length !== c.inputIndex || cellCount(c.world) > 1000000
-        || c.events.length > 131072 || c.world.balls.length > LIMITS.max_balls || c.intents.length > LIMITS.max_balls
-        || c.world.pending.length > LIMITS.max_balls || (c.spawnJob && c.spawnJob.candidates.length > (c.world.version===5?8192:5*LIMITS.max_cells)))
+        || c.events.length > 131072 || c.world.balls.length > (c.world.version===6?V6_POLICY.max_balls:LIMITS.max_balls) || c.intents.length > (c.world.version===6?V6_POLICY.max_balls:LIMITS.max_balls)
+        || c.world.pending.length > (c.world.version===6?V6_POLICY.max_balls:LIMITS.max_balls) || (c.spawnJob && c.spawnJob.candidates.length > (c.world.version>=5?8192:5*LIMITS.max_cells)))
       throw new Error('B2Z cursor bounds');
-    if (['done','commands','spawn','search','area'].includes(c.phase)) validateWorld(c.world);
+    if((c.world.version===6)!==!!c.v6)throw Error('V6_CURSOR');
+    if (c.world.version===6||['done','commands','spawn','search','area'].includes(c.phase)) validateWorld(c.world);
+    if(c.world.version===6)validateV6Cursor(c);
     // The expected hash is a trusted durable commitment, never an untrusted caller's self-supplied checksum.
     return c;
   }

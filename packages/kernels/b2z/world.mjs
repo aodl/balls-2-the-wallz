@@ -180,3 +180,9 @@ export function fixtureWorld({width, height, cells, cannons, balls, time = rat(0
     time, next_cannon_id: Math.max(0, ...cannons.map(c => c.id)) + 1, pending: [], next_strike_id: 1, next_ball_id: Math.max(0, ...balls.map(b => b.id)) + 1, received_e8s: 0n, credits: cloneCanonical(credits)};
   return validateWorld(out);
 }
+
+export function validStrike(world, p) {
+  return world.balls.some(b => b.id === p.ball && b.owner === p.owner)
+    && playerAt(world,p.from) === p.owner && playerAt(world,p.to) === p.defender
+    && !world.cannons.some(c => c.cell === p.to);
+}
