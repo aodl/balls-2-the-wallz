@@ -1,3 +1,15 @@
+# Authorised A2 mainnet deployment BLOCKED by mandatory balance preflight
+
+At 2026-10-30 12:21:38 UTC, fresh controller queries show 2.846689665080T liquid
+and 2.993548017650T total, below the user's mandatory 5T liquid minimum.
+A0, both controllers and the 34-node fiduciary subnet remain exact; authenticated
+paid-v8 history and source/treasury health verify. ReserveProtection is active.
+No pause, install, resume, funding or frontend change was performed. The reported
+approximately 10T top-up is not reflected in these reads; do not infer its outcome.
+[Complete preflight evidence](evidence/B2Z/fiduciary-cycle-optimisation/mainnet-a2-preflight-20261030/REPORT.md).
+
+---
+
 # Frozen A2 release sequencing — paused upgrade recommended, no mutation authorised
 
 CI `41022561960` passes all six substantive jobs on published preparation commit
