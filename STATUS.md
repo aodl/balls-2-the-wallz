@@ -1,3 +1,36 @@
+# Prelaunch rules branch — v6 groundwork only; production remains release 1
+
+This branch contains inactive v6 memo/pricing, account/lifecycle metadata,
+explicit source-adapter selection and resumable purchase/placement helpers.
+The live deployed backend is still the qualified release-1 `c7d12fd7…` module,
+world v5 / publication v8. No v6 activation or additional deployment occurred.
+Current kernel constructors still reject the v6 identity; host checkpoint/time,
+shared capture/topology, expiry scheduling, full API/projection/browser integration,
+capacity screening and the consolidated installed-IC qualification remain work.
+Targets 128/512/64/16 in the draft configuration are unqualified engineering
+inputs, not published production capacities. Existing production caps remain.
+
+Focused helper tests prove bounded integer pricing, explicit quantity ceilings,
+partial fills, per-item capacity checks, positive-price revival and atomic first/
+adjacent cannon proposals. Rust and JS agree on state/event/receipt hashes;
+first-placement results match v5. The final affected suites pass 15 Rust and
+14 JS tests; 294 purchase/legacy JS cases also pass. The preceding source gate
+passes 1,462 JS plus 185 Python tests; native workspace, format and Clippy pass
+at their recorded development stages. These are development checks, not a v6
+runtime/capacity/deployment qualification. Raw results and original failed
+invocations remain under `.work/v6-*`; no historical golden was rewritten.
+
+The generic DTR application-checkpoint extension is prepared separately on
+`checkpoint/generic-application-checkpoints` at
+`282d709143dacb4bca769a4d6e72b97fc93ef518`, with its own tests. It is not yet
+published; B2Z retains the real DTR77/npm 0.14 dependency pins. Do not commit a
+nonexistent immutable revision, a path override or fabricated remote resolution.
+A separately pending shared-territory/unpaired-survivor policy clarification
+also affects the final mutual-destruction cleanup. Keep all paid-state and
+anti-rollback invariants while completing that integration.
+
+---
+
 # BTZ prelaunch release 1 installed — Conserve running, paid history preserved
 
 Both exact-commit CI runs on `a8bce5fa…` pass all six substantive jobs.

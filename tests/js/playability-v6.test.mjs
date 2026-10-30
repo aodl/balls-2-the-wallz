@@ -40,3 +40,7 @@ test('dormant-only terrain and undeclared player bindings cannot survive validat
  const {w}=dormant();setOwner(w,(w.cannons[0].cell+10)%1000000,1);assert.throws(()=>validateWorld(w),/DORMANT_TERRITORY_RETAINED/);
  const x=migratePlayability(original(),now);x.playability.lifecycle[0].player=2;assert.throws(()=>validateWorld(x));
 });
+test('an expired player record retains identity but cannot retain unsupported land',()=>{
+ const w=migratePlayability(original(),now);w.playability.players.push({id:100,account:'02'.repeat(32)});w.playability.next_player_id=101;validateWorld(w);
+ setOwner(w,(w.cannons[0].cell+10)%1000000,100);assert.throws(()=>validateWorld(w),/unknown cell owner/);
+});

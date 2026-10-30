@@ -183,3 +183,17 @@ fn dormant_player_cannot_keep_land_or_invent_player_binding() {
     w.playability.as_mut().unwrap().lifecycle[0].player = 2;
     assert!(w.validate().is_err());
 }
+#[test]
+fn expired_player_identity_cannot_retain_unsupported_land() {
+    let mut w = migrate(&original(), time("observed_ns")).unwrap();
+    let s = w.playability.as_mut().unwrap();
+    s.players.push(Player {
+        id: 100,
+        account: "02".repeat(32),
+    });
+    s.next_player_id = 101;
+    w.validate().unwrap();
+    w.set_owner((w.cannons[0].cell + 10) % 1_000_000, 100)
+        .unwrap();
+    assert_eq!(w.validate().unwrap_err(), "unknown cell owner");
+}
