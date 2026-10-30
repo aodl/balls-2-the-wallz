@@ -73,7 +73,7 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
         .into_iter()
         .filter(|c| {
             !blocked.contains(c) && matches!(world.owner(*c), Some(0))
-                || !blocked.contains(c) && world.owner(*c) == Some(player)
+                || !blocked.contains(c) && world.player_at(*c) == Some(player)
         })
         .collect())
 }
@@ -198,15 +198,29 @@ pub fn place_new(
         dormant_since_ns: None,
         deadline_ns: None,
     });
+    let territory = if *first {
+        crate::territory_v6::allocate(&mut next, player)?
+    } else {
+        let labels: Vec<_> = std::iter::once(placement.cell)
+            .chain(next.neighbors(placement.cell))
+            .filter(|cell| next.player_at(*cell) == Some(player))
+            .filter_map(|cell| next.owner(cell))
+            .collect();
+        crate::territory_v6::merge(&mut next, &labels)?
+    };
+    if crate::territory_v6::balls(&next, territory) >= MAX_PURCHASE_BALLS_PER_ISLAND {
+        return Err("BALL_CAPACITY".into());
+    }
     for c in &patch {
-        next.set_owner(*c, player)?;
+        next.set_owner(*c, territory)?;
     }
     next.cannons.push(cannon.clone());
     let ball = crate::cursor::launch(&mut next, &cannon, *angle)?;
+    let reactivated = revive_territory(&mut next, territory)?;
     next.validate()?;
     let event = json!({"kind":"cannon_spawned","cannon":cannon,"player":player,
         "patch":patch,"previous_owners":previous,"placement_class":placement.kind,
-        "frontier_other":placement.other,"ball":ball});
+        "frontier_other":placement.other,"ball":ball,"reactivated_cannons":reactivated});
     Ok(Created {
         world: next,
         cannon,
@@ -215,12 +229,25 @@ pub fn place_new(
     })
 }
 
+pub fn site_pool_count(world: &World, player: u32, cell: usize) -> usize {
+    let ids: BTreeSet<_> = std::iter::once(cell)
+        .chain(world.neighbors(cell))
+        .filter(|c| world.player_at(*c) == Some(player))
+        .filter_map(|c| world.owner(c))
+        .collect();
+    ids.into_iter()
+        .map(|id| crate::territory_v6::balls(world, id))
+        .sum()
+}
 pub fn choose_adjacent(world: &World, player: u32, seed: &str) -> Result<Option<usize>> {
     if !crate::world::account_ok(seed) {
         return Err("spawn seed".into());
     }
     let mut ranked = Vec::new();
-    for cell in adjacent_sites(world, player)? {
+    for cell in adjacent_sites(world, player)?
+        .into_iter()
+        .filter(|cell| site_pool_count(world, player, *cell) < MAX_PURCHASE_BALLS_PER_ISLAND)
+    {
         ranked.push((
             hash(&encode(
                 &json!({"domain":"B2Z-ADJACENT-SPAWN-06","seed":seed,"cell":cell}),
@@ -322,6 +349,16 @@ pub fn prepare(
                 if cell.is_some_and(|c| !sites.contains(&(c as usize))) {
                     return Ok(reject("ILLEGAL_ADJACENT_SITE"));
                 }
+                if cell.map_or_else(
+                    || {
+                        sites.iter().all(|c| {
+                            site_pool_count(world, player, *c) >= MAX_PURCHASE_BALLS_PER_ISLAND
+                        })
+                    },
+                    |c| site_pool_count(world, player, c as usize) >= MAX_PURCHASE_BALLS_PER_ISLAND,
+                ) {
+                    return Ok(reject("BALL_CAPACITY"));
+                }
             }
             Ok(Plan::New {
                 angle,
@@ -344,11 +381,11 @@ pub fn prepare(
             if c.account != account {
                 return Ok(reject("NOT_OWNER"));
             }
-            let attached = world.balls.iter().filter(|b| b.owner == cannon).count();
+            let attached = world.territory_ball_count(cannon);
             if amount < pricing_v6::ball_price(attached as u32)? {
                 return Ok(reject("UNDERFUNDED"));
             }
-            if attached >= MAX_PER_CANNON
+            if attached >= MAX_PURCHASE_BALLS_PER_ISLAND
                 || world.balls.len() >= MAX_BALLS
                 || world.next_ball_id == u32::MAX
             {
@@ -378,7 +415,7 @@ pub fn prepare(
             if moved.contains(&cannon) {
                 return Ok(reject("MOVE_LIMIT"));
             }
-            if world.owner(cell as usize) != world.player_for_cannon(cannon) {
+            if world.player_at(cell as usize) != world.player_for_cannon(cannon) {
                 return Ok(reject("NOT_OWN_TERRITORY"));
             }
             if world
@@ -387,6 +424,17 @@ pub fn prepare(
                 .any(|c| c.id != cannon && c.cell == cell as usize)
             {
                 return Ok(reject("CANNON_OCCUPIED"));
+            }
+            let old = world.owner(c.cell).ok_or("cannon territory")?;
+            if world.owner(cell as usize) != Some(old)
+                && world
+                    .cannons
+                    .iter()
+                    .filter(|c| world.owner(c.cell) == Some(old))
+                    .count()
+                    == 1
+            {
+                return Ok(reject("WOULD_STRAND_ISLAND"));
             }
             // The enclosing topology continuation must validate retained active
             // anchor connectivity before applying this immutable move proposal.
@@ -418,6 +466,7 @@ pub struct Batch {
 pub struct Launch {
     pub ball: Ball,
     pub revived: bool,
+    pub reactivated: Vec<u32>,
 }
 impl Batch {
     pub fn fire(account: String, amount: u64, plan: &Plan) -> Result<Self> {
@@ -514,12 +563,8 @@ impl Batch {
             self.stop_reason = Some("quantity_limit".into());
             return Ok(None);
         }
-        let attached = world
-            .balls
-            .iter()
-            .filter(|b| b.owner == self.cannon)
-            .count();
-        if attached >= MAX_PER_CANNON || world.balls.len() >= MAX_BALLS {
+        let attached = world.territory_ball_count(self.cannon);
+        if attached >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS {
             self.stop_reason = Some("capacity".into());
             return Ok(None);
         }
@@ -539,14 +584,21 @@ impl Batch {
             .cloned()
             .ok_or("UNKNOWN_CANNON")?;
         let ball = crate::cursor::launch(world, &c, self.angle)?;
-        let revived = revive(world, self.cannon)?;
+        let territory =
+            crate::territory_v6::for_cannon(world, self.cannon).ok_or("UNKNOWN_TERRITORY")?;
+        let reactivated = revive_territory(world, territory)?;
+        let revived = reactivated.contains(&self.cannon);
         self.prices.push(price.clone());
         self.used.0 += &price.0;
         self.remainder.0 -= &price.0;
         if self.prices.len() == usize::from(self.requested) {
             self.stop_reason = Some("quantity_limit".into());
         }
-        Ok(Some(Launch { ball, revived }))
+        Ok(Some(Launch {
+            ball,
+            revived,
+            reactivated,
+        }))
     }
     pub fn receipt(&self) -> Result<Value> {
         let stop = self.stop_reason.as_deref().ok_or("incomplete purchase")?;

@@ -1,0 +1,413 @@
+{
+  "observed_at": "2026-10-30T23:08:11.376837+00:00",
+  "read_only": true,
+  "identity": "codex_local",
+  "warning_acknowledgement": "Per-process only, expressly approved for these query methods",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "controller_runtime": {
+    "command": [
+      "dfx",
+      "--identity",
+      "codex_local",
+      "canister",
+      "call",
+      "s34gv-3qaaa-aaaar-qcifa-cai",
+      "controller_runtime",
+      "()",
+      "--network",
+      "ic",
+      "--query",
+      "--output",
+      "json"
+    ],
+    "exit_code": 0,
+    "response": {
+      "Ok": {
+        "instruction_yield": "600000000",
+        "liquid_cycles": "3_855_942_438_226",
+        "message_work_limit": "2048",
+        "metrics": {
+          "last_instructions": "350312967",
+          "last_persist_instructions": "47603898",
+          "last_publish_instructions": "31980075",
+          "last_seal_instructions": "17132563",
+          "last_step_instructions": "202989573",
+          "max_actions": 4,
+          "max_instructions": "356984707",
+          "messages": "2157",
+          "persist_instructions": "101959596824",
+          "publish_instructions": "69266769380",
+          "seal_instructions": "37109238138",
+          "step_instructions": "439364696028"
+        },
+        "phase_action_limit": 8,
+        "total_cycles": "4_004_119_660_996"
+      }
+    },
+    "stderr": "",
+    "stdout": "{\n  \"Ok\": {\n    \"instruction_yield\": \"600000000\",\n    \"liquid_cycles\": \"3_855_942_438_226\",\n    \"message_work_limit\": \"2048\",\n    \"metrics\": {\n      \"last_instructions\": \"350312967\",\n      \"last_persist_instructions\": \"47603898\",\n      \"last_publish_instructions\": \"31980075\",\n      \"last_seal_instructions\": \"17132563\",\n      \"last_step_instructions\": \"202989573\",\n      \"max_actions\": 4,\n      \"max_instructions\": \"356984707\",\n      \"messages\": \"2157\",\n      \"persist_instructions\": \"101959596824\",\n      \"publish_instructions\": \"69266769380\",\n      \"seal_instructions\": \"37109238138\",\n      \"step_instructions\": \"439364696028\"\n    },\n    \"phase_action_limit\": 8,\n    \"total_cycles\": \"4_004_119_660_996\"\n  }\n}\n",
+    "query_started_epoch_ms": 1793401691376.877,
+    "query_completed_epoch_ms": 1793401692096.836
+  },
+  "lab_status": {
+    "command": [
+      "dfx",
+      "--identity",
+      "codex_local",
+      "canister",
+      "call",
+      "s34gv-3qaaa-aaaar-qcifa-cai",
+      "lab_status",
+      "()",
+      "--network",
+      "ic",
+      "--query",
+      "--output",
+      "json"
+    ],
+    "exit_code": 0,
+    "response": {
+      "Ok": {
+        "publication_hash": "c721d72fe13b36b67e5c8593049b881b44558b914e8a83fa2b14a324d36257b8",
+        "revision": "310916",
+        "run": {
+          "callback_count": "105234",
+          "completed_segments": "73802",
+          "current_segment_work": "0",
+          "generation": "27",
+          "idle": false,
+          "last_error": [],
+          "last_segment_work": "598",
+          "max_segment_work": "14005",
+          "pace": {
+            "admission_open": true,
+            "mode": "Survival",
+            "nominal_milli": 100,
+            "performance_limited": false,
+            "supported_milli": 100
+          },
+          "pacing_seconds": 1,
+          "publication_ticks": "1",
+          "running": true,
+          "segment_ticks": "1",
+          "total_work": "53277912",
+          "work_budget": 512,
+          "world_transition": false
+        },
+        "source": {
+          "admitted_to_exclusive": "39711127",
+          "binding_checked": true,
+          "event_horizon": [],
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "index_calls": "13836",
+          "last_error": [],
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "network": "ic",
+          "pending_records": 0,
+          "receiving_subaccount": "0",
+          "recipient_account": [
+            52,
+            72,
+            133,
+            239,
+            62,
+            56,
+            35,
+            25,
+            77,
+            188,
+            3,
+            103,
+            205,
+            2,
+            196,
+            203,
+            230,
+            159,
+            125,
+            202,
+            11,
+            167,
+            100,
+            241,
+            95,
+            42,
+            134,
+            231,
+            13,
+            190,
+            202,
+            122
+          ],
+          "reconciliation_requested": false,
+          "scan_in_flight": false
+        },
+        "version": 7
+      }
+    },
+    "stderr": "",
+    "stdout": "{\n  \"Ok\": {\n    \"publication_hash\": \"c721d72fe13b36b67e5c8593049b881b44558b914e8a83fa2b14a324d36257b8\",\n    \"revision\": \"310916\",\n    \"run\": {\n      \"callback_count\": \"105234\",\n      \"completed_segments\": \"73802\",\n      \"current_segment_work\": \"0\",\n      \"generation\": \"27\",\n      \"idle\": false,\n      \"last_error\": [],\n      \"last_segment_work\": \"598\",\n      \"max_segment_work\": \"14005\",\n      \"pace\": {\n        \"admission_open\": true,\n        \"mode\": \"Survival\",\n        \"nominal_milli\": 100,\n        \"performance_limited\": false,\n        \"supported_milli\": 100\n      },\n      \"pacing_seconds\": 1,\n      \"publication_ticks\": \"1\",\n      \"running\": true,\n      \"segment_ticks\": \"1\",\n      \"total_work\": \"53277912\",\n      \"work_budget\": 512,\n      \"world_transition\": false\n    },\n    \"source\": {\n      \"admitted_to_exclusive\": \"39711127\",\n      \"binding_checked\": true,\n      \"event_horizon\": [],\n      \"index\": \"qhbym-qaaaa-aaaaa-aaafq-cai\",\n      \"index_calls\": \"13836\",\n      \"last_error\": [],\n      \"ledger\": \"ryjl3-tyaaa-aaaaa-aaaba-cai\",\n      \"network\": \"ic\",\n      \"pending_records\": 0,\n      \"receiving_subaccount\": \"0\",\n      \"recipient_account\": [\n        52,\n        72,\n        133,\n        239,\n        62,\n        56,\n        35,\n        25,\n        77,\n        188,\n        3,\n        103,\n        205,\n        2,\n        196,\n        203,\n        230,\n        159,\n        125,\n        202,\n        11,\n        167,\n        100,\n        241,\n        95,\n        42,\n        134,\n        231,\n        13,\n        190,\n        202,\n        122\n      ],\n      \"reconciliation_requested\": false,\n      \"scan_in_flight\": false\n    },\n    \"version\": 7\n  }\n}\n",
+    "query_started_epoch_ms": 1793401692099.016,
+    "query_completed_epoch_ms": 1793401692686.7524
+  },
+  "controller_funding": {
+    "command": [
+      "dfx",
+      "--identity",
+      "codex_local",
+      "canister",
+      "call",
+      "s34gv-3qaaa-aaaar-qcifa-cai",
+      "controller_funding",
+      "()",
+      "--network",
+      "ic",
+      "--query",
+      "--output",
+      "json"
+    ],
+    "exit_code": 0,
+    "response": {
+      "Ok": {
+        "halted": false,
+        "last_error": [],
+        "last_plan_ns": "1793054253027365551",
+        "last_refund": [],
+        "last_success": [
+          {
+            "block_index": "39711126",
+            "completed_at_ns": "1793054263556287562",
+            "cycles": "1_909_908_990_000",
+            "plan": {
+              "amount_e8s": "99990000",
+              "beneficiary": "s34gv-3qaaa-aaaar-qcifa-cai",
+              "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+              "created_at_time_ns": "1793054253027365551",
+              "fee_e8s": "10000",
+              "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+              "memo": "1347768404",
+              "to": [
+                250,
+                76,
+                14,
+                201,
+                17,
+                25,
+                66,
+                23,
+                213,
+                212,
+                243,
+                236,
+                39,
+                247,
+                172,
+                38,
+                167,
+                241,
+                158,
+                116,
+                251,
+                238,
+                186,
+                57,
+                212,
+                105,
+                228,
+                242,
+                64,
+                113,
+                184,
+                222
+              ]
+            }
+          }
+        ],
+        "lease_started_ns": "1793401633485491531",
+        "nonce": "2139",
+        "observed_balance": [
+          {
+            "e8s": "0",
+            "observed_at_ns": "1793401633485491531"
+          }
+        ],
+        "observed_fee": [
+          {
+            "e8s": "10000",
+            "observed_at_ns": "1793401639839658840"
+          }
+        ],
+        "paused": false,
+        "phase": {
+          "Idle": null
+        },
+        "total_converted_e8s": "619930000",
+        "total_cycles_reported": "12110272820000",
+        "version": 1
+      }
+    },
+    "stderr": "",
+    "stdout": "{\n  \"Ok\": {\n    \"halted\": false,\n    \"last_error\": [],\n    \"last_plan_ns\": \"1793054253027365551\",\n    \"last_refund\": [],\n    \"last_success\": [\n      {\n        \"block_index\": \"39711126\",\n        \"completed_at_ns\": \"1793054263556287562\",\n        \"cycles\": \"1_909_908_990_000\",\n        \"plan\": {\n          \"amount_e8s\": \"99990000\",\n          \"beneficiary\": \"s34gv-3qaaa-aaaar-qcifa-cai\",\n          \"cmc\": \"rkp4c-7iaaa-aaaaa-aaaca-cai\",\n          \"created_at_time_ns\": \"1793054253027365551\",\n          \"fee_e8s\": \"10000\",\n          \"ledger\": \"ryjl3-tyaaa-aaaaa-aaaba-cai\",\n          \"memo\": \"1347768404\",\n          \"to\": [\n            250,\n            76,\n            14,\n            201,\n            17,\n            25,\n            66,\n            23,\n            213,\n            212,\n            243,\n            236,\n            39,\n            247,\n            172,\n            38,\n            167,\n            241,\n            158,\n            116,\n            251,\n            238,\n            186,\n            57,\n            212,\n            105,\n            228,\n            242,\n            64,\n            113,\n            184,\n            222\n          ]\n        }\n      }\n    ],\n    \"lease_started_ns\": \"1793401633485491531\",\n    \"nonce\": \"2139\",\n    \"observed_balance\": [\n      {\n        \"e8s\": \"0\",\n        \"observed_at_ns\": \"1793401633485491531\"\n      }\n    ],\n    \"observed_fee\": [\n      {\n        \"e8s\": \"10000\",\n        \"observed_at_ns\": \"1793401639839658840\"\n      }\n    ],\n    \"paused\": false,\n    \"phase\": {\n      \"Idle\": null\n    },\n    \"total_converted_e8s\": \"619930000\",\n    \"total_cycles_reported\": \"12110272820000\",\n    \"version\": 1\n  }\n}\n",
+    "query_started_epoch_ms": 1793401692687.198,
+    "query_completed_epoch_ms": 1793401693255.5095
+  },
+  "controller_work": {
+    "command": [
+      "dfx",
+      "--identity",
+      "codex_local",
+      "canister",
+      "call",
+      "s34gv-3qaaa-aaaar-qcifa-cai",
+      "controller_work",
+      "()",
+      "--network",
+      "ic",
+      "--query",
+      "--output",
+      "json"
+    ],
+    "exit_code": 0,
+    "response": {
+      "Ok": {
+        "pending_inputs": 0,
+        "phase": [],
+        "ready_manifest": [],
+        "revision": "310916",
+        "source_cursor": "39711127"
+      }
+    },
+    "stderr": "",
+    "stdout": "{\n  \"Ok\": {\n    \"pending_inputs\": 0,\n    \"phase\": [],\n    \"ready_manifest\": [],\n    \"revision\": \"310916\",\n    \"source_cursor\": \"39711127\"\n  }\n}\n",
+    "query_started_epoch_ms": 1793401693256.0808,
+    "query_completed_epoch_ms": 1793401693694.2998
+  },
+  "retention_status": {
+    "command": [
+      "dfx",
+      "--identity",
+      "codex_local",
+      "canister",
+      "call",
+      "s34gv-3qaaa-aaaar-qcifa-cai",
+      "retention_status",
+      "()",
+      "--network",
+      "ic",
+      "--query",
+      "--output",
+      "json"
+    ],
+    "exit_code": 0,
+    "response": {
+      "Ok": {
+        "entries": [
+          {
+            "bytes": "40124",
+            "current": false,
+            "publication_hash": "230cb7e830aa5a13f0e953a10e46aeeee85acd579c1331e3edf7cd1c4a6d0593",
+            "segment_id": "73788"
+          },
+          {
+            "bytes": "40387",
+            "current": false,
+            "publication_hash": "09746f759760dc070289b67ea82e3c05bf4e53c2bda897f518dd112dce45956f",
+            "segment_id": "73789"
+          },
+          {
+            "bytes": "39576",
+            "current": false,
+            "publication_hash": "97122073d713aa352fe53fe7e456eedc8dd6b30ec3b6c72ea4da530c30e04501",
+            "segment_id": "73790"
+          },
+          {
+            "bytes": "40393",
+            "current": false,
+            "publication_hash": "d202e42112b8ca38b2c86d35a7b6cf225c4d20ceda0a2cacbec4935467654b67",
+            "segment_id": "73791"
+          },
+          {
+            "bytes": "39846",
+            "current": false,
+            "publication_hash": "f7dd4397ad3e13af8c11ac6f9ff11df79137b7b65b0aa40ca24dd93062ed3d04",
+            "segment_id": "73792"
+          },
+          {
+            "bytes": "39843",
+            "current": false,
+            "publication_hash": "cc92c632136bbb363544c7bfe91391dbc4cbc10b1bb612ceec141c25d092c453",
+            "segment_id": "73793"
+          },
+          {
+            "bytes": "40388",
+            "current": false,
+            "publication_hash": "fa874d853f5c14a6c1ac01da08df55ff96d22f02fe1896d9e52d9366e327bffb",
+            "segment_id": "73794"
+          },
+          {
+            "bytes": "39576",
+            "current": false,
+            "publication_hash": "011350a723bd91f1ef3f4f633ed68187e0d0267a4239ebf513fac6bb89261355",
+            "segment_id": "73795"
+          },
+          {
+            "bytes": "40118",
+            "current": false,
+            "publication_hash": "3097c60ce02ceafa6a214d3e3225eb384252cec08b6781b9c94817b927444b6e",
+            "segment_id": "73796"
+          },
+          {
+            "bytes": "40118",
+            "current": false,
+            "publication_hash": "1cf2e8c315e122a2b9ea826ebc3977673f9a69509f141ed5a2dd93520dd5cf0b",
+            "segment_id": "73797"
+          },
+          {
+            "bytes": "40117",
+            "current": false,
+            "publication_hash": "6de327ca4f203e33716a39729e52fc6c158c088530071560ab3b8f454537e5ae",
+            "segment_id": "73798"
+          },
+          {
+            "bytes": "40118",
+            "current": false,
+            "publication_hash": "69eec896ca4b4b8f7c3d3576a8d950093567c54b7752d67405dcb43f702251bb",
+            "segment_id": "73799"
+          },
+          {
+            "bytes": "39842",
+            "current": false,
+            "publication_hash": "be65b788d91f57cc02005f3dc849dbcb27a32adf8ec3424d671d37afc6692b9a",
+            "segment_id": "73800"
+          },
+          {
+            "bytes": "40123",
+            "current": false,
+            "publication_hash": "204fc81e8c3f8ef248f166a76c46954e341c14458de4c20f8c0ef83cd710c0c5",
+            "segment_id": "73801"
+          },
+          {
+            "bytes": "39847",
+            "current": false,
+            "publication_hash": "465879e1c63d0ec34211ae3004caa57e50ed52e5d4e9535217a4e71339a0faea",
+            "segment_id": "73802"
+          },
+          {
+            "bytes": "39846",
+            "current": true,
+            "publication_hash": "c721d72fe13b36b67e5c8593049b881b44558b914e8a83fa2b14a324d36257b8",
+            "segment_id": "73803"
+          }
+        ],
+        "max_bytes": "8388608",
+        "max_segments": 16,
+        "retained_bytes": "640262"
+      }
+    },
+    "stderr": "",
+    "stdout": "{\n  \"Ok\": {\n    \"entries\": [\n      {\n        \"bytes\": \"40124\",\n        \"current\": false,\n        \"publication_hash\": \"230cb7e830aa5a13f0e953a10e46aeeee85acd579c1331e3edf7cd1c4a6d0593\",\n        \"segment_id\": \"73788\"\n      },\n      {\n        \"bytes\": \"40387\",\n        \"current\": false,\n        \"publication_hash\": \"09746f759760dc070289b67ea82e3c05bf4e53c2bda897f518dd112dce45956f\",\n        \"segment_id\": \"73789\"\n      },\n      {\n        \"bytes\": \"39576\",\n        \"current\": false,\n        \"publication_hash\": \"97122073d713aa352fe53fe7e456eedc8dd6b30ec3b6c72ea4da530c30e04501\",\n        \"segment_id\": \"73790\"\n      },\n      {\n        \"bytes\": \"40393\",\n        \"current\": false,\n        \"publication_hash\": \"d202e42112b8ca38b2c86d35a7b6cf225c4d20ceda0a2cacbec4935467654b67\",\n        \"segment_id\": \"73791\"\n      },\n      {\n        \"bytes\": \"39846\",\n        \"current\": false,\n        \"publication_hash\": \"f7dd4397ad3e13af8c11ac6f9ff11df79137b7b65b0aa40ca24dd93062ed3d04\",\n        \"segment_id\": \"73792\"\n      },\n      {\n        \"bytes\": \"39843\",\n        \"current\": false,\n        \"publication_hash\": \"cc92c632136bbb363544c7bfe91391dbc4cbc10b1bb612ceec141c25d092c453\",\n        \"segment_id\": \"73793\"\n      },\n      {\n        \"bytes\": \"40388\",\n        \"current\": false,\n        \"publication_hash\": \"fa874d853f5c14a6c1ac01da08df55ff96d22f02fe1896d9e52d9366e327bffb\",\n        \"segment_id\": \"73794\"\n      },\n      {\n        \"bytes\": \"39576\",\n        \"current\": false,\n        \"publication_hash\": \"011350a723bd91f1ef3f4f633ed68187e0d0267a4239ebf513fac6bb89261355\",\n        \"segment_id\": \"73795\"\n      },\n      {\n        \"bytes\": \"40118\",\n        \"current\": false,\n        \"publication_hash\": \"3097c60ce02ceafa6a214d3e3225eb384252cec08b6781b9c94817b927444b6e\",\n        \"segment_id\": \"73796\"\n      },\n      {\n        \"bytes\": \"40118\",\n        \"current\": false,\n        \"publication_hash\": \"1cf2e8c315e122a2b9ea826ebc3977673f9a69509f141ed5a2dd93520dd5cf0b\",\n        \"segment_id\": \"73797\"\n      },\n      {\n        \"bytes\": \"40117\",\n        \"current\": false,\n        \"publication_hash\": \"6de327ca4f203e33716a39729e52fc6c158c088530071560ab3b8f454537e5ae\",\n        \"segment_id\": \"73798\"\n      },\n      {\n        \"bytes\": \"40118\",\n        \"current\": false,\n        \"publication_hash\": \"69eec896ca4b4b8f7c3d3576a8d950093567c54b7752d67405dcb43f702251bb\",\n        \"segment_id\": \"73799\"\n      },\n      {\n        \"bytes\": \"39842\",\n        \"current\": false,\n        \"publication_hash\": \"be65b788d91f57cc02005f3dc849dbcb27a32adf8ec3424d671d37afc6692b9a\",\n        \"segment_id\": \"73800\"\n      },\n      {\n        \"bytes\": \"40123\",\n        \"current\": false,\n        \"publication_hash\": \"204fc81e8c3f8ef248f166a76c46954e341c14458de4c20f8c0ef83cd710c0c5\",\n        \"segment_id\": \"73801\"\n      },\n      {\n        \"bytes\": \"39847\",\n        \"current\": false,\n        \"publication_hash\": \"465879e1c63d0ec34211ae3004caa57e50ed52e5d4e9535217a4e71339a0faea\",\n        \"segment_id\": \"73802\"\n      },\n      {\n        \"bytes\": \"39846\",\n        \"current\": true,\n        \"publication_hash\": \"c721d72fe13b36b67e5c8593049b881b44558b914e8a83fa2b14a324d36257b8\",\n        \"segment_id\": \"73803\"\n      }\n    ],\n    \"max_bytes\": \"8388608\",\n    \"max_segments\": 16,\n    \"retained_bytes\": \"640262\"\n  }\n}\n",
+    "query_started_epoch_ms": 1793401693695.0378,
+    "query_completed_epoch_ms": 1793401694216.3657
+  },
+  "completed_at": "2026-10-30T23:08:14.217269+00:00"
+}

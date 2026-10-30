@@ -18,8 +18,8 @@
         "other": -1,
         "checked": 1
       },
-      "state_sha256": "8d70bc48c028c395d29b0f892f0e6dd6de9a5499ba686acc77815408273c570e",
-      "event_sha256": "a9d1ed528a76b2213bd1abb01b20d215fbb3e279c0993bf5f74c561d0b537c06",
+      "state_sha256": "9e333017684a0bb2b07bcc3dedd545619a0beff0146a0267f5ac5c918157d149",
+      "event_sha256": "223aaf5180ca0681bf67c31dcd96af91adc83b4325b775615f7e3cb452f6aeee",
       "receipt_sha256": "1545f4635ee936061e967a8aab514a83ad38da98dba2fadfaeb0844386efade4"
     },
     "additional": {
@@ -32,13 +32,13 @@
         "other": -1,
         "checked": 1
       },
-      "state_sha256": "c12ed609b1b6c2f908371c87f3cf51641991a7bba49677734a61d4a826f5e5a5",
-      "event_sha256": "7332f6e7655a4cf1a36ed536244713b02b879026cff16de1443f214bd51ef494",
-      "receipt_sha256": "e037dacc124a8f1fc4f662d79502d0e84c93c5881dc204da8ab72a158a953e41"
+      "state_sha256": "9243505ced1bbdddb0de0fb7c3122fccdba44ed671c770fefbb1aa49866a45aa",
+      "event_sha256": "0b3bfb21a3accad274bec412c1512ca401748c168eebd13c9a419f4f3c33cfc0",
+      "receipt_sha256": "17477069e58f45fe98f372a82470b2c3bd7785b2231d257848a4f2a1481f3863"
     }
   },
   "scope": "Purchase helper only; no Ledger admission, simulation step or IC authenticity claim",
-  "state_sha256": "8ddbb1b3048f9d9cb1628a89c7fa7e3e1467eee0b78ef899759a3f6f412912e1",
+  "state_sha256": "3ce3b6edbb1e12b71308e182327983cc0b9c21dcff46f7ac1192f9a8a2332666",
   "receipt_sha256": "ff4e196ce03c819417449bc17a6e3375ab1aa3e9000700937acbc82810e6b2aa",
   "adjacent_sites": [
     452578,

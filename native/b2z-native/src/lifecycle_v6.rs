@@ -9,38 +9,6 @@ use dtr_wire::{encode, hash, Int, Result};
 use serde_json::json;
 use std::collections::BTreeSet;
 
-/// A retained dormant-anchor cluster supports no land by itself. Under the
-/// committed support invariant, reaching ordinary owned land or an active
-/// anchor proves this cell belongs to an already supported component. Only
-/// retained markers are traversed: at most MAX_CANNONS vertices, not the board.
-fn supported_anchor(world: &World, cell: usize, player: u32) -> bool {
-    if !world
-        .balls
-        .iter()
-        .any(|b| world.player_for_cannon(b.owner) == Some(player))
-    {
-        return false;
-    }
-    let mut queue = vec![cell];
-    let mut seen = BTreeSet::from([cell]);
-    let mut index = 0;
-    while index < queue.len() {
-        let cell = queue[index];
-        index += 1;
-        for n in world.neighbors(cell) {
-            if world.owner(n) != Some(player) {
-                continue;
-            }
-            match world.cannons.iter().find(|c| c.cell == n) {
-                None => return true,
-                Some(c) if world.active_cannon(c.id) => return true,
-                Some(_) if seen.insert(n) => queue.push(n),
-                _ => {}
-            }
-        }
-    }
-    false
-}
 pub struct Expiry {
     pub output: Output,
     pub metadata: Vec<u8>,
@@ -106,17 +74,16 @@ pub fn expire(world: &World, observed_ns: u64, fences: &[Fence]) -> Result<Optio
         if next.active_cannon(c.id) {
             return Err("EXPIRY_REQUIRES_DORMANCY".into());
         }
-        let retain = supported_anchor(&next, c.cell, player);
-        if !retain {
-            next.set_owner(c.cell, 0)?;
-        }
+        let territory = next.owner(c.cell).ok_or("UNKNOWN_TERRITORY")?;
+        next.set_owner(c.cell, 0)?;
         next.cannons.retain(|c| c.id != f.cannon);
         next.playability
             .as_mut()
             .unwrap()
             .lifecycle
             .retain(|l| l.cannon != f.cannon);
-        events.push(json!({"kind":"cannon_expired","sequence":events.len(),"time":world.time,"cannon":c.id,"cell":c.cell,"player":player,"generation":f.generation,"deadline_ns":f.deadline_ns,"observed_ns":Int(observed_ns.into()),"cell_retained":retain}));
+        crate::territory_v6::regroup_markers(&mut next, territory)?;
+        events.push(json!({"kind":"cannon_expired","sequence":events.len(),"time":world.time,"cannon":c.id,"cell":c.cell,"player":player,"generation":f.generation,"deadline_ns":f.deadline_ns,"observed_ns":Int(observed_ns.into()),"cell_retained":false}));
         expired.push(c.id);
     }
     Ok(Some(Expiry {

@@ -10,6 +10,8 @@ mod playability_generated;
 pub mod pricing_v6;
 pub mod purchases_v6;
 pub mod spawn;
+pub mod territory_topology_v6;
+pub mod territory_v6;
 pub mod topology;
 pub mod world;
 pub use cursor::{identity, million_identity, torus_identity, Cursor, Input, Output};

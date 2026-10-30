@@ -1,3 +1,31 @@
+# V6 clarification implemented locally: balls belong to players and current islands
+
+The operator removed launch-cannon ball attachment. The developing v6 model now
+stores player-owned balls and independent connected-island labels. Every cannon
+on a ball-bearing island is active; a ball-free island releases ordinary land,
+retains cannon markers and starts their grace deadlines. Splits, shared-pool
+pricing and reactivation agree in Rust/JS with exact synthetic state/fence bytes.
+The bridge-cut cases exercise the formerly ambiguous scenario directly; no
+launcher-based attack-cancellation exception remains pending.
+
+Development verification: 41 native tests, strict Clippy, formatting, 1,478 JS
+tests and 185 Python tool tests pass. The original source wrapper retains its
+FAIL for the new document's filename; the corrected naming audit passes after
+renaming that new document. Every other source check passed. Historical v3/v4/v5
+goldens are unchanged; only unpublished draft v6 fixtures were regenerated for
+the operator's new semantics. [Rules](docs/specs/B2Z_PLAYABILITY_V6.md) and
+[development evidence](evidence/BTZ/island-ball-pools/REPORT.md).
+
+V6 constructors still fail closed while the command/capture orchestration,
+completion-time facts, host timer/activation, browser/API integration and final
+consolidated qualification remain unfinished. Do not describe these helper
+checks as an installed v6 release. Production was queried only: at 23:08 UTC,
+3.855942438226T liquid, Survival 0.1 ticks/s, running, no source/runtime error,
+no pending source records and Idle healthy treasury. No production mutation,
+financial operation or remote push occurred for this clarification.
+
+---
+
 # Prelaunch rules branch — v6 groundwork only; production remains release 1
 
 This branch contains inactive v6 memo/pricing, account/lifecycle metadata,
@@ -37,9 +65,8 @@ client is 0.15.0, archive SHA-256
 Fail-closed provenance, byte-reproduced packaging and clean Rust/JS consumers pass.
 This updates development dependencies; production release 1 retains DTR77.
 No sibling override, Git URL rewrite or fabricated remote resolution is used.
-A separately pending shared-territory/unpaired-survivor policy clarification
-also affects the final mutual-destruction cleanup. Keep all paid-state and
-anti-rollback invariants while completing that integration.
+The later operator clarification above supersedes the launch-cannon assumption
+and resolves that policy question. Preserve paid-state and anti-rollback invariants.
 
 ---
 

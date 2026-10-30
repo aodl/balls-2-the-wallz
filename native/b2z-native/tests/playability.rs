@@ -19,7 +19,10 @@ fn certified_configuration_matches_compiled_policy_and_economics() {
     for (key, value) in [
         ("max_cannons", MAX_CANNONS),
         ("max_balls", MAX_BALLS),
-        ("max_per_cannon", MAX_PER_CANNON),
+        (
+            "max_purchase_balls_per_island",
+            MAX_PURCHASE_BALLS_PER_ISLAND,
+        ),
         ("max_retained_per_player", MAX_RETAINED_PER_PLAYER),
         ("max_players", MAX_PLAYERS),
     ] {
@@ -147,25 +150,25 @@ fn invalid_clock_facts_are_atomic_and_null_deadlines_fail_closed() {
     assert!(World::decode(&encode(&value).unwrap()).is_err());
 }
 #[test]
-fn shared_owner_is_bound_to_account_and_dormant_anchor_does_not_score() {
+fn shared_owner_is_bound_to_account_and_island_balls_activate_all_cannons() {
     let mut w = migrate(&original(), time("observed_ns")).unwrap();
     let mut c = w.cannons[0].clone();
     c.id = 2;
     c.cell += 1;
-    assert_eq!(w.owner(c.cell), Some(1));
     w.cannons.push(c);
     w.next_cannon_id = 3;
     w.playability.as_mut().unwrap().lifecycle.push(Lifecycle {
         cannon: 2,
         player: 1,
         generation: 1,
-        dormant_since_ns: Some(Int(time("observed_ns").into())),
-        deadline_ns: Some(Int((time("observed_ns") + DORMANCY_GRACE_NS).into())),
+        dormant_since_ns: None,
+        deadline_ns: None,
     });
     w.validate().unwrap();
-    assert_eq!(w.player_for_cannon(2), Some(1));
-    assert!(!clear_unsupported_player(&mut w, 1).unwrap());
-    assert_eq!(w.score_areas().unwrap()[0].1, w.ownership_counts()[0].1 - 1);
+    assert!(w.active_cannon(2));
+    assert_eq!(w.balls.len(), 1);
+    assert_eq!(w.territory_ball_count(1), w.territory_ball_count(2));
+    assert_eq!(w.score_areas().unwrap(), w.ownership_counts());
     w.cannons[1].account = "02".repeat(32);
     assert!(w.validate().is_err());
     w.cannons[1].account = w.cannons[0].account.clone();

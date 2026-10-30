@@ -29,12 +29,9 @@ test('clock rollback, duplicate fences, malformed deadlines and overflow fail wi
  life(w,1).deadline_ns++;assert.throws(()=>validateWorld(w),/CANNON_LIFECYCLE/);
  const x=migratePlayability(original(),now);x.playability.lifecycle[0].deadline_ns=null;assert.throws(()=>validateWorld(x));
 });
-test('multiple cannons share authenticated player ownership; dormant anchors do not score',()=>{
- const w=migratePlayability(original(),now),c={...w.cannons[0],id:2,cell:w.cannons[0].cell+1};assert.equal(ownerAt(w,c.cell),1);
- w.cannons.push(c);w.next_cannon_id=3;w.playability.lifecycle.push({cannon:2,player:1,generation:1,dormant_since_ns:now,deadline_ns:now+V6_POLICY.dormancy_grace_ns});validateWorld(w);
- assert.equal(playerForCannon(w,2),1);assert.equal(clearUnsupportedPlayer(w,1),false);assert.equal(scoreAreas(w)[0][1],ownershipCounts(w)[0][1]-1);
- c.account='02'.repeat(32);assert.throws(()=>validateWorld(w),/CANNON_PLAYER_BINDING/);c.account=w.cannons[0].account;
- const oldVersion=structuredClone(w);delete oldVersion.playability;oldVersion.version=5;assert.throws(()=>validateWorld(oldVersion),/account\/anchor/);
+test('multiple cannons share one island ball pool and authenticated account',()=>{
+ const w=migratePlayability(original(),now),c={...w.cannons[0],id:2,cell:w.cannons[0].cell+1};w.cannons.push(c);w.next_cannon_id=3;w.playability.lifecycle.push({cannon:2,player:1,generation:1});validateWorld(w);assert.equal(w.balls.length,1);assert.equal(playerForCannon(w,2),1);assert.deepEqual(scoreAreas(w),ownershipCounts(w));assert.equal(clearUnsupportedPlayer(w,1),false);
+ c.account='02'.repeat(32);assert.throws(()=>validateWorld(w),/CANNON_PLAYER_BINDING/);c.account=w.cannons[0].account;const old=structuredClone(w);delete old.playability;old.version=5;assert.throws(()=>validateWorld(old),/account\/anchor/);
 });
 test('dormant-only terrain and undeclared player bindings cannot survive validation',()=>{
  const {w}=dormant();setOwner(w,(w.cannons[0].cell+10)%1000000,1);assert.throws(()=>validateWorld(w),/DORMANT_TERRITORY_RETAINED/);

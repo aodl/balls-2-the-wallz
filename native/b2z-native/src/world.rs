@@ -206,24 +206,37 @@ impl World {
                 .map(|c| c.account.as_str())
         }
     }
+    pub fn player_at(&self, cell: usize) -> Option<u32> {
+        let id = self.owner(cell)?;
+        if self.version == 6 {
+            crate::territory_v6::player(self, id)
+        } else {
+            Some(id)
+        }
+    }
+    pub fn territory_ball_count(&self, cannon: u32) -> usize {
+        crate::territory_v6::for_cannon(self, cannon)
+            .map_or(0, |r| crate::territory_v6::balls(self, r))
+    }
     pub fn active_cannon(&self, id: u32) -> bool {
-        self.balls.iter().any(|b| b.owner == id)
+        if self.version == 6 {
+            self.territory_ball_count(id) > 0
+        } else {
+            self.balls.iter().any(|b| b.owner == id)
+        }
     }
     pub fn score_areas(&self) -> Result<Vec<(u32, usize)>> {
-        let mut areas = self.ownership_counts();
-        if let Some(state) = &self.playability {
-            areas.retain(|(player, _)| {
-                self.balls
-                    .iter()
-                    .any(|b| self.player_for_cannon(b.owner) == Some(*player))
-            });
-            for c in state.lifecycle.iter().filter(|c| c.deadline_ns.is_some()) {
-                if let Some((_, count)) = areas.iter_mut().find(|(id, _)| *id == c.player) {
-                    *count = count.checked_sub(1).ok_or("DORMANT_SCORE_ACCOUNTING")?;
-                }
+        if self.version < 6 {
+            return Ok(self.ownership_counts());
+        }
+        let mut out = BTreeMap::new();
+        for (id, n) in self.ownership_counts() {
+            if crate::territory_v6::balls(self, id) > 0 {
+                let p = crate::territory_v6::player(self, id).ok_or("UNKNOWN_TERRITORY")?;
+                *out.entry(p).or_insert(0usize) += n;
             }
         }
-        Ok(areas)
+        Ok(out.into_iter().collect())
     }
     pub fn torus(&self) -> bool {
         self.version >= 4
@@ -562,8 +575,7 @@ impl World {
                 return fail("cannon identity");
             }
             ids.insert(if self.version == 6 {
-                self.player_for_cannon(c.id)
-                    .ok_or("unknown cannon player")?
+                self.owner(c.cell).ok_or("unknown cannon territory")?
             } else {
                 c.id
             });
@@ -591,7 +603,10 @@ impl World {
         last = 0;
         for b in &self.balls {
             let player = if self.version == 6 {
-                self.player_for_cannon(b.owner)
+                self.playability
+                    .as_ref()
+                    .and_then(|s| s.player(b.owner))
+                    .map(|p| p.id)
             } else {
                 Some(b.owner)
             };
@@ -600,7 +615,7 @@ impl World {
                 || b.cell >= self.cell_count()
                 || (self.version < 6 && !ids.contains(&b.owner))
                 || player.is_none()
-                || self.owner(b.cell) != player
+                || self.player_at(b.cell) != player
                 || !(-65536..=65536).contains(&b.vx)
                 || !(-65536..=65536).contains(&b.vy)
                 || (b.vx == 0 && b.vy == 0)
@@ -626,14 +641,7 @@ impl World {
         }
         for c in &self.cannons {
             let count = self.balls.iter().filter(|b| b.owner == c.id).count();
-            if (self.version < 6 && count == 0)
-                || count
-                    > if self.version == 6 {
-                        crate::playability::MAX_PER_CANNON
-                    } else {
-                        32
-                    }
-            {
+            if self.version < 6 && (count == 0 || count > 32) {
                 return fail("cannon ball invariant");
             }
         }
@@ -659,11 +667,7 @@ impl World {
                 || p.from >= self.cell_count()
                 || p.to >= self.cell_count()
                 || !self.neighbors(p.from).contains(&p.to)
-                || (if self.version == 6 {
-                    self.player_for_cannon(p.owner)
-                } else {
-                    Some(p.owner)
-                }) == Some(p.defender)
+                || p.owner == p.defender
                 || p.defender == 0
                 || !matches!(p.axis.as_str(), "x" | "y")
             {
@@ -705,13 +709,8 @@ impl World {
         self.balls
             .iter()
             .any(|b| b.id == p.ball && b.owner == p.owner)
-            && self.owner(p.from)
-                == (if self.version == 6 {
-                    self.player_for_cannon(p.owner)
-                } else {
-                    Some(p.owner)
-                })
-            && self.owner(p.to) == Some(p.defender)
+            && self.player_at(p.from) == Some(p.owner)
+            && self.player_at(p.to) == Some(p.defender)
             && !self.cannons.iter().any(|c| c.cell == p.to)
     }
     pub fn accrue(&mut self, dt: &Rat, areas: &[(u32, usize)]) -> Result<()> {

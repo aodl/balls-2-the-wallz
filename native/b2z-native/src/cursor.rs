@@ -145,7 +145,11 @@ pub(crate) fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     let y = (c.cell / w.width) as i64 * Q + Q / 2;
     let b = Ball {
         id: w.next_ball_id,
-        owner: c.id,
+        owner: if w.version == 6 {
+            w.player_for_cannon(c.id).ok_or("UNKNOWN_PLAYER")?
+        } else {
+            c.id
+        },
         cell: c.cell,
         x0: Int(BigInt::from(x) - BigInt::from(vx) * w.time.0.numer()),
         y0: Int(BigInt::from(y) - BigInt::from(vy) * w.time.0.numer()),
@@ -312,12 +316,8 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
             }
             if a.from == b.to
                 && a.to == b.from
-                && (if w.version == 6 {
-                    w.player_for_cannon(a.owner) == Some(b.defender)
-                        && w.player_for_cannon(b.owner) == Some(a.defender)
-                } else {
-                    a.owner == b.defender && b.owner == a.defender
-                })
+                && a.owner == b.defender
+                && b.owner == a.defender
                 && w.time <= a.deadline
                 && w.time <= b.deadline
                 && distance <= Rat::integer(64)

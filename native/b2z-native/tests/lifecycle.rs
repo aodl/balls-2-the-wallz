@@ -69,12 +69,12 @@ fn premature_and_malformed_facts_are_fatal_and_atomic() {
     assert_eq!(World::decode(&late.output.state).unwrap().time, w.time);
 }
 #[test]
-fn paid_revival_fences_expiry_and_supported_marker_land_is_preserved() {
+fn a_friendly_ball_reactivates_every_cannon_in_its_island_and_fences_expiry() {
     use b2z_native::{
-        playability::{Lifecycle, DORMANCY_GRACE_NS},
+        playability::{revive_territory, Lifecycle, DORMANCY_GRACE_NS},
         purchases_v6::{prepare, Batch},
-        world::Cannon,
     };
+    use dtr_wire::Int;
     let mut w = world();
     let c = w.cannons[0].clone();
     let memo = b2z_protocol::v6::encode(b2z_protocol::v6::Command::Fire {
@@ -86,35 +86,38 @@ fn paid_revival_fences_expiry_and_supported_marker_land_is_preserved() {
     let plan = prepare(&w, &c.account, 10_000_000, &memo, &[]).unwrap();
     let mut batch = Batch::fire(c.account.clone(), 10_000_000, &plan).unwrap();
     assert!(batch.step(&mut w).unwrap().unwrap().revived);
-    w.validate().unwrap();
     assert!(expire(&w, now(), &fences()).unwrap().is_none());
     let cell = c.cell + 1;
     let id = w.next_cannon_id;
     w.next_cannon_id += 1;
-    w.cannons.push(Cannon { id, cell, ..c });
+    w.cannons.push(b2z_native::world::Cannon { id, cell, ..c });
     w.set_owner(cell, 1).unwrap();
-    let state = w.playability.as_mut().unwrap();
-    let since = state.elapsed_ns.clone();
-    let deadline = dtr_wire::Int(&since.0 + DORMANCY_GRACE_NS);
-    state.lifecycle.push(Lifecycle {
+    let s = w.playability.as_mut().unwrap();
+    let since = s.elapsed_ns.clone();
+    let deadline = Int(&since.0 + DORMANCY_GRACE_NS);
+    s.lifecycle.push(Lifecycle {
         cannon: id,
         player: 1,
         generation: 1,
         dormant_since_ns: Some(since),
         deadline_ns: Some(deadline.clone()),
     });
+    assert!(w.validate().is_err());
+    assert_eq!(revive_territory(&mut w, 1).unwrap(), vec![id]);
     w.validate().unwrap();
-    let f = Fence {
-        cannon: id,
-        generation: 1,
-        deadline_ns: deadline,
-    };
-    let r = expire(&w, now(), &[f]).unwrap().unwrap();
-    let next = World::decode(&r.output.state).unwrap();
-    assert_eq!(next.cannons.len(), 1);
-    assert_eq!(next.balls, w.balls);
-    assert_eq!(next.owner(cell), Some(1));
-    assert_eq!(next.credits, w.credits);
+    assert!(w.active_cannon(id));
+    assert!(expire(
+        &w,
+        now(),
+        &[Fence {
+            cannon: id,
+            generation: 1,
+            deadline_ns: deadline
+        }]
+    )
+    .unwrap()
+    .is_none());
+    assert_eq!(w.cannons.len(), 2);
 }
 #[test]
 fn maximum_deadline_batch_is_bounded_and_does_not_change_the_paid_clock() {
@@ -133,6 +136,8 @@ fn maximum_deadline_batch_is_bounded_and_does_not_change_the_paid_clock() {
     w.playability = Some(State {
         elapsed_ns: since.clone(),
         next_player_id: 1,
+        next_territory_id: MAX_CANNONS as u32 + 1,
+        territories: vec![],
         players: vec![],
         lifecycle: vec![],
     });
@@ -164,7 +169,12 @@ fn maximum_deadline_batch_is_bounded_and_does_not_change_the_paid_clock() {
             account,
             heading: template.heading,
         });
-        w.set_owner(index * 2, player).unwrap();
+        w.playability
+            .as_mut()
+            .unwrap()
+            .territories
+            .push(b2z_native::territory_v6::Territory { id, player });
+        w.set_owner(index * 2, id).unwrap();
     }
     w.next_cannon_id = MAX_CANNONS as u32 + 1;
     let state = w.playability.as_mut().unwrap();

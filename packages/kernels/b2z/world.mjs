@@ -1,3 +1,4 @@
+import{territoryPlayer,territoryBalls,territoryForCannon}from'./territory-v6.mjs';
 import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './economics.generated.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
@@ -20,8 +21,9 @@ export const TORUS_CONFIG=Object.freeze({...PRELAUNCH_CONFIG,version:4,topology:
 export const TORUS_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_TORUS_RULES_04')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_04_TYPED_JSON')),config_hash:sha256(encodeCanonical(TORUS_CONFIG))});
 export const MILLION_CONFIG=Object.freeze({version:5,topology:'torus',width:1000,height:1000,ownership:'scaled32-v1',score_area_numerator:1024,score_area_denominator:1000000,max_balls:64,max_cannons:32,max_per_cannon:32,max_segment_ticks:64,speed:32000,ball_base_e8s:PRICING.ball_base_e8s,move_e8s:PRICING.move_e8s,annihilation_distance:64,annihilation_time_window:[1n,16n],join_e8s:PRICING.join_e8s,max_spawn_searches_per_segment:8});
 export const MILLION_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_MILLION_TORUS_RULES_05')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_05_SCALED_OWNERSHIP')),config_hash:sha256(encodeCanonical(MILLION_CONFIG))});
-export const PLAYABILITY_CONFIG=Object.freeze({...MILLION_CONFIG,...V6_POLICY,memo_adapter_version:4,lifecycle_input_version:1,max_purchase_quantity:64,move_limit_per_cannon_segment:1,
-  player_identity:'authenticated-funding-account',ball_price:'sequential-floor-1-square',cannon_price:'retained-plus-1-square',dormancy_clock:'consensus-observed-ns-1',capture_resolution:'pair-and-cancel-1'});
+const {max_per_cannon:_historicalCannonLimit,...ISLAND_BASE_CONFIG}=MILLION_CONFIG;
+export const PLAYABILITY_CONFIG=Object.freeze({...ISLAND_BASE_CONFIG,...V6_POLICY,memo_adapter_version:4,lifecycle_input_version:1,max_purchase_quantity:64,move_limit_per_cannon_segment:1,
+  player_identity:'authenticated-funding-account',ball_ownership:'funding-player',cannon_activity:'connected-island-ball-pool',ball_price:'island-pool-floor-1-square',cannon_price:'retained-plus-1-square',dormancy_clock:'consensus-observed-ns-1',capture_resolution:'pair-and-cancel-1'});
 export const PLAYABILITY_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_PLAYABILITY_RULES_06')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_06_PLAYERS_LIFECYCLE')),config_hash:sha256(encodeCanonical(PLAYABILITY_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
@@ -36,6 +38,8 @@ export function ownerAt(w,cell) {
   while(low<high){const mid=(low+high)>>1;if(w.ownership.overrides[mid].start<=cell)low=mid+1;else high=mid;}
   return low&&cell<w.ownership.overrides[low-1].end?w.ownership.overrides[low-1].owner:w.ownership.base[baseCell(w,cell)];
 }
+export function playerAt(w,cell){const id=ownerAt(w,cell);return w.version===6?territoryPlayer(w,id):id;}
+export function territoryBallCount(w,cannon){const id=territoryForCannon(w,cannon);return id===undefined?0:territoryBalls(w,id);}
 function adjustCount(counts,owner,delta){
   if(!owner)return;
   const at=counts.findIndex(c=>c.owner>=owner);
@@ -123,27 +127,27 @@ export function validateWorld(w) {
     if(c.heading!==undefined){if(w.version<4)throw new Error('legacy heading');integer(c.heading,0,65535,'cannon heading');}
     integer(c.cell, 0, cellCount(w) - 1, 'anchor');
     if (!/^[0-9a-f]{64}$/.test(c.account) || w.version<6&&accounts.has(c.account) || anchors.has(c.cell)) throw new Error('account/anchor identity');
-    owners.add(w.version===6?playerForCannon(w,c.id):c.id); accounts.add(c.account); anchors.add(c.cell);
+    owners.add(w.version===6?ownerAt(w,c.cell):c.id); accounts.add(c.account); anchors.add(c.cell);
     if (w.version<5&&!connected(w.cells, w.width, w.height, c.id, c.cell,w.version===4)) throw new Error('territory disconnected');
   }
   const represented=w.version>=5?[...w.ownership.base,...w.ownership.overrides.map(p=>p.owner)]:w.cells;
   for (const owner of represented) if (!Number.isInteger(owner) || (owner !== 0 && !owners.has(owner))) throw new Error('unknown cell owner');
-  const launchers=w.version===6?new Set(w.cannons.map(c=>c.id)):owners;
+  const players=w.version===6?new Set(w.playability.players.map(p=>p.id)):owners;
   const counts = new Map(); last = 0;
   for (const b of w.balls) {
     integer(b.id, last + 1, 4294967294, 'ball order'); last = b.id;
     integer(b.cell, 0, cellCount(w) - 1, 'ball cell');
     integer(b.vx, -65536, 65536, 'vx'); integer(b.vy, -65536, 65536, 'vy');
     if (!b.vx && !b.vy) throw new Error('stationary ball');
-    const player=w.version===6?playerForCannon(w,b.owner):b.owner;
-    if (player===undefined || !launchers.has(b.owner) || !owners.has(player) || ownerAt(w,b.cell) !== player) throw new Error('ball outside owner territory');
+    const player=b.owner;
+    if (player===undefined || !players.has(b.owner) || playerAt(w,b.cell) !== player) throw new Error('ball outside owner territory');
     for (const n of [b.x0, b.y0]) if (typeof n !== 'bigint' || n < -100000000000000n || n > 100000000000000n) throw new Error('motion intercept');
     const [x, y] = position(b, w.time), cx = b.cell % w.width, cy = Math.floor(b.cell / w.width);
     if (cmp(x, rat(cx * Q)) < 0 || cmp(x, rat((cx + 1) * Q)) > 0 || cmp(y, rat(cy * Q)) < 0 || cmp(y, rat((cy + 1) * Q)) > 0)
       throw new Error('ball cell/position mismatch');
     counts.set(b.owner, (counts.get(b.owner) ?? 0) + 1);
   }
-  for (const c of w.cannons) if (w.version<6&&!counts.get(c.id) || (counts.get(c.id)??0) > limits.max_per_cannon) throw new Error('cannon ball invariant');
+  for (const c of w.cannons) if (w.version<6&&(!counts.get(c.id) || (counts.get(c.id)??0) > limits.max_per_cannon)) throw new Error('cannon ball invariant');
   integer(w.next_ball_id, last + 1, 4294967295, 'next ball ID');
   integer(w.next_cannon_id, Math.max(0, ...w.cannons.map(c => c.id)) + 1, w.version===6?4294967295:65536, 'next cannon ID');
   if (!Array.isArray(w.pending) || w.pending.length > w.balls.length) throw new Error('pending strike capacity');
@@ -152,7 +156,7 @@ export function validateWorld(w) {
     integer(p.id, priorStrike + 1, 4294967294, 'strike order'); priorStrike = p.id;
     if (armed.has(p.ball) || !w.balls.some(b => b.id === p.ball && b.owner === p.owner)) throw new Error('pending live ball');
     armed.add(p.ball); integer(p.from, 0, cellCount(w) - 1, 'strike origin'); integer(p.to, 0, cellCount(w) - 1, 'strike target');
-    if (!neighbors(p.from, w.width, w.height,w.version>=4).includes(p.to) || (w.version===6?playerForCannon(w,p.owner):p.owner) === p.defender || p.defender === 0) throw new Error('strike edge');
+    if (!neighbors(p.from, w.width, w.height,w.version>=4).includes(p.to) || p.owner === p.defender || p.defender === 0) throw new Error('strike edge');
     for (const t of [p.born, p.deadline, p.position]) validRat(t);
     if (cmp(p.born, w.time) > 0 || cmp(p.deadline, w.time) < 0 || cmp(p.deadline, p.born) <= 0) throw new Error('strike clock');
     if (p.axis !== 'x' && p.axis !== 'y') throw new Error('strike axis');

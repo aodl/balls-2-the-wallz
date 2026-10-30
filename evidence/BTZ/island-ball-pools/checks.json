@@ -1,0 +1,133 @@
+{
+  "scope": "Development mechanics/helpers; no v6 runtime/deployment qualification",
+  "clarification": "Balls belong to players. Current connected-island occupancy determines cannon activity and firing prices.",
+  "native_tests_passed": 41,
+  "source_run_overall": "FAIL",
+  "source_run_failure": "New spec filename used display brand BTZ instead of repository B2Z prefix; renamed only the new document.",
+  "corrected_naming_audit": "PASS",
+  "other_source_checks": [
+    {
+      "id": "playability-policy",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-state-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-purchase-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-lifecycle-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-island-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "observer-recordings",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "protocol-fixtures",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "life-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "b2z-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "spawn-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "impact-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "b2z-full-traces",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "numeric-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "coordinator-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "observation-v6-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "observation-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "portable-cursors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "node-tests",
+      "status": "PASS",
+      "counts": {
+        "tests": 1478,
+        "pass": 1478,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "docs-links",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "python-tool-tests",
+      "status": "PASS",
+      "counts": {
+        "tests": 185
+      }
+    }
+  ],
+  "new_island_cases": [
+    "left ball only",
+    "right ball only",
+    "balls on both sides",
+    "unanchored-ball capture proposal requires pairing",
+    "shared-pool reconnection/revival",
+    "million-cell row-span work",
+    "surviving ball retains activity at every connected cannon"
+  ],
+  "production_mutations": false
+}

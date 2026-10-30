@@ -38,6 +38,8 @@ pub struct Lifecycle {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct State {
+    pub next_territory_id: u32,
+    pub territories: Vec<crate::territory_v6::Territory>,
     pub elapsed_ns: Int,
     pub next_player_id: u32,
     pub players: Vec<Player>,
@@ -120,42 +122,62 @@ impl State {
         if self.players.iter().any(|p| !accounts.insert(&p.account)) {
             return Err("PLAYER_ACCOUNT_CONFLICT".into());
         }
+        if self.territories.len() > MAX_CANNONS
+            || self.territories.windows(2).any(|p| p[0].id >= p[1].id)
+            || self
+                .territories
+                .iter()
+                .any(|r| r.id == 0 || r.id == u32::MAX || self.player(r.player).is_none())
+            || self.next_territory_id <= self.territories.last().map_or(0, |r| r.id)
+        {
+            return Err("TERRITORY_IDENTITY".into());
+        }
+        let mut pools = BTreeMap::new();
+        for b in &world.balls {
+            *pools
+                .entry(world.owner(b.cell).ok_or("ball cell")?)
+                .or_insert(0usize) += 1;
+        }
         let mut retained = BTreeMap::new();
-        for (c, life) in world.cannons.iter().zip(&self.lifecycle) {
-            let player = self.player(life.player).ok_or("UNKNOWN_PLAYER")?;
-            if life.cannon != c.id
-                || life.generation == 0
-                || player.account != c.account
-                || world.owner(c.cell) != Some(life.player)
+        let mut anchors = BTreeMap::new();
+        for (c, l) in world.cannons.iter().zip(&self.lifecycle) {
+            let p = self.player(l.player).ok_or("UNKNOWN_PLAYER")?;
+            let region = world.owner(c.cell).ok_or("cannon cell")?;
+            if l.cannon != c.id
+                || l.generation == 0
+                || p.account != c.account
+                || world.player_at(c.cell) != Some(l.player)
             {
                 return Err("CANNON_PLAYER_BINDING".into());
             }
-            let count = retained.entry(life.player).or_insert(0usize);
+            let count = retained.entry(l.player).or_insert(0usize);
             *count += 1;
             if *count > MAX_RETAINED_PER_PLAYER {
                 return Err("PLAYER_CANNON_CAPACITY".into());
             }
-            let balls = world.balls.iter().filter(|b| b.owner == c.id).count();
-            match (&life.dormant_since_ns, &life.deadline_ns, balls) {
+            *anchors.entry(region).or_insert(0usize) += 1;
+            let balls = pools.get(&region).copied().unwrap_or(0);
+            match (&l.dormant_since_ns, &l.deadline_ns, balls) {
                 (None, None, n) if n > 0 => {}
-                (Some(since), Some(deadline), 0)
-                    if elapsed(since)? <= now
-                        && elapsed(deadline)?
-                            == elapsed(since)?
+                (Some(s), Some(d), 0)
+                    if elapsed(s)? <= now
+                        && elapsed(d)?
+                            == elapsed(s)?
                                 .checked_add(DORMANCY_GRACE_NS)
                                 .ok_or("LIFECYCLE_TIME_OVERFLOW")? => {}
                 _ => return Err("CANNON_LIFECYCLE".into()),
             }
         }
         let areas = world.ownership_counts();
-        for (player, count) in retained {
-            if !world
-                .balls
-                .iter()
-                .any(|b| world.player_for_cannon(b.owner) == Some(player))
+        for r in &self.territories {
+            let count = anchors.get(&r.id).copied().unwrap_or(0);
+            if count == 0 {
+                return Err("TERRITORY_WITHOUT_CANNON".into());
+            }
+            if pools.get(&r.id).copied().unwrap_or(0) == 0
                 && areas
                     .iter()
-                    .find(|(id, _)| *id == player)
+                    .find(|(id, _)| *id == r.id)
                     .map_or(0, |(_, n)| *n)
                     != count
             {
@@ -177,6 +199,15 @@ pub fn migrate(world: &World, observed_ns: u64) -> Result<World> {
     next.playability = Some(State {
         elapsed_ns: Int(observed_ns.into()),
         next_player_id: world.next_cannon_id,
+        next_territory_id: world.next_cannon_id,
+        territories: world
+            .cannons
+            .iter()
+            .map(|c| crate::territory_v6::Territory {
+                id: c.id,
+                player: c.id,
+            })
+            .collect(),
         players: world
             .cannons
             .iter()
@@ -204,7 +235,7 @@ pub fn migrate(world: &World, observed_ns: u64) -> Result<World> {
 /// Stages a newly dormant cannon at the last observed time. The enclosing
 /// completion must stamp the returned fence with its explicit completion fact.
 pub fn mark_dormant(world: &mut World, cannon: u32) -> Result<Option<Fence>> {
-    if world.balls.iter().any(|b| b.owner == cannon) {
+    if world.active_cannon(cannon) {
         return Err("CANNON_HAS_BALLS".into());
     }
     let state = world.playability.as_mut().ok_or("EXPECTED_V6")?;
@@ -230,7 +261,7 @@ pub fn mark_dormant(world: &mut World, cannon: u32) -> Result<Option<Fence>> {
     }))
 }
 pub fn revive(world: &mut World, cannon: u32) -> Result<bool> {
-    if !world.balls.iter().any(|b| b.owner == cannon) {
+    if !world.active_cannon(cannon) {
         return Err("REVIVAL_REQUIRES_PAID_BALL".into());
     }
     let life = world
@@ -297,22 +328,37 @@ pub fn finalize_elapsed(
 pub fn clear_unsupported_player(world: &mut World, player: u32) -> Result<bool> {
     let state = world.playability.as_ref().ok_or("EXPECTED_V6")?;
     state.player(player).ok_or("UNKNOWN_PLAYER")?;
-    if world
-        .balls
-        .iter()
-        .any(|b| world.player_for_cannon(b.owner) == Some(player))
-    {
+    if world.balls.iter().any(|b| b.owner == player) {
         return Ok(false);
     }
-    let anchors: Vec<_> = world
-        .cannons
+    let regions: Vec<_> = world
+        .playability
+        .as_ref()
+        .unwrap()
+        .territories
         .iter()
-        .filter(|c| world.player_for_cannon(c.id) == Some(player))
-        .map(|c| c.cell)
+        .filter(|r| r.player == player)
+        .map(|r| r.id)
         .collect();
-    world.clear_owner(player)?;
-    for cell in anchors {
-        world.set_owner(cell, player)?;
+    for r in regions {
+        crate::territory_v6::prune_empty(world, r)?;
     }
     Ok(true)
+}
+
+/// A ball arriving or being purchased activates every cannon in its island.
+pub fn revive_territory(world: &mut World, id: u32) -> Result<Vec<u32>> {
+    let ids: Vec<_> = world
+        .cannons
+        .iter()
+        .filter(|c| world.owner(c.cell) == Some(id))
+        .map(|c| c.id)
+        .collect();
+    let mut out = vec![];
+    for c in ids {
+        if revive(world, c)? {
+            out.push(c)
+        }
+    }
+    Ok(out)
 }

@@ -31,13 +31,19 @@ pub fn sequential_cost(attached: u32, requested: u32) -> Result<u64> {
     Ok(total)
 }
 pub fn new_cannon_cost(retained: u32, total_balls: u32) -> Result<u64> {
+    new_cannon_cost_in_pool(retained, 0, total_balls)
+}
+pub fn new_cannon_cost_in_pool(retained: u32, pool: u32, total_balls: u32) -> Result<u64> {
     quantity(total_balls)?;
     let first = cannon_price(retained)?;
     if total_balls == 1 {
         return Ok(first);
     }
     first
-        .checked_add(sequential_cost(1, total_balls - 1)?)
+        .checked_add(sequential_cost(
+            pool.checked_add(1).ok_or("PRICE_OVERFLOW")?,
+            total_balls - 1,
+        )?)
         .ok_or_else(|| "PRICE_OVERFLOW".into())
 }
 

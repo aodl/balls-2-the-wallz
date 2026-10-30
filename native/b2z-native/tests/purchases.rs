@@ -138,22 +138,28 @@ fn dormant_retained_cannons_affect_price_and_legacy_selection_is_deterministic()
     let mut w = original();
     let mut c = w.cannons[0].clone();
     c.id = 2;
-    c.cell += 1;
+    c.cell = 0;
     w.cannons.push(c);
     w.next_cannon_id = 3;
-    w.playability.as_mut().unwrap().lifecycle.push(Lifecycle {
+    let state = w.playability.as_mut().unwrap();
+    state
+        .territories
+        .push(b2z_native::territory_v6::Territory { id: 2, player: 1 });
+    state.next_territory_id = 3;
+    state.lifecycle.push(Lifecycle {
         cannon: 2,
         player: 1,
         generation: 1,
-        dormant_since_ns: Some(Int(9_007_199_254_740_993u64.into())),
-        deadline_ns: Some(Int((9_007_199_254_740_993u64 + DORMANCY_GRACE_NS).into())),
+        dormant_since_ns: Some(state.elapsed_ns.clone()),
+        deadline_ns: Some(Int(&state.elapsed_ns.0 + DORMANCY_GRACE_NS)),
     });
+    w.set_owner(0, 2).unwrap();
     w.validate().unwrap();
     let account = w.cannons[0].account.clone();
     let Plan::New { price, first, .. } =
         prepare(&w, &account, 900_000_000, &memo("NEW 0 1"), &[]).unwrap()
     else {
-        panic!("new plan")
+        panic!("new")
     };
     assert_eq!(price, Int(900_000_000.into()));
     assert!(!first);
@@ -171,7 +177,7 @@ fn dormant_retained_cannons_affect_price_and_legacy_selection_is_deterministic()
                 &w,
                 &account,
                 10_000,
-                &memo(&format!("MOVE {cannon} {}", w.cannons[1].cell)),
+                &memo(&format!("MOVE {cannon} 0")),
                 &[]
             )
             .unwrap(),
@@ -207,59 +213,64 @@ fn adjacent_selection_matches_js_and_never_overlaps_a_seam_ball() {
 fn capacity_rechecked_per_item_and_unspawned_balls_are_never_charged() {
     for global in [false, true] {
         let mut w = original();
-        // Pure admission fixture: overlapping friendly balls are legal; physics
-        // is deliberately not run by this purchase-continuation unit test.
-        w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
+        let template = w.cannons[0].clone();
         let prototype = w.balls[0].clone();
+        w.ownership = Some(ScaledOwnership::from_32x32(vec![0; 1024], 1000, 1000).unwrap());
+        w.cannons.clear();
         w.balls.clear();
-        let groups: Vec<usize> = if global {
-            let mut groups = vec![2];
-            groups.extend([64; 7]);
-            groups.push(MAX_BALLS - 1 - 2 - 7 * 64);
-            groups
+        w.playability.as_mut().unwrap().lifecycle.clear();
+        w.playability.as_mut().unwrap().territories.clear();
+        let groups = if global {
+            let mut g = vec![2];
+            g.extend([64; 7]);
+            g.push(MAX_BALLS - 1 - 2 - 7 * 64);
+            g
         } else {
-            vec![MAX_PER_CANNON - 1]
+            vec![MAX_PURCHASE_BALLS_PER_ISLAND - 1]
         };
         for (index, count) in groups.iter().enumerate() {
-            let cannon = index as u32 + 1;
-            if index != 0 {
-                let mut c = w.cannons[0].clone();
-                c.id = cannon;
-                c.cell += index;
-                w.cannons.push(c);
-                w.playability.as_mut().unwrap().lifecycle.push(Lifecycle {
-                    cannon,
-                    player: 1,
-                    generation: 1,
-                    dormant_since_ns: None,
-                    deadline_ns: None,
-                });
-            }
+            let id = index as u32 + 1;
+            let cell = 100 + index * 2;
+            w.cannons.push(b2z_native::world::Cannon {
+                id,
+                cell,
+                ..template.clone()
+            });
+            let s = w.playability.as_mut().unwrap();
+            s.territories
+                .push(b2z_native::territory_v6::Territory { id, player: 1 });
+            s.lifecycle.push(Lifecycle {
+                cannon: id,
+                player: 1,
+                generation: 1,
+                dormant_since_ns: None,
+                deadline_ns: None,
+            });
+            w.set_owner(cell, id).unwrap();
             for _ in 0..*count {
                 let mut b = prototype.clone();
                 b.id = w.balls.len() as u32 + 1;
-                b.owner = cannon;
+                b.owner = 1;
+                b.cell = cell;
+                b.x0 = Int((cell as i64 * Q + Q / 2).into());
+                b.x0.0 -= w.time.0.to_integer() * b.vx;
+                b.y0 = Int((Q / 2).into());
+                b.y0.0 -= w.time.0.to_integer() * b.vy;
                 w.balls.push(b);
             }
         }
         w.next_ball_id = w.balls.len() as u32 + 1;
         w.next_cannon_id = w.cannons.len() as u32 + 1;
+        w.playability.as_mut().unwrap().next_territory_id = w.next_cannon_id;
         w.validate().unwrap();
         let before = w.balls.len();
-        let p = prepare(
-            &w,
-            &w.cannons[0].account,
-            u64::MAX,
-            &memo("FIRE 1 0 2"),
-            &[],
-        )
-        .unwrap();
+        let p = prepare(&w, &template.account, u64::MAX, &memo("FIRE 1 0 2"), &[]).unwrap();
         let r = run(&mut w, &p, u64::MAX);
+        let price = b2z_native::pricing_v6::ball_price(groups[0] as u32).unwrap();
         assert_eq!(w.balls.len(), before + 1);
         assert_eq!(r["actual_quantity"], 1);
         assert_eq!(r["stop_reason"], "capacity");
         assert_eq!(r["status"], "partially_applied");
-        let price = b2z_native::pricing_v6::ball_price(groups[0] as u32).unwrap();
         assert_eq!(
             serde_json::from_value::<Int>(r["amount_used"].clone()).unwrap(),
             Int(price.into())
@@ -279,7 +290,7 @@ fn new_cannon_surplus_and_shared_ownership_match_js_without_partial_mutation() {
         } else {
             w.cannons[0].account.clone()
         };
-        let amount = if first { 150_000_000 } else { 450_000_000 };
+        let amount = if first { 150_000_000 } else { 530_000_000 };
         let plan = prepare(&w, &account, amount, &memo("NEW 0 3"), &[]).unwrap();
         let vectors = vector();
         let v = &vectors["spawns"][if first { "first" } else { "additional" }];
@@ -331,8 +342,8 @@ fn new_cannon_surplus_and_shared_ownership_match_js_without_partial_mutation() {
             batch.prices,
             [
                 Int((if first { 100_000_000 } else { 400_000_000 }).into()),
-                Int(10_000_000.into()),
-                Int(40_000_000.into())
+                Int((if first { 10_000_000 } else { 40_000_000 }).into()),
+                Int((if first { 40_000_000 } else { 90_000_000 }).into())
             ]
         );
         assert_eq!(hash(&proposal.world.encode().unwrap()), v["state_sha256"]);
@@ -370,7 +381,7 @@ fn shared_owner_cannon_footprints_reflect_edges_corners_and_seams() {
             w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
             w.cannons[anchor].cell = 0;
             let time = w.time.0.to_integer();
-            let b = w.balls.iter_mut().find(|b| b.owner == 2).unwrap();
+            let b = w.balls.iter_mut().find(|b| b.id == 2).unwrap();
             let x = (1000 - dx) % 1000;
             let y = (1000 - dy) % 1000;
             b.cell = (y * 1000 + x) as usize;
@@ -397,7 +408,7 @@ fn shared_owner_cannon_footprints_reflect_edges_corners_and_seams() {
             .into());
             b.y0.0 -= &time * b.vy;
             w.validate().unwrap();
-            let b = w.balls.iter().find(|b| b.owner == 2).unwrap();
+            let b = w.balls.iter().find(|b| b.id == 2).unwrap();
             let i = classify(&w, b, next_crossing(b, w.width, &w.time).unwrap());
             assert!(i.attack.is_none());
             assert!(i.targets.iter().all(|t| !t.capturable));
@@ -418,7 +429,7 @@ fn shared_land_passes_but_moved_cannon_revalidates_the_frozen_intent() {
         .world;
     w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
     let time = w.time.0.to_integer();
-    let b = w.balls.iter_mut().find(|b| b.owner == 2).unwrap();
+    let b = w.balls.iter_mut().find(|b| b.id == 2).unwrap();
     b.cell = 100099;
     b.vx = 32000;
     b.vy = 0;
@@ -426,14 +437,14 @@ fn shared_land_passes_but_moved_cannon_revalidates_the_frozen_intent() {
     b.x0.0 -= &time * b.vx;
     b.y0 = Int((100 * Q + Q / 2).into());
     w.validate().unwrap();
-    let b = w.balls.iter().find(|b| b.owner == 2).unwrap();
+    let b = w.balls.iter().find(|b| b.id == 2).unwrap();
     let i = classify(&w, b, next_crossing(b, w.width, &w.time).unwrap());
     assert!(i.targets[0].pass);
     assert!(i.attack.is_none());
     assert!(passage(&w, b, &i).0);
     w.cannons[0].cell = 100100;
     w.validate().unwrap();
-    let b = w.balls.iter().find(|b| b.owner == 2).unwrap();
+    let b = w.balls.iter().find(|b| b.id == 2).unwrap();
     assert!(!passage(&w, b, &i).0);
     assert!(classify(&w, b, next_crossing(b, w.width, &w.time).unwrap())
         .attack

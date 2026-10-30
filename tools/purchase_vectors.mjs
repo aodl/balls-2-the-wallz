@@ -13,7 +13,7 @@ const sites=adjacentSites(w,1),selected=chooseAdjacent(w,1,'ab'.repeat(32));whil
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const spawns={};
 for(const first of[true,false]){
- const original=migratePlayability(decodeWorld(stageMillionWorld(Buffer.from(f.migration.new_hex,'hex'))),9007199254740993n),sender=first?'02'.repeat(32):original.cannons[0].account,budget=first?150000000n:450000000n;
+ const original=migratePlayability(decodeWorld(stageMillionWorld(Buffer.from(f.migration.new_hex,'hex'))),9007199254740993n),sender=first?'02'.repeat(32):original.cannons[0].account,budget=first?150000000n:530000000n;
  const plan=preparePurchase(original,sender,budget,encodeV6Memo(parseV6TextMemo(new TextEncoder().encode('NEW 0 3'))));
  let placement;
  if(first){const job=beginSpawn('ab'.repeat(32));while(!spawnStep(original,job));placement=job.result;const old=cloneCanonical(original);old.version=5;delete old.playability;const control=beginSpawn('ab'.repeat(32));while(!spawnStep(old,control));if(JSON.stringify(control.result)!==JSON.stringify(placement))throw Error('first spawn changed');}

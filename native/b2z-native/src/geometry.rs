@@ -62,11 +62,7 @@ pub fn next_crossing(b: &Ball, width: usize, now: &Rat) -> Result<Crossing> {
     })
 }
 pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
-    let player = if w.version == 6 {
-        w.player_for_cannon(b.owner)
-    } else {
-        Some(b.owner)
-    };
+    let player = Some(b.owner);
     let mut targets = Vec::new();
     for (axis, active) in [("x", crossing.x), ("y", crossing.y)] {
         if !active {
@@ -82,7 +78,7 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
             Some(y as usize * w.width + x as usize)
         };
         let anchor = target.is_some_and(|t| w.cannons.iter().any(|c| c.cell == t));
-        let defender = target.and_then(|t| w.owner(t)).unwrap_or(0);
+        let defender = target.and_then(|t| w.player_at(t)).unwrap_or(0);
         targets.push(Target {
             axis: axis.into(),
             target,
@@ -107,17 +103,14 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
 /// Revalidate frozen crossing intent against current ownership and cannon cells.
 /// All cannon anchors remain reflective, including friendly and dormant ones.
 pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
-    let player = if w.version == 6 {
-        w.player_for_cannon(b.owner)
-    } else {
-        Some(b.owner)
-    };
+    let player = Some(b.owner);
     let mut x = false;
     let mut y = false;
     for t in &i.targets {
         let pass = t.pass
-            && t.target
-                .is_some_and(|c| w.owner(c) == player && !w.cannons.iter().any(|a| a.cell == c));
+            && t.target.is_some_and(|c| {
+                w.player_at(c) == player && !w.cannons.iter().any(|a| a.cell == c)
+            });
         if t.axis == "x" {
             x = pass;
         } else {
@@ -137,7 +130,7 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
         } else {
             (b.cell as i64 + sx + sy * w.width as i64) as usize
         };
-        if w.owner(cell) != player || w.cannons.iter().any(|c| c.cell == cell) {
+        if w.player_at(cell) != player || w.cannons.iter().any(|c| c.cell == cell) {
             return (false, false, true);
         }
     }
