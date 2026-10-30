@@ -1,3 +1,29 @@
+# Frozen A2 Normal technical qualification PASS — production preparation only
+
+Published source `3e99d74b3661fb4ccec8e87ec3945b35d05e6f25` passed all six
+substantive jobs in CI `40963232155`. After a coordinated build-free reservation
+and the unchanged quiet-host prerequisite, the one new A2-only case completed
+its 90-second prelude and **900.397-second** untrimmed strict Normal window.
+All seven original assertions PASS. Capture is error-free; its one pending body
+drained before browser close. All **1,019 consecutive publications through 1018**
+were reconstructed and independently replayed with exact canonical/hash equality.
+Independent counter, source/input/body-hash and resource checks PASS. No repeat.
+
+**GO for the frozen A2 Normal technical gate**, under the explicit prospective
+pre-launch policy. The original pair remains FAIL; the earlier A2-only interrupted
+run remains BLOCKED. Both historical manifests re-verify unchanged. Exact frozen
+Wasm/DTR/frontend, sandbox, fiduciary configuration and thresholds were preserved.
+
+Fresh public production reads confirm the existing A0 module/controllers,
+unchanged certified paid-v8 world/source/scores and 34-node fiduciary placement.
+Funding/guarded upgrade preparation is separate: Normal entry requires 40T liquid,
+so the old 8T target is a Conserve budget, not Normal. Controller financial queries
+await explicit query-only acknowledgement of DFX's plaintext-identity guard.
+No mainnet mutation, transfer, upgrade, pause, frontend deployment, push or merge.
+[Complete qualification, evidence and production preparation](evidence/B2Z/fiduciary-cycle-optimisation/a2-final-qualification/REPORT.md).
+
+---
+
 # A2 capture correction verified — single A2-only attempt environmentally BLOCKED
 
 The user's prospective pre-launch policy makes A0 non-gating while preserving the

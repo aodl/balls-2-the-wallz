@@ -1,0 +1,16 @@
+{
+  "independent_directory": "/home/codexdev/b2z-release-evidence/a2-final-normal-qualification-20261029",
+  "verified_files": 6592,
+  "independent_manifest_sha256": "381abfe480cc666034bf828ed863d66dcb886181fa1ef7e5d4112404bb269a3d",
+  "raw_manifest_sha256": "e844572af5e83bee030c0803772282fda76c37066c2dad388673c66d1d62788e",
+  "tar_path": "/home/codexdev/b2z-release-evidence/a2-final-normal-qualification-20261029.tar.gz",
+  "tar_sha256": "f9077e670083f5f54bd34609909bbfb4cac34ccb88ed58e68aabee0d3f680e57",
+  "tar_bytes": 191596985,
+  "tar_members_verified": 6592,
+  "technical_verdict": "PASS / GO A2-only Normal delivery capture replay",
+  "tested_source_commit": "3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "production_public_preflight": "PASS",
+  "controller_funding_quote": "PENDING narrowly requested DFX query-only warning acknowledgement; no mainnet updates/funding sent",
+  "scope": "All raw successful measurements, blocked prerequisites, resource histories, full captures, independent history/replay, exact-commit CI artifacts, frozen binaries, source/executable identities and anonymous mainnet snapshots. Final transport seal and later local evidence commit are recorded separately to avoid checksum cycles.",
+  "reviewed_snapshot_note": "Archive includes the pre-seal reviewed-evidence snapshot. The final committed report clarifies that pressure figures are under-load observations without per-process I/O attribution; raw metrics, capture/history/replay and all test results are identical. Final reviewed documents/transport metadata have their own repository SHA256SUMS."
+}

@@ -1,0 +1,76 @@
+{
+  "jobs": [
+    {
+      "id": 123761088820,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": true,
+      "completed_successful_steps": 19,
+      "other_step_outcomes": []
+    },
+    {
+      "id": 123761089201,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": true,
+      "completed_successful_steps": 14,
+      "other_step_outcomes": []
+    },
+    {
+      "id": 123761089314,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": true,
+      "completed_successful_steps": 15,
+      "other_step_outcomes": []
+    },
+    {
+      "id": 123761089315,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": true,
+      "completed_successful_steps": 12,
+      "other_step_outcomes": []
+    },
+    {
+      "id": 123761089343,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": true,
+      "completed_successful_steps": 9,
+      "other_step_outcomes": []
+    },
+    {
+      "id": 123761089385,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": false,
+      "completed_successful_steps": 3,
+      "other_step_outcomes": []
+    },
+    {
+      "id": 123761089425,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40963232155,
+      "substantive": true,
+      "completed_successful_steps": 12,
+      "other_step_outcomes": []
+    }
+  ],
+  "six_substantive_jobs": "PASS exact 3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "production_inventory": "BLOCKED placeholder, not a production qualification pass"
+}

@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "source_commit": "3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "source_file_sha256": {
+    "tools/wire_capture.py": "f3769db047f57b83853e342144e3de7a36e2f57cb36a148e1d5b0602e0b5e736",
+    "tools/verify_s14_deployment.py": "6ee8f707d9efc8c78cb5a6545e07645364f7490e59dd7c21522819220aca9e9b",
+    "tools/run_matched_delivery.py": "fa40d22461673e4d063b4b019d318898f986b92d727a6adc52005186b026e0a5",
+    "tools/verify_wire_capture_browser.py": "0adc013512bf1f609f945881c881e7c885d6384d39b285e294284ad7fc21c042",
+    "tools/test_wire_capture.py": "2d3c1600e4b34199f8185894894d67bd4d8ee1c58cc30be3b65a88d845347fa9",
+    "tools/test_a2_policy.py": "f70c7c8d6eadf587ef20ac9afde61ee6d5b46138996bbfec459250865c61fadd",
+    ".github/workflows/verification.yml": "b8238f65bdf0086aead5ed0dc68b0dd66e9fd433e482b36285d8a11a79bfc0f0",
+    "tools/playback_qualification.py": "f1d834cd56148224206ccd160eab17b68404dc216bd1927496600cccaecc7aed",
+    "tools/capture_million_history.mjs": "86dc7a32db4456afd010b1601168f5c67e66e5f9e4abe59fe6b17965eaa85965",
+    "tools/replay_s14.mjs": "6413e5418f8452072768e6f9fcacfa47bdc30d6bbbdebeb88e41a12d60c03f38",
+    "tools/sample_host_resources.py": "b649b06bf97e2b83f7f3c9a1e0a6773e858adb9c97c0140851953f311816d523",
+    "tools/s09-integration/tests/s14_index.rs": "8cfb84cfa917d881ae02b928aec2353e0031d1967978756e47ac1185b844c0d9",
+    "packages/kernels/b2z/kernel.mjs": "96aa74324d013ca67becadb31367ac7f62a1bf4baa4cfe22fc9ce6a9e97e24b3",
+    "packages/kernels/b2z/migration.mjs": "cdc08df9a48c8020c662f14cba5d1d47e18e156f0e48bf73f778ce379b40ff92",
+    "package.json": "f01cecbf06b6b13990bffc7132b985e3b86a03d1680d71bbe9207dd141105200",
+    "package-lock.json": "ccec111e2747a264962c8676bd5f65e18a1becad191453d6d127b156725ba37f",
+    "tools/browser-requirements.txt": "8c366ddcdc9b447b3a90a2ebcf680e087ca128fe156e461ef2b5be7d4cd534b5"
+  },
+  "modules": {
+    "A0": {
+      "compressed_sha256": "4e7aec89e97329101492b77eb9cff102282d280df43096c12a6e9b64b858923b",
+      "decompressed_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51"
+    },
+    "A2": {
+      "compressed_sha256": "2fde8cf962498a8267757ccd4ca505196261f33263ae32c0a04bdcdc6c42b17b",
+      "decompressed_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb"
+    }
+  },
+  "native_harness": "/home/codexdev/src/b2z/.work/a2-capture-closeout/native-harness",
+  "native_harness_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "artifacts_root": "/home/codexdev/src/b2z/.work/isolated-delivery/host-state-usable/runtime/artifacts",
+  "artifact_sha256": {
+    "bin/pocket-ic": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "wasm/ledger-canister.wasm": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "wasm/ic-icp-index-canister.wasm": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+  },
+  "browser": {
+    "version": "153.0.8010.12",
+    "sandbox": true,
+    "verified_files": 594,
+    "inventory_sha256": "dd8199e566e03ecde85b0c817dd90c44334c193186e6c7d6ef2f7ebbf23e34e9"
+  },
+  "runtime_libraries": {
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libxcb-randr.so.0.1.0": "942a242b33c80ab4a5ce6d3db62d12f8856589860fa1986248b046850e58a80e",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libwayland-server.so.0.20.0": "ce73bdce7d0953f4f045a232f5351ba386be24d3a4aa5f00149f346e4d639003",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libXrandr.so.2.2.0": "237b8560e61e4c2d244ea21b4d2e0cd9614de26ce284f7258646897940d8e796",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libXi.so.6.1.0": "dc46e4ed45e94b521486438d902b2c360e50bd162849448b53adc7143fa1cb84",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libxkbcommon.so.0.0.0": "26773f54626af26f5f26f0279a9748ea2445c1adcfef50a7d572c9b54575bd86",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0": "3e03576f262820fe27a8cfbcf4d8a2f3bbb5f1df55290e91643794a8147dffb7",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libXcomposite.so.1.0.0": "4eea309674b05930c58bb4c8d2588c049ebae4fc0ce27fd06abe3a5fed9e6f91",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libatk-bridge-2.0.so.0.0.0": "13670b19f87dbf32b697104cb5019c91ad886d8122e8d645c27162c97e41e877",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libatk-1.0.so.0.23609.1": "65831ad344b15dae860a3c73dbe97512b05e54d3566948f5bc633f67216ffd97",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libatspi.so.0.0.1": "e1df48522f75baa048beb637c749708536bb6459d7dc8e9df12736f003fb2a88",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libgbm.so.1.0.0": "c0e634db4bc3c8dc6a4a6c83ce52fec78848fd7e2af7b428203048b88933f453",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libasound.so.2.0.0": "9b2bd6ae0b44763493961fc287ec6f50808bc79bc6974c2a892401514e190584",
+    "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu/libXdamage.so.1.1.0": "2e059ebfa3ed4d37e85c7924529d4c2cf7f3890786acd806b308c2b56571bc20"
+  },
+  "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "application_rebuilt": false,
+  "setup_completed_epoch_ms": 1793312316065.2444,
+  "CI": "WAITING",
+  "exclusive_interval": "WAITING"
+}

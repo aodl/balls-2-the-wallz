@@ -1,0 +1,185 @@
+{
+  "release_wasm": {
+    "source": "3f71a5acaffc8069668547229c339d93f6176cc9",
+    "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+    "sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+    "normal_no_test_exports": true,
+    "reproduced_source_commit": "ac65063eff989e2e1de346b9f6ab36f2e3178ad3",
+    "clean_empty_target_reproduction": "PASS",
+    "upstream_tree": "068c66829619741b6784306929b51e292cb58bcf"
+  },
+  "measured_paid_v8_upgrade_debits": [
+    {
+      "source": "/home/codexdev/b2z-release-evidence/a2-pinned-dtr77-20261028/raw/paid-paused/operation-cache-recovery.json",
+      "source_sha256": "380b378c1b52b48cc4d2ea6fd7204ef07ef2ad7d75023fca099e14eb5db8f2e7",
+      "status": "PASS",
+      "exact_predecessor": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "label": "prototype",
+      "upgrade_cycle_debit": 38973760208
+    },
+    {
+      "source": "/home/codexdev/b2z-release-evidence/a2-pinned-dtr77-20261028/raw/paid-inflight/operation-cache-recovery.json",
+      "source_sha256": "0801881e9cd3c944526cda3479bff87a38800951460921d4b804e2c544a07b09",
+      "status": "PASS",
+      "exact_predecessor": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "label": "prototype",
+      "upgrade_cycle_debit": 38994734996
+    }
+  ],
+  "operating_profiles": [
+    {
+      "case": "small",
+      "balls": 2,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "4262445071",
+      "cycles_per_tick": 532805633.875,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 179528510,
+      "publication_sha256": "4556c5abb089da85bb80c193ae0d6499bf56be9a6abd4ebe93872938fc4169be"
+    },
+    {
+      "case": "small",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "7032130879",
+      "cycles_per_tick": 879016359.875,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 313900612,
+      "publication_sha256": "01d1a9889c49046d98c0fb0d9ca54189874c555a5993a58d8da8f6d53c5821cb"
+    },
+    {
+      "case": "small",
+      "balls": 4,
+      "label": "frozen",
+      "ticks": 8,
+      "cycles": "28228130857",
+      "cycles_per_tick": 3528516357.125,
+      "messages": 16,
+      "source_calls": 1,
+      "max_instructions": 795911353,
+      "publication_sha256": "d2dd3cc92b37e1ffac4a2b12413650ffccb1e9e04c7d186a20459ba2c5449c12"
+    },
+    {
+      "case": "small",
+      "balls": 4,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "8948799358",
+      "cycles_per_tick": 1118599919.75,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 408401654,
+      "publication_sha256": "d2dd3cc92b37e1ffac4a2b12413650ffccb1e9e04c7d186a20459ba2c5449c12"
+    },
+    {
+      "case": "captured-canonical",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "7462989691",
+      "cycles_per_tick": 932873711.375,
+      "messages": 8,
+      "source_calls": 1,
+      "max_instructions": 333843501,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    },
+    {
+      "case": "fragments",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 2,
+      "cycles": "8978918107",
+      "cycles_per_tick": 4489459053.5,
+      "messages": 4,
+      "source_calls": 1,
+      "max_instructions": 873768020,
+      "publication_sha256": "d6214033aaf8658bca66789f86fdcfee07164a313581669d4ef9d494a9edaa80"
+    },
+    {
+      "case": "population",
+      "balls": 64,
+      "label": "prototype",
+      "ticks": 1,
+      "cycles": "17445000510",
+      "cycles_per_tick": 17445000510.0,
+      "messages": 4,
+      "source_calls": 1,
+      "max_instructions": 2083192728,
+      "publication_sha256": "d944e59142ef517f90661a61f83e2107e5b880b5c55b5f501a3d9bfad6cea364"
+    },
+    {
+      "case": "paid-paused",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 8,
+      "cycles": "7322429297",
+      "cycles_per_tick": 915303662.125,
+      "messages": 8,
+      "source_calls": null,
+      "max_instructions": 309820389,
+      "publication_sha256": "4485925bc0f9921daef0bd363946168cc00773dda26d8f70606259dd35052bae"
+    },
+    {
+      "case": "paid-inflight",
+      "balls": 3,
+      "label": "prototype",
+      "ticks": 2,
+      "cycles": "2071818114",
+      "cycles_per_tick": 1035909057.0,
+      "messages": 2,
+      "source_calls": null,
+      "max_instructions": 302444680,
+      "publication_sha256": "263392df86e261ca28bafc67602737ab2a3ae3d0d7a76bfccd5c0173ac2493dc"
+    }
+  ],
+  "pacing_thresholds_cycles": {
+    "protected_application_reserve": 3000000000000,
+    "Conserve_enter": 5000000000000,
+    "Conserve_exit": 4000000000000,
+    "Normal_enter": 40000000000000,
+    "Normal_exit": 30000000000000
+  },
+  "limitation": "Local measured charges, not mainnet upper bounds; no extra 34/13 multiplier. Exact current liquid balance and maintenance debit await authorised controller queries.",
+  "fixture_data_sha256": "23c69885709ffa4cbe6aa5ffde3ba5b2c9135f7976e0eb24452a947639cfe053",
+  "fresh_paid_world_matches_captured_cost_input": true,
+  "two_local_upgrade_debit_allowance_cycles": 77989469992,
+  "modeled_active_T_per_hour": {
+    "captured_3_ball_Normal": 3.35834536095,
+    "fixed_4_ball_Normal": 4.0269597111,
+    "fixed_4_ball_Conserve": 0.8053919422200001,
+    "fragmented_3_ball_Normal": 16.1620525926,
+    "64_ball_Normal": 62.802001836
+  },
+  "fixed_4_ball_profile_normal_Wasm": true,
+  "fixed_4_ball_tick_cycle_debits": [
+    "1036744497",
+    "1115257371",
+    "1124344412",
+    "1127898401",
+    "1123831517",
+    "1136258482",
+    "1127523069",
+    "1126162350"
+  ],
+  "fixed_4_ball_max_observed_tick_cycles": 1136258482,
+  "fixed_4_ball_max_observed_projection_T_h": 4.0905305352,
+  "proposal_formula": {
+    "Normal_1h_liquid_target_T": "40 + 0.077989469992 + 4.0905305352 + 24*m + 0.25 + d_minutes*A0_Normal_T_per_minute",
+    "Conserve_30min_liquid_target_T": "5 + 0.077989469992 + 0.40905305352 + 24*m + 0.25 + d_minutes*A0_Conserve_T_per_minute",
+    "top_up_cycles": "max(0, ceil(selected_target_T*1e12) - fresh_liquid_cycles); remeasure at execution; cycles-ledger fee paid separately",
+    "m": "Fresh net maintenance-only debit, not an upper bound; pending controller reads.",
+    "margin": "0.25T proposed verification/recovery allowance, not measured consumption or automatic spending authority",
+    "active_rate_basis": "Maximum observed fixed-four-ball tick in the existing pinned eight-tick profile, not a future or mainnet upper bound",
+    "A0_delay": "Explicit agreed upper limit from user funding confirmation to backend cutover; funding can resume A0 because no pause is authorised. Prepare upgrade approvals/signing first; recalculate if the delay expires."
+  },
+  "A0_fixed_4_ball_max_observed_tick_cycles": 3606952481,
+  "A0_fixed_4_ball_max_observed_Normal_T_h": 12.9850289316,
+  "A0_pre_upgrade_exposure_terms_T": {
+    "Normal_per_minute": 0.21641714886,
+    "Conserve_per_minute": 0.043283429772
+  }
+}

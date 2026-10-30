@@ -1,0 +1,17 @@
+{
+  "tested_source_commit": "3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "source_sha256": {
+    "tools/verify_s14_deployment.py": "6ee8f707d9efc8c78cb5a6545e07645364f7490e59dd7c21522819220aca9e9b",
+    "tools/wire_capture.py": "f3769db047f57b83853e342144e3de7a36e2f57cb36a148e1d5b0602e0b5e736",
+    "tools/run_matched_delivery.py": "fa40d22461673e4d063b4b019d318898f986b92d727a6adc52005186b026e0a5",
+    "tools/playback_qualification.py": "f1d834cd56148224206ccd160eab17b68404dc216bd1927496600cccaecc7aed",
+    "tools/capture_million_history.mjs": "86dc7a32db4456afd010b1601168f5c67e66e5f9e4abe59fe6b17965eaa85965",
+    "tools/replay_s14.mjs": "6413e5418f8452072768e6f9fcacfa47bdc30d6bbbdebeb88e41a12d60c03f38",
+    "tools/s09-integration/tests/s14_index.rs": "8cfb84cfa917d881ae02b928aec2353e0031d1967978756e47ac1185b844c0d9",
+    "packages/kernels/b2z/kernel.mjs": "96aa74324d013ca67becadb31367ac7f62a1bf4baa4cfe22fc9ce6a9e97e24b3",
+    "package-lock.json": "ccec111e2747a264962c8676bd5f65e18a1becad191453d6d127b156725ba37f"
+  },
+  "native_executable_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "frozen_application_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+  "note": "Only documentation/evidence changes follow the measured source; source files and executable all match their predeclared checksums."
+}

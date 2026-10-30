@@ -1,0 +1,14 @@
+[
+  {
+    "root": ".work/isolated-delivery/host-state-usable/evidence",
+    "files": 4418,
+    "manifest_sha256": "1bacf932e912e1c11c875f71976d6427d6be4d281eb0c822329d582270f43f44",
+    "status": "PASS unchanged"
+  },
+  {
+    "root": ".work/a2-capture-closeout",
+    "files": 2687,
+    "manifest_sha256": "4167380ae8456a83c67ec8f5404967d7a6c94b5718d5aca77d6bfbfae48c8ff9",
+    "status": "PASS unchanged"
+  }
+]

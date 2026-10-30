@@ -1,0 +1,7 @@
+{
+  "observed_at": "2026-10-30T00:08:44.896Z",
+  "canister_id": "um5iw-rqaaa-aaaaq-qaaba-cai",
+  "method": "icrc1_fee",
+  "read_only": true,
+  "fee_cycles": "100000000"
+}
