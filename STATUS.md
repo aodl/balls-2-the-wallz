@@ -4,6 +4,14 @@ This branch contains inactive v6 memo/pricing, account/lifecycle metadata,
 explicit source-adapter selection and resumable purchase/placement helpers.
 The live deployed backend is still the qualified release-1 `c7d12fd7…` module,
 world v5 / publication v8. No v6 activation or additional deployment occurred.
+Development continuation at `8e95a79` adds shared-owner crossing revalidation and
+pure fenced expiry contexts. The current source gate passes 1,471 JS and 185
+Python tests; 38 native tests, formatting and strict Clippy pass. These helpers
+are not yet a runnable v6 host: expiry does not use empty ticks or scan the board,
+but its timer/worker, replay/presentation and rules-transition wiring remain.
+The marker-only connectivity shortcut relies on the v6 topology support invariant
+that the pending capture/cleanup integration must establish inductively.
+
 Current kernel constructors still reject the v6 identity; host checkpoint/time,
 shared capture/topology, expiry scheduling, full API/projection/browser integration,
 capacity screening and the consolidated installed-IC qualification remain work.

@@ -1,0 +1,22 @@
+{
+  "canister": "eo6ei-gaaaa-aaaar-qchra-cai",
+  "started_at": "2026-10-30T21:49:42.415Z",
+  "read_only": true,
+  "identity": "anonymous",
+  "query_signature_verification": true,
+  "certificate_time_verification": true,
+  "scope": "Public module/Candid and documented get_instance query only; no subscription, funding or mutation",
+  "module_hash": "e012e7138cfe2d251bd24edf868cb74aa5fd35856412facd926b65ad519cdcca",
+  "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+  "nodes": 34,
+  "certified_candid_present": false,
+  "module_certificate_verified": true,
+  "instance": {
+    "observed_ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "icp_ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai"
+  },
+  "query_ms": 344,
+  "query_status": "PASS",
+  "assisted_mode": "DISABLED: active relevant subscription, cadence and deployed outbound ABI are not established by this read",
+  "completed_at": "2026-10-30T21:49:43.883Z"
+}
