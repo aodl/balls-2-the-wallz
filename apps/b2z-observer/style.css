@@ -12,3 +12,5 @@ dialog{color:inherit;background:#0e202e;border:1px solid #466078;border-radius:1
 
 .chain-menu{pointer-events:auto}.toolbar{transform:none}.play-actions,.view-buttons{flex-wrap:wrap}.action-panel .aim-pad{width:160px;height:160px}.action-panel p{font-size:12px;line-height:1.5}.chain-menu summary{cursor:pointer;min-height:44px;display:flex;align-items:center}.chain-menu[open]>button{pointer-events:auto}.arena-brand{z-index:6}
 @media(max-width:600px){.arena-brand{left:12px;gap:8px}.mark{font-size:24px}.live-status{position:fixed;top:76px;left:12px;font-size:10px}.toolbar{top:110px}.identify-button{max-width:190px;font-size:11px}.toolbar{max-height:140px;overflow:auto}.action-panel{max-height:50dvh}}
+/* Delivery errors remain visible while local aiming/navigation stays usable. */
+.error{top:auto;bottom:56px;right:12px;max-height:30dvh;overflow:auto;pointer-events:none;z-index:9}.error button{pointer-events:auto}
