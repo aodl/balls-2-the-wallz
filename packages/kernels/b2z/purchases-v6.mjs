@@ -4,7 +4,7 @@ import {decodeV6Memo,encodeV6Memo,MAX_QUANTITY} from '../../protocol/memo-v6.mjs
 import {encodeCanonical,cloneCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {ballPrice,cannonPrice} from './pricing-v6.mjs';
-import {V6_POLICY,playerForCannon,reviveTerritory} from './playability.mjs';
+import {V6_POLICY,playerForCannon,reviveTerritory,metadataDelta,emptyMetadataDelta} from './playability.mjs';
 import {ownerAt,playerAt,territoryBallCount,setOwner,validateWorld,neighbors,wrapCell,position,Q,PRELAUNCH_CONFIG} from './world.mjs';
 import {cmp,rat} from './math.mjs';
 import {launch} from './kernel.mjs';
@@ -47,11 +47,14 @@ export function placeNew(w,account,budget,p,r){
  if(player===null){player=state.next_player_id++;state.players.push({id:player,account});}
  const cannon={id:next.next_cannon_id++,cell:r.cell,account,heading:p.angle};
  state.lifecycle.push({cannon:cannon.id,player,generation:1});
- const territory=p.first?allocateTerritory(next,player):mergeTerritories(next,[r.cell,...neighbors(r.cell,next.width,next.height,true)].filter(c=>playerAt(next,c)===player).map(c=>ownerAt(next,c)));
+ const ownership_ops=[];
+ const labels=p.first?[]:[...new Set([r.cell,...neighbors(r.cell,next.width,next.height,true)].filter(c=>playerAt(next,c)===player).map(c=>ownerAt(next,c)))].sort((a,b)=>a-b);
+ for(const from of labels)if(from!==labels[0])ownership_ops.push({kind:"relabel",from,to:labels[0]});
+ const territory=p.first?allocateTerritory(next,player):mergeTerritories(next,labels);
  if(territoryBalls(next,territory)>=V6_POLICY.max_purchase_balls_per_island)throw Error('BALL_CAPACITY');
- for(const c of patch)setOwner(next,c,territory);next.cannons.push(cannon);
+ for(const c of patch){setOwner(next,c,territory);ownership_ops.push({kind:"set",cell:c,owner:territory});}next.cannons.push(cannon);
  const ball=cloneCanonical(launch(next,cannon,p.angle)),reactivated=reviveTerritory(next,territory);validateWorld(next);
- return {world:next,cannon,ball,event:{kind:'cannon_spawned',cannon:cloneCanonical(cannon),player,patch,previous_owners,placement_class:r.kind,frontier_other:r.other,ball:cloneCanonical(ball),reactivated_cannons:reactivated}};
+ return {world:next,cannon,ball,event:{kind:'cannon_spawned',cannon:cloneCanonical(cannon),player,patch,previous_owners,placement_class:r.kind,frontier_other:r.other,ball:cloneCanonical(ball),reactivated_cannons:reactivated,ownership_ops,metadata_delta:metadataDelta(w.playability,next.playability)}};
 }
 export function sitePoolCount(w,player,cell){return [...new Set([cell,...neighbors(cell,w.width,w.height,true)].filter(c=>playerAt(w,c)===player).map(c=>ownerAt(w,c)))].reduce((sum,id)=>sum+territoryBalls(w,id),0);}
 export function chooseAdjacent(w,id,seed){
@@ -100,7 +103,7 @@ export class PurchaseBatch{
   if(w.next_ball_id===U32){this.stop_reason='ball_id_exhausted';return null;}const price=ballPrice(attached);
   if(price>this.remainder){this.stop_reason='insufficient_payment';return null;}
   const c=w.cannons.find(c=>c.id===this.cannon),ball=cloneCanonical(launch(w,c,this.angle)),reactivated=reviveTerritory(w,territoryForCannon(w,this.cannon)),revived=reactivated.includes(this.cannon);
-  this.prices.push(price);this.used+=price;this.remainder-=price;if(this.prices.length===this.requested)this.stop_reason='quantity_limit';return {ball,revived,reactivated};
+  this.prices.push(price);this.used+=price;this.remainder-=price;if(this.prices.length===this.requested)this.stop_reason='quantity_limit';const metadata_delta=emptyMetadataDelta(w.playability);metadata_delta.lifecycle=reactivated.map(id=>({...w.playability.lifecycle.find(l=>l.cannon===id)}));return {ball,revived,reactivated,metadata_delta};
  }
  receipt(){
   const stop=this.stop_reason;if(stop===null)throw Error('incomplete purchase');const actual=this.prices.length;

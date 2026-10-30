@@ -198,6 +198,7 @@ pub fn place_new(
         dormant_since_ns: None,
         deadline_ns: None,
     });
+    let mut ownership_ops = vec![];
     let territory = if *first {
         crate::territory_v6::allocate(&mut next, player)?
     } else {
@@ -206,6 +207,13 @@ pub fn place_new(
             .filter(|cell| next.player_at(*cell) == Some(player))
             .filter_map(|cell| next.owner(cell))
             .collect();
+        let unique: BTreeSet<_> = labels.iter().copied().collect();
+        let root = *unique.first().ok_or("EMPTY_TERRITORY_MERGE")?;
+        for id in unique {
+            if id != root {
+                ownership_ops.push(json!({"kind":"relabel","from":id,"to":root}));
+            }
+        }
         crate::territory_v6::merge(&mut next, &labels)?
     };
     if crate::territory_v6::balls(&next, territory) >= MAX_PURCHASE_BALLS_PER_ISLAND {
@@ -213,6 +221,7 @@ pub fn place_new(
     }
     for c in &patch {
         next.set_owner(*c, territory)?;
+        ownership_ops.push(json!({"kind":"set","cell":c,"owner":territory}));
     }
     next.cannons.push(cannon.clone());
     let ball = crate::cursor::launch(&mut next, &cannon, *angle)?;
@@ -220,7 +229,7 @@ pub fn place_new(
     next.validate()?;
     let event = json!({"kind":"cannon_spawned","cannon":cannon,"player":player,
         "patch":patch,"previous_owners":previous,"placement_class":placement.kind,
-        "frontier_other":placement.other,"ball":ball,"reactivated_cannons":reactivated});
+        "frontier_other":placement.other,"ball":ball,"reactivated_cannons":reactivated,"ownership_ops":ownership_ops,"metadata_delta":MetadataDelta::between(world.playability.as_ref().ok_or("EXPECTED_V6")?,next.playability.as_ref().ok_or("EXPECTED_V6")?)});
     Ok(Created {
         world: next,
         cannon,
@@ -467,6 +476,7 @@ pub struct Launch {
     pub ball: Ball,
     pub revived: bool,
     pub reactivated: Vec<u32>,
+    pub metadata_delta: MetadataDelta,
 }
 impl Batch {
     pub fn fire(account: String, amount: u64, plan: &Plan) -> Result<Self> {
@@ -594,10 +604,25 @@ impl Batch {
         if self.prices.len() == usize::from(self.requested) {
             self.stop_reason = Some("quantity_limit".into());
         }
+        let mut metadata_delta =
+            MetadataDelta::empty(world.playability.as_ref().ok_or("EXPECTED_V6")?);
+        metadata_delta.lifecycle = reactivated
+            .iter()
+            .map(|id| {
+                world
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .life(*id)
+                    .cloned()
+                    .ok_or("UNKNOWN_CANNON")
+            })
+            .collect::<std::result::Result<_, _>>()?;
         Ok(Some(Launch {
             ball,
             revived,
             reactivated,
+            metadata_delta,
         }))
     }
     pub fn receipt(&self) -> Result<Value> {

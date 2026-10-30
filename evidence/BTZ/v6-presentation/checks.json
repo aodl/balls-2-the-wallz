@@ -1,0 +1,25 @@
+{
+  "scope": "V6 metadata and deterministic browser presentation development; host/activation/UI APIs remain incomplete",
+  "parent_commit": "5a07ded9b6c184379ea0b928f25edce7da41b6c2",
+  "source_js_tests": {
+    "tests": 1547,
+    "pass": 1547,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "python_tests": 185,
+  "native_affected_tests": 13,
+  "strict_clippy": "PASS",
+  "presentation_and_legacy_tests": 95,
+  "new_v6_presentation_tests": 31,
+  "browser_checks": 14,
+  "browser_bundle_sha256": "ade929759a6e6905d9106f8f67424ddb70ae8939ff604db1bf8aa5aaef21d7fc",
+  "browser_scope": "Existing offline recordings over real HTTP, Web Crypto, CSP and enabled Chromium sandbox. V6 tests use synthetic authenticated-artifact integrity inputs, not a live IC certificate or a production deployment. The raw bundle predates minor max-ID-boundary and cached reduced-motion-query edits; current Node/source checks include those edits. Final browser qualification remains required.",
+  "raw_files": 243,
+  "raw_manifest_sha256": "f48719935de7ee8c407b19e896a1c496d4d951fcab0b6a320dcfe413a7458174",
+  "preserved_development_failure": "Initial new observer snapshot validator incorrectly required an optional historical cannon heading. It now preserves valid historical absence and rejects invalid supplied headings. Original failure log retained.",
+  "production_mutations": 0,
+  "financial_operations": 0,
+  "remote_pushes": 0
+}

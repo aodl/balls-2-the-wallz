@@ -177,7 +177,7 @@ impl Cursor {
                 let launch = batch.step(&mut self.world)?;
                 let done = batch.stop_reason.is_some();
                 if let Some(l) = launch {
-                    self.emit(json!({"kind":"ball_spawned","cannon":cannon,"ball":l.ball,"heading":angle,"revived":l.revived,"reactivated_cannons":l.reactivated}))?;
+                    self.emit(json!({"kind":"ball_spawned","cannon":cannon,"ball":l.ball,"heading":angle,"revived":l.revived,"reactivated_cannons":l.reactivated,"metadata_delta":l.metadata_delta}))?;
                     self.area_dirty = true;
                 }
                 if done {
@@ -280,6 +280,26 @@ impl Cursor {
         // Even a birth followed by revival in this segment gets the same explicit
         // completion time in its historical event, never the prior observation.
         for event in &mut self.events {
+            let births = event
+                .get("dormant")
+                .and_then(Value::as_array)
+                .cloned()
+                .unwrap_or_default();
+            if let Some(rows) = event
+                .get_mut("metadata_delta")
+                .and_then(|d| d.get_mut("lifecycle"))
+                .and_then(Value::as_array_mut)
+            {
+                for row in rows {
+                    if births.iter().any(|f| {
+                        f.get("cannon") == row.get("cannon")
+                            && f.get("generation") == row.get("generation")
+                    }) {
+                        row["dormant_since_ns"] = json!(Int(observed_ns.into()));
+                        row["deadline_ns"] = json!(Int(deadline.into()));
+                    }
+                }
+            }
             if let Some(fences) = event.get_mut("dormant").and_then(Value::as_array_mut) {
                 for f in fences {
                     f["deadline_ns"] = json!(Int(deadline.into()));

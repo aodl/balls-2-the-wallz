@@ -4,14 +4,14 @@
 import {ownerAt,playerAt,neighbors,setOwner,validateWorld,validStrike,position} from './world.mjs';
 import {SplitJob,rowRuns} from './territory-topology-v6.mjs';
 import {territoryPlayer,territoryBalls,pruneEmptyTerritory,mergeTerritories} from './territory-v6.mjs';
-import {reviveTerritory} from './playability.mjs';
+import {reviveTerritory,metadataDelta} from './playability.mjs';
 
 export class CaptureJob {
   constructor(w) {
     if(w.version!==6)throw Error('EXPECTED_V6');
     Object.assign(this,{phase:'cleanup',proposal:structuredClone(w),split:null,ball:null,target:null,
       attacker:0,root:0,affected:[],at:0,ranges:[],row:0,merge_ids:[],pairs:[],fences:[],
-      reactivated:[],operations:[],cancelled_strikes:[]});
+      reactivated:[],operations:[],cancelled_strikes:[],metadata_delta:null});
   }
   toState(){return structuredClone({...this,split:this.split?.toState()??null});}
   static fromState(s){const j=Object.assign(Object.create(CaptureJob.prototype),structuredClone(s));if(j.split)j.split=SplitJob.fromState(j.split);return j;}
@@ -74,6 +74,7 @@ export class CaptureJob {
       else{this.reactivated=reviveTerritory(w,this.root);this.phase='commit';}
     }else if(this.phase==='commit'){
       w.pending=w.pending.filter(p=>{if(validStrike(w,p))return true;this.cancelled_strikes.push(p.id);return false;});validateWorld(w);
+      this.metadata_delta=metadataDelta(original.playability,w.playability);
       for(const key of Object.keys(original))delete original[key];Object.assign(original,w);this.phase='done';
     }else if(this.phase!=='done')throw Error('CAPTURE_PHASE');
     if(this.operations.length>65536)throw Error('CAPTURE_OPERATION_CAPACITY');
@@ -83,6 +84,6 @@ export class CaptureJob {
     if(this.phase!=='done')throw Error('INCOMPLETE_CAPTURE');
     return{kind:this.target===null?'annihilation_cleanup':this.pairs.length?'capture_annihilation':'capture',target:this.target,ball:this.ball,attacker:this.attacker,
       cancelled_capture:this.target!==null&&this.pairs.length>0,pairs:this.pairs,ownership_ops:this.operations,dormant:this.fences,
-      reactivated_cannons:this.reactivated,cancelled_strikes:this.cancelled_strikes};
+      reactivated_cannons:this.reactivated,cancelled_strikes:this.cancelled_strikes,metadata_delta:this.metadata_delta};
   }
 }

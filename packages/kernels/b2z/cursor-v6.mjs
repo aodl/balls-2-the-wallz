@@ -40,7 +40,7 @@ export function workV6(c,readPayment){
    }
  }else if(c.phase==='v6_purchase'){
    const batch=Object.assign(Object.create(PurchaseBatch.prototype),c.v6.batch),l=batch.step(c.world);c.v6.batch={...batch};
-   if(l){c.emit({kind:'ball_spawned',cannon:batch.cannon,ball:l.ball,heading:batch.angle,revived:l.revived,reactivated_cannons:l.reactivated});c.areaDirty=true;}
+   if(l){c.emit({kind:'ball_spawned',cannon:batch.cannon,ball:l.ball,heading:batch.angle,revived:l.revived,reactivated_cannons:l.reactivated,metadata_delta:l.metadata_delta});c.areaDirty=true;}
    if(batch.stop_reason!==null){c.receipt(c.v6.payment,batch.receipt());c.v6.payment=null;c.v6.batch=null;c.phase='commands';}
  }else if(c.phase==='v6_topology'){
    const j=CaptureJob.fromState(c.v6.capture),done=j.step(c.world);c.v6.capture=j.toState();
@@ -59,7 +59,10 @@ export function cleanupV6(c,pairs){c.v6.capture=CaptureJob.cleanup(c.world,pairs
 export function finalizeCursorElapsed(c,observedNs){
  if(!c.needsElapsed())throw Error('LIFECYCLE_FINALIZATION_STATE');
  const previous=c.world.playability.elapsed_ns,stamped=finalizeElapsed(c.world,observedNs,c.v6.births),deadline=observedNs+V6_POLICY.dormancy_grace_ns;
- for(const e of c.events)for(const f of e.dormant??[])f.deadline_ns=deadline;
+ for(const e of c.events){
+  for(const row of e.metadata_delta?.lifecycle??[])if((e.dormant??[]).some(f=>f.cannon===row.cannon&&f.generation===row.generation)){row.dormant_since_ns=observedNs;row.deadline_ns=deadline;}
+  for(const f of e.dormant??[])f.deadline_ns=deadline;
+ }
  c.emit({kind:'lifecycle_time',previous_elapsed_ns:previous,observed_ns:observedNs,stamped});c.v6.finalized=true;validateWorld(c.world);
 }
 

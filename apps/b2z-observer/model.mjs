@@ -1,5 +1,6 @@
+import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -26,10 +27,11 @@ function track(b,maxVelocity=4096){
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4,5].includes(w.version),'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4,5,6].includes(w.version),'snapshot version');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
   if(w.version<5)check(Array.isArray(w.cells)&&w.cells.length===cellCount(w)&&w.ownership===undefined,'cells');
-  else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
+  else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,w.version===6?4294967294:65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,w.version===6?4294967294:65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
+  if(w.version===6){timeNumber(w.time);validateV6Snapshot(w,ownerAt);if(identity)check(Object.keys(PLAYABILITY_IDENTITY).every(k=>identity[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');return w;}
   check(Array.isArray(w.cannons)&&w.cannons.length<=32&&Array.isArray(w.balls)&&w.balls.length<=64,'entity bounds');
   check(Array.isArray(w.pending)&&w.pending.length<=64,'pending bounds');timeNumber(w.time);
   const ids=new Set(),anchors=new Set();
@@ -47,14 +49,20 @@ export function snapshot(bytes,identity){
 export class B2zView {
   constructor(w){
     this.torus=w.version>=4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=w.version<5?[...w.cells]:null;
-    this.ownership=w.version===5?structuredClone(w.ownership):null;this.territoryRevision=0;
+    this.ownership=w.version>=5?structuredClone(w.ownership):null;this.territoryRevision=0;
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
-    this.balls=new Map(w.balls.map(b=>[b.id,track(b,w.version===5?65536:4096)]));
+    this.balls=new Map(w.balls.map(b=>[b.id,w.version===6?trackV6(b):track(b,w.version===5?65536:4096)]));
+    if(w.version===6){this.playability=structuredClone(w.playability);this.logicalTime=timeNumber(w.time);}
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
   color(id){const c=this.cannons.get(id);return c?accountColor(c.account):'#30415b';}
-  entityKey(){return [...this.cannons.values()].map(c=>`${c.id}:${c.account}:${c.cell}`).join('|');}
+  playerForCannon(id){return this.version===6?this.playability.lifecycle.find(l=>l.cannon===id)?.player:id;}
+  playerForTerritory(id){return this.version===6?(id===0?0:this.playability.territories.find(r=>r.id===id)?.player):id;}
+  playerColor(id){const p=this.playability?.players.find(p=>p.id===id);return p?accountColor(p.account):this.version===6?'#30415b':this.color(id);}
+  ballColor(id){return this.version===6?this.playerColor(id):this.color(id);}
+  territoryColor(id){return this.version===6?this.playerColor(this.playerForTerritory(id)):this.color(id);}
+  entityKey(){const metadata=this.version===6?this.playability.players.map(p=>`${p.id}:${p.account}`).join('|')+';'+this.playability.territories.map(r=>`${r.id}:${r.player}`).join('|'):'';return metadata+';'+ [...this.cannons.values()].map(c=>`${c.id}:${c.account}:${c.cell}`).join('|');}
   /** Carry only ephemeral effects/status across chained segments; never game state. */
   continuePresentation(previous,time){
     if(!previous||previous===this)return;
@@ -80,12 +88,13 @@ export class B2zView {
     for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const x=Math.ceil(sx*this.width/32),y=Math.ceil(sy*this.height/32);yield{x,y,width:Math.ceil((sx+1)*this.width/32)-x,height:Math.ceil((sy+1)*this.height/32)-y,owner:this.ownership.base[sy*32+sx]};}
     for(const r of this.ownership.overrides)for(let cell=r.start;cell<r.end;){const y=Math.floor(cell/this.width),end=Math.min(r.end,(y+1)*this.width);yield{x:cell%this.width,y,width:end-cell,height:1,owner:r.owner};cell=end;}
   }
-  claimedCells(){return this.version===5?this.ownership.counts.reduce((n,c)=>n+c.cells,0):this.cells.filter(owner=>owner!==0).length;}
+  claimedCells(){return this.version>=5?this.ownership.counts.reduce((n,c)=>n+c.cells,0):this.cells.filter(owner=>owner!==0).length;}
   removeBalls(ids){for(const id of ids){this.balls.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
+    if(this.version===6){if(applyV6Event(this,e)){this.effects=this.effects.filter(x=>t-x.t<2).slice(-64);return;}check(['trajectory','cannon_moved','strike_armed','strike_cancelled'].includes(e.kind),'unsupported v6 event');}
     if(e.kind==='trajectory'){
-      check(this.balls.has(e.ball.id),'unknown trajectory');const b=track(e.ball,this.version===5?65536:4096);
+      check(this.balls.has(e.ball.id),'unknown trajectory');const b=this.version===6?trackV6(e.ball):track(e.ball,this.version===5?65536:4096);
       check(this.balls.get(b.id).owner===b.owner,'trajectory owner');this.balls.set(b.id,b);
     }else if(e.kind==='ball_spawned'){
       const b=track(e.ball,this.version===5?65536:4096);check(!this.balls.has(b.id)&&this.cannons.has(b.owner),'spawned ball');this.balls.set(b.id,b);if(this.torus){integer(e.heading,65535);this.cannons.get(b.owner).heading=e.heading;}
@@ -122,12 +131,13 @@ export class B2zView {
   matches(w){
     const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
     const ownershipSame=()=>{const a=encodeCanonical(this.ownership),b=encodeCanonical(w.ownership);return a.length===b.length&&a.every((v,i)=>v===b[i]);};
-    check(this.width===w.width&&this.height===w.height&&(this.version===5?ownershipSame():same(this.cells,w.cells)),'final territory mismatch');
+    check(this.width===w.width&&this.height===w.height&&(this.version>=5?ownershipSame():same(this.cells,w.cells)),'final territory mismatch');
     check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell&&this.cannons.get(c.id)?.heading===c.heading),'final cannon mismatch');
     check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy'].every(k=>a[k]===b[k]);}),'final trajectory mismatch');
+    if(this.version===6){check(w.cannons.every(c=>this.cannons.get(c.id)?.account===c.account),'final funding account mismatch');matchesV6(this,w);}
     return true;
   }
-  stats(){const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
+  stats(){if(this.version===6)return statsV6(this);const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
     balls:[...this.balls.values()].filter(b=>b.owner===c.id).length})).sort((a,b)=>b.area-a.area||a.id-b.id);}
 }
 /** Integrity links + exact ordering + end-state visual conformance BEFORE buffer admission.
@@ -145,9 +155,10 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
+  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&Object.keys(PLAYABILITY_IDENTITY).every(k=>publication.identity?.[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
     seq=e.sequence;prior=e.time;model.apply(e);
   }
   model.matches(final);
@@ -158,7 +169,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
  * existing compact presentation from its authenticated predecessor and audit
  * events, then apply the same endpoint validation as recorded playback. */
 export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,publication){
-  check([6,7,8].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
+  check([6,7,8,9].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
   const events=publication.artifacts.find(a=>a.kind==='events');
   check(events&&await sha256Web(eventBytes)===events.sha256,'authenticated audit artifact');
   const initial=snapshot(initialBytes),final=snapshot(finalBytes),projected=projectAnimationEvents(initial,eventBytes),h=publication.head,s=h.seal;
@@ -172,9 +183,10 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'derived snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
+  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&Object.keys(PLAYABILITY_IDENTITY).every(k=>publication.identity?.[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'derived animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
     seq=e.sequence;prior=e.time;model.apply(e);
   }
   model.matches(final);
@@ -185,7 +197,9 @@ export class SegmentPlayer {
   constructor(segment){this.segment=segment;this.view=new B2zView(segment.initial);this.index=0;this.time=segment.start;}
   advance(time){
     check(Number.isFinite(time)&&time>=this.time&&time<=this.segment.end,'playhead bounds');this.time=time;
+    if(this.view.version===6)this.view.logicalTime=time;
     while(this.index<this.segment.events.length&&timeNumber(this.segment.events[this.index].time)<=time)this.view.apply(this.segment.events[this.index++]);
+    if(this.view.version===6)this.view.logicalTime=time;
     return this.view;
   }
 }

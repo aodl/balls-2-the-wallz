@@ -1,3 +1,22 @@
+# V6 island presentation integrated locally; second release remains unqualified
+
+Authoritative Rust/JS events now include compact ownership and player/island/
+lifecycle deltas. V6 presentation reaches exact final snapshots in 14 segment
+cases and 12 capture cases, with separate ID colour domains, no-refresh cache
+invalidation and toroidal mutual-elimination effects. Historical goldens remain
+unchanged. All source checks pass: 1,547 JS and 185 Python tests; 13 affected
+native tests and strict Clippy pass. The existing sandboxed recording/browser
+check passes 14 checks within its documented bundle/scope.
+[Development evidence and limitations](evidence/BTZ/v6-presentation/REPORT.md).
+
+Host completion-time/expiry scheduling, v5→v6 activation, buffered v9 handoff,
+new action/API UI, population screening and consolidated installed qualification
+remain unfinished. V6 is not deployed. Query-only production observation at
+23:49 UTC shows 3.599117836502T liquid, running Survival 0.1 ticks/s, no runtime/
+source/treasury errors. No mainnet mutation, financial operation or remote push.
+
+---
+
 # V6 island interpreter implemented locally; host/browser release pending
 
 The operator's current-island model now runs through complete pure Rust and JS

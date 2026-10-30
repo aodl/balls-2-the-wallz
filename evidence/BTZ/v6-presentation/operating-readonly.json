@@ -1,0 +1,23 @@
+{
+  "observed_at": "2026-10-30T23:49:34.813101+00:00",
+  "read_only": true,
+  "liquid_cycles": "3_599_117_836_502",
+  "total_cycles": "3_747_295_059_272",
+  "running": true,
+  "pace": {
+    "admission_open": true,
+    "mode": "Survival",
+    "nominal_milli": 100,
+    "performance_limited": false,
+    "supported_milli": 100
+  },
+  "completed_segments": "74051",
+  "runtime_last_error": [],
+  "source_pending_records": 0,
+  "source_last_error": [],
+  "source_cursor": "39711127",
+  "treasury_last_error": [],
+  "raw_sha256": "fdb65adca44a213b7a9fcce08f95f5506704ea0b85d90c5dc5cdba719098a6c4",
+  "raw_path": "/home/codexdev/src/b2z/.work/btz-prelaunch/controller-island-presentation.json",
+  "scope": "Operational controller readings, not a new certification/preservation/deployment gate"
+}

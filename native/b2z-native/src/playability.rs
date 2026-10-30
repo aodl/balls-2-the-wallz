@@ -362,3 +362,69 @@ pub fn revive_territory(world: &mut World, id: u32) -> Result<Vec<u32>> {
     }
     Ok(out)
 }
+
+/// Compact presentation facts for a single authoritative v6 action. They are
+/// bound by its certified event artifact; counters/arrays are not a second state.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct MetadataDelta {
+    pub next_player_id: u32,
+    pub next_territory_id: u32,
+    pub players: Vec<Player>,
+    pub territories: Vec<crate::territory_v6::Territory>,
+    pub retired_territories: Vec<u32>,
+    pub lifecycle: Vec<Lifecycle>,
+    pub retired_cannons: Vec<u32>,
+}
+impl MetadataDelta {
+    pub fn empty(next: &State) -> Self {
+        Self {
+            next_player_id: next.next_player_id,
+            next_territory_id: next.next_territory_id,
+            players: vec![],
+            territories: vec![],
+            retired_territories: vec![],
+            lifecycle: vec![],
+            retired_cannons: vec![],
+        }
+    }
+    pub fn between(old: &State, next: &State) -> Self {
+        let mut d = Self::empty(next);
+        let players: BTreeMap<_, _> = old.players.iter().map(|p| (p.id, p)).collect();
+        let territories: BTreeMap<_, _> = old.territories.iter().map(|p| (p.id, p)).collect();
+        let lifecycle: BTreeMap<_, _> = old.lifecycle.iter().map(|p| (p.cannon, p)).collect();
+        d.players = next
+            .players
+            .iter()
+            .filter(|p| players.get(&p.id).copied() != Some(*p))
+            .cloned()
+            .collect();
+        d.territories = next
+            .territories
+            .iter()
+            .filter(|p| territories.get(&p.id).copied() != Some(*p))
+            .cloned()
+            .collect();
+        d.lifecycle = next
+            .lifecycle
+            .iter()
+            .filter(|p| lifecycle.get(&p.cannon).copied() != Some(*p))
+            .cloned()
+            .collect();
+        let retained: BTreeSet<_> = next.territories.iter().map(|r| r.id).collect();
+        d.retired_territories = old
+            .territories
+            .iter()
+            .filter(|r| !retained.contains(&r.id))
+            .map(|r| r.id)
+            .collect();
+        let retained: BTreeSet<_> = next.lifecycle.iter().map(|r| r.cannon).collect();
+        d.retired_cannons = old
+            .lifecycle
+            .iter()
+            .filter(|r| !retained.contains(&r.cannon))
+            .map(|r| r.cannon)
+            .collect();
+        d
+    }
+}

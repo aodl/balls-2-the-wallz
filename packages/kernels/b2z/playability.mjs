@@ -60,3 +60,12 @@ export function clearUnsupportedPlayer(w,id){
 }
 export function scoreAreas(w){if(w.version<6)return ownershipCounts(w);const out=new Map();for(const[id,n]of ownershipCounts(w))if(territoryBalls(w,id)){const player=territoryPlayer(w,id);out.set(player,(out.get(player)??0)+n);}return [...out].sort((a,b)=>a[0]-b[0]);}
 export function reviveTerritory(w,id){const out=[];for(const c of w.cannons.filter(c=>ownerAt(w,c.cell)===id))if(revive(w,c.id))out.push(c.id);return out;}
+
+/** Compact action facts, authenticated by the event artifact containing them. */
+export function emptyMetadataDelta(next){return{next_player_id:next.next_player_id,next_territory_id:next.next_territory_id,players:[],territories:[],retired_territories:[],lifecycle:[],retired_cannons:[]};}
+export function metadataDelta(old,next){
+ const out=emptyMetadataDelta(next),same=(a,b)=>a&&Object.keys(b).length===Object.keys(a).length&&Object.keys(b).every(k=>a[k]===b[k]);
+ for(const[field,key]of[['players','id'],['territories','id'],['lifecycle','cannon']]){const before=new Map(old[field].map(v=>[v[key],v]));out[field]=next[field].filter(v=>!same(before.get(v[key]),v)).map(v=>({...v}));}
+ const territories=new Set(next.territories.map(v=>v.id)),cannons=new Set(next.lifecycle.map(v=>v.cannon));
+ out.retired_territories=old.territories.filter(v=>!territories.has(v.id)).map(v=>v.id);out.retired_cannons=old.lifecycle.filter(v=>!cannons.has(v.cannon)).map(v=>v.cannon);return out;
+}

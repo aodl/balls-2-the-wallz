@@ -2,7 +2,7 @@
 //! effect: one live attacker pairs with one live defender and cancels the entire
 //! proposed transfer. The trusted enclosing cursor owns continuation integrity.
 use crate::{
-    playability::{revive_territory, Fence},
+    playability::{revive_territory, Fence, MetadataDelta},
     territory_topology_v6::{row_runs, SplitJob},
     territory_v6,
     world::{position, World},
@@ -38,6 +38,7 @@ pub struct Job {
     pub reactivated: Vec<u32>,
     pub operations: Vec<Value>,
     pub cancelled_strikes: Vec<u32>,
+    metadata_delta: Option<MetadataDelta>,
 }
 impl Job {
     fn base(w: &World) -> Result<Self> {
@@ -62,6 +63,7 @@ impl Job {
             reactivated: vec![],
             operations: vec![],
             cancelled_strikes: vec![],
+            metadata_delta: None,
         })
     }
     pub fn capture(w: &World, target: usize, ball: u32) -> Result<Self> {
@@ -268,6 +270,10 @@ impl Job {
                     }
                 }
                 self.proposal.validate()?;
+                self.metadata_delta = Some(MetadataDelta::between(
+                    original.playability.as_ref().ok_or("EXPECTED_V6")?,
+                    self.proposal.playability.as_ref().ok_or("EXPECTED_V6")?,
+                ));
                 std::mem::swap(original, &mut self.proposal);
                 self.phase = "done".into();
             }
@@ -288,7 +294,7 @@ impl Job {
             "target":self.target,"ball":self.ball,"attacker":self.attacker,
             "cancelled_capture": self.target.is_some() && !self.pairs.is_empty(),
             "pairs":self.pairs,"ownership_ops":self.operations,"dormant":self.fences,
-            "reactivated_cannons":self.reactivated,"cancelled_strikes":self.cancelled_strikes}),
+            "reactivated_cannons":self.reactivated,"cancelled_strikes":self.cancelled_strikes,"metadata_delta":self.metadata_delta}),
         )
     }
 }
