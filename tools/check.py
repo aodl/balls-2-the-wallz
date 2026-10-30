@@ -100,6 +100,7 @@ def planned_checks(mode,outdir):
       ('playability-policy',['node','tools/generate_playability.mjs','--check'],'normal',('node',),60),
       ('playability-state-vectors',['node','tools/playability_vectors.mjs','--check'],'normal',('node',),60),
       ('playability-purchase-vectors',['node','tools/purchase_vectors.mjs','--check'],'normal',('node',),60),
+      ('playability-lifecycle-vectors',['node','tools/lifecycle_vectors.mjs','--check'],'normal',('node',),60),
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),
       ('protocol-fixtures',[sys.executable,'-B','tools/reference_fixtures.py','--check'],'normal',(),120),
       ('life-reference',[sys.executable,'-B','tools/life_reference.py','--check'],'normal',(),120),

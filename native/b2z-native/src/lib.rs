@@ -3,6 +3,7 @@
 mod cursor;
 mod economics_generated;
 pub mod geometry;
+pub mod lifecycle_v6;
 pub mod migration;
 pub mod playability;
 mod playability_generated;
