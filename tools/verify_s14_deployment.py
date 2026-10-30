@@ -596,6 +596,8 @@ def main():
             # A publication and resize never reset local aim selection.
             page.locator('#action-mode').select_option('start');assert page.locator('#angle-degrees').input_value()=='37.5'
             record('aim-survives-certified-state-updates-and-resize')
+            page.locator('#action-mode').select_option('ball')
+            wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
 
             page.keyboard.press('Escape')
             # Receipt setup deliberately holds production at authenticated outcomes.

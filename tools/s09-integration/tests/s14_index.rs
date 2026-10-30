@@ -6839,3 +6839,59 @@ fn delivery_public_binding() {
         "frozen public root/canister binding changed"
     );
 }
+
+#[test]
+fn public_runtime_health_is_bounded_operational_and_anonymous() {
+    #[derive(CandidType, Deserialize)]
+    struct PublicHealth {
+        version: u32,
+        liquid_cycles: candid::Nat,
+        total_cycles: candid::Nat,
+        sample_count: u32,
+        net_decline_cycles: Option<candid::Nat>,
+        certified_gameplay: bool,
+    }
+    let (pic, id, _, _) = arena_setup(bytes("B2Z_S14_WASM"));
+    let read = || {
+        decode_one::<PublicHealth>(
+            &pic.query_call(
+                id,
+                Principal::anonymous(),
+                "runtime_health",
+                encode_args(()).unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap()
+    };
+    let initial = read();
+    assert_eq!(initial.version, 1);
+    assert!(!initial.certified_gameplay);
+    assert!(initial.total_cycles >= initial.liquid_cycles);
+    assert!(initial.net_decline_cycles.is_none());
+    for _ in 0..3 {
+        pic.advance_time(Duration::from_secs(60));
+        for _ in 0..8 {
+            pic.tick();
+        }
+    }
+    let measured = read();
+    assert!(measured.sample_count <= 21);
+    assert!(measured.net_decline_cycles.is_some());
+    assert_eq!(status(&pic, id).run.completed_segments, 0);
+    let doc = decode_one::<String>(
+        &pic.query_call(
+            id,
+            Principal::anonymous(),
+            "get_api_doc",
+            encode_args(()).unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    assert!(
+        doc.len() < 4096
+            && doc.contains("NOT certified gameplay")
+            && doc.contains("Controller methods are not player APIs")
+    );
+}
