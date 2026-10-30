@@ -1,0 +1,86 @@
+{
+  "cause": "AUTHENTIC_STALE_CERTIFIED_HEAD_REJECTED",
+  "one_production_session": true,
+  "source_unchanged": true,
+  "deployed_app_sha256": "95a1dc6252207ba364909f27455bebf113db3f4bb7f386d9f73a6be38e82bcb0",
+  "branch": "if (b2.segment_id === null || b2.segment_id < next) throw new Error(\"observation rollback\");",
+  "line": 455,
+  "epoch": "af63115be28d56310cda76b5542cb0349c7962c96b5f9f9735d0bb0b46ce791b",
+  "packets": {
+    "accepted": {
+      "request_id": "388565.13",
+      "url": "https://icp-api.io/api/v3/canister/s34gv-3qaaa-aaaar-qcifa-cai/query",
+      "started_monotonic": 104793.977294,
+      "started_epoch": 1793367223.0578,
+      "method": "POST",
+      "response_monotonic": 104794.200579,
+      "http_status": 200,
+      "finished_monotonic": 104794.201719,
+      "file": "response-0008.bin",
+      "bytes": 41689,
+      "sha256": "21cbab20c2cb0410641b16ed56242f63ee21d477ffcf68d9b7a3723cd084bd22",
+      "head": "66541",
+      "epoch": "af63115be28d56310cda76b5542cb0349c7962c96b5f9f9735d0bb0b46ce791b",
+      "root": "04a98ed9008cdaab5cbb16ad4f9ae19bec25434a6e2e5bb35e74aa54821a36f8",
+      "started_utc": "2026-10-30T13:33:43.057Z",
+      "finished_utc": "2026-10-30T13:33:43.282Z",
+      "certificate_time_ns": "1793367221291490830",
+      "query_signatures": [
+        {
+          "identity": "c2ewt-wic55-asi27-6eoeu-rn7bq-xjzmz-dzxg2-pxrfw-qeinw-yrj52-7ae",
+          "timestamp_ns": "1793367221291490830"
+        }
+      ]
+    },
+    "rejected": {
+      "request_id": "388565.14",
+      "url": "https://icp-api.io/api/v3/canister/s34gv-3qaaa-aaaar-qcifa-cai/query",
+      "started_monotonic": 104794.278486,
+      "started_epoch": 1793367223.359001,
+      "method": "POST",
+      "response_monotonic": 104794.387373,
+      "http_status": 200,
+      "finished_monotonic": 104794.394961,
+      "file": "response-0009.bin",
+      "bytes": 41957,
+      "sha256": "80438279dec2e743db30fab0d90b7efe62eb5dba0beedce1c372645e03a134ac",
+      "head": "66540",
+      "epoch": "af63115be28d56310cda76b5542cb0349c7962c96b5f9f9735d0bb0b46ce791b",
+      "root": "833b15e9fdb26dcff4151e91757924bc687dbf71e0f80986aae8fc1a19e4a610",
+      "started_utc": "2026-10-30T13:33:43.359Z",
+      "finished_utc": "2026-10-30T13:33:43.475Z",
+      "certificate_time_ns": "1793367217621651584",
+      "query_signatures": [
+        {
+          "identity": "zzuq4-xiygt-ypkox-2tgdr-yvpzp-optye-xazeq-vnpw5-pata3-4jlle-wqe",
+          "timestamp_ns": "1793367217621651584"
+        }
+      ]
+    }
+  },
+  "stale_request_started_after_accepted_completed_ms": 76.76699999137782,
+  "certificate_time_regression_ns": "3669839246",
+  "invalid_certificate": false,
+  "request_completion_reordering": false,
+  "accepted_floor_changed_by_rejection": false,
+  "backend_chain_inconsistency_demonstrated": false,
+  "origin": "Not attributed: distinct query-signature identity fields are observed, but capture does not distinguish endpoint caching from serving-node freshness.",
+  "limits": {
+    "requests": 384,
+    "bytes": 33554432,
+    "session_bound_seconds": 120
+  },
+  "actual": {
+    "requests": 209,
+    "bytes": 6660843,
+    "samples": 89,
+    "capture_errors": [],
+    "pending_at_close": 0,
+    "initial_head": 66540,
+    "final_head": 66567,
+    "final_delivery_error": "observation rollback",
+    "final_retry_failures": 0,
+    "resyncs": 0
+  },
+  "production_result": "Rollback reproduced; recovery progressed but sticky deliveryError remained. Not a clean production no-error PASS."
+}

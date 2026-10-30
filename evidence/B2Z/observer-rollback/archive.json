@@ -1,0 +1,9 @@
+{
+  "archive": "/home/codexdev/b2z-release-evidence/observer-rollback-diagnosis-20261030.tar.gz",
+  "sha256": "7a1fecd3cf2e6637e351ee9e9103c602bc9962e63d29335c4bbbb87cc9c447eb",
+  "bytes": 4506722,
+  "raw_files": 678,
+  "manifest_sha256": "24f9b036f6d857e1d3dc8042995b9a04b31f9a12ed2c635761cfbdea31b9876a",
+  "independent_raw_file_verification": "PASS",
+  "excluded": "Browser temporary profiles/caches. No credentials, HTTP headers or private identity material collected."
+}

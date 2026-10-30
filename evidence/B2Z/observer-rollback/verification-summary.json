@@ -1,0 +1,35 @@
+{
+  "focused_regressions": {
+    "status": "PASS",
+    "tests": 8,
+    "coverage": [
+      "real IC-authenticated stale head rejected",
+      "current-head recovery with retained history",
+      "authenticated retained/forward catch-up",
+      "five persistent regressions remain fatal",
+      "same-height conflict remains rejected",
+      "invalid certificate remains failure",
+      "expired certificate remains failure",
+      "later stale recovery cannot hide earlier certificate/delivery failure"
+    ]
+  },
+  "javascript_suite": {
+    "status": "PASS",
+    "tests": 1397,
+    "log": "node-tests-exact-fixtures.log"
+  },
+  "http_browser": {
+    "status": "PASS",
+    "checks": 14,
+    "scope": "local HTTP, sandbox and native WebCrypto; offline recording fixtures, not a new production measurement"
+  },
+  "source_structure": "PASS under required Python 3.11; initial invocation with system Python 3.10 lacked tomllib, retained in original log",
+  "frontend_build": "PASS; only app.mjs and build-manifest.json differ",
+  "live_diagnosis": "One unmodified deployed-frontend session, rollback reproduced. No attempt with the proposed patch on production.",
+  "source_sha256": {
+    "apps/b2z-observer/app.mjs": "f91f217dfb2b6b030ec7a995326a5d9609e29758bfd95ef9a331e82274c326c5",
+    "apps/b2z-observer/live-delivery.mjs": "136ed95a49eabe457f891d56fdcc770769a168c5b266e376ed1c9a11e9bbac52",
+    "tests/js/live-delivery.test.mjs": "7945487c4eb8daa008e50d73742ce6cb4b40132fc111f0278e75a6292a4533b6"
+  },
+  "backend_wasm_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb"
+}

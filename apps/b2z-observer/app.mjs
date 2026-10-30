@@ -9,6 +9,7 @@ import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,time
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
+import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess} from './live-delivery.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
 const arenaRenderer=createArenaRenderer();
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
@@ -131,7 +132,7 @@ function resetLiveClock(s,time){
 async function startLive(recording,startupRetries=0){
   session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
     sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1}),
-    client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0};
+    client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};
   session=s;visible=null;visibleTime=0;lastFrame=null;$('error').hidden=true;
   $('speed').disabled=s.mode==='live';
   $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
@@ -178,7 +179,7 @@ async function startLive(recording,startupRetries=0){
     resetLiveClock(s,time);if(world.version===5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
-      maxBufferSegments:0,maxBufferLogical:0};
+      maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
   }catch(e){
     if(!active(s))return;
     // A certified genesis can retire before its non-retained state is fetched.
@@ -265,12 +266,13 @@ async function refreshOperational(now){
 }
 async function pumpLive(now,s){
   if(now<s.nextDue||s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.clock.state().buffer>=32)return;s.busy=true;
+  let observed=null;const acceptedBefore=s.sequence.last;
   try{
     const started=performance.now(),response=await s.client.observation();s.fetchMs=performance.now()-started;const verifying=performance.now();
-    const current=await certifiedTicket(s,response);s.verifyMs=performance.now()-verifying;if(!active(s))return;
+    const current=await certifiedTicket(s,response);observed=current;s.verifyMs=performance.now()-verifying;if(!active(s))return;
     globalThis.__dtrLive.certificates++;s.certifiedAt=performance.now();
     const prior=s.sequence.last,past=prior.publication.head.segment_id,next=current.publication.head.segment_id;
-    if(current.root_hash===prior.root_hash){s.retryFailures=0;s.nextDue=performance.now()+Math.max(0,500-s.fetchMs);return;}
+    if(current.root_hash===prior.root_hash){liveDeliverySuccess(s,current,performance.now());s.nextDue=performance.now()+Math.max(0,500-s.fetchMs);return;}
     if(next===null||past!==null&&next<=past){s.sequence.accept(current);s.nextDue=performance.now()+500;return;}
     const expected=past===null?0n:past+1n;
     let deferred=false;
@@ -300,10 +302,10 @@ async function pumpLive(now,s){
     }
     // A changed head may already have a successor. Do not add a fixed rest to
     // authenticated catch-up; unchanged heads retain the bounded poll interval.
-    s.retryFailures=0;s.nextDue=performance.now()+(deferred?250:0);
+    liveDeliverySuccess(s,s.sequence.last.root_hash===current.root_hash?s.sequence.last:null,performance.now());s.nextDue=performance.now()+(deferred?250:0);
   }catch(e){
-    if(!active(s))return;s.retryFailures++;s.deliveryError=String(e?.message??e).slice(0,160);
-    if(s.retryFailures>=5){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
+    if(!active(s))return;
+    if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
   }finally{s.busy=false;if(active(s))updateHud();}
 }
 async function pump(now){

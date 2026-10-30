@@ -1,0 +1,20 @@
+{
+  "verified_at": "2026-10-30T13:36:30.268Z",
+  "normal_mainnet_policy": true,
+  "checks": [
+    {
+      "kind": "accepted",
+      "status": "PASS",
+      "head": "66541",
+      "root": "04a98ed9008cdaab5cbb16ad4f9ae19bec25434a6e2e5bb35e74aa54821a36f8",
+      "certificate_time_ns": "1793367222644770847"
+    },
+    {
+      "kind": "rejected",
+      "status": "PASS",
+      "head": "66540",
+      "root": "833b15e9fdb26dcff4151e91757924bc687dbf71e0f80986aae8fc1a19e4a610",
+      "certificate_time_ns": "1793367217621651584"
+    }
+  ]
+}

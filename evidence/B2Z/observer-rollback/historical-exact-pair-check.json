@@ -1,0 +1,20 @@
+{
+  "scope": "Exact captured preceding and rejected certificates; historical verification at recorded capture completion. Normal built-in IC root and all signature/delegation/canister/time checks remain enabled. This is not a fresh network observation.",
+  "clock_ms": 1793367312343,
+  "rows": [
+    {
+      "kind": "preceding-accepted",
+      "status": "PASS",
+      "root": "04a98ed9008cdaab5cbb16ad4f9ae19bec25434a6e2e5bb35e74aa54821a36f8",
+      "head": "66541",
+      "certificate_time_ns": "1793367221291490830"
+    },
+    {
+      "kind": "rejected",
+      "status": "PASS",
+      "root": "833b15e9fdb26dcff4151e91757924bc687dbf71e0f80986aae8fc1a19e4a610",
+      "head": "66540",
+      "certificate_time_ns": "1793367217621651584"
+    }
+  ]
+}

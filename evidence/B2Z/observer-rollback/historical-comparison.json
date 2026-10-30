@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-24",
+  "source": "evidence/B2Z/graduated-pacing/activation.json",
+  "module": "c7c69ddf938676902def27817bd22e693512f4a05d07e35300c76a281894d3db",
+  "note": "Historical pre-A2 predecessor; do not relabel c7c69 as exact frozen A0 7c078. The warning predates A2 but this historical telemetry alone does not prove each event had the same cause.",
+  "original_status": "PACING INSTALLED ON MAINNET; certified playback and preservation PASS",
+  "first_error": null,
+  "last_error": "observation rollback",
+  "last_retry_failures": 0,
+  "last_resyncs": 0,
+  "original_record_unchanged": true
+}

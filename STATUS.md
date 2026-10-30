@@ -1,3 +1,20 @@
+# A2 release closed; authentic stale browser response diagnosed, local frontend fix only
+
+A2 remains installed with paid history preserved and gameplay running. One bounded
+unchanged-production browser capture proved certified head 66540 arrived after
+accepted 66541, with valid certificates in the same epoch. The newer request had
+already finished before the stale request began. DTR correctly rejected rollback;
+no server/gateway origin is attributed. Historical pre-A2 evidence has the same
+sticky warning. Original production FAIL remains unchanged.
+A local frontend-only patch clears only recovered authenticated-stale errors,
+retains bounded diagnostic history/counts, and keeps genuine errors and the
+five-failure threshold. Eight targeted tests, 1,397 JS tests, source checks and
+14 local HTTP/browser checks PASS. Only app.mjs/build provenance change in the
+proposed bundle; no backend/DTR rebuild/change or mainnet mutation/deployment.
+[Cause, regression evidence and operating sample](evidence/B2Z/observer-rollback/REPORT.md).
+
+---
+
 # Frozen A2 installed on mainnet — running Steady; browser warning preserved
 
 Authorised pause → one exact A0→A2 v5 upgrade → preservation checks → original
