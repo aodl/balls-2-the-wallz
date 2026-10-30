@@ -10,9 +10,10 @@ import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mj
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
 import {accountColor} from './identity.mjs';
+import {createCycleMeterView} from './cycle-health.mjs';
 import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess} from './live-delivery.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
-const arenaRenderer=createArenaRenderer();
+const arenaRenderer=createArenaRenderer(),cycleMeterView=createCycleMeterView();
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
 let minimapHidden=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
@@ -356,7 +357,7 @@ function updateHud(){
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
   $('catching-up').hidden=!['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(p);
   const health=s?.operational?.health;const meter=$('cycle-meter');
-  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),net=health.net_decline_cycles?.[0];meter.textContent=(net!==undefined&&span>0?`~${(Number(net)/1e12*3.6e12/span).toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. Net balance decline, not gross billed cost. Sample ${Math.round(span/1e9)}s; observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
+  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health);meter.textContent=(estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){

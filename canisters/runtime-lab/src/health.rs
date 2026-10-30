@@ -25,6 +25,9 @@ pub struct Health {
     pub total_cycles: Nat,
     pub sample_start_ns: u64,
     pub sample_end_ns: u64,
+    pub sample_start_total_cycles: Nat,
+    pub sample_end_total_cycles: Nat,
+    pub sample_scope: String,
     pub sample_count: u32,
     pub net_decline_cycles: Option<Nat>,
     pub known_treasury_credit_delta: Nat,
@@ -35,10 +38,13 @@ pub struct Health {
     pub certified_gameplay: bool,
 }
 impl Meter {
-    pub fn sample(&mut self, at: u64, total: u128, liquid: u128, credits: u128) {
+    pub fn start(&mut self, at: u64) {
         if self.started == 0 {
             self.started = at;
         }
+    }
+    pub fn sample(&mut self, at: u64, total: u128, liquid: u128, credits: u128) {
+        self.start(at);
         if let Some(last) = self.samples.back() {
             if at <= last.at || total > last.total || credits != last.credits {
                 self.samples.clear();
@@ -75,7 +81,6 @@ impl Meter {
         let valid = a.zip(b).is_some_and(|(a, b)| {
             b.at.saturating_sub(a.at) >= 60_000_000_000
                 && now.saturating_sub(b.at) <= 90_000_000_000
-                && total <= b.total
         });
         Health {
             version: 1,
@@ -85,6 +90,9 @@ impl Meter {
             total_cycles: total.into(),
             sample_start_ns: a.map_or(0, |s| s.at),
             sample_end_ns: b.map_or(0, |s| s.at),
+            sample_start_total_cycles: a.map_or(0, |s| s.total).into(),
+            sample_end_total_cycles: b.map_or(0, |s| s.total).into(),
+            sample_scope: "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations".into(),
             sample_count: self.samples.len() as u32,
             net_decline_cycles: if valid {
                 a.zip(b)
@@ -161,5 +169,20 @@ mod tests {
             .is_none());
         m.sample(60_000_000_001, 940, 840, 0);
         assert_eq!(m.resets, 2);
+    }
+    #[test]
+    fn query_execution_refunds_do_not_rewrite_historical_callback_endpoints() {
+        let mut m = Meter::default();
+        m.sample(1, 1000, 900, 0);
+        m.sample(60_000_000_001, 900, 800, 0);
+        let h = m.read(60_000_000_002, 1100, 1000);
+        assert_eq!(h.net_decline_cycles, Some(100u32.into()));
+        assert_eq!(h.sample_end_total_cycles, Nat::from(900u32));
+        assert_eq!(h.total_cycles, Nat::from(1100u32));
+        m.sample(120_000_000_001, 1100, 1000, 0);
+        assert!(m
+            .read(120_000_000_002, 1100, 1000)
+            .net_decline_cycles
+            .is_none());
     }
 }

@@ -866,7 +866,7 @@ fn get_api_doc() -> String {
     "BTZ public read-only API: observation_bundle provides certified publication/certificate/artifacts; retention_status, retained_publication and retained_artifact_chunk expose bounded history. lab_status and runtime_health are operational signed queries, NOT certified gameplay. runtime_health reports liquid/total cycles and a bounded net-decline sample, not gross billed consumption; positive movements invalidate the rate. Players pay from their existing wallet to the certified source descriptor account. Queries never authorise spending or prove ownership. Controller methods are not player APIs. No MCP financial execution, refunds or wallet signing. Rules/configuration and exact memo grammar are bound to publication identity; quotes are not reservations.".into()
 }
 fn refresh_pace() {
-    sample_health();
+    HEALTH.with(|h| h.borrow_mut().start(ic_cdk::api::time()));
     PACE.with(|p| {
         p.borrow_mut()
             .refresh(ic_cdk::api::canister_liquid_cycle_balance())

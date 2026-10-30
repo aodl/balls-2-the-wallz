@@ -29,13 +29,16 @@ type Health = record {
   resets : nat64;
   sample_end_ns : nat64;
   observed_at_ns : nat64;
+  sample_start_total_cycles : nat;
   sample_count : nat32;
   runtime_started_ns : nat64;
   known_treasury_credit_delta : nat;
   net_decline_cycles : opt nat;
   version : nat32;
+  sample_scope : text;
   reservation_gap_end : nat;
   certified_gameplay : bool;
+  sample_end_total_cycles : nat;
   total_cycles : nat;
   reservation_gap_start : nat;
   sample_start_ns : nat64;

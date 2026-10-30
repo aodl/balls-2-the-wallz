@@ -31,17 +31,23 @@ button moves presentation forward to the already authenticated snapshot; it does
 not change the monotonic accepted head, camera, certificate path or game state.
 A known operator pause drains the finite verified remainder instead of waiting
 for a startup buffer that the paused producer cannot fill. It resumes the ordinary
-startup policy when production resumes. New own cannons are located when they enter presentation; normal publications do
-not reset the camera. Overview uses CSS-pixel coverage on both axes; the minimap
+startup policy when production resumes. New own cannons are located when they
+enter presentation; normal publications do not reset the camera. Overview uses CSS-pixel coverage on both axes; the minimap
 shows the whole world. Bodies retain their cell proportions.
 
 `runtime_health` is a bounded public operational query, not certified gameplay.
-Samples are taken by existing callbacks at most every 15 seconds, retained for
-five minutes/21 samples, and require at least a minute of observations. The UI
-refreshes on a 15-second cadence. The value is total-balance net decline, not a
-claim of gross billed cycles or a runway forecast. Liquid balance and reservation
-gap are separate. Positive balance movements, known treasury credits and clock
-discontinuities restart the rate; upgrades restart the meter. Stale or insufficient
+Samples are taken at the same point of the existing 60-second source fallback
+callback, retained for five minutes/21 samples, and require at least a minute of
+comparable observations. The UI fetches cached health on a 15-second cadence;
+other operational status keeps its existing refresh cadence. The value is
+callback-balance net decline, not a claim of gross billed cycles or a runway forecast. Liquid balance and reservation
+gap are separate. Current query balances are not callback rate endpoints:
+unused current-message execution reserves may be refunded after a callback.
+Both callback endpoint balances/times and their sampling scope are public.
+Positive movements between comparable samples, known treasury credits and clock
+discontinuities restart the rate; upgrades restart the meter. A positive query-to-query
+movement also blocks the displayed rate until a complete comparable window
+follows that observation; it is never inferred to be future income. Stale or insufficient
 samples show Measuring/Unavailable. Gameplay remains independently certified.
 The normal artifact includes its generated, checked public `candid:service`.
 

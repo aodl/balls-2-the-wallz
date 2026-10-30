@@ -6842,9 +6842,17 @@ fn delivery_public_binding() {
 
 #[test]
 fn public_runtime_health_is_bounded_operational_and_anonymous() {
-    #[derive(CandidType, Deserialize)]
+    #[derive(CandidType, Deserialize, Debug)]
     struct PublicHealth {
         version: u32,
+        observed_at_ns: u64,
+        sample_start_ns: u64,
+        sample_end_ns: u64,
+        sample_start_total_cycles: candid::Nat,
+        sample_end_total_cycles: candid::Nat,
+        sample_scope: String,
+        resets: u64,
+        discontinuity: String,
         liquid_cycles: candid::Nat,
         total_cycles: candid::Nat,
         sample_count: u32,
@@ -6877,7 +6885,20 @@ fn public_runtime_health_is_bounded_operational_and_anonymous() {
     }
     let measured = read();
     assert!(measured.sample_count <= 21);
-    assert!(measured.net_decline_cycles.is_some());
+    assert!(
+        measured.observed_at_ns >= measured.sample_end_ns
+            && measured.sample_end_ns > measured.sample_start_ns
+    );
+    assert!(measured.discontinuity.len() < 256 && measured.resets < 10);
+    assert!(measured.sample_scope.contains("execution reserve"));
+    assert_eq!(
+        &measured.sample_start_total_cycles.0 - &measured.sample_end_total_cycles.0,
+        measured.net_decline_cycles.as_ref().unwrap().0
+    );
+    assert!(
+        measured.net_decline_cycles.is_some(),
+        "initial={initial:?}; measured={measured:?}"
+    );
     assert_eq!(status(&pic, id).run.completed_segments, 0);
     let doc = decode_one::<String>(
         &pic.query_call(
