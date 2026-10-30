@@ -4,6 +4,7 @@ mod cursor;
 mod economics_generated;
 pub mod geometry;
 pub mod migration;
+pub mod pricing_v6;
 pub mod spawn;
 pub mod topology;
 pub mod world;
