@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-30T08:39:36.133Z",
+  "certificate_verified": true,
+  "head": "64627",
+  "publication_identity": {
+    "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+    "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+    "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+  },
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "subaccount": "0",
+    "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+  },
+  "world_version": 5,
+  "balls": 3,
+  "cannons": 1,
+  "received_e8s": "620000000",
+  "retained_catalogs_verified": 16,
+  "identity_source_receipt_total_equal_previous": true,
+  "scope": "Fresh authenticated observation and catalog/chunk integrity, not independent mainnet replay. Live gameplay continues; old bounded-retention anchors naturally expire."
+}

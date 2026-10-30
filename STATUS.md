@@ -1,3 +1,21 @@
+# Frozen A2 release sequencing — paused upgrade recommended, no mutation authorised
+
+CI `41022561960` passes all six substantive jobs on published preparation commit
+`adbb0e20a1961492827963f5e0f9b3ab505fcf83`. Functional/capture source and the
+accepted frozen A2 Normal qualification remain `3e99d74…`; no test was repeated.
+At 08:39 UTC, A0 has 6.358126763402T liquid, Conserve 0.2 ticks/s with no limiter,
+healthy source, no pending work and Idle treasury. Same modules/controllers and
+34-node fiduciary subnet verify. Prefer an explicitly approved gameplay pause,
+exact A0→A2 upgrade and preservation checks before manual user funding/resume.
+This removes the A0 Normal cutover allowance. Keep the provisional 47T target;
+current A0 shortfall is planning arithmetic only. Exact funding must use the
+future verified paused-A2 balance and separate user confirmation. No operator
+credentials or funding-account details need to enter this build environment.
+[Guarded sequence, current quote and evidence](evidence/B2Z/fiduciary-cycle-optimisation/a2-release-sequencing/RELEASE_SEQUENCE.md).
+No mainnet update, pause, upgrade, transfer, merge or frontend deployment occurred.
+
+---
+
 # Frozen A2 Normal technical qualification PASS — production preparation only
 
 Published source `3e99d74b3661fb4ccec8e87ec3945b35d05e6f25` passed all six

@@ -1,0 +1,38 @@
+{
+  "cases": [
+    {
+      "exact_full_finance_control_match": true,
+      "exact_predecessor_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "interrupted_cursor_recovered": false,
+      "local_snapshot_recovery_only": true,
+      "matched_frozen_control": true,
+      "paused_no_inflight_recovered": true,
+      "status": "PASS",
+      "torn_image_rejected": false,
+      "torn_rejection": null,
+      "case": "paid-paused",
+      "source": "/home/codexdev/b2z-release-evidence/a2-pinned-dtr77-20261028/raw/paid-paused/operation-cache-recovery.json",
+      "A2_upgrade_debit_cycles": 38973760208
+    },
+    {
+      "exact_full_finance_control_match": true,
+      "exact_predecessor_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+      "interrupted_cursor_recovered": true,
+      "local_snapshot_recovery_only": true,
+      "matched_frozen_control": true,
+      "paused_no_inflight_recovered": false,
+      "status": "PASS",
+      "torn_image_rejected": true,
+      "torn_rejection": "Error from Canister dfj7p-ut777-77776-qaaba-cai: Canister called `ic0.trap` with message: 'stable blob integrity'\nCanister Backtrace:\nic_cdk::api::trap\ncanister_post_upgrade\n.\nConsider gracefully handling failures from this canister or altering the canister to handle exceptions. See documentation: https://docs.internetcomputer.org/references/execution-errors#trapped-explicitly",
+      "case": "paid-inflight",
+      "source": "/home/codexdev/b2z-release-evidence/a2-pinned-dtr77-20261028/raw/paid-inflight/operation-cache-recovery.json",
+      "A2_upgrade_debit_cycles": 38994734996
+    }
+  ],
+  "source_review": {
+    "pause_autonomous": "Sets running=false, increments generation, persists, clears gameplay timer. Does not clear inbox, phase, cursor or funding state.",
+    "post_upgrade": "Validates durable committed publication/artifacts, retains run.running=false, restores source and treasury timers, renews source/treasury nonce and leases.",
+    "start_autonomous": "Resumes with validated existing configuration; v5 enforces segment_ticks=1. Pending persisted work continues.",
+    "scope": "Existing local paid-v8 tests, not a new mainnet test or a private state backup."
+  }
+}

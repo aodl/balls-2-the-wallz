@@ -1,0 +1,135 @@
+[
+  {
+    "id": 12964576553,
+    "name": "local-ic-evidence",
+    "sha256": "47f0e535b16c49f6e94551792334462e77f0ea41f9cea1078567420ff8f86ff0",
+    "reports": [
+      {
+        "path": "verification.json",
+        "overall": "PASS",
+        "git_revision": "adbb0e20a1961492827963f5e0f9b3ab505fcf83",
+        "checks": 1,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      },
+      {
+        "path": "s14-local/deployment/million-browser-normal/results.json",
+        "overall": null,
+        "git_revision": null,
+        "checks": 6,
+        "scope": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged."
+      },
+      {
+        "path": "s14-local/deployment/million-browser-sustained/results.json",
+        "overall": null,
+        "git_revision": null,
+        "checks": 9,
+        "scope": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged."
+      },
+      {
+        "path": "s14-local/deployment/million-certified-checkpoint/verification.json",
+        "overall": null,
+        "git_revision": null,
+        "checks": 0,
+        "scope": "explicit disposable IC SDK root and certificate; no offline fallback"
+      },
+      {
+        "path": "s14-local/deployment/results.json",
+        "overall": null,
+        "git_revision": null,
+        "checks": 18,
+        "scope": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged."
+      },
+      {
+        "path": "s14-local/results.json",
+        "overall": "PASS",
+        "git_revision": null,
+        "checks": 50,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      }
+    ]
+  },
+  {
+    "id": 12962895158,
+    "name": "browser-evidence",
+    "sha256": "c7886b7a28bdf1abbf1806fccaf74625e329ba14cb90402eeeb3ccacf7cecf47",
+    "reports": [
+      {
+        "path": "ci-browser/verification.json",
+        "overall": "PASS",
+        "git_revision": "adbb0e20a1961492827963f5e0f9b3ab505fcf83",
+        "checks": 1,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      },
+      {
+        "path": "ci-browser/browser-http/results.json",
+        "overall": "PASS",
+        "git_revision": null,
+        "checks": 14,
+        "scope": "Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification."
+      },
+      {
+        "path": "ci-wire-capture/results.json",
+        "overall": null,
+        "git_revision": null,
+        "checks": 8,
+        "scope": "Capture lifecycle fixture only; expired preserved wire content is not new IC authentication or a historical gate PASS."
+      }
+    ]
+  },
+  {
+    "id": 12962815028,
+    "name": "native-evidence",
+    "sha256": "7dbc2a74aacd2af54d283716b43c658f45f98c8ff991722f9ac14ab55cabb4c6",
+    "reports": [
+      {
+        "path": "verification.json",
+        "overall": "PASS",
+        "git_revision": "adbb0e20a1961492827963f5e0f9b3ab505fcf83",
+        "checks": 11,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      }
+    ]
+  },
+  {
+    "id": 12962077019,
+    "name": "wasm-evidence",
+    "sha256": "c270800d24dd45a1b899c864727d2ad2115832e2d0ffde1c5b84794fbfda8f10",
+    "reports": [
+      {
+        "path": "verification.json",
+        "overall": "PASS",
+        "git_revision": "adbb0e20a1961492827963f5e0f9b3ab505fcf83",
+        "checks": 5,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      }
+    ]
+  },
+  {
+    "id": 12961883763,
+    "name": "source-evidence",
+    "sha256": "c70a50c341492b784dca2ebc87266c340cb994cd2e87237024e73c6730fd8b59",
+    "reports": [
+      {
+        "path": "verification.json",
+        "overall": "PASS",
+        "git_revision": "adbb0e20a1961492827963f5e0f9b3ab505fcf83",
+        "checks": 17,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      }
+    ]
+  },
+  {
+    "id": 12961779508,
+    "name": "package-consumer-evidence",
+    "sha256": "26fa2b2103bbeaa670ef94402ae1fcadb0e40c17ff768ddc3d4f157791c58959",
+    "reports": [
+      {
+        "path": "results.json",
+        "overall": "PASS",
+        "git_revision": null,
+        "checks": 8,
+        "scope": "ordinary CI; not the frozen fiduciary gate"
+      }
+    ]
+  }
+]

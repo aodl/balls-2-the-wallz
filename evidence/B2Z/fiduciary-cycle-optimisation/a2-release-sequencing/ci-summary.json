@@ -1,0 +1,35 @@
+{
+  "run_id": 41022561960,
+  "head_sha": "adbb0e20a1961492827963f5e0f9b3ab505fcf83",
+  "conclusion": "success",
+  "completed_at": "2026-10-30T08:38:08Z",
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/41022561960",
+  "substantive_jobs": [
+    {
+      "name": "Runtime-lab Wasm",
+      "conclusion": "success"
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "conclusion": "success"
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Source conformance",
+      "conclusion": "success"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "conclusion": "success"
+    },
+    {
+      "name": "Native conformance",
+      "conclusion": "success"
+    }
+  ],
+  "excluded": "BLOCKED production inventory (not a pass)",
+  "all_six_artifact_digests_and_report_checks": "PASS"
+}

@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-10-30T08:39:29.531Z",
+  "canisterId": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+  "nodes": 34,
+  "module_hash": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+  "controllers": [
+    "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+    "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+  ],
+  "certificate_verification": true
+}
