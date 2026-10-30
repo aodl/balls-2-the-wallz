@@ -1,0 +1,48 @@
+{
+  "source_start": "adb0be6212494c01c70b9f79c00191fc7aa2039d",
+  "qualification_tooling_final": "a978d7a8692904767b5be4041b082d8caa8d439d",
+  "commits": [
+    {
+      "sha": "ff7eb39e41ed58cecb6f73a063829f889c27dd1f",
+      "title": "test: synchronise proxy trace assertions with completed writes"
+    },
+    {
+      "sha": "b25116db7016f391ac1b509e7e0f86faf83ff48d",
+      "title": "test: bind A2 qualification to exact artifacts and controlled delivery evidence"
+    },
+    {
+      "sha": "21f84e290168521a972b905f4145ab58a7d4f34a",
+      "title": "test: complete paid-v8 proxy fixture and cover consumer provenance"
+    },
+    {
+      "sha": "94385eac94ba97018f13818a856665d175a91e12",
+      "title": "test: align recovered paid-v8 fixture to real certificate time"
+    },
+    {
+      "sha": "591fa6da19da95decd345f98a553afce860fb6fe",
+      "title": "test: isolate genuine paid-v8 browser checks from recovery clock jumps"
+    },
+    {
+      "sha": "a978d7a8692904767b5be4041b082d8caa8d439d",
+      "title": "test: synchronise delayed-body fixture with proxy header receipt"
+    }
+  ],
+  "normal_Wasm_rebuilt": false,
+  "production_code_or_frontend_or_lock_changes": false,
+  "changed_files": [
+    ".github/workflows/verification.yml",
+    "config/dtr-release-source.json",
+    "tools/check_dtr_provenance.py",
+    "tools/run_matched_delivery.py",
+    "tools/s09-integration/tests/s14_index.rs",
+    "tools/s09-integration/tests/support/operation_cost.rs",
+    "tools/sample_host_resources.py",
+    "tools/test_dtr_provenance.py",
+    "tools/test_host_resources.py",
+    "tools/test_observer_server.py",
+    "tools/verify_operation_cache.py",
+    "tools/verify_s14_deployment.py"
+  ],
+  "visual_commit_preserved_as_ancestor": true,
+  "D6_preserved_as_ancestor": true
+}

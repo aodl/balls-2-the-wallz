@@ -1,0 +1,9 @@
+{
+  "directory": "/home/codexdev/b2z-release-evidence/a2-signing-inputs",
+  "files": {
+    "A2.wasm": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+    "A2.wasm.gz": "2fde8cf962498a8267757ccd4ca505196261f33263ae32c0a04bdcdc6c42b17b",
+    "runtime-lab.did": "b2b3b2f669050af3f00ca93c7a75a896cf3ed907d59e9d0c38ceb8f255d8fd21"
+  },
+  "scope": "Public Wasm, public Candid and manifest only. No executable release automation, identity, key or environment file. Operator copies these files to trusted signing workstation and independently verifies expected hashes."
+}

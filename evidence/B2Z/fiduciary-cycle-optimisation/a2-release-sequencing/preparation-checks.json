@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": [
+    "unchanged accepted controller Candid/capture source and npm lock",
+    "public distribution file checksums and exact decompressed frozen A2",
+    "exact decimal upgrade-first funding formula and discretionary rounding",
+    "proposed 5T guard exceeds explicitly enumerated local planning allowances",
+    "read-only snapshot wrapper syntax"
+  ],
+  "upgrade_first_formula_T": "45.618520005192",
+  "rounded_target_cycles": 47000000000000,
+  "fresh_post_upgrade_balance": "NOT_AVAILABLE before separately authorised upgrade",
+  "funding_owner_check": "User-owned manual check; no source account read or transfer performed",
+  "secure_update_signing": "Operator pre-execution responsibility; agent will not sign updates"
+}

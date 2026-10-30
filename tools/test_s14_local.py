@@ -36,3 +36,12 @@ class InstalledResultTests(unittest.TestCase):
         self.assertEqual(installed_case_result({'status':'FAIL'},self.log,None)['status'],'FAIL')
 
 if __name__=='__main__':unittest.main()
+
+class DevelopmentOverrideLockTests(unittest.TestCase):
+    def test_only_dtr_packages_may_change_during_local_resolution(self):
+        from s14_development import frozen_dependencies
+        before=b'[[package]]\nname="dtr-wire"\nversion="0.14.0"\n[[package]]\nname="syn"\nversion="3.0.7"\nchecksum="original"\n'
+        dtr_only=before.replace(b'0.14.0',b'0.14.1-cost.1')
+        self.assertEqual(frozen_dependencies(before),frozen_dependencies(dtr_only))
+        self.assertNotEqual(frozen_dependencies(before),frozen_dependencies(dtr_only.replace(b'3.0.7',b'3.0.9')))
+        self.assertNotEqual(frozen_dependencies(before),frozen_dependencies(dtr_only+b'[[package]]\nname="syn"\nversion="2.0.0"\n'))

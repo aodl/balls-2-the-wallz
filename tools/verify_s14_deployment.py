@@ -4,8 +4,10 @@ The Rust acceptance harness owns valueless transfers, upgrade and service startu
 """
 import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
+from contextlib import ExitStack
 from browser_observer import wait_until,wait_file,open_settings,close_settings
 from verify_observer_http import free_port,wait_for_server
+from wire_capture import WireCapture
 ROOT=Path(__file__).resolve().parents[1]
 
 def verify_torus_scene(page,context,out,record,report,save):
@@ -60,7 +62,41 @@ def verify_torus_scene(page,context,out,record,report,save):
     page.locator('#toolbar-rules').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
 
+def install_boundary_trace(page):
+    # Observe diagnostic counters only. Original values, requests, authentication,
+    # admission, buffers and array return values are unchanged.
+    page.evaluate('''() => {
+      const s=globalThis.__dtrLive;if(!s||s.__qualificationTrace)return;
+      Object.defineProperty(s,'__qualificationTrace',{value:true});
+      globalThis.__qualificationEvents??=[];
+      const log=(kind,data)=>{if(__qualificationEvents.length<32768)__qualificationEvents.push({kind,epoch_ms:performance.timeOrigin+performance.now(),...data});};
+      let count=s.certificates;
+      Object.defineProperty(s,'certificates',{enumerable:true,configurable:true,get(){return count;},set(v){count=v;log('certificate_verified_counter',{count:v});}});
+      const push=s.heads.push;
+      Object.defineProperty(s.heads,'push',{value:function(...v){const result=push.apply(this,v);log('publication_admitted_or_resynced',{heads:v,resyncs:s.resyncs,certificate_count:s.certificates});return result;}});
+    }''')
+
+def save_boundary_trace(page,out,name):
+    (out/name).write_text(json.dumps(page.evaluate('globalThis.__qualificationEvents??[]'),indent=2)+'\n')
+
+def verify_paid_v8_scene(page,out,record):
+    assert '1,000 × 1,000' in page.locator('#world-rules').inner_text()
+    for attempt in range(2):
+        wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='PLAYING',60000)
+        first=page.evaluate('__dtrLive.heads.at(-1)');resync=page.evaluate('__dtrLive.resyncs')
+        samples=[];started=time.monotonic()
+        while time.monotonic()-started<30:
+            samples.append(page.evaluate('({...__dtrLive.playback})'));page.wait_for_timeout(500)
+        assert all(r['phase']in ['PLAYING','DEGRADED_BUFFER']for r in samples)
+        assert page.evaluate('__dtrLive.resyncs')==resync
+        assert page.evaluate('__dtrLive.heads.at(-1)')>=first+3
+        page.screenshot(path=str(out/f'paid-v8-{attempt}.png'))
+        record('paid-v8-certified-playback'if attempt==0 else'paid-v8-certified-cold-reconnect',{'first':first,'last':page.evaluate('__dtrLive.heads.at(-1)'),'samples':len(samples)})
+        if attempt==0:
+            page.reload();wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
+
 def verify_million_scene(page,context,out,record,report,save,stop_capture,sustained=False):
+    install_boundary_trace(page)
     (out/'browser-million-ready').write_text('certified million-cell genesis visible; begin production\n')
     assert '1,000 × 1,000' in page.locator('#world-rules').text_content()
     assert 'wraparound' in page.locator('#world-rules').text_content()
@@ -113,6 +149,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
             summary['dense_phase_samples']={p:sum(r['phase']==p for r in dense) for p in sorted({r['phase'] for r in dense})}
             if any(r['phase'] not in ['PLAYING','DEGRADED_BUFFER'] for r in dense):
                 summary['checks']['no_stall_or_rebuffer']=False;summary['status']='FAIL'
+            save_boundary_trace(page,out,'browser-boundary-events-normal.json')
             report['million_sustained_analysis']=summary
             (out/'million-sustained-aligned.json').write_text(json.dumps(aligned,indent=2))
             (out/'million-sustained-analysis.json').write_text(json.dumps(summary,indent=2));save()
@@ -128,6 +165,11 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
         return result
     measure_mode('normal',90,.9,1.15)
     if sustained:measure_mode('normal_sustained',900,.9,1.15,continuous=True)
+    if sustained and os.environ.get('S14_QUAL_NORMAL_ONLY')=='1':
+        stop_capture()
+        assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
+        record('normal-only-exact-production-artifact-no-fault-phases')
+        return
     (out/'browser-million-normal-complete').write_text('normal playback measured\n')
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.5,30000);page.wait_for_timeout(4000)
     # The normal-to-hooks code upgrade may hold an in-flight query. Bound the
@@ -140,15 +182,18 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000);page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)
     stop_capture()
+    save_boundary_trace(page,out,'browser-boundary-events-before-reconnect.json')
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '1,000 × 1,000' in page.locator('#world-rules').text_content(),30000)
     assert not page.locator('#error').is_visible()
     wait_until(page,lambda:page.locator('body').get_attribute('data-phase')=='PLAYING',60000)
     assert page.evaluate('__dtrLive.playback.nominal_rate')==.05
     record('million-cell-cold-browser-reconnect')
+    install_boundary_trace(page)
     if sustained:
         cold=measure_mode('lifeline_reconnect',120,.035,.065)
         assert cold['admitted_ticks']>=5 and set(cold['phase_samples'])<= {'PLAYING','DEGRADED_BUFFER'},cold
         record('million-cell-cold-lifeline-five-subsequent-publications',cold)
+        save_boundary_trace(page,out,'browser-boundary-events-after-reconnect.json')
         assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
 
 def verify_epoch_transition(page,context,out,record,report,save):
@@ -214,9 +259,10 @@ def verify_epoch_transition(page,context,out,record,report,save):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     if a.million_sustained and not a.million_scene_only:p.error('--million-sustained requires --million-scene-only')
-    out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=free_port()
+    out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=int(os.environ['S14_QUAL_PROXY_PORT']) if os.environ.get('S14_QUAL_PROXY_PORT') else free_port()
+    assert 1<=port<=65535
     asset_canister=os.environ.get('S14_ASSET_CANISTER')=='1'
     configuration['host']=a.gateway.rstrip('/') if asset_canister else f'http://127.0.0.1:{port}'
     local=out/'local-test-policy.json';local.write_text(json.dumps(configuration)+'\n')
@@ -226,16 +272,23 @@ def main():
     def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
     def terminated(_signal,_frame):raise SystemExit(143)
     signal.signal(signal.SIGTERM,terminated)
-    server=None;browser=None
+    server=None;browser=None;wire_capture=None
     try:
         assets=out/'assets';production=out/'mainnet-assets'
-        subprocess.run(['node','tools/build_observer_mainnet.mjs','--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
-        # A committed real deployment mapping must never be bypassed to build
-        # mainnet assets for a disposable test principal. Production-policy
-        # inspection uses that real ID; only the explicit local bundle runs here.
-        ids=ROOT/'canister_ids.json'
-        production_id=json.loads(ids.read_text()).get('b2z',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
-        subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',production_id,'--output',str(production)],cwd=ROOT,check=True,timeout=120)
+        if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
+            prebuilt=Path(os.environ['S14_QUAL_PREBUILT_ROOT'])
+            assert configuration==json.loads((prebuilt/'local-policy.json').read_text()),'prepared local root/canister/endpoint binding differs'
+            shutil.copytree(prebuilt/'local-assets',assets)
+            shutil.copytree(prebuilt/'mainnet-assets',production)
+            production_id=json.loads((production/'build-manifest.json').read_text())['deployment']['canister_id']
+        else:
+            subprocess.run(['node','tools/build_observer_mainnet.mjs','--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
+            # A committed real deployment mapping must never be bypassed to build
+            # mainnet assets for a disposable test principal. Production-policy
+            # inspection uses that real ID; only the explicit local bundle runs here.
+            ids=ROOT/'canister_ids.json'
+            production_id=json.loads(ids.read_text()).get('b2z',{}).get('ic',configuration['canister_id']) if ids.exists() else configuration['canister_id']
+            subprocess.run(['node','tools/build_observer_mainnet.mjs','--canister',production_id,'--output',str(production)],cwd=ROOT,check=True,timeout=120)
         for directory in [assets,production]:
             assert {'index.html','app.mjs','configuration.bin','deployment.json','build-manifest.json','.ic-assets.json5','style.css','icon.svg'}.issubset({x.name for x in directory.iterdir()})
         manifest=json.loads((production/'build-manifest.json').read_text());assert manifest['deployment']['canister_id']==production_id;assert not manifest['local_test_only'];assert not any('s14-local-deployment' in name for name in manifest['inputs'])
@@ -247,6 +300,12 @@ def main():
         assert 'clipboard-write=(self)' in permissions and 'clipboard-read=()' in permissions
         report['production_permissions_policy']=permissions
         record('real-asset-build-and-mainnet-test-adapter-exclusion',manifest)
+        if os.environ.get('S14_QUAL_PRODUCTION_REFERENCE'):
+            assert manifest['files']==json.loads(Path(os.environ['S14_QUAL_PRODUCTION_REFERENCE']).read_text())['files'],'original production frontend assets differ'
+        local_identity=json.loads((assets/'build-manifest.json').read_text())['files']
+        (out/'local-assets-identity.json').write_text(json.dumps(local_identity,indent=2)+'\n')
+        if os.environ.get('S14_QUAL_ASSET_REFERENCE'):
+            assert local_identity==json.loads(Path(os.environ['S14_QUAL_ASSET_REFERENCE']).read_text()),'matched frontend bytes differ'
         if asset_canister:
             # The Rust harness owns this disposable network. No dfx start/stop,
             # shared network reset, external wallet or real cycles are involved.
@@ -298,34 +357,24 @@ def main():
                 server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id'],*proxy_trace],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
-        with sync_playwright() as pw:
+        with sync_playwright() as pw, ExitStack() as capture_finalizers:
             browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
+            report['browser_version']=browser.version;save()
             context_options={'permissions':['clipboard-write'],'has_touch':True,'viewport':{'width':1440,'height':900}}
             # Video encoding is optional evidence, not part of observer delivery.
             # Keep the original 90-second cases recorded; the 15-minute timing
             # gate retains screenshots, raw wire data and dense telemetry without
             # the extra software screen-capture/GPU/ffmpeg workload on this host.
-            if not a.million_sustained:context_options['record_video_dir']=str(out/'video')
-            report['capture']={'video':not a.million_sustained,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
+            if not (a.million_sustained or a.paid_v8_scene_only):context_options['record_video_dir']=str(out/'video')
+            report['capture']={'video':not (a.million_sustained or a.paid_v8_scene_only),'sandbox':True,'screenshots_and_raw_telemetry':True};save()
             context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
-            wire_packets=[];wire_errors=[];wire_bytes=0;wire_complete_through=None;query_timings=[]
-            if a.million_scene_only:
-                wire=out/'wire-catalogs';wire.mkdir()
-                def capture_catalog(response):
-                    nonlocal wire_bytes
-                    request=response.request
-                    if request.method!='POST' or not request.url.endswith('/query'):return
-                    body=request.post_data_buffer or b''
-                    method=next((name for name in ['observation_bundle','retained_publication','observation'] if name.encode() in body),None)
-                    if not method:return
-                    try:
-                        data=response.body()
-                        if len(wire_packets)>=(4096 if a.million_sustained else 1024) or wire_bytes+len(data)>(128 if a.million_sustained else 64)*1024*1024:raise ValueError('wire capture bound')
-                        name=f'{len(wire_packets):04}.cbor';(wire/name).write_bytes(data);wire_bytes+=len(data)
-                        wire_packets.append({'method':method,'file':name,'status':response.status,'timing':request.timing})
-                    except Exception as error:wire_errors.append(str(error))
-                page.on('response',capture_catalog)
+            query_timings=[]
+            if a.million_scene_only or a.paid_v8_scene_only:
+                wire_capture=WireCapture(page,out/'wire-catalogs',
+                    max_packets=4096 if a.million_sustained else 1024,
+                    max_bytes=(128 if a.million_sustained else 64)*1024*1024)
+                capture_finalizers.push(wire_capture)
                 def capture_query_timing(request,failed=False):
                     if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
                     body=request.post_data_buffer or b''
@@ -339,9 +388,7 @@ def main():
                 page.on('requestfinished',capture_query_timing)
                 page.on('requestfailed',lambda request:capture_query_timing(request,True))
                 def stop_wire_capture():
-                    nonlocal wire_complete_through
-                    wire_complete_through=page.evaluate('globalThis.__dtrLive.heads.at(-1)')
-                    page.remove_listener('response',capture_catalog)
+                    return wire_capture.finish(lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)'))
 
             def observe_genesis_before_artifact(route):
                 (out/'bootstrap-anchor-read').write_text('certified genesis observed before game start\n')
@@ -361,10 +408,12 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.scene_only or a.million_scene_only or a.transition_only:
-                if a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
-                elif a.million_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
+            if a.scene_only or a.million_scene_only or a.transition_only or a.paid_v8_scene_only:
+                if a.paid_v8_scene_only:verify_paid_v8_scene(page,out,record)
+                elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
+                elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
                 else:verify_torus_scene(page,context,out,record,report,save)
+                if wire_capture:stop_wire_capture()
                 assert not errors,errors
                 assert posts and all(x.endswith(('/query','/read_state')) for x in posts)
                 report['status']='PASS';report['sandbox']=True;report['page_errors']=errors;save();(out/'browser-complete').write_text('PASS\n');context.close();browser.close();browser=None;return 0
@@ -627,11 +676,14 @@ def main():
         except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
-        if a.million_scene_only and 'wire_packets' in locals():
-            (out/'wire-index.json').write_text(json.dumps({'packets':wire_packets,'errors':wire_errors,'bytes':wire_bytes,'complete_through':wire_complete_through,'query_timings':query_timings},indent=2))
+        if wire_capture:
+            try:wire_capture.abort()
+            except Exception:pass  # abort records explicit failure; never a PASS path
         if browser:
             try:browser.close()
             except Exception:pass
+        if wire_capture:
+            (out/'wire-index.json').write_text(json.dumps(wire_capture.index(query_timings),indent=2))
         if server and server.poll() is None:
             os.killpg(server.pid,signal.SIGTERM)
             try:server.wait(timeout=5)

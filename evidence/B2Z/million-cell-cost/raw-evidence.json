@@ -1,0 +1,22 @@
+{
+  "raw_directory": "/home/codexdev/src/b2z/.work/million-cycle-investigation",
+  "independent_snapshot": "/home/codexdev/b2z-release-evidence/million-cycle-investigation-20261026",
+  "qualification": "Read-only mainnet controller/certified observations; local native benchmark only; no backend code/Wasm change or mainnet experiment.",
+  "key_files": [
+    "samples.json",
+    "begin.json",
+    "end.json",
+    "visibility-final.json",
+    "begin-certificate.bin",
+    "end-certificate.bin",
+    "begin-state.bin",
+    "end-state.bin",
+    "native-profile.json",
+    "profile.rs",
+    "native-build.log",
+    "existing-pocketic-pace-results.json",
+    "historical-pocketic-idle-cost.json",
+    "subnet.json",
+    "official-cycle-costs.html"
+  ]
+}

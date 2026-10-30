@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "checks": [
+    "exact decimal formula substitution",
+    "integer balance shortfall and fee",
+    "ten exact allowed query commands and successful exits",
+    "frozen A0/A2 and gzip/decompressed hashes"
+  ],
+  "artifacts": {
+    "A0": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "A2": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+    "A2_gzip": "2fde8cf962498a8267757ccd4ca505196261f33263ae32c0a04bdcdc6c42b17b"
+  }
+}

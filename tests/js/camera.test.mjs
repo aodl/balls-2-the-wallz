@@ -20,3 +20,12 @@ test('wrap picking and split minimap rectangles refer to one underlying world',(
  assert.ok(c.copies().length<=4);c.pan(1e5,-1e5);assert.ok(c.x>=0&&c.x<32&&c.y>=0&&c.y<32);
  assert.deepEqual(splitInterval(30,4,32),[[30,32],[0,2]]);assert.deepEqual(splitInterval(-100,64,32),[[0,32]]);
 });
+test('million-cell desktop and mobile reach a useful absolute cell scale without losing pointer picking',()=>{
+ for(const [width,height] of [[1440,900],[390,844]]){
+  const c=new Camera();c.configure(1000,1000,width,height,true);c.frameCell(47297);near(c.scale,24);near(c.x,297.5);near(c.y,47.5);
+  c.zoom(1e6,width*.3,height*.4);near(c.scale,96);const p=c.screen(297.5,47.5);assert.equal(c.cell(p.x,p.y),47297);
+  const anchor=c.world(75,100);c.zoom(.5,75,100);near(c.world(75,100).x,anchor.x);near(c.world(75,100).y,anchor.y);
+  c.pan(12,-7);const prior={x:c.x,y:c.y,scale:c.scale};c.configure(1000,1000,width,height,true);assert.deepEqual({x:c.x,y:c.y,scale:c.scale},prior);
+  c.fit();near(c.scale,c.fitScale);
+ }
+});

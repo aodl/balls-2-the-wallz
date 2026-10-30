@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "source_pair": {
+    "B2Z": "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+    "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68"
+  },
+  "decision": "Measured engineering candidate only; NO-GO for release qualification and mainnet deployment",
+  "mainnet_mutated": false,
+  "raw_initial_aggregate_relabelled": false,
+  "gates": [
+    {
+      "gate": "A1 exact-commit CI",
+      "status": "PASS",
+      "detail": "Run 40555604193, six substantive jobs; not A2 evidence.",
+      "evidence": [
+        "a1-ci.json",
+        "a1-ci-jobs.json"
+      ]
+    },
+    {
+      "gate": "A1 explicitly invoked ignored A/B and recovery",
+      "status": "PASS",
+      "detail": "Frozen normal binaries; dedicated operation_cache_profile, exact predecessor and authentic paid v8.",
+      "evidence": [
+        "a1-independent",
+        "a1-recovery",
+        "a1-paid-v8"
+      ]
+    },
+    {
+      "gate": "Final source",
+      "status": "PASS",
+      "detail": "17 groups; exact D6 source / DTR77 where applicable.",
+      "evidence": [
+        "chosen-source/verification.json"
+      ]
+    },
+    {
+      "gate": "Final native",
+      "status": "PASS",
+      "detail": "11 groups; exact D6 source / DTR77 where applicable.",
+      "evidence": [
+        "chosen-native/verification.json"
+      ]
+    },
+    {
+      "gate": "Final wasm",
+      "status": "PASS",
+      "detail": "5 groups; exact D6 source / DTR77 where applicable.",
+      "evidence": [
+        "chosen-wasm/verification.json"
+      ]
+    },
+    {
+      "gate": "Final browser",
+      "status": "PASS",
+      "detail": "1 groups; exact D6 source / DTR77 where applicable.",
+      "evidence": [
+        "chosen-browser/verification.json"
+      ]
+    },
+    {
+      "gate": "Final matched normal-Wasm matrix",
+      "status": "PASS",
+      "detail": "19 invocations: three repeat captured profiles, 0/2/3/4/8/16/32/64 balls, admissible fragmentation, quiet maintenance, three paid-v8 repeats, 64-tick paused-boundary paid run, in-flight and NotifyPending recovery.",
+      "evidence": [
+        "final-matrix-progress.json",
+        "measurements.json"
+      ]
+    },
+    {
+      "gate": "Initial final-source installed aggregate",
+      "status": "FAIL",
+      "detail": "One unchanged 90-second browser test had 12 stalls / 2 resynchronisations under competing LLVM/PocketIC load; all other executed checks passed. Raw aggregate remains FAIL.",
+      "evidence": [
+        "chosen-full-installed/results.json"
+      ]
+    },
+    {
+      "gate": "Unchanged isolated 90-second browser",
+      "status": "PASS",
+      "detail": "Executed separately against the same source pair and normal Wasm; no acceptance thresholds changed.",
+      "evidence": [
+        "chosen-isolated-command.json"
+      ]
+    },
+    {
+      "gate": "History replay skipped after failed aggregate",
+      "status": "PASS",
+      "detail": "Executed separately against the same source pair and normal Wasm; no acceptance thresholds changed.",
+      "evidence": [
+        "chosen-history-replay-command.json"
+      ]
+    },
+    {
+      "gate": "900-second Normal / Lifeline / cold reconnect",
+      "status": "FAIL",
+      "detail": "Executed unchanged; the actual sustained result is preserved. A failed continuous-playback gate is unresolved, not waived.",
+      "evidence": [
+        "chosen-sustained-command.json",
+        "chosen-sustained-browser/results.json",
+        "chosen-sustained-browser/deployment/million-browser-sustained/million-sustained-analysis.json"
+      ]
+    },
+    {
+      "gate": "Installed composite resolution",
+      "status": "FAIL",
+      "detail": "The isolated short repeat and explicit history replay passed. The sustained result determines this gate; an initial failed aggregate is also preserved.",
+      "evidence": [
+        "chosen-full-installed/results.json",
+        "chosen-isolated-browser/results.json",
+        "chosen-history-replay.json",
+        "chosen-sustained-browser/results.json"
+      ]
+    },
+    {
+      "gate": "Checkpoint and allocator traps",
+      "status": "PASS",
+      "detail": "Six write/certification stages and three forced allocation thresholds, plus controls: authenticate before retry; all paid/source/finance/retained state and resumed outputs match. Diagnostic modules only.",
+      "evidence": [
+        "chosen-fault-progress.json",
+        "chosen-checkpoint-faults-v77/checkpoint-faults.json",
+        "chosen-allocation-faults-v77/allocation-faults.json"
+      ]
+    },
+    {
+      "gate": "Generic DTR and independent consumers",
+      "status": "PASS",
+      "detail": "Original JS 200 tests; Rust workspace, formatting, clippy; preserve_order; non-B2Z Rust/npm consumer; native original/new concurrency and snapshot equality.",
+      "evidence": [
+        "dtr-auto-traits-green-final.log",
+        "dtr-auto-traits-clippy.log",
+        "dtr77-js.log",
+        "dtr77-preserve-order.json",
+        "independent-consumer-final/report.json",
+        "thread-consumer-77ba46c.log",
+        "thread-consumer-e1-hash.log"
+      ]
+    },
+    {
+      "gate": "Normal artifact / reproducibility",
+      "status": "PASS",
+      "detail": "Two initially empty target directories reproduce 0d86ac64; no test hooks or profiling exports, Candid unchanged.",
+      "evidence": [
+        "chosen-reproducibility.json",
+        "final-selected-normal/provenance.json"
+      ]
+    },
+    {
+      "gate": "Strict 600M headroom for every stress workload",
+      "status": "NOT_ESTABLISHED",
+      "detail": "Representative three-ball driver peak 334M; large populations and fragmentation exceed the unchanged between-action yield trigger. Final response/destruction tail is outside the counter. Do not claim universal latency/headroom qualification.",
+      "evidence": [
+        "measurements.json"
+      ]
+    },
+    {
+      "gate": "Complete platform callback / allocator / byte-operation accounting",
+      "status": "NOT_ESTABLISHED",
+      "detail": "Normal total-cycle debit is measured. Driver/source counters are partial; allocator probe is A2-only and scoped, not full A0/A1/A2 allocations or platform message tracing. Final artifact sizes and diagnostic byte scopes do not establish complete final encoded/decoded/hashed/stable-write totals.",
+      "evidence": [
+        "measurements.json",
+        "allocation-ledger.json",
+        "diagnostic-ledger.json"
+      ]
+    },
+    {
+      "gate": "Exact final upstream publication, immutable pin and six-job CI",
+      "status": "BLOCKED",
+      "detail": "User-owned remote actions prohibited in this task. DTR77 remains local; production Rust/npm pins are not silently changed. No old CI is borrowed.",
+      "evidence": [
+        "artifacts.json",
+        "changed-files.json"
+      ]
+    },
+    {
+      "gate": "Production release authority and protected reserve",
+      "status": "BLOCKED",
+      "detail": "No production deployment authorized; live liquid is below the protected 3T reserve even before upgrade/maintenance allowance. Class B review and fresh budget required.",
+      "evidence": [
+        "production-health-final.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "executables": {
+    "node": {
+      "path": "/home/codexdev/.nvm/versions/node/v24.15.0/bin/node",
+      "sha256": "d1de76d8edf2fededf6f8b30d244e2c0529ac607923a018283b77e9c74bd932c"
+    },
+    "browser_python": {
+      "path": "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/bin/python3.11",
+      "sha256": "6664ed91cce274007cc17380d07be33aa60ab5de354379c2ca6194edb78d4dc0"
+    },
+    "dfx": {
+      "path": "/home/codexdev/.local/share/dfx/bin/dfx",
+      "sha256": "99728285e3672be4fba71f8d81a6c9484d3e5dc08b973c36ddd577e92ab6caf9"
+    }
+  },
+  "node_version": "v24.15.0",
+  "browser_python_version": "Python 3.11.14",
+  "dfx_version": "dfx 0.31.0",
+  "kernel": {
+    "system": "Linux",
+    "node": "BuildMachine",
+    "release": "6.8.0-1030-azure",
+    "version": "#35~22.04.1-Ubuntu SMP Mon May 26 18:08:30 UTC 2025",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "browser_inventory_sha256": "dd8199e566e03ecde85b0c817dd90c44334c193186e6c7d6ef2f7ebbf23e34e9",
+  "browser_inventory_verified_before_test": 594,
+  "native_test_executable_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "PocketIC_sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"
+}

@@ -1,0 +1,130 @@
+{
+  "first": "2026-10-29T23:56:42.926Z",
+  "last": "2026-10-30T00:01:15.908Z",
+  "certificates_verified": true,
+  "paid_state_equality": {
+    "state": true,
+    "events": true,
+    "scores": true,
+    "publication": true,
+    "configuration": true,
+    "source-descriptor": true
+  },
+  "subnet": {
+    "checked_at": "2026-10-29T23:59:31.422Z",
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "source": "SDK authenticated read_state / built-in IC root",
+    "subnet_id": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+    "node_count": 34,
+    "node_ids": [
+      "c2ewt-wic55-asi27-6eoeu-rn7bq-xjzmz-dzxg2-pxrfw-qeinw-yrj52-7ae",
+      "zzuq4-xiygt-ypkox-2tgdr-yvpzp-optye-xazeq-vnpw5-pata3-4jlle-wqe",
+      "rtjw5-ja7cv-j7nyl-jc5mc-t7lol-wjouh-nh6tm-baoba-wzra6-toyp5-iqe",
+      "tr46q-xi77g-4q4ws-4bwjv-7jxfj-bw5li-on3r3-6pjk3-dxtgt-jtfsa-fqe",
+      "ntk4m-3jwml-24enm-akwhr-gps2m-xe36d-qlkd2-scgcu-qmjik-nrk3b-wae",
+      "mhfef-zbxsl-rocpc-ovqeh-jg3ct-7nvmi-gzpnm-xjmm4-uekgj-rquls-uqe",
+      "wix7d-hb2a6-2pcsi-xwm54-gmlxk-gfh3d-dtfog-h7o35-vzm56-w7h34-6qe",
+      "6hwly-tz5li-sbfgm-dehd4-f3yta-kj6jy-3mxdu-dwhia-b4bqc-fius2-6ae",
+      "hantr-rsbsw-3at2v-5us73-mb7db-r5zhb-ki46z-5g6fu-26fbk-h5iif-oqe",
+      "flzwv-lslut-uvzxu-nrlrj-64b4q-om4c6-amsu4-nswej-io3nd-4gkkg-6ae",
+      "afu64-x2met-w2vxb-4lzus-z4fhf-divej-q46gf-wvpek-dj67h-fptsd-aae",
+      "np33o-vcmlt-zvs5o-wfwgf-l2qcj-htqw4-vdp4e-5vcki-6edum-ejtqz-jae",
+      "myguv-fs4u6-jl53y-vk4pf-6xojw-4umwc-r55jy-jyy7q-f4gmu-wvliw-2qe",
+      "bkult-ic75e-xfviw-iyidh-tivyz-r7fvw-7r4xt-aawip-cp7vm-4iu2v-rae",
+      "g765q-rteh7-xio4e-vtyea-ww46p-beylc-3e3s3-yhvuy-in6jd-hj5qo-3qe",
+      "tws6x-33lmm-tptgb-v2tte-opnm4-fychj-thpve-x4ofu-cn4vo-6yuhl-qqe",
+      "qae5l-hlpw3-yh3ge-uomfd-moqa5-txavd-fcu7s-n52vq-cxk5q-r4rhb-gqe",
+      "3y7fy-fd2oe-33qxg-wq7y6-zzplk-33jhm-n4glx-2c7ij-k24nn-jbsst-xae",
+      "j6uir-h4bk3-chdqr-hxnkr-3jp7o-yb3el-skdsd-7oejj-eubk5-5onvy-zae",
+      "wr22o-nmso7-rmkqr-vzkv5-eg2cd-kxx3o-jbjnc-e5tjy-ety5p-rz4vf-uqe",
+      "w7v5s-nethv-crfsc-zzq5e-gibjz-dmmyp-mrl6e-vkvid-g56eh-iilcm-eqe",
+      "shtwt-kuy74-afhyd-sivzp-nj3vl-vh2zl-hdsvv-yunlj-k3asp-zsigu-cae",
+      "wgxbt-4e5xm-lsyc6-kazar-7kvzj-7biff-vzt52-2hddx-h3ddg-pfd3n-iae",
+      "yzi7p-lnf22-u2wot-tgxzn-v3ubs-4yuqq-fywh7-4tkk7-ly2xh-r5byg-mqe",
+      "eqe4v-xnyd5-sqimm-7qxav-sxmuf-c5jjj-bpqq3-ccpso-g6jqf-2a4yo-bqe",
+      "pbken-vny4r-j4a2m-zlvt2-kjj4i-pwehn-ftsa4-ne4xu-yz72s-fk6nz-eqe",
+      "e6334-h54qb-rfmfa-kktez-s5tjs-q2ihe-fazyk-ybuo5-leln6-v3cfi-dae",
+      "6ricl-vwbej-yk73y-6ttjb-oefyv-cpjta-7ttqk-e4ucl-5rxsq-v2bag-zae",
+      "3ojqg-v6jhs-frq5l-a3l7k-7xvhc-kolvz-2e4to-pdf4l-xiuem-h72b3-bqe",
+      "zzzie-aooer-6ecit-rw42z-h2aym-jn3gt-baeys-kmdgd-c3p46-7te4i-2qe",
+      "irpwa-t65vg-ellmb-rg37m-ge5or-g3crz-3vbri-m4spq-eldkq-v2vs7-pae",
+      "yi5cv-jplzh-hnw2e-cmfyt-qpfvw-pes2g-7jc4j-qfrmd-o66m6-iz4f3-iae",
+      "6df7i-epxjg-xjgjb-reyqa-3d5a5-cvgxz-zscfa-ycszz-32cuu-ruhx5-lae",
+      "c6kyc-37zic-3xhsz-smhba-moq5m-k6xqk-4355l-xtabo-jkeyf-aenq7-hqe"
+    ]
+  },
+  "backend_module": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+  "publication_sha256": "95c7dc5c0d0d2def4ca17f999ad552db247a6f1c73c7db994e910f44dd6f3e34",
+  "publication_version": 8,
+  "world_version": 5,
+  "dimensions": [
+    1000,
+    1000
+  ],
+  "balls": 3,
+  "cannons": 1,
+  "status_start": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 0,
+        "supported_milli": 0,
+        "mode": "ReserveProtection",
+        "admission_open": false,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "63379",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "39711127"
+    }
+  },
+  "status_closing": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 0,
+        "supported_milli": 0,
+        "mode": "ReserveProtection",
+        "admission_open": false,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "63379",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "39711127"
+    }
+  },
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "subaccount": "0",
+    "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+  },
+  "ledger_balance_e8s": 0,
+  "ledger_fee_e8s": 10000,
+  "index_synced": {
+    "start": "39840778",
+    "closing": "39841058"
+  },
+  "retained_publications_and_artifacts_verified": 16,
+  "controller_runtime_and_funding": "PENDING explicit query-only DFX warning acknowledgement"
+}

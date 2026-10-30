@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "scope": "Capture-only correction before the one authorized A2-only measurement",
+  "source_suite": {
+    "overall": "PASS",
+    "JavaScript_tests": 1389,
+    "Python_tests": 182
+  },
+  "original_HTTP_WebCrypto_browser": "PASS",
+  "focused_units": {
+    "tests": 21,
+    "status": "PASS"
+  },
+  "focused_browser_scenarios": 7,
+  "positive_content_fixture_replay": "PASS 81 consecutive segments; content consistency only, not fresh IC authentication",
+  "native_clippy": "PASS --locked --offline -- -D warnings",
+  "native_fixture_checks": "PASS output isolation and frozen A2 public disposable binding",
+  "application_rebuilds": 0,
+  "historical_pair_verdict": "FAIL (unchanged)",
+  "new_A2_measurement": "NOT_RUN at source freeze",
+  "new_exact_commit_CI": "NOT_RUN; local unpublished source",
+  "raw_root": "/home/codexdev/src/b2z/.work/a2-capture-closeout"
+}

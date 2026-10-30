@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-10-30T12:21:37.005210+00:00",
+  "scope": "User explicitly authorises agent pause, one exact frozen A0\u2192A2 mainnet upgrade, preservation verification and resume; no funding/controller/frontend changes. Per-command plaintext acknowledgement expressly allowed.",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "controller_principal": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+  "identity": "codex_local",
+  "minimum_liquid_cycles": 5000000000000
+}

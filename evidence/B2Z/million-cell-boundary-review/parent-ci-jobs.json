@@ -1,0 +1,809 @@
+{
+  "total_count": 7,
+  "jobs": [
+    {
+      "id": 121777984391,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiThw",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984391",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984391",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:32Z",
+      "completed_at": "2026-10-26T18:51:12Z",
+      "name": "Native conformance",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:34Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:34Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:36Z"
+        },
+        {
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T18:50:36Z",
+          "completed_at": "2026-10-26T18:50:46Z"
+        },
+        {
+          "name": "Run cargo +1.94.1 fetch --manifest-path Cargo.toml --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T18:50:46Z",
+          "completed_at": "2026-10-26T18:50:46Z"
+        },
+        {
+          "name": "Run cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-26T18:50:46Z",
+          "completed_at": "2026-10-26T18:50:46Z"
+        },
+        {
+          "name": "Run python -B tools/check.py native --output .work/ci-native",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-26T18:50:46Z",
+          "completed_at": "2026-10-26T18:51:07Z"
+        },
+        {
+          "name": "Upload native evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-26T18:51:07Z",
+          "completed_at": "2026-10-26T18:51:09Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-26T18:51:09Z",
+          "completed_at": "2026-10-26T18:51:09Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-26T18:51:09Z",
+          "completed_at": "2026-10-26T18:51:09Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-26T18:51:09Z",
+          "completed_at": "2026-10-26T18:51:09Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-26T18:51:09Z",
+          "completed_at": "2026-10-26T18:51:09Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984391",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000001058,
+      "runner_name": "GitHub Actions 1000001058",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121777984495,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiT7w",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984495",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984495",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:32Z",
+      "completed_at": "2026-10-26T18:51:37Z",
+      "name": "Source conformance",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:32Z",
+          "completed_at": "2026-10-26T18:50:33Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T18:50:36Z",
+          "completed_at": "2026-10-26T18:50:37Z"
+        },
+        {
+          "name": "Run npm ci --ignore-scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T18:50:37Z",
+          "completed_at": "2026-10-26T18:50:38Z"
+        },
+        {
+          "name": "Run python -B tools/check.py source --output .work/ci-source",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T18:50:38Z",
+          "completed_at": "2026-10-26T18:51:33Z"
+        },
+        {
+          "name": "Upload source evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-26T18:51:33Z",
+          "completed_at": "2026-10-26T18:51:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-26T18:51:35Z",
+          "completed_at": "2026-10-26T18:51:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-26T18:51:35Z",
+          "completed_at": "2026-10-26T18:51:35Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-26T18:51:35Z",
+          "completed_at": "2026-10-26T18:51:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-26T18:51:35Z",
+          "completed_at": "2026-10-26T18:51:35Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984495",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000001059,
+      "runner_name": "GitHub Actions 1000001059",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121777984516,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiUBA",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984516",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984516",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:32Z",
+      "completed_at": "2026-10-26T18:51:00Z",
+      "name": "Packaged DTR and clean consumers",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:34Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:34Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:36Z"
+        },
+        {
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T18:50:36Z",
+          "completed_at": "2026-10-26T18:50:44Z"
+        },
+        {
+          "name": "Run python -B tools/verify_dtr_consumers.py --output .work/ci-package-consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T18:50:44Z",
+          "completed_at": "2026-10-26T18:50:55Z"
+        },
+        {
+          "name": "Upload package-consumer evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-26T18:50:55Z",
+          "completed_at": "2026-10-26T18:50:56Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-26T18:50:56Z",
+          "completed_at": "2026-10-26T18:50:56Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-26T18:50:56Z",
+          "completed_at": "2026-10-26T18:50:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-26T18:50:56Z",
+          "completed_at": "2026-10-26T18:50:57Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-26T18:50:57Z",
+          "completed_at": "2026-10-26T18:50:57Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984516",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000001060,
+      "runner_name": "GitHub Actions 1000001060",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121777984574,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiUPg",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984574",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984574",
+      "status": "in_progress",
+      "conclusion": null,
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:31Z",
+      "completed_at": null,
+      "name": "S14 and million-cell installed-IC qualification",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:32Z",
+          "completed_at": "2026-10-26T18:50:33Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:34Z"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:34Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:36Z"
+        },
+        {
+          "name": "Run npm ci",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T18:50:36Z",
+          "completed_at": "2026-10-26T18:50:38Z"
+        },
+        {
+          "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T18:50:38Z",
+          "completed_at": "2026-10-26T18:50:43Z"
+        },
+        {
+          "name": "Run python -m playwright install chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-26T18:50:43Z",
+          "completed_at": "2026-10-26T18:50:52Z"
+        },
+        {
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-26T18:50:52Z",
+          "completed_at": "2026-10-26T18:51:03Z"
+        },
+        {
+          "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-26T18:51:03Z",
+          "completed_at": "2026-10-26T18:51:05Z"
+        },
+        {
+          "name": "Run cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-26T18:51:05Z",
+          "completed_at": "2026-10-26T18:51:08Z"
+        },
+        {
+          "name": "Run cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-26T18:51:08Z",
+          "completed_at": "2026-10-26T18:51:09Z"
+        },
+        {
+          "name": "Run python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-26T18:51:09Z",
+          "completed_at": "2026-10-26T18:51:13Z"
+        },
+        {
+          "name": "Run python -B tools/check.py integration --output .work/ci-integration",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 13,
+          "started_at": "2026-10-26T18:51:13Z",
+          "completed_at": null
+        },
+        {
+          "name": "Upload local IC evidence",
+          "status": "pending",
+          "conclusion": null,
+          "number": 14,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "pending",
+          "conclusion": null,
+          "number": 26,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "pending",
+          "conclusion": null,
+          "number": 27,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "pending",
+          "conclusion": null,
+          "number": 28,
+          "started_at": null,
+          "completed_at": null
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984574",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000001061,
+      "runner_name": "GitHub Actions 1000001061",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121777984737,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiU4Q",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984737",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984737",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:32Z",
+      "completed_at": "2026-10-26T18:53:10Z",
+      "name": "Runtime-lab Wasm",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:34Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:34Z",
+          "completed_at": "2026-10-26T18:50:36Z"
+        },
+        {
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:36Z",
+          "completed_at": "2026-10-26T18:50:45Z"
+        },
+        {
+          "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T18:50:45Z",
+          "completed_at": "2026-10-26T18:50:47Z"
+        },
+        {
+          "name": "Run python3 -B tools/check.py wasm --output .work/ci-wasm",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T18:50:47Z",
+          "completed_at": "2026-10-26T18:53:06Z"
+        },
+        {
+          "name": "Upload Wasm evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T18:53:06Z",
+          "completed_at": "2026-10-26T18:53:07Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-26T18:53:07Z",
+          "completed_at": "2026-10-26T18:53:08Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-26T18:53:08Z",
+          "completed_at": "2026-10-26T18:53:08Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984737",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000001062,
+      "runner_name": "GitHub Actions 1000001062",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121777984857,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiVWQ",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984857",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984857",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:32Z",
+      "completed_at": "2026-10-26T18:51:57Z",
+      "name": "Browser HTTP and Web Crypto",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:33Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:34Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:35Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-26T18:50:35Z",
+          "completed_at": "2026-10-26T18:50:36Z"
+        },
+        {
+          "name": "Run npm ci --ignore-scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-26T18:50:36Z",
+          "completed_at": "2026-10-26T18:50:37Z"
+        },
+        {
+          "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-26T18:50:37Z",
+          "completed_at": "2026-10-26T18:50:42Z"
+        },
+        {
+          "name": "Run python -m playwright install chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-26T18:50:42Z",
+          "completed_at": "2026-10-26T18:50:51Z"
+        },
+        {
+          "name": "Run python -B tools/check.py browser --output .work/ci-browser",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-26T18:50:51Z",
+          "completed_at": "2026-10-26T18:51:49Z"
+        },
+        {
+          "name": "Upload browser evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-26T18:51:49Z",
+          "completed_at": "2026-10-26T18:51:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-26T18:51:55Z",
+          "completed_at": "2026-10-26T18:51:55Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-26T18:51:55Z",
+          "completed_at": "2026-10-26T18:51:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-26T18:51:56Z",
+          "completed_at": "2026-10-26T18:51:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-26T18:51:56Z",
+          "completed_at": "2026-10-26T18:51:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984857",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000001064,
+      "runner_name": "GitHub Actions 1000001064",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121777984890,
+      "run_id": 40381316962,
+      "workflow_name": "verification",
+      "head_branch": "feature/b2z-million-cell-visuals",
+      "run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40381316962",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVD9gGs8AAAAcWoiVeg",
+      "head_sha": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/jobs/121777984890",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40381316962/job/121777984890",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-26T18:50:29Z",
+      "started_at": "2026-10-26T18:50:32Z",
+      "completed_at": "2026-10-26T18:50:36Z",
+      "name": "BLOCKED production inventory (not a pass)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:33Z"
+        },
+        {
+          "name": "Run echo '::warning::BLOCKED: user-operated mainnet deployment, financial/settlement gates and measured target-subnet capacity remain unexecuted.'",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-26T18:50:33Z",
+          "completed_at": "2026-10-26T18:50:34Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-26T18:50:34Z",
+          "completed_at": "2026-10-26T18:50:34Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/121777984890",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000001063,
+      "runner_name": "GitHub Actions 1000001063",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

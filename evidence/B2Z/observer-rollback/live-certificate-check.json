@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "verified_at": "2026-10-30T13:35:55.646Z",
+  "root": "833b15e9fdb26dcff4151e91757924bc687dbf71e0f80986aae8fc1a19e4a610",
+  "head": "66540",
+  "certificate_time_ns": "1793367217621651584",
+  "trust": "Unchanged built-in IC root, normal certificate time/delegation/canister/root verification; no clock override"
+}

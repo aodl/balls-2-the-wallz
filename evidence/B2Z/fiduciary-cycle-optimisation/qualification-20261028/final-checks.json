@@ -1,0 +1,17 @@
+{
+  "command": [
+    "sha256sum",
+    "-c",
+    "SHA256SUMS"
+  ],
+  "cwd": "/home/codexdev/b2z-release-evidence/a2-qualification-20261028",
+  "exit_code": 0,
+  "files_checked": 935,
+  "manifest_sha256": "fa5d2eec6e7fe527a0f5be765b5bab589da4c0a52744a245d85c5a5a1c0f06d8",
+  "recheck_output_sha256": "04189778541a98cb33a2908d5c2a4c79649dec20ae90f573698dcfcb979b00d5",
+  "source_tree_doc_links_exit": 0,
+  "reviewed_JSON_parses": true,
+  "production_policy_local_test_app_sha256": "95a1dc6252207ba364909f27455bebf113db3f4bb7f386d9f73a6be38e82bcb0",
+  "frontend_source_changed": false,
+  "frontend_deployed": false
+}

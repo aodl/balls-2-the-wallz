@@ -1,0 +1,129 @@
+[
+  {
+    "artifact_id": 12959448367,
+    "sha256": "89c67b8b9aac5448dba7d6acf52f8349c46be15c40eafb8170c9730cb0b07e8e",
+    "reports": [
+      {
+        "path": "ci-browser/verification.json",
+        "git_revision": "7f447a3a2d20d2aac477e71749c287165b0fc6b5",
+        "overall": "PASS",
+        "checks": 1,
+        "scope": "repository check"
+      },
+      {
+        "path": "ci-browser/browser-http/results.json",
+        "git_revision": null,
+        "overall": "PASS",
+        "checks": 14,
+        "scope": "Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification."
+      },
+      {
+        "path": "ci-wire-capture/results.json",
+        "git_revision": null,
+        "overall": null,
+        "checks": 8,
+        "scope": "Capture lifecycle fixture only; expired preserved wire content is not new IC authentication or a historical gate PASS."
+      }
+    ]
+  },
+  {
+    "artifact_id": 12959538098,
+    "sha256": "64c89ec1dab32c040ce9079d48cb4b5e87c1a5b09b189be36f67f639d5fa242d",
+    "reports": [
+      {
+        "path": "results.json",
+        "git_revision": null,
+        "overall": "PASS",
+        "checks": 8,
+        "scope": "repository check"
+      }
+    ]
+  },
+  {
+    "artifact_id": 12959922751,
+    "sha256": "a3ed6fe723c56bba997771de97a351eb242bb12f827a39796dda7537348a33ed",
+    "reports": [
+      {
+        "path": "verification.json",
+        "git_revision": "7f447a3a2d20d2aac477e71749c287165b0fc6b5",
+        "overall": "PASS",
+        "checks": 5,
+        "scope": "repository check"
+      }
+    ]
+  },
+  {
+    "artifact_id": 12960116283,
+    "sha256": "86a11924a7ef506a9b8c922527aa5d07f4d288520f979cef38a0e998b3d2f59b",
+    "reports": [
+      {
+        "path": "verification.json",
+        "git_revision": "7f447a3a2d20d2aac477e71749c287165b0fc6b5",
+        "overall": "PASS",
+        "checks": 17,
+        "scope": "repository check"
+      }
+    ]
+  },
+  {
+    "artifact_id": 12960395095,
+    "sha256": "7ab7b32f2f151162b8e24deb64e5fb463a1fe46d5aafe6b56c23034ea9e10b34",
+    "reports": [
+      {
+        "path": "verification.json",
+        "git_revision": "7f447a3a2d20d2aac477e71749c287165b0fc6b5",
+        "overall": "PASS",
+        "checks": 11,
+        "scope": "repository check"
+      }
+    ]
+  },
+  {
+    "artifact_id": 12961029379,
+    "sha256": "cf608242716272e2a011dded37fe30f284957ac84d8b53ca40a3dada84d9c570",
+    "reports": [
+      {
+        "path": "verification.json",
+        "git_revision": "7f447a3a2d20d2aac477e71749c287165b0fc6b5",
+        "overall": "PASS",
+        "checks": 1,
+        "scope": "Ordinary installed-IC/application-subnet CI, not the frozen fiduciary comparison"
+      },
+      {
+        "path": "s14-local/deployment/million-browser-normal/results.json",
+        "git_revision": null,
+        "overall": null,
+        "checks": 6,
+        "scope": "Ordinary installed-IC/application-subnet CI, not the frozen fiduciary comparison"
+      },
+      {
+        "path": "s14-local/deployment/million-browser-sustained/results.json",
+        "git_revision": null,
+        "overall": null,
+        "checks": 9,
+        "scope": "Ordinary installed-IC/application-subnet CI, not the frozen fiduciary comparison"
+      },
+      {
+        "path": "s14-local/deployment/million-certified-checkpoint/verification.json",
+        "git_revision": null,
+        "overall": null,
+        "checks": 0,
+        "scope": "Ordinary installed-IC/application-subnet CI, not the frozen fiduciary comparison"
+      },
+      {
+        "path": "s14-local/deployment/results.json",
+        "git_revision": null,
+        "overall": null,
+        "checks": 18,
+        "scope": "Ordinary installed-IC/application-subnet CI, not the frozen fiduciary comparison"
+      },
+      {
+        "path": "s14-local/results.json",
+        "git_revision": null,
+        "overall": "PASS",
+        "checks": 50,
+        "scope": "Ordinary installed-IC/application-subnet CI, not the frozen fiduciary comparison"
+      }
+    ]
+  }
+]

@@ -2,10 +2,11 @@
 //! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
 mod funding;
+mod operation_kernel;
 mod pace;
 mod source;
 mod transition;
-use b2z_native::{host::B2zHostKernel, world::World};
+use b2z_native::world::World;
 use candid::{CandidType, Principal};
 use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
 use dtr_host::{Action, Coordinator, Identity, MAX_IMAGE};
@@ -15,6 +16,7 @@ use ic_stable_structures::{
     memory_manager::{MemoryId, MemoryManager, VirtualMemory},
     DefaultMemoryImpl, StableBTreeMap, StableCell,
 };
+use operation_kernel::OperationKernel as B2zHostKernel;
 use serde::{Deserialize, Serialize};
 use source::{IndexConfig, PokeMatch, SourceState, SourceStatus};
 use std::cell::{Cell, RefCell};
@@ -550,7 +552,11 @@ fn status(r: &Root) -> Status {
     }
 }
 fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
-    let host = Coordinator::restore(&read_blob(0, &r.image)?, &r.image.sha256, B2zHostKernel)?;
+    let host = Coordinator::restore(
+        &read_blob(0, &r.image)?,
+        &r.image.sha256,
+        B2zHostKernel::default(),
+    )?;
     if number(&host.record.inbox.cursor)? != r.source.cursor {
         return Err("index source/coordinator divergence".into());
     }
@@ -608,6 +614,8 @@ fn persist_inner(
     let image = h.snapshot()?;
     let image_descriptor = describe_image(&image)?;
     let view = publication(&h.record)?;
+    #[cfg(feature = "test-hooks")]
+    let publication_changed = old.is_some_and(|r| r.publication_hash != view.sha256);
     let mut retention = old.map(|root| root.retention.clone()).unwrap_or_default();
     let mut retained_writes = Vec::<(u64, Vec<u8>)>::new();
     let mut evicted = Vec::<RetainedMeta>::new();
@@ -709,6 +717,8 @@ fn persist_inner(
     // All Result-returning preparation above. No await after writes begin.
     // Stable-write/chunk allocations below must trap on failure, never return an error reply.
     // Any failure here must trap so the whole message, including certified_data, rolls back.
+    #[cfg(feature = "test-hooks")]
+    persistence_fault("before-write", publication_changed);
     BLOBS.with(|m| {
         let mut m = m.borrow_mut();
         for (slot, bytes) in writes {
@@ -729,8 +739,14 @@ fn persist_inner(
             for i in count..previous_length.div_ceil(CHUNK) {
                 m.remove(&blob_key(slot, i as u64).expect("validated previous blob size"));
             }
+            #[cfg(feature = "test-hooks")]
+            if slot == 0 {
+                persistence_fault("after-image", publication_changed);
+            }
         }
     });
+    #[cfg(feature = "test-hooks")]
+    persistence_fault("after-current", publication_changed);
     RETAINED.with(|map| {
         let mut map = map.borrow_mut();
         for entry in evicted {
@@ -756,12 +772,18 @@ fn persist_inner(
             map.insert(key, bytes);
         }
     });
+    #[cfg(feature = "test-hooks")]
+    persistence_fault("after-retained", publication_changed);
     ROOT.with(|c| {
         c.borrow_mut().set(root_bytes);
     });
+    #[cfg(feature = "test-hooks")]
+    persistence_fault("after-root", publication_changed);
     ARENA_IDLE.with(|flag| flag.set(idle));
     if update_certified_data {
         ic_cdk::api::certified_data_set(certified_root);
+        #[cfg(feature = "test-hooks")]
+        persistence_fault("after-certification", publication_changed);
     }
     Ok(r)
 }
@@ -1008,9 +1030,47 @@ fn set_funding_paused(paused: bool) -> std::result::Result<funding::State, Strin
     funding::pause(paused)
 }
 #[cfg(feature = "test-hooks")]
+thread_local! { static PERSISTENCE_FAULT: RefCell<Option<String>> = const { RefCell::new(None) }; }
+#[cfg(feature = "test-hooks")]
+fn persistence_fault(point: &str, publication_changed: bool) {
+    PERSISTENCE_FAULT.with(|fault| {
+        let armed = fault.borrow();
+        let triggered = armed.as_ref().is_some_and(|armed| {
+            armed == &format!("persistence:{point}")
+                || (publication_changed && armed == &format!("persistence-publish:{point}"))
+        });
+        if triggered {
+            ic_cdk::trap(format!("B2Z_PERSISTENCE_FAULT {point}"));
+        }
+    });
+}
+#[cfg(feature = "test-hooks")]
 #[ic_cdk::update]
 fn test_funding_fault(point: String) -> std::result::Result<(), String> {
     authorized()?;
+    if point == "persistence:clear" {
+        PERSISTENCE_FAULT.with(|f| *f.borrow_mut() = None);
+        return Ok(());
+    }
+    if let Some(stage) = point
+        .strip_prefix("persistence:")
+        .or_else(|| point.strip_prefix("persistence-publish:"))
+    {
+        if ![
+            "before-write",
+            "after-image",
+            "after-current",
+            "after-retained",
+            "after-root",
+            "after-certification",
+        ]
+        .contains(&stage)
+        {
+            return Err("unknown persistence fault".into());
+        }
+        PERSISTENCE_FAULT.with(|f| *f.borrow_mut() = Some(point));
+        return Ok(());
+    }
     funding::set_fault(point)
 }
 #[ic_cdk::query]
@@ -1051,7 +1111,7 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
             logical_start,
             0,
             "00".repeat(32),
-            B2zHostKernel,
+            B2zHostKernel::default(),
         )?;
         let r = persist(&h, None, source, RunState::default())?;
         cache_poke_policy(&r.source);
@@ -2149,7 +2209,7 @@ mod tests {
             0,
             0,
             "00".repeat(32),
-            B2zHostKernel,
+            B2zHostKernel::default(),
         )
         .unwrap()
     }
@@ -2421,7 +2481,7 @@ mod tests {
             0,
             0,
             "00".repeat(32),
-            B2zHostKernel,
+            B2zHostKernel::default(),
         )
         .unwrap();
         h.apply(Action::Seal {

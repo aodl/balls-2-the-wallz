@@ -1,0 +1,79 @@
+name: Pinned A2 sequential delivery
+on:
+  push:
+    branches: [ci/b2z-pinned-a2-delivery]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  matched:
+    # Retired after infrastructure interference in 40846505834. Execute the
+    # frozen baseline directly on an authorised quiet host; never retry here.
+    if: ${{ false }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    env:
+      RUSTUP_TOOLCHAIN: 1.94.1
+      S14_QUAL_PREBUILT_ROOT: ${{ github.workspace }}/.work/delivery-inputs
+      S14_QUAL_PRODUCTION_REFERENCE: ${{ github.workspace }}/vendor/b2z/delivery/frontend-manifest.json
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.15.0'
+      - name: Verify unchanged release inputs and prerequisite CI
+        run: |
+          git diff --exit-code eae3eb97c448588a428da0147dc331ae915b8b60 -- apps packages native kernels crates canisters/runtime-lab/src Cargo.toml Cargo.lock native/Cargo.toml native/Cargo.lock canisters/runtime-lab/Cargo.toml canisters/runtime-lab/Cargo.lock package.json package-lock.json vendor/dtr tools/build_observer_mainnet.mjs tools/playback_qualification.py tools/browser-requirements.txt tools/s09-artifacts.json
+          python - <<'PY'
+          import json,urllib.request
+          url='https://api.github.com/repos/aodl/balls-2-the-wallz/actions/runs/40771390122'
+          run=json.load(urllib.request.urlopen(url));assert run['head_sha']=='eae3eb97c448588a428da0147dc331ae915b8b60'
+          jobs=json.load(urllib.request.urlopen(url+'/jobs'))['jobs']
+          substantive=[j for j in jobs if not j['name'].startswith('BLOCKED production')]
+          assert len(substantive)==6 and all(j['conclusion']=='success'for j in substantive),[(j['name'],j['conclusion'])for j in substantive]
+          PY
+      - name: Complete all provisioning before resource screen
+        run: |
+          npm ci --ignore-scripts
+          python -m pip install --require-hashes -r tools/browser-requirements.txt
+          python -m playwright install chromium
+          rustup toolchain install 1.94.1 --profile minimal --target wasm32-unknown-unknown
+          cargo +1.94.1 fetch --manifest-path Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked
+          cargo +1.94.1 fetch --manifest-path tools/fixtures/dtr-consumer-rust/Cargo.toml --locked
+          python -B tools/fetch_s09_artifacts.py --destination "$HOME/dtr-s09-artifacts" --record .work/delivery-downloads.json
+          python -B tools/check_dtr_provenance.py --output .work/delivery-provenance.json
+          python -B tools/prepare_delivery_ci.py
+      - name: One sequential exact-normal A0 then A2 comparison
+        run: |
+          python -B tools/run_matched_delivery.py \
+            --output .work/delivery-pair --normal-only \
+            --harness .work/delivery-inputs/harness --harness-sha256 "$DELIVERY_HARNESS_SHA" \
+            --a0 .work/delivery-inputs/A0.wasm --a2 .work/delivery-inputs/A2.wasm \
+            --a2-sha256 2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb \
+            --artifacts "$HOME/dtr-s09-artifacts" --proxy-port 18765 \
+            --browser-python "$(command -v python)" --ready .work/delivery-inputs/ready \
+            --prerequisite-wait-seconds 180
+      - name: Preserve complete evidence even on failure
+        if: always()
+        run: |
+          python - <<'PY'
+          import hashlib,pathlib
+          root=pathlib.Path('.work');files=sorted(p for p in root.rglob('*')if p.is_file()and p.name!='DELIVERY_SHA256SUMS')
+          (root/'DELIVERY_SHA256SUMS').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+str(p)+'\n'for p in files))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: pinned-a2-matched-delivery-${{ github.run_id }}
+          path: .work/**
+          include-hidden-files: true
+          retention-days: 90
+          if-no-files-found: error

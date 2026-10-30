@@ -1,0 +1,13 @@
+{
+  "independent_directory": "/home/codexdev/b2z-release-evidence/a2-capture-closeout-20261029",
+  "verified_files": 2740,
+  "independent_manifest_sha256": "d966c57aaab75404cd24356cb1c8377fcc16a0125e20abff308be8f256113df6",
+  "raw_manifest_sha256": "4167380ae8456a83c67ec8f5404967d7a6c94b5718d5aca77d6bfbfae48c8ff9",
+  "tar_path": "/home/codexdev/b2z-release-evidence/a2-capture-closeout-20261029.tar.gz",
+  "tar_sha256": "03f9bb1181463b49c55b92ab6923c1ce5cec400a92100c9544be60875b773995",
+  "tar_bytes": 138871434,
+  "tar_members_verified": 2740,
+  "includes": "all surviving raw measurements, focused success/failure fixtures and logs, final capture/harness sources plus the patch from the measured source, exact native executable, frozen Wasm, simulator and valueless ledger/index artifacts",
+  "historical_manifest_sha256": "1bacf932e912e1c11c875f71976d6427d6be4d281eb0c822329d582270f43f44",
+  "scope": "Independent raw/input/source snapshot; transport seal metadata and final local commit are recorded separately to avoid checksum cycles."
+}

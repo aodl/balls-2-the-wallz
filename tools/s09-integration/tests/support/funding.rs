@@ -195,6 +195,9 @@ pub(super) fn complete_predecessor_treasury(pic: &PocketIc, id: Principal) {
     assert!(funding(pic, id).last_success.is_some());
     assert!(matches!(funding(pic, id).phase, Phase::Idle));
 }
+pub(super) fn full_finance(pic: &PocketIc, id: Principal) -> serde_json::Value {
+    serde_json::to_value(funding(pic, id)).unwrap()
+}
 pub(super) fn preserved_finance(pic: &PocketIc, id: Principal) -> serde_json::Value {
     let f = funding(pic, id);
     serde_json::json!({"paused":f.paused,"halted":f.halted,"phase":f.phase,"last_success":f.last_success,"last_refund":f.last_refund,"total_converted_e8s":f.total_converted_e8s,"total_cycles_reported":f.total_cycles_reported,"last_plan_ns":f.last_plan_ns})

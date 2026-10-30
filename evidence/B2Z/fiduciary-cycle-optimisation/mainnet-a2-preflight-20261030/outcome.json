@@ -1,0 +1,58 @@
+{
+  "verdict": "BLOCKED_UNSAFE_BALANCE",
+  "deployment_executed": false,
+  "pause_executed": false,
+  "upgrade_executed": false,
+  "resume_executed": false,
+  "financial_operations": false,
+  "balance_query_completed_epoch_ms": 1793362898029.7314,
+  "liquid_cycles": 2846689665080,
+  "total_cycles": 2993548017650,
+  "required_minimum_liquid_cycles": 5000000000000,
+  "expected_reported_user_top_up": "Approximately 10T per user; observed balance is inconsistent with that expectation. No inference about transfer success, destination or timing is made.",
+  "module": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+  "controller_status": {
+    "callback_count": "97248",
+    "completed_segments": "65818",
+    "current_segment_work": "0",
+    "generation": "23",
+    "idle": false,
+    "last_error": [],
+    "last_segment_work": "598",
+    "max_segment_work": "14005",
+    "pace": {
+      "admission_open": false,
+      "mode": "ReserveProtection",
+      "nominal_milli": 0,
+      "performance_limited": false,
+      "supported_milli": 0
+    },
+    "pacing_seconds": 1,
+    "publication_ticks": "1",
+    "running": true,
+    "segment_ticks": "1",
+    "total_work": "48477445",
+    "work_budget": 512,
+    "world_transition": false
+  },
+  "public_status": {
+    "last_error": [],
+    "world_transition": false,
+    "idle": false,
+    "pace": {
+      "nominal_milli": 0,
+      "supported_milli": 0,
+      "mode": "ReserveProtection",
+      "admission_open": false,
+      "performance_limited": false
+    },
+    "segment_ticks": "1",
+    "publication_ticks": "1",
+    "completed_segments": "65818",
+    "running": true
+  },
+  "authenticated_publication": "65819",
+  "retained_catalogs_verified": 16,
+  "subnet_and_controllers_verified": true,
+  "reason": "User explicitly requires liquid >=5T and stop if unexpectedly unsafe. Gate failed; no mainnet update was sent."
+}

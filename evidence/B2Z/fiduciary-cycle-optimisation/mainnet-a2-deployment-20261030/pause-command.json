@@ -1,0 +1,22 @@
+{
+  "command": [
+    "dfx",
+    "--identity",
+    "codex_local",
+    "canister",
+    "call",
+    "s34gv-3qaaa-aaaar-qcifa-cai",
+    "pause_autonomous",
+    "()",
+    "--network",
+    "ic",
+    "--update",
+    "--candid",
+    "/home/codexdev/b2z-release-evidence/a2-signing-inputs/runtime-lab.did",
+    "--output",
+    "json"
+  ],
+  "started_epoch": 1793364686.689731,
+  "exit_code": 0,
+  "completed_epoch": 1793364689.3902457
+}

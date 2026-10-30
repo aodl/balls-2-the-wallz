@@ -1,0 +1,484 @@
+{
+  "verdict": "PASS",
+  "technical_recommendation": "GO for frozen A2 Normal delivery/capture/replay technical qualification only",
+  "source_commit": "3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "native_executable_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "module": {
+    "fiduciary": true,
+    "module_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+    "publication_version": 6,
+    "world_version": 5
+  },
+  "CI": {
+    "run": 40963232155,
+    "six_substantive_jobs": "PASS exact commit"
+  },
+  "one_A2_attempt": true,
+  "repeats": 0,
+  "resource_prerequisite": {
+    "status": "PASS independently reconstructed",
+    "last_qualified_sample_epoch_ms": 1793316600786.752,
+    "gap_to_native_case_start_ms": 1918.14306640625,
+    "samples": 12,
+    "CPU_idle_percent": {
+      "count": 12,
+      "min": 94.38314944834504,
+      "median": 96.04413239719158,
+      "max": 96.39278557114228
+    },
+    "available_memory_min_GiB": 5.579051971435547,
+    "CPU_PSI_avg10": {
+      "count": 12,
+      "min": 0.0,
+      "median": 0.02,
+      "max": 0.14
+    },
+    "IO_full_PSI_avg10": {
+      "count": 12,
+      "min": 0.0,
+      "median": 0.06,
+      "max": 0.93
+    },
+    "swap_out_delta": 0,
+    "cgroup_throttled_usec_delta": {
+      "/sys/fs/cgroup/user.slice/user-1000.slice/session-7.scope": 0,
+      "/sys/fs/cgroup": 0
+    }
+  },
+  "host_during_strict_window": {
+    "samples": 179,
+    "CPU_idle_percent": {
+      "count": 179,
+      "min": 8.656716417910449,
+      "median": 14.285714285714285,
+      "max": 48.5456369107322
+    },
+    "available_memory_min_GiB": 4.562858581542969,
+    "CPU_PSI_avg10": {
+      "count": 179,
+      "min": 24.99,
+      "median": 30.35,
+      "max": 62.04
+    },
+    "IO_full_PSI_avg10": {
+      "count": 179,
+      "min": 1.83,
+      "median": 6.44,
+      "max": 19.59
+    },
+    "swap_out_delta": 0,
+    "cgroup_throttled_usec_delta": {
+      "/sys/fs/cgroup/user.slice/user-1000.slice/session-7.scope": 0,
+      "/sys/fs/cgroup": 0
+    }
+  },
+  "normal_prelude": {
+    "seconds": 89.913,
+    "backend_ticks_per_second": 1.0009676020152816,
+    "admitted_ticks_per_second": 0.9898457397706673,
+    "displayed_ticks_per_second": 0.9901427592831601,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 1,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 9,
+      "max": 18
+    },
+    "buffer_ticks": {
+      "min": 8.2858432469598,
+      "max": 17.868945990661103
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 92.60000000149012,
+        "max": 7743.89999999851
+      },
+      "verify_ms": {
+        "median": 37.099999994039536,
+        "max": 69.5
+      },
+      "artifact_ms": {
+        "median": 0.5,
+        "max": 231.10000000149012
+      },
+      "derive_ms": {
+        "median": 3.899999998509884,
+        "max": 8.699999995529652
+      },
+      "catchup_ms": {
+        "median": 272.40000000596046,
+        "max": 930.1000000014901
+      }
+    },
+    "max_catchup_segments": 9,
+    "buffer_bytes": {
+      "min": 337630,
+      "max": 677466
+    },
+    "buffer_target_ticks": {
+      "min": 17,
+      "max": 17
+    },
+    "distinct_playheads": 169,
+    "certified_publications_per_second": 0.9898457397706673,
+    "authenticated_observation_queries_per_second": 1.9685696172967202,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 16.833299999999998,
+    "buffer_end": 16.80659408457217,
+    "admitted_ticks": 89,
+    "displayed_ticks": 89.02670591542677,
+    "phase_samples": {
+      "PLAYING": 169
+    }
+  },
+  "strict_summary": {
+    "status": "PASS",
+    "seconds": 900.3973000488281,
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "production_endpoint_tick_bounds": {
+      "start": [
+        107,
+        109
+      ],
+      "end": [
+        1006,
+        1008
+      ]
+    },
+    "produced_ticks_bounds": [
+      897,
+      901
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9962268877875978,
+      1.0006693711222137
+    ],
+    "admitted_ticks": 900,
+    "displayed_ticks": 900.1984524444101,
+    "admitted_ticks_per_second": 0.9995587502885598,
+    "displayed_ticks_per_second": 0.9997791557078112,
+    "buffer_start": 17.257021540172147,
+    "buffer_end": 17.058569095733674,
+    "buffer_change": -0.1984524444384732,
+    "admitted_minus_displayed": -0.19845244441012255,
+    "buffer_conservation_error": -2.8350655156827997e-11,
+    "rolling_buffer_minutes": [
+      {
+        "minute": 0,
+        "samples": 113,
+        "start": 17.257021540172147,
+        "end": 17.331034247681174,
+        "mean": 16.83243286307284,
+        "min": 10.434433963841897,
+        "max": 17.917914504920276
+      },
+      {
+        "minute": 1,
+        "samples": 111,
+        "start": 16.796520484980647,
+        "end": 17.363633126646107,
+        "mean": 17.16861595901518,
+        "min": 15.578510708147519,
+        "max": 17.95956441489878
+      },
+      {
+        "minute": 2,
+        "samples": 110,
+        "start": 16.846705337846032,
+        "end": 16.728771721468206,
+        "mean": 17.166832824683127,
+        "min": 15.25008430683613,
+        "max": 18.0064157681484
+      },
+      {
+        "minute": 3,
+        "samples": 110,
+        "start": 17.211425606158173,
+        "end": 17.55537085721869,
+        "mean": 17.083391750395272,
+        "min": 14.404596171118214,
+        "max": 17.939077567269976
+      },
+      {
+        "minute": 4,
+        "samples": 110,
+        "start": 17.035693175074357,
+        "end": 17.55221028896966,
+        "mean": 17.157446494185788,
+        "min": 14.830142883346582,
+        "max": 17.950492883668915
+      },
+      {
+        "minute": 5,
+        "samples": 110,
+        "start": 16.985182033569515,
+        "end": 17.515129881936105,
+        "mean": 16.92090359453926,
+        "min": 12.954470514087234,
+        "max": 18.127672188167594
+      },
+      {
+        "minute": 6,
+        "samples": 111,
+        "start": 16.995724771227117,
+        "end": 16.827039493223538,
+        "mean": 17.113062513092906,
+        "min": 14.184550465890595,
+        "max": 18.036463199090292
+      },
+      {
+        "minute": 7,
+        "samples": 110,
+        "start": 17.310634115623486,
+        "end": 17.69023883339935,
+        "mean": 17.242101926797716,
+        "min": 15.454166318157831,
+        "max": 18.05553052000107
+      },
+      {
+        "minute": 8,
+        "samples": 111,
+        "start": 17.11987198169618,
+        "end": 17.689378812156406,
+        "mean": 16.958370114424515,
+        "min": 11.154588056317039,
+        "max": 17.997120709917
+      },
+      {
+        "minute": 9,
+        "samples": 109,
+        "start": 17.169417887552527,
+        "end": 17.833356307174085,
+        "mean": 17.042126347944947,
+        "min": 14.618066356456438,
+        "max": 18.028887356573478
+      },
+      {
+        "minute": 10,
+        "samples": 111,
+        "start": 17.313104184944905,
+        "end": 17.96895137043498,
+        "mean": 16.899812870280268,
+        "min": 10.7743348036621,
+        "max": 18.018965183068758
+      },
+      {
+        "minute": 11,
+        "samples": 110,
+        "start": 17.211939503216968,
+        "end": 10.050067054668261,
+        "mean": 16.5383728011935,
+        "min": 10.050067054668261,
+        "max": 18.107766479509905
+      },
+      {
+        "minute": 12,
+        "samples": 111,
+        "start": 9.532766054668627,
+        "end": 17.78769058893647,
+        "mean": 17.16717787716226,
+        "min": 9.015368054668897,
+        "max": 18.189519175347186
+      },
+      {
+        "minute": 13,
+        "samples": 108,
+        "start": 17.25087605776696,
+        "end": 17.769221591455675,
+        "mean": 16.863785347890683,
+        "min": 10.914798427311098,
+        "max": 18.13111699518413
+      },
+      {
+        "minute": 14,
+        "samples": 107,
+        "start": 17.182941053866898,
+        "end": 17.593917462733543,
+        "mean": 17.01527282908811,
+        "min": 11.247501171377507,
+        "max": 18.11375152681819
+      }
+    ],
+    "buffer_regression_ticks_per_second": -0.0001944108173177573,
+    "last_three_minus_first_three_minute_mean": -0.040548530876694855,
+    "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+    "backend_observation_age_ms": {
+      "median_upper": 1124.813232421875,
+      "max_upper": 3615.531494140625
+    },
+    "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+    "phases": {
+      "PLAYING": 1653
+    },
+    "resynchronizations": 0,
+    "performance_limited": false,
+    "dense_phase_samples": {
+      "PLAYING": 3547
+    }
+  },
+  "strict_playback": {
+    "seconds": 900.3973,
+    "backend_ticks_per_second": 1.0006693711764796,
+    "admitted_ticks_per_second": 0.9995587503427654,
+    "displayed_ticks_per_second": 0.9997791557620288,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 1,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 10,
+      "max": 19
+    },
+    "buffer_ticks": {
+      "min": 9.015368054668897,
+      "max": 18.189519175347186
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 115.19999999552965,
+        "max": 6765.29999999702
+      },
+      "verify_ms": {
+        "median": 38.70000000298023,
+        "max": 95.40000000596046
+      },
+      "artifact_ms": {
+        "median": 0.5,
+        "max": 564
+      },
+      "derive_ms": {
+        "median": 3.899999998509884,
+        "max": 10.899999998509884
+      },
+      "catchup_ms": {
+        "median": 293.20000000298023,
+        "max": 2045.7000000029802
+      }
+    },
+    "max_catchup_segments": 8,
+    "buffer_bytes": {
+      "min": 378990,
+      "max": 720096
+    },
+    "buffer_target_ticks": {
+      "min": 17,
+      "max": 17
+    },
+    "distinct_playheads": 1653,
+    "certified_publications_per_second": 0.9995587503427654,
+    "authenticated_observation_queries_per_second": 2.092409650717522,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 17.257021540172147,
+    "buffer_end": 17.058569095733674,
+    "admitted_ticks": 900,
+    "displayed_ticks": 900.1984524444101,
+    "phase_samples": {
+      "PLAYING": 1653
+    }
+  },
+  "all_regular_samples": 1653,
+  "all_dense_samples": 3547,
+  "independent_recomputation": "PASS all original seven checks and all stored statistics exactly reproduced; dense phases independently checked",
+  "certification": {
+    "path": "Original live SDK verifies genuine disposable IC root, canister identity, freshness/delegation and catalogs; independent replay is content consistency, not replacement authentication",
+    "browser_version": "153.0.8010.12",
+    "sandbox": true,
+    "page_errors": [],
+    "certificates_start": 219,
+    "certificates_end": 2103,
+    "certificate_age_ms": {
+      "count": 1653,
+      "min": 92.998144,
+      "median": 328.912384,
+      "max": 1801.207808
+    },
+    "delivery_failures_max": 0,
+    "artifact_fallbacks_max": 0
+  },
+  "http": {
+    "requests_started_in_strict_window": 2482,
+    "strict_status_counts": {
+      "200": 2482
+    },
+    "all_proxy_status_counts": {
+      "200": 2816
+    },
+    "strict_timing_ms": {
+      "upstream_headers_ms": {
+        "count": 2482,
+        "min": 6.254177998926025,
+        "median": 20.23252749859239,
+        "max": 6642.6177640023525
+      },
+      "upstream_complete_ms": {
+        "count": 2482,
+        "min": 6.349579001835082,
+        "median": 20.409780503541697,
+        "max": 6642.77566599776
+      },
+      "finished_ms": {
+        "count": 2482,
+        "min": 6.667888999800198,
+        "median": 21.4602050036774,
+        "max": 6643.199072001153
+      }
+    },
+    "failed_query_timing_entries": []
+  },
+  "capture": {
+    "errors": [],
+    "packets": 2218,
+    "bytes": 81852603,
+    "completed_publication_fence": 1018,
+    "finalization": {
+      "status": "PASS",
+      "fence": 1018,
+      "fence_epoch_ms": 1793317634116.7065,
+      "accepted_responses": 2218,
+      "pending_at_fence": [
+        2217
+      ],
+      "peak_pending": 8,
+      "timeout_seconds": 15,
+      "pending_after_drain": [],
+      "drain_ms": 30.59129799657967,
+      "completed_epoch_ms": 1793317634147.2974
+    },
+    "independent_body_checksums": "PASS all bodies and recorded byte count",
+    "unique_response_order_and_filenames": "PASS",
+    "history": {
+      "status": "PASS",
+      "consecutive_publications": 1019,
+      "first": 0,
+      "last": 1018
+    },
+    "independent_replay": {
+      "status": "PASS",
+      "segments": 1019,
+      "assigned": [],
+      "comparison": "Exact canonical publication bytes / state-events-scores hashes against installed Rust history",
+      "work_budget": 23
+    }
+  },
+  "identities": {
+    "same_original_initial_world_bytes": true,
+    "same_original_frontend_identity": true,
+    "all_predeclared_input_hashes_after_run": "PASS",
+    "application_rebuilds": 0
+  },
+  "historical_pair": "FAIL unchanged and non-gating under explicit prospective policy",
+  "previous_A2_only_attempt": "BLOCKED_ENVIRONMENT unchanged",
+  "scope": "A2-only full Normal prelude and strict window; no new A0, Economy, Lifeline, low-funding, cold-reconnect, paid-v8, population or fragmentation run",
+  "mainnet_mutations": [],
+  "production_boundary": "Read-only preflight and user-owned funding proposal preparation now authorized; upgrade, funding transfers and all mutations still require separate approval"
+}

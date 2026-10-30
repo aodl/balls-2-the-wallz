@@ -1,0 +1,25 @@
+{
+  "source_suite": {
+    "status": "PASS",
+    "JavaScript_tests": 1389,
+    "Python_tests": 185
+  },
+  "focused_units": {
+    "status": "PASS",
+    "tests": 24
+  },
+  "browser_lifecycle": {
+    "status": "PASS",
+    "scenarios": 8,
+    "positive_fixture_replay": "PASS 81 consecutive publications; preserved public disposable content, not live IC authentication"
+  },
+  "original_HTTP_WebCrypto_browser": "PASS",
+  "native_clippy": "PASS --locked --offline -- -D warnings",
+  "native_frozen_A2_binding_and_output_isolation": "PASS",
+  "DTR_provenance": "PASS, unchanged fail-closed checker",
+  "new_A2_long_attempt": "BLOCKED_ENVIRONMENT, one attempt only",
+  "new_A2_independent_replay": "NOT_RUN",
+  "exact_commit_CI": "NOT_RUN, unpublished local changes",
+  "original_pair": "FAIL unchanged",
+  "application_rebuilds": 0
+}

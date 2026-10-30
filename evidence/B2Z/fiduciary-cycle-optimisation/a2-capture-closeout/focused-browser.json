@@ -1,0 +1,83 @@
+{
+  "qualification": "Capture lifecycle fixture only; expired preserved wire content is not new IC authentication or a historical gate PASS.",
+  "checks": [
+    {
+      "name": "delayed",
+      "status": "PASS",
+      "capture_expected_success": true,
+      "shutdown_ms": 806.4384009994683,
+      "peak_pending": 10,
+      "observed_capture_errors": [],
+      "independent_replay": "PASS 81 segments"
+    },
+    {
+      "name": "incomplete",
+      "status": "PASS",
+      "capture_expected_success": false,
+      "shutdown_ms": 2.6388359983684495,
+      "peak_pending": 1,
+      "observed_capture_errors": [
+        "wire request failed: net::ERR_CONTENT_LENGTH_MISMATCH",
+        "Response.body: Protocol error (Network.getResponseBody): No data found for resource with given identifier\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation."
+      ],
+      "independent_replay": "expected gate failure; replay NOT_RUN"
+    },
+    {
+      "name": "cancel",
+      "status": "PASS",
+      "capture_expected_success": false,
+      "shutdown_ms": 2.6229349969071336,
+      "peak_pending": 1,
+      "observed_capture_errors": [
+        "wire request failed: net::ERR_ABORTED",
+        "Response.body: Protocol error (Network.getResponseBody): No data found for resource with given identifier\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation."
+      ],
+      "independent_replay": "expected gate failure; replay NOT_RUN"
+    },
+    {
+      "name": "timeout",
+      "status": "PASS",
+      "capture_expected_success": false,
+      "shutdown_ms": 203.5385459967074,
+      "peak_pending": 1,
+      "observed_capture_errors": [
+        "wire capture drain timeout",
+        "Response.body: Target page, context or browser has been closed"
+      ],
+      "independent_replay": "expected gate failure; replay NOT_RUN"
+    },
+    {
+      "name": "malformed",
+      "status": "PASS",
+      "capture_expected_success": true,
+      "shutdown_ms": 28.83109300455544,
+      "peak_pending": 8,
+      "observed_capture_errors": [],
+      "independent_replay": "expected gate failure; replay NOT_RUN"
+    },
+    {
+      "name": "missing",
+      "status": "PASS",
+      "capture_expected_success": true,
+      "shutdown_ms": 55.46625600254629,
+      "peak_pending": 10,
+      "observed_capture_errors": [],
+      "independent_replay": "expected gate failure; replay NOT_RUN"
+    },
+    {
+      "name": "close_before_fence",
+      "status": "PASS",
+      "capture_expected_success": false,
+      "shutdown_ms": 1.8231249996460974,
+      "peak_pending": 1,
+      "observed_capture_errors": [
+        "Page.evaluate: Target page, context or browser has been closed"
+      ],
+      "independent_replay": "expected gate failure; replay NOT_RUN"
+    }
+  ],
+  "status": "PASS",
+  "fixture_sha256": "a41c1dae50bfe4d61e2f4a06b2987c696421b264577db08513db94f81fb7d33b",
+  "browser_version": "153.0.8010.12",
+  "sandbox": true
+}

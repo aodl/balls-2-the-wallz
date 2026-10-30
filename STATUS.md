@@ -1,3 +1,376 @@
+# A2 release closed; authentic stale browser response diagnosed, local frontend fix only
+
+A2 remains installed with paid history preserved and gameplay running. One bounded
+unchanged-production browser capture proved certified head 66540 arrived after
+accepted 66541, with valid certificates in the same epoch. The newer request had
+already finished before the stale request began. DTR correctly rejected rollback;
+no server/gateway origin is attributed. Historical pre-A2 evidence has the same
+sticky warning. Original production FAIL remains unchanged.
+A local frontend-only patch clears only recovered authenticated-stale errors,
+retains bounded diagnostic history/counts, and keeps genuine errors and the
+five-failure threshold. Eight targeted tests, 1,397 JS tests, source checks and
+14 local HTTP/browser checks PASS. Only app.mjs/build provenance change in the
+proposed bundle; no backend/DTR rebuild/change or mainnet mutation/deployment.
+[Cause, regression evidence and operating sample](evidence/B2Z/observer-rollback/REPORT.md).
+
+---
+
+# Frozen A2 installed on mainnet — running Steady; browser warning preserved
+
+Authorised pause → one exact A0→A2 v5 upgrade → preservation checks → original
+configuration resume completed. Module hash is approved `2c289fdf…`; controllers,
+34-node fiduciary placement, paid-v8 state/history and treasury obligations
+preserve. Ready work resumed as publication 65821; current certified head 65920.
+Gameplay is running Steady 0.3 ticks/s at ~11.861T liquid, no limiting; the policy
+selected this tier naturally. No funding, frontend/controller change or reset.
+The bounded browser observation played authenticated output but recorded
+“observation rollback”; its no-error check remains FAIL, not silently waived.
+No rerun, automatic pause or rollback. Prior technical qualification and all
+historical FAIL/BLOCKED records retain their original scope/verdict.
+[Actual deployment and raw evidence](evidence/B2Z/fiduciary-cycle-optimisation/mainnet-a2-deployment-20261030/REPORT.md).
+
+---
+
+# Authorised A2 mainnet deployment BLOCKED by mandatory balance preflight
+
+At 2026-10-30 12:21:38 UTC, fresh controller queries show 2.846689665080T liquid
+and 2.993548017650T total, below the user's mandatory 5T liquid minimum.
+A0, both controllers and the 34-node fiduciary subnet remain exact; authenticated
+paid-v8 history and source/treasury health verify. ReserveProtection is active.
+No pause, install, resume, funding or frontend change was performed. The reported
+approximately 10T top-up is not reflected in these reads; do not infer its outcome.
+[Complete preflight evidence](evidence/B2Z/fiduciary-cycle-optimisation/mainnet-a2-preflight-20261030/REPORT.md).
+
+---
+
+# Frozen A2 release sequencing — paused upgrade recommended, no mutation authorised
+
+CI `41022561960` passes all six substantive jobs on published preparation commit
+`adbb0e20a1961492827963f5e0f9b3ab505fcf83`. Functional/capture source and the
+accepted frozen A2 Normal qualification remain `3e99d74…`; no test was repeated.
+At 08:39 UTC, A0 has 6.358126763402T liquid, Conserve 0.2 ticks/s with no limiter,
+healthy source, no pending work and Idle treasury. Same modules/controllers and
+34-node fiduciary subnet verify. Prefer an explicitly approved gameplay pause,
+exact A0→A2 upgrade and preservation checks before manual user funding/resume.
+This removes the A0 Normal cutover allowance. Keep the provisional 47T target;
+current A0 shortfall is planning arithmetic only. Exact funding must use the
+future verified paused-A2 balance and separate user confirmation. No operator
+credentials or funding-account details need to enter this build environment.
+[Guarded sequence, current quote and evidence](evidence/B2Z/fiduciary-cycle-optimisation/a2-release-sequencing/RELEASE_SEQUENCE.md).
+No mainnet update, pause, upgrade, transfer, merge or frontend deployment occurred.
+
+---
+
+# Frozen A2 Normal technical qualification PASS — production preparation only
+
+Published source `3e99d74b3661fb4ccec8e87ec3945b35d05e6f25` passed all six
+substantive jobs in CI `40963232155`. After a coordinated build-free reservation
+and the unchanged quiet-host prerequisite, the one new A2-only case completed
+its 90-second prelude and **900.397-second** untrimmed strict Normal window.
+All seven original assertions PASS. Capture is error-free; its one pending body
+drained before browser close. All **1,019 consecutive publications through 1018**
+were reconstructed and independently replayed with exact canonical/hash equality.
+Independent counter, source/input/body-hash and resource checks PASS. No repeat.
+
+**GO for the frozen A2 Normal technical gate**, under the explicit prospective
+pre-launch policy. The original pair remains FAIL; the earlier A2-only interrupted
+run remains BLOCKED. Both historical manifests re-verify unchanged. Exact frozen
+Wasm/DTR/frontend, sandbox, fiduciary configuration and thresholds were preserved.
+
+Fresh public production reads confirm the existing A0 module/controllers,
+unchanged certified paid-v8 world/source/scores and 34-node fiduciary placement.
+Funding/guarded upgrade preparation is separate: Normal entry requires 40T liquid,
+so the old 8T target is a Conserve budget, not Normal. The user-authorised
+controller assessment is now complete. Fresh production
+is active A0 Steady; a later public sample is performance-limited to 0.231 ticks/s.
+Maintenance-only burn cannot be isolated. Conditional
+funding targets are 8T Conserve / 47T Normal; exact release preparation and
+remaining signing/refresh/approval gates are recorded in
+[evidence](evidence/B2Z/fiduciary-cycle-optimisation/a2-release-preparation/OPERATOR_PLAN.md).
+Exact-commit CI `41016815115` now passes all six substantive jobs on the
+published evidence-only commit `7f447a3a2d20d2aac477e71749c287165b0fc6b5`.
+No mainnet mutation, transfer, upgrade, pause, frontend deployment, push or merge.
+[Complete qualification, evidence and production preparation](evidence/B2Z/fiduciary-cycle-optimisation/a2-final-qualification/REPORT.md).
+
+---
+
+# A2 capture correction verified — single A2-only attempt environmentally BLOCKED
+
+The user's prospective pre-launch policy makes A0 non-gating while preserving the
+historical pair's **FAIL** and every original A2 requirement. The one authorised
+A2-only attempt ran at `0fc72f2f8700bf84502f6fc9275ac8c65940f05b`: prerequisite and
+90-second prelude PASS; a foreign `rustc` used 0.047691 core against the unchanged
+0.01 compiler limit. The strict window was stopped with 259.106 seconds of saved
+samples. It is **BLOCKED_ENVIRONMENT**, not a completed PASS or an A2 gameplay FAIL.
+Capture has no final publication fence; independent history/replay is **NOT_RUN**.
+The failed index, partial measurements and teardown diagnostics remain untouched.
+
+The capture-only fix reserves identity before re-entrant reads, stops admission at
+the original publication fence and drains callbacks before teardown with a fatal
+15-second deadline. Forced-abort evidence exposed an additional cleanup-order gap;
+the final follow-up also finalises exceptional exits before Playwright stops its
+driver, preserving the original interruption and all capture errors. No second
+long attempt ran. Focused source/browser/regression checks PASS, including an
+81-publication positive fixture through unchanged independent replay. Negative
+capture/history cases remain failures. Both frozen Wasm and all original browser
+identities remain exact; no application rebuild occurred.
+
+Technical release remains **NO-GO / BLOCKED**. Exact-commit CI awaits user-owned
+publication. Fresh production preflight/funding is deferred until successful
+qualification; no mainnet action, new infrastructure, remote push or repeat.
+[Complete attempt, capture correction, checksums and minimum next step](evidence/B2Z/fiduciary-cycle-optimisation/a2-capture-closeout/REPORT.md).
+
+---
+
+# Frozen fiduciary comparison completed — overall FAIL / historical release NO-GO
+
+After waiting on this VM at the user-requested 30-minute cadence, the 14:48 UTC
+screen passed and one sequential A0/A2 comparison ran. Both original Normal
+preludes and both full strict windows completed on the same disposable 34-node
+fiduciary configuration with the exact frozen Wasm and original frontend.
+
+**A0: 900.264-second strict FAIL**, solely on performance limiting: its backend
+supported rate temporarily fell to 0.434 ticks/s. Rates, zero stall/rebuffer,
+zero resynchronisation and all buffer/queue checks passed. **A2: 900.314-second
+strict PASS** on all seven original checks, but its native case then **FAILed**
+history capture on `Response.body: Target page, context or browser has been closed`.
+Original independent replay did not run. The original error assertion remains intact.
+
+The two-CPU host showed heavy own-work pressure; this supports a headroom
+limitation for A0, not an A2 regression. The A2 failure is consistent with an
+in-flight capture callback during browser teardown. No predicate, A2/DTR/backend/
+frontend code or frozen binary changed; no failed window was repeated.
+
+Full raw evidence and independent SHA-256 manifests are retained. **No production
+preflight/funding estimate was initiated:** both-window PASS and complete native
+qualification remain unmet. No new infrastructure, remote publication, mainnet
+action, transfer, reset, merge or deployment occurred.
+[Complete measured results, capture diagnosis and minimum follow-up](evidence/B2Z/fiduciary-cycle-optimisation/isolated-host/RUN_REPORT.md).
+
+---
+
+# Frozen delivery package ready — waiting on this VM at 30-minute intervals
+
+The user selected this existing VM and requested waiting/polling every 30 minutes.
+The initial unchanged prerequisite rejected I/O full PSI **36.3%** (limit 2%) and
+foreign CPU work above 0.25 core. No comparison window started. Its two CPUs and
+7.75 GiB RAM are recorded; recommended larger-host specs are not new predicates.
+
+Portable package verification PASS (1,288 manifest entries); provisioning PASS:
+all five locked DTR77 graphs, exact original browser inventory, real sandbox
+launch, native b96 harness compilation and disposable public fixture binding.
+The native harness is rebuilt only to relocate its compiled source path; both
+frozen comparison Wasm modules and all frontend bytes remain exact reviewed inputs.
+Focused tooling checks: **21 PASS**. Full preparation/failure logs and an
+independent checksum archive are retained. No new infrastructure was provisioned.
+
+The next operation is the user-requested quiet-host check, then one unchanged
+sequential comparison only if admitted. The hosted Actions comparison is disabled
+in the local change; no remote publication occurred. Release remains **NO-GO**
+pending both frozen fiduciary Normal windows. No mainnet or financial operation.
+[Preparation, polling policy and portable execution procedure](evidence/B2Z/fiduciary-cycle-optimisation/isolated-host/REPORT.md).
+
+---
+
+# Published A2 delivery — provisioning/CI PASS; fiduciary comparison environmentally blocked
+
+Exact `b96c64b43a412c022143787cd9d6ed94da2bbc67` ordinary CI `40846505855`
+finished SUCCESS with all six substantive jobs PASS. Its separately identified
+application-subnet, CI-built `da25be81…` Normal trace passes the full 900.097-second
+gate; it does not replace the frozen approved-A2 / 34-node comparison.
+
+Dedicated run `40846505834` passed corrected provisioning and its initial resource
+screen. A foreign hosted-runner process then used 0.759811 core against the 0.25
+limit, so the monitor stopped A0 after 20.059 seconds. Its 90-second prelude was
+incomplete; A0's strict 900-second window and the entire A2 case are **NOT_RUN**.
+The dedicated result is **BLOCKED_ENVIRONMENT**, with no capacity or A2-regression
+attribution. Complete original artifacts/logs, successful ordinary measurements,
+failed partial observations and SHA-256 manifests are independently preserved.
+
+**Release remains NO-GO.** Minimum next step: an isolated host without the observed
+provider workload, then a separately authorised unchanged single comparison.
+No rerun, implementation change, production preflight/funding estimate, mainnet
+action, transfer, merge or deployment was performed.
+[Definitive workflow results, measurement boundaries and retained evidence](evidence/B2Z/fiduciary-cycle-optimisation/delivery-evaluation-40846505834/REPORT.md).
+
+---
+
+# A2 delivery provisioning corrected locally — hosted qualification pending publication
+
+The dedicated run `40843327791` at `737b264…` failed before resource screening:
+the offline provenance check preceded dependency fetching. All five locked Cargo
+fetches now precede the unchanged checker. Empty-cache local fetch/provenance and
+source conformance PASS (1,389 JavaScript / 166 Python tests). The original failed
+job log and checksum-verified uploaded artifact are preserved independently.
+
+Hosted cooldown allowance is 180 seconds (previously 75); the complete 60-second
+resource prerequisite, sequential Normal-only A0/A2 90-second preludes and strict
+900-second measurements retain every threshold and frozen input. Neither window
+ran in the failed hosted job. Original `eae3eb97…` CI has all six substantive PASS;
+the correction's exact-commit CI requires user-owned publication.
+
+**Release remains NO-GO.** No hosted quiet-resource or sustained-delivery result,
+remote write, production preflight, funding or mainnet action is claimed.
+[Correction, retained failure, validation and publication boundary](evidence/B2Z/fiduciary-cycle-optimisation/cold-runner-correction/REPORT.md).
+
+---
+
+# A2 pinned release artifact — local checks PASS; delivery/CI still gated
+
+DTR77 is now published at the exact reviewed commit/tree and its standalone CI
+passes. Five Rust lock graphs resolve the immutable Git revision normally, with
+unrelated dependency tuples unchanged. The original npm 0.14.0 bytes are preserved.
+
+Frozen normal Wasm: `2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb`.
+An empty-target build and the normal Wasm/Candid gate reproduce it. Nine focused
+cost/recovery/browser cases pass, including exact A0 paid-v8 upgrades, interrupted
+work/torn images, timer traps and pending treasury callbacks. Fixed-fixture A2
+costs preserve research results within 0.08%; no production code optimisation was added.
+Local source/native/Wasm/HTTP browser and fresh remote consumer checks pass.
+
+**Release NO-GO:** the unchanged sustained-delivery prerequisite rejects this host
+(52.6% median idle, 11.95% peak I/O full pressure, competing process). Neither
+900-second window started. Exact final B2Z CI remains pending user-owned publication.
+No B2Z remote write, mainnet mutation or funding action occurred.
+
+[Pinned source/build identities, measurements, evidence and remaining requirements](evidence/B2Z/fiduciary-cycle-optimisation/pinned-release/REPORT.md).
+Earlier dated reports below retain their original FAIL/BLOCKED outcomes.
+
+---
+
+# A2 bounded qualification — savings preserved; release remains NO-GO
+
+**2026-10-28:** A0/A1/A2 and the 7,255-file independent historical snapshot
+verify. The paid-v8 64-tick measurement remains **44.77% saving versus A1**,
+**68.04% versus A0**, using actual local fiduciary charges. No further backend
+optimisation or production change was introduced.
+
+Normal A0/A2 timer-trap control preserves paid state in both cases and establishes
+the same need for explicit controlled recovery. A genuine paid-v8/epoch-2 browser
+scene and cold reconnect pass on research Wasm `0d86ac64…`. Generic DTR77 source,
+full E1 diff and independent Rust/old-JS/threaded consumer evidence are reviewable.
+Final local source conformance passes 1,389 JavaScript / 162 Python tests.
+
+**Continuous delivery remains unresolved.** Historical 900-second FAIL is retained.
+The predeclared A0/A2 comparison could not start either window: its fixed 20-minute
+host prerequisite rejected sustained foreign CPU/I/O work. This is BLOCKED, not a
+pass or an attribution of the historical failure's cause.
+
+Research CI `40651755603` passed all six substantive jobs, but its actual graph is
+**E1**, Wasm `a861b12b…`, not DTR77/A2. DTR77 remains unpublished; immutable Git
+pinning, a fresh final normal artifact and exact final six-job CI remain BLOCKED.
+New CI guards reject E1/path/mixed-revision A2 qualification. No remote write occurred.
+
+**09:30 UTC production:** 2.245111T liquid, Reserve Protection, zero supported ticks
+and stationary authenticated paid state. Source/treasury maintenance continues;
+Ledger balance is zero. Earlier positive cycle movement is unexplained by treasury
+credits. The latest short net maintenance-only interval is about 0.0213T/hour,
+not an active-game runway forecast. Protected reserve and release funding are
+insufficient; no intervention was performed.
+
+[Acceptance matrix, actual source review, failed attempts, evidence and future steps](evidence/B2Z/fiduciary-cycle-optimisation/qualification-20261028/REPORT.md).
+Dated historical entries below remain unchanged.
+
+---
+
+# Fiduciary cycle optimisation — measured savings; release qualification NO-GO
+
+**2026-10-28 01:03 UTC:** read-only production check: **2.420881T liquid**,
+**ReserveProtection**, zero supported ticks and no gameplay progress. Authenticated
+paid v8/epoch-2 v5 state, source maintenance, modules and controllers remain intact;
+actual Ledger balance is zero and treasury is Idle. No replenishment was observed.
+Maintenance-only debit is about 0.01940T/hour. The protected 3T reserve is short by
+0.579119T before an upgrade allowance. No production action was performed.
+
+Separate local branch `research/b2z-fiduciary-cost` preserves A0/A1 and freezes
+B2Z `d6c2e593…` + unpublished DTR `77ba46cb…`, normal Wasm `0d86ac64…`.
+The authentic paid-v8 64-tick comparison saves **44.77% versus A1**, **68.04% versus
+A0**, with identical authoritative outputs and preserved source/financial/retained
+state. All 19 matched normal-Wasm invocations, exact-predecessor upgrade/recovery,
+checkpoint/allocation traps, Rust/JS/Candid/clippy and two clean builds passed.
+
+**The unchanged 900.031-second browser gate FAILED:** 14 sampled stalls,
+5 resynchronisations and rebuffering. Producer throughput remained approximately
+0.988–0.996 ticks/s at Normal; playback delivery fell below its gate. The isolated
+short test and subsequent Lifeline/cold recovery passed. The long failure remains
+unresolved and is not waived or replaced by a favourable repeat.
+
+A1 CI `40555604193` passed all six substantive jobs. Combined-candidate exact CI
+is **BLOCKED** pending user-owned DTR publication, immutable pinning and publication
+of the exact B2Z commit. Production DTR/npm pins, authoritative rules, economic
+policy, pacing, durable layout and deployed visual frontend remain unchanged.
+This is a measured engineering candidate, **not release qualification or deployment
+approval**. No master merge, remote Git write, mainnet mutation or financial action
+was performed. The 34-node fiduciary subnet remains fixed.
+
+[Full report, measurements, failed gates and reproducible artifacts](evidence/B2Z/fiduciary-cycle-optimisation/REPORT.md).
+The independent read-only snapshot verifies all **7,255 checksums**. Dated historical
+status follows unchanged.
+
+---
+
+# Operation-cache prototype — local PASS; production Reserve Protection
+
+**2026-10-27 07:51 UTC:** read-only production observation: 2.767T liquid,
+ReserveProtection, zero supported ticks, admission closed. Certified v8 paid v5
+state remains intact; source/treasury maintenance continues, Ledger balance zero.
+No production mutation was performed. Earlier active-play burn is not current burn.
+
+Accepted investigation `79c8521c` passed all six substantive exact-commit CI jobs
+in run `40461823074`; its independent checksum snapshot is intact. Separate branch
+`prototype/b2z-operation-cache` adds a bounded operation-scoped validated cursor/output
+memo, preserving the immutable DTR pin, public interfaces, authoritative rules,
+budgets, pacing and durable layout. Actual disposable-IC captured-three-ball cost
+fell 43.36%; two/three/four-ball, boundary, authenticated v8 and frozen-predecessor
+interrupted/torn recovery checks pass. **GO for further qualification only.**
+See [measurements, current health, limitations and evidence](evidence/B2Z/million-operation-cache-prototype/REPORT.md).
+No new prototype CI or production deployment is claimed. Dated historical status follows.
+
+---
+
+# Production v5 / deployed frontend — bounded cost investigation complete
+
+**2026-10-26:** frontend commit `e2fc63d6bc73b77e60c87f3b37134c7f9cc09abc`
+is deployed to the existing observer; exact-commit CI `40387721386` and public
+IC-root v8 desktop/mobile verification passed. The backend remains the approved
+`7c078fb3…` module, running the paid 1,000×1,000 v5 world. Earlier status entries
+below describe their original pre-release snapshots.
+
+A read-only ten-minute production study measured **2.187T cycles/hour**, **3.112B
+cycles/tick/publication**, at Conserve with **three balls**. No treasury credit
+arrived during the window. The earlier two-ball ~1T/hour sample is a different
+workload. [Cost attribution, runway and ranked proposal](evidence/B2Z/million-cell-cost/REPORT.md)
+distinguish measured balances/instructions from modelled cycle allocations and
+unassigned overhead. No backend optimisation, instrumentation, pacing change or
+deployment was implemented. This local investigation branch contains documentation
+and reviewed evidence only; the published frontend branch remains at `e2fc63d6`.
+
+The frontend integration PR is fully prepared, but GitHub integration rejected PR
+creation with 403; [draft body/provenance](evidence/B2Z/million-cell-cost/frontend-pr.md)
+and creation details are retained. Preserve release commits and require all six
+substantive jobs on the exact resulting master head after any user-owned promotion.
+Do not redeploy unchanged assets. Operational runway assumes no future receipts;
+consult the dated measurements rather than treating this status as live telemetry.
+
+---
+
+# Million-cell frontend visual candidate — local PASS; not deployed
+
+The live v5 backend and existing production frontend remain unchanged by this
+feature. Branch `feature/b2z-million-cell-visuals` corrects only arena rendering,
+camera framing and zoom: seamless opaque effective ownership, proportional
+world-space pieces/tails, true-cell grid and 96 px/cell close inspection.
+
+Local source checks (1,386 JavaScript / 155 Python), HTTP/Web Crypto browser
+checks, geometric regressions and actual read-only v8 desktop/mobile browser
+checks pass. [Before/after visual gallery](evidence/B2Z/million-cell-visuals/index.html)
+and [reviewed measurements/scope](evidence/B2Z/million-cell-visuals/verification.json)
+are ready for visual approval. Exact-commit CI and any modified-frontend mainnet
+publication remain pending user-owned publication and separate authorisation.
+The dated qualification entries below are retained history.
+
+---
+
 # Million-cell development qualification — PASS; master promotion gated by exact-commit CI
 
 **2026-10-26:** the established development acceptance gates are complete. The

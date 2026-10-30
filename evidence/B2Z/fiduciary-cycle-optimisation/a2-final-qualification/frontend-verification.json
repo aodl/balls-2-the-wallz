@@ -1,0 +1,92 @@
+{
+  "recorded_epoch_ms": 1793319386109.63,
+  "source": "original pinned frontend manifest versus non-raw certified gateway URLs",
+  "status": "PASS",
+  "files": [
+    {
+      "name": "index.html",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/index.html",
+      "HTTP": 200,
+      "sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+      "expected_sha256": "292987e9f154bd1fca9ff3edc61ba8d9479bbaf3b194825f3e7c3bb13c857d4b",
+      "status": "PASS",
+      "bytes": 15413
+    },
+    {
+      "name": "app.mjs",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/app.mjs",
+      "HTTP": 200,
+      "sha256": "95a1dc6252207ba364909f27455bebf113db3f4bb7f386d9f73a6be38e82bcb0",
+      "expected_sha256": "95a1dc6252207ba364909f27455bebf113db3f4bb7f386d9f73a6be38e82bcb0",
+      "status": "PASS",
+      "bytes": 604265
+    },
+    {
+      "name": "style.css",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/style.css",
+      "HTTP": 200,
+      "sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+      "expected_sha256": "0bcf5c6d946943357adec9b3009935395d971e7b3f34d9575943edb8d878c13d",
+      "status": "PASS",
+      "bytes": 8044
+    },
+    {
+      "name": "icon.svg",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/icon.svg",
+      "HTTP": 200,
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "expected_sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "status": "PASS",
+      "bytes": 235
+    },
+    {
+      "name": "configuration.bin",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/configuration.bin",
+      "HTTP": 200,
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "expected_sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "status": "PASS",
+      "bytes": 367
+    },
+    {
+      "name": "configuration-legacy.bin",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/configuration-legacy.bin",
+      "HTTP": 200,
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "expected_sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "status": "PASS",
+      "bytes": 368
+    },
+    {
+      "name": "configuration-torus.bin",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/configuration-torus.bin",
+      "HTTP": 200,
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "expected_sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "status": "PASS",
+      "bytes": 386
+    },
+    {
+      "name": "configuration-million.bin",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/configuration-million.bin",
+      "HTTP": 200,
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "expected_sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "status": "PASS",
+      "bytes": 469
+    },
+    {
+      "name": "deployment.json",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/deployment.json",
+      "HTTP": 200,
+      "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+      "expected_sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+      "status": "PASS",
+      "bytes": 89
+    },
+    {
+      "name": ".ic-assets.json5",
+      "status": "DEPLOYMENT_METADATA_NOT_PUBLIC"
+    }
+  ]
+}

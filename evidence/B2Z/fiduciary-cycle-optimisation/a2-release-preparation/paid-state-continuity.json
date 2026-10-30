@@ -1,0 +1,67 @@
+{
+  "version": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": 5
+  },
+  "width": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": 1000
+  },
+  "height": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": 1000
+  },
+  "credits": {
+    "previous_to_first_equal": false,
+    "first_to_closing_equal": false,
+    "closing": [
+      {
+        "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+        "units": [
+          "115233695014358884561331",
+          "2608680513892740"
+        ]
+      },
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "units": [
+          "153763048884846618771",
+          "5530584763760"
+        ]
+      }
+    ]
+  },
+  "received_e8s": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": "620000000"
+  },
+  "ownership": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing_canonical_json_sha256": "85f93d711bd48450ed906f96a5d84601aacaeb15ecb32db7b3dd58221a1b0c2f"
+  },
+  "next_cannon_id": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": 5
+  },
+  "next_ball_id": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": 7
+  },
+  "pending": {
+    "previous_to_first_equal": true,
+    "first_to_closing_equal": true,
+    "closing": []
+  },
+  "scores_previous_equal": true,
+  "scores_first_to_closing_equal": true,
+  "cannons_previous_equal": true,
+  "cannons_first_to_closing_equal": true,
+  "qualification": "Financial/state field comparisons only; advancing world is not independently replayed by this preflight."
+}

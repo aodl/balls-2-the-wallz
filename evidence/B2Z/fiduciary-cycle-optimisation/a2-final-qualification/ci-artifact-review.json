@@ -1,0 +1,22 @@
+{
+  "exact_commit": "3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "top_level": "PASS",
+  "installed_checks": 50,
+  "all_installed_checks": "PASS",
+  "separate_CI_application_window": {
+    "status": "PASS",
+    "seconds": 900.364,
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    }
+  },
+  "qualification": "This CI build/application-subnet result is separate from the required exact frozen A2 fiduciary attempt. No artifact substitution.",
+  "artifact_digest_verified": "1c97aa3c3920436991a46b8fe19b404430b99b280813f6a539028501ca0babc1",
+  "initial_reader_note": "Initial recursive reviewer expected overall on a nested checkpoint-specific verification.json and raised KeyError after the top-level PASS; corrected to validate each schema separately. Download/extraction and original artifact bytes were successful and unchanged."
+}

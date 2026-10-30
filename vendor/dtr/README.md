@@ -5,6 +5,9 @@ B2Z consumes `@dtr/timeline-runtime@0.14.0` from `dtr-timeline-runtime-0.14.0.tg
 - source: `https://github.com/aodl/dtr.git`
 - published revision: `e1bfcf25071d11190d14f461288e12a21ca26cf8`
 - source tree: `fd5c687fd9a558d536c5ed47de771fad543cd032`
+- Rust consumer revision: `77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68`
+  (tree `068c66829619741b6784306929b51e292cb58bcf`, Rust 0.14.1-cost.1).
+  This Rust-only change preserves the original JS 0.14.0 archive and its E1 provenance.
 - SHA-256: `ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc`
 - npm integrity: `sha512-oJknKDDWjpmkYd1g7CNPiaV3MuTKWuquCZZiuRLJ3KsADHSDENTpYiKyiibANflPF59mKDtN/DaaHBDsNYDb1w==`
 - npm shasum: `dc905ef38bedca648d5b85ec1ac0e4e6fe946375`

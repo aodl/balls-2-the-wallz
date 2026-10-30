@@ -1,0 +1,795 @@
+{
+  "baseline_commit": "b96c64b43a412c022143787cd9d6ed94da2bbc67",
+  "dtr_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "overall_verdict": "FAIL",
+  "release_recommendation": "NO-GO",
+  "normal_only": true,
+  "comparison_attempts": 1,
+  "retries": 0,
+  "polling_stopped_after_pass": true,
+  "cases": {
+    "A0": {
+      "identity": {
+        "fiduciary": true,
+        "module_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+        "publication_version": 6,
+        "world_version": 5
+      },
+      "case_outcome": {
+        "label": "A0",
+        "status": "FAIL",
+        "exit_code": 101,
+        "module_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+        "started_epoch_ms": 1793285485976.6897,
+        "finished_epoch_ms": 1793286523894.0132,
+        "command": [
+          "/home/codexdev/src/b2z/.work/isolated-delivery/host-state-usable/evidence/native-harness",
+          "million_browser_sustained_normal_and_cold_lifeline",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ]
+      },
+      "resource_prerequisite": {
+        "status": "PASS; independently reconstructed pre-launch samples",
+        "idle_median_percent": 96.24809809809808,
+        "idle_min_percent": 95.8041958041958,
+        "available_memory_min_GiB": 5.565620422363281,
+        "CPU_PSI_avg10_max": 0.04,
+        "IO_full_PSI_avg10_max": 1.07
+      },
+      "normal_prelude": {
+        "seconds": 89.613,
+        "backend_ticks_per_second": 0.993159474629797,
+        "admitted_ticks_per_second": 0.993159474629797,
+        "displayed_ticks_per_second": 0.990530336474582,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 12,
+          "max": 18
+        },
+        "buffer_ticks": {
+          "min": 11.699619817368472,
+          "max": 17.830971970070692
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 102.60000000149012,
+            "max": 4368.20000000298
+          },
+          "verify_ms": {
+            "median": 39.30000000074506,
+            "max": 89.39999999850988
+          },
+          "artifact_ms": {
+            "median": 0.4000000022351742,
+            "max": 407.4000000022352
+          },
+          "derive_ms": {
+            "median": 4,
+            "max": 6.599999997764826
+          },
+          "catchup_ms": {
+            "median": 381.5999999977648,
+            "max": 3381.300000000745
+          }
+        },
+        "max_catchup_segments": 5,
+        "buffer_bytes": {
+          "min": 450441,
+          "max": 677466
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 168,
+        "certified_publications_per_second": 0.993159474629797,
+        "authenticated_observation_queries_per_second": 1.7519779496278443,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 16.833299999999998,
+        "buffer_end": 17.06890495750342,
+        "admitted_ticks": 89,
+        "displayed_ticks": 88.76439504249672,
+        "phase_samples": {
+          "PLAYING": 168
+        }
+      },
+      "strict_summary": {
+        "status": "FAIL",
+        "seconds": 900.264,
+        "checks": {
+          "rates": true,
+          "no_stall_or_rebuffer": true,
+          "no_resynchronization": true,
+          "normal_not_performance_limited": false,
+          "buffer_accounting": true,
+          "bounded_queue": true,
+          "no_sustained_buffer_deficit": true
+        },
+        "production_endpoint_tick_bounds": {
+          "start": [
+            106,
+            108
+          ],
+          "end": [
+            987,
+            989
+          ]
+        },
+        "produced_ticks_bounds": [
+          879,
+          883
+        ],
+        "produced_ticks_per_second_bounds": [
+          0.9763802617898749,
+          0.9808234029129234
+        ],
+        "admitted_ticks": 880,
+        "displayed_ticks": 880.3982075477402,
+        "admitted_ticks_per_second": 0.977491047070637,
+        "displayed_ticks_per_second": 0.9779333701533552,
+        "buffer_start": 17.500121756903383,
+        "buffer_end": 17.101914209105075,
+        "buffer_change": -0.39820754779830736,
+        "admitted_minus_displayed": -0.39820754774018496,
+        "buffer_conservation_error": -5.8122395785176195e-11,
+        "buffer_regression_ticks_per_second": 0.004715025607772679,
+        "last_three_minus_first_three_minute_mean": 3.378446186552699,
+        "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+        "backend_observation_age_ms": {
+          "median_upper": 1150.874267578125,
+          "max_upper": 4409.775146484375
+        },
+        "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+        "phases": {
+          "PLAYING": 1679
+        },
+        "resynchronizations": 0,
+        "performance_limited": true,
+        "dense_phase_samples": {
+          "PLAYING": 3592
+        }
+      },
+      "strict_playback": {
+        "seconds": 900.264,
+        "backend_ticks_per_second": 0.9797126176321612,
+        "admitted_ticks_per_second": 0.977491047070637,
+        "displayed_ticks_per_second": 0.9779333701533552,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 1,
+        "performance_limited": true,
+        "queue_segments": {
+          "min": 3,
+          "max": 19
+        },
+        "buffer_ticks": {
+          "min": 2.477159020249246,
+          "max": 18.20140126160254
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 104.89999999850988,
+            "max": 11910.599999997765
+          },
+          "verify_ms": {
+            "median": 37.30000000074506,
+            "max": 126.5
+          },
+          "artifact_ms": {
+            "median": 0.5,
+            "max": 2036.199999999255
+          },
+          "derive_ms": {
+            "median": 3.800000000745058,
+            "max": 13.600000001490116
+          },
+          "catchup_ms": {
+            "median": 369.70000000298023,
+            "max": 3927.400000002235
+          }
+        },
+        "max_catchup_segments": 10,
+        "buffer_bytes": {
+          "min": 112409,
+          "max": 720102
+        },
+        "buffer_target_ticks": {
+          "min": 4.4719999999999995,
+          "max": 17
+        },
+        "distinct_playheads": 1679,
+        "certified_publications_per_second": 0.977491047070637,
+        "authenticated_observation_queries_per_second": 1.7939182284307713,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 17.500121756903383,
+        "buffer_end": 17.101914209105075,
+        "admitted_ticks": 880,
+        "displayed_ticks": 880.3982075477402,
+        "phase_samples": {
+          "PLAYING": 1679
+        }
+      },
+      "all_regular_rows": 1679,
+      "all_dense_rows_in_window": 3592,
+      "summary_independently_recomputed": true,
+      "certificates_start": 193,
+      "certificates_end": 1808,
+      "certificate_age_ms": {
+        "count": 1679,
+        "median": 241.064448,
+        "max": 2113.496064,
+        "min": 87.492608
+      },
+      "limiter": {
+        "browser_limited_samples": 65,
+        "nonunit_nominal_rate_samples": 66,
+        "nominal_rate_min": 0.434,
+        "target_rate_values": [
+          1
+        ],
+        "first_limited_offset_seconds": 66.48069995117187,
+        "last_limited_offset_seconds": 100.296,
+        "backend_limited_poll_count": 16,
+        "supported_milli_values": [
+          434,
+          542,
+          677,
+          846
+        ],
+        "backend_modes": {
+          "Normal": 479
+        }
+      },
+      "http": {
+        "requests_started_in_strict_window": 2281,
+        "status_counts": {
+          "200": 2281
+        },
+        "timings_ms": {
+          "upstream_headers_ms": {
+            "count": 2281,
+            "median": 23.15099400220788,
+            "max": 11837.777223998273,
+            "min": 6.042975997843314
+          },
+          "upstream_complete_ms": {
+            "count": 2281,
+            "median": 23.360413000773406,
+            "max": 11837.923325998418,
+            "min": 6.129676999989897
+          },
+          "finished_ms": {
+            "count": 2281,
+            "median": 24.125603998982115,
+            "max": 11838.333430998318,
+            "min": 6.387679997715168
+          }
+        }
+      },
+      "host_during_strict_window": {
+        "samples": 179,
+        "idle_percent": {
+          "count": 179,
+          "median": 11.155378486055776,
+          "max": 37.4749498997996,
+          "min": 7.784431137724551
+        },
+        "CPU_PSI_avg10": {
+          "count": 179,
+          "median": 31.67,
+          "max": 36.78,
+          "min": 26.58
+        },
+        "IO_full_PSI_avg10": {
+          "count": 179,
+          "median": 2.81,
+          "max": 15.73,
+          "min": 0.63
+        },
+        "memory_available_min_GiB": 4.536308288574219,
+        "swap_out_delta": 0,
+        "cgroup_throttled_usec_delta": {
+          "/sys/fs/cgroup/user.slice/user-1000.slice/session-7.scope": 0,
+          "/sys/fs/cgroup": 0
+        }
+      },
+      "capture": {
+        "errors": [],
+        "packets": 1964,
+        "complete_through": 999,
+        "query_timings": 2583,
+        "history_exists": false,
+        "replay_exists": false
+      },
+      "browser_status": "FAIL",
+      "page_errors": null,
+      "environment_interruption": false
+    },
+    "A2": {
+      "identity": {
+        "fiduciary": true,
+        "module_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+        "publication_version": 6,
+        "world_version": 5
+      },
+      "case_outcome": {
+        "label": "A2",
+        "status": "FAIL",
+        "exit_code": 101,
+        "module_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+        "started_epoch_ms": 1793286618369.8706,
+        "finished_epoch_ms": 1793287656723.6946,
+        "command": [
+          "/home/codexdev/src/b2z/.work/isolated-delivery/host-state-usable/evidence/native-harness",
+          "million_browser_sustained_normal_and_cold_lifeline",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ]
+      },
+      "resource_prerequisite": {
+        "status": "PASS; independently reconstructed pre-launch samples",
+        "idle_median_percent": 95.09509509509509,
+        "idle_min_percent": 92.27683049147443,
+        "available_memory_min_GiB": 5.58758544921875,
+        "CPU_PSI_avg10_max": 1.14,
+        "IO_full_PSI_avg10_max": 1.98
+      },
+      "normal_prelude": {
+        "seconds": 89.6297,
+        "backend_ticks_per_second": 1.0152884590710445,
+        "admitted_ticks_per_second": 1.0041314430372967,
+        "displayed_ticks_per_second": 0.9953894065579831,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 14,
+          "max": 18
+        },
+        "buffer_ticks": {
+          "min": 13.540228191783456,
+          "max": 17.76542655505635
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 101.5,
+            "max": 3731.89999999851
+          },
+          "verify_ms": {
+            "median": 38.399999998509884,
+            "max": 81.89999999850988
+          },
+          "artifact_ms": {
+            "median": 0.4000000022351742,
+            "max": 296.30000000074506
+          },
+          "derive_ms": {
+            "median": 3.899999998509884,
+            "max": 8.300000000745058
+          },
+          "catchup_ms": {
+            "median": 288.4000000022352,
+            "max": 479.6000000014901
+          }
+        },
+        "max_catchup_segments": 4,
+        "buffer_bytes": {
+          "min": 525114,
+          "max": 677466
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 169,
+        "certified_publications_per_second": 1.0041314430372967,
+        "authenticated_observation_queries_per_second": 2.130990062445819,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 16.85,
+        "buffer_end": 17.633546107029133,
+        "admitted_ticks": 90,
+        "displayed_ticks": 89.21645389297007,
+        "phase_samples": {
+          "PLAYING": 169
+        }
+      },
+      "strict_summary": {
+        "status": "PASS",
+        "seconds": 900.314,
+        "checks": {
+          "rates": true,
+          "no_stall_or_rebuffer": true,
+          "no_resynchronization": true,
+          "normal_not_performance_limited": true,
+          "buffer_accounting": true,
+          "bounded_queue": true,
+          "no_sustained_buffer_deficit": true
+        },
+        "production_endpoint_tick_bounds": {
+          "start": [
+            107,
+            109
+          ],
+          "end": [
+            1007,
+            1009
+          ]
+        },
+        "produced_ticks_bounds": [
+          898,
+          902
+        ],
+        "produced_ticks_per_second_bounds": [
+          0.9974297856081323,
+          1.0018726799760973
+        ],
+        "admitted_ticks": 901,
+        "displayed_ticks": 900.2615582022811,
+        "admitted_ticks_per_second": 1.000761956384106,
+        "displayed_ticks_per_second": 0.9999417516580672,
+        "buffer_start": 17.11396393982652,
+        "buffer_end": 17.852405737599838,
+        "buffer_change": 0.7384417977733193,
+        "admitted_minus_displayed": 0.738441797718906,
+        "buffer_conservation_error": 5.441336270450847e-11,
+        "buffer_regression_ticks_per_second": -5.208038188574101e-05,
+        "last_three_minus_first_three_minute_mean": -0.027904461624885357,
+        "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+        "backend_observation_age_ms": {
+          "median_upper": 1106.56396484375,
+          "max_upper": 3000.546630859375
+        },
+        "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+        "phases": {
+          "PLAYING": 1671
+        },
+        "resynchronizations": 0,
+        "performance_limited": false,
+        "dense_phase_samples": {
+          "PLAYING": 3578
+        }
+      },
+      "strict_playback": {
+        "seconds": 900.314,
+        "backend_ticks_per_second": 0.9985405092001236,
+        "admitted_ticks_per_second": 1.000761956384106,
+        "displayed_ticks_per_second": 0.9999417516580672,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 12,
+          "max": 19
+        },
+        "buffer_ticks": {
+          "min": 11.863423849747278,
+          "max": 18.023544680918064
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 98.69999999925494,
+            "max": 4343.599999997765
+          },
+          "verify_ms": {
+            "median": 37.30000000074506,
+            "max": 115.5
+          },
+          "artifact_ms": {
+            "median": 0.5,
+            "max": 588.9000000022352
+          },
+          "derive_ms": {
+            "median": 4,
+            "max": 17.200000002980232
+          },
+          "catchup_ms": {
+            "median": 403.6000000014901,
+            "max": 3882.800000000745
+          }
+        },
+        "max_catchup_segments": 5,
+        "buffer_bytes": {
+          "min": 453876,
+          "max": 719525
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 1671,
+        "certified_publications_per_second": 1.000761956384106,
+        "authenticated_observation_queries_per_second": 2.2369973142703548,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 17.11396393982652,
+        "buffer_end": 17.852405737599838,
+        "admitted_ticks": 901,
+        "displayed_ticks": 900.2615582022811,
+        "phase_samples": {
+          "PLAYING": 1671
+        }
+      },
+      "all_regular_rows": 1671,
+      "all_dense_rows_in_window": 3578,
+      "summary_independently_recomputed": true,
+      "certificates_start": 234,
+      "certificates_end": 2248,
+      "certificate_age_ms": {
+        "count": 1671,
+        "median": 304.640768,
+        "max": 1691.68256,
+        "min": 95.377664
+      },
+      "limiter": {
+        "browser_limited_samples": 0,
+        "nonunit_nominal_rate_samples": 0,
+        "nominal_rate_min": 1,
+        "target_rate_values": [
+          1
+        ],
+        "first_limited_offset_seconds": null,
+        "last_limited_offset_seconds": null,
+        "backend_limited_poll_count": 0,
+        "supported_milli_values": [],
+        "backend_modes": {
+          "Normal": 488
+        }
+      },
+      "http": {
+        "requests_started_in_strict_window": 2554,
+        "status_counts": {
+          "200": 2554
+        },
+        "timings_ms": {
+          "upstream_headers_ms": {
+            "count": 2554,
+            "median": 17.973535499550053,
+            "max": 4163.223178999033,
+            "min": 6.163476999063278
+          },
+          "upstream_complete_ms": {
+            "count": 2554,
+            "median": 18.137092998586013,
+            "max": 4163.357481000276,
+            "min": 6.273679999139858
+          },
+          "finished_ms": {
+            "count": 2554,
+            "median": 18.90470299986191,
+            "max": 4163.799986999948,
+            "min": 6.689292000373825
+          }
+        }
+      },
+      "host_during_strict_window": {
+        "samples": 179,
+        "idle_percent": {
+          "count": 179,
+          "median": 13.4,
+          "max": 36.03603603603604,
+          "min": 9.840954274353876
+        },
+        "CPU_PSI_avg10": {
+          "count": 179,
+          "median": 30.35,
+          "max": 33.64,
+          "min": 27.68
+        },
+        "IO_full_PSI_avg10": {
+          "count": 179,
+          "median": 4.08,
+          "max": 13.43,
+          "min": 1.01
+        },
+        "memory_available_min_GiB": 4.385700225830078,
+        "swap_out_delta": 0,
+        "cgroup_throttled_usec_delta": {
+          "/sys/fs/cgroup/user.slice/user-1000.slice/session-7.scope": 0,
+          "/sys/fs/cgroup": 0
+        }
+      },
+      "capture": {
+        "errors": [
+          "Response.body: Target page, context or browser has been closed"
+        ],
+        "packets": 2326,
+        "complete_through": 1018,
+        "query_timings": 2891,
+        "history_exists": false,
+        "replay_exists": false
+      },
+      "browser_status": "PASS",
+      "page_errors": [],
+      "environment_interruption": false
+    }
+  },
+  "capture_content_audit": {
+    "qualification": "Diagnostic content audit only. Original capture errors are retained; this is NOT the blocked original capture/replay gate or fresh certificate authentication.",
+    "A0": {
+      "original_capture_errors": [],
+      "complete_through": 999,
+      "successful_replies": 1964,
+      "consecutive_catalog_count": 1000,
+      "first_id": 0,
+      "last_id": 999,
+      "missing_ids": [],
+      "inconsistent_duplicate_catalogs": 0,
+      "diagnostic_decode_errors": [],
+      "original_history_gate": "NOT_RUN after browser failure",
+      "original_independent_replay": "NOT_RUN"
+    },
+    "A2": {
+      "original_capture_errors": [
+        "Response.body: Target page, context or browser has been closed"
+      ],
+      "complete_through": 1018,
+      "successful_replies": 2326,
+      "consecutive_catalog_count": 1019,
+      "first_id": 0,
+      "last_id": 1018,
+      "missing_ids": [],
+      "inconsistent_duplicate_catalogs": 0,
+      "diagnostic_decode_errors": [],
+      "original_history_gate": "FAIL on capture error before replay",
+      "original_independent_replay": "NOT_RUN"
+    }
+  },
+  "cpu_breakdown": {
+    "A0": [
+      {
+        "name": "chrome-headless",
+        "mean_cores_over_all_samples": 1.2467518250407357,
+        "max_cores": 1.3686743894069011
+      },
+      {
+        "name": "pocket-ic",
+        "mean_cores_over_all_samples": 0.31684898467091055,
+        "max_cores": 0.38110345800220957
+      },
+      {
+        "name": "codex",
+        "mean_cores_over_all_samples": 0.07878296507915533,
+        "max_cores": 0.15160590442358063
+      },
+      {
+        "name": "python",
+        "mean_cores_over_all_samples": 0.045222340312172954,
+        "max_cores": 0.09556328052886667
+      },
+      {
+        "name": "MainThread",
+        "mean_cores_over_all_samples": 0.017845123282269,
+        "max_cores": 0.049841367189219866
+      },
+      {
+        "name": "native-harness",
+        "mean_cores_over_all_samples": 0.009952194535511985,
+        "max_cores": 0.03376926540887149
+      },
+      {
+        "name": "tmux: server",
+        "mean_cores_over_all_samples": 0.005069937052062957,
+        "max_cores": 0.00797649544709943
+      },
+      {
+        "name": "python3",
+        "mean_cores_over_all_samples": 0.002969429538328397,
+        "max_cores": 0.005983997933811301
+      },
+      {
+        "name": "python3.11",
+        "mean_cores_over_all_samples": 0.0023349204395198475,
+        "max_cores": 0.003991354274022824
+      },
+      {
+        "name": "snapd",
+        "mean_cores_over_all_samples": 0.0012139555220977713,
+        "max_cores": 0.20933024695391694
+      }
+    ],
+    "A2": [
+      {
+        "name": "chrome-headless",
+        "mean_cores_over_all_samples": 1.252733171433125,
+        "max_cores": 1.3733604485344195
+      },
+      {
+        "name": "pocket-ic",
+        "mean_cores_over_all_samples": 0.22063889622708863,
+        "max_cores": 0.3012011786312054
+      },
+      {
+        "name": "python",
+        "mean_cores_over_all_samples": 0.08185426770198119,
+        "max_cores": 0.11970798701789874
+      },
+      {
+        "name": "codex",
+        "mean_cores_over_all_samples": 0.0812823927284913,
+        "max_cores": 0.10729308080374601
+      },
+      {
+        "name": "MainThread",
+        "mean_cores_over_all_samples": 0.02318490052561645,
+        "max_cores": 0.05177847485656423
+      },
+      {
+        "name": "native-harness",
+        "mean_cores_over_all_samples": 0.009076860090997375,
+        "max_cores": 0.023905064393031503
+      },
+      {
+        "name": "tmux: server",
+        "mean_cores_over_all_samples": 0.005116291036124483,
+        "max_cores": 0.007976192326148275
+      },
+      {
+        "name": "python3",
+        "mean_cores_over_all_samples": 0.0029145238291202876,
+        "max_cores": 0.005984806581001738
+      },
+      {
+        "name": "python3.11",
+        "mean_cores_over_all_samples": 0.0023245742185341012,
+        "max_cores": 0.003991381749455092
+      },
+      {
+        "name": "kworker/u4:3-events_unbound",
+        "mean_cores_over_all_samples": 0.0010909453077025822,
+        "max_cores": 0.01596357880123781
+      }
+    ]
+  },
+  "transport_error_audit": {
+    "A0": {
+      "delivery_failures_max": 0,
+      "delivery_errors": [],
+      "artifact_bundle_fallbacks_max": 0,
+      "artifact_bundle_errors": [],
+      "all_proxy_status_counts": {
+        "200": 2584
+      },
+      "certificate_age_max_ms": 2113.496064,
+      "captured_query_failures": []
+    },
+    "A2": {
+      "delivery_failures_max": 0,
+      "delivery_errors": [],
+      "artifact_bundle_fallbacks_max": 0,
+      "artifact_bundle_errors": [],
+      "all_proxy_status_counts": {
+        "200": 2892
+      },
+      "certificate_age_max_ms": 1691.68256,
+      "captured_query_failures": []
+    }
+  },
+  "original_evidence_manifest": {
+    "status": "PASS",
+    "verified_files": 4418,
+    "manifest_sha256": "1bacf932e912e1c11c875f71976d6427d6be4d281eb0c822329d582270f43f44"
+  },
+  "package_archive_sha256": "52e8f090c7dae5d2e366e912f49dacce73e15c56dd0895b630cf611932b376d5",
+  "native_harness_sha256": "cf67ff38f2313ec1748b2257005f8dbd1f3f1ec2d7d7ad3e4c9446fee368ea7d",
+  "A0_window": "FAIL: canister performance limiter, otherwise six strict checks pass",
+  "A2_window": "PASS: all seven strict checks; post-window capture FAIL; replay NOT_RUN",
+  "production_preflight_and_funding": "NOT_PREPARED: both-window PASS condition unmet",
+  "mainnet_actions": [],
+  "new_infrastructure": false,
+  "remote_git_writes": false,
+  "independent_archive": "/home/codexdev/b2z-release-evidence/isolated-delivery-comparison-20261029",
+  "independent_archive_files": 4496,
+  "independent_manifest_sha256": "64fc0de582f7dd427b6f9e4c4e5771dc97d33bc57c95cfd0b9dee8a23443dd4a",
+  "raw_evidence_tar": "/home/codexdev/b2z-release-evidence/isolated-delivery-comparison-complete-20261029.tar.gz",
+  "raw_evidence_tar_sha256": "e6a8f31886fa7e953dc3d27d0ee60ac5565fd4fe257c948838d7e1a97cb5b24e",
+  "includes_earlier_preparation_failures": true
+}

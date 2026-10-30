@@ -1,0 +1,20 @@
+{
+  "scope": "Historical captured public IC certificates. Tests freeze Date at capture completion; production certificate policy/time verification is unchanged. No fresh-network claim from fixture replay.",
+  "clock_ms": 1793367312343,
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "heads": {
+    "rejected": 66540,
+    "accepted": 66541,
+    "forward_predecessor": 66542,
+    "forward": 66543
+  },
+  "sha256": {
+    "accepted-certificate.bin": "13390a09aedf46b0b5a41e2ede0b7bcc931881035b2e2d7697c5b1c7d4024d9c",
+    "accepted-publication.bin": "04a98ed9008cdaab5cbb16ad4f9ae19bec25434a6e2e5bb35e74aa54821a36f8",
+    "forward-certificate.bin": "c3a3e3db9bf19f3f9643032d3891518fed42f1152d97e67b10f6666086cbe8ac",
+    "forward-predecessor.bin": "57c3f8b028b357ead3c24325ada5d9daa6bfa19f25732a298029a61548592a2a",
+    "forward-publication.bin": "033da0aef8a376c313174faf0605af238fbb1816cd26be63e2c0d6b082dc8645",
+    "rejected-certificate.bin": "932c547b66138b3864bca5f2810e2cd34609a71776f6f9ac609af603ec7fdd04",
+    "rejected-publication.bin": "833b15e9fdb26dcff4151e91757924bc687dbf71e0f80986aae8fc1a19e4a610"
+  }
+}

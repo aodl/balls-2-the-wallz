@@ -1,0 +1,14 @@
+{
+  "started_utc": "2026-10-29T14:48:19.308320+00:00",
+  "status": "PASS",
+  "reasons": [],
+  "sampler_exit_code": 0,
+  "samples": 13,
+  "idle_median_percent": 96.39459098376935,
+  "IO_full_PSI_avg10_max": 0.0,
+  "comparison_started": false,
+  "foreign_work": {},
+  "polling_stopped_on_pass": true,
+  "independent_archive": "/home/codexdev/b2z-release-evidence/isolated-delivery-poll-004-20261029",
+  "archive_manifest_sha256": "f1b1404a5701c6c7d29c4b44c56941233aef9f25e14df7e45e1b028e0140b20b"
+}

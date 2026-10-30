@@ -1,0 +1,82 @@
+{
+  "outcome": "A2_INSTALLED_RUNNING_WITH_BROWSER_VERIFICATION_FAILURE",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "wasm_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+  "dtr_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+  "recorded_at": "2026-10-30T13:01:23.493336+00:00",
+  "operations": {
+    "pause": "CONFIRMED",
+    "installation": "ONE upgrade, CONFIRMED",
+    "resume": "CONFIRMED",
+    "additional_funding": "NONE",
+    "frontend_change": "NONE",
+    "controller_change": "NONE"
+  },
+  "pre_upgrade": {
+    "liquid_cycles": 12003089449260,
+    "total_cycles": 12149947801830
+  },
+  "post_upgrade_paused": {
+    "liquid_cycles": 11963502354232,
+    "total_cycles": 12110372854402
+  },
+  "final": {
+    "liquid_cycles": 11861095724077,
+    "total_cycles": 12009542657467,
+    "run": {
+      "callback_count": "97351",
+      "completed_segments": "65919",
+      "current_segment_work": "0",
+      "generation": "25",
+      "idle": false,
+      "last_error": [],
+      "last_segment_work": "603",
+      "max_segment_work": "14005",
+      "pace": {
+        "admission_open": true,
+        "mode": "Steady",
+        "nominal_milli": 300,
+        "performance_limited": false,
+        "supported_milli": 300
+      },
+      "pacing_seconds": 1,
+      "publication_ticks": "1",
+      "running": true,
+      "segment_ticks": "1",
+      "total_work": "48538178",
+      "work_budget": 512,
+      "world_transition": false
+    },
+    "certified_publication": "65920",
+    "logical_end": "120073"
+  },
+  "preservation": "PASS: committed publication/state/events/scores/configuration/source descriptor byte-identical; all 16 retained catalogs/chunks and durable treasury fields unchanged; ready stage preserved and recovered as publication 65821 with exact manifest hash.",
+  "treasury_nonce_lease": "Expected initialize increment 2015\u21922016, lease reset; subsequent maintenance increments to 2017 and renews lease. Obligations/credit totals unchanged.",
+  "active_consumption": {
+    "seconds": 318.7749521484375,
+    "completed_segments": 95,
+    "net_total_debit_cycles": 96483999342,
+    "net_liquid_debit_cycles": 96483999342,
+    "treasury_reported_credit_delta": 0,
+    "total_minus_liquid_start": 148446933390,
+    "total_minus_liquid_final": 148446933390,
+    "qualification": "Short active-game net observation, not maintenance-only or an upper-bound forecast."
+  },
+  "browser": {
+    "status": "FAIL",
+    "duration_samples": 44,
+    "authenticated_initial_head": 65890,
+    "authenticated_final_head": 65903,
+    "certificates": 81,
+    "played_ticks": 9.709036236468819,
+    "resyncs": 0,
+    "final_phase": "PLAYING",
+    "delivery_error": "observation rollback",
+    "final_consecutive_failures": 0,
+    "page_errors": [],
+    "scope": "45-second production read-only check; FAIL because rollback rejection was recorded despite recovered playback. No repeat, no frontend fix, no automatic rollback/pause."
+  },
+  "browser_diagnosis": "SDK guards reject regressing revision/ingest/head/logical/source observations. Accepted heads in telemetry remain monotonic; retry counter returns to zero but frontend retains deliveryError. Exact offending wire response/origin was not captured, so a gateway/replica cause or A2 regression is not asserted.",
+  "policy_note": "At ~12T liquid the unchanged policy selects Steady (entry 10T), not Conserve. No rate forced. Steady exits below 7.5T; subsequent tier selection remains automatic.",
+  "earlier_failures_preserved": "Prior insufficient-balance preflight and local browser launch/CSP-driver failures retained; no playback samples existed for the two driver failures."
+}

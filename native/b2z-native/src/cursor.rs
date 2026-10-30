@@ -878,20 +878,17 @@ impl Cursor {
             cursor: self.clone(),
         })
     }
-    /// The digest must come from trusted durable metadata, NOT an untrusted caller's own checksum.
-    pub fn restore(bytes: &[u8], trusted_hash: &str) -> Result<Self> {
-        if hash(bytes) != trusted_hash {
-            return Err("cursor integrity".into());
-        }
-        let p: Snapshot = decode(bytes)?;
-        let c = p.cursor;
+    // Shared by full external restore and the private typed execution session.
+    // This does not attest arbitrary caller-created Cursor objects.
+    pub(crate) fn validate_fields(&self, version: u32) -> Result<()> {
+        let c = self;
         if c.join_e8s
             .as_ref()
             .is_some_and(|j| j.0 != BigInt::from(JOIN_E8S))
         {
             return Err("cursor economics".into());
         }
-        if p.version != 3
+        if version != 3
             || !matches!(
                 c.phase.as_str(),
                 "commands"
@@ -925,6 +922,16 @@ impl Cursor {
         ) {
             c.world.validate()?;
         }
+        Ok(())
+    }
+    /// The digest must come from trusted durable metadata, NOT an untrusted caller's own checksum.
+    pub fn restore(bytes: &[u8], trusted_hash: &str) -> Result<Self> {
+        if hash(bytes) != trusted_hash {
+            return Err("cursor integrity".into());
+        }
+        let p: Snapshot = decode(bytes)?;
+        let c = p.cursor;
+        c.validate_fields(p.version)?;
         // Detect dropped fields or type changes in nested continuations as well as outer records.
         if c.snapshot()? != bytes {
             return Err("cursor schema roundtrip".into());

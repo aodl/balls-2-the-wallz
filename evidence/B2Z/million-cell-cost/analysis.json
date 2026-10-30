@@ -1,0 +1,304 @@
+{
+  "status": "PASS \u2014 observational cost study; no backend implementation",
+  "window": {
+    "start": "2026-10-26T22:39:26.560415+00:00",
+    "end": "2026-10-26T22:49:26.002766+00:00",
+    "runtime_endpoint_seconds": 599.442351,
+    "nominal_window_seconds": 600,
+    "controller_samples": 11,
+    "interval_seconds": 60,
+    "total_cycle_debit_after_known_credits": 364097153656,
+    "liquid_cycle_debit_after_known_credits": 364097153656,
+    "treasury_credits_in_window": 0,
+    "net_burn_T_per_hour": 2.186615194897365,
+    "completed_publications": 117,
+    "logical_ticks": 117,
+    "tick_derivation": "Every live sample has publication_ticks=1; certified begin/end heads confirm constant logical_end\u2212segment_id.",
+    "achieved_ticks_per_second": 0.19518140452508667,
+    "cycles_per_logical_tick": 3111941484.2393165,
+    "cycles_per_publication": 3111941484.2393165,
+    "driver_messages": 235,
+    "driver_messages_per_publication": 2.0085470085470085,
+    "sample_skew": "Controller methods are separate queries a few seconds apart. One in-flight publication/message can cross endpoints; per-tick values are window averages, not an atomic charge ledger."
+  },
+  "instruction_attribution": {
+    "certified_subnet_node_keys": 34,
+    "documented_per_instruction_cycle_multiplier": 2.6153846153846154,
+    "phases": [
+      {
+        "phase": "Seal",
+        "instructions_delta": 5000179443,
+        "instructions_per_publication": 42736576.43589743,
+        "estimated_execution_cycles": 13077392389.384615,
+        "estimated_execution_T_per_hour": 0.07853734812571596,
+        "share_of_actual_total_burn_percent": 3.591731563422265
+      },
+      {
+        "phase": "Step",
+        "instructions_delta": 63410401682,
+        "instructions_per_publication": 541969245.1452992,
+        "estimated_execution_cycles": 165842589014.46155,
+        "estimated_execution_T_per_hour": 0.9959812139667481,
+        "share_of_actual_total_burn_percent": 45.54899354449502
+      },
+      {
+        "phase": "Publish",
+        "instructions_delta": 26363644375,
+        "instructions_per_publication": 225330293.80341882,
+        "estimated_execution_cycles": 68951069903.84616,
+        "estimated_execution_T_per_hour": 0.4140912820720039,
+        "share_of_actual_total_burn_percent": 18.937547083653207
+      },
+      {
+        "phase": "Persist",
+        "instructions_delta": 12245928127,
+        "instructions_per_publication": 104666052.36752136,
+        "estimated_execution_cycles": 32027812024.46154,
+        "estimated_execution_T_per_hour": 0.19234564107076502,
+        "share_of_actual_total_burn_percent": 8.796501621301195
+      }
+    ],
+    "modelled_phase_execution_total_cycles": 279898863332.1539,
+    "residual_cycles": 84198290323.84613,
+    "residual_T_per_hour": 0.5056597096621325,
+    "residual_percent": 23.125226187128316,
+    "driver_callback_base_fee_estimate_cycles": 3073076923.076923,
+    "driver_callback_base_fee_estimate_T_per_hour": 0.01845561446337802,
+    "observed_idle_storage_charge_T_per_hour": 0.000203969934125,
+    "attribution_limits": "Instruction phases are measured, cycle equivalents modelled with documented fee schedule; actual debit is balance-based. Residual includes host/root reads, Coordinator restore/validation before phase counters, other timer callbacks, source/treasury, base/call/byte charges and unmeasured work. No exact current source-vs-treasury cycle split is claimed. Persist includes encoding/hashing/stable writes and certification, not just storage rent. No cumulative total-message instruction counter exists; last/max cannot be summed over the window."
+  },
+  "world": {
+    "version": 5,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 3,
+    "ownership_overrides": 0,
+    "received_e8s": "620000000",
+    "work_units_per_sampled_segment_min": 593,
+    "work_units_per_sampled_segment_max": 608,
+    "work_budget": 512,
+    "cost_change_vs_earlier_two_ball_release": "Three active balls now cross the 512-unit Step budget, requiring multiple Step operations and about two working messages/publication. Earlier two-ball rates are not comparable at unchanged workload."
+  },
+  "local_profile": {
+    "native_status": "PASS",
+    "native_checkpoint_codec_fraction_of_raw_step_plus_checkpoint": 0.38711070264124603,
+    "public_state_event_score_hashes_equal_all_tested_paths": [
+      "fae1bd7708af0a223129c89735ea0c7bfab35e75f072e18c4333df55aafca0a7",
+      "c348ffb1164a30914545c11c8f3ecd19bb0756821749cdfe796acbc236894129",
+      "cf4a9aea067e13287ff9d80f9339aebe5556c3c2aa79c58f5e182a9f2599c093"
+    ],
+    "native_qualification": "CPU microbenchmark, not Wasm cycles. Same captured state replayed; checkpoint timing includes explicit cursor boundaries, does not replicate every host/DTR validation. No production budget increase is proposed."
+  },
+  "source_treasury": {
+    "Index_calls_delta": 10,
+    "source_cursor_start": "39711127",
+    "source_cursor_end": "39711127",
+    "official_Index_synced_start": "39711193",
+    "official_Index_synced_end": "39711456",
+    "pending_records_end": 0,
+    "treasury_nonce_delta": 2,
+    "new_financial_transactions_in_window": 0,
+    "treasury_phase_end": {
+      "Idle": null
+    },
+    "ledger_balance_e8s_end": "0",
+    "historical_comparison_since_pre_frontend_release": {
+      "seconds": 1276.939301,
+      "cycles_credited": 3826417320000,
+      "new_certified_received_e8s": 200000000,
+      "credit_T_per_hour_if_averaged_over_that_bursty_period": 10.78759369471392,
+      "qualification": "Two discrete credits before the window, not continuing income. The 10-minute measurement window had zero new receipts or credits."
+    }
+  },
+  "funding_tier_forecasts": [
+    {
+      "mode": "Normal",
+      "nominal_ticks_per_second": 1,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 11.202989343261539,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 5.865718943634869,
+      "policy_entry_T": 40,
+      "policy_exit_T": 30,
+      "hours_to_exit_from_entry_without_income": 0.8926188978314862
+    },
+    {
+      "mode": "Cruise",
+      "nominal_ticks_per_second": 0.75,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 8.402242007446155,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 4.399289207726152,
+      "policy_entry_T": 25,
+      "policy_exit_T": 20,
+      "hours_to_exit_from_entry_without_income": 0.5950792652209907
+    },
+    {
+      "mode": "Economy",
+      "nominal_ticks_per_second": 0.5,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 5.601494671630769,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 2.9328594718174346,
+      "policy_entry_T": 15,
+      "policy_exit_T": 12,
+      "hours_to_exit_from_entry_without_income": 0.5355713386988917
+    },
+    {
+      "mode": "Steady",
+      "nominal_ticks_per_second": 0.3,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 3.360896802978462,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 1.7597156830904608,
+      "policy_entry_T": 10,
+      "policy_exit_T": 7.5,
+      "hours_to_exit_from_entry_without_income": 0.7438490815262384
+    },
+    {
+      "mode": "Conserve",
+      "nominal_ticks_per_second": 0.2,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 2.240597868652308,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 1.173143788726974,
+      "policy_entry_T": 5,
+      "policy_exit_T": 4,
+      "hours_to_exit_from_entry_without_income": 0.44630944891574303
+    },
+    {
+      "mode": "Survival",
+      "nominal_ticks_per_second": 0.1,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 1.120298934326154,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 0.586571894363487,
+      "policy_entry_T": 3.5,
+      "policy_exit_T": 3,
+      "hours_to_exit_from_entry_without_income": 0.44630944891574303
+    },
+    {
+      "mode": "Lifeline",
+      "nominal_ticks_per_second": 0.05,
+      "publication_ticks_for_current_live_settings": 1,
+      "projected_T_per_hour_at_current_3_ball_per_tick_cost": 0.560149467163077,
+      "gross_ICP_receipts_per_hour_to_match_at_last_observed_conversion_yield": 0.2932859471817435,
+      "policy_entry_T": 3,
+      "policy_exit_T": 2.5,
+      "hours_to_exit_from_entry_without_income": 0.8926188978314861
+    }
+  ],
+  "forecast_qualification": "Current three-ball measured total cycles/tick extrapolated to nominal rates with current one-tick publications. Fixed overhead is folded into this calibration; no independent current v5 fixed-overhead intercept is known. Results are workload-dependent scenarios, not proven sustainable rates under arbitrary population/fragmentation. Receipt yield is the last observed 1-ICP conversion, not a future exchange-rate or income guarantee.",
+  "runway": {
+    "observed_at": "2026-10-26T22:52:10.968397+00:00",
+    "latest_liquid_T": 7.298688861244,
+    "latest_total_T": 7.445547213814,
+    "latest_tier": {
+      "admission_open": true,
+      "mode": "Conserve",
+      "nominal_milli": 200,
+      "performance_limited": false,
+      "supported_milli": 200
+    },
+    "thresholds_T": {
+      "Conserve_to_Survival": 4,
+      "Survival_to_Lifeline": 3,
+      "Lifeline_to_ReserveProtection": 2.5
+    },
+    "hours_to_4T_no_receipts": 1.4722360078063095,
+    "hours_to_3T_after_downshift_no_receipts": 2.3648549056377957,
+    "hours_to_2_5T_after_downshifts_no_receipts": 3.257473803469282,
+    "warning": "No future treasury credit is assumed. Query-liquid scenarios use configured hysteresis thresholds; callback execution reserves and workload changes can cause earlier transitions. Reserve Protection can gate paid gameplay/admission while maintenance continues. No funding or pacing change is authorised or initiated."
+  },
+  "ranked_optimisation_proposal": [
+    {
+      "rank": 1,
+      "change": "Prototype reuse of immutable, already-validated cursor/coordinator bytes within a single message; reduce redundant canonical decode/encode, hashing and output revalidation without removing trust-boundary checks.",
+      "evidence": "Step is the largest bucket; host.restore is before phase counters; DTR restore/propose/post-propose and kernel cursor/result repeatedly validate canonical snapshots. Native checkpoint codec accounts for 38.7% of combined raw-Step/checkpoint CPU time.",
+      "ceiling": "Step plus residual is a broad upper bound, not removable cost.",
+      "screening_target_percent_of_actual_burn": [
+        10,
+        30
+      ],
+      "screening_target_T_per_hour": [
+        0.21866151948973653,
+        0.6559845584692096
+      ],
+      "complexity": "medium-high; likely B2Z/DTR internal interfaces, separate upstream review if DTR changes",
+      "state_preservation_risk": "medium; cache keyed by exact immutable commitment, discarded on mutation/upgrade; corruption and schema checks remain mandatory",
+      "determinism": "Exact public output and corruption/recovery equivalence required; no arithmetic, ownership or physics changes."
+    },
+    {
+      "rank": 2,
+      "change": "Reuse result/manifest/artifact encoding work across ready validation, Publish and certified observation preparation, keyed by exact cursor/seal hashes.",
+      "evidence": "Publish estimated execution 0.414T/hour; Step also computes result/ready manifest and validation may recompute it.",
+      "screening_target_percent_of_actual_burn": [
+        5,
+        10
+      ],
+      "screening_target_T_per_hour": [
+        0.10933075974486826,
+        0.21866151948973653
+      ],
+      "complexity": "medium-high",
+      "state_preservation_risk": "medium; never reuse across a different cursor/seal/publication; retain all exact certified bytes and historical formats",
+      "determinism": "Require byte-identical v8 publication, seal, state/events/scores, artifact chunks and replay."
+    },
+    {
+      "rank": 3,
+      "change": "Compare unchanged image chunks or reuse encoded descriptors before stable writes; retain identical coordinator snapshot bytes, key layout and atomic commit semantics.",
+      "evidence": "Persist is a measured 0.192T/hour execution bucket, not pure storage rent; slot-0 coordinator image is rewritten each working callback.",
+      "screening_target_percent_of_actual_burn": [
+        2,
+        6
+      ],
+      "screening_target_T_per_hour": [
+        0.0437323038979473,
+        0.1311969116938419
+      ],
+      "complexity": "medium",
+      "state_preservation_risk": "low-medium if stable layout is unchanged; interruption/upgrade/recovery tests are mandatory",
+      "determinism": "Logical output unchanged; durable image and publication integrity must remain equal."
+    },
+    {
+      "rank": 4,
+      "change": "After codec costs are isolated, profile and reduce exact rational-arithmetic allocations and repeated collision candidate calculations while preserving candidate order and tie-breaking.",
+      "evidence": "Native raw simulation remains substantial; Step includes other costs, so no measured pure-physics cycle share is claimed.",
+      "screening_target_percent_of_actual_burn": [
+        5,
+        15
+      ],
+      "screening_target_T_per_hour": [
+        0.10933075974486826,
+        0.3279922792346048
+      ],
+      "complexity": "high",
+      "state_preservation_risk": "medium-high due to event ordering and edge cases",
+      "determinism": "No floats/approximation, changed cell geometry or changed results; require full differential fixtures, torus seams, collisions and retained replay."
+    },
+    {
+      "rank": 5,
+      "change": "Defer source/treasury/timer tuning; investigate only the remaining residual after the dominant pipeline costs are reduced. Preserve exact polling, payment and funding behavior.",
+      "evidence": "10 Index calls / 10 minutes, no pending records; treasury nonce rose only twice, no financial operation or replenishment in the window. Historical empty-world PocketIC control is small but is not current v5 attribution.",
+      "screening_target_percent_of_actual_burn": null,
+      "screening_target_T_per_hour": null,
+      "complexity": "undetermined; not justified as first optimisation",
+      "state_preservation_risk": "high relative to likely gain for payment/source changes",
+      "determinism": "No poll interval, source cursor, financial semantics or pacing change proposed."
+    }
+  ],
+  "proposal_limits": "Savings ranges are screening targets grounded in measured bucket ceilings, NOT measured improvements or additive promises. Before any implementation/deployment, approve a narrow prototype and require same-input/same-output and frozen-predecessor upgrade/recovery conformance. No authoritative algorithm or budget/pacing change has been implemented.",
+  "frontend_PR": {
+    "base": "master",
+    "head": "feature/b2z-million-cell-visuals",
+    "head_sha": "e2fc63d6bc73b77e60c87f3b37134c7f9cc09abc",
+    "base_sha": "5899df61f0a5f540d91956dc5b6006ec708a5a1e",
+    "draft": true,
+    "title": "Integrate the verified and deployed million-cell visual frontend",
+    "status": "PREPARED; GitHub integration returned 403 Resource not accessible by integration; no PR created",
+    "compare_url": "https://github.com/aodl/balls-2-the-wallz/compare/master...feature/b2z-million-cell-visuals?expand=1",
+    "post_merge_requirement": "All six substantive jobs must pass on exact resulting master commit; preserve commits via user-owned fast-forward; no redeployment."
+  },
+  "strict_exclusions": {
+    "backend_changes": false,
+    "Wasm_rebuild_or_deploy": false,
+    "gameplay_pause_or_pacing_changes": false,
+    "financial_or_controller_actions": false,
+    "frontend_redeploy": false
+  }
+}

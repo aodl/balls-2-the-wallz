@@ -1,0 +1,16 @@
+{
+  "id": 40963232155,
+  "name": "verification",
+  "head_branch": "ci/b2z-pinned-a2-delivery",
+  "head_sha": "3e99d74b3661fb4ccec8e87ec3945b35d05e6f25",
+  "path": ".github/workflows/verification.yml",
+  "run_attempt": 1,
+  "event": "push",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-10-29T22:06:18Z",
+  "updated_at": "2026-10-29T22:53:43Z",
+  "run_started_at": "2026-10-29T22:06:18Z",
+  "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/40963232155",
+  "raw_metadata": "Full raw API responses, job steps and all six digest-verified artifact ZIPs are retained in the independent archive."
+}

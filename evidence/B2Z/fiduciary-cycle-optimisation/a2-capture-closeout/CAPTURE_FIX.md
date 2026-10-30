@@ -1,0 +1,19 @@
+# Capture lifecycle correction — source freeze
+
+The historical A0/A2 comparison at `37aecd16039f4ccf9dd52133fac74748be23eaaf` remains **FAIL**. Its A2 strict playback window passed, but capture failed and independent replay did not run. No original evidence/index has been changed. The user's prospective [release acceptance policy](../../../../docs/operations/A2_RELEASE_ACCEPTANCE.md) removes A0 success as a release prerequisite while retaining every original A2 threshold and capture/replay gate.
+
+`Response.body()` in synchronous Playwright can yield to other response handlers and the main greenlet. Removing a listener does not join already-dispatched handlers. The old code assigned filenames only after the body read, so filenames followed completion order rather than response-dispatch order. The observed historical closed-target error is consistent with teardown racing a pending body read; its exact historical occurrence time is unavailable.
+
+The capture helper reserves sequence and request identity before reading bodies. It preserves the original completed-publication fence, then stops response admission, removes the listener, and pumps the public dispatcher while draining pending reads with a 15-second deadline. The context stays alive until finalisation passes or explicitly fails. Bounds and all original integrity/replay assertions remain fatal. Failure context now records response identity, status, request/body hashes, timing and finalisation state. Filenames and index order follow reserved response order. Genuine body errors, request failures, cancellations, timeouts and closed targets remain recorded failures.
+
+Before the long run, focused verification **PASS**:
+
+- 21 capture/policy/resource/acceptance/workflow unit checks.
+- Seven real disposable HTTP/sandboxed-browser scenarios. Delayed and overlapping bodies drain before immediate close and preserve all expected bytes; the unchanged history/replay tools pass all 81 consecutive fixture publications. Incomplete bodies, cancellation, timeout and premature close remain capture failures. Malformed data and missing publications remain original history-gate failures. This preserved-content fixture does not claim new IC authentication or repair the historical capture.
+- Full source checks: 1,389 JavaScript and 182 Python tests plus source, fixture and documentation checks.
+- Original HTTP/Web Crypto browser checks.
+- Native integration harness build and Clippy with committed locks/offline dependencies; output-isolation and frozen A2 public disposable binding checks.
+
+The application was **not rebuilt**. Both compressed and decompressed frozen A0/A2 hashes, original frontend manifest and all 594 browser inventory files were checked. Sandbox launch passed. Native Rust test code is unchanged from `b96c64b43a412c022143787cd9d6ed94da2bbc67`; its executable was rebuilt solely from the current source location so it invokes the corrected capture Python. The new executable is `0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec`. [Individual source and binary identities](identities-before-run.json), [browser results](focused-browser.json), [native checks](focused-native.json) and [check summary](focused-checks.json) distinguish harness changes from the unchanged A2 Wasm `2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb`.
+
+Raw logs, positive and negative captures, fixture-generation failures, native executable and independent SHA-256 manifest are retained in `.work/a2-capture-closeout`; [manifest identity](focused-manifest.json). One new A2-only attempt is authorised after the unchanged resource prerequisite. Its measurement is **NOT_RUN at this source freeze**, and exact-commit CI is **NOT_RUN until user-owned publication**. No remote push, new infrastructure, application change or mainnet operation occurred.

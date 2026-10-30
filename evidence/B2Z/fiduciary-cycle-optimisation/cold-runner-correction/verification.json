@@ -1,0 +1,104 @@
+{
+  "observed_utc": "2026-10-29T08:55:21.191517+00:00",
+  "parent_commit": "737b264050f0599004da5a33709e534d2592e094",
+  "original_candidate": {
+    "commit": "eae3eb97c448588a428da0147dc331ae915b8b60",
+    "run_id": 40771390122,
+    "substantive_jobs": "6 PASS"
+  },
+  "previous_branch_ci": {
+    "commit": "737b264050f0599004da5a33709e534d2592e094",
+    "run_id": 40843327593,
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "name": "S14 and million-cell installed-IC qualification",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "correction_exact_commit_ci": "NOT_RUN: unpublished local commit",
+  "failed_dedicated_run": {
+    "run_id": 40843327791,
+    "job_id": 123344728012,
+    "provisioning": "FAIL: missing remote Git cache before offline metadata",
+    "comparison": "SKIPPED",
+    "artifact_id": 12883807054,
+    "artifact_sha256": "2a7e45d4a455eb15eb84c152aa48bd83b8d0567aae4b62104b59663143d610a5"
+  },
+  "local_cold_cache_provisioning": {
+    "fetches": "5 PASS; normal remote immutable resolution, --locked",
+    "unchanged_offline_provenance": "PASS; all five resolved graphs",
+    "cache_initial_state": "empty newly created .work/a2-cold-runner/cargo-home"
+  },
+  "validation": {
+    "focused_tests": 16,
+    "source_javascript_tests": 1389,
+    "source_python_tests": 166,
+    "source_status": "PASS",
+    "original_workflow_rejected_by_regression": true,
+    "shell_syntax": "PASS",
+    "production_inputs_unchanged": true
+  },
+  "quiet_host": {
+    "status": "NOT_RUN",
+    "reason": "failed hosted provisioning preceded sampling; corrected workflow awaiting user-owned publication",
+    "qualifying_window_seconds": 60,
+    "previous_allowance_seconds": 75,
+    "selected_allowance_seconds": 180,
+    "thresholds_changed": false
+  },
+  "delivery": {
+    "scope": "Normal only",
+    "order": [
+      "A0",
+      "A2"
+    ],
+    "prelude_seconds_each": 90,
+    "strict_normal_seconds_each": 900,
+    "A0": "NOT_RUN",
+    "A2": "NOT_RUN",
+    "verdict": "BLOCKED pending publication and qualified host",
+    "additional_historical_phases_executed": false,
+    "retries": 0
+  },
+  "release": "NO-GO",
+  "raw_root": ".work/a2-cold-runner",
+  "independent_archive": "/home/codexdev/b2z-release-evidence/a2-cold-runner-correction-20261029",
+  "raw_sha256_manifest": "SHA256SUMS",
+  "production_actions": [],
+  "independent_archive_manifest_sha256": "4eba3575b8b770e0102b8b0c416b2f31b4e47d76c9239addfa6af4ebe69f772e",
+  "independent_archive_verified_files": 60
+}

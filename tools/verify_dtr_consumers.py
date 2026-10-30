@@ -17,8 +17,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='e1bfcf25071d11190d14f461288e12a21ca26cf8'
-DTR_TREE='fd5c687fd9a558d536c5ed47de771fad543cd032'
+DTR_REV='77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68'
+DTR_TREE='068c66829619741b6784306929b51e292cb58bcf'
 VENDOR_NPM='11.12.1'
 VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.14.0.tgz'
 

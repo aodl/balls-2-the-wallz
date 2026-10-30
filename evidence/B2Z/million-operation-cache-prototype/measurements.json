@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "scope": "local prototype; further qualification only",
+  "baseline_sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+  "prototype_sha256": "fec372ec5afe5787e5fa5573c18b1d5d16201166d244a9602b276e7cee88c03b",
+  "measurements": [
+    {
+      "case": "measured-2-3-4",
+      "balls": 2,
+      "budget": 512,
+      "ticks": 8,
+      "baseline_cycles": 3776613654,
+      "prototype_cycles": 2579889663,
+      "saving_pct": 31.687752591067664,
+      "baseline_instructions": {
+        "persist": 235043164,
+        "publish": 1154310311,
+        "seal": 233639813,
+        "step": 1690754501
+      },
+      "prototype_instructions": {
+        "persist": 235647728,
+        "publish": 454563324,
+        "seal": 234007164,
+        "step": 1186453030
+      },
+      "baseline_messages": 8,
+      "prototype_messages": 8,
+      "publication_sha256": "4556c5abb089da85bb80c193ae0d6499bf56be9a6abd4ebe93872938fc4169be"
+    },
+    {
+      "case": "measured-2-3-4",
+      "balls": 3,
+      "budget": 512,
+      "ticks": 8,
+      "baseline_cycles": 6881286295,
+      "prototype_cycles": 4687699290,
+      "saving_pct": 31.87757217126511,
+      "baseline_instructions": {
+        "persist": 319220176,
+        "publish": 1700339299,
+        "seal": 283947134,
+        "step": 4045545812
+      },
+      "prototype_instructions": {
+        "persist": 320192650,
+        "publish": 667826655,
+        "seal": 284879849,
+        "step": 2873063342
+      },
+      "baseline_messages": 8,
+      "prototype_messages": 8,
+      "publication_sha256": "01d1a9889c49046d98c0fb0d9ca54189874c555a5993a58d8da8f6d53c5821cb"
+    },
+    {
+      "case": "measured-2-3-4",
+      "balls": 4,
+      "budget": 512,
+      "ticks": 8,
+      "baseline_cycles": 10793108974,
+      "prototype_cycles": 5925435210,
+      "saving_pct": 45.0998296758233,
+      "baseline_instructions": {
+        "persist": 781567970,
+        "publish": 2247121248,
+        "seal": 334894489,
+        "step": 5120288784
+      },
+      "prototype_instructions": {
+        "persist": 411491454,
+        "publish": 882346712,
+        "seal": 335162884,
+        "step": 3678468816
+      },
+      "baseline_messages": 16,
+      "prototype_messages": 8,
+      "publication_sha256": "d2dd3cc92b37e1ffac4a2b12413650ffccb1e9e04c7d186a20459ba2c5449c12"
+    },
+    {
+      "case": "qualified-live",
+      "balls": 3,
+      "budget": 512,
+      "ticks": 8,
+      "baseline_cycles": 8751528007,
+      "prototype_cycles": 4956707622,
+      "saving_pct": 43.36180358406754,
+      "baseline_instructions": {
+        "persist": 650662961,
+        "publish": 1757711874,
+        "seal": 304842302,
+        "step": 4253527480
+      },
+      "prototype_instructions": {
+        "persist": 335495780,
+        "publish": 705919078,
+        "seal": 305396598,
+        "step": 3051005871
+      },
+      "baseline_messages": 15,
+      "prototype_messages": 8,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    },
+    {
+      "case": "qualified-511",
+      "balls": 3,
+      "budget": 511,
+      "ticks": 8,
+      "baseline_cycles": 8742668578,
+      "prototype_cycles": 4950027602,
+      "saving_pct": 43.38081607649842,
+      "baseline_instructions": {
+        "persist": 650471060,
+        "publish": 1757638129,
+        "seal": 304613346,
+        "step": 4245810430
+      },
+      "prototype_instructions": {
+        "persist": 335369958,
+        "publish": 705795270,
+        "seal": 305737175,
+        "step": 3044199543
+      },
+      "baseline_messages": 15,
+      "prototype_messages": 8,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    },
+    {
+      "case": "qualified-513",
+      "balls": 3,
+      "budget": 513,
+      "ticks": 8,
+      "baseline_cycles": 8751528007,
+      "prototype_cycles": 4956707622,
+      "saving_pct": 43.36180358406754,
+      "baseline_instructions": {
+        "persist": 650662961,
+        "publish": 1757711874,
+        "seal": 304842302,
+        "step": 4253527480
+      },
+      "prototype_instructions": {
+        "persist": 335495780,
+        "publish": 705919078,
+        "seal": 305396598,
+        "step": 3051005871
+      },
+      "baseline_messages": 15,
+      "prototype_messages": 8,
+      "publication_sha256": "bd0c36b26357de5a6094dbb2ddbde26695328310b64556263602fdbb2e725762"
+    }
+  ],
+  "boundary_publication_and_artifact_equality": true
+}

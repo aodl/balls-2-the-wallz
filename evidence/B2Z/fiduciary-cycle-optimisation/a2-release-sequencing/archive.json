@@ -1,0 +1,9 @@
+{
+  "archive": "/home/codexdev/b2z-release-evidence/a2-release-sequencing-20261030.tar.gz",
+  "sha256": "ec45cab5d4f6bbd1fa39c8f0f0c175d0b94bdbe11d563ea4386984490cf21092",
+  "bytes": 20879234,
+  "files_in_raw_manifest": 129,
+  "manifest_sha256": "5e289d93b9ea3a6f1c27e193fb3ec5c6c20d271ad8aa459e956dd822333c79f9",
+  "independent_archive_file_verification": "PASS",
+  "scope": "Query-only observations, certificates/public artifacts, all six CI ZIPs/API reports, unchanged local upgrade evidence review and conditional operator sequence. No private keys, identities or secrets."
+}

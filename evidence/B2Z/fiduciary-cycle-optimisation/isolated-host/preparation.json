@@ -1,0 +1,74 @@
+{
+  "updated_utc": "2026-10-29T13:12:31.888635+00:00",
+  "baseline": "b96c64b43a412c022143787cd9d6ed94da2bbc67",
+  "current_host_assessment": {
+    "observed_utc": "2026-10-29T12:47:35.134857+00:00",
+    "status": "BLOCKED",
+    "reasons": [
+      "I/O full PSI avg10 >2%",
+      "another process uses >0.25 CPU core"
+    ],
+    "samples": 13,
+    "span_seconds": 60.11226318359375,
+    "CPU_count": 2,
+    "affinity": 2,
+    "memory_total_GiB": 7.753753662109375,
+    "memory_available_min_GiB": 5.684776306152344,
+    "idle_median_percent": 75.4644464809015,
+    "idle_min_percent": 64.96496496496496,
+    "CPU_PSI_avg10_max": 2.72,
+    "IO_full_PSI_avg10_max": 36.3,
+    "comparison_started": false
+  },
+  "user_instruction": "Wait on this VM and poll every 30 minutes until the unchanged prerequisites pass; do not rent another VM",
+  "poll_plan": {
+    "requested_interval_seconds": 1800,
+    "created_utc": "2026-10-29T12:48:19.307447+00:00",
+    "next_check_epoch": 1793279899.307445,
+    "comparison_attempts_authorized": 1,
+    "automatic_comparison_retry": false,
+    "resource_predicates": "unchanged baseline b96c64b43a412c022143787cd9d6ed94da2bbc67",
+    "new_infrastructure": false
+  },
+  "provisioning": "PASS: all dependencies installed, immutable source provenance verified, original browser inventory and sandbox launch verified, native baseline harness built, disposable public binding passed",
+  "provisioning_failures_retained": [
+    "Python venv symlink base-home issue; resolved interpreter smoke PASS",
+    "Missing libatk without existing user-scoped library path; original sandbox launch PASS with documented bundle"
+  ],
+  "package": {
+    "archive": "/home/codexdev/src/b2z/.work/isolated-delivery/frozen-package.tar.gz",
+    "sha256": "52e8f090c7dae5d2e366e912f49dacce73e15c56dd0895b630cf611932b376d5",
+    "purpose": "Portable execution package, not a production release archive",
+    "frozen_wasm_rebuilt": false,
+    "frontend_rebuilt": false,
+    "source_baseline_exported_unchanged": true,
+    "native_harness": "Original reviewed binary included. Current-path build uses the unchanged b96 native source; its actual identity will be pinned before execution."
+  },
+  "focused_unit_tests": "21 PASS",
+  "comparison": "NOT_RUN",
+  "new_infrastructure": false,
+  "remote_publication": false,
+  "mainnet_actions": [],
+  "raw_evidence": "/home/codexdev/src/b2z/.work/isolated-delivery",
+  "ready": {
+    "baseline": "b96c64b43a412c022143787cd9d6ed94da2bbc67",
+    "harness": "/home/codexdev/src/b2z/.work/isolated-delivery/host-state-usable/evidence/native-harness",
+    "harness_sha256": "cf67ff38f2313ec1748b2257005f8dbd1f3f1ec2d7d7ad3e4c9446fee368ea7d",
+    "native_build": true,
+    "browser_python": "/home/codexdev/src/b2z/.work/isolated-delivery/host-state-usable/runtime/browser/bin/python",
+    "browser_library_path": "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu",
+    "artifacts": "/home/codexdev/src/b2z/.work/isolated-delivery/host-state-usable/runtime/artifacts",
+    "ready_epoch": 1793279411.0705879,
+    "comparison_runs": 0
+  },
+  "archive_verification": {
+    "status": "PASS",
+    "archive_sha256": "52e8f090c7dae5d2e366e912f49dacce73e15c56dd0895b630cf611932b376d5",
+    "verified_manifest_entries": 1288,
+    "archive_files": 1289,
+    "dependency_trees_included": false
+  },
+  "independent_preparation_archive": "/home/codexdev/b2z-release-evidence/isolated-delivery-preparation-20261029",
+  "independent_preparation_manifest_sha256": "cf188d06f1418d7ab4dc2ab8b18d2644e77626cb583cd15b59d721167f722d39",
+  "independent_preparation_files": 67
+}

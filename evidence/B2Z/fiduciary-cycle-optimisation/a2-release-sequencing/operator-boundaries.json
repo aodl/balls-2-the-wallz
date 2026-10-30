@@ -1,0 +1,8 @@
+{
+  "preparation_files_need_signature": false,
+  "agent_update_signer": false,
+  "actual_update_signer": "User deployment operator; verify existing-controller authority and secure storage before execution. No identity/controller changes.",
+  "funding": "User performs manually when requested. Source account details intentionally not collected; balance/authority not agent-verified.",
+  "quoted_route": "DFX cycles top-up -> cycles-ledger withdraw, conditional on user choosing that route; actual route/fee must be confirmed by owner.",
+  "warning_acknowledgement": "Existing per-subprocess allowance remains restricted to five query-only controller methods. Never used for updates."
+}

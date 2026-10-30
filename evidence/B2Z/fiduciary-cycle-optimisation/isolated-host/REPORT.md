@@ -1,0 +1,35 @@
+# Portable frozen comparison and current-VM waiting
+
+**Final outcome:** the authorized comparison completed. A0's full strict window FAILed on backend performance limiting; A2's full strict window PASSed, but its subsequent original capture gate FAILed. Overall FAIL / release NO-GO, with no repeat. See the [complete run report](RUN_REPORT.md). The earlier preparation and waiting checkpoints follow unchanged.
+
+The user has selected **this existing VM**, waiting and polling every **30 minutes** for the unchanged resource prerequisite. No paid host is being provisioned. Delivery remains **NOT_RUN / BLOCKED pending quietness**; neither frozen Wasm nor any acceptance predicate has changed.
+
+The initial existing-host diagnostic collected 13 samples over **60.112 seconds**. This x86-64 Ubuntu/glibc-2.35 host reports **two CPUs**, two-CPU affinity and **7.754 GiB RAM**. The recommended eight dedicated CPUs/32 GiB are not new acceptance requirements. CPU idle median/minimum were **75.464% / 64.965%**, available memory at least **5.685 GiB**, CPU PSI peak **2.72%**. The actual rejection was **I/O full PSI peak 36.3%** (limit 2%) and another process above **0.25 core**. This is a prerequisite rejection, not a gameplay failure or proof of inadequate sustained capacity.
+
+The requested poll plan, every accepted/rejected screen and all raw samples are under `.work/isolated-delivery/`. Polls do not execute gameplay. If provisioning is still running at a scheduled check, it records NOT_RUN and waits for the next check; quietness is qualified only after provisioning finishes. After readiness and an admissible screen, the unchanged baseline runner supplies its own original resource prerequisites and monitoring. Only one sequential comparison is authorized; no failed measurement is automatically repeated.
+
+The [portable runbook](../../../../docs/operations/FROZEN_DELIVERY_HOST.md) gives exact preparation, verification, execution and evidence-retention commands. The user-owned transfer archive and digest are identified in [preparation.json](preparation.json). It exports source **b96c64b43a412c022143787cd9d6ed94da2bbc67** and carries the reviewed prepared inputs from original artifact **12884987721**, including both frozen normal modules and original frontend bytes. No Wasm build or frontend regeneration is performed. The shared hosted workflow is disabled in the local change; publication of that change remains user-owned, and no Actions comparison has been launched.
+
+The original native reference binary embeds its CI source path. For the current workspace, preparation compiles only the native harness from the same immutable baseline, without changing its code, then records/pins that binary's actual SHA-256. The original reference binary remains in the package. Five locked remote Cargo fetches precede the unchanged fail-closed offline provenance checker. Native compilation, dependency installation, simulator downloads and sandbox/browser compatibility checks finish before measurement.
+
+Provisioning resolved a Python virtualenv symlink-home issue in the new launcher. The missing system browser libraries were supplied via the existing reviewed user-local Ubuntu library bundle documented by the Linux setup guide; the exact pinned Chromium **153.0.8010.12** launches with **sandbox enabled**. No OS package installation, sudo, namespace-policy change or security bypass occurred. Both failed setup logs are preserved separately from delivery results. Provisioning is now **PASS**, including all five immutable source graphs, all 594 original browser-file hashes, native executable loading and the public disposable binding check. Native harness SHA-256: `cf67ff38f2313ec1748b2257005f8dbd1f3f1ec2d7d7ad3e4c9446fee368ea7d`; source remains unchanged b96. No measured window has started.
+
+Focused packaging/orchestration/resource/playback tests: **21 PASS**, including permanent single-attempt claims, rejection of missing/changed prerequisites, preservation of missing cases as unexecuted, and exclusion of installed dependency trees from transport archives. This is tooling validation, not a delivery PASS. Historical hosted failures and the separately qualified ordinary-CI trace remain unchanged.
+
+The required comparison remains A0 then approved A2, 34-node disposable fiduciary, original four-ball world, complete 90-second preludes and untrimmed 900-second strict Normal windows. All original rates, certification, zero-stall/rebuffer/resynchronisation, buffer-accounting and queue checks remain unchanged. No mainnet operation, funding, merge, remote publication or performance research is part of this work. A fresh production preflight/funding estimate is conditional on both frozen strict windows passing.
+
+## Scheduled screen 001 — 13:18 UTC
+
+After provisioning completed and work stopped, the scheduled unchanged screen was **BLOCKED**: CPU idle median **42.471%**, I/O full PSI peak **3.05%**, and two foreign Python processes peaking at **0.986 / 0.994 core**. Thirteen samples and every rejection are retained with an independently verified manifest in [poll-001.json](poll-001.json). No comparison was claimed or started. As requested, the next screen is scheduled for **13:48 UTC**, with no comparison retry or infrastructure purchase.
+
+## Scheduled screen 002 — 13:48 UTC
+
+The next requested screen was **BLOCKED**: CPU idle median **69.904%**, I/O full PSI peak **28.66%**, and foreign work above 0.25 core. All 13 samples and independent checksums are retained in [poll-002.json](poll-002.json). No comparison was started. Continue the authorized waiting cadence; the next screen is **14:18 UTC**. No requirement was rounded down or relaxed.
+
+## Scheduled screen 003 — 2026-10-29T14:18:19.308112+00:00
+
+Status **BLOCKED**; CPU idle median **93.277%**, I/O full PSI maximum **6.36%**. Exact rejection reasons and independently retained raw samples/checksums: [poll-003.json](poll-003.json). No comparison started. Next authorized screen: **2026-10-29T14:48:19.308112+00:00**.
+
+## Scheduled screen 004 — 2026-10-29T14:48:19.308320+00:00
+
+Status **PASS**; CPU idle median **96.395%**, I/O full PSI maximum **0.00%**. Exact rejection reasons and independently retained raw samples/checksums: [poll-004.json](poll-004.json). No comparison started. The unchanged runner must requalify the host before each case.

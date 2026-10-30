@@ -1,0 +1,36 @@
+{
+  "schema": "b2z-a2-qualification-raw-evidence-1",
+  "new_snapshot": {
+    "path": "/home/codexdev/b2z-release-evidence/a2-qualification-20261028",
+    "files_checked": 935,
+    "SHA256SUMS_sha256": "fa5d2eec6e7fe527a0f5be765b5bab589da4c0a52744a245d85c5a5a1c0f06d8",
+    "status": "PASS",
+    "qualification_tooling_source": "a978d7a8692904767b5be4041b082d8caa8d439d"
+  },
+  "previous_snapshot": {
+    "path": "/home/codexdev/b2z-release-evidence/fiduciary-cycle-optimisation-20261027",
+    "manifest_sha256": "2e2482f5d4f380836aa172c8214e213ed67df715cc34f1b6584873b8ef608288",
+    "verified_files": 7255,
+    "status": "PASS_UNCHANGED"
+  },
+  "DTR_review_bundle": {
+    "path": "/home/codexdev/b2z-release-evidence/a2-dtr77-review-20261028",
+    "manifest_sha256": "7f7762d5761ca22667daad016f1bb7773c4458056a1da909b973648709a25235",
+    "verified_files": 147,
+    "copied_inside_new_snapshot": true
+  },
+  "normal_artifacts": {
+    "A0": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "A1": "fec372ec5afe5787e5fa5573c18b1d5d16201166d244a9602b276e7cee88c03b",
+    "A2_research": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d"
+  },
+  "source_archive": "source/qualification-source.tar.gz",
+  "history_bundle": "source/qualification.bundle; public adb0be6 prerequisite; all six local qualification-tool commits preserved",
+  "final_deployment_artifact": null,
+  "scope_note": "Git-pinned DTR77 release graph unavailable; existing research A2 is not relabelled as a final deployment build. Latest publication check and final reviewed summaries are protected by the separate local evidence commit.",
+  "verification_command": [
+    "sha256sum SHA256SUMS",
+    "sha256sum -c SHA256SUMS"
+  ],
+  "snapshots_read_only": true
+}

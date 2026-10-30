@@ -1,0 +1,336 @@
+{
+  "verdict": "BLOCKED_ENVIRONMENT",
+  "release_recommendation": "NO-GO; A2 technical qualification remains incomplete",
+  "attempts": 1,
+  "retries": 0,
+  "measured_source_commit": "0fc72f2f8700bf84502f6fc9275ac8c65940f05b",
+  "module": {
+    "fiduciary": true,
+    "module_sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+    "publication_version": 6,
+    "world_version": 5
+  },
+  "native_executable_sha256": "0d18b3944c95a5ad6f489a54abb788dc86bb4718e7682d9b93db011a6d6181ec",
+  "resource_prerequisite": {
+    "status": "PASS; independently reconstructed immediately before case launch",
+    "samples": 12,
+    "CPU_idle_percent": {
+      "count": 12,
+      "min": 93.687374749499,
+      "median": 95.74152889097724,
+      "max": 96.29258517034069
+    },
+    "available_memory_min_GiB": 5.637660980224609,
+    "CPU_PSI_avg10": {
+      "count": 12,
+      "min": 0.0,
+      "median": 0.0,
+      "max": 0.14
+    },
+    "IO_full_PSI_avg10": {
+      "count": 12,
+      "min": 0.0,
+      "median": 0.04,
+      "max": 0.79
+    },
+    "swap_out_delta": 0,
+    "cgroup_throttled_usec_delta": {
+      "/sys/fs/cgroup/user.slice/user-1000.slice/session-7.scope": 0,
+      "/sys/fs/cgroup": 0
+    }
+  },
+  "interruption": {
+    "reason": "predeclared foreign workload overlap",
+    "sample_epoch_ms": 1793302719415.936,
+    "processes": [
+      {
+        "pid": "251579",
+        "name": "rustc",
+        "state": "S",
+        "cores": 0.04769126385984781
+      }
+    ]
+  },
+  "ancestry": {
+    "sample_epoch_ms": 1793302719415.936,
+    "chain": [
+      {
+        "pid": "251579",
+        "name": "rustc",
+        "parent_pid": 251565,
+        "process_group": 251525,
+        "state": "S"
+      },
+      {
+        "pid": "251565",
+        "name": "cargo",
+        "parent_pid": 251525,
+        "process_group": 251525,
+        "state": "S"
+      },
+      {
+        "pid": "251525",
+        "name": "bash",
+        "parent_pid": 2933,
+        "process_group": 251525,
+        "state": "S"
+      },
+      {
+        "pid": "2933",
+        "name": "codex",
+        "parent_pid": 1,
+        "process_group": 2933,
+        "state": "S"
+      },
+      {
+        "pid": "1",
+        "name": "systemd",
+        "parent_pid": 0,
+        "process_group": 1,
+        "state": "S"
+      }
+    ]
+  },
+  "normal_prelude": {
+    "seconds": 89.8631,
+    "backend_ticks_per_second": 0.9903953903215001,
+    "admitted_ticks_per_second": 1.001523428415,
+    "displayed_ticks_per_second": 0.9946595799442192,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 1,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 15,
+      "max": 18
+    },
+    "buffer_ticks": {
+      "min": 14.477352854527446,
+      "max": 17.68281186720209
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 107.5,
+        "max": 1893.8999999985099
+      },
+      "verify_ms": {
+        "median": 39.5,
+        "max": 71.20000000298023
+      },
+      "artifact_ms": {
+        "median": 0.5,
+        "max": 128.20000000298023
+      },
+      "derive_ms": {
+        "median": 4.100000001490116,
+        "max": 11.399999998509884
+      },
+      "catchup_ms": {
+        "median": 401,
+        "max": 671.3999999985099
+      }
+    },
+    "max_catchup_segments": 3,
+    "buffer_bytes": {
+      "min": 562190,
+      "max": 677466
+    },
+    "buffer_target_ticks": {
+      "min": 17,
+      "max": 17
+    },
+    "distinct_playheads": 169,
+    "certified_publications_per_second": 1.001523428415,
+    "authenticated_observation_queries_per_second": 2.2367356567935004,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 16.85,
+    "buffer_end": 17.46680670151352,
+    "admitted_ticks": 90,
+    "displayed_ticks": 89.38319329848537,
+    "phase_samples": {
+      "PLAYING": 169
+    }
+  },
+  "strict_window": {
+    "status": "INCOMPLETE / BLOCKED, not PASS or gameplay FAIL",
+    "required_seconds": 900,
+    "retained_sample_span_seconds": 259.10639990234375,
+    "retained_regular_samples": 480,
+    "last_progress_elapsed_seconds": 259.3835881749983,
+    "wall_elapsed_until_runner_stop_seconds": 267.7703371582031,
+    "original_analyser_rejection": "continuous observation must cover at least 900 seconds",
+    "dense_all_telemetry_available": false,
+    "sample_tail_qualification": "Only the original periodically saved rows survived process-group interruption. No completion fence or full dense telemetry was emitted; do not extrapolate or trim this into a gate result."
+  },
+  "partial_diagnostics_only": {
+    "production_endpoint_tick_bounds": {
+      "start": [
+        107,
+        109
+      ],
+      "end": [
+        365,
+        366
+      ]
+    },
+    "produced_ticks_bounds": [
+      256,
+      259
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9880111031471451,
+      0.9995893582621508
+    ],
+    "admitted_ticks": 258,
+    "displayed_ticks": 258.89251863875694,
+    "admitted_ticks_per_second": 0.9957299398904822,
+    "displayed_ticks_per_second": 0.9991745427219574,
+    "phases": {
+      "PLAYING": 480
+    },
+    "resynchronizations": 0,
+    "performance_limited_samples": 0,
+    "nominal_rate_values": [
+      1
+    ],
+    "buffer_ticks": {
+      "count": 480,
+      "min": 12.894136582732642,
+      "median": 17.143164591426995,
+      "max": 17.919589878898364
+    },
+    "buffer_conservation_error": 1.0231815394945443e-12,
+    "queue_segments": {
+      "count": 480,
+      "min": 13,
+      "median": 18.0,
+      "max": 18
+    },
+    "buffer_bytes": {
+      "count": 480,
+      "min": 489289,
+      "median": 677058.0,
+      "max": 680364
+    },
+    "certificate_count_start": 242,
+    "certificate_count_end": 795,
+    "certificate_age_ms": {
+      "count": 480,
+      "min": 113.18272,
+      "median": 325.784576,
+      "max": 985.48736
+    },
+    "delivery_failures_max": 0,
+    "delivery_errors": [],
+    "artifact_fallbacks_max": 0,
+    "latency_ms": {
+      "fetch_ms": {
+        "count": 480,
+        "min": 56.5,
+        "median": 114.44999999925494,
+        "max": 3856.4000000059605
+      },
+      "verify_ms": {
+        "count": 480,
+        "min": 32.099999994039536,
+        "median": 40.649999998509884,
+        "max": 157.39999999850988
+      },
+      "artifact_ms": {
+        "count": 480,
+        "min": 0.29999999701976776,
+        "median": 0.5,
+        "max": 417.29999999701977
+      },
+      "derive_ms": {
+        "count": 480,
+        "min": 3.1999999955296516,
+        "median": 4.199999999254942,
+        "max": 14.5
+      },
+      "catchup_ms": {
+        "count": 480,
+        "min": 212.60000000149012,
+        "median": 670.7000000029802,
+        "max": 911
+      }
+    },
+    "http": {
+      "requests": 709,
+      "status_counts": {
+        "200": 709
+      },
+      "timing_ms": {
+        "upstream_headers_ms": {
+          "count": 709,
+          "min": 6.201882999448571,
+          "median": 19.84045399876777,
+          "max": 4778.382724995026
+        },
+        "upstream_complete_ms": {
+          "count": 709,
+          "min": 6.316484999842942,
+          "median": 19.9921559978975,
+          "max": 4778.477526000643
+        },
+        "finished_ms": {
+          "count": 709,
+          "min": 7.328997002332471,
+          "median": 20.52077500411542,
+          "max": 4779.324236995308
+        }
+      }
+    },
+    "host_resources": {
+      "samples": 51,
+      "CPU_idle_percent": {
+        "count": 51,
+        "min": 5.782652043868395,
+        "median": 11.077844311377245,
+        "max": 40.480961923847694
+      },
+      "available_memory_min_GiB": 4.625690460205078,
+      "CPU_PSI_avg10": {
+        "count": 51,
+        "min": 31.4,
+        "median": 36.26,
+        "max": 47.17
+      },
+      "IO_full_PSI_avg10": {
+        "count": 51,
+        "min": 1.82,
+        "median": 6.39,
+        "max": 15.74
+      },
+      "swap_out_delta": 0,
+      "cgroup_throttled_usec_delta": {
+        "/sys/fs/cgroup/user.slice/user-1000.slice/session-7.scope": 0,
+        "/sys/fs/cgroup": 0
+      }
+    }
+  },
+  "capture": {
+    "status": "FAIL / incomplete following forced environment interruption; final publication fence NOT_REACHED",
+    "errors": [
+      "incomplete wire capture: publication fence not established"
+    ],
+    "finalization": {
+      "status": "NOT_FINALIZED"
+    },
+    "complete_through": null,
+    "packets": 830,
+    "bytes": 31018543,
+    "packet_hashes_verified": true,
+    "unique_ordered_filenames": true,
+    "pending_at_index": [],
+    "new_history": "NOT_RUN",
+    "new_independent_replay": "NOT_RUN"
+  },
+  "historical_pair": "FAIL unchanged; its A2 strict PASS and capture FAIL/replay NOT_RUN remain separate evidence",
+  "same_initial_fixture_bytes": true,
+  "same_original_frontend_identity": true,
+  "application_rebuilds": 0,
+  "mainnet_actions": [],
+  "production_preflight_and_funding": "NOT_PREPARED: new complete A2 technical qualification did not pass",
+  "exact_commit_CI": "NOT_RUN; local unpublished corrections; previous b96 CI remains separate evidence"
+}

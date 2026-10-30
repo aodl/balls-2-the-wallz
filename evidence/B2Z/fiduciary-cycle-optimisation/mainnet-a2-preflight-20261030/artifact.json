@@ -1,0 +1,7 @@
+{
+  "path": "/home/codexdev/b2z-release-evidence/a2-signing-inputs/A2.wasm",
+  "sha256": "2c289fdf44d05422909ce53be5e058222de6b1f971644b0750c7bc12d148c9cb",
+  "size": 2800907,
+  "candid": "/home/codexdev/b2z-release-evidence/a2-signing-inputs/runtime-lab.did",
+  "candid_sha256": "b2b3b2f669050af3f00ca93c7a75a896cf3ed907d59e9d0c38ceb8f255d8fd21"
+}

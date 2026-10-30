@@ -1,0 +1,16 @@
+{
+  "started_utc": "2026-10-29T14:18:19.308112+00:00",
+  "status": "BLOCKED",
+  "reasons": [
+    "I/O full PSI avg10 >2%"
+  ],
+  "sampler_exit_code": 0,
+  "samples": 13,
+  "idle_median_percent": 93.27660345817263,
+  "IO_full_PSI_avg10_max": 6.36,
+  "comparison_started": false,
+  "foreign_work": {},
+  "next_check_utc": "2026-10-29T14:48:19.308112+00:00",
+  "independent_archive": "/home/codexdev/b2z-release-evidence/isolated-delivery-poll-003-20261029",
+  "archive_manifest_sha256": "9bfbb0378e3190cf35e47d10fe75520bad02a9f47fa51a1702582f14ee4a2d8c"
+}

@@ -13,9 +13,11 @@ export class Camera {
     if(!this.initialized){this.fit();this.initialized=true;}else this.constrain();
   }
   get fitScale(){return .9*Math.min(this.viewport.width/this.width,this.viewport.height/this.height);}
+  get maxScale(){return Math.max(this.fitScale*24,96);}
+  frameCell(cell){if(this.width>=1000)this.scale=Math.max(this.scale,24);this.centre(cell%this.width+.5,Math.floor(cell/this.width)+.5);}
   fit(){this.x=this.width/2;this.y=this.height/2;this.scale=this.fitScale;}
   constrain(){
-    this.scale=Math.max(this.fitScale*.6,Math.min(this.fitScale*24,this.scale));
+    this.scale=Math.max(this.fitScale*.6,Math.min(this.maxScale,this.scale));
     this.x=this.torus?wrap(this.x,this.width):Math.max(0,Math.min(this.width,this.x));
     this.y=this.torus?wrap(this.y,this.height):Math.max(0,Math.min(this.height,this.y));
   }
@@ -30,9 +32,9 @@ export class Camera {
   }
   cell(sx,sy){const p=this.world(sx,sy),x=Math.floor(this.torus?wrap(p.x,this.width):p.x),y=Math.floor(this.torus?wrap(p.y,this.height):p.y);return x>=0&&x<this.width&&y>=0&&y<this.height?y*this.width+x:null;}
   bounds(){const {width,height}=this.viewport;const p=this.world(0,0);return {x:p.x,y:p.y,width:width/this.scale,height:height/this.scale};}
-  copies(){
+  copies(padding=0){
     if(!this.torus)return [{x:0,y:0}];
-    const b=this.bounds(),out=[];
+    const bounds=this.bounds(),b={x:bounds.x-padding,y:bounds.y-padding,width:bounds.width+2*padding,height:bounds.height+2*padding},out=[];
     for(let y=Math.floor(b.y/this.height);y<=Math.floor((b.y+b.height)/this.height);y++)for(let x=Math.floor(b.x/this.width);x<=Math.floor((b.x+b.width)/this.width);x++)out.push({x:x*this.width,y:y*this.height});
     return out;
   }

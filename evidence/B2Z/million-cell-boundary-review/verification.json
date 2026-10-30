@@ -1,0 +1,21 @@
+{
+  "status": "LOCAL_PASS_CI_PENDING",
+  "parent_commit": "cefa6983f19bbed3baf53d35d4a2dcbd4742210c",
+  "correction": "Exact commit containing this report; only production render.mjs changes.",
+  "production_app_sha256": "95a1dc6252207ba364909f27455bebf113db3f4bb7f386d9f73a6be38e82bcb0",
+  "stress": "PASS: eight scenarios, 10k/50k separated modifications at desktop/mobile overview/close",
+  "steady_PLAYING": "PASS: genuine IC-root v8, desktop and mobile, five consecutive PLAYING samples each",
+  "source": "PASS",
+  "geometry_camera_tests": 13,
+  "http_browser": "PASS: sandboxed HTTP, CSP and browser-native Web Crypto",
+  "exact_commit_CI": "PENDING: user-owned publication of new correction required; parent run 40381316962 cannot qualify it",
+  "mainnet_mutations": false,
+  "unchanged": "All production code outside render.mjs, backend, certified formats/state, DTR, payments/economics, pacing, geometry, trajectories",
+  "screenshot_pair_camera": {
+    "x": 500,
+    "y": 500,
+    "overview_scale": ".9*min(viewportWidth,viewportHeight)/1000",
+    "close_scale": 48
+  },
+  "raw_evidence": ".work/million-visual-review; independent checksummed release snapshot after commit"
+}

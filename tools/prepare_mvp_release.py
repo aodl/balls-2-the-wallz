@@ -6,7 +6,7 @@ import argparse,hashlib,json,os,subprocess,tomllib
 from pathlib import Path
 from verify_s14_local import wasm_exports
 ROOT=Path(__file__).resolve().parents[1]
-DTR='e1bfcf25071d11190d14f461288e12a21ca26cf8'
+DTR='77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68'
 PACKAGE_SHA='ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc'
 NORMAL_METHODS={'prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','controller_runtime','controller_funding','set_funding_paused','artifact_bundle','artifact_chunk','controller_work','lab_status','observation','observation_bundle','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()

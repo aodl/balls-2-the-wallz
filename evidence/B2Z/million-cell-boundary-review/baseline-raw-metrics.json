@@ -1,0 +1,461 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "count": 10000,
+      "modified_cells": 13334,
+      "encoded_state_bytes": 398412,
+      "scale": 0.81,
+      "viewport": [
+        1440,
+        900
+      ],
+      "ownership_rectangles": 20971,
+      "ownership_edges": 40000,
+      "edges_traversed_per_frame": 360000,
+      "visible_edges": 83828,
+      "build_ms": 288.60000002384186,
+      "raster_bytes": 4000000,
+      "scene": "overview",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 11.800000011920929,
+        "p95": 16.899999976158142,
+        "max": 20.100000023841858
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 33.30000000000018,
+        "p95": 50.099999999999454,
+        "max": 66.70000000000027
+      },
+      "heap_before": {
+        "usedSize": 753584,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 3328528,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 333312,
+        "backingStorageSize": 40827
+      },
+      "heap_after_frames": {
+        "usedSize": 3377572,
+        "totalSize": 6234112,
+        "embedderHeapUsedSize": 335288,
+        "backingStorageSize": 40827
+      },
+      "heap_after_final_gc": {
+        "usedSize": 3371744,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 334536,
+        "backingStorageSize": 40827
+      },
+      "sampled_build_allocation_bytes": 39607636,
+      "sampled_frame_allocation_bytes": 101317092,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 10000,
+      "modified_cells": 13334,
+      "encoded_state_bytes": 398412,
+      "scale": 48,
+      "viewport": [
+        1440,
+        900
+      ],
+      "ownership_rectangles": 20971,
+      "ownership_edges": 40000,
+      "edges_traversed_per_frame": 40000,
+      "visible_edges": 28,
+      "build_ms": 149.5,
+      "raster_bytes": 4000000,
+      "scene": "close",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 0.5,
+        "p95": 0.800000011920929,
+        "max": 6
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999955,
+        "max": 16.800000000000182
+      },
+      "heap_before": {
+        "usedSize": 753584,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 3312848,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 333080,
+        "backingStorageSize": 40806
+      },
+      "heap_after_frames": {
+        "usedSize": 3402112,
+        "totalSize": 6234112,
+        "embedderHeapUsedSize": 333136,
+        "backingStorageSize": 40806
+      },
+      "heap_after_final_gc": {
+        "usedSize": 3395544,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 333136,
+        "backingStorageSize": 40806
+      },
+      "sampled_build_allocation_bytes": 26785412,
+      "sampled_frame_allocation_bytes": 1981384,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 50000,
+      "modified_cells": 66667,
+      "encoded_state_bytes": 1988916,
+      "scale": 0.81,
+      "viewport": [
+        1440,
+        900
+      ],
+      "ownership_rectangles": 100849,
+      "ownership_edges": 200000,
+      "edges_traversed_per_frame": 1800000,
+      "visible_edges": 397968,
+      "build_ms": 696,
+      "raster_bytes": 4000000,
+      "scene": "overview",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 52.80000001192093,
+        "p95": 64,
+        "max": 83.90000003576279
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 133.30000000000018,
+        "p95": 166.6999999999989,
+        "max": 183.39999999999964
+      },
+      "heap_before": {
+        "usedSize": 753584,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 12840732,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 333312,
+        "backingStorageSize": 40827
+      },
+      "heap_after_frames": {
+        "usedSize": 12937348,
+        "totalSize": 14012416,
+        "embedderHeapUsedSize": 432912,
+        "backingStorageSize": 40827
+      },
+      "heap_after_final_gc": {
+        "usedSize": 12931516,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 409592,
+        "backingStorageSize": 40827
+      },
+      "sampled_build_allocation_bytes": 135207164,
+      "sampled_frame_allocation_bytes": 3638584,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 50000,
+      "modified_cells": 66667,
+      "encoded_state_bytes": 1988916,
+      "scale": 48,
+      "viewport": [
+        1440,
+        900
+      ],
+      "ownership_rectangles": 100849,
+      "ownership_edges": 200000,
+      "edges_traversed_per_frame": 200000,
+      "visible_edges": 110,
+      "build_ms": 551.4000000357628,
+      "raster_bytes": 4000000,
+      "scene": "close",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 1.800000011920929,
+        "p95": 4,
+        "max": 6.5
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "max": 16.799999999999955
+      },
+      "heap_before": {
+        "usedSize": 753584,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 12825236,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 333080,
+        "backingStorageSize": 40806
+      },
+      "heap_after_frames": {
+        "usedSize": 12908380,
+        "totalSize": 18468864,
+        "embedderHeapUsedSize": 333888,
+        "backingStorageSize": 40806
+      },
+      "heap_after_final_gc": {
+        "usedSize": 12902536,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 333136,
+        "backingStorageSize": 40806
+      },
+      "sampled_build_allocation_bytes": 124163888,
+      "sampled_frame_allocation_bytes": 196660,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 10000,
+      "modified_cells": 13334,
+      "encoded_state_bytes": 398412,
+      "scale": 0.351,
+      "viewport": [
+        390,
+        844
+      ],
+      "ownership_rectangles": 20971,
+      "ownership_edges": 40000,
+      "edges_traversed_per_frame": 360000,
+      "visible_edges": 104009,
+      "build_ms": 266.19999998807907,
+      "raster_bytes": 4000000,
+      "scene": "overview",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 12.699999988079071,
+        "p95": 16.399999976158142,
+        "max": 18.600000023841858
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 33.30000000000018,
+        "p95": 50,
+        "max": 50.09999999999991
+      },
+      "heap_before": {
+        "usedSize": 753608,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 3328812,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 333312,
+        "backingStorageSize": 40827
+      },
+      "heap_after_frames": {
+        "usedSize": 3377524,
+        "totalSize": 6496256,
+        "embedderHeapUsedSize": 335040,
+        "backingStorageSize": 40827
+      },
+      "heap_after_final_gc": {
+        "usedSize": 3371696,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 334288,
+        "backingStorageSize": 40827
+      },
+      "sampled_build_allocation_bytes": 38229964,
+      "sampled_frame_allocation_bytes": 98530856,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 10000,
+      "modified_cells": 13334,
+      "encoded_state_bytes": 398412,
+      "scale": 48,
+      "viewport": [
+        390,
+        844
+      ],
+      "ownership_rectangles": 20971,
+      "ownership_edges": 40000,
+      "edges_traversed_per_frame": 40000,
+      "visible_edges": 19,
+      "build_ms": 223.10000002384186,
+      "raster_bytes": 4000000,
+      "scene": "close",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 0.5,
+        "p95": 0.6000000238418579,
+        "max": 2.800000011920929
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999955,
+        "max": 16.800000000000182
+      },
+      "heap_before": {
+        "usedSize": 753608,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 3312728,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 333080,
+        "backingStorageSize": 40806
+      },
+      "heap_after_frames": {
+        "usedSize": 3396208,
+        "totalSize": 6758400,
+        "embedderHeapUsedSize": 333136,
+        "backingStorageSize": 40806
+      },
+      "heap_after_final_gc": {
+        "usedSize": 3389616,
+        "totalSize": 4136960,
+        "embedderHeapUsedSize": 333136,
+        "backingStorageSize": 40806
+      },
+      "sampled_build_allocation_bytes": 29746388,
+      "sampled_frame_allocation_bytes": 262280,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 50000,
+      "modified_cells": 66667,
+      "encoded_state_bytes": 1988916,
+      "scale": 0.351,
+      "viewport": [
+        390,
+        844
+      ],
+      "ownership_rectangles": 100849,
+      "ownership_edges": 200000,
+      "edges_traversed_per_frame": 1800000,
+      "visible_edges": 529362,
+      "build_ms": 673.8000000119209,
+      "raster_bytes": 4000000,
+      "scene": "overview",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 62.299999952316284,
+        "p95": 73.70000004768372,
+        "max": 83.10000002384186
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 150,
+        "p95": 183.39999999999964,
+        "max": 233.29999999999927
+      },
+      "heap_before": {
+        "usedSize": 753584,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 520552,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 12841112,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 333312,
+        "backingStorageSize": 40827
+      },
+      "heap_after_frames": {
+        "usedSize": 12938456,
+        "totalSize": 14274560,
+        "embedderHeapUsedSize": 449248,
+        "backingStorageSize": 40827
+      },
+      "heap_after_final_gc": {
+        "usedSize": 12931832,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 427592,
+        "backingStorageSize": 40827
+      },
+      "sampled_build_allocation_bytes": 138705484,
+      "sampled_frame_allocation_bytes": 2360256,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    },
+    {
+      "count": 50000,
+      "modified_cells": 66667,
+      "encoded_state_bytes": 1988916,
+      "scale": 48,
+      "viewport": [
+        390,
+        844
+      ],
+      "ownership_rectangles": 100849,
+      "ownership_edges": 200000,
+      "edges_traversed_per_frame": 200000,
+      "visible_edges": 42,
+      "build_ms": 597.5999999642372,
+      "raster_bytes": 4000000,
+      "scene": "close",
+      "draw_ms": {
+        "samples": 120,
+        "p50": 1.699999988079071,
+        "p95": 4.300000011920929,
+        "max": 5.299999952316284
+      },
+      "frame_interval_ms": {
+        "samples": 119,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "max": 16.800000000000182
+      },
+      "heap_before": {
+        "usedSize": 753584,
+        "totalSize": 1572864,
+        "embedderHeapUsedSize": 326616,
+        "backingStorageSize": 40760
+      },
+      "heap_after_cache": {
+        "usedSize": 12825652,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 333080,
+        "backingStorageSize": 40806
+      },
+      "heap_after_frames": {
+        "usedSize": 12908820,
+        "totalSize": 17944576,
+        "embedderHeapUsedSize": 333888,
+        "backingStorageSize": 40806
+      },
+      "heap_after_final_gc": {
+        "usedSize": 12903000,
+        "totalSize": 13750272,
+        "embedderHeapUsedSize": 333136,
+        "backingStorageSize": 40806
+      },
+      "sampled_build_allocation_bytes": 114387096,
+      "sampled_frame_allocation_bytes": 426296,
+      "allocation_sampling_interval_bytes": 32768,
+      "qualification": "Synthetic fragmented v5 rendering stress. 50k disjoint intervals may exceed production wire-size limits; no authenticated-state or performance gate was changed."
+    }
+  ]
+}

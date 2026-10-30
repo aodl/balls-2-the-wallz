@@ -1,0 +1,8 @@
+{
+  "archive": "/home/codexdev/b2z-release-evidence/a2-controller-release-preparation-20261030.tar.gz",
+  "sha256": "d4e2ed54d988189fa0a2ff44f92d1a78ce6bd49f869b9313f00740478c90d961",
+  "bytes": 20767898,
+  "files_in_manifest": 130,
+  "manifest_sha256": "61def7eb06e1d0d4fe3fa4ee50bd6eb89d9076653bec4c8b2aaa06dabdcf868b",
+  "scope": "Two authorised controller-query snapshots, authenticated public state/certificates and retained artifacts, fee/subnet/module/controller observations, full six CI artifact ZIPs and API reports, calculations and guarded operator plan; no private identity material."
+}

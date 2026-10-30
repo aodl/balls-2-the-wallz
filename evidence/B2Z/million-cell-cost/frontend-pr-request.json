@@ -1,0 +1,11 @@
+{
+  "base": "master",
+  "head": "feature/b2z-million-cell-visuals",
+  "head_sha": "e2fc63d6bc73b77e60c87f3b37134c7f9cc09abc",
+  "base_sha": "5899df61f0a5f540d91956dc5b6006ec708a5a1e",
+  "draft": true,
+  "title": "Integrate the verified and deployed million-cell visual frontend",
+  "status": "PREPARED; GitHub integration returned 403 Resource not accessible by integration; no PR created",
+  "compare_url": "https://github.com/aodl/balls-2-the-wallz/compare/master...feature/b2z-million-cell-visuals?expand=1",
+  "post_merge_requirement": "All six substantive jobs must pass on exact resulting master commit; preserve commits via user-owned fast-forward; no redeployment."
+}

@@ -30,7 +30,7 @@ def check_npm(package,lock):
     return True
 
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='e1bfcf25071d11190d14f461288e12a21ca26cf8'
+DTR_REV='77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68'
 def check_cargo_dependency(name,value,base,workspace_dependencies={}):
     if isinstance(value,str):return check_version(value)
     if value.get('workspace'):

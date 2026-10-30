@@ -1,0 +1,63 @@
+{
+  "status": "PASS_RESEARCH_ARTIFACT_ONLY",
+  "backend": {
+    "epoch_version": 2,
+    "module_sha256": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d",
+    "publication_version": 8,
+    "world_version": 5
+  },
+  "browser": "153.0.8010.12",
+  "sandbox": true,
+  "viewport": [
+    1440,
+    900
+  ],
+  "scenes": [
+    {
+      "name": "paid-v8-certified-playback",
+      "status": "PASS",
+      "details": {
+        "first": 106,
+        "last": 134,
+        "samples": 56
+      }
+    },
+    {
+      "name": "paid-v8-certified-cold-reconnect",
+      "status": "PASS",
+      "details": {
+        "first": 152,
+        "last": 182,
+        "samples": 57
+      }
+    }
+  ],
+  "fixture_population": {
+    "cannons": 1,
+    "balls": 1
+  },
+  "scope": "genuine paid v8 scene and cold reconnect; no sustained performance qualification; A0 argument is a hash anchor, not an A0 upgrade/recovery control in this direct mode",
+  "clock": {
+    "aligned_host_time_ns": "1793181255595170164",
+    "browser_clock_or_freshness_modified": false,
+    "maximum_real_wait_seconds": 120,
+    "only_forward": true,
+    "paid_publication_unchanged": true,
+    "prior_ic_time_ns": "1793181255474680255",
+    "real_wait_ms": 114198
+  },
+  "wire_identity": "paid-v8-wire-identity.json",
+  "command_receipt": "paid-v8-direct-invocation.json",
+  "final_independent_authentication": {
+    "status": "PASS",
+    "scenario": "paid-v8",
+    "trust": "explicit disposable root, canister binding and certificate freshness",
+    "publication_version": 8,
+    "root_hash": "2e95ffe43ab96e982318ae2757ed087bde32ddb4565677fcf141504af653e9e4",
+    "artifacts": [
+      "state",
+      "events",
+      "scores"
+    ]
+  }
+}

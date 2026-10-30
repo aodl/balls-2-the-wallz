@@ -1,0 +1,163 @@
+{
+  "date": "2026-10-28",
+  "decision": "NO-GO",
+  "mainnet_mutation": false,
+  "remote_git_write": false,
+  "source_pair": {
+    "B2Z_functional": "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+    "DTR_research": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+    "release_graph": "NOT_PINNED; production locks still E1"
+  },
+  "gates": {
+    "performance": {
+      "status": "PASS_PRESERVED",
+      "cycles_A0_A1_A2": [
+        182308539204,
+        105499077279,
+        58269955217
+      ],
+      "window_ticks": 64,
+      "incremental_A1_A2_saving_percent": 44.76733188585066,
+      "aggregate_A0_A2_saving_percent": 68.0377257854077,
+      "scope": "actual local fiduciary PocketIC, not measured mainnet candidate burn"
+    },
+    "deterministic_equivalence": {
+      "status": "PASS_FOR_PRESERVED_CASES",
+      "evidence": "original immutable 7255-file snapshot; no new implementation changes"
+    },
+    "historical_continuous_playback": {
+      "status": "FAIL",
+      "seconds": 900.0306999511719,
+      "stalled_samples": 14,
+      "sampled_nonplaying_episodes": 4,
+      "resyncs": 5,
+      "explicit_retention_replies": 7
+    },
+    "matched_delivery": {
+      "status": "BLOCKED_HOST_PREREQUISITE",
+      "resource_summary": {
+        "samples": 239,
+        "elapsed_seconds": 1204.0580249023437,
+        "CPU_idle_fraction": {
+          "minimum": 0.0,
+          "median": 0.06157711981996286,
+          "p95": 0.2102665350444225,
+          "maximum": 0.2858555885262117
+        },
+        "CPU_PSI_some_avg10_percent": {
+          "minimum": 51.44,
+          "median": 64.83,
+          "p95": 72.18,
+          "maximum": 75.06
+        },
+        "IO_PSI_full_avg10_percent": {
+          "minimum": 0.01,
+          "median": 3.74,
+          "p95": 5.74,
+          "maximum": 9.01
+        },
+        "available_memory_GiB": {
+          "minimum": 3.16009521484375,
+          "median": 3.5223236083984375,
+          "p95": 3.6267242431640625,
+          "maximum": 3.7037124633789062
+        },
+        "swap_out_delta": 0,
+        "prerequisite_records": 75,
+        "accepted_prerequisites": 0,
+        "quota_visibility": {
+          "/sys/fs/cgroup/user.slice/user-1000.slice/session-1.scope": {
+            "cpu_max": null,
+            "cpu_stat": {
+              "usage_usec": 442033570741,
+              "user_usec": 404707770418,
+              "system_usec": 37325800322,
+              "core_sched.force_idle_usec": 0
+            },
+            "memory_current": "6588694528\n",
+            "memory_max": "max\n"
+          },
+          "/sys/fs/cgroup": {
+            "cpu_max": null,
+            "cpu_stat": {
+              "usage_usec": 565911673000,
+              "user_usec": 511572193000,
+              "system_usec": 54339480000,
+              "core_sched.force_idle_usec": 0,
+              "nr_periods": 0,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            },
+            "memory_current": null,
+            "memory_max": null
+          }
+        },
+        "outcomes": [
+          {
+            "label": "A0",
+            "status": "BLOCKED",
+            "reason": "predeclared quiet-host prerequisite did not pass; test not started"
+          }
+        ],
+        "A0_window_started": false,
+        "A2_window_started": false,
+        "no_automatic_repeat": true
+      },
+      "missing_discriminator": "one predeclared sequential A0/A2 900-second unchanged Normal comparison on a quiet host"
+    },
+    "genuine_paid_v8_browser_reconnect": {
+      "status": "PASS_RESEARCH_ARTIFACT_ONLY",
+      "evidence": "browser-v8.json",
+      "artifact": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d",
+      "fixture_population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "final_Git_graph_artifact_qualified": false
+    },
+    "normal_timer_recovery": {
+      "status": "PASS_MATCHED_A0_A2",
+      "unattended_liveness": "NOT_ESTABLISHED; both require explicit disposable pause/start after tested timer memory trap"
+    },
+    "DTR_generic_review": {
+      "status": "PASS_LOCAL_REVIEW_AND_CONSUMERS",
+      "review_bundle_manifest_sha256": "7f7762d5761ca22667daad016f1bb7773c4458056a1da909b973648709a25235",
+      "remote_consumer": "BLOCKED_UNPUBLISHED",
+      "native_concurrent_reentrant_unwind_control": "PASS_E1_AND_DTR77"
+    },
+    "dependency_publication": {
+      "status": "BLOCKED_USER_OWNED",
+      "last_remote_result": "Initial 404; later GitHub commit API 422: No commit found for SHA. No fetched remote branch contains DTR77.",
+      "final_check": "publication-status.json; 10:01 UTC GitHub API 422 No commit found"
+    },
+    "exact_final_artifact": {
+      "status": "BLOCKED_FINAL_GIT_GRAPH_NOT_AVAILABLE",
+      "research_normal_sha256": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d"
+    },
+    "research_CI": {
+      "status": "SIX_SUBSTANTIVE_PASS_E1_HYBRID",
+      "run": 40651755603,
+      "B2Z_commit": "adb0be6212494c01c70b9f79c00191fc7aa2039d",
+      "resolved_DTR": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+      "normal_wasm_sha256": "a861b12b5bbaed5ba942b5dc8cfb06705c0f581711d833320b6ea7cd1166b7d0",
+      "qualifies_DTR77_A2": false
+    },
+    "final_exact_commit_CI": {
+      "status": "BLOCKED_PINNING_AND_USER_OWNED_PUBLICATION",
+      "older_green_CI_not_reused": true
+    },
+    "production_funding": {
+      "status": "NO-GO_RESERVE_PROTECTION",
+      "as_of": "2026-10-28T09:30:54.811296+00:00",
+      "liquid_cycles": 2245110882267,
+      "protected_reserve_shortfall_cycles": 754889117733,
+      "full_budget": "see production.json; reserve alone is insufficient"
+    },
+    "all_stress_messages_below_600M": {
+      "status": "NOT_ESTABLISHED",
+      "600M_is_between_action_trigger": true
+    }
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "A0": {
+    "sha256": "7c078fb373df7115ca73d65645ce59d4a96db0a42504b57ab73d8eb905f5bf51",
+    "artifact": "baselines/A0.wasm",
+    "normal": true,
+    "recompiled_substitute": false
+  },
+  "A1": {
+    "source": "b2955d694968c056a638b2bb1f88c544a6b2211d",
+    "sha256": "fec372ec5afe5787e5fa5573c18b1d5d16201166d244a9602b276e7cee88c03b",
+    "artifact": "baselines/A1.wasm",
+    "normal": true
+  },
+  "A2": {
+    "source_commit": "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+    "source_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dtr_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+    "opt_level": "3",
+    "command": [
+      "/home/codexdev/.local/bin/python3.11",
+      "tools/s14_development.py",
+      "--dtr",
+      "/home/codexdev/src/dtr-b2z-cost-sync",
+      "--revision",
+      "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+      "--",
+      "cargo",
+      "build",
+      "--manifest-path",
+      "canisters/runtime-lab/Cargo.toml",
+      "--target",
+      "wasm32-unknown-unknown",
+      "--release",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)\nbinary: rustc\ncommit-hash: e408947bfd200af42db322daf0fadfe7e26d3bd1\ncommit-date: 2026-03-25\nhost: x86_64-unknown-linux-gnu\nrelease: 1.94.1\nLLVM version: 21.1.8\n",
+    "target_directory": "/home/codexdev/src/b2z/canisters/runtime-lab/target",
+    "instrumented": false,
+    "test_hooks": false,
+    "npm_archive_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc",
+    "wasm_sha256": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d",
+    "wasm_bytes": 2800779,
+    "exports": [
+      "memory",
+      "canister_init",
+      "canister_post_upgrade",
+      "canister_query artifact_bundle",
+      "canister_query artifact_chunk",
+      "canister_query controller_funding",
+      "canister_query controller_runtime",
+      "canister_query controller_work",
+      "canister_query lab_status",
+      "canister_query million_transition_status",
+      "canister_query observation",
+      "canister_query observation_bundle",
+      "canister_query retained_artifact_chunk",
+      "canister_query retained_publication",
+      "canister_query retention_status",
+      "canister_query source_descriptor",
+      "canister_query torus_transition_status",
+      "canister_update commit_million_transition",
+      "canister_update commit_torus_transition",
+      "canister_update pause_autonomous",
+      "canister_update poke",
+      "canister_update prepare_million_transition",
+      "canister_update prepare_torus_transition",
+      "canister_update set_funding_paused",
+      "canister_update start_autonomous",
+      "get_candid_pointer",
+      "canister_global_timer",
+      "canister_update <ic-cdk internal> timer_executor",
+      "__data_end",
+      "__heap_base"
+    ]
+  },
+  "A2_artifact": "final-selected-normal/normal.wasm",
+  "normal_build_reproducibility": {
+    "source_commit": "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+    "DTR": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+    "builds": [
+      {
+        "name": "chosen-clean-a",
+        "target_initially_empty": true,
+        "command": [
+          "cargo",
+          "--config",
+          "/home/codexdev/src/b2z/.work/s14/dtr-override-u_e848nq/patch.toml",
+          "build",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--release",
+          "--locked",
+          "--offline"
+        ],
+        "exit_code": 0,
+        "sha256": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d",
+        "matches_frozen": true
+      },
+      {
+        "name": "chosen-clean-b",
+        "target_initially_empty": true,
+        "command": [
+          "cargo",
+          "--config",
+          "/home/codexdev/src/b2z/.work/s14/dtr-override-u_e848nq/patch.toml",
+          "build",
+          "--manifest-path",
+          "canisters/runtime-lab/Cargo.toml",
+          "--target",
+          "wasm32-unknown-unknown",
+          "--release",
+          "--locked",
+          "--offline"
+        ],
+        "exit_code": 0,
+        "sha256": "0d86ac6414a8c921f8b1eb0c53890503815b643a0510adeeaa60aeb56d537f7d",
+        "matches_frozen": true
+      }
+    ]
+  },
+  "source_archives_and_bundles": [
+    {
+      "name": "b2z",
+      "source": "d6c2e593e90fd75d64ed8b6d8b4e39da56a35165",
+      "local_branch": "research/b2z-fiduciary-cost",
+      "baseline_prerequisite": "b2955d694968c056a638b2bb1f88c544a6b2211d",
+      "tar": ".work/fiduciary-optimisation/sources/b2z-d6c2e593e90fd75d64ed8b6d8b4e39da56a35165.tar.gz",
+      "tar_sha256": "645e0e8dce5e3332660598a969338e9b034cae1f50470461b8095b2a66b76e4f",
+      "bundle": ".work/fiduciary-optimisation/sources/b2z-final.bundle",
+      "bundle_sha256": "fa571a9ebef21db791147b705f148239379f71a567b9e48c7dc83d1d13202847",
+      "patch_sha256": "42be636eeec153f222db1374826d36df0727bd5b280df265315d0314dccd1511"
+    },
+    {
+      "name": "dtr",
+      "source": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+      "local_branch": "experiment/b2z-thread-compatible-record-proof",
+      "baseline_prerequisite": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+      "tar": ".work/fiduciary-optimisation/sources/dtr-77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68.tar.gz",
+      "tar_sha256": "4cf86199f51894c029481de6a03b5576866932f4089483196f206702582d5b3b",
+      "bundle": ".work/fiduciary-optimisation/sources/dtr-final.bundle",
+      "bundle_sha256": "8b27afee32683e74d3eefc0a1bedd19bcd07b039cca8a8621c839fe70159e411",
+      "patch_sha256": "5ca69a6b3156ea4c72c165132f488895dcee4545f2df8f08ef29e2fa0fb5b456"
+    },
+    {
+      "experiment": "strike-filter",
+      "source": "77215650722290c9537846908d44a33cb042afe5",
+      "diff_base": "677a864c56b70a6e6e88982e3a477dcde090262b",
+      "patch_sha256": "3e3b3a6075e406fd6f84109709211b4ac5e1e08907430e0e45c1dc59ee4a29de"
+    },
+    {
+      "experiment": "allocation-fault-diagnostic",
+      "source": "39da7a1e10310940a3989d5599522745b0d2b311",
+      "diff_base": "cce70717adf0425d06e2a45772cc2cd14aa405ac",
+      "patch_sha256": "26f5617b1feda378809c862601ade2c9aebd2995a03e5b4711f93817dfa70443"
+    }
+  ],
+  "pinned_stateless_oracle": {
+    "sha256": "019df4b54713272a88d6e8ddbab3e5fad190ca9a96ede252345fb122af66bc8b",
+    "source_commit": "d27cb10792999d66e0df7e4d00f01a8962e268d5",
+    "oracle_DTR": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+    "stateless_kernel": true,
+    "node_verifier_sha256": "dc6bb36e57ba9000ecc7dc6bf1644594a83f49c011ccde774c58027e0513543f"
+  },
+  "DTR_dependency_mode": "explicit temporary local development override; no unpublished revision represented as remote",
+  "production_DTR_pin": "e1bfcf25071d11190d14f461288e12a21ca26cf8",
+  "DTR_experimental_version": "0.14.1-cost.1",
+  "immutable_npm_version": "0.14.0",
+  "immutable_npm_archive_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc",
+  "diagnostic_allocation_faults": {
+    "source_commit": "39da7a1e10310940a3989d5599522745b0d2b311",
+    "dtr_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
+    "wasm_sha256": "72b8441d7c4151caabaf9dd47289a11070e462e444ad7a3ca9d923ad414fdbcc",
+    "instrumented": true,
+    "test_hooks": true,
+    "not_for_deployment_or_performance": true
+  },
+  "instrumented_Wasms_excluded_from_cost_claims": true,
+  "front_end_release_unchanged": "e2fc63d6bc73b77e60c87f3b37134c7f9cc09abc",
+  "diagnostic_and_oracle_archives": [
+    {
+      "name": "oracle",
+      "source": "d27cb10792999d66e0df7e4d00f01a8962e268d5",
+      "bundle_prerequisite": "b2955d694968c056a638b2bb1f88c544a6b2211d",
+      "tar_sha256": "3d70db6fc54977ded99a10d404286b75edf29b54cd268f3a0b72e1d0a201b4ba",
+      "bundle_sha256": "6f373fed09c9149e8295c4847076971d715a6b44b0bc0f1e0f8981d5a96dec1a",
+      "diagnostic_oracle_not_deployment_artifact": true
+    },
+    {
+      "name": "allocation-faults",
+      "source": "39da7a1e10310940a3989d5599522745b0d2b311",
+      "bundle_prerequisite": "b2955d694968c056a638b2bb1f88c544a6b2211d",
+      "tar_sha256": "7f5bf9c56210165ac16a7f88e7167caa54b0fd32f9eb7dddc9ea2e5345b2f74b",
+      "bundle_sha256": "d0b823ff2d13d0387951f83968b65e6c97354805c4f5b71ce78c7083047484bd",
+      "diagnostic_oracle_not_deployment_artifact": true
+    }
+  ],
+  "fixed_fixture_inputs": [
+    {
+      "original_path": ".work/million-cost-prototype/health-state.bin",
+      "preserved_path": ".work/fiduciary-optimisation/fixtures/health-state.bin",
+      "sha256": "60874cbbdb3705af2055f5e44c660428e8c3c37cceed5ac16176175204bf37bc",
+      "bytes": 3200
+    },
+    {
+      "original_path": ".work/million-cost-prototype/capture.mjs",
+      "preserved_path": ".work/fiduciary-optimisation/fixtures/capture.mjs",
+      "sha256": "982a53fedd7e9f093f7bdaceea89a080e2b360e8a876f5c93827c44d9914af96",
+      "bytes": 6797
+    },
+    {
+      "name": "POCKET_IC_BIN",
+      "original_path": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic",
+      "preserved_path": ".work/fiduciary-optimisation/fixtures/pocket-ic",
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+      "bytes": 125611680
+    },
+    {
+      "name": "ICP_LEDGER_WASM",
+      "original_path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm",
+      "preserved_path": ".work/fiduciary-optimisation/fixtures/ledger-canister.wasm",
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "bytes": 2552776
+    },
+    {
+      "name": "ICP_INDEX_WASM",
+      "original_path": "/home/codexdev/dtr-s09-artifacts/wasm/ic-icp-index-canister.wasm",
+      "preserved_path": ".work/fiduciary-optimisation/fixtures/ic-icp-index-canister.wasm",
+      "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+      "bytes": 1152115
+    }
+  ],
+  "final_subnet_certificate": {
+    "observed_at": "2026-10-28T00:19:55.699Z",
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "subnet_id": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+    "node_count": 34,
+    "IC_root_certificate_verified": true,
+    "fetch_root_key": false,
+    "certificate_sha256": "6a96b930cc759519d85ed6a39d15f0f4594c3b622a716ffd9f8c975254e10b17"
+  },
+  "final_health_observation": "2026-10-28T01:03:14.644872+00:00"
+}
