@@ -7,6 +7,12 @@ use ic_ledger_types::{AccountIdentifier, Subaccount};
 use serde::Serialize;
 
 const INVALID_MEMO: [u8; 8] = [0; 8];
+fn legacy_memo_adapter() -> u8 {
+    b2z_protocol::MEMO_ADAPTER_VERSION
+}
+fn is_legacy_memo_adapter(version: &u8) -> bool {
+    *version == legacy_memo_adapter()
+}
 pub const PAGE: u64 = 64;
 // Rolling OLDEST window, not a limit on unseen account history. Newer rows
 // outside this window are re-downloaded after the oldest window is admitted.
@@ -73,6 +79,13 @@ pub struct Pending {
 #[serde(deny_unknown_fields)]
 pub struct SourceState {
     pub network: String,
+    /// Activated only at the drained, authenticated rules-v6 cutover. Existing
+    /// durable normalized rows are never reinterpreted or downloaded anew.
+    #[serde(
+        default = "legacy_memo_adapter",
+        skip_serializing_if = "is_legacy_memo_adapter"
+    )]
+    pub memo_adapter_version: u8,
     pub ledger: String,
     pub index: String,
     #[serde(with = "u64_string")]
@@ -162,6 +175,7 @@ impl SourceState {
         Ok((
             Self {
                 network: config.network,
+                memo_adapter_version: legacy_memo_adapter(),
                 ledger: config.ledger.to_text(),
                 index: config.index.to_text(),
                 receiving_subaccount: config.receiving_subaccount,
@@ -183,6 +197,14 @@ impl SourceState {
         ))
     }
     pub fn validate(&self) -> Result<()> {
+        if ![
+            legacy_memo_adapter(),
+            b2z_protocol::v6::MEMO_ADAPTER_VERSION,
+        ]
+        .contains(&self.memo_adapter_version)
+        {
+            return Err("source memo adapter".into());
+        }
         if !matches!(self.network.as_str(), "ic" | "pocketic-local") {
             return Err("source network".into());
         }
@@ -245,6 +267,14 @@ impl SourceState {
     }
     /// Called on a clone. Failure leaves the durable download cursor unchanged.
     pub fn page(&mut self, response: History) -> Result<()> {
+        if ![
+            legacy_memo_adapter(),
+            b2z_protocol::v6::MEMO_ADAPTER_VERSION,
+        ]
+        .contains(&self.memo_adapter_version)
+        {
+            return Err("source memo adapter".into());
+        }
         if response.transactions.len() > PAGE as usize {
             return Err("oversize index page".into());
         }
@@ -290,7 +320,11 @@ impl SourceState {
             }
             let row = Row {
                 id: tx.id,
-                payload: classify(&tx.transaction, &recipient)?,
+                payload: if self.memo_adapter_version == legacy_memo_adapter() {
+                    classify(&tx.transaction, &recipient)?
+                } else {
+                    classify_v6(&tx.transaction, &recipient)?
+                },
                 digest: hash(&candid::encode_one(&tx).map_err(|e| e.to_string())?),
             };
             let p = pending.get_or_insert_with(|| Pending {
@@ -457,6 +491,16 @@ fn account(text: &str) -> Result<AccountIdentifier> {
     AccountIdentifier::from_hex(text).map_err(|e| format!("index account: {e}"))
 }
 fn classify(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<String>> {
+    classify_with(tx, recipient, legacy_memo_adapter())
+}
+fn classify_v6(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<String>> {
+    classify_with(tx, recipient, b2z_protocol::v6::MEMO_ADAPTER_VERSION)
+}
+fn classify_with(
+    tx: &Transaction,
+    recipient: &AccountIdentifier,
+    adapter: u8,
+) -> Result<Option<String>> {
     match &tx.operation {
         Operation::Transfer {
             from,
@@ -476,7 +520,13 @@ fn classify(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<St
             let memo = if spender.is_some() {
                 [0; 8]
             } else {
-                normalized_memo(tx.memo, tx.icrc1_memo.as_deref())
+                if adapter == legacy_memo_adapter() {
+                    normalized_memo(tx.memo, tx.icrc1_memo.as_deref())
+                } else {
+                    b2z_protocol::v6::decode_ledger(tx.memo, tx.icrc1_memo.as_deref())
+                        .and_then(b2z_protocol::v6::encode)
+                        .unwrap_or(INVALID_MEMO)
+                }
             };
             let mut payload = b"BTZPAY02".to_vec();
             payload.extend(from.as_bytes());
@@ -768,6 +818,53 @@ mod tests {
             spender: None,
         };
         assert!(classify(&t, &recipient).is_err());
+    }
+    #[test]
+    fn v6_adapter_is_explicit_and_preserves_normalized_history() {
+        let recipient = receiving_account(owner(), 0);
+        let mut t = tx(1).transaction;
+        t.icrc1_memo = Some(b"FIRE 1 37.5 3".to_vec());
+        let old = classify(&t, &recipient).unwrap().unwrap();
+        let new = classify_v6(&t, &recipient).unwrap().unwrap();
+        assert!(old.ends_with("0000000000000000"));
+        assert!(new.ends_with("f6000000011aab03"));
+        assert_eq!(&old[..96], &new[..96]);
+        let mut s = fresh();
+        let bytes = serde_json::to_vec(&s).unwrap();
+        assert!(!String::from_utf8(bytes.clone())
+            .unwrap()
+            .contains("memo_adapter_version"));
+        s = serde_json::from_slice(&bytes).unwrap();
+        assert_eq!(s.memo_adapter_version, 3);
+        let mut row = tx(1);
+        row.transaction = t.clone();
+        s.page(History {
+            balance: 0,
+            transactions: vec![row],
+            oldest_tx_id: Some(1),
+        })
+        .unwrap();
+        let payload = s.pending.as_ref().unwrap().rows[0].payload.clone();
+        s.memo_adapter_version = 4;
+        s = serde_json::from_slice(&serde_json::to_vec(&s).unwrap()).unwrap();
+        assert_eq!(s.pending.as_ref().unwrap().rows[0].payload, payload);
+        assert!(payload.unwrap().ends_with("0000000000000000"));
+        s.memo_adapter_version = 5;
+        assert!(s.validate().is_err());
+        assert!(s.page(page(&[2], Some(1))).is_err());
+        for text in [b"ANGLE 37.5".as_slice(), b"MOVE 42".as_slice()] {
+            t.icrc1_memo = Some(text.to_vec());
+            assert_eq!(
+                classify(&t, &recipient).unwrap(),
+                classify_v6(&t, &recipient).unwrap()
+            );
+        }
+        t.memo = b2z_protocol::numeric(b2z_protocol::Command::Angle(0));
+        t.icrc1_memo = Some(vec![]);
+        assert!(classify_v6(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("0000000000000000"));
     }
     #[test]
     fn full_nat64_source_positions_and_subaccounts_survive_durable_codec() {

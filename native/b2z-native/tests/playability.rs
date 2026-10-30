@@ -6,6 +6,40 @@ use serde_json::Value;
 fn vector() -> Value {
     serde_json::from_str(include_str!("../../../tests/fixtures/playability-v6.json")).unwrap()
 }
+#[test]
+fn certified_configuration_matches_compiled_policy_and_economics() {
+    let c: Value = dtr_wire::decode(configuration()).unwrap();
+    let economics: Value =
+        serde_json::from_str(include_str!("../../../config/economics/prelaunch.json")).unwrap();
+    assert_eq!(c["version"], 6);
+    assert_eq!(
+        c["memo_adapter_version"],
+        b2z_protocol::v6::MEMO_ADAPTER_VERSION
+    );
+    for (key, value) in [
+        ("max_cannons", MAX_CANNONS),
+        ("max_balls", MAX_BALLS),
+        ("max_per_cannon", MAX_PER_CANNON),
+        ("max_retained_per_player", MAX_RETAINED_PER_PLAYER),
+        ("max_players", MAX_PLAYERS),
+    ] {
+        assert_eq!(c[key], value);
+    }
+    assert_eq!(
+        serde_json::from_value::<Int>(c["dormancy_grace_ns"].clone()).unwrap(),
+        Int(DORMANCY_GRACE_NS.into())
+    );
+    for key in ["join_e8s", "ball_base_e8s", "move_e8s"] {
+        assert_eq!(
+            serde_json::from_value::<Int>(c[key].clone())
+                .unwrap()
+                .0
+                .to_string(),
+            economics[key].as_str().unwrap()
+        );
+    }
+    assert_eq!(identity().unwrap()["config_hash"], hash(configuration()));
+}
 fn time(key: &str) -> u64 {
     vector()[key].as_str().unwrap().parse().unwrap()
 }

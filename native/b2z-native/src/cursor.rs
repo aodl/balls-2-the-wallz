@@ -135,11 +135,11 @@ pub fn million_identity() -> Result<Value> {
         json!({"rules_hash":hash(b"B2Z_MILLION_TORUS_RULES_05"),"schema_hash":hash(b"B2Z_STATE_05_SCALED_OWNERSHIP"),"config_hash":hash(&encode(&config)?)}),
     )
 }
-fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
+pub(crate) fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     if w.time.0.denom() != &BigInt::one() {
         return Err("integer launch checkpoint".into());
     }
-    let speed = if w.version == 5 { 32_000 } else { 1024 };
+    let speed = if w.version >= 5 { 32_000 } else { 1024 };
     let (vx, vy) = b2z_mechanics::heading(angle, speed).map_err(|e| format!("heading: {e:?}"))?;
     let x = (c.cell % w.width) as i64 * Q + Q / 2;
     let y = (c.cell / w.width) as i64 * Q + Q / 2;

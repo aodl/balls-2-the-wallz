@@ -56,6 +56,14 @@ pub fn elapsed(value: &Int) -> Result<u64> {
         .to_u64()
         .ok_or_else(|| "LIFECYCLE_TIME_BOUNDS".into())
 }
+pub fn configuration() -> &'static [u8] {
+    include_bytes!("../../../apps/b2z-observer/configuration-playability.bin")
+}
+pub fn identity() -> Result<serde_json::Value> {
+    Ok(
+        serde_json::json!({"rules_hash":dtr_wire::hash(b"B2Z_PLAYABILITY_RULES_06"),"schema_hash":dtr_wire::hash(b"B2Z_STATE_06_PLAYERS_LIFECYCLE"),"config_hash":dtr_wire::hash(configuration())}),
+    )
+}
 impl State {
     pub fn player(&self, id: u32) -> Option<&Player> {
         self.players

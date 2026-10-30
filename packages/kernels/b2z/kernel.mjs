@@ -23,9 +23,9 @@ export const ballPrice = (active,config=TEST_CONFIG) => {
   if (!Number.isInteger(active) || active < 1 || active > LIMITS.max_per_cannon) throw new Error('price count');
   return config.ball_base_e8s * BigInt(active) ** 2n;
 };
-function launch(world, cannon, angle) {
+export function launch(world, cannon, angle) {
   if (world.time[1] !== 1n) throw new Error('commands require integer checkpoint');
-  const [vx, vy] = heading(angle,world.version===5?32000:1024), x = (cannon.cell % world.width) * Q + Q / 2,
+  const [vx, vy] = heading(angle,world.version>=5?32000:1024), x = (cannon.cell % world.width) * Q + Q / 2,
     y = Math.floor(cannon.cell / world.width) * Q + Q / 2;
   const b = {id: world.next_ball_id++, owner: cannon.id, cell: cannon.cell,
     x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy};

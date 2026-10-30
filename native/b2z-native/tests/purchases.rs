@@ -1,0 +1,272 @@
+//! Purchase continuations only. Full cursor/IC admission qualification is separate.
+use b2z_native::{
+    migration::stage_million_world,
+    playability::*,
+    purchases_v6::*,
+    world::{ScaledOwnership, World, Q},
+};
+use dtr_wire::{decode, encode, hash, unhex, Int};
+use serde_json::Value;
+fn vector() -> Value {
+    serde_json::from_str(include_str!("../../../tests/fixtures/purchases-v6.json")).unwrap()
+}
+fn original() -> World {
+    let f: Value =
+        serde_json::from_str(include_str!("../../../tests/fixtures/b2z-torus-v4.json")).unwrap();
+    migrate(
+        &stage_million_world(
+            &World::decode(&unhex(f["migration"]["new_hex"].as_str().unwrap()).unwrap()).unwrap(),
+        )
+        .unwrap(),
+        9_007_199_254_740_993,
+    )
+    .unwrap()
+}
+fn memo(s: &str) -> [u8; 8] {
+    b2z_protocol::v6::encode(b2z_protocol::v6::parse_text(s.as_bytes()).unwrap()).unwrap()
+}
+fn run(w: &mut World, plan: &Plan, budget: u64) -> Value {
+    let mut b = Batch::fire(w.cannons[0].account.clone(), budget, plan).unwrap();
+    let mut steps = 0;
+    while b.stop_reason.is_none() {
+        b.step(w).unwrap();
+        b = decode(&encode(&b).unwrap()).unwrap();
+        b.validate(w).unwrap();
+        w.validate().unwrap();
+        steps += 1;
+        assert!(steps <= 65);
+    }
+    b.receipt().unwrap()
+}
+#[test]
+fn resumed_batches_match_javascript_public_state_and_receipt() {
+    let mut w = original();
+    let p = prepare(
+        &w,
+        &w.cannons[0].account,
+        50_000_000,
+        &memo("FIRE 1 0 2"),
+        &[],
+    )
+    .unwrap();
+    let r = run(&mut w, &p, 50_000_000);
+    assert_eq!(hash(&w.encode().unwrap()), vector()["state_sha256"]);
+    assert_eq!(hash(&encode(&r).unwrap()), vector()["receipt_sha256"]);
+    assert_eq!(r["actual_quantity"], 2);
+    assert_eq!(
+        serde_json::from_value::<Int>(r["amount_used"].clone()).unwrap(),
+        Int(50_000_000.into())
+    );
+}
+#[test]
+fn quantity_and_partial_fill_never_buy_unrequested_or_unaffordable_balls() {
+    for (q, budget, actual, used, stop) in [
+        (1, 140_000_000, 1, 10_000_000, "quantity_limit"),
+        (3, 139_999_999, 2, 50_000_000, "insufficient_payment"),
+    ] {
+        let mut w = original();
+        let p = prepare(
+            &w,
+            &w.cannons[0].account,
+            budget,
+            &memo(&format!("FIRE 1 0 {q}")),
+            &[],
+        )
+        .unwrap();
+        let r = run(&mut w, &p, budget);
+        assert_eq!(r["actual_quantity"], actual);
+        assert_eq!(
+            serde_json::from_value::<Int>(r["amount_used"].clone()).unwrap(),
+            Int(used.into())
+        );
+        assert_eq!(
+            serde_json::from_value::<Int>(r["remainder"].clone()).unwrap(),
+            Int((budget - used).into())
+        );
+        assert_eq!(r["stop_reason"], stop);
+    }
+    let mut w = original();
+    w.balls.clear();
+    w.pending.clear();
+    mark_dormant(&mut w, 1).unwrap();
+    clear_unsupported_player(&mut w, 1).unwrap();
+    let p = prepare(
+        &w,
+        &w.cannons[0].account,
+        10_000_000,
+        &memo("FIRE 1 0 1"),
+        &[],
+    )
+    .unwrap();
+    let r = run(&mut w, &p, 10_000_000);
+    assert_eq!(r["actual_quantity"], 1);
+    assert_eq!(w.ownership_counts(), [(1, 1)]);
+    assert!(w
+        .playability
+        .as_ref()
+        .unwrap()
+        .life(1)
+        .unwrap()
+        .deadline_ns
+        .is_none());
+    assert_eq!(
+        w.playability.as_ref().unwrap().life(1).unwrap().generation,
+        3
+    );
+}
+#[test]
+fn spoofed_declarations_and_illegal_plans_do_not_mutate_world() {
+    let w = original();
+    let before = w.encode().unwrap();
+    let other = "02".repeat(32);
+    for (text, reason) in [
+        ("FIRE 1 0 1", "NOT_OWNER"),
+        ("MOVE 1 0", "NOT_OWNER"),
+        ("NEW 0 1 0", "FIRST_PLACEMENT_AUTOMATIC"),
+    ] {
+        assert_eq!(
+            prepare(&w, &other, 100_000_000, &memo(text), &[]).unwrap(),
+            Plan::Rejected {
+                reason: reason.into()
+            }
+        );
+    }
+    assert_eq!(w.encode().unwrap(), before);
+}
+#[test]
+fn dormant_retained_cannons_affect_price_and_legacy_selection_is_deterministic() {
+    let mut w = original();
+    let mut c = w.cannons[0].clone();
+    c.id = 2;
+    c.cell += 1;
+    w.cannons.push(c);
+    w.next_cannon_id = 3;
+    w.playability.as_mut().unwrap().lifecycle.push(Lifecycle {
+        cannon: 2,
+        player: 1,
+        generation: 1,
+        dormant_since_ns: Some(Int(9_007_199_254_740_993u64.into())),
+        deadline_ns: Some(Int((9_007_199_254_740_993u64 + DORMANCY_GRACE_NS).into())),
+    });
+    w.validate().unwrap();
+    let account = w.cannons[0].account.clone();
+    let Plan::New { price, first, .. } =
+        prepare(&w, &account, 900_000_000, &memo("NEW 0 1"), &[]).unwrap()
+    else {
+        panic!("new plan")
+    };
+    assert_eq!(price, Int(900_000_000.into()));
+    assert!(!first);
+    assert!(matches!(
+        prepare(&w, &account, 50_000_000, &memo("ANGLE 0"), &[]).unwrap(),
+        Plan::Fire {
+            cannon: 1,
+            explicit: false,
+            ..
+        }
+    ));
+    for (cannon, reason) in [(1, "CANNON_OCCUPIED"), (2, "DORMANT_REVIVAL_REQUIRED")] {
+        assert_eq!(
+            prepare(
+                &w,
+                &account,
+                10_000,
+                &memo(&format!("MOVE {cannon} {}", w.cannons[1].cell)),
+                &[]
+            )
+            .unwrap(),
+            Plan::Rejected {
+                reason: reason.into()
+            }
+        );
+    }
+}
+#[test]
+fn adjacent_selection_matches_js_and_never_overlaps_a_seam_ball() {
+    let mut w = original();
+    let v = vector();
+    assert_eq!(
+        adjacent_sites(&w, 1).unwrap(),
+        serde_json::from_value::<Vec<usize>>(v["adjacent_sites"].clone()).unwrap()
+    );
+    assert_eq!(
+        choose_adjacent(&w, 1, &"ab".repeat(32)).unwrap(),
+        Some(v["selected_adjacent"].as_u64().unwrap() as usize)
+    );
+    w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
+    w.cannons[0].cell = 999;
+    w.balls[0].cell = 999;
+    w.balls[0].x0 = Int((1000 * Q).into());
+    w.balls[0].y0 = Int(512.into());
+    w.validate().unwrap();
+    let sites = adjacent_sites(&w, 1).unwrap();
+    assert!(!sites.contains(&0));
+    assert!(sites.contains(&998));
+}
+#[test]
+fn capacity_rechecked_per_item_and_unspawned_balls_are_never_charged() {
+    for global in [false, true] {
+        let mut w = original();
+        // Pure admission fixture: overlapping friendly balls are legal; physics
+        // is deliberately not run by this purchase-continuation unit test.
+        w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
+        let prototype = w.balls[0].clone();
+        w.balls.clear();
+        let groups: Vec<usize> = if global {
+            let mut groups = vec![2];
+            groups.extend([64; 7]);
+            groups.push(MAX_BALLS - 1 - 2 - 7 * 64);
+            groups
+        } else {
+            vec![MAX_PER_CANNON - 1]
+        };
+        for (index, count) in groups.iter().enumerate() {
+            let cannon = index as u32 + 1;
+            if index != 0 {
+                let mut c = w.cannons[0].clone();
+                c.id = cannon;
+                c.cell += index;
+                w.cannons.push(c);
+                w.playability.as_mut().unwrap().lifecycle.push(Lifecycle {
+                    cannon,
+                    player: 1,
+                    generation: 1,
+                    dormant_since_ns: None,
+                    deadline_ns: None,
+                });
+            }
+            for _ in 0..*count {
+                let mut b = prototype.clone();
+                b.id = w.balls.len() as u32 + 1;
+                b.owner = cannon;
+                w.balls.push(b);
+            }
+        }
+        w.next_ball_id = w.balls.len() as u32 + 1;
+        w.next_cannon_id = w.cannons.len() as u32 + 1;
+        w.validate().unwrap();
+        let before = w.balls.len();
+        let p = prepare(
+            &w,
+            &w.cannons[0].account,
+            u64::MAX,
+            &memo("FIRE 1 0 2"),
+            &[],
+        )
+        .unwrap();
+        let r = run(&mut w, &p, u64::MAX);
+        assert_eq!(w.balls.len(), before + 1);
+        assert_eq!(r["actual_quantity"], 1);
+        assert_eq!(r["stop_reason"], "capacity");
+        assert_eq!(r["status"], "partially_applied");
+        let price = b2z_native::pricing_v6::ball_price(groups[0] as u32).unwrap();
+        assert_eq!(
+            serde_json::from_value::<Int>(r["amount_used"].clone()).unwrap(),
+            Int(price.into())
+        );
+        assert_eq!(
+            serde_json::from_value::<Int>(r["remainder"].clone()).unwrap(),
+            Int((u64::MAX - price).into())
+        );
+    }
+}

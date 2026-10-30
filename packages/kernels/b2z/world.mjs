@@ -19,6 +19,9 @@ export const TORUS_CONFIG=Object.freeze({...PRELAUNCH_CONFIG,version:4,topology:
 export const TORUS_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_TORUS_RULES_04')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_04_TYPED_JSON')),config_hash:sha256(encodeCanonical(TORUS_CONFIG))});
 export const MILLION_CONFIG=Object.freeze({version:5,topology:'torus',width:1000,height:1000,ownership:'scaled32-v1',score_area_numerator:1024,score_area_denominator:1000000,max_balls:64,max_cannons:32,max_per_cannon:32,max_segment_ticks:64,speed:32000,ball_base_e8s:PRICING.ball_base_e8s,move_e8s:PRICING.move_e8s,annihilation_distance:64,annihilation_time_window:[1n,16n],join_e8s:PRICING.join_e8s,max_spawn_searches_per_segment:8});
 export const MILLION_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_MILLION_TORUS_RULES_05')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_05_SCALED_OWNERSHIP')),config_hash:sha256(encodeCanonical(MILLION_CONFIG))});
+export const PLAYABILITY_CONFIG=Object.freeze({...MILLION_CONFIG,...V6_POLICY,memo_adapter_version:4,lifecycle_input_version:1,max_purchase_quantity:64,move_limit_per_cannon_segment:1,
+  player_identity:'authenticated-funding-account',ball_price:'sequential-floor-1-square',cannon_price:'retained-plus-1-square',dormancy_clock:'consensus-observed-ns-1',capture_resolution:'pair-and-cancel-1'});
+export const PLAYABILITY_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_PLAYABILITY_RULES_06')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_06_PLAYERS_LIFECYCLE')),config_hash:sha256(encodeCanonical(PLAYABILITY_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

@@ -2,6 +2,7 @@
 import {decodeMemo,encodeMemo,parseTextMemo} from './memo.mjs';
 import {be,concat,readBE,uint} from '../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 export const MAX_QUANTITY=64;
+export const MEMO_ADAPTER_VERSION=4;
 function bounded(c){
   if(['angle','move'].includes(c?.kind)){encodeMemo(c);return c;}
   if(!['fire','move_cannon','new'].includes(c?.kind))throw Error('v6 memo opcode');

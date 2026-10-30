@@ -1,0 +1,12 @@
+{
+  "scope": "Purchase helper only; no Ledger admission, simulation step or IC authenticity claim",
+  "state_sha256": "8ddbb1b3048f9d9cb1628a89c7fa7e3e1467eee0b78ef899759a3f6f412912e1",
+  "receipt_sha256": "ff4e196ce03c819417449bc17a6e3375ab1aa3e9000700937acbc82810e6b2aa",
+  "adjacent_sites": [
+    452578,
+    453577,
+    453579,
+    454578
+  ],
+  "selected_adjacent": 453579
+}

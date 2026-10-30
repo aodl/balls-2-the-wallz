@@ -2,6 +2,7 @@
 use super::{Command as Legacy, MemoError};
 
 pub const MAX_QUANTITY: u8 = 64;
+pub const MEMO_ADAPTER_VERSION: u8 = 4;
 const AUTO: u32 = 0x00ff_ffff;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
