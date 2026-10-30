@@ -379,6 +379,15 @@ def main():
             report['capture']={'video':not (a.million_sustained or a.paid_v8_scene_only),'sandbox':True,'screenshots_and_raw_telemetry':True};save()
             context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             navigation_count=[];page.on('framenavigated',lambda frame:navigation_count.append(frame.url) if frame==page.main_frame else None)
+            def preserve_exception_state():
+                if report.get('status')=='PASS':return
+                try:
+                    state=page.evaluate('''()=>({phase:document.body.dataset.phase,live:JSON.parse(JSON.stringify(globalThis.__dtrLive,(_,v)=>typeof v==='bigint'?v.toString():v)),error:document.querySelector('#error-text').textContent,service:document.querySelector('#service-status').textContent,quote:document.querySelector('#preparation-note').textContent,displayed:{cannons:document.querySelector('#cannons').textContent,balls:document.querySelector('#balls').textContent}})''')
+                    (out/'exception-browser-state.json').write_text(json.dumps(state,indent=2)+'\n')
+                    page.screenshot(path=str(out/'exception-browser.png'),full_page=True)
+                except Exception as error:
+                    (out/'exception-diagnostics-error.txt').write_text(repr(error)+'\n')
+            capture_finalizers.callback(preserve_exception_state)
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             query_timings=[]
             if a.million_scene_only or a.paid_v8_scene_only:

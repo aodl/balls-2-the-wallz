@@ -147,7 +147,7 @@ async function startLive(recording,startupRetries=0){
       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
       const initial=await Promise.allSettled([s.client.observation(),s.readStatus()]);
       if(initial[0].status==='rejected')throw initial[0].reason;
-      if(initial[1].status==='fulfilled'){s.operational=initial[1].value;s.operationalAt=performance.now();s.statusDue=s.operationalAt+15000;}
+      if(initial[1].status==='fulfilled'){s.operational=initial[1].value;s.operationalAt=performance.now();s.statusDue=s.operationalAt+2000;}
       ticket=await certifiedTicket(s,initial[0].value);
       const source=await deploymentSource(recording.deployment,ticket);
       $('receiving-account').textContent=source.recipient;
@@ -263,7 +263,7 @@ function updatePlayReference(s,world,events){
 }
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
-  s.statusBusy=true;s.statusDue=now+15000;
+  s.statusBusy=true;s.statusDue=now+2000;
   try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));$('service-status').textContent=operationalText(status);}}
   catch{if(active(s)){s.operational=null;$('service-status').textContent=operationalText(null);}}
   finally{s.statusBusy=false;}
@@ -330,7 +330,7 @@ async function pump(now){
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;if(active(s))updateHud();}
 }
 function idleState(s){
- return Boolean(s?.mode==='live'&&s.ready&&!s.error&&!deliveryPaused&&performance.now()-(s.operationalAt??-Infinity)<45000&&performance.now()-(s.certifiedAt??-Infinity)<30000&&idleArena(s.operational,s.referenceWorld));
+ return Boolean(s?.mode==='live'&&s.ready&&!s.error&&!deliveryPaused&&performance.now()-(s.operationalAt??-Infinity)<15000&&performance.now()-(s.certifiedAt??-Infinity)<30000&&idleArena(s.operational,s.referenceWorld));
 }
 function phase(){
   const s=session;if(bootError||s?.error)return 'ERROR';if(!s?.ready)return 'LOADING';
@@ -352,7 +352,7 @@ function updateHud(){
   const claimed=visible?.claimedCells()??0;
   $('claimed').textContent=visible?`${Math.round(claimed/(visible.width*visible.height)*100)}%`:'—';
   $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
-  const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<45000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
+  const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
   $('catching-up').hidden=!['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(p);
   const health=s?.operational?.health;const meter=$('cycle-meter');
