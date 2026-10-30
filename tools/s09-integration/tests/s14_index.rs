@@ -2152,7 +2152,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     std::fs::create_dir_all(&out).unwrap();
     let recipient = source::receiving_account(id, 0);
     let funding = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT);
-    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":index.to_text(),"recipient":recipient.to_string(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":index.to_text(),"recipient":recipient.to_string(),"payer_account":funding.to_string(),"root_key_hex":hex(&pic.root_key().unwrap())});
     std::fs::write(
         out.join("configuration.json"),
         serde_json::to_vec(&configuration).unwrap(),
@@ -3505,13 +3505,21 @@ fn empty_arena_all_player_elimination_preserves_scores_then_idles() {
         Cannon {
             id: 1,
             cell: 6,
-            account: "01".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([1; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: None,
         },
         Cannon {
             id: 2,
             cell: 11,
-            account: "02".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([2; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: None,
         },
     ];
@@ -3873,7 +3881,11 @@ fn pace_world() -> b2z_native::world::World {
     world.cannons = vec![Cannon {
         id: 1,
         cell: 42,
-        account: "01".repeat(32),
+        account: AccountIdentifier::new(
+            &Principal::self_authenticating([1; 32]),
+            &DEFAULT_SUBACCOUNT,
+        )
+        .to_hex(),
         heading: None,
     }];
     world.balls = vec![Ball {
@@ -3912,7 +3924,11 @@ fn million_population_world(ball_count: usize) -> b2z_native::world::World {
         .map(|n| Cannon {
             id: (n + 1) as u32,
             cell: 16 * 32 + if n == 0 { 7 } else { 23 },
-            account: format!("{:02x}", n + 1).repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([n as u8 + 1; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: Some(0),
         })
         .collect();
@@ -4345,13 +4361,21 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
         Cannon {
             id: 1,
             cell: 326,
-            account: "01".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([1; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: Some(8192),
         },
         Cannon {
             id: 2,
             cell: 666,
-            account: "02".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([2; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: Some(40960),
         },
     ];

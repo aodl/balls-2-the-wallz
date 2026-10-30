@@ -25,6 +25,23 @@ type DriverMetrics = record {
   persist_instructions : nat64;
   last_persist_instructions : nat64;
 };
+type Health = record {
+  resets : nat64;
+  sample_end_ns : nat64;
+  observed_at_ns : nat64;
+  sample_count : nat32;
+  runtime_started_ns : nat64;
+  known_treasury_credit_delta : nat;
+  net_decline_cycles : opt nat;
+  version : nat32;
+  reservation_gap_end : nat;
+  certified_gameplay : bool;
+  total_cycles : nat;
+  reservation_gap_start : nat;
+  sample_start_ns : nat64;
+  liquid_cycles : nat;
+  discontinuity : text;
+};
 type Hint = record {
   // Funding-selected gameplay target. This is never reduced because of world size.
   nominal_milli : nat32;
@@ -177,6 +194,7 @@ service : (blob, nat64, IndexConfig) -> {
   controller_funding : () -> (Result_2) query;
   controller_runtime : () -> (Result_3) query;
   controller_work : () -> (Result_4) query;
+  get_api_doc : () -> (text) query;
   lab_status : () -> (Result_5) query;
   million_transition_status : () -> (Result_1) query;
   observation : () -> (Result_6) query;
@@ -194,6 +212,7 @@ service : (blob, nat64, IndexConfig) -> {
   retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result_1) query;
   retained_publication : (nat64) -> (Result_1) query;
   retention_status : () -> (Result_8) query;
+  runtime_health : () -> (Health) query;
   set_funding_paused : (bool) -> (Result_2);
   // Hash this descriptor and compare with the certified publication's source_id.
   source_descriptor : () -> (Result_1) query;

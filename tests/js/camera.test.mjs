@@ -2,9 +2,9 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {Camera,splitInterval} from '../../apps/b2z-observer/camera.mjs';
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 test('camera preserves world aspect and pointer anchor at bounded zoom',()=>{
- const c=new Camera();c.configure(32,32,1200,800);assert.equal(c.scale,22.5);
+ const c=new Camera();c.configure(32,32,1200,800);assert.equal(c.scale,37.5);
  const a=c.world(250,320);c.zoom(2,250,320);const b=c.world(250,320);near(a.x,b.x);near(a.y,b.y);
- for(const factor of [1e9,1e-9]){c.zoom(factor);assert.ok(c.scale>=c.fitScale*.6&&c.scale<=c.fitScale*24);}
+ for(const factor of [1e9,1e-9]){c.zoom(factor);assert.ok(c.scale>=c.fitScale&&c.scale<=c.fitScale*24);}
 });
 test('pan, resize and publications preserve local camera centre and picking',()=>{
  const c=new Camera();c.configure(16,8,1000,800);c.zoom(3);c.pan(100,-90);const {x,y,scale}=c;

@@ -2,6 +2,7 @@
 //! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
 mod funding;
+mod health;
 mod operation_kernel;
 mod pace;
 mod source;
@@ -53,6 +54,7 @@ struct DriverMetrics {
     max_actions: u32,
 }
 thread_local! {
+    static HEALTH:RefCell<health::Meter>=RefCell::new(health::Meter::default());
     static PACE:RefCell<pace::Clock>=RefCell::new(pace::Clock::default());
     static DRIVER:RefCell<DriverMetrics>=RefCell::new(DriverMetrics::default());
     // Recomputed from the authoritative coordinator on upgrade; never a durable game field.
@@ -802,6 +804,7 @@ fn save_root_only(r: &Root) -> AppResult<()> {
 }
 fn install_source_timer() {
     ic_cdk_timers::set_timer(Duration::from_secs(source::FALLBACK_SECONDS), async {
+        sample_health();
         install_source_timer(); // independent of any await or poke retry chain
         let _ = request_reconciliation();
     });
@@ -834,7 +837,36 @@ fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
 fn autonomous_once(generation: u64) -> AppResult<()> {
     autonomous_once_inner(generation, true)
 }
+fn sample_health() {
+    let credits = funding::read()
+        .ok()
+        .and_then(|s| s.total_cycles_reported.parse::<u128>().ok())
+        .unwrap_or(0);
+    HEALTH.with(|h| {
+        h.borrow_mut().sample(
+            ic_cdk::api::time(),
+            ic_cdk::api::canister_cycle_balance(),
+            ic_cdk::api::canister_liquid_cycle_balance(),
+            credits,
+        )
+    });
+}
+#[ic_cdk::query]
+fn runtime_health() -> health::Health {
+    HEALTH.with(|h| {
+        h.borrow().read(
+            ic_cdk::api::time(),
+            ic_cdk::api::canister_cycle_balance(),
+            ic_cdk::api::canister_liquid_cycle_balance(),
+        )
+    })
+}
+#[ic_cdk::query]
+fn get_api_doc() -> String {
+    "BTZ public read-only API: observation_bundle provides certified publication/certificate/artifacts; retention_status, retained_publication and retained_artifact_chunk expose bounded history. lab_status and runtime_health are operational signed queries, NOT certified gameplay. runtime_health reports liquid/total cycles and a bounded net-decline sample, not gross billed consumption; positive movements invalidate the rate. Players pay from their existing wallet to the certified source descriptor account. Queries never authorise spending or prove ownership. Controller methods are not player APIs. No MCP financial execution, refunds or wallet signing. Rules/configuration and exact memo grammar are bound to publication identity; quotes are not reservations.".into()
+}
 fn refresh_pace() {
+    sample_health();
     PACE.with(|p| {
         p.borrow_mut()
             .refresh(ic_cdk::api::canister_liquid_cycle_balance())
