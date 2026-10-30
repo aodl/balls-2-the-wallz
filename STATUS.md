@@ -1,3 +1,19 @@
+# Frozen A2 installed on mainnet — running Steady; browser warning preserved
+
+Authorised pause → one exact A0→A2 v5 upgrade → preservation checks → original
+configuration resume completed. Module hash is approved `2c289fdf…`; controllers,
+34-node fiduciary placement, paid-v8 state/history and treasury obligations
+preserve. Ready work resumed as publication 65821; current certified head 65920.
+Gameplay is running Steady 0.3 ticks/s at ~11.861T liquid, no limiting; the policy
+selected this tier naturally. No funding, frontend/controller change or reset.
+The bounded browser observation played authenticated output but recorded
+“observation rollback”; its no-error check remains FAIL, not silently waived.
+No rerun, automatic pause or rollback. Prior technical qualification and all
+historical FAIL/BLOCKED records retain their original scope/verdict.
+[Actual deployment and raw evidence](evidence/B2Z/fiduciary-cycle-optimisation/mainnet-a2-deployment-20261030/REPORT.md).
+
+---
+
 # Authorised A2 mainnet deployment BLOCKED by mandatory balance preflight
 
 At 2026-10-30 12:21:38 UTC, fresh controller queries show 2.846689665080T liquid

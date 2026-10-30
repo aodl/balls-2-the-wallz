@@ -1,0 +1,23 @@
+{
+  "command": [
+    "dfx",
+    "--identity",
+    "codex_local",
+    "canister",
+    "install",
+    "s34gv-3qaaa-aaaar-qcifa-cai",
+    "--network",
+    "ic",
+    "--mode",
+    "upgrade",
+    "--wasm",
+    "/home/codexdev/b2z-release-evidence/a2-signing-inputs/A2.wasm",
+    "--argument",
+    "()"
+  ],
+  "started_epoch": 1793364733.0762029,
+  "one_installation_only": true,
+  "exit_code": 0,
+  "completed_epoch": 1793364775.010275,
+  "dfx_result": "Upgraded code for canister s34gv-3qaaa-aaaar-qcifa-cai"
+}

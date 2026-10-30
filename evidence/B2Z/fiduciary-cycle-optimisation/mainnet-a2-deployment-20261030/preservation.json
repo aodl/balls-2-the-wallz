@@ -1,0 +1,25 @@
+{
+  "publication": "BYTE_IDENTICAL",
+  "state": "BYTE_IDENTICAL",
+  "events": "BYTE_IDENTICAL",
+  "scores": "BYTE_IDENTICAL",
+  "source-descriptor": "BYTE_IDENTICAL",
+  "configuration": "BYTE_IDENTICAL",
+  "retained_16_catalogs_and_chunks": "IDENTICAL",
+  "funding_durable_fields": "IDENTICAL",
+  "funding_nonce": {
+    "before": "2015",
+    "after": "2016",
+    "explanation": "Expected post_upgrade initialize +1"
+  },
+  "funding_lease": {
+    "before": "1793364552333080690",
+    "after": "0",
+    "explanation": "Expected cold lease reset"
+  },
+  "ready_stage_manifest": [
+    "ffcb13b582927ca8b365e4e07d00b63247e4581b8730a8759dd408f6fa99e3a1"
+  ],
+  "post_upgrade_liquid": 11963502354232,
+  "status": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "path": "/home/codexdev/b2z-release-evidence/a2-mainnet-deployment-20261030.tar.gz",
+  "sha256": "0a1d76b2eee4c3cdfdd83aefeefd985c52abb5aacfe0416c8920f59093ff6a95",
+  "files_in_manifest": 495,
+  "independent_file_verification": "PASS",
+  "excluded": "Browser temporary profiles/caches; no credentials or private identity material included."
+}
