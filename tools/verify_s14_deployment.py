@@ -188,8 +188,11 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback;return p.phase==='PLAYING'&&p.verified_ticks>=p.backend_segments*p.segment_ticks-2;}'''),30000)
     measure_mode('economy',40,.4,.6)
     (out/'browser-million-economy-complete').write_text('economy playback measured\n')
-    wait_until(page,lambda:'Lifeline' in page.locator('#arena-note').text_content(),30000)
-    wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000);page.wait_for_timeout(4000)
+    # Funding tier names are diagnostic data, not player-facing status labels.
+    # Qualify the actual operational rate and the requested conservation message.
+    wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000)
+    assert page.locator('#arena-note').text_content()=='Reduced speed to conserve cycles'
+    page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)
     stop_capture()
     save_boundary_trace(page,out,'browser-boundary-events-before-reconnect.json')

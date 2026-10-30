@@ -5896,7 +5896,19 @@ fn torus_browser_authenticated_epoch_recovers_and_stales_old_move() {
     // The paid transition test separately uses actual upstream Ledger inputs.
     let fixture: serde_json::Value =
         serde_json::from_str(include_str!("../../../tests/fixtures/b2z-torus-v4.json")).unwrap();
-    let initial = unhex(fixture["migration"]["old_hex"].as_str().unwrap()).unwrap();
+    let mut world = b2z_native::world::World::decode(
+        &unhex(fixture["migration"]["old_hex"].as_str().unwrap()).unwrap(),
+    )
+    .unwrap();
+    // Historical golden bytes intentionally contain a synthetic, checksumless
+    // account. The Identify UI validates real ICP AccountIdentifiers. Adapt only
+    // this disposable UI genesis; retain the original migration golden unchanged.
+    world.cannons[0].account = AccountIdentifier::new(
+        &Principal::self_authenticating([1; 32]),
+        &DEFAULT_SUBACCOUNT,
+    )
+    .to_hex();
+    let initial = world.encode().unwrap();
     let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_WASM"), initial);
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let out =
