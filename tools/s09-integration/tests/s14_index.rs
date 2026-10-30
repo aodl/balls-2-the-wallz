@@ -3607,7 +3607,7 @@ fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments()
         ("Normal", 45_000_000_000_000u64, 1.0),
         ("Cruise", 27_000_000_000_000u64, 0.75),
         ("Economy", 17_000_000_000_000u64, 0.5),
-        ("Steady", 11_000_000_000_000u64, 0.3),
+        ("Steady", 14_000_000_000_000u64, 0.3),
         ("Conserve", 6_000_000_000_000u64, 0.2),
         ("Survival", 3_700_000_000_000u64, 0.1),
         // Falling from a faster band retains Survival at or above its 3T exit.
