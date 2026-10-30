@@ -1,0 +1,17 @@
+[
+  {
+    "directory": ".work/btz-prelaunch/release1-mainnet",
+    "files": 643,
+    "manifest_sha256": "5488a2649312bdeca39559e9e02972a5f096f9015748fbe20ccebf26ad0d8381"
+  },
+  {
+    "directory": ".work/btz-prelaunch/ci-41103639507",
+    "files": 4132,
+    "manifest_sha256": "38dc5a9bb55093c7947fbfcefb61e678186867b277927db9b1248c957c103089"
+  },
+  {
+    "directory": ".work/btz-prelaunch/ci-41103647264",
+    "files": 4133,
+    "manifest_sha256": "336246866737e7ef653ee1940972d72472bd3d64853fc651ec3de551c9cd6433"
+  }
+]
