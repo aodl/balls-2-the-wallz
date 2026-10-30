@@ -4,6 +4,12 @@ on:
   push:
   pull_request:
 
+# Push and same-repository PR events share a group; keep only the newest run.
+# Fork PRs have their own group. All substantive checks still run in the survivor.
+concurrency:
+  group: verification-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -16,6 +22,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # Qualify the published head itself on both event types.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -46,6 +55,9 @@ jobs:
       RUSTUP_TOOLCHAIN: 1.94.1
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # Qualify the published head itself on both event types.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -77,6 +89,9 @@ jobs:
       RUSTUP_TOOLCHAIN: 1.94.1
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # Qualify the published head itself on both event types.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -105,6 +120,9 @@ jobs:
       RUSTUP_TOOLCHAIN: 1.94.1
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # Qualify the published head itself on both event types.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown
       - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
       - name: Assert exact DTR release provenance
@@ -129,6 +147,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # Qualify the published head itself on both event types.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -167,6 +188,9 @@ jobs:
       RUSTUP_TOOLCHAIN: 1.94.1
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          # Qualify the published head itself on both event types.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
