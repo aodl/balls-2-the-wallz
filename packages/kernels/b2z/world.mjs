@@ -2,6 +2,7 @@ import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './ec
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat, validRat} from './math.mjs';
+import {V6_POLICY,playerForCannon,validatePlayability} from './playability.mjs';
 export const Q = 1024;
 export const LIMITS = Object.freeze({max_cells: 1024, max_width: 32, max_balls: 64, max_cannons: 32, max_per_cannon: 32, max_segment_ticks: 64});
 export const TEST_CONFIG = Object.freeze({version: 3, ...LIMITS, speed: 1024, ball_base_e8s: LEGACY_BALL_BASE_E8S,
@@ -44,7 +45,7 @@ export function setOwner(w,cell,owner){
   setOwnerRange(w,cell,cell+1,previous,owner);return previous;
 }
 export function setOwnerRange(w,start,end,previous,owner){
-  if(w.version!==5||!Number.isSafeInteger(start)||!Number.isSafeInteger(end)||start<0||start>=end||end>cellCount(w))throw new Error('ownership range');
+  if(w.version<5||!Number.isSafeInteger(start)||!Number.isSafeInteger(end)||start<0||start>=end||end>cellCount(w))throw new Error('ownership range');
   const o=w.ownership,next=[];
   for(const change of o.overrides){if(change.end<=start||change.start>=end){next.push({...change});continue;}if(change.start<start)next.push({start:change.start,end:start,owner:change.owner});if(change.end>end)next.push({start:end,end:change.end,owner:change.owner});}
   if(end!==start+1||o.base[baseCell(w,start)]!==owner)next.push({start,end,owner});
@@ -67,7 +68,7 @@ export function scaledOwnership(base,width=1000,height=1000){
   return {format:'scaled32-v1',source_width:32,source_height:32,base:[...base],overrides:[],counts:[...counts].sort((a,b)=>a[0]-b[0]).map(([owner,cells])=>({owner,cells}))};
 }
 export function ownershipCounts(w){
-  if(w.version===5)return w.ownership.counts.map(c=>[c.owner,c.cells]);
+  if(w.version>=5)return w.ownership.counts.map(c=>[c.owner,c.cells]);
   const counts=new Map();for(const owner of w.cells)if(owner)counts.set(owner,(counts.get(owner)??0)+1);
   return [...counts].sort((a,b)=>a[0]-b[0]);
 }
@@ -93,57 +94,61 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
-  if(w.version===5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
+  if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
+  if((w.version===6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
   integer(w.width, 1, 1000, 'width'); integer(w.height, 1, 1000, 'height');
   if(w.version<5){if(!Array.isArray(w.cells)||w.cells.length!==cellCount(w)||w.cells.length>LIMITS.max_cells||w.ownership!==undefined)throw new Error('board bounds');}
   else {
     const o=w.ownership;
     if(w.cells!==undefined||!o||o.format!=='scaled32-v1'||o.source_width!==32||o.source_height!==32||!Array.isArray(o.base)||o.base.length!==1024||!Array.isArray(o.overrides)||!Array.isArray(o.counts)||o.overrides.length>cellCount(w))throw new Error('v5 ownership encoding');
-    let prior=0;for(const p of o.overrides){integer(p.start,0,cellCount(w)-1,'override start');integer(p.end,1,cellCount(w),'override end');integer(p.owner,0,65535,'override owner');if(p.start>=p.end||p.start<prior)throw new Error('v5 ownership encoding');prior=p.end;}
-    const expected=new Map();for(let y=0;y<32;y++)for(let x=0;x<32;x++){const owner=o.base[y*32+x];integer(owner,0,65535,'base owner');if(owner)expected.set(owner,(expected.get(owner)??0)+sourceSpan(x,w.width,32)*sourceSpan(y,w.height,32));}
+    let prior=0;for(const p of o.overrides){integer(p.start,0,cellCount(w)-1,'override start');integer(p.end,1,cellCount(w),'override end');integer(p.owner,0,w.version===6?4294967294:65535,'override owner');if(p.start>=p.end||p.start<prior)throw new Error('v5 ownership encoding');prior=p.end;}
+    const expected=new Map();for(let y=0;y<32;y++)for(let x=0;x<32;x++){const owner=o.base[y*32+x];integer(owner,0,w.version===6?4294967294:65535,'base owner');if(owner)expected.set(owner,(expected.get(owner)??0)+sourceSpan(x,w.width,32)*sourceSpan(y,w.height,32));}
     for(const p of o.overrides){let cell=p.start;while(cell<p.end){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*o.source_width/w.width),sy=Math.floor(y*o.source_height/w.height),xEnd=Math.min(w.width,Math.ceil((sx+1)*w.width/o.source_width)),length=Math.min(xEnd-x,p.end-cell),base=o.base[sy*o.source_width+sx];if(base)expected.set(base,expected.get(base)-length);cell+=length;}if(p.owner)expected.set(p.owner,(expected.get(p.owner)??0)+p.end-p.start);}
     const expectedCounts=[...expected].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]).map(([owner,cells])=>({owner,cells}));
     if(o.counts.length!==expectedCounts.length||o.counts.some((c,i)=>c.owner!==expectedCounts[i].owner||c.cells!==expectedCounts[i].cells))throw new Error('v5 ownership counts');
   }
   validRat(w.time);
   if (cmp(w.time, rat(0)) < 0 || cmp(w.time, rat(1000000000)) > 0) throw new Error('time bounds');
-  if (w.cannons.length > LIMITS.max_cannons || w.balls.length > LIMITS.max_balls) throw new Error('entity capacity');
+  const limits=w.version===6?V6_POLICY:LIMITS;
+  if (w.cannons.length > limits.max_cannons || w.balls.length > limits.max_balls) throw new Error('entity capacity');
   const owners = new Set(), accounts = new Set(), anchors = new Set(); let last = 0;
   for (const c of w.cannons) {
-    integer(c.id, last + 1, 65535, 'cannon order'); last = c.id;
+    integer(c.id, last + 1, w.version===6?4294967294:65535, 'cannon order'); last = c.id;
     if(c.heading!==undefined){if(w.version<4)throw new Error('legacy heading');integer(c.heading,0,65535,'cannon heading');}
     integer(c.cell, 0, cellCount(w) - 1, 'anchor');
-    if (!/^[0-9a-f]{64}$/.test(c.account) || accounts.has(c.account) || anchors.has(c.cell)) throw new Error('account/anchor identity');
-    owners.add(c.id); accounts.add(c.account); anchors.add(c.cell);
+    if (!/^[0-9a-f]{64}$/.test(c.account) || w.version<6&&accounts.has(c.account) || anchors.has(c.cell)) throw new Error('account/anchor identity');
+    owners.add(w.version===6?playerForCannon(w,c.id):c.id); accounts.add(c.account); anchors.add(c.cell);
     if (w.version<5&&!connected(w.cells, w.width, w.height, c.id, c.cell,w.version===4)) throw new Error('territory disconnected');
   }
-  const represented=w.version===5?[...w.ownership.base,...w.ownership.overrides.map(p=>p.owner)]:w.cells;
+  const represented=w.version>=5?[...w.ownership.base,...w.ownership.overrides.map(p=>p.owner)]:w.cells;
   for (const owner of represented) if (!Number.isInteger(owner) || (owner !== 0 && !owners.has(owner))) throw new Error('unknown cell owner');
+  const launchers=w.version===6?new Set(w.cannons.map(c=>c.id)):owners;
   const counts = new Map(); last = 0;
   for (const b of w.balls) {
     integer(b.id, last + 1, 4294967294, 'ball order'); last = b.id;
     integer(b.cell, 0, cellCount(w) - 1, 'ball cell');
     integer(b.vx, -65536, 65536, 'vx'); integer(b.vy, -65536, 65536, 'vy');
     if (!b.vx && !b.vy) throw new Error('stationary ball');
-    if (!owners.has(b.owner) || ownerAt(w,b.cell) !== b.owner) throw new Error('ball outside owner territory');
+    const player=w.version===6?playerForCannon(w,b.owner):b.owner;
+    if (player===undefined || !launchers.has(b.owner) || !owners.has(player) || ownerAt(w,b.cell) !== player) throw new Error('ball outside owner territory');
     for (const n of [b.x0, b.y0]) if (typeof n !== 'bigint' || n < -100000000000000n || n > 100000000000000n) throw new Error('motion intercept');
     const [x, y] = position(b, w.time), cx = b.cell % w.width, cy = Math.floor(b.cell / w.width);
     if (cmp(x, rat(cx * Q)) < 0 || cmp(x, rat((cx + 1) * Q)) > 0 || cmp(y, rat(cy * Q)) < 0 || cmp(y, rat((cy + 1) * Q)) > 0)
       throw new Error('ball cell/position mismatch');
     counts.set(b.owner, (counts.get(b.owner) ?? 0) + 1);
   }
-  for (const c of w.cannons) if (!counts.get(c.id) || counts.get(c.id) > LIMITS.max_per_cannon) throw new Error('cannon ball invariant');
+  for (const c of w.cannons) if (w.version<6&&!counts.get(c.id) || (counts.get(c.id)??0) > limits.max_per_cannon) throw new Error('cannon ball invariant');
   integer(w.next_ball_id, last + 1, 4294967295, 'next ball ID');
-  integer(w.next_cannon_id, Math.max(0, ...w.cannons.map(c => c.id)) + 1, 65536, 'next cannon ID');
+  integer(w.next_cannon_id, Math.max(0, ...w.cannons.map(c => c.id)) + 1, w.version===6?4294967295:65536, 'next cannon ID');
   if (!Array.isArray(w.pending) || w.pending.length > w.balls.length) throw new Error('pending strike capacity');
   const armed = new Set(); let priorStrike = 0;
   for (const p of w.pending) {
     integer(p.id, priorStrike + 1, 4294967294, 'strike order'); priorStrike = p.id;
     if (armed.has(p.ball) || !w.balls.some(b => b.id === p.ball && b.owner === p.owner)) throw new Error('pending live ball');
     armed.add(p.ball); integer(p.from, 0, cellCount(w) - 1, 'strike origin'); integer(p.to, 0, cellCount(w) - 1, 'strike target');
-    if (!neighbors(p.from, w.width, w.height,w.version>=4).includes(p.to) || p.owner === p.defender || p.defender === 0) throw new Error('strike edge');
+    if (!neighbors(p.from, w.width, w.height,w.version>=4).includes(p.to) || (w.version===6?playerForCannon(w,p.owner):p.owner) === p.defender || p.defender === 0) throw new Error('strike edge');
     for (const t of [p.born, p.deadline, p.position]) validRat(t);
     if (cmp(p.born, w.time) > 0 || cmp(p.deadline, w.time) < 0 || cmp(p.deadline, p.born) <= 0) throw new Error('strike clock');
     if (p.axis !== 'x' && p.axis !== 'y') throw new Error('strike axis');
@@ -157,6 +162,7 @@ export function validateWorld(w) {
     if (s.units[0] < 0n) throw new Error('negative score');
   }
   if (w.credits.length > 1024) throw new Error('credit demonstration limit');
+  if(w.version===6)validatePlayability(w);
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }

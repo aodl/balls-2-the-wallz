@@ -1,0 +1,9 @@
+{
+  "qualification": "Pure state/time and ownership-metadata vector; no IC deployment or complete gameplay qualification",
+  "observed_ns": "9007199254740993",
+  "completed_ns": "9007216254740993",
+  "v5_sha256": "72a73e5e53072848d9b38f30000240adf65baf802da5351bbbeb81d490e14444",
+  "migration_sha256": "a08cf3dc9219b1fcabe2e8666d65d21708594e3e917ec43b1b3ea58dee9f5a2e",
+  "dormant_sha256": "8b55549bbcbb51398d19cdde597c5a96a6f2646f2e84b815279a59f5a669bc4b",
+  "revived_sha256": "a058a6346985fd61e7a12b0b98a805bbdf6827e7fbffe21c8eb81f6619ea2224"
+}

@@ -14,6 +14,7 @@ fn million_split_world() -> b2z_native::world::World {
             .map(|cell| if cell % 32 < 16 { 1 } else { 2 })
             .collect(),
         ownership: None,
+        playability: None,
         cannons: vec![
             Cannon {
                 id: 1,

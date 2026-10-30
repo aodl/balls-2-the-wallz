@@ -10,6 +10,11 @@ fn read_heading<'de, D: serde::Deserializer<'de>>(
 ) -> std::result::Result<Option<u16>, D::Error> {
     u16::deserialize(d).map(Some)
 }
+fn read_playability<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<crate::playability::State>, D::Error> {
+    crate::playability::State::deserialize(d).map(Some)
+}
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
 pub struct Cannon {
@@ -124,6 +129,12 @@ pub struct World {
     pub cells: Vec<u32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ownership: Option<ScaledOwnership>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_playability"
+    )]
+    pub playability: Option<crate::playability::State>,
     pub cannons: Vec<Cannon>,
     pub balls: Vec<Ball>,
     pub time: Rat,
@@ -175,6 +186,45 @@ pub fn position(b: &Ball, t: &Rat) -> Result<[Rat; 2]> {
     ])
 }
 impl World {
+    pub fn player_for_cannon(&self, id: u32) -> Option<u32> {
+        if self.version == 6 {
+            self.playability.as_ref()?.life(id).map(|c| c.player)
+        } else {
+            self.cannons.iter().find(|c| c.id == id).map(|c| c.id)
+        }
+    }
+    pub fn account_for_player(&self, id: u32) -> Option<&str> {
+        if self.version == 6 {
+            self.playability
+                .as_ref()?
+                .player(id)
+                .map(|p| p.account.as_str())
+        } else {
+            self.cannons
+                .iter()
+                .find(|c| c.id == id)
+                .map(|c| c.account.as_str())
+        }
+    }
+    pub fn active_cannon(&self, id: u32) -> bool {
+        self.balls.iter().any(|b| b.owner == id)
+    }
+    pub fn score_areas(&self) -> Result<Vec<(u32, usize)>> {
+        let mut areas = self.ownership_counts();
+        if let Some(state) = &self.playability {
+            areas.retain(|(player, _)| {
+                self.balls
+                    .iter()
+                    .any(|b| self.player_for_cannon(b.owner) == Some(*player))
+            });
+            for c in state.lifecycle.iter().filter(|c| c.deadline_ns.is_some()) {
+                if let Some((_, count)) = areas.iter_mut().find(|(id, _)| *id == c.player) {
+                    *count = count.checked_sub(1).ok_or("DORMANT_SCORE_ACCOUNTING")?;
+                }
+            }
+        }
+        Ok(areas)
+    }
     pub fn torus(&self) -> bool {
         self.version >= 4
     }
@@ -227,7 +277,7 @@ impl World {
         previous: u32,
         owner: u32,
     ) -> Result<()> {
-        if self.version != 5 || start >= end || end > self.cell_count() {
+        if self.version < 5 || start >= end || end > self.cell_count() {
             return Err("ownership range".into());
         }
         let base_cell = self.scaled_base_cell(start).ok_or("cell bounds")?;
@@ -401,18 +451,19 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5].contains(&self.version)
+        if ![3, 4, 5, 6].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
-            || (self.version == 5 && (self.width != 1000 || self.height != 1000))
+            || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
             || !(1..=1000).contains(&self.height)
             || (self.version < 5
                 && (self.cells.len() != self.cell_count() || self.ownership.is_some()))
-            || (self.version == 5 && (!self.cells.is_empty() || self.ownership.is_none()))
+            || (self.version >= 5 && (!self.cells.is_empty() || self.ownership.is_none()))
+            || (self.version == 6) != self.playability.is_some()
         {
             return fail("world dimensions/version");
         }
-        if self.version == 5 {
+        if self.version >= 5 {
             let o = self.ownership.as_ref().unwrap();
             if o.format != "scaled32-v1"
                 || o.source_width != 32
@@ -475,7 +526,19 @@ impl World {
         if self.time < Rat::integer(0) || self.time > Rat::integer(1_000_000_000) {
             return fail("world time");
         }
-        if self.cannons.len() > 32 || self.balls.len() > 64 {
+        if self.cannons.len()
+            > if self.version == 6 {
+                crate::playability::MAX_CANNONS
+            } else {
+                32
+            }
+            || self.balls.len()
+                > if self.version == 6 {
+                    crate::playability::MAX_BALLS
+                } else {
+                    64
+                }
+        {
             return fail("entity capacity");
         }
         let mut ids = BTreeSet::new();
@@ -485,15 +548,25 @@ impl World {
         for c in &self.cannons {
             if (self.version == 3 && c.heading.is_some())
                 || c.id <= last
-                || c.id > 65535
+                || c.id
+                    > if self.version == 6 {
+                        u32::MAX - 1
+                    } else {
+                        65535
+                    }
                 || c.cell >= self.cell_count()
                 || !account_ok(&c.account)
-                || !accounts.insert(c.account.clone())
+                || (self.version < 6 && !accounts.insert(c.account.clone()))
                 || !anchors.insert(c.cell)
             {
                 return fail("cannon identity");
             }
-            ids.insert(c.id);
+            ids.insert(if self.version == 6 {
+                self.player_for_cannon(c.id)
+                    .ok_or("unknown cannon player")?
+            } else {
+                c.id
+            });
             last = c.id;
             // v5 states are authenticated successors of a fully checked migration.
             // Connectivity is maintained by the resumable topology operation; a
@@ -517,11 +590,17 @@ impl World {
         }
         last = 0;
         for b in &self.balls {
+            let player = if self.version == 6 {
+                self.player_for_cannon(b.owner)
+            } else {
+                Some(b.owner)
+            };
             if b.id <= last
                 || b.id == u32::MAX
                 || b.cell >= self.cell_count()
-                || !ids.contains(&b.owner)
-                || self.owner(b.cell) != Some(b.owner)
+                || (self.version < 6 && !ids.contains(&b.owner))
+                || player.is_none()
+                || self.owner(b.cell) != player
                 || !(-65536..=65536).contains(&b.vx)
                 || !(-65536..=65536).contains(&b.vy)
                 || (b.vx == 0 && b.vy == 0)
@@ -547,13 +626,20 @@ impl World {
         }
         for c in &self.cannons {
             let count = self.balls.iter().filter(|b| b.owner == c.id).count();
-            if count == 0 || count > 32 {
+            if (self.version < 6 && count == 0)
+                || count
+                    > if self.version == 6 {
+                        crate::playability::MAX_PER_CANNON
+                    } else {
+                        32
+                    }
+            {
                 return fail("cannon ball invariant");
             }
         }
         if self.next_ball_id <= last
             || self.next_cannon_id <= self.cannons.iter().map(|c| c.id).max().unwrap_or(0)
-            || self.next_cannon_id > 65536
+            || (self.version < 6 && self.next_cannon_id > 65536)
         {
             return fail("next entity ID");
         }
@@ -573,7 +659,11 @@ impl World {
                 || p.from >= self.cell_count()
                 || p.to >= self.cell_count()
                 || !self.neighbors(p.from).contains(&p.to)
-                || p.owner == p.defender
+                || (if self.version == 6 {
+                    self.player_for_cannon(p.owner)
+                } else {
+                    Some(p.owner)
+                }) == Some(p.defender)
                 || p.defender == 0
                 || !matches!(p.axis.as_str(), "x" | "y")
             {
@@ -606,13 +696,21 @@ impl World {
             }
             previous = &c.account;
         }
+        if let Some(state) = &self.playability {
+            state.validate(self)?;
+        }
         Ok(())
     }
     pub fn valid_strike(&self, p: &Strike) -> bool {
         self.balls
             .iter()
             .any(|b| b.id == p.ball && b.owner == p.owner)
-            && self.owner(p.from) == Some(p.owner)
+            && self.owner(p.from)
+                == (if self.version == 6 {
+                    self.player_for_cannon(p.owner)
+                } else {
+                    Some(p.owner)
+                })
             && self.owner(p.to) == Some(p.defender)
             && !self.cannons.iter().any(|c| c.cell == p.to)
     }
@@ -623,15 +721,10 @@ impl World {
         // Propose all credit changes first: an arithmetic error never partially credits the world.
         let mut credits = self.credits.clone();
         for (id, area) in areas {
-            let account = &self
-                .cannons
-                .iter()
-                .find(|c| c.id == *id)
-                .ok_or("area owner missing")?
-                .account;
+            let account = self.account_for_player(*id).ok_or("area owner missing")?;
             // v5 retains the historic score scale: a full arena is worth 1024
             // area-time units per tick even though it now has 1,000,000 cells.
-            let delta = if self.version == 5 {
+            let delta = if self.version >= 5 {
                 Rat::new(
                     dt.0.numer() * BigInt::from(*area) * BigInt::from(1024),
                     dt.0.denom() * BigInt::from(1_000_000),
@@ -639,11 +732,11 @@ impl World {
             } else {
                 dt.mul_i(*area as i64)?
             };
-            if let Some(c) = credits.iter_mut().find(|c| &c.account == account) {
+            if let Some(c) = credits.iter_mut().find(|c| c.account == account) {
                 c.units = c.units.add(&delta)?;
             } else {
                 credits.push(Credit {
-                    account: account.clone(),
+                    account: account.to_owned(),
                     units: delta,
                 });
             }
