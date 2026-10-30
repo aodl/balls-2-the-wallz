@@ -1,4 +1,42 @@
 {
+  "spawns": {
+    "first": {
+      "placement": {
+        "cell": 165997,
+        "patch": [
+          164996,
+          164997,
+          164998,
+          165996,
+          165997,
+          165998,
+          166996,
+          166997,
+          166998
+        ],
+        "kind": 2,
+        "other": -1,
+        "checked": 1
+      },
+      "state_sha256": "8d70bc48c028c395d29b0f892f0e6dd6de9a5499ba686acc77815408273c570e",
+      "event_sha256": "a9d1ed528a76b2213bd1abb01b20d215fbb3e279c0993bf5f74c561d0b537c06",
+      "receipt_sha256": "1545f4635ee936061e967a8aab514a83ad38da98dba2fadfaeb0844386efade4"
+    },
+    "additional": {
+      "placement": {
+        "cell": 453579,
+        "patch": [
+          453579
+        ],
+        "kind": 4,
+        "other": -1,
+        "checked": 1
+      },
+      "state_sha256": "c12ed609b1b6c2f908371c87f3cf51641991a7bba49677734a61d4a826f5e5a5",
+      "event_sha256": "7332f6e7655a4cf1a36ed536244713b02b879026cff16de1443f214bd51ef494",
+      "receipt_sha256": "e037dacc124a8f1fc4f662d79502d0e84c93c5881dc204da8ab72a158a953e41"
+    }
+  },
   "scope": "Purchase helper only; no Ledger admission, simulation step or IC authenticity claim",
   "state_sha256": "8ddbb1b3048f9d9cb1628a89c7fa7e3e1467eee0b78ef899759a3f6f412912e1",
   "receipt_sha256": "ff4e196ce03c819417449bc17a6e3375ab1aa3e9000700937acbc82810e6b2aa",

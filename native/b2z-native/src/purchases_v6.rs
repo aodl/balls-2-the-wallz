@@ -3,7 +3,7 @@
 use crate::{
     playability::*,
     pricing_v6,
-    world::{position, Ball, World, Q},
+    world::{position, Ball, Cannon, World, Q},
 };
 use b2z_protocol::{v6::Command, Command as Legacy};
 use dtr_wire::{encode, hash, Int, Rat, Result};
@@ -68,6 +68,16 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
     {
         candidates.extend(world.neighbors(c.cell));
     }
+    let blocked = occupied_cells(world)?;
+    Ok(candidates
+        .into_iter()
+        .filter(|c| {
+            !blocked.contains(c) && matches!(world.owner(*c), Some(0))
+                || !blocked.contains(c) && world.owner(*c) == Some(player)
+        })
+        .collect())
+}
+fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
     let mut blocked: BTreeSet<_> = world.cannons.iter().map(|c| c.cell).collect();
     for b in &world.balls {
         let [x, y] = position(b, &world.time)?;
@@ -91,14 +101,120 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
             }
         }
     }
-    Ok(candidates
-        .into_iter()
-        .filter(|c| {
-            !blocked.contains(c) && matches!(world.owner(*c), Some(0))
-                || !blocked.contains(c) && world.owner(*c) == Some(player)
-        })
-        .collect())
+    Ok(blocked)
 }
+
+/// An isolated bounded proposal; errors never partially mutate the paid world.
+/// First placement must be the existing deterministic SpawnJob result. Further
+/// placements have a single adjacent cell, never a replacement 3x3 territory.
+pub struct Created {
+    pub world: World,
+    pub cannon: Cannon,
+    pub ball: Ball,
+    pub event: Value,
+}
+pub fn place_new(
+    world: &World,
+    account: &str,
+    amount: u64,
+    plan: &Plan,
+    placement: &crate::spawn::Placement,
+) -> Result<Created> {
+    let Plan::New {
+        angle,
+        quantity,
+        explicit,
+        cell,
+        player,
+        first,
+        ..
+    } = plan
+    else {
+        return Err("NEW_CANNON_PLAN".into());
+    };
+    let command = if *explicit {
+        Command::New {
+            angle: *angle,
+            quantity: *quantity,
+            cell: cell.map(|c| c as u32),
+        }
+    } else {
+        Command::Legacy(Legacy::Angle(*angle))
+    };
+    let memo = b2z_protocol::v6::encode(command).map_err(|_| "NEW_CANNON_PLAN")?;
+    if prepare(world, account, amount, &memo, &[])? != *plan {
+        return Err("STALE_PURCHASE_PLAN".into());
+    }
+    let patch = if *first {
+        if placement.kind != 2
+            || world.patch(placement.cell).as_ref() != Some(&placement.patch)
+            || placement.patch.iter().any(|c| world.owner(*c) != Some(0))
+        {
+            return Err("FIRST_PLACEMENT_NEUTRAL_PATCH".into());
+        }
+        placement.patch.clone()
+    } else {
+        if placement.kind != 4
+            || placement.patch != [placement.cell]
+            || cell.is_some_and(|c| c != placement.cell)
+            || !adjacent_sites(world, player.ok_or("UNKNOWN_PLAYER")?)?.contains(&placement.cell)
+        {
+            return Err("ILLEGAL_ADJACENT_SITE".into());
+        }
+        vec![placement.cell]
+    };
+    let blocked = occupied_cells(world)?;
+    if patch.iter().any(|c| blocked.contains(c)) {
+        return Err("PLACEMENT_OCCUPIED".into());
+    }
+    let previous: Vec<_> = patch
+        .iter()
+        .map(|c| world.owner(*c).ok_or("spawn patch"))
+        .collect::<std::result::Result<_, _>>()?;
+    let mut next = world.clone();
+    let s = next.playability.as_mut().ok_or("EXPECTED_V6")?;
+    let player = if let Some(id) = player {
+        *id
+    } else {
+        let id = s.next_player_id;
+        s.next_player_id = id.checked_add(1).ok_or("PLAYER_ID_EXHAUSTED")?;
+        s.players.push(Player {
+            id,
+            account: account.into(),
+        });
+        id
+    };
+    let cannon = Cannon {
+        id: next.next_cannon_id,
+        cell: placement.cell,
+        account: account.into(),
+        heading: Some(*angle),
+    };
+    next.next_cannon_id = cannon.id.checked_add(1).ok_or("CANNON_ID_EXHAUSTED")?;
+    s.lifecycle.push(Lifecycle {
+        cannon: cannon.id,
+        player,
+        generation: 1,
+        dormant_since_ns: None,
+        deadline_ns: None,
+    });
+    for c in &patch {
+        next.set_owner(*c, player)?;
+    }
+    next.cannons.push(cannon.clone());
+    let ball = crate::cursor::launch(&mut next, &cannon, *angle)?;
+    next.validate()?;
+    let event = json!({"kind":"cannon_spawned","cannon":cannon,"player":player,
+        "patch":patch,"previous_owners":previous,"placement_class":placement.kind,
+        "frontier_other":placement.other,"ball":ball});
+    Ok(Created {
+        world: next,
+        cannon,
+        ball,
+        event,
+    })
+}
+
 pub fn choose_adjacent(world: &World, player: u32, seed: &str) -> Result<Option<usize>> {
     if !crate::world::account_ok(seed) {
         return Err("spawn seed".into());

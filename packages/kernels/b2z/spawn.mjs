@@ -29,11 +29,11 @@ function reject(job, reason) {
 export function spawnStep(world, job) {
   if (job.phase === 'done') return true;
   if (job.phase === 'enumerate') {
-    const enumerateLimit=world.version===5?1024:cellCount(world);
+    const enumerateLimit=world.version>=5?1024:cellCount(world);
     if (job.scan < enumerateLimit) {
-      const probe=job.scan++,cell=world.version===5?Number(BigInt(`0x${spawnRank(job.seed,4,probe,-2).slice(0,15)}`)%BigInt(cellCount(world))):probe;
+      const probe=job.scan++,cell=world.version>=5?Number(BigInt(`0x${spawnRank(job.seed,4,probe,-2).slice(0,15)}`)%BigInt(cellCount(world))):probe;
       if (!seedPatch(cell, world.width, world.height,world.version>=4)) return false;
-      if(world.version===5){const patch=seedPatch(cell,world.width,world.height,true);if(patch.every(c=>ownerAt(world,c)===0))job.candidates.push({kind:2,cell,other:-1,rank:spawnRank(job.seed,2,cell,-1)});return false;}
+      if(world.version>=5){const patch=seedPatch(cell,world.width,world.height,true);if(patch.every(c=>ownerAt(world,c)===0))job.candidates.push({kind:2,cell,other:-1,rank:spawnRank(job.seed,2,cell,-1)});return false;}
       for (const other of neighbors(cell, world.width, world.height,world.version>=4)) {
         const a = ownerAt(world,cell), b = ownerAt(world,other);
         if (a !== b) {

@@ -1,25 +1,53 @@
 /** Versioned pure purchase planning; the enclosing cursor owns receipt admission. */
-import {decodeV6Memo,MAX_QUANTITY} from '../../protocol/memo-v6.mjs';
+import {decodeV6Memo,encodeV6Memo,MAX_QUANTITY} from '../../protocol/memo-v6.mjs';
 import {encodeCanonical,cloneCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {ballPrice,cannonPrice} from './pricing-v6.mjs';
 import {V6_POLICY,playerForCannon,revive} from './playability.mjs';
-import {ownerAt,neighbors,wrapCell,position,Q,PRELAUNCH_CONFIG} from './world.mjs';
+import {ownerAt,setOwner,validateWorld,neighbors,wrapCell,position,Q,PRELAUNCH_CONFIG} from './world.mjs';
 import {cmp,rat} from './math.mjs';
 import {launch} from './kernel.mjs';
+import {seedPatch} from './spawn.mjs';
 const U64=18446744073709551615n,U32=4294967295;
 function amount(n){if(typeof n!=='bigint'||n<0n||n>U64)throw Error('PAYMENT_AMOUNT');return n;}
 const reject=reason=>({kind:'rejected',reason});
 export const playerByAccount=(w,account)=>w.playability?.players.find(p=>p.account===account)?.id;
 export function adjacentSites(w,id){
- if(w.version!==6)throw Error('EXPECTED_V6');const sites=new Set(),blocked=new Set(w.cannons.map(c=>c.cell));
+ if(w.version!==6)throw Error('EXPECTED_V6');const sites=new Set(),blocked=occupiedCells(w);
  for(const c of w.cannons)if(playerForCannon(w,c.id)===id&&w.balls.some(b=>b.owner===c.id))for(const n of neighbors(c.cell,w.width,w.height,true))sites.add(n);
+ return [...sites].filter(c=>!blocked.has(c)&&(ownerAt(w,c)===0||ownerAt(w,c)===id)).sort((a,b)=>a-b);
+}
+function occupiedCells(w){
+ const blocked=new Set(w.cannons.map(c=>c.cell));
  for(const b of w.balls){const [x,y]=position(b,w.time),cx=b.cell%w.width,cy=Math.floor(b.cell/w.width),xs=[cx],ys=[cy];
   if(cmp(x,rat(cx*Q))===0)xs.push(cx-1);else if(cmp(x,rat((cx+1)*Q))===0)xs.push(cx+1);
   if(cmp(y,rat(cy*Q))===0)ys.push(cy-1);else if(cmp(y,rat((cy+1)*Q))===0)ys.push(cy+1);
   for(const x of xs)for(const y of ys)blocked.add(wrapCell(x,y,w.width,w.height));
  }
- return [...sites].filter(c=>!blocked.has(c)&&(ownerAt(w,c)===0||ownerAt(w,c)===id)).sort((a,b)=>a-b);
+ return blocked;
+}
+/** Isolated proposal, before enclosing cursor receipt/tally commit. */
+export function placeNew(w,account,budget,p,r){
+ if(p.kind!=='new')throw Error('NEW_CANNON_PLAN');
+ const command=p.explicit?{kind:'new',angle:p.angle,quantity:p.quantity,cell:p.cell}:{kind:'angle',value:p.angle};
+ const fresh=preparePurchase(w,account,budget,encodeV6Memo(command));
+ if(sha256(encodeCanonical(fresh))!==sha256(encodeCanonical(p)))throw Error('STALE_PURCHASE_PLAN');
+ let patch;
+ if(p.first){
+  patch=seedPatch(r.cell,w.width,w.height,true);
+  if(r.kind!==2||patch.join(',')!==r.patch.join(',')||patch.some(c=>ownerAt(w,c)!==0))throw Error('FIRST_PLACEMENT_NEUTRAL_PATCH');
+ }else{
+  if(r.kind!==4||r.patch.length!==1||r.patch[0]!==r.cell||p.cell!==null&&p.cell!==r.cell||!adjacentSites(w,p.player).includes(r.cell))throw Error('ILLEGAL_ADJACENT_SITE');
+  patch=[r.cell];
+ }
+ const blocked=occupiedCells(w);if(patch.some(c=>blocked.has(c)))throw Error('PLACEMENT_OCCUPIED');
+ const previous_owners=patch.map(c=>ownerAt(w,c)),next=cloneCanonical(w),state=next.playability;
+ let player=p.player;
+ if(player===null){player=state.next_player_id++;state.players.push({id:player,account});}
+ const cannon={id:next.next_cannon_id++,cell:r.cell,account,heading:p.angle};
+ state.lifecycle.push({cannon:cannon.id,player,generation:1});for(const c of patch)setOwner(next,c,player);next.cannons.push(cannon);
+ const ball=cloneCanonical(launch(next,cannon,p.angle));validateWorld(next);
+ return {world:next,cannon,ball,event:{kind:'cannon_spawned',cannon:cloneCanonical(cannon),player,patch,previous_owners,placement_class:r.kind,frontier_other:r.other,ball:cloneCanonical(ball)}};
 }
 export function chooseAdjacent(w,id,seed){
  if(!/^[0-9a-f]{64}$/.test(seed))throw Error('spawn seed');const ranked=adjacentSites(w,id).map(cell=>[sha256(encodeCanonical({domain:'B2Z-ADJACENT-SPAWN-06',seed,cell})),cell]);

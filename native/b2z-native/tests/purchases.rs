@@ -270,3 +270,77 @@ fn capacity_rechecked_per_item_and_unspawned_balls_are_never_charged() {
         );
     }
 }
+#[test]
+fn new_cannon_surplus_and_shared_ownership_match_js_without_partial_mutation() {
+    for first in [true, false] {
+        let w = original();
+        let account = if first {
+            "02".repeat(32)
+        } else {
+            w.cannons[0].account.clone()
+        };
+        let amount = if first { 150_000_000 } else { 450_000_000 };
+        let plan = prepare(&w, &account, amount, &memo("NEW 0 3"), &[]).unwrap();
+        let vectors = vector();
+        let v = &vectors["spawns"][if first { "first" } else { "additional" }];
+        let placement: b2z_native::spawn::Placement =
+            serde_json::from_value(v["placement"].clone()).unwrap();
+        let before = w.encode().unwrap();
+        if first {
+            let mut job = b2z_native::spawn::SpawnJob::begin("ab".repeat(32));
+            let mut work = 0;
+            while !job.step(&w).unwrap() {
+                work += 1;
+                assert!(work <= 1030);
+                if work % 64 == 0 {
+                    job = decode(&encode(&job).unwrap()).unwrap();
+                }
+            }
+            assert_eq!(
+                serde_json::to_value(job.result.as_ref().unwrap()).unwrap(),
+                v["placement"]
+            );
+            let mut old = w.clone();
+            old.version = 5;
+            old.playability = None;
+            let mut control = b2z_native::spawn::SpawnJob::begin("ab".repeat(32));
+            while !control.step(&old).unwrap() {}
+            assert_eq!(
+                encode(&job.result).unwrap(),
+                encode(&control.result).unwrap()
+            );
+        }
+        let mut proposal = place_new(&w, &account, amount, &plan, &placement).unwrap();
+        assert_eq!(w.encode().unwrap(), before);
+        let mut batch =
+            Batch::after_new(account.clone(), amount, proposal.cannon.id, &plan).unwrap();
+        while batch.stop_reason.is_none() {
+            batch.step(&mut proposal.world).unwrap();
+            batch = decode(&encode(&batch).unwrap()).unwrap();
+            proposal.world.validate().unwrap();
+        }
+        assert_eq!(proposal.world.cannons.len(), w.cannons.len() + 1);
+        assert_eq!(proposal.world.balls.len(), w.balls.len() + 3);
+        let receipt = batch.receipt().unwrap();
+        assert_eq!(receipt["actual_quantity"], 3);
+        assert_eq!(
+            serde_json::from_value::<Int>(receipt["remainder"].clone()).unwrap(),
+            Int(0.into())
+        );
+        assert_eq!(
+            batch.prices,
+            [
+                Int((if first { 100_000_000 } else { 400_000_000 }).into()),
+                Int(10_000_000.into()),
+                Int(40_000_000.into())
+            ]
+        );
+        assert_eq!(hash(&proposal.world.encode().unwrap()), v["state_sha256"]);
+        assert_eq!(hash(&encode(&proposal.event).unwrap()), v["event_sha256"]);
+        assert_eq!(hash(&encode(&receipt).unwrap()), v["receipt_sha256"]);
+        let mut invalid = placement;
+        invalid.kind = if first { 4 } else { 2 };
+        assert!(place_new(&w, &account, amount, &plan, &invalid).is_err());
+        assert_eq!(w.encode().unwrap(), before);
+    }
+}

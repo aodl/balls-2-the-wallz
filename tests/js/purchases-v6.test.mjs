@@ -2,7 +2,7 @@ import test from'node:test';import assert from'node:assert/strict';import fs fro
 import{encodeCanonical,decodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';
 import{decodeWorld,encodeWorld,validateWorld,scaledOwnership,Q}from'../../packages/kernels/b2z/world.mjs';import{stageMillionWorld}from'../../packages/kernels/b2z/migration.mjs';
 import{migratePlayability,markDormant,clearUnsupportedPlayer,life,V6_POLICY}from'../../packages/kernels/b2z/playability.mjs';
-import{encodeV6Memo,parseV6TextMemo}from'../../packages/protocol/memo-v6.mjs';import{PurchaseBatch,preparePurchase,adjacentSites,chooseAdjacent}from'../../packages/kernels/b2z/purchases-v6.mjs';
+import{encodeV6Memo,parseV6TextMemo}from'../../packages/protocol/memo-v6.mjs';import{PurchaseBatch,preparePurchase,adjacentSites,chooseAdjacent,placeNew}from'../../packages/kernels/b2z/purchases-v6.mjs';
 const f=JSON.parse(fs.readFileSync(new URL('../fixtures/b2z-torus-v4.json',import.meta.url))),vector=JSON.parse(fs.readFileSync(new URL('../fixtures/purchases-v6.json',import.meta.url)));
 const world=()=>migratePlayability(decodeWorld(stageMillionWorld(Buffer.from(f.migration.new_hex,'hex'))),9007199254740993n),memo=s=>encodeV6Memo(parseV6TextMemo(new TextEncoder().encode(s))),sha=b=>createHash('sha256').update(b).digest('hex');
 function run(w,p,budget){let b=PurchaseBatch.fire(w.cannons[0].account,budget,p);let steps=0;while(b.stop_reason===null){b.step(w);b=Object.assign(new PurchaseBatch(),decodeCanonical(encodeCanonical({...b})));b.validate(w);validateWorld(w);assert.ok(++steps<=65);}return b.receipt();}
@@ -42,5 +42,14 @@ test('per-item capacity checks charge exactly the spawned prefix at cannon/globa
   });w.next_ball_id=w.balls.length+1;w.next_cannon_id=w.cannons.length+1;validateWorld(w);
   const amount=18446744073709551615n,before=w.balls.length,p=preparePurchase(w,w.cannons[0].account,amount,memo('FIRE 1 0 2')),r=run(w,p,amount),price=10000000n*BigInt(groups[0])**2n;
   assert.equal(w.balls.length,before+1);assert.equal(r.actual_quantity,1);assert.equal(r.stop_reason,'capacity');assert.equal(r.status,'partially_applied');assert.equal(r.amount_used,price);assert.equal(r.remainder,amount-price);
+ }
+});
+test('new cannon plus surplus is atomic, account-owned and Rust/JS reproducible',()=>{
+ for(const first of[true,false]){
+  const w=world(),account=first?'02'.repeat(32):w.cannons[0].account,budget=first?150000000n:450000000n,p=preparePurchase(w,account,budget,memo('NEW 0 3')),v=vector.spawns[first?'first':'additional'],before=encodeWorld(w),created=placeNew(w,account,budget,p,v.placement);
+  assert.deepEqual(encodeWorld(w),before);const b=PurchaseBatch.afterNew(account,budget,created.cannon.id,p);while(b.stop_reason===null){b.step(created.world);validateWorld(created.world);}
+  assert.equal(created.world.cannons.length,w.cannons.length+1);assert.equal(created.world.balls.length,w.balls.length+3);assert.equal(b.receipt().actual_quantity,3);assert.equal(b.receipt().remainder,0n);assert.deepEqual(b.receipt().per_item_prices,[first?100000000n:400000000n,10000000n,40000000n]);
+  assert.equal(sha(encodeWorld(created.world)),v.state_sha256);assert.equal(sha(encodeCanonical(created.event)),v.event_sha256);assert.equal(sha(encodeCanonical(b.receipt())),v.receipt_sha256);
+  const invalid={...v.placement,kind:first?4:2};assert.throws(()=>placeNew(w,account,budget,p,invalid));assert.deepEqual(encodeWorld(w),before);
  }
 });
