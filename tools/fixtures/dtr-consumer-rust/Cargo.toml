@@ -7,7 +7,7 @@ publish = false
 [workspace]
 
 [dependencies]
-dtr-core = { git = "https://github.com/aodl/dtr.git", rev = "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68" }
-dtr-source-model = { git = "https://github.com/aodl/dtr.git", rev = "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68" }
-dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68" }
-dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68" }
+dtr-core = { git = "https://github.com/aodl/dtr.git", rev = "282d709143dacb4bca769a4d6e72b97fc93ef518" }
+dtr-source-model = { git = "https://github.com/aodl/dtr.git", rev = "282d709143dacb4bca769a4d6e72b97fc93ef518" }
+dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "282d709143dacb4bca769a4d6e72b97fc93ef518" }
+dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "282d709143dacb4bca769a4d6e72b97fc93ef518" }

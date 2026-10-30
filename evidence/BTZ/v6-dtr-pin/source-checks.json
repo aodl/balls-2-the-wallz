@@ -1,0 +1,113 @@
+{
+  "overall": "PASS",
+  "checks": [
+    {
+      "id": "b2z-naming-audit",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-policy",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-state-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "playability-purchase-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "observer-recordings",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "protocol-fixtures",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "life-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "b2z-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "spawn-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "impact-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "b2z-full-traces",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "numeric-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "coordinator-vectors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "observation-v6-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "observation-reference",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "portable-cursors",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "node-tests",
+      "status": "PASS",
+      "counts": {
+        "tests": 1464,
+        "pass": 1464,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "docs-links",
+      "status": "PASS",
+      "counts": null
+    },
+    {
+      "id": "python-tool-tests",
+      "status": "PASS",
+      "counts": {
+        "tests": 185
+      }
+    }
+  ]
+}

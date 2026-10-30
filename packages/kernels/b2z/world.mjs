@@ -2,7 +2,8 @@ import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './ec
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {cmp, rat, validRat} from './math.mjs';
-import {V6_POLICY,playerForCannon,validatePlayability} from './playability.mjs';
+import {V6_POLICY} from './playability.generated.mjs';
+import {playerForCannon,validatePlayability} from './playability.mjs';
 export const Q = 1024;
 export const LIMITS = Object.freeze({max_cells: 1024, max_width: 32, max_balls: 64, max_cannons: 32, max_per_cannon: 32, max_segment_ticks: 64});
 export const TEST_CONFIG = Object.freeze({version: 3, ...LIMITS, speed: 1024, ball_base_e8s: LEGACY_BALL_BASE_E8S,

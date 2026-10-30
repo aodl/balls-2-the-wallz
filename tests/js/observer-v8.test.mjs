@@ -13,7 +13,7 @@ import {stageMillionWorld,stageTorusMigration} from '../../packages/kernels/b2z/
 import {MILLION_IDENTITY,PRELAUNCH_IDENTITY,TORUS_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 
 const clientPackage=JSON.parse(fs.readFileSync(new URL('../../node_modules/@dtr/timeline-runtime/package.json',import.meta.url)));
-assert.equal(clientPackage.version,'0.14.0','real immutable DTR 0.14 package required');
+assert.equal(clientPackage.version,'0.15.0','published immutable DTR 0.15 package required (retaining v8 compatibility)');
 const fixture=JSON.parse(fs.readFileSync(new URL('../fixtures/b2z-torus-v4.json',import.meta.url)));
 
 function finish(host,end){

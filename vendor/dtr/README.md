@@ -1,3 +1,16 @@
+# Current generic application-checkpoint package
+
+`dtr-timeline-runtime-0.15.0.tgz` is packed from immutable published source
+https://github.com/aodl/dtr.git at `282d709143dacb4bca769a4d6e72b97fc93ef518`
+(tree `1e487a321de4f515510da01ac74ef66e4e9a71a6`). SHA-256: `22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720`.
+Pack tool: npm 11.12.1, source modes normalized to
+0644 files / 0755 directories. Package payload and clean remote consumers
+are verified separately by `tools/verify_dtr_consumers.py`.
+This generic extension adds no game-specific clock, scheduler or payment logic.
+Previous package/source records below remain historical and unchanged.
+
+---
+
 # DTR JavaScript package
 
 B2Z consumes `@dtr/timeline-runtime@0.14.0` from `dtr-timeline-runtime-0.14.0.tgz`.

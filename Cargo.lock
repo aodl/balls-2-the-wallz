@@ -25,13 +25,13 @@ dependencies = [
 
 [[package]]
 name = "dtr-core"
-version = "0.14.1-cost.1"
-source = "git+https://github.com/aodl/dtr.git?rev=77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68#77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68"
+version = "0.15.0"
+source = "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518"
 
 [[package]]
 name = "life-conformance"
-version = "0.14.1-cost.1"
-source = "git+https://github.com/aodl/dtr.git?rev=77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68#77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68"
+version = "0.15.0"
+source = "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518"
 dependencies = [
  "dtr-core",
 ]

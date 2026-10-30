@@ -1,6 +1,6 @@
 {
-  "required_rust_revision": "77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68",
-  "status": "reviewed revision published and immutably pinned; final artifact qualification pending",
-  "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.14.0.tgz",
-  "npm_archive_sha256": "ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc"
+  "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "status": "Published application-checkpoint revision; B2Z v6 integration/qualification pending",
+  "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+  "npm_archive_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720"
 }

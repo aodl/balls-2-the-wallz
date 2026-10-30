@@ -20,11 +20,15 @@ at their recorded development stages. These are development checks, not a v6
 runtime/capacity/deployment qualification. Raw results and original failed
 invocations remain under `.work/v6-*`; no historical golden was rewritten.
 
-The generic DTR application-checkpoint extension is prepared separately on
+The generic DTR application-checkpoint extension is now remotely published on
 `checkpoint/generic-application-checkpoints` at
-`282d709143dacb4bca769a4d6e72b97fc93ef518`, with its own tests. It is not yet
-published; B2Z retains the real DTR77/npm 0.14 dependency pins. Do not commit a
-nonexistent immutable revision, a path override or fabricated remote resolution.
+`282d709143dacb4bca769a4d6e72b97fc93ef518`. All five B2Z Cargo graphs resolve that
+immutable remote revision, with unrelated dependencies unchanged. The packaged
+client is 0.15.0, archive SHA-256
+`22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720`.
+Fail-closed provenance, byte-reproduced packaging and clean Rust/JS consumers pass.
+This updates development dependencies; production release 1 retains DTR77.
+No sibling override, Git URL rewrite or fabricated remote resolution is used.
 A separately pending shared-territory/unpaired-survivor policy clarification
 also affects the final mutual-destruction cleanup. Keep all paid-state and
 anti-rollback invariants while completing that integration.
