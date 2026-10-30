@@ -312,8 +312,12 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
             }
             if a.from == b.to
                 && a.to == b.from
-                && a.owner == b.defender
-                && b.owner == a.defender
+                && (if w.version == 6 {
+                    w.player_for_cannon(a.owner) == Some(b.defender)
+                        && w.player_for_cannon(b.owner) == Some(a.defender)
+                } else {
+                    a.owner == b.defender && b.owner == a.defender
+                })
                 && w.time <= a.deadline
                 && w.time <= b.deadline
                 && distance <= Rat::integer(64)
@@ -707,42 +711,9 @@ impl Cursor {
             return Ok(());
         };
         let mut b = self.world.balls[index].clone();
-        let mut pass_x = false;
-        let mut pass_y = false;
-        for t in &i.targets {
-            let pass = t.pass
-                && t.target.is_some_and(|c| {
-                    self.world.owner(c) == Some(b.owner)
-                        && !self.world.cannons.iter().any(|a| a.cell == c)
-                });
-            if t.axis == "x" {
-                pass_x = pass;
-            } else {
-                pass_y = pass;
-            }
-        }
+        let (pass_x, pass_y, vertex_blocked) = crate::geometry::passage(&self.world, &b, &i);
         let sx = b.vx.signum() as i64;
         let sy = b.vy.signum() as i64;
-        let mut vertex_blocked = false;
-        if i.crossing.x && i.crossing.y && pass_x && pass_y {
-            let diagonal = if self.world.torus() {
-                crate::world::wrap_cell(
-                    (b.cell % self.world.width) as i64 + sx,
-                    (b.cell / self.world.width) as i64 + sy,
-                    self.world.width,
-                    self.world.height,
-                )
-            } else {
-                (b.cell as i64 + sx + sy * self.world.width as i64) as usize
-            };
-            if self.world.owner(diagonal) != Some(b.owner)
-                || self.world.cannons.iter().any(|c| c.cell == diagonal)
-            {
-                pass_x = false;
-                pass_y = false;
-                vertex_blocked = true;
-            }
-        }
         let xy = position(&b, &self.world.time)?;
         if i.crossing.x && !pass_x {
             reflect(&mut b, "x", i.crossing.xwall);

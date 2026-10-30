@@ -53,3 +53,16 @@ test('new cannon plus surplus is atomic, account-owned and Rust/JS reproducible'
   const invalid={...v.placement,kind:first?4:2};assert.throws(()=>placeNew(w,account,budget,p,invalid));assert.deepEqual(encodeWorld(w),before);
  }
 });
+test('shared-owner crossing respects every cannon footprint, corners and toroidal seams',async()=>{
+ const {classify,passage}=await import('../../packages/kernels/b2z/kernel.mjs'),{nextCrossing}=await import('../../packages/kernels/b2z/geometry.mjs');
+ for(const anchor of[0,1])for(const [dx,dy]of[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
+  const base=world(),p=preparePurchase(base,base.cannons[0].account,400000000n,memo('NEW 0 1')),w=placeNew(base,base.cannons[0].account,400000000n,p,vector.spawns.additional.placement).world;
+  w.ownership=scaledOwnership(Array(1024).fill(1));w.cannons[anchor].cell=0;const b=w.balls.find(b=>b.owner===2),x=(1000-dx)%1000,y=(1000-dy)%1000;b.cell=y*1000+x;b.vx=dx*32000;b.vy=dy*32000;b.x0=BigInt(x*Q+(dx>0?Q:dx<0?0:Q/2))-BigInt(b.vx)*w.time[0];b.y0=BigInt(y*Q+(dy>0?Q:dy<0?0:Q/2))-BigInt(b.vy)*w.time[0];validateWorld(w);
+  const intent=classify(w,b,nextCrossing(b,w.width,w.time));assert.equal(intent.attack,null);assert.ok(intent.targets.every(t=>!t.capturable));assert.deepEqual(passage(w,b,intent),{passX:false,passY:false,vertexBlocked:!!(dx&&dy)});
+ }
+});
+test('friendly land passes and a cannon moved into a frozen crossing remains reflective',async()=>{
+ const {classify,passage}=await import('../../packages/kernels/b2z/kernel.mjs'),{nextCrossing}=await import('../../packages/kernels/b2z/geometry.mjs');const base=world(),p=preparePurchase(base,base.cannons[0].account,400000000n,memo('NEW 0 1')),w=placeNew(base,base.cannons[0].account,400000000n,p,vector.spawns.additional.placement).world;
+ w.ownership=scaledOwnership(Array(1024).fill(1));const b=w.balls.find(b=>b.owner===2);b.cell=100099;b.vx=32000;b.vy=0;b.x0=100n*BigInt(Q)-BigInt(b.vx)*w.time[0];b.y0=100n*BigInt(Q)+512n;validateWorld(w);const intent=classify(w,b,nextCrossing(b,w.width,w.time));assert.equal(intent.targets[0].pass,true);assert.equal(intent.attack,null);assert.equal(passage(w,b,intent).passX,true);
+ w.cannons[0].cell=100100;validateWorld(w);assert.equal(passage(w,b,intent).passX,false);assert.equal(classify(w,b,nextCrossing(b,w.width,w.time)).attack,null);
+});

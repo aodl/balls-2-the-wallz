@@ -344,3 +344,98 @@ fn new_cannon_surplus_and_shared_ownership_match_js_without_partial_mutation() {
         assert_eq!(w.encode().unwrap(), before);
     }
 }
+#[test]
+fn shared_owner_cannon_footprints_reflect_edges_corners_and_seams() {
+    use b2z_native::geometry::{classify, next_crossing, passage};
+    for anchor in [0, 1] {
+        for (dx, dy) in [
+            (1, 0),
+            (-1, 0),
+            (0, 1),
+            (0, -1),
+            (1, 1),
+            (1, -1),
+            (-1, 1),
+            (-1, -1),
+        ] {
+            let base = original();
+            let account = &base.cannons[0].account;
+            let plan = prepare(&base, account, 400_000_000, &memo("NEW 0 1"), &[]).unwrap();
+            let placement =
+                serde_json::from_value(vector()["spawns"]["additional"]["placement"].clone())
+                    .unwrap();
+            let mut w = place_new(&base, account, 400_000_000, &plan, &placement)
+                .unwrap()
+                .world;
+            w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
+            w.cannons[anchor].cell = 0;
+            let time = w.time.0.to_integer();
+            let b = w.balls.iter_mut().find(|b| b.owner == 2).unwrap();
+            let x = (1000 - dx) % 1000;
+            let y = (1000 - dy) % 1000;
+            b.cell = (y * 1000 + x) as usize;
+            b.vx = (dx * 32000) as i32;
+            b.vy = (dy * 32000) as i32;
+            b.x0 = Int((x * Q
+                + if dx > 0 {
+                    Q
+                } else if dx < 0 {
+                    0
+                } else {
+                    Q / 2
+                })
+            .into());
+            b.x0.0 -= &time * b.vx;
+            b.y0 = Int((y * Q
+                + if dy > 0 {
+                    Q
+                } else if dy < 0 {
+                    0
+                } else {
+                    Q / 2
+                })
+            .into());
+            b.y0.0 -= &time * b.vy;
+            w.validate().unwrap();
+            let b = w.balls.iter().find(|b| b.owner == 2).unwrap();
+            let i = classify(&w, b, next_crossing(b, w.width, &w.time).unwrap());
+            assert!(i.attack.is_none());
+            assert!(i.targets.iter().all(|t| !t.capturable));
+            assert_eq!(passage(&w, b, &i), (false, false, dx != 0 && dy != 0));
+        }
+    }
+}
+#[test]
+fn shared_land_passes_but_moved_cannon_revalidates_the_frozen_intent() {
+    use b2z_native::geometry::{classify, next_crossing, passage};
+    let base = original();
+    let account = &base.cannons[0].account;
+    let plan = prepare(&base, account, 400_000_000, &memo("NEW 0 1"), &[]).unwrap();
+    let placement =
+        serde_json::from_value(vector()["spawns"]["additional"]["placement"].clone()).unwrap();
+    let mut w = place_new(&base, account, 400_000_000, &plan, &placement)
+        .unwrap()
+        .world;
+    w.ownership = Some(ScaledOwnership::from_32x32(vec![1; 1024], 1000, 1000).unwrap());
+    let time = w.time.0.to_integer();
+    let b = w.balls.iter_mut().find(|b| b.owner == 2).unwrap();
+    b.cell = 100099;
+    b.vx = 32000;
+    b.vy = 0;
+    b.x0 = Int((100 * Q).into());
+    b.x0.0 -= &time * b.vx;
+    b.y0 = Int((100 * Q + Q / 2).into());
+    w.validate().unwrap();
+    let b = w.balls.iter().find(|b| b.owner == 2).unwrap();
+    let i = classify(&w, b, next_crossing(b, w.width, &w.time).unwrap());
+    assert!(i.targets[0].pass);
+    assert!(i.attack.is_none());
+    assert!(passage(&w, b, &i).0);
+    w.cannons[0].cell = 100100;
+    w.validate().unwrap();
+    let b = w.balls.iter().find(|b| b.owner == 2).unwrap();
+    assert!(!passage(&w, b, &i).0);
+    assert!(classify(&w, b, next_crossing(b, w.width, &w.time).unwrap())
+        .attack
+        .is_none());
+}

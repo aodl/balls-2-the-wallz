@@ -62,6 +62,11 @@ pub fn next_crossing(b: &Ball, width: usize, now: &Rat) -> Result<Crossing> {
     })
 }
 pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
+    let player = if w.version == 6 {
+        w.player_for_cannon(b.owner)
+    } else {
+        Some(b.owner)
+    };
     let mut targets = Vec::new();
     for (axis, active) in [("x", crossing.x), ("y", crossing.y)] {
         if !active {
@@ -81,8 +86,8 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         targets.push(Target {
             axis: axis.into(),
             target,
-            pass: target.is_some() && defender == b.owner && !anchor,
-            capturable: target.is_some() && defender != b.owner && !anchor,
+            pass: target.is_some() && player == Some(defender) && !anchor,
+            capturable: target.is_some() && player.is_some() && player != Some(defender) && !anchor,
             defender,
         });
     }
@@ -99,6 +104,46 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         attack,
     }
 }
+/// Revalidate frozen crossing intent against current ownership and cannon cells.
+/// All cannon anchors remain reflective, including friendly and dormant ones.
+pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
+    let player = if w.version == 6 {
+        w.player_for_cannon(b.owner)
+    } else {
+        Some(b.owner)
+    };
+    let mut x = false;
+    let mut y = false;
+    for t in &i.targets {
+        let pass = t.pass
+            && t.target
+                .is_some_and(|c| w.owner(c) == player && !w.cannons.iter().any(|a| a.cell == c));
+        if t.axis == "x" {
+            x = pass;
+        } else {
+            y = pass;
+        }
+    }
+    if i.crossing.x && i.crossing.y && x && y {
+        let sx = b.vx.signum() as i64;
+        let sy = b.vy.signum() as i64;
+        let cell = if w.torus() {
+            crate::world::wrap_cell(
+                (b.cell % w.width) as i64 + sx,
+                (b.cell / w.width) as i64 + sy,
+                w.width,
+                w.height,
+            )
+        } else {
+            (b.cell as i64 + sx + sy * w.width as i64) as usize
+        };
+        if w.owner(cell) != player || w.cannons.iter().any(|c| c.cell == cell) {
+            return (false, false, true);
+        }
+    }
+    (x, y, false)
+}
+
 pub fn reflect(b: &mut Ball, axis: &str, wall: i64) {
     if axis == "x" {
         b.x0.0 = BigInt::from(2 * wall) - &b.x0.0;

@@ -1,3 +1,4 @@
+import {playerForCannon} from './playability.mjs';
 /** Version 3 reference. Pure logical-time gameplay; no IC calls or presentation authority. */
 import {ascii, be, concat, hex, Reader, unhex, uint} from '../../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
@@ -61,21 +62,31 @@ function mutation(world, payment, moved, config) {
     return {reason: 'BALL_CAPACITY'};
   return {reason: 'ACCEPTED', kind: 'ball_spawned', cannon: cannon.id, ball: cloneCanonical(launch(world, cannon, command.value)),...(world.version>=4?{heading:command.value}:{})};
 }
-function classify(world, ball, crossing) {
+export function classify(world, ball, crossing) {
+  const player=world.version===6?playerForCannon(world,ball.owner):ball.owner;
   const cx = ball.cell % world.width, cy = Math.floor(ball.cell / world.width), targets = [];
   for (const axis of ['x', 'y']) if (crossing[axis]) {
     const x = cx + (axis === 'x' ? Math.sign(ball.vx) : 0), y = cy + (axis === 'y' ? Math.sign(ball.vy) : 0);
     const target = world.version>=4?wrapCell(x,y,world.width,world.height):x < 0 || y < 0 || x >= world.width || y >= world.height ? null : y * world.width + x;
     const cannon = target !== null && world.cannons.some(c => c.cell === target);
-    const defender=target===null?0:ownerAt(world,target),pass=target!==null&&defender===ball.owner&&!cannon;
-    targets.push({axis, target, pass, capturable: target !== null && !cannon && defender !== ball.owner, defender});
+    const defender=target===null?0:ownerAt(world,target),pass=target!==null&&defender===player&&!cannon;
+    targets.push({axis, target, pass, capturable: target !== null && !cannon && player!==undefined&&defender !== player, defender});
   }
   const attack = targets.filter(t => t.capturable).sort((a, b) => a.target - b.target)[0] ?? null;
   return {...crossing, owner: ball.owner, cell: ball.cell, targets, attack};
 }
-function validStrike(world, p) {
+export function passage(world,b,i){
+ const player=world.version===6?playerForCannon(world,b.owner):b.owner;
+ let passX=false,passY=false;
+ for(const t of i.targets){const pass=t.pass&&ownerAt(world,t.target)===player&&!world.cannons.some(c=>c.cell===t.target);if(t.axis==='x')passX=pass;else passY=pass;}
+ if(i.x&&i.y&&passX&&passY){const sx=Math.sign(b.vx),sy=Math.sign(b.vy),diagonal=world.version>=4?wrapCell(b.cell%world.width+sx,Math.floor(b.cell/world.width)+sy,world.width,world.height):b.cell+sx+sy*world.width;
+  if(ownerAt(world,diagonal)!==player||world.cannons.some(c=>c.cell===diagonal))return {passX:false,passY:false,vertexBlocked:true};
+ }
+ return {passX,passY,vertexBlocked:false};
+}
+export function validStrike(world, p) {
   return world.balls.some(b => b.id === p.ball && b.owner === p.owner)
-    && ownerAt(world,p.from) === p.owner && ownerAt(world,p.to) === p.defender
+    && ownerAt(world,p.from) === (world.version===6?playerForCannon(world,p.owner):p.owner) && ownerAt(world,p.to) === p.defender
     && !world.cannons.some(c => c.cell === p.to);
 }
 function incomingStrike(world, intent) {
@@ -98,7 +109,7 @@ export function matchStrikes(world, incoming) {
       const b = edges[j]; if (used.has(b.ball) || a.ball === b.ball) continue;
       let distance = sub(a.position, b.position);
       if(world.version>=4){const period=BigInt((a.axis==='x'?world.height:world.width)*Q)*distance[1];const n=(distance[0]%period+period)%period;distance=[n<=period-n?n:period-n,distance[1]];}
-      if (a.from === b.to && a.to === b.from && a.owner === b.defender && b.owner === a.defender
+      if (a.from === b.to && a.to === b.from && (world.version===6?playerForCannon(world,a.owner)===b.defender&&playerForCannon(world,b.owner)===a.defender:a.owner === b.defender && b.owner === a.defender)
           && cmp(world.time, a.deadline) <= 0 && cmp(world.time, b.deadline) <= 0
           && (distance[0] < 0n ? -distance[0] : distance[0]) <= BigInt(TEST_CONFIG.annihilation_distance) * distance[1]) {
         used.add(a.ball); used.add(b.ball); pairs.push([a.ball, b.ball]); break;
@@ -220,18 +231,8 @@ export class B2zCursor {
       if (this.resolving >= this.intents.length) { this.phase = 'expire'; return; }
       const i = this.intents[this.resolving++], b = this.world.balls.find(b => b.id === i.ball);
       if (!b) return;
-      let passX = false, passY = false;
-      for (const t of i.targets) {
-        const pass = t.pass && ownerAt(this.world,t.target) === b.owner && !this.world.cannons.some(c => c.cell === t.target);
-        if (t.axis === 'x') passX = pass; else passY = pass;
-      }
-      const sx = Math.sign(b.vx), sy = Math.sign(b.vy); let vertexBlocked = false;
-      if (i.x && i.y && passX && passY) {
-        const diagonal = this.world.version>=4?wrapCell(b.cell%this.world.width+sx,Math.floor(b.cell/this.world.width)+sy,this.world.width,this.world.height):b.cell + sx + sy * this.world.width;
-        if (ownerAt(this.world,diagonal) !== b.owner || this.world.cannons.some(c => c.cell === diagonal)) {
-          passX = false; passY = false; vertexBlocked = true;
-        }
-      }
+      const {passX,passY,vertexBlocked}=passage(this.world,b,i);
+      const sx=Math.sign(b.vx),sy=Math.sign(b.vy);
       const xy = position(b, this.world.time);
       if (i.x && !passX) reflected(b, 'x', i.xwall);
       if (i.y && !passY) reflected(b, 'y', i.ywall);

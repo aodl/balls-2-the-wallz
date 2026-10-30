@@ -31,3 +31,9 @@ semantics, independent replay, installed-IC upgrade/transition rehearsal and
 capacity qualification remain application work. No mainnet change, remote push,
 package-registry publication or final runtime qualification ran for this pin.
 Production release 1 remains the installed `c7d12fd7…` module with DTR77.
+
+The exact published DTR revision also passed GitHub Actions
+[41130645749](https://github.com/aodl/dtr/actions/runs/41130645749): its standalone
+job completed JS tests, locked Rust tests, format, strict Clippy and package
+inventory successfully. The raw public job/step metadata is retained alongside
+this report. This is DTR's CI, not the future final B2Z release-2 CI gate.
