@@ -19,3 +19,8 @@ test('declaring another account, bad quantities and stale move destinations cann
 test('a dormant island quotes paid revival, forbids movement and supplies no new-cannon anchor',()=>{
  const w=world('revival'),c=w.cannons[0],q=quoteV6(w,config,c.account,{kind:'fire',cannon:c.id});assert.equal(q.pool,0);assert.equal(q.amount,10000000n);assert.equal(legalMove(w,c.account,c.id,c.cell),false);assert.deepEqual(legalAdjacentSites(w,c.account),[]);assert.throws(()=>quoteV6(w,config,c.account,{kind:'new'}),/NO_ADJACENT/);
 });
+test('a known full player capacity disables a new-account quote without blocking existing owners',()=>{
+ const w=world(),account=w.cannons[0].account;for(let id=2;id<=config.max_players;id++)w.playability.players.push({id,account:id.toString(16).padStart(64,'0')});w.playability.next_player_id=config.max_players+1;
+ assert.throws(()=>quoteV6(w,config,'ab'.repeat(32),{kind:'new'}),/ACCOUNTING_CAPACITY/);
+ assert.equal(quoteV6(w,config,account,{kind:'new'}).amount,400000000n);
+});
