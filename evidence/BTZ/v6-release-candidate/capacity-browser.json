@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "scope": "Sandboxed v6 widget checks. Synthetic data; no IC, payments or release claim.",
+  "sandbox": true,
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "checks": [
+        "identify before join",
+        "no-refresh new cannon/fire/move/dormancy/expiry",
+        "island batch prices",
+        "selected target authority boundary",
+        "persistent declaration",
+        "camera preservation",
+        "responsive toolbar/action overlay"
+      ],
+      "capacity_decode_render": {
+        "milliseconds": 1076.2000000178814,
+        "heap_before": 10000000,
+        "heap_after": 10000000,
+        "events": 2017,
+        "cannons": 128,
+        "balls": 64,
+        "players": 8,
+        "unique_claimed_cells": 996400,
+        "claimed_cells": 996400,
+        "cdp_heap_before": {
+          "usedSize": 6937396,
+          "totalSize": 14692352,
+          "embedderHeapUsedSize": 4852824,
+          "backingStorageSize": 2149727
+        },
+        "cdp_heap_after": {
+          "usedSize": 34011040,
+          "totalSize": 48566272,
+          "embedderHeapUsedSize": 1942696,
+          "backingStorageSize": 1713854
+        },
+        "heap_scope": "Unforced point samples from the owned disposable browser; performance.memory may be quantized. No sustained leak or peak-memory claim."
+      },
+      "capacity_state_sha256": "dfb74722f2ff3e161635eb7023a0395392c9b0d6ef9264490e4dc9e4db754998",
+      "capacity_events_sha256": "9634a570383932c5f7ba215a48af3ec72d97894d35fc8e6266a27cab0dab3ec1"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "checks": [
+        "identify before join",
+        "no-refresh new cannon/fire/move/dormancy/expiry",
+        "island batch prices",
+        "selected target authority boundary",
+        "persistent declaration",
+        "camera preservation",
+        "responsive toolbar/action overlay"
+      ],
+      "capacity_decode_render": {
+        "milliseconds": 778.6999999880791,
+        "heap_before": 10000000,
+        "heap_after": 10000000,
+        "events": 2017,
+        "cannons": 128,
+        "balls": 64,
+        "players": 8,
+        "unique_claimed_cells": 996400,
+        "claimed_cells": 996400,
+        "cdp_heap_before": {
+          "usedSize": 6895864,
+          "totalSize": 13905920,
+          "embedderHeapUsedSize": 4805096,
+          "backingStorageSize": 2148711
+        },
+        "cdp_heap_after": {
+          "usedSize": 42755720,
+          "totalSize": 61235200,
+          "embedderHeapUsedSize": 7073040,
+          "backingStorageSize": 4308399
+        },
+        "heap_scope": "Unforced point samples from the owned disposable browser; performance.memory may be quantized. No sustained leak or peak-memory claim."
+      },
+      "capacity_state_sha256": "dfb74722f2ff3e161635eb7023a0395392c9b0d6ef9264490e4dc9e4db754998",
+      "capacity_events_sha256": "9634a570383932c5f7ba215a48af3ec72d97894d35fc8e6266a27cab0dab3ec1"
+    }
+  ],
+  "page_errors": []
+}

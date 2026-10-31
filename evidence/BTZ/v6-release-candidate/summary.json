@@ -1,0 +1,120 @@
+{
+  "status": "NO_GO_PENDING_FINAL_GATE_AND_CI",
+  "created_utc": "2026-10-31T10:47:14.786543+00:00",
+  "functional_source": "49a35d2078e715d071c68f2312a0e04ffd018dae",
+  "normal_wasm_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "normal_sample_from_earlier_candidate": {
+    "status": "PASS",
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronisation": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true
+    },
+    "seconds": 45.16490014648438,
+    "produced_ticks_bounds": [
+      45,
+      45
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9963489314500962,
+      0.9963489314500962
+    ],
+    "admitted_ticks_per_second": 1.1070543682778846,
+    "displayed_ticks_per_second": 0.9938786038850639,
+    "buffer_conservation_error": 3.126388037344441e-13,
+    "buffer_change_ticks": 5.1115720978041,
+    "ball_count_range": [
+      4,
+      4
+    ],
+    "http_last_operation_ms": {
+      "fetch_ms": {
+        "median": 110.59999999403954,
+        "max": 5343.299999982119
+      },
+      "verify_ms": {
+        "median": 65.40000000596046,
+        "max": 142.30000001192093
+      },
+      "artifact_ms": {
+        "median": 0.699999988079071,
+        "max": 384.5
+      },
+      "derive_ms": {
+        "median": 8.800000011920929,
+        "max": 17.099999994039536
+      },
+      "catchup_ms": {
+        "median": 307.09999999403954,
+        "max": 3479.7000000178814
+      }
+    },
+    "qualification": "One complete real-time 45s Normal representative sample, not the historical sustained 900s gate or a 15-minute buffer-deficit result. All samples retained; independent timed production bounds. The original sustained-analysis code and thresholds are unchanged."
+  },
+  "final_candidate": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "stage": "Disposable Ledger/Index setup before the first publication; browser, prelude and playback measurement NOT_STARTED",
+    "recorded_at_utc": "2026-10-31T10:31:54.626454+00:00",
+    "cpu_idle_fraction": 0.0,
+    "loadavg": "20.88 22.31 18.68 9/911 808603\n",
+    "cpu_pressure": {
+      "some": {
+        "avg10": 98.99,
+        "avg60": 99.0,
+        "avg300": 98.38,
+        "total": 30476362748.0
+      },
+      "full": {
+        "avg10": 0.0,
+        "avg60": 0.0,
+        "avg300": 0.0,
+        "total": 0.0
+      }
+    },
+    "memory_available_kib": 2426600
+  },
+  "corrected_independent_replay": {
+    "status": "PASS",
+    "segments": 82,
+    "gameplay_segments": 78,
+    "application_checkpoints": 4,
+    "assigned": [
+      "3",
+      "4",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "ci": {
+    "status": "NOT_RUN",
+    "reason": "rules branch unpublished; no workflow run for functional source at read-only check",
+    "required": "six substantive jobs PASS on exact published head"
+  },
+  "raw_manifest_sha256": "73d4162bdedf44f4a0ff618c70ed68a18327789620591768094251dce7353b14",
+  "raw_location": "/home/codexdev/src/b2z-prelaunch-rules/.work",
+  "production_mutations": "NONE",
+  "deferred": {
+    "event_horizon": "disabled; 60-second fallback; ABI/subscription/health unverified",
+    "mcp_discovery": "inactive; external terms not accepted; no wallet execution",
+    "512_balls": "not qualified; actual total ball cap 64"
+  },
+  "frontend_source": "49a35d2078e715d071c68f2312a0e04ffd018dae",
+  "prepared_frontend_sha256": "ba2c84787743bddd331466a885fe223a7b0a201efecc71bb3132d243b1bcdd67",
+  "base_frontend_sha256": "da1030795eafaa02f07e4866eb21c20ba19ae5fabd9cd111b2d4e392fa4e0fd3",
+  "focused_quote_tests": {
+    "tests": 5,
+    "pass": 5,
+    "new_case": "known full player capacity disables new-account payment preparation; existing owner remains enabled"
+  },
+  "backend_and_harness_source": "0cecccd5b02efe60ef9906ee990c754ecbc39919"
+}

@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "source_commit": "0cecccd5b02efe60ef9906ee990c754ecbc39919",
+  "source_tree": "4b6e24e60924c5fd786b77512f94b50ca5677d1b",
+  "build_environment": {
+    "checkout": "/home/codexdev/src/b2z-prelaunch-rules",
+    "cargo_home": "/home/codexdev/.cargo",
+    "rustflags": {
+      "RUSTFLAGS": "",
+      "CARGO_ENCODED_RUSTFLAGS": "",
+      "CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS": ""
+    },
+    "path_packages": [
+      {
+        "name": "b2z-mechanics",
+        "id": "path+file:///home/codexdev/src/b2z-prelaunch-rules/kernels/b2z-mechanics#0.5.0"
+      },
+      {
+        "name": "b2z-native",
+        "id": "path+file:///home/codexdev/src/b2z-prelaunch-rules/native/b2z-native#0.5.0"
+      },
+      {
+        "name": "b2z-protocol",
+        "id": "path+file:///home/codexdev/src/b2z-prelaunch-rules/crates/b2z-protocol#0.5.0"
+      },
+      {
+        "name": "dtr-runtime-lab",
+        "id": "path+file:///home/codexdev/src/b2z-prelaunch-rules/canisters/runtime-lab#dtr-runtime-lab@0.5.0"
+      }
+    ],
+    "cross_directory_byte_equality": "not claimed; Cargo path package identities, Rust symbol hashes and embedded source paths vary; identify and test every installed artifact by its exact SHA-256"
+  },
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "javascript_package": {
+    "version": "0.15.0",
+    "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+    "integrity": "sha512-DV/YC5bmSSoifJqdQjFFdL1IH0QVTda/8ppbityy2vEDy0smACGZSQ+N+dM8YGiMiUeBfd4IKRq7pKfxlwsvhQ==",
+    "dependencies": {
+      "@icp-sdk/core": "6.1.0"
+    },
+    "engines": {
+      "node": ">=22.16.0"
+    }
+  },
+  "dependency_sha256": {
+    "Cargo.lock": "ada9bb4f4e3ebc77b6b0fc3f98b2677bf500097f247adf0c2fe1645aeb2f2b59",
+    "native/Cargo.lock": "bdfa74603f84fec0ff748dd0597ada80946f9a7a911fdc73dbebba1f5c89f6ff",
+    "canisters/runtime-lab/Cargo.lock": "757cf3408f5542966d808b17ccce13999d8abe88a56c79d0bcde4a45c08bc71a",
+    "tools/s09-integration/Cargo.lock": "e30755662683a9bcdce34a0f91c870e052c57ca5f417495e17899a64016890f5",
+    "tools/fixtures/dtr-consumer-rust/Cargo.lock": "136ccb0d982c40cec379f4c032692d86e95c0bbb7f44f5d04f97bdcad4498759",
+    "package-lock.json": "06c12c7a029b645e1bfb7c1aa3137664d579c9f4fbf00092f6999e7b9eda71e5",
+    "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720",
+    "dfx.json": "12de00be1b8949cde90eb299ca8f35b010aafcc6d332d66e75db3c8162153ad1",
+    "config/economics/prelaunch.json": "e45452ef0220547ea74e044afd28a2362713efaed49148d17a9d5f761e8bc147",
+    "config/rules/v6.json": "00d35637bc27d5d91c275d5899ceb0325f530ed244afd4585d4c33ac9031972c",
+    "packages/kernels/b2z/economics.generated.mjs": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+    "native/b2z-native/src/economics_generated.rs": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9",
+    "apps/b2z-observer/configuration-playability.bin": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68"
+  },
+  "memo_adapter_version_before_activation": 3,
+  "memo_adapter_version_after_v6_activation": 4,
+  "memo_format": "Historical adapters unchanged; targeted/bounded v6 Fire/New/Move only after authenticated activation; canonical BTZPAY02 unchanged",
+  "upgrade_only": true,
+  "normal_features": [],
+  "normal_exports": [
+    "memory",
+    "canister_init",
+    "canister_post_upgrade",
+    "canister_query action_quote",
+    "canister_query artifact_bundle",
+    "canister_query artifact_chunk",
+    "canister_query cannon_state",
+    "canister_query controller_funding",
+    "canister_query controller_runtime",
+    "canister_query controller_work",
+    "canister_query epoch_metadata",
+    "canister_query game_info",
+    "canister_query get_api_doc",
+    "canister_query lab_status",
+    "canister_query million_transition_status",
+    "canister_query nearby_region",
+    "canister_query observation",
+    "canister_query observation_bundle",
+    "canister_query payment_receipt",
+    "canister_query playability_transition_status",
+    "canister_query player_state",
+    "canister_query retained_artifact_chunk",
+    "canister_query retained_publication",
+    "canister_query retention_status",
+    "canister_query runtime_health",
+    "canister_query source_descriptor",
+    "canister_query torus_transition_status",
+    "canister_update commit_million_transition",
+    "canister_update commit_playability_transition",
+    "canister_update commit_torus_transition",
+    "canister_update pause_autonomous",
+    "canister_update poke",
+    "canister_update prepare_million_transition",
+    "canister_update prepare_playability_transition",
+    "canister_update prepare_torus_transition",
+    "canister_update set_funding_paused",
+    "canister_update start_autonomous",
+    "get_candid_pointer",
+    "canister_global_timer",
+    "canister_update <ic-cdk internal> timer_executor",
+    "__data_end",
+    "__heap_base"
+  ],
+  "artifacts": {
+    "generated.did": {
+      "sha256": "81fbb52ecace0566b6c78994bcff0b3637fa225830e2e7422b4432a65176835a",
+      "bytes": 11686
+    },
+    "normal.metadata.wasm": {
+      "sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+      "bytes": 3282305
+    },
+    "normal.wasm": {
+      "sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+      "bytes": 3282305
+    },
+    "upgrade-argument.did": {
+      "sha256": "71d200d8ffab1b98ab940769da680c27d48873242f3f141a4910e6e10766e84b",
+      "bytes": 3
+    }
+  },
+  "tools": {
+    "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "cargo 1.94.1 (29ea6fb6a 2026-03-24)",
+    "node": "v24.15.0",
+    "npm": "11.12.1",
+    "dfx": "dfx 0.31.0",
+    "python": "Python 3.11.14"
+  },
+  "install": "Install frozen normal.wasm explicitly. Existing funded backend: upgrade mode with empty argument only; never constructor examples or reinstall. Later test builds cannot replace the frozen copy.",
+  "observer": "Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.",
+  "world_transition": "Preserve the existing v5 state during code upgrade, then activate v6 through the exact committed predecessor. Never repeat v3-to-v4 or v4-to-v5; preserve all historical epochs. No downgrade/reset across v6.",
+  "mainnet": "NOT_RUN",
+  "remote_ci": "NOT_RUN"
+}

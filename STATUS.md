@@ -1,5 +1,16 @@
 # V6 captured replay closed; final candidate and exact-commit CI pending
 
+The final frozen normal module is
+`b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e`
+from functional source `0cecccd5b02efe60ef9906ee990c754ecbc39919`.
+The complete 1,578-test base JS suite and 192 Python checks pass, as do five
+focused quote checks after the additional player-capacity guard, native purchase/rules
+and 47 host checks. Final installed setup was stopped at 10:31 UTC with sustained
+CPU PSI around 99%, load around 23 and about 1.7 GiB available memory. No browser
+or playback window started: **BLOCKED_ENVIRONMENT**, not PASS or gameplay failure.
+Exact-commit CI and a valid final installed gate remain pending. Mainnet has not
+been changed. [Reviewed results, failures, identities and raw manifests](evidence/BTZ/v6-release-candidate/REPORT.md).
+
 The installed observer showed paid join, partial fire, revival, targeted new
 cannon/move/rejections and elapsed expiry without refreshing. Its error-free
 wire export contains 82 consecutive publications. Corrected independent replay

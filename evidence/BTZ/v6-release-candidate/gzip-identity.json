@@ -1,0 +1,8 @@
+{
+  "uncompressed_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "compressed_sha256": "d5bd1391d13a0bab7b86d3d0e5ce792e775f807a35416cb7ef4d972b5383cdb3",
+  "uncompressed_bytes": 3282305,
+  "compressed_bytes": 1029784,
+  "gzip_mtime": 0,
+  "scope": "Packaging only; exact frozen Wasm unchanged. Both checks required immediately before any authorised installation."
+}
