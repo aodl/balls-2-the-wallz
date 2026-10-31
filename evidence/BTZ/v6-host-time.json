@@ -1,0 +1,35 @@
+{
+  "scope": "Development only; no installed-IC completion-time or release qualification claim",
+  "parent_commit": "b7a06af68a05a0cab33ecf6014f265fad1fbe95d",
+  "changes": [
+    "Installed-Wasm OperationKernel supplies explicit IC time to the pure completion API; native callers without a time fact fail closed for v6",
+    "Retain the original bounded 64-entity search/resolve chunks in v6, with unchanged per-Step budget and physics",
+    "Add full simultaneous defended-wall pairing case; each ball participates once, surviving friendly ball supports both island cannons"
+  ],
+  "js_rules_and_presentation_tests": 54,
+  "native_rules_tests": 2,
+  "cross_language_full_cases": 15,
+  "runtime_native_tests": 37,
+  "wasm_target_check": "PASS",
+  "wasm_strict_clippy": "PASS",
+  "preserved_failure": "Initial wall fixture incorrectly placed a cannon at the attacked cell; the engine correctly reflected. Fixture now uses two ordinary defended cells; cannon defence remains unchanged. Original input and failed assertion preserved.",
+  "mainnet_operations": 0,
+  "source_sha256": {
+    "canisters/runtime-lab/src/operation_kernel.rs": "724d7504a67d2231dd4ca543c08b50d6ccbda18d3beae49a0dd9d8912dfdc83d",
+    "native/b2z-native/src/cursor.rs": "962cbfef19ec28ccc6cac6116a9debd7bdf53bb1af243344fec467c19e830d75",
+    "packages/kernels/b2z/kernel.mjs": "424176325b9ac428368ca22ff4c817a6bfe9fa1a387196d8eb7b148c325e218e",
+    "tools/rules_vectors.mjs": "cc4f729085d7602f4cb35f2358bd315936bab22651f446aab858737d88e37999",
+    "tests/fixtures/rules-v6.json": "eb78c7417862c91071b96815ac041fffc1afaa9709fc3bf2246f5fef220ab395",
+    "tests/js/rules-v6.test.mjs": "121e22e95a45dc66be53ea82893022561a84a5dd533c992ae26e8dc4bfa9c991"
+  },
+  "raw_sha256": {
+    ".work/v6-wall-pair-js.log": "e2ed05a9890b041c96d86dcae49fe1a770186892682b40c786e0cce8727806fa",
+    ".work/v6-wall-pair-fixture-original.json": "ee78ab0da7aa8949aa79a2609de110ca05861eb31ab1444610ae368aca19af73",
+    ".work/v6-wall-pair-js-corrected.log": "3db99a49e67cdc3f98f828ac657b824acfd4c53827d9adbcef2e1dc77cb74cca",
+    ".work/v6-bounded-chunks-js.log": "ed86046767a4b7af6d5e3ddd33d3194360776b93db35830c1f972b74c44f0932",
+    ".work/v6-bounded-chunks-native.log": "d41f3022e735c9b132855f26e4abf352fb3cd03512dd13b1d53bab6dad04d469",
+    ".work/v6-host-time-native.log": "f62e1f4fea7fd09b3128e8cbf30a3b9d4a99fe5ddec67e51755bb311abb39538",
+    ".work/v6-host-time-wasm-check.log": "8510e416747df0a654f06872f779c7caa09ca8b0ab9a30db638e37f03e0b73bc",
+    ".work/v6-host-time-clippy.log": "6ce20d96ce05561503cfadbadec4d3ff18b048aee6c3c9e8ce3f5db4c9764010"
+  }
+}

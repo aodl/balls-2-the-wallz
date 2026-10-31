@@ -281,11 +281,10 @@ export class B2zCursor {
     if (!Number.isInteger(budget) || budget < 1 || budget > 1000000) throw new Error('B2Z work budget');
     let used = 0;
     while (this.phase !== 'done' && used < budget) {
-      const batched=this.world.version===5&&(this.phase==='search'||this.phase==='resolve')?this.phase:null;
+      const batched=this.world.version>=5&&(this.phase==='search'||this.phase==='resolve')?this.phase:null;
       this.work();
-      // v5 has at most 64 balls. Treat one bounded entity pass as one durable
-      // work unit so resumable host persistence does not serialize the growing
-      // audit trail after every individual ball lookup.
+      // Keep the v5 bounded 64-entity chunk for v6. Larger populations yield
+      // between chunks; neither the per-Step budget nor physics rate changes.
       for(let n=0;batched&&n<64&&this.phase===batched;n++)this.work();
       used++;
     }

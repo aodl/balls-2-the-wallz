@@ -70,6 +70,15 @@ impl Kernel for OperationKernel {
 
     fn step(&self, bytes: &[u8], budget: usize) -> Result<(Vec<u8>, Progress)> {
         self.access(bytes, None, |entry| {
+            #[cfg(target_arch = "wasm32")]
+            let (bytes, progress, next) =
+                entry
+                    .cursor
+                    .propose_step_at(budget, CACHE_BYTES, ic_cdk::api::time())?;
+            // Native callers have no consensus clock. V6 completion fails
+            // closed there unless its explicit fact is supplied to the pure
+            // ExecutionSession API. Installed-IC tests exercise this host path.
+            #[cfg(not(target_arch = "wasm32"))]
             let (bytes, progress, next) = entry.cursor.propose_step(budget, CACHE_BYTES)?;
             if let Some(next) = next {
                 entry.digest = hash(&bytes);

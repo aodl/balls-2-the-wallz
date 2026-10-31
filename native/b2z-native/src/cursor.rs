@@ -824,13 +824,13 @@ impl Cursor {
         }
         let mut used = 0;
         while self.phase != "done" && used < budget {
-            let batched = (self.world.version == 5
+            let batched = (self.world.version >= 5
                 && matches!(self.phase.as_str(), "search" | "resolve"))
             .then(|| self.phase.clone());
             self.work()?;
-            // v5 has at most 64 balls. One bounded entity pass is one durable
-            // work unit, avoiding a full coordinator serialization after every
-            // individual lookup while preserving deterministic interruption.
+            // Preserve the v5 bounded 64-entity chunk in v6 as well. Larger
+            // populations yield between chunks; the per-Step budget stays
+            // unchanged and every topology/purchase continuation still yields.
             for _ in 0..64 {
                 if batched.as_ref() != Some(&self.phase) {
                     break;

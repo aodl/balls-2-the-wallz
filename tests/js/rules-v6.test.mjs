@@ -31,3 +31,5 @@ test('a paid zero-ball island revival cancels grace without restoring the lost t
  const {before,c,events}=execute('revival');assert.equal(before.balls.length,0);assert.equal(c.world.playability.lifecycle[0].deadline_ns,undefined);assert.equal(events.receipts[0].amount_used,10000000n);assert.equal(events.events.find(e=>e.kind==='ball_spawned').revived,true);
  assert.ok(events.events.some(e=>e.kind==='capture'),'later verified simulation can earn new territory');
 });
+
+test('simultaneous defended-wall pairing kills each participant once before capture resolution',()=>{const {c,events}=execute('wall_pair');const pairs=events.events.filter(e=>e.kind==='annihilation_cleanup');assert.equal(pairs.length,1);assert.deepEqual(pairs[0].pairs.map(p=>p.balls),[[1,3]]);assert.ok(!events.events.some(e=>e.kind==='capture_annihilation'));assert.deepEqual(c.world.balls.map(b=>b.id),[2]);assert.equal(territoryBallCount(c.world,1),1);assert.equal(territoryBallCount(c.world,2),1);});
