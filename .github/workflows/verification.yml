@@ -199,6 +199,7 @@ jobs:
             .work/ci-integration/s14-local/logs/**
             .work/ci-integration/s14-local/deployment/browser.log
             .work/ci-integration/s14-local/deployment/results.json
+            .work/ci-integration/s14-local/deployment/transition-browser/**
             .work/ci-integration/s14-local/deployment/million-*.json
             .work/ci-integration/s14-local/deployment/million-browser-*/**
             .work/ci-integration/s14-local/deployment/million-certified-checkpoint/**

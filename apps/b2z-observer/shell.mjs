@@ -1,18 +1,18 @@
 /** Local dialogs and camera gestures. Opening controls never pauses gameplay. */
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),dialogs=[...doc.querySelectorAll('dialog')];let returnFocus=null,offered=false,dismissed=false,empty=false;
- const aim=$('aim-controls');
- function placeAim(){const inline=empty&&!dismissed&&!$('play-dialog').open;$('empty-arena').hidden=!inline;const target=$(inline?'empty-aim-slot':'play-aim-slot');if(aim.parentElement!==target)target.append(aim);}
- function open(id){returnFocus=doc.activeElement;for(const d of dialogs)if(d.open)d.close();$(id).showModal();placeAim();}
+ function placeAim(){$('empty-arena').hidden=!(empty&&!dismissed&&$('play-dialog').hidden);}
+ function open(id){returnFocus=doc.activeElement;for(const d of dialogs)if(d.open)d.close();if(id==='play-dialog'){$(id).hidden=false;}else $(id).showModal();placeAim();}
  for(const b of doc.querySelectorAll('[data-dialog]'))b.addEventListener('click',()=>open(b.dataset.dialog));
- for(const b of doc.querySelectorAll('[data-close]'))b.addEventListener('click',()=>b.closest('dialog').close());
+ for(const b of doc.querySelectorAll('[data-close]'))b.addEventListener('click',()=>(b.closest('dialog')?b.closest('dialog').close():$('play-dialog').hidden=true));
  for(const d of dialogs){d.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const items=[...d.querySelectorAll('button,input,select,textarea,summary,a[href],[tabindex]')].filter(n=>!n.matches(':disabled')&&n.tabIndex>=0&&n.getClientRects().length);const first=items[0],last=items.at(-1);if(!first){e.preventDefault();d.focus();}else if(e.shiftKey&&doc.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&doc.activeElement===last){e.preventDefault();first.focus();}});d.addEventListener('close',()=>{placeAim();if(!dialogs.some(x=>x.open)){if(returnFocus?.isConnected&&returnFocus.getClientRects().length)returnFocus.focus();else $('toolbar-play').focus();}});d.addEventListener('click',e=>{const r=d.getBoundingClientRect();if(e.target===d&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))d.close();});}
  $('dismiss-empty').addEventListener('click',()=>{dismissed=true;placeAim();$('toolbar-play').focus();});
  $('empty-prepare').addEventListener('click',()=>open('play-dialog'));
- $('pick-move').addEventListener('click',()=>{$('play-dialog').close();$('board').focus();$('camera-help').textContent='Choose a highlighted owned cell. Clicking prepares a memo; it never executes a move.';});
+ $('pick-move').addEventListener('click',()=>{$('play-dialog').hidden=true;$('board').focus();$('camera-help').textContent='Choose a highlighted owned cell. Clicking prepares a memo; it never executes a move.';});
  $('fit-world').addEventListener('click',()=>camera.fit());
  $('centre-cannon').addEventListener('click',()=>{const c=onPick.selected();if(c)camera.frameCell(c.cell);});
  for(const [id,factor]of[['zoom-in',1.5],['zoom-out',1/1.5]])$(id).addEventListener('click',()=>camera.zoom(factor));
+ doc.addEventListener('keydown',e=>{if(e.key==='Escape')$('play-dialog').hidden=true;});
  const canvas=$('board'),pointers=new Map();let gesture=null;
  const point=e=>{const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
  const summary=()=>{const ps=[...pointers.values()];return {x:ps.reduce((n,p)=>n+p.x,0)/ps.length,y:ps.reduce((n,p)=>n+p.y,0)/ps.length,d:ps.length===2?Math.hypot(ps[1].x-ps[0].x,ps[1].y-ps[0].y):0};};

@@ -1,6 +1,6 @@
 import {Camera} from './camera.mjs';
 import {createShell} from './shell.mjs';
-import {createArenaRenderer,color} from './render.mjs';
+import {createArenaRenderer} from './render.mjs';
 import {createArcade,formatIcp} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
@@ -9,10 +9,13 @@ import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,time
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
+import {accountColor} from './identity.mjs';
+import {createCycleMeterView} from './cycle-health.mjs';
 import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess} from './live-delivery.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
-const arenaRenderer=createArenaRenderer();
+const arenaRenderer=createArenaRenderer(),cycleMeterView=createCycleMeterView();
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
+let minimapHidden=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
 const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),cell:(n,p)=>{
@@ -245,7 +248,7 @@ function updatePlayReference(s,world,events){
   $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
     `#${c.id}`,`${c.owned_count} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
   ])));
-  [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].className=`owner-${1+(world.cannons[i].id-1)%5}`;});
+  [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].style.color=accountColor(world.cannons[i].account);});
   arcade.render(world,s.config,s.source);
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
@@ -255,6 +258,8 @@ function updatePlayReference(s,world,events){
     const tr=row([r.position,r.account,r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase(),actionNames[r.kind]??r.kind??'—']);
     tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
   }));
+  const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.05,nominalPace(s.operational));
+  $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${own.reason}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
   $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
 }
 async function refreshOperational(now){
@@ -350,10 +355,13 @@ function updateHud(){
   $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
+  $('catching-up').hidden=!['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(p);
+  const health=s?.operational?.health;const meter=$('cycle-meter');
+  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health);meter.textContent=(estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
     for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
-      const td=document.createElement('td');td.textContent=v;if(i===0)td.className=`owner-${1+(r.id-1)%5}`;tr.append(td);
+      const td=document.createElement('td');td.textContent=v;if(i===0)td.style.color=visible.color(r.id);tr.append(td);
     }rows.push(tr);
   }$('territories').replaceChildren(...rows);$('event-label').textContent=visible?.lastEvent??'—';
 }
@@ -366,16 +374,18 @@ function draw(){
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
   if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the arena…',rect.width/2,rect.height/2);return;}
   const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
-  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
+  const locate=arcade.locate(v);if(locate!==null){camera.frameCell(v.cannons.get(locate).cell);}
+  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon());if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
   arenaRenderer.draw(ctx,v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),ratio});
+  const panel=$('play-dialog'),chosen=v.cannons.get(arcade.selectedCannon());if(!panel.hidden&&chosen){const pt=camera.screen(chosen.cell%v.width+.5,Math.floor(chosen.cell/v.width)+.5);panel.style.left=`${Math.max(8,Math.min(rect.width-320,pt.x+24))}px`;panel.style.top=`${Math.max(100,Math.min(rect.height-260,pt.y-80))}px`;}
   drawMinimap(v);
   canvas.setAttribute('aria-label',`B2Z territory arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
 function drawMinimap(v){
- const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=!camera.minimapUseful;if(map.hidden)return;
+ const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=minimapHidden||!camera.minimapUseful;if(map.hidden)return;
  const m=map.getContext('2d'),sx=map.width/v.width,sy=map.height/v.height;m.clearRect(0,0,map.width,map.height);
  m.imageSmoothingEnabled=false;m.drawImage(arenaRenderer.terrain(v).image,0,0,map.width,map.height);
- for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
+ for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':v.color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
  m.strokeStyle='#fff';m.lineWidth=1.5;for(const r of camera.minimapRects())m.strokeRect(r.x*sx,r.y*sy,r.width*sx,r.height*sy);
 }
 function frame(now){
@@ -450,3 +460,8 @@ try{
 }
 await bootstrap();
 requestAnimationFrame(frame);
+
+for(const [id,mode] of [['join-action','start'],['fire-action','ball'],['move-action','move']])$(id).addEventListener('click',()=>{arcade.action(mode);$('play-dialog').hidden=false;});
+$('show-confirmed').addEventListener('click',()=>{const s=session;if(!s?.ready||s.error||!s.previousState)return;const w=snapshot(s.previousState),time=timeNumber(w.time);if(time<s.clock.playhead)return;resetLiveClock(s,time);visible=new B2zView(w);visibleTime=time;s.presentationHandoffs=(s.presentationHandoffs??0)+1;$('show-confirmed').hidden=true;});
+
+$('toggle-minimap').addEventListener('click',()=>{minimapHidden=!minimapHidden;$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));draw();});

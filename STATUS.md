@@ -1,3 +1,17 @@
+# BTZ prelaunch release 1 installed — Conserve running, paid history preserved
+
+Both exact-commit CI runs on `a8bce5fa…` pass all six substantive jobs.
+The frozen `c7d12fd7…` normal backend and `9d50b86a…` frontend are installed;
+world v5 / publication v8, controllers, 34-node placement and paid history preserve.
+Gameplay resumed in Conserve at 0.2 ticks/s. Accepted browser heads progressed
+71710→71738 without reload; stale certified responses were rejected/recovered.
+The mainnet canary wire capture retains its real network-request FAIL; no clean
+capture/replay claim is substituted. CI capture/replay gates pass.
+Versioned batch/multiple-cannon/dormancy mechanics remain unfinished and inactive.
+[Actual deployment, scope, limitations and complete evidence](evidence/BTZ/release1-mainnet/REPORT.md).
+
+---
+
 # A2 release closed; authentic stale browser response diagnosed, local frontend fix only
 
 A2 remains installed with paid history preserved and gameplay running. One bounded

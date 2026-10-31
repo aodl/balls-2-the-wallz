@@ -8,7 +8,7 @@ from verify_s14_local import wasm_exports
 ROOT=Path(__file__).resolve().parents[1]
 DTR='77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68'
 PACKAGE_SHA='ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc'
-NORMAL_METHODS={'prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','controller_runtime','controller_funding','set_funding_paused','artifact_bundle','artifact_chunk','controller_work','lab_status','observation','observation_bundle','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
+NORMAL_METHODS={'runtime_health','get_api_doc','prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','controller_runtime','controller_funding','set_funding_paused','artifact_bundle','artifact_chunk','controller_work','lab_status','observation','observation_bundle','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def run(*command):return subprocess.check_output(command,cwd=ROOT,text=True,timeout=900).strip()
 def main():
@@ -37,6 +37,9 @@ def main():
     declared=ROOT/'canisters/runtime-lab/runtime-lab.did'
     # This application's generator prints this exact declared service.
     if (out/'generated.did').read_bytes()!=declared.read_bytes():raise SystemExit('Generated Candid differs from declared interface')
+    # Publish the checked actual service, without changing executable instructions.
+    run('ic-wasm',str(out/'normal.wasm'),'-o',str(out/'normal.metadata.wasm'),'metadata','candid:service','-f',str(out/'generated.did'),'-v','public','--keep-name-section')
+    (out/'normal.wasm').write_bytes((out/'normal.metadata.wasm').read_bytes())
     args=['node','tools/prepare_s14_init.mjs','--output',str(out/'init.did'),'--world-output',str(out/'world.bin'),'--profile-output',str(out/'launch.json')]
     if a.event_horizon:args+=['--event-horizon',a.event_horizon]
     run(*args)

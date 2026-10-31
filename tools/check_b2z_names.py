@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit current B2Z naming, with explicit immutable-byte/history exceptions."""
+"""Audit preserved B2Z paths/wire names and the approved BTZ display branding."""
 import argparse
 import collections
 import json
@@ -42,6 +42,8 @@ def main():
                 category = 'frozen fixture/recording bytes'
             elif name == 'docs/architecture/LEGACY_IDENTIFIERS.md':
                 category = 'explicit compatibility policy'
+            elif name in ('apps/b2z-observer/index.html', 'apps/b2z-observer/identity.mjs', 'canisters/runtime-lab/src/lib.rs', 'tools/verify_s14_deployment.py') and any(token in line for token in ('Balls 2 the wallZ - BTZ', '>BTZ</span>', "inner_text()=='BTZ'", 'BTZ-branding-', 'BTZ-player-colour-v1', 'BTZ-identify-v1', 'BTZ public read-only API')):
+                category = 'approved BTZ display branding and versioned preferences'
             else:
                 cleaned = TOKENS.sub('', line)
                 # Published binary magic, legacy prefixed grammar and compatibility tests.
@@ -57,6 +59,8 @@ def main():
                     cleaned = cleaned.replace("'BTZ_'", '').replace("'btz'", '')
                 if name in ('tools/reference_fixtures.py',):
                     cleaned = cleaned.replace("b'BTZ'", '')
+                branding = bool(re.search(r'\bBTZ\b', cleaned))
+                cleaned = re.sub(r'\bBTZ\b', '', cleaned)
                 if name == 'tools/verify_s14_deployment.py' and "assert 'BTZ' not in" in line:
                     cleaned = cleaned.replace("'BTZ'", '')
                 if name == 'tools/check_b2z_names.py':
@@ -65,7 +69,7 @@ def main():
                     failures.append(f'{name}:{number}: {line}')
                     continue
                 else:
-                    category = 'immutable protocol/legacy decoder/fixture metadata'
+                    category = 'approved BTZ display branding' if branding else 'immutable protocol/legacy decoder/fixture metadata'
             rows.append({'path': name, 'line': number, 'classification': category})
     result = {'status': 'FAIL' if failures else 'PASS', 'classified_occurrences': rows, 'counts': dict(collections.Counter(r['classification'] for r in rows)), 'failures': failures}
     if args.output:

@@ -5,6 +5,7 @@ import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {cmp, validRat, rat} from '../../packages/kernels/b2z/math.mjs';
 import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-projection.mjs';
+import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
@@ -52,6 +53,8 @@ export class B2zView {
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
+  color(id){const c=this.cannons.get(id);return c?accountColor(c.account):'#30415b';}
+  entityKey(){return [...this.cannons.values()].map(c=>`${c.id}:${c.account}:${c.cell}`).join('|');}
   /** Carry only ephemeral effects/status across chained segments; never game state. */
   continuePresentation(previous,time){
     if(!previous||previous===this)return;
@@ -187,7 +190,7 @@ export class SegmentPlayer {
   }
 }
 
-/** Consume only the verified finite remainder when the authoritative arena idles. */
+/** Drain only verified data when production idles or an operator pauses it. */
 export function prepareIdlePlayout(session,idle){
   const {playhead:start,available:end}=session.clock;
   if(session.operational?.run.running===false)session.productionPaused=true;
@@ -198,11 +201,12 @@ export function prepareIdlePlayout(session,idle){
     if(end>start)session.clock.append(start,end);
     session.productionPaused=false;session.idleDrain=false;
   }
-  if(idle&&!session.idleDrain&&end>start){
+  const finite=idle||session.productionPaused;
+  if(finite&&!session.idleDrain&&end>start){
     const target=Math.min(.25,(end-start)/2);
     session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
     session.clock.append(start,end);session.idleDrain=true;
-  }else if(!idle&&session.idleDrain){
+  }else if(!finite&&session.idleDrain){
     session.clock=new PlayoutClock({start,...liveSessionBufferPolicy(session),max_frame_delta:1});
     if(end>start)session.clock.append(start,end);session.idleDrain=false;
   }

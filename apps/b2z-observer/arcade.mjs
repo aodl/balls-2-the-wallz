@@ -1,5 +1,6 @@
 /** Presentation only. Inputs are provided only after the existing verifier accepts them. */
 import {describeTextMemo} from '../../packages/protocol/memo.mjs';
+import {accountIdentifier,canonicalAccount,identityStore} from './identity.mjs';
 import {heading} from '../../packages/kernels/b2z/math.mjs';
 import {cannonReference} from './play-reference.mjs';
 export function formatIcp(e8s){
@@ -10,6 +11,7 @@ export function formatIcp(e8s){
 export function transferMemo(degrees){return describeTextMemo('angle',degrees);}
 export function createArcade(doc){
   const $=id=>doc.getElementById(id),text=(id,value)=>$(id).textContent=value;
+  let declaration=null,store=null,located=null,quoteQueued=false;
   let config=null,source=null,world=null,degrees='37.5',angleValid=true,available=false,prepared=null,stale=false,drag=null;
   const mode=()=>$('action-mode').value;
   const selected=()=>world&&config?cannonReference(world,config).find(c=>String(c.id)===$('selected-cannon').value):null;
@@ -17,6 +19,9 @@ export function createArcade(doc){
   function candidate(){
     if(!config||!source||!world)return {reason:'Waiting for authenticated configuration and destination.'};
     const c=selected(),action=mode(),cell=selectedCell();
+    if(!declaration)return {reason:'Identify your funding account first. This is not login.'};
+    if(action!=='start'&&c?.account!==declaration.account)return {reason:'This cannon belongs to a different funding account.'};
+    if(action==='start'&&world.cannons.some(c=>c.account===declaration.account))return {reason:'An existing account fires from its cannon. Additional cannons require the new rules release.'};
     if(action!=='start'&&!c)return {reason:'Choose a selected cannon to inspect.'};
     if(action==='start'&&world.cannons.length>=config.max_cannons)return {reason:'The arena is at cannon capacity.'};
     if(action==='ball'&&c.next_ball_e8s===null)return {reason:'The selected cannon or arena is at ball capacity.'};
@@ -29,10 +34,12 @@ export function createArcade(doc){
   const key=c=>JSON.stringify(c,(_,v)=>typeof v==='bigint'?v.toString():v);
   function availability(){
     const current=candidate();
+    if(available&&!current.reason&&prepared&&key(current)===key(prepared))stale=false;
+    if(available&&!current.reason&&(!prepared||key(current)!==key(prepared))&&!quoteQueued){quoteQueued=true;queueMicrotask(()=>{quoteQueued=false;if(available&&!candidate().reason)$('prepare-transfer').click();});}
     $('prepare-transfer').disabled=!available||Boolean(current.reason);
     $('prepare-transfer').textContent=prepared?'Refresh transfer instructions':'Prepare transfer instructions';
     $('transfer-controls').disabled=!available||!prepared||stale;
-    text('preparation-note',!available?'Payment preparation unavailable until live destination, prices and service are verified.':stale?'Selection, price or eligibility changed. Refresh the complete instructions before copying.':current.reason??(prepared?'Instructions prepared. Later on-chain changes can still affect eligibility.':'Choose your action, then prepare the complete transfer instructions.'));
+    text('preparation-note',!available?'Payment preparation unavailable until live destination, prices and service are verified.':stale?'Quote changed. Checking the latest verified state before copying.':current.reason??(prepared?'Instructions prepared. Later on-chain changes can still affect eligibility.':'Choose an action; exact instructions update automatically.'));
   }
   function clearPreparation(){if(prepared)stale=true;else $('prepared-card').hidden=true;availability();}
   function aim(){
@@ -98,21 +105,34 @@ export function createArcade(doc){
   });
   for(const b of doc.querySelectorAll('[data-copy]'))b.addEventListener('click',async()=>{
     if(!available||!prepared||stale)return;
+    if(key(candidate())!==key(prepared)){clearPreparation();return;}
     const value=({recipient:prepared.recipient,owner:prepared.owner,text:prepared.memo,hex:prepared.hex,amount:formatIcp(prepared.amount).replace(' ICP','')})[b.dataset.copy];
     try{await navigator.clipboard.writeText(value);text('copy-feedback','Copied. Paste it into your own wallet. Nothing has been sent.');}
     catch{text('copy-feedback','Copy unavailable. Select and copy the exact value shown.');}
   });
+  function persist(){if(declaration)store?.write({...declaration,cannon:$('selected-cannon').value});}
+  function identify(){try{const principal=$('identity-principal').value.trim(),account=$('identity-account').value.trim(),sub=$('identity-subaccount').value.trim();declaration={principal:principal||null,subaccount:sub,account:account?canonicalAccount(account):accountIdentifier(principal,sub)};persist();text('identity-note','Declaration saved locally. Only a payment from this account grants authority.');$('identify-dialog').close();if(world)api.render(world,config,source);}catch(e){text('identity-note',e.message);}}
+  $('identity-save').addEventListener('click',identify);$('identity-forget').addEventListener('click',()=>{store?.forget();declaration=null;$('selected-cannon').value='';text('identity-label','Identify');clearPreparation();});
+  $('existing-player').addEventListener('change',()=>{if($('existing-player').value){$('identity-account').value=$('existing-player').value;$('identity-principal').value='';}});
+  $('selected-cannon').addEventListener('change',persist);
   aim();localMode();
-  return {
+  const api={
     render(w,c,s){
       world=w;config=c;source=s;if(!config||!source)return;
+      if(!store){let storage;try{storage=globalThis.localStorage;}catch{}store=identityStore(s.network,s.owner,storage);declaration=store.read();}
+      text('identity-label',declaration?declaration.account.slice(0,10)+'…':'Identify');
+      const people=[...new Set(w.cannons.map(c=>c.account))];$('existing-player').replaceChildren(new Option('Or select an existing player',''),...people.map(a=>new Option(a,a)));
+      const known=new Set([...$('selected-cannon').options].map(o=>o.value));
+      const mine=w.cannons.filter(c=>c.account===declaration?.account);
+      const spawned=mine.find(c=>!known.has(String(c.id)));if(spawned){located=spawned.id;if(mode()==='start'){$('action-mode').value='ball';$('cannon-choice').hidden=false;}}
+
       text('join-price',formatIcp(config.join_e8s));text('empty-price',formatIcp(config.join_e8s));
       $('players-empty').hidden=w.cannons.length>0;
       const prior=$('selected-cannon').value,placeholder=doc.createElement('option');placeholder.value='';placeholder.textContent='Choose a cannon';
       $('selected-cannon').replaceChildren(placeholder);
-      for(const c of w.cannons){const o=doc.createElement('option');o.value=String(c.id);o.textContent=`Cannon #${c.id} · ${c.account.slice(0,10)}…`;$('selected-cannon').append(o);}
-      $('selected-cannon').value=prior;cells();
-      // A publication can invalidate a card, but never silently replace its amount or memo.
+      for(const c of mine){const o=doc.createElement('option');o.value=String(c.id);o.textContent=`Cannon #${c.id} · ${c.account.slice(0,10)}…`;$('selected-cannon').append(o);}
+      $('selected-cannon').value=mine.some(c=>String(c.id)===prior)?prior:mine.some(c=>String(c.id)===declaration?.cannon)?declaration.cannon:mine.length?String(mine[0].id):'';persist();cells();
+      // Requote from the new verified revision; copying independently revalidates it.
       if(prepared&&key(candidate())!==key(prepared))stale=true;availability();
     },
     status({phase,live,verified,fresh,healthy,paused,idle=false,pace=null,transitioning=false}){
@@ -120,15 +140,18 @@ export function createArcade(doc){
       if(wasAvailable&&!available&&prepared)stale=true;availability();
       const protectedMode=pace?.admission_open===false;
       const reduced=pace&&['Cruise','Economy','Steady','Conserve','Survival','Lifeline'].includes(pace.mode);
-      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':transitioning?'Catching up':protectedMode?'Reserve protection':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?'Waiting for players':['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':reduced?pace.mode:'Live';
-      text('live-status',label);$('live-status').dataset.verified=String(['Live','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Waiting for players'].includes(label));
+      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':transitioning?'Catching up':protectedMode?'Reserve protection':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?'Waiting for players':['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':reduced?'Reduced speed':'Live';
+      text('live-status',label);$('live-status').dataset.verified=String(['Live','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Waiting for players','Reduced speed'].includes(label));
       text('payment-health',transitioning?'World transition in progress. Prepare fresh instructions after it completes.':available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':protectedMode?'Reserve protection is active. Funding recovery continues; wait before preparing a new payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
       const actual=pace?.supported_milli??pace?.nominal_milli;
-      text('arena-note',transitioning?'World transition · waiting for verified new world':protectedMode?'Reserve protection · funding maintenance remains active':idle?'Waiting for players · Index polling continues':pace?`${pace.mode} · ${(actual/1000).toFixed(2)} ticks/s${pace.performance_limited?` (target ${(pace.nominal_milli/1000).toFixed(2)})`:''}`:label);
+      text('arena-note',transitioning?'World transition · waiting for verified new world':protectedMode?'Gameplay paused to conserve cycles':idle?'Waiting for players · Index polling continues':pace?.performance_limited?'Performance slowdown':reduced?'Reduced speed to conserve cycles':pace?'Live':label);
     },
+    action(value){$('action-mode').value=value;localMode();},
+    account(){return declaration?.account??null;},
+    locate(visible){if(located!==null&&visible?.cannons.has(located)){const id=located;located=null;return id;}return null;},
     selectedCannon(){return selected()?.id??null;},
-    selectCannon(id){if(!world?.cannons.some(c=>c.id===id))return false;$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},
+    selectCannon(id){if(!world?.cannons.some(c=>c.id===id&&c.account===declaration?.account)){text('preparation-note','Opponent cannon: inspection only. Identify your own funding account to act.');return false;}$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},
     moveSelection(){const c=selected();return mode()==='move'&&c&&world?{width:world.width,height:world.height,id:c.id,cells:c.owned_cells,cell:selectedCell()}:null;},
     chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owns(cell)){if(![...$('move-cell').options].some(o=>o.value===String(cell))){const o=doc.createElement('option');o.value=String(cell);o.textContent=`Cell ${cell} · row ${Math.floor(cell/world.width)}, column ${cell%world.width}`;$('move-cell').append(o);}$('move-cell').value=String(cell);clearPreparation();return true;}return false;}
-  };
+  };return api;
 }

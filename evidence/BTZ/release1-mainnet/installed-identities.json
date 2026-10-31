@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-30T19:27:42.610Z",
+  "certificate_verification": true,
+  "backend": {
+    "id": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "module_hash": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+    "nodes": 34
+  },
+  "observer": {
+    "id": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+    "nodes": 34
+  },
+  "completed_at": "2026-10-30T19:27:51.470Z",
+  "status": "PASS"
+}

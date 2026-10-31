@@ -12,12 +12,12 @@ export class Camera {
     this.width=width;this.height=height;this.viewport={width:vw,height:vh};this.torus=torus;
     if(!this.initialized){this.fit();this.initialized=true;}else this.constrain();
   }
-  get fitScale(){return .9*Math.min(this.viewport.width/this.width,this.viewport.height/this.height);}
+  get fitScale(){return Math.max(this.viewport.width/this.width,this.viewport.height/this.height);}
   get maxScale(){return Math.max(this.fitScale*24,96);}
   frameCell(cell){if(this.width>=1000)this.scale=Math.max(this.scale,24);this.centre(cell%this.width+.5,Math.floor(cell/this.width)+.5);}
   fit(){this.x=this.width/2;this.y=this.height/2;this.scale=this.fitScale;}
   constrain(){
-    this.scale=Math.max(this.fitScale*.6,Math.min(this.maxScale,this.scale));
+    this.scale=Math.max(this.fitScale,Math.min(this.maxScale,this.scale));
     this.x=this.torus?wrap(this.x,this.width):Math.max(0,Math.min(this.width,this.x));
     this.y=this.torus?wrap(this.y,this.height):Math.max(0,Math.min(this.height,this.y));
   }
