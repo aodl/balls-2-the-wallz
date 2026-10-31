@@ -1,3 +1,19 @@
+# V6 local gate prepared; funding gates deployment only
+
+Under the latest instruction, local qualification continues despite insufficient
+production cycles. All assets are prebuilt and exact frozen backend/frontend/
+harness identities rechecked; no application or assertion changes. Five ordinary
+CI jobs pass, while installed-IC job 41205667919 is still running at the saved
+observation. Its default ignored v6 paid/browser case is not inferred to pass.
+
+Four connected sessions have acknowledged a compute hold. A separate Jupiter
+validation chain remains active outside their ownership; operator coordination
+was requested. The single next full v6 execution has not started while builds
+still overlap. Previous receipt-loss FAIL remains unchanged. No live operations.
+[Exact preparation, artifact review and remaining gate](evidence/BTZ/v6-gate-closeout/PREPARATION.md).
+
+---
+
 # Rules branch published; fresh production funding guard blocks release
 
 Remote `release/btz-prelaunch-rules` now matches `3bddd88` and exact-head
