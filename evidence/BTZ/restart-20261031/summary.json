@@ -1,0 +1,246 @@
+{
+  "status": "NO_GO_FINAL_BROWSER_FAILURE_AND_UNPUBLISHED_CI",
+  "created_at": "2026-10-31T11:50:54.237037+00:00",
+  "functional_source": "49a35d2078e715d071c68f2312a0e04ffd018dae",
+  "recovery_evidence_commit": "9b3bdfbfc918a8e86df14639c299d00ffd158b5e",
+  "normal_wasm_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "mainnet_frontend_sha256": "ba2c84787743bddd331466a885fe223a7b0a201efecc71bb3132d243b1bcdd67",
+  "application_changes_this_continuation": false,
+  "first_attempt": {
+    "status": "FAIL",
+    "execution": {
+      "started_utc": "2026-10-31T11:27:46.078220+00:00",
+      "finished_utc": "2026-10-31T11:32:36.274766+00:00",
+      "returncode": 101,
+      "pocketic_server_exit": null
+    },
+    "blocker": "Chromium launch failed: missing libatk-1.0.so.0. No browser/playback verdict."
+  },
+  "library_restore": {
+    "path": "/home/codexdev/.local/dtr-browser-runtime/usr/lib/x86_64-linux-gnu",
+    "smoke": "PASS sandboxed Chromium 153.0.8010.12",
+    "system_packages_or_policy_changes": false
+  },
+  "second_attempt": {
+    "status": "FAIL",
+    "execution": {
+      "started_utc": "2026-10-31T11:33:38.565728+00:00",
+      "finished_utc": "2026-10-31T11:45:02.962938+00:00",
+      "returncode": 101,
+      "pocketic_server_exit": null
+    },
+    "passed": [
+      "exact frozen normal paid-v5 upgrade with unfinished operation, retained catalogs and source preservation",
+      "NotifyPending recovery with one credit",
+      "same-session certificate-authenticated v5-to-v6 transition and dormant presentation"
+    ],
+    "failed": "join receipt row absent after 30 seconds; test exited before Normal sample, later actions, expiry/replay/reconnect",
+    "paid_batch": {
+      "balls": 4,
+      "cannons": 5,
+      "head": 43,
+      "join": 6,
+      "partial_fire": 7,
+      "revival": 8
+    },
+    "accepted_heads": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      25,
+      34,
+      64,
+      65,
+      66
+    ],
+    "resyncs": 3,
+    "visible_entities": {
+      "cannons": "5",
+      "balls": "4"
+    },
+    "current_delivery_error": null,
+    "phase": "BUFFERING",
+    "wire_finalization": {
+      "status": "FAIL",
+      "fence": null,
+      "fence_epoch_ms": 1793447097110.8867,
+      "accepted_responses": 66,
+      "pending_at_fence": [],
+      "peak_pending": 3,
+      "timeout_seconds": 15,
+      "pending_after_drain": [],
+      "drain_ms": 3.088144992943853,
+      "completed_epoch_ms": 1793447097113.9756
+    },
+    "wire_errors": [
+      "incomplete wire capture: publication fence not established"
+    ],
+    "non_200_packets": [
+      {
+        "sequence": 6,
+        "method": "observation_bundle",
+        "status": 502
+      }
+    ],
+    "slow_proxy_requests": [
+      {
+        "method": "lab_status",
+        "started_epoch_ms": 1793447059907.2876,
+        "finished_ms": 15025.400774000445,
+        "status": 502
+      },
+      {
+        "method": "lab_status",
+        "started_epoch_ms": 1793446979606.5942,
+        "finished_ms": 15024.18852999108,
+        "status": 502
+      },
+      {
+        "method": "observation_bundle",
+        "started_epoch_ms": 1793446981332.2603,
+        "finished_ms": 15022.933389001992,
+        "status": 502
+      },
+      {
+        "method": "retained_publication",
+        "started_epoch_ms": 1793447058639.8281,
+        "finished_ms": 9992.680771974847,
+        "status": 200
+      },
+      {
+        "method": "observation_bundle",
+        "started_epoch_ms": 1793447038937.8,
+        "finished_ms": 9951.993262016913,
+        "status": 200
+      },
+      {
+        "method": "observation_bundle",
+        "started_epoch_ms": 1793447078570.943,
+        "finished_ms": 9103.661559987813,
+        "status": 200
+      },
+      {
+        "method": "retained_publication",
+        "started_epoch_ms": 1793447068875.7795,
+        "finished_ms": 9039.801972015994,
+        "status": 200
+      },
+      {
+        "method": "lab_status",
+        "started_epoch_ms": 1793447081063.5347,
+        "finished_ms": 8299.169856996741,
+        "status": 200
+      },
+      {
+        "method": null,
+        "started_epoch_ms": 1793447075970.8525,
+        "finished_ms": 7584.098218008876,
+        "status": 200
+      },
+      {
+        "method": null,
+        "started_epoch_ms": 1793446966038.1772,
+        "finished_ms": 7184.278434026055,
+        "status": 200
+      }
+    ],
+    "diagnosis": "Captured head 34 still had source cursor 6; authoritative purchases completed no later than phase head 43 with source cursor 9. Observer next accepted head 64 (16-publication window starts at 49), beyond all payment-bearing publications in (34,43]. Correct entities appeared through a snapshot resync; missed receipt events cannot be invented from that snapshot. Existing UI explicitly discloses that absent old receipts are unresolved. Transport timeouts/slow queries and host contention are recorded; no exclusive attribution to application, simulator, proxy or host is established."
+  },
+  "production": {
+    "certificate_verified_metadata": {
+      "recorded_at": "2026-10-31T11:28:27.297Z",
+      "certificate_verification": true,
+      "backend": {
+        "id": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "module_hash": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "nodes": 34
+      },
+      "observer": {
+        "id": "s45ab-wiaaa-aaaar-qcifq-cai",
+        "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "nodes": 34
+      },
+      "completed_at": "2026-10-31T11:28:30.775Z",
+      "status": "PASS"
+    },
+    "authenticated_publication_capture": "/home/codexdev/src/b2z/.work/btz-prelaunch/release1-mainnet/restart-recovery/capture.json",
+    "observed_at": "2026-10-31T11:49:28.740067+00:00",
+    "liquid_cycles": "3423502782887",
+    "total_cycles": "3571680005657",
+    "guard_cycles": "3357988370090",
+    "headroom_cycles": "65514412797",
+    "run": {
+      "callback_count": "107301",
+      "completed_segments": "75869",
+      "current_segment_work": "0",
+      "generation": "27",
+      "idle": false,
+      "last_error": [],
+      "last_segment_work": "603",
+      "max_segment_work": "14005",
+      "pace": {
+        "admission_open": true,
+        "mode": "Lifeline",
+        "nominal_milli": 50,
+        "performance_limited": false,
+        "supported_milli": 50
+      },
+      "pacing_seconds": 1,
+      "publication_ticks": "1",
+      "running": true,
+      "segment_ticks": "1",
+      "total_work": "54520728",
+      "work_budget": 512,
+      "world_transition": false
+    },
+    "source_cursor": "39711127",
+    "source_error": [],
+    "source_pending_records": 0,
+    "treasury_phase": {
+      "Idle": null
+    },
+    "treasury_error": [],
+    "work": {
+      "pending_inputs": 0,
+      "phase": [],
+      "ready_manifest": [],
+      "revision": "319184",
+      "source_cursor": "39711127"
+    },
+    "observation_seconds": 1288.3048513183594,
+    "observed_net_liquid_decline_cycles": "129101844650",
+    "observed_net_decline_T_per_hour": 0.36075827880675204,
+    "known_reported_treasury_credits_changed": false,
+    "reservation_gap_changed": false,
+    "qualification": "Short net-balance observation including verification traffic, reservations/refunds and maintenance; not gross billing or a runway promise."
+  },
+  "git": {
+    "status": "BLOCKED_MISSING_CREDENTIALS",
+    "push_exit": 128,
+    "error": "fatal: could not read Username for 'https://github.com': terminal prompts disabled",
+    "default_branch_ancestor_verified": "c84b8881a84de466dc4d5a5881a8aa67a0d3e082",
+    "remote_rules_branch": "absent at latest read",
+    "ci": "NOT_RUN"
+  },
+  "production_changes": "NONE. One mistaken nonexistent controller_status update probe was rejected before canister code executed; subsequent probes used explicit --query. No pause/install/activation/upload/finance/controller operation."
+}

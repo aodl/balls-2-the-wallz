@@ -1,0 +1,273 @@
+{
+  "recorded_at": "2026-10-31T11:39:27.239127+00:00",
+  "candidate_source": "9b3bdfbfc918a8e86df14639c299d00ffd158b5e",
+  "candidate_normal_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "production_certificate_verification": {
+    "recorded_at": "2026-10-31T11:28:27.297Z",
+    "certificate_verification": true,
+    "backend": {
+      "id": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "module_hash": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+      "nodes": 34
+    },
+    "observer": {
+      "id": "s45ab-wiaaa-aaaar-qcifq-cai",
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+      "nodes": 34
+    },
+    "completed_at": "2026-10-31T11:28:30.775Z",
+    "status": "PASS"
+  },
+  "production_balance_observed_at": "2026-10-31T11:28:02.393197+00:00",
+  "production_liquid_cycles": "3552604627537",
+  "retained_release_guard_liquid_cycles": "3357988370090",
+  "headroom_at_observation": "194616257447",
+  "mode": {
+    "admission_open": true,
+    "mode": "Survival",
+    "nominal_milli": 100,
+    "performance_limited": false,
+    "supported_milli": 100
+  },
+  "source_cursor": "39711127",
+  "source_pending_records": 0,
+  "source_error": [],
+  "treasury_phase": {
+    "Idle": null
+  },
+  "first_attempt": {
+    "process_result": "FAIL",
+    "blocker": "Chromium missing libatk-1.0.so.0; no browser/playback verdict",
+    "upgrade": {
+      "candidate_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+      "cycles_after": "199910507722878",
+      "cycles_before": "199958183083364",
+      "paid_world_and_catalog_and_retained_preserved": true,
+      "pending_treasury": {
+        "halted": false,
+        "last_plan_ns": 1793442828676947074,
+        "last_refund": null,
+        "last_success": null,
+        "paused": false,
+        "phase": {
+          "NotifyPending": {
+            "attempts": 1,
+            "block_index": 5,
+            "plan": {
+              "amount_e8s": 109990000,
+              "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+              "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+              "created_at_time_ns": 1793442828676947074,
+              "fee_e8s": 10000,
+              "ledger": "dllsh-pd777-77776-qaaaa-cai",
+              "memo": 1347768404,
+              "to": [
+                86,
+                90,
+                129,
+                252,
+                58,
+                158,
+                239,
+                1,
+                139,
+                239,
+                112,
+                35,
+                240,
+                54,
+                3,
+                74,
+                31,
+                75,
+                94,
+                164,
+                2,
+                37,
+                89,
+                176,
+                68,
+                106,
+                222,
+                133,
+                230,
+                199,
+                188,
+                10
+              ]
+            }
+          }
+        },
+        "total_converted_e8s": "0",
+        "total_cycles_reported": "0"
+      },
+      "predecessor_sha256": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+      "reserved_after": "0",
+      "reserved_before": "0",
+      "status": "PASS",
+      "unfinished_operation": true,
+      "upgrade_net_debit": "47675360486"
+    },
+    "treasury": {
+      "after": {
+        "halted": false,
+        "last_error": null,
+        "last_plan_ns": 1793442828676947074,
+        "last_refund": null,
+        "last_success": {
+          "block_index": 5,
+          "completed_at_ns": 1793443128676947167,
+          "cycles": "1_000_000_000_000",
+          "plan": {
+            "amount_e8s": 109990000,
+            "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": 1793442828676947074,
+            "fee_e8s": 10000,
+            "ledger": "dllsh-pd777-77776-qaaaa-cai",
+            "memo": 1347768404,
+            "to": [
+              86,
+              90,
+              129,
+              252,
+              58,
+              158,
+              239,
+              1,
+              139,
+              239,
+              112,
+              35,
+              240,
+              54,
+              3,
+              74,
+              31,
+              75,
+              94,
+              164,
+              2,
+              37,
+              89,
+              176,
+              68,
+              106,
+              222,
+              133,
+              230,
+              199,
+              188,
+              10
+            ]
+          }
+        },
+        "lease_started_ns": 1793443128676947164,
+        "nonce": 4,
+        "observed_balance": {
+          "e8s": 110000000,
+          "observed_at_ns": 1793442828676947074
+        },
+        "observed_fee": {
+          "e8s": 10000,
+          "observed_at_ns": 1793442828676947074
+        },
+        "paused": false,
+        "phase": "Idle",
+        "total_converted_e8s": "109990000",
+        "total_cycles_reported": "1000000000000",
+        "version": 1
+      },
+      "before": {
+        "halted": false,
+        "last_error": "notify retry same block 5: CallRejected(CallRejected { raw_reject_code: 5, reject_message: \"Canister rkp4c-7iaaa-aaaaa-aaaca-cai is stopped\" })",
+        "last_plan_ns": 1793442828676947074,
+        "last_refund": null,
+        "last_success": null,
+        "lease_started_ns": 0,
+        "nonce": 3,
+        "observed_balance": {
+          "e8s": 110000000,
+          "observed_at_ns": 1793442828676947074
+        },
+        "observed_fee": {
+          "e8s": 10000,
+          "observed_at_ns": 1793442828676947074
+        },
+        "paused": false,
+        "phase": {
+          "NotifyPending": {
+            "attempts": 1,
+            "block_index": 5,
+            "plan": {
+              "amount_e8s": 109990000,
+              "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+              "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+              "created_at_time_ns": 1793442828676947074,
+              "fee_e8s": 10000,
+              "ledger": "dllsh-pd777-77776-qaaaa-cai",
+              "memo": 1347768404,
+              "to": [
+                86,
+                90,
+                129,
+                252,
+                58,
+                158,
+                239,
+                1,
+                139,
+                239,
+                112,
+                35,
+                240,
+                54,
+                3,
+                74,
+                31,
+                75,
+                94,
+                164,
+                2,
+                37,
+                89,
+                176,
+                68,
+                106,
+                222,
+                133,
+                230,
+                199,
+                188,
+                10
+              ]
+            }
+          }
+        },
+        "total_converted_e8s": "0",
+        "total_cycles_reported": "0",
+        "version": 1
+      },
+      "normal_Wasm": true,
+      "one_credit": true,
+      "origin": "exact frozen normal predecessor, genuine Ledger transaction, stopped local CMC",
+      "paid_world_and_retention_unchanged": true,
+      "status": "PASS"
+    }
+  },
+  "browser_launch_with_existing_local_libraries": "PASS sandboxed Chromium 153.0.8010.12",
+  "retry": "RUNNING; same artifact and assertions; LD_LIBRARY_PATH restored",
+  "git_publication": "BLOCKED_MISSING_WRITE_CREDENTIALS",
+  "production_state_changes": "NONE",
+  "rejected_status_probe": "Nonexistent controller_status was inadvertently sent as an update; rejected by replica without invoking canister code. Subsequent status methods explicitly used --query."
+}

@@ -1,3 +1,21 @@
+# Restart recovered; final v6 browser gate FAIL, Git publication blocked
+
+Recovered the rules worktree and committed the pending candidate evidence as
+`9b3bdfb`. The exact frozen backend passed paid-state upgrade/pending-treasury
+recovery again. Restoring the documented user-local library path fixed Chromium
+startup. The subsequent installed browser passed the authenticated v5→v6/dormancy
+handoff, then failed waiting for a join receipt: slow/timed-out queries led to
+retention-gap resyncs; the correct new entities appeared but their receipt
+publications were no longer retained. Full capture/replay/reconnect and final CI
+remain unqualified. No failure was relabelled or mainnet deployment performed.
+
+Production at 11:49 UTC remains release 1 / v5, running Lifeline with 3.4235T
+liquid, healthy source/treasury and only 0.0655T above the saved release guard.
+The rules-branch push failed because this session lacks GitHub write credentials.
+[Executed recovery, failure diagnosis and exact remaining boundaries](evidence/BTZ/restart-20261031/REPORT.md).
+
+---
+
 # V6 captured replay closed; final candidate and exact-commit CI pending
 
 The final frozen normal module is

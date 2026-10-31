@@ -1,0 +1,146 @@
+{
+  "after": {
+    "halted": false,
+    "last_error": null,
+    "last_plan_ns": 1793443184067898086,
+    "last_refund": null,
+    "last_success": {
+      "block_index": 5,
+      "completed_at_ns": 1793443484067898179,
+      "cycles": "1_000_000_000_000",
+      "plan": {
+        "amount_e8s": 109990000,
+        "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+        "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+        "created_at_time_ns": 1793443184067898086,
+        "fee_e8s": 10000,
+        "ledger": "dllsh-pd777-77776-qaaaa-cai",
+        "memo": 1347768404,
+        "to": [
+          86,
+          90,
+          129,
+          252,
+          58,
+          158,
+          239,
+          1,
+          139,
+          239,
+          112,
+          35,
+          240,
+          54,
+          3,
+          74,
+          31,
+          75,
+          94,
+          164,
+          2,
+          37,
+          89,
+          176,
+          68,
+          106,
+          222,
+          133,
+          230,
+          199,
+          188,
+          10
+        ]
+      }
+    },
+    "lease_started_ns": 1793443484067898176,
+    "nonce": 4,
+    "observed_balance": {
+      "e8s": 110000000,
+      "observed_at_ns": 1793443184067898086
+    },
+    "observed_fee": {
+      "e8s": 10000,
+      "observed_at_ns": 1793443184067898086
+    },
+    "paused": false,
+    "phase": "Idle",
+    "total_converted_e8s": "109990000",
+    "total_cycles_reported": "1000000000000",
+    "version": 1
+  },
+  "before": {
+    "halted": false,
+    "last_error": "notify retry same block 5: CallRejected(CallRejected { raw_reject_code: 5, reject_message: \"Canister rkp4c-7iaaa-aaaaa-aaaca-cai is stopped\" })",
+    "last_plan_ns": 1793443184067898086,
+    "last_refund": null,
+    "last_success": null,
+    "lease_started_ns": 0,
+    "nonce": 3,
+    "observed_balance": {
+      "e8s": 110000000,
+      "observed_at_ns": 1793443184067898086
+    },
+    "observed_fee": {
+      "e8s": 10000,
+      "observed_at_ns": 1793443184067898086
+    },
+    "paused": false,
+    "phase": {
+      "NotifyPending": {
+        "attempts": 1,
+        "block_index": 5,
+        "plan": {
+          "amount_e8s": 109990000,
+          "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+          "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+          "created_at_time_ns": 1793443184067898086,
+          "fee_e8s": 10000,
+          "ledger": "dllsh-pd777-77776-qaaaa-cai",
+          "memo": 1347768404,
+          "to": [
+            86,
+            90,
+            129,
+            252,
+            58,
+            158,
+            239,
+            1,
+            139,
+            239,
+            112,
+            35,
+            240,
+            54,
+            3,
+            74,
+            31,
+            75,
+            94,
+            164,
+            2,
+            37,
+            89,
+            176,
+            68,
+            106,
+            222,
+            133,
+            230,
+            199,
+            188,
+            10
+          ]
+        }
+      }
+    },
+    "total_converted_e8s": "0",
+    "total_cycles_reported": "0",
+    "version": 1
+  },
+  "normal_Wasm": true,
+  "one_credit": true,
+  "origin": "exact frozen normal predecessor, genuine Ledger transaction, stopped local CMC",
+  "paid_world_and_retention_unchanged": true,
+  "status": "PASS"
+}
