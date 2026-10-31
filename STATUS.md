@@ -1,3 +1,19 @@
+# Rules branch published; fresh production funding guard blocks release
+
+Remote `release/btz-prelaunch-rules` now matches `3bddd88` and exact-head
+[CI 41205667919](https://github.com/aodl/balls-2-the-wallz/actions/runs/41205667919)
+is running. Native, browser HTTP/Web Crypto and clean-consumer jobs pass at the
+saved observation; final CI success is not yet established.
+
+Fresh query-only preflight at 13:28 UTC reports 2.885064561308T liquid against
+the retained 3.357988370090T release/recovery guard: **BLOCKED_FUNDING**. Production
+remains v5, running Lifeline with healthy source/treasury and no pending work.
+The mandate's funding stop applies; no deployment, local gate restart or financial
+action occurred. The previous final browser/capture failure remains unresolved.
+[Exact shortfall, guard basis and publication/CI evidence](evidence/BTZ/published-funding-stop/REPORT.md).
+
+---
+
 # Restart recovered; final v6 browser gate FAIL, Git publication blocked
 
 Recovered the rules worktree and committed the pending candidate evidence as
