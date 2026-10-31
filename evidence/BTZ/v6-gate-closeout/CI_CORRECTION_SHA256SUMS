@@ -1,0 +1,13 @@
+179a3bce300edb430ecd695436b80a424779c35f913e1e452955c0b5bfcd3a28  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/definitive-ci/ci-artifacts.json
+5784a48ad8883df829b3c59f7970b59d53819853ef29ff36ce161604c3884442  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/definitive-ci/ci-jobs.json
+0cc3751ca13764937062fccc3ae303220af2aa345f46654e39af2356ffe39dad  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/definitive-ci/ci-installed-reviewed.json
+fa7276dc207ed6598253a1dccb3c2550242c1fdcde8e959e13621f9c98f5362c  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/definitive-ci/ci-run.json
+0ca5b16db98f2d0ee0e97751552cc6c995d29e60d19a5acbc2c46107832cc5dd  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/local-ic-evidence/download.json
+ef227935ef988237a1e13bbbeb4eb60505d55f7465bda380fb419176d09c6366  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/local-ic-evidence/artifact.zip
+98bf42adb4d9dd367b2c636bd697236ee554c069f977c6042f52b340b11c9b49  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/corrected-health/result.json
+82a4812b4db0261c24d63215b6070f714a6a6f451c9cba49e7bc748fb7e9463f  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/corrected-health/run.log
+7b2d6efdd9dce0a67171a9ad7694044008306f04b6f4c3a9435556e6a408d009  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/corrected-health/harness
+9ce4a738ac8e95d14fa9ab4515eccb317140a290f66383e73ed80fcc17ae0fc9  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/corrected-harness-build.log
+e9db5a37980b18e41aad017ecd1b424bf6d4629fe198f06788bbe2a9f2421dcd  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/corrected-harness-build.jsonl
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/harness-format-check.log
+2e1edcb65fee2d02ec593ce57d28e261075299a33002de86eb6de73acff582c5  /home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/playability-helper-tests.log

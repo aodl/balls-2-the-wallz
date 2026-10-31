@@ -566,7 +566,7 @@ def main():
             page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1')
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
-            assert page.locator('#prepared-action').inner_text()=='Add a ball'
+            assert page.locator('#prepared-action').inner_text()=='Fire balls'
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
             second_tx=wait_file(page,out/'harness-second-payment',120000)
             wait_until(page,lambda:receipt_seen(second_tx),60000)

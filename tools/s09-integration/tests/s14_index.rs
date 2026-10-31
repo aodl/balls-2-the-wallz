@@ -6947,7 +6947,8 @@ fn public_runtime_health_is_bounded_operational_and_anonymous() {
     .unwrap();
     assert!(
         doc.len() < 4096
-            && doc.contains("NOT certified gameplay")
-            && doc.contains("Controller methods are not player APIs")
+            && doc.contains("NOT certified replies")
+            && doc.contains("lab_status/runtime_health are operational queries, not certified gameplay")
+            && doc.contains("there are no refunds, payouts, transaction-signing or controller operations in this player API")
     );
 }

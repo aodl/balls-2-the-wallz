@@ -1,3 +1,20 @@
+# Definitive CI FAIL diagnosed; two test-only corrections ready
+
+CI 41205667919 finished FAIL: 49 installed checks PASS, two stale assertions FAIL
+(old “Add a ball” label and old API-doc phrases). The uploaded inventory explicitly
+ignores the full v6 paid/browser rehearsal. Five other substantive jobs PASS;
+ordinary CI is not v6 browser qualification.
+
+Only the two stale expectations change. Frozen Wasm/frontend remain exact.
+Formatting and four playback-helper tests pass; the corrected anonymous installed
+health/doc test passes against frozen `b618e4f3…`. New applicable CI and the one
+full v6 scenario remain pending. Four companion holds were released during CI
+diagnosis; an active Jupiter validation outside their ownership still needs
+operator coordination for the build-free interval. No full v6 run or live action.
+[Definitive artifacts, correction and remaining gate](evidence/BTZ/v6-gate-closeout/CI_CORRECTION.md).
+
+---
+
 # V6 local gate prepared; funding gates deployment only
 
 Under the latest instruction, local qualification continues despite insufficient
