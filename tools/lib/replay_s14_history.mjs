@@ -16,6 +16,7 @@ const emptyOutput=(state,version,events=[])=>({state,events:encodeCanonical({ver
 export function replayHistory(trace){
  check(trace.status==='PASS'&&trace.publications?.length&&Array.isArray(trace.inputs)&&Array.isArray(trace.assigned),'complete captured history required');
  const inputs=trace.inputs.map(i=>({position:BigInt(i.position),payload_hex:i.payload_hex})),artifacts=new Map();
+ check(inputs.every(i=>i.position>=0n&&i.position<=18446744073709551615n&&typeof i.payload_hex==='string'&&/^[0-9a-f]{112}$/.test(i.payload_hex))&&new Set(inputs.map(i=>String(i.position))).size===inputs.length,'bounded unique normalized inputs required');
  for(const row of trace.artifact_events??[]){const id=BigInt(row.segment_id).toString();check(!artifacts.has(id),'duplicate event artifact');artifacts.set(id,row.events_hex);}
  const eventBytes=p=>{const bytes=unhex(artifacts.get(p.head.segment_id.toString())??'');check(bytes.length>0&&bytes.length<=1048576&&sha256(bytes)===p.artifacts.find(a=>a.kind==='events')?.sha256,'missing or invalid replay event artifact at '+p.head.segment_id);return bytes;};
  let completionTime=null;
@@ -67,5 +68,6 @@ export function replayHistory(trace){
   check(equal(publication(host.publicationRecord()).data,p),'authoritative replay mismatch at '+p.head.segment_id);
  }
  check(new Set(assigned).size===assigned.length&&equal(assigned,trace.assigned.map(String)),'exactly-once assignment mismatch');
+ const retired=host.committed().source_to_exclusive,set=new Set(assigned);check(inputs.every(i=>i.position>=retired||set.has(String(i.position))),'unassigned input before completed source fence');
  return{status:'PASS',segments:trace.publications.length,gameplay_segments:segments,application_checkpoints:checkpoints,assigned,comparison:'Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture',work_budget:23};
 }

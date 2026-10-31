@@ -19,6 +19,23 @@ def response(body=b'original', identity=b'observation_bundle'):
 
 
 class CaptureSafety(unittest.TestCase):
+    def test_extra_existing_artifact_responses_are_opt_in_and_share_the_same_drain(self):
+        with tempfile.TemporaryDirectory()as d:
+            c=WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100,extra_methods=('artifact_bundle','retained_artifact_chunk'))
+            first=response();second=response(b'original chunk bytes',b'retained_artifact_chunk')
+            def nested():c.capture(second);return b'original observation'
+            first.body=nested;c.capture(first);c.finish(lambda:9);index=c.index([])
+            self.assertEqual([p['method']for p in index['packets']],['observation_bundle','retained_artifact_chunk'])
+            self.assertEqual((c.directory/'0001.cbor').read_bytes(),b'original chunk bytes')
+            self.assertEqual(index['capture_finalization']['status'],'PASS');self.assertEqual(c.peak_pending,2)
+        with tempfile.TemporaryDirectory()as d:
+            c=WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100);c.capture(response(identity=b'artifact_bundle'));c.finish(lambda:9)
+            self.assertEqual(c.sequence,0);self.assertNotIn('extra_capture_methods',c.index([]))
+
+    def test_extra_methods_cannot_expand_capture_to_other_commands(self):
+        for methods in [('install_code',),('artifact_bundle','artifact_bundle'),['artifact_bundle']]:
+            with tempfile.TemporaryDirectory()as d,self.assertRaises(ValueError):WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100,extra_methods=methods)
+
     def test_reentrant_body_reads_reserve_unique_order_before_yield(self):
         with tempfile.TemporaryDirectory()as d:
             c=WireCapture(Page(),Path(d)/'wire',max_packets=4,max_bytes=100)

@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "scope": "Capture lifecycle/reconstruction development regression; unsigned synthetic CBOR content fixtures are not IC authenticity evidence",
+  "python_capture_tests": 10,
+  "node_capture_and_replay_tests": 10,
+  "sandboxed_browser_cases": 8,
+  "bounds": "Existing packet/byte/drain limits preserved. Optional capture only of already issued artifact methods; no new requests. Output history refuses overwrite.",
+  "default_legacy_capture": "Unchanged methods/fence/lifecycle/failure handling; original 80-publication v5 parser unchanged",
+  "retained_failure": "Missing-publication test expected the later gap guard; earlier minimum-history guard rejected it correctly. Expectation corrected; original log retained.",
+  "preserved_negative_cases": [
+    "body SHA mismatch",
+    "malformed CBOR/Candid",
+    "missing catalogs/event bytes",
+    "callback/file overlap",
+    "HTTP error",
+    "incomplete/failed finalisation",
+    "cancellation/timeout/closed target",
+    "duplicate source input",
+    "conflicting context"
+  ],
+  "normal_typed_fallback_errors": "Retained explicitly in query_reply_errors, never silently dropped; complete verified fallback bytes still required",
+  "remaining": "Wire exporter must still be invoked by the consolidated installed/browser scenario; no v6 live qualification or deployment claimed",
+  "production_mutations": false,
+  "files": [
+    {
+      "path": ".work/v6-wire-history-node.log",
+      "sha256": "a39701bfec90c8f299a4afa147479c823495cd2a0e57c2745e29d239d5c8b0d5",
+      "bytes": 2590
+    },
+    {
+      "path": ".work/v6-wire-history-node-corrected.log",
+      "sha256": "bc0903178b31f4d37449f6f7f120f478e0ac7242d3c291d255a9b002333362b7",
+      "bytes": 1126
+    },
+    {
+      "path": ".work/v6-wire-history-python.log",
+      "sha256": "58a520a024f15707222afe6575db8a3a9dbe7469c2c156ae0f9979903d48645a",
+      "bytes": 109
+    },
+    {
+      "path": ".work/v6-wire-capture-browser/results.json",
+      "sha256": "0ffc161d2f94387cb444500733ac3e28a5f9daa3f99bd081b3e205104d6b7467",
+      "bytes": 3412
+    },
+    {
+      "path": "tools/wire_capture.py",
+      "sha256": "ff747393a292045182f4c17e0e13910dd4ff1a625e932a0ef1a29f80eadba886",
+      "bytes": 9533
+    },
+    {
+      "path": "tools/lib/playability_capture_history.mjs",
+      "sha256": "148c9cb989afa1690da35ce5ee14eea4fe025892b755863d1e8e9b13a7f41002",
+      "bytes": 7160
+    },
+    {
+      "path": "tools/lib/replay_s14_history.mjs",
+      "sha256": "99230915b0ad7af80371e4c14d694e98d283aca29d06befd245fe69a85a0fe51",
+      "bytes": 8551
+    },
+    {
+      "path": "tools/capture_playability_history.mjs",
+      "sha256": "c88514bfe178cc7b3480a5d81ccf3ec808e36785664b4f5c9739a871ab273c1a",
+      "bytes": 1622
+    }
+  ]
+}

@@ -9,7 +9,10 @@ import time
 
 
 class WireCapture:
-    def __init__(self, page, directory, *, max_packets, max_bytes, timeout_seconds=15):
+    def __init__(self, page, directory, *, max_packets, max_bytes, timeout_seconds=15, extra_methods=()):
+        if not isinstance(extra_methods, tuple) or len(extra_methods)!=len(set(extra_methods)) or not set(extra_methods)<={'artifact_bundle','artifact_chunk','retained_artifact_chunk'}:
+            raise ValueError('unsupported extra capture method')
+        self.extra_methods = extra_methods
         self.page, self.directory = page, directory
         directory.mkdir()
         self.max_packets, self.max_bytes = max_packets, max_bytes
@@ -40,11 +43,12 @@ class WireCapture:
         return False
 
     @staticmethod
-    def method(request):
+    def method(request, extra_methods=()):
         if request.method != 'POST' or not request.url.endswith('/query'):
             return None
         body = request.post_data_buffer or b''
-        return next((name for name in ['observation_bundle', 'retained_publication', 'observation'] if name.encode() in body), None)
+        names=['observation_bundle', 'retained_publication', 'observation']+sorted(extra_methods,key=len,reverse=True)
+        return next((name for name in names if name.encode() in body), None)
 
     @staticmethod
     def identity(request, method):
@@ -62,7 +66,7 @@ class WireCapture:
         if not self.accepting:
             return
         request = response.request
-        method = self.method(request)
+        method = self.method(request, self.extra_methods)
         if method is None:
             return
         sequence = self.sequence
@@ -98,7 +102,7 @@ class WireCapture:
             self.responses.pop(id(request), None)
 
     def request_failed(self, request):
-        method = self.method(request)
+        method = self.method(request, self.extra_methods)
         if method and (self.accepting or id(request) in self.responses):
             self.fail('wire request failed: ' + str(request.failure),
                       {**self.identity(request, method), 'sequence': self.responses.get(id(request)),
@@ -170,9 +174,12 @@ class WireCapture:
     def index(self, query_timings):
         if self.finalization['status'] != 'PASS' and not self.errors:
             self.fail('incomplete wire capture finalisation', {'stage': 'index'})
-        return {'packets': [self.packets[n] for n in sorted(self.packets)],
+        result = {'packets': [self.packets[n] for n in sorted(self.packets)],
                 'errors': list(self.errors), 'bytes': self.total_bytes,
                 'complete_through': self.fence, 'query_timings': query_timings,
                 'capture_finalization': dict(self.finalization),
                 'pending_at_index': sorted(self.pending),
                 'error_context': list(self.error_context)}
+        if self.extra_methods:
+            result['extra_capture_methods'] = list(self.extra_methods)
+        return result

@@ -1,3 +1,22 @@
+# V6 artifact capture and independent-history export checked locally
+
+Capture can opt into the artifact replies already requested by the browser. Its
+original publication fence, callback drain, body bytes, bounds and fatal errors
+are preserved. The v6 exporter requires complete consecutive catalogs plus every
+hash-bound elapsed-time/context artifact and preserves typed fallback errors.
+Replay rejects missing/duplicate retired source inputs as well as changed output.
+
+Ten capture-unit tests, ten capture/replay JS tests and eight sandboxed browser
+lifecycle regressions pass. Negative capture cases remain failures with replay
+not run. Synthetic unsigned transport fixtures prove content only, not IC trust.
+[Evidence and source hashes](evidence/BTZ/v6-wire-history.json).
+
+The consolidated installed/browser scenario must still invoke this exporter.
+Measured admission/cost limits, paid upgrade/epoch rehearsal and final CI remain
+pending. No production mutation, transfer, push or v6 deployment.
+
+---
+
 # V6 public player queries staged; installed release gate remains pending
 
 Six additive queries expose bounded configuration/account/cannon/region/quote/
