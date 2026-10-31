@@ -81,7 +81,12 @@ def main():
     runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
     # Source includes feature-gated test-hooks methods. The compiled normal-
     # Wasm export check in verify_s14_local.py must still reject every test_ export.
-    if set(runtime_exports)!={'runtime_health','get_api_doc','lab_status','retention_status','controller_work','controller_runtime','controller_funding','set_funding_paused','test_funding_fault','prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','source_descriptor','observation','observation_bundle','retained_publication','artifact_bundle','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_liquid_budget','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
+    if set(runtime_exports)!={'runtime_health','get_api_doc','lab_status','retention_status','controller_work','controller_runtime','controller_funding','set_funding_paused','test_funding_fault','prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','prepare_playability_transition','commit_playability_transition','playability_transition_status','epoch_metadata','source_descriptor','observation','observation_bundle','retained_publication','artifact_bundle','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_liquid_budget','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
+    # The export macro collects only preceding methods; a later method can be
+    # exported in Wasm yet silently absent from reflected/generated Candid.
+    macro='ic_cdk::export_candid!();'
+    methods=re.finditer(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+\w+',runtime)
+    if runtime.count(macro)!=1 or any(m.start()>runtime.index(macro) for m in methods):raise ValueError('Candid export macro must follow all application methods')
     if 'guard = "poke_guard"' not in runtime or 'is_controller' not in runtime:raise ValueError('application authorization guards missing')
     if any(name in runtime for name in ['ledger_hint','sync_ledger','scan_ledger_inner']):raise ValueError('retired scanner remains active')
     # Exactly one metadata-only Ledger call; never restore block scanning.

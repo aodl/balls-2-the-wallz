@@ -67,7 +67,32 @@ authenticated event output for independent replay. The host must supply IC time;
 the pure kernel and reference have no clock. Idle expiry continues to require a
 separate zero-logical-time application checkpoint, never fabricated Ledger input.
 
-Synthetic cross-language fixtures are development evidence. IC-host activation,
-completion-time plumbing and expiry scheduling, public APIs, dual-version browser
-replay and the consolidated installed qualification remain required before the
-authorised second release. No v6 state or capacity has been deployed.
+The host implements a guarded v5→v6 activation from the actual committed state.
+Only an existing controller can prepare/commit it, while autonomous gameplay is
+paused. The existing worker obtains Ledger/Index cutover watermarks, drains old
+inputs and unfinished strikes, and commits through the next authenticated epoch.
+The source adapter changes from 3 to 4 only at that boundary; the receiving
+account, Ledger/Index, source identity, cursor and anchors remain continuous.
+
+At an overdue deadline, maintenance fences the already dispatched/downloaded
+account-history window. Its remaining oldest windows and admitted game inputs
+are processed first. Later hints coalesce without extending the fence or
+postponing expiry indefinitely. Revival in that finite window wins; later
+payments are evaluated against the state when processed. Sender timestamps are
+not arrival authority. Pending downloads and generation/deadline fences survive
+restart; a lost query lease is replaced without resetting source history.
+
+Expiry is a zero-logical-time DTR application checkpoint. Every such event
+artifact contains its exact lifecycle metadata preimage; the root retains only
+the current copy. `epoch_metadata` returns a bounded preimage where retained,
+which callers must hash against an authenticated epoch. The query reply alone
+is not certified. Dormant-only worlds idle physics while source, treasury and
+expiry maintenance continue subject to their existing funding floors. Source
+errors and insufficient maintenance funds can delay execution; no exact-second
+promise or automatic refund is made.
+
+Synthetic cross-language and host tests remain development evidence. The
+installed timer/source/upgrade rehearsal, public player APIs and action UI,
+buffered v9 browser handoff, independent history replay and capacity screening
+remain required before the authorised second release. No v6 state or capacity
+has been deployed.

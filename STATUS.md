@@ -1,3 +1,21 @@
+# V6 host integration staged locally; installed release gate still pending
+
+The existing host now has a paused, controller-guarded v5→v6 cutover and an
+earliest-deadline lifecycle timer. A finite source window drains before expiry;
+new hints coalesce without extending it. Dormant-only physics idles. Expiry
+uses a zero-logical-time authenticated checkpoint and leaves Ledger positions
+independent. Native tests exercise the full epoch sequence, unchanged value,
+retained empty markers, expiry and source-window/restart fences. All 42 runtime
+unit tests, Wasm checking, strict Clippy, Candid and source inventory checks pass.
+[Development evidence](evidence/BTZ/v6-host-lifecycle.json).
+
+This is not installed-IC evidence or release qualification. Buffered v9 browser
+handoff, public player APIs/action UI, independent-history integration, capacity
+screening and the consolidated installed/CI gates remain unfinished. Production
+remains release 1 on v5; no mainnet mutation, transfer or remote push occurred.
+
+---
+
 # V6 island presentation integrated locally; second release remains unqualified
 
 Authoritative Rust/JS events now include compact ownership and player/island/

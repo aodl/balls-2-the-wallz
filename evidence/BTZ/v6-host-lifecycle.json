@@ -1,0 +1,55 @@
+{
+  "scope": "Local host integration and native epoch lifecycle tests; installed-IC timer/recovery/replay qualification remains pending",
+  "parent_commit": "c4664aa1c24b172df54a5f921aca066025192dfc",
+  "runtime_native_tests": 42,
+  "new_host_tests": 5,
+  "wasm_target_check": "PASS",
+  "wasm_strict_clippy": "PASS",
+  "normal_candid_semantic_check": "PASS",
+  "source_inventory": "PASS with four specific additive methods; Candid-export ordering now guarded",
+  "methods_added": {
+    "prepare_playability_transition": "controller update",
+    "commit_playability_transition": "controller update",
+    "playability_transition_status": "controller query",
+    "epoch_metadata": "public bounded query; content must match authenticated metadata hash"
+  },
+  "invariants": [
+    "v5-to-v6 derives actual state; preserves entities, value, source identity/cursor/anchors; no state/time supplied by caller",
+    "Finite already-dispatched/downloaded source window drains before due generation-fenced expiry; new hints cannot expand it",
+    "Restart abandons the query lease while retaining durable history and the captured window",
+    "Dormant-only physics idles; normal source/treasury timers and original funding floors remain",
+    "Expiry is a zero-logical-time application checkpoint, with its metadata preimage in its event artifact",
+    "Only current lifecycle metadata is copied into the root; older copies are obtainable from retained checkpoint artifacts",
+    "Epoch ordinals use the actual generic epoch index instead of assuming exactly two rules transitions",
+    "Paused maintenance errors are retained and halt further game work until explicit recovery"
+  ],
+  "preserved_failures": [
+    "Initial compile referenced a previously test-hook-only publication-change variable; corrected declaration",
+    "Strict Clippy requested an equivalent range pattern",
+    "Generated Candid initially drifted after additive APIs; moved export macro after all methods and regenerated only four additive declarations",
+    "Source export inventory intentionally rejected new methods until their exact set was added"
+  ],
+  "mainnet_mutations": 0,
+  "financial_operations": 0,
+  "remote_pushes": 0,
+  "source_sha256": {
+    "canisters/runtime-lab/src/lib.rs": "6ceadbca61a8041d94c800edd5b1e6261be0dcdd36a8ec863494dddbccf93058",
+    "canisters/runtime-lab/src/playability_runtime.rs": "cf99a0da36b40013b9a152f5ad8502fb2ab63c026a5cd0d9f6e4b2f9f15a42fe",
+    "canisters/runtime-lab/src/transition.rs": "f6ecb22807b83c95ba9d5d011eb14e8ed7e706b30be7fdd7512d24ff27fe35f0",
+    "canisters/runtime-lab/runtime-lab.did": "5960ffc8c41324823ab226cc5e105cff8f5088331d095ea9fca7746679a5c044",
+    "tools/check_source.py": "dc86075d1f07b60085af1550aff853f14351de29a38a35bde73f5a0c1caa6513"
+  },
+  "raw_sha256": {
+    ".work/v6-host-lifecycle-check.log": "ac23d7b98f96619452b4bd612504c9deac5a3e9110ba1b168d6b6aa38ddb0304",
+    ".work/v6-host-lifecycle-check-corrected.log": "e1cee2c7927ee7755aa628e6c4ac594296dd1a35b1dd1a1f0f6dedd95f468e3b",
+    ".work/v6-host-lifecycle-clippy.log": "97d852bd149bafdcc33c0c8eea12a634fbc40d4ebc4b00084fe7aee8a632a9f3",
+    ".work/v6-host-lifecycle-candid-initial.log": "58aab9122d630fc1d466c52e23b96f1cdba1e7c2b414976ef66cdbe66794d4f6",
+    ".work/v6-host-lifecycle-candid-final.log": "1f7637f375b971ce8a4354c8590af9e2498c5559aed78df5c7a0284cd8ca57c2",
+    ".work/v6-host-lifecycle-source.log": "bcf1559a105a44ecd9f131b640011fb72eb807a63f82b96084eeb2fb9db242b6",
+    ".work/v6-host-lifecycle-source-corrected.log": "b5cb993027e4e3237c9ec09d5d3874bbc68baeee3f1612a705a14e8805159b86",
+    ".work/v6-host-epoch-tests.log": "c3519cf14f2c92ba2980c1482f30a8326f77bcb327bccf19e5345a7fc61afb2a",
+    ".work/v6-host-lifecycle-native-final-current.log": "56fbc2103402653c06f8320a300b182ff2baa3e194806e4b50c9b6b199891655",
+    ".work/v6-host-lifecycle-clippy-final-current.log": "dfeea267d13e497456d7c88d1b19b77aed015a75eecce54ffdda194962a63126",
+    ".work/v6-host-lifecycle-source-final.log": "b5cb993027e4e3237c9ec09d5d3874bbc68baeee3f1612a705a14e8805159b86"
+  }
+}

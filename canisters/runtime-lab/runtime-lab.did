@@ -191,12 +191,17 @@ service : (blob, nat64, IndexConfig) -> {
   // Commit the reviewed compact 1000×1000 state through DTR's generic next
   // epoch operation. No state or identity is accepted from the caller.
   commit_million_transition : (text) -> (Result_1);
+  // Derives the v6 metadata once. No caller-supplied world, time or identities.
+  commit_playability_transition : (text) -> (Result_1);
   // Derive the new world from the actual durable committed state, once. Expected
   // manifest protects against a stale operator view; there is no arbitrary replacement.
   commit_torus_transition : (text) -> (Result_1);
   controller_funding : () -> (Result_2) query;
   controller_runtime : () -> (Result_3) query;
   controller_work : () -> (Result_4) query;
+  // Content-addressed application metadata. Hash against the independently
+  // authenticated epoch.metadata_hash; this convenience reply is not certified.
+  epoch_metadata : (text) -> (Result_1) query;
   get_api_doc : () -> (text) query;
   lab_status : () -> (Result_5) query;
   million_transition_status : () -> (Result_1) query;
@@ -205,10 +210,14 @@ service : (blob, nat64, IndexConfig) -> {
   // byte cap keeps the query bounded; clients retain the chunked fallback.
   observation_bundle : () -> (Result_7) query;
   pause_autonomous : () -> (Result_5);
+  playability_transition_status : () -> (Result_1) query;
   poke : (vec PokeMatch) -> ();
   // Begins only the reviewed v4→v5 cutover. The existing v3→v4 evidence is
   // retained independently, and the worker obtains fresh global watermarks.
   prepare_million_transition : () -> (Result_1);
+  // Start the next-unused rules-v6 cutover from the actual paid v5 predecessor.
+  // The existing fenced source worker obtains its own Ledger/Index watermarks.
+  prepare_playability_transition : () -> (Result_1);
   // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
   // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
   prepare_torus_transition : () -> (Result_1);

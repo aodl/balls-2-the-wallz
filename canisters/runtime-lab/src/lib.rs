@@ -5,6 +5,7 @@ mod funding;
 mod health;
 mod operation_kernel;
 mod pace;
+mod playability_runtime;
 mod source;
 mod transition;
 use b2z_native::world::World;
@@ -154,6 +155,14 @@ struct Root {
     world_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     million_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    playability_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    lifecycle_context: Option<playability_runtime::Context>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    lifecycle_barrier: Option<playability_runtime::Barrier>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    lifecycle_error: Option<String>,
 }
 #[derive(Clone, CandidType, Deserialize)]
 struct RunConfig {
@@ -252,33 +261,53 @@ fn number(value: &Int) -> AppResult<u64> {
         .map_err(|_| "unsigned 64-bit field".into())
 }
 fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
-    let old = r.world_transition.as_ref().filter(|t| t.holding());
-    let million = r.million_transition.as_ref().filter(|t| t.holding());
-    match (old, million) {
-        (Some(_), Some(_)) => Err("multiple active world transitions".into()),
-        (Some(t), None) | (None, Some(t)) => Ok(Some(t)),
-        (None, None) => Ok(None),
+    let mut active = [
+        r.world_transition.as_ref(),
+        r.million_transition.as_ref(),
+        r.playability_transition.as_ref(),
+    ]
+    .into_iter()
+    .flatten()
+    .filter(|t| t.holding());
+    let first = active.next();
+    if active.next().is_some() {
+        return Err("multiple active world transitions".into());
     }
+    Ok(first)
 }
 fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Transition>> {
-    let old = r.world_transition.as_ref().is_some_and(|t| t.holding());
-    let million = r.million_transition.as_ref().is_some_and(|t| t.holding());
-    match (old, million) {
-        (true, true) => Err("multiple active world transitions".into()),
-        (true, false) => Ok(r.world_transition.as_mut()),
-        (false, true) => Ok(r.million_transition.as_mut()),
-        (false, false) => Ok(None),
+    let flags = [
+        r.world_transition.as_ref(),
+        r.million_transition.as_ref(),
+        r.playability_transition.as_ref(),
+    ]
+    .map(|t| t.is_some_and(|t| t.holding()));
+    if flags.into_iter().filter(|v| *v).count() > 1 {
+        return Err("multiple active world transitions".into());
     }
+    Ok(if flags[0] {
+        r.world_transition.as_mut()
+    } else if flags[1] {
+        r.million_transition.as_mut()
+    } else if flags[2] {
+        r.playability_transition.as_mut()
+    } else {
+        None
+    })
 }
 fn transition_evidence<'a>(
     r: &'a Root,
     transition_hash: &str,
 ) -> AppResult<&'a transition::Transition> {
-    let matches = [r.world_transition.as_ref(), r.million_transition.as_ref()]
-        .into_iter()
-        .flatten()
-        .filter(|t| t.phase == "complete" && t.transition_hash.as_deref() == Some(transition_hash))
-        .collect::<Vec<_>>();
+    let matches = [
+        r.world_transition.as_ref(),
+        r.million_transition.as_ref(),
+        r.playability_transition.as_ref(),
+    ]
+    .into_iter()
+    .flatten()
+    .filter(|t| t.phase == "complete" && t.transition_hash.as_deref() == Some(transition_hash))
+    .collect::<Vec<_>>();
     if matches.len() != 1 {
         return Err("epoch missing unique application transition evidence".into());
     }
@@ -294,8 +323,11 @@ fn reconcile_completed_segments(run: &mut RunState, publication: &Publication) -
         .unwrap_or(0);
     let epoch_checkpoints = match publication.version {
         6 => 0,
-        7 => 1,
-        8 => 2,
+        7..=9 => publication
+            .epoch
+            .as_ref()
+            .ok_or("publication missing epoch")?
+            .index()?,
         _ => return Err("publication version".into()),
     };
     committed = committed
@@ -387,6 +419,25 @@ fn root() -> AppResult<Root> {
             return Err("million transition requires completed torus epoch".into());
         }
     }
+    if let Some(t) = &r.playability_transition {
+        t.validate()?;
+        if t.version != 3
+            || r.million_transition
+                .as_ref()
+                .is_none_or(|old| old.phase != "complete")
+        {
+            return Err("playability transition requires completed v5 epoch".into());
+        }
+    }
+    if let Some(c) = &r.lifecycle_context {
+        c.validate()?;
+    }
+    if let Some(b) = &r.lifecycle_barrier {
+        b.validate()?;
+    }
+    if r.lifecycle_error.as_ref().is_some_and(|e| e.len() > 1024) {
+        return Err("lifecycle diagnostic capacity".into());
+    }
     active_transition(&r)?;
     if r.version != 7 || r.revision > (1u64 << 53) - 1 || r.image.length > MAX_IMAGE {
         return Err(
@@ -397,7 +448,7 @@ fn root() -> AppResult<Root> {
     let pb = unhex(&r.publication_hex)?;
     let p: Publication = decode(&pb)?;
     if hash(&pb) != r.publication_hash
-        || !matches!(p.version, 6..=8)
+        || !matches!(p.version, 6..=9)
         || p.render_format.is_some()
         || p.chunk_bytes != CHUNK
         || p.artifacts.len() != 3
@@ -405,20 +456,30 @@ fn root() -> AppResult<Root> {
         return Err("publication root mismatch".into());
     }
     if let Some(e) = &p.epoch {
-        let t = transition_evidence(&r, &e.transition_hash)?;
-        if t.transition_hash.as_ref() != Some(&e.transition_hash)
-            || hash(&unhex(
-                t.metadata_hex
-                    .as_ref()
-                    .ok_or("missing application metadata")?,
-            )?) != e.metadata_hash
+        let metadata = if let Some(c) = r
+            .lifecycle_context
+            .as_ref()
+            .filter(|c| c.transition_hash == e.transition_hash)
         {
+            &c.metadata_hex
+        } else {
+            transition_evidence(&r, &e.transition_hash)?
+                .metadata_hex
+                .as_ref()
+                .ok_or("missing application metadata")?
+        };
+        if hash(&unhex(metadata)?) != e.metadata_hash {
             return Err("application transition metadata commitment".into());
         }
-    } else if [r.world_transition.as_ref(), r.million_transition.as_ref()]
-        .into_iter()
-        .flatten()
-        .any(|t| t.phase == "complete")
+    } else if [
+        r.world_transition.as_ref(),
+        r.million_transition.as_ref(),
+        r.playability_transition.as_ref(),
+    ]
+    .into_iter()
+    .flatten()
+    .any(|t| t.phase == "complete")
+        || r.lifecycle_context.is_some()
     {
         return Err("transition missing authenticated epoch".into());
     }
@@ -571,7 +632,7 @@ fn needs_simulation(h: &Coordinator<B2zHostKernel>) -> AppResult<bool> {
         return Ok(true);
     }
     let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
-    Ok(!w.cannons.is_empty() || !w.balls.is_empty() || !w.pending.is_empty())
+    Ok((w.version < 6 && !w.cannons.is_empty()) || !w.balls.is_empty() || !w.pending.is_empty())
 }
 
 fn runtime_needs_simulation(
@@ -579,7 +640,7 @@ fn runtime_needs_simulation(
     t: Option<&transition::Transition>,
 ) -> AppResult<bool> {
     if t.is_some_and(|t| t.holding()) {
-        let pending_world_work = if t.is_some_and(|t| t.version == 2) {
+        let pending_world_work = if t.is_some_and(|t| t.version >= 2) {
             !World::decode(&unhex(&h.record.journal.head.state_hex)?)?
                 .pending
                 .is_empty()
@@ -616,7 +677,6 @@ fn persist_inner(
     let image = h.snapshot()?;
     let image_descriptor = describe_image(&image)?;
     let view = publication(&h.record)?;
-    #[cfg(feature = "test-hooks")]
     let publication_changed = old.is_some_and(|r| r.publication_hash != view.sha256);
     let mut retention = old.map(|root| root.retention.clone()).unwrap_or_default();
     let mut retained_writes = Vec::<(u64, Vec<u8>)>::new();
@@ -693,6 +753,10 @@ fn persist_inner(
         retention,
         world_transition: old.and_then(|r| r.world_transition.clone()),
         million_transition: old.and_then(|r| r.million_transition.clone()),
+        playability_transition: old.and_then(|r| r.playability_transition.clone()),
+        lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
+        lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
+        lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
     };
     let root_bytes = encode(&r)?;
     if root_bytes.len() > ROOT_LIMIT {
@@ -787,11 +851,23 @@ fn persist_inner(
         #[cfg(feature = "test-hooks")]
         persistence_fault("after-certification", publication_changed);
     }
+    if publication_changed {
+        if let Err(e) = playability_runtime::on_publication(&r, h) {
+            ic_cdk::trap(&e);
+        }
+    }
     Ok(r)
 }
 fn save_root_only(r: &Root) -> AppResult<()> {
     r.source.validate()?;
     validate_run(&r.run)?;
+    active_transition(r)?;
+    if let Some(c) = &r.lifecycle_context {
+        c.validate()?;
+    }
+    if let Some(b) = &r.lifecycle_barrier {
+        b.validate()?;
+    }
     let publication: Publication = decode(&unhex(&r.publication_hex)?)?;
     validate_retention(&r.retention, &publication)?;
     let bytes = encode(r)?;
@@ -827,7 +903,7 @@ fn clear_run_timer() {
 }
 fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
     let mut r = root()?;
-    if r.run.running && r.run.generation == generation {
+    if (r.run.running || maintenance_requested(&r)) && r.run.generation == generation {
         r.run.running = false;
         r.run.last_error = Some(error);
         save_root_only(&r)?;
@@ -872,9 +948,23 @@ fn refresh_pace() {
             .refresh(ic_cdk::api::canister_liquid_cycle_balance())
     });
 }
+fn maintenance_requested(r: &Root) -> bool {
+    r.run.last_error.is_none()
+        && (r
+            .playability_transition
+            .as_ref()
+            .is_some_and(|t| t.holding())
+            || r.lifecycle_barrier.is_some())
+}
+fn driver_needs_work(h: &Coordinator<B2zHostKernel>, r: &Root) -> AppResult<bool> {
+    if !r.run.running && r.lifecycle_barrier.is_some() && active_transition(r)?.is_none() {
+        return Ok(h.record.journal.stage.is_some() || !h.record.inbox.pending.is_empty());
+    }
+    runtime_needs_simulation(h, active_transition(r)?)
+}
 fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     let r = root()?;
-    if !r.run.running || r.run.generation != generation {
+    if (!r.run.running && !maintenance_requested(&r)) || r.run.generation != generation {
         return Ok(());
     }
     refresh_pace();
@@ -883,7 +973,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     }
     let now = ic_cdk::api::time();
     let mut h = host(&r)?;
-    if !runtime_needs_simulation(&h, active_transition(&r)?)? {
+    if !driver_needs_work(&h, &r)? {
         ARENA_IDLE.with(|f| f.set(true));
         clear_run_timer();
         return Ok(());
@@ -1016,7 +1106,7 @@ fn arm_run_timer(generation: u64, delay: Duration) {
         let Ok(r) = root() else {
             return;
         };
-        if !r.run.running || r.run.generation != generation {
+        if (!r.run.running && !maintenance_requested(&r)) || r.run.generation != generation {
             return;
         }
         // A bounded continuation is armed before work; no parallel driver or missed-time replay.
@@ -1028,17 +1118,24 @@ fn arm_run_timer(generation: u64, delay: Duration) {
         }
         if let Ok(next) = root() {
             clear_run_timer();
-            if next.run.running && !ARENA_IDLE.with(Cell::get) {
+            if (next.run.running || maintenance_requested(&next)) && !ARENA_IDLE.with(Cell::get) {
                 arm_run_timer(generation, run_delay(&next.run));
             }
         }
     });
     RUN_TIMER.with(|t| *t.borrow_mut() = Some(timer));
 }
+fn ensure_run_timer(run: &RunState) {
+    if RUN_TIMER.with(|slot| slot.borrow().is_none()) {
+        install_run_timer(run);
+    }
+}
 fn install_run_timer(run: &RunState) {
     clear_run_timer();
     refresh_pace();
-    if run.running && !ARENA_IDLE.with(Cell::get) {
+    if (run.running || root().is_ok_and(|r| maintenance_requested(&r)))
+        && !ARENA_IDLE.with(Cell::get)
+    {
         arm_run_timer(run.generation, run_delay(run));
     }
 }
@@ -1180,6 +1277,9 @@ fn post_upgrade() {
         ARENA_IDLE.with(|flag| flag.set(idle));
         r.source.in_flight = false;
         r.source.started_at = 0;
+        if let Some(barrier) = &mut r.lifecycle_barrier {
+            barrier.await_nonce = None;
+        }
         r.source.wake_scheduled = false;
         r.source.requested = true;
         r.source.nonce = r
@@ -1204,6 +1304,7 @@ fn post_upgrade() {
         request_reconciliation()?;
         install_run_timer(&r.run);
         funding::initialize()?;
+        playability_runtime::install(&r)?;
         Ok(())
     };
     if let Err(e) = verify() {
@@ -1661,12 +1762,25 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
         return Ok(None);
     }
     r.source.wake_scheduled = false;
+    if let Some(barrier) = &r.lifecycle_barrier {
+        if !barrier.permits_scan(&r.source)? {
+            r.source.requested = true;
+            save_root_only(&r)?;
+            return Ok(None);
+        }
+    }
     let transition_phase = active_transition(&r)?.map(|t| t.phase.clone());
     let transition_cutover = active_transition(&r)?
         .filter(|t| t.phase == "drain")
         .and_then(|t| t.ledger_cutover.as_ref())
         .map(number)
         .transpose()?;
+    let lifecycle_cutover = r
+        .lifecycle_barrier
+        .as_ref()
+        .map(|b| b.cutover())
+        .transpose()?
+        .flatten();
     if transition_phase.as_deref() == Some("ready") {
         save_root_only(&r)?;
         return Ok(None);
@@ -1683,6 +1797,11 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
         .nonce
         .checked_add(1)
         .ok_or("source nonce exhausted")?;
+    if let Some(barrier) = &mut r.lifecycle_barrier {
+        if barrier.await_nonce.is_some() {
+            barrier.await_nonce = Some(Int(r.source.nonce.into()));
+        }
+    }
     let lease = Lease {
         nonce: r.source.nonce,
         index: Principal::from_text(&r.source.index).map_err(|e| e.to_string())?,
@@ -1691,7 +1810,8 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
             .pending
             .as_ref()
             .map(|p| p.before)
-            .or(transition_cutover),
+            .or(transition_cutover)
+            .or(lifecycle_cutover),
     };
     save_root_only(&r)?;
     Ok(Some(lease))
@@ -1703,6 +1823,9 @@ fn reconciliation_failed(lease: &Lease, error: String) -> AppResult<()> {
     }
     r.source.in_flight = false;
     r.source.started_at = 0;
+    if let Some(barrier) = &mut r.lifecycle_barrier {
+        barrier.reply(lease.nonce, &r.source)?;
+    }
     r.source.last_error = Some(error.chars().take(1024).collect());
     // Preserve pending range, nonce fence and a poke received during await.
     let requested = r.source.requested;
@@ -1719,6 +1842,17 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     }
     let mut next = r.source.clone();
     if let Some(page) = page {
+        if let Some(end) = r
+            .lifecycle_barrier
+            .as_ref()
+            .map(|b| b.cutover())
+            .transpose()?
+            .flatten()
+        {
+            if page.transactions.iter().any(|tx| tx.id >= end) {
+                return Err("Index exceeded lifecycle source fence".into());
+            }
+        }
         let cutover = active_transition(&r)?
             .filter(|t| t.phase == "drain")
             .map(|t| number(t.ledger_cutover.as_ref().ok_or("Ledger cutover")?))
@@ -1743,6 +1877,9 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         next.page(page)?;
         r.source = next.clone();
         save_root_only(&r)?; // download survives admission backpressure
+    }
+    if let Some(barrier) = &mut r.lifecycle_barrier {
+        barrier.reply(lease.nonce, &next)?;
     }
     if next.pending.as_ref().is_some_and(|p| p.complete) {
         let mut h = host(&r)?;
@@ -1774,7 +1911,18 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
             .phase = "ready".into();
         save_root_only(&r)?;
     }
-    if r.source.requested || r.source.pending.is_some() {
+    if r.lifecycle_barrier.is_some() {
+        playability_runtime::install(&r)?;
+        ensure_run_timer(&r.run);
+    }
+    if r.source.requested
+        || r.source.pending.is_some()
+        || r.lifecycle_barrier
+            .as_ref()
+            .map(|b| b.permits_scan(&r.source))
+            .transpose()?
+            .unwrap_or(false)
+    {
         request_reconciliation()?;
     }
     Ok(())
@@ -2202,7 +2350,207 @@ fn poke(matches: Vec<PokeMatch>) {
     }
 }
 
+/// Start the next-unused rules-v6 cutover from the actual paid v5 predecessor.
+/// The existing fenced source worker obtains its own Ledger/Index watermarks.
+#[ic_cdk::update]
+fn prepare_playability_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.playability_transition {
+        return encode(t);
+    }
+    if r.run.running {
+        return Err("pause autonomous gameplay before v6 cutover".into());
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let old = r
+        .million_transition
+        .as_ref()
+        .filter(|t| t.phase == "complete")
+        .ok_or("completed v5 transition required")?;
+    let epoch = h
+        .record
+        .journal
+        .epoch
+        .as_ref()
+        .filter(|e| Some(&e.transition_hash) == old.transition_hash.as_ref())
+        .ok_or("v5 epoch evidence mismatch")?;
+    epoch.validate()?;
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 5 || r.source.memo_adapter_version != b2z_protocol::MEMO_ADAPTER_VERSION {
+        return Err("only current v5 world can activate v6".into());
+    }
+    if r.source.in_flight
+        || r.source.pending.is_some()
+        || r.source.last_error.is_some()
+        || r.run.last_error.is_some()
+    {
+        return Err(
+            "finish existing source reconciliation and recover errors before cutover".into(),
+        );
+    }
+    r.playability_transition = Some(transition::Transition::playability());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.playability_transition)
+}
+#[ic_cdk::query]
+fn playability_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition":r.playability_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
+    )
+}
+/// Derives the v6 metadata once. No caller-supplied world, time or identities.
+#[ic_cdk::update]
+fn commit_playability_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .playability_transition
+        .as_ref()
+        .ok_or("prepare v6 cutover first")?;
+    if t.phase == "complete" {
+        if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
+            return Err("conflicting v6 transition retry".into());
+        }
+        let expected = b2z_native::playability::identity()?;
+        let identity =
+            serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+        if ["rules_hash", "config_hash", "schema_hash"]
+            .iter()
+            .any(|k| identity[*k] != expected[*k])
+        {
+            return Err("completed v6 transition has been superseded".into());
+        }
+        return encode(t);
+    }
+    if r.run.running || r.run.last_error.is_some() {
+        return Err("v6 activation requires paused error-free autonomous configuration".into());
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let (output, metadata, identity) =
+        playability_runtime::rules_candidate(&h, t, &r.source, ic_cdk::api::time())?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.playability_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    r.source.memo_adapter_version = b2z_protocol::v6::MEMO_ADAPTER_VERSION;
+    r.source.requested = true;
+    r.lifecycle_context = None;
+    r.lifecycle_barrier = None;
+    r.lifecycle_error = None;
+    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&next.run);
+    playability_runtime::install(&next)?;
+    request_reconciliation()?;
+    encode(&next.playability_transition)
+}
+/// Content-addressed application metadata. Hash against the independently
+/// authenticated epoch.metadata_hash; this convenience reply is not certified.
+#[ic_cdk::query]
+fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, String> {
+    if transition_hash.len() != 64 || unhex(&transition_hash)?.len() != 32 {
+        return Err("epoch hash bounds".into());
+    }
+    let r = root()?;
+    for t in [
+        r.world_transition.as_ref(),
+        r.million_transition.as_ref(),
+        r.playability_transition.as_ref(),
+    ]
+    .into_iter()
+    .flatten()
+    {
+        if t.phase == "complete" && t.transition_hash.as_deref() == Some(&transition_hash) {
+            return unhex(t.metadata_hex.as_ref().ok_or("missing epoch metadata")?);
+        }
+    }
+    if let Some(c) = r
+        .lifecycle_context
+        .as_ref()
+        .filter(|c| c.transition_hash == transition_hash)
+    {
+        return unhex(&c.metadata_hex);
+    }
+    for entry in &r.retention.history {
+        let p: Publication = decode(&retained_publication_bytes(entry)?)?;
+        let Some(e) = p.epoch.as_ref().filter(|e| {
+            e.transition_hash == transition_hash
+                && p.head.segment_id.as_ref() == Some(&e.segment_id)
+                && e.version == 3
+        }) else {
+            continue;
+        };
+        let descriptor = p.artifacts.get(1).ok_or("checkpoint event descriptor")?;
+        if descriptor.length > MAX_ARTIFACT {
+            return Err("checkpoint event bounds".into());
+        }
+        let mut bytes = Vec::with_capacity(descriptor.length);
+        for i in 0..descriptor.chunks.len() {
+            bytes.extend(retained_artifact_chunk(
+                entry.segment_id,
+                entry.publication_hash.clone(),
+                1,
+                i as u16,
+            )?);
+        }
+        if hash(&bytes) != descriptor.sha256 {
+            return Err("checkpoint event integrity".into());
+        }
+        let events: serde_json::Value = decode(&bytes)?;
+        let first = events
+            .get("events")
+            .and_then(|v| v.get(0))
+            .ok_or("checkpoint context missing")?;
+        if first.get("kind").and_then(serde_json::Value::as_str) != Some("lifecycle_context") {
+            return Err("checkpoint context kind".into());
+        }
+        let metadata = encode(first.get("context").ok_or("checkpoint context missing")?)?;
+        if metadata.len() > 16 * 1024 || hash(&metadata) != e.metadata_hash {
+            return Err("checkpoint metadata integrity".into());
+        }
+        return Ok(metadata);
+    }
+    Err("epoch metadata unknown or not retained".into())
+}
+
 ic_cdk::export_candid!();
+
 #[cfg(test)]
 mod tests {
     use super::*;
