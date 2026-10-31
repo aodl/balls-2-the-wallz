@@ -1,3 +1,30 @@
+# Island model checked locally; second release stopped at funding guard
+
+Balls belong to canonical funding players. Every cannon on a connected friendly
+island is supported by any friendly ball there; empty islands retain dormant
+anchors and expire through authenticated elapsed-time checkpoints. No launch-cannon
+attachment remains. The installed normal-module paid-state/unfinished-work/treasury
+rehearsal and exact nine-publication independent replay pass with real local IC
+certificate checks. These are focused installed/content checks, not the final
+browser wire gate.
+
+The fixed admission screen passes 3/4/64-ball cases; 128 fails artifact bounds and
+512 fails canonical bounds before a tick publishes. Both failures are retained.
+The candidate keeps 64 total balls and raises cannons to 128 total/16 per account.
+No sustained rate at capacity is claimed. Source checks pass 1,574 JS/187 Python,
+45 native and 47 host tests; focused prefix checks also pass.
+
+Fresh query-only production reads show Reserve Protection, no gameplay progression,
+and healthy source/treasury. Liquid cycles do not cover the retained bounded
+release/recovery budget plus protection reserve. Release work stops safely;
+normal/browser capacity, live v6 wire/action gate, installed API example, final
+freeze and exact-commit CI remain pending. No v6 deployment, pause, financial
+operation, frontend upload, remote push or merge occurred.
+
+[Detailed scope, failed evidence and funding guard](evidence/BTZ/v6-island-rehearsal/REPORT.md).
+
+---
+
 # V6 artifact capture and independent-history export checked locally
 
 Capture can opt into the artifact replies already requested by the browser. Its
