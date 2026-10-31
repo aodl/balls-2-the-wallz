@@ -6,6 +6,7 @@ mod health;
 mod operation_kernel;
 mod pace;
 mod playability_runtime;
+mod player_api;
 mod source;
 mod transition;
 use b2z_native::world::World;
@@ -939,7 +940,7 @@ fn runtime_health() -> health::Health {
 }
 #[ic_cdk::query]
 fn get_api_doc() -> String {
-    "BTZ public read-only API: observation_bundle provides certified publication/certificate/artifacts; retention_status, retained_publication and retained_artifact_chunk expose bounded history. lab_status and runtime_health are operational signed queries, NOT certified gameplay. runtime_health reports liquid/total cycles and a bounded net-decline sample, not gross billed consumption; positive movements invalidate the rate. Players pay from their existing wallet to the certified source descriptor account. Queries never authorise spending or prove ownership. Controller methods are not player APIs. No MCP financial execution, refunds or wallet signing. Rules/configuration and exact memo grammar are bound to publication identity; quotes are not reservations.".into()
+    "BTZ public read-only API v1: game_info returns configuration, capacities and destination; player_state(account) returns account-owned cannons/credits; cannon_state(id) returns the current island pool and lifecycle; nearby_region(cell,width,height) is bounded to 16x16 cells; action_quote(account,Fire/New/Move) uses integer e8s and exact uint16 heading, with quantity 1..64; payment_receipt(position,optional_segment) inspects one retained publication or reports pending/unknown. Typed replies carry publication/state/epoch references but are NOT certified replies: independently authenticate observation_bundle, verify artifacts and compare the referenced snapshot. Fetch a fresh quote after state changes; it is not a reservation, fill may change and unused payment is retained. Memo bytes are the exact eight-byte binary/numeric form; optional text_memo is supplied only when its decimal-angle grammar round-trips to those bytes. Destination amount excludes the wallet's current Ledger fee. Old ANGLE/MOVE histories keep their old meaning; v6 untargeted commands choose the lowest cannon ID. Duplicate Ledger IDs have one original outcome; queries never replay payments. Missing old data is unknown/not retained, not proof of rejection or non-payment. lab_status/runtime_health are operational queries, not certified gameplay or gross cycle billing. Positive balance movements reset the net-decline estimate. No query grants wallet authority. Payments use the player's external wallet and authenticated sending account; there are no refunds, payouts, transaction-signing or controller operations in this player API. ICP MCP financial execution is unavailable and its service-discovery terms opt-in is inactive.".into()
 }
 fn refresh_pace() {
     HEALTH.with(|h| h.borrow_mut().start(ic_cdk::api::time()));
@@ -2547,6 +2548,41 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         return Ok(metadata);
     }
     Err("epoch metadata unknown or not retained".into())
+}
+
+#[ic_cdk::query]
+fn game_info() -> std::result::Result<player_api::GameInfo, String> {
+    player_api::game_info()
+}
+#[ic_cdk::query]
+fn player_state(funding_account: String) -> std::result::Result<player_api::PlayerView, String> {
+    player_api::player_state(funding_account)
+}
+#[ic_cdk::query]
+fn cannon_state(cannon_id: u32) -> std::result::Result<player_api::CannonReply, String> {
+    player_api::cannon_state(cannon_id)
+}
+#[ic_cdk::query]
+fn nearby_region(
+    cell: u32,
+    width: u8,
+    height: u8,
+) -> std::result::Result<player_api::Region, String> {
+    player_api::nearby_region(cell, width, height)
+}
+#[ic_cdk::query]
+fn action_quote(
+    funding_account: String,
+    action: player_api::QuoteAction,
+) -> std::result::Result<player_api::Quote, String> {
+    player_api::action_quote(funding_account, action)
+}
+#[ic_cdk::query]
+fn payment_receipt(
+    ledger_position: u64,
+    segment_id: Option<u64>,
+) -> std::result::Result<player_api::Receipt, String> {
+    player_api::payment_receipt(ledger_position, segment_id)
 }
 
 ic_cdk::export_candid!();

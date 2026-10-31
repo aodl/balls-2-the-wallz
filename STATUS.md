@@ -1,3 +1,24 @@
+# V6 public player queries staged; installed release gate remains pending
+
+Six additive queries expose bounded configuration/account/cannon/region/quote/
+receipt data. Quotes use canonical funding accounts and exact integer prices/
+headings; public declarations grant no authority. Typed replies explicitly are
+not certified and carry artifact/head references. A read-only agent example uses
+the genuine certificate path and independently checks quotes/retained receipts;
+its network execution remains for the installed rehearsal. MCP opt-in stays off.
+
+All 47 native host tests pass, including five new API cases. Wasm compilation/
+strict Clippy, generated/declared Candid equality and source/docs/naming checks
+pass. A thin wrapper preserves the frozen observer builder while adding the v6
+configuration and public API docs. The freeze tool has an upgrade-only path with
+empty arguments and query-export guards. [Development evidence](evidence/BTZ/v6-player-api.json).
+
+Wire-history plumbing, measured capacities, installed paid upgrade/epoch/browser
+rehearsal and final CI remain unfinished. No v6 deployment, mainnet mutation,
+financial transfer or remote push. Production remains last verified release 1 / v5.
+
+---
+
 # V6 island action UI checked locally; APIs/installed release gates pending
 
 Targeted Fire/New/Move preparation now uses exact current-island prices and the
