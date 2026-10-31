@@ -44,11 +44,15 @@ with one existing island ball, a second cannon and two surplus balls cost
 receipts retain the existing non-refundable policy and exclude the Ledger fee.
 
 The former proposed per-cannon ball purchase ceiling becomes an island
-admission ceiling, currently drafted as 64. Merging islands never deletes
+admission ceiling of 64. Merging islands never deletes
 existing balls to enforce that ceiling; further purchases wait until there is
-room. The global draft 512-ball/128-cannon limits and 16 retained cannons per
-player remain unqualified engineering targets. The final supported limits must
-come from the bounded admission screen. Moves cannot leave a ball-bearing island
+room. The bounded installed screen passed four ticks with 64 balls and 128
+cannons across eight players. At 128 balls the existing artifact bound failed;
+at 512 balls the existing canonical structural bound failed. Both failures are
+retained. The candidate therefore keeps 64 global balls, increases retained
+cannons to 128 total/16 per player, and permits a purchase pool of 64 per island
+subject to the global limit. This is not a sustained-rate claim at capacity;
+normal-module/browser final qualification remains pending. Moves cannot leave a ball-bearing island
 without its last cannon. Dormant movement remains disallowed until revival.
 
 The pure Rust and JS interpreters now execute targeted/batched commands and

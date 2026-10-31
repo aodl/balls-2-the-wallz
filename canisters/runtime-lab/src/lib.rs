@@ -1225,13 +1225,29 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         if !w.time.0.is_integer() || w.time.0.to_integer() != Int(logical_start.into()).0 {
             return Err("genesis logical time".into());
         }
-        let (source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
-        let mut identity = if w.version == 5 {
+        let mut identity = if w.version == 6 {
+            // Only the explicit disposable admission screen may initialise a
+            // synthetic v6 world. Production reaches v6 through the guarded
+            // authenticated transition of its existing paid v5 state.
+            #[cfg(not(feature = "test-hooks"))]
+            return Err("v6 requires authenticated activation of existing v5 state".into());
+            #[cfg(feature = "test-hooks")]
+            b2z_native::playability::identity()?
+        } else if w.version == 5 {
             b2z_native::million_identity()?
         } else if w.torus() {
             b2z_native::torus_identity()?
         } else {
             b2z_native::identity()?
+        };
+        let (source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
+        #[cfg(feature = "test-hooks")]
+        let source = {
+            let mut source = source;
+            if w.version == 6 {
+                source.memo_adapter_version = b2z_protocol::v6::MEMO_ADAPTER_VERSION;
+            }
+            source
         };
         identity["source_id"] = serde_json::Value::String(source_id);
         let identity: Identity = serde_json::from_value(identity).map_err(|e| e.to_string())?;

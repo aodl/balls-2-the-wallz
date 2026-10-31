@@ -1,7 +1,7 @@
 {
   "version": 6,
   "max_cannons": 128,
-  "max_balls": 512,
+  "max_balls": 64,
   "max_retained_per_player": 16,
   "max_players": 1024,
   "dormancy_grace_ns": "86400000000000",

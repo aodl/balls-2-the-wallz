@@ -222,8 +222,12 @@ fn capacity_rechecked_per_item_and_unspawned_balls_are_never_charged() {
         w.playability.as_mut().unwrap().territories.clear();
         let groups = if global {
             let mut g = vec![2];
-            g.extend([64; 7]);
-            g.push(MAX_BALLS - 1 - 2 - 7 * 64);
+            let mut remaining = MAX_BALLS - 3;
+            while remaining > 0 {
+                let count = remaining.min(MAX_PURCHASE_BALLS_PER_ISLAND);
+                g.push(count);
+                remaining -= count;
+            }
             g
         } else {
             vec![MAX_PURCHASE_BALLS_PER_ISLAND - 1]

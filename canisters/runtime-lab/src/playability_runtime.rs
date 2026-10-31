@@ -718,9 +718,9 @@ mod tests {
             "../../../tests/fixtures/playability-host-history.json"
         ))
         .unwrap();
-        assert_eq!(trace, expected);
         if let Some(path) = std::env::var_os("B2Z_V6_NATIVE_TRACE") {
             std::fs::write(path, serde_json::to_vec(&trace).unwrap()).unwrap();
         }
+        assert_eq!(trace, expected);
     }
 }

@@ -20,6 +20,10 @@ use std::{
 mod source;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
+#[path = "support/playability_installed.rs"]
+mod playability_installed;
+#[path = "support/playability_profile.rs"]
+mod playability_profile;
 use source::{IndexConfig, PokeMatch, PokeTarget, SourceStatus, StartingPolicy};
 #[derive(CandidType)]
 enum LedgerPayload {
@@ -3132,15 +3136,20 @@ fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
             "artifact_bundle",
             encode_args((segment.0.to_string().parse::<u64>().unwrap(), root.clone())).unwrap(),
         ) {
-            let bundled: Vec<Vec<u8>> = decode_one::<Result<Vec<Vec<u8>>, String>>(&reply)
-                .unwrap()
-                .unwrap();
-            assert_eq!(bundled.len(), p.artifacts.len());
-            for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
-                assert_eq!(bytes.len(), descriptor.length);
-                assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+            match decode_one::<Result<Vec<Vec<u8>>, String>>(&reply).unwrap() {
+                Ok(bundled) => {
+                    assert_eq!(bundled.len(), p.artifacts.len());
+                    for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
+                        assert_eq!(bytes.len(), descriptor.length);
+                        assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+                    }
+                    return b2z_native::world::World::decode(&bundled[0]).unwrap();
+                }
+                Err(error) => assert_eq!(
+                    error, "artifact bundle capacity",
+                    "unexpected bundle failure"
+                ),
             }
-            return b2z_native::world::World::decode(&bundled[0]).unwrap();
         }
     }
     let mut data = Vec::new();
@@ -3200,6 +3209,15 @@ fn arena_setup_world_fee_clock(
     fee: u64,
     seconds_ago: u64,
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee_clock_payers(wasm, initial, fee, seconds_ago, &[])
+}
+fn arena_setup_world_fee_clock_payers(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+    extra_payers: &[Principal],
+) -> (PocketIc, Principal, Principal, Principal) {
     let builder = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet();
@@ -3222,7 +3240,10 @@ fn arena_setup_world_fee_clock(
         .unwrap_or_else(std::time::SystemTime::now);
     pic.set_time((clock - Duration::from_secs(seconds_ago)).into());
     let payer = Principal::self_authenticating([9; 32]);
-    let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &[payer], fee);
+    let mut payers = vec![payer];
+    payers.extend_from_slice(extra_payers);
+    assert!(payers.len() <= 4);
+    let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee);
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
     for c in [id, index] {

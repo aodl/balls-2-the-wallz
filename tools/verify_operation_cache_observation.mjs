@@ -28,17 +28,18 @@ const ticket=await verifyCertificatePublication(catalog,certificate,policy,verif
 // Paid recovery is a distinct authenticated v8/epoch-2 scenario. Never accept a
 // downgrade there or reinterpret a profile as a paid checkpoint.
 const scenario=meta.scenario??(meta.virtual_clock?(meta.zero_genesis?'empty-v5-genesis-v6':'paid-v8'):'v5-profile-v6');
-assert(['paid-v8','v5-profile-v6','empty-v5-genesis-v6'].includes(scenario));
-const expected=scenario==='paid-v8'?8:6;
+assert(['paid-v8','v5-profile-v6','empty-v5-genesis-v6','paid-playability-v8','paid-playability-v9'].includes(scenario));
+const playability=scenario.startsWith('paid-playability-');
+const expected=scenario==='paid-playability-v9'?9:scenario==='paid-v8'||playability?8:6;
 assert.equal(meta.publication_version,expected);
 assert.equal(ticket.publication.version,expected);
-if(scenario==='paid-v8')assert.equal(ticket.publication.epoch.version,2);
+if(scenario==='paid-v8'||playability)assert.equal(ticket.publication.epoch.version,expected===9?3:2);
 else assert.equal(ticket.publication.epoch,undefined);
 if(scenario==='empty-v5-genesis-v6')assert.equal(ticket.publication.head.segment_id,null);
 for(const kind of ['state','events','scores']){
  const assembler=new ArtifactAssembler(ticket,kind),data=await read(`${kind}.bin`);
  for(let i=0;i<assembler.descriptor.chunks.length;i++)await assembler.accept(i,data.slice(i*16384,(i+1)*16384));
- const bytes=await assembler.finish();if(kind==='state'){const world=snapshot(bytes,ticket.publication.identity);assert.equal(world.version,5);assert.equal(world.width,1000);assert.equal(world.height,1000);if(scenario==='empty-v5-genesis-v6'){assert.equal(world.cannons.length,0);assert.equal(world.balls.length,0);}}
+ const bytes=await assembler.finish();if(kind==='state'){const world=snapshot(bytes,ticket.publication.identity);assert.equal(world.version,playability?6:5);assert.equal(world.width,1000);assert.equal(world.height,1000);if(scenario==='empty-v5-genesis-v6'){assert.equal(world.cannons.length,0);assert.equal(world.balls.length,0);}}
 }
 await assert.rejects(()=>verifyCertificatePublication(catalog,certificate,{...policy,canister_id:'2vxsx-fae'},verify));
 await assert.rejects(()=>verifyCertificatePublication(catalog,certificate,{...policy,now_ns:policy.now_ns+600000000000n},verify));
