@@ -390,11 +390,11 @@ pub fn prepare(
             if c.account != account {
                 return Ok(reject("NOT_OWNER"));
             }
-            let attached = world.territory_ball_count(cannon);
-            if amount < pricing_v6::ball_price(attached as u32)? {
+            let pool = world.territory_ball_count(cannon);
+            if amount < pricing_v6::ball_price(pool as u32)? {
                 return Ok(reject("UNDERFUNDED"));
             }
-            if attached >= MAX_PURCHASE_BALLS_PER_ISLAND
+            if pool >= MAX_PURCHASE_BALLS_PER_ISLAND
                 || world.balls.len() >= MAX_BALLS
                 || world.next_ball_id == u32::MAX
             {
@@ -573,8 +573,8 @@ impl Batch {
             self.stop_reason = Some("quantity_limit".into());
             return Ok(None);
         }
-        let attached = world.territory_ball_count(self.cannon);
-        if attached >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS {
+        let pool = world.territory_ball_count(self.cannon);
+        if pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS {
             self.stop_reason = Some("capacity".into());
             return Ok(None);
         }
@@ -582,7 +582,7 @@ impl Batch {
             self.stop_reason = Some("ball_id_exhausted".into());
             return Ok(None);
         }
-        let price = Int(pricing_v6::ball_price(attached as u32)?.into());
+        let price = Int(pricing_v6::ball_price(pool as u32)?.into());
         if price.0 > self.remainder.0 {
             self.stop_reason = Some("insufficient_payment".into());
             return Ok(None);

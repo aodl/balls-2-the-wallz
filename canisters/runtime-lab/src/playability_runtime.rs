@@ -612,15 +612,40 @@ mod tests {
             transition_hash: None,
             previous_manifest: None,
         };
+        let mut publications = Vec::new();
+        let mut artifact_events = Vec::new();
+        let mut epoch_metadata = serde_json::Map::new();
+        let mut record = |h: &Coordinator<ExplicitClock>, metadata: Option<&[u8]>| {
+            let p = dtr_host::observation::publication(&h.record).unwrap().data;
+            artifact_events.push(json!({"segment_id":p.head.segment_id,"events_hex":h.record.journal.head.event_hex}));
+            if let Some(bytes) = metadata {
+                epoch_metadata.insert(
+                    h.record
+                        .journal
+                        .epoch
+                        .as_ref()
+                        .unwrap()
+                        .transition_hash
+                        .clone(),
+                    json!(dtr_wire::hex(bytes)),
+                );
+            }
+            publications.push(p);
+        };
         ordinary(&mut h);
+        record(&h, None);
         let (out, metadata, id) =
             super::super::transition::candidate(&h, &ready(1), &source).unwrap();
         apply_rules(&mut h, &out, &metadata, id);
+        record(&h, Some(&metadata));
         ordinary(&mut h);
+        record(&h, None);
         let (out, metadata, id) =
             super::super::transition::million_candidate(&h, &ready(2), &source).unwrap();
         apply_rules(&mut h, &out, &metadata, id);
+        record(&h, Some(&metadata));
         ordinary(&mut h);
+        record(&h, None);
         let previous = World::decode(&unhex(&h.record.journal.head.state_hex).unwrap()).unwrap();
         let (out, metadata, id) = rules_candidate(&h, &ready(3), &source, observed).unwrap();
         let next = World::decode(&out.state).unwrap();
@@ -631,6 +656,7 @@ mod tests {
         assert_eq!(previous.ownership, next.ownership);
         assert_eq!(previous.time, next.time);
         apply_rules(&mut h, &out, &metadata, id);
+        record(&h, Some(&metadata));
         assert_eq!(h.record.journal.epoch.as_ref().unwrap().index().unwrap(), 3);
         assert_eq!(
             dtr_host::observation::publication(&h.record)
@@ -641,6 +667,7 @@ mod tests {
         );
         source.memo_adapter_version = b2z_protocol::v6::MEMO_ADAPTER_VERSION;
         ordinary(&mut h);
+        record(&h, None);
         let dormant = World::decode(&unhex(&h.record.journal.head.state_hex).unwrap()).unwrap();
         assert!(dormant.balls.is_empty());
         assert_eq!(dormant.cannons.len(), 2);
@@ -670,6 +697,7 @@ mod tests {
             score_hex: dtr_wire::hex(&output.scores),
         })
         .unwrap();
+        record(&h, Some(&expiry.metadata));
         let finished = World::decode(&output.state).unwrap();
         assert!(finished.cannons.is_empty());
         assert_eq!(finished.time, dormant.time);
@@ -685,5 +713,14 @@ mod tests {
         assert!(b2z_native::lifecycle_v6::expire(&finished, now, &fences)
             .unwrap()
             .is_none());
+        let trace = json!({"status":"PASS","evidence_class":"SYNTHETIC_NATIVE_HOST_CONTENT_NOT_IC_AUTHENTICATION","initial_world_hex":dtr_wire::hex(&world.encode().unwrap()),"inputs":[],"assigned":[],"publications":publications,"artifact_events":artifact_events,"epoch_metadata":epoch_metadata});
+        let expected: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/playability-host-history.json"
+        ))
+        .unwrap();
+        assert_eq!(trace, expected);
+        if let Some(path) = std::env::var_os("B2Z_V6_NATIVE_TRACE") {
+            std::fs::write(path, serde_json::to_vec(&trace).unwrap()).unwrap();
+        }
     }
 }

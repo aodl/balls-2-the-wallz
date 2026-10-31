@@ -1,3 +1,22 @@
+# V6 buffered checkpoints and independent replay checked locally
+
+The observer queues zero-time rules/expiry boundaries behind already admitted
+playback without resetting the camera or appending a zero-duration clock interval.
+It rejects altered artifact/context/value facts and delayed preceding epochs.
+Independent JS execution matches a Rust-produced eight-publication fixture through
+all three rules migrations, mutual death/dormancy and elapsed expiry. The fixture
+is synthetic and proves content agreement, not IC authentication.
+
+Checks pass: 1,559 JS tests, 45 native application tests, 42 host tests and 14
+existing sandboxed HTTP/recording-browser checks. Historical fixtures/evidence
+remain unchanged. [Raw identities and limitations](evidence/BTZ/v6-checkpoint-replay.json).
+
+V6 action/API integration, capture-history plumbing, measured capacities and the
+consolidated installed/CI gates remain unfinished. Production remains release 1 /
+v5; no mainnet mutation, transfer or publication occurred in this continuation.
+
+---
+
 # V6 host integration staged locally; installed release gate still pending
 
 The existing host now has a paused, controller-guarded v5→v6 cutover and an

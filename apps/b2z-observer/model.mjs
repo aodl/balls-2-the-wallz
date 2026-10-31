@@ -262,3 +262,45 @@ export function liveSessionBufferPolicy(session){
    (session.bytes??0)+(session.largestSegmentBytes??0)>LIVE_BUFFER_LIMITS.bytes;
  return liveBufferPolicy(session.operational,session.largestSegmentBytes,full?session.clock.state().buffer:Infinity);
 }
+
+const sameCanonical=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);return x.length===y.length&&x.every((v,i)=>v===y[i]);};
+/** Zero-time authenticated boundary. The caller still verifies the IC certificate
+ * and ordered publication chain; these checks bind application context/content. */
+export async function prepareCheckpoint(initialBytes,artifacts,publication,prior){
+  check([7,8,9].includes(publication.version)&&publication.head.seal===null&&publication.epoch,'checkpoint publication');
+  const initial=snapshot(initialBytes,prior.identity),final=snapshot(artifacts.state,publication.identity),at=timeNumber(initial.time);
+  check(cmp(initial.time,final.time)===0&&BigInt(publication.head.logical_end)===BigInt(prior.head.logical_end),'checkpoint logical boundary');
+  check(publication.identity.source_id===prior.identity.source_id,'checkpoint source identity');
+  for(const kind of ['state','events','scores'])check(await sha256Web(artifacts[kind])===publication.artifacts.find(a=>a.kind===kind)?.sha256,'checkpoint '+kind+' integrity');
+  check(await sha256Web(artifacts.state)===publication.head.state_hash,'checkpoint state binding');
+  const events=decodeCanonical(artifacts.events),scores=decodeCanonical(artifacts.scores);
+  check(events.version===final.version&&Array.isArray(events.receipts)&&events.receipts.length===0&&Array.isArray(events.events),'checkpoint events');
+  check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
+  const context=events.events[0]?.context;
+  if(final.version===6){
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'checkpoint context commitment');
+    check(context.previous_state===await sha256Web(initialBytes),'checkpoint context predecessor');
+    for(const k of ['received_e8s','credits','balls','time','next_ball_id','next_cannon_id','next_strike_id','pending'])check(sameCanonical(initial[k],final[k]),'checkpoint preserved '+k);
+    if(initial.version===5){
+      check(publication.version===8&&publication.epoch.version===2&&events.events.length===1&&events.events[0].kind==='rules_activated'&&context.migration==='B2Z_PLAYABILITY_FROM_V5_01'&&context.version===3,'rules activation context');
+      const expected={...initial,version:6,playability:{elapsed_ns:context.observed_ns,next_player_id:initial.next_cannon_id,next_territory_id:initial.next_cannon_id,players:initial.cannons.map(c=>({id:c.id,account:c.account})),territories:initial.cannons.map(c=>({id:c.id,player:c.id})),lifecycle:initial.cannons.map(c=>({cannon:c.id,player:c.id,generation:1}))}};
+      check(sameCanonical(expected,final),'rules activation preserved entities');
+      check(context.new_state===publication.head.state_hash&&sameCanonical(context.old_identity,prior.identity)&&sameCanonical(context.new_identity,publication.identity),'rules activation identities');
+      check(final.playability.elapsed_ns===context.observed_ns,'rules activation time');
+    }else{
+      check(initial.version===6&&publication.version===9&&publication.epoch.version===3&&sameCanonical(publication.identity,prior.identity),'lifecycle checkpoint identity');
+      check(events.events[0].kind==='lifecycle_context'&&context.domain==='B2Z-LIFECYCLE-CONTEXT-01'&&context.version===1,'lifecycle context');
+      check(typeof context.observed_ns==='bigint'&&context.observed_ns>=initial.playability.elapsed_ns&&final.playability.elapsed_ns===context.observed_ns,'lifecycle observed time');
+      const due=initial.playability.lifecycle.filter(l=>l.deadline_ns!==undefined&&l.deadline_ns<=context.observed_ns).map(l=>({cannon:l.cannon,generation:l.generation,deadline_ns:l.deadline_ns})).sort((a,b)=>a.deadline_ns<b.deadline_ns?-1:a.deadline_ns>b.deadline_ns?1:a.cannon-b.cannon||a.generation-b.generation);
+      check(due.length>0&&sameCanonical(due,context.fences),'lifecycle complete due fences');const gone=new Set(due.map(f=>f.cannon));
+      check(sameCanonical(initial.cannons.filter(c=>!gone.has(c.id)),final.cannons)&&sameCanonical(initial.playability.players,final.playability.players),'lifecycle retained players/entities');
+      check(events.events.length===due.length+1&&sameCanonical(events.events.slice(1).map(e=>e.cannon),due.map(f=>f.cannon)),'lifecycle expiry events');
+    }
+  }else check(events.events.length===0&&((initial.version===3&&final.version===4&&publication.version===7)||(initial.version===4&&final.version===5&&publication.version===8)),'legacy checkpoint identity');
+  return {start:at,end:at,initial,final,checkpoint:true,events:events.events,receipts:[],bytes:artifacts.state.length+artifacts.events.length+artifacts.scores.length};
+}
+/** An ordered view handoff, never a zero-duration append to PlayoutClock. */
+export class CheckpointPlayer {
+  constructor(segment){check(segment.checkpoint&&segment.start===segment.end,'checkpoint player');this.segment=segment;this.view=new B2zView(segment.final);}
+  advance(time){check(time===this.segment.end,'checkpoint presentation boundary');return this.view;}
+}

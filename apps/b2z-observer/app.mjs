@@ -5,7 +5,7 @@ import {createArcade,formatIcp} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
-import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
+import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
@@ -179,7 +179,7 @@ async function startLive(recording,startupRetries=0){
     }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
     const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
-    resetLiveClock(s,time);if(world.version===5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
+    resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
@@ -198,24 +198,29 @@ async function epochConfiguration(s,ticket){
   const prior=s.sequence.last?.publication;
   const crossing=prior&&Object.keys(prior.identity).some(k=>prior.identity[k]!==ticket.publication.identity[k]);
   if(!crossing)return null;
-  if(!((prior.version===6&&ticket.publication.version===7)||([7,8].includes(prior.version)&&ticket.publication.version===8)))throw new Error('unsupported world epoch');
+  if(!((prior.version===6&&ticket.publication.version===7)||([7,8,9].includes(prior.version)&&[8,9].includes(ticket.publication.version))))throw new Error('unsupported world epoch');
   if(!s.config)return null; // Explicit test harness has no payment-preparation flow.
   const {certifiedConfiguration}=await import('./mainnet.mjs');
   return certifiedConfiguration(ticket);
 }
 function applyEpochPresentation(s,world,config){
   if(config){s.config=config;$('rules-identity').textContent=`Rules ${s.sequence.last.publication.identity.rules_hash}; configuration ${s.sequence.last.publication.identity.config_hash}`;}
-  if(!visible||visible.version!==world.version||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version===5;}
+  if(!visible||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version>=5;}
 }
 async function admitLive(s,ticket,prefetched){
   const artifacts=prefetched??await liveArtifacts(s,ticket);if(!active(s))return;
-  if([7,8].includes(ticket.publication.version)&&ticket.publication.head.seal===null){
+  if([7,8,9].includes(ticket.publication.version)&&ticket.publication.head.seal===null){
     const config=await epochConfiguration(s,ticket);if(!active(s))return;
-    const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);
-    s.sequence.accept(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
-    resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
-    updatePlayReference(s,world,artifacts.events);
-    Object.assign(globalThis.__dtrLive,{resyncs:s.resyncs,skipped:true});globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));return;
+    const segment=await prepareCheckpoint(s.previousState,artifacts,ticket.publication,s.sequence.last.publication);if(!active(s))return;
+    if(segment.start!==s.clock.available)throw new Error('checkpoint timeline gap');
+    if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer checkpoint byte capacity');
+    if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
+    s.sequence.accept(ticket);
+    if(config){s.config=config;$('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;}
+    s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;
+    s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
+    globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+    globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);return;
   }
   const deriving=performance.now();
   const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);s.deriveMs=performance.now()-deriving;if(!active(s))return;
@@ -399,7 +404,7 @@ function frame(now){
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
     s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
     function show(q,time){
-      if(!q.presented){q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
+      if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
       visible=q.player.advance(time);
     }
     while(s.queue.length&&visibleTime>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}

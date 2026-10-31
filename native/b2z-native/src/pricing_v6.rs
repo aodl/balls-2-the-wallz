@@ -15,17 +15,17 @@ fn square_price(base: u64, n: u64) -> Result<u64> {
         .and_then(|v| v.checked_mul(n))
         .ok_or_else(|| "PRICE_OVERFLOW".into())
 }
-pub fn ball_price(attached: u32) -> Result<u64> {
-    square_price(BALL_BASE_E8S, u64::from(attached.max(1)))
+pub fn ball_price(pool: u32) -> Result<u64> {
+    square_price(BALL_BASE_E8S, u64::from(pool.max(1)))
 }
 pub fn cannon_price(retained: u32) -> Result<u64> {
     square_price(JOIN_E8S, u64::from(retained) + 1)
 }
-pub fn sequential_cost(attached: u32, requested: u32) -> Result<u64> {
+pub fn sequential_cost(pool: u32, requested: u32) -> Result<u64> {
     quantity(requested)?;
     let mut total = 0u64;
     for i in 0..requested {
-        let n = attached.checked_add(i).ok_or("PRICE_OVERFLOW")?;
+        let n = pool.checked_add(i).ok_or("PRICE_OVERFLOW")?;
         total = total.checked_add(ball_price(n)?).ok_or("PRICE_OVERFLOW")?;
     }
     Ok(total)
@@ -55,9 +55,9 @@ pub struct Prefix {
     pub stop_reason: &'static str,
 }
 /// The explicit quantity is a ceiling. Every item is repriced from the actual
-/// attached count, and a capacity stop or unaffordable item consumes no budget.
+/// pool count, and a capacity stop or unaffordable item consumes no budget.
 pub fn affordable_prefix(
-    attached: u32,
+    pool: u32,
     requested: u32,
     budget: u64,
     free_slots: u32,
@@ -74,7 +74,7 @@ pub fn affordable_prefix(
             out.stop_reason = "capacity";
             break;
         }
-        let price = ball_price(attached.checked_add(i).ok_or("PRICE_OVERFLOW")?)?;
+        let price = ball_price(pool.checked_add(i).ok_or("PRICE_OVERFLOW")?)?;
         if price > out.remainder {
             out.stop_reason = "insufficient_payment";
             break;
@@ -114,7 +114,7 @@ mod tests {
     }
     #[test]
     fn partial_prefix_never_spends_on_unspawned_items_or_beyond_quantity() {
-        for (attached, requested, budget, slots, count, used, reason) in [
+        for (pool, requested, budget, slots, count, used, reason) in [
             (1, 3, 139_999_999, 64, 2, 50_000_000, "insufficient_payment"),
             (0, 3, 50_000_000, 64, 2, 20_000_000, "insufficient_payment"),
             (1, 3, 140_000_000, 2, 2, 50_000_000, "capacity"),
@@ -122,7 +122,7 @@ mod tests {
             (0, 1, 9_999_999, 64, 0, 0, "insufficient_payment"),
             (0, 1, 100_000_000, 0, 0, 0, "capacity"),
         ] {
-            let p = affordable_prefix(attached, requested, budget, slots).unwrap();
+            let p = affordable_prefix(pool, requested, budget, slots).unwrap();
             assert_eq!(p.prices.len(), count);
             assert_eq!(p.used, used);
             assert_eq!(p.used + p.remainder, budget);

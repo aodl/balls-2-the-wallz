@@ -78,12 +78,12 @@ export function preparePurchase(w,account,budget,memo,moved=[]){
   return {kind:'new',angle:c.angle,quantity:c.quantity,explicit,cell:c.cell,price,player:id??null,first:!mine.length};
  }
  const cannon=w.cannons.find(x=>x.id===c.cannon);if(!cannon)return reject('NO_CANNON');if(cannon.account!==account)return reject('NOT_OWNER');
- const attached=territoryBallCount(w,c.cannon);
+ const pool=territoryBallCount(w,c.cannon);
  if(c.kind==='fire'){
-  if(budget<ballPrice(attached))return reject('UNDERFUNDED');if(attached>=V6_POLICY.max_purchase_balls_per_island||w.balls.length>=V6_POLICY.max_balls||w.next_ball_id===U32)return reject('BALL_CAPACITY');
+  if(budget<ballPrice(pool))return reject('UNDERFUNDED');if(pool>=V6_POLICY.max_purchase_balls_per_island||w.balls.length>=V6_POLICY.max_balls||w.next_ball_id===U32)return reject('BALL_CAPACITY');
   return {kind:'fire',cannon:c.cannon,angle:c.angle,quantity:c.quantity,explicit};
  }
- if(c.kind!=='move_cannon')throw Error('unresolved command');if(!attached)return reject('DORMANT_REVIVAL_REQUIRED');
+ if(c.kind!=='move_cannon')throw Error('unresolved command');if(!pool)return reject('DORMANT_REVIVAL_REQUIRED');
  if(budget<PRELAUNCH_CONFIG.move_e8s)return reject('UNDERFUNDED');if(moved.includes(c.cannon))return reject('MOVE_LIMIT');
  if(playerAt(w,c.cell)!==playerForCannon(w,c.cannon))return reject('NOT_OWN_TERRITORY');if(w.cannons.some(x=>x.id!==c.cannon&&x.cell===c.cell))return reject('CANNON_OCCUPIED');
  const old=ownerAt(w,cannon.cell);if(ownerAt(w,c.cell)!==old&&w.cannons.filter(c=>ownerAt(w,c.cell)===old).length===1)return reject('WOULD_STRAND_ISLAND');
@@ -98,9 +98,9 @@ export class PurchaseBatch{
  }
  step(w){
   this.validate(w);if(this.stop_reason!==null)return null;if(this.prices.length>=this.requested){this.stop_reason='quantity_limit';return null;}
-  const attached=territoryBallCount(w,this.cannon);
-  if(attached>=V6_POLICY.max_purchase_balls_per_island||w.balls.length>=V6_POLICY.max_balls){this.stop_reason='capacity';return null;}
-  if(w.next_ball_id===U32){this.stop_reason='ball_id_exhausted';return null;}const price=ballPrice(attached);
+  const pool=territoryBallCount(w,this.cannon);
+  if(pool>=V6_POLICY.max_purchase_balls_per_island||w.balls.length>=V6_POLICY.max_balls){this.stop_reason='capacity';return null;}
+  if(w.next_ball_id===U32){this.stop_reason='ball_id_exhausted';return null;}const price=ballPrice(pool);
   if(price>this.remainder){this.stop_reason='insufficient_payment';return null;}
   const c=w.cannons.find(c=>c.id===this.cannon),ball=cloneCanonical(launch(w,c,this.angle)),reactivated=reviveTerritory(w,territoryForCannon(w,this.cannon)),revived=reactivated.includes(this.cannon);
   this.prices.push(price);this.used+=price;this.remainder-=price;if(this.prices.length===this.requested)this.stop_reason='quantity_limit';const metadata_delta=emptyMetadataDelta(w.playability);metadata_delta.lifecycle=reactivated.map(id=>({...w.playability.lifecycle.find(l=>l.cannon===id)}));return {ball,revived,reactivated,metadata_delta};
