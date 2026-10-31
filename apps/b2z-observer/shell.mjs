@@ -9,6 +9,7 @@ export function createShell(doc,camera,arcade,onPick){
  $('dismiss-empty').addEventListener('click',()=>{dismissed=true;placeAim();$('toolbar-play').focus();});
  $('empty-prepare').addEventListener('click',()=>open('play-dialog'));
  $('pick-move').addEventListener('click',()=>{$('play-dialog').hidden=true;$('board').focus();$('camera-help').textContent='Choose a highlighted owned cell. Clicking prepares a memo; it never executes a move.';});
+ $('pick-new').addEventListener('click',()=>{$('play-dialog').hidden=true;$('board').focus();$('camera-help').textContent='Choose a highlighted adjacent site for a new cannon. This prepares payment details and sends nothing.';});
  $('fit-world').addEventListener('click',()=>camera.fit());
  $('centre-cannon').addEventListener('click',()=>{const c=onPick.selected();if(c)camera.frameCell(c.cell);});
  for(const [id,factor]of[['zoom-in',1.5],['zoom-out',1/1.5]])$(id).addEventListener('click',()=>camera.zoom(factor));

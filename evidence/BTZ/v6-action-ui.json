@@ -1,0 +1,176 @@
+{
+  "status": "PASS",
+  "scope": "Local action quotes, synthetic widget browser and diagnostics development checks; not an installed/certified v6 release qualification",
+  "focused_tests": 53,
+  "synthetic_widget_viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "widget_no_refresh_actions": [
+    "new cannon",
+    "fire",
+    "move",
+    "mutual death/dormancy",
+    "elapsed expiry"
+  ],
+  "widget_limitations": [
+    "Widget state is explicitly supplied synthetic data, not IC observation",
+    "Installed source-to-certificate-to-presentation path remains in the final release gate",
+    "New 128/512/64/16 capacities are unqualified targets, not live production limits"
+  ],
+  "browser_sandbox": true,
+  "browser_csp": "script-src self; style-src self; connect-src self; no inline-script allowance",
+  "legacy_recording_browser_checks": 14,
+  "legacy_browser_scope": "Offline content/HTTP/browser checks; build precedes the small accepted-head diagnostic hook addition, which is covered by unit tests and final bundle compilation",
+  "legacy_history_replay_publications": 1045,
+  "diagnostics": "An older epoch is recoverable only when the exact head/context was previously accepted in this session; certificates/sequence guards stay unchanged. Unknown chains, wrong deployment, same-height conflicts, prior genuine errors and five persistent failures remain blocking. Cross-epoch diagnostic shape stubs are not IC certificates.",
+  "retained_errors": [
+    "Quote test used actual instead of actual_quantity",
+    "Browser fixture attempted filling a hidden Advanced field"
+  ],
+  "production_mutations": false,
+  "deployment_status": "NOT_DEPLOYED",
+  "files": [
+    {
+      "path": ".work/v6-actions-focused-complete.log",
+      "sha256": "dfdd2a3bf19196fa469cb359896426c4ce2f3e3ef56c8edf0d7afc911089525c",
+      "bytes": 5612
+    },
+    {
+      "path": ".work/v6-actions-and-rollback-final.log",
+      "sha256": "5af2f2c4eba17df917732d661d226fcfe888f974893361418bcd1339fd6dfc25",
+      "bytes": 5617
+    },
+    {
+      "path": ".work/v6-action-quote.log",
+      "sha256": "16a738d7a1cf10ed45e1d548e7b771b7953e4e09019e4933ff0d5347ae77326f",
+      "bytes": 1329
+    },
+    {
+      "path": ".work/v6-action-quote-corrected.log",
+      "sha256": "b91cbdda0d32e3916035163944aae415828cddecd4f2d304ece91da454dfd705",
+      "bytes": 536
+    },
+    {
+      "path": ".work/v6-actions-browser.log",
+      "sha256": "0e26cee88def2c4c3d29e67d2ea10971eacb17dfefa72515ea2b820402b1e01c",
+      "bytes": 2962
+    },
+    {
+      "path": ".work/v6-actions-browser-corrected.log",
+      "sha256": "375f55d1be0d942a19968a1693d890e9efd7863b985173d9917f4e93b13d37f0",
+      "bytes": 145
+    },
+    {
+      "path": ".work/v6-actions-browser-final.log",
+      "sha256": "63b224484415d446a8d800022de1ae6bfd684e6a60f3d0d1a23ca5acbfe22170",
+      "bytes": 141
+    },
+    {
+      "path": ".work/v6-actions-browser-final/results.json",
+      "sha256": "e764191fa799a82cbab79691a6fb8faab611c9166669c5d4fc154bfa6f21b93c",
+      "bytes": 960
+    },
+    {
+      "path": ".work/v6-actions-browser-final/fixture.mjs",
+      "sha256": "e8edcf10d111671a53f759cbd9ab1790452a4054e67555aec59adae168823111",
+      "bytes": 122470
+    },
+    {
+      "path": ".work/v6-actions-browser-final/fixture.json",
+      "sha256": "00f7b72e7e13e6562084a2d0fa47fcc908988a6f1510fd46c35d739e01471eaf",
+      "bytes": 232454
+    },
+    {
+      "path": ".work/v6-actions-structure.log",
+      "sha256": "257dce71cc3755575b0cf0b203fcb0c083d6869ab46fbb0a3d019514e9d1179b",
+      "bytes": 314
+    },
+    {
+      "path": ".work/v6-actions-legacy-http/results.json",
+      "sha256": "c32efc8050b216c3cc24253b2357d0fb85d6accb6b97c3c18b9ea4c31b5190d1",
+      "bytes": 2425
+    },
+    {
+      "path": ".work/v6-actions-app.mjs",
+      "sha256": "ab8f3241a521579bceaef72afb68b7f5123745a49787c23c57e4ac0a17399e77",
+      "bytes": 663503
+    },
+    {
+      "path": ".work/v6-legacy-history-replay.json",
+      "sha256": "13342daa08c1ae404025769f502b17c09e0fefef5fad3ad325a97dba43234f3b",
+      "bytes": 266
+    },
+    {
+      "path": ".work/v6-actions-browser-final/1440-after.png",
+      "sha256": "b6ed444f77008984e2fc961aebcef558674367c4cdd42ac2a3e4f40efd73660a",
+      "bytes": 71907
+    },
+    {
+      "path": ".work/v6-actions-browser-final/1440-before.png",
+      "sha256": "5128f24ef51342653d159aa4bdafbe5e5ecd5c70323d93be4e95577e5c794009",
+      "bytes": 34601
+    },
+    {
+      "path": ".work/v6-actions-browser-final/390-after.png",
+      "sha256": "f9ea61ad83976f5b8c9535d0de631fda79f7909cdb89b27d7cae8c4baa7c0d67",
+      "bytes": 42598
+    },
+    {
+      "path": ".work/v6-actions-browser-final/390-before.png",
+      "sha256": "9023f11c1247650ce002f02919edd442dea44439b1eb258be753a087a99dd408",
+      "bytes": 25000
+    },
+    {
+      "path": "apps/b2z-observer/app.mjs",
+      "sha256": "a03f2b95f21a269647589ae8ca1b42dab90fbf917d5cef82e0729ad737af733f",
+      "bytes": 43568
+    },
+    {
+      "path": "apps/b2z-observer/arcade.mjs",
+      "sha256": "978829bf6a338c61d408f2599d50d8310423661db6c1bc4602b4bc5d0c806786",
+      "bytes": 19037
+    },
+    {
+      "path": "apps/b2z-observer/action-quote-v6.mjs",
+      "sha256": "564f14875d1cb0abc87f6e99b153081a3c3d7fac20f3097f8c2e6a16f84593ef",
+      "bytes": 5275
+    },
+    {
+      "path": "apps/b2z-observer/live-delivery.mjs",
+      "sha256": "0e18fbbbb2bdebb8ddbba240e8fe206551b56a8e3d5f14889ce8cd40b206f020",
+      "bytes": 3722
+    },
+    {
+      "path": "apps/b2z-observer/render.mjs",
+      "sha256": "cb1958a6b6715b43d5c216ead4363a6e8d900780fed362682791275dc4ef1cbd",
+      "bytes": 16527
+    },
+    {
+      "path": "apps/b2z-observer/model.mjs",
+      "sha256": "b7d972a914356ff372257f093036680ce0fdcd240bdca736c2c82293b00a18c9",
+      "bytes": 30766
+    },
+    {
+      "path": "apps/b2z-observer/index.html",
+      "sha256": "da2c0d771660c95ef6d6eae85d21b9db9697cb6e9d7a0bd8cdffeba89270c60d",
+      "bytes": 19509
+    },
+    {
+      "path": "apps/b2z-observer/shell.mjs",
+      "sha256": "e39c3ca4e870fff426d05b3c06b17e1c3e27cbc26eda495fae70c8c433ba5864",
+      "bytes": 5347
+    },
+    {
+      "path": "apps/b2z-observer/style.css",
+      "sha256": "182655097ed67aec63b12db775d5bd0c3b14b1acb3cb90b3d1c8d2ab351a7e2c",
+      "bytes": 11320
+    }
+  ]
+}

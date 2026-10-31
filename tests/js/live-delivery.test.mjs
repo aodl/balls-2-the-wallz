@@ -5,7 +5,7 @@ import {PublicationSequence,verifyCertificatePublication,verifyPinnedPublication
 import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';
 import {publication} from '@dtr/timeline-runtime/observation/publication';
 import {coordinatorScenario} from '../scenarios/coordinator.mjs';
-import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess} from '../../apps/b2z-observer/live-delivery.mjs';
+import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from '../../apps/b2z-observer/live-delivery.mjs';
 
 const base=new URL('../fixtures/observer-delivery/',import.meta.url),capture=JSON.parse(fs.readFileSync(new URL('capture.json',base)));
 const bytes=name=>new Uint8Array(fs.readFileSync(new URL(name,base)));
@@ -78,4 +78,20 @@ test('later stale recovery cannot hide an earlier certificate or delivery failur
  reject(s,f.rejected,2);s.sequence.accept(f.accepted);liveDeliverySuccess(s,f.accepted,3);
  assert.equal(s.deliveryError,failure.message);assert.equal(s.deliveryDiagnostics.active.kind,'delivery-or-verification-error');
  assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,null);assert.equal(s.deliveryDiagnostics.history[1].recovered_at_ms,3);
+});
+// Diagnostic shape stubs ONLY. They are never passed to the verifier or DTR
+// sequence and do not pretend to carry IC certificates. Real signatures and the
+// sequence's cross-epoch rejection are exercised by separate tests above/v9.
+const diagnosticTicket=(head,epoch)=>({mode:'certificate-verifier',network:'pocketic-local',canister_id:'local-fixture',root_hash:`root-${head}-${epoch}`,publication:{version:9,identity:{source_id:'same-source',rules_hash:'same-rules'},epoch:{transition_hash:epoch},render_format:null,head:{segment_id:BigInt(head)}}});
+test('an exact previously accepted older epoch can recover without changing the authenticated floor',()=>{
+ const old=diagnosticTicket(5,'old'),current=diagnosticTicket(6,'current'),s={retryFailures:0,error:null,sequence:{last:current},deliveryDiagnostics:liveDeliveryDiagnostics()};rememberLiveAcceptance(s,old);rememberLiveAcceptance(s,current);
+ liveDeliveryFailure(s,new Error('observation epoch identity'),old,current,1);assert.equal(s.deliveryDiagnostics.active.kind,'stale-certified-observation');assert.equal(s.sequence.last,current);liveDeliverySuccess(s,current,2);assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,2);assert.equal(s.sequence.last,current);
+});
+test('unknown epoch, same-height conflict, wrong deployment and certificate errors remain blocking',()=>{
+ const old=diagnosticTicket(5,'old'),current=diagnosticTicket(6,'current');
+ for(const [message,rejected]of[['observation epoch identity',old],['same-height conflicting observation',diagnosticTicket(6,'conflict')],['observation epoch identity',{...old,canister_id:'wrong-canister'}],['certificate verification failed',null]]){const s={retryFailures:0,error:null,sequence:{last:current},deliveryDiagnostics:liveDeliveryDiagnostics()};rememberLiveAcceptance(s,current);liveDeliveryFailure(s,new Error(message),rejected,current,1);liveDeliverySuccess(s,current,2);assert.equal(s.deliveryDiagnostics.active.kind,'delivery-or-verification-error');assert.equal(s.deliveryError,message);}
+});
+test('accepted-head context is bounded and verified forward epochs can recover only a known stale failure',()=>{
+ const s={retryFailures:0,error:null,deliveryDiagnostics:liveDeliveryDiagnostics()};for(let i=0;i<70;i++)rememberLiveAcceptance(s,diagnosticTicket(i,'old'));assert.equal(s.deliveryDiagnostics.acceptedHeads.length,64);assert.equal(s.deliveryDiagnostics.acceptedEvicted,6);
+ const old=diagnosticTicket(68,'old'),current=diagnosticTicket(70,'current'),forward=diagnosticTicket(71,'forward');rememberLiveAcceptance(s,current);s.sequence={last:current};liveDeliveryFailure(s,new Error('observation epoch identity'),old,current,1);rememberLiveAcceptance(s,forward);s.sequence.last=forward;liveDeliverySuccess(s,forward,2);assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.recoveries,1);
 });

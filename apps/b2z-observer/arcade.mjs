@@ -3,6 +3,8 @@ import {describeTextMemo} from '../../packages/protocol/memo.mjs';
 import {accountIdentifier,canonicalAccount,identityStore} from './identity.mjs';
 import {heading} from '../../packages/kernels/b2z/math.mjs';
 import {cannonReference} from './play-reference.mjs';
+import {quoteV6,legalMove,legalAdjacentSites} from './action-quote-v6.mjs';
+import {cannonPrice} from '../../packages/kernels/b2z/pricing-v6.mjs';
 export function formatIcp(e8s){
   if(typeof e8s!=='bigint'||e8s<0n)throw new Error('exact nonnegative e8s required');
   const whole=e8s/100000000n,decimal=(e8s%100000000n).toString().padStart(8,'0').replace(/0+$/,'');
@@ -20,6 +22,13 @@ export function createArcade(doc){
     if(!config||!source||!world)return {reason:'Waiting for authenticated configuration and destination.'};
     const c=selected(),action=mode(),cell=selectedCell();
     if(!declaration)return {reason:'Identify your funding account first. This is not login.'};
+    if(world.version===6){
+      if(action!=='move'&&!angleValid)return {reason:'Enter an angle from 0 to 359.99 with up to two decimal places.'};
+      try{
+        const q=quoteV6(world,config,declaration.account,{kind:({start:'new',ball:'fire',move:'move'})[action],cannon:c?.id,angle:degrees,quantity:action==='move'?1:Number($('ball-quantity').value),cell:action==='start'?($('new-cell').value===''?null:Number($('new-cell').value)):cell});
+        return {action,cannon:action==='start'?null:c.id,amount:q.amount,requested:q.requested,maximum_fill:q.maximum_fill,world_key:`${world.version}/${world.width}/${world.height}/${world.playability.elapsed_ns}`,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
+      }catch(e){return {reason:`Cannot prepare: ${e.message.replaceAll('_',' ').toLowerCase()}. Final legality is checked when payment is processed.`};}
+    }
     if(action!=='start'&&c?.account!==declaration.account)return {reason:'This cannon belongs to a different funding account.'};
     if(action==='start'&&world.cannons.some(c=>c.account===declaration.account))return {reason:'An existing account fires from its cannon. Additional cannons require the new rules release.'};
     if(action!=='start'&&!c)return {reason:'Choose a selected cannon to inspect.'};
@@ -34,6 +43,7 @@ export function createArcade(doc){
   const key=c=>JSON.stringify(c,(_,v)=>typeof v==='bigint'?v.toString():v);
   function availability(){
     const current=candidate();
+    const chosen=selected();if(chosen?.dormant){const remaining=chosen.deadline_ns-BigInt(Date.now())*1000000n;text('cannon-life',remaining>0n?`Dormant · approximately ${Number((remaining+59999999999n)/60000000000n)} minutes of grace remain. Paid fire revives this island.`:'Dormant deadline reached · waiting for authenticated on-chain expiry.');}else text('cannon-life',world?.version===6&&chosen?`Active · ${chosen.balls} friendly balls share this connected island.`:'');
     if(available&&!current.reason&&prepared&&key(current)===key(prepared))stale=false;
     if(available&&!current.reason&&(!prepared||key(current)!==key(prepared))&&!quoteQueued){quoteQueued=true;queueMicrotask(()=>{quoteQueued=false;if(available&&!candidate().reason)$('prepare-transfer').click();});}
     $('prepare-transfer').disabled=!available||Boolean(current.reason);
@@ -76,6 +86,8 @@ export function createArcade(doc){
     setAngle((n/100).toFixed(2));
   });
   $('angle-degrees').addEventListener('input',()=>setAngle($('angle-degrees').value));
+  $('ball-quantity').addEventListener('input',clearPreparation);
+  $('new-cell').addEventListener('change',clearPreparation);
   for(const b of doc.querySelectorAll('[data-angle]'))b.addEventListener('click',()=>setAngle(b.dataset.angle));
   function cells(){
     const c=selected(),prior=$('move-cell').value,placeholder=doc.createElement('option');placeholder.value='';placeholder.textContent='Choose an owned cell';
@@ -86,9 +98,14 @@ export function createArcade(doc){
       const o=doc.createElement('option');o.value=prior;o.textContent=`Cell ${prior} · row ${Math.floor(picked/world.width)}, column ${picked%world.width}`;$('move-cell').append(o);
     }
     $('move-cell').value=prior;
+    const newPrior=$('new-cell').value,sites=world?.version===6&&declaration?legalAdjacentSites(world,declaration.account):[];
+    const automatic=doc.createElement('option');automatic.value='';automatic.textContent='Automatic deterministic adjacent placement';$('new-cell').replaceChildren(automatic);
+    for(const cell of sites){const option=doc.createElement('option');option.value=String(cell);option.textContent=`Cell ${cell} · row ${Math.floor(cell/1000)}, column ${cell%1000}`;$('new-cell').append(option);}
+    $('new-cell').value=sites.includes(Number(newPrior))&&newPrior!==''?newPrior:'';
   }
   function localMode(){
     $('cannon-choice').hidden=mode()==='start';$('aim-controls').hidden=mode()==='move';$('move-controls').hidden=mode()!=='move';
+    $('quantity-controls').hidden=world?.version!==6||mode()==='move';$('new-controls').hidden=world?.version!==6||mode()!=='start'||!world.cannons.some(c=>c.account===declaration?.account);
     cells();clearPreparation();
   }
   $('action-mode').addEventListener('change',localMode);
@@ -97,8 +114,9 @@ export function createArcade(doc){
   $('prepare-transfer').addEventListener('click',()=>{
     const c=candidate();if(!available||c.reason)return;
     prepared=c;stale=false;$('prepared-card').hidden=false;
-    text('prepared-action',({start:'Start a cannon',ball:'Add a ball',move:'Move cannon'})[c.action]);
+    text('prepared-action',({start:'New cannon',ball:'Fire balls',move:'Move cannon'})[c.action]);
     text('prepared-cannon',c.cannon===null?'New cannon, identified by your sending account':`Selected cannon #${c.cannon} · selection is local inspection`);
+    if(c.requested!==undefined&&c.action!=='move')$('prepared-cannon').textContent+=` · requested maximum ${c.requested}, quoted fill ${c.maximum_fill}. Prices are not reserved; unused payment is retained.`;
     text('transfer-amount',formatIcp(c.amount));text('payment-owner',c.owner);text('payment-address',c.recipient);
     text('payment-subaccount',c.subaccount==='0'?'Default subaccount · omit, or use 32 zero bytes':`Numeric subaccount ${c.subaccount} · 24 zero bytes then 8-byte big-endian integer`);
     text('text-memo',c.memo);text('hex-memo',c.hex);text('copy-feedback','');availability();
@@ -126,12 +144,14 @@ export function createArcade(doc){
       const mine=w.cannons.filter(c=>c.account===declaration?.account);
       const spawned=mine.find(c=>!known.has(String(c.id)));if(spawned){located=spawned.id;if(mode()==='start'){$('action-mode').value='ball';$('cannon-choice').hidden=false;}}
 
-      text('join-price',formatIcp(config.join_e8s));text('empty-price',formatIcp(config.join_e8s));
+      text('join-price',formatIcp(w.version===6?cannonPrice(mine.length):config.join_e8s));text('empty-price',formatIcp(config.join_e8s));
+      text('capacity-summary',w.version===6?`${w.cannons.length}/${config.max_cannons} cannons · ${w.balls.length}/${config.max_balls} balls · up to ${config.max_retained_per_player} retained cannons per account · ${config.max_purchase_balls_per_island} balls per island for purchases.`:`${w.cannons.length}/${config.max_cannons} cannons · ${w.balls.length}/${config.max_balls} balls · ${config.max_per_cannon} balls per cannon.`);
       $('players-empty').hidden=w.cannons.length>0;
       const prior=$('selected-cannon').value,placeholder=doc.createElement('option');placeholder.value='';placeholder.textContent='Choose a cannon';
       $('selected-cannon').replaceChildren(placeholder);
       for(const c of mine){const o=doc.createElement('option');o.value=String(c.id);o.textContent=`Cannon #${c.id} · ${c.account.slice(0,10)}…`;$('selected-cannon').append(o);}
-      $('selected-cannon').value=mine.some(c=>String(c.id)===prior)?prior:mine.some(c=>String(c.id)===declaration?.cannon)?declaration.cannon:mine.length?String(mine[0].id):'';persist();cells();
+      $('selected-cannon').value=spawned?String(spawned.id):mine.some(c=>String(c.id)===prior)?prior:mine.some(c=>String(c.id)===declaration?.cannon)?declaration.cannon:mine.length?String(mine[0].id):'';persist();cells();
+      $('quantity-controls').hidden=w.version!==6||mode()==='move';$('new-controls').hidden=w.version!==6||mode()!=='start'||!mine.length;
       // Requote from the new verified revision; copying independently revalidates it.
       if(prepared&&key(candidate())!==key(prepared))stale=true;availability();
     },
@@ -140,8 +160,8 @@ export function createArcade(doc){
       if(wasAvailable&&!available&&prepared)stale=true;availability();
       const protectedMode=pace?.admission_open===false;
       const reduced=pace&&['Cruise','Economy','Steady','Conserve','Survival','Lifeline'].includes(pace.mode);
-      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':transitioning?'Catching up':protectedMode?'Reserve protection':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?'Waiting for players':['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':reduced?'Reduced speed':'Live';
-      text('live-status',label);$('live-status').dataset.verified=String(['Live','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Waiting for players','Reduced speed'].includes(label));
+      const label=phase==='ERROR'||!verified?'Disconnected':!live?'Verified replay':transitioning?'Catching up':protectedMode?'Reserve protection':!fresh||!healthy?'Disconnected':paused?'Catching up':idle?(world?.version===6&&world.cannons.length?'Waiting for revival':'Waiting for players'):['STALLED','BUFFERING','DEGRADED_BUFFER'].includes(phase)?'Catching up':reduced?'Reduced speed':'Live';
+      text('live-status',label);$('live-status').dataset.verified=String(['Live','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Waiting for players','Waiting for revival','Reduced speed'].includes(label));
       text('payment-health',transitioning?'World transition in progress. Prepare fresh instructions after it completes.':available?'Verified address and prices. Prepare a transfer below.':phase==='ERROR'?'Verification failed. Do not send a payment.':protectedMode?'Reserve protection is active. Funding recovery continues; wait before preparing a new payment.':!healthy&&verified?'Gameplay paused or service unavailable. Wait before purchasing.':'Checking current prices and live service…');
       const actual=pace?.supported_milli??pace?.nominal_milli;
       text('arena-note',transitioning?'World transition · waiting for verified new world':protectedMode?'Gameplay paused to conserve cycles':idle?'Waiting for players · Index polling continues':pace?.performance_limited?'Performance slowdown':reduced?'Reduced speed to conserve cycles':pace?'Live':label);
@@ -151,7 +171,7 @@ export function createArcade(doc){
     locate(visible){if(located!==null&&visible?.cannons.has(located)){const id=located;located=null;return id;}return null;},
     selectedCannon(){return selected()?.id??null;},
     selectCannon(id){if(!world?.cannons.some(c=>c.id===id&&c.account===declaration?.account)){text('preparation-note','Opponent cannon: inspection only. Identify your own funding account to act.');return false;}$('selected-cannon').value=String(id);$('action-mode').value='ball';localMode();return true;},
-    moveSelection(){const c=selected();return mode()==='move'&&c&&world?{width:world.width,height:world.height,id:c.id,cells:c.owned_cells,cell:selectedCell()}:null;},
-    chooseCell(cell){const c=selected();if(mode()==='move'&&c?.owns(cell)){if(![...$('move-cell').options].some(o=>o.value===String(cell))){const o=doc.createElement('option');o.value=String(cell);o.textContent=`Cell ${cell} · row ${Math.floor(cell/world.width)}, column ${cell%world.width}`;$('move-cell').append(o);}$('move-cell').value=String(cell);clearPreparation();return true;}return false;}
+    moveSelection(){const c=selected();if(world?.version===6&&mode()==='start'&&declaration)return {kind:'new',width:1000,height:1000,id:null,cells:legalAdjacentSites(world,declaration.account),cell:$('new-cell').value===''?null:Number($('new-cell').value)};return mode()==='move'&&c&&world?{width:world.width,height:world.height,id:c.id,cells:c.owned_cells,cell:selectedCell(),reference:world}:null;},
+    chooseCell(cell){const c=selected();if(world?.version===6&&mode()==='start'&&declaration&&legalAdjacentSites(world,declaration.account).includes(cell)){$('new-cell').value=String(cell);clearPreparation();return true;}if(mode()==='move'&&c&&(world.version===6?legalMove(world,declaration?.account,c.id,cell):c.owns(cell))){if(![...$('move-cell').options].some(o=>o.value===String(cell))){const o=doc.createElement('option');o.value=String(cell);o.textContent=`Cell ${cell} · row ${Math.floor(cell/world.width)}, column ${cell%world.width}`;$('move-cell').append(o);}$('move-cell').value=String(cell);clearPreparation();return true;}return false;}
   };return api;
 }

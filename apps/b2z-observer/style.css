@@ -14,3 +14,5 @@ dialog{color:inherit;background:#0e202e;border:1px solid #466078;border-radius:1
 @media(max-width:600px){.arena-brand{left:12px;gap:8px}.mark{font-size:24px}.live-status{position:fixed;top:76px;left:12px;font-size:10px}.toolbar{top:110px}.identify-button{max-width:190px;font-size:11px}.toolbar{max-height:140px;overflow:auto}.action-panel{max-height:50dvh}}
 /* Delivery errors remain visible while local aiming/navigation stays usable. */
 .error{top:auto;bottom:56px;right:12px;max-height:30dvh;overflow:auto;pointer-events:none;z-index:9}.error button{pointer-events:auto}
+
+#quantity-controls{display:grid;grid-template-columns:1fr 5rem;gap:.4rem;align-items:center}#quantity-controls small{grid-column:1/-1;color:var(--muted);font-size:.75rem}

@@ -1,5 +1,6 @@
 /** Presentation only: opaque territory and fixed cell-space piece geometry. */
 import {wrap} from './camera.mjs';
+import {B2zView} from './model.mjs';
 import {heading} from '../../packages/kernels/b2z/math.mjs';
 const reducedMotionQuery=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)');
 const COLORS=['#30415b','#54f0d2','#84b7ff','#e4a4ff','#ffc778','#ff8b9b'];
@@ -96,12 +97,15 @@ export function boundaryIndex(edges,width,height){
 }
 export function createArenaRenderer(canvasFactory=()=>document.createElement('canvas')){
   let cache=null,overlay=null,overlayKey=null,overview=null,overviewLayer=null,legalLayer=null;
-  function legalTerrain(layer,id,v){
-    if(legalLayer?.layer===layer&&legalLayer.id===id)return legalLayer.image;
+  function legalTerrain(layer,id,v,reference){
+    if(legalLayer?.layer===(reference??layer)&&legalLayer.id===id)return legalLayer.image;
+    if(reference){v=new B2zView(reference);layer=territoryLayout(v);}
     const image=legalLayer?.image??canvasFactory();image.width=v.width;image.height=v.height;
     const ctx=image.getContext('2d');ctx.fillStyle='#ffcc8055';
-    for(const r of layer.rects)if(v.version===6?v.playerForTerritory(r.owner)===v.playerForCannon(id):r.owner===id)ctx.fillRect(r.x,r.y,r.width,r.height);
-    legalLayer={layer,id,image};return image;
+    const cannon=v.cannons.get(id),origin=cannon?v.owner(cannon.cell):0,life=v.playability?.lifecycle.find(l=>l.cannon===id),anchors=v.version===6?[...v.cannons.values()].filter(c=>v.owner(c.cell)===origin).length:1;
+    if(!life?.deadline_ns)for(const r of layer.rects)if(v.version===6?v.playerForTerritory(r.owner)===v.playerForCannon(id)&&(r.owner===origin||anchors>1):r.owner===id)ctx.fillRect(r.x,r.y,r.width,r.height);
+    if(v.version===6)for(const c of v.cannons.values())if(c.id!==id)ctx.clearRect(c.cell%v.width,Math.floor(c.cell/v.width),1,1);
+    legalLayer={layer:reference??layer,id,image};return image;
   }
   function terrain(v){
     const entities=v.entityKey();
@@ -149,14 +153,14 @@ export function createArenaRenderer(canvasFactory=()=>document.createElement('ca
     }
     overlayKey={x:camera.x,y:camera.y,scale:cell,width,height,ratio};return overlay;
   }
-  function draw(ctx,v,camera,{time=0,selection=null,selected=null,ratio=1,reducedMotion=reducedMotionQuery?.matches??false}={}){
+  function draw(ctx,v,camera,{time=0,selection=null,selected=null,ratio=1,reducedMotion=reducedMotionQuery?.matches??false,wallMs=globalThis.performance.now()}={}){
     const cell=camera.scale,bounds=camera.bounds(),layer=terrain(v),g=pieceGeometry(cell),viewport=camera.viewport;
     for(const tile of camera.copies()){
       const origin=camera.screen(tile.x,tile.y),x0=Math.max(0,Math.floor(bounds.x-tile.x)),y0=Math.max(0,Math.floor(bounds.y-tile.y)),x1=Math.min(v.width,Math.ceil(bounds.x+bounds.width-tile.x)),y1=Math.min(v.height,Math.ceil(bounds.y+bounds.height-tile.y));
       if(x1<=x0||y1<=y0)continue;
       ctx.save();ctx.translate(origin.x,origin.y);ctx.imageSmoothingEnabled=false;
       ctx.drawImage(layer.image,x0,y0,x1-x0,y1-y0,x0*cell,y0*cell,(x1-x0)*cell,(y1-y0)*cell);
-      if(selection&&selection.width===v.width&&selection.height===v.height)ctx.drawImage(legalTerrain(layer,selection.id,v),x0,y0,x1-x0,y1-y0,x0*cell,y0*cell,(x1-x0)*cell,(y1-y0)*cell);
+      if(selection&&selection.width===v.width&&selection.height===v.height){if(selection.kind==='new'){ctx.fillStyle='#78e4b966';for(const target of selection.cells)ctx.fillRect((target%v.width)*cell,Math.floor(target/v.width)*cell,cell,cell);}else ctx.drawImage(legalTerrain(layer,selection.id,v,selection.reference),x0,y0,x1-x0,y1-y0,x0*cell,y0*cell,(x1-x0)*cell,(y1-y0)*cell);}
       if(cell<=2){ctx.imageSmoothingEnabled=true;ctx.drawImage(overviewBoundaries(v,layer),x0*2,y0*2,(x1-x0)*2,(y1-y0)*2,x0*cell,y0*cell,(x1-x0)*cell,(y1-y0)*cell);}
       ctx.restore();
     }
@@ -190,7 +194,7 @@ export function createArenaRenderer(canvasFactory=()=>document.createElement('ca
         ctx.strokeStyle=(v.ballColor?.(b.owner)??v.color(b.owner))+'66';ctx.lineWidth=s.tailStroke;ctx.beginPath();ctx.moveTo(x-s.tailX,y-s.tailY);ctx.lineTo(x,y);ctx.stroke();
         ctx.shadowBlur=s.glow;ctx.shadowColor=(v.ballColor?.(b.owner)??v.color(b.owner));ctx.fillStyle='#f2fbff';ctx.beginPath();ctx.arc(x,y,s.ballRadius,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
       }
-      for(const e of v.effects){const age=time-e.t;if(age<0||age>.9||reducedMotion)continue;if(e.kind==='mutual'){let dx=e.x2-e.x,dy=e.y2-e.y;if(v.torus){dx-=Math.round(dx/v.width)*v.width;dy-=Math.round(dy/v.height)*v.height;}ctx.globalAlpha=(1-age/.9)*.7;ctx.strokeStyle='#f2fbff';ctx.lineWidth=g.effectStroke;ctx.beginPath();ctx.moveTo(e.x*cell,e.y*cell);ctx.lineTo((e.x+dx)*cell,(e.y+dy)*cell);ctx.stroke();ctx.globalAlpha=1;continue;}const x=(e.cell===undefined?e.x:e.cell%v.width+.5)*cell,y=(e.cell===undefined?e.y:Math.floor(e.cell/v.width)+.5)*cell;
+      for(const e of v.effects){let age=time-e.t;if(age<0||reducedMotion)continue;if(e.kind==='mutual'){e.wallStartMs??=wallMs;age=(wallMs-e.wallStartMs)/1000;if(age<0||age>.9)continue;let dx=e.x2-e.x,dy=e.y2-e.y;if(v.torus){dx-=Math.round(dx/v.width)*v.width;dy-=Math.round(dy/v.height)*v.height;}ctx.globalAlpha=(1-age/.9)*.7;ctx.strokeStyle='#f2fbff';ctx.lineWidth=g.effectStroke;ctx.beginPath();ctx.moveTo(e.x*cell,e.y*cell);ctx.lineTo((e.x+dx)*cell,(e.y+dy)*cell);ctx.stroke();ctx.globalAlpha=1;continue;}if(age>.9)continue;const x=(e.cell===undefined?e.x:e.cell%v.width+.5)*cell,y=(e.cell===undefined?e.y:Math.floor(e.cell/v.width)+.5)*cell;
         ctx.globalAlpha=1-age/.9;ctx.strokeStyle=e.kind==='burst'?'#ffdc9c':v.version===6?v.playerColor(e.owner):v.color(e.owner);ctx.lineWidth=g.effectStroke;ctx.beginPath();ctx.arc(x,y,cell*(.12+age*.7),0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
       }ctx.restore();
     }

@@ -11,7 +11,7 @@ import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
 import {accountColor} from './identity.mjs';
 import {createCycleMeterView} from './cycle-health.mjs';
-import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess} from './live-delivery.mjs';
+import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
 const arenaRenderer=createArenaRenderer(),cycleMeterView=createCycleMeterView();
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
@@ -177,7 +177,7 @@ async function startLive(recording,startupRetries=0){
       // segment zero; reject a server that cannot provide this explicit anchor.
       state=await assembler.finish();
     }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
-    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
+    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
     resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
@@ -215,7 +215,7 @@ async function admitLive(s,ticket,prefetched){
     if(segment.start!==s.clock.available)throw new Error('checkpoint timeline gap');
     if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer checkpoint byte capacity');
     if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
-    s.sequence.accept(ticket);
+    s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);
     if(config){s.config=config;$('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;}
     s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;
     s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
@@ -230,7 +230,7 @@ async function admitLive(s,ticket,prefetched){
   Object.assign(s.clock,liveSessionBufferPolicy(s));
   if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
 
-  s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
+  s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
   updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
@@ -241,7 +241,7 @@ async function admitLive(s,ticket,prefetched){
 async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
   const config=await epochConfiguration(s,ticket);if(!active(s))return;
-  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
+  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);rememberLiveAcceptance(s,ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
   resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
@@ -259,12 +259,13 @@ function updatePlayReference(s,world,events){
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
   const actionNames={cannon_spawned:'Joined arena',ball_spawned:'Launched ball',cannon_moved:'Moved cannon'};
+  const outcome=r=>r.actual_quantity!==undefined?`${r.status.replaceAll('_',' ')} · ${r.actual_quantity}/${r.requested_quantity} balls · used ${formatIcp(r.amount_used)} · retained ${formatIcp(r.remainder)} · ${r.stop_reason.replaceAll('_',' ')}`:r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase();
   $('live-receipts').replaceChildren(...[...s.receipts.values()].reverse().map(r=>{
-    const tr=row([r.position,r.account,r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase(),actionNames[r.kind]??r.kind??'—']);
+    const tr=row([r.position,r.account,outcome(r),actionNames[r.kind]??r.kind??'—']);
     tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
   }));
   const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.05,nominalPace(s.operational));
-  $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${own.reason}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
+  $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${outcome(own)}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
   $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
 }
 async function refreshOperational(now){

@@ -1,3 +1,24 @@
+# V6 island action UI checked locally; APIs/installed release gates pending
+
+Targeted Fire/New/Move preparation now uses exact current-island prices and the
+latest verified ownership, independently of buffered presentation. New own cannons
+select once, dormant markers show explanatory deadlines/paid revival, receipts
+disclose partial fills and retained remainder, and mutual flashes expire in wall
+seconds while gameplay idles. The anti-rollback guard remains unchanged; diagnostics
+can recover a cross-epoch stale reply only for an exact previously accepted head.
+
+All 53 focused tests pass. Sandboxed desktop/mobile synthetic-widget cases pass
+without reloading through new-cannon/fire/move/dormancy/expiry. The legacy HTTP
+recording suite passes 14 checks; independent replay still matches the preserved
+1,045-publication v5 history. [Scope, hashes and remaining gates](evidence/BTZ/v6-action-ui.json).
+
+The widget test is not installed IC or certification evidence. Public typed APIs,
+wire-history integration, measured capacities, installed paid-state rehearsal and
+final exact-commit CI remain unfinished. V6 is not deployed. Production remains
+the last verified release-1 v5 module. No mainnet mutation, transfer or push.
+
+---
+
 # V6 buffered checkpoints and independent replay checked locally
 
 The observer queues zero-time rules/expiry boundaries behind already admitted

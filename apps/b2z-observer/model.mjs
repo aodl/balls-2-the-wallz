@@ -269,12 +269,14 @@ const sameCanonical=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);retu
 export async function prepareCheckpoint(initialBytes,artifacts,publication,prior){
   check([7,8,9].includes(publication.version)&&publication.head.seal===null&&publication.epoch,'checkpoint publication');
   const initial=snapshot(initialBytes,prior.identity),final=snapshot(artifacts.state,publication.identity),at=timeNumber(initial.time);
-  check(cmp(initial.time,final.time)===0&&BigInt(publication.head.logical_end)===BigInt(prior.head.logical_end),'checkpoint logical boundary');
+  check(await sha256Web(initialBytes)===prior.head.state_hash,'checkpoint predecessor state binding');
+  check(cmp(initial.time,final.time)===0&&cmp(initial.time,[BigInt(prior.head.logical_end),1n])===0&&BigInt(publication.head.logical_end)===BigInt(prior.head.logical_end),'checkpoint logical boundary');
   check(publication.identity.source_id===prior.identity.source_id,'checkpoint source identity');
   for(const kind of ['state','events','scores'])check(await sha256Web(artifacts[kind])===publication.artifacts.find(a=>a.kind===kind)?.sha256,'checkpoint '+kind+' integrity');
   check(await sha256Web(artifacts.state)===publication.head.state_hash,'checkpoint state binding');
   const events=decodeCanonical(artifacts.events),scores=decodeCanonical(artifacts.scores);
   check(events.version===final.version&&Array.isArray(events.receipts)&&events.receipts.length===0&&Array.isArray(events.events),'checkpoint events');
+  check(events.events.every((e,i)=>e.sequence===i&&cmp(e.time,initial.time)===0),'checkpoint event ordering');
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
   if(final.version===6){
@@ -302,5 +304,5 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
 /** An ordered view handoff, never a zero-duration append to PlayoutClock. */
 export class CheckpointPlayer {
   constructor(segment){check(segment.checkpoint&&segment.start===segment.end,'checkpoint player');this.segment=segment;this.view=new B2zView(segment.final);}
-  advance(time){check(time===this.segment.end,'checkpoint presentation boundary');return this.view;}
+  advance(time){check(time===this.segment.end,'checkpoint presentation boundary');const count=this.segment.events.filter(e=>e.kind==='cannon_expired').length;this.view.lastEvent=count?`${count} dormant cannon${count===1?'':'s'} expired on-chain`:'Authenticated rules checkpoint';return this.view;}
 }
