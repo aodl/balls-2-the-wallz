@@ -43,6 +43,11 @@ with one existing island ball, a second cannon and two surplus balls cost
 `4 + 0.4 + 0.9 = 5.3 ICP`. Quotes are not reservations; partial-fill/remainder
 receipts retain the existing non-refundable policy and exclude the Ledger fee.
 
+First-cannon candidate probes explicitly use the low 32 bits of the existing
+rank prefix before reduction modulo the cell count. This preserves the actual
+deployed Wasm32 first-spawn search on native hosts and in independent v6 replay.
+Historical v5 reference interpretations and recorded publications remain intact.
+
 The former proposed per-cannon ball purchase ceiling becomes an island
 admission ceiling of 64. Merging islands never deletes
 existing balls to enforce that ceiling; further purchases wait until there is

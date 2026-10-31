@@ -2,6 +2,23 @@
   "spawns": {
     "first": {
       "placement": {
+        "cell": 935567,
+        "patch": [
+          934566,
+          934567,
+          934568,
+          935566,
+          935567,
+          935568,
+          936566,
+          936567,
+          936568
+        ],
+        "kind": 2,
+        "other": -1,
+        "checked": 1
+      },
+      "legacy_v5_reference_placement": {
         "cell": 165997,
         "patch": [
           164996,
@@ -18,8 +35,9 @@
         "other": -1,
         "checked": 1
       },
-      "state_sha256": "9e333017684a0bb2b07bcc3dedd545619a0beff0146a0267f5ac5c918157d149",
-      "event_sha256": "9799214aaa4beac49ed6e066a2563e32b229ddcc57c983488e815d9aefef9ef2",
+      "probe_scope": "V6 explicitly preserves the deployed Wasm32 probe; the historical native/JS v5 reference control remains unchanged.",
+      "state_sha256": "3ed10801ab769d03c073e97dbe7fd80431a4347d79245d923aa1cadfac0ce334",
+      "event_sha256": "32fe4f1d23c44e268a43179b246fd99c683776d8514f946532020bb084e60e0d",
       "receipt_sha256": "1545f4635ee936061e967a8aab514a83ad38da98dba2fadfaeb0844386efade4"
     },
     "additional": {

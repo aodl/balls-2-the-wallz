@@ -15,11 +15,11 @@ const spawns={};
 for(const first of[true,false]){
  const original=migratePlayability(decodeWorld(stageMillionWorld(Buffer.from(f.migration.new_hex,'hex'))),9007199254740993n),sender=first?'02'.repeat(32):original.cannons[0].account,budget=first?150000000n:530000000n;
  const plan=preparePurchase(original,sender,budget,encodeV6Memo(parseV6TextMemo(new TextEncoder().encode('NEW 0 3'))));
- let placement;
- if(first){const job=beginSpawn('ab'.repeat(32));while(!spawnStep(original,job));placement=job.result;const old=cloneCanonical(original);old.version=5;delete old.playability;const control=beginSpawn('ab'.repeat(32));while(!spawnStep(old,control));if(JSON.stringify(control.result)!==JSON.stringify(placement))throw Error('first spawn changed');}
+ let placement,legacy;
+ if(first){const job=beginSpawn('ab'.repeat(32));while(!spawnStep(original,job));placement=job.result;const old=cloneCanonical(original);old.version=5;delete old.playability;const control=beginSpawn('ab'.repeat(32));while(!spawnStep(old,control));legacy=control.result;}
  else{const cell=chooseAdjacent(original,1,'ab'.repeat(32));placement={cell,patch:[cell],kind:4,other:-1,checked:1};}
  const created=placeNew(original,sender,budget,plan,placement),batch=PurchaseBatch.afterNew(sender,budget,created.cannon.id,plan);while(batch.stop_reason===null)batch.step(created.world);
- spawns[first?'first':'additional']={placement,state_sha256:sha(encodeWorld(created.world)),event_sha256:sha(encodeCanonical(created.event)),receipt_sha256:sha(encodeCanonical(batch.receipt()))};
+ spawns[first?'first':'additional']={placement,...(first?{legacy_v5_reference_placement:legacy,probe_scope:'V6 explicitly preserves the deployed Wasm32 probe; the historical native/JS v5 reference control remains unchanged.'}:{}),state_sha256:sha(encodeWorld(created.world)),event_sha256:sha(encodeCanonical(created.event)),receipt_sha256:sha(encodeCanonical(batch.receipt()))};
 }
 const result=JSON.stringify({spawns,scope:'Purchase helper only; no Ledger admission, simulation step or IC authenticity claim',state_sha256:sha(encodeWorld(w)),receipt_sha256:sha(encodeCanonical(batch.receipt())),adjacent_sites:sites,selected_adjacent:selected},null,2)+'\n';
 const path='tests/fixtures/purchases-v6.json';if(process.argv.includes('--check')){if(await readFile(path,'utf8')!==result)throw Error('v6 purchase vector mismatch');}else await writeFile(path,result);console.log('PASS: v6 purchase public state/receipt vectors');

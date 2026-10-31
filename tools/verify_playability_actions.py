@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Sandboxed v6 widget checks. Synthetic data; no IC, payments or release claim."""
-import argparse, functools, http.server, json, subprocess, threading
+import argparse, functools, hashlib, http.server, json, subprocess, threading
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output',type=Path,required=True)
+parser.add_argument('--capacity-state',type=Path)
+parser.add_argument('--capacity-events',type=Path)
 args=parser.parse_args();root=Path(__file__).resolve().parents[1];out=args.output.resolve();out.mkdir(parents=True,exist_ok=False)
-subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json')],cwd=root,check=True)
+if bool(args.capacity_state)!=bool(args.capacity_events):parser.error('capacity state and event bytes must be supplied together')
+subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json'),*([str(args.capacity_state),str(args.capacity_events)] if args.capacity_state else [])],cwd=root,check=True)
 subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'fixture.mjs')],cwd=root,check=True)
 html=(root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"').replace('<body>','<body><p id="fixture-warning">SYNTHETIC LOCAL UI FIXTURE — NO IC AUTHENTICATION OR REAL PAYMENT</p>')
 (out/'index.html').write_text(html)
@@ -43,7 +46,15 @@ with sync_playwright() as p:
             page.evaluate('fixture.render("mutual_last","final");fixture.select(1);fixture.open()');assert 'Dormant' in page.locator('#cannon-life').inner_text();assert page.evaluate('fixture.summary().balls')==0
             page.evaluate('fixture.render("mutual_last","expired")');assert page.evaluate('fixture.summary().cannons')==0;assert page.evaluate('fixture.summary().navigations')==1
             page.evaluate('fixture.render("additional","final");fixture.action("ball");fixture.open()');page.screenshot(path=str(out/f'{width}-after.png'))
-            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');rows.append({'viewport':[width,height],'status':'PASS','checks':['identify before join','no-refresh new cannon/fire/move/dormancy/expiry','island batch prices','selected target authority boundary','persistent declaration','camera preservation','responsive toolbar/action overlay']});context.close()
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');row={'viewport':[width,height],'status':'PASS','checks':['identify before join','no-refresh new cannon/fire/move/dormancy/expiry','island batch prices','selected target authority boundary','persistent declaration','camera preservation','responsive toolbar/action overlay']}
+            if args.capacity_state:
+                metrics=context.new_cdp_session(page)
+                heap_before=metrics.send('Runtime.getHeapUsage')
+                maximum=page.evaluate('fixture.capacity()')
+                maximum['cdp_heap_before']=heap_before;maximum['cdp_heap_after']=metrics.send('Runtime.getHeapUsage');metrics.detach()
+                maximum['heap_scope']='Unforced point samples from the owned disposable browser; performance.memory may be quantized. No sustained leak or peak-memory claim.'
+                assert maximum['cannons']==128 and maximum['balls']==64 and maximum['players']==8 and maximum['unique_claimed_cells']==maximum['claimed_cells'];row['capacity_decode_render']=maximum;row['capacity_state_sha256']=hashlib.sha256(args.capacity_state.read_bytes()).hexdigest();row['capacity_events_sha256']=hashlib.sha256(args.capacity_events.read_bytes()).hexdigest();page.screenshot(path=str(out/f'{width}-capacity.png'))
+            rows.append(row);context.close()
         assert not errors,errors
     finally:browser.close();server.shutdown()
 (out/'results.json').write_text(json.dumps({'status':'PASS','scope':__doc__,'sandbox':True,'rows':rows,'page_errors':errors},indent=2)+'\n')

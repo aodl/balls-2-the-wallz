@@ -1,9 +1,195 @@
 //! One paid, unfinished-state normal-module rehearsal; disposable valueless ICP.
 use super::*;
 use b2z_native::world::World;
+thread_local! {static REAL_TIME: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };}
 
 fn save(out: &Path, name: &str, value: &serde_json::Value) {
     std::fs::write(out.join(name), serde_json::to_vec_pretty(value).unwrap()).unwrap();
+}
+
+#[test]
+#[ignore = "fixed 3/4-ball normal-module cost comparison; disposable IC only"]
+fn playability_cost_comparison() {
+    assert_eq!(std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref(), Ok("1"));
+    let root = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&root).unwrap();
+    let prior = bytes("B2Z_PLAYABILITY_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&prior),
+        "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526"
+    );
+    let module = bytes("B2Z_S14_WASM");
+    let mut results = Vec::new();
+    for count in [3usize, 4] {
+        let out = root.join(format!("balls-{count}"));
+        std::fs::create_dir(&out).unwrap();
+        let mut world = World::decode(&initial_world()).unwrap();
+        world.cells = vec![1; 128];
+        world.cannons = vec![b2z_native::world::Cannon {
+            id: 1,
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([9; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
+            cell: 32,
+            heading: None,
+        }];
+        world.balls = (0..count)
+            .map(|i| {
+                let x = 4 + i * 2;
+                b2z_native::world::Ball {
+                    id: i as u32 + 1,
+                    owner: 1,
+                    cell: 3 * 16 + x,
+                    x0: Int((x * 1024 + 512).into()),
+                    y0: Int(3584.into()),
+                    vx: 1024,
+                    vy: 0,
+                }
+            })
+            .collect();
+        world.next_cannon_id = 2;
+        world.next_ball_id = count as u32 + 1;
+        world.validate().unwrap();
+        let (pic, id, _, _) = arena_setup_world(prior.clone(), world.encode().unwrap());
+        funding_paused(&pic, id, true);
+        one_tick(&pic, id);
+        old_transition(&pic, id, "torus");
+        one_tick(&pic, id);
+        old_transition(&pic, id, "million");
+        for _ in 0..40 {
+            pic.tick();
+        }
+        for _ in 0..3 {
+            if transition_drained(&pic, id) {
+                break;
+            }
+            one_tick(&pic, id);
+        }
+        assert!(
+            transition_drained(&pic, id),
+            "cost fixture must snapshot a fully committed source/work boundary"
+        );
+        let initial = arena_world(&pic, id);
+        assert_eq!(initial.balls.len(), count);
+        // Replenish local install-code credit before the one candidate upgrade;
+        // this paused setup interval is excluded from both cost windows.
+        for _ in 0..600 {
+            pic.advance_time(Duration::from_secs(1));
+            pic.tick();
+        }
+        pic.stop_canister(id, Some(controller())).unwrap();
+        let snapshot = pic
+            .take_canister_snapshot(id, Some(controller()), None)
+            .unwrap();
+        pic.start_canister(id, Some(controller())).unwrap();
+        let mut windows = Vec::new();
+        let mut states = Vec::new();
+        let mut baseline_start: Option<World> = None;
+        for label in ["release-1-v5", "candidate-v6"] {
+            if label == "release-1-v5" {
+                one_tick(&pic, id);
+                baseline_start = Some(arena_world(&pic, id));
+            }
+            if label == "candidate-v6" {
+                pic.stop_canister(id, Some(controller())).unwrap();
+                pic.load_canister_snapshot(id, Some(controller()), snapshot.id.clone())
+                    .unwrap();
+                pic.upgrade_canister(
+                    id,
+                    module.clone(),
+                    encode_args(()).unwrap(),
+                    Some(controller()),
+                )
+                .unwrap();
+                pic.start_canister(id, Some(controller())).unwrap();
+                assert_eq!(arena_world(&pic, id), initial);
+                prepare(&pic, id, "prepare_playability_transition");
+                let mut ready = false;
+                for _ in 0..1800 {
+                    let raw: Vec<u8> = get_query(
+                        &pic,
+                        id,
+                        "playability_transition_status",
+                        encode_args(()).unwrap(),
+                    );
+                    let value: serde_json::Value = decode(&raw).unwrap();
+                    if value["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+                        ready = true;
+                        break;
+                    }
+                    advance(&pic);
+                }
+                assert!(ready);
+                let _: Vec<u8> = get_result(
+                    &pic,
+                    id,
+                    "commit_playability_transition",
+                    candid::encode_one(observe(&pic, id).1.head.manifest_hash).unwrap(),
+                );
+                for _ in 0..20 {
+                    pic.tick();
+                }
+                assert_eq!(
+                    arena_world(&pic, id).time,
+                    baseline_start.as_ref().unwrap().time,
+                    "v6 cost window must start at the same logical boundary as the baseline"
+                );
+            }
+            let before = status(&pic, id);
+            let balance = pic.cycle_balance(id);
+            let metric = super::playability_profile::metric_values(&pic, id);
+            let t = pic.get_time();
+            let wall = std::time::Instant::now();
+            let mut samples = Vec::new();
+            configuration(&pic, id, 512);
+            let target = before.run.completed_segments + 8;
+            for turn in 0..6000 {
+                advance(&pic);
+                let s = status(&pic, id);
+                if turn % 20 == 0 {
+                    samples.push(serde_json::json!({"turn":turn,"completed":s.run.completed_segments,"last_error":s.run.last_error}));
+                }
+                assert!(
+                    s.run.last_error.is_none(),
+                    "{label}: {:?}",
+                    s.run.last_error
+                );
+                if s.run.completed_segments >= target {
+                    break;
+                }
+            }
+            pause(&pic, id);
+            let after = status(&pic, id);
+            assert_eq!(after.run.completed_segments, target);
+            let remaining = pic.cycle_balance(id);
+            let state = arena_world(&pic, id);
+            assert_eq!(state.balls.len(), count);
+            windows.push(serde_json::json!({"label":label,"status":"PASS","ticks":8,"net_cycles":(balance as i128-remaining as i128).to_string(),"cycles_per_tick":(balance as i128-remaining as i128)/8,"simulated_ns":(pic.get_time().as_nanos_since_unix_epoch()-t.as_nanos_since_unix_epoch()).to_string(),"host_wall_seconds":wall.elapsed().as_secs_f64(),"source_calls":after.source.index_calls-before.source.index_calls,"metrics_before":metric,"metrics_after":super::playability_profile::metric_values(&pic,id),"module_sha256":if label=="candidate-v6"{dtr_wire::hash(&module)}else{dtr_wire::hash(&prior)},"state_bytes":state.encode().unwrap().len(),"artifact_bytes":observe(&pic,id).1.artifacts.iter().map(|d|d.length).collect::<Vec<_>>(),"samples":samples}));
+            std::fs::write(
+                out.join(format!("{label}-state.bin")),
+                state.encode().unwrap(),
+            )
+            .unwrap();
+            states.push(state);
+        }
+        // This deliberately friendly/no-payment path has unchanged physics.
+        // Hostile captures and purchases intentionally differ after activation.
+        assert_eq!(states[0].balls, states[1].balls);
+        assert_eq!(states[0].cannons, states[1].cannons);
+        assert_eq!(states[0].ownership, states[1].ownership);
+        assert_eq!(states[0].credits, states[1].credits);
+        assert_eq!(states[0].time, states[1].time);
+        let row = serde_json::json!({"balls":count,"windows":windows,"friendly_physics_and_scores_equal":true,"qualification":"Fixed eight-tick synthetic friendly states, exact normal modules on fiduciary PocketIC; real billing/model measurements but no sustained wall-time delivery claim. Snapshot restoration is confined to disposable comparison setup."});
+        save(&out, "cost.json", &row);
+        results.push(row);
+    }
+    save(
+        &root,
+        "normal-cost-comparison.json",
+        &serde_json::json!({"status":"PASS","rows":results}),
+    );
 }
 fn configuration(pic: &PocketIc, id: Principal, budget: u32) {
     get_result::<Status>(
@@ -22,6 +208,10 @@ fn pause(pic: &PocketIc, id: Principal) {
     get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
 }
 fn advance(pic: &PocketIc) {
+    if REAL_TIME.with(|v| v.get()) {
+        std::thread::sleep(Duration::from_millis(50));
+        return;
+    }
     pic.advance_time(Duration::from_millis(50));
     for _ in 0..4 {
         pic.tick();
@@ -154,7 +344,7 @@ fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path
         rows.push(publication);
     }
 }
-fn controls() -> World {
+fn controls(browser: bool) -> World {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
         "../../../../tests/fixtures/playability-host-history.json"
     ))
@@ -178,6 +368,53 @@ fn controls() -> World {
     w.balls[0].x0 = Int(3584.into());
     w.balls[1].cell = 60;
     w.balls[1].x0 = Int(12800.into());
+    if browser {
+        use b2z_native::world::{Ball, Cannon, Credit};
+        use dtr_wire::Rat;
+        w.cells = (0..128)
+            .map(|cell| {
+                1 + (if cell / 16 >= 4 { 2 } else { 0 }) + (if cell % 16 >= 8 { 1 } else { 0 })
+            })
+            .collect();
+        w.cannons[0].cell = 32;
+        w.cannons[1].cell = 47;
+        w.balls[0].cell = 35;
+        w.balls[0].y0 = Int(2560.into());
+        w.balls[1].cell = 44;
+        w.balls[1].y0 = Int(2560.into());
+        for (id, cell, ball_cell, x, velocity) in [
+            (3u32, 96usize, 99usize, 3584i64, 1024),
+            (4, 111, 108, 12800, -1024),
+        ] {
+            let account = AccountIdentifier::new(
+                &Principal::self_authenticating([id as u8; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex();
+            w.cannons.push(Cannon {
+                id,
+                cell,
+                account: account.clone(),
+                heading: None,
+            });
+            w.credits.push(Credit {
+                account,
+                units: Rat::integer(id as i64 * 11),
+            });
+            w.balls.push(Ball {
+                id,
+                owner: id,
+                cell: ball_cell,
+                x0: Int(x.into()),
+                y0: Int(6656.into()),
+                vx: velocity,
+                vy: 0,
+            });
+        }
+        w.next_ball_id = 5;
+        w.next_cannon_id = 5;
+        w.credits.sort_by(|a, b| a.account.cmp(&b.account));
+    }
     w.received_e8s = Int(0.into());
     w.validate().unwrap();
     w
@@ -314,14 +551,20 @@ fn paid_island_upgrade_rehearsal() {
         "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526"
     );
     let module = bytes("B2Z_S14_WASM");
-    let initial = controls();
+    let browser = std::env::var("B2Z_PLAYABILITY_BROWSER").as_deref() == Ok("1");
+    let initial = controls(browser);
     let extra = Principal::self_authenticating([10; 32]);
+    let extras = if browser {
+        vec![extra, Principal::self_authenticating([2; 32])]
+    } else {
+        vec![extra]
+    };
     let (pic, id, ledger, payer) = arena_setup_world_fee_clock_payers(
         old.clone(),
         initial.encode().unwrap(),
         10_000,
-        900,
-        &[extra],
+        if browser { 3600 } else { 900 },
+        &extras,
     );
     let index = status(&pic, id).source.index;
     let cmc = Principal::from_text("rkp4c-7iaaa-aaaaa-aaaca-cai").unwrap();
@@ -343,13 +586,18 @@ fn paid_island_upgrade_rehearsal() {
     funding_paused(&pic, id, true);
     let mut payments = BTreeMap::new();
     let mut publications = Vec::new();
-    let join = transfer_text(&pic, ledger, payer, id, 10_000_000, b"ANGLE 90");
+    let first_fire = if browser {
+        b"ANGLE 270".as_slice()
+    } else {
+        b"ANGLE 90".as_slice()
+    };
+    let join = transfer_text(&pic, ledger, payer, id, 10_000_000, first_fire);
     payments.insert(
         join,
         normalized(
             AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT),
             10_000_000,
-            b2z_protocol::encode(b2z_protocol::parse_text(b"ANGLE 90").unwrap()),
+            b2z_protocol::encode(b2z_protocol::parse_text(first_fire).unwrap()),
         ),
     );
     for _ in 0..1800 {
@@ -361,7 +609,10 @@ fn paid_island_upgrade_rehearsal() {
     assert!(work(&pic, id).0 > 0);
     one_tick(&pic, id);
     record(&pic, id, &mut publications, &out);
-    assert_eq!(arena_world(&pic, id).cannons.len(), 2);
+    assert_eq!(
+        arena_world(&pic, id).cannons.len(),
+        if browser { 4 } else { 2 }
+    );
     old_transition(&pic, id, "torus");
     record(&pic, id, &mut publications, &out);
     one_tick(&pic, id);
@@ -371,7 +622,7 @@ fn paid_island_upgrade_rehearsal() {
     assert_eq!(arena_world(&pic, id).version, 5);
 
     // Stage an unfinished real normal-Wasm operation; no synthetic mutation API.
-    configuration(&pic, id, 1);
+    configuration(&pic, id, if browser { 4 } else { 1 });
     let mut unfinished = false;
     for _ in 0..100 {
         advance(&pic);
@@ -460,6 +711,13 @@ fn paid_island_upgrade_rehearsal() {
     );
     operation_cost::finish_notify_pending(&pic, id, &out);
     funding_paused(&pic, id, true);
+    let scene = if browser {
+        let scene = super::playability_browser::Scene::start(&pic, id, ledger, payer, &out);
+        REAL_TIME.with(|v| v.set(true));
+        Some(scene)
+    } else {
+        None
+    };
     // Keep the captured paused configuration. Calling start merely to change a
     // budget can advance overdue old gameplay before pause is handled.
     prepare(&pic, id, "prepare_playability_transition");
@@ -507,6 +765,10 @@ fn paid_island_upgrade_rehearsal() {
     record(&pic, id, &mut publications, &out);
     one_tick(&pic, id);
     record(&pic, id, &mut publications, &out);
+    if let Some(scene) = scene {
+        scene.finish(&pic, id, ledger, payer, &initial, &mut payments);
+        return;
+    }
     let dormant = arena_world(&pic, id);
     let life = dormant.playability.as_ref().unwrap();
     assert_eq!(

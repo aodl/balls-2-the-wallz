@@ -103,6 +103,18 @@ test('million-cell one-tick replay is exact, compact and restart invariant',()=>
   assert.deepEqual(decodeWorld(output.state).time,[1n,1n]);
 });
 
+test('neutral v5 captures checkpoint and recover at every bounded cursor yield',()=>{
+  const account='01'.padStart(64,'0'),cell=16*32+15;
+  const old=fixtureWorld({version:4,width:32,height:32,cells:Array.from({length:1024},(_,i)=>i%32<16?1:0),cannons:[{id:1,cell:264,account,heading:0}],balls:[{id:1,owner:1,cell,x0:15872n,y0:16896n,vx:1024,vy:0}]});
+  const state=stageMillionWorld(encodeWorld(old)),seal={...MILLION_IDENTITY,source_id:'00'.repeat(32),logical_start:0n,logical_end:1n};
+  const run=(budget,recover)=>{let c=new B2zCursor(state,[],seal),turns=0,sawNeutral=false;while(c.phase!=='done'){
+    c.step(budget);sawNeutral||=c.phase==='topology'&&c.job.defender===0;
+    const bytes=c.snapshot();if(recover)c=B2zCursor.restore(bytes,sha256(bytes));assert(++turns<10000);
+  }return {output:c.result(),sawNeutral};};
+  const expected=run(512,false).output;
+  for(const budget of [1,23]){const got=run(budget,true);assert.deepEqual(got.output,expected);if(budget===1)assert(got.sawNeutral);}
+});
+
 test('observer verifies compact v5 ownership and applies authenticated range deltas',()=>{
   const account=id=>id.toString(16).padStart(64,'0');
   const cells=Array(1024).fill(0).map((_,cell)=>cell%32<16?1:2);

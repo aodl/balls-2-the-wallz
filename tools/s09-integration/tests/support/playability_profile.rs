@@ -134,6 +134,9 @@ struct Runtime {
 fn metrics(pic: &PocketIc, id: Principal) -> Metrics {
     get_query::<Runtime>(pic, id, "controller_runtime", encode_args(()).unwrap()).metrics
 }
+pub(super) fn metric_values(pic: &PocketIc, id: Principal) -> serde_json::Value {
+    serde_json::to_value(metrics(pic, id)).unwrap()
+}
 fn artifacts(pic: &PocketIc, id: Principal, p: &Publication) -> Vec<Vec<u8>> {
     p.artifacts
         .iter()
@@ -164,6 +167,8 @@ fn playability_admission_screen() {
     std::fs::create_dir_all(&root).unwrap();
     let module = bytes("B2Z_S14_TEST_WASM");
     let module_hash = dtr_wire::hash(&module);
+    let normal = (std::env::var("B2Z_PLAYABILITY_SCREEN_NORMAL").as_deref() == Ok("1"))
+        .then(|| bytes("B2Z_S14_WASM"));
     let requested = std::env::var("B2Z_PLAYABILITY_SCREEN_CASES")
         .unwrap_or_else(|_| "3,4,64,128,512".into())
         .split(',')
@@ -205,6 +210,28 @@ fn playability_admission_screen() {
             )
             .paused
         );
+        if let Some(normal) = &normal {
+            // Synthetic setup is confined to the disposable constructor. All
+            // measured execution below runs the exact frozen normal module.
+            for _ in 0..600 {
+                pic.advance_time(Duration::from_secs(1));
+                pic.tick();
+            }
+            pic.upgrade_canister(
+                id,
+                normal.clone(),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap();
+            assert_eq!(arena_world(&pic, id), initial);
+            assert_eq!(
+                pic.canister_status(id, Some(controller()))
+                    .unwrap()
+                    .module_hash,
+                Some(unhex(&dtr_wire::hash(normal)).unwrap())
+            );
+        }
         let start = status(&pic, id);
         let before = metrics(&pic, id);
         let balance = pic.cycle_balance(id);
@@ -272,7 +299,7 @@ fn playability_admission_screen() {
             )
             .unwrap();
         }
-        let row = serde_json::json!({"status":if passed{"PASS"}else{"FAIL"},"balls":count,"cannons":initial.cannons.len(),"players":initial.playability.as_ref().unwrap().players.len(),"neutral_holes":initial.ownership.as_ref().unwrap().overrides.len(),"initial_state_bytes":initial.encode().unwrap().len(),"completed_ticks":after.run.completed_segments-start.run.completed_segments,"source_calls":after.source.index_calls-start.source.index_calls,"runtime_error":after.run.last_error,"turns_50ms":turns,"virtual_ns":(pic.get_time().as_nanos_since_unix_epoch()-time.as_nanos_since_unix_epoch()).to_string(),"host_wall_seconds":wall.elapsed().as_secs_f64(),"cycles_before":balance.to_string(),"cycles_after":remaining.to_string(),"net_cycle_debit":(balance as i128-remaining as i128).to_string(),"metrics_before":before,"metrics_after":after_metrics,"maximum_observed_step_message_instructions":peak_step,"artifact_bytes":bodies.iter().map(|b|b.len()).collect::<Vec<_>>(),"final_ball_count":final_world.balls.len(),"memory_before":format!("{:?}",memory.memory_metrics),"memory_after":format!("{:?}",final_memory.memory_metrics),"reserved_cycles_before":memory.reserved_cycles.to_string(),"reserved_cycles_after":final_memory.reserved_cycles.to_string(),"publication_sha256":dtr_wire::hash(&o.publication),"subnet":subnet.to_text(),"subnet_configuration":topology.subnet_configs[&subnet],"samples":samples,"qualification":"Synthetic v6 genesis under an explicit test-hooks module on pinned fiduciary PocketIC. Admission/work/wire screen only; no claim of normal-Wasm cost, paid history, IC authenticity, sustained rate or 1 tick/s at all populations."});
+        let row = serde_json::json!({"status":if passed{"PASS"}else{"FAIL"},"balls":count,"cannons":initial.cannons.len(),"players":initial.playability.as_ref().unwrap().players.len(),"neutral_holes":initial.ownership.as_ref().unwrap().overrides.len(),"initial_state_bytes":initial.encode().unwrap().len(),"completed_ticks":after.run.completed_segments-start.run.completed_segments,"source_calls":after.source.index_calls-start.source.index_calls,"runtime_error":after.run.last_error,"turns_50ms":turns,"virtual_ns":(pic.get_time().as_nanos_since_unix_epoch()-time.as_nanos_since_unix_epoch()).to_string(),"host_wall_seconds":wall.elapsed().as_secs_f64(),"cycles_before":balance.to_string(),"cycles_after":remaining.to_string(),"net_cycle_debit":(balance as i128-remaining as i128).to_string(),"metrics_before":before,"metrics_after":after_metrics,"maximum_observed_step_message_instructions":peak_step,"artifact_bytes":bodies.iter().map(|b|b.len()).collect::<Vec<_>>(),"final_ball_count":final_world.balls.len(),"memory_before":format!("{:?}",memory.memory_metrics),"memory_after":format!("{:?}",final_memory.memory_metrics),"reserved_cycles_before":memory.reserved_cycles.to_string(),"reserved_cycles_after":final_memory.reserved_cycles.to_string(),"publication_sha256":dtr_wire::hash(&o.publication),"subnet":subnet.to_text(),"subnet_configuration":topology.subnet_configs[&subnet],"samples":samples,"measured_module_sha256":normal.as_ref().map(|m|dtr_wire::hash(m)).unwrap_or_else(||module_hash.clone()),"normal_module_execution":normal.is_some(),"qualification":"Synthetic v6 genesis created using explicit disposable test hooks. If normal_module_execution is true, the exact normal module replaces it before every measurement. Pinned fiduciary IC admission/work/wire screen; no paid-history, sustained rate or 1 tick/s-at-capacity claim."});
         std::fs::write(
             directory.join("result.json"),
             serde_json::to_vec_pretty(&row).unwrap(),

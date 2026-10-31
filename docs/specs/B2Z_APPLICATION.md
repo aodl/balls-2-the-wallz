@@ -1,6 +1,15 @@
 # B2Z application contract — prefix-free text input extension
 
-This is the current application contract. Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. B2Z v3 mechanics, exact arithmetic, internal command encoding, state/events/scores/seal encodings, publication v6 and animation v1 are unchanged. The deployed prelaunch profile remains 1 ICP to join. Adapter v3 extends only the accepted command syntax and application naming; no reset, repricing or physics change is permitted. [Text command contract](B2Z_TEXT_MEMOS.md) defines adapter v3 and historical replay.
+Version scope: the contract below records the original S14 application and its
+historical interpretations. The last verified production release is release 1,
+world v5 with paid-v8 publications. The separate next-version candidate is
+[BTZ v6 playability](B2Z_PLAYABILITY_V6.md); it requires its own authenticated
+activation and has not been deployed. It does not reinterpret old payments,
+receipts, physics or publications. Consult executed release evidence for live
+module identities rather than treating the historical v3 descriptions as the
+current mainnet world.
+
+Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. B2Z v3 mechanics, exact arithmetic, internal command encoding, state/events/scores/seal encodings, publication v6 and animation v1 remain historical contracts. The original prelaunch profile is 1 ICP to join. Adapter v3 extends only the accepted command syntax and application naming. [Text command contract](B2Z_TEXT_MEMOS.md) defines adapter v3 and historical replay.
 
 ## Payment authority and identity
 

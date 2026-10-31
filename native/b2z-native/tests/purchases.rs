@@ -321,8 +321,8 @@ fn new_cannon_surplus_and_shared_ownership_match_js_without_partial_mutation() {
             let mut control = b2z_native::spawn::SpawnJob::begin("ab".repeat(32));
             while !control.step(&old).unwrap() {}
             assert_eq!(
-                encode(&job.result).unwrap(),
-                encode(&control.result).unwrap()
+                serde_json::to_value(control.result.as_ref().unwrap()).unwrap(),
+                v["legacy_v5_reference_placement"]
             );
         }
         let mut proposal = place_new(&w, &account, amount, &plan, &placement).unwrap();

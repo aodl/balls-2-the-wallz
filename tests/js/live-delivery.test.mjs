@@ -72,6 +72,23 @@ test('expired historical certificate remains a failure under the unchanged fresh
  const f=await fixtures(t);t.mock.timers.tick(301000);
  await assert.rejects(verifyCertificatePublication(bytes('rejected-publication.bin'),bytes('rejected-certificate.bin'),{...f.policy,now_ns:BigInt(Date.now())*1000000n},f.verify));
 });
+test('retention availability clears only after authenticated snapshot recovery and retains its history',async t=>{
+ const f=await fixtures(t),s=session(f.accepted);s.resyncs=0;rememberLiveAcceptance(s,f.accepted);
+ liveDeliveryFailure(s,new Error('publication unavailable: snapshot resync required'),f.forward,f.accepted,1);
+ assert.equal(s.deliveryDiagnostics.active.kind,'retained-publication-unavailable');
+ liveDeliverySuccess(s,f.accepted,2);assert.ok(s.deliveryError);
+ liveDeliverySuccess(s,f.forward,3);assert.ok(s.deliveryError,'a verified response alone is not completed snapshot recovery');
+ s.sequence.resync(f.forward);rememberLiveAcceptance(s,f.forward);s.resyncs++;liveDeliverySuccess(s,f.forward,4);
+ assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.history[0].message,'publication unavailable: snapshot resync required');assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,4);assert.equal(s.sequence.last,f.forward);
+});
+test('availability recovery cannot erase certificate failures or relabel other errors',async t=>{
+ const f=await fixtures(t),s=session(f.accepted);s.resyncs=0;rememberLiveAcceptance(s,f.accepted);
+ liveDeliveryFailure(s,new Error('certificate verification failed'),null,f.accepted,1);
+ liveDeliveryFailure(s,new Error('publication unavailable: snapshot resync required'),f.forward,f.accepted,2);
+ s.sequence.resync(f.forward);rememberLiveAcceptance(s,f.forward);s.resyncs++;liveDeliverySuccess(s,f.forward,3);
+ assert.equal(s.deliveryError,'certificate verification failed');assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,null);
+ const other=session(f.accepted);liveDeliveryFailure(other,new Error('publication unavailable: snapshot resync required'),null,f.accepted,1);assert.equal(other.deliveryDiagnostics.active.kind,'delivery-or-verification-error');
+});
 test('later stale recovery cannot hide an earlier certificate or delivery failure',async t=>{
  const f=await fixtures(t),s=session(f.accepted),failure=new Error('certificate verification failed');
  liveDeliveryFailure(s,failure,null,s.sequence.last,1);

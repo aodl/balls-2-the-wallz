@@ -26,8 +26,9 @@ export function liveDeliveryFailure(s,error,current,accepted,now){
  // Unknown identities/chains and same-height conflicts remain blocking errors.
  const olderEpoch=['observation epoch identity','observation epoch changed','observation epoch rollback'].includes(message)&&sameDeployment(rejected,floor)&&known(d,rejected);
  const stale=(ordinary||olderEpoch)&&rejected.mode==='certificate-verifier'&&rejected.head!==null&&floor.head!==null&&BigInt(rejected.head)<BigInt(floor.head);
- const event={id:++d.failures,at_ms:now,message,kind:stale?'stale-certified-observation':'delivery-or-verification-error',rejected,accepted:floor,recovered_at_ms:null};
- if(!stale)d.blocking??=event;
+ const unavailable=message==='publication unavailable: snapshot resync required'&&sameContext(rejected,floor)&&rejected.mode==='certificate-verifier'&&rejected.head!==null&&floor.head!==null&&BigInt(rejected.head)>BigInt(floor.head);
+ const event={id:++d.failures,at_ms:now,message,kind:stale?'stale-certified-observation':unavailable?'retained-publication-unavailable':'delivery-or-verification-error',rejected,accepted:floor,resynchronisations:s.resyncs??0,recovered_at_ms:null};
+ if(!stale&&!unavailable)d.blocking??=event;
  d.active=event;d.history.push(event);if(d.history.length>64){d.history.shift();d.evicted++;}
  s.deliveryError=message;s.retryFailures++;
  return s.retryFailures>=5; // Preserve the existing persistent-failure threshold.
@@ -35,6 +36,12 @@ export function liveDeliveryFailure(s,error,current,accepted,now){
 export function liveDeliverySuccess(s,verifiedAccepted,now){
  s.retryFailures=0;
  const d=s.deliveryDiagnostics,event=d?.active,ticket=observation(verifiedAccepted);
+ // Availability is recovered only after the existing artifact verification and
+ // authenticated snapshot-resync path completes. An unchanged head, ordinary
+ // retry success, invalid certificate or conflicting chain cannot clear it.
+ if(!s.error&&event?.kind==='retained-publication-unavailable'&&sameContext(ticket,event.rejected)&&ticket.head!==null&&BigInt(ticket.head)>=BigInt(event.rejected.head)&&(s.resyncs??0)>event.resynchronisations&&s.sequence?.last?.root_hash===ticket.root&&known(d,ticket)){
+  event.recovered_at_ms=now;d.recoveries++;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;return;
+ }
  const forwardEpoch=ticket&&sameDeployment(ticket,event?.accepted)&&known(d,event.accepted)&&s.sequence?.last?.root_hash===ticket.root;
  if(s.error||event?.kind!=='stale-certified-observation'||!(sameContext(ticket,event.accepted)||forwardEpoch)||ticket.head===null)return;
  const head=BigInt(ticket.head),floor=BigInt(event.accepted.head);

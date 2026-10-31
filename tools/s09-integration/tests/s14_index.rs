@@ -20,6 +20,8 @@ use std::{
 mod source;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
+#[path = "support/playability_browser.rs"]
+mod playability_browser;
 #[path = "support/playability_installed.rs"]
 mod playability_installed;
 #[path = "support/playability_profile.rs"]

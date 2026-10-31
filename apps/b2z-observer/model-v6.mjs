@@ -81,6 +81,8 @@ export function applyV6Event(view,e){
  return true;
 }
 export function matchesV6(view,w){check(same(view.playability,w.playability),'final player/island/lifecycle mismatch');check(same([...view.pending.values()].sort((a,b)=>a.id-b.id),w.pending),'final strikes');}
-export function statsV6(view){const counts=new Map(view.ownership.counts.map(r=>[r.owner,r.cells])),pools=new Map(),t=view.logicalTime??0;
- for(const b of view.balls.values()){let x=(Number(b.x0)+b.vx*t)/1024,y=(Number(b.y0)+b.vy*t)/1024;x=(Math.floor(x)%view.width+view.width)%view.width;y=(Math.floor(y)%view.height+view.height)%view.height;const label=view.owner(y*view.width+x);if(view.playerForTerritory(label)===b.owner)pools.set(label,(pools.get(label)??0)+1);}
- return [...view.cannons.values()].map(c=>{const label=view.owner(c.cell),l=view.playability.lifecycle.find(l=>l.cannon===c.id);return{id:c.id,area:counts.get(label)??0,balls:pools.get(label)??0,dormant:l?.deadline_ns!==undefined,deadline_ns:l?.deadline_ns};}).sort((a,b)=>b.area-a.area||a.id-b.id);}
+export function statsV6(view){const rows=new Map();
+ for(const c of view.cannons.values()){const id=view.playerForCannon(c.id),player=view.playability.players.find(p=>p.id===id);if(!rows.has(id))rows.set(id,{id,account:player.account,area:0,balls:0,cannons:0});rows.get(id).cannons++;}
+ for(const count of view.ownership.counts){const row=rows.get(view.playerForTerritory(count.owner));if(row)row.area+=count.cells;}
+ for(const ball of view.balls.values()){const row=rows.get(ball.owner);if(row)row.balls++;}
+ return [...rows.values()].sort((a,b)=>b.area-a.area||a.id-b.id);}

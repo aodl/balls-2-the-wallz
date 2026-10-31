@@ -31,7 +31,10 @@ export function spawnStep(world, job) {
   if (job.phase === 'enumerate') {
     const enumerateLimit=world.version>=5?1024:cellCount(world);
     if (job.scan < enumerateLimit) {
-      const probe=job.scan++,cell=world.version>=5?Number(BigInt(`0x${spawnRank(job.seed,4,probe,-2).slice(0,15)}`)%BigInt(cellCount(world))):probe;
+      const probe=job.scan++,ranked=world.version>=5?BigInt(`0x${spawnRank(job.seed,4,probe,-2).slice(0,15)}`):0n;
+      // V6 makes the existing Wasm32 first-spawn probe explicit on every host.
+      // Keep historical v5 reference interpretation unchanged.
+      const cell=world.version>=5?Number((world.version===6?BigInt.asUintN(32,ranked):ranked)%BigInt(cellCount(world))):probe;
       if (!seedPatch(cell, world.width, world.height,world.version>=4)) return false;
       if(world.version>=5){const patch=seedPatch(cell,world.width,world.height,true);if(patch.every(c=>ownerAt(world,c)===0))job.candidates.push({kind:2,cell,other:-1,rank:spawnRank(job.seed,2,cell,-1)});return false;}
       for (const other of neighbors(cell, world.width, world.height,world.version>=4)) {

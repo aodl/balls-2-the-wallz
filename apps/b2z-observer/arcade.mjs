@@ -53,7 +53,7 @@ export function createArcade(doc){
   }
   function clearPreparation(){if(prepared)stale=true;else $('prepared-card').hidden=true;availability();}
   function aim(){
-    const memo=transferMemo(degrees),[vx,vy]=heading(memo.command.value),norm=Math.hypot(vx,vy);
+    const memo=transferMemo(degrees),[vx,vy]=heading(memo.command.value,world?.version>=5?32000:1024),norm=Math.hypot(vx,vy);
     // Draw the actual integer CORDIC velocity, including final quantized heading.
     $('aim-line').setAttribute('x2',String(100+vx/norm*66));$('aim-line').setAttribute('y2',String(100+vy/norm*66));
     $('aim-pad').setAttribute('aria-valuenow',degrees);$('aim-pad').setAttribute('aria-valuetext',`${degrees} degrees clockwise; right is zero`);
@@ -136,7 +136,7 @@ export function createArcade(doc){
   aim();localMode();
   const api={
     render(w,c,s){
-      world=w;config=c;source=s;if(!config||!source)return;
+      const priorVersion=world?.version;world=w;config=c;source=s;if(!config||!source)return;if(priorVersion!==w.version)aim();
       if(!store){let storage;try{storage=globalThis.localStorage;}catch{}store=identityStore(s.network,s.owner,storage);declaration=store.read();}
       text('identity-label',declaration?declaration.account.slice(0,10)+'…':'Identify');
       const people=[...new Set(w.cannons.map(c=>c.account))];$('existing-player').replaceChildren(new Option('Or select an existing player',''),...people.map(a=>new Option(a,a)));

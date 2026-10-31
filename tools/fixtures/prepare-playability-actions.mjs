@@ -15,4 +15,6 @@ for(const[name,row]of Object.entries(f.cases)){
  const deadline=w.playability.lifecycle.reduce((last,l)=>l.deadline_ns!==undefined&&l.deadline_ns>last?l.deadline_ns:last,0n);
  if(deadline){const expiry=expireV6(w,deadline,dueFences(w,deadline));if(expiry)cases[name].expired=hex(expiry.output.state);}
 }
-fs.writeFileSync(process.argv[2],JSON.stringify({qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),cases}));
+let capacity_events;
+if(process.argv[3]){const raw=fs.readFileSync(process.argv[3]);if(raw.length>1048576)throw Error('capacity state bound');const w=decodeWorld(raw);if(w.version!==6||w.balls.length!==64||w.cannons.length!==128)throw Error('declared capacity fixture');cases.capacity={initial:hex(raw),final:hex(raw)};const events=fs.readFileSync(process.argv[4]);if(events.length>1048576||decodeCanonical(events).version!==6)throw Error('capacity event bound');capacity_events=hex(events);}
+fs.writeFileSync(process.argv[2],JSON.stringify({qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),cases,capacity_events}));

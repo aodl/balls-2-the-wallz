@@ -1,3 +1,30 @@
+# V6 captured replay closed; final candidate and exact-commit CI pending
+
+The installed observer showed paid join, partial fire, revival, targeted new
+cannon/move/rejections and elapsed expiry without refreshing. Its error-free
+wire export contains 82 consecutive publications. Corrected independent replay
+matches all 82 publications exactly. The retained original replay failure exposed
+a v6 native/JS versus Wasm32 first-spawn probe-width mismatch; v6 now specifies
+the existing Wasm32 probe explicitly. Historical v5 reference interpretations
+and golden outputs remain unchanged. A separate neutral-capture reference cursor
+checkpoint fix preserves output while allowing interrupted replay.
+
+The earlier candidate passed its complete 45.16-second representative Normal
+sample, not a new 900-second qualification. Other failed samples and all failed
+fixture closeouts remain retained. The rebuilt final runtime must be frozen and
+receive its applicable installed/browser gate. Capacity remains 128 cannons,
+64 global balls, 64 per purchase island and 16 retained cannons per account;
+512 balls did not qualify. No sustained capacity-rate claim is made.
+
+Fresh read-only production observations at 2026-10-31 09:40 UTC showed 4.219T
+liquid, healthy source/treasury and running Survival. Funds then covered the
+retained 3.358T release/recovery guard; they must be refreshed before installation.
+Production remains release 1 / v5. No v6 upgrade, frontend upload, financial
+operation, push or merge has occurred. Exact-commit CI still requires publication
+of the rules branch; pushing the release-1 branch did not publish this worktree.
+
+---
+
 # Island model checked locally; second release stopped at funding guard
 
 Balls belong to canonical funding players. Every cannon on a connected friendly

@@ -13,7 +13,7 @@ import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
 const equal=(a,b)=>hex(encodeCanonical(a))===hex(encodeCanonical(b));
 const check=(ok,message)=>{if(!ok)throw Error(message);};
 const emptyOutput=(state,version,events=[])=>({state,events:encodeCanonical({version,receipts:[],events}),scores:encodeCanonical({version,area_time:[]})});
-export function replayHistory(trace){
+export function replayHistory(trace,{diagnostic}={}){
  check(trace.status==='PASS'&&trace.publications?.length&&Array.isArray(trace.inputs)&&Array.isArray(trace.assigned),'complete captured history required');
  const inputs=trace.inputs.map(i=>({position:BigInt(i.position),payload_hex:i.payload_hex})),artifacts=new Map();
  check(inputs.every(i=>i.position>=0n&&i.position<=18446744073709551615n&&typeof i.payload_hex==='string'&&/^[0-9a-f]{112}$/.test(i.payload_hex))&&new Set(inputs.map(i=>String(i.position))).size===inputs.length,'bounded unique normalized inputs required');
@@ -65,7 +65,9 @@ export function replayHistory(trace){
    else{let start=seal.source_from;for(let offset=0;offset<selected.length;offset+=256){const part=selected.slice(offset,offset+256),end=offset+256>=selected.length?seal.source_to_exclusive:part.at(-1).position+1n;host.ingestOrdered(start,end,part,seal.source_anchor);start=end;}}
    host.seal(seal.logical_end);while(host.status().phase==='running')host.advance(23);host.publish(host.status().ready_hash);segments++;
   }
-  check(equal(publication(host.publicationRecord()).data,p),'authoritative replay mismatch at '+p.head.segment_id);
+  const actual=publication(host.publicationRecord()).data;
+  if(!equal(actual,p)&&diagnostic)diagnostic({expected:p,actual,committed:host.committed(),expected_events_hex:hex(eventBytes(p))});
+  check(equal(actual,p),'authoritative replay mismatch at '+p.head.segment_id);
  }
  check(new Set(assigned).size===assigned.length&&equal(assigned,trace.assigned.map(String)),'exactly-once assignment mismatch');
  const retired=host.committed().source_to_exclusive,set=new Set(assigned);check(inputs.every(i=>i.position>=retired||set.has(String(i.position))),'unassigned input before completed source fence');

@@ -249,6 +249,10 @@ async function resyncLive(s,ticket){
 function updatePlayReference(s,world,events){
   s.referenceWorld=world;
   if(!s.config)return;
+  const six=world.version===6;
+  $('rules-actions').textContent=six?'Identify your funding account, select an exact cannon and prepare New cannon, Fire balls or Move instructions. Copying sends nothing; payment must come from the correct account.':'Send an ANGLE transfer from your existing wallet to start a cannon or add a ball. MOVE relocates an existing cannon to an owned cell. Funding accounts identify players; selecting a cannon is local inspection.';
+  $('rules-lifecycle').textContent=six?'Any friendly ball supports every cannon on its connected island. Empty islands lose ordinary land and retain dormant cannon anchors for 24 elapsed hours. Paid fire can revive them; expiry releases the anchors. Cannon cells reflect attacks. Defended captures can destroy one attacker and one defender while cancelling that claim. Accrued area-time credits remain.':'Balls capture territory and reflect at verified collisions. Territory earns logical area-time credits. A cannon losing its last ball is eliminated; earned credits remain.';
+  $('rules-pricing').textContent=six?'Next cannon: 1 ICP × (retained cannon count + 1)², including one ball. Extra balls: sequential 0.1 ICP × max(1, current island ball count)². Quantity is a maximum; capacity and affordability can cause partial fills. Move: 0.0001 ICP. Wallet fees are extra. Quotes are not reservations. Payments and unused amounts are retained, with no refunds or automatic payouts.':'Join: 1 ICP. Additional balls: 0.1 ICP × active count squared. Move: 0.0001 ICP. Always copy the current authenticated amount from Play. Fees are separate. Payments are retained, with no refunds or automatic payouts.';
   const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
   $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
     `#${c.id}`,`${c.owned_count} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
@@ -365,9 +369,10 @@ function updateHud(){
   const health=s?.operational?.health;const meter=$('cycle-meter');
   if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health);meter.textContent=(estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
+  $('territory-owner-title').textContent=visible?.version===6?'Player / funding account':'Cannon';
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
-    for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
-      const td=document.createElement('td');td.textContent=v;if(i===0)td.style.color=visible.color(r.id);tr.append(td);
+    for(const [i,v] of [visible.version===6?r.account.slice(0,10)+'…':`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
+      const td=document.createElement('td');td.textContent=v;if(i===0){td.style.color=visible.version===6?visible.playerColor(r.id):visible.color(r.id);if(r.account)td.title=r.account;}tr.append(td);
     }rows.push(tr);
   }$('territories').replaceChildren(...rows);$('event-label').textContent=visible?.lastEvent??'—';
 }
