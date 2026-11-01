@@ -1,3 +1,23 @@
+# Complete frozen v6 installed/browser gate PASS; final CI pending
+
+The exact `c7d12fd7…`→`b618e4f3…` paid/unfinished-state rehearsal now passes the
+full authenticated v5→v6 browser scenario: same-page purchases/actions/receipts,
+45.087s representative playback, elapsed expiry, error-free complete capture,
+independent exact replay of 146 publications/nine inputs, and deliberate-gap
+reconnect. Prepared production app stays exact `ba2c8478…`; no application bytes
+or substantive thresholds changed. All companion compute holds were released.
+
+The first quiet attempt's terminal CompletedProcess variable-shadowing FAIL is
+preserved separately despite its eight substantive PASS checks. Narrow reporting
+fix `29b4bd3` and six helper tests precede the successful full-process rerun.
+The older receipt-loss FAIL remains unchanged. CI 41205667919 is definitively
+FAIL with two stale assertions; corrections58a53a3 are published and CI41295699153
+is running at last check. Final verdict fix29b4bd3 still needs publication/CI.
+No v6 deployment or fresh funding quote before applicable final CI passes.
+[Complete technical qualification and exact remaining boundary](evidence/BTZ/v6-gate-qualified/REPORT.md).
+
+---
+
 # Definitive CI FAIL diagnosed; two test-only corrections ready
 
 CI 41205667919 finished FAIL: 49 installed checks PASS, two stale assertions FAIL
