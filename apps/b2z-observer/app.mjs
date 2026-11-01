@@ -1,18 +1,21 @@
 import {Camera} from './camera.mjs';
 import {createShell} from './shell.mjs';
-import {createArenaRenderer,color} from './render.mjs';
+import {createArenaRenderer} from './render.mjs';
 import {createArcade,formatIcp} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
-import {B2zView,SegmentPlayer,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
+import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
-import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess} from './live-delivery.mjs';
+import {accountColor} from './identity.mjs';
+import {createCycleMeterView} from './cycle-health.mjs';
+import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
-const arenaRenderer=createArenaRenderer();
+const arenaRenderer=createArenaRenderer(),cycleMeterView=createCycleMeterView();
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
+let minimapHidden=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
 const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),cell:(n,p)=>{
@@ -174,9 +177,9 @@ async function startLive(recording,startupRetries=0){
       // segment zero; reject a server that cannot provide this explicit anchor.
       state=await assembler.finish();
     }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
-    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);s.previousState=state;s.root=ticket.root_hash;
+    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
-    resetLiveClock(s,time);if(world.version===5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
+    resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
     $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
@@ -195,24 +198,29 @@ async function epochConfiguration(s,ticket){
   const prior=s.sequence.last?.publication;
   const crossing=prior&&Object.keys(prior.identity).some(k=>prior.identity[k]!==ticket.publication.identity[k]);
   if(!crossing)return null;
-  if(!((prior.version===6&&ticket.publication.version===7)||([7,8].includes(prior.version)&&ticket.publication.version===8)))throw new Error('unsupported world epoch');
+  if(!((prior.version===6&&ticket.publication.version===7)||([7,8,9].includes(prior.version)&&[8,9].includes(ticket.publication.version))))throw new Error('unsupported world epoch');
   if(!s.config)return null; // Explicit test harness has no payment-preparation flow.
   const {certifiedConfiguration}=await import('./mainnet.mjs');
   return certifiedConfiguration(ticket);
 }
 function applyEpochPresentation(s,world,config){
   if(config){s.config=config;$('rules-identity').textContent=`Rules ${s.sequence.last.publication.identity.rules_hash}; configuration ${s.sequence.last.publication.identity.config_hash}`;}
-  if(!visible||visible.version!==world.version||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version===5;}
+  if(!visible||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version>=5;}
 }
 async function admitLive(s,ticket,prefetched){
   const artifacts=prefetched??await liveArtifacts(s,ticket);if(!active(s))return;
-  if([7,8].includes(ticket.publication.version)&&ticket.publication.head.seal===null){
+  if([7,8,9].includes(ticket.publication.version)&&ticket.publication.head.seal===null){
     const config=await epochConfiguration(s,ticket);if(!active(s))return;
-    const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);
-    s.sequence.accept(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
-    resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
-    updatePlayReference(s,world,artifacts.events);
-    Object.assign(globalThis.__dtrLive,{resyncs:s.resyncs,skipped:true});globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));return;
+    const segment=await prepareCheckpoint(s.previousState,artifacts,ticket.publication,s.sequence.last.publication);if(!active(s))return;
+    if(segment.start!==s.clock.available)throw new Error('checkpoint timeline gap');
+    if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer checkpoint byte capacity');
+    if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
+    s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);
+    if(config){s.config=config;$('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;}
+    s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;
+    s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
+    globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+    globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);return;
   }
   const deriving=performance.now();
   const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);s.deriveMs=performance.now()-deriving;if(!active(s))return;
@@ -222,7 +230,7 @@ async function admitLive(s,ticket,prefetched){
   Object.assign(s.clock,liveSessionBufferPolicy(s));
   if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
 
-  s.sequence.accept(ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
+  s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
   updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
@@ -233,7 +241,7 @@ async function admitLive(s,ticket,prefetched){
 async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
   const config=await epochConfiguration(s,ticket);if(!active(s))return;
-  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
+  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);rememberLiveAcceptance(s,ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
   resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
@@ -241,20 +249,27 @@ async function resyncLive(s,ticket){
 function updatePlayReference(s,world,events){
   s.referenceWorld=world;
   if(!s.config)return;
+  const six=world.version===6;
+  $('rules-actions').textContent=six?'Identify your funding account, select an exact cannon and prepare New cannon, Fire balls or Move instructions. Copying sends nothing; payment must come from the correct account.':'Send an ANGLE transfer from your existing wallet to start a cannon or add a ball. MOVE relocates an existing cannon to an owned cell. Funding accounts identify players; selecting a cannon is local inspection.';
+  $('rules-lifecycle').textContent=six?'Any friendly ball supports every cannon on its connected island. Empty islands lose ordinary land and retain dormant cannon anchors for 24 elapsed hours. Paid fire can revive them; expiry releases the anchors. Cannon cells reflect attacks. Defended captures can destroy one attacker and one defender while cancelling that claim. Accrued area-time credits remain.':'Balls capture territory and reflect at verified collisions. Territory earns logical area-time credits. A cannon losing its last ball is eliminated; earned credits remain.';
+  $('rules-pricing').textContent=six?'Next cannon: 1 ICP × (retained cannon count + 1)², including one ball. Extra balls: sequential 0.1 ICP × max(1, current island ball count)². Quantity is a maximum; capacity and affordability can cause partial fills. Move: 0.0001 ICP. Wallet fees are extra. Quotes are not reservations. Payments and unused amounts are retained, with no refunds or automatic payouts.':'Join: 1 ICP. Additional balls: 0.1 ICP × active count squared. Move: 0.0001 ICP. Always copy the current authenticated amount from Play. Fees are separate. Payments are retained, with no refunds or automatic payouts.';
   const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
   $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
     `#${c.id}`,`${c.owned_count} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
   ])));
-  [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].className=`owner-${1+(world.cannons[i].id-1)%5}`;});
+  [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].style.color=accountColor(world.cannons[i].account);});
   arcade.render(world,s.config,s.source);
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
   const actionNames={cannon_spawned:'Joined arena',ball_spawned:'Launched ball',cannon_moved:'Moved cannon'};
+  const outcome=r=>r.actual_quantity!==undefined?`${r.status.replaceAll('_',' ')} · ${r.actual_quantity}/${r.requested_quantity} balls · used ${formatIcp(r.amount_used)} · retained ${formatIcp(r.remainder)} · ${r.stop_reason.replaceAll('_',' ')}`:r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase();
   $('live-receipts').replaceChildren(...[...s.receipts.values()].reverse().map(r=>{
-    const tr=row([r.position,r.account,r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase(),actionNames[r.kind]??r.kind??'—']);
+    const tr=row([r.position,r.account,outcome(r),actionNames[r.kind]??r.kind??'—']);
     tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
   }));
+  const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.05,nominalPace(s.operational));
+  $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${outcome(own)}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
   $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
 }
 async function refreshOperational(now){
@@ -350,10 +365,14 @@ function updateHud(){
   $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
+  $('catching-up').hidden=!['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(p);
+  const health=s?.operational?.health;const meter=$('cycle-meter');
+  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health);meter.textContent=(estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
+  $('territory-owner-title').textContent=visible?.version===6?'Player / funding account':'Cannon';
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
-    for(const [i,v] of [`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
-      const td=document.createElement('td');td.textContent=v;if(i===0)td.className=`owner-${1+(r.id-1)%5}`;tr.append(td);
+    for(const [i,v] of [visible.version===6?r.account.slice(0,10)+'…':`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
+      const td=document.createElement('td');td.textContent=v;if(i===0){td.style.color=visible.version===6?visible.playerColor(r.id):visible.color(r.id);if(r.account)td.title=r.account;}tr.append(td);
     }rows.push(tr);
   }$('territories').replaceChildren(...rows);$('event-label').textContent=visible?.lastEvent??'—';
 }
@@ -366,16 +385,18 @@ function draw(){
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
   if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the arena…',rect.width/2,rect.height/2);return;}
   const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
-  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
+  const locate=arcade.locate(v);if(locate!==null){camera.frameCell(v.cannons.get(locate).cell);}
+  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon());if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
   arenaRenderer.draw(ctx,v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),ratio});
+  const panel=$('play-dialog'),chosen=v.cannons.get(arcade.selectedCannon());if(!panel.hidden&&chosen){const pt=camera.screen(chosen.cell%v.width+.5,Math.floor(chosen.cell/v.width)+.5);panel.style.left=`${Math.max(8,Math.min(rect.width-320,pt.x+24))}px`;panel.style.top=`${Math.max(100,Math.min(rect.height-260,pt.y-80))}px`;}
   drawMinimap(v);
   canvas.setAttribute('aria-label',`B2Z territory arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
 function drawMinimap(v){
- const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=!camera.minimapUseful;if(map.hidden)return;
+ const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=minimapHidden||!camera.minimapUseful;if(map.hidden)return;
  const m=map.getContext('2d'),sx=map.width/v.width,sy=map.height/v.height;m.clearRect(0,0,map.width,map.height);
  m.imageSmoothingEnabled=false;m.drawImage(arenaRenderer.terrain(v).image,0,0,map.width,map.height);
- for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
+ for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':v.color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
  m.strokeStyle='#fff';m.lineWidth=1.5;for(const r of camera.minimapRects())m.strokeRect(r.x*sx,r.y*sy,r.width*sx,r.height*sy);
 }
 function frame(now){
@@ -389,7 +410,7 @@ function frame(now){
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
     s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
     function show(q,time){
-      if(!q.presented){q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
+      if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
       visible=q.player.advance(time);
     }
     while(s.queue.length&&visibleTime>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
@@ -450,3 +471,8 @@ try{
 }
 await bootstrap();
 requestAnimationFrame(frame);
+
+for(const [id,mode] of [['join-action','start'],['fire-action','ball'],['move-action','move']])$(id).addEventListener('click',()=>{arcade.action(mode);$('play-dialog').hidden=false;});
+$('show-confirmed').addEventListener('click',()=>{const s=session;if(!s?.ready||s.error||!s.previousState)return;const w=snapshot(s.previousState),time=timeNumber(w.time);if(time<s.clock.playhead)return;resetLiveClock(s,time);visible=new B2zView(w);visibleTime=time;s.presentationHandoffs=(s.presentationHandoffs??0)+1;$('show-confirmed').hidden=true;});
+
+$('toggle-minimap').addEventListener('click',()=>{minimapHidden=!minimapHidden;$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));draw();});

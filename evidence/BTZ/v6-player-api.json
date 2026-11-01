@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "scope": "Native/query-surface/asset-build development checks; not installed IC or release qualification",
+  "new_public_queries": [
+    "game_info",
+    "player_state",
+    "cannon_state",
+    "nearby_region",
+    "action_quote",
+    "payment_receipt"
+  ],
+  "query_reply_certified": false,
+  "authentication": "Recompute against hash-referenced certified artifacts; no query identity grants payment authority",
+  "host_tests": 47,
+  "new_api_native_tests": 5,
+  "wasm_clippy": "PASS -D warnings",
+  "candid": "PASS generated interface and native semantic equality test",
+  "naming_docs_source": "PASS",
+  "agent_example": "Syntax and --help checked without network calls; full anonymous pinned-IC execution remains in installed rehearsal",
+  "observer_builder": "Frozen 915e0e0c base unchanged; thin wrapper copies hash-bound v6 configuration, public guide and generated service. Build was dirty development preview, not frozen/deployed.",
+  "freeze_tool": "Immutable DTR 282d/client 0.15; query-only exports; upgrade-only mode emits () and no constructor examples; final freeze not yet executed",
+  "retained_failure": "Clippy unnecessary u32 cast corrected; original log retained",
+  "mcp_opt_in": "INACTIVE pending specific external-terms acceptance; no financial execution route",
+  "production_mutations": false,
+  "deployment_status": "NOT_DEPLOYED",
+  "files": [
+    {
+      "path": ".work/v6-player-api-check.log",
+      "sha256": "9910190306fad78fcb2a8ba7baf4a39123e22e8cbe5ea9c6b16ffa7e1d88eed2",
+      "bytes": 1299
+    },
+    {
+      "path": ".work/v6-player-api-check2.log",
+      "sha256": "6fb489929f4e80ec591f63474a344a17fc651996bcdcd1f92fac482402eed437",
+      "bytes": 171
+    },
+    {
+      "path": ".work/v6-player-api-unit.log",
+      "sha256": "b438476b9bfd3de9caacbd2bb3cb1d10e54d89af53aac41fbbe6a5f62e52ad2d",
+      "bytes": 844
+    },
+    {
+      "path": ".work/v6-player-api-runtime-tests.log",
+      "sha256": "7b3604eb248ee91ce15c857a894a45d9f4f8f98b6ce77cfe765fba6aaedf732f",
+      "bytes": 4576
+    },
+    {
+      "path": ".work/v6-player-api-clippy.log",
+      "sha256": "19e7c5fab4a7dc2f1371901587688c9a1c053f8b423418b0dad46a85261d10c3",
+      "bytes": 861
+    },
+    {
+      "path": ".work/v6-player-api-clippy-corrected.log",
+      "sha256": "7f919f5879e18d07b9b388de8d21db74688e2825e7a75b754fe1334bb5a9524d",
+      "bytes": 327
+    },
+    {
+      "path": ".work/v6-player-api-candid-check.log",
+      "sha256": "5cf925cf4e2a0dab96550ef5371a7d6f7a410642a5ac1f8c2c7400b9de6be1f6",
+      "bytes": 69
+    },
+    {
+      "path": ".work/v6-player-api.generated.did",
+      "sha256": "81fbb52ecace0566b6c78994bcff0b3637fa225830e2e7422b4432a65176835a",
+      "bytes": 11686
+    },
+    {
+      "path": ".work/v6-player-api-source-check.log",
+      "sha256": "b8950d2ebfb49b61212bade5e6478f108a1dedf59b734783b558ade354506e24",
+      "bytes": 314
+    },
+    {
+      "path": ".work/v6-player-api-naming.json",
+      "sha256": "86dd764bc2a6d7c363718e85757e5ac71db50478d5ac2ae427ba87d28d2fe3f8",
+      "bytes": 224820
+    },
+    {
+      "path": ".work/v6-player-api-docs.log",
+      "sha256": "d59dc6c6aa7a9a2e25fa421738a808c059f10d9604788939eb72ab522cff1144",
+      "bytes": 86
+    },
+    {
+      "path": ".work/v6-player-api-observer-build.log",
+      "sha256": "26b6b85c0f0c461ab65e03316999c076f57cea9a56cba421b99c8edff156695d",
+      "bytes": 116
+    },
+    {
+      "path": ".work/v6-player-api-observer/build-manifest.json",
+      "sha256": "a3db8724a144b48b594c368d9d06a6f1ef68b5dc6404d24d1d43040a341bb07b",
+      "bytes": 8682
+    },
+    {
+      "path": "canisters/runtime-lab/src/player_api.rs",
+      "sha256": "e430123f5fcf95b24e69a2ee9106257c83def0b4b2c6ceee155855ce78834612",
+      "bytes": 29847
+    },
+    {
+      "path": "canisters/runtime-lab/runtime-lab.did",
+      "sha256": "81fbb52ecace0566b6c78994bcff0b3637fa225830e2e7422b4432a65176835a",
+      "bytes": 11686
+    },
+    {
+      "path": "tools/inspect_b2z_player.mjs",
+      "sha256": "7aa2f67f751dfde23c699dec3fd3a80ee18cc7d802755d11ce189a7c0881a703",
+      "bytes": 9603
+    },
+    {
+      "path": "tools/build_observer_playability.mjs",
+      "sha256": "d242255453496d7f6fac2ab39bede52b4f86464933d714b6fb22159084f8ad8a",
+      "bytes": 2398
+    },
+    {
+      "path": "tools/prepare_mvp_release.py",
+      "sha256": "d140587687fc86a939c400c0ffd580e877d90a42c0c36c26bbe0b0f399976fda",
+      "bytes": 8121
+    },
+    {
+      "path": "docs/operations/B2Z_AGENT_API.md",
+      "sha256": "e3085b6bb0275dded2bdf83163549f13909001c3699d3a4ebb4a3184e14d2cd4",
+      "bytes": 6160
+    }
+  ]
+}

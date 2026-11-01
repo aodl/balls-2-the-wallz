@@ -1,0 +1,377 @@
+{
+  "status": "LOCAL_FULL_V6_GATE_PASS_CI_AND_FUNDED_DEPLOYMENT_PENDING",
+  "reviewed_at": "2026-11-01T10:23:54.002265+00:00",
+  "tested_harness_source": "29b4bd3",
+  "application_pins": {
+    "predecessor": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+    "normal": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+    "frontend": "ba2c84787743bddd331466a885fe223a7b0a201efecc71bb3132d243b1bcdd67",
+    "DTR": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+    "native_harness": "7b2d6efdd9dce0a67171a9ad7694044008306f04b6f4c3a9435556e6a408d009"
+  },
+  "execution": {
+    "started_utc": "2026-11-01T10:09:24.611449+00:00",
+    "finished_utc": "2026-11-01T10:15:02.067208+00:00",
+    "returncode": 0,
+    "pocketic_server_exit": null
+  },
+  "checks": [
+    {
+      "name": "real-asset-build-and-mainnet-test-adapter-exclusion",
+      "status": "PASS"
+    },
+    {
+      "name": "same-session-authenticated-v5-to-v6-and-island-dormancy",
+      "status": "PASS"
+    },
+    {
+      "name": "genuine-ledger-join-partial-batch-and-dormant-revival-without-refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "complete-short-normal-sample-with-independent-production-bounds",
+      "status": "PASS"
+    },
+    {
+      "name": "targeted-new-move-rejection-shared-island-price-account-stats-camera-and-responsive-ui",
+      "status": "PASS"
+    },
+    {
+      "name": "authenticated-expiry-with-revived-cannon-preserved-on-the-same-page",
+      "status": "PASS"
+    },
+    {
+      "name": "error-free-fenced-wire-capture-and-independent-full-history-replay",
+      "status": "PASS"
+    },
+    {
+      "name": "declared-post-capture-retention-gap-reconnect-without-navigation",
+      "status": "PASS"
+    }
+  ],
+  "normal_sample": {
+    "status": "PASS",
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronisation": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true
+    },
+    "seconds": 45.087,
+    "produced_ticks_bounds": [
+      45,
+      46
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9980703972320181,
+      1.0202497393927294
+    ],
+    "admitted_ticks_per_second": 0.9980703972320181,
+    "displayed_ticks_per_second": 0.9984669147166478,
+    "buffer_conservation_error": -8.668621376273222e-13,
+    "buffer_change_ticks": -0.01787778383037164,
+    "ball_count_range": [
+      4,
+      4
+    ],
+    "http_last_operation_ms": {
+      "fetch_ms": {
+        "median": 39,
+        "max": 1882
+      },
+      "verify_ms": {
+        "median": 35,
+        "max": 74
+      },
+      "artifact_ms": {
+        "median": 0,
+        "max": 119
+      },
+      "derive_ms": {
+        "median": 7,
+        "max": 12
+      },
+      "catchup_ms": {
+        "median": 640,
+        "max": 640
+      }
+    },
+    "qualification": "One complete real-time 45s Normal representative sample, not the historical sustained 900s gate or a 15-minute buffer-deficit result. All samples retained; independent timed production bounds. The original sustained-analysis code and thresholds are unchanged."
+  },
+  "no_refresh_join": {
+    "confirmed_to_visible_ms": 16268,
+    "navigations_after_initial_load": 0,
+    "head": 70
+  },
+  "primary_navigations": 0,
+  "delayed_authentic_reply": [
+    {
+      "request_sha256": "948aed0ae626922ddc31f2aa016b3654899c68506de1818983fba73d6bc5b5bf",
+      "response_sha256": "0fdaecc7751df3658dae396a64ba774dc6231834d269f5172f17b6ad003c6ba3",
+      "preceding_accepted_head": 3,
+      "delay_ms": 2500,
+      "body_and_request_unchanged": true
+    }
+  ],
+  "explicit_elapsed_expiry": {
+    "scope": "Explicit disposable PocketIC +24h clock; browser Date matched only after real-time sample and complete request drain. Original certificate policies/query signatures unchanged. No wall-time rate claim across this phase.",
+    "balls": 5,
+    "cannons": 4,
+    "expired": [
+      3,
+      4
+    ],
+    "head": 145,
+    "logical_time_unchanged": true,
+    "now_ns": "1793614252009375102",
+    "revived_survivor": 2
+  },
+  "installed_result": {
+    "all_local_inputs": 9,
+    "consecutive_native_catalogs_through_capture": 146,
+    "module_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+    "normal_sample_seconds": 45,
+    "real_mainnet_operations": "NONE",
+    "status": "PASS",
+    "wire_capture_through": 145
+  },
+  "independent_replay": {
+    "status": "PASS",
+    "segments": 146,
+    "gameplay_segments": 142,
+    "application_checkpoints": 4,
+    "assigned": [
+      "3",
+      "4",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "wire": {
+    "packets": 445,
+    "bytes": 16313496,
+    "complete_through": 145,
+    "errors": [],
+    "finalization": {
+      "status": "PASS",
+      "fence": 145,
+      "fence_epoch_ms": 1793528050682.6482,
+      "accepted_responses": 445,
+      "pending_at_fence": [],
+      "peak_pending": 4,
+      "timeout_seconds": 15,
+      "pending_after_drain": [],
+      "drain_ms": 0.27970399241894484,
+      "completed_epoch_ms": 1793528050682.9263
+    }
+  },
+  "proxy_observations": {
+    "requests": 677,
+    "non_200": [],
+    "median_ms": 14.859399001579732,
+    "p95_ms": 205.81136900000274,
+    "max_ms": 5045.100983988959,
+    "scope": "Whole run, including deliberate delayed-reply/elapsed-clock/reconnect phases; not isolated IC billing or production latency."
+  },
+  "preservation": {
+    "candidate_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+    "cycles_after": "199910507724922",
+    "cycles_before": "199958183084948",
+    "paid_world_and_catalog_and_retained_preserved": true,
+    "pending_treasury": {
+      "halted": false,
+      "last_plan_ns": 1793524526990086565,
+      "last_refund": null,
+      "last_success": null,
+      "paused": false,
+      "phase": {
+        "NotifyPending": {
+          "attempts": 1,
+          "block_index": 5,
+          "plan": {
+            "amount_e8s": 109990000,
+            "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": 1793524526990086565,
+            "fee_e8s": 10000,
+            "ledger": "dllsh-pd777-77776-qaaaa-cai",
+            "memo": 1347768404,
+            "to": [
+              86,
+              90,
+              129,
+              252,
+              58,
+              158,
+              239,
+              1,
+              139,
+              239,
+              112,
+              35,
+              240,
+              54,
+              3,
+              74,
+              31,
+              75,
+              94,
+              164,
+              2,
+              37,
+              89,
+              176,
+              68,
+              106,
+              222,
+              133,
+              230,
+              199,
+              188,
+              10
+            ]
+          }
+        }
+      },
+      "total_converted_e8s": "0",
+      "total_cycles_reported": "0"
+    },
+    "predecessor_sha256": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+    "reserved_after": "0",
+    "reserved_before": "0",
+    "status": "PASS",
+    "unfinished_operation": true,
+    "upgrade_net_debit": "47675360026"
+  },
+  "treasury_recovery": {
+    "status": "PASS",
+    "one_credit": true
+  },
+  "agent_example": {
+    "scope": "Anonymous read-only inspection; no payment or game command submitted",
+    "observed_head": {
+      "$integer": "144"
+    },
+    "publication_hash": "e2ab9842d0e96d7946443a1b039bcd4056752deed8e39952fa97835b7c699bc9",
+    "certificate_time_ns": {
+      "$integer": "1793528034767785179"
+    },
+    "world_version": 6,
+    "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+    "cannons": [
+      1,
+      6
+    ],
+    "suggestion": "Inspect cannon 1, then choose an angle. Example prepares heading zero; strategy is not submitted.",
+    "public_inspection": {
+      "game_info": "independently matched",
+      "player_state": "independently matched",
+      "cannon_state": "independently matched",
+      "nearby_region": "bounded cells independently matched",
+      "typed_replies_certified": false
+    },
+    "payment_preparation": {
+      "amount_e8s_excluding_fee": {
+        "$integer": "90000000"
+      },
+      "memo_hex": "f600000001000001",
+      "text_memo": "FIRE 1 0.00 1",
+      "destination": {
+        "network": "pocketic-local",
+        "ledger": "dllsh-pd777-77776-qaaaa-cai",
+        "index": "dmkut-c3777-77776-qaaaq-cai",
+        "owner": "dfj7p-ut777-77776-qaaba-cai",
+        "subaccount": {
+          "$integer": "0"
+        },
+        "recipient": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d"
+      },
+      "maximum_fill_now": 1,
+      "notice": "Not a reservation. Current Ledger wallet fee is extra. Surplus is retained, not refunded. Only the correct sending account confers authority."
+    },
+    "receipt": {
+      "status": "Rejected",
+      "verified_canonical_outcome": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "amount": {
+          "$integer": "10000000"
+        },
+        "amount_used": {
+          "$integer": "0"
+        },
+        "position": {
+          "$integer": "12"
+        },
+        "reason": "NOT_OWNER",
+        "remainder": {
+          "$integer": "10000000"
+        },
+        "status": "rejected"
+      },
+      "deduplication_key": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84:12"
+    }
+  },
+  "preserved_terminal_failure": {
+    "execution": {
+      "started_utc": "2026-11-01T10:00:51.200931+00:00",
+      "finished_utc": "2026-11-01T10:06:14.201453+00:00",
+      "returncode": 101,
+      "pocketic_server_exit": null
+    },
+    "status": "FAIL",
+    "error": "TypeError(\"'CompletedProcess' object is not subscriptable\")",
+    "all_eight_substantive_checks": "PASS",
+    "replay": {
+      "status": "PASS",
+      "segments": 112,
+      "gameplay_segments": 108,
+      "application_checkpoints": 4,
+      "assigned": [
+        "3",
+        "4",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+      "work_budget": 23
+    },
+    "scope": "Original process remains FAIL; corrected full execution above is separate."
+  },
+  "closeout_correction": {
+    "source": "29b4bd3",
+    "scope": "Replay CompletedProcess no longer overwrites playback result; final verdict reads recorded playback result. Six tests reject failed playback even after successful replay; NOT_RUN only allowed by explicit actions-only scope.",
+    "application_or_assertion_threshold_changes": false
+  },
+  "reservation": {
+    "began_at": "2026-11-01T10:00:48.218976+00:00",
+    "acknowledged_quiescence": [
+      "science-fair",
+      "D-QUORUM",
+      "icrc-poke",
+      "IO"
+    ],
+    "other_Jupiter_workload": "Finished before preflight; no compilers/PocketIC/test processes in host snapshot",
+    "scope": "One full v6 installed/browser case using exact frozen release artifacts; no builds, downloads, installation or unrelated tests during case. All companion holds released after owned test cleanup.",
+    "no_new_host_predicates": true,
+    "original_receipt_authentication_capture_replay_assertions": "unchanged",
+    "released_at": "2026-11-01T10:16:23.554273+00:00",
+    "outcome": "First execution FAIL at terminal Python verdict after 8 substantive PASS checks; narrow reporting correction + six unit checks PASS; affected full execution PASS including whole-process closeout. Application/native harness pins unchanged."
+  },
+  "ci_status_at_review": "58a53a3 is published, run41295699153 ongoing; final29b4bd3 correction still needs publication/applicable CI. Original41205667919 remainsFAIL; its ignored v6 case does not qualify this gate.",
+  "reused_evidence": "Existing cost/capacity/historical compatibility evidence unchanged; no unrelated experiments or 900-second requirement introduced.",
+  "actual_production_changes": "NONE; no mainnet query, update, transfer, upload or funding request in this continuation. Obtain fresh balance after applicable CI passes; do not reuse old deficits."
+}

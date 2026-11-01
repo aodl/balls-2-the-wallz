@@ -46,7 +46,7 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
         raw=unquote(urlsplit(self.path).path)
         if DEPLOYMENT_ASSETS is not None:
             name='index.html' if raw=='/' else raw.removeprefix('/')
-            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin','configuration-million.bin','deployment.json','build-manifest.json'}:
+            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin','configuration-million.bin','configuration-playability.bin','backend.did','agent-api.md','deployment.json','build-manifest.json'}:
                 return self.serve_explicit(DEPLOYMENT_ASSETS/name)
         if DEPLOYMENT_ASSETS is not None and re.fullmatch(r'/recordings/(?:index\.json|(?:dense|admission|severance|near-impact)/[0-9]{3}/(?:catalog|(?:state|events|scores|render)-[0-9]+)\.bin)',raw):
             return self.serve_explicit(DEPLOYMENT_ASSETS/raw.removeprefix('/'))

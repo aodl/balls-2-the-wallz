@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "scope": "Local content, ordering, browser recording and cross-language replay development checks; not installed-IC v6 release qualification",
+  "javascript_tests": 1559,
+  "native_tests": 45,
+  "host_tests": 42,
+  "focused_observer_tests": 38,
+  "http_browser_checks": 14,
+  "http_browser_trust": "offline",
+  "rust_history": {
+    "publications": 8,
+    "gameplay_segments": 4,
+    "checkpoints": 4,
+    "ledger_inputs": 0,
+    "evidence_class": "SYNTHETIC_NATIVE_HOST_CONTENT_NOT_IC_AUTHENTICATION"
+  },
+  "preserved_development_failures": [
+    "Test clock wrapper bypassed by coordinator cache",
+    "Expiry fixture lacked authenticated epoch/drained boundary",
+    "Rejection asserted the wrong guard branch name",
+    "Trace container encoded with canonical-object keys instead of ordinary JSON"
+  ],
+  "production_mutations": false,
+  "historical_evidence_modified": false,
+  "remaining": [
+    "v6 action UI and public APIs",
+    "full captured wire-history integration",
+    "installed-IC paid upgrade/recovery and epoch gate",
+    "capacity/cost admission screen",
+    "final exact-commit CI and live release"
+  ],
+  "files": [
+    {
+      "path": ".work/v6-checkpoint-all-js.log",
+      "sha256": "f0f033f15ef267512e51c0d3bc92b53200bdc5cc0bd8d405e2d49104438e5c5e",
+      "bytes": 108552
+    },
+    {
+      "path": ".work/v6-checkpoint-native.log",
+      "sha256": "1b156d2bc4b769db17347f5e7ab0d18c827e302d6541f49943219bad57d66836",
+      "bytes": 5878
+    },
+    {
+      "path": ".work/v6-checkpoint-runtime-native.log",
+      "sha256": "4ca67af45b3fbacd105c4b6ec4310088aa90feff3c7f4bbe41c446d89c5f9455",
+      "bytes": 4167
+    },
+    {
+      "path": ".work/v6-checkpoint-structure.log",
+      "sha256": "45b5a2efcf97578db29c766f85e5a08a9c8135a87a1284441362cb1bfc537ec4",
+      "bytes": 314
+    },
+    {
+      "path": ".work/v6-checkpoint-focused.log",
+      "sha256": "13558b9b8f1fdfed389902ab3da7d94c92186766f1d31275e99ef0be306a8f00",
+      "bytes": 4090
+    },
+    {
+      "path": ".work/v6-host-history-native.log",
+      "sha256": "a1c8f4db50c401b16115d78f6829f4e1b4b258758f7c0e25d7827f96374c8161",
+      "bytes": 1158
+    },
+    {
+      "path": ".work/v6-host-history-native-corrected.log",
+      "sha256": "02bcff3d4cc2c9afed22cae389a72ef7c2de3613a39f8306db3231c5e10d99df",
+      "bytes": 516
+    },
+    {
+      "path": ".work/v6-host-history-replay.json",
+      "sha256": "4d3548283a451e2ee989eb7c3f377cca11940d9ac0c750a68b4c4a2e933a2d41",
+      "bytes": 250
+    },
+    {
+      "path": ".work/v6-independent-replay-regression.log",
+      "sha256": "bbf5b875b83daebb4f5b9707c63801b26d2e30018b11b2055ead17a14e1ea6a5",
+      "bytes": 504
+    },
+    {
+      "path": ".work/v6-checkpoint-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".work/v6-checkpoint-http/results.json",
+      "sha256": "c32efc8050b216c3cc24253b2357d0fb85d6accb6b97c3c18b9ea4c31b5190d1",
+      "bytes": 2425
+    },
+    {
+      "path": ".work/v6-checkpoint-browser-unit.log",
+      "sha256": "0f135a6b78f4315bd471b4183ca5d2559778b3dc663d52826271dccdf5b3110a",
+      "bytes": 4633
+    },
+    {
+      "path": ".work/v6-checkpoint-browser-unit-corrected.log",
+      "sha256": "b3ebeb832b3d730cc28464baea320fa9fa7ff909d194ebdc9bbafffa6b2258af",
+      "bytes": 4458
+    },
+    {
+      "path": ".work/v6-checkpoint-browser-unit-corrected2.log",
+      "sha256": "767282e37a8591594001c79dfe9246fd9d96e84b95a43a561f03e304f2f4dd66",
+      "bytes": 4256
+    },
+    {
+      "path": ".work/v6-checkpoint-browser-unit-corrected3.log",
+      "sha256": "bc8dbd13660419b2bc2a09b609affbf977113cbf1cdb0fac5f53414c411cd464",
+      "bytes": 2225
+    },
+    {
+      "path": "tests/fixtures/playability-host-history.json",
+      "sha256": "e6fa1e4861ef1f35678a1544b3532d4274c2c74d1ff039e3877d15876ba807bf",
+      "bytes": 100092
+    }
+  ]
+}

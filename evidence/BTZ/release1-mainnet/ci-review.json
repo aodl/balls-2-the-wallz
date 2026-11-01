@@ -1,0 +1,96 @@
+{
+  "41103639507": {
+    "source_commit": "a8bce5fa28854ee793a0cc486a59c2b3bb5469dd",
+    "substantive_jobs_passed": 6,
+    "normal_seconds": 900.4474001464844,
+    "strict_checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "capture_and_independent_replay": "PASS",
+    "reports": [
+      {
+        "path": "native-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "source-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "wasm-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "local-ic-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "browser-evidence/ci-browser/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "package-consumer-evidence/results.json",
+        "status": "PASS"
+      },
+      {
+        "path": "browser-evidence/ci-wire-capture/results.json",
+        "status": "PASS"
+      }
+    ],
+    "integration_checks_passed": 51,
+    "installed_test_entries_passed": 43
+  },
+  "41103647264": {
+    "source_commit": "a8bce5fa28854ee793a0cc486a59c2b3bb5469dd",
+    "substantive_jobs_passed": 6,
+    "normal_seconds": 900.4974001464843,
+    "strict_checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "capture_and_independent_replay": "PASS",
+    "reports": [
+      {
+        "path": "native-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "source-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "wasm-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "local-ic-evidence/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "browser-evidence/ci-browser/verification.json",
+        "status": "PASS"
+      },
+      {
+        "path": "package-consumer-evidence/results.json",
+        "status": "PASS"
+      },
+      {
+        "path": "browser-evidence/ci-wire-capture/results.json",
+        "status": "PASS"
+      }
+    ],
+    "integration_checks_passed": 51,
+    "installed_test_entries_passed": 43
+  }
+}

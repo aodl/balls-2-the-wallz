@@ -94,21 +94,29 @@ impl SpawnJob {
         match self.phase.as_str() {
             "done" => return Ok(true),
             "enumerate" => {
-                let limit = if w.version == 5 { 1024 } else { w.cell_count() };
+                let limit = if w.version >= 5 { 1024 } else { w.cell_count() };
                 if self.scan < limit {
                     let probe = self.scan;
                     self.scan += 1;
-                    let cell = if w.version == 5 {
+                    let cell = if w.version >= 5 {
                         let digest = rank(&self.seed, 4, probe, -2)?;
-                        u64::from_str_radix(&digest[..15], 16).map_err(|_| "spawn probe")? as usize
-                            % w.cell_count()
+                        let ranked =
+                            u64::from_str_radix(&digest[..15], 16).map_err(|_| "spawn probe")?;
+                        // Preserve the actual Wasm32 probe for v6 on native
+                        // hosts too, without changing historical v5 behavior.
+                        let ranked = if w.version == 6 {
+                            u64::from(ranked as u32)
+                        } else {
+                            ranked
+                        };
+                        ranked as usize % w.cell_count()
                     } else {
                         probe
                     };
                     let Some(p) = w.patch(cell) else {
                         return Ok(false);
                     };
-                    if w.version == 5 {
+                    if w.version >= 5 {
                         if p.iter().all(|c| w.owner(*c) == Some(0)) {
                             self.candidates.push(Candidate {
                                 kind: 2,

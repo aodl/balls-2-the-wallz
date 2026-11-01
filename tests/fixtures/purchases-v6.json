@@ -1,0 +1,68 @@
+{
+  "spawns": {
+    "first": {
+      "placement": {
+        "cell": 935567,
+        "patch": [
+          934566,
+          934567,
+          934568,
+          935566,
+          935567,
+          935568,
+          936566,
+          936567,
+          936568
+        ],
+        "kind": 2,
+        "other": -1,
+        "checked": 1
+      },
+      "legacy_v5_reference_placement": {
+        "cell": 165997,
+        "patch": [
+          164996,
+          164997,
+          164998,
+          165996,
+          165997,
+          165998,
+          166996,
+          166997,
+          166998
+        ],
+        "kind": 2,
+        "other": -1,
+        "checked": 1
+      },
+      "probe_scope": "V6 explicitly preserves the deployed Wasm32 probe; the historical native/JS v5 reference control remains unchanged.",
+      "state_sha256": "3ed10801ab769d03c073e97dbe7fd80431a4347d79245d923aa1cadfac0ce334",
+      "event_sha256": "32fe4f1d23c44e268a43179b246fd99c683776d8514f946532020bb084e60e0d",
+      "receipt_sha256": "1545f4635ee936061e967a8aab514a83ad38da98dba2fadfaeb0844386efade4"
+    },
+    "additional": {
+      "placement": {
+        "cell": 453579,
+        "patch": [
+          453579
+        ],
+        "kind": 4,
+        "other": -1,
+        "checked": 1
+      },
+      "state_sha256": "9243505ced1bbdddb0de0fb7c3122fccdba44ed671c770fefbb1aa49866a45aa",
+      "event_sha256": "4ac2c1df672eecd886936d230a7c37338403751fc9dd7714aaf5e0709a4b99d2",
+      "receipt_sha256": "17477069e58f45fe98f372a82470b2c3bd7785b2231d257848a4f2a1481f3863"
+    }
+  },
+  "scope": "Purchase helper only; no Ledger admission, simulation step or IC authenticity claim",
+  "state_sha256": "3ce3b6edbb1e12b71308e182327983cc0b9c21dcff46f7ac1192f9a8a2332666",
+  "receipt_sha256": "ff4e196ce03c819417449bc17a6e3375ab1aa3e9000700937acbc82810e6b2aa",
+  "adjacent_sites": [
+    452578,
+    453577,
+    453579,
+    454578
+  ],
+  "selected_adjacent": 453579
+}

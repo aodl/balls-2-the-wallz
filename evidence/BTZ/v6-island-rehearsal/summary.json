@@ -1,0 +1,903 @@
+{
+  "status": "BLOCKED",
+  "functional_source_commit": "bd7537e7f8da9295b0cad41208e1f9b10097369e",
+  "branch": "release/btz-prelaunch-rules",
+  "source_committed_after_tests": "Functional files are unchanged from their tested bytes; this is a development checkpoint, not a clean frozen production release.",
+  "normal_development_wasm_sha256": "604d3a7191994a3c61bceff6e36e049553c0e494324e706f3f96a5a0a58cdced",
+  "executable_identity": {
+    "recorded": "during the live focused test; harness file unchanged since compilation/launch",
+    "integration_harness_sha256": "66b07684a9bfe9254583c2749081d2bbad6ae3ec1911d86d50f130b6369987ec",
+    "normal_wasm_sha256": "604d3a7191994a3c61bceff6e36e049553c0e494324e706f3f96a5a0a58cdced",
+    "reference_replay_sha256": "99230915b0ad7af80371e4c14d694e98d283aca29d06befd245fe69a85a0fe51"
+  },
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "dtr_client_archive_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720",
+  "v6_configuration_sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+  "rule": "No ongoing launch-cannon attachment. A canonical funding player owns balls. Every cannon is supported by any friendly ball in its current connected island. Ball-free islands prune ordinary land, retain dormant cannon anchors and receive individually fenced 24-hour elapsed deadlines. Other ball-bearing islands remain active.",
+  "candidate_limits": {
+    "version": 6,
+    "max_cannons": 128,
+    "max_balls": 64,
+    "max_retained_per_player": 16,
+    "max_players": 1024,
+    "dormancy_grace_ns": "86400000000000",
+    "max_purchase_balls_per_island": 64
+  },
+  "admission_screen": {
+    "all_original_cases_retained": true,
+    "declared_source_max_balls": 512,
+    "declared_source_max_cannons": 128,
+    "module_sha256": "f691f5ed6bcb770eedc201447519805082fb223c6ec5dd566c82fc027adcb54e",
+    "rows": [
+      {
+        "artifact_bytes": [
+          22274,
+          23625,
+          165
+        ],
+        "balls": 3,
+        "cannons": 1,
+        "completed_ticks": 4,
+        "cycles_after": "199945589787424",
+        "cycles_before": "199949568618834",
+        "final_ball_count": 3,
+        "host_wall_seconds": 4.810713041,
+        "initial_state_bytes": 22985,
+        "maximum_observed_step_message_instructions": 118021852,
+        "memory_after": "MemoryMetrics { wasm_memory_size: Nat(3604480), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "memory_before": "MemoryMetrics { wasm_memory_size: Nat(2293760), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "metrics_after": {
+          "last_step_instructions": 101698176,
+          "max_instructions": 342715190,
+          "messages": 4,
+          "persist_instructions": 241768749,
+          "publish_instructions": 181220789,
+          "seal_instructions": 225077880,
+          "step_instructions": 432013334
+        },
+        "metrics_before": {
+          "last_step_instructions": 0,
+          "max_instructions": 0,
+          "messages": 0,
+          "persist_instructions": 0,
+          "publish_instructions": 0,
+          "seal_instructions": 0,
+          "step_instructions": 0
+        },
+        "net_cycle_debit": "3978831410",
+        "neutral_holes": 500,
+        "players": 1,
+        "publication_sha256": "a61ddedd1816442edc670c9e5fa2e44f327ef79d696de05aa13d65f4f87b3a9a",
+        "qualification": "Synthetic v6 genesis under an explicit test-hooks module on pinned fiduciary PocketIC. Admission/work/wire screen only; no claim of normal-Wasm cost, paid history, IC authenticity, sustained rate or 1 tick/s at all populations.",
+        "reserved_cycles_after": "0",
+        "reserved_cycles_before": "0",
+        "runtime_error": null,
+        "samples": [
+          {
+            "completed": 2,
+            "cycles": "199947510907177",
+            "error": null,
+            "last_step_instructions": 105694649,
+            "turn": 20
+          },
+          {
+            "completed": 3,
+            "cycles": "199946559041323",
+            "error": null,
+            "last_step_instructions": 106598657,
+            "turn": 40
+          },
+          {
+            "completed": 4,
+            "cycles": "199945620003075",
+            "error": null,
+            "last_step_instructions": 101698176,
+            "turn": 60
+          }
+        ],
+        "source_calls": 1,
+        "status": "PASS",
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "subnet_configuration": {
+          "canister_ranges": [
+            {
+              "end": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "AAAAAAI///8BAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAIwAAABAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "f//////f//8BAQ=="
+              },
+              "start": {
+                "canister_id": "f//////QAAABAQ=="
+              }
+            }
+          ],
+          "cost_schedule": "Normal",
+          "instruction_config": "Production",
+          "subnet_admins": null,
+          "subnet_kind": "Fiduciary",
+          "subnet_seed": [
+            172,
+            110,
+            36,
+            216,
+            205,
+            0,
+            97,
+            88,
+            38,
+            172,
+            163,
+            211,
+            235,
+            249,
+            96,
+            72,
+            27,
+            224,
+            166,
+            80,
+            242,
+            150,
+            234,
+            153,
+            129,
+            27,
+            121,
+            104,
+            107,
+            108,
+            180,
+            180
+          ]
+        },
+        "turns_50ms": 60,
+        "virtual_ns": "3000000183"
+      },
+      {
+        "artifact_bytes": [
+          22151,
+          32167,
+          165
+        ],
+        "balls": 4,
+        "cannons": 1,
+        "completed_ticks": 4,
+        "cycles_after": "199945182852233",
+        "cycles_before": "199949566503360",
+        "final_ball_count": 4,
+        "host_wall_seconds": 4.029763819,
+        "initial_state_bytes": 23088,
+        "maximum_observed_step_message_instructions": 139339020,
+        "memory_after": "MemoryMetrics { wasm_memory_size: Nat(3932160), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "memory_before": "MemoryMetrics { wasm_memory_size: Nat(2293760), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "metrics_after": {
+          "last_step_instructions": 120356490,
+          "max_instructions": 382584279,
+          "messages": 4,
+          "persist_instructions": 270794613,
+          "publish_instructions": 207682821,
+          "seal_instructions": 229715617,
+          "step_instructions": 502181135
+        },
+        "metrics_before": {
+          "last_step_instructions": 0,
+          "max_instructions": 0,
+          "messages": 0,
+          "persist_instructions": 0,
+          "publish_instructions": 0,
+          "seal_instructions": 0,
+          "step_instructions": 0
+        },
+        "net_cycle_debit": "4383651127",
+        "neutral_holes": 500,
+        "players": 1,
+        "publication_sha256": "772f950fd81a8eb682e22c1672f6f9ac163b0c65a7401378fab2a8081f5a0e65",
+        "qualification": "Synthetic v6 genesis under an explicit test-hooks module on pinned fiduciary PocketIC. Admission/work/wire screen only; no claim of normal-Wasm cost, paid history, IC authenticity, sustained rate or 1 tick/s at all populations.",
+        "reserved_cycles_after": "0",
+        "reserved_cycles_before": "0",
+        "runtime_error": null,
+        "samples": [
+          {
+            "completed": 2,
+            "cycles": "199947305250736",
+            "error": null,
+            "last_step_instructions": 121196357,
+            "turn": 20
+          },
+          {
+            "completed": 3,
+            "cycles": "199946257883804",
+            "error": null,
+            "last_step_instructions": 121289268,
+            "turn": 40
+          },
+          {
+            "completed": 4,
+            "cycles": "199945213089885",
+            "error": null,
+            "last_step_instructions": 120356490,
+            "turn": 60
+          }
+        ],
+        "source_calls": 1,
+        "status": "PASS",
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "subnet_configuration": {
+          "canister_ranges": [
+            {
+              "end": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "AAAAAAI///8BAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAIwAAABAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "f//////f//8BAQ=="
+              },
+              "start": {
+                "canister_id": "f//////QAAABAQ=="
+              }
+            }
+          ],
+          "cost_schedule": "Normal",
+          "instruction_config": "Production",
+          "subnet_admins": null,
+          "subnet_kind": "Fiduciary",
+          "subnet_seed": [
+            172,
+            110,
+            36,
+            216,
+            205,
+            0,
+            97,
+            88,
+            38,
+            172,
+            163,
+            211,
+            235,
+            249,
+            96,
+            72,
+            27,
+            224,
+            166,
+            80,
+            242,
+            150,
+            234,
+            153,
+            129,
+            27,
+            121,
+            104,
+            107,
+            108,
+            180,
+            180
+          ]
+        },
+        "turns_50ms": 60,
+        "virtual_ns": "3000000183"
+      },
+      {
+        "artifact_bytes": [
+          175386,
+          509189,
+          1123
+        ],
+        "balls": 64,
+        "cannons": 128,
+        "completed_ticks": 4,
+        "cycles_after": "199824613260955",
+        "cycles_before": "199947594652039",
+        "final_ball_count": 64,
+        "host_wall_seconds": 10.383588312,
+        "initial_state_bytes": 189416,
+        "maximum_observed_step_message_instructions": 2119917984,
+        "memory_after": "MemoryMetrics { wasm_memory_size: Nat(37879808), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "memory_before": "MemoryMetrics { wasm_memory_size: Nat(7471104), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "metrics_after": {
+          "last_step_instructions": 0,
+          "max_instructions": 4107492238,
+          "messages": 15,
+          "persist_instructions": 8806277831,
+          "publish_instructions": 4107206316,
+          "seal_instructions": 3326950447,
+          "step_instructions": 12361705020
+        },
+        "metrics_before": {
+          "last_step_instructions": 0,
+          "max_instructions": 0,
+          "messages": 0,
+          "persist_instructions": 0,
+          "publish_instructions": 0,
+          "seal_instructions": 0,
+          "step_instructions": 0
+        },
+        "net_cycle_debit": "122981391084",
+        "neutral_holes": 4000,
+        "players": 8,
+        "publication_sha256": "ef5f5fa53442f0925a6201cf8cf6d6c851224e24fbb371e3ab8ed52b42a0f4af",
+        "qualification": "Synthetic v6 genesis under an explicit test-hooks module on pinned fiduciary PocketIC. Admission/work/wire screen only; no claim of normal-Wasm cost, paid history, IC authenticity, sustained rate or 1 tick/s at all populations.",
+        "reserved_cycles_after": "0",
+        "reserved_cycles_before": "0",
+        "runtime_error": null,
+        "samples": [
+          {
+            "completed": 1,
+            "cycles": "199898633763379",
+            "error": null,
+            "last_step_instructions": 0,
+            "turn": 20
+          },
+          {
+            "completed": 2,
+            "cycles": "199871233597039",
+            "error": null,
+            "last_step_instructions": 0,
+            "turn": 40
+          },
+          {
+            "completed": 3,
+            "cycles": "199845012646981",
+            "error": null,
+            "last_step_instructions": 0,
+            "turn": 60
+          }
+        ],
+        "source_calls": 1,
+        "status": "PASS",
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "subnet_configuration": {
+          "canister_ranges": [
+            {
+              "end": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "AAAAAAI///8BAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAIwAAABAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "f//////f//8BAQ=="
+              },
+              "start": {
+                "canister_id": "f//////QAAABAQ=="
+              }
+            }
+          ],
+          "cost_schedule": "Normal",
+          "instruction_config": "Production",
+          "subnet_admins": null,
+          "subnet_kind": "Fiduciary",
+          "subnet_seed": [
+            172,
+            110,
+            36,
+            216,
+            205,
+            0,
+            97,
+            88,
+            38,
+            172,
+            163,
+            211,
+            235,
+            249,
+            96,
+            72,
+            27,
+            224,
+            166,
+            80,
+            242,
+            150,
+            234,
+            153,
+            129,
+            27,
+            121,
+            104,
+            107,
+            108,
+            180,
+            180
+          ]
+        },
+        "turns_50ms": 62,
+        "virtual_ns": "3100000189"
+      },
+      {
+        "artifact_bytes": [
+          196190,
+          0,
+          0
+        ],
+        "balls": 128,
+        "cannons": 128,
+        "completed_ticks": 0,
+        "cycles_after": "199828159461161",
+        "cycles_before": "199947505206683",
+        "final_ball_count": 128,
+        "host_wall_seconds": 9.525566268,
+        "initial_state_bytes": 196190,
+        "maximum_observed_step_message_instructions": 9417472409,
+        "memory_after": "MemoryMetrics { wasm_memory_size: Nat(66650112), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "memory_before": "MemoryMetrics { wasm_memory_size: Nat(7602176), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "metrics_after": {
+          "last_step_instructions": 9417472409,
+          "max_instructions": 12081189905,
+          "messages": 8,
+          "persist_instructions": 2793281523,
+          "publish_instructions": 0,
+          "seal_instructions": 532124591,
+          "step_instructions": 21155864211
+        },
+        "metrics_before": {
+          "last_step_instructions": 0,
+          "max_instructions": 0,
+          "messages": 0,
+          "persist_instructions": 0,
+          "publish_instructions": 0,
+          "seal_instructions": 0,
+          "step_instructions": 0
+        },
+        "net_cycle_debit": "119345745522",
+        "neutral_holes": 4000,
+        "players": 8,
+        "publication_sha256": "a71c32afd053b1d007f48c9174ae2f93cf65dca35199b13e6ab975dbe38afef0",
+        "qualification": "Synthetic v6 genesis under an explicit test-hooks module on pinned fiduciary PocketIC. Admission/work/wire screen only; no claim of normal-Wasm cost, paid history, IC authenticity, sustained rate or 1 tick/s at all populations.",
+        "reserved_cycles_after": "0",
+        "reserved_cycles_before": "0",
+        "runtime_error": "observation artifact bounds",
+        "samples": [],
+        "source_calls": 1,
+        "status": "FAIL",
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "subnet_configuration": {
+          "canister_ranges": [
+            {
+              "end": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "AAAAAAI///8BAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAIwAAABAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "f//////f//8BAQ=="
+              },
+              "start": {
+                "canister_id": "f//////QAAABAQ=="
+              }
+            }
+          ],
+          "cost_schedule": "Normal",
+          "instruction_config": "Production",
+          "subnet_admins": null,
+          "subnet_kind": "Fiduciary",
+          "subnet_seed": [
+            172,
+            110,
+            36,
+            216,
+            205,
+            0,
+            97,
+            88,
+            38,
+            172,
+            163,
+            211,
+            235,
+            249,
+            96,
+            72,
+            27,
+            224,
+            166,
+            80,
+            242,
+            150,
+            234,
+            153,
+            129,
+            27,
+            121,
+            104,
+            107,
+            108,
+            180,
+            180
+          ]
+        },
+        "turns_50ms": 11,
+        "virtual_ns": "550000036"
+      },
+      {
+        "artifact_bytes": [
+          237230,
+          0,
+          0
+        ],
+        "balls": 512,
+        "cannons": 128,
+        "completed_ticks": 0,
+        "cycles_after": "199071824123601",
+        "cycles_before": "199946949658508",
+        "final_ball_count": 512,
+        "host_wall_seconds": 65.032523817,
+        "initial_state_bytes": 237230,
+        "maximum_observed_step_message_instructions": 15863556197,
+        "memory_after": "MemoryMetrics { wasm_memory_size: Nat(209977344), stable_memory_size: Nat(42008576), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "memory_before": "MemoryMetrics { wasm_memory_size: Nat(8978432), stable_memory_size: Nat(33619968), global_memory_size: Nat(128), wasm_binary_size: Nat(3590740), custom_sections_size: Nat(0), canister_history_size: Nat(414), wasm_chunk_store_size: Nat(4194304), snapshots_size: Nat(0), log_memory_store_size: Nat(12288) }",
+        "metrics_after": {
+          "last_step_instructions": 15863556197,
+          "max_instructions": 23458751295,
+          "messages": 26,
+          "persist_instructions": 17334050647,
+          "publish_instructions": 0,
+          "seal_instructions": 677815371,
+          "step_instructions": 215250938791
+        },
+        "metrics_before": {
+          "last_step_instructions": 0,
+          "max_instructions": 0,
+          "messages": 0,
+          "persist_instructions": 0,
+          "publish_instructions": 0,
+          "seal_instructions": 0,
+          "step_instructions": 0
+        },
+        "net_cycle_debit": "875125534907",
+        "neutral_holes": 4000,
+        "players": 8,
+        "publication_sha256": "cce8ccd33a29d401d70b32b1738ad47c7a6513aa01c6911321fb738813a04563",
+        "qualification": "Synthetic v6 genesis under an explicit test-hooks module on pinned fiduciary PocketIC. Admission/work/wire screen only; no claim of normal-Wasm cost, paid history, IC authenticity, sustained rate or 1 tick/s at all populations.",
+        "reserved_cycles_after": "0",
+        "reserved_cycles_before": "0",
+        "runtime_error": "canonical structural limit",
+        "samples": [
+          {
+            "completed": 0,
+            "cycles": "199466595615589",
+            "error": null,
+            "last_step_instructions": 8354068107,
+            "turn": 20
+          },
+          {
+            "completed": 0,
+            "cycles": "199143168429763",
+            "error": null,
+            "last_step_instructions": 13094761056,
+            "turn": 40
+          }
+        ],
+        "source_calls": 1,
+        "status": "FAIL",
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "subnet_configuration": {
+          "canister_ranges": [
+            {
+              "end": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAHwpKIBAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "AAAAAAI///8BAQ=="
+              },
+              "start": {
+                "canister_id": "AAAAAAIwAAABAQ=="
+              }
+            },
+            {
+              "end": {
+                "canister_id": "f//////f//8BAQ=="
+              },
+              "start": {
+                "canister_id": "f//////QAAABAQ=="
+              }
+            }
+          ],
+          "cost_schedule": "Normal",
+          "instruction_config": "Production",
+          "subnet_admins": null,
+          "subnet_kind": "Fiduciary",
+          "subnet_seed": [
+            172,
+            110,
+            36,
+            216,
+            205,
+            0,
+            97,
+            88,
+            38,
+            172,
+            163,
+            211,
+            235,
+            249,
+            96,
+            72,
+            27,
+            224,
+            166,
+            80,
+            242,
+            150,
+            234,
+            153,
+            129,
+            27,
+            121,
+            104,
+            107,
+            108,
+            180,
+            180
+          ]
+        },
+        "turns_50ms": 53,
+        "virtual_ns": "2650000163"
+      }
+    ],
+    "status": "COMPLETE"
+  },
+  "installed_focused_rehearsal": {
+    "canonical_inputs": {
+      "2": "42545a5041593032c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000000098968042545a1100004000",
+      "3": "42545a5041593032c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000005f5e1000000000000000000"
+    },
+    "deadline_ns": "1793502511630366995",
+    "normal_module_sha256": "604d3a7191994a3c61bceff6e36e049553c0e494324e706f3f96a5a0a58cdced",
+    "predecessor_sha256": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+    "publications": 9,
+    "remaining_balls": 1,
+    "remaining_cannons": 1,
+    "scope": "Normal-Wasm installed paid v5 preservation, unfinished operation, pending treasury recovery, v6 wall-pair death/island dormancy and one explicitly virtual 24h expiry. Browser/wire qualification is separate.",
+    "source_cursor": 5,
+    "status": "PASS"
+  },
+  "independent_replay": {
+    "status": "PASS",
+    "segments": 9,
+    "gameplay_segments": 5,
+    "application_checkpoints": 4,
+    "assigned": [
+      "2",
+      "3"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "authenticated_final": {
+    "status": "PASS",
+    "scenario": "paid-playability-v9",
+    "trust": "explicit disposable root, canister binding and certificate freshness",
+    "publication_version": 9,
+    "root_hash": "32e9079186225af6681a6ec0f9bc5199b415c1dd7560eefeca757a009259bc6a",
+    "artifacts": [
+      "state",
+      "events",
+      "scores"
+    ]
+  },
+  "local_checks": {
+    "javascript_all": {
+      "pass": 1574,
+      "fail": 0
+    },
+    "javascript_prefix_followup": {
+      "pass": 7,
+      "fail": 0
+    },
+    "python": {
+      "pass": 187,
+      "fail": 0
+    },
+    "native_workspace": {
+      "pass": 45,
+      "fail": 0
+    },
+    "runtime_native": {
+      "pass": 47,
+      "fail": 0
+    },
+    "installed_rehearsal": {
+      "pass": 1,
+      "fail": 0,
+      "publication_count": 9
+    },
+    "format_clippy_source_docs": "PASS",
+    "normal_exports": "PASS; six player methods query-only, no test hooks",
+    "exact_commit_CI": "NOT_RUN; local unpublished progress checkpoint",
+    "browser_v6_release_gate": "NOT_RUN; prior synthetic/widget checks remain separately scoped",
+    "maximum_normal_module_browser_screen": "NOT_RUN; initial capacity diagnostic used explicit test hooks"
+  },
+  "prior_failed_local_fixtures": [
+    {
+      "directory": "v6-installed-islands-initial-setup",
+      "status": "BLOCKED_SETUP",
+      "test_started": false,
+      "cause": "Wrong earlier R1 file path rejected by exact deployed-module SHA guard."
+    },
+    {
+      "directory": "v6-installed-islands",
+      "status": "FAIL",
+      "cause": "Synthetic credit accounts needed canonical sorting; no canister created."
+    },
+    {
+      "directory": "v6-installed-islands-corrected-fixture",
+      "status": "FAIL",
+      "cause": "Expected control dormancy absent; control scene and pending-input timing were invalid for the intended collision."
+    },
+    {
+      "directory": "v6-installed-islands-corrected-fence",
+      "status": "FAIL",
+      "cause": "Expected old logical boundary 3, actual 4. Sealed unfinished work and later old-rule payment require two drained segments."
+    },
+    {
+      "directory": "v6-installed-islands-control-after-fence",
+      "status": "FAIL",
+      "cause": "Legacy new-cannon placement put a cannon in the control flight path, reflecting the control ball before the intended collision."
+    }
+  ],
+  "fixture_correction": "Use genuine valueless paid fire at an existing player cannon, retain full control territories, and place the control collision after both required old segments. The independent JS precheck and installed replay agree. No application threshold or assertion was weakened.",
+  "failed_evidence_limit": "All raw data actually produced is retained. The earliest failed local fixtures did not dump every post-failure artifact or preserve the old harness executable. The corrected recorder writes every publication and all artifact bodies before assertions; the final executable is preserved. None were mainnet or sustained-delivery attempts.",
+  "production_read_only": {
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "running_flag": true,
+    "pace": {
+      "admission_open": false,
+      "mode": "ReserveProtection",
+      "nominal_milli": 0,
+      "performance_limited": false,
+      "supported_milli": 0
+    },
+    "completed_segments": "74547",
+    "source_cursor": "39711127",
+    "source_error": [],
+    "treasury_phase": {
+      "Idle": null
+    },
+    "treasury_error": [],
+    "financial_and_maintenance_observation": {
+      "seconds": 972.763509399414,
+      "gameplay_segments_change": 0,
+      "liquid_decline_cycles": 5461019718,
+      "reported_treasury_credit_change": 0,
+      "reserved_change_cycles": 0,
+      "source_index_call_change": 16,
+      "observed_maintenance_net_cycles_per_hour": 20210123832.603382,
+      "qualification": "Two query snapshots in Reserve Protection with no gameplay, reported treasury credit or reservation movement. Net maintenance decline only; callback refunds/query timing/storage and unobserved movements remain uncertainty. Not gross billed cycles or active-gameplay cost."
+    }
+  },
+  "funding_guard": {
+    "observed_at": "2026-10-31T03:10:01.617972+00:00",
+    "liquid_cycles": 3051965270253,
+    "total_cycles": 3200142493023,
+    "reserved_already_excluded_from_liquid": 148177222770,
+    "protected_liquid_reserve": 3000000000000,
+    "measured_local_upgrade_debit": 48675499529,
+    "retained_larger_R1_upgrade_measurement": 53994185045,
+    "per_upgrade_or_recovery_allowance": 53994185045,
+    "upgrade_and_one_recovery_allowance": 107988370090,
+    "verification_transition_maintenance_contingency": 250000000000,
+    "minimum_liquid_cycles": 3357988370090,
+    "backend_liquid_shortfall_at_observation": 306023099837,
+    "formula": "3T + 2*max(current measured upgrade, retained larger R1 measurement) + 0.25T; compare directly to liquid, without subtracting reservations again. No Normal-speed funding requirement.",
+    "qualification": "Conservative bounded-release budget, not a guaranteed bill or an executable transfer quote. Future maintenance requires refresh. No funding operation performed."
+  },
+  "remaining_gates": [
+    "Actual v6 certified browser/action/epoch/expiry no-refresh and final wire-capture integration",
+    "Normal-module representative cost/latency and final supported-capacity/browser screen",
+    "Installed public-query/agent-example network validation",
+    "Clean frozen release artifact and frontend build; one consolidated final gate and exact-commit six-job CI",
+    "Fresh adequate funds and complete guarded production preflight before the authorised release"
+  ],
+  "preserved_records": "Historical A0/A2 pair FAIL, interrupted A2 attempts BLOCKED and release-1 mainnet browser wire canary FAIL remain unchanged. Release 1 remains the last verified deployed v5 implementation.",
+  "mainnet_operations": "Only the five named query methods; per-subprocess identity warning acknowledgement. No pause, update, upgrade, transfer, frontend upload, controller/subnet change, push or merge.",
+  "raw_manifests": [
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-admission-screen",
+      "manifest_sha256": "542b7abdb904ddaefebb7d1f84dc9303c86b2cd79d58d4244e17fffc762617bf",
+      "files": 53,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-installed-islands-initial-setup",
+      "manifest_sha256": "a28f9ff45ca8d373709f829fd6cbeaa38c7503d41c4664ca8ebbde5235798b8f",
+      "files": 2,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-installed-islands",
+      "manifest_sha256": "d37545dc89f6630cdb25d5562029da7776fa446e7c43287a0d715ac591b9f122",
+      "files": 5,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-installed-islands-corrected-fixture",
+      "manifest_sha256": "26379efcb0a27e26cc2c99c7c650b189d9671e790f4780d4adf374b4818311d4",
+      "files": 23,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-installed-islands-corrected-fence",
+      "manifest_sha256": "fd76ccc4749c85ee92d924fd3af5e54fd9694ab0558ee9de3729ce7ce1f8475b",
+      "files": 39,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-installed-islands-control-after-fence",
+      "manifest_sha256": "8dd59e2755d0ba533e8b214ff385566f56ad3ac7330445f5aa7853e68830d503",
+      "files": 47,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-installed-islands-paid-fire",
+      "manifest_sha256": "fc591f4aec0598759ca2846bc3867f203394e20babf6cb5f2dbb0348540de40d",
+      "files": 64,
+      "independent_sha256sum_check": "PASS"
+    },
+    {
+      "raw_directory": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-island-closeout",
+      "manifest_sha256": "262ba7c72763c7480d6af3b9f4b8d908636c12ce440dfe0e9be1ee32c905bc96",
+      "files": 20,
+      "independent_sha256sum_check": "PASS"
+    }
+  ],
+  "reason": "Insufficient liquid cycles for bounded release/recovery plus protection reserve",
+  "release_qualification": "NOT_QUALIFIED",
+  "deployed": false
+}

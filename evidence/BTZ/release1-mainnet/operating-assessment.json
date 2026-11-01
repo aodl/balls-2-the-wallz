@@ -1,0 +1,43 @@
+{
+  "windows": [
+    {
+      "from": "release-installed",
+      "to": "release-before-resume",
+      "scope": "Gameplay paused; source/treasury maintenance and read-only verification continued",
+      "seconds": 242.9811270236969,
+      "total_start": 6198004055765,
+      "total_end": 6197099330942,
+      "liquid_start": 6053636546795,
+      "liquid_end": 6052731821972,
+      "total_net_decline": 904724823,
+      "liquid_net_decline": 904724823,
+      "reservation_gap_start": 144367508970,
+      "reservation_gap_end": 144367508970,
+      "known_treasury_credit_counter_unchanged": true,
+      "completed_segments_start": 71645,
+      "completed_segments_end": 71645,
+      "observed_total_net_decline_T_per_h": 0.013404371782679064,
+      "observed_segment_rate": 0.0
+    },
+    {
+      "from": "release-resumed",
+      "to": "release-observed",
+      "scope": "Active Conserve 0.2 tick/s; source/treasury maintenance and read-only observations included",
+      "seconds": 259.1600012779236,
+      "total_start": 6130777032305,
+      "total_end": 6079042454166,
+      "liquid_start": 5982599809535,
+      "liquid_end": 5930865231396,
+      "total_net_decline": 51734578139,
+      "liquid_net_decline": 51734578139,
+      "reservation_gap_start": 148177222770,
+      "reservation_gap_end": 148177222770,
+      "known_treasury_credit_counter_unchanged": true,
+      "completed_segments_start": 71710,
+      "completed_segments_end": 71762,
+      "observed_total_net_decline_T_per_h": 0.7186467062124726,
+      "observed_segment_rate": 0.20064824719704766
+    }
+  ],
+  "limits": "Short non-simultaneous operational queries; timestamps and execution reservations add uncertainty. Net decline includes calls, storage, refunds and maintenance. No claim of gross billed consumption, precise gameplay-only bill or future runway. Maintenance interval includes verification traffic; active-minus-paused is only an approximate attribution."
+}

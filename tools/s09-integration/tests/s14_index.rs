@@ -20,6 +20,12 @@ use std::{
 mod source;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
+#[path = "support/playability_browser.rs"]
+mod playability_browser;
+#[path = "support/playability_installed.rs"]
+mod playability_installed;
+#[path = "support/playability_profile.rs"]
+mod playability_profile;
 use source::{IndexConfig, PokeMatch, PokeTarget, SourceStatus, StartingPolicy};
 #[derive(CandidType)]
 enum LedgerPayload {
@@ -2152,7 +2158,7 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
     std::fs::create_dir_all(&out).unwrap();
     let recipient = source::receiving_account(id, 0);
     let funding = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT);
-    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":index.to_text(),"recipient":recipient.to_string(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":index.to_text(),"recipient":recipient.to_string(),"payer_account":funding.to_string(),"root_key_hex":hex(&pic.root_key().unwrap())});
     std::fs::write(
         out.join("configuration.json"),
         serde_json::to_vec(&configuration).unwrap(),
@@ -3132,15 +3138,20 @@ fn arena_world(pic: &PocketIc, id: Principal) -> b2z_native::world::World {
             "artifact_bundle",
             encode_args((segment.0.to_string().parse::<u64>().unwrap(), root.clone())).unwrap(),
         ) {
-            let bundled: Vec<Vec<u8>> = decode_one::<Result<Vec<Vec<u8>>, String>>(&reply)
-                .unwrap()
-                .unwrap();
-            assert_eq!(bundled.len(), p.artifacts.len());
-            for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
-                assert_eq!(bytes.len(), descriptor.length);
-                assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+            match decode_one::<Result<Vec<Vec<u8>>, String>>(&reply).unwrap() {
+                Ok(bundled) => {
+                    assert_eq!(bundled.len(), p.artifacts.len());
+                    for (bytes, descriptor) in bundled.iter().zip(&p.artifacts) {
+                        assert_eq!(bytes.len(), descriptor.length);
+                        assert_eq!(dtr_wire::hash(bytes), descriptor.sha256);
+                    }
+                    return b2z_native::world::World::decode(&bundled[0]).unwrap();
+                }
+                Err(error) => assert_eq!(
+                    error, "artifact bundle capacity",
+                    "unexpected bundle failure"
+                ),
             }
-            return b2z_native::world::World::decode(&bundled[0]).unwrap();
         }
     }
     let mut data = Vec::new();
@@ -3200,6 +3211,15 @@ fn arena_setup_world_fee_clock(
     fee: u64,
     seconds_ago: u64,
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee_clock_payers(wasm, initial, fee, seconds_ago, &[])
+}
+fn arena_setup_world_fee_clock_payers(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+    extra_payers: &[Principal],
+) -> (PocketIc, Principal, Principal, Principal) {
     let builder = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet();
@@ -3222,7 +3242,10 @@ fn arena_setup_world_fee_clock(
         .unwrap_or_else(std::time::SystemTime::now);
     pic.set_time((clock - Duration::from_secs(seconds_ago)).into());
     let payer = Principal::self_authenticating([9; 32]);
-    let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &[payer], fee);
+    let mut payers = vec![payer];
+    payers.extend_from_slice(extra_payers);
+    assert!(payers.len() <= 4);
+    let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee);
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
     for c in [id, index] {
@@ -3505,13 +3528,21 @@ fn empty_arena_all_player_elimination_preserves_scores_then_idles() {
         Cannon {
             id: 1,
             cell: 6,
-            account: "01".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([1; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: None,
         },
         Cannon {
             id: 2,
             cell: 11,
-            account: "02".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([2; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: None,
         },
     ];
@@ -3599,7 +3630,7 @@ fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments()
         ("Normal", 45_000_000_000_000u64, 1.0),
         ("Cruise", 27_000_000_000_000u64, 0.75),
         ("Economy", 17_000_000_000_000u64, 0.5),
-        ("Steady", 11_000_000_000_000u64, 0.3),
+        ("Steady", 14_000_000_000_000u64, 0.3),
         ("Conserve", 6_000_000_000_000u64, 0.2),
         ("Survival", 3_700_000_000_000u64, 0.1),
         // Falling from a faster band retains Survival at or above its 3T exit.
@@ -3873,7 +3904,11 @@ fn pace_world() -> b2z_native::world::World {
     world.cannons = vec![Cannon {
         id: 1,
         cell: 42,
-        account: "01".repeat(32),
+        account: AccountIdentifier::new(
+            &Principal::self_authenticating([1; 32]),
+            &DEFAULT_SUBACCOUNT,
+        )
+        .to_hex(),
         heading: None,
     }];
     world.balls = vec![Ball {
@@ -3912,7 +3947,11 @@ fn million_population_world(ball_count: usize) -> b2z_native::world::World {
         .map(|n| Cannon {
             id: (n + 1) as u32,
             cell: 16 * 32 + if n == 0 { 7 } else { 23 },
-            account: format!("{:02x}", n + 1).repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([n as u8 + 1; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: Some(0),
         })
         .collect();
@@ -4345,13 +4384,21 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
         Cannon {
             id: 1,
             cell: 326,
-            account: "01".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([1; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: Some(8192),
         },
         Cannon {
             id: 2,
             cell: 666,
-            account: "02".repeat(32),
+            account: AccountIdentifier::new(
+                &Principal::self_authenticating([2; 32]),
+                &DEFAULT_SUBACCOUNT,
+            )
+            .to_hex(),
             heading: Some(40960),
         },
     ];
@@ -5872,7 +5919,19 @@ fn torus_browser_authenticated_epoch_recovers_and_stales_old_move() {
     // The paid transition test separately uses actual upstream Ledger inputs.
     let fixture: serde_json::Value =
         serde_json::from_str(include_str!("../../../tests/fixtures/b2z-torus-v4.json")).unwrap();
-    let initial = unhex(fixture["migration"]["old_hex"].as_str().unwrap()).unwrap();
+    let mut world = b2z_native::world::World::decode(
+        &unhex(fixture["migration"]["old_hex"].as_str().unwrap()).unwrap(),
+    )
+    .unwrap();
+    // Historical golden bytes intentionally contain a synthetic, checksumless
+    // account. The Identify UI validates real ICP AccountIdentifiers. Adapt only
+    // this disposable UI genesis; retain the original migration golden unchanged.
+    world.cannons[0].account = AccountIdentifier::new(
+        &Principal::self_authenticating([1; 32]),
+        &DEFAULT_SUBACCOUNT,
+    )
+    .to_hex();
+    let initial = world.encode().unwrap();
     let (mut pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_WASM"), initial);
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let out =
@@ -6813,5 +6872,83 @@ fn delivery_public_binding() {
     assert_eq!(
         actual, expected,
         "frozen public root/canister binding changed"
+    );
+}
+
+#[test]
+fn public_runtime_health_is_bounded_operational_and_anonymous() {
+    #[derive(CandidType, Deserialize, Debug)]
+    struct PublicHealth {
+        version: u32,
+        observed_at_ns: u64,
+        sample_start_ns: u64,
+        sample_end_ns: u64,
+        sample_start_total_cycles: candid::Nat,
+        sample_end_total_cycles: candid::Nat,
+        sample_scope: String,
+        resets: u64,
+        discontinuity: String,
+        liquid_cycles: candid::Nat,
+        total_cycles: candid::Nat,
+        sample_count: u32,
+        net_decline_cycles: Option<candid::Nat>,
+        certified_gameplay: bool,
+    }
+    let (pic, id, _, _) = arena_setup(bytes("B2Z_S14_WASM"));
+    let read = || {
+        decode_one::<PublicHealth>(
+            &pic.query_call(
+                id,
+                Principal::anonymous(),
+                "runtime_health",
+                encode_args(()).unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap()
+    };
+    let initial = read();
+    assert_eq!(initial.version, 1);
+    assert!(!initial.certified_gameplay);
+    assert!(initial.total_cycles >= initial.liquid_cycles);
+    assert!(initial.net_decline_cycles.is_none());
+    for _ in 0..3 {
+        pic.advance_time(Duration::from_secs(60));
+        for _ in 0..8 {
+            pic.tick();
+        }
+    }
+    let measured = read();
+    assert!(measured.sample_count <= 21);
+    assert!(
+        measured.observed_at_ns >= measured.sample_end_ns
+            && measured.sample_end_ns > measured.sample_start_ns
+    );
+    assert!(measured.discontinuity.len() < 256 && measured.resets < 10);
+    assert!(measured.sample_scope.contains("execution reserve"));
+    assert_eq!(
+        &measured.sample_start_total_cycles.0 - &measured.sample_end_total_cycles.0,
+        measured.net_decline_cycles.as_ref().unwrap().0
+    );
+    assert!(
+        measured.net_decline_cycles.is_some(),
+        "initial={initial:?}; measured={measured:?}"
+    );
+    assert_eq!(status(&pic, id).run.completed_segments, 0);
+    let doc = decode_one::<String>(
+        &pic.query_call(
+            id,
+            Principal::anonymous(),
+            "get_api_doc",
+            encode_args(()).unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    assert!(
+        doc.len() < 4096
+            && doc.contains("NOT certified replies")
+            && doc.contains("lab_status/runtime_health are operational queries, not certified gameplay")
+            && doc.contains("there are no refunds, payouts, transaction-signing or controller operations in this player API")
     );
 }

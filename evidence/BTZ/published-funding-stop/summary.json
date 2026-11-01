@@ -1,0 +1,138 @@
+{
+  "recorded_at": "2026-10-31T13:29:19.812659+00:00",
+  "status": "BLOCKED_FUNDING",
+  "published_head": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+  "ci": {
+    "id": 41205667919,
+    "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/41205667919",
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "S14 and million-cell installed-IC qualification",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source conformance",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
+  },
+  "production_observed_at": "2026-10-31T13:28:35.783455+00:00",
+  "liquid_cycles": "2885064561308",
+  "release_guard_liquid_cycles": "3357988370090",
+  "shortfall_cycles": "472923808782",
+  "guard_basis": "Retained reviewed guard: 3T protection + twice 53,994,185,045-cycle upgrade allowance + 0.25T maintenance/recovery allowance; not Normal entry funding. Liquid already excludes IC deductions.",
+  "run": {
+    "callback_count": "107598",
+    "completed_segments": "76166",
+    "current_segment_work": "0",
+    "generation": "27",
+    "idle": false,
+    "last_error": [],
+    "last_segment_work": "603",
+    "max_segment_work": "14005",
+    "pace": {
+      "admission_open": true,
+      "mode": "Lifeline",
+      "nominal_milli": 50,
+      "performance_limited": false,
+      "supported_milli": 50
+    },
+    "pacing_seconds": 1,
+    "publication_ticks": "1",
+    "running": true,
+    "segment_ticks": "1",
+    "total_work": "54699299",
+    "work_budget": 512,
+    "world_transition": false
+  },
+  "source": {
+    "admitted_to_exclusive": "39711127",
+    "binding_checked": true,
+    "event_horizon": [],
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "index_calls": "14688",
+    "last_error": [],
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "network": "ic",
+    "pending_records": 0,
+    "receiving_subaccount": "0",
+    "recipient_account": [
+      52,
+      72,
+      133,
+      239,
+      62,
+      56,
+      35,
+      25,
+      77,
+      188,
+      3,
+      103,
+      205,
+      2,
+      196,
+      203,
+      230,
+      159,
+      125,
+      202,
+      11,
+      167,
+      100,
+      241,
+      95,
+      42,
+      134,
+      231,
+      13,
+      190,
+      202,
+      122
+    ],
+    "reconciliation_requested": false,
+    "scan_in_flight": true
+  },
+  "work": {
+    "pending_inputs": 0,
+    "phase": [],
+    "ready_manifest": [],
+    "revision": "320372",
+    "source_cursor": "39711127"
+  },
+  "treasury_phase": {
+    "Idle": null
+  },
+  "treasury_error": [],
+  "production_changes": "NONE; query-only preflight. No pause, installation, activation, upload or finance operation.",
+  "additional_gate": "Prior final browser/receipt/capture FAIL remains unresolved; publishing does not supersede it. No local qualification was restarted after failed funding preflight."
+}

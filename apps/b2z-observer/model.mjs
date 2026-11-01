@@ -1,10 +1,12 @@
+import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {cmp, validRat, rat} from '../../packages/kernels/b2z/math.mjs';
 import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-projection.mjs';
+import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
@@ -25,10 +27,11 @@ function track(b,maxVelocity=4096){
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4,5].includes(w.version),'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4,5,6].includes(w.version),'snapshot version');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
   if(w.version<5)check(Array.isArray(w.cells)&&w.cells.length===cellCount(w)&&w.ownership===undefined,'cells');
-  else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
+  else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,w.version===6?4294967294:65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,w.version===6?4294967294:65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
+  if(w.version===6){timeNumber(w.time);validateV6Snapshot(w,ownerAt);if(identity)check(Object.keys(PLAYABILITY_IDENTITY).every(k=>identity[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');return w;}
   check(Array.isArray(w.cannons)&&w.cannons.length<=32&&Array.isArray(w.balls)&&w.balls.length<=64,'entity bounds');
   check(Array.isArray(w.pending)&&w.pending.length<=64,'pending bounds');timeNumber(w.time);
   const ids=new Set(),anchors=new Set();
@@ -46,12 +49,20 @@ export function snapshot(bytes,identity){
 export class B2zView {
   constructor(w){
     this.torus=w.version>=4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=w.version<5?[...w.cells]:null;
-    this.ownership=w.version===5?structuredClone(w.ownership):null;this.territoryRevision=0;
+    this.ownership=w.version>=5?structuredClone(w.ownership):null;this.territoryRevision=0;
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
-    this.balls=new Map(w.balls.map(b=>[b.id,track(b,w.version===5?65536:4096)]));
+    this.balls=new Map(w.balls.map(b=>[b.id,w.version===6?trackV6(b):track(b,w.version===5?65536:4096)]));
+    if(w.version===6){this.playability=structuredClone(w.playability);this.logicalTime=timeNumber(w.time);}
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
+  color(id){const c=this.cannons.get(id);return c?accountColor(c.account):'#30415b';}
+  playerForCannon(id){return this.version===6?this.playability.lifecycle.find(l=>l.cannon===id)?.player:id;}
+  playerForTerritory(id){return this.version===6?(id===0?0:this.playability.territories.find(r=>r.id===id)?.player):id;}
+  playerColor(id){const p=this.playability?.players.find(p=>p.id===id);return p?accountColor(p.account):this.version===6?'#30415b':this.color(id);}
+  ballColor(id){return this.version===6?this.playerColor(id):this.color(id);}
+  territoryColor(id){return this.version===6?this.playerColor(this.playerForTerritory(id)):this.color(id);}
+  entityKey(){const metadata=this.version===6?this.playability.players.map(p=>`${p.id}:${p.account}`).join('|')+';'+this.playability.territories.map(r=>`${r.id}:${r.player}`).join('|'):'';return metadata+';'+ [...this.cannons.values()].map(c=>`${c.id}:${c.account}:${c.cell}`).join('|');}
   /** Carry only ephemeral effects/status across chained segments; never game state. */
   continuePresentation(previous,time){
     if(!previous||previous===this)return;
@@ -77,12 +88,13 @@ export class B2zView {
     for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const x=Math.ceil(sx*this.width/32),y=Math.ceil(sy*this.height/32);yield{x,y,width:Math.ceil((sx+1)*this.width/32)-x,height:Math.ceil((sy+1)*this.height/32)-y,owner:this.ownership.base[sy*32+sx]};}
     for(const r of this.ownership.overrides)for(let cell=r.start;cell<r.end;){const y=Math.floor(cell/this.width),end=Math.min(r.end,(y+1)*this.width);yield{x:cell%this.width,y,width:end-cell,height:1,owner:r.owner};cell=end;}
   }
-  claimedCells(){return this.version===5?this.ownership.counts.reduce((n,c)=>n+c.cells,0):this.cells.filter(owner=>owner!==0).length;}
+  claimedCells(){return this.version>=5?this.ownership.counts.reduce((n,c)=>n+c.cells,0):this.cells.filter(owner=>owner!==0).length;}
   removeBalls(ids){for(const id of ids){this.balls.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
+    if(this.version===6){if(applyV6Event(this,e)){this.effects=this.effects.filter(x=>t-x.t<2).slice(-64);return;}check(['trajectory','cannon_moved','strike_armed','strike_cancelled'].includes(e.kind),'unsupported v6 event');}
     if(e.kind==='trajectory'){
-      check(this.balls.has(e.ball.id),'unknown trajectory');const b=track(e.ball,this.version===5?65536:4096);
+      check(this.balls.has(e.ball.id),'unknown trajectory');const b=this.version===6?trackV6(e.ball):track(e.ball,this.version===5?65536:4096);
       check(this.balls.get(b.id).owner===b.owner,'trajectory owner');this.balls.set(b.id,b);
     }else if(e.kind==='ball_spawned'){
       const b=track(e.ball,this.version===5?65536:4096);check(!this.balls.has(b.id)&&this.cannons.has(b.owner),'spawned ball');this.balls.set(b.id,b);if(this.torus){integer(e.heading,65535);this.cannons.get(b.owner).heading=e.heading;}
@@ -119,12 +131,13 @@ export class B2zView {
   matches(w){
     const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
     const ownershipSame=()=>{const a=encodeCanonical(this.ownership),b=encodeCanonical(w.ownership);return a.length===b.length&&a.every((v,i)=>v===b[i]);};
-    check(this.width===w.width&&this.height===w.height&&(this.version===5?ownershipSame():same(this.cells,w.cells)),'final territory mismatch');
+    check(this.width===w.width&&this.height===w.height&&(this.version>=5?ownershipSame():same(this.cells,w.cells)),'final territory mismatch');
     check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell&&this.cannons.get(c.id)?.heading===c.heading),'final cannon mismatch');
     check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy'].every(k=>a[k]===b[k]);}),'final trajectory mismatch');
+    if(this.version===6){check(w.cannons.every(c=>this.cannons.get(c.id)?.account===c.account),'final funding account mismatch');matchesV6(this,w);}
     return true;
   }
-  stats(){const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
+  stats(){if(this.version===6)return statsV6(this);const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
     balls:[...this.balls.values()].filter(b=>b.owner===c.id).length})).sort((a,b)=>b.area-a.area||a.id-b.id);}
 }
 /** Integrity links + exact ordering + end-state visual conformance BEFORE buffer admission.
@@ -142,9 +155,10 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
+  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&Object.keys(PLAYABILITY_IDENTITY).every(k=>publication.identity?.[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
     seq=e.sequence;prior=e.time;model.apply(e);
   }
   model.matches(final);
@@ -155,7 +169,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
  * existing compact presentation from its authenticated predecessor and audit
  * events, then apply the same endpoint validation as recorded playback. */
 export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,publication){
-  check([6,7,8].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
+  check([6,7,8,9].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
   const events=publication.artifacts.find(a=>a.kind==='events');
   check(events&&await sha256Web(eventBytes)===events.sha256,'authenticated audit artifact');
   const initial=snapshot(initialBytes),final=snapshot(finalBytes),projected=projectAnimationEvents(initial,eventBytes),h=publication.head,s=h.seal;
@@ -169,9 +183,10 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'derived snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
+  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&Object.keys(PLAYABILITY_IDENTITY).every(k=>publication.identity?.[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&cmp(e.time,final.time)<0,'derived animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
     seq=e.sequence;prior=e.time;model.apply(e);
   }
   model.matches(final);
@@ -182,12 +197,14 @@ export class SegmentPlayer {
   constructor(segment){this.segment=segment;this.view=new B2zView(segment.initial);this.index=0;this.time=segment.start;}
   advance(time){
     check(Number.isFinite(time)&&time>=this.time&&time<=this.segment.end,'playhead bounds');this.time=time;
+    if(this.view.version===6)this.view.logicalTime=time;
     while(this.index<this.segment.events.length&&timeNumber(this.segment.events[this.index].time)<=time)this.view.apply(this.segment.events[this.index++]);
+    if(this.view.version===6)this.view.logicalTime=time;
     return this.view;
   }
 }
 
-/** Consume only the verified finite remainder when the authoritative arena idles. */
+/** Drain only verified data when production idles or an operator pauses it. */
 export function prepareIdlePlayout(session,idle){
   const {playhead:start,available:end}=session.clock;
   if(session.operational?.run.running===false)session.productionPaused=true;
@@ -198,11 +215,12 @@ export function prepareIdlePlayout(session,idle){
     if(end>start)session.clock.append(start,end);
     session.productionPaused=false;session.idleDrain=false;
   }
-  if(idle&&!session.idleDrain&&end>start){
+  const finite=idle||session.productionPaused;
+  if(finite&&!session.idleDrain&&end>start){
     const target=Math.min(.25,(end-start)/2);
     session.clock=new PlayoutClock({start,target,low:target/2,max_frame_delta:.25});
     session.clock.append(start,end);session.idleDrain=true;
-  }else if(!idle&&session.idleDrain){
+  }else if(!finite&&session.idleDrain){
     session.clock=new PlayoutClock({start,...liveSessionBufferPolicy(session),max_frame_delta:1});
     if(end>start)session.clock.append(start,end);session.idleDrain=false;
   }
@@ -243,4 +261,48 @@ export function liveSessionBufferPolicy(session){
  const full=(session.queue?.length??0)>=LIVE_BUFFER_LIMITS.segments||
    (session.bytes??0)+(session.largestSegmentBytes??0)>LIVE_BUFFER_LIMITS.bytes;
  return liveBufferPolicy(session.operational,session.largestSegmentBytes,full?session.clock.state().buffer:Infinity);
+}
+
+const sameCanonical=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);return x.length===y.length&&x.every((v,i)=>v===y[i]);};
+/** Zero-time authenticated boundary. The caller still verifies the IC certificate
+ * and ordered publication chain; these checks bind application context/content. */
+export async function prepareCheckpoint(initialBytes,artifacts,publication,prior){
+  check([7,8,9].includes(publication.version)&&publication.head.seal===null&&publication.epoch,'checkpoint publication');
+  const initial=snapshot(initialBytes,prior.identity),final=snapshot(artifacts.state,publication.identity),at=timeNumber(initial.time);
+  check(await sha256Web(initialBytes)===prior.head.state_hash,'checkpoint predecessor state binding');
+  check(cmp(initial.time,final.time)===0&&cmp(initial.time,[BigInt(prior.head.logical_end),1n])===0&&BigInt(publication.head.logical_end)===BigInt(prior.head.logical_end),'checkpoint logical boundary');
+  check(publication.identity.source_id===prior.identity.source_id,'checkpoint source identity');
+  for(const kind of ['state','events','scores'])check(await sha256Web(artifacts[kind])===publication.artifacts.find(a=>a.kind===kind)?.sha256,'checkpoint '+kind+' integrity');
+  check(await sha256Web(artifacts.state)===publication.head.state_hash,'checkpoint state binding');
+  const events=decodeCanonical(artifacts.events),scores=decodeCanonical(artifacts.scores);
+  check(events.version===final.version&&Array.isArray(events.receipts)&&events.receipts.length===0&&Array.isArray(events.events),'checkpoint events');
+  check(events.events.every((e,i)=>e.sequence===i&&cmp(e.time,initial.time)===0),'checkpoint event ordering');
+  check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
+  const context=events.events[0]?.context;
+  if(final.version===6){
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'checkpoint context commitment');
+    check(context.previous_state===await sha256Web(initialBytes),'checkpoint context predecessor');
+    for(const k of ['received_e8s','credits','balls','time','next_ball_id','next_cannon_id','next_strike_id','pending'])check(sameCanonical(initial[k],final[k]),'checkpoint preserved '+k);
+    if(initial.version===5){
+      check(publication.version===8&&publication.epoch.version===2&&events.events.length===1&&events.events[0].kind==='rules_activated'&&context.migration==='B2Z_PLAYABILITY_FROM_V5_01'&&context.version===3,'rules activation context');
+      const expected={...initial,version:6,playability:{elapsed_ns:context.observed_ns,next_player_id:initial.next_cannon_id,next_territory_id:initial.next_cannon_id,players:initial.cannons.map(c=>({id:c.id,account:c.account})),territories:initial.cannons.map(c=>({id:c.id,player:c.id})),lifecycle:initial.cannons.map(c=>({cannon:c.id,player:c.id,generation:1}))}};
+      check(sameCanonical(expected,final),'rules activation preserved entities');
+      check(context.new_state===publication.head.state_hash&&sameCanonical(context.old_identity,prior.identity)&&sameCanonical(context.new_identity,publication.identity),'rules activation identities');
+      check(final.playability.elapsed_ns===context.observed_ns,'rules activation time');
+    }else{
+      check(initial.version===6&&publication.version===9&&publication.epoch.version===3&&sameCanonical(publication.identity,prior.identity),'lifecycle checkpoint identity');
+      check(events.events[0].kind==='lifecycle_context'&&context.domain==='B2Z-LIFECYCLE-CONTEXT-01'&&context.version===1,'lifecycle context');
+      check(typeof context.observed_ns==='bigint'&&context.observed_ns>=initial.playability.elapsed_ns&&final.playability.elapsed_ns===context.observed_ns,'lifecycle observed time');
+      const due=initial.playability.lifecycle.filter(l=>l.deadline_ns!==undefined&&l.deadline_ns<=context.observed_ns).map(l=>({cannon:l.cannon,generation:l.generation,deadline_ns:l.deadline_ns})).sort((a,b)=>a.deadline_ns<b.deadline_ns?-1:a.deadline_ns>b.deadline_ns?1:a.cannon-b.cannon||a.generation-b.generation);
+      check(due.length>0&&sameCanonical(due,context.fences),'lifecycle complete due fences');const gone=new Set(due.map(f=>f.cannon));
+      check(sameCanonical(initial.cannons.filter(c=>!gone.has(c.id)),final.cannons)&&sameCanonical(initial.playability.players,final.playability.players),'lifecycle retained players/entities');
+      check(events.events.length===due.length+1&&sameCanonical(events.events.slice(1).map(e=>e.cannon),due.map(f=>f.cannon)),'lifecycle expiry events');
+    }
+  }else check(events.events.length===0&&((initial.version===3&&final.version===4&&publication.version===7)||(initial.version===4&&final.version===5&&publication.version===8)),'legacy checkpoint identity');
+  return {start:at,end:at,initial,final,checkpoint:true,events:events.events,receipts:[],bytes:artifacts.state.length+artifacts.events.length+artifacts.scores.length};
+}
+/** An ordered view handoff, never a zero-duration append to PlayoutClock. */
+export class CheckpointPlayer {
+  constructor(segment){check(segment.checkpoint&&segment.start===segment.end,'checkpoint player');this.segment=segment;this.view=new B2zView(segment.final);}
+  advance(time){check(time===this.segment.end,'checkpoint presentation boundary');const count=this.segment.events.filter(e=>e.kind==='cannon_expired').length;this.view.lastEvent=count?`${count} dormant cannon${count===1?'':'s'} expired on-chain`:'Authenticated rules checkpoint';return this.view;}
 }

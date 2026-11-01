@@ -69,9 +69,30 @@ impl ExecutionSession {
         budget: usize,
         limit: usize,
     ) -> Result<(Vec<u8>, Progress, Option<Self>)> {
+        self.propose_step_with_time(budget, limit, None)
+    }
+    /// IC host supplies its observed completion time; the pure kernel/replay
+    /// never fetches an ambient clock. Old-rule executable outputs ignore it.
+    pub fn propose_step_at(
+        &self,
+        budget: usize,
+        limit: usize,
+        observed_ns: u64,
+    ) -> Result<(Vec<u8>, Progress, Option<Self>)> {
+        self.propose_step_with_time(budget, limit, Some(observed_ns))
+    }
+    fn propose_step_with_time(
+        &self,
+        budget: usize,
+        limit: usize,
+        observed_ns: Option<u64>,
+    ) -> Result<(Vec<u8>, Progress, Option<Self>)> {
         // Proposal isolation: an ordinary Err cannot mutate the trusted input.
         let mut cursor = self.cursor.clone();
         let (used, complete) = cursor.step(budget)?;
+        if complete && cursor.needs_elapsed() {
+            cursor.finalize_elapsed(observed_ns.ok_or("MISSING_LIFECYCLE_TIME")?)?;
+        }
         // The original canonical encoder enforces all byte/structure/tag limits.
         let bytes = cursor.snapshot()?;
         let next = if bytes.len() <= limit {

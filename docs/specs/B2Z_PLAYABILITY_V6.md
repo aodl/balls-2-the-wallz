@@ -1,0 +1,107 @@
+# BTZ v6 playability — island occupancy clarification
+
+This is the developing next rules identity. Production release 1 remains v5;
+no v6 activation or production capacity claim is made by this document.
+Historical v3/v4/v5 events retain their original interpretation.
+
+The operator's latest clarification replaces launch-cannon ball attachment.
+A ball belongs to its canonical funding player. Its firing cannon appears in
+the purchase receipt, but supplies no ongoing ownership, pricing or lifecycle
+link. Connected same-player territory is an island. Every cannon on an island
+is active while any friendly ball occupies that island. All its cannons share
+the same current ball pool. Enemy balls do not provide support.
+
+A split is reconciled at the authoritative operation boundary. An island with
+cannons but no friendly balls enters the ordinary zero-ball/dormant state:
+release ordinary land, retain reflective cannon cells, start each newly dormant
+cannon's 24 elapsed-hour deadline and preserve paid receipts/accrued credits.
+Other ball-bearing islands of the same player remain intact. A visiting friendly
+ball keeps its current island active, regardless of where it was fired. No
+special cancellation exception based on a ball's launcher is required.
+The existing mutual-destruction rule still cancels an ownership-transfer
+proposal that would remove a defending live occupant: pair one attacker with
+one eligible defender; unpaired balls survive the cancelled transfer. An
+unanchored ball-bearing component is reported to that capture resolution,
+never silently deleted by island reconciliation.
+
+Cell storage uses connected-island labels mapped explicitly to funding players.
+These labels and their allocation counter are independent of cannon IDs.
+Migration initially preserves existing numeric labels and all ball/entity/value
+fields, then adds the mapping. Topology updates maintain the connected-label
+invariant through bounded resumable row-span work. Dormant anchor regrouping
+uses only the bounded cannon set; elapsed expiry does not scan the million-cell
+board or manufacture simulation ticks or Ledger positions.
+
+Firing prices use the selected cannon's **current island ball count**:
+`10,000,000 e8s × max(1, n)²`, summed sequentially for the requested quantity.
+Two cannons on one island see the same price. Disconnected islands use their
+own counts. One existing ball gives 0.5 ICP for two more, or 1.4 ICP for three.
+A first 1.5 ICP purchase still creates one cannon with three balls in total.
+Cannon prices remain account-wide retained-count scaling: 1, 4, 9 ICP, including
+one ball. Surplus at an additional cannon follows the resulting island count:
+with one existing island ball, a second cannon and two surplus balls cost
+`4 + 0.4 + 0.9 = 5.3 ICP`. Quotes are not reservations; partial-fill/remainder
+receipts retain the existing non-refundable policy and exclude the Ledger fee.
+
+First-cannon candidate probes explicitly use the low 32 bits of the existing
+rank prefix before reduction modulo the cell count. This preserves the actual
+deployed Wasm32 first-spawn search on native hosts and in independent v6 replay.
+Historical v5 reference interpretations and recorded publications remain intact.
+
+The former proposed per-cannon ball purchase ceiling becomes an island
+admission ceiling of 64. Merging islands never deletes
+existing balls to enforce that ceiling; further purchases wait until there is
+room. The bounded installed screen passed four ticks with 64 balls and 128
+cannons across eight players. At 128 balls the existing artifact bound failed;
+at 512 balls the existing canonical structural bound failed. Both failures are
+retained. The candidate therefore keeps 64 global balls, increases retained
+cannons to 128 total/16 per player, and permits a purchase pool of 64 per island
+subject to the global limit. This is not a sustained-rate claim at capacity;
+normal-module/browser final qualification remains pending. Moves cannot leave a ball-bearing island
+without its last cannon. Dormant movement remains disallowed until revival.
+
+The pure Rust and JS interpreters now execute targeted/batched commands and
+atomic capture proposals. Work continuations preserve payment totals and item
+prices; incomplete proposals cannot change the committed world. Captures inspect
+current occupants before transfer: a direct opposing occupant takes priority,
+otherwise the lowest live unanchored defender is paired with the attacker. Both
+die and the whole proposed transfer is cancelled. Unpaired balls survive.
+Ownership operations reconstruct compact storage independently, including empty
+island pruning, split labels and friendly-island merges. Discovering that all
+adjacent seeds remain connected retains the early-connectivity shortcut.
+
+A logical segment's result remains unavailable until an explicit completion-time
+fact is supplied. That fact stamps new dormant deadlines and is included in the
+authenticated event output for independent replay. The host must supply IC time;
+the pure kernel and reference have no clock. Idle expiry continues to require a
+separate zero-logical-time application checkpoint, never fabricated Ledger input.
+
+The host implements a guarded v5→v6 activation from the actual committed state.
+Only an existing controller can prepare/commit it, while autonomous gameplay is
+paused. The existing worker obtains Ledger/Index cutover watermarks, drains old
+inputs and unfinished strikes, and commits through the next authenticated epoch.
+The source adapter changes from 3 to 4 only at that boundary; the receiving
+account, Ledger/Index, source identity, cursor and anchors remain continuous.
+
+At an overdue deadline, maintenance fences the already dispatched/downloaded
+account-history window. Its remaining oldest windows and admitted game inputs
+are processed first. Later hints coalesce without extending the fence or
+postponing expiry indefinitely. Revival in that finite window wins; later
+payments are evaluated against the state when processed. Sender timestamps are
+not arrival authority. Pending downloads and generation/deadline fences survive
+restart; a lost query lease is replaced without resetting source history.
+
+Expiry is a zero-logical-time DTR application checkpoint. Every such event
+artifact contains its exact lifecycle metadata preimage; the root retains only
+the current copy. `epoch_metadata` returns a bounded preimage where retained,
+which callers must hash against an authenticated epoch. The query reply alone
+is not certified. Dormant-only worlds idle physics while source, treasury and
+expiry maintenance continue subject to their existing funding floors. Source
+errors and insufficient maintenance funds can delay execution; no exact-second
+promise or automatic refund is made.
+
+Synthetic cross-language and host tests remain development evidence. The
+installed timer/source/upgrade rehearsal, public player APIs and action UI,
+buffered v9 browser handoff, independent history replay and capacity screening
+remain required before the authorised second release. No v6 state or capacity
+has been deployed.

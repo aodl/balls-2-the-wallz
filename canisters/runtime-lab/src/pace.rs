@@ -11,12 +11,12 @@ pub const SURVIVAL_EXIT: u128 = 3_000_000_000_000;
 pub const SURVIVAL_ENTER: u128 = 3_500_000_000_000;
 pub const CONSERVE_EXIT: u128 = 4_000_000_000_000;
 pub const CONSERVE_ENTER: u128 = 5_000_000_000_000;
-pub const STEADY_EXIT: u128 = 7_500_000_000_000;
-pub const STEADY_ENTER: u128 = 10_000_000_000_000;
-pub const ECONOMY_EXIT: u128 = 12_000_000_000_000;
-pub const ECONOMY_ENTER: u128 = 15_000_000_000_000;
-pub const CRUISE_EXIT: u128 = 20_000_000_000_000;
-pub const CRUISE_ENTER: u128 = 25_000_000_000_000;
+pub const STEADY_EXIT: u128 = 12_000_000_000_000;
+pub const STEADY_ENTER: u128 = 15_000_000_000_000;
+pub const ECONOMY_EXIT: u128 = 16_000_000_000_000;
+pub const ECONOMY_ENTER: u128 = 20_000_000_000_000;
+pub const CRUISE_EXIT: u128 = 24_000_000_000_000;
+pub const CRUISE_ENTER: u128 = 30_000_000_000_000;
 pub const NORMAL_EXIT: u128 = 30_000_000_000_000;
 pub const NORMAL_ENTER: u128 = 40_000_000_000_000;
 pub const MAX_ACTIONS: usize = 8;
@@ -314,6 +314,24 @@ mod tests {
             select(Mode::Lifeline, LIFELINE_EXIT - 1),
             Mode::ReserveProtection
         );
+    }
+
+    #[test]
+    fn conservative_selection_and_descending_steady_do_not_oscillate() {
+        assert_eq!(
+            select(Mode::ReserveProtection, 10_000_000_000_000),
+            Mode::Conserve
+        );
+        assert_eq!(select(Mode::ReserveProtection, STEADY_EXIT), Mode::Conserve);
+        assert_eq!(select(Mode::Steady, STEADY_EXIT), Mode::Steady);
+        assert_eq!(select(Mode::Steady, STEADY_EXIT - 1), Mode::Conserve);
+        for (mode, entry, exit, _) in BANDS {
+            let mut current = select(Mode::ReserveProtection, entry);
+            for balance in [entry - 1, exit, entry - 1, exit] {
+                current = select(current, balance);
+                assert_eq!(current, mode);
+            }
+        }
     }
 
     #[test]

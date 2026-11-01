@@ -1,3 +1,354 @@
+# Complete frozen v6 installed/browser gate PASS; final CI pending
+
+The exact `c7d12fd7…`→`b618e4f3…` paid/unfinished-state rehearsal now passes the
+full authenticated v5→v6 browser scenario: same-page purchases/actions/receipts,
+45.087s representative playback, elapsed expiry, error-free complete capture,
+independent exact replay of 146 publications/nine inputs, and deliberate-gap
+reconnect. Prepared production app stays exact `ba2c8478…`; no application bytes
+or substantive thresholds changed. All companion compute holds were released.
+
+The first quiet attempt's terminal CompletedProcess variable-shadowing FAIL is
+preserved separately despite its eight substantive PASS checks. Narrow reporting
+fix `29b4bd3` and six helper tests precede the successful full-process rerun.
+The older receipt-loss FAIL remains unchanged. CI 41205667919 is definitively
+FAIL with two stale assertions; corrections58a53a3 are published and CI41295699153
+is running at last check. Final verdict fix29b4bd3 still needs publication/CI.
+No v6 deployment or fresh funding quote before applicable final CI passes.
+[Complete technical qualification and exact remaining boundary](evidence/BTZ/v6-gate-qualified/REPORT.md).
+
+---
+
+<!-- ARCHIVED_STATUS -->
+
+# Definitive CI FAIL diagnosed; two test-only corrections ready
+
+CI 41205667919 finished FAIL: 49 installed checks PASS, two stale assertions FAIL
+(old “Add a ball” label and old API-doc phrases). The uploaded inventory explicitly
+ignores the full v6 paid/browser rehearsal. Five other substantive jobs PASS;
+ordinary CI is not v6 browser qualification.
+
+Only the two stale expectations change. Frozen Wasm/frontend remain exact.
+Formatting and four playback-helper tests pass; the corrected anonymous installed
+health/doc test passes against frozen `b618e4f3…`. New applicable CI and the one
+full v6 scenario remain pending. Four companion holds were released during CI
+diagnosis; an active Jupiter validation outside their ownership still needs
+operator coordination for the build-free interval. No full v6 run or live action.
+[Definitive artifacts, correction and remaining gate](evidence/BTZ/v6-gate-closeout/CI_CORRECTION.md).
+
+---
+
+# V6 local gate prepared; funding gates deployment only
+
+Under the latest instruction, local qualification continues despite insufficient
+production cycles. All assets are prebuilt and exact frozen backend/frontend/
+harness identities rechecked; no application or assertion changes. Five ordinary
+CI jobs pass, while installed-IC job 41205667919 is still running at the saved
+observation. Its default ignored v6 paid/browser case is not inferred to pass.
+
+Four connected sessions have acknowledged a compute hold. A separate Jupiter
+validation chain remains active outside their ownership; operator coordination
+was requested. The single next full v6 execution has not started while builds
+still overlap. Previous receipt-loss FAIL remains unchanged. No live operations.
+[Exact preparation, artifact review and remaining gate](evidence/BTZ/v6-gate-closeout/PREPARATION.md).
+
+---
+
+# Rules branch published; fresh production funding guard blocks release
+
+Remote `release/btz-prelaunch-rules` now matches `3bddd88` and exact-head
+[CI 41205667919](https://github.com/aodl/balls-2-the-wallz/actions/runs/41205667919)
+is running. Native, browser HTTP/Web Crypto and clean-consumer jobs pass at the
+saved observation; final CI success is not yet established.
+
+Fresh query-only preflight at 13:28 UTC reports 2.885064561308T liquid against
+the retained 3.357988370090T release/recovery guard: **BLOCKED_FUNDING**. Production
+remains v5, running Lifeline with healthy source/treasury and no pending work.
+The mandate's funding stop applies; no deployment, local gate restart or financial
+action occurred. The previous final browser/capture failure remains unresolved.
+[Exact shortfall, guard basis and publication/CI evidence](evidence/BTZ/published-funding-stop/REPORT.md).
+
+---
+
+# Restart recovered; final v6 browser gate FAIL, Git publication blocked
+
+Recovered the rules worktree and committed the pending candidate evidence as
+`9b3bdfb`. The exact frozen backend passed paid-state upgrade/pending-treasury
+recovery again. Restoring the documented user-local library path fixed Chromium
+startup. The subsequent installed browser passed the authenticated v5→v6/dormancy
+handoff, then failed waiting for a join receipt: slow/timed-out queries led to
+retention-gap resyncs; the correct new entities appeared but their receipt
+publications were no longer retained. Full capture/replay/reconnect and final CI
+remain unqualified. No failure was relabelled or mainnet deployment performed.
+
+Production at 11:49 UTC remains release 1 / v5, running Lifeline with 3.4235T
+liquid, healthy source/treasury and only 0.0655T above the saved release guard.
+The rules-branch push failed because this session lacks GitHub write credentials.
+[Executed recovery, failure diagnosis and exact remaining boundaries](evidence/BTZ/restart-20261031/REPORT.md).
+
+---
+
+# V6 captured replay closed; final candidate and exact-commit CI pending
+
+The final frozen normal module is
+`b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e`
+from functional source `0cecccd5b02efe60ef9906ee990c754ecbc39919`.
+The complete 1,578-test base JS suite and 192 Python checks pass, as do five
+focused quote checks after the additional player-capacity guard, native purchase/rules
+and 47 host checks. Final installed setup was stopped at 10:31 UTC with sustained
+CPU PSI around 99%, load around 23 and about 1.7 GiB available memory. No browser
+or playback window started: **BLOCKED_ENVIRONMENT**, not PASS or gameplay failure.
+Exact-commit CI and a valid final installed gate remain pending. Mainnet has not
+been changed. [Reviewed results, failures, identities and raw manifests](evidence/BTZ/v6-release-candidate/REPORT.md).
+
+The installed observer showed paid join, partial fire, revival, targeted new
+cannon/move/rejections and elapsed expiry without refreshing. Its error-free
+wire export contains 82 consecutive publications. Corrected independent replay
+matches all 82 publications exactly. The retained original replay failure exposed
+a v6 native/JS versus Wasm32 first-spawn probe-width mismatch; v6 now specifies
+the existing Wasm32 probe explicitly. Historical v5 reference interpretations
+and golden outputs remain unchanged. A separate neutral-capture reference cursor
+checkpoint fix preserves output while allowing interrupted replay.
+
+The earlier candidate passed its complete 45.16-second representative Normal
+sample, not a new 900-second qualification. Other failed samples and all failed
+fixture closeouts remain retained. The rebuilt final runtime must be frozen and
+receive its applicable installed/browser gate. Capacity remains 128 cannons,
+64 global balls, 64 per purchase island and 16 retained cannons per account;
+512 balls did not qualify. No sustained capacity-rate claim is made.
+
+Fresh read-only production observations at 2026-10-31 09:40 UTC showed 4.219T
+liquid, healthy source/treasury and running Survival. Funds then covered the
+retained 3.358T release/recovery guard; they must be refreshed before installation.
+Production remains release 1 / v5. No v6 upgrade, frontend upload, financial
+operation, push or merge has occurred. Exact-commit CI still requires publication
+of the rules branch; pushing the release-1 branch did not publish this worktree.
+
+---
+
+# Island model checked locally; second release stopped at funding guard
+
+Balls belong to canonical funding players. Every cannon on a connected friendly
+island is supported by any friendly ball there; empty islands retain dormant
+anchors and expire through authenticated elapsed-time checkpoints. No launch-cannon
+attachment remains. The installed normal-module paid-state/unfinished-work/treasury
+rehearsal and exact nine-publication independent replay pass with real local IC
+certificate checks. These are focused installed/content checks, not the final
+browser wire gate.
+
+The fixed admission screen passes 3/4/64-ball cases; 128 fails artifact bounds and
+512 fails canonical bounds before a tick publishes. Both failures are retained.
+The candidate keeps 64 total balls and raises cannons to 128 total/16 per account.
+No sustained rate at capacity is claimed. Source checks pass 1,574 JS/187 Python,
+45 native and 47 host tests; focused prefix checks also pass.
+
+Fresh query-only production reads show Reserve Protection, no gameplay progression,
+and healthy source/treasury. Liquid cycles do not cover the retained bounded
+release/recovery budget plus protection reserve. Release work stops safely;
+normal/browser capacity, live v6 wire/action gate, installed API example, final
+freeze and exact-commit CI remain pending. No v6 deployment, pause, financial
+operation, frontend upload, remote push or merge occurred.
+
+[Detailed scope, failed evidence and funding guard](evidence/BTZ/v6-island-rehearsal/REPORT.md).
+
+---
+
+# V6 artifact capture and independent-history export checked locally
+
+Capture can opt into the artifact replies already requested by the browser. Its
+original publication fence, callback drain, body bytes, bounds and fatal errors
+are preserved. The v6 exporter requires complete consecutive catalogs plus every
+hash-bound elapsed-time/context artifact and preserves typed fallback errors.
+Replay rejects missing/duplicate retired source inputs as well as changed output.
+
+Ten capture-unit tests, ten capture/replay JS tests and eight sandboxed browser
+lifecycle regressions pass. Negative capture cases remain failures with replay
+not run. Synthetic unsigned transport fixtures prove content only, not IC trust.
+[Evidence and source hashes](evidence/BTZ/v6-wire-history.json).
+
+The consolidated installed/browser scenario must still invoke this exporter.
+Measured admission/cost limits, paid upgrade/epoch rehearsal and final CI remain
+pending. No production mutation, transfer, push or v6 deployment.
+
+---
+
+# V6 public player queries staged; installed release gate remains pending
+
+Six additive queries expose bounded configuration/account/cannon/region/quote/
+receipt data. Quotes use canonical funding accounts and exact integer prices/
+headings; public declarations grant no authority. Typed replies explicitly are
+not certified and carry artifact/head references. A read-only agent example uses
+the genuine certificate path and independently checks quotes/retained receipts;
+its network execution remains for the installed rehearsal. MCP opt-in stays off.
+
+All 47 native host tests pass, including five new API cases. Wasm compilation/
+strict Clippy, generated/declared Candid equality and source/docs/naming checks
+pass. A thin wrapper preserves the frozen observer builder while adding the v6
+configuration and public API docs. The freeze tool has an upgrade-only path with
+empty arguments and query-export guards. [Development evidence](evidence/BTZ/v6-player-api.json).
+
+Wire-history plumbing, measured capacities, installed paid upgrade/epoch/browser
+rehearsal and final CI remain unfinished. No v6 deployment, mainnet mutation,
+financial transfer or remote push. Production remains last verified release 1 / v5.
+
+---
+
+# V6 island action UI checked locally; APIs/installed release gates pending
+
+Targeted Fire/New/Move preparation now uses exact current-island prices and the
+latest verified ownership, independently of buffered presentation. New own cannons
+select once, dormant markers show explanatory deadlines/paid revival, receipts
+disclose partial fills and retained remainder, and mutual flashes expire in wall
+seconds while gameplay idles. The anti-rollback guard remains unchanged; diagnostics
+can recover a cross-epoch stale reply only for an exact previously accepted head.
+
+All 53 focused tests pass. Sandboxed desktop/mobile synthetic-widget cases pass
+without reloading through new-cannon/fire/move/dormancy/expiry. The legacy HTTP
+recording suite passes 14 checks; independent replay still matches the preserved
+1,045-publication v5 history. [Scope, hashes and remaining gates](evidence/BTZ/v6-action-ui.json).
+
+The widget test is not installed IC or certification evidence. Public typed APIs,
+wire-history integration, measured capacities, installed paid-state rehearsal and
+final exact-commit CI remain unfinished. V6 is not deployed. Production remains
+the last verified release-1 v5 module. No mainnet mutation, transfer or push.
+
+---
+
+# V6 buffered checkpoints and independent replay checked locally
+
+The observer queues zero-time rules/expiry boundaries behind already admitted
+playback without resetting the camera or appending a zero-duration clock interval.
+It rejects altered artifact/context/value facts and delayed preceding epochs.
+Independent JS execution matches a Rust-produced eight-publication fixture through
+all three rules migrations, mutual death/dormancy and elapsed expiry. The fixture
+is synthetic and proves content agreement, not IC authentication.
+
+Checks pass: 1,559 JS tests, 45 native application tests, 42 host tests and 14
+existing sandboxed HTTP/recording-browser checks. Historical fixtures/evidence
+remain unchanged. [Raw identities and limitations](evidence/BTZ/v6-checkpoint-replay.json).
+
+V6 action/API integration, capture-history plumbing, measured capacities and the
+consolidated installed/CI gates remain unfinished. Production remains release 1 /
+v5; no mainnet mutation, transfer or publication occurred in this continuation.
+
+---
+
+# V6 host integration staged locally; installed release gate still pending
+
+The existing host now has a paused, controller-guarded v5→v6 cutover and an
+earliest-deadline lifecycle timer. A finite source window drains before expiry;
+new hints coalesce without extending it. Dormant-only physics idles. Expiry
+uses a zero-logical-time authenticated checkpoint and leaves Ledger positions
+independent. Native tests exercise the full epoch sequence, unchanged value,
+retained empty markers, expiry and source-window/restart fences. All 42 runtime
+unit tests, Wasm checking, strict Clippy, Candid and source inventory checks pass.
+[Development evidence](evidence/BTZ/v6-host-lifecycle.json).
+
+This is not installed-IC evidence or release qualification. Buffered v9 browser
+handoff, public player APIs/action UI, independent-history integration, capacity
+screening and the consolidated installed/CI gates remain unfinished. Production
+remains release 1 on v5; no mainnet mutation, transfer or remote push occurred.
+
+---
+
+# V6 island presentation integrated locally; second release remains unqualified
+
+Authoritative Rust/JS events now include compact ownership and player/island/
+lifecycle deltas. V6 presentation reaches exact final snapshots in 14 segment
+cases and 12 capture cases, with separate ID colour domains, no-refresh cache
+invalidation and toroidal mutual-elimination effects. Historical goldens remain
+unchanged. All source checks pass: 1,547 JS and 185 Python tests; 13 affected
+native tests and strict Clippy pass. The existing sandboxed recording/browser
+check passes 14 checks within its documented bundle/scope.
+[Development evidence and limitations](evidence/BTZ/v6-presentation/REPORT.md).
+
+Host completion-time/expiry scheduling, v5→v6 activation, buffered v9 handoff,
+new action/API UI, population screening and consolidated installed qualification
+remain unfinished. V6 is not deployed. Query-only production observation at
+23:49 UTC shows 3.599117836502T liquid, running Survival 0.1 ticks/s, no runtime/
+source/treasury errors. No mainnet mutation, financial operation or remote push.
+
+---
+
+# V6 island interpreter implemented locally; host/browser release pending
+
+The operator's current-island model now runs through complete pure Rust and JS
+segments: bounded batch payments, multiple-cannon placement, targeted moves,
+atomic defended captures, mutual destruction and island-based dormancy. State,
+event and score hashes agree across 14 synthetic segment cases with continuation
+recovery. Ball-free islands retain cannon markers; unpaired survivors are never
+silently deleted. No ongoing launch-cannon attachment remains.
+
+All source checks PASS: 1,516 JS and 185 Python tests, unchanged historical
+fixtures, source/naming/docs checks. The locked native workspace passes 45 tests;
+formatting and strict Clippy pass. Original failed development invocations remain
+preserved with corrected results. [Development evidence](evidence/BTZ/v6-interpreter/REPORT.md).
+
+The pure v6 constructors are enabled locally. Results require an explicit elapsed
+time fact; IC-host completion-time plumbing, idle expiry, authenticated activation,
+presentation/browser/API integration, capacity screening and the final consolidated
+installed qualification remain unfinished. Production remains release 1 / v5.
+Draft limits are unqualified targets. No production mutation or remote push occurred.
+
+---
+
+# Prelaunch rules branch — v6 groundwork only; production remains release 1
+
+This branch contains inactive v6 memo/pricing, account/lifecycle metadata,
+explicit source-adapter selection and resumable purchase/placement helpers.
+The live deployed backend is still the qualified release-1 `c7d12fd7…` module,
+world v5 / publication v8. No v6 activation or additional deployment occurred.
+Development continuation at `8e95a79` adds shared-owner crossing revalidation and
+pure fenced expiry contexts. The current source gate passes 1,471 JS and 185
+Python tests; 38 native tests, formatting and strict Clippy pass. These helpers
+are not yet a runnable v6 host: expiry does not use empty ticks or scan the board,
+but its timer/worker, replay/presentation and rules-transition wiring remain.
+The marker-only connectivity shortcut relies on the v6 topology support invariant
+that the pending capture/cleanup integration must establish inductively.
+
+Current kernel constructors still reject the v6 identity; host checkpoint/time,
+shared capture/topology, expiry scheduling, full API/projection/browser integration,
+capacity screening and the consolidated installed-IC qualification remain work.
+Targets 128/512/64/16 in the draft configuration are unqualified engineering
+inputs, not published production capacities. Existing production caps remain.
+
+Focused helper tests prove bounded integer pricing, explicit quantity ceilings,
+partial fills, per-item capacity checks, positive-price revival and atomic first/
+adjacent cannon proposals. Rust and JS agree on state/event/receipt hashes;
+first-placement results match v5. The final affected suites pass 15 Rust and
+14 JS tests; 294 purchase/legacy JS cases also pass. The preceding source gate
+passes 1,462 JS plus 185 Python tests; native workspace, format and Clippy pass
+at their recorded development stages. These are development checks, not a v6
+runtime/capacity/deployment qualification. Raw results and original failed
+invocations remain under `.work/v6-*`; no historical golden was rewritten.
+
+The generic DTR application-checkpoint extension is now remotely published on
+`checkpoint/generic-application-checkpoints` at
+`282d709143dacb4bca769a4d6e72b97fc93ef518`. All five B2Z Cargo graphs resolve that
+immutable remote revision, with unrelated dependencies unchanged. The packaged
+client is 0.15.0, archive SHA-256
+`22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720`.
+Fail-closed provenance, byte-reproduced packaging and clean Rust/JS consumers pass.
+This updates development dependencies; production release 1 retains DTR77.
+No sibling override, Git URL rewrite or fabricated remote resolution is used.
+The later operator clarification above supersedes the launch-cannon assumption
+and resolves that policy question. Preserve paid-state and anti-rollback invariants.
+
+---
+
+# BTZ prelaunch release 1 installed — Conserve running, paid history preserved
+
+Both exact-commit CI runs on `a8bce5fa…` pass all six substantive jobs.
+The frozen `c7d12fd7…` normal backend and `9d50b86a…` frontend are installed;
+world v5 / publication v8, controllers, 34-node placement and paid history preserve.
+Gameplay resumed in Conserve at 0.2 ticks/s. Accepted browser heads progressed
+71710→71738 without reload; stale certified responses were rejected/recovered.
+The mainnet canary wire capture retains its real network-request FAIL; no clean
+capture/replay claim is substituted. CI capture/replay gates pass.
+Versioned batch/multiple-cannon/dormancy mechanics remain unfinished and inactive.
+[Actual deployment, scope, limitations and complete evidence](evidence/BTZ/release1-mainnet/REPORT.md).
+
+---
+
 # A2 release closed; authentic stale browser response diagnosed, local frontend fix only
 
 A2 remains installed with paid history preserved and gameplay running. One bounded

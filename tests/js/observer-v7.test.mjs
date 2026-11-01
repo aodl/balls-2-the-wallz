@@ -135,7 +135,7 @@ test('operator resume rebuilds the startup buffer without losing verified time o
  const {prepareIdlePlayout}=await import('../../apps/b2z-observer/model.mjs');
  const queue=[{verified:true}],s={clock:new PlayoutClock({target:6,low:1,max_frame_delta:1}),queue,operational:{run:{running:true,pace:{mode:'Normal',nominal_milli:1000}}}};
  s.clock.append(0,8);s.clock.sample(1);s.operational.run.running=false;prepareIdlePlayout(s,false);
- for(let n=0;n<10;n++)s.clock.sample(1);
+ for(let n=0;n<40;n++)s.clock.sample(.25);
  assert.equal(s.clock.playhead,8);assert.equal(s.clock.phase,'STALLED');
  s.clock.append(8,10);s.operational.run.running=true;prepareIdlePlayout(s,false);
  assert.equal(s.queue,queue);assert.equal(s.clock.available,10);
@@ -156,3 +156,14 @@ test('operator resume rebuilds the startup buffer without losing verified time o
   for(let second=0;second<15;second++)assert.notEqual(clock.sample(1).phase,'STALLED');
  }
  });
+
+test('a paused producer drains a verified paid segment below the startup threshold without navigation',async()=>{
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ const {prepareIdlePlayout}=await import('../../apps/b2z-observer/model.mjs');
+ const s={clock:new PlayoutClock({target:24,low:1}),queue:[{verified:true}],operational:{run:{running:false,segment_ticks:8,pace:{mode:'Normal',nominal_milli:1000}}}};
+ s.clock.append(0,8);assert.equal(s.clock.sample(.1).phase,'BUFFERING');
+ prepareIdlePlayout(s,false);const clock=s.clock;
+ for(let n=0;n<40;n++){prepareIdlePlayout(s,false);assert.equal(s.clock,clock);s.clock.sample(.25);assert.ok(s.clock.playhead<=8);}
+ assert.equal(s.clock.playhead,8);assert.equal(s.clock.available,8);assert.equal(s.queue.length,1);
+ s.operational.run.running=true;prepareIdlePlayout(s,false);s.clock.append(8,16);assert.equal(s.clock.sample(.1).phase,'BUFFERING');
+});

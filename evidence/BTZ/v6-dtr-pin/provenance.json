@@ -1,0 +1,242 @@
+{
+  "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "release_contract": {
+    "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+    "status": "Published application-checkpoint revision; B2Z v6 integration/qualification pending",
+    "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+    "npm_archive_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720"
+  },
+  "source_graphs": [
+    {
+      "manifest": "Cargo.toml",
+      "locked": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "life-conformance",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "native/Cargo.toml",
+      "locked": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "canisters/runtime-lab/Cargo.toml",
+      "locked": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "tools/s09-integration/Cargo.toml",
+      "locked": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+      "locked": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-source-model",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "Cargo.toml",
+      "resolved": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "life-conformance",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "native/Cargo.toml",
+      "resolved": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "canisters/runtime-lab/Cargo.toml",
+      "resolved": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "tools/s09-integration/Cargo.toml",
+      "resolved": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    },
+    {
+      "manifest": "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+      "resolved": [
+        {
+          "name": "dtr-core",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-host",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-source-model",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        },
+        {
+          "name": "dtr-wire",
+          "version": "0.15.0",
+          "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+          "checksum": null
+        }
+      ]
+    }
+  ],
+  "status": "PASS"
+}

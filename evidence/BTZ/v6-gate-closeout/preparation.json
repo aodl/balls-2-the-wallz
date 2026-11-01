@@ -1,0 +1,433 @@
+{
+  "recorded_at": "2026-10-31T14:10:33.841248+00:00",
+  "status": "PREPARED_NOT_EXECUTED",
+  "CI": {
+    "run": 41205667919,
+    "head": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "S14 and million-cell installed-IC qualification",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "ordinary_ci_artifacts": [
+    {
+      "artifact": "source",
+      "reports": [
+        {
+          "file": ".work/v6-gate-closeout/source-evidence/extracted/verification.json",
+          "revision": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+          "status": "PASS",
+          "checks": [
+            {
+              "id": "b2z-naming-audit",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-policy",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-state-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-purchase-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-lifecycle-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-island-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-capture-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "playability-rules-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "observer-recordings",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "protocol-fixtures",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "life-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "b2z-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "spawn-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "impact-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "b2z-full-traces",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "numeric-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "coordinator-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "observation-v6-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "observation-reference",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "portable-cursors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "node-tests",
+              "status": "PASS",
+              "counts": {
+                "tests": 1579,
+                "pass": 1579,
+                "fail": 0,
+                "cancelled": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "id": "source-structure",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "docs-links",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "python-tool-tests",
+              "status": "PASS",
+              "counts": {
+                "tests": 192
+              }
+            }
+          ]
+        }
+      ],
+      "github_digest_verified": {
+        "github_id": 13044600008,
+        "github_sha256": "sha256:df454b1bfc4a5e867d4d7e8617d130f22e8886c379bd0134e2c38b75eca316db",
+        "actual_sha256": "df454b1bfc4a5e867d4d7e8617d130f22e8886c379bd0134e2c38b75eca316db",
+        "download_url": "https://nightly.link/aodl/balls-2-the-wallz/actions/artifacts/13044600008.zip",
+        "public_relay_required": true
+      }
+    },
+    {
+      "artifact": "native",
+      "reports": [
+        {
+          "file": ".work/v6-gate-closeout/native-evidence/extracted/verification.json",
+          "revision": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+          "status": "PASS",
+          "checks": [
+            {
+              "id": "cargo-lock",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "cargo-tests",
+              "status": "PASS",
+              "counts": {
+                "passed": 24,
+                "failed": 0,
+                "ignored": 0
+              }
+            },
+            {
+              "id": "native-vectors",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "portable-lock",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "portable-rust-tests",
+              "status": "PASS",
+              "counts": {
+                "passed": 45,
+                "failed": 0,
+                "ignored": 0
+              }
+            },
+            {
+              "id": "native-public-game",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "native-public-host",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "portable-format",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "portable-clippy",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "cargo-format",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "cargo-clippy",
+              "status": "PASS",
+              "counts": null
+            }
+          ]
+        }
+      ],
+      "github_digest_verified": {
+        "github_id": 13044248630,
+        "github_sha256": "sha256:9e281784e78442d1721818159b4e67d330af0148f593405e6e1a28d0c336a0f8",
+        "actual_sha256": "9e281784e78442d1721818159b4e67d330af0148f593405e6e1a28d0c336a0f8",
+        "download_url": "https://nightly.link/aodl/balls-2-the-wallz/actions/artifacts/13044248630.zip",
+        "public_relay_required": true
+      }
+    },
+    {
+      "artifact": "wasm",
+      "reports": [
+        {
+          "file": ".work/v6-gate-closeout/wasm-evidence/extracted/verification.json",
+          "revision": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+          "status": "PASS",
+          "checks": [
+            {
+              "id": "runtime-lab-lock",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "runtime-lab-wasm",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "runtime-lab-candid",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "runtime-lab-format",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "runtime-lab-clippy",
+              "status": "PASS",
+              "counts": null
+            }
+          ]
+        }
+      ],
+      "github_digest_verified": {
+        "github_id": 13044234040,
+        "github_sha256": "sha256:d811f1e09c4f32939ee3e65c7020b603a0c23090c11216999b77662fcb5c9c9a",
+        "actual_sha256": "d811f1e09c4f32939ee3e65c7020b603a0c23090c11216999b77662fcb5c9c9a",
+        "download_url": "https://nightly.link/aodl/balls-2-the-wallz/actions/artifacts/13044234040.zip",
+        "public_relay_required": true
+      }
+    },
+    {
+      "artifact": "browser",
+      "reports": [
+        {
+          "file": ".work/v6-gate-closeout/browser-evidence/extracted/ci-browser/verification.json",
+          "revision": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+          "status": "PASS",
+          "checks": [
+            {
+              "id": "observer-http-webcrypto",
+              "status": "PASS",
+              "counts": null
+            }
+          ]
+        }
+      ],
+      "github_digest_verified": {
+        "github_id": 13043829623,
+        "github_sha256": "sha256:9144a629f79f8842f3d9b09451ed2dafffaed2f6d56f93f67ab8d5e1629b75bf",
+        "actual_sha256": "9144a629f79f8842f3d9b09451ed2dafffaed2f6d56f93f67ab8d5e1629b75bf",
+        "download_url": "https://nightly.link/aodl/balls-2-the-wallz/actions/artifacts/13043829623.zip",
+        "public_relay_required": true
+      }
+    },
+    {
+      "artifact": "package-consumer",
+      "reports": [
+        {
+          "file": ".work/v6-gate-closeout/package-consumer-evidence/extracted/results.json",
+          "revision": null,
+          "status": "PASS",
+          "checks": [
+            {
+              "id": "rust-consumer-published",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "published-source-location",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "published-source-archive",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "dtr-npm-install",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "dtr-npm-pack",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "javascript-consumer-lock",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "javascript-consumer-install",
+              "status": "PASS",
+              "counts": null
+            },
+            {
+              "id": "javascript-consumer-api",
+              "status": "PASS",
+              "counts": null
+            }
+          ]
+        }
+      ],
+      "github_digest_verified": {
+        "github_id": 13044502339,
+        "github_sha256": "sha256:9aa34ce92fcf021a34bcea52cb4958d786a15756c8088f27f62b5aae7d83d11a",
+        "actual_sha256": "9aa34ce92fcf021a34bcea52cb4958d786a15756c8088f27f62b5aae7d83d11a",
+        "download_url": "https://nightly.link/aodl/balls-2-the-wallz/actions/artifacts/13044502339.zip",
+        "public_relay_required": true
+      }
+    }
+  ],
+  "v6_coverage": "The paid_island_upgrade_rehearsal is ignored in default inventory and its full browser branch requires B2Z_PLAYABILITY_BROWSER=1. Ordinary jobs do not supply this qualification. Final integration artifact still pending.",
+  "correction": "Coordinate build-free interval; existing prebuilt-asset path avoids esbuild during installed execution. No application/harness/assertion changes. Previous FAIL preserved.",
+  "prepared": {
+    "status": "PASS",
+    "proxy_port": 47915,
+    "mainnet_app_sha256": "ba2c84787743bddd331466a885fe223a7b0a201efecc71bb3132d243b1bcdd67",
+    "harness_sha256": "ccbb1b18f1682020ea06ba219653658982bd6a2935b3c0789846878c9f2ce2bc",
+    "sources_unchanged": {
+      "tools/s09-integration/tests/support/playability_installed.rs": "d9419f2701834a2cbb19debaa8a389bedc5e1d0f8c4f0c7f048c01259b49bcc2",
+      "tools/s09-integration/tests/support/playability_browser.rs": "fcf6cd28b88e754fb2349a1ec245848adf55e71ed29bcd2e7d503b4ff9797654",
+      "tools/playability_browser.py": "551b2c278dc7380c4617b1331cb219d0a12d8fa3fa5c814d4a3285bf24be3aff",
+      "tools/verify_s14_deployment.py": "380e64bff7a8e535961a11f3a3ad23e13a52726066ca98373ae66fdf87360777",
+      "tools/capture_playability_history.mjs": "c88514bfe178cc7b3480a5d81ccf3ec808e36785664b4f5c9739a871ab273c1a",
+      "tools/replay_s14.mjs": "3a7307dc979dd8f739b548991897fd6bbf82adadead7a3e991f3bbc59e46bc99",
+      "config/rules/v6.json": "00d35637bc27d5d91c275d5899ceb0325f530ed244afd4585d4c33ac9031972c"
+    },
+    "purpose": "Existing S14_QUAL_PREBUILT_ROOT path: all asset generation finishes before installed execution. Actual fresh local config/root/canister must equal this explicitly pinned disposable policy; fail closed on mismatch."
+  },
+  "full_scenario_execution": "NOT_STARTED; B2Z_PLAYABILITY_BROWSER_ACTIONS_ONLY must be unset",
+  "resource_coordination": {
+    "D-QUORUM": "quiescent/hold acknowledged",
+    "icrc-poke": "quiescent/hold acknowledged",
+    "IO": "quiescent/hold acknowledged",
+    "science-fair": "quiescent/hold acknowledged after current regression ended",
+    "external_Jupiter": "xtask919051 under Codex890828 remains active with new tests/builds; operator asked to coordinate ownership. Not killed."
+  },
+  "funding": "Live deployment only is blocked by insufficient cycles; local work continues under latest user instruction. Obtain fresh balance after full gate and applicable CI pass. No funds transferred.",
+  "frozen_release_stage": "/home/codexdev/src/b2z-prelaunch-rules/.work/v6-gate-closeout/release-stage"
+}

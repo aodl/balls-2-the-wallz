@@ -1,0 +1,32 @@
+{
+  "revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "graphs": [
+    {
+      "manifest": "Cargo.toml",
+      "old_lock_sha256": "ea7c40cbb1e8563394cffdc3a209feacc746a33844f5c23926f7c3ee6d310461",
+      "new_lock_sha256": "ada9bb4f4e3ebc77b6b0fc3f98b2677bf500097f247adf0c2fe1645aeb2f2b59"
+    },
+    {
+      "manifest": "native/Cargo.toml",
+      "old_lock_sha256": "ebf7bf22071e19eedaa1d007d5865d5d128d9437b4967fb03589e5e2f5fad9af",
+      "new_lock_sha256": "bdfa74603f84fec0ff748dd0597ada80946f9a7a911fdc73dbebba1f5c89f6ff"
+    },
+    {
+      "manifest": "canisters/runtime-lab/Cargo.toml",
+      "old_lock_sha256": "b01d2e21c1b128d88990b4ab8ee944a9da04cfcaa3baf98c261ef43e5778179c",
+      "new_lock_sha256": "757cf3408f5542966d808b17ccce13999d8abe88a56c79d0bcde4a45c08bc71a"
+    },
+    {
+      "manifest": "tools/s09-integration/Cargo.toml",
+      "old_lock_sha256": "d3fc168b167717703675e3247c5de0b20e168f4554399238b38bc9975add7972",
+      "new_lock_sha256": "e30755662683a9bcdce34a0f91c870e052c57ca5f417495e17899a64016890f5"
+    },
+    {
+      "manifest": "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+      "old_lock_sha256": "977ca329a2e3636e7d953e8f091d718748becc15d2d59d39224e8c078f1fb57b",
+      "new_lock_sha256": "136ccb0d982c40cec379f4c032692d86e95c0bbb7f44f5d04f97bdcad4498759"
+    }
+  ],
+  "checkout": "/home/codexdev/.cargo/git/checkouts/dtr-2e9e0c309015e5c2/282d709",
+  "tree": "1e487a321de4f515510da01ac74ef66e4e9a71a6"
+}

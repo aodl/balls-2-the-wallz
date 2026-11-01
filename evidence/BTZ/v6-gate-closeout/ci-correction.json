@@ -1,0 +1,133 @@
+{
+  "recorded_at": "2026-10-31T14:22:49.683303+00:00",
+  "status": "CI_FAILURE_IDENTIFIED_TEST_ONLY_CORRECTIONS_VALIDATED_IN_PART",
+  "ci": {
+    "id": 41205667919,
+    "head": "3bddd886ca8acf87d8cd78da74a327bff98afc80",
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "S14 and million-cell installed-IC qualification",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "installed_review": {
+    "overall": "FAIL",
+    "pass": 49,
+    "fail": [
+      {
+        "id": "installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 16.52,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade.log",
+        "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      {
+        "id": "installed-index-integration--public_runtime_health_is_bounded_operational_and_anonymous",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "public_runtime_health_is_bounded_operational_and_anonymous",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 4.406,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration--public_runtime_health_is_bounded_operational_and_anonymous.log",
+        "test": "public_runtime_health_is_bounded_operational_and_anonymous",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    ],
+    "ignored_v6": [
+      {
+        "suite": "installed-index-integration",
+        "names": [
+          "playability_installed::paid_island_upgrade_rehearsal",
+          "playability_installed::playability_cost_comparison",
+          "playability_profile::playability_admission_screen"
+        ]
+      }
+    ],
+    "v6_paid_browser_executed": false,
+    "reason": "Default suite records exact paid rehearsal as ignored; B2Z_PLAYABILITY_BROWSER is not enabled by the ordinary workflow."
+  },
+  "artifact_download": {
+    "github_id": 13045656791,
+    "github_sha256": "sha256:ef227935ef988237a1e13bbbeb4eb60505d55f7465bda380fb419176d09c6366",
+    "actual_sha256": "ef227935ef988237a1e13bbbeb4eb60505d55f7465bda380fb419176d09c6366",
+    "download_url": "https://nightly.link/aodl/balls-2-the-wallz/actions/artifacts/13045656791.zip"
+  },
+  "ci_normal_wasm_sha256": "216ba07e1a116bab2d580196823e2c310b460d5148bea5e38b2211884ba62e96",
+  "ci_and_prepared_mainnet_app_sha256": "ba2c84787743bddd331466a885fe223a7b0a201efecc71bb3132d243b1bcdd67",
+  "frozen_release_normal_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "changes": [
+    "Default browser label assertion now expects existing Fire balls wording",
+    "API-document assertion matches current explicit uncertified/operational/read-only wording and retains 4096-byte bound"
+  ],
+  "runtime_frontend_locks_interfaces_changes": false,
+  "corrected_health": {
+    "status": "PASS",
+    "started_at": "2026-10-31T14:19:03.932359+00:00",
+    "finished_at": "2026-10-31T14:20:17.596417+00:00",
+    "returncode": 0,
+    "normal_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+    "harness_sha256": "7b2d6efdd9dce0a67171a9ad7694044008306f04b6f4c3a9435556e6a408d009",
+    "scope": "Only affected anonymous operational health/API-document installed test; no browser, no v6 gameplay qualification."
+  },
+  "format_check": "PASS",
+  "playback_helper_tests": {
+    "tests": 4,
+    "status": "PASS"
+  },
+  "corrected_default_browser_case": "NOT_RUN locally; must pass applicable new CI",
+  "full_v6_gate": "NOT_STARTED; old receipt-loss FAIL preserved. Await coordinated interval, not funding.",
+  "coordination": "Four companion holds were released after ordinary CI failed so unrelated work need not wait through diagnosis. Unowned Jupiter run still requires operator coordination.",
+  "production_actions": "NONE; no funding request or balance query before technical readiness."
+}

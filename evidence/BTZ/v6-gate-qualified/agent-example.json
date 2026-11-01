@@ -1,0 +1,64 @@
+{
+  "scope": "Anonymous read-only inspection; no payment or game command submitted",
+  "observed_head": {
+    "$integer": "144"
+  },
+  "publication_hash": "e2ab9842d0e96d7946443a1b039bcd4056752deed8e39952fa97835b7c699bc9",
+  "certificate_time_ns": {
+    "$integer": "1793528034767785179"
+  },
+  "world_version": 6,
+  "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+  "cannons": [
+    1,
+    6
+  ],
+  "suggestion": "Inspect cannon 1, then choose an angle. Example prepares heading zero; strategy is not submitted.",
+  "public_inspection": {
+    "game_info": "independently matched",
+    "player_state": "independently matched",
+    "cannon_state": "independently matched",
+    "nearby_region": "bounded cells independently matched",
+    "typed_replies_certified": false
+  },
+  "payment_preparation": {
+    "amount_e8s_excluding_fee": {
+      "$integer": "90000000"
+    },
+    "memo_hex": "f600000001000001",
+    "text_memo": "FIRE 1 0.00 1",
+    "destination": {
+      "network": "pocketic-local",
+      "ledger": "dllsh-pd777-77776-qaaaa-cai",
+      "index": "dmkut-c3777-77776-qaaaq-cai",
+      "owner": "dfj7p-ut777-77776-qaaba-cai",
+      "subaccount": {
+        "$integer": "0"
+      },
+      "recipient": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d"
+    },
+    "maximum_fill_now": 1,
+    "notice": "Not a reservation. Current Ledger wallet fee is extra. Surplus is retained, not refunded. Only the correct sending account confers authority."
+  },
+  "receipt": {
+    "status": "Rejected",
+    "verified_canonical_outcome": {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "12"
+      },
+      "reason": "NOT_OWNER",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    "deduplication_key": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84:12"
+  }
+}

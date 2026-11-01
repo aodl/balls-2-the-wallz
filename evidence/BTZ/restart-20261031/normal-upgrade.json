@@ -1,0 +1,70 @@
+{
+  "candidate_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "cycles_after": "199910507723340",
+  "cycles_before": "199958183083164",
+  "paid_world_and_catalog_and_retained_preserved": true,
+  "pending_treasury": {
+    "halted": false,
+    "last_plan_ns": 1793443184067898086,
+    "last_refund": null,
+    "last_success": null,
+    "paused": false,
+    "phase": {
+      "NotifyPending": {
+        "attempts": 1,
+        "block_index": 5,
+        "plan": {
+          "amount_e8s": 109990000,
+          "beneficiary": "dfj7p-ut777-77776-qaaba-cai",
+          "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+          "created_at_time_ns": 1793443184067898086,
+          "fee_e8s": 10000,
+          "ledger": "dllsh-pd777-77776-qaaaa-cai",
+          "memo": 1347768404,
+          "to": [
+            86,
+            90,
+            129,
+            252,
+            58,
+            158,
+            239,
+            1,
+            139,
+            239,
+            112,
+            35,
+            240,
+            54,
+            3,
+            74,
+            31,
+            75,
+            94,
+            164,
+            2,
+            37,
+            89,
+            176,
+            68,
+            106,
+            222,
+            133,
+            230,
+            199,
+            188,
+            10
+          ]
+        }
+      }
+    },
+    "total_converted_e8s": "0",
+    "total_cycles_reported": "0"
+  },
+  "predecessor_sha256": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+  "reserved_after": "0",
+  "reserved_before": "0",
+  "status": "PASS",
+  "unfinished_operation": true,
+  "upgrade_net_debit": "47675359824"
+}

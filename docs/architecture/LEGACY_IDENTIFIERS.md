@@ -1,6 +1,6 @@
 # B2Z naming and immutable historical identifiers
 
-B2Z (Balls 2 The Wallz) is the sole current product name. Editable packages, paths, symbols, CLI arguments and deployment aliases use `b2z` / `B2Z` / `B2z` according to language style. The backend alias `b2z` maps to the existing principal; it does not create or rename a canister on-chain. The observer alias and both receiving account representations remain unchanged. DTR and third-party packages are unchanged.
+The public display name is **Balls 2 the wallZ - BTZ**, abbreviated **BTZ**. Repository paths, packages, symbols, CLI arguments and deployment aliases retain `b2z` / `B2Z` / `B2z`; branding is not a wire migration. The backend alias `b2z` maps to the existing principal; it does not create or rename a canister on-chain. The observer alias and both receiving account representations remain unchanged. The new `BTZ-identify-v1` preference namespace and `BTZ-player-colour-v1` colour domain have no payment authority. DTR and third-party packages are unchanged.
 
 These literal byte strings intentionally retain their published spelling:
 

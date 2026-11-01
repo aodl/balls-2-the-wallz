@@ -14,7 +14,7 @@ export function beginCapture(world, target, attacker, optimized = true) {
   const mustSearch = defender && (!optimized || seeds.length > 1),v5=world.version===5;
   const job = {phase: mustSearch ? v5?'v5_component':'flood' : 'balls', defender, attacker, target, queue: [], head: 0,
     seen: v5?[]:Array(cellCount(world)).fill(false), scan: 0, cells: [target], killed: [], survivors: [], eliminated: [],
-    ...(v5?{seeds,visited_ranges:[],pending_ranges:[],component_ranges:[],changed_ranges:[[target,target+1]],defender_anchor:anchor}: {})};
+    ...(v5?{seeds,visited_ranges:[],pending_ranges:[],component_ranges:[],changed_ranges:[[target,target+1]],...(anchor===undefined?{}:{defender_anchor:anchor})}: {})};
   setOwner(world,target,attacker);
   if (mustSearch&&!v5) { job.queue.push(anchor); job.seen[anchor] = true; }
   return job;

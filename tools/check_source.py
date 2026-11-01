@@ -17,20 +17,20 @@ def check_npm(package,lock):
         for name,version in declared.items():
             resolved=lock['packages'].get('node_modules/'+name,{})
             if name=='@dtr/timeline-runtime':
-                if version!='file:vendor/dtr/dtr-timeline-runtime-0.14.0.tgz' or resolved.get('version')!='0.14.0' or resolved.get('resolved')!=version:
+                if version!='file:vendor/dtr/dtr-timeline-runtime-0.15.0.tgz' or resolved.get('version')!='0.15.0' or resolved.get('resolved')!=version:
                     raise ValueError('DTR package artifact is not exact-pinned')
             else:
                 check_version(version)
                 if resolved.get('version')!=version.lstrip('='):raise ValueError('npm direct resolution missing/mismatched')
     for path,entry in lock['packages'].items():
         if not path:continue
-        local_dtr=path=='node_modules/@dtr/timeline-runtime' and entry.get('resolved')=='file:vendor/dtr/dtr-timeline-runtime-0.14.0.tgz'
+        local_dtr=path=='node_modules/@dtr/timeline-runtime' and entry.get('resolved')=='file:vendor/dtr/dtr-timeline-runtime-0.15.0.tgz'
         if not entry.get('integrity','').startswith('sha512-') or not (entry.get('resolved','').startswith('https://') or local_dtr):
             raise ValueError('npm dependency needs HTTPS resolution and integrity')
     return True
 
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='77ba46cb2f0acd0b4b2eaeedf7dc9fd2dc0f6c68'
+DTR_REV='282d709143dacb4bca769a4d6e72b97fc93ef518'
 def check_cargo_dependency(name,value,base,workspace_dependencies={}):
     if isinstance(value,str):return check_version(value)
     if value.get('workspace'):
@@ -58,8 +58,8 @@ def main():
         if not(path/'src').is_dir():raise ValueError(f'missing source: {member}')
     lock=json.loads((ROOT/'package-lock.json').read_text())
     check_npm(json.loads((ROOT/'package.json').read_text()),lock)
-    artifact=ROOT/'vendor/dtr/dtr-timeline-runtime-0.14.0.tgz'
-    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='ea5e8f471ab15cadb09367c6391b74054918665f797381c776b630c5082938dc':raise ValueError('DTR package artifact hash')
+    artifact=ROOT/'vendor/dtr/dtr-timeline-runtime-0.15.0.tgz'
+    if hashlib.sha256(artifact.read_bytes()).hexdigest()!='22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720':raise ValueError('DTR package artifact hash')
     native=tomllib.loads((ROOT/'native/Cargo.toml').read_text())
     for name,value in native['workspace']['dependencies'].items():
         if isinstance(value,dict)and value.get('git'):check_cargo_dependency(name,value,ROOT/'native',native['workspace']['dependencies'])
@@ -81,7 +81,12 @@ def main():
     runtime_exports=re.findall(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+(\w+)',runtime)
     # Source includes feature-gated test-hooks methods. The compiled normal-
     # Wasm export check in verify_s14_local.py must still reject every test_ export.
-    if set(runtime_exports)!={'lab_status','retention_status','controller_work','controller_runtime','controller_funding','set_funding_paused','test_funding_fault','prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','source_descriptor','observation','observation_bundle','retained_publication','artifact_bundle','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_liquid_budget','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
+    if set(runtime_exports)!={'runtime_health','get_api_doc','game_info','player_state','cannon_state','nearby_region','action_quote','payment_receipt','lab_status','retention_status','controller_work','controller_runtime','controller_funding','set_funding_paused','test_funding_fault','prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','prepare_playability_transition','commit_playability_transition','playability_transition_status','epoch_metadata','source_descriptor','observation','observation_bundle','retained_publication','artifact_bundle','artifact_chunk','retained_artifact_chunk','start_autonomous','pause_autonomous','test_apply','test_liquid_budget','test_trap_next_index_reply','poke'}:raise ValueError('application export drift')
+    # The export macro collects only preceding methods; a later method can be
+    # exported in Wasm yet silently absent from reflected/generated Candid.
+    macro='ic_cdk::export_candid!();'
+    methods=re.finditer(r'#\[ic_cdk::(?:query|update)(?:\([^\]]*\))?\]\s*(?:async\s+)?fn\s+\w+',runtime)
+    if runtime.count(macro)!=1 or any(m.start()>runtime.index(macro) for m in methods):raise ValueError('Candid export macro must follow all application methods')
     if 'guard = "poke_guard"' not in runtime or 'is_controller' not in runtime:raise ValueError('application authorization guards missing')
     if any(name in runtime for name in ['ledger_hint','sync_ledger','scan_ledger_inner']):raise ValueError('retired scanner remains active')
     # Exactly one metadata-only Ledger call; never restore block scanning.

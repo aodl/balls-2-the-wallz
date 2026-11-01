@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "old_wasm_sha256": "0399358164351ec316ff3db048670df90684204dafe042bfc1f0a8c25e527fdc",
+  "new_wasm_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "all_instruction_type_import_export_global_memory_table_and_element_bytes_equal": true,
+  "custom_sections_equal_except_debug_name": true,
+  "different_data_bytes": 16,
+  "all_data_differences_are_source_location_coordinates": true,
+  "panic_locations": [
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 256,
+      "old_column": 21,
+      "new_line": 264,
+      "new_column": 21
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 249,
+      "old_column": 54,
+      "new_line": 257,
+      "new_column": 54
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 251,
+      "old_column": 38,
+      "new_line": 259,
+      "new_column": 38
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 233,
+      "old_column": 44,
+      "new_line": 241,
+      "new_column": 44
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 235,
+      "old_column": 67,
+      "new_line": 243,
+      "new_column": 67
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 226,
+      "old_column": 26,
+      "new_line": 234,
+      "new_column": 26
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 163,
+      "old_column": 17,
+      "new_line": 171,
+      "new_column": 17
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 164,
+      "old_column": 17,
+      "new_line": 172,
+      "new_column": 17
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 171,
+      "old_column": 26,
+      "new_line": 179,
+      "new_column": 26
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 103,
+      "old_column": 52,
+      "new_line": 104,
+      "new_column": 56
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 103,
+      "old_column": 25,
+      "new_line": 112,
+      "new_column": 25
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 182,
+      "old_column": 48,
+      "new_line": 190,
+      "new_column": 48
+    },
+    {
+      "source": "/home/codexdev/src/b2z-prelaunch-rules/native/b2z-native/src/spawn.rs",
+      "old_line": 183,
+      "old_column": 55,
+      "new_line": 191,
+      "new_column": 55
+    }
+  ],
+  "scope": "Artifact structure comparison only. Final installed browser/authentication/replay gate still required; measured instruction-cost and capacity paths are unchanged."
+}

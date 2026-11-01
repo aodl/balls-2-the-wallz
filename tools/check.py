@@ -97,6 +97,13 @@ def run_one(name,command,outdir,kind='normal',requires=(),timeout=90,allow_block
 def planned_checks(mode,outdir):
     source=[
       ('b2z-naming-audit',[sys.executable,'-B','tools/check_b2z_names.py','--output',str(outdir/'naming-audit.json')],'normal',(),120),
+      ('playability-policy',['node','tools/generate_playability.mjs','--check'],'normal',('node',),60),
+      ('playability-state-vectors',['node','tools/playability_vectors.mjs','--check'],'normal',('node',),60),
+      ('playability-purchase-vectors',['node','tools/purchase_vectors.mjs','--check'],'normal',('node',),60),
+      ('playability-lifecycle-vectors',['node','tools/lifecycle_vectors.mjs','--check'],'normal',('node',),60),
+      ('playability-island-vectors',['node','tools/island_vectors.mjs','--check'],'normal',('node',),60),
+      ('playability-capture-vectors',['node','tools/capture_vectors.mjs','--check'],'normal',('node',),60),
+      ('playability-rules-vectors',['node','tools/rules_vectors.mjs','--check'],'normal',('node',),120),
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),
       ('protocol-fixtures',[sys.executable,'-B','tools/reference_fixtures.py','--check'],'normal',(),120),
       ('life-reference',[sys.executable,'-B','tools/life_reference.py','--check'],'normal',(),120),

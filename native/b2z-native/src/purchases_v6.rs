@@ -1,0 +1,636 @@
+//! Rules-v6 payment planning and one-item purchase continuations. No IC or
+//! Ledger calls. The enclosing cursor owns exactly-once accounting and receipts.
+use crate::{
+    playability::*,
+    pricing_v6,
+    world::{position, Ball, Cannon, World, Q},
+};
+use b2z_protocol::{v6::Command, Command as Legacy};
+use dtr_wire::{encode, hash, Int, Rat, Result};
+use num_traits::ToPrimitive;
+use serde::{Deserialize, Serialize};
+use serde_json::{json, Value};
+use std::collections::BTreeSet;
+
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+pub enum Plan {
+    Rejected {
+        reason: String,
+    },
+    Fire {
+        cannon: u32,
+        angle: u16,
+        quantity: u8,
+        explicit: bool,
+    },
+    New {
+        angle: u16,
+        quantity: u8,
+        explicit: bool,
+        cell: Option<usize>,
+        price: Int,
+        player: Option<u32>,
+        first: bool,
+    },
+    Move {
+        cannon: u32,
+        cell: usize,
+        price: Int,
+    },
+}
+fn reject(reason: &str) -> Plan {
+    Plan::Rejected {
+        reason: reason.into(),
+    }
+}
+pub fn player_by_account(world: &World, account: &str) -> Option<u32> {
+    world
+        .playability
+        .as_ref()?
+        .players
+        .iter()
+        .find(|p| p.account == account)
+        .map(|p| p.id)
+}
+
+/// Closed-cell occupancy also excludes a ball exactly on an adjacent/seam wall.
+/// Work is bounded by entity counts, never by the million-cell board area.
+pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
+    if world.version != 6 {
+        return Err("EXPECTED_V6".into());
+    }
+    let mut candidates = BTreeSet::new();
+    for c in world
+        .cannons
+        .iter()
+        .filter(|c| world.player_for_cannon(c.id) == Some(player) && world.active_cannon(c.id))
+    {
+        candidates.extend(world.neighbors(c.cell));
+    }
+    let blocked = occupied_cells(world)?;
+    Ok(candidates
+        .into_iter()
+        .filter(|c| {
+            !blocked.contains(c) && matches!(world.owner(*c), Some(0))
+                || !blocked.contains(c) && world.player_at(*c) == Some(player)
+        })
+        .collect())
+}
+fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
+    let mut blocked: BTreeSet<_> = world.cannons.iter().map(|c| c.cell).collect();
+    for b in &world.balls {
+        let [x, y] = position(b, &world.time)?;
+        let cx = (b.cell % world.width) as i64;
+        let cy = (b.cell / world.width) as i64;
+        let mut xs = vec![cx];
+        let mut ys = vec![cy];
+        if x == Rat::integer(cx * Q) {
+            xs.push(cx - 1);
+        } else if x == Rat::integer((cx + 1) * Q) {
+            xs.push(cx + 1);
+        }
+        if y == Rat::integer(cy * Q) {
+            ys.push(cy - 1);
+        } else if y == Rat::integer((cy + 1) * Q) {
+            ys.push(cy + 1);
+        }
+        for x in &xs {
+            for y in &ys {
+                blocked.insert(crate::world::wrap_cell(*x, *y, world.width, world.height));
+            }
+        }
+    }
+    Ok(blocked)
+}
+
+/// An isolated bounded proposal; errors never partially mutate the paid world.
+/// First placement must be the existing deterministic SpawnJob result. Further
+/// placements have a single adjacent cell, never a replacement 3x3 territory.
+pub struct Created {
+    pub world: World,
+    pub cannon: Cannon,
+    pub ball: Ball,
+    pub event: Value,
+}
+pub fn place_new(
+    world: &World,
+    account: &str,
+    amount: u64,
+    plan: &Plan,
+    placement: &crate::spawn::Placement,
+) -> Result<Created> {
+    let Plan::New {
+        angle,
+        quantity,
+        explicit,
+        cell,
+        player,
+        first,
+        ..
+    } = plan
+    else {
+        return Err("NEW_CANNON_PLAN".into());
+    };
+    let command = if *explicit {
+        Command::New {
+            angle: *angle,
+            quantity: *quantity,
+            cell: cell.map(|c| c as u32),
+        }
+    } else {
+        Command::Legacy(Legacy::Angle(*angle))
+    };
+    let memo = b2z_protocol::v6::encode(command).map_err(|_| "NEW_CANNON_PLAN")?;
+    if prepare(world, account, amount, &memo, &[])? != *plan {
+        return Err("STALE_PURCHASE_PLAN".into());
+    }
+    let patch = if *first {
+        if placement.kind != 2
+            || world.patch(placement.cell).as_ref() != Some(&placement.patch)
+            || placement.patch.iter().any(|c| world.owner(*c) != Some(0))
+        {
+            return Err("FIRST_PLACEMENT_NEUTRAL_PATCH".into());
+        }
+        placement.patch.clone()
+    } else {
+        if placement.kind != 4
+            || placement.patch != [placement.cell]
+            || cell.is_some_and(|c| c != placement.cell)
+            || !adjacent_sites(world, player.ok_or("UNKNOWN_PLAYER")?)?.contains(&placement.cell)
+        {
+            return Err("ILLEGAL_ADJACENT_SITE".into());
+        }
+        vec![placement.cell]
+    };
+    let blocked = occupied_cells(world)?;
+    if patch.iter().any(|c| blocked.contains(c)) {
+        return Err("PLACEMENT_OCCUPIED".into());
+    }
+    let previous: Vec<_> = patch
+        .iter()
+        .map(|c| world.owner(*c).ok_or("spawn patch"))
+        .collect::<std::result::Result<_, _>>()?;
+    let mut next = world.clone();
+    let s = next.playability.as_mut().ok_or("EXPECTED_V6")?;
+    let player = if let Some(id) = player {
+        *id
+    } else {
+        let id = s.next_player_id;
+        s.next_player_id = id.checked_add(1).ok_or("PLAYER_ID_EXHAUSTED")?;
+        s.players.push(Player {
+            id,
+            account: account.into(),
+        });
+        id
+    };
+    let cannon = Cannon {
+        id: next.next_cannon_id,
+        cell: placement.cell,
+        account: account.into(),
+        heading: Some(*angle),
+    };
+    next.next_cannon_id = cannon.id.checked_add(1).ok_or("CANNON_ID_EXHAUSTED")?;
+    s.lifecycle.push(Lifecycle {
+        cannon: cannon.id,
+        player,
+        generation: 1,
+        dormant_since_ns: None,
+        deadline_ns: None,
+    });
+    let mut ownership_ops = vec![];
+    let territory = if *first {
+        crate::territory_v6::allocate(&mut next, player)?
+    } else {
+        let labels: Vec<_> = std::iter::once(placement.cell)
+            .chain(next.neighbors(placement.cell))
+            .filter(|cell| next.player_at(*cell) == Some(player))
+            .filter_map(|cell| next.owner(cell))
+            .collect();
+        let unique: BTreeSet<_> = labels.iter().copied().collect();
+        let root = *unique.first().ok_or("EMPTY_TERRITORY_MERGE")?;
+        for id in unique {
+            if id != root {
+                ownership_ops.push(json!({"kind":"relabel","from":id,"to":root}));
+            }
+        }
+        crate::territory_v6::merge(&mut next, &labels)?
+    };
+    if crate::territory_v6::balls(&next, territory) >= MAX_PURCHASE_BALLS_PER_ISLAND {
+        return Err("BALL_CAPACITY".into());
+    }
+    for c in &patch {
+        next.set_owner(*c, territory)?;
+        ownership_ops.push(json!({"kind":"set","cell":c,"owner":territory}));
+    }
+    next.cannons.push(cannon.clone());
+    let ball = crate::cursor::launch(&mut next, &cannon, *angle)?;
+    let reactivated = revive_territory(&mut next, territory)?;
+    next.validate()?;
+    let event = json!({"kind":"cannon_spawned","cannon":cannon,"player":player,
+        "patch":patch,"previous_owners":previous,"placement_class":placement.kind,
+        "frontier_other":placement.other,"ball":ball,"reactivated_cannons":reactivated,"ownership_ops":ownership_ops,"metadata_delta":MetadataDelta::between(world.playability.as_ref().ok_or("EXPECTED_V6")?,next.playability.as_ref().ok_or("EXPECTED_V6")?)});
+    Ok(Created {
+        world: next,
+        cannon,
+        ball,
+        event,
+    })
+}
+
+pub fn site_pool_count(world: &World, player: u32, cell: usize) -> usize {
+    let ids: BTreeSet<_> = std::iter::once(cell)
+        .chain(world.neighbors(cell))
+        .filter(|c| world.player_at(*c) == Some(player))
+        .filter_map(|c| world.owner(c))
+        .collect();
+    ids.into_iter()
+        .map(|id| crate::territory_v6::balls(world, id))
+        .sum()
+}
+pub fn choose_adjacent(world: &World, player: u32, seed: &str) -> Result<Option<usize>> {
+    if !crate::world::account_ok(seed) {
+        return Err("spawn seed".into());
+    }
+    let mut ranked = Vec::new();
+    for cell in adjacent_sites(world, player)?
+        .into_iter()
+        .filter(|cell| site_pool_count(world, player, *cell) < MAX_PURCHASE_BALLS_PER_ISLAND)
+    {
+        ranked.push((
+            hash(&encode(
+                &json!({"domain":"B2Z-ADJACENT-SPAWN-06","seed":seed,"cell":cell}),
+            )?),
+            cell,
+        ));
+    }
+    ranked.sort();
+    Ok(ranked.first().map(|(_, cell)| *cell))
+}
+pub fn prepare(
+    world: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    moved: &[u32],
+) -> Result<Plan> {
+    if world.version != 6 {
+        return Err("EXPECTED_V6".into());
+    }
+    let command = match b2z_protocol::v6::decode(memo) {
+        Ok(c) => c,
+        Err(_) => return Ok(reject("MALFORMED_MEMO")),
+    };
+    let mine: Vec<_> = world
+        .cannons
+        .iter()
+        .filter(|c| c.account == account)
+        .collect();
+    let (command, explicit) = match command {
+        Command::Legacy(Legacy::Angle(angle)) => (
+            match mine.first() {
+                Some(c) => Command::Fire {
+                    cannon: c.id,
+                    angle,
+                    quantity: b2z_protocol::v6::MAX_QUANTITY,
+                },
+                None => Command::New {
+                    angle,
+                    quantity: b2z_protocol::v6::MAX_QUANTITY,
+                    cell: None,
+                },
+            },
+            false,
+        ),
+        Command::Legacy(Legacy::Move(cell)) => {
+            let Some(c) = mine.first() else {
+                return Ok(reject("NO_CANNON"));
+            };
+            (Command::Move { cannon: c.id, cell }, false)
+        }
+        c => (c, true),
+    };
+    match command {
+        Command::New {
+            angle,
+            quantity,
+            cell,
+        } => {
+            if mine.len() >= MAX_RETAINED_PER_PLAYER {
+                return Ok(reject("PLAYER_CANNON_CAPACITY"));
+            }
+            if world.cannons.len() >= MAX_CANNONS {
+                return Ok(reject("CANNON_CAPACITY"));
+            }
+            if world.next_cannon_id == u32::MAX {
+                return Ok(reject("CANNON_ID_EXHAUSTED"));
+            }
+            if world.balls.len() >= MAX_BALLS || world.next_ball_id == u32::MAX {
+                return Ok(reject("BALL_CAPACITY"));
+            }
+            let player = player_by_account(world, account);
+            let state = world.playability.as_ref().ok_or("EXPECTED_V6")?;
+            if player.is_none()
+                && (state.players.len() >= MAX_PLAYERS
+                    || state.next_player_id == u32::MAX
+                    || (!world.credits.iter().any(|c| c.account == account)
+                        && world.credits.len() >= MAX_PLAYERS))
+            {
+                return Ok(reject("ACCOUNTING_CAPACITY"));
+            }
+            let price = pricing_v6::cannon_price(mine.len() as u32)?;
+            if amount < price {
+                return Ok(reject("UNDERFUNDED"));
+            }
+            if mine.is_empty() {
+                if cell.is_some() {
+                    return Ok(reject("FIRST_PLACEMENT_AUTOMATIC"));
+                }
+            } else {
+                let player = player.ok_or("UNKNOWN_PLAYER")?;
+                if !mine.iter().any(|c| world.active_cannon(c.id)) {
+                    return Ok(reject("NO_ACTIVE_ANCHOR"));
+                }
+                let sites = adjacent_sites(world, player)?;
+                if sites.is_empty() {
+                    return Ok(reject("NO_ADJACENT_SITE"));
+                }
+                if cell.is_some_and(|c| !sites.contains(&(c as usize))) {
+                    return Ok(reject("ILLEGAL_ADJACENT_SITE"));
+                }
+                if cell.map_or_else(
+                    || {
+                        sites.iter().all(|c| {
+                            site_pool_count(world, player, *c) >= MAX_PURCHASE_BALLS_PER_ISLAND
+                        })
+                    },
+                    |c| site_pool_count(world, player, c as usize) >= MAX_PURCHASE_BALLS_PER_ISLAND,
+                ) {
+                    return Ok(reject("BALL_CAPACITY"));
+                }
+            }
+            Ok(Plan::New {
+                angle,
+                quantity,
+                explicit,
+                cell: cell.map(|c| c as usize),
+                price: Int(price.into()),
+                player,
+                first: mine.is_empty(),
+            })
+        }
+        Command::Fire {
+            cannon,
+            angle,
+            quantity,
+        } => {
+            let Some(c) = world.cannons.iter().find(|c| c.id == cannon) else {
+                return Ok(reject("NO_CANNON"));
+            };
+            if c.account != account {
+                return Ok(reject("NOT_OWNER"));
+            }
+            let pool = world.territory_ball_count(cannon);
+            if amount < pricing_v6::ball_price(pool as u32)? {
+                return Ok(reject("UNDERFUNDED"));
+            }
+            if pool >= MAX_PURCHASE_BALLS_PER_ISLAND
+                || world.balls.len() >= MAX_BALLS
+                || world.next_ball_id == u32::MAX
+            {
+                return Ok(reject("BALL_CAPACITY"));
+            }
+            Ok(Plan::Fire {
+                cannon,
+                angle,
+                quantity,
+                explicit,
+            })
+        }
+        Command::Move { cannon, cell } => {
+            let Some(c) = world.cannons.iter().find(|c| c.id == cannon) else {
+                return Ok(reject("NO_CANNON"));
+            };
+            if c.account != account {
+                return Ok(reject("NOT_OWNER"));
+            }
+            if !world.active_cannon(cannon) {
+                return Ok(reject("DORMANT_REVIVAL_REQUIRED"));
+            }
+            let price = crate::economics_generated::MOVE_E8S;
+            if amount < price {
+                return Ok(reject("UNDERFUNDED"));
+            }
+            if moved.contains(&cannon) {
+                return Ok(reject("MOVE_LIMIT"));
+            }
+            if world.player_at(cell as usize) != world.player_for_cannon(cannon) {
+                return Ok(reject("NOT_OWN_TERRITORY"));
+            }
+            if world
+                .cannons
+                .iter()
+                .any(|c| c.id != cannon && c.cell == cell as usize)
+            {
+                return Ok(reject("CANNON_OCCUPIED"));
+            }
+            let old = world.owner(c.cell).ok_or("cannon territory")?;
+            if world.owner(cell as usize) != Some(old)
+                && world
+                    .cannons
+                    .iter()
+                    .filter(|c| world.owner(c.cell) == Some(old))
+                    .count()
+                    == 1
+            {
+                return Ok(reject("WOULD_STRAND_ISLAND"));
+            }
+            // The enclosing topology continuation must validate retained active
+            // anchor connectivity before applying this immutable move proposal.
+            Ok(Plan::Move {
+                cannon,
+                cell: cell as usize,
+                price: Int(price.into()),
+            })
+        }
+        Command::Legacy(_) => Err("unresolved legacy command".into()),
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Batch {
+    pub account: String,
+    pub amount: Int,
+    pub cannon: u32,
+    pub angle: u16,
+    pub requested: u8,
+    pub explicit: bool,
+    pub new_cannon: bool,
+    pub prices: Vec<Int>,
+    pub used: Int,
+    pub remainder: Int,
+    pub stop_reason: Option<String>,
+}
+pub struct Launch {
+    pub ball: Ball,
+    pub revived: bool,
+    pub reactivated: Vec<u32>,
+    pub metadata_delta: MetadataDelta,
+}
+impl Batch {
+    pub fn fire(account: String, amount: u64, plan: &Plan) -> Result<Self> {
+        let Plan::Fire {
+            cannon,
+            angle,
+            quantity,
+            explicit,
+        } = plan
+        else {
+            return Err("fire plan".into());
+        };
+        Ok(Self {
+            account,
+            amount: Int(amount.into()),
+            cannon: *cannon,
+            angle: *angle,
+            requested: *quantity,
+            explicit: *explicit,
+            new_cannon: false,
+            prices: vec![],
+            used: Int(0.into()),
+            remainder: Int(amount.into()),
+            stop_reason: None,
+        })
+    }
+    pub fn after_new(account: String, amount: u64, cannon: u32, plan: &Plan) -> Result<Self> {
+        let Plan::New {
+            angle,
+            quantity,
+            explicit,
+            price,
+            ..
+        } = plan
+        else {
+            return Err("new cannon plan".into());
+        };
+        if price.0 > amount.into() {
+            return Err("new cannon underfunded".into());
+        }
+        Ok(Self {
+            account,
+            amount: Int(amount.into()),
+            cannon,
+            angle: *angle,
+            requested: *quantity,
+            explicit: *explicit,
+            new_cannon: true,
+            prices: vec![price.clone()],
+            used: price.clone(),
+            remainder: Int(num_bigint::BigInt::from(amount) - &price.0),
+            stop_reason: (*quantity == 1).then(|| "quantity_limit".into()),
+        })
+    }
+    pub fn validate(&self, world: &World) -> Result<()> {
+        if world.version != 6
+            || !(1..=b2z_protocol::v6::MAX_QUANTITY).contains(&self.requested)
+            || self.prices.len() > usize::from(self.requested)
+            || !world
+                .cannons
+                .iter()
+                .any(|c| c.id == self.cannon && c.account == self.account)
+            || self.amount.0.to_u64().is_none()
+            || self.used.0.to_u64().is_none()
+            || self.remainder.0.to_u64().is_none()
+            || &self.used.0 + &self.remainder.0 != self.amount.0
+            || self
+                .prices
+                .iter()
+                .any(|p| p.0.to_u64().is_none_or(|p| p == 0))
+            || self
+                .prices
+                .iter()
+                .fold(num_bigint::BigInt::from(0), |sum, p| sum + &p.0)
+                != self.used.0
+            || self.stop_reason.as_deref().is_some_and(|s| {
+                !matches!(
+                    s,
+                    "quantity_limit" | "capacity" | "insufficient_payment" | "ball_id_exhausted"
+                )
+            })
+        {
+            return Err("PURCHASE_CONTINUATION".into());
+        }
+        Ok(())
+    }
+    /// One launch per invocation; the caller yields/persists between invocations.
+    pub fn step(&mut self, world: &mut World) -> Result<Option<Launch>> {
+        self.validate(world)?;
+        if self.stop_reason.is_some() {
+            return Ok(None);
+        }
+        if self.prices.len() >= usize::from(self.requested) {
+            self.stop_reason = Some("quantity_limit".into());
+            return Ok(None);
+        }
+        let pool = world.territory_ball_count(self.cannon);
+        if pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS {
+            self.stop_reason = Some("capacity".into());
+            return Ok(None);
+        }
+        if world.next_ball_id == u32::MAX {
+            self.stop_reason = Some("ball_id_exhausted".into());
+            return Ok(None);
+        }
+        let price = Int(pricing_v6::ball_price(pool as u32)?.into());
+        if price.0 > self.remainder.0 {
+            self.stop_reason = Some("insufficient_payment".into());
+            return Ok(None);
+        }
+        let c = world
+            .cannons
+            .iter()
+            .find(|c| c.id == self.cannon)
+            .cloned()
+            .ok_or("UNKNOWN_CANNON")?;
+        let ball = crate::cursor::launch(world, &c, self.angle)?;
+        let territory =
+            crate::territory_v6::for_cannon(world, self.cannon).ok_or("UNKNOWN_TERRITORY")?;
+        let reactivated = revive_territory(world, territory)?;
+        let revived = reactivated.contains(&self.cannon);
+        self.prices.push(price.clone());
+        self.used.0 += &price.0;
+        self.remainder.0 -= &price.0;
+        if self.prices.len() == usize::from(self.requested) {
+            self.stop_reason = Some("quantity_limit".into());
+        }
+        let mut metadata_delta =
+            MetadataDelta::empty(world.playability.as_ref().ok_or("EXPECTED_V6")?);
+        metadata_delta.lifecycle = reactivated
+            .iter()
+            .map(|id| {
+                world
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .life(*id)
+                    .cloned()
+                    .ok_or("UNKNOWN_CANNON")
+            })
+            .collect::<std::result::Result<_, _>>()?;
+        Ok(Some(Launch {
+            ball,
+            revived,
+            reactivated,
+            metadata_delta,
+        }))
+    }
+    pub fn receipt(&self) -> Result<Value> {
+        let stop = self.stop_reason.as_deref().ok_or("incomplete purchase")?;
+        let actual = self.prices.len();
+        Ok(
+            json!({"reason":if actual==0{"REJECTED"}else{"ACCEPTED"},"kind":"purchase_completed","status":if actual==0{"rejected"}else if actual<usize::from(self.requested)&&(self.explicit||stop!="insufficient_payment"){"partially_applied"}else{"applied"},
+            "cannon":self.cannon,"new_cannon":self.new_cannon,"requested_quantity":self.requested,"quantity_explicit":self.explicit,"actual_quantity":actual,"per_item_prices":self.prices,"amount_used":self.used,"remainder":self.remainder,"stop_reason":stop}),
+        )
+    }
+}

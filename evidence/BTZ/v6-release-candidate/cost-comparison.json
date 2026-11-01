@@ -1,0 +1,327 @@
+{
+  "rows": [
+    {
+      "balls": 3,
+      "friendly_physics_and_scores_equal": true,
+      "qualification": "Fixed eight-tick synthetic friendly states, exact normal modules on fiduciary PocketIC; real billing/model measurements but no sustained wall-time delivery claim. Snapshot restoration is confined to disposable comparison setup.",
+      "windows": [
+        {
+          "artifact_bytes": [
+            2998,
+            23273,
+            160
+          ],
+          "cycles_per_tick": 585389702,
+          "host_wall_seconds": 35.445639564,
+          "label": "release-1-v5",
+          "metrics_after": {
+            "last_step_instructions": 68105415,
+            "max_instructions": 184932096,
+            "messages": 11,
+            "persist_instructions": 322178188,
+            "publish_instructions": 228740901,
+            "seal_instructions": 142172769,
+            "step_instructions": 636605928
+          },
+          "metrics_before": {
+            "last_step_instructions": 63332469,
+            "max_instructions": 141995676,
+            "messages": 3,
+            "persist_instructions": 49606008,
+            "publish_instructions": 33189256,
+            "seal_instructions": 26205268,
+            "step_instructions": 90358391
+          },
+          "module_sha256": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+          "net_cycles": "4683117619",
+          "samples": [
+            {
+              "completed": 3,
+              "last_error": null,
+              "turn": 0
+            },
+            {
+              "completed": 4,
+              "last_error": null,
+              "turn": 20
+            },
+            {
+              "completed": 5,
+              "last_error": null,
+              "turn": 40
+            },
+            {
+              "completed": 6,
+              "last_error": null,
+              "turn": 60
+            },
+            {
+              "completed": 7,
+              "last_error": null,
+              "turn": 80
+            },
+            {
+              "completed": 8,
+              "last_error": null,
+              "turn": 100
+            },
+            {
+              "completed": 9,
+              "last_error": null,
+              "turn": 120
+            },
+            {
+              "completed": 10,
+              "last_error": null,
+              "turn": 140
+            }
+          ],
+          "simulated_ns": "7950000479",
+          "source_calls": 1,
+          "state_bytes": 2998,
+          "status": "PASS",
+          "ticks": 8
+        },
+        {
+          "artifact_bytes": [
+            3290,
+            23476,
+            160
+          ],
+          "cycles_per_tick": 590266960,
+          "host_wall_seconds": 39.580208946,
+          "label": "candidate-v6",
+          "metrics_after": {
+            "last_step_instructions": 70079341,
+            "max_instructions": 194324139,
+            "messages": 9,
+            "persist_instructions": 325493492,
+            "publish_instructions": 221378150,
+            "seal_instructions": 130086594,
+            "step_instructions": 621560150
+          },
+          "metrics_before": {
+            "last_step_instructions": 63356109,
+            "max_instructions": 142162064,
+            "messages": 1,
+            "persist_instructions": 29170237,
+            "publish_instructions": 22784322,
+            "seal_instructions": 10552669,
+            "step_instructions": 63356109
+          },
+          "module_sha256": "0399358164351ec316ff3db048670df90684204dafe042bfc1f0a8c25e527fdc",
+          "net_cycles": "4722135687",
+          "samples": [
+            {
+              "completed": 3,
+              "last_error": null,
+              "turn": 0
+            },
+            {
+              "completed": 4,
+              "last_error": null,
+              "turn": 20
+            },
+            {
+              "completed": 5,
+              "last_error": null,
+              "turn": 40
+            },
+            {
+              "completed": 6,
+              "last_error": null,
+              "turn": 60
+            },
+            {
+              "completed": 7,
+              "last_error": null,
+              "turn": 80
+            },
+            {
+              "completed": 8,
+              "last_error": null,
+              "turn": 100
+            },
+            {
+              "completed": 9,
+              "last_error": null,
+              "turn": 120
+            },
+            {
+              "completed": 10,
+              "last_error": null,
+              "turn": 140
+            }
+          ],
+          "simulated_ns": "7950000479",
+          "source_calls": 1,
+          "state_bytes": 3290,
+          "status": "PASS",
+          "ticks": 8
+        }
+      ]
+    },
+    {
+      "balls": 4,
+      "friendly_physics_and_scores_equal": true,
+      "qualification": "Fixed eight-tick synthetic friendly states, exact normal modules on fiduciary PocketIC; real billing/model measurements but no sustained wall-time delivery claim. Snapshot restoration is confined to disposable comparison setup.",
+      "windows": [
+        {
+          "artifact_bytes": [
+            3104,
+            31035,
+            160
+          ],
+          "cycles_per_tick": 695317669,
+          "host_wall_seconds": 28.496129513,
+          "label": "release-1-v5",
+          "metrics_after": {
+            "last_step_instructions": 85966924,
+            "max_instructions": 224966662,
+            "messages": 11,
+            "persist_instructions": 390744972,
+            "publish_instructions": 286676960,
+            "seal_instructions": 155151962,
+            "step_instructions": 795574930
+          },
+          "metrics_before": {
+            "last_step_instructions": 79339104,
+            "max_instructions": 170536009,
+            "messages": 3,
+            "persist_instructions": 56598645,
+            "publish_instructions": 39659111,
+            "seal_instructions": 27214239,
+            "step_instructions": 108340744
+          },
+          "module_sha256": "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526",
+          "net_cycles": "5562541356",
+          "samples": [
+            {
+              "completed": 3,
+              "last_error": null,
+              "turn": 0
+            },
+            {
+              "completed": 4,
+              "last_error": null,
+              "turn": 20
+            },
+            {
+              "completed": 5,
+              "last_error": null,
+              "turn": 40
+            },
+            {
+              "completed": 6,
+              "last_error": null,
+              "turn": 60
+            },
+            {
+              "completed": 7,
+              "last_error": null,
+              "turn": 80
+            },
+            {
+              "completed": 8,
+              "last_error": null,
+              "turn": 100
+            },
+            {
+              "completed": 9,
+              "last_error": null,
+              "turn": 120
+            },
+            {
+              "completed": 10,
+              "last_error": null,
+              "turn": 140
+            }
+          ],
+          "simulated_ns": "7950000479",
+          "source_calls": 1,
+          "state_bytes": 3104,
+          "status": "PASS",
+          "ticks": 8
+        },
+        {
+          "artifact_bytes": [
+            3396,
+            31239,
+            160
+          ],
+          "cycles_per_tick": 693679682,
+          "host_wall_seconds": 39.023925894,
+          "label": "candidate-v6",
+          "metrics_after": {
+            "last_step_instructions": 87603503,
+            "max_instructions": 233663521,
+            "messages": 9,
+            "persist_instructions": 392201515,
+            "publish_instructions": 278830806,
+            "seal_instructions": 141836955,
+            "step_instructions": 778245645
+          },
+          "metrics_before": {
+            "last_step_instructions": 79299931,
+            "max_instructions": 170685432,
+            "messages": 1,
+            "persist_instructions": 35258022,
+            "publish_instructions": 28721714,
+            "seal_instructions": 10863622,
+            "step_instructions": 79299931
+          },
+          "module_sha256": "0399358164351ec316ff3db048670df90684204dafe042bfc1f0a8c25e527fdc",
+          "net_cycles": "5549437458",
+          "samples": [
+            {
+              "completed": 3,
+              "last_error": null,
+              "turn": 0
+            },
+            {
+              "completed": 4,
+              "last_error": null,
+              "turn": 20
+            },
+            {
+              "completed": 5,
+              "last_error": null,
+              "turn": 40
+            },
+            {
+              "completed": 6,
+              "last_error": null,
+              "turn": 60
+            },
+            {
+              "completed": 7,
+              "last_error": null,
+              "turn": 80
+            },
+            {
+              "completed": 8,
+              "last_error": null,
+              "turn": 100
+            },
+            {
+              "completed": 9,
+              "last_error": null,
+              "turn": 120
+            },
+            {
+              "completed": 10,
+              "last_error": null,
+              "turn": 140
+            }
+          ],
+          "simulated_ns": "7950000479",
+          "source_calls": 1,
+          "state_bytes": 3396,
+          "status": "PASS",
+          "ticks": 8
+        }
+      ]
+    }
+  ],
+  "status": "PASS"
+}

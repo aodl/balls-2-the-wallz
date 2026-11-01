@@ -48,7 +48,7 @@ test('production renderer draws proportional geometry and reuses its opaque, cul
  const a=run(24),fills=paint.calls.filter(c=>c[0]==='fillRect').length,b=run(48);
  assert.equal(allocations,2);assert.equal(paint.calls.filter(c=>c[0]==='fillRect').length,fills,'static territory is not rebuilt per frame');
  const arcs=c=>c.calls.filter(x=>x[0]==='arc').map(x=>x[3]);assert.equal(arcs(a).length,3);arcs(a).forEach((r,i)=>near(arcs(b)[i],r*2));
- const next=view();next.ownership.base.fill(1);next.ownership.overrides=[];renderer.draw(mock(),next,camera);assert.equal(paint.calls.filter(c=>c[0]==='fillRect').length,fills,'trajectory-only new snapshots reuse the terrain');
+ const next=view();next.cannons=new Map(v.cannons);next.ownership.base.fill(1);next.ownership.overrides=[];renderer.draw(mock(),next,camera);assert.equal(paint.calls.filter(c=>c[0]==='fillRect').length,fills,'trajectory-only new snapshots reuse the terrain');
  const strokes=c=>c.calls.filter(x=>x[0]==='set'&&x[1]==='lineWidth').map(x=>x[2]);strokes(a).forEach((width,i)=>near(strokes(b)[i],width*2));
  const glow=c=>c.calls.find(x=>x[0]==='set'&&x[1]==='shadowBlur'&&x[2]>0)[2];near(glow(b),glow(a)*2);
  const body=c=>c.calls.find(x=>x[0]==='fillRect');near(body(b)[3],body(a)[3]*2);
@@ -94,4 +94,11 @@ test('overview pans reuse a bounded boundary raster and preserve both halves of 
  assert.ok(raster.context.calls.some(c=>c[0]==='moveTo'&&c[1]===1000),'wrapped half of x=0 boundary');
  renderer.terrain(v).index.visit=()=>{throw Error('overview must not traverse edges when panning');};
  camera.x+=.5;renderer.draw(mock(),v,camera);assert.equal(raster.context.calls.length,calls);assert.equal(canvases.length,2);
+});
+
+test('authenticated owner account changes invalidate colour caches even with identical cells',()=>{
+ const v=view(),paint=mock(),renderer=createArenaRenderer(()=>({getContext:()=>paint}));
+ renderer.terrain(v);const before=paint.calls.filter(c=>c[0]==='fillRect').length;
+ const next=view();next.cannons=new Map([...v.cannons].map(([id,c])=>[id,{...c,account:'ff'.repeat(32)}]));
+ renderer.terrain(next);assert.ok(paint.calls.filter(c=>c[0]==='fillRect').length>before);
 });
