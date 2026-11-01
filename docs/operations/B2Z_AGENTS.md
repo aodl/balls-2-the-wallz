@@ -266,3 +266,23 @@ The restricted executor independently fetches/rechecks the actual Ledger fee.
 ```json
 {"operation":"quote_action","params":{"account":"<64-hex-account>","action":{"Fire":{"cannon":5,"angle":65535,"quantity":1}},"expected_root":"<root-from-inspection>","fee_e8s":"10000"}}
 ```
+
+
+### Public browser witness
+
+`tools/b2z_pilot_browser.py --directory <private-pilot-directory>/browser` observes
+one public page and records actual receipt rows, played logical time and selected
+cannon presentation. It never signs or sends a transfer. The runner must see its
+ready marker before submitting. Successful Move receipts display **Accepted**;
+purchase rows display applied/partial quantities. Both must match the exact block,
+account, reason and receipt kind. Move checks also centre the displayed cannon
+through the product control and compare its presentation cell with the canonical
+receipt's destination. No reload/resync is used to make a witness pass.
+
+A browser restart starts a new evidence window. It cannot retroactively establish
+no-refresh presentation for earlier actions. Preserve any missing witness as FAIL
+or unavailable even if the authenticated financial receipt is applied. A trusted
+`--skip-existing-request` excludes that prior request after such a restart;
+subsequent actions still require a new ready marker and full assertions. `HOLD`
+is checked before each proposal and again immediately before submission; a
+transfer already submitted must still be reconciled with its original identity.
