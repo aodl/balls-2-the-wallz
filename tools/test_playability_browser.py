@@ -2,7 +2,7 @@
 import copy
 import math
 import unittest
-from playability_browser import short_summary, browser_time
+from playability_browser import short_summary, browser_time, require_playability_result
 
 class ShortSampleTests(unittest.TestCase):
     def test_consensus_nanoseconds_become_explicit_utc_datetime(self):
@@ -29,5 +29,16 @@ class ShortSampleTests(unittest.TestCase):
             rows,polls=self.data();rows[90].update(mutation)
             if 'buffer_ticks' in mutation:rows[-1].update(mutation)
             with self.subTest(mutation=mutation):self.assertEqual(short_summary(rows,polls)['status'],'FAIL')
+    def test_final_verdict_uses_recorded_playback_after_successful_replay(self):
+        report={'normal_short_sample':{'status':'PASS'},'checks':[{'name':'replay','status':'PASS'}]}
+        require_playability_result(report)
+        report['normal_short_sample']={'status':'FAIL','checks':{'no_stall_or_rebuffer':False}}
+        for actions_only in [False,True]:
+            with self.subTest(actions_only=actions_only):
+                with self.assertRaises(AssertionError):require_playability_result(report,actions_only)
+    def test_unmeasured_playback_requires_explicit_actions_only_scope(self):
+        report={'normal_short_sample':{'status':'NOT_RUN'}}
+        with self.assertRaises(AssertionError):require_playability_result(report)
+        require_playability_result(report,True)
 
 if __name__=='__main__':unittest.main()

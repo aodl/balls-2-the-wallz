@@ -61,6 +61,11 @@ def short_summary(rows, polls):
             'qualification': 'One complete real-time 45s Normal representative sample, not the historical sustained 900s gate or a 15-minute buffer-deficit result. All samples retained; independent timed production bounds. The original sustained-analysis code and thresholds are unchanged.'}
 
 
+def require_playability_result(report, actions_only=False):
+    result = report['normal_short_sample']
+    assert result['status'] == 'PASS' or actions_only and result['status'] == 'NOT_RUN', result
+
+
 def verify_playability_scene(page, context, out, configuration, record, report, save, stop_capture, capture):
     assert urlparse(page.url).hostname == '127.0.0.1'
     assert configuration['network'] == 'pocketic-local'
@@ -221,9 +226,9 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     (out/'wire-index.json').write_text(json.dumps(capture.index([]),indent=2)+'\n')
     wait_file(page,out/'replay-seed.json',30000)
     for command,name in [(['node','tools/capture_playability_history.mjs',str(out),str(out/'replay-seed.json')],'wire-history'),(['node','tools/replay_s14.mjs',str(out/'history.json'),str(out/'independent-replay.json')],'replay')]:
-        result=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=180)
-        (out/f'{name}.log').write_text(result.stdout+result.stderr)
-        assert result.returncode==0,(name,result.stdout,result.stderr)
+        process=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=180)
+        (out/f'{name}.log').write_text(process.stdout+process.stderr)
+        assert process.returncode==0,(name,process.stdout,process.stderr)
     record('error-free-fenced-wire-capture-and-independent-full-history-replay',json.loads((out/'independent-replay.json').read_text()))
     # One declared gap/reconnect regression follows the successful capture
     # boundary, just as historical fault phases are separate from strict samples.
@@ -240,4 +245,4 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     report['primary_navigations_after_initial_load']=len(navigations)
     report['primary_final_state']=page.evaluate('({...__dtrLive,playback:{...__dtrLive.playback}})')
     save()
-    assert actions_only or result['status']=='PASS',result
+    require_playability_result(report, actions_only)
