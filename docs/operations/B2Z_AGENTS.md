@@ -154,7 +154,12 @@ player, at least 30 seconds between actions and no automated top-ups. Expiry,
 emergency stop and all caps are executable and persistent. The first expander
 payment must reach Ledger acceptance, source reconciliation, certified receipt,
 world change and observed browser presentation before other accounts may start.
-The trusted host confirmation hook is deliberately absent from policy JSON.
+The trusted host confirmation hook is deliberately absent from policy JSON. After
+actually observing the first browser presentation, the trusted launcher can restart
+the broker with `--bootstrap-evidence` pointing to its recorded witness (plan ID,
+current root/head, rendered logical time, visible cannon IDs and zero extra
+navigations). The journal and witness must survive the restart. A missing or
+unverifiable witness keeps the other players blocked; never infer it from counts.
 
 The pilot must stop deliberately adversarial activity if an unknown player enters
 the interaction area. The entity proximity guard is conservative convenience,
