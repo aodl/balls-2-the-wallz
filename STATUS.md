@@ -1,3 +1,15 @@
+# B2Z entry release — CI PASS, authorized, fresh funding stop
+
+CI 41350813269 passes exact source `d242d30`. The operator authorizes production
+release before the later user-owned PR merge. The complete installed/browser/
+replay gate remains PASS. Fresh liquid cycles are 2.918003070310T against the
+saved 3.357988370090T release/recovery guard: BLOCKED_FUNDING. No live mutation
+or financial transfer occurred. Production remains the existing paid v6 world
+in Reserve Protection, with healthy source/treasury and its original placement.
+[Fresh preflight and precise remaining blocker](evidence/B2Z/entry-release-funding-stop-2026-11-01/REPORT.md).
+
+---
+
 # B2Z farthest-entry fix — installed/browser gate PASS, publication pending
 
 Rules 7 admits first players on coloured territory at the exact furthest safe
