@@ -112,15 +112,15 @@ arbitrary programs running as the same Unix user. A stronger OS signing boundary
 would be needed before exposing execution to untrusted code or larger funds.
 
 Funding about 1.25 ICP per player (5 ICP total) is a suggestion, not approval to
-spend. **Do not pay to join while the board has no neutral 3×3 spawn patch.** The
-1 November authenticated snapshot has zero neutral cells. A direct new-player
-payment is then retained with `NO_ELIGIBLE_SPAWN`; it does not create a cannon.
-The frontend/agent guard rejects this known-impossible quote. Its neutral-count
-check is necessary, not a guarantee of a legal sealed candidate. The matching Rust
-public-quote guard and API branding are source changes only until a separately
-authorized backend deployment. Existing live typed quotes may still offer the
-impossible join. This is an entry/balance concern plus a quote integration defect,
-not permission to reset the world or silently introduce new rules.
+spend. Rules 7 is now deployed in epoch index 4. First joins use the furthest safe
+3×3 patch from retained cannons regardless of territory colour. Cannons, live
+balls and island connectivity remain protected. Historical rules 6 retain their
+neutral-only policy. The proposed campaign binds the exact deployed rules,
+configuration and epoch; any new epoch requires a newly approved campaign.
+The public 1.1 ICP quote for a new cannon/two balls was independently verified
+against authenticated state. Final placement, legality and fill are decided when
+the payment is processed; rejected payments and excess remain retained.
+[Deployed entry rule and preservation evidence](../../evidence/B2Z/entry-rules-7-mainnet-release/REPORT.md).
 
 ## Restricted executor
 
