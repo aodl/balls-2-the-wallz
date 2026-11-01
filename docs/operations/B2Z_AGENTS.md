@@ -137,6 +137,13 @@ reservation and 30-second expiry. There is no price reservation or refund. The
 executor signs only an immutable plan ID under a separately supplied approved
 campaign hash. It cannot change destination/amount/memo at submission. Mainnet
 signing is disabled by default; no approval operation exists in the policy protocol.
+A narrow smoke test can set `approved_player_aliases` to the single authorized
+player while retaining the public four-player catalog. Other aliases are rejected
+before preparation. For the explicitly authorized owner-only plaintext player
+identities, the trusted launcher may pass `--ack-player-plaintext-mainnet` together
+with mainnet enablement. It acknowledges only dfx's documented warning in each
+player command; inherited warnings/passphrases are discarded. It does not secure
+the plaintext key or expose it to policy code.
 
 SQLite WAL/FULL journals reserve full transfer value plus fees before dispatch.
 One unresolved action per player persists across restarts. An ambiguous submission

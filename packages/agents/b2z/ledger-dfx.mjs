@@ -5,12 +5,19 @@ import {Actor,HttpAgent} from '@icp-sdk/core/agent';import {IDL} from '@icp-sdk/
 import {accountIdentifier,canonicalAccount} from '../../../apps/b2z-observer/identity.mjs';
 import {check} from './common.mjs';
 const exec=promisify(execFile),nat=s=>BigInt(String(s).replaceAll('_',''));
+// Explicit trusted-launch acknowledgement is scoped to each dfx child, never inherited.
+export function playerCommandEnvironment(base,root,alias,network,acknowledged=false){
+ check(/^b2z-agent-(expander|defender|raider|adaptive)$/.test(alias),'PLAYER_IDENTITY_ONLY');
+ const env={...base,DFX_CONFIG_ROOT:root,DFX_IDENTITY:alias};delete env.DFX_WARNING;delete env.DFX_IDENTITY_PASSPHRASE;
+ if(network==='ic'&&acknowledged)env.DFX_WARNING='-mainnet_plaintext_identity';
+ return env;
+}
 export class DfxGameLedger{
- constructor({policy,players,identityRoot,allowMainnet=false}){
+ constructor({policy,players,identityRoot,allowMainnet=false,acknowledgePlaintextMainnet=false}){
   check(policy.network==='ic'||policy.network==='pocketic-local','LEDGER_NETWORK');
   if(policy.network==='ic')check(policy.recipient==='344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a'&&policy.ledger==='ryjl3-tyaaa-aaaaa-aaaba-cai'&&policy.index==='qhbym-qaaaa-aaaaa-aaafq-cai'&&policy.host==='https://icp-api.io','OFFICIAL_ICP_BINDING');
   else check(['localhost','127.0.0.1'].includes(new URL(policy.host).hostname),'LOCAL_GATEWAY_REQUIRED');
-  check(typeof identityRoot==='string'&&identityRoot.startsWith('/home/'),'PRIVATE_PLAYER_STORAGE_REQUIRED');this.policy=Object.freeze({...policy});this.players=new Map(players.map(p=>[p.alias,Object.freeze({...p})]));this.identityRoot=identityRoot;this.liveEnabled=allowMainnet;
+  check(typeof identityRoot==='string'&&identityRoot.startsWith('/home/'),'PRIVATE_PLAYER_STORAGE_REQUIRED');this.policy=Object.freeze({...policy});this.players=new Map(players.map(p=>[p.alias,Object.freeze({...p})]));this.identityRoot=identityRoot;this.liveEnabled=allowMainnet;this.plaintextAcknowledged=allowMainnet&&acknowledgePlaintextMainnet;
  }
  async queryActor(){if(this.agent)return this.agent;this.agent=await HttpAgent.create({host:this.policy.host,...(this.policy.rootKey?{rootKey:this.policy.rootKey}:{}),shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});return this.agent;}
  async fee(){const agent=await this.queryActor(),actor=Actor.createActor(({IDL})=>IDL.Service({transfer_fee:IDL.Func([IDL.Record({})],[IDL.Record({transfer_fee:IDL.Record({e8s:IDL.Nat64})})],['query'])}),{agent,canisterId:this.policy.ledger});return(await actor.transfer_fee({})).transfer_fee.e8s;}
@@ -19,7 +26,7 @@ export class DfxGameLedger{
   check(this.policy.network!=='ic'||this.liveEnabled,'LIVE_SIGNER_NOT_ENABLED');
   const p=this.players.get(plan.player);check(p&&/^b2z-agent-(expander|defender|raider|adaptive)$/.test(p.alias),'PLAYER_IDENTITY_ONLY');check(accountIdentifier(p.principal)===plan.account&&p.account_identifier===plan.account,'PLAYER_ACCOUNT_BINDING');check(plan.ledger===this.policy.ledger&&plan.destination===this.policy.recipient,'DESTINATION_BINDING');check(/^[0-9a-f]{16}$/.test(plan.memo_hex),'MEMO_BOUNDS');
   // The LLM supplies only plan IDs to the executor, never this call's fields.
-  const env={...process.env,DFX_CONFIG_ROOT:this.identityRoot,DFX_IDENTITY:p.alias};delete env.DFX_WARNING;delete env.DFX_IDENTITY_PASSPHRASE;
+  const env=playerCommandEnvironment(process.env,this.identityRoot,p.alias,this.policy.network,this.plaintextAcknowledged);
   const principal=(await exec('dfx',['--identity',p.alias,'identity','get-principal'],{env,timeout:15000,maxBuffer:65536})).stdout.trim();check(principal===p.principal,'SIGNER_PRINCIPAL_MISMATCH');
   const memo=BigInt('0x'+plan.memo_hex),to=Array.from(Buffer.from(plan.destination,'hex')).map(n=>n+' : nat8').join('; ');
   const arg=`(record { memo = ${memo} : nat64; amount = record { e8s = ${plan.amount_e8s} : nat64 }; fee = record { e8s = ${plan.fee_e8s} : nat64 }; from_subaccount = null; to = vec { ${to} }; created_at_time = opt record { timestamp_nanos = ${plan.created_at_time_ns} : nat64 } })`;
