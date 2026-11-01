@@ -252,3 +252,17 @@ payments and sequential shared-island prices. Existing launch exemptions allow a
 reflected ball to leave its original cell; they do not allow passage through the
 other cannon. These are local kernel/recovery comparisons, not claims of an
 installed Ledger or paid mainnet test.
+
+
+### Exact custom quotes without a payment plan
+
+`quote_action` derives the price/memo of any typed action from the same mirror;
+it creates no signer plan or budget reservation. Supply `expected_root` from a
+prior inspection to fail explicitly if observation has advanced. The destination
+is the authenticated source descriptor, never a caller override. An optional fee
+is explicitly caller-supplied; without one the full fee-inclusive cost is unknown.
+The restricted executor independently fetches/rechecks the actual Ledger fee.
+
+```json
+{"operation":"quote_action","params":{"account":"<64-hex-account>","action":{"Fire":{"cannon":5,"angle":65535,"quantity":1}},"expected_root":"<root-from-inspection>","fee_e8s":"10000"}}
+```
