@@ -176,3 +176,37 @@ Before live play the operator must explicitly approve the budget/campaign and
 choose either leaving entities running under ordinary conservation, or separately
 authorizing a gameplay-only pause at campaign end. A paused game still has source,
 treasury and storage maintenance costs. No admin-delete-player mechanism is added.
+
+## Action options and bounded pilot
+
+`action_options` is a local agent operation, not a new on-chain method. It gives
+a bounded candidate list, exact memo/cost/fee data, selected-cannon information
+and rejection reasons for budget, population limits and proximity to players
+outside a supplied consent list. All game facts come from its one authenticated
+provenance reference; campaign budgets/consent remain separately sourced local
+constraints. `cannon_id` can select any owned cannon; the default is explicit.
+
+```json
+{"operation":"action_options","params":{"account":"<64-hex-account>","budget_e8s":"10000000","cannon_id":5,"limits":{"max_cannons_per_player":1,"max_balls_per_player":2,"max_quantity":2}}}
+```
+
+`tools/b2z_pilot.mjs --help` describes the small common runner. It requires an
+operator approval file matching the frozen campaign hash, shares one verified
+mirror across four public-state policies, and uses the existing restricted
+executor/signing process boundary. Per-player fixed ceilings can be recorded in
+`per_player_max_e8s_by_alias`; incoming funds never increase those limits. Fees,
+ambiguous transfers and retained remainders count against the limits.
+
+Startup admits new accounts sequentially. The configured bootstrap player's
+receipt, certified state and actual browser presentation must agree before the
+next payer starts. Each subsequent paid action is journaled, reconciled and
+observed; a failed or ambiguous outcome never causes a fresh-timestamp retry.
+The runner logs exact canonical score intervals, bounded scenario forecasts,
+policy/version and measured outcomes. Each policy sees only public state and
+its own history. Waiting is an ordinary choice.
+
+A local `HOLD` file in the output directory pauses new policy activity for
+engineering work; `STOP` requests termination. The immutable approval expiry and
+existing emergency-stop journal survive restarts. Stopping this process does not
+stop the game entities. Authoritative game/economic changes are separate from
+these local planning and signer tools.
