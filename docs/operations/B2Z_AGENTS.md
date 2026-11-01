@@ -87,7 +87,8 @@ node --test tests/js/b2z-agent-*.test.mjs
 
 Local matches use fixed synthetic fixture endowments, two account/role rotations,
 three logical ticks and a fee-inclusive incremental 0.25 ICP budget per player.
-The four-player setup uses the real pure purchase kernel. Metrics use the canonical
+The runner now defaults to current rules 7; prior rules-6 result archives remain
+unchanged. The four-player setup uses the real pure purchase kernel. Metrics use the canonical
 area-time score delta, never thirty wall minutes at differing funding tiers.
 Zero-spend efficiency is undefined, not infinite. JS work units are not billed
 cycles. This bounded sample tests hypotheses; it does not establish a winning
@@ -286,3 +287,17 @@ or unavailable even if the authenticated financial receipt is applied. A trusted
 subsequent actions still require a new ready marker and full assertions. `HOLD`
 is checked before each proposal and again immediately before submission; a
 transfer already submitted must still be reconciled with its original identity.
+
+
+During the approved test-only campaign, forecasts name opposing lost balls and
+their public owners. `consentEvaluation` excludes a candidate that predicts an
+additional outside-player loss relative to Wait in the same scenario; incomplete
+comparisons also exclude the candidate. This is a bounded prediction safeguard,
+not assurance about all unknown future payments. The existing proximity check
+still runs at preparation and submission. Ordinary public trajectories can
+interact beyond this forecast horizon.
+
+The browser selects an owned cannon through the visible Fire control before
+publishing its ready marker for Fire/Move. The legacy selector is hidden in New
+mode; trying to select it there is a harness error, not a failed game move. A
+failed witness remains FAIL even when its payment is authentically applied.

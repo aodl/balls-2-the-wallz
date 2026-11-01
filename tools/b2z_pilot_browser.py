@@ -21,7 +21,9 @@ with sync_playwright()as p:
     if pid==ignored:page.wait_for_timeout(500);continue
     if current!=pid:
      if page.locator('#play-dialog').evaluate('(e)=>e.open'):page.locator('#play-dialog [data-close]').click()
-     page.locator('#identify-button').click();page.locator('#identify-dialog details').first.evaluate('(e)=>e.open=true');page.locator('#identity-account').fill(r['account']);page.locator('#identity-principal').fill('');page.locator('#identity-save').click();page.locator('#join-action').click();current=pid;seen.setdefault(pid,{'started_at_ms':time.time()*1000});save('ready.json',{'plan_id':pid,'head':page.evaluate('__dtrLive.heads.at(-1)')})
+     page.locator('#identify-button').click();page.locator('#identify-dialog details').first.evaluate('(e)=>e.open=true');page.locator('#identity-account').fill(r['account']);page.locator('#identity-principal').fill('');page.locator('#identity-save').click();page.locator('#join-action' if 'New' in r['action'] else '#fire-action').click();
+     if 'New' not in r['action']:page.locator('#selected-cannon').select_option(str((r['action'].get('Fire')or r['action'].get('Move'))['cannon']))
+     current=pid;seen.setdefault(pid,{'started_at_ms':time.time()*1000});save('ready.json',{'plan_id':pid,'head':page.evaluate('__dtrLive.heads.at(-1)')})
     if r.get('block_index')is not None:
      pos=number(r['block_index']);row=page.locator('#live-receipts tr').filter(has=page.locator('td:first-child',has_text=re.compile('^'+str(pos)+'$')))
      if row.count():
@@ -35,7 +37,7 @@ with sync_playwright()as p:
         page.locator('#centre-cannon').click();camera=page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y})');cell=int(camera['y'])*1000+int(camera['x']);expected=rr['receipt'].get('after',r.get('expected_cannon_cell'))
         if expected is not None and cell!=number(expected):page.wait_for_timeout(500);continue
         accepted=live['delivery']['acceptedHeads'][-1];s.setdefault('visible_at_ms',time.time()*1000)
-        witness={'version':'b2z-pilot-browser-2','presentation_cannon_cell':cell,'expected_cannon_cell':expected,'status':'PASS','plan_id':pid,'cannon':cannon,'visible_cannon_ids':[cannon],'rendered_logical_time':playback['consumed_ticks'],'head':live['heads'][-1],'root':accepted['root'],'navigations_after_initial':len(nav)-1,'page_errors':errors,'receipt_text':text,'receipt_seen_at_ms':s['receipt_seen_at_ms'],'visible_at_ms':s['visible_at_ms'],'at_ms':time.time()*1000,'resyncs':live['resyncs'],'delivery_failures':live['delivery']['failures']};assert len(nav)==1;assert not errors;save(pid+'.json',witness)
+        witness={'version':'b2z-pilot-browser-3','presentation_cannon_cell':cell,'expected_cannon_cell':expected,'status':'PASS','plan_id':pid,'cannon':cannon,'visible_cannon_ids':[cannon],'rendered_logical_time':playback['consumed_ticks'],'head':live['heads'][-1],'root':accepted['root'],'navigations_after_initial':len(nav)-1,'page_errors':errors,'receipt_text':text,'receipt_seen_at_ms':s['receipt_seen_at_ms'],'visible_at_ms':s['visible_at_ms'],'at_ms':time.time()*1000,'resyncs':live['resyncs'],'delivery_failures':live['delivery']['failures']};assert len(nav)==1;assert not errors;save(pid+'.json',witness)
         if not s.get('screenshot'):
          page.screenshot(path=str(out/(pid+'.png')));s['screenshot']=True
    if int(time.monotonic()-started)%30==0:save('status.json',{'at_ms':time.time()*1000,'head':page.evaluate('__dtrLive.heads.at(-1)'),'navigations':len(nav),'errors':errors})

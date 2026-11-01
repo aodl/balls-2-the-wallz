@@ -107,3 +107,31 @@ time seen. The second move's presentation was not witnessed in that closed windo
 Both moves cost 0.0002 ICP including fee. Cumulative overnight expenditure at this
 restart is 3.3007 ICP; remaining frozen allowance is 3.5992 ICP. No unresolved paid
 action remains before resumption. The original eight-hour expiry is unchanged.
+
+
+## Current-rules matches and consent guard
+
+The existing local match runner now uses current rules-7 identity/configuration,
+rather than presenting its historical rules-6 entry rejection as current behavior.
+PASS: 24 player outcomes, 13,103 JS execution work units, 36.959 seconds; the fully
+coloured arena accepts its distant entrant. Forecasts use the frozen native kernel;
+actual match execution remains independent JS. The two account/policy assignments
+share fixed fixture geometry; they are not independent random spatial seeds.
+No broad strategic superiority or billed-cycle claim follows from this sample.
+
+A new campaign-only guard compares named opposing losses in each complete forecast
+with the matching Wait scenario. A candidate predicting any additional unknown
+player ball loss is excluded; incomplete comparisons also exclude the candidate.
+The public body-proximity guard remains. PASS: 20 focused analysis/interface tests,
+plus 18 native fixture/forecast equality checks after adding the casualty metadata.
+
+Browser window 2 preserved a further harness FAIL: after a Move, the test tried to
+select the legacy cannon control while New mode hid it. Adaptive block 39967338
+was nevertheless authentically applied and used 0.0002 ICP including fee. The new
+harness selects Fire mode and the exact owned cannon before its readiness marker,
+so a hidden/unavailable control prevents submission. Its corrected presentation
+checks still require the real receipt and rendered destination, not entity counts.
+No successful no-refresh witness is claimed for these three early moves.
+The controlled RESTART path preserved the unchanged approval, budgets and expiry;
+all six overnight transfers are applied, with no unresolved action. Cumulative
+spend is 3.3009 ICP; remaining frozen allowance 3.599 ICP at this boundary.

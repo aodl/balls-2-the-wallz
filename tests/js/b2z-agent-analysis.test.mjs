@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {decodeWorld,encodeWorld,PLAYABILITY_CONFIG,PLAYABILITY_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {BoardAnalysis} from '../../packages/agents/b2z/analysis.mjs';
-import {quoteAction,typedAction,exactDegrees,candidates,actionOptions,interactionIssue} from '../../packages/agents/b2z/actions.mjs';
+import {quoteAction,typedAction,exactDegrees,candidates,actionOptions,interactionIssue,consentEvaluation} from '../../packages/agents/b2z/actions.mjs';
 import {parse,stringify,money} from '../../packages/agents/b2z/common.mjs';
 import {decide} from '../../packages/agents/b2z/policies.mjs';
 import {evaluateActions,forecastWorkerArgs} from '../../packages/agents/b2z/forecast.mjs';
@@ -28,3 +28,11 @@ test('shortlists retain both fire and movement rather than filling every slot wi
 test('agent money inputs reject unsafe numeric JSON and preserve exact integer strings',()=>{assert.equal(money('9007199254740993'),9007199254740993n);assert.equal(money(10000),10000n);for(const v of[9007199254740992,0.1,-1,'1.25','-1','18446744073709551616'])assert.throws(()=>money(v),/MONEY_BOUNDS/);});
 
 test('file workers discard only parent source-selection flags and retain security/runtime flags',()=>{assert.deepEqual(forecastWorkerArgs(['--permission','--allow-fs-read=/home/test','--input-type','module','-e','private test source','--trace-warnings']),['--permission','--allow-fs-read=/home/test','--trace-warnings']);assert.deepEqual(forecastWorkerArgs(['--input-type=module','--eval=example','--max-old-space-size=128']),['--max-old-space-size=128']);});
+
+
+test('campaign forecasts do not intentionally trade unknown players balls and distinguish natural losses',()=>{
+ const candidates=[{id:'wait',action:{Wait:{}}},{id:'fire',action:{Fire:{cannon:1,angle:0,quantity:1}}}],rows=['now','response','delay'].flatMap(scenario=>[{candidate:'wait',scenario,status:'complete',opposing_ball_losses:[{id:9,account:'outside'}]},{candidate:'fire',scenario,status:'complete',opposing_ball_losses:[{id:9,account:'outside'},{id:10,account:'test'}]}]);
+ assert.equal(consentEvaluation({candidates,forecasts:rows},['test']).candidates.length,2);
+ const hostile=structuredClone(rows);hostile[1].opposing_ball_losses.push({id:11,account:'outside'});const blocked=consentEvaluation({candidates,forecasts:hostile},['test']);assert.deepEqual(blocked.candidates.map(c=>c.id),['wait']);assert.equal(blocked.consent_screen.blocked[0].reason,'PREDICTED_OUTSIDE_PLAYER_LOSS');
+ assert.equal(consentEvaluation({candidates,forecasts:rows.slice(1)},['test']).consent_screen.blocked[0].reason,'INCOMPLETE_CONSENT_FORECAST');
+});

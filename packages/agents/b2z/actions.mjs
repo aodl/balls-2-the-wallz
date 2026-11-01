@@ -51,3 +51,14 @@ export function actionOptions(board,account,{budgetE8s=0n,feeE8s=10000n,max=12,c
  const diverse=[];for(const kind of ['Wait','New','Fire','Move']){const c=available.find(c=>c.action[kind]);if(c&&diverse.length<max)diverse.push(c);}for(const c of available)if(diverse.length<max&&!diverse.includes(c))diverse.push(c);
  return{candidates:diverse,unavailable,local_constraints:{budget_e8s:budgetE8s,fee_e8s:feeE8s,...limits},selection:{owned_cannon_ids:mine.map(c=>c.id),selected_cannon:cannonId??mine[0]?.id??null,note:'Bounded shortlist, not an exhaustive action set. Supply cannon_id to inspect another owned cannon.'},affordability:'Full transfer plus fee; local limits are not certified game configuration. Quotes are not reservations.'};
 }
+
+
+/** Campaign-only prediction guard. Natural wait losses are not attributed to a purchase. */
+export function consentEvaluation(evaluation,accounts){
+ const approved=new Set(accounts),wait=evaluation.candidates.find(c=>c.action.Wait),blocked=[];
+ const allowed=evaluation.candidates.filter(c=>{if(c===wait)return true;const rows=evaluation.forecasts.filter(r=>r.candidate===c.id),baseline=evaluation.forecasts.filter(r=>r.candidate===wait.id);
+  if(rows.length!==3||baseline.length!==3||[...rows,...baseline].some(r=>r.status!=='complete'||!Array.isArray(r.opposing_ball_losses))){blocked.push({candidate:c.id,reason:'INCOMPLETE_CONSENT_FORECAST'});return false;}
+  for(const row of rows){const same=baseline.find(r=>r.scenario===row.scenario);if(!same){blocked.push({candidate:c.id,reason:'INCOMPLETE_CONSENT_FORECAST'});return false;}const natural=new Set(same.opposing_ball_losses.map(b=>b.id)),outside=row.opposing_ball_losses.filter(b=>!approved.has(b.account)&&!natural.has(b.id));if(outside.length){blocked.push({candidate:c.id,reason:'PREDICTED_OUTSIDE_PLAYER_LOSS',balls:outside});return false;}}
+  return true;
+ });return{...evaluation,candidates:allowed,consent_screen:{blocked,note:'Derived bounded forecast compared with Wait, not a proof of future trajectory safety. Public entity proximity is checked separately.'}};
+}
