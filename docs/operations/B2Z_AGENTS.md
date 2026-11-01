@@ -15,7 +15,10 @@ node tools/b2z_agent.mjs stdio --store .work/agents/mirror
 ```
 
 The stdio process shares one mirror and polls at five seconds; four policies
-should share this process. Each request is one JSON line, for example:
+should share this process. During an approved campaign, use the executor broker
+for these same read-only operations as well as action plans, so observation and
+transaction checks share one mirror. Run the standalone read-only CLI when no
+signing broker is needed. Each request is one JSON line, for example:
 
 ```json
 {"operation":"inspect_region","params":{"x":990,"y":990,"width":64,"height":48}}
@@ -121,7 +124,7 @@ not permission to reset the world or silently introduce new rules.
 
 ## Restricted executor
 
-`tools/b2z_executor.mjs --help` documents the separate process. Its JSON interface
+`tools/b2z_executor.mjs --help` documents the separate process. Its payment JSON interface
 accepts only `prepare_action`, `submit_action`, `action_status`, `reconcile` and
 `emergency_stop`. Policy inputs select typed v6 actions, never arbitrary calls.
 `Fire {cannon,angle,quantity}`, `New {angle,quantity,cell}` and `Move {cannon,cell}`
