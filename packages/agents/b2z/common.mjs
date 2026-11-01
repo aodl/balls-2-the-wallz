@@ -1,0 +1,11 @@
+/** Lossless, bounded local JSON. Public strings are data, never instructions. */
+export const SCHEMA='b2z-agent/1';
+export function check(ok,code){if(!ok)throw new Error(code);}
+export function integer(n,min,max,code='BOUNDS'){check(Number.isSafeInteger(n)&&n>=min&&n<=max,code);return n;}
+export const stringify=(v,space=2)=>JSON.stringify(v,(_k,x)=>typeof x==='bigint'?{$integer:x.toString()}:x,space);
+export const parse=s=>JSON.parse(s,(_k,x)=>x&&typeof x==='object'&&Object.keys(x).length===1&&/^[-]?[0-9]+$/.test(x.$integer??'')?BigInt(x.$integer):x);
+export function freeze(x){if(x&&typeof x==='object'&&!ArrayBuffer.isView(x)){Object.values(x).forEach(freeze);Object.freeze(x);}return x;}
+export const bounded=(xs,n)=>({items:xs.slice(0,n),total:xs.length,truncated:xs.length>n});
+export function envelope(operation,board,data){return{schema:SCHEMA,operation,provenance:board.provenance(),classification:{facts:'Authenticated state and original event artifacts, if provenance.trust is certificate-verifier',derived:'All summaries, geometry, prices and metrics are local derivations from that state',predictions:'Only explicitly labelled forecasts; not authenticated futures',operational:'Pace, wallet budgets and pending transactions are separately sourced, not certified gameplay'},...data};}
+export const fractionSub=(a,b)=>[a[0]*b[1]-b[0]*a[1],a[1]*b[1]];
+export const fractionCmp=(a,b)=>a[0]*b[1]<b[0]*a[1]?-1:a[0]*b[1]>b[0]*a[1]?1:0;

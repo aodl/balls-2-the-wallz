@@ -4,8 +4,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {localCertificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';
 import {ArtifactAssembler,verifyCertificatePublication} from '@dtr/timeline-runtime/client/verification';
 import {snapshot} from '../apps/b2z-observer/model.mjs';
-import {Certificate,lookupResultToBuffer} from '@icp-sdk/core/agent';
-import {Principal} from '@icp-sdk/core/principal';
+import {recordedCertificateVerifier} from '../packages/protocol/recorded-certificate.mjs';
 const dir=process.argv[2],read=async name=>new Uint8Array(await readFile(`${dir}/${name}`));
 const meta=JSON.parse(await readFile(`${dir}/metadata.json`,'utf8'));
 const policy={network:'pocketic-local',canister_id:meta.canister_id,now_ns:BigInt(meta.now_ns),max_age_ns:300000000000n,max_future_ns:30000000000n};
@@ -13,16 +12,7 @@ const catalog=await read('catalog.bin'),certificate=await read('certificate.cbor
 // An explicit, trusted PocketIC virtual clock is needed after install-rate-limit
 // cooldowns. This retains the SDK's time checks and the outer freshness policy;
 // it is never selected as a fallback following an authentication failure.
-const offset=Number(BigInt(meta.now_ns)/1000000n)-Date.now();
-const virtualAgent={getTimeDiffMsecs:()=>offset,hasSyncedTime:()=>true,syncTime:async()=>{throw new Error("explicit PocketIC clock already supplied");}};
-const verify=meta.virtual_clock ? async(bytes,deployment)=>{
- const canister=Principal.fromText(deployment.canister_id);
- const cert=await Certificate.create({certificate:bytes,rootKey:root,principal:{canisterId:canister},maxAgeInMinutes:5,agent:virtualAgent});
- const data=lookupResultToBuffer(cert.lookup_path(['canister',canister.toUint8Array(),'certified_data'])),time=lookupResultToBuffer(cert.lookup_path(['time']));
- assert(data instanceof Uint8Array&&data.length===32&&time instanceof Uint8Array);
- let ns=0n,shift=0n;for(const byte of time){ns|=BigInt(byte&127)<<shift;if(!(byte&128))break;shift+=7n;}
- return {network:'pocketic-local',canister_id:canister.toText(),certified_data_hex:Buffer.from(data).toString('hex'),certificate_time_ns:ns};
-} : localCertificateVerifier(root);
+const verify=meta.virtual_clock ? recordedCertificateVerifier({network:'pocketic-local',rootKey:root,recordedNs:BigInt(meta.now_ns)}) : localCertificateVerifier(root);
 const ticket=await verifyCertificatePublication(catalog,certificate,policy,verify);
 // Profile worlds are initialized in disposable IC, so their DTR history is v6.
 // Paid recovery is a distinct authenticated v8/epoch-2 scenario. Never accept a

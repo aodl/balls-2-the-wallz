@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+/** Separate signer process. Only its trusted launch config enables an approved campaign. */
+import {readFile,stat} from 'node:fs/promises';import {createInterface} from 'node:readline';
+import {VerifiedObserver,MAINNET} from '../packages/agents/b2z/observer.mjs';
+import {GameExecutor} from '../packages/agents/b2z/executor.mjs';import {DfxGameLedger} from '../packages/agents/b2z/ledger-dfx.mjs';
+import {parse,stringify,check} from '../packages/agents/b2z/common.mjs';
+const args=process.argv.slice(2),get=k=>{const i=args.indexOf(k);return i<0?null:args[i+1];};
+if(args.includes('--help')||!args.length){console.log('B2Z restricted executor: --campaign policy.json --journal private-journal.db --stdio [--approval operator-owned.json --enable-approved-mainnet]\nB2Z_PLAYER_DFX_ROOT selects the separate player-only dfx store. Keys are never read by this program. No approve, generic transfer or controller operation exists in the JSON interface. Mainnet signing is disabled by default.');process.exit(0);}
+async function load(path){check(path&&(await stat(path)).size<=65536,'CONFIG_BOUND');return parse(await readFile(path,'utf8'));}
+const campaign=await load(get('--campaign')),approval=get('--approval')?await load(get('--approval')):null;
+let policy=MAINNET;if(get('--local-config')){const c=await load(get('--local-config'));policy={...c,rootKey:Buffer.from(c.root_key_hex,'hex')};check(policy.network==='pocketic-local','LOCAL_ONLY');}
+const observer=await VerifiedObserver.connect({policy,store:get('--store'),trackAccounts:campaign.players.map(p=>p.account_identifier)}),ledger=new DfxGameLedger({policy:{...policy,recipient:campaign.recipient},players:campaign.players,identityRoot:process.env.B2Z_PLAYER_DFX_ROOT,allowMainnet:args.includes('--enable-approved-mainnet')}),executor=new GameExecutor({campaign,approval,journal:get('--journal'),observer,ledger});
+const allowed={prepare_action:['player','action'],submit_action:['plan_id','campaign_id'],action_status:['plan_id'],reconcile:['plan_id'],emergency_stop:[]};
+async function request(r){const fields=allowed[r.operation];check(fields,'UNSUPPORTED_OPERATION');check(Object.keys(r).every(k=>['operation','params'].includes(k))&&Object.keys(r.params??{}).every(k=>fields.includes(k)),'REQUEST_FIELDS');const p=r.params??{};switch(r.operation){case'prepare_action':return executor.prepare_action(p.player,p.action);case'submit_action':return executor.submit_action(p.plan_id,p.campaign_id);case'action_status':return executor.action_status(p.plan_id);case'reconcile':return executor.reconcile(p.plan_id);case'emergency_stop':return executor.emergency_stop();}}
+try{if(args.includes('--stdio')){observer.start();for await(const line of createInterface({input:process.stdin,crlfDelay:Infinity})){if(!line.trim())continue;try{check(Buffer.byteLength(line)<=65536,'REQUEST_BOUND');console.log(stringify(await request(parse(line)),0));}catch(e){console.log(stringify({status:'error',error:e.message},0));}}}else console.log(stringify(await request(await load(get('--request')))));}finally{observer.stop();executor.close();}

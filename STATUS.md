@@ -1,4 +1,29 @@
-# BTZ v6 deployed, verified and resumed
+# B2Z agent foundations; funded pilot blocked on entry space and approval
+
+The shared authenticated mirror, JSON inspection/forecast CLI, eight strategy
+policies, bounded local runner and restricted SQLite-backed executor are implemented.
+Four independent ordinary public player accounts are ready in
+[the funding manifest](config/agents/players.public.json). No real ICP was spent;
+funding does not authorize a campaign. The proposed cap is 5 ICP including fees,
+30 minutes, one cannon/two live balls per player and one unresolved action each.
+
+Current authenticated v6 ownership covers all 1,000,000 cells. New players cannot
+find the required neutral 3×3 first-spawn patch. A local exact-kernel reproduction
+confirms a rejected payment would be retained. Browser/agent preflight refuses this
+known-impossible join; reopening entry requires a separate rules decision, not a
+reset. Matching backend convenience-quote/API wording fixes are source-only until
+an independently authorized backend release. The production backend/epoch is unchanged.
+
+See [agent commands, safeguards and limitations](docs/operations/B2Z_AGENTS.md).
+The initial installed four-player Ledger/Index executor case passed; a final scoped
+check includes the epoch/changed-quote dispatch guards. Raw runs are under `.work/`;
+reviewed release results and frontend asset identities follow in evidence/B2Z.
+
+---
+
+<!-- ARCHIVED_STATUS -->
+
+# B2Z v6 deployed, verified and resumed
 
 The second release is live on the existing mainnet backend and observer. Normal
 Wasm `b618e4f3…`, public app `ba2c8478…` and DTR `282d7091…` remain the exact
@@ -20,8 +45,6 @@ fallback; MCP terms/discovery opt-in remains inactive. No 512-ball or gross-burn
 claim is made. [Exact deployment, preservation, screenshots and limitations](evidence/BTZ/v6-mainnet-release/REPORT.md).
 
 ---
-
-<!-- ARCHIVED_STATUS -->
 
 # Complete frozen v6 installed/browser gate PASS; final CI pending
 
