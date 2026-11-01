@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-11-01T17:02:24.447Z",
+  "scope": "Anonymous signed operational Ledger queries; no transaction submitted",
+  "fee_e8s": "10000",
+  "balances": [
+    {
+      "alias": "b2z-agent-expander",
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "balance_e8s": "0"
+    },
+    {
+      "alias": "b2z-agent-defender",
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "balance_e8s": "0"
+    },
+    {
+      "alias": "b2z-agent-raider",
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "balance_e8s": "0"
+    },
+    {
+      "alias": "b2z-agent-adaptive",
+      "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+      "balance_e8s": "0"
+    }
+  ]
+}

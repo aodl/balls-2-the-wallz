@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-11-01T17:04:26.805573+00:00",
+  "files": [
+    {
+      "file": "app.mjs",
+      "sha256": "576aa794b615f5af7e0851a8c225f066c794cba9d502fed0a462dac200b643cf",
+      "bytes": 666533
+    },
+    {
+      "file": "index.html",
+      "sha256": "28db163c0d206c9c3b52424d76d5a142e7f361295acfab1158f0aa7f11fba8ce",
+      "bytes": 19789
+    },
+    {
+      "file": "backend.did",
+      "sha256": "81fbb52ecace0566b6c78994bcff0b3637fa225830e2e7422b4432a65176835a",
+      "bytes": 11686
+    },
+    {
+      "file": "agent-api.md",
+      "sha256": "f14d4e999bb474e78dc218d69379986642b3a7c4a22ba16403f11f12e085e3c8",
+      "bytes": 6076
+    }
+  ]
+}

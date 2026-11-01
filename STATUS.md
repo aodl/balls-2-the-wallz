@@ -15,9 +15,10 @@ reset. Matching backend convenience-quote/API wording fixes are source-only unti
 an independently authorized backend release. The production backend/epoch is unchanged.
 
 See [agent commands, safeguards and limitations](docs/operations/B2Z_AGENTS.md).
-The initial installed four-player Ledger/Index executor case passed; a final scoped
-check includes the epoch/changed-quote dispatch guards. Raw runs are under `.work/`;
-reviewed release results and frontend asset identities follow in evidence/B2Z.
+The final installed four-player Ledger/Index executor case passed with the
+epoch/changed-quote dispatch guards. The B2Z frontend and impossible-join guard are
+live as app `576aa794…`; backend `b618e4f3…` and epoch index 3 are unchanged.
+Raw runs remain under `.work/`; see the [reviewed results and screenshots](evidence/B2Z/agent-foundations-2026-11-01/REPORT.md).
 
 ---
 

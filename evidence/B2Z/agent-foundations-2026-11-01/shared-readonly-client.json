@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "wall_seconds": 3.6838750269962475,
+  "four_views_one_snapshot_head": {
+    "$integer": "80246"
+  },
+  "measurements": [
+    {
+      "view_ms": 16.391819999999825,
+      "observer": {
+        "queries": 4,
+        "artifact_bytes": 36155,
+        "refreshes": 1,
+        "stale_responses": 0,
+        "resyncs": 0,
+        "last_refresh_ms": 2568.846466
+      }
+    },
+    {
+      "view_ms": 0.5343069999998988,
+      "observer": {
+        "queries": 4,
+        "artifact_bytes": 36155,
+        "refreshes": 1,
+        "stale_responses": 0,
+        "resyncs": 0,
+        "last_refresh_ms": 2568.846466
+      }
+    },
+    {
+      "view_ms": 2.9243390000001455,
+      "observer": {
+        "queries": 4,
+        "artifact_bytes": 36155,
+        "refreshes": 1,
+        "stale_responses": 0,
+        "resyncs": 0,
+        "last_refresh_ms": 2568.846466
+      }
+    },
+    {
+      "view_ms": 0.12350199999991673,
+      "observer": {
+        "queries": 4,
+        "artifact_bytes": 36155,
+        "refreshes": 1,
+        "stale_responses": 0,
+        "resyncs": 0,
+        "last_refresh_ms": 2568.846466
+      }
+    }
+  ],
+  "stdout_bytes": 15978,
+  "llm_inference_calls": 0
+}

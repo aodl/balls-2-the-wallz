@@ -1,0 +1,273 @@
+{
+  "scope": "Two separately referenced authenticated captures, not combined inputs to one decision. The decision used only its own referenced snapshot. Forecasts remain predictions; full proofs/raw outputs remain local.",
+  "observation": {
+    "provenance": {
+      "network": "ic",
+      "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "head": {
+        "$integer": "80223"
+      },
+      "logical_time": {
+        "$integer": "134375"
+      },
+      "root": "2e4d702175d586b1e49fdeecac81d9635599984314274456a6b3d5631a1cf466",
+      "manifest": "09d11d33e8deedd4ef1e87f7e11374284d3de3d5fbff76cf8f481e9da9cb46ca",
+      "state": "21f553931051d677d7813e10b966c866d6852927157b9fbc6d2b229c009d6250",
+      "epoch": "e7905ce5167be6f4a416ca59a73430fbece44b273e3324aa289e8e3699997d07",
+      "epoch_index": {
+        "$integer": "3"
+      },
+      "source_cursor": {
+        "$integer": "39711127"
+      },
+      "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+      "trust": "certificate-verifier",
+      "observation_age_ms": 4523.430386,
+      "history_gaps": [],
+      "units": {
+        "cell": "row-major y*1000+x, 1 cell; toroidal 1000x1000",
+        "position": "exact rational fixed-point units, 1024 units/cell",
+        "velocity": "fixed-point units/logical tick",
+        "heading": "unsigned nat16 full turn for actions; no degree rounding",
+        "elapsed": "consensus-observed nanoseconds",
+        "money": "integer e8s; wallet fee separate",
+        "score": "canonical rational accrued area-time"
+      }
+    },
+    "counts": {
+      "players": 1,
+      "cannons": 1,
+      "balls": 3,
+      "active_islands": 1,
+      "dormant_islands": 0
+    },
+    "entry": {
+      "neutral_cells": 0,
+      "first_join_impossible": true,
+      "policy": "First cannon requires a neutral 3x3 patch. At least nine neutral cells are necessary, not sufficient; sealed candidate ranking is not a reservation."
+    },
+    "players": {
+      "items": [
+        {
+          "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+          "player_id": 3,
+          "cannon_ids": [
+            3
+          ],
+          "balls": 3,
+          "cells": 1000000,
+          "accrued_score": [
+            {
+              "$integer": "159983125766339613372851"
+            },
+            {
+              "$integer": "2608680513892740"
+            }
+          ],
+          "next_cannon_e8s": {
+            "$integer": "400000000"
+          },
+          "islands": [
+            {
+              "id": 3,
+              "balls": 3,
+              "cells": 1000000,
+              "next_ball_e8s": {
+                "$integer": "90000000"
+              }
+            }
+          ]
+        }
+      ],
+      "total": 1,
+      "truncated": false
+    },
+    "islands": {
+      "items": [
+        {
+          "id": 3,
+          "owner_player": 3,
+          "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+          "cells": 1000000,
+          "status": "active",
+          "cannon_ids": [
+            3
+          ],
+          "ball_ids": [
+            3,
+            4,
+            6
+          ],
+          "supporting_balls": 3,
+          "next_ball_e8s": {
+            "$integer": "90000000"
+          },
+          "frontier_edges": 0,
+          "adjacent_players": [],
+          "risk": {
+            "kind": "derived heuristic, not a proven cut set",
+            "last_supporting_ball": false,
+            "narrow_connection_candidates": [],
+            "candidate_search": "bounded samples of run endpoints/midpoints; incomplete"
+          },
+          "label_scope": "Snapshot-local; merges and splits may relabel islands"
+        }
+      ],
+      "total": 1,
+      "truncated": false
+    },
+    "measurements": {
+      "view_ms": 20.44367499999953,
+      "observer": {
+        "queries": 4,
+        "artifact_bytes": 36325,
+        "refreshes": 1,
+        "stale_responses": 0,
+        "resyncs": 0,
+        "last_refresh_ms": 3354.947648
+      }
+    }
+  },
+  "decision": {
+    "provenance": {
+      "network": "ic",
+      "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "head": {
+        "$integer": "79986"
+      },
+      "logical_time": {
+        "$integer": "134138"
+      },
+      "root": "805f68e1c5a705e13784b865ca0a809d4919b7c8777b78a6101579f3eb6f8e4d",
+      "manifest": "b4c299a09e35e3eaab9e07022c55a35c05adc25be5bffc180e11c8ae407754b3",
+      "state": "45a32c77081c7318dd72cb58529cab38af5ea7d9cea5614246386601f8af0957",
+      "epoch": "e7905ce5167be6f4a416ca59a73430fbece44b273e3324aa289e8e3699997d07",
+      "epoch_index": {
+        "$integer": "3"
+      },
+      "source_cursor": {
+        "$integer": "39711127"
+      },
+      "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+      "trust": "certificate-verifier",
+      "observation_age_ms": 8477.085691,
+      "history_gaps": [],
+      "units": {
+        "cell": "row-major y*1000+x, 1 cell; toroidal 1000x1000",
+        "position": "exact rational fixed-point units, 1024 units/cell",
+        "velocity": "fixed-point units/logical tick",
+        "heading": "unsigned nat16 full turn for actions; no degree rounding",
+        "elapsed": "consensus-observed nanoseconds",
+        "money": "integer e8s; wallet fee separate",
+        "score": "canonical rational accrued area-time"
+      }
+    },
+    "status": "complete",
+    "decision": {
+      "policy": "frugal-expander",
+      "version": "b2z-policies-1",
+      "candidate": "wait",
+      "ranking": [
+        {
+          "candidate": "wait",
+          "rank": 1024,
+          "heuristic": {
+            "gain": 1024,
+            "area": 0,
+            "loss": 0,
+            "kills": 0,
+            "dormant": 0,
+            "cost_icp_for_ranking_only": 0
+          }
+        },
+        {
+          "candidate": "fire-3-6827-1",
+          "rank": 102.4,
+          "heuristic": {
+            "gain": 1024,
+            "area": 0,
+            "loss": 0,
+            "kills": 0,
+            "dormant": 0,
+            "cost_icp_for_ranking_only": 0.9
+          }
+        },
+        {
+          "candidate": "fire-3-0-1",
+          "rank": 102.4,
+          "heuristic": {
+            "gain": 1024,
+            "area": 0,
+            "loss": 0,
+            "kills": 0,
+            "dormant": 0,
+            "cost_icp_for_ranking_only": 0.9
+          }
+        }
+      ],
+      "reason": "Scenario-based heuristic over exact-kernel forecasts, not a claim of optimal play. Monetary validation remains integer e8s."
+    },
+    "measurements": {
+      "elapsed_ms": 1534.843968000001,
+      "worker_ms": 584.4419320000006,
+      "total_work": 2188,
+      "view_ms": 1592.245637000001,
+      "observer": {
+        "queries": 4,
+        "artifact_bytes": 36702,
+        "refreshes": 1,
+        "stale_responses": 0,
+        "resyncs": 0,
+        "last_refresh_ms": 5461.486478
+      }
+    },
+    "assumptions": {
+      "scenarios": [
+        {
+          "name": "no-new-opponent-actions",
+          "delay_ticks": 0,
+          "tick_ns": {
+            "$integer": "10000000000"
+          },
+          "opponent": false
+        },
+        {
+          "name": "plausible-public-last-heading-response",
+          "delay_ticks": 6,
+          "tick_ns": {
+            "$integer": "10000000000"
+          },
+          "opponent": true
+        },
+        {
+          "name": "delayed-admission-opponent-first",
+          "delay_ticks": 12,
+          "tick_ns": {
+            "$integer": "10000000000"
+          },
+          "opponent": true
+        }
+      ],
+      "deterministic": "Actual existing B2zCursor with explicit synthetic future Ledger positions and consensus-time facts; never mainnet mutation",
+      "unknowns": [
+        "Future opponent payments and budgets",
+        "Ledger/Index discovery and admission order",
+        "First-spawn sealed inputs",
+        "Actual wall-clock pacing"
+      ],
+      "latency": {
+        "source_fallback_seconds": 60,
+        "index_lag": "not bounded by fallback alone",
+        "browser_presentation": "Separate buffered delay; not payment admission"
+      },
+      "uncertainty": "Scenario outcomes are predictions, not authenticated futures. Delayed actions beyond this logical horizon are not executed in the scenario.",
+      "zero_funding_rate": false
+    }
+  }
+}
