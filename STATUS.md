@@ -18,6 +18,8 @@ No v6 deployment or fresh funding quote before applicable final CI passes.
 
 ---
 
+<!-- ARCHIVED_STATUS -->
+
 # Definitive CI FAIL diagnosed; two test-only corrections ready
 
 CI 41205667919 finished FAIL: 49 installed checks PASS, two stale assertions FAIL
