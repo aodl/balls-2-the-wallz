@@ -457,10 +457,10 @@ def main():
             page.screenshot(path=str(out/'healthy-idle.png'))
             record('certified-idle-genesis-allows-transfer-preparation')
             page.locator('#dismiss-empty').click();assert not page.locator('#empty-arena').is_visible()
-            assert page.title()=='Balls 2 the wallZ - BTZ'
-            assert page.locator('.mark').inner_text()=='BTZ'
+            assert page.title()=='Balls 2 the wallZ - B2Z'
+            assert page.locator('.mark').inner_text()=='B2Z'
             assert 'on ICP' in page.locator('body').inner_text()
-            record('BTZ-branding-with-preserved-wire-identity')
+            record('B2Z-branding-with-preserved-wire-identity')
             page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             assert page.locator('#receiving-account').text_content()==configuration['recipient']
             assert page.locator('#backend-identity').text_content()==configuration['canister_id']

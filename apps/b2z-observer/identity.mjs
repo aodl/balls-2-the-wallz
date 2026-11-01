@@ -13,6 +13,7 @@ export function canonicalAccount(value){
  if(!/^[0-9a-fA-F]{64}$/.test(value))throw Error('AccountIdentifier must have 64 hex digits');
  const b=Uint8Array.from(value.match(/../g),s=>parseInt(s,16));if(new DataView(b.buffer).getUint32(0)!==getCrc32(b.slice(4)))throw Error('AccountIdentifier checksum');return value.toLowerCase();
 }
+// Compatibility hash domain and preference key below retain stable colours/saved declarations.
 export function accountColor(account){
  const b=/^[0-9a-f]{64}$/.test(account)?Uint8Array.from(account.match(/../g),s=>parseInt(s,16)):new TextEncoder().encode(account);
  const domain=new TextEncoder().encode('BTZ-player-colour-v1\0'),all=new Uint8Array(domain.length+b.length);all.set(domain);all.set(b,domain.length);const h=sha256(all);

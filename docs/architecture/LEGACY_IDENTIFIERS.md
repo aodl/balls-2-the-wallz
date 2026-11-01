@@ -1,6 +1,6 @@
 # B2Z naming and immutable historical identifiers
 
-The public display name is **Balls 2 the wallZ - BTZ**, abbreviated **BTZ**. Repository paths, packages, symbols, CLI arguments and deployment aliases retain `b2z` / `B2Z` / `B2z`; branding is not a wire migration. The backend alias `b2z` maps to the existing principal; it does not create or rename a canister on-chain. The observer alias and both receiving account representations remain unchanged. The new `BTZ-identify-v1` preference namespace and `BTZ-player-colour-v1` colour domain have no payment authority. DTR and third-party packages are unchanged.
+The current public display name is **Balls 2 the wallZ - B2Z**, abbreviated **B2Z**. The obsolete BTZ spelling is retained only for compatibility and immutable history. Repository paths, packages, symbols, CLI arguments and deployment aliases already use `b2z` / `B2Z` / `B2z`. Renaming the display is not a wire migration. The existing `BTZ-identify-v1` preference key is retained so saved declarations/cannon selection survive; `BTZ-player-colour-v1` remains unchanged so account colours remain stable. Neither confers payment authority. Historical evidence paths, source branches and their checksums remain accessible without rewriting.
 
 These literal byte strings intentionally retain their published spelling:
 

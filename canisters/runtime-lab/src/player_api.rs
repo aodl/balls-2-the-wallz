@@ -510,6 +510,17 @@ fn quote_items(w: &World, funding_account: &str, action: &QuoteAction) -> Result
             first,
             ..
         } => {
+            // Necessary placement precondition, derived from compact counts.
+            // This does not promise that the sealed 1,024-probe search will find a site.
+            if first
+                && w.ownership_counts()
+                    .iter()
+                    .map(|(_, cells)| cells)
+                    .sum::<usize>()
+                    > 999_991
+            {
+                return Err("NO_ELIGIBLE_SPAWN".into());
+            }
             let mut counts = if first {
                 vec![0]
             } else if let Some(cell) = cell {
@@ -905,5 +916,42 @@ mod tests {
         assert_eq!(quantity(Some(64)).unwrap(), Some(64));
         assert_eq!(quantity(Some(0)).unwrap(), Some(0));
         assert!(quantity(Some(256)).is_err());
+    }
+    #[test]
+    fn first_join_quote_rejects_fully_owned_world_without_changing_rules() {
+        let mut w = world("idle");
+        let label = w.ownership_counts()[0].0;
+        let o = w.ownership.as_mut().unwrap();
+        o.base.fill(label);
+        o.overrides.clear();
+        o.counts = vec![b2z_native::world::OwnerCount {
+            owner: label,
+            cells: 1_000_000,
+        }];
+        w.validate().unwrap();
+        let other = AccountIdentifier::new(&Principal::anonymous(), &DEFAULT_SUBACCOUNT).to_hex();
+        assert_eq!(
+            quote_items(
+                &w,
+                &other,
+                &QuoteAction::New {
+                    angle: 0,
+                    quantity: 1,
+                    cell: None
+                }
+            )
+            .unwrap_err(),
+            "NO_ELIGIBLE_SPAWN"
+        );
+        assert!(quote_items(
+            &w,
+            &w.cannons[0].account,
+            &QuoteAction::Fire {
+                cannon: w.cannons[0].id,
+                angle: 0,
+                quantity: 1
+            }
+        )
+        .is_ok());
     }
 }

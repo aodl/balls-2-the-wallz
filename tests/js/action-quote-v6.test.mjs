@@ -24,3 +24,8 @@ test('a known full player capacity disables a new-account quote without blocking
  assert.throws(()=>quoteV6(w,config,'ab'.repeat(32),{kind:'new'}),/ACCOUNTING_CAPACITY/);
  assert.equal(quoteV6(w,config,account,{kind:'new'}).amount,400000000n);
 });
+test('a fully owned world cannot quote a first join that the spawn rule necessarily rejects',()=>{
+ const w=world(),id=w.ownership.counts[0].owner;w.ownership.base.fill(id);w.ownership.overrides=[];w.ownership.counts=[{owner:id,cells:1000000}];
+ assert.throws(()=>quoteV6(w,config,'ab'.repeat(32),{kind:'new',quantity:1}),/NO_ELIGIBLE_SPAWN/);
+ assert.equal(quoteV6(w,config,w.cannons[0].account,{kind:'fire',cannon:w.cannons[0].id}).amount,10000000n);
+});
