@@ -1,0 +1,71 @@
+{
+  "plan_id": "e05bfffd7ac874796cd706e833125a3d63a3f2d24e60489d9045b3d5d33e1af7",
+  "plan": {
+    "schema": "b2z-action-plan/1",
+    "campaign": "b2z-expander-smoke-001",
+    "policy_hash": "956c61e29a1772b9be12275f51020e787b2a0ee5316add4a039b1245424bd524",
+    "player": "b2z-agent-expander",
+    "principal": "nikzn-5d3lj-4f36z-7f3nq-gbx5k-2d5ah-5cgw2-ouxef-tinjj-vzbz6-kqe",
+    "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+    "action": {
+      "New": {
+        "angle": 0,
+        "quantity": 2,
+        "cell": null
+      }
+    },
+    "network": "ic",
+    "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "identity": {
+      "network": "ic",
+      "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "head": {
+        "$integer": "81391"
+      },
+      "logical_time": {
+        "$integer": "135542"
+      },
+      "root": "dcf391a3f47c87be73f6ccc4e38babfa50478fd1d75cb0cb1eaf13aef247e477",
+      "manifest": "65cbed8406ede797305bec5f134f5ec0deff3d27f1b305cf93db03caf5fe3a0f",
+      "state": "698b29a57fc1f441b43f6b6bf67fec44466ad96946a9ad173a20d108b3ebbcb4",
+      "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+      "epoch_index": {
+        "$integer": "4"
+      },
+      "source_cursor": {
+        "$integer": "39711127"
+      },
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "destination": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+    "amount_e8s": {
+      "$integer": "110000000"
+    },
+    "fee_e8s": {
+      "$integer": "10000"
+    },
+    "full_cost_e8s": {
+      "$integer": "110010000"
+    },
+    "memo_hex": "c6000002ffffff00",
+    "text_memo": "NEW 0.00 2",
+    "maximum_fill": 2,
+    "requested_quantity": 2,
+    "created_at_time_ns": {
+      "$integer": "1793573447432000000"
+    },
+    "expires_ns": {
+      "$integer": "1793573477432000000"
+    },
+    "non_reservation": true,
+    "retained_payment_policy": true
+  },
+  "approval_required": false,
+  "remaining_budget_e8s": {
+    "$integer": "0"
+  }
+}

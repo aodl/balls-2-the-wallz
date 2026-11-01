@@ -1,3 +1,20 @@
+# B2Z first real agent payment — PASS
+
+The operator-funded Expander completed one restricted live join: Ledger block
+39,964,703, applied 2/2 balls and cannon #5. Exactly 1.1001 ICP including the fee
+was spent from 2 ICP; 0.8999 ICP remains. Ledger/Index fields, authoritative receipt,
+authenticated world and existing-page presentation agree. The receipt proof
+re-verifies after restart. No reload/resync occurred; one authentic stale response
+was discarded and recovered. The single-payment journal is now stopped.
+
+The operator delegated aftermath choice; entities remain running under ordinary
+conservation. Other players and further purchases are not authorized. The first
+1.1001 ICP counts toward any proposed 5 ICP pilot cap. Local signer correction
+`c7ddf8e` and 25 executor tests pass; deployed gameplay artifacts remain unchanged.
+[Exact reconciliation, timings, fixes and screenshots](evidence/B2Z/expander-first-live-payment-2026-11-01/REPORT.md).
+
+---
+
 # B2Z entry rules 7 — deployed, verified and resumed
 
 The farthest-safe first-entry rule is live on the existing backend: normal Wasm
