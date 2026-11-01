@@ -77,7 +77,7 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
         })
         .collect())
 }
-fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
+pub(crate) fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
     let mut blocked: BTreeSet<_> = world.cannons.iter().map(|c| c.cell).collect();
     for b in &world.balls {
         let [x, y] = position(b, &world.time)?;
@@ -120,6 +120,16 @@ pub fn place_new(
     plan: &Plan,
     placement: &crate::spawn::Placement,
 ) -> Result<Created> {
+    place_new_with_policy(world, account, amount, plan, placement, false)
+}
+pub fn place_new_with_policy(
+    world: &World,
+    account: &str,
+    amount: u64,
+    plan: &Plan,
+    placement: &crate::spawn::Placement,
+    entry_rules: bool,
+) -> Result<Created> {
     let Plan::New {
         angle,
         quantity,
@@ -146,9 +156,9 @@ pub fn place_new(
         return Err("STALE_PURCHASE_PLAN".into());
     }
     let patch = if *first {
-        if placement.kind != 2
+        if placement.kind != if entry_rules { 5 } else { 2 }
             || world.patch(placement.cell).as_ref() != Some(&placement.patch)
-            || placement.patch.iter().any(|c| world.owner(*c) != Some(0))
+            || !entry_rules && placement.patch.iter().any(|c| world.owner(*c) != Some(0))
         {
             return Err("FIRST_PLACEMENT_NEUTRAL_PATCH".into());
         }

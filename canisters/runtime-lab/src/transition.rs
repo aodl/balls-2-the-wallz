@@ -45,11 +45,17 @@ impl Transition {
             ..Self::new()
         }
     }
+    pub fn entry() -> Self {
+        Self {
+            version: 4,
+            ..Self::new()
+        }
+    }
     pub fn holding(&self) -> bool {
         self.phase != "complete"
     }
     pub fn validate(&self) -> Result<()> {
-        if !matches!(self.version, 1..=3)
+        if !matches!(self.version, 1..=4)
             || !["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
         {
             return Err("world transition phase".into());

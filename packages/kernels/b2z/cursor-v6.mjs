@@ -1,14 +1,14 @@
 /** Pure v6 command/capture continuations. No ambient clock, IC or Ledger calls. */
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
-import {beginSpawn,spawnStep} from './spawn.mjs';
+import {beginSpawn,beginEntrySpawn,spawnStep} from './spawn.mjs';
 import {preparePurchase,PurchaseBatch,chooseAdjacent,placeNew} from './purchases-v6.mjs';
 import {CaptureJob} from './capture-v6.mjs';
 import {finalizeElapsed,V6_POLICY} from './playability.mjs';
 import {validateWorld} from './world.mjs';
 const rejected=(c,p,reason)=>c.receipt(p,{reason,status:'rejected',amount_used:0n,remainder:p.amount});
 function place(c,p,plan,r){
- const made=placeNew(c.world,p.account,p.amount,plan,r),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
+ const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
  c.world=made.world;c.emit(made.event);c.areaDirty=true;
  Object.assign(c.v6,{plan:null,payment:p,batch:{...batch}});c.phase='v6_purchase';
 }
@@ -29,7 +29,7 @@ export function workV6(c,readPayment){
      if(c.spawnSearches>=8)rejected(c,payment,'SPAWN_SEARCH_CAPACITY');
      else{
        c.spawnSearches++;const seed=sha256(encodeCanonical({base:c.seedBase,position:BigInt(c.inputs[c.inputIndex].position),cannon:c.world.next_cannon_id}));
-       if(plan.first){c.spawnJob=beginSpawn(seed);c.spawnAngle=plan.angle;c.v6.payment=payment;c.v6.plan=plan;c.phase='v6_spawn';}
+       if(plan.first){c.spawnJob=c.v6.entry_rules?beginEntrySpawn(c.world,seed):beginSpawn(seed);c.spawnAngle=plan.angle;c.v6.payment=payment;c.v6.plan=plan;c.phase='v6_spawn';}
        else{const cell=plan.cell??chooseAdjacent(c.world,plan.player,seed);if(cell===null)rejected(c,payment,'NO_ADJACENT_SITE');else place(c,payment,plan,{cell,patch:[cell],kind:4,other:-1,checked:1});}
      }
    }else throw Error('PURCHASE_PLAN');

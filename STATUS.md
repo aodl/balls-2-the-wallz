@@ -1,24 +1,18 @@
-# B2Z agent foundations; funded pilot blocked on entry space and approval
+# B2Z farthest-entry fix — local rules-7 candidate
 
-The shared authenticated mirror, JSON inspection/forecast CLI, eight strategy
-policies, bounded local runner and restricted SQLite-backed executor are implemented.
-Four independent ordinary public player accounts are ready in
-[the funding manifest](config/agents/players.public.json). No real ICP was spent;
-funding does not authorize a campaign. The proposed cap is 5 ICP including fees,
-30 minutes, one cannon/two live balls per player and one unresolved action each.
+The operator has approved replacing the neutral-only first join with the legal
+3×3 patch furthest from existing cannons on the torus, regardless of territory colour.
+The candidate uses a new authenticated rules/configuration identity, preserves
+world schema 6 and all economics, and keeps historical v6 replay intact.
 
-Current authenticated v6 ownership covers all 1,000,000 cells. New players cannot
-find the required neutral 3×3 first-spawn patch. A local exact-kernel reproduction
-confirms a rejected payment would be retained. Browser/agent preflight refuses this
-known-impossible join; reopening entry requires a separate rules decision, not a
-reset. Matching backend convenience-quote/API wording fixes are source-only until
-an independently authorized backend release. The production backend/epoch is unchanged.
+Rust/JS differential vectors cover a fully occupied world, seams, a blocking ball,
+bridge protection, empty/rejoining worlds, legacy memos and 127 existing cannons.
+The native three-epoch test verifies exact world/value/deadline/source preservation.
+A focused installed normal-module upgrade/epoch/first-join browser rehearsal is
+being prepared. Production backend/epoch and player funds are unchanged.
 
-See [agent commands, safeguards and limitations](docs/operations/B2Z_AGENTS.md).
-The final installed four-player Ledger/Index executor case passed with the
-epoch/changed-quote dispatch guards. The B2Z frontend and impossible-join guard are
-live as app `576aa794…`; backend `b618e4f3…` and epoch index 3 are unchanged.
-Raw runs remain under `.work/`; see the [reviewed results and screenshots](evidence/B2Z/agent-foundations-2026-11-01/REPORT.md).
+See [the exact rule and cutover contract](docs/specs/B2Z_ENTRY_RULES_7.md).
+Branch: `release/b2z-farthest-entry`. Remote Git operations remain user-owned.
 
 ---
 

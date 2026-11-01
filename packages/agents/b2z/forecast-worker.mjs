@@ -23,7 +23,7 @@ parentPort.on('message',({snapshot,account,choices,horizon,scenarios,maxWork,max
     if(ours){add(account,choice.quote);used=choice.quote.amount_e8s;}
     elapsed+=BigInt(scenario.tick_ns);
     if(!w.balls.length&&!inputs.length){const ex=expireV6(w,elapsed,dueFences(w,elapsed));if(ex){w=decodeWorld(ex.output.state);events.push(...decodeCanonical(ex.output.events).events);}continue;}
-    const start=w.time[0];if(w.time[1]!==1n)throw Error('INTEGER_FORECAST_BOUNDARY');const cursor=new B2zCursor(encodeWorld(w),inputs,{...PLAYABILITY_IDENTITY,logical_start:start,logical_end:start+1n});
+    const start=w.time[0];if(w.time[1]!==1n)throw Error('INTEGER_FORECAST_BOUNDARY');const cursor=new B2zCursor(encodeWorld(w),inputs,{rules_hash:snapshot.reference.rules_hash,config_hash:snapshot.reference.config_hash,schema_hash:snapshot.reference.schema_hash,logical_start:start,logical_end:start+1n});
     for(;;){const r=cursor.step(1);totalWork+=r.used;if(r.complete)break;if(totalWork>=maxWork||performance.now()-started>maxMs){status='bounded_incomplete';break;}}
     if(status!=='complete')break;cursor.finalizeElapsed(elapsed);const output=cursor.result();w=decodeWorld(output.state);const audit=decodeCanonical(output.events);events.push(...audit.events);receipts.push(...audit.receipts);ticks++;
     const expiry=expireV6(w,elapsed,dueFences(w,elapsed));if(expiry){w=decodeWorld(expiry.output.state);events.push(...decodeCanonical(expiry.output.events).events);}

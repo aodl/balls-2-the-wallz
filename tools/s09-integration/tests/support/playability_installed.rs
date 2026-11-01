@@ -299,7 +299,7 @@ pub(super) fn old_transition(pic: &PocketIc, id: Principal, kind: &str) {
         candid::encode_one(observe(pic, id).1.head.manifest_hash).unwrap(),
     );
 }
-fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path) {
+pub(super) fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path) {
     let (o, p) = observe(pic, id);
     let Some(n) = p.head.segment_id.as_ref() else {
         return;
@@ -534,9 +534,9 @@ fn history_and_authentication(
     );
 }
 #[derive(CandidType, Deserialize)]
-struct BoundaryWork {
-    phase: Option<String>,
-    pending_inputs: u32,
+pub(super) struct BoundaryWork {
+    pub(super) phase: Option<String>,
+    pub(super) pending_inputs: u32,
 }
 
 #[test]

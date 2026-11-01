@@ -7,9 +7,10 @@ import {ArtifactAssembler,PublicationSequence,verifyCertificatePublication,verif
 import {Actor,HttpAgent} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
-import {decodeWorld,PLAYABILITY_IDENTITY} from '../../kernels/b2z/world.mjs';
+import {decodeWorld,PLAYABILITY_IDENTITY,ENTRY_IDENTITY} from '../../kernels/b2z/world.mjs';
 import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from '../../../apps/b2z-observer/live-delivery.mjs';
 import {recordedCertificateVerifier} from '../../protocol/recorded-certificate.mjs';
+import {CONFIGURATION_ASSETS} from '../../../apps/b2z-observer/configuration.generated.mjs';
 import {BoardAnalysis} from './analysis.mjs';
 import {check,freeze,parse,stringify} from './common.mjs';
 const certified=new WeakSet();
@@ -28,7 +29,7 @@ export class VerifiedObserver{
   self.sourceActor=Actor.createActor(({IDL})=>IDL.Service({source_descriptor:IDL.Func([],[IDL.Variant({Ok:IDL.Vec(IDL.Nat8),Err:IDL.Text})],['query'])}),{agent:self.agent,canisterId:policy.canister_id});
   await self.restoreFloor();return self;
  }
- async verify(raw,{historicalNs=null}={}){const ticket=await verifyCertificatePublication(raw.publication,raw.certificate,{network:this.policy.network,canister_id:this.policy.canister_id,now_ns:historicalNs??this.clock(),max_age_ns:300000000000n,max_future_ns:30000000000n},historicalNs===null?this.connection.verifyCertificate:recordedCertificateVerifier({...this.policy,recordedNs:historicalNs}));for(const k of ['rules_hash','config_hash','schema_hash'])check(ticket.publication.identity[k]===PLAYABILITY_IDENTITY[k],'UNSUPPORTED_RULES_IDENTITY');return ticket;}
+ async verify(raw,{historicalNs=null}={}){const ticket=await verifyCertificatePublication(raw.publication,raw.certificate,{network:this.policy.network,canister_id:this.policy.canister_id,now_ns:historicalNs??this.clock(),max_age_ns:300000000000n,max_future_ns:30000000000n},historicalNs===null?this.connection.verifyCertificate:recordedCertificateVerifier({...this.policy,recordedNs:historicalNs}));check([PLAYABILITY_IDENTITY,ENTRY_IDENTITY].some(id=>['rules_hash','config_hash','schema_hash'].every(k=>ticket.publication.identity[k]===id[k])),'UNSUPPORTED_RULES_IDENTITY');return ticket;}
  async restoreFloor(){if(!this.store)return;let data;try{data=parse(await readFile(join(this.store,'floor.json'),'utf8'));}catch(e){if(e.code==='ENOENT')return;throw e;}
   check(data.policy.network===this.policy.network&&data.policy.canister_id===this.policy.canister_id,'CACHE_DEPLOYMENT_MISMATCH');const raw={publication:Buffer.from(data.publication_hex,'hex'),certificate:Buffer.from(data.certificate_hex,'hex')},ticket=await this.verify(raw,{historicalNs:BigInt(data.certificate_ns)});check(ticket.certificate_time_ns===BigInt(data.certificate_ns),'CACHE_CERTIFICATE_TIME');this.sequence.accept(ticket);rememberLiveAcceptance(this.delivery,ticket);
   // Historical authentication restores only the anti-rollback floor. No cached state is current until fresh observation.
@@ -59,7 +60,7 @@ export class VerifiedObserver{
  async load(ticket,proof,gaps){const bundles=await this.connection.client.bundle(Number(ticket.publication.head.segment_id),ticket.root_hash),artifacts={};this.metrics.queries++;
   for(const[k,kind]of ['state','events','scores'].entries()){const a=new ArtifactAssembler(ticket,kind);for(let i=0;i<a.descriptor.chunks.length;i++)await a.accept(i,bundles[k].slice(i*16384,(i+1)*16384));artifacts[kind]=await a.finish();this.metrics.artifact_bytes+=artifacts[kind].length;}
   let source=this.current?.source;if(!source||this.current.reference.source_id!==ticket.publication.identity.source_id){const r=await this.sourceActor.source_descriptor();this.metrics.queries++;check(r.Ok,'SOURCE_UNAVAILABLE');source=await verifiedSourceDescriptor(Uint8Array.from(r.Ok),ticket,{network:this.policy.network,canister_id:this.policy.canister_id,ledger:this.policy.ledger,index:this.policy.index});}
-  const configBytes=await readFile(new URL('../../../apps/b2z-observer/configuration-playability.bin',import.meta.url));check(await sha256Web(configBytes)===ticket.publication.identity.config_hash,'CONFIGURATION_COMMITMENT');
+  const configBytes=await readFile(new URL('../../../apps/b2z-observer/'+CONFIGURATION_ASSETS[ticket.publication.identity.config_hash],import.meta.url));check(await sha256Web(configBytes)===ticket.publication.identity.config_hash,'CONFIGURATION_COMMITMENT');
   const p=ticket.publication,reference={network:this.policy.network,canister:this.policy.canister_id,head:p.head.segment_id,logical_time:p.head.logical_end,root:ticket.root_hash,manifest:p.head.manifest_hash,state:p.head.state_hash,epoch:p.epoch?.transition_hash??null,epoch_index:p.epoch?.transition_index??null,source_cursor:p.head.source_to_exclusive,...p.identity};
   const world=decodeWorld(artifacts.state),events=decodeCanonical(artifacts.events);check(events.version===6,'EVENT_VERSION');
   const s=freeze({trust:'certificate-verifier',reference,observed_ns:ticket.certificate_time_ns,world,events,scores:decodeCanonical(artifacts.scores),configuration:decodeCanonical(configBytes),source,gaps,operational:null});

@@ -161,6 +161,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_context: Option<playability_runtime::Context>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    entry_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -266,6 +268,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.world_transition.as_ref(),
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
+        r.entry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -281,6 +284,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.world_transition.as_ref(),
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
+        r.entry_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -292,6 +296,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.million_transition.as_mut()
     } else if flags[2] {
         r.playability_transition.as_mut()
+    } else if flags[3] {
+        r.entry_transition.as_mut()
     } else {
         None
     })
@@ -304,6 +310,7 @@ fn transition_evidence<'a>(
         r.world_transition.as_ref(),
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
+        r.entry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -430,6 +437,12 @@ fn root() -> AppResult<Root> {
             return Err("playability transition requires completed v5 epoch".into());
         }
     }
+    if let Some(t) = &r.entry_transition {
+        t.validate()?;
+        if t.version != 4 {
+            return Err("entry transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -476,6 +489,7 @@ fn root() -> AppResult<Root> {
         r.world_transition.as_ref(),
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
+        r.entry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -755,6 +769,7 @@ fn persist_inner(
         world_transition: old.and_then(|r| r.world_transition.clone()),
         million_transition: old.and_then(|r| r.million_transition.clone()),
         playability_transition: old.and_then(|r| r.playability_transition.clone()),
+        entry_transition: old.and_then(|r| r.entry_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -940,7 +955,7 @@ fn runtime_health() -> health::Health {
 }
 #[ic_cdk::query]
 fn get_api_doc() -> String {
-    "B2Z public read-only API v1: game_info returns configuration, capacities and destination; player_state(account) returns account-owned cannons/credits; cannon_state(id) returns the current island pool and lifecycle; nearby_region(cell,width,height) is bounded to 16x16 cells; action_quote(account,Fire/New/Move) uses integer e8s and exact uint16 heading, with quantity 1..64; payment_receipt(position,optional_segment) inspects one retained publication or reports pending/unknown. Typed replies carry publication/state/epoch references but are NOT certified replies: independently authenticate observation_bundle, verify artifacts and compare the referenced snapshot. Fetch a fresh quote after state changes; it is not a reservation, fill may change and unused payment is retained. Memo bytes are the exact eight-byte binary/numeric form; optional text_memo is supplied only when its decimal-angle grammar round-trips to those bytes. Destination amount excludes the wallet's current Ledger fee. Old ANGLE/MOVE histories keep their old meaning; v6 untargeted commands choose the lowest cannon ID. Duplicate Ledger IDs have one original outcome; queries never replay payments. Missing old data is unknown/not retained, not proof of rejection or non-payment. lab_status/runtime_health are operational queries, not certified gameplay or gross cycle billing. Positive balance movements reset the net-decline estimate. No query grants wallet authority. Payments use the player's external wallet and authenticated sending account; there are no refunds, payouts, transaction-signing or controller operations in this player API. ICP MCP financial execution is unavailable and its service-discovery terms opt-in is inactive.".into()
+    "B2Z public read-only API v1: first-entry policy is bound in configuration; rules 7 use the furthest legal 3x3 patch from existing cannons on the torus regardless of territory colour, while historical rules 6 remain neutral-only. World schema 6 and memo adapter 4 are preserved. game_info returns configuration, capacities and destination; player_state(account) returns account-owned cannons/credits; cannon_state(id) returns the current island pool and lifecycle; nearby_region(cell,width,height) is bounded to 16x16 cells; action_quote(account,Fire/New/Move) uses integer e8s and exact uint16 heading, with quantity 1..64; payment_receipt(position,optional_segment) inspects one retained publication or reports pending/unknown. Typed replies carry publication/state/epoch references but are NOT certified replies: independently authenticate observation_bundle, verify artifacts and compare the referenced snapshot. Fetch a fresh quote after state changes; it is not a reservation, fill may change and unused payment is retained. Memo bytes are the exact eight-byte binary/numeric form; optional text_memo is supplied only when its decimal-angle grammar round-trips to those bytes. Destination amount excludes the wallet's current Ledger fee. Old ANGLE/MOVE histories keep their old meaning; v6 untargeted commands choose the lowest cannon ID. Duplicate Ledger IDs have one original outcome; queries never replay payments. Missing old data is unknown/not retained, not proof of rejection or non-payment. lab_status/runtime_health are operational queries, not certified gameplay or gross cycle billing. Positive balance movements reset the net-decline estimate. No query grants wallet authority. Payments use the player's external wallet and authenticated sending account; there are no refunds, payouts, transaction-signing or controller operations in this player API. ICP MCP financial execution is unavailable and its service-discovery terms opt-in is inactive.".into()
 }
 fn refresh_pace() {
     HEALTH.with(|h| h.borrow_mut().start(ic_cdk::api::time()));
@@ -955,6 +970,7 @@ fn maintenance_requested(r: &Root) -> bool {
             .playability_transition
             .as_ref()
             .is_some_and(|t| t.holding())
+            || r.entry_transition.as_ref().is_some_and(|t| t.holding())
             || r.lifecycle_barrier.is_some())
 }
 fn driver_needs_work(h: &Coordinator<B2zHostKernel>, r: &Root) -> AppResult<bool> {
@@ -2497,6 +2513,137 @@ fn commit_playability_transition(
     request_reconciliation()?;
     encode(&next.playability_transition)
 }
+/// Change only first-entry rules at the exact committed rules-v6 predecessor.
+/// The existing fenced source worker obtains its own Ledger/Index watermarks.
+#[ic_cdk::update]
+fn prepare_entry_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.entry_transition {
+        return encode(t);
+    }
+    if r.run.running {
+        return Err("pause autonomous gameplay before rules-7 cutover".into());
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let expected = b2z_native::playability::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("entry requires exact rules-v6 predecessor".into());
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 6 || r.source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION {
+        return Err("only current rules-v6 world can activate rules-7".into());
+    }
+    if r.source.in_flight
+        || r.source.pending.is_some()
+        || r.source.last_error.is_some()
+        || r.run.last_error.is_some()
+        || r.lifecycle_error.is_some()
+        || r.lifecycle_barrier.is_some()
+    {
+        return Err(
+            "finish existing source reconciliation and recover errors before cutover".into(),
+        );
+    }
+    r.entry_transition = Some(transition::Transition::entry());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.entry_transition)
+}
+#[ic_cdk::query]
+fn entry_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition":r.entry_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
+    )
+}
+/// Derives the rules-7 metadata once. No caller-supplied world, time or identities.
+#[ic_cdk::update]
+fn commit_entry_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .entry_transition
+        .as_ref()
+        .ok_or("prepare rules-7 cutover first")?;
+    if t.phase == "complete" {
+        if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
+            return Err("conflicting rules-7 transition retry".into());
+        }
+        let expected = b2z_native::entry_v7::identity()?;
+        let identity =
+            serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+        if ["rules_hash", "config_hash", "schema_hash"]
+            .iter()
+            .any(|k| identity[*k] != expected[*k])
+        {
+            return Err("completed rules-7 transition has been superseded".into());
+        }
+        return encode(t);
+    }
+    if r.run.running
+        || r.run.last_error.is_some()
+        || r.lifecycle_barrier.is_some()
+        || r.lifecycle_error.is_some()
+    {
+        return Err(
+            "rules-7 activation requires paused error-free autonomous configuration".into(),
+        );
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let (output, metadata, identity) =
+        playability_runtime::entry_candidate(&h, t, &r.source, ic_cdk::api::time())?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.entry_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    // The memo adapter remains version 4 across this rules-only cutover.
+    r.source.requested = true;
+    // Preserve existing lifecycle evidence, deadlines and recovery state.
+    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&next.run);
+    playability_runtime::install(&next)?;
+    request_reconciliation()?;
+    encode(&next.entry_transition)
+}
 /// Content-addressed application metadata. Hash against the independently
 /// authenticated epoch.metadata_hash; this convenience reply is not certified.
 #[ic_cdk::query]
@@ -2509,6 +2656,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.world_transition.as_ref(),
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
+        r.entry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

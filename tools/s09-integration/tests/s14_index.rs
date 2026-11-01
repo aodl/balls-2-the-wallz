@@ -6954,3 +6954,6 @@ fn public_runtime_health_is_bounded_operational_and_anonymous() {
             && doc.contains("there are no refunds, payouts, transaction-signing or controller operations in this player API")
     );
 }
+
+#[path = "support/entry_installed.rs"]
+mod entry_installed;
