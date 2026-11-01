@@ -3,7 +3,7 @@
 Version scope: the contract below records the original S14 application and its
 historical interpretations. The last verified production release is release 1,
 world v5 with paid-v8 publications. The separate next-version candidate is
-[BTZ v6 playability](B2Z_PLAYABILITY_V6.md); it requires its own authenticated
+[B2Z v6 playability](B2Z_PLAYABILITY_V6.md); it requires its own authenticated
 activation and has not been deployed. It does not reinterpret old payments,
 receipts, physics or publications. Consult executed release evidence for live
 module identities rather than treating the historical v3 descriptions as the
@@ -15,7 +15,7 @@ Earlier source/laboratory specifications and S09–S13 measurements describe his
 
 B2Z relies on the configured official ICP index for the contents and completeness of its receiving account's transaction history. An application certificate binds what B2Z published; it does not independently prove the index reported every payment. Mainnet uses ICP ledger `ryjl3-tyaaa-aaaaa-aaaba-cai` and index `qhbym-qaaaa-aaaaa-aaafq-cai`. Initialization/readiness verifies the index's `ledger_id` before admitting history.
 
-There is one receiving account, derived with `ic-ledger-types::AccountIdentifier` from the backend principal and numeric subaccount (default 0). Numeric N is `24 zero bytes || N.to_be_bytes()`. The same account controls index queries, recipient validation, certified source identity, public display and operator subscription declaration. The source identity domain is `BTZ-ICP-INDEX-01`; source anchors use `BTZ-ICP-INDEX-ANCHOR-01` and bind normalized account records in original global-ID order. They are not ledger block hashes.
+There is one receiving account, derived with `ic-ledger-types::AccountIdentifier` from the backend principal and numeric subaccount (default 0). Numeric N is `24 zero bytes || N.to_be_bytes()`. The same account controls index queries, recipient validation, certified source identity, public display and operator subscription declaration. The source identity domain is `B2Z-ICP-INDEX-01`; source anchors use `B2Z-ICP-INDEX-ANCHOR-01` and bind normalized account records in original global-ID order. They are not ledger block hashes.
 
 The funding AccountIdentifier owns its cannon under existing rules. It is not one human or a recoverable principal. There is no login, identity linking, wallet connection, allowance, session, hosted balance or frontend transaction submission. Shared-sender wallets can combine users' gameplay identity; some wallets cannot preserve required memos.
 

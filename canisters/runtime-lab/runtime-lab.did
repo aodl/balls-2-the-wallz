@@ -322,6 +322,8 @@ service : (blob, nat64, IndexConfig) -> {
   artifact_bundle : (nat64, text) -> (Result_1) query;
   artifact_chunk : (text, nat8, nat16) -> (Result_2) query;
   cannon_state : (nat32) -> (Result_3) query;
+  // Derives the rules-7 metadata once. No caller-supplied world, time or identities.
+  commit_entry_transition : (text) -> (Result_2);
   // Commit the reviewed compact 1000×1000 state through DTR's generic next
   // epoch operation. No state or identity is accepted from the caller.
   commit_million_transition : (text) -> (Result_2);
@@ -333,6 +335,7 @@ service : (blob, nat64, IndexConfig) -> {
   controller_funding : () -> (Result_4) query;
   controller_runtime : () -> (Result_5) query;
   controller_work : () -> (Result_6) query;
+  entry_transition_status : () -> (Result_2) query;
   // Content-addressed application metadata. Hash against the independently
   // authenticated epoch.metadata_hash; this convenience reply is not certified.
   epoch_metadata : (text) -> (Result_2) query;
@@ -350,6 +353,9 @@ service : (blob, nat64, IndexConfig) -> {
   playability_transition_status : () -> (Result_2) query;
   player_state : (text) -> (Result_13) query;
   poke : (vec PokeMatch) -> ();
+  // Change only first-entry rules at the exact committed rules-v6 predecessor.
+  // The existing fenced source worker obtains its own Ledger/Index watermarks.
+  prepare_entry_transition : () -> (Result_2);
   // Begins only the reviewed v4→v5 cutover. The existing v3→v4 evidence is
   // retained independently, and the worker obtains fresh global watermarks.
   prepare_million_transition : () -> (Result_2);

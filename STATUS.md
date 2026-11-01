@@ -1,3 +1,95 @@
+# B2Z first real agent payment — PASS
+
+The operator-funded Expander completed one restricted live join: Ledger block
+39,964,703, applied 2/2 balls and cannon #5. Exactly 1.1001 ICP including the fee
+was spent from 2 ICP; 0.8999 ICP remains. Ledger/Index fields, authoritative receipt,
+authenticated world and existing-page presentation agree. The receipt proof
+re-verifies after restart. No reload/resync occurred; one authentic stale response
+was discarded and recovered. The single-payment journal is now stopped.
+
+The operator delegated aftermath choice; entities remain running under ordinary
+conservation. Other players and further purchases are not authorized. The first
+1.1001 ICP counts toward any proposed 5 ICP pilot cap. Local signer correction
+`c7ddf8e` and 25 executor tests pass; deployed gameplay artifacts remain unchanged.
+[Exact reconciliation, timings, fixes and screenshots](evidence/B2Z/expander-first-live-payment-2026-11-01/REPORT.md).
+
+---
+
+# B2Z entry rules 7 — deployed, verified and resumed
+
+The farthest-safe first-entry rule is live on the existing backend: normal Wasm
+`cfcf6130…`, public app `ddebfaf3…`, authenticated epoch index 4 `4fb7adbb…`.
+The complete world and paid/source/treasury records survived upgrade and cutover.
+World schema 6, memo adapter 4, prices, capacities and historical epochs remain.
+The already-open public page accepted 12 consecutive heads without reload,
+resync or delivery error. The new-player quote on the fully coloured board
+independently verifies as 1.1 ICP for the cannon/two-ball request; no payment sent.
+
+At 22:25:03 UTC on 1 November 2026, gameplay runs Survival (0.10 ticks/s),
+4.694313569926T liquid, with healthy source/treasury, original controllers and
+34-node fiduciary placement. CI 41350813269 passes exact source `d242d30`.
+The operator authorized release before the later user-owned PR merge. Test-player
+spending remains unapproved. [Exact deployed identities, preservation, screenshots,
+cycle limitations and evidence](evidence/B2Z/entry-rules-7-mainnet-release/REPORT.md).
+
+---
+
+# B2Z entry release — CI PASS, authorized, fresh funding stop
+
+CI 41350813269 passes exact source `d242d30`. The operator authorizes production
+release before the later user-owned PR merge. The complete installed/browser/
+replay gate remains PASS. Fresh liquid cycles are 2.918003070310T against the
+saved 3.357988370090T release/recovery guard: BLOCKED_FUNDING. No live mutation
+or financial transfer occurred. Production remains the existing paid v6 world
+in Reserve Protection, with healthy source/treasury and its original placement.
+[Fresh preflight and precise remaining blocker](evidence/B2Z/entry-release-funding-stop-2026-11-01/REPORT.md).
+
+---
+
+# B2Z farthest-entry fix — installed/browser gate PASS, publication pending
+
+Rules 7 admits first players on coloured territory at the exact furthest safe
+3×3 toroidal patch. Prices, schema 6, memo adapter 4 and historical v6 replay are
+preserved. The frozen normal backend is `cfcf6130…`; prepared app is `ddebfaf3…`.
+The 220.444s installed rehearsal preserves paid/unfinished state, authenticates
+the cutover, observes the actual 2/2-ball join receipt in the same browser and
+independently replays all 131 publications/two payments. Both earlier FAILs are
+retained; the missing client checkpoint case and local asset allowlist are fixed.
+
+Published CI 41349167166 at `64b3c3c` reports a source-job FAIL. Its stale export
+inventory is reproduced and corrected locally. Final client/CI/evidence commits
+need publication and successful applicable CI. Remote Git remains user-owned.
+Production still has backend `b618e4f3…`, its original controllers and 34-node
+fiduciary placement; no production update or test-account spending occurred.
+[Exact evidence, screenshots and remaining release boundary](evidence/B2Z/farthest-entry-2026-11-01/REPORT.md).
+
+---
+
+<!-- ARCHIVED_STATUS -->
+
+# B2Z v6 deployed, verified and resumed
+
+The second release is live on the existing mainnet backend and observer. Normal
+Wasm `b618e4f3…`, public app `ba2c8478…` and DTR `282d7091…` remain the exact
+qualified artifacts. PR #5 merged normally as `f72503f` with a source tree equal
+to green CI head `9afac75`; full browser-enabled v6 qualification passed separately.
+
+The paid v5 state/history survived the upgrade byte-for-byte. Authenticated epoch
+index 3 (`e7905ce5…`) activates v6 without changing cannon #3, its three balls,
+ownership, accrued credits, receiving account, source cursor or treasury records.
+The same public page accepted 29 consecutive heads through the cutover/resume,
+with no reload or resync; seven genuine stale responses were discarded and all
+four warning episodes recovered. No payment or financial transfer was performed.
+
+At 13:44:59 UTC on 1 November 2026, gameplay is running Conserve (0.20 ticks/s),
+6.080656810211T liquid, with healthy source/treasury and no pending input. Actual
+limits are 128 cannons, 64 total balls, 64 per purchase island and 16 retained
+cannons per funding player. Event Horizon remains disabled with 60-second Index
+fallback; MCP terms/discovery opt-in remains inactive. No 512-ball or gross-burn
+claim is made. [Exact deployment, preservation, screenshots and limitations](evidence/BTZ/v6-mainnet-release/REPORT.md).
+
+---
+
 # Complete frozen v6 installed/browser gate PASS; final CI pending
 
 The exact `c7d12fd7…`→`b618e4f3…` paid/unfinished-state rehearsal now passes the
@@ -17,8 +109,6 @@ No v6 deployment or fresh funding quote before applicable final CI passes.
 [Complete technical qualification and exact remaining boundary](evidence/BTZ/v6-gate-qualified/REPORT.md).
 
 ---
-
-<!-- ARCHIVED_STATUS -->
 
 # Definitive CI FAIL diagnosed; two test-only corrections ready
 

@@ -18,7 +18,7 @@ export function adjacentSites(w,id){
  for(const c of w.cannons)if(playerForCannon(w,c.id)===id&&territoryBallCount(w,c.id)>0)for(const n of neighbors(c.cell,w.width,w.height,true))sites.add(n);
  return [...sites].filter(c=>!blocked.has(c)&&(ownerAt(w,c)===0||playerAt(w,c)===id)).sort((a,b)=>a-b);
 }
-function occupiedCells(w){
+export function occupiedCells(w){
  const blocked=new Set(w.cannons.map(c=>c.cell));
  for(const b of w.balls){const [x,y]=position(b,w.time),cx=b.cell%w.width,cy=Math.floor(b.cell/w.width),xs=[cx],ys=[cy];
   if(cmp(x,rat(cx*Q))===0)xs.push(cx-1);else if(cmp(x,rat((cx+1)*Q))===0)xs.push(cx+1);
@@ -28,7 +28,7 @@ function occupiedCells(w){
  return blocked;
 }
 /** Isolated proposal, before enclosing cursor receipt/tally commit. */
-export function placeNew(w,account,budget,p,r){
+export function placeNew(w,account,budget,p,r,entryRules=false){
  if(p.kind!=='new')throw Error('NEW_CANNON_PLAN');
  const command=p.explicit?{kind:'new',angle:p.angle,quantity:p.quantity,cell:p.cell}:{kind:'angle',value:p.angle};
  const fresh=preparePurchase(w,account,budget,encodeV6Memo(command));
@@ -36,7 +36,7 @@ export function placeNew(w,account,budget,p,r){
  let patch;
  if(p.first){
   patch=seedPatch(r.cell,w.width,w.height,true);
-  if(r.kind!==2||patch.join(',')!==r.patch.join(',')||patch.some(c=>ownerAt(w,c)!==0))throw Error('FIRST_PLACEMENT_NEUTRAL_PATCH');
+  if(r.kind!==(entryRules?5:2)||patch.join(',')!==r.patch.join(',')||!entryRules&&patch.some(c=>ownerAt(w,c)!==0))throw Error('FIRST_PLACEMENT_NEUTRAL_PATCH');
  }else{
   if(r.kind!==4||r.patch.length!==1||r.patch[0]!==r.cell||p.cell!==null&&p.cell!==r.cell||!adjacentSites(w,p.player).includes(r.cell))throw Error('ILLEGAL_ADJACENT_SITE');
   patch=[r.cell];

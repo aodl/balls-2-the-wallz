@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "record": {
+    "id": {
+      "$integer": "39964703"
+    },
+    "transaction": {
+      "memo": {
+        "$integer": "14267403632394632960"
+      },
+      "icrc1_memo": [],
+      "operation": {
+        "Transfer": {
+          "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+          "fee": {
+            "e8s": {
+              "$integer": "10000"
+            }
+          },
+          "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "amount": {
+            "e8s": {
+              "$integer": "110000000"
+            }
+          },
+          "spender": []
+        }
+      },
+      "timestamp": [
+        {
+          "timestamp_nanos": {
+            "$integer": "1793573448369037465"
+          }
+        }
+      ],
+      "created_at_time": [
+        {
+          "timestamp_nanos": {
+            "$integer": "1793573447432000000"
+          }
+        }
+      ]
+    }
+  },
+  "scanned": 2,
+  "matching": "Exact account, recipient, amount, fee, memo and immutable created_at_time; one match"
+}

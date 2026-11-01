@@ -1,0 +1,155 @@
+{
+  "status": "PASS",
+  "receipt_proofs_reverified_after_restart": 1,
+  "reference": {
+    "network": "ic",
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "head": {
+      "$integer": "81400"
+    },
+    "logical_time": {
+      "$integer": "135551"
+    },
+    "root": "7c9783790235412794b79382b9cde96ef001be712119b0a04aa18f09e232f5c2",
+    "manifest": "6ada0c4813e740be671db565d6636fd3c6c74ca7df2e089020d22926e5eecfb4",
+    "state": "427636c474a18b83b86f037cd5270c5c2a16f86daf32a2ae3d4c91135154b13d",
+    "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+    "epoch_index": {
+      "$integer": "4"
+    },
+    "source_cursor": {
+      "$integer": "39964704"
+    },
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+  },
+  "own_cannon": {
+    "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+    "cell": 547797,
+    "heading": 0,
+    "id": 5
+  },
+  "own_balls": [
+    {
+      "cell": 547806,
+      "id": 7,
+      "owner": 5,
+      "vx": 32000,
+      "vy": 0,
+      "x0": {
+        "$integer": "-4336805888"
+      },
+      "y0": {
+        "$integer": "560640"
+      }
+    },
+    {
+      "cell": 547806,
+      "id": 8,
+      "owner": 5,
+      "vx": 32000,
+      "vy": 0,
+      "x0": {
+        "$integer": "-4336805888"
+      },
+      "y0": {
+        "$integer": "560640"
+      }
+    }
+  ],
+  "counts": {
+    "cannons": 2,
+    "balls": 5
+  },
+  "operational": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 100,
+        "supported_milli": 100,
+        "mode": "Survival",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": {
+        "$integer": "1"
+      },
+      "publication_ticks": {
+        "$integer": "1"
+      },
+      "completed_segments": {
+        "$integer": "81397"
+      },
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": {
+        "$integer": "39964704"
+      }
+    },
+    "health": {
+      "resets": {
+        "$integer": "9"
+      },
+      "sample_end_ns": {
+        "$integer": "1793573508628612776"
+      },
+      "observed_at_ns": {
+        "$integer": "1793573540760295428"
+      },
+      "sample_start_total_cycles": {
+        "$integer": "4483574041539"
+      },
+      "sample_count": 5,
+      "runtime_started_ns": {
+        "$integer": "1793571633998730092"
+      },
+      "known_treasury_credit_delta": {
+        "$integer": "0"
+      },
+      "net_decline_cycles": [
+        {
+          "$integer": "28433769068"
+        }
+      ],
+      "version": 1,
+      "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+      "reservation_gap_end": {
+        "$integer": "151799756700"
+      },
+      "certified_gameplay": false,
+      "sample_end_total_cycles": {
+        "$integer": "4455140272471"
+      },
+      "total_cycles": {
+        "$integer": "4665348066082"
+      },
+      "reservation_gap_start": {
+        "$integer": "149829215100"
+      },
+      "sample_start_ns": {
+        "$integer": "1793573267577987111"
+      },
+      "liquid_cycles": {
+        "$integer": "4513548309382"
+      },
+      "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+    }
+  },
+  "metrics": {
+    "queries": 14,
+    "artifact_bytes": 327269,
+    "refreshes": 1,
+    "stale_responses": 0,
+    "resyncs": 0,
+    "restored_floor": "81394",
+    "last_refresh_ms": 4036.6809359999997
+  }
+}

@@ -169,6 +169,62 @@ pub fn rules_candidate<K: Kernel>(
     Ok((output, encode(&metadata)?, identity))
 }
 
+/// Rules-only cutover: the complete v6 world and economic state survive byte-for-byte.
+pub fn entry_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    _observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    if t.version != 4
+        || t.phase != "ready"
+        || source.pending.is_some()
+        || source.in_flight
+        || !source.binding_checked
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION
+    {
+        return Err("entry source cutover not drained".into());
+    }
+    let expected = playability::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("entry requires exact rules-v6 predecessor identity".into());
+    }
+    let state = unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&state)?;
+    if old.version != 6
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+        || !old.pending.is_empty()
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+        || h.record.journal.stage.is_some()
+        || !h.record.inbox.pending.is_empty()
+        || h.record.inbox.cursor != h.record.inbox.retired_to
+    {
+        return Err("entry requires committed gameplay/source boundary".into());
+    }
+    let mut id = b2z_native::entry_v7::identity()?;
+    id["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    let metadata = json!({"version":4,"migration":"B2Z_FARTHEST_ENTRY_RULES_07","old_identity":h.record.journal.identity,"new_identity":identity,"previous_state":hash(&state),"new_state":hash(&state),"logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),"ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,"index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,"memo_adapter_before":source.memo_adapter_version,"memo_adapter_after":source.memo_adapter_version});
+    Ok((
+        Output {
+            state,
+            events: encode(
+                &json!({"version":6,"receipts":[],"events":[{"kind":"rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+            )?,
+            scores: encode(&json!({"version":6,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 use super::{
     ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
     save_root_only, Root,
@@ -666,6 +722,74 @@ mod tests {
             8
         );
         source.memo_adapter_version = b2z_protocol::v6::MEMO_ADAPTER_VERSION;
+        // Independently branch from the actual three-epoch v6 history. Leave the
+        // historical trace/golden below unchanged.
+        {
+            let image = h.snapshot().unwrap();
+            let mut entry =
+                Coordinator::restore(&image, &hash(&image), ExplicitClock(observed + 1000000000))
+                    .unwrap();
+            ordinary(&mut entry);
+            let old_state = unhex(&entry.record.journal.head.state_hex).unwrap();
+            let old_cursor = entry.record.inbox.cursor.clone();
+            let old_retired = entry.record.inbox.retired_to.clone();
+            let old_anchor = entry.record.inbox.source_anchor.clone();
+            let old_pending = encode(&entry.record.inbox.pending).unwrap();
+            let old_reservation = encode(&entry.record.inbox.reservation).unwrap();
+            let old_epoch = entry
+                .record
+                .journal
+                .epoch
+                .as_ref()
+                .unwrap()
+                .transition_hash
+                .clone();
+            let (out, metadata, id) =
+                entry_candidate(&entry, &ready(4), &source, observed + 2000000000).unwrap();
+            assert_eq!(
+                out.state, old_state,
+                "entry cutover preserves every world/value/deadline byte"
+            );
+            let mut wrong = source.clone();
+            wrong.memo_adapter_version = 3;
+            assert!(entry_candidate(&entry, &ready(4), &wrong, observed).is_err());
+            apply_rules(&mut entry, &out, &metadata, id);
+            assert_eq!(
+                entry
+                    .record
+                    .journal
+                    .epoch
+                    .as_ref()
+                    .unwrap()
+                    .index()
+                    .unwrap(),
+                4
+            );
+            assert_ne!(
+                entry.record.journal.epoch.as_ref().unwrap().transition_hash,
+                old_epoch
+            );
+            assert_eq!(entry.record.inbox.cursor, old_cursor);
+            assert_eq!(entry.record.inbox.retired_to, old_retired);
+            assert_eq!(entry.record.inbox.source_anchor, old_anchor);
+            assert_eq!(encode(&entry.record.inbox.pending).unwrap(), old_pending);
+            assert_eq!(
+                encode(&entry.record.inbox.reservation).unwrap(),
+                old_reservation
+            );
+            assert_eq!(
+                unhex(&entry.record.journal.head.state_hex).unwrap(),
+                old_state
+            );
+            assert_eq!(
+                entry.record.journal.identity.config_hash,
+                hash(b2z_native::entry_v7::configuration())
+            );
+            assert!(
+                entry_candidate(&entry, &ready(4), &source, observed).is_err(),
+                "never reinterpret/repeat a rules-7 activation"
+            );
+        }
         ordinary(&mut h);
         record(&h, None);
         let dormant = World::decode(&unhex(&h.record.journal.head.state_hex).unwrap()).unwrap();

@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "recorded_at": "2026-11-01T13:29:31.499754+00:00",
+  "checks": {
+    "publication": "BYTE_IDENTICAL",
+    "state": "BYTE_IDENTICAL",
+    "events": "BYTE_IDENTICAL",
+    "scores": "BYTE_IDENTICAL",
+    "source-descriptor": "BYTE_IDENTICAL",
+    "configuration": "BYTE_IDENTICAL",
+    "retained_files_byte_identical": 80,
+    "source_cursor": "39711127",
+    "treasury_fields_preserved": [
+      "version",
+      "phase",
+      "paused",
+      "halted",
+      "last_error",
+      "last_plan_ns",
+      "last_refund",
+      "last_success",
+      "total_converted_e8s",
+      "total_cycles_reported"
+    ],
+    "version_before": 5,
+    "version_after": 5,
+    "cannons": 1,
+    "balls": 3,
+    "credits": [
+      {
+        "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+        "units": [
+          "154336021145417498956211",
+          "2608680513892740"
+        ]
+      },
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "units": [
+          "153763048884846618771",
+          "5530584763760"
+        ]
+      }
+    ],
+    "received_e8s": "620000000"
+  },
+  "module_verified": {
+    "recorded_at": "2026-11-01T13:28:52.914Z",
+    "certificate_verification": true,
+    "backend": {
+      "id": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "module_hash": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+      "nodes": 34
+    },
+    "observer": {
+      "id": "s45ab-wiaaa-aaaar-qcifq-cai",
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+      "nodes": 34
+    },
+    "completed_at": "2026-11-01T13:28:58.015Z",
+    "status": "PASS"
+  }
+}

@@ -26,7 +26,7 @@ export function createArcade(doc){
       if(action!=='move'&&!angleValid)return {reason:'Enter an angle from 0 to 359.99 with up to two decimal places.'};
       try{
         const q=quoteV6(world,config,declaration.account,{kind:({start:'new',ball:'fire',move:'move'})[action],cannon:c?.id,angle:degrees,quantity:action==='move'?1:Number($('ball-quantity').value),cell:action==='start'?($('new-cell').value===''?null:Number($('new-cell').value)):cell});
-        return {action,cannon:action==='start'?null:c.id,amount:q.amount,requested:q.requested,maximum_fill:q.maximum_fill,world_key:`${world.version}/${world.width}/${world.height}/${world.playability.elapsed_ns}`,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
+        return {action,cannon:action==='start'?null:c.id,amount:q.amount,requested:q.requested,maximum_fill:q.maximum_fill,world_key:`${config.rules_version??world.version}/${world.width}/${world.height}/${world.playability.elapsed_ns}`,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
       }catch(e){return {reason:`Cannot prepare: ${e.message.replaceAll('_',' ').toLowerCase()}. Final legality is checked when payment is processed.`};}
     }
     if(action!=='start'&&c?.account!==declaration.account)return {reason:'This cannon belongs to a different funding account.'};
@@ -38,7 +38,7 @@ export function createArcade(doc){
     if(action!=='move'&&!angleValid)return {reason:'Enter an angle from 0 to 359.99 with up to two decimal places.'};
     const memo=action==='move'?describeTextMemo('move',String(cell)):transferMemo(degrees);
     return {action,cannon:action==='start'?null:c.id,amount:action==='start'?config.join_e8s:action==='ball'?c.next_ball_e8s:config.move_e8s,
-      world_key:`${world.version}/${world.width}/${world.height}`,memo:memo.text,hex:memo.blob_hex,owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
+      world_key:`${config.rules_version??world.version}/${world.width}/${world.height}`,memo:memo.text,hex:memo.blob_hex,owner:source.owner,subaccount:source.subaccount.toString(),recipient:source.recipient};
   }
   const key=c=>JSON.stringify(c,(_,v)=>typeof v==='bigint'?v.toString():v);
   function availability(){
@@ -144,6 +144,7 @@ export function createArcade(doc){
       const mine=w.cannons.filter(c=>c.account===declaration?.account);
       const spawned=mine.find(c=>!known.has(String(c.id)));if(spawned){located=spawned.id;if(mode()==='start'){$('action-mode').value='ball';$('cannon-choice').hidden=false;}}
 
+      if($('first-placement-policy'))text('first-placement-policy',config.rules_version===7?'First join uses the legal 3×3 patch furthest from the nearest cannon on the wrapped board. Territory colour does not block entry. Cannons, live balls and existing island connectivity are protected; the processed payment decides the final site.':'First join uses deterministic neutral-patch placement, not an exact location you choose.');
       text('join-price',formatIcp(w.version===6?cannonPrice(mine.length):config.join_e8s));text('empty-price',formatIcp(config.join_e8s));
       text('capacity-summary',w.version===6?`${w.cannons.length}/${config.max_cannons} cannons · ${w.balls.length}/${config.max_balls} balls · up to ${config.max_retained_per_player} retained cannons per account · ${config.max_purchase_balls_per_island} balls per island for purchases.`:`${w.cannons.length}/${config.max_cannons} cannons · ${w.balls.length}/${config.max_balls} balls · ${config.max_per_cannon} balls per cannon.`);
       $('players-empty').hidden=w.cannons.length>0;

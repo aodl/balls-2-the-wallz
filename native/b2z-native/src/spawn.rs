@@ -24,6 +24,8 @@ pub struct Placement {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SpawnJob {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub entry: Option<crate::entry_v7::Search>,
     pub version: u32,
     pub seed: String,
     pub phase: String,
@@ -68,6 +70,7 @@ impl SpawnJob {
     pub fn begin(seed: String) -> Self {
         Self {
             version: 3,
+            entry: None,
             seed,
             phase: "enumerate".into(),
             scan: 0,
@@ -85,12 +88,32 @@ impl SpawnJob {
             result: None,
         }
     }
+    pub fn begin_entry(w: &World, seed: String) -> Result<Self> {
+        let mut job = Self::begin(seed);
+        job.version = 7;
+        job.entry = Some(crate::entry_v7::Search::begin(
+            w,
+            crate::purchases_v6::occupied_cells(w)?
+                .into_iter()
+                .collect(),
+        ));
+        Ok(job)
+    }
     fn reject(&mut self, reason: &str) {
         *self.rejection_counts.entry(reason.into()).or_insert(0) += 1;
         self.phase = "candidate".into();
         self.current = None;
     }
     pub fn step(&mut self, w: &World) -> Result<bool> {
+        if let Some(entry) = self.entry.as_mut() {
+            if entry.step(w)? {
+                self.result = entry.placement(w)?;
+                self.checked = entry.visited;
+                self.phase = "done".into();
+                return Ok(true);
+            }
+            return Ok(false);
+        }
         match self.phase.as_str() {
             "done" => return Ok(true),
             "enumerate" => {

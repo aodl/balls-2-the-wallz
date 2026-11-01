@@ -7,7 +7,7 @@
     "node": ">=22.16.0"
   },
   "scripts": {
-    "test": "node --test tests/js/*.test.mjs",
+    "test": "node --test --test-concurrency=1 tests/js/*.test.mjs",
     "memo": "node tools/command.mjs memo",
     "replay": "node tools/command.mjs replay",
     "verify": "python3.11 -B tools/verify_checkpoint.py",

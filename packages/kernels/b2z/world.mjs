@@ -1,3 +1,4 @@
+import {ENTRY_POLICY} from './entry.generated.mjs';
 import{territoryPlayer,territoryBalls,territoryForCannon}from'./territory-v6.mjs';
 import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './economics.generated.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
@@ -25,6 +26,9 @@ const {max_per_cannon:_historicalCannonLimit,...ISLAND_BASE_CONFIG}=MILLION_CONF
 export const PLAYABILITY_CONFIG=Object.freeze({...ISLAND_BASE_CONFIG,...V6_POLICY,memo_adapter_version:4,lifecycle_input_version:1,max_purchase_quantity:64,move_limit_per_cannon_segment:1,
   player_identity:'authenticated-funding-account',ball_ownership:'funding-player',cannon_activity:'connected-island-ball-pool',ball_price:'island-pool-floor-1-square',cannon_price:'retained-plus-1-square',dormancy_clock:'consensus-observed-ns-1',capture_resolution:'pair-and-cancel-1'});
 export const PLAYABILITY_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_PLAYABILITY_RULES_06')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_06_PLAYERS_LIFECYCLE')),config_hash:sha256(encodeCanonical(PLAYABILITY_CONFIG))});
+// Rules 7 preserve world-schema 6, memo 4, existing economics and event format.
+export const ENTRY_CONFIG=Object.freeze({...PLAYABILITY_CONFIG,...ENTRY_POLICY});
+export const ENTRY_IDENTITY=Object.freeze({...PLAYABILITY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_ENTRY_RULES_07')),config_hash:sha256(encodeCanonical(ENTRY_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

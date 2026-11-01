@@ -1,0 +1,7 @@
+{
+  "rules_version": 7,
+  "first_spawn": "farthest-cannon-toroidal-euclidean-1",
+  "spawn_patch_side": 3,
+  "spawn_tie_break": "lowest-row-major-cell",
+  "spawn_preserve_connectivity": true
+}

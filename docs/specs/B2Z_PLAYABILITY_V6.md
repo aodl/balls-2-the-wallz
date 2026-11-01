@@ -1,7 +1,7 @@
-# BTZ v6 playability — island occupancy clarification
+# B2Z v6 playability — island occupancy clarification
 
-This is the developing next rules identity. Production release 1 remains v5;
-no v6 activation or production capacity claim is made by this document.
+This is the deployed rules-v6 contract. The authenticated v5→v6 transition
+activated on 1 November 2026; verify the current publication before acting.
 Historical v3/v4/v5 events retain their original interpretation.
 
 The operator's latest clarification replaces launch-cannon ball attachment.
@@ -57,7 +57,7 @@ at 512 balls the existing canonical structural bound failed. Both failures are
 retained. The candidate therefore keeps 64 global balls, increases retained
 cannons to 128 total/16 per player, and permits a purchase pool of 64 per island
 subject to the global limit. This is not a sustained-rate claim at capacity;
-normal-module/browser final qualification remains pending. Moves cannot leave a ball-bearing island
+the final normal-module/browser qualification passed before deployment. Moves cannot leave a ball-bearing island
 without its last cannon. Dormant movement remains disallowed until revival.
 
 The pure Rust and JS interpreters now execute targeted/batched commands and
@@ -100,8 +100,7 @@ expiry maintenance continue subject to their existing funding floors. Source
 errors and insufficient maintenance funds can delay execution; no exact-second
 promise or automatic refund is made.
 
-Synthetic cross-language and host tests remain development evidence. The
-installed timer/source/upgrade rehearsal, public player APIs and action UI,
-buffered v9 browser handoff, independent history replay and capacity screening
-remain required before the authorised second release. No v6 state or capacity
-has been deployed.
+The complete browser-enabled installed rehearsal, independent replay and final CI
+passed before the v6 deployment. Historical failed attempts remain preserved.
+See [the deployed release record](../../evidence/BTZ/v6-mainnet-release/REPORT.md).
+Synthetic fixtures remain content tests; they are not IC authentication evidence.

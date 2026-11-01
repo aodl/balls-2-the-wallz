@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "recorded_at": "2026-11-01T13:33:21.896Z",
+  "method": "Independent JS migratePlayability over authenticated predecessor equals exact certified Rust migration output",
+  "state_hash": "d92e16afd72abd3315f27b2c980a5ebb9f658ae119be7af15d6c930b5d54edf6",
+  "metadata_hash": "82ec024be51c637b8e86a2ac76c144f3dc89893d5f7d65f0926eea489508d403",
+  "epoch": "e7905ce5167be6f4a416ca59a73430fbece44b273e3324aa289e8e3699997d07",
+  "observed_ns": "1793539935386004506",
+  "cannons": 1,
+  "balls": 3,
+  "credit_records": 2,
+  "received_e8s": "620000000",
+  "logical_time": [
+    "132261",
+    "1"
+  ],
+  "configuration": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+  "rules": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+  "schema": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+  "previous_manifest": "a3554426e8491902ed999a4f12abeca2eda5f2b5ad8cd5e265c7b063c6271e86"
+}

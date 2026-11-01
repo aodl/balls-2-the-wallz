@@ -92,7 +92,7 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     def sample():
         return page.evaluate('''()=>({...__dtrLive.playback,wall_epoch_ms:performance.timeOrigin+__dtrLive.playback.wall_ms,resyncs:__dtrLive.resyncs,visible_balls:Number(document.querySelector('#balls').textContent)})''')
 
-    assert page.title() == 'Balls 2 the wallZ - BTZ'
+    assert page.title() == 'Balls 2 the wallZ - B2Z'
     page.screenshot(path=str(out/'desktop-before.png'))
     # Hold one genuine query reply unchanged. Its signature still binds the
     # original request; no canned certificate or replay under a new request ID.

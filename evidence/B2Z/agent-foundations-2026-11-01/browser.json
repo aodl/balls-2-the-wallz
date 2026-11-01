@@ -1,0 +1,53 @@
+{
+  "scope": "Bounded read-only live rendering confirmation at the actual Survival rate; no payments/copy/reload",
+  "seconds_until_playing": 18.55857037997339,
+  "cannons": "1",
+  "balls": "3",
+  "playback": {
+    "wall_ms": 17167.9,
+    "frame_ms": 33.30000000000291,
+    "verified_ticks": 134444,
+    "consumed_ticks": 134442.04167,
+    "admitted_ticks": 2,
+    "played_ticks": 0.04167000000597909,
+    "buffer_ticks": 1.958329999994021,
+    "buffer_target_ticks": 1.8,
+    "buffer_bytes": 78557,
+    "queue_segments": 2,
+    "certificate_time_ns": "1793553226759144731",
+    "certificate_age_ms": 1371.85536,
+    "catchup_segments": 0,
+    "catchup_ms": 0,
+    "phase": "PLAYING",
+    "rate": 1,
+    "nominal_rate": 0.1,
+    "target_rate": 0.1,
+    "performance_limited": false,
+    "fetch_ms": 456.60000002384186,
+    "verify_ms": 130.19999998807907,
+    "artifact_ms": 1,
+    "derive_ms": 10.800000011920929,
+    "artifact_bundle": true,
+    "artifact_bundle_fallbacks": 0,
+    "artifact_bundle_error": null,
+    "delivery_failures": 0,
+    "delivery_error": null,
+    "backend_segments": 80289,
+    "segment_ticks": 1
+  },
+  "title": "Balls 2 the wallZ - B2Z",
+  "entry_message": "Cannot prepare: no eligible spawn. Final legality is checked when payment is processed.",
+  "copy_disabled": true,
+  "heads": [
+    80290,
+    80291,
+    80292
+  ],
+  "status": "PASS",
+  "errors": [],
+  "update_calls": [],
+  "navigations": [
+    "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/"
+  ],
+  "completed_at": "2026-11-01T17:13:50.413745+00:00"
+}

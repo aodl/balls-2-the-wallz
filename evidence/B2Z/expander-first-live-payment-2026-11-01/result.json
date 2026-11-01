@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "plan_id": "e05bfffd7ac874796cd706e833125a3d63a3f2d24e60489d9045b3d5d33e1af7",
+  "block_index": {
+    "$integer": "39964703"
+  },
+  "spent_e8s": {
+    "$integer": "110010000"
+  },
+  "balance_e8s": {
+    "$integer": "89990000"
+  },
+  "receipt": {
+    "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39964703",
+    "reference": {
+      "network": "ic",
+      "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "head": {
+        "$integer": "81392"
+      },
+      "logical_time": {
+        "$integer": "135543"
+      },
+      "root": "9e4d3a07b00bbfb219447c66f7c54926bfad51941a3a3bec552ffb6123aa0db2",
+      "manifest": "0384ffea47b4bdfdfa3637831866d3890dad63cdf9c744a7bf8f17452b3e999f",
+      "state": "ce499c81ab51ccab6bf58437fc8f1018f428e3a82a7682edcb0710c69900a06b",
+      "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+      "epoch_index": {
+        "$integer": "4"
+      },
+      "source_cursor": {
+        "$integer": "39964704"
+      },
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "receipt": {
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "actual_quantity": 2,
+      "amount": {
+        "$integer": "110000000"
+      },
+      "amount_used": {
+        "$integer": "110000000"
+      },
+      "cannon": 5,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "100000000"
+        },
+        {
+          "$integer": "10000000"
+        }
+      ],
+      "position": {
+        "$integer": "39964703"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 2,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    "authenticated_at_ns": {
+      "$integer": "1793573454351034968"
+    }
+  },
+  "metrics": {
+    "queries": 16,
+    "artifact_bytes": 245883,
+    "refreshes": 8,
+    "stale_responses": 0,
+    "resyncs": 1,
+    "restored_floor": "81369",
+    "last_refresh_ms": 398.41955200000666
+  },
+  "aftermath": "leave_running",
+  "paid_actions": 1
+}

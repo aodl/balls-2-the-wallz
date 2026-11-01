@@ -1,9 +1,9 @@
-# BTZ read-only player API — developing v6 release
+# B2Z v6 public player API
 
-These methods are additive candidate interfaces. They are not available on the
-last verified release-1 mainnet module until the qualified second release is
-installed. The backend stays `s34gv-3qaaa-aaaar-qcifa-cai`; the observer stays
-`s45ab-wiaaa-aaaar-qcifq-cai`. This guide authorises no transaction.
+These additive public query interfaces are deployed on the v6 backend
+`s34gv-3qaaa-aaaar-qcifa-cai`; the observer remains
+`s45ab-wiaaa-aaaar-qcifq-cai`. Authenticate current state before using any
+quotation. This guide authorises no transaction.
 
 The generated `canisters/runtime-lab/runtime-lab.did` is the actual service
 interface. `get_api_doc()` supplies bounded public documentation. All player
@@ -85,7 +85,7 @@ cannot substitute a root on mainnet. Run `--help` without making any query.
 MCP service discovery remains inactive. No `/.well-known/ic-architecture` opt-in
 is published without the operator's specific acceptance of the external App
 Operator Terms. A future manifest may list only this app's canisters, never the
-official Ledger as BTZ-owned. This release supplies no MCP payment execution;
+official Ledger as B2Z-owned. This release supplies no MCP payment execution;
 do not disguise, proxy or rename financial calls to bypass connector limits.
 Autonomous paid play needs a separately permitted user-controlled wallet/signer
 with genuine authorisation and spending limits. It is outside this release.

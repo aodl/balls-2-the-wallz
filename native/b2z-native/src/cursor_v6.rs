@@ -17,12 +17,17 @@ use serde_json::{json, Value};
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct State {
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub entry_rules: bool,
     pub plan: Option<Plan>,
     pub payment: Option<PaymentSaved>,
     pub batch: Option<Batch>,
     pub capture: Option<capture_v6::Job>,
     pub births: Vec<Fence>,
     pub finalized: bool,
+}
+fn is_false(v: &bool) -> bool {
+    !*v
 }
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
@@ -115,7 +120,11 @@ impl Cursor {
                                 &json!({"base":self.seed_base,"position":self.inputs[self.input_index].position,"cannon":self.world.next_cannon_id}),
                             )?);
                             if *first {
-                                self.spawn_job = Some(SpawnJob::begin(seed));
+                                self.spawn_job = Some(if self.v6.as_ref().unwrap().entry_rules {
+                                    SpawnJob::begin_entry(&self.world, seed)?
+                                } else {
+                                    SpawnJob::begin(seed)
+                                });
                                 self.spawn_angle = *angle;
                                 let state = self.v6.as_mut().unwrap();
                                 state.payment = Some(payment.saved);
@@ -226,8 +235,14 @@ impl Cursor {
         placement: &Placement,
     ) -> Result<()> {
         let amount = payment.amount.0.to_u64().ok_or("PAYMENT_AMOUNT")?;
-        let created =
-            purchases_v6::place_new(&self.world, &payment.account, amount, plan, placement)?;
+        let created = purchases_v6::place_new_with_policy(
+            &self.world,
+            &payment.account,
+            amount,
+            plan,
+            placement,
+            self.v6.as_ref().unwrap().entry_rules,
+        )?;
         let batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
         self.world = created.world;
         self.emit(created.event)?;

@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "ledger_acceptance_to_receipt_seconds": 5.832862060546875,
+  "receipt_to_visible_seconds": 20.05887353515625,
+  "reloads": 0,
+  "heads": [
+    81390,
+    81391,
+    81392,
+    81393,
+    81394
+  ],
+  "resyncs": 0,
+  "errors": [],
+  "delivery_failures": 1,
+  "selected_cannon": 5
+}

@@ -1,0 +1,17 @@
+import {Worker} from 'node:worker_threads';
+import {candidates} from './actions.mjs';
+import {check,envelope,integer,stringify} from './common.mjs';
+const cache=new Map();
+export async function evaluateActions(board,account,{choices=null,horizon=4,maxCandidates=6,maxMs=2000,maxWork=100000,budgetE8s=0n,feeE8s=10000n,quantityMax=2,delaySeconds=[0,60,120],includeStates=false}={}){
+ integer(horizon,1,16);integer(maxCandidates,1,16);integer(maxMs,50,5000);integer(maxWork,1,1000000);check(delaySeconds.length===3&&delaySeconds.every(n=>Number.isSafeInteger(n)&&n>=0&&n<=600),'DELAY_SCENARIOS');
+ choices=choices??candidates(board,account,{max:maxCandidates,budgetE8s,feeE8s,quantityMax});check(choices.length<=maxCandidates&&choices.some(c=>c.action.Wait!==undefined),'WAIT_REQUIRED');
+ const milli=Number(board.snapshot.operational?.run?.pace?.nominal_milli??200),tick_ns=milli>0?BigInt(Math.ceil(1e12/milli)):5000000000n;
+ const scenarios=[{name:'no-new-opponent-actions',delay_ticks:Math.ceil(delaySeconds[0]*milli/1000),tick_ns,opponent:false},{name:'plausible-public-last-heading-response',delay_ticks:Math.ceil(delaySeconds[1]*milli/1000),tick_ns,opponent:true},{name:'delayed-admission-opponent-first',delay_ticks:Math.ceil(delaySeconds[2]*milli/1000),tick_ns,opponent:true}];
+ const key=stringify(board.snapshot.reference,0)+stringify({account,choices,horizon,scenarios,maxWork,maxMs,includeStates},0);if(cache.has(key))return{...cache.get(key),cache_hit:true};
+ const started=performance.now(),worker=new Worker(new URL('./forecast-worker.mjs',import.meta.url));let timer;
+ const partial=[];let lastProgress={};
+ const result=await new Promise((resolve,reject)=>{timer=setTimeout(()=>resolve({results:partial,total_work:lastProgress.total_work??null,worker_ms:lastProgress.worker_ms??null,status:'hard_timeout'}),maxMs+300);worker.on('message',m=>{if(m.partial){partial.push(m.result);lastProgress=m;}else resolve(m);});worker.once('error',reject);worker.postMessage({snapshot:board.snapshot,account,choices,horizon,scenarios,maxWork,maxMs,includeStates});}).finally(async()=>{clearTimeout(timer);await worker.terminate();});
+ if(!includeStates)for(const row of result.results)delete row.next_state_hex;
+ const out=envelope('evaluate_actions',board,{status:result.status??(result.results.some(r=>r.status!=='complete')?'bounded_partial':'complete'),candidates:choices,forecasts:result.results,bounds:{horizon,max_candidates:maxCandidates,max_work:maxWork,hard_wall_ms:maxMs+300},measurements:{elapsed_ms:performance.now()-started,worker_ms:result.worker_ms,total_work:result.total_work},assumptions:{scenarios,deterministic:'Actual existing B2zCursor with explicit synthetic future Ledger positions and consensus-time facts; never mainnet mutation',unknowns:['Future opponent payments and budgets','Ledger/Index discovery and admission order','First-spawn sealed inputs','Actual wall-clock pacing'],latency:{source_fallback_seconds:60,index_lag:'not bounded by fallback alone',browser_presentation:'Separate buffered delay; not payment admission'},uncertainty:'Scenario outcomes are predictions, not authenticated futures. Delayed actions beyond this logical horizon are not executed in the scenario.',zero_funding_rate:milli===0}});
+ cache.set(key,out);if(cache.size>32)cache.delete(cache.keys().next().value);return out;
+}

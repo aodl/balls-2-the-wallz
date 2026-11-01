@@ -1,0 +1,74 @@
+{
+  "schema": "b2z-player-funding/1",
+  "created_at": "2026-11-01T15:45:30.981508+00:00",
+  "network": "ic",
+  "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+  "purpose": "Ordinary B2Z players, not controllers; public data only",
+  "spending_authorized": false,
+  "players": [
+    {
+      "alias": "b2z-agent-expander",
+      "principal": "nikzn-5d3lj-4f36z-7f3nq-gbx5k-2d5ah-5cgw2-ouxef-tinjj-vzbz6-kqe",
+      "numeric_subaccount": "0",
+      "account_identifier": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "strategy": "frugal-expander",
+      "suggested_funding_e8s": "125000000",
+      "verification": {
+        "dfx_default_account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+        "private_storage_mode": "owner-only unencrypted PEM outside checkout",
+        "directory_mode": "0700",
+        "file_mode": "0400",
+        "key_contents_read_or_exported": false,
+        "independent_sha224_crc32_match": true
+      }
+    },
+    {
+      "alias": "b2z-agent-defender",
+      "principal": "gj6pg-jyjy3-uvkg6-5fkze-g2i3e-o3sln-mwzwn-rbhsr-fdizk-cfgso-vqe",
+      "numeric_subaccount": "0",
+      "account_identifier": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "strategy": "anchor-defender",
+      "suggested_funding_e8s": "125000000",
+      "verification": {
+        "dfx_default_account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+        "private_storage_mode": "owner-only unencrypted PEM outside checkout",
+        "directory_mode": "0700",
+        "file_mode": "0400",
+        "key_contents_read_or_exported": false,
+        "independent_sha224_crc32_match": true
+      }
+    },
+    {
+      "alias": "b2z-agent-raider",
+      "principal": "6nsye-gd7l6-wqxem-vusia-pwvst-7rq2s-zphy4-xu76x-gqb4n-jcz4o-uqe",
+      "numeric_subaccount": "0",
+      "account_identifier": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "strategy": "attrition-raider",
+      "suggested_funding_e8s": "125000000",
+      "verification": {
+        "dfx_default_account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+        "private_storage_mode": "owner-only unencrypted PEM outside checkout",
+        "directory_mode": "0700",
+        "file_mode": "0400",
+        "key_contents_read_or_exported": false,
+        "independent_sha224_crc32_match": true
+      }
+    },
+    {
+      "alias": "b2z-agent-adaptive",
+      "principal": "4o66e-3fxxr-5qbhu-icu55-xfg2t-msyvc-cpuiq-7tdbc-4idlz-eupzu-rqe",
+      "numeric_subaccount": "0",
+      "account_identifier": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+      "strategy": "adaptive-allocator",
+      "suggested_funding_e8s": "125000000",
+      "verification": {
+        "dfx_default_account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+        "private_storage_mode": "owner-only unencrypted PEM outside checkout",
+        "directory_mode": "0700",
+        "file_mode": "0400",
+        "key_contents_read_or_exported": false,
+        "independent_sha224_crc32_match": true
+      }
+    }
+  ]
+}

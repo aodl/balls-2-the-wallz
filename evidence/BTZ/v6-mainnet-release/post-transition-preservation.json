@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "source_and_history_equal": true,
+  "treasury_obligations_equal": true,
+  "retained_old_publications_equal": 15,
+  "browser_camera_preserved": true,
+  "same_page_heads": [
+    78108,
+    78109
+  ],
+  "no_delivery_errors": true
+}

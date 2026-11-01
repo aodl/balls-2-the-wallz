@@ -313,11 +313,16 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = match w.version {
-        6 => include_bytes!("../../../apps/b2z-observer/configuration-playability.bin").as_slice(),
-        5 => include_bytes!("../../../apps/b2z-observer/configuration-million.bin").as_slice(),
-        4 => include_bytes!("../../../apps/b2z-observer/configuration-torus.bin").as_slice(),
-        _ => include_bytes!("../../../apps/b2z-observer/configuration.bin").as_slice(),
+    let configuration = if p.identity.config_hash == hash(b2z_native::entry_v7::configuration()) {
+        b2z_native::entry_v7::configuration()
+    } else {
+        match w.version {
+            6 => include_bytes!("../../../apps/b2z-observer/configuration-playability.bin")
+                .as_slice(),
+            5 => include_bytes!("../../../apps/b2z-observer/configuration-million.bin").as_slice(),
+            4 => include_bytes!("../../../apps/b2z-observer/configuration-torus.bin").as_slice(),
+            _ => include_bytes!("../../../apps/b2z-observer/configuration.bin").as_slice(),
+        }
     };
     if hash(configuration) != p.identity.config_hash {
         return Err("CONFIGURATION_UNAVAILABLE".into());
@@ -478,7 +483,16 @@ fn command(action: &QuoteAction) -> b2z_protocol::v6::Command {
         QuoteAction::Move { cannon, cell } => Command::Move { cannon, cell },
     }
 }
+#[cfg(test)]
 fn quote_items(w: &World, funding_account: &str, action: &QuoteAction) -> Result<Vec<u64>> {
+    quote_items_with_policy(w, funding_account, action, false)
+}
+fn quote_items_with_policy(
+    w: &World,
+    funding_account: &str,
+    action: &QuoteAction,
+    entry_rules: bool,
+) -> Result<Vec<u64>> {
     account(funding_account)?;
     if w.version != 6 {
         return Err("RULES_V6_NOT_ACTIVE".into());
@@ -510,6 +524,18 @@ fn quote_items(w: &World, funding_account: &str, action: &QuoteAction) -> Result
             first,
             ..
         } => {
+            // Necessary placement precondition, derived from compact counts.
+            // This does not promise that the sealed 1,024-probe search will find a site.
+            if first
+                && !entry_rules
+                && w.ownership_counts()
+                    .iter()
+                    .map(|(_, cells)| cells)
+                    .sum::<usize>()
+                    > 999_991
+            {
+                return Err("NO_ELIGIBLE_SPAWN".into());
+            }
             let mut counts = if first {
                 vec![0]
             } else if let Some(cell) = cell {
@@ -591,7 +617,12 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     if !super::PACE.with(|p| p.borrow().hint().admission_open) {
         return Err("ADMISSION_CLOSED".into());
     }
-    let prices = quote_items(&w, &funding_account, &action)?;
+    let prices = quote_items_with_policy(
+        &w,
+        &funding_account,
+        &action,
+        p.identity.config_hash == hash(b2z_native::entry_v7::configuration()),
+    )?;
     let amount = prices
         .iter()
         .try_fold(0u64, |sum, n| sum.checked_add(*n).ok_or("PRICE_OVERFLOW"))?;
@@ -905,5 +936,56 @@ mod tests {
         assert_eq!(quantity(Some(64)).unwrap(), Some(64));
         assert_eq!(quantity(Some(0)).unwrap(), Some(0));
         assert!(quantity(Some(256)).is_err());
+    }
+    #[test]
+    fn first_join_quote_rejects_fully_owned_world_without_changing_rules() {
+        let mut w = world("idle");
+        let label = w.ownership_counts()[0].0;
+        let o = w.ownership.as_mut().unwrap();
+        o.base.fill(label);
+        o.overrides.clear();
+        o.counts = vec![b2z_native::world::OwnerCount {
+            owner: label,
+            cells: 1_000_000,
+        }];
+        w.validate().unwrap();
+        let other = AccountIdentifier::new(&Principal::anonymous(), &DEFAULT_SUBACCOUNT).to_hex();
+        assert_eq!(
+            quote_items(
+                &w,
+                &other,
+                &QuoteAction::New {
+                    angle: 0,
+                    quantity: 1,
+                    cell: None
+                }
+            )
+            .unwrap_err(),
+            "NO_ELIGIBLE_SPAWN"
+        );
+        assert_eq!(
+            quote_items_with_policy(
+                &w,
+                &other,
+                &QuoteAction::New {
+                    angle: 0,
+                    quantity: 2,
+                    cell: None
+                },
+                true
+            )
+            .unwrap(),
+            vec![100_000_000, 10_000_000]
+        );
+        assert!(quote_items(
+            &w,
+            &w.cannons[0].account,
+            &QuoteAction::Fire {
+                cannon: w.cannons[0].id,
+                angle: 0,
+                quantity: 1
+            }
+        )
+        .is_ok());
     }
 }

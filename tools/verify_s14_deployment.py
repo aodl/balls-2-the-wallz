@@ -272,7 +272,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     if a.million_sustained and not a.million_scene_only:p.error('--million-sustained requires --million-scene-only')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=int(os.environ['S14_QUAL_PROXY_PORT']) if os.environ.get('S14_QUAL_PROXY_PORT') else free_port()
     assert 1<=port<=65535
@@ -295,7 +295,7 @@ def main():
             shutil.copytree(prebuilt/'mainnet-assets',production)
             production_id=json.loads((production/'build-manifest.json').read_text())['deployment']['canister_id']
         else:
-            builder='tools/build_observer_playability.mjs' if a.playability_scene_only else 'tools/build_observer_mainnet.mjs'
+            builder='tools/build_observer_playability.mjs' if (a.playability_scene_only or a.entry_scene_only) else 'tools/build_observer_mainnet.mjs'
             subprocess.run(['node',builder,'--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
             # A committed real deployment mapping must never be bypassed to build
             # mainnet assets for a disposable test principal. Production-policy
@@ -367,7 +367,7 @@ def main():
             record('dfx-asset-canister-install',{'observer':observer,'url':url,'configuration':'dfx.json observer type=assets; owned disposable gateway'})
         else:
             with (out/'server.log').open('w') as log:
-                proxy_trace=['--proxy-trace',str(out/'proxy-timing.jsonl')] if a.million_scene_only or a.playability_scene_only else []
+                proxy_trace=['--proxy-trace',str(out/'proxy-timing.jsonl')] if a.million_scene_only or (a.playability_scene_only or a.entry_scene_only) else []
                 server=subprocess.Popen([sys.executable,'-B','tools/serve_observer.py','--port',str(port),'--deployment-assets',str(assets),'--live-config',str(a.configuration.parent),'--ic-gateway',a.gateway,'--live-canister',configuration['canister_id'],*proxy_trace],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
@@ -379,8 +379,8 @@ def main():
             # Keep the original 90-second cases recorded; the 15-minute timing
             # gate retains screenshots, raw wire data and dense telemetry without
             # the extra software screen-capture/GPU/ffmpeg workload on this host.
-            if not (a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only):context_options['record_video_dir']=str(out/'video')
-            report['capture']={'video':not (a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only),'sandbox':True,'screenshots_and_raw_telemetry':True};save()
+            if not (a.million_sustained or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):context_options['record_video_dir']=str(out/'video')
+            report['capture']={'video':not (a.million_sustained or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)),'sandbox':True,'screenshots_and_raw_telemetry':True};save()
             context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             if a.playability_scene_only:
                 # Arm before application timers exist. Late clock installation
@@ -400,11 +400,11 @@ def main():
             capture_finalizers.callback(preserve_exception_state)
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             query_timings=[]
-            if a.million_scene_only or a.paid_v8_scene_only or a.playability_scene_only:
+            if a.million_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
                 wire_capture=WireCapture(page,out/'wire-catalogs',
-                    max_packets=4096 if a.million_sustained or a.playability_scene_only else 1024,
-                    max_bytes=(128 if a.million_sustained or a.playability_scene_only else 64)*1024*1024,
-                    extra_methods=('artifact_bundle','artifact_chunk','retained_artifact_chunk') if a.playability_scene_only else ())
+                    max_packets=4096 if a.million_sustained or (a.playability_scene_only or a.entry_scene_only) else 1024,
+                    max_bytes=(128 if a.million_sustained or (a.playability_scene_only or a.entry_scene_only) else 64)*1024*1024,
+                    extra_methods=('artifact_bundle','artifact_chunk','retained_artifact_chunk') if (a.playability_scene_only or a.entry_scene_only) else ())
                 capture_finalizers.push(wire_capture)
                 def capture_query_timing(request,failed=False):
                     if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
@@ -439,9 +439,12 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#error-text').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.scene_only or a.million_scene_only or a.transition_only or a.paid_v8_scene_only or a.playability_scene_only:
-                if not (a.paid_v8_scene_only or a.playability_scene_only):identify_account(page)
-                if a.playability_scene_only:
+            if a.scene_only or a.million_scene_only or a.transition_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
+                if not (a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
+                if a.entry_scene_only:
+                    from entry_browser import verify_entry_scene
+                    verify_entry_scene(page,context,out,configuration,record,report,save)
+                elif a.playability_scene_only:
                     from playability_browser import verify_playability_scene
                     verify_playability_scene(page,context,out,configuration,record,report,save,stop_wire_capture,wire_capture)
                 elif a.paid_v8_scene_only:verify_paid_v8_scene(page,out,record)
@@ -457,10 +460,10 @@ def main():
             page.screenshot(path=str(out/'healthy-idle.png'))
             record('certified-idle-genesis-allows-transfer-preparation')
             page.locator('#dismiss-empty').click();assert not page.locator('#empty-arena').is_visible()
-            assert page.title()=='Balls 2 the wallZ - BTZ'
-            assert page.locator('.mark').inner_text()=='BTZ'
+            assert page.title()=='Balls 2 the wallZ - B2Z'
+            assert page.locator('.mark').inner_text()=='B2Z'
             assert 'on ICP' in page.locator('body').inner_text()
-            record('BTZ-branding-with-preserved-wire-identity')
+            record('B2Z-branding-with-preserved-wire-identity')
             page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             assert page.locator('#receiving-account').text_content()==configuration['recipient']
             assert page.locator('#backend-identity').text_content()==configuration['canister_id']

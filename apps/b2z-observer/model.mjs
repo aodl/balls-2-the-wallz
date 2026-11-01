@@ -1,6 +1,6 @@
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -9,6 +9,7 @@ import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-proje
 import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
+const playabilityIdentity=id=>[PLAYABILITY_IDENTITY,ENTRY_IDENTITY].some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
 function integer(n,max=4294967295){check(Number.isSafeInteger(n)&&n>=0&&n<=max,'integer bounds');return n;}
 export function timeNumber(r){validRat(r);const n=Number(r[0])/Number(r[1]);check(Number.isFinite(n)&&n>=0&&n<=1e9,'time bounds');return n;}
@@ -31,7 +32,7 @@ export function snapshot(bytes,identity){
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
   if(w.version<5)check(Array.isArray(w.cells)&&w.cells.length===cellCount(w)&&w.ownership===undefined,'cells');
   else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,w.version===6?4294967294:65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,w.version===6?4294967294:65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
-  if(w.version===6){timeNumber(w.time);validateV6Snapshot(w,ownerAt);if(identity)check(Object.keys(PLAYABILITY_IDENTITY).every(k=>identity[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');return w;}
+  if(w.version===6){timeNumber(w.time);validateV6Snapshot(w,ownerAt);if(identity)check(playabilityIdentity(identity),'playability rules/config/schema identity');return w;}
   check(Array.isArray(w.cannons)&&w.cannons.length<=32&&Array.isArray(w.balls)&&w.balls.length<=64,'entity bounds');
   check(Array.isArray(w.pending)&&w.pending.length<=64,'pending bounds');timeNumber(w.time);
   const ids=new Set(),anchors=new Set();
@@ -155,7 +156,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
-  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&Object.keys(PLAYABILITY_IDENTITY).every(k=>publication.identity?.[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');
+  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&playabilityIdentity(publication.identity),'playability rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
@@ -183,7 +184,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   check(cmp(initial.time,rat(s.logical_start))===0&&cmp(final.time,rat(s.logical_end))===0,'derived snapshot timeline');
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
-  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&Object.keys(PLAYABILITY_IDENTITY).every(k=>publication.identity?.[k]===PLAYABILITY_IDENTITY[k]),'playability rules/config/schema identity');
+  if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&playabilityIdentity(publication.identity),'playability rules/config/schema identity');
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
@@ -289,6 +290,12 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
       check(sameCanonical(expected,final),'rules activation preserved entities');
       check(context.new_state===publication.head.state_hash&&sameCanonical(context.old_identity,prior.identity)&&sameCanonical(context.new_identity,publication.identity),'rules activation identities');
       check(final.playability.elapsed_ns===context.observed_ns,'rules activation time');
+    }else if(events.events[0]?.kind==='rules_activated'){
+      check(initial.version===6&&publication.version===(prior.version===6?7:8)&&publication.epoch.version===(prior.version===6?1:2)&&events.events.length===1,'entry checkpoint identity');
+      check(Object.keys(PLAYABILITY_IDENTITY).every(k=>prior.identity[k]===PLAYABILITY_IDENTITY[k])&&Object.keys(ENTRY_IDENTITY).every(k=>publication.identity[k]===ENTRY_IDENTITY[k]),'entry rules identities');
+      const expected={version:4,migration:'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:4};
+      check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'entry cutover context');
+      check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'entry preserved complete state');
     }else{
       check(initial.version===6&&publication.version===9&&publication.epoch.version===3&&sameCanonical(publication.identity,prior.identity),'lifecycle checkpoint identity');
       check(events.events[0].kind==='lifecycle_context'&&context.domain==='B2Z-LIFECYCLE-CONTEXT-01'&&context.version===1,'lifecycle context');

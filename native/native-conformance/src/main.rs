@@ -52,6 +52,37 @@ fn begin(case: &Value) -> Result<Cursor> {
 fn main_inner() -> Result<()> {
     let args: Vec<_> = env::args().collect();
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    if args.get(1).map(String::as_str) == Some("entry") {
+        let data = load(&root, "entry-v7.json")?;
+        for row in data["rows"].as_array().ok_or("entry rows")? {
+            let mut c = begin(row)?;
+            let mut slices = 0;
+            loop {
+                let (_, done) = c.step([1, 7, 31, 127][slices % 4])?;
+                slices += 1;
+                if done {
+                    break;
+                }
+                if slices > 500000 {
+                    return Err("entry work bound".into());
+                }
+                if slices % 17 == 0 {
+                    let bytes = c.snapshot()?;
+                    c = Cursor::restore(&bytes, &hash(&bytes))?;
+                }
+            }
+            c.finalize_elapsed(
+                row["observed_ns"]
+                    .as_str()
+                    .ok_or("entry time")?
+                    .parse()
+                    .map_err(|_| "entry time")?,
+            )?;
+            check_output(&c.result()?, &row["outputs"])?;
+            println!("entry\t{}\t{}", row["name"], row["spawn_cell"]);
+        }
+        return Ok(());
+    }
     let golden = load(&root, "b2z-v3-golden.json")?;
     let cases = golden["cases"].as_array().ok_or("golden cases")?;
     if args.get(1).map(String::as_str) == Some("export") {

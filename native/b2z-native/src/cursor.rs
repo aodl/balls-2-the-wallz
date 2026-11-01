@@ -339,14 +339,19 @@ impl Cursor {
         let torus = torus_identity()?;
         let million = million_identity()?;
         let playability = crate::playability::identity()?;
+        let entry = crate::entry_v7::identity()?;
+        let is_entry = context.get("config_hash") == entry.get("config_hash");
         let is_playability = context.get("config_hash") == playability.get("config_hash");
         let is_million = context.get("config_hash") == million.get("config_hash");
         let is_torus = context.get("config_hash") == torus.get("config_hash");
-        let is_current = is_playability
+        let is_current = is_entry
+            || is_playability
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_playability {
+        let expected = if is_entry {
+            entry
+        } else if is_playability {
             playability
         } else if is_million {
             million
@@ -364,7 +369,7 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_playability {
+            != if is_entry || is_playability {
                 6
             } else if is_million {
                 5
@@ -400,7 +405,10 @@ impl Cursor {
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
-            v6: is_playability.then(crate::cursor_v6::State::default),
+            v6: (is_entry || is_playability).then(|| crate::cursor_v6::State {
+                entry_rules: is_entry,
+                ..Default::default()
+            }),
             join_e8s: is_current.then(|| Int(BigInt::from(JOIN_E8S))),
             world,
             inputs,

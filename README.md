@@ -1,4 +1,46 @@
-# Balls 2 The Wallz — lean account-index application
+# Balls 2 the wallZ — B2Z
+
+The [live game](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) runs authenticated
+**v6 on a 1000×1000 torus**, epoch index 3, on the existing 34-node fiduciary subnet.
+Backend `s34gv-3qaaa-aaaar-qcifa-cai` retains normal Wasm `b618e4f3…` and published
+DTR `282d7091…`. Current limits are 128 cannons, 64 global balls, 64 purchase-pool
+balls per island and 16 retained cannons per paying account. Event Horizon remains
+disabled; official ICP Index reconciliation uses its 60-second independent fallback.
+
+The browser title is **Balls 2 the wallZ - B2Z**. The browser observes certified
+state and prepares external-wallet instructions; it has no login, wallet connection
+or transaction signing. Payments and unused remainders are retained, with no automatic
+refunds or payouts. Current state, quotes and receipt retention still require care.
+
+**New-player entry is currently blocked:** the verified arena is entirely owned,
+so no neutral 3×3 first-spawn patch exists. Do not send a join payment in this state.
+The new browser/agent preflight rejects this known-impossible quote. Changing the
+entry rule requires a separate product/release decision; never reset the paid world.
+
+Read-only strategic tools share the existing DTR observer, compact ownership state,
+exact game kernel and memo/quote implementation:
+
+```sh
+npm ci
+node tools/b2z_agent.mjs observe_game
+node tools/b2z_agent.mjs stdio --store .work/agents/mirror
+```
+
+See [agent commands and safety boundaries](docs/operations/B2Z_AGENTS.md),
+[public funding accounts](config/agents/players.public.json),
+[proposed campaign limits](config/agents/pilot.proposed.json),
+[current status](STATUS.md) and the
+[reviewed foundation results](evidence/B2Z/agent-foundations-2026-11-01/REPORT.md).
+The local restricted executor requires separate campaign approval; funding is not
+spending authorization. No real ICP has been spent by these agents. Production
+backend changes remain separately authorized. Remote Git operations remain user-owned.
+
+## Historical release notes — superseded deployment descriptions
+
+The notes below are preserved context. Their old world sizes, dependency pins,
+module hashes and deployment assertions describe earlier releases, not the current
+v6 baseline above. Immutable checkpoint/evidence artifacts remain unchanged.
+
 
 **Local preparation only:** the [prelaunch self-funding worker](docs/operations/PRELAUNCH_SELF_FUNDING.md)
 can convert retained gameplay ICP into B2Z's own operating cycles using the

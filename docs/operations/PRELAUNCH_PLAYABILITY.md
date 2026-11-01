@@ -1,4 +1,4 @@
-# BTZ pre-launch releases
+# B2Z pre-launch releases
 
 The release branch starts at `ca809caeaf0014d5ecb27bab05d8be78eccfd282`, which
 contains the deployed A2 lineage and the authenticated stale-observation recovery.

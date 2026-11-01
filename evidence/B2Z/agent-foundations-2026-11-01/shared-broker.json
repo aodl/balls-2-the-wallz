@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "wall_seconds": 4.392998596013058,
+  "four_views_one_head": {
+    "$integer": "80279"
+  },
+  "observer_metrics": {
+    "queries": 4,
+    "artifact_bytes": 36437,
+    "refreshes": 1,
+    "stale_responses": 0,
+    "resyncs": 0,
+    "last_refresh_ms": 2189.098972
+  },
+  "unapproved_submission_blocked": true,
+  "approval_operation_absent": true,
+  "signer_keys_provisioned_or_accessed": false
+}

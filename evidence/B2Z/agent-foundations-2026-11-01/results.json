@@ -1,0 +1,221 @@
+{
+  "schema": "b2z-agent-stage-results/1",
+  "status": "LOCAL_FOUNDATIONS_PASS_LIVE_CAMPAIGN_BLOCKED",
+  "source_commits": {
+    "branding": "559b3a5",
+    "agents": "c2b006f",
+    "shared_broker": "b3e0fa7",
+    "trusted_bootstrap_launcher": "d95902b",
+    "forecast_reference_cache": "29663d6"
+  },
+  "frontend_build": {
+    "source": "c2b006f7a2194a0dc9eb398e6870485b12387ac8",
+    "source_dirty": false,
+    "files": {
+      "index.html": {
+        "sha256": "28db163c0d206c9c3b52424d76d5a142e7f361295acfab1158f0aa7f11fba8ce",
+        "bytes": 19789
+      },
+      "app.mjs": {
+        "sha256": "576aa794b615f5af7e0851a8c225f066c794cba9d502fed0a462dac200b643cf",
+        "bytes": 666533
+      },
+      "style.css": {
+        "sha256": "182655097ed67aec63b12db775d5bd0c3b14b1acb3cb90b3d1c8d2ab351a7e2c",
+        "bytes": 11320
+      },
+      "icon.svg": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "configuration.bin": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "configuration-legacy.bin": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "configuration-torus.bin": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "configuration-million.bin": {
+        "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "bytes": 469
+      },
+      "deployment.json": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      ".ic-assets.json5": {
+        "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+        "bytes": 1214
+      },
+      "configuration-playability.bin": {
+        "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "bytes": 994
+      },
+      "agent-api.md": {
+        "sha256": "f14d4e999bb474e78dc218d69379986642b3a7c4a22ba16403f11f12e085e3c8",
+        "bytes": 6076
+      },
+      "backend.did": {
+        "sha256": "81fbb52ecace0566b6c78994bcff0b3637fa225830e2e7422b4432a65176835a",
+        "bytes": 11686
+      }
+    }
+  },
+  "installed_case": {
+    "result": "PASS",
+    "artifact_identities": {
+      "sources": {
+        "packages/agents/b2z/ledger-dfx.mjs": "fa7bf98d59c201d66977e9dc1723a6040a48e47d80fde4a0d61d929ac2ebf45f",
+        "packages/agents/b2z/forecast.mjs": "16d2d1ef0d56b3932b1625728370385e0dc5bc05706ad756f6987e7277350542",
+        "packages/agents/b2z/analysis.mjs": "63d1fda4ea05a9105401875757de549f389842994cea66860c07a1648c32f837",
+        "packages/agents/b2z/policies.mjs": "8f294a8433733a610a7c9d24baa583a82654b293fde82b480ffba996e8df652a",
+        "packages/agents/b2z/executor.mjs": "20791028e910745ed592dec10f047b38d685835b878ecac5f6da9193343df388",
+        "packages/agents/b2z/forecast-worker.mjs": "17df77e84ac7dba19dc57354ae3bb765ec1b69bc1f14d75f7ed9e9d38b7b5cdc",
+        "packages/agents/b2z/common.mjs": "cffd048e9e4550cf129f6baaf61f257e86507d75750e5f990cb364c36be6f4a9",
+        "packages/agents/b2z/actions.mjs": "2e5966e6c8d290cf7425921f2d6a67880cf99bc8fdec4c92b9ba3b682ab87688",
+        "packages/agents/b2z/observer.mjs": "47d202e73b606765ad0f5dd796d641d94a49702f23570c233382f24639599521",
+        "tools/test_b2z_executor_installed.mjs": "1ee03c5a22ee0efd8f65061c6e154200ef26286f32e90005cd9a1aea477f42d6",
+        "packages/protocol/recorded-certificate.mjs": "b5ab96c502406fad12f49698ad02aa320891f4941834d03d24289f785ff47662"
+      },
+      "artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+        "B2Z_S14_WASM": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e"
+      },
+      "harness": "ac953352fa904389b9de7bc18d7403f352cae755aa6fb6aaac470b725387524b"
+    },
+    "players": [
+      {
+        "alias": "b2z-agent-expander",
+        "status": "PASS",
+        "ledger_position": {
+          "$integer": "5"
+        },
+        "full_valueless_cost_e8s": {
+          "$integer": "110010000"
+        },
+        "receipt_status": "applied",
+        "actual_quantity": 2
+      },
+      {
+        "alias": "b2z-agent-defender",
+        "status": "PASS",
+        "ledger_position": {
+          "$integer": "6"
+        },
+        "full_valueless_cost_e8s": {
+          "$integer": "110010000"
+        },
+        "receipt_status": "applied",
+        "actual_quantity": 2
+      },
+      {
+        "alias": "b2z-agent-raider",
+        "status": "PASS",
+        "ledger_position": {
+          "$integer": "7"
+        },
+        "full_valueless_cost_e8s": {
+          "$integer": "110010000"
+        },
+        "receipt_status": "applied",
+        "actual_quantity": 2
+      },
+      {
+        "alias": "b2z-agent-adaptive",
+        "status": "PASS",
+        "ledger_position": {
+          "$integer": "8"
+        },
+        "full_valueless_cost_e8s": {
+          "$integer": "110010000"
+        },
+        "receipt_status": "applied",
+        "actual_quantity": 2
+      }
+    ],
+    "receipt_proofs_reverified": 4,
+    "cost": {
+      "module_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+      "net_cycles": "150879465042",
+      "scope": "One disposable fixture with real upstream Ledger/Index, signed ordinary identities, no mainnet funds or sustained throughput claim",
+      "status": "PASS",
+      "wall_seconds": 244.591050683
+    }
+  },
+  "tests": {
+    "selected_suite_before_final_dispatch_guards": {
+      "PASS": 61,
+      "FAIL": 0
+    },
+    "final_executor_observer_subset": {
+      "PASS": 33,
+      "FAIL": 0
+    },
+    "shared_interface": {
+      "PASS": 1,
+      "FAIL": 0
+    },
+    "native_quote": {
+      "PASS": 1,
+      "FAIL": 0
+    },
+    "ci": "NOT RUN for this unpushed feature branch; local installed test is explicitly ignored by ordinary CI",
+    "final_analysis_subset": {
+      "PASS": 11,
+      "FAIL": 0
+    }
+  },
+  "local_matches": {
+    "player_outcomes": 24,
+    "elapsed_ms": 85703.102072,
+    "work": 19421,
+    "inference_calls": 0,
+    "cycles": null
+  },
+  "preserved_failed_runs": [
+    {
+      "status": "FAIL",
+      "raw_path": ".work/b2z-agents/installed-first-FAIL/logs/agent-paid-executor.log",
+      "sha256": "950817aa1355a3f038ae9e1febef650ce503a91e89bb49712b051a647d9c28c0",
+      "diagnosis": "Harness omitted a sealed v5 gameplay head before authenticated transition"
+    },
+    {
+      "status": "FAIL",
+      "raw_path": ".work/b2z-agents/installed-stale-FAIL/agent-executor.log",
+      "sha256": "9c6e0487c86413312d21705fca2e998bf362051f7e75f2ec118b476c835157f9",
+      "diagnosis": "30-second new-payment freshness was incorrectly applied to reconciliation of a submitted transaction"
+    },
+    {
+      "status": "FAIL",
+      "raw_path": ".work/b2z-agents/security-hardening-tests.log",
+      "sha256": "6ea9f02d09554e4cfa71094c6894044fd70993211a9027d9f3795d2ebe54fa0c",
+      "diagnosis": "Archived certificate tests supplied recorded outer time but left the SDK clock at wall time"
+    },
+    {
+      "status": "FAIL",
+      "raw_path": ".work/b2z-agents/forecast-reference-cache-FAIL.log",
+      "sha256": "24f613989351767e4e797657a6bd5d97865ea246105b14b6386bc49ca3965c16",
+      "diagnosis": "State-only forecast cache reused the previous publication reference; corrected to key the complete reference and preserved the regression"
+    }
+  ],
+  "live_campaign": {
+    "approved": false,
+    "real_icp_spent_e8s": "0",
+    "unresolved_real_transfers": 0,
+    "blocker": "No neutral first-spawn patch; campaign approval and aftermath selection also required"
+  },
+  "limitations": [
+    "Short selected scenario screen, not a policy dominance result",
+    "Local four-player setup is one established fixture player plus three new entrants; initial positions/endowments differ",
+    "Current backend quote/API wording source corrections were not deployed",
+    "Gross cycle consumption, isolated marginal bot costs and agent inference/tool charges were not measured",
+    "First live signed-payment-to-browser witness remains a mandatory bootstrap gate"
+  ]
+}

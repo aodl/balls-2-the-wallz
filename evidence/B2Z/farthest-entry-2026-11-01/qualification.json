@@ -1,0 +1,191 @@
+{
+  "scope": "Disposable 34-node fiduciary PocketIC; valueless real upstream ICP Ledger/Index. Initial fully-owned world is setup-only synthetic. No production backend mutation or real ICP payment.",
+  "qualified_executable_head": "9bd19353508f3287ddb64ecf99641d19502e5828",
+  "normal_build_head": "de34a68529b8d3a724e2c4b174d2d8c51f1f9f33",
+  "normal_build_tree": "5c3fa14379132aa93ef90f070908e6761cfbf39b",
+  "identities": {
+    "predecessor_wasm": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+    "candidate_wasm": "cfcf6130432a040a40738627df65da65d0d5c57195c04d3bb147a848af6d8303",
+    "prepared_production_app": "ddebfaf3fbc43b3d0b0eb1139c5e35ce0e8d5a3077bdb9f226393c5e2edd778a",
+    "entry_rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "entry_config": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "preserved_schema": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "dtr": "282d709143dacb4bca769a4d6e72b97fc93ef518"
+  },
+  "installed": {
+    "id": "full-world-entry",
+    "command": [
+      "/home/codexdev/src/b2z-prelaunch-rules/tools/s09-integration/target/debug/deps/s14_index-e437f15eb0c89328",
+      "entry_installed::full_world_upgrade_and_first_entry",
+      "--exact",
+      "--ignored",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 220.444,
+    "timeout_seconds": 600,
+    "log": "logs/full-world-entry.log"
+  },
+  "preservation_and_payment": {
+    "candidate_sha256": "cfcf6130432a040a40738627df65da65d0d5c57195c04d3bb147a848af6d8303",
+    "entry_cutover_world_exact": true,
+    "join_position": 3,
+    "net_cycles_window": "117540005428",
+    "predecessor_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+    "publication_count": 131,
+    "qualified_payments_on_normal_module": true,
+    "status": "PASS",
+    "synthetic_setup_only": true,
+    "unfinished_operation_preserved": true
+  },
+  "browser": {
+    "status": "PASS",
+    "existing_session": true,
+    "navigation_after_initial": 0,
+    "rules6_full_world_quote_blocked": true,
+    "rules7_full_world_quote_amount": "1.1 ICP",
+    "memo": "NEW 0 2",
+    "receipt": "37a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73efapplied \u00b7 2/2 balls \u00b7 used 1.1 ICP \u00b7 retained 0 ICP \u00b7 quantity limitpurchase_completed",
+    "position": "3",
+    "receipt_wait_seconds": 48.47696730901953,
+    "confirmed_to_visible_seconds": 19.876359090965707,
+    "heads": [
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129
+    ],
+    "camera_preserved_through_rules_handoff": true,
+    "source": "Actual valueless Ledger/Index admission and authenticated artifacts, not inferred from counts"
+  },
+  "timing_note": "receipt_wait_seconds starts when the browser reads the Ledger-accepted position signal. confirmed_to_visible_seconds is an upper bound: it also includes control interaction and screenshots after the counts assertion; it is not an exact presentation-latency measurement.",
+  "capture": {
+    "status": "PASS",
+    "fence": 129,
+    "fence_epoch_ms": 1793566635644.6313,
+    "accepted_responses": 126,
+    "pending_at_fence": [],
+    "peak_pending": 3,
+    "timeout_seconds": 15,
+    "pending_after_drain": [],
+    "drain_ms": 0.30930404318496585,
+    "completed_epoch_ms": 1793566635644.9395
+  },
+  "page_errors": [],
+  "independent_replay": {
+    "status": "PASS",
+    "segments": 131,
+    "gameplay_segments": 130,
+    "application_checkpoints": 1,
+    "assigned": [
+      "2",
+      "3"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "failed_attempts_preserved": [
+    {
+      "status": "FAIL",
+      "path": ".work/b2z-entry/installed-fail-configuration-asset",
+      "reason": "Local server omitted configuration-entry.bin from its asset allowlist: HTTP 404 blocked the handoff.",
+      "execution": {
+        "id": "full-world-entry",
+        "command": [
+          "/home/codexdev/src/b2z-prelaunch-rules/tools/s09-integration/target/debug/deps/s14_index-e437f15eb0c89328",
+          "entry_installed::full_world_upgrade_and_first_entry",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 233.016,
+        "timeout_seconds": 600,
+        "log": "logs/full-world-entry.log"
+      },
+      "log_sha256": "f9d9d9eafcbe8b8850f310caba2e27b0d6e95a8c632348ce5d5a888a65113783",
+      "browser_state_sha256": "7b7c3afe93d0ed8c4e4dc62c3e50054b1a60e44d27372ee02ffd6ba493701f1e"
+    },
+    {
+      "status": "FAIL",
+      "path": ".work/b2z-entry/installed-fail-checkpoint",
+      "reason": "Client omitted the exact entry-rule checkpoint content case, rejected it as an expiry checkpoint, resynchronised, then missed the join receipt. No receipt assertion was removed.",
+      "execution": {
+        "id": "full-world-entry",
+        "command": [
+          "/home/codexdev/src/b2z-prelaunch-rules/tools/s09-integration/target/debug/deps/s14_index-e437f15eb0c89328",
+          "entry_installed::full_world_upgrade_and_first_entry",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 264.341,
+        "timeout_seconds": 600,
+        "log": "logs/full-world-entry.log"
+      },
+      "log_sha256": "59e657590d8c14223ce2d1748ba02acdadf04123e9dfb173681d108bc5deb0d1",
+      "browser_state_sha256": "84dced4ac9ef6eaaab3f647f757815945bfdd04104d1693ee4b4657f9018a69c"
+    }
+  ],
+  "ci": {
+    "run": 41349167166,
+    "sha": "64b3c3c66d5adc7b87382659c8934c549d774dc8",
+    "source_check": "FAIL; local reproduction: application export drift. Corrected inventory pending publication/new CI. Other failure causes cannot be ruled out from unavailable public job logs.",
+    "final_head_ci": "PENDING_PUBLICATION"
+  },
+  "net_cycle_note": "117540005428 cycles is the whole measured local window including candidate upgrade, cutover, simulation and source/artifact operations; it is not isolated join cost, a billed mainnet rate or a runway estimate.",
+  "raw_evidence_root": ".work/b2z-entry"
+}

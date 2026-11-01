@@ -18,6 +18,8 @@ use std::{
 #[rustfmt::skip]
 #[path = "../../../canisters/runtime-lab/src/source.rs"]
 mod source;
+#[path = "support/agent_playtesting.rs"]
+mod agent_playtesting;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
 #[path = "support/playability_browser.rs"]
@@ -3244,7 +3246,7 @@ fn arena_setup_world_fee_clock_payers(
     let payer = Principal::self_authenticating([9; 32]);
     let mut payers = vec![payer];
     payers.extend_from_slice(extra_payers);
-    assert!(payers.len() <= 4);
+    assert!(payers.len() <= 5); // Four ordinary agents plus the retained fixture payer.
     let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee);
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
@@ -6952,3 +6954,6 @@ fn public_runtime_health_is_bounded_operational_and_anonymous() {
             && doc.contains("there are no refunds, payouts, transaction-signing or controller operations in this player API")
     );
 }
+
+#[path = "support/entry_installed.rs"]
+mod entry_installed;

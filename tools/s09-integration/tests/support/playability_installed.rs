@@ -191,7 +191,7 @@ fn playability_cost_comparison() {
         &serde_json::json!({"status":"PASS","rows":results}),
     );
 }
-fn configuration(pic: &PocketIc, id: Principal, budget: u32) {
+pub(super) fn configuration(pic: &PocketIc, id: Principal, budget: u32) {
     get_result::<Status>(
         pic,
         id,
@@ -217,7 +217,7 @@ fn advance(pic: &PocketIc) {
         pic.tick();
     }
 }
-fn funding_paused(pic: &PocketIc, id: Principal, paused: bool) {
+pub(super) fn funding_paused(pic: &PocketIc, id: Principal, paused: bool) {
     #[derive(CandidType, Deserialize)]
     struct Funding {
         paused: bool,
@@ -233,7 +233,7 @@ fn funding_paused(pic: &PocketIc, id: Principal, paused: bool) {
         paused
     );
 }
-fn one_tick(pic: &PocketIc, id: Principal) {
+pub(super) fn one_tick(pic: &PocketIc, id: Principal) {
     let target = status(pic, id).run.completed_segments + 1;
     configuration(pic, id, 512);
     for _ in 0..6000 {
@@ -251,7 +251,7 @@ fn one_tick(pic: &PocketIc, id: Principal) {
         "exactly one complete tick required"
     );
 }
-fn prepare(pic: &PocketIc, id: Principal, method: &str) {
+pub(super) fn prepare(pic: &PocketIc, id: Principal, method: &str) {
     let mut error = String::new();
     for _ in 0..1800 {
         let reply = pic
@@ -273,7 +273,7 @@ fn prepare(pic: &PocketIc, id: Principal, method: &str) {
     }
     panic!("{method} preparation failed: {error}");
 }
-fn old_transition(pic: &PocketIc, id: Principal, kind: &str) {
+pub(super) fn old_transition(pic: &PocketIc, id: Principal, kind: &str) {
     prepare(pic, id, &format!("prepare_{kind}_transition"));
     for _ in 0..1800 {
         if transition_view_for(pic, id, &format!("{kind}_transition_status"))
@@ -299,7 +299,7 @@ fn old_transition(pic: &PocketIc, id: Principal, kind: &str) {
         candid::encode_one(observe(pic, id).1.head.manifest_hash).unwrap(),
     );
 }
-fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path) {
+pub(super) fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path) {
     let (o, p) = observe(pic, id);
     let Some(n) = p.head.segment_id.as_ref() else {
         return;
@@ -344,7 +344,7 @@ fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path
         rows.push(publication);
     }
 }
-fn controls(browser: bool) -> World {
+pub(super) fn controls(browser: bool) -> World {
     let fixture: serde_json::Value = serde_json::from_str(include_str!(
         "../../../../tests/fixtures/playability-host-history.json"
     ))
@@ -534,9 +534,9 @@ fn history_and_authentication(
     );
 }
 #[derive(CandidType, Deserialize)]
-struct BoundaryWork {
-    phase: Option<String>,
-    pending_inputs: u32,
+pub(super) struct BoundaryWork {
+    pub(super) phase: Option<String>,
+    pub(super) pending_inputs: u32,
 }
 
 #[test]

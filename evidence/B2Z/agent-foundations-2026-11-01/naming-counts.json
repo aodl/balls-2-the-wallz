@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "counts": {
+    "3 compatibility-sensitive identifier": 106,
+    "4 immutable historical data": 1541,
+    "3 compatibility documentation": 13,
+    "2 internal audit patterns": 2
+  },
+  "current_brand_changes": [
+    "Frontend title/navigation/metadata/accessibility",
+    "Current API and operations/specification text",
+    "Current test assertions and naming scanner"
+  ],
+  "preserved": [
+    "Memo magic/domains, source and history hashes",
+    "Account colour hash and saved identity preference key",
+    "Historical evidence/fixtures/recordings/branch paths"
+  ],
+  "backend_live_wording_pending_separate_authorization": true
+}
