@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "exact_world_bytes": true,
+  "predecessor": "94cc41e707bf2ff0470a3c50b10c7cd34a1c74c4366ee318c7d03b2cc1755788",
+  "checkpoint": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+  "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+  "epoch_index": "4",
+  "state_hash": "6441220bc20a32d40de31abddd4acd0da9e0f80c3a012ee848cc1e732b449e85",
+  "identity": {
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+  },
+  "cannons": 1,
+  "balls": 3,
+  "credits": [
+    {
+      "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+      "units": [
+        "162654414612565779132851",
+        "2608680513892740"
+      ]
+    },
+    {
+      "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "units": [
+        "153763048884846618771",
+        "5530584763760"
+      ]
+    }
+  ],
+  "received_e8s": "620000000",
+  "context": {
+    "account_history_complete_through": "39963385",
+    "index_synced": "39963386",
+    "ledger_cutover": "39963385",
+    "logical_boundary": [
+      "135375",
+      "1"
+    ],
+    "memo_adapter_after": 4,
+    "memo_adapter_before": 4,
+    "migration": "B2Z_FARTHEST_ENTRY_RULES_07",
+    "new_identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "new_state": "6441220bc20a32d40de31abddd4acd0da9e0f80c3a012ee848cc1e732b449e85",
+    "old_identity": {
+      "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "previous_state": "6441220bc20a32d40de31abddd4acd0da9e0f80c3a012ee848cc1e732b449e85",
+    "source_anchor": "b94e92757bff58b24426f97b9f632e12be615cf485e8257ba19f814ea416ec11",
+    "source_cursor": "39711127",
+    "version": 4
+  }
+}

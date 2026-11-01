@@ -1,3 +1,22 @@
+# B2Z entry rules 7 — deployed, verified and resumed
+
+The farthest-safe first-entry rule is live on the existing backend: normal Wasm
+`cfcf6130…`, public app `ddebfaf3…`, authenticated epoch index 4 `4fb7adbb…`.
+The complete world and paid/source/treasury records survived upgrade and cutover.
+World schema 6, memo adapter 4, prices, capacities and historical epochs remain.
+The already-open public page accepted 12 consecutive heads without reload,
+resync or delivery error. The new-player quote on the fully coloured board
+independently verifies as 1.1 ICP for the cannon/two-ball request; no payment sent.
+
+At 22:25:03 UTC on 1 November 2026, gameplay runs Survival (0.10 ticks/s),
+4.694313569926T liquid, with healthy source/treasury, original controllers and
+34-node fiduciary placement. CI 41350813269 passes exact source `d242d30`.
+The operator authorized release before the later user-owned PR merge. Test-player
+spending remains unapproved. [Exact deployed identities, preservation, screenshots,
+cycle limitations and evidence](evidence/B2Z/entry-rules-7-mainnet-release/REPORT.md).
+
+---
+
 # B2Z entry release — CI PASS, authorized, fresh funding stop
 
 CI 41350813269 passes exact source `d242d30`. The operator authorizes production

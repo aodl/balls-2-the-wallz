@@ -1,0 +1,22 @@
+{
+  "resets": "1",
+  "sample_end_ns": "1793571814388787041",
+  "observed_at_ns": "1793571856596450168",
+  "sample_start_total_cycles": "4642416978984",
+  "sample_count": 2,
+  "runtime_started_ns": "1793571633998730092",
+  "known_treasury_credit_delta": "0",
+  "net_decline_cycles": [
+    "114486497558"
+  ],
+  "version": 1,
+  "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+  "reservation_gap_end": "149829503670",
+  "certified_gameplay": false,
+  "sample_end_total_cycles": "4527930481426",
+  "total_cycles": "4848460663179",
+  "reservation_gap_start": "146939087400",
+  "sample_start_ns": "1793571754182061227",
+  "liquid_cycles": "4698631448079",
+  "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+}

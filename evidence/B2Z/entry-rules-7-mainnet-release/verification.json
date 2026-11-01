@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-11-01T22:25:03.097993+00:00",
+  "head_start": 81223,
+  "head_end": 81234,
+  "accepted_heads": 12,
+  "resyncs": 0,
+  "delivery_failures": 0,
+  "reloads_after_initial": 0,
+  "page_errors": [],
+  "final_phase": "PLAYING",
+  "mode": {
+    "admission_open": true,
+    "mode": "Survival",
+    "nominal_milli": 100,
+    "performance_limited": false,
+    "supported_milli": 100
+  },
+  "liquid_cycles": "4694313569926",
+  "query_window_seconds": 73.20117,
+  "query_window_net_decline": "7378704033",
+  "query_window_net_rate_cycles_h": "362881283438",
+  "rate_scope": "Short query-only observation; includes maintenance/call effects. Not gross billed burn, isolated game cost or a runway estimate. Callback meter separately recorded; its first two samples include release work/current-message reserves.",
+  "source_cursor": "39711127",
+  "treasury_phase": {
+    "Idle": null
+  },
+  "wire_capture_finalization": {
+    "status": "PASS",
+    "fence": 81234,
+    "fence_epoch_ms": 1793571886050.8032,
+    "accepted_responses": 369,
+    "pending_at_fence": [],
+    "peak_pending": 1,
+    "timeout_seconds": 15,
+    "pending_after_drain": [],
+    "drain_ms": 0.3725040005519986,
+    "completed_epoch_ms": 1793571886051.1746
+  }
+}

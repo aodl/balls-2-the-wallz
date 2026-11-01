@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "publication_artifact_source_config_files_exact": 89,
+  "fresh_certificates_independently_verified": true,
+  "treasury_fields_exact": [
+    "version",
+    "phase",
+    "paused",
+    "halted",
+    "last_error",
+    "last_plan_ns",
+    "last_refund",
+    "last_success",
+    "total_converted_e8s",
+    "total_cycles_reported"
+  ],
+  "source_cursor": "39711127"
+}
