@@ -104,6 +104,7 @@ def planned_checks(mode,outdir):
       ('playability-island-vectors',['node','tools/island_vectors.mjs','--check'],'normal',('node',),60),
       ('playability-capture-vectors',['node','tools/capture_vectors.mjs','--check'],'normal',('node',),60),
       ('playability-rules-vectors',['node','tools/rules_vectors.mjs','--check'],'normal',('node',),120),
+      ('entry-rules-vectors',['node','tools/entry_vectors.mjs','--check'],'normal',('node',),120),
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),
       ('protocol-fixtures',[sys.executable,'-B','tools/reference_fixtures.py','--check'],'normal',(),120),
       ('life-reference',[sys.executable,'-B','tools/life_reference.py','--check'],'normal',(),120),

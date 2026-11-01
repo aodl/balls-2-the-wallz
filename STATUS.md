@@ -1,18 +1,19 @@
-# B2Z farthest-entry fix — local rules-7 candidate
+# B2Z farthest-entry fix — installed/browser gate PASS, publication pending
 
-The operator has approved replacing the neutral-only first join with the legal
-3×3 patch furthest from existing cannons on the torus, regardless of territory colour.
-The candidate uses a new authenticated rules/configuration identity, preserves
-world schema 6 and all economics, and keeps historical v6 replay intact.
+Rules 7 admits first players on coloured territory at the exact furthest safe
+3×3 toroidal patch. Prices, schema 6, memo adapter 4 and historical v6 replay are
+preserved. The frozen normal backend is `cfcf6130…`; prepared app is `ddebfaf3…`.
+The 220.444s installed rehearsal preserves paid/unfinished state, authenticates
+the cutover, observes the actual 2/2-ball join receipt in the same browser and
+independently replays all 131 publications/two payments. Both earlier FAILs are
+retained; the missing client checkpoint case and local asset allowlist are fixed.
 
-Rust/JS differential vectors cover a fully occupied world, seams, a blocking ball,
-bridge protection, empty/rejoining worlds, legacy memos and 127 existing cannons.
-The native three-epoch test verifies exact world/value/deadline/source preservation.
-A focused installed normal-module upgrade/epoch/first-join browser rehearsal is
-being prepared. Production backend/epoch and player funds are unchanged.
-
-See [the exact rule and cutover contract](docs/specs/B2Z_ENTRY_RULES_7.md).
-Branch: `release/b2z-farthest-entry`. Remote Git operations remain user-owned.
+Published CI 41349167166 at `64b3c3c` reports a source-job FAIL. Its stale export
+inventory is reproduced and corrected locally. Final client/CI/evidence commits
+need publication and successful applicable CI. Remote Git remains user-owned.
+Production still has backend `b618e4f3…`, its original controllers and 34-node
+fiduciary placement; no production update or test-account spending occurred.
+[Exact evidence, screenshots and remaining release boundary](evidence/B2Z/farthest-entry-2026-11-01/REPORT.md).
 
 ---
 
