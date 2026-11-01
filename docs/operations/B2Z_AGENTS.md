@@ -94,7 +94,7 @@ cycles. This bounded sample tests hypotheses; it does not establish a winning
 strategy or full balance qualification. Installed Ledger/source acceptance is a
 separate explicitly ignored Rust integration case, run with valueless fixtures.
 
-## Four ordinary accounts, no spending approval
+## Four ordinary accounts and campaign approval
 
 See [public funding manifest](../../config/agents/players.public.json) and
 [proposed pilot limits](../../config/agents/pilot.proposed.json).
@@ -206,7 +206,49 @@ policy/version and measured outcomes. Each policy sees only public state and
 its own history. Waiting is an ordinary choice.
 
 A local `HOLD` file in the output directory pauses new policy activity for
-engineering work; `STOP` requests termination. The immutable approval expiry and
+engineering work; `STOP` requests persistent termination. A trusted `RESTART` marker
+ends only the runner so the same journal, frozen limits and original expiry can
+be reopened; it never clears an emergency stop or grants more funds/time. The immutable approval expiry and
 existing emergency-stop journal survive restarts. Stopping this process does not
 stop the game entities. Authoritative game/economic changes are separate from
 these local planning and signer tools.
+
+
+### Existing Rust kernel for local forecasts
+
+At larger live populations the independent JS interpreter may exhaust the wall
+bound before completing useful alternatives. Build the existing conformance
+executable, then optionally select its bounded `segment-json` route:
+
+```sh
+cargo build --manifest-path native/Cargo.toml --locked --release -p native-conformance-v4
+node tools/test_b2z_native_forecast.mjs native/target/release/native-conformance-v4
+B2Z_AGENT_NATIVE="$PWD/native/target/release/native-conformance-v4" node tools/b2z_agent.mjs --help
+```
+
+A trusted campaign launcher freezes that executable and sets
+`B2Z_AGENT_NATIVE_SHA256` to its SHA-256. A mismatch fails closed; the forecast
+cache also binds that identity. Neither variable is accepted from a player policy.
+The native route runs the same authoritative `Cursor`, explicit canonical inputs,
+seal context and elapsed-time facts. It returns no state on an incomplete segment;
+the worker still enforces the total wall/work/candidate bounds. There is no new
+simulation engine, hosted service or backend change. Exact state/event/score
+comparisons cover existing fixtures and independent JS forecasts.
+
+Record a distinct `B2Z_PILOT_PHASE` when changing the planning engine or bounds.
+Prior episodes and financial accounting remain intact; adaptive rewards are
+computed from exact canonical score deltas per logical tick. Shortlists preserve
+action-type diversity before adding further variants. JSON amounts must be exact
+integer strings/tagged integers or safe integer numbers; fractional/unsafe numbers
+are rejected.
+
+### Adjacent friendly cannon regression
+
+`node --test tests/js/adjacent-cannons.test.mjs` and
+`cargo test --manifest-path native/Cargo.toml --locked -p b2z-native --test adjacent`
+exercise two touching friendly cannon cells, firing in both directions and
+simultaneously, including toroidal seams. Commands use valueless canonical
+payments and sequential shared-island prices. Existing launch exemptions allow a
+reflected ball to leave its original cell; they do not allow passage through the
+other cannon. These are local kernel/recovery comparisons, not claims of an
+installed Ledger or paid mainnet test.

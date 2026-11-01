@@ -3,7 +3,7 @@ import {quoteV6,legalMove,legalAdjacentSites} from '../../../apps/b2z-observer/a
 import {encodeV6Memo} from '../../protocol/memo-v6.mjs';
 import {parseTextMemo} from '../../protocol/memo.mjs';
 import {canonicalAccount} from '../../../apps/b2z-observer/identity.mjs';
-import {check,integer,freeze} from './common.mjs';
+import {check,integer,freeze,money} from './common.mjs';
 export function typedAction(action){check(action&&typeof action==='object'&&Object.keys(action).length===1,'TYPED_ACTION_REQUIRED');const type=Object.keys(action)[0],v=action[type];check(v&&typeof v==='object'&&!Array.isArray(v),'ACTION_FIELDS');const fields={Wait:[],Fire:['cannon','angle','quantity'],New:['angle','quantity','cell'],Move:['cannon','cell']}[type];check(fields&&Object.keys(v).every(k=>fields.includes(k)),'ACTION_FIELDS');if(type==='Wait')return{Wait:{}};if(type!=='New')integer(v.cannon,1,4294967294);if(type!=='Move'){integer(v.angle,0,65535,'HEADING_BOUNDS');integer(v.quantity,1,64,'QUANTITY_BOUNDS');}if(type==='Move'||v.cell!==undefined&&v.cell!==null)integer(v.cell,0,999999,'CELL_BOUNDS');return freeze({[type]:{...v,...(type==='New'?{cell:v.cell??null}:{})}});}
 export function memoCommand(action){const a=typedAction(action),type=Object.keys(a)[0],v=a[type];check(type!=='Wait','WAIT_IS_NOT_A_PAYMENT');return{kind:{Fire:'fire',New:'new',Move:'move_cannon'}[type],...v};}
 export function exactDegrees(angle){for(const n of [Math.floor(angle*36000/65536)-1,Math.floor(angle*36000/65536),Math.floor(angle*36000/65536)+1])if(n>=0&&n<36000){const t=`${Math.floor(n/100)}.${String(n%100).padStart(2,'0')}`;if(parseTextMemo(new TextEncoder().encode('ANGLE '+t)).value===angle)return t;}return null;}
@@ -42,11 +42,12 @@ export function actionOptions(board,account,{budgetE8s=0n,feeE8s=10000n,max=12,c
    if(limits.allowed_actions&&!limits.allowed_actions.includes(kind))reason='ACTION_NOT_ALLOWED';
    else if(kind==='New'&&mine.length+1>(limits.max_cannons_per_player??128))reason='PLAYER_CANNON_LIMIT';
    else if(balls+quantity>(limits.max_balls_per_player??64))reason='PLAYER_BALL_LIMIT';
-   else if(limits.per_action_max_e8s!==undefined&&full>BigInt(limits.per_action_max_e8s))reason='ACTION_BUDGET';
+   else if(limits.per_action_max_e8s!==undefined&&full>money(limits.per_action_max_e8s))reason='ACTION_BUDGET';
    else if(full>budgetE8s)reason='AVAILABLE_BUDGET';
    else if(limits.approved_accounts)reason=interactionIssue(w,limits.approved_accounts,c.action);
   }
-  const row={...c,full_cost_e8s:full};if(reason)unavailable.push({...row,reason});else if(available.length<max)available.push(row);
+  const row={...c,full_cost_e8s:full};if(reason)unavailable.push({...row,reason});else available.push(row);
  }
- return{candidates:available,unavailable,local_constraints:{budget_e8s:budgetE8s,fee_e8s:feeE8s,...limits},selection:{owned_cannon_ids:mine.map(c=>c.id),selected_cannon:cannonId??mine[0]?.id??null,note:'Bounded shortlist, not an exhaustive action set. Supply cannon_id to inspect another owned cannon.'},affordability:'Full transfer plus fee; local limits are not certified game configuration. Quotes are not reservations.'};
+ const diverse=[];for(const kind of ['Wait','New','Fire','Move']){const c=available.find(c=>c.action[kind]);if(c&&diverse.length<max)diverse.push(c);}for(const c of available)if(diverse.length<max&&!diverse.includes(c))diverse.push(c);
+ return{candidates:diverse,unavailable,local_constraints:{budget_e8s:budgetE8s,fee_e8s:feeE8s,...limits},selection:{owned_cannon_ids:mine.map(c=>c.id),selected_cannon:cannonId??mine[0]?.id??null,note:'Bounded shortlist, not an exhaustive action set. Supply cannon_id to inspect another owned cannon.'},affordability:'Full transfer plus fee; local limits are not certified game configuration. Quotes are not reservations.'};
 }

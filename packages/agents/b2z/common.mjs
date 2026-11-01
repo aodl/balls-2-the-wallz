@@ -9,3 +9,5 @@ export const bounded=(xs,n)=>({items:xs.slice(0,n),total:xs.length,truncated:xs.
 export function envelope(operation,board,data){return{schema:SCHEMA,operation,provenance:board.provenance(),classification:{facts:'Authenticated state and original event artifacts, if provenance.trust is certificate-verifier',derived:'All summaries, geometry, prices and metrics are local derivations from that state',predictions:'Only explicitly labelled forecasts; not authenticated futures',operational:'Pace, wallet budgets and pending transactions are separately sourced, not certified gameplay'},...data};}
 export const fractionSub=(a,b)=>[a[0]*b[1]-b[0]*a[1],a[1]*b[1]];
 export const fractionCmp=(a,b)=>a[0]*b[1]<b[0]*a[1]?-1:a[0]*b[1]>b[0]*a[1]?1:0;
+
+export function money(value,code='MONEY_BOUNDS'){check(typeof value==='bigint'||typeof value==='string'&&/^[0-9]+$/.test(value)||typeof value==='number'&&Number.isSafeInteger(value)&&value>=0,code);const n=BigInt(value);check(n>=0n&&n<=18446744073709551615n,code);return n;}
