@@ -73,3 +73,37 @@ an authoritative gameplay defect. The original failure is retained privately.
 
 Raw outputs and private transaction/receipt witnesses stay under `.work/`.
 No private signing material was inspected, copied, exported or committed.
+
+
+## Follow-up: exact custom quote and browser witness correction
+
+Commit d457dc9 adds `quote_action`: exact typed angle/cell/quantity, optional
+expected-root fencing and the authenticated source destination, with no signer
+proposal or budget reservation. Two focused interface tests PASS, including a
+custom nat16 heading, destination-override rejection and stale-root refusal.
+A fresh mainnet read-only check at head 82028 returned the exact binary memo for
+heading 65535. The optional fee is labelled caller-supplied, never certified.
+
+The first native-phase Move, Expander block 39966992, was authentically applied.
+Its browser witness FAIL is preserved: the test searched for "applied", while
+successful Move rows say "Accepted". The original page did receive that actual
+receipt, but no completed presentation witness is claimed. During the wait the
+runner checked HOLD only between complete rounds; Defender consequently submitted
+another permitted move, block 39967174. Both transfers were reconciled by original
+identity; no retry or new timestamp was generated. The HOLD check now runs before
+each proposal, before submission and between players (4fbcfab).
+
+The corrected reusable read-only browser witness matches block/account/reason/kind
+and purchase quantities, checks rendered logical time, and for moves centres the
+actual presentation cannon and compares its cell to the authenticated destination.
+Two focused Python tests PASS, including wrong-block/owner/reason/kind/quantity
+failures. A browser restart creates a separate witness window; earlier actions
+remain explicitly unqualified for no-refresh presentation. Subsequent payments
+require a fresh ready marker and the complete assertions.
+
+Original browser window: 369 accepted-head observations, one navigation and zero
+page errors. Its final record retains the first move's actual Accepted receipt and
+time seen. The second move's presentation was not witnessed in that closed window.
+Both moves cost 0.0002 ICP including fee. Cumulative overnight expenditure at this
+restart is 3.3007 ICP; remaining frozen allowance is 3.5992 ICP. No unresolved paid
+action remains before resumption. The original eight-hour expiry is unchanged.
