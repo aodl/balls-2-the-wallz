@@ -29,11 +29,11 @@ export function replayHistory(trace,{diagnostic}={}){
   if(p.head.seal===null){
    check([7,8,9].includes(p.version)&&p.epoch,'unsupported replay checkpoint');
    const before=unhex(host.committed().state_hex),old=decodeWorld(before);let out,metadata;
-   if(p.version===7){
+   if(p.version===7&&old.version!==6){
     const raw=trace.epoch_metadata?.[p.epoch.transition_hash]??trace.metadata_hex;check(typeof raw==='string','missing historical transition metadata');
     const proof=decodeCanonical(unhex(raw)),proposed=stageTorusMigration(before,{...proof,identity:host.publicationRecord().journal.identity});
     metadata=encodeCanonical(proposed.transition);check(hex(metadata)===raw,'application transition metadata mismatch');out=emptyOutput(proposed.state,4);
-   }else if(p.version===8&&old.version===6){
+   }else if([7,8].includes(p.version)&&old.version===6){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context;
     check(audit.events[0]?.kind==='rules_activated'&&context,'entry activation context missing');
     check(Object.keys(PLAYABILITY_IDENTITY).every(k=>host.publicationRecord().journal.identity[k]===PLAYABILITY_IDENTITY[k])&&Object.keys(ENTRY_IDENTITY).every(k=>p.identity[k]===ENTRY_IDENTITY[k])&&p.identity.source_id===host.publicationRecord().journal.identity.source_id,'entry transition identity');

@@ -290,6 +290,12 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
       check(sameCanonical(expected,final),'rules activation preserved entities');
       check(context.new_state===publication.head.state_hash&&sameCanonical(context.old_identity,prior.identity)&&sameCanonical(context.new_identity,publication.identity),'rules activation identities');
       check(final.playability.elapsed_ns===context.observed_ns,'rules activation time');
+    }else if(events.events[0]?.kind==='rules_activated'){
+      check(initial.version===6&&publication.version===(prior.version===6?7:8)&&publication.epoch.version===(prior.version===6?1:2)&&events.events.length===1,'entry checkpoint identity');
+      check(Object.keys(PLAYABILITY_IDENTITY).every(k=>prior.identity[k]===PLAYABILITY_IDENTITY[k])&&Object.keys(ENTRY_IDENTITY).every(k=>publication.identity[k]===ENTRY_IDENTITY[k]),'entry rules identities');
+      const expected={version:4,migration:'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:4};
+      check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'entry cutover context');
+      check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'entry preserved complete state');
     }else{
       check(initial.version===6&&publication.version===9&&publication.epoch.version===3&&sameCanonical(publication.identity,prior.identity),'lifecycle checkpoint identity');
       check(events.events[0].kind==='lifecycle_context'&&context.domain==='B2Z-LIFECYCLE-CONTEXT-01'&&context.version===1,'lifecycle context');
