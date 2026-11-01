@@ -1,3 +1,28 @@
+# BTZ v6 deployed, verified and resumed
+
+The second release is live on the existing mainnet backend and observer. Normal
+Wasm `b618e4f3…`, public app `ba2c8478…` and DTR `282d7091…` remain the exact
+qualified artifacts. PR #5 merged normally as `f72503f` with a source tree equal
+to green CI head `9afac75`; full browser-enabled v6 qualification passed separately.
+
+The paid v5 state/history survived the upgrade byte-for-byte. Authenticated epoch
+index 3 (`e7905ce5…`) activates v6 without changing cannon #3, its three balls,
+ownership, accrued credits, receiving account, source cursor or treasury records.
+The same public page accepted 29 consecutive heads through the cutover/resume,
+with no reload or resync; seven genuine stale responses were discarded and all
+four warning episodes recovered. No payment or financial transfer was performed.
+
+At 13:44:59 UTC on 1 November 2026, gameplay is running Conserve (0.20 ticks/s),
+6.080656810211T liquid, with healthy source/treasury and no pending input. Actual
+limits are 128 cannons, 64 total balls, 64 per purchase island and 16 retained
+cannons per funding player. Event Horizon remains disabled with 60-second Index
+fallback; MCP terms/discovery opt-in remains inactive. No 512-ball or gross-burn
+claim is made. [Exact deployment, preservation, screenshots and limitations](evidence/BTZ/v6-mainnet-release/REPORT.md).
+
+---
+
+<!-- ARCHIVED_STATUS -->
+
 # Complete frozen v6 installed/browser gate PASS; final CI pending
 
 The exact `c7d12fd7…`→`b618e4f3…` paid/unfinished-state rehearsal now passes the
@@ -17,8 +42,6 @@ No v6 deployment or fresh funding quote before applicable final CI passes.
 [Complete technical qualification and exact remaining boundary](evidence/BTZ/v6-gate-qualified/REPORT.md).
 
 ---
-
-<!-- ARCHIVED_STATUS -->
 
 # Definitive CI FAIL diagnosed; two test-only corrections ready
 

@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "recorded_at": "2026-11-01T13:43:08.012Z",
+  "scope": "Anonymous read-only public action_quote independently matched against its exact authenticated retained snapshot; no payment",
+  "newest_authenticated_head": "78219",
+  "quote_head": "78219",
+  "authenticated_predecessor_hops": 0,
+  "amount_e8s_excluding_fee": "250000000",
+  "memo_hex": "f600000003000002",
+  "maximum_fill_now": 2,
+  "reservation": false,
+  "typed_reply_certified": false,
+  "destination": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "subaccount": "0",
+    "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a"
+  }
+}
