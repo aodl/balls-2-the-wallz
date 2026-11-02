@@ -1,3 +1,24 @@
+# Tactical review — mobile and bounded planning corrections
+
+`bbf8617` tightens healthy Reserve Protection messaging, keeps mobile status above
+the minimap, adds a planning-only controlled-population conditional shortlist and
+extends the existing matched runner with Move-versus-Wait bridge defence.
+No production changes, spending, new approval or expired-campaign restart.
+
+PASS: 89 agent/reference tests, 37 final focused regressions, 20 native/reference
+comparisons, six bridge pairs and a two-viewport mobile browser check. Immediate
+Move preserves three cells; delays 2/4 are rejected after the split. No excessive
+counterplay or authoritative defect is established by this one geometry.
+
+Published workflow correction `dc4447b` passes native, source, browser, dependency
+and Wasm jobs in run 41438652555; installed-IC qualification also passed.
+The published workflow correction now has overall SUCCESS on its exact commit.
+The new follow-up source remains local and awaits its own publication/CI. The current campaign remains ineligible for
+conditional planning (expired approval and an outside retained cannon).
+[Exact results and packaged frontend identities](evidence/B2Z/tactical-review-2026-11-02/REPORT.md).
+
+---
+
 # CI follow-up — missing native-job npm installation corrected
 
 CI 41436115233 tested pushed `d7b7ee1` and failed only the JS/native forecast
