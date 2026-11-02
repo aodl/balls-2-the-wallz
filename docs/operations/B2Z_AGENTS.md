@@ -301,3 +301,31 @@ The browser selects an owned cannon through the visible Fire control before
 publishing its ready marker for Fire/Move. The legacy selector is hidden in New
 mode; trying to select it there is a harness error, not a failed game move. A
 failed witness remains FAIL even when its payment is authentically applied.
+
+
+### Policy version 2: marginal decisions and heading coverage
+
+`b2z-policies-2` compares each action's additional score, territory and survival
+with Wait under the identical complete scenario and logical horizon. An action
+whose admission lies beyond the horizon is **unassessed**, not a completed
+purchase with zero benefit. Decisions expose `forecast_coverage`; a result based
+only on immediate admission does not establish robustness to long Index delays.
+Fee-inclusive cost is used when supplied. Ranks remain heuristic, not money.
+
+The unchanged v1 ranking remains selectable through `policy_version:
+"b2z-policies-1"` in `decide`, for holdout comparisons on the same candidate set.
+A policy phase change is recorded before restarting the live runner; financial
+limits/expiry/journal never reset. Past v1 episodes remain unchanged.
+
+`action_options`, `evaluate_actions` and `decide` accept `heading_offset`; their
+bounded shortlist can rotate through all eight exact cardinal/diagonal headings
+(and retain an existing non-cardinal heading). `cannon_id` selects a specific
+owned cannon. A declaration owning no cannons cannot turn a selected enemy cannon
+into a new-cannon purchase silently: explicit selection fails `NOT_OWNER`.
+
+The pilot uses at most five candidates, eight logical ticks, 60,000 work units and
+the same five-second native planning bound. This allows a second firing alternative
+without removing movement from the shortlist. Each player's heading cursor and
+adaptive reward history remain separate. A timeout or incomplete consent comparison
+keeps the affected alternative unavailable; it never grants more processing time
+or spending authority.

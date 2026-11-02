@@ -11,7 +11,7 @@ export function quoteAction(snapshot,account,action){canonicalAccount(account);a
  const kind={Fire:'fire',New:'new',Move:'move'}[type],q=quoteV6(snapshot.world,snapshot.configuration,account,{kind,...v,angle:'0'}),memo=encodeV6Memo(memoCommand(action)),degrees=type==='Move'?null:exactDegrees(v.angle),text=type==='Move'?`MOVE ${v.cannon} ${v.cell}`:degrees===null?null:type==='Fire'?`FIRE ${v.cannon} ${degrees} ${v.quantity}`:`NEW ${degrees} ${v.quantity}${v.cell===null?'':' '+v.cell}`;
  return{action,amount_e8s:q.amount,per_item_e8s:q.per_item,maximum_fill:q.maximum_fill,requested_quantity:v.quantity??1,island_pool:q.pool,memo_hex:Buffer.from(memo).toString('hex'),text_memo:text,non_reservation:true,notice:'Wallet fee is extra. Legality/prices are rechecked at processing. Partial fills, rejected payments and surplus remain retained.'};
 }
-export function candidates(board,account,{max=8,budgetE8s=0n,feeE8s=10000n,quantityMax=2,cannonId=null}={}){integer(max,1,16);integer(quantityMax,1,64);const s=board.snapshot,w=s.world,out=[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n},rationale:'No new expenditure; existing trajectories continue.'}],mine=w.cannons.filter(c=>c.account===account);
+export function candidates(board,account,{max=8,budgetE8s=0n,feeE8s=10000n,quantityMax=2,cannonId=null,headingOffset=0}={}){integer(headingOffset,0,65535);if(cannonId!==null)integer(cannonId,1,4294967294);integer(max,1,16);integer(quantityMax,1,64);const s=board.snapshot,w=s.world,out=[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n},rationale:'No new expenditure; existing trajectories continue.'}],mine=w.cannons.filter(c=>c.account===account);check(cannonId===null||mine.some(c=>c.id===cannonId),'NOT_OWNER');
  const add=(id,action,rationale)=>{if(out.length>=max)return;try{const quote=quoteAction(s,account,action);if(quote.amount_e8s+feeE8s<=budgetE8s)out.push({id,action,quote,rationale});}catch(e){if(!/CAPACITY|ILLEGAL|SITE|SPAWN|NOT_OWNER|PLACEMENT|QUANTITY/.test(e.message))throw e;}};
  if(!mine.length){for(const angle of [0,16384,32768,49152])for(const quantity of [...new Set([1,Math.min(2,quantityMax)])])add('new-'+angle+'-'+quantity,{New:{angle,quantity,cell:null}},'First spawn follows the authenticated entry policy at processing time; location is not reserved.');}
  else{
@@ -19,7 +19,8 @@ export function candidates(board,account,{max=8,budgetE8s=0n,feeE8s=10000n,quant
   const moveCells=[...new Set(r.narrow.concat(board.rows.flatMap(row=>row.filter(x=>x[2]===r.id).slice(0,1).map(x=>x[0])).slice(0,4)))];
   for(const cell of (r.frontier_edges?moveCells:[]).filter(cell=>cell!==c.cell&&legalMove(w,account,c.id,cell)).slice(0,2))add(`move-${c.id}-${cell}`,{Move:{cannon:c.id,cell}},'Legal owned cell near sampled frontier/connection; final admission may reject a stale destination.');
   const site=legalAdjacentSites(w,account)[0];if(site!==undefined)add('new-adjacent-'+site,{New:{angle:0,quantity:1,cell:site}},'Additional active adjacent anchor; account-wide scaling and capacity apply.');
-  for(const angle of [...new Set([c.heading??0,0,16384,32768,49152])].slice(0,3))for(const quantity of [1,Math.min(2,quantityMax)].filter((n,i,a)=>a.indexOf(n)===i))add(`fire-${c.id}-${angle}-${quantity}`,{Fire:{cannon:c.id,angle,quantity}},'Bounded coarse headings; shared-island sequential pricing.');
+  const headings=[...new Set([c.heading??0,0,8192,16384,24576,32768,40960,49152,57344])],offset=headingOffset%headings.length;
+  for(const angle of headings.slice(offset).concat(headings.slice(0,offset)))for(const quantity of [1,Math.min(2,quantityMax)].filter((n,i,a)=>a.indexOf(n)===i))add(`fire-${c.id}-${angle}-${quantity}`,{Fire:{cannon:c.id,angle,quantity}},'Bounded coarse headings; shared-island sequential pricing.');
 
  }
  return out;
@@ -33,10 +34,10 @@ export function interactionIssue(w,accounts,action){
  return w.cannons.some(c=>!approved.has(c.account)&&near(c.cell))||w.balls.some(b=>!approved.has(w.playability.players.find(p=>p.id===b.owner)?.account)&&near(b.cell))?'UNKNOWN_PLAYER_INTERACTION_STOP':null;
 }
 /** Quotes, population caps and affordability share the same authenticated revision. */
-export function actionOptions(board,account,{budgetE8s=0n,feeE8s=10000n,max=12,cannonId=null,limits={}}={}){
+export function actionOptions(board,account,{budgetE8s=0n,feeE8s=10000n,max=12,cannonId=null,headingOffset=0,limits={}}={}){
  canonicalAccount(account);integer(max,1,16);if(cannonId!==null)integer(cannonId,1,4294967294);check(typeof budgetE8s==='bigint'&&budgetE8s>=0n&&typeof feeE8s==='bigint'&&feeE8s>=0n,'MONEY_BOUNDS');
  const w=board.world,pid=w.playability.players.find(p=>p.account===account)?.id,mine=w.cannons.filter(c=>c.account===account),balls=w.balls.filter(b=>b.owner===pid).length,quantityMax=limits.max_quantity??2;integer(quantityMax,1,64);
- const offered=candidates(board,account,{max:16,budgetE8s:18446744073709551615n,feeE8s,quantityMax,cannonId}),available=[],unavailable=[];
+ const offered=candidates(board,account,{max:16,budgetE8s:18446744073709551615n,feeE8s,quantityMax,cannonId,headingOffset}),available=[],unavailable=[];
  for(const c of offered){const kind=Object.keys(c.action)[0],quantity=c.action[kind].quantity??0,full=c.quote.amount_e8s+(kind==='Wait'?0n:feeE8s);let reason=null;
   if(kind!=='Wait'){
    if(limits.allowed_actions&&!limits.allowed_actions.includes(kind))reason='ACTION_NOT_ALLOWED';
@@ -49,7 +50,7 @@ export function actionOptions(board,account,{budgetE8s=0n,feeE8s=10000n,max=12,c
   const row={...c,full_cost_e8s:full};if(reason)unavailable.push({...row,reason});else available.push(row);
  }
  const diverse=[];for(const kind of ['Wait','New','Fire','Move']){const c=available.find(c=>c.action[kind]);if(c&&diverse.length<max)diverse.push(c);}for(const c of available)if(diverse.length<max&&!diverse.includes(c))diverse.push(c);
- return{candidates:diverse,unavailable,local_constraints:{budget_e8s:budgetE8s,fee_e8s:feeE8s,...limits},selection:{owned_cannon_ids:mine.map(c=>c.id),selected_cannon:cannonId??mine[0]?.id??null,note:'Bounded shortlist, not an exhaustive action set. Supply cannon_id to inspect another owned cannon.'},affordability:'Full transfer plus fee; local limits are not certified game configuration. Quotes are not reservations.'};
+ return{candidates:diverse,unavailable,local_constraints:{budget_e8s:budgetE8s,fee_e8s:feeE8s,...limits},selection:{owned_cannon_ids:mine.map(c=>c.id),selected_cannon:cannonId??mine[0]?.id??null,heading_offset:headingOffset,note:'Bounded shortlist, not an exhaustive action set. Supply cannon_id to inspect another owned cannon.'},affordability:'Full transfer plus fee; local limits are not certified game configuration. Quotes are not reservations.'};
 }
 
 
