@@ -36,3 +36,11 @@ test('reserve protection disables encouragement and never disguises preserved pe
  const s={run:{running:true,idle:false,pace:{mode:'ReserveProtection',nominal_milli:0,admission_open:false},last_error:[]},source:{binding_checked:true,last_error:[],pending_records:5}};
  assert.match(operationalText(s),/Reserve protection.*pending payments are preserved.*funding recovery remains active/);
 });
+
+
+test('reserve protection replaces the indefinite catch-up spinner only after verification and fresh healthy operations',async()=>{
+ const {catchupIndicator}=await import('../../apps/b2z-observer/play-reference.mjs'),operational={run:{world_transition:false,pace:{mode:'ReserveProtection',admission_open:false},last_error:[]},source:{last_error:[]}},args={phase:'BUFFERING',verified:true,operationalFresh:true,operational};
+ const view=catchupIndicator(args);assert.equal(view.spinner,false);assert.equal(view.kind,'reserve');assert.match(view.title,/paused to conserve/);
+ for(const change of [{verified:false},{operationalFresh:false},{phase:'ERROR'},{operational:{...operational,run:{...operational.run,world_transition:true}}}])assert.notEqual(catchupIndicator({...args,...change}).kind,'reserve');
+ assert.equal(catchupIndicator({phase:'PLAYING',verified:true}).visible,false);
+});

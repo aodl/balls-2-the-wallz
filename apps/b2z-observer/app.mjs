@@ -8,7 +8,7 @@ import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublica
 import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
-import {cannonReference,operationalText,idleArena} from './play-reference.mjs';
+import {cannonReference,operationalText,idleArena,catchupIndicator} from './play-reference.mjs';
 import {accountColor} from './identity.mjs';
 import {createCycleMeterView} from './cycle-health.mjs';
 import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
@@ -365,7 +365,15 @@ function updateHud(){
   $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
   arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
-  $('catching-up').hidden=!['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(p);
+  const indicator=catchupIndicator({phase:p,verified:Boolean(s?.ready&&!s.error),
+    operational:s?.operational,operationalFresh:performance.now()-(s?.operationalAt??-Infinity)<30000});
+  const notice=$('catching-up');
+  notice.hidden=!indicator.visible;notice.dataset.kind=indicator.kind;
+  notice.querySelector('.spinner').hidden=!indicator.spinner;
+  for(const [selector,value]of [['strong',indicator.title],['p',indicator.description]]){
+    const element=notice.querySelector(selector);
+    if(element.textContent!==value)element.textContent=value;
+  }
   const health=s?.operational?.health;const meter=$('cycle-meter');
   if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health);meter.textContent=(estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));

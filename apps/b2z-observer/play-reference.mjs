@@ -27,3 +27,10 @@ export function operationalText(status){
 export function idleArena(status,world){
  return Boolean(status?.run.running&&status.run.idle&&!status.run.last_error.length&&status.source.binding_checked&&!status.source.last_error.length&&world&&(world.cannons.length===0||world.version===6&&world.playability.lifecycle.every(l=>l.deadline_ns!==undefined))&&!world.balls.length&&!world.pending.length);
 }
+
+/** Operational messaging only; never advances, skips or authenticates playback. */
+export function catchupIndicator({phase,verified=false,operational=null,operationalFresh=false}){
+ const pending=['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(phase);
+ const reserve=verified&&operationalFresh&&phase!=='ERROR'&&!operational?.run.world_transition&&operational?.run.pace?.mode==='ReserveProtection'&&operational.run.pace.admission_open===false&&!operational.run.last_error.length&&!operational.source.last_error.length;
+ return reserve?{visible:true,spinner:false,kind:'reserve',title:'Gameplay paused to conserve cycles',description:'Showing the verified timeline. Gameplay resumes when funding permits; source and funding maintenance continue.'}:{visible:pending,spinner:true,kind:'catching-up',title:'Catching up',description:'Fetching and verifying on-chain gameplay. Motion comes from the on-chain runtime; your browser only renders the verified timeline.'};
+}
