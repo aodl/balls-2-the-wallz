@@ -1,0 +1,3202 @@
+{
+  "status": "PASS",
+  "scope": "Matched pure-kernel local trials; fixed opponent input stream and 16 logical ticks; no ICP, inference or billed-cycle claim",
+  "rows": [
+    {
+      "seat": 0,
+      "geometry": "bent-near",
+      "attack": "cardinal",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 0,
+      "defence": "proactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "wait_initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "wait_opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "admission_tick": 0,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "20736"
+          },
+          {
+            "$integer": "140625"
+          }
+        ],
+        "final_state": "77b3e9acfa4e8191c8ffffcd75d3ed32c0800b5de98800f043414eeb2a83ffa7",
+        "territory": 9,
+        "defending_ball_survived": true,
+        "islands_retained": 1,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "after": 999103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 100,
+            "cannon": 1,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1001"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2406,
+        "elapsed_ms": 271.5445769999999
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "28ad5507b8de92cb18b3b52fc0b3ced208555bc0d392c4b48cfebec4f4c9652a",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2535,
+        "elapsed_ms": 492.9765749999999
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "37527046875"
+        },
+        {
+          "$integer": "494384765625"
+        }
+      ],
+      "incremental_territory": 4
+    },
+    {
+      "seat": 0,
+      "geometry": "bent-near",
+      "attack": "cardinal",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 10,
+      "defence": "reactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "wait_initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "wait_opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "admission_tick": 2,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "2c6aef4ef45fef63e81ea032a39989ab4541ce6d71194e549c130667218c37f7",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1021"
+            },
+            "reason": "NOT_OWN_TERRITORY",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2536,
+        "elapsed_ms": 365.96435500000007
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "28ad5507b8de92cb18b3b52fc0b3ced208555bc0d392c4b48cfebec4f4c9652a",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2535,
+        "elapsed_ms": 396.812673
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "12359619140625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 0,
+      "geometry": "bent-near",
+      "attack": "cardinal",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 60,
+      "defence": "reactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "wait_initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "wait_opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "admission_tick": 12,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "2c6aef4ef45fef63e81ea032a39989ab4541ce6d71194e549c130667218c37f7",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1121"
+            },
+            "reason": "NOT_OWN_TERRITORY",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2536,
+        "elapsed_ms": 1040.112283
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "28ad5507b8de92cb18b3b52fc0b3ced208555bc0d392c4b48cfebec4f4c9652a",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2535,
+        "elapsed_ms": 944.8431929999999
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "12359619140625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 1,
+      "geometry": "bent-near",
+      "attack": "cardinal",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 0,
+      "defence": "proactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "wait_initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "wait_opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "admission_tick": 0,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "20736"
+          },
+          {
+            "$integer": "140625"
+          }
+        ],
+        "final_state": "91ad5394d800cc95d9ceaeca9cd454a7e7060a4a03e55527356e6335e60badd2",
+        "territory": 9,
+        "defending_ball_survived": true,
+        "islands_retained": 1,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "after": 999103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 106,
+            "cannon": 2,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1001"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2406,
+        "elapsed_ms": 153.72898199999963
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "2163f4bbc9015b425436c85502ef2731cb9b141336c374bb0016723dd5489b45",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2535,
+        "elapsed_ms": 342.62693899999977
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "37527046875"
+        },
+        {
+          "$integer": "494384765625"
+        }
+      ],
+      "incremental_territory": 4
+    },
+    {
+      "seat": 1,
+      "geometry": "bent-near",
+      "attack": "cardinal",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 10,
+      "defence": "reactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "wait_initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "wait_opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "admission_tick": 2,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "563988d87f4c2f09c9c96d33ca2ab2d2ed1cfd1c9cbd57f25714d6d7409e13b3",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1021"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2536,
+        "elapsed_ms": 325.945514
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "2163f4bbc9015b425436c85502ef2731cb9b141336c374bb0016723dd5489b45",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2535,
+        "elapsed_ms": 515.4498789999998
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "12359619140625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 1,
+      "geometry": "bent-near",
+      "attack": "cardinal",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 60,
+      "defence": "reactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "wait_initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "wait_opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "admission_tick": 12,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "563988d87f4c2f09c9c96d33ca2ab2d2ed1cfd1c9cbd57f25714d6d7409e13b3",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1121"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2536,
+        "elapsed_ms": 366.5716630000006
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "251541"
+          },
+          {
+            "$integer": "3515625"
+          }
+        ],
+        "final_state": "2163f4bbc9015b425436c85502ef2731cb9b141336c374bb0016723dd5489b45",
+        "territory": 5,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2535,
+        "elapsed_ms": 338.57008399999995
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "12359619140625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 0,
+      "geometry": "bent-near",
+      "attack": "two-directions",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 0,
+      "defence": "proactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "wait_initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "opposing_inputs": "6238adc2ecaffbfa405fccc1bad31376fc59f0ea0fb22a562c450a7afcee8556",
+      "wait_opposing_inputs": "6238adc2ecaffbfa405fccc1bad31376fc59f0ea0fb22a562c450a7afcee8556",
+      "admission_tick": 0,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "6629607"
+          },
+          {
+            "$integer": "636384375"
+          }
+        ],
+        "final_state": "4db1248bc147c8c508b6d3a1330fd6afb727ac96686d6fb4939101ec5112fde8",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "after": 999103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 100,
+            "cannon": 1,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1001"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2446,
+        "elapsed_ms": 210.16624599999977
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "b0f6fa41b76c76b0d083a4d398a5614bcdc2aa6ddf9e5df935d62ab46407b837",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2585,
+        "elapsed_ms": 336.06494999999995
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "-563032166400000"
+        },
+        {
+          "$integer": "2024925363720703125"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 0,
+      "geometry": "bent-near",
+      "attack": "two-directions",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 10,
+      "defence": "reactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "wait_initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "opposing_inputs": "6238adc2ecaffbfa405fccc1bad31376fc59f0ea0fb22a562c450a7afcee8556",
+      "wait_opposing_inputs": "6238adc2ecaffbfa405fccc1bad31376fc59f0ea0fb22a562c450a7afcee8556",
+      "admission_tick": 2,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "213ea79a178cbaca571a497f2fa7676de3967bd47c45c3b705231c991e600f76",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1021"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2586,
+        "elapsed_ms": 274.1094119999998
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "b0f6fa41b76c76b0d083a4d398a5614bcdc2aa6ddf9e5df935d62ab46407b837",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2585,
+        "elapsed_ms": 287.2768899999992
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "10124626818603515625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 0,
+      "geometry": "bent-near",
+      "attack": "two-directions",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 60,
+      "defence": "reactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "wait_initial_state": "aea36b64bd15fa382e06d42cf615aa4cf255d54102f7c5cde25ee893951adf56",
+      "opposing_inputs": "6238adc2ecaffbfa405fccc1bad31376fc59f0ea0fb22a562c450a7afcee8556",
+      "wait_opposing_inputs": "6238adc2ecaffbfa405fccc1bad31376fc59f0ea0fb22a562c450a7afcee8556",
+      "admission_tick": 12,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "213ea79a178cbaca571a497f2fa7676de3967bd47c45c3b705231c991e600f76",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1121"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2586,
+        "elapsed_ms": 285.02775999999994
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "b0f6fa41b76c76b0d083a4d398a5614bcdc2aa6ddf9e5df935d62ab46407b837",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2585,
+        "elapsed_ms": 234.80807899999945
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "10124626818603515625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 1,
+      "geometry": "bent-near",
+      "attack": "two-directions",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 0,
+      "defence": "proactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "wait_initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "opposing_inputs": "0c87e4b066a3255e78e83d4ec191bd0fb7b333ccda76cff116b38b90cc0a5f58",
+      "wait_opposing_inputs": "0c87e4b066a3255e78e83d4ec191bd0fb7b333ccda76cff116b38b90cc0a5f58",
+      "admission_tick": 0,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "61af92345815f590c4b66f94f98a84803ad2693bb13218dfdf6b34317f7b292d",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "after": 999103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 106,
+            "cannon": 2,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1001"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2481,
+        "elapsed_ms": 544.9968840000001
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "b777dba354db1a6ffadbcea91dccf6014ff98893c0db3d91025890bc2d8d357f",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2585,
+        "elapsed_ms": 1331.709840999999
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "10124626818603515625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 1,
+      "geometry": "bent-near",
+      "attack": "two-directions",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 10,
+      "defence": "reactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "wait_initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "opposing_inputs": "0c87e4b066a3255e78e83d4ec191bd0fb7b333ccda76cff116b38b90cc0a5f58",
+      "wait_opposing_inputs": "0c87e4b066a3255e78e83d4ec191bd0fb7b333ccda76cff116b38b90cc0a5f58",
+      "admission_tick": 2,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "04e0c2ff18d77c72b6a97520ecc620ce0b8285ebf4ca65c1efe8a45e87a9d2b5",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1021"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2586,
+        "elapsed_ms": 228.5765969999993
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "b777dba354db1a6ffadbcea91dccf6014ff98893c0db3d91025890bc2d8d357f",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2585,
+        "elapsed_ms": 286.2744789999997
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "10124626818603515625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 1,
+      "geometry": "bent-near",
+      "attack": "two-directions",
+      "target_cell": 999103,
+      "assumed_conserve_delay_seconds": 60,
+      "defence": "reactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "wait_initial_state": "f8420b230129b24cdb7c11ebaef3ebd02baa86a32ac5aaa4972817858fb69024",
+      "opposing_inputs": "0c87e4b066a3255e78e83d4ec191bd0fb7b333ccda76cff116b38b90cc0a5f58",
+      "wait_opposing_inputs": "0c87e4b066a3255e78e83d4ec191bd0fb7b333ccda76cff116b38b90cc0a5f58",
+      "admission_tick": 12,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "04e0c2ff18d77c72b6a97520ecc620ce0b8285ebf4ca65c1efe8a45e87a9d2b5",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1121"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2586,
+        "elapsed_ms": 455.36376999999993
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "34032771"
+          },
+          {
+            "$integer": "3181921875"
+          }
+        ],
+        "final_state": "b777dba354db1a6ffadbcea91dccf6014ff98893c0db3d91025890bc2d8d357f",
+        "territory": 2,
+        "defending_ball_survived": false,
+        "islands_retained": 2,
+        "active_islands": 0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "50020000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "40000000"
+            },
+            "amount_used": {
+              "$integer": "40000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "40000000"
+              }
+            ],
+            "position": {
+              "$integer": "1011"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2585,
+        "elapsed_ms": 350.99805600000036
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "10124626818603515625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 0,
+      "geometry": "straight-long-approach",
+      "attack": "cardinal",
+      "target_cell": 103,
+      "assumed_conserve_delay_seconds": 0,
+      "defence": "proactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "7489fbabdef25e5c6e1e0527f256aabb40b1e29d41db8588c671831fce0a3bed",
+      "wait_initial_state": "7489fbabdef25e5c6e1e0527f256aabb40b1e29d41db8588c671831fce0a3bed",
+      "opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "wait_opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "admission_tick": 0,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "16128"
+          },
+          {
+            "$integer": "140625"
+          }
+        ],
+        "final_state": "9cb2a2f509664ccdc46e3a3b8db13d9b46f6697ad07da0b3999eb92c2521897d",
+        "territory": 7,
+        "defending_ball_survived": true,
+        "islands_retained": 1,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "after": 103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 100,
+            "cannon": 1,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1001"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2396,
+        "elapsed_ms": 247.0324469999996
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "af765e57a4c17bd441444d957acf684ebe313113a8af9ca6b15a380c0f7cc462",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2426,
+        "elapsed_ms": 491.23155600000064
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "119004187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "incremental_territory": 3
+    },
+    {
+      "seat": 0,
+      "geometry": "straight-long-approach",
+      "attack": "cardinal",
+      "target_cell": 103,
+      "assumed_conserve_delay_seconds": 10,
+      "defence": "reactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "7489fbabdef25e5c6e1e0527f256aabb40b1e29d41db8588c671831fce0a3bed",
+      "wait_initial_state": "7489fbabdef25e5c6e1e0527f256aabb40b1e29d41db8588c671831fce0a3bed",
+      "opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "wait_opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "admission_tick": 2,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "16128"
+          },
+          {
+            "$integer": "140625"
+          }
+        ],
+        "final_state": "9cb2a2f509664ccdc46e3a3b8db13d9b46f6697ad07da0b3999eb92c2521897d",
+        "territory": 7,
+        "defending_ball_survived": true,
+        "islands_retained": 1,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "after": 103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 100,
+            "cannon": 1,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1021"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          }
+        ],
+        "work": 2396,
+        "elapsed_ms": 194.31793299999845
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "af765e57a4c17bd441444d957acf684ebe313113a8af9ca6b15a380c0f7cc462",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2426,
+        "elapsed_ms": 249.94458599999962
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "119004187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "incremental_territory": 3
+    },
+    {
+      "seat": 0,
+      "geometry": "straight-long-approach",
+      "attack": "cardinal",
+      "target_cell": 103,
+      "assumed_conserve_delay_seconds": 60,
+      "defence": "reactive",
+      "defending_cannon": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "initial_state": "7489fbabdef25e5c6e1e0527f256aabb40b1e29d41db8588c671831fce0a3bed",
+      "wait_initial_state": "7489fbabdef25e5c6e1e0527f256aabb40b1e29d41db8588c671831fce0a3bed",
+      "opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "wait_opposing_inputs": "13eaf2faf6fd50dedcee3fdcd115e00bd9d3ce213d80a2043d8583484f24d0b9",
+      "admission_tick": 12,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "f54b7ca987bef948e79c593950ec821eff3a6e2b30c3d0b9489fb1452d77a560",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1121"
+            },
+            "reason": "NOT_OWN_TERRITORY",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2427,
+        "elapsed_ms": 164.0960240000004
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "af765e57a4c17bd441444d957acf684ebe313113a8af9ca6b15a380c0f7cc462",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2426,
+        "elapsed_ms": 189.48556700000154
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "308990478515625"
+        }
+      ],
+      "incremental_territory": 0
+    },
+    {
+      "seat": 1,
+      "geometry": "straight-long-approach",
+      "attack": "cardinal",
+      "target_cell": 103,
+      "assumed_conserve_delay_seconds": 0,
+      "defence": "proactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "495d3b1d09e61801784f56ceaadac573c2f0ba705a299b52b8f26a1603d34ea6",
+      "wait_initial_state": "495d3b1d09e61801784f56ceaadac573c2f0ba705a299b52b8f26a1603d34ea6",
+      "opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "wait_opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "admission_tick": 0,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "16128"
+          },
+          {
+            "$integer": "140625"
+          }
+        ],
+        "final_state": "8deaeccec26d30a335771964eee5d7fbe14020208b5eb711a697f16775407ee4",
+        "territory": 7,
+        "defending_ball_survived": true,
+        "islands_retained": 1,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "after": 103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 106,
+            "cannon": 2,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1001"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          },
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2396,
+        "elapsed_ms": 271.92588500000056
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "1d648ba60a6624c7bb7560e4c0c5ca3a50f71ec258f6831c158ab1f2642a2a54",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2426,
+        "elapsed_ms": 176.90549699999974
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "119004187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "incremental_territory": 3
+    },
+    {
+      "seat": 1,
+      "geometry": "straight-long-approach",
+      "attack": "cardinal",
+      "target_cell": 103,
+      "assumed_conserve_delay_seconds": 10,
+      "defence": "reactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "495d3b1d09e61801784f56ceaadac573c2f0ba705a299b52b8f26a1603d34ea6",
+      "wait_initial_state": "495d3b1d09e61801784f56ceaadac573c2f0ba705a299b52b8f26a1603d34ea6",
+      "opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "wait_opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "admission_tick": 2,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "16128"
+          },
+          {
+            "$integer": "140625"
+          }
+        ],
+        "final_state": "8deaeccec26d30a335771964eee5d7fbe14020208b5eb711a697f16775407ee4",
+        "territory": 7,
+        "defending_ball_survived": true,
+        "islands_retained": 1,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "after": 103,
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "10000"
+            },
+            "before": 106,
+            "cannon": 2,
+            "kind": "cannon_moved",
+            "position": {
+              "$integer": "1021"
+            },
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "status": "applied"
+          }
+        ],
+        "work": 2396,
+        "elapsed_ms": 154.45279300000038
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "1d648ba60a6624c7bb7560e4c0c5ca3a50f71ec258f6831c158ab1f2642a2a54",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2426,
+        "elapsed_ms": 212.47787900000003
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "119004187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "incremental_territory": 3
+    },
+    {
+      "seat": 1,
+      "geometry": "straight-long-approach",
+      "attack": "cardinal",
+      "target_cell": 103,
+      "assumed_conserve_delay_seconds": 60,
+      "defence": "reactive",
+      "defending_cannon": 2,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "initial_state": "495d3b1d09e61801784f56ceaadac573c2f0ba705a299b52b8f26a1603d34ea6",
+      "wait_initial_state": "495d3b1d09e61801784f56ceaadac573c2f0ba705a299b52b8f26a1603d34ea6",
+      "opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "wait_opposing_inputs": "66f83b37f8c377fa76488abea2b29509171edbbc75b44a2045f513f40941d2a1",
+      "admission_tick": 12,
+      "horizon_logical_ticks": 16,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "move": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "de357779d0adf7f40dd12256585edab74fe63da70f8ac53cefff823e820ea6e3",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "20000"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          },
+          {
+            "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+            "amount": {
+              "$integer": "10000"
+            },
+            "amount_used": {
+              "$integer": "0"
+            },
+            "position": {
+              "$integer": "1121"
+            },
+            "reason": "DORMANT_REVIVAL_REQUIRED",
+            "remainder": {
+              "$integer": "10000"
+            },
+            "status": "rejected"
+          }
+        ],
+        "work": 2427,
+        "elapsed_ms": 320.3199390000009
+      },
+      "wait": {
+        "score_delta": [
+          {
+            "$integer": "1169748"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "final_state": "1d648ba60a6624c7bb7560e4c0c5ca3a50f71ec258f6831c158ab1f2642a2a54",
+        "territory": 4,
+        "defending_ball_survived": true,
+        "islands_retained": 2,
+        "active_islands": 1,
+        "full_cost_e8s": {
+          "$integer": "0"
+        },
+        "opponent_full_cost_e8s": {
+          "$integer": "10010000"
+        },
+        "receipts": [
+          {
+            "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 3,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "1010"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "work": 2426,
+        "elapsed_ms": 218.51456099999996
+      },
+      "incremental_canonical_score": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "308990478515625"
+        }
+      ],
+      "incremental_territory": 0
+    }
+  ],
+  "total_work": 89941,
+  "elapsed_ms": 13339.287765,
+  "experiment": "Bent near bridge or straight bridge with long approach; cardinal/diagonal attacks; proactive tick 0 versus reactive ticks 2/12; sixteen ticks at assumed Conserve pace",
+  "limitations": [
+    "Selected bridge geometry/approach scenarios; left/right moving anchor and swapped accounts; no general balance conclusion",
+    "Fixed identical attack stream per matched pair",
+    "No billed cycles or live latency claim"
+  ]
+}

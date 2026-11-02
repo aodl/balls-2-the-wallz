@@ -1,0 +1,226 @@
+{
+  "status": "PASS",
+  "scope": "No payment inputs; original fixture versus explicit local initial-strike removal",
+  "rows": [
+    {
+      "clear_in_new_local_setup": false,
+      "pending_before": [
+        {
+          "axis": "y",
+          "ball": 2,
+          "born": [
+            {
+              "$integer": "0"
+            },
+            {
+              "$integer": "1"
+            }
+          ],
+          "deadline": [
+            {
+              "$integer": "1"
+            },
+            {
+              "$integer": "16"
+            }
+          ],
+          "defender": 1,
+          "from": 1103,
+          "id": 1,
+          "owner": 2,
+          "position": [
+            {
+              "$integer": "105984"
+            },
+            {
+              "$integer": "1"
+            }
+          ],
+          "to": 103
+        }
+      ],
+      "initial_sha256": "84d949302d095e5d8969f78d567ba0d188a2daa5830b300023d1b62798fed875",
+      "after_sha256": "343f356f4eb4486ad74f8852e8556d809c2aa35143efd2dde0b0e9cf8cdb242b",
+      "owner_of_103": 3,
+      "events": {
+        "events": [
+          {
+            "attacker": 2,
+            "ball": 2,
+            "cancelled_capture": false,
+            "cancelled_strikes": [],
+            "dormant": [
+              {
+                "cannon": 2,
+                "deadline_ns": {
+                  "$integer": "9093604254740993"
+                },
+                "generation": 2
+              }
+            ],
+            "kind": "capture",
+            "metadata_delta": {
+              "lifecycle": [
+                {
+                  "cannon": 2,
+                  "deadline_ns": {
+                    "$integer": "9093604254740993"
+                  },
+                  "dormant_since_ns": {
+                    "$integer": "9007204254740993"
+                  },
+                  "generation": 2,
+                  "player": 1
+                }
+              ],
+              "next_player_id": 3,
+              "next_territory_id": 5,
+              "players": [],
+              "retired_cannons": [],
+              "retired_territories": [],
+              "territories": [
+                {
+                  "id": 4,
+                  "player": 1
+                }
+              ]
+            },
+            "ownership_ops": [
+              {
+                "end": 104,
+                "from": 1,
+                "kind": "set_range",
+                "start": 103,
+                "to": 3
+              },
+              {
+                "end": 107,
+                "from": 1,
+                "kind": "set_range",
+                "start": 104,
+                "to": 4
+              },
+              {
+                "kind": "clear",
+                "owner": 4
+              },
+              {
+                "cell": 106,
+                "kind": "set",
+                "owner": 4
+              }
+            ],
+            "pairs": [],
+            "reactivated_cannons": [],
+            "sequence": 0,
+            "strike": 1,
+            "target": 103,
+            "time": [
+              {
+                "$integer": "1"
+              },
+              {
+                "$integer": "16"
+              }
+            ]
+          },
+          {
+            "kind": "lifecycle_time",
+            "observed_ns": {
+              "$integer": "9007204254740993"
+            },
+            "previous_elapsed_ns": {
+              "$integer": "9007199254740993"
+            },
+            "sequence": 1,
+            "stamped": [
+              {
+                "cannon": 2,
+                "deadline_ns": {
+                  "$integer": "9093604254740993"
+                },
+                "generation": 2
+              }
+            ],
+            "time": [
+              {
+                "$integer": "1"
+              },
+              {
+                "$integer": "1"
+              }
+            ]
+          }
+        ],
+        "receipts": [],
+        "version": 6
+      }
+    },
+    {
+      "clear_in_new_local_setup": true,
+      "pending_before": [
+        {
+          "axis": "y",
+          "ball": 2,
+          "born": [
+            {
+              "$integer": "0"
+            },
+            {
+              "$integer": "1"
+            }
+          ],
+          "deadline": [
+            {
+              "$integer": "1"
+            },
+            {
+              "$integer": "16"
+            }
+          ],
+          "defender": 1,
+          "from": 1103,
+          "id": 1,
+          "owner": 2,
+          "position": [
+            {
+              "$integer": "105984"
+            },
+            {
+              "$integer": "1"
+            }
+          ],
+          "to": 103
+        }
+      ],
+      "initial_sha256": "3d5730c1c846c6a4fd471de08fcbefcf4cdfe97a44209c3f31a117df3d2b1fe2",
+      "after_sha256": "a22f4379fa8982657f1ea9e317a83f6e5d1b4723309f9f0ab85a8f6cec151943",
+      "owner_of_103": 1,
+      "events": {
+        "events": [
+          {
+            "kind": "lifecycle_time",
+            "observed_ns": {
+              "$integer": "9007204254740993"
+            },
+            "previous_elapsed_ns": {
+              "$integer": "9007199254740993"
+            },
+            "sequence": 0,
+            "stamped": [],
+            "time": [
+              {
+                "$integer": "1"
+              },
+              {
+                "$integer": "1"
+              }
+            ]
+          }
+        ],
+        "receipts": [],
+        "version": 6
+      }
+    }
+  ]
+}

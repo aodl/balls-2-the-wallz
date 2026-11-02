@@ -1,3 +1,24 @@
+# Reactive-defence closure and unobscured pause notices
+
+Source `c2dc7c2` fixes notice/toolbar overlap on short mobile screens and gives
+fresh manual-stop states a non-spinning message, distinguishing unchecked sources.
+The frozen frontend passed actual rectangle-intersection/accessibility checks at
+320×640 and 390×844. Packaged locally; not deployed.
+
+The new isolated experiment removes an inherited pending strike only from its
+synthetic setup, preserving historical fixtures/evidence. Eighteen matched pairs
+show timely reactive defence succeeds on a friendly approach corridor; nearby or
+60-second-late movement fails. A cardinal-plus-diagonal attack defeats the single
+cell defence, at a higher attack cost. No rules/prices/executor/DTR change.
+
+PASS: 38 focused regressions and eighteen receipt-checked pairs (89,941 work units,
+13.339 seconds). No ICP spent; campaign remains expired/stopped. Conditional
+ranking remains planning-only; future validity/authenticity must derive from
+trusted durable state and population must be rechecked before dispatch.
+[Results, fixture confound, UI evidence and identities](evidence/B2Z/reactive-defence-closure-2026-11-02/REPORT.md).
+
+---
+
 # Tactical review — mobile and bounded planning corrections
 
 `bbf8617` tightens healthy Reserve Protection messaging, keeps mobile status above
