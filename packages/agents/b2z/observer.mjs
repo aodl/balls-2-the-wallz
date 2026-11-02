@@ -14,11 +14,12 @@ import {CONFIGURATION_ASSETS} from '../../../apps/b2z-observer/configuration.gen
 import {BoardAnalysis} from './analysis.mjs';
 import {check,freeze,parse,stringify} from './common.mjs';
 const certified=new WeakSet();
+class RetiredSnapshot extends Error{constructor(cause){super(cause.message,{cause});}}
 async function durableFile(path,contents){const temp=path+'.tmp',f=await open(temp,'w',0o600);try{await f.write(contents);await f.sync();}finally{await f.close();}await rename(temp,path);const directory=await open(join(path,'..'),'r');try{await directory.sync();}finally{await directory.close();}}
 export function requireCertified(s,{freshMs=300000,nowNs=BigInt(Date.now())*1000000n}={}){check(certified.has(s),'AUTHENTICATED_MIRROR_REQUIRED');check(s.observed_ns<=nowNs+30000000000n&&s.observed_ns+BigInt(freshMs)*1000000n>=nowNs,'STALE_SNAPSHOT');return s;}
 export const MAINNET=Object.freeze({network:'ic',host:'https://icp-api.io',canister_id:'s34gv-3qaaa-aaaar-qcifa-cai',ledger:'ryjl3-tyaaa-aaaaa-aaaba-cai',index:'qhbym-qaaaa-aaaaa-aaafq-cai'});
 export class VerifiedObserver{
- constructor({policy=MAINNET,connection,store=null,trackAccounts=[],maxHistory=32,minRefreshMs=1000,clock=()=>BigInt(Date.now())*1000000n}={}){this.minRefreshMs=minRefreshMs;this.lastRefreshAt=0;this.clock=clock;this.policy=policy;this.connection=connection;this.store=store;this.trackAccounts=new Set(trackAccounts);check(maxHistory>=2&&maxHistory<=64,'HISTORY_BOUND');this.maxHistory=maxHistory;this.sequence=new PublicationSequence();this.history=[];this.receipts=[];this.current=null;this.delivery={sequence:this.sequence,resyncs:0,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};this.proofs=new Map();this.raw=new Map();this.metrics={queries:0,artifact_bytes:0,refreshes:0,stale_responses:0,resyncs:0};this.busy=null;}
+ constructor({policy=MAINNET,connection,store=null,trackAccounts=[],maxHistory=32,minRefreshMs=1000,clock=()=>BigInt(Date.now())*1000000n}={}){this.minRefreshMs=minRefreshMs;this.lastRefreshAt=0;this.clock=clock;this.policy=policy;this.connection=connection;this.store=store;this.trackAccounts=new Set(trackAccounts);check(maxHistory>=2&&maxHistory<=64,'HISTORY_BOUND');this.maxHistory=maxHistory;this.sequence=new PublicationSequence();this.history=[];this.receipts=[];this.current=null;this.delivery={sequence:this.sequence,resyncs:0,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};this.proofs=new Map();this.raw=new Map();this.metrics={queries:0,artifact_bytes:0,refreshes:0,stale_responses:0,resyncs:0,moving_snapshot_retries:0};this.busy=null;}
  static async connect(options={}){
   const policy=options.policy??MAINNET;let connection;
   if(policy.network==='ic')connection=await mainnetConnection({network:policy.network,host:policy.host,canister_id:policy.canister_id});
@@ -36,15 +37,16 @@ export class VerifiedObserver{
   this.raw.set(ticket.root_hash,raw);this.metrics.restored_floor=String(ticket.publication.head.segment_id);
   try{const lines=(await readFile(join(this.store,'receipts.jsonl'),'utf8')).trim().split('\n').filter(Boolean);check(lines.length<=4096,'RECEIPT_ARCHIVE_BOUND');this.receipts=lines.map(parse);for(const row of this.receipts)await this.verifyArchivedReceipt(row);}catch(e){if(e.code!=='ENOENT')throw e;}
  }
- async refresh(){if(this.fatalError)throw this.fatalError;if(this.current&&Date.now()-this.lastRefreshAt<this.minRefreshMs)return{status:'cached',snapshot:this.current};if(this.busy)return this.busy;this.busy=this.refreshOnce();try{const r=await this.busy;this.lastRefreshAt=Date.now();return r;}finally{this.busy=null;}}
+ async refresh(){if(this.fatalError)throw this.fatalError;if(this.current&&Date.now()-this.lastRefreshAt<this.minRefreshMs)return{status:'cached',snapshot:this.current};if(this.busy)return this.busy;this.busy=(async()=>{for(let attempt=0;attempt<3;attempt++){try{return await this.refreshOnce();}catch(e){if(!(e instanceof RetiredSnapshot))throw e;this.metrics.moving_snapshot_retries++;if(attempt===2)throw e.cause;}}})();try{const r=await this.busy;this.lastRefreshAt=Date.now();return r;}finally{this.busy=null;}}
  async refreshOnce(){const started=performance.now(),raw=await this.connection.client.observation();this.metrics.queries++;const ticket=await this.verify(raw),prior=this.sequence.last;this.metrics.refreshes++;
   if(prior&&ticket.publication.head.segment_id<=prior.publication.head.segment_id){try{this.sequence.accept(ticket);}catch(error){liveDeliveryFailure(this.delivery,error,ticket,prior,performance.now());if(this.delivery.deliveryDiagnostics.active.kind!=='stale-certified-observation')throw error;this.metrics.stale_responses++;return{status:'stale_discarded',snapshot:this.current};}
    if(this.current){this.current=freeze({...this.current,observed_ns:ticket.certificate_time_ns});certified.add(this.current);this.history[this.history.length-1]=this.current;liveDeliverySuccess(this.delivery,ticket,performance.now());return{status:'unchanged',snapshot:this.current};}
   }
   this.raw.set(ticket.root_hash,{publication:Uint8Array.from(raw.publication),certificate:Uint8Array.from(raw.certificate)});
-  const chain=[ticket];let gap=null;
+  const chain=[ticket];let gap=null;const handoff=Boolean(this.snapshotRequired);
   if(prior&&ticket.publication.head.segment_id>prior.publication.head.segment_id){
-   if(ticket.publication.head.segment_id-prior.publication.head.segment_id>16n)gap={from:prior.publication.head.segment_id+1n,to:ticket.publication.head.segment_id-1n,reason:'outside bounded retained history'};
+   if(handoff){if(ticket.publication.head.segment_id>prior.publication.head.segment_id+1n)gap={from:prior.publication.head.segment_id+1n,to:ticket.publication.head.segment_id-1n,reason:'authenticated snapshot handoff after retired artifacts'};}
+   else if(ticket.publication.head.segment_id-prior.publication.head.segment_id>16n)gap={from:prior.publication.head.segment_id+1n,to:ticket.publication.head.segment_id-1n,reason:'outside bounded retained history'};
    else{
     let tip=ticket;
     while(tip.publication.head.segment_id>prior.publication.head.segment_id+1n){
@@ -53,11 +55,14 @@ export class VerifiedObserver{
     }
    }
   }
-  if(gap){const candidate=new PublicationSequence();candidate.last=this.sequence.last;candidate.resync(ticket);await this.load(ticket,{tip:ticket,chain:[ticket]},[gap]);this.sequence.resync(ticket);this.metrics.resyncs++;this.delivery.resyncs++;}
+  if(gap||handoff){const candidate=new PublicationSequence();candidate.last=this.sequence.last;candidate.resync(ticket);await this.load(ticket,{tip:ticket,chain:[ticket]},gap?[gap]:[]);this.sequence.resync(ticket);this.snapshotRequired=false;this.metrics.resyncs++;this.delivery.resyncs++;}
   else{for(const t of chain.reverse()){const candidate=new PublicationSequence();candidate.last=this.sequence.last;candidate.accept(t);await this.load(t,{tip:ticket,chain:chain.slice(chain.indexOf(t))},[]);this.sequence.accept(t);rememberLiveAcceptance(this.delivery,t);}}
-  rememberLiveAcceptance(this.delivery,ticket);liveDeliverySuccess(this.delivery,ticket,performance.now());await this.persistFloor(ticket,raw);this.metrics.last_refresh_ms=performance.now()-started;return{status:gap?'resynchronised':'advanced',snapshot:this.current,gap};
+  rememberLiveAcceptance(this.delivery,ticket);liveDeliverySuccess(this.delivery,ticket,performance.now());await this.persistFloor(ticket,raw);this.metrics.last_refresh_ms=performance.now()-started;return{status:gap||handoff?'resynchronised':'advanced',snapshot:this.current,gap};
  }
- async load(ticket,proof,gaps){const bundles=await this.connection.client.bundle(Number(ticket.publication.head.segment_id),ticket.root_hash),artifacts={};this.metrics.queries++;
+ async load(ticket,proof,gaps){let bundles;this.metrics.queries++;try{bundles=await this.connection.client.bundle(Number(ticket.publication.head.segment_id),ticket.root_hash);}catch(error){
+   // This catch surrounds transport only. Verifier/artifact errors below never enter it.
+   if(error?.message==='publication unavailable: snapshot resync required'&&this.sequence.last){liveDeliveryFailure(this.delivery,error,ticket,this.sequence.last,performance.now());if(this.delivery.deliveryDiagnostics.active.kind==='retained-publication-unavailable'){this.snapshotRequired=true;throw new RetiredSnapshot(error);}}throw error;
+  }const artifacts={};
   for(const[k,kind]of ['state','events','scores'].entries()){const a=new ArtifactAssembler(ticket,kind);for(let i=0;i<a.descriptor.chunks.length;i++)await a.accept(i,bundles[k].slice(i*16384,(i+1)*16384));artifacts[kind]=await a.finish();this.metrics.artifact_bytes+=artifacts[kind].length;}
   let source=this.current?.source;if(!source||this.current.reference.source_id!==ticket.publication.identity.source_id){const r=await this.sourceActor.source_descriptor();this.metrics.queries++;check(r.Ok,'SOURCE_UNAVAILABLE');source=await verifiedSourceDescriptor(Uint8Array.from(r.Ok),ticket,{network:this.policy.network,canister_id:this.policy.canister_id,ledger:this.policy.ledger,index:this.policy.index});}
   const configBytes=await readFile(new URL('../../../apps/b2z-observer/'+CONFIGURATION_ASSETS[ticket.publication.identity.config_hash],import.meta.url));check(await sha256Web(configBytes)===ticket.publication.identity.config_hash,'CONFIGURATION_COMMITMENT');

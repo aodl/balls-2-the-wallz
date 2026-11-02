@@ -350,3 +350,15 @@ logged. Earlier expired combat cannot be reconstructed from entity counts.
 Phase changes preserve prior adaptive histories/baselines in the private episode
 journal before resetting the comparison phase. Player policies still receive only
 their own history and public observations.
+
+
+A verified publication can outlive its separately fetched retained artifact. The
+shared agent observer retries only the host's exact retired-publication response
+from the artifact transport, at most three attempts. Each retry obtains a fresh
+certificate and uses the existing authenticated snapshot handoff. The accepted
+head never moves backwards; unavailable intervening history remains explicit.
+Bad certificates, same-height conflicts, wrong context, broken predecessor links
+and artifact hash failures are not classified as this availability condition.
+Persistent retirement still fails safely after the bounded attempts. Diagnostics
+retain the warning after recovery; it clears from current status only after the
+verified handoff succeeds. No reload, payment retry or made-up receipt is involved.
