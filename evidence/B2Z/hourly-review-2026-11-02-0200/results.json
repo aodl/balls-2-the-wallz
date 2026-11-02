@@ -1,0 +1,146 @@
+{
+  "as_of": "2026-11-02T02:07:00.149Z",
+  "live_stage": "running",
+  "source_commits": [
+    "56eb9f1",
+    "aa2d442"
+  ],
+  "spending": {
+    "overnight_e8s": "360320000",
+    "remaining_frozen_e8s": "329670000",
+    "prior_smoke_e8s": "110010000",
+    "unresolved": []
+  },
+  "v2_phase": {
+    "decisions": 232,
+    "complete_forecasts": 232,
+    "paid_actions": 11
+  },
+  "latency": {
+    "ledger_accept_response_to_authenticated_receipt": {
+      "count": 18,
+      "min_seconds": 6.136,
+      "median_seconds": 34.697,
+      "max_seconds": 69.303
+    },
+    "browser_receipt_seen_to_played_state": {
+      "count": 16,
+      "min_seconds": 14.231397216796875,
+      "median_seconds": 16.110600830078127,
+      "max_seconds": 16.855133544921873
+    },
+    "scope": "Observed local-clock intervals; admission/publication/polling are not separately isolated."
+  },
+  "operational": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 200,
+        "supported_milli": 200,
+        "mode": "Conserve",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": {
+        "$integer": "1"
+      },
+      "publication_ticks": {
+        "$integer": "1"
+      },
+      "completed_segments": {
+        "$integer": "83708"
+      },
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": {
+        "$integer": "39970750"
+      }
+    },
+    "health": {
+      "resets": {
+        "$integer": "40"
+      },
+      "sample_end_ns": {
+        "$integer": "1793585176733948880"
+      },
+      "observed_at_ns": {
+        "$integer": "1793585212953651157"
+      },
+      "sample_start_total_cycles": {
+        "$integer": "8347069834407"
+      },
+      "sample_count": 2,
+      "runtime_started_ns": {
+        "$integer": "1793571633998730092"
+      },
+      "known_treasury_credit_delta": {
+        "$integer": "0"
+      },
+      "net_decline_cycles": [
+        {
+          "$integer": "134528670036"
+        }
+      ],
+      "version": 1,
+      "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+      "reservation_gap_end": {
+        "$integer": "157711814550"
+      },
+      "certified_gameplay": false,
+      "sample_end_total_cycles": {
+        "$integer": "8212541164371"
+      },
+      "total_cycles": {
+        "$integer": "8519683474559"
+      },
+      "reservation_gap_start": {
+        "$integer": "157711381620"
+      },
+      "sample_start_ns": {
+        "$integer": "1793585115955882539"
+      },
+      "liquid_cycles": {
+        "$integer": "8361972092939"
+      },
+      "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+    }
+  },
+  "observation": {
+    "network": "ic",
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "head": {
+      "$integer": "83712"
+    },
+    "logical_time": {
+      "$integer": "137863"
+    },
+    "root": "09d9640db44aa8908ac3b0f0179aa1d14a50fb2504293e74ab3f1dac683be87d",
+    "manifest": "607dc8712ed46837efcde07140ab47cf7405a2c3f5bc5c267ee14959a34f735e",
+    "state": "c20f0c08751a79bc595a714ffa51ca83f7aab25f45024ee3a43a7904da31d60d",
+    "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+    "epoch_index": {
+      "$integer": "4"
+    },
+    "source_cursor": {
+      "$integer": "39970750"
+    },
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+  },
+  "recorder": {
+    "last_head": {
+      "$integer": "83712"
+    },
+    "bytes": 0,
+    "publications": 0,
+    "started": true
+  }
+}
