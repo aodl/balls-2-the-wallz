@@ -394,3 +394,11 @@ freshness limits, artifact verification and the accepted floor do not change.
 A controlled genuine-certificate test made four passive observation calls instead
 of twelve over sixty seconds at Lifeline pace; an urgent request still bypassed
 the passive interval. Cached replies never invent a newer certificate timestamp.
+
+
+Operational sample time/age is now explicit in every operation's provenance,
+separate from certificate age. A funding mode may change while the gameplay head
+stays fixed. The pilot records operational transitions with their observed time,
+public mode/admission/idle/performance values and separately sourced liquid balance.
+Those records are not certified gameplay and do not reconstruct earlier missing
+mode transitions. No additional on-chain query is made for this logging.

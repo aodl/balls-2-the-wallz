@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 import {decodeWorld,encodeWorld,PLAYABILITY_CONFIG,PLAYABILITY_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {BoardAnalysis} from '../../packages/agents/b2z/analysis.mjs';
 import {quoteAction,typedAction,exactDegrees,candidates,actionOptions,interactionIssue,consentEvaluation,opponentResponse} from '../../packages/agents/b2z/actions.mjs';
-import {parse,stringify,money} from '../../packages/agents/b2z/common.mjs';
+import {parse,stringify,money,operationalSample} from '../../packages/agents/b2z/common.mjs';
 import {decide} from '../../packages/agents/b2z/policies.mjs';
 import {evaluateActions,forecastWorkerArgs} from '../../packages/agents/b2z/forecast.mjs';
 import {accountIdentifier} from '../../apps/b2z-observer/identity.mjs';
@@ -87,4 +87,9 @@ test('zero funding pace never produces invented immediate admission or progressi
 
 test('manual or admission pauses do not become funding reductions or assumed resumes',async()=>{
  for(const run of[{running:false,pace:{nominal_milli:200}},{running:true,pace:{nominal_milli:200,admission_open:false}}]){const b=board('idle');b.snapshot={...b.snapshot,operational:{run}};const e=await evaluateActions(b,account,{maxCandidates:1});assert.equal(e.status,'paused');assert.equal(e.assumptions.zero_funding_rate,false);assert.equal(e.measurements.total_work,0);}
+});
+
+
+test('operational sample age and funding changes remain separate from an unchanged game head',()=>{
+ const b=board('idle'),now=Date.now();b.snapshot={...b.snapshot,operational_observed_at_ms:now-15000,operational:{run:{running:true,pace:{mode:'Lifeline',nominal_milli:50,admission_open:true}},source:{last_error:[]}}};const first=operationalSample(b.snapshot),p=b.provenance();assert.ok(p.operational_age_ms>=15000);assert.equal(p.operational_observed_at_ms,now-15000);const paused=operationalSample({...b.snapshot,operational_observed_at_ms:now,operational:{...b.snapshot.operational,run:{running:true,pace:{mode:'ReserveProtection',nominal_milli:0,admission_open:false}}}});assert.notDeepEqual(first.values,paused.values);assert.equal(b.snapshot.reference.head,1n);assert.equal(paused.values.performance_limited,false);assert.equal(operationalSample({}),null);
 });
