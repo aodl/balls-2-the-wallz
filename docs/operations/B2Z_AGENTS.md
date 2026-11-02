@@ -67,7 +67,10 @@ is added. Limits are at most 16 candidates/16 ticks/1,000,000 work units/5.3 sec
 Results distinguish complete, bounded partial, timeout and per-scenario error.
 
 The scenarios explicitly vary new opponent actions and admission delays (default
-0/60/120 seconds). Opponent responses use only public last cannon headings. Future
+0/60/120 seconds). Opponent responses select the nearest active opposing cannon using public
+toroidal geometry (stable cannon ID breaks ties), and use its public last heading.
+Each row lists the assumed action/account/amount. Dormant-only opponents do not
+automatically receive an invented paid revival. Intent and funds remain unknown. Future
 payments, fees, discovery, order and timing remain assumptions. Actions outside the
 logical horizon are not executed; a one-tick screen is not a long-term forecast.
 Source discovery, game admission and buffered browser presentation are separate.
@@ -329,3 +332,21 @@ without removing movement from the shortlist. Each player's heading cursor and
 adaptive reward history remain separate. A timeout or incomplete consent comparison
 keeps the affected alternative unavailable; it never grants more processing time
 or spending authority.
+
+
+### Bounded combat evidence
+
+The pilot archives significant combat/lifecycle/entity events with their original
+certificate, authenticated predecessor links and complete committed events artifact.
+It also saves the compact canonical final state and verifies its committed hash.
+Proof construction is shared with the existing durable payment-receipt archive;
+there is no second certificate verifier or new on-chain query method.
+
+Recording is bounded to 1,024 significant publications and 64 MiB per pilot.
+Exhausting that limit stops the runner safely; it cannot spend beyond the existing
+campaign limits. Ordinary motion and cell-by-cell captures are not a permanent
+archive. Introduction of recording, missed heads and retention gaps are explicitly
+logged. Earlier expired combat cannot be reconstructed from entity counts.
+Phase changes preserve prior adaptive histories/baselines in the private episode
+journal before resetting the comparison phase. Player policies still receive only
+their own history and public observations.

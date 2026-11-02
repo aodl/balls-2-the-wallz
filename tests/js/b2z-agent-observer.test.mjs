@@ -1,6 +1,7 @@
 /** Authentic archived IC certificates at their recorded time; static transport, not live IC execution. */
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,mkdtempSync,rmSync} from 'node:fs';import {join} from 'node:path';import {tmpdir} from 'node:os';
-import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';import {verifyRetainedPredecessor,sha256Web} from '@dtr/timeline-runtime/client/verification';
+import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {VerifiedObserver,MAINNET,requireCertified} from '../../packages/agents/b2z/observer.mjs';
 import {accountIdentifier} from '../../apps/b2z-observer/identity.mjs';
 const f=JSON.parse(readFileSync(new URL('../fixtures/b2z-agent-certified.json',import.meta.url))),[a,b]=f.observations;
@@ -19,3 +20,10 @@ test('bad certificates remain failures and cannot be cleared as stale transport'
 test('freshness is not replaced with offline trust',async t=>{const s=make(t);s.o.clock=()=>BigInt(b.certificate_ns)+301000000000n;await assert.rejects(s.o.refresh(),/freshness/);assert.equal(s.o.current,null);});
 test('durable certificate floor survives restart but cached data alone is not a fresh decision',async t=>{const dir=mkdtempSync(join(tmpdir(),'b2z-mirror-')),s=make(t,{store:dir});await s.o.refresh();const restart=make(t,{store:null});restart.o.store=dir;await restart.o.restoreFloor();assert.equal(restart.o.current,null);restart.advance();await restart.o.refresh();assert.ok(restart.o.current.reference.head>=BigInt(a.head));});
 test('an aged archived certificate restores only the floor, never freshness for spending',async t=>{const dir=mkdtempSync(join(tmpdir(),'b2z-mirror-aged-')),s=make(t,{store:dir});await s.o.refresh();t.mock.timers.tick(24*60*60*1000);const restart=make(t);restart.o.store=dir;await restart.o.restoreFloor();assert.equal(restart.o.current,null);assert.equal(restart.o.sequence.last.root_hash,s.o.sequence.last.root_hash);await assert.rejects(restart.o.refresh(),/Certificate is signed more than/);});
+
+
+test('combat event evidence reuses the same genuine certificate/chain/artifact proof as receipts',async t=>{
+ const s=make(t);await s.o.refresh();s.advance();await s.o.refresh();const snap=s.o.current,proof=await s.o.eventProof(snap.reference.root);let ticket=await s.o.verify({publication:Buffer.from(proof.tip.publication_hex,'hex'),certificate:Buffer.from(proof.tip.certificate_hex,'hex')});for(const raw of proof.chain.slice(0,-1).reverse())ticket=await verifyRetainedPredecessor(Buffer.from(raw,'hex'),ticket);
+ assert.equal(ticket.root_hash,snap.reference.root);assert.equal(await sha256Web(Buffer.from(proof.events_hex,'hex')),ticket.publication.artifacts.find(a=>a.kind==='events').sha256);assert.deepEqual(Buffer.from(proof.events_hex,'hex'),Buffer.from(encodeCanonical(snap.events)));
+ await assert.rejects(s.o.eventProof(snap.reference.root,new Uint8Array([1])),/EVENT_PROOF_ARTIFACT/);await assert.rejects(s.o.eventProof('00'.repeat(32)),/EVENT_PROOF_UNAVAILABLE/);
+});

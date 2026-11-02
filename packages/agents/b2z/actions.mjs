@@ -3,6 +3,7 @@ import {quoteV6,legalMove,legalAdjacentSites} from '../../../apps/b2z-observer/a
 import {encodeV6Memo} from '../../protocol/memo-v6.mjs';
 import {parseTextMemo} from '../../protocol/memo.mjs';
 import {canonicalAccount} from '../../../apps/b2z-observer/identity.mjs';
+import {territoryBallCount} from '../../kernels/b2z/world.mjs';
 import {check,integer,freeze,money} from './common.mjs';
 export function typedAction(action){check(action&&typeof action==='object'&&Object.keys(action).length===1,'TYPED_ACTION_REQUIRED');const type=Object.keys(action)[0],v=action[type];check(v&&typeof v==='object'&&!Array.isArray(v),'ACTION_FIELDS');const fields={Wait:[],Fire:['cannon','angle','quantity'],New:['angle','quantity','cell'],Move:['cannon','cell']}[type];check(fields&&Object.keys(v).every(k=>fields.includes(k)),'ACTION_FIELDS');if(type==='Wait')return{Wait:{}};if(type!=='New')integer(v.cannon,1,4294967294);if(type!=='Move'){integer(v.angle,0,65535,'HEADING_BOUNDS');integer(v.quantity,1,64,'QUANTITY_BOUNDS');}if(type==='Move'||v.cell!==undefined&&v.cell!==null)integer(v.cell,0,999999,'CELL_BOUNDS');return freeze({[type]:{...v,...(type==='New'?{cell:v.cell??null}:{})}});}
 export function memoCommand(action){const a=typedAction(action),type=Object.keys(a)[0],v=a[type];check(type!=='Wait','WAIT_IS_NOT_A_PAYMENT');return{kind:{Fire:'fire',New:'new',Move:'move_cannon'}[type],...v};}
@@ -62,4 +63,11 @@ export function consentEvaluation(evaluation,accounts){
   for(const row of rows){const same=baseline.find(r=>r.scenario===row.scenario);if(!same){blocked.push({candidate:c.id,reason:'INCOMPLETE_CONSENT_FORECAST'});return false;}const natural=new Set(same.opposing_ball_losses.map(b=>b.id)),outside=row.opposing_ball_losses.filter(b=>!approved.has(b.account)&&!natural.has(b.id));if(outside.length){blocked.push({candidate:c.id,reason:'PREDICTED_OUTSIDE_PLAYER_LOSS',balls:outside});return false;}}
   return true;
  });return{...evaluation,candidates:allowed,consent_screen:{blocked,note:'Derived bounded forecast compared with Wait, not a proof of future trajectory safety. Public entity proximity is checked separately.'}};
+}
+
+
+/** A bounded public-response assumption, never a claim about opponent intent/funds. */
+export function opponentResponse(w,account){
+ const mine=w.cannons.filter(c=>c.account===account),axis=(a,b,size)=>{const d=Math.abs(a-b);return Math.min(d,size-d);},distance=c=>mine.length?Math.min(...mine.map(a=>axis(a.cell%w.width,c.cell%w.width,w.width)**2+axis(Math.floor(a.cell/w.width),Math.floor(c.cell/w.width),w.height)**2)):0;
+ return w.cannons.filter(c=>c.account!==account&&territoryBallCount(w,c.id)>0).map(c=>({...c,distance_squared:distance(c)})).sort((a,b)=>a.distance_squared-b.distance_squared||a.id-b.id)[0]??null;
 }

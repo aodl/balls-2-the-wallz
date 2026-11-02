@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {decodeWorld,encodeWorld,PLAYABILITY_CONFIG,PLAYABILITY_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {BoardAnalysis} from '../../packages/agents/b2z/analysis.mjs';
-import {quoteAction,typedAction,exactDegrees,candidates,actionOptions,interactionIssue,consentEvaluation} from '../../packages/agents/b2z/actions.mjs';
+import {quoteAction,typedAction,exactDegrees,candidates,actionOptions,interactionIssue,consentEvaluation,opponentResponse} from '../../packages/agents/b2z/actions.mjs';
 import {parse,stringify,money} from '../../packages/agents/b2z/common.mjs';
 import {decide} from '../../packages/agents/b2z/policies.mjs';
 import {evaluateActions,forecastWorkerArgs} from '../../packages/agents/b2z/forecast.mjs';
@@ -56,4 +56,17 @@ test('marginal policy ranking does not punish a purchase for score already earne
 
 test('selecting a cannon never falls back to paying for a new one under another account',()=>{
  const b=board('idle'),other=accountIdentifier('aaaaa-aa');assert.throws(()=>actionOptions(b,other,{cannonId:b.world.cannons[0].id,budgetE8s:500000000n}),/NOT_OWNER/);
+});
+
+
+test('response forecasts choose a nearby active opponent rather than the first dormant account',()=>{
+ const snapshot=parse(readFileSync(new URL('../../evidence/B2Z/policy-v2-2026-11-02/snapshot.json',import.meta.url),'utf8')),w=snapshot.world,account=w.cannons.find(c=>c.id===7).account;
+ assert.equal(w.cannons[0].id,3);assert.ok(!w.balls.some(b=>b.owner===3));const selected=opponentResponse(w,account);assert.ok(selected);assert.notEqual(selected.id,3);assert.notEqual(selected.account,account);
+ const expected=w.cannons.filter(c=>c.account!==account&&c.id!==3).map(c=>{const mine=w.cannons.find(c=>c.id===7),dx=Math.abs(mine.cell%1000-c.cell%1000),dy=Math.abs(Math.floor(mine.cell/1000)-Math.floor(c.cell/1000));return {id:c.id,d:Math.min(dx,1000-dx)**2+Math.min(dy,1000-dy)**2};}).sort((a,b)=>a.d-b.d||a.id-b.id)[0];assert.equal(selected.id,expected.id);
+ const dormant=board('revival');assert.equal(opponentResponse(dormant.world,accountIdentifier('aaaaa-aa')),null);
+});
+
+
+test('a dormant-only opposing world is not revived by a hypothetical response without evidence',async()=>{
+ const b=board('revival'),out=await evaluateActions(b,accountIdentifier('aaaaa-aa'),{horizon:1,maxCandidates:1,maxMs:1000,budgetE8s:0n,delaySeconds:[0,0,0],includeStates:true});assert.equal(out.status,'complete');assert.equal(out.forecasts.length,3);for(const row of out.forecasts){assert.equal(row.assumed_opponent_actions.length,0);assert.equal(decodeWorld(Buffer.from(row.next_state_hex,'hex')).balls.length,0);}
 });
