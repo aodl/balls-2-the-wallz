@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { ballPrice } from "../packages/kernels/b2z/pricing-v6.mjs";
 /** Small paired trials of the existing kernel. No network, signer or campaign authority. */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
@@ -14,6 +15,8 @@ import {
   encodeWorld,
   ENTRY_IDENTITY,
   ENTRY_CONFIG,
+  setOwner,
+  territoryBallCount,
   ownershipCounts,
   ownerAt,
 } from "../packages/kernels/b2z/world.mjs";
@@ -25,7 +28,7 @@ import { fractionSub, stringify } from "../packages/agents/b2z/common.mjs";
 const output = process.argv[2] ?? ".work/b2z-post-review/matched";
 mkdirSync(output, { recursive: true });
 const fixtures = JSON.parse(readFileSync("tests/fixtures/rules-v6.json")),
-  horizon = 8,
+  horizon = process.argv.includes("--reactive-defence") ? 16 : 8,
   budget = 25000000n,
   fee = 10000n,
   rows = [],
@@ -67,7 +70,12 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
       );
       if (r.complete) break;
     }
-    c.finalizeElapsed(w.playability.elapsed_ns + 1000000000n);
+    c.finalizeElapsed(
+      w.playability.elapsed_ns +
+        (process.argv.includes("--reactive-defence")
+          ? 5000000000n
+          : 1000000000n),
+    );
     const out = c.result();
     w = decodeWorld(out.state);
     receipts.push(...decodeCanonical(out.events).receipts);
@@ -82,108 +90,186 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
     elapsed_ms: performance.now() - runStart,
   };
 }
-if (process.argv.includes("--bridge-defence")) {
-  for (const seat of [0, 1]) {
-    const initial = decodeWorld(
-      Buffer.from(fixtures.cases.bridge_left.state_hex, "hex"),
-    );
-    const catalog = JSON.parse(
-      readFileSync("config/agents/players.public.json"),
-    ).players;
-    const mapping = new Map(
-      initial.playability.players.map((p, i) => [
-        p.account,
-        catalog[(i + seat) % 2].account_identifier,
-      ]),
-    );
-    for (const p of [
-      ...initial.playability.players,
-      ...initial.cannons,
-      ...initial.credits,
-    ])
-      p.account = mapping.get(p.account);
-    initial.credits.sort((a, b) => a.account.localeCompare(b.account));
-    const cannon = initial.cannons.find((c) => c.id === seat + 1),
-      account = cannon.account,
-      enemy = initial.cannons.find((c) => c.account !== account);
-    const snapshot = { world: initial, configuration: ENTRY_CONFIG },
-      action = { Move: { cannon: cannon.id, cell: 103 } },
-      quote = quoteAction(snapshot, account, action);
-    const attack = quoteAction(snapshot, enemy.account, {
-      Fire: { cannon: enemy.id, angle: 49152, quantity: 1 },
-    });
-    const opposingInputs = { 1: [payment(enemy.account, attack, 1010n)] };
-    const initialHash = sha256(encodeWorld(initial)),
-      attackHash = sha256(
-        encodeCanonical([{ tick: 1, inputs: opposingInputs[1] }]),
+if (
+  process.argv.includes("--bridge-defence") ||
+  process.argv.includes("--reactive-defence")
+) {
+  const reactive = process.argv.includes("--reactive-defence");
+  const scenarios = reactive
+    ? [
+        { geometry: "bent-near", attackKind: "cardinal" },
+        { geometry: "bent-near", attackKind: "two-directions" },
+        { geometry: "straight-long-approach", attackKind: "cardinal" },
+      ]
+    : [{ geometry: "straight-near", attackKind: "cardinal" }];
+  for (const { geometry, attackKind } of scenarios) {
+    for (const seat of [0, 1]) {
+      const initial = decodeWorld(
+        Buffer.from(fixtures.cases.bridge_left.state_hex, "hex"),
       );
-    const player = initial.playability.players.find(
-      (p) => p.account === account,
-    ).id;
-    const metrics = (r) => ({
-      score_delta: r.delta,
-      final_state: sha256(encodeWorld(r.world)),
-      territory: ownershipCounts(r.world).reduce(
-        (n, [id, count]) =>
-          n +
-          (r.world.playability.territories.find((t) => t.id === id)?.player ===
-          player
-            ? count
-            : 0),
-        0,
-      ),
-      defending_ball_survived: r.world.balls.some(
-        (b) => b.id === 1 && b.owner === player,
-      ),
-      islands_retained: r.world.playability.territories.filter(
-        (t) => t.player === player,
-      ).length,
-      active_islands: r.world.playability.territories.filter(
-        (t) =>
-          t.player === player &&
-          r.world.balls.some(
-            (b) => b.owner === player && ownerAt(r.world, b.cell) === t.id,
-          ),
-      ).length,
-      full_cost_e8s: r.spent,
-      receipts: r.receipts,
-      work: r.work,
-      elapsed_ms: r.elapsed_ms,
-    });
-    for (const admission of [0, 2, 4]) {
-      const wait = run(
-        initial,
-        account,
-        { action: { Wait: {} }, quote: { amount_e8s: 0n } },
-        opposingInputs,
-        admission,
+      // Historical bridge fixture already has a strike due at 1/16 tick.
+      // New valueless scenarios isolate only the explicit opposing inputs below.
+      if(reactive)initial.pending=[];
+      if (geometry === "bent-near") {
+        setOwner(initial, 103, 0);
+        for (const cell of [999102, 999103, 999104]) setOwner(initial, cell, 1);
+      }
+      if (geometry === "straight-long-approach") {
+        const source = initial.cannons.find((c) => c.id === 3),
+          ball = initial.balls.find((b) => b.owner === 2);
+        setOwner(initial, source.cell, 0);
+        source.cell += 99000;
+        setOwner(initial, source.cell, 3);
+        ball.cell += 99000;
+        ball.y0 += 101376n;
+        // A distant neutral gap is not a free-flight corridor: captures reflect.
+        // Endow a connected friendly approach so this scenario has an actual incoming threat.
+        for(let y=1;y<=100;y++)setOwner(initial,y*1000+103,3);
+      }
+      const target = geometry === "bent-near" ? 999103 : 103;
+      const catalog = JSON.parse(
+        readFileSync("config/agents/players.public.json"),
+      ).players;
+      const mapping = new Map(
+        initial.playability.players.map((p, i) => [
+          p.account,
+          catalog[(i + seat) % 2].account_identifier,
+        ]),
       );
-      const move = run(
-        initial,
-        account,
-        { action, quote },
-        opposingInputs,
-        admission,
-      );
-      const baseline = metrics(wait),
-        candidate = metrics(move);
-      rows.push({
-        seat,
-        defending_cannon: cannon.id,
-        account,
-        initial_state: initialHash,
-        wait_initial_state: initialHash,
-        opposing_inputs: attackHash,
-        wait_opposing_inputs: attackHash,
-        admission_tick: admission,
-        horizon_logical_ticks: horizon,
-        budget_e8s: budget,
-        wait_budget_e8s: budget,
-        move: candidate,
-        wait: baseline,
-        incremental_canonical_score: fractionSub(move.delta, wait.delta),
-        incremental_territory: candidate.territory - baseline.territory,
+      for (const p of [
+        ...initial.playability.players,
+        ...initial.cannons,
+        ...initial.credits,
+      ])
+        p.account = mapping.get(p.account);
+      initial.credits.sort((a, b) => a.account.localeCompare(b.account));
+      const cannon = initial.cannons.find((c) => c.id === seat + 1),
+        account = cannon.account,
+        enemy = initial.cannons.find((c) => c.account !== account);
+      const snapshot = { world: initial, configuration: ENTRY_CONFIG },
+        action = { Move: { cannon: cannon.id, cell: target } },
+        quote = quoteAction(snapshot, account, action);
+      const headings =
+        attackKind === "two-directions" ? [49152, 57344] : [49152];
+      const opposingInputs = {
+        1: headings.map((angle, index) => {
+          const quote = quoteAction(snapshot, enemy.account, {
+            Fire: { cannon: enemy.id, angle, quantity: 1 },
+          });
+          // Both inputs are admitted before physics, so their sequential pool prices are fixed.
+          quote.amount_e8s = ballPrice(
+            territoryBallCount(initial, enemy.id) + index,
+          );
+          return payment(enemy.account, quote, 1010n + BigInt(index));
+        }),
+      };
+      const initialHash = sha256(encodeWorld(initial)),
+        attackHash = sha256(
+          encodeCanonical([{ tick: 1, inputs: opposingInputs[1] }]),
+        );
+      const player = initial.playability.players.find(
+        (p) => p.account === account,
+      ).id;
+      const metrics = (r) => ({
+        score_delta: r.delta,
+        final_state: sha256(encodeWorld(r.world)),
+        territory: ownershipCounts(r.world).reduce(
+          (n, [id, count]) =>
+            n +
+            (r.world.playability.territories.find((t) => t.id === id)
+              ?.player === player
+              ? count
+              : 0),
+          0,
+        ),
+        defending_ball_survived: r.world.balls.some(
+          (b) => b.id === 1 && b.owner === player,
+        ),
+        islands_retained: r.world.playability.territories.filter(
+          (t) => t.player === player,
+        ).length,
+        active_islands: r.world.playability.territories.filter(
+          (t) =>
+            t.player === player &&
+            r.world.balls.some(
+              (b) => b.owner === player && ownerAt(r.world, b.cell) === t.id,
+            ),
+        ).length,
+        full_cost_e8s: r.spent,
+        opponent_full_cost_e8s: r.receipts
+          .filter((receipt) => receipt.account !== account)
+          .reduce((sum, receipt) => sum + receipt.amount + fee, 0n),
+        receipts: r.receipts,
+        work: r.work,
+        elapsed_ms: r.elapsed_ms,
       });
+      for (const admission of reactive ? [0, 2, 12] : [0, 2, 4]) {
+        const wait = run(
+          initial,
+          account,
+          { action: { Wait: {} }, quote: { amount_e8s: 0n } },
+          opposingInputs,
+          admission,
+        );
+        const move = run(
+          initial,
+          account,
+          { action, quote },
+          opposingInputs,
+          admission,
+        );
+        const baseline = metrics(wait),
+          candidate = metrics(move);
+        const ownReceipts = move.receipts.filter(
+          (receipt) => receipt.account === account,
+        );
+        assert.equal(
+          ownReceipts.length,
+          1,
+          "Exactly one Move receipt, including a rejected payment",
+        );
+        assert.equal(move.spent, quote.amount_e8s + fee);
+        assert.equal(wait.spent, 0n);
+        assert.equal(
+          ownReceipts[0].status,
+          admission === 0 || geometry === 'straight-long-approach' && admission === 2 ? 'applied' : 'rejected',
+        );
+        for (const arm of [move, wait]) {
+          const attacks = arm.receipts.filter(
+            (receipt) => receipt.account !== account,
+          );
+          assert.equal(attacks.length, headings.length);
+          assert.ok(
+            attacks.every(
+              (receipt) =>
+                receipt.status === "applied" && receipt.actual_quantity === 1,
+            ),
+            "Every intended attack actually launched",
+          );
+        }
+        rows.push({
+          seat,
+          geometry,
+          attack: attackKind,
+          target_cell: target,
+          assumed_conserve_delay_seconds: admission * 5,
+          defence: admission === 0 ? "proactive" : "reactive",
+          defending_cannon: cannon.id,
+          account,
+          initial_state: initialHash,
+          wait_initial_state: initialHash,
+          opposing_inputs: attackHash,
+          wait_opposing_inputs: attackHash,
+          admission_tick: admission,
+          horizon_logical_ticks: horizon,
+          budget_e8s: budget,
+          wait_budget_e8s: budget,
+          move: candidate,
+          wait: baseline,
+          incremental_canonical_score: fractionSub(move.delta, wait.delta),
+          incremental_territory: candidate.territory - baseline.territory,
+        });
+      }
     }
   }
 } else {
@@ -316,31 +402,35 @@ if (process.argv.includes("--bridge-defence")) {
 }
 const result = {
   status: "PASS",
-  scope:
-    "Matched pure-kernel local trials; fixed opponent input stream and eight logical ticks; tested policy rotates between existing seats; no ICP, inference or billed-cycle claim",
+  scope: `Matched pure-kernel local trials; fixed opponent input stream and ${horizon} logical ticks; no ICP, inference or billed-cycle claim`,
   rows,
   total_work: work,
   elapsed_ms: performance.now() - started,
-  experiment: process.argv.includes("--bridge-defence")
-    ? "Move versus Wait; left/right anchor and swapped account seats; same central northbound attack at tick 1; admission 0/2/4"
-    : "policy comparisons",
-  limitations: process.argv.includes("--bridge-defence")
-    ? [
-        "One narrow-bridge geometry; left/right moving anchor and swapped player accounts; no general balance conclusion",
-        "Fixed identical attack stream per matched pair",
-        "No billed cycles or live latency claim",
-      ]
-    : [
-        "Two selected fixture geometries and two seats; no statistical winner claim",
-        "Frozen scripted opponent stream, not a forecast of actual opponent intentions",
-        "Forecast ranking scenarios and the separately supplied experimental opponent stream are explicitly different assumptions",
-      ],
+  experiment: process.argv.includes("--reactive-defence")
+    ? "Bent near bridge or straight bridge with long approach; cardinal/diagonal attacks; proactive tick 0 versus reactive ticks 2/12; sixteen ticks at assumed Conserve pace"
+    : process.argv.includes("--bridge-defence") ||
+        process.argv.includes("--reactive-defence")
+      ? "Move versus Wait; left/right anchor and swapped account seats; same central northbound attack at tick 1; admission 0/2/4"
+      : "policy comparisons",
+  limitations:
+    process.argv.includes("--bridge-defence") ||
+    process.argv.includes("--reactive-defence")
+      ? [
+          "Selected bridge geometry/approach scenarios; left/right moving anchor and swapped accounts; no general balance conclusion",
+          "Fixed identical attack stream per matched pair",
+          "No billed cycles or live latency claim",
+        ]
+      : [
+          "Two selected fixture geometries and two seats; no statistical winner claim",
+          "Frozen scripted opponent stream, not a forecast of actual opponent intentions",
+          "Forecast ranking scenarios and the separately supplied experimental opponent stream are explicitly different assumptions",
+        ],
 };
 writeFileSync(output + "/results.json", stringify(result));
 console.log(
   "PASS",
   rows.length,
-  "paired policy trials;",
+  "paired trials;",
   work,
   "work units;",
   result.elapsed_ms.toFixed(1),

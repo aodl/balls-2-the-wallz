@@ -50,3 +50,11 @@ test('operator pause and unverified source cannot promise funding-only resumptio
  const args={phase:'BUFFERING',verified:true,operationalFresh:true,operational:{run:{running:true,world_transition:false,last_error:[],pace:{mode:'ReserveProtection',admission_open:false}},source:{binding_checked:true,last_error:[]}}};
  for(const operational of [{...args.operational,run:{...args.operational.run,running:false}},{...args.operational,source:{...args.operational.source,binding_checked:false}}]){const v=catchupIndicator({...args,operational});assert.notEqual(v.kind,'reserve');assert.doesNotMatch(v.description,/resumes when funding/);}
 });
+
+test('fresh verified operator pause stops the BUFFERING spinner and distinguishes unchecked sources',async()=>{
+ const {catchupIndicator}=await import('../../apps/b2z-observer/play-reference.mjs');
+ const args={phase:'BUFFERING',verified:true,operationalFresh:true,operational:{run:{running:false,world_transition:false,last_error:[],pace:{mode:'ReserveProtection',admission_open:false}},source:{binding_checked:true,last_error:[]}}};
+ const paused=catchupIndicator(args);assert.equal(paused.spinner,false);assert.equal(paused.kind,'operator-paused');assert.match(paused.description,/operator must resume/);
+ const unbound=catchupIndicator({...args,operational:{...args.operational,source:{binding_checked:false,last_error:[]}}});assert.equal(unbound.spinner,false);assert.equal(unbound.kind,'paused-source-unverified');assert.match(unbound.description,/unverified/);
+ for(const changes of [{verified:false},{operationalFresh:false},{phase:'ERROR'}])assert.notEqual(catchupIndicator({...args,...changes}).kind,'operator-paused');
+});

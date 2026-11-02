@@ -526,3 +526,43 @@ ceiling. Results preserve exact score/territory differences, ball and island
 survival, receipts, state hashes and work/time measurements. This is one selected
 bridge geometry, not a general movement-balance claim. All payments are valueless
 pure-kernel inputs; no signer, Ledger update or production mutation is involved.
+
+### Proactive versus reactive defence follow-up
+
+The optional controlled-population shortlist remains planning-only. Before any
+future live integration, campaign validity/expiry and approved accounts must come
+from the trusted orchestrator's durable policy, approval and stop state; snapshot
+authenticity must come from its verified observer. Caller-supplied booleans,
+model-generated data and a claimed trust label are not authority. Recheck the
+current population immediately before dispatch. Unassessed 60/120-second inputs
+remain unassessed. The expired runner and signer are unchanged.
+
+```
+node tools/b2z_matched_strategies.mjs .work/reactive-defence --reactive-defence
+```
+
+This bounded local mode uses two synthetic geometries: a bent bridge crossing the
+world seam with a nearby attack, and a straight bridge with an explicitly friendly
+long approach corridor. The latter is necessary because neutral-cell encounters
+capture and reflect; distance alone is not a free-flight arrival estimate.
+Cardinal and cardinal-plus-diagonal attacks are tested on the bent bridge; the
+long corridor uses a cardinal attack. Both endpoint cannons/account seats are
+rotated. Move admission occurs at ticks 0, 2 and 12, against an attack admitted
+at tick 1, over sixteen logical ticks. Explicit elapsed inputs assume Conserve's
+five seconds per tick, covering sixty-second admission without enlarging the
+existing 2,000,000-work/60-second local runner limits. Forecast limits are unchanged.
+
+The reused historical bridge fixture already contains a pending strike due at
+1/16 tick. The new mode explicitly clears that inherited strike in its valueless
+initial setup to isolate the stated opposing purchases; the old mode, fixture and
+archived results remain intact. Earlier comparisons are conditioned on that
+pre-existing threat, not clean evidence that the newly inserted Fire caused every
+bridge loss. A no-payment replay preserves this confound as evidence. No production
+state, source history, rule, payment or event is reset by this local setup.
+
+Each Move/Wait pair shares initial state, opposing inputs, logical/elapsed horizon
+and spending ceilings. Canonical receipts assert that all intended attacks really
+launch and every Move has one terminal receipt with full costs retained. Results
+record exact score, territory, survival, receipts, work and time; no future is
+presented as authenticated gameplay. A multiple-direction attack costs more than
+the single attack and cannot establish equal-budget dominance.

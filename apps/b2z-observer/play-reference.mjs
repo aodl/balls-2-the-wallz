@@ -29,8 +29,61 @@ export function idleArena(status,world){
 }
 
 /** Operational messaging only; never advances, skips or authenticates playback. */
-export function catchupIndicator({phase,verified=false,operational=null,operationalFresh=false}){
- const pending=['LOADING','BUFFERING','STALLED','DEGRADED_BUFFER'].includes(phase);
- const reserve=verified&&operationalFresh&&operational?.run.running===true&&operational?.source.binding_checked===true&&phase!=='ERROR'&&!operational?.run.world_transition&&operational?.run.pace?.mode==='ReserveProtection'&&operational.run.pace.admission_open===false&&!operational.run.last_error.length&&!operational.source.last_error.length;
- return reserve?{visible:true,spinner:false,kind:'reserve',title:'Gameplay paused to conserve cycles',description:'Showing the verified timeline. Gameplay resumes when funding permits; source and funding maintenance continue.'}:{visible:pending,spinner:true,kind:'catching-up',title:'Catching up',description:'Fetching and verifying on-chain gameplay. Motion comes from the on-chain runtime; your browser only renders the verified timeline.'};
+export function catchupIndicator({
+  phase,
+  verified = false,
+  operational = null,
+  operationalFresh = false,
+}) {
+  const pending = [
+    "LOADING",
+    "BUFFERING",
+    "STALLED",
+    "DEGRADED_BUFFER",
+  ].includes(phase);
+  const statusKnown =
+    verified &&
+    operationalFresh &&
+    phase !== "ERROR" &&
+    operational?.run &&
+    !operational.run.world_transition &&
+    !operational.run.last_error.length &&
+    !operational.source?.last_error.length;
+  if (statusKnown && operational.run.running === false) {
+    const bound = operational.source?.binding_checked === true;
+    return {
+      visible: true,
+      spinner: false,
+      kind: bound ? "operator-paused" : "paused-source-unverified",
+      title: bound
+        ? "Gameplay paused by operator"
+        : "Gameplay stopped · source unverified",
+      description: bound
+        ? "The operator must resume gameplay. Funding alone will not resume it."
+        : "Source binding is unverified. Wait for verified service status before preparing a payment.",
+    };
+  }
+  const reserve =
+    statusKnown &&
+    operational.run.running === true &&
+    operational.source?.binding_checked === true &&
+    operational.run.pace?.mode === "ReserveProtection" &&
+    operational.run.pace.admission_open === false;
+  return reserve
+    ? {
+        visible: true,
+        spinner: false,
+        kind: "reserve",
+        title: "Gameplay paused to conserve cycles",
+        description:
+          "Showing the verified timeline. Gameplay resumes when funding permits; source and funding maintenance continue.",
+      }
+    : {
+        visible: pending,
+        spinner: true,
+        kind: "catching-up",
+        title: "Catching up",
+        description:
+          "Fetching and verifying on-chain gameplay. Motion comes from the on-chain runtime; your browser only renders the verified timeline.",
+      };
 }
