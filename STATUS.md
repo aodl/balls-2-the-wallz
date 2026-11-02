@@ -1,3 +1,22 @@
+# B2Z overnight pilot — expired, fully reconciled
+
+The approved paid window ended 2 November 2026 at 07:14:09.902 UTC. The runner
+stopped automatically; its persistent stop flag is set and no paid campaign is
+active. All 32 overnight transfers are applied and independently match official
+Index records and Ledger balances. Overnight spend 3.6058 ICP; including the prior
+smoke, 4.7059 ICP total. Exactly 3.2941 ICP remains in the four ordinary accounts.
+All 33 receipt archives reverify. No unresolved payment or automatic top-up.
+
+Production rules 7 / schema 6 / epoch 4 remain unchanged on the 34-node fiduciary
+subnet. Genuine certified module/controller checks pass. Gameplay naturally entered
+ReserveProtection; source maintenance remains healthy. No manual override or new
+paid authority was used. Agent fixes are local commits with focused tests; remote
+CI has not run. Further hourly work is read-only or local unless a new campaign
+is explicitly approved.
+[Full results, remaining balances, exact identities, screenshots and limitations](evidence/B2Z/overnight-campaign-closeout-2026-11-02/REPORT.md).
+
+---
+
 # B2Z overnight agent pilot — running, bounded approval
 
 All four funded agents are admitted with authenticated applied receipts and

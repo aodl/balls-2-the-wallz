@@ -1,0 +1,13 @@
+{
+  "title": "Balls 2 the wallZ - B2Z",
+  "arena_note": "Gameplay paused to conserve cycles",
+  "status": "Reserve protection",
+  "cycle_meter": "~0.02T cycles/h \u00b7 2.85T liquid",
+  "head": 85761,
+  "errors": [],
+  "scope": "Read-only public desktop/mobile confirmation after campaign; new observation window, no transfer",
+  "camera": {
+    "scale": 1.44,
+    "minimum": 0.844
+  }
+}
