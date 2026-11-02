@@ -1,0 +1,340 @@
+{
+  "status": "PASS",
+  "scope": "Four separately signed ordinary identities; valueless local Ledger/Index; independent local campaigns for fixture setup, not live startup authorisation",
+  "rows": [
+    {
+      "player": "b2z-agent-expander",
+      "status": "PASS",
+      "plan_id": "3891f22ff3b1040e931ae2e8b72e554c8b6de36171f840f72370b64f04cec87d",
+      "block_index": {
+        "$integer": "5"
+      },
+      "full_cost_e8s": {
+        "$integer": "110010000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793613028442000000"
+      },
+      "receipt": {
+        "key": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84:5",
+        "reference": {
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "head": {
+            "$integer": "8"
+          },
+          "logical_time": {
+            "$integer": "6"
+          },
+          "root": "9497fc98f7bccc8ccb4744c4718fbd29b031e1bcd8abf6a423a5c73355059a1a",
+          "manifest": "73d388fca9e364f03822493bc0728d1c43f4e90a3e1c39c65255588b390325df",
+          "state": "35ad46d411fb83b57a18da8f98cbeca1184e6a8e00dc379df1016e7100888624",
+          "epoch": "fe6547440b5f7b862316ef72866fd22ffab075d24bf85bb823ace69105fdcbf8",
+          "epoch_index": {
+            "$integer": "3"
+          },
+          "source_cursor": {
+            "$integer": "6"
+          },
+          "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 3,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "5"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793613087947112262"
+        }
+      },
+      "observer_head": {
+        "$integer": "8"
+      },
+      "ambiguous_restart_reconciled": true,
+      "identical_duplicate_did_not_debit": true
+    },
+    {
+      "player": "b2z-agent-defender",
+      "status": "PASS",
+      "plan_id": "785166cc9655486653658787e2b95d9ac13686be157aa18fab52b9e8008bf6ab",
+      "block_index": {
+        "$integer": "6"
+      },
+      "full_cost_e8s": {
+        "$integer": "110010000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793613088286000000"
+      },
+      "receipt": {
+        "key": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84:6",
+        "reference": {
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "head": {
+            "$integer": "69"
+          },
+          "logical_time": {
+            "$integer": "67"
+          },
+          "root": "788631c9d75268c5c68b4a71acf8f4c8be13ab2d229062b45be6a3ed152fe0bc",
+          "manifest": "1ba16b3bec40f5fefafb43e7ec439764bd7c1d4a5ca78813017feaf9450fc266",
+          "state": "f4b58c410849f0c98adc70e2f77c4b224ad8c58f8a5bb8f1278d52cabb84a581",
+          "epoch": "fe6547440b5f7b862316ef72866fd22ffab075d24bf85bb823ace69105fdcbf8",
+          "epoch_index": {
+            "$integer": "3"
+          },
+          "source_cursor": {
+            "$integer": "7"
+          },
+          "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 4,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "6"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793613148197705073"
+        }
+      },
+      "observer_head": {
+        "$integer": "69"
+      },
+      "ambiguous_restart_reconciled": false,
+      "identical_duplicate_did_not_debit": false
+    },
+    {
+      "player": "b2z-agent-raider",
+      "status": "PASS",
+      "plan_id": "b50ae8c0d770b1a734396fd0ca66ae7e7bbc2343f856fb139890951d55fbfd5a",
+      "block_index": {
+        "$integer": "7"
+      },
+      "full_cost_e8s": {
+        "$integer": "110010000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793613148640000000"
+      },
+      "receipt": {
+        "key": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84:7",
+        "reference": {
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "head": {
+            "$integer": "129"
+          },
+          "logical_time": {
+            "$integer": "127"
+          },
+          "root": "dc41e94003b2169995bd819b308f57166e49519e380a11f3038e75cc32850f7a",
+          "manifest": "504d90c9e1c4fe99e75096a1bb69d9fd94ab7a909fe76d51f4746e8065571ef6",
+          "state": "3ca52ab0fb7e4254292f72f4cdea23de7abf50954ca5aabe8726c27347eafc54",
+          "epoch": "fe6547440b5f7b862316ef72866fd22ffab075d24bf85bb823ace69105fdcbf8",
+          "epoch_index": {
+            "$integer": "3"
+          },
+          "source_cursor": {
+            "$integer": "8"
+          },
+          "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 5,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "7"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793613208570901853"
+        }
+      },
+      "observer_head": {
+        "$integer": "129"
+      },
+      "ambiguous_restart_reconciled": false,
+      "identical_duplicate_did_not_debit": false
+    },
+    {
+      "player": "b2z-agent-adaptive",
+      "status": "PASS",
+      "plan_id": "64c4a7b025121c36bb6e97065e0b6f68f2a4db2c0f16026bc8f35992f2457bcd",
+      "block_index": {
+        "$integer": "8"
+      },
+      "full_cost_e8s": {
+        "$integer": "110010000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793613208994000000"
+      },
+      "receipt": {
+        "key": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84:8",
+        "reference": {
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "head": {
+            "$integer": "189"
+          },
+          "logical_time": {
+            "$integer": "187"
+          },
+          "root": "ab04c47c2470738ad12888999a5d2359e5a5f9986286a134b9d1fe1ebe322b25",
+          "manifest": "15335c7ca7f25c5764a01cd243b74118fcbd912b9d3c3bb8f242028888566d75",
+          "state": "3a63f572d8503c74a2004c64110df5fa6aa82b1fc43cbc5ba067b7509298121a",
+          "epoch": "fe6547440b5f7b862316ef72866fd22ffab075d24bf85bb823ace69105fdcbf8",
+          "epoch_index": {
+            "$integer": "3"
+          },
+          "source_cursor": {
+            "$integer": "9"
+          },
+          "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        },
+        "receipt": {
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 6,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "8"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793613269107487439"
+        }
+      },
+      "observer_head": {
+        "$integer": "190"
+      },
+      "ambiguous_restart_reconciled": false,
+      "identical_duplicate_did_not_debit": false
+    }
+  ],
+  "receipt_proofs_reverified_after_restart": 4,
+  "metrics": {
+    "queries": 418,
+    "artifact_bytes": 7204879,
+    "refreshes": 180,
+    "stale_responses": 0,
+    "resyncs": 0,
+    "moving_snapshot_retries": 0,
+    "last_refresh_ms": 314.3954420000082
+  }
+}

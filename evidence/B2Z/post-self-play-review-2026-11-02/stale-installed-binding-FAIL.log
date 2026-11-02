@@ -1,0 +1,12 @@
+file:///home/codexdev/src/b2z-prelaunch-rules/packages/agents/b2z/common.mjs:3
+export function check(ok,code){if(!ok)throw new Error(code);}
+                                            ^
+
+Error: CAMPAIGN_RULES_CHANGED
+    at check (file:///home/codexdev/src/b2z-prelaunch-rules/packages/agents/b2z/common.mjs:3:45)
+    at GameExecutor.checkSnapshot (file:///home/codexdev/src/b2z-prelaunch-rules/packages/agents/b2z/executor.mjs:180:7)
+    at GameExecutor.prepare_action (file:///home/codexdev/src/b2z-prelaunch-rules/packages/agents/b2z/executor.mjs:251:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/codexdev/src/b2z-prelaunch-rules/tools/test_b2z_executor_installed.mjs:86:16
+
+Node.js v24.15.0

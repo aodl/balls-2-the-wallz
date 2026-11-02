@@ -1,0 +1,2110 @@
+{
+  "status": "PASS",
+  "scope": "Matched pure-kernel local trials; fixed opponent input stream and eight logical ticks; tested policy rotates between existing seats; no ICP, inference or billed-cycle claim",
+  "rows": [
+    {
+      "fixture": "bridge_left",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "frugal-expander",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "frugal-expander",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -0.9090114942528735,
+            "heuristic": {
+              "gain": 0.15306799999999998,
+              "area": 29,
+              "loss": 2,
+              "kills": 2,
+              "dormant": -3,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 427.31621600000005,
+        "worker_ms": 331.27508500000005,
+        "total_work": 4486
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "attrition-raider",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -0.34743199999999996,
+            "heuristic": {
+              "gain": 0.15306799999999998,
+              "area": 29,
+              "loss": 2,
+              "kills": 2,
+              "dormant": -3,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 427.31621600000005,
+        "worker_ms": 331.27508500000005,
+        "total_work": 4486
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "adaptive-allocator",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -0.9090114942528735,
+            "heuristic": {
+              "gain": 0.15306799999999998,
+              "area": 29,
+              "loss": 2,
+              "kills": 2,
+              "dormant": -3,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "delegate": "frugal-expander",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "reward_evidence": {
+          "accepted": 0,
+          "basis": "Only matched Wait trials; passive accrual and unmatched opponent effects receive no policy credit."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 427.31621600000005,
+        "worker_ms": 331.27508500000005,
+        "total_work": 4486
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "forced-fire-check",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "candidate": "fire",
+        "reason": "Paired candidate diagnostic, not a policy update"
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "3492"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "84542847124428"
+        },
+        {
+          "$integer": "265166560546875"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "10962876247443000000"
+        },
+        {
+          "$integer": "37289047576904296875"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "10010000"
+      },
+      "receipt_statuses": [
+        "applied",
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 427.31621600000005,
+        "worker_ms": 331.27508500000005,
+        "total_work": 4486
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "frugal-expander",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "frugal-expander",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -1.4689145427286356,
+            "heuristic": {
+              "gain": 0.05453533333333333,
+              "area": 7.666666666666667,
+              "loss": 3,
+              "kills": 3,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "wait_future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 393.2215600000002,
+        "worker_ms": 299.8337110000002,
+        "total_work": 2091
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "attrition-raider",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -0.4459646666666666,
+            "heuristic": {
+              "gain": 0.05453533333333333,
+              "area": 7.666666666666667,
+              "loss": 3,
+              "kills": 3,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "wait_future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 393.2215600000002,
+        "worker_ms": 299.8337110000002,
+        "total_work": 2091
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "adaptive-allocator",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -1.4689145427286356,
+            "heuristic": {
+              "gain": 0.05453533333333333,
+              "area": 7.666666666666667,
+              "loss": 3,
+              "kills": 3,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "delegate": "frugal-expander",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "reward_evidence": {
+          "accepted": 0,
+          "basis": "Only matched Wait trials; passive accrual and unmatched opponent effects receive no policy credit."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "wait_future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 393.2215600000002,
+        "worker_ms": 299.8337110000002,
+        "total_work": 2091
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "bridge_left",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "forced-fire-check",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "candidate": "fire",
+        "reason": "Paired candidate diagnostic, not a policy update"
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "wait_initial_state": "19bacb08d0f8643d73ca975d0905862a5be316026384e68d23a62ec6a3f2ad6c",
+      "future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "wait_future_inputs": "72cf4a747de073a2141980f232662afd1066eedec9423bb684e267667a6d4121",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "4032"
+        },
+        {
+          "$integer": "390625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "385487118622"
+        },
+        {
+          "$integer": "5892590234375"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "126821981886718750"
+        },
+        {
+          "$integer": "2301793060302734375"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "10010000"
+      },
+      "receipt_statuses": [
+        "applied",
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 393.2215600000002,
+        "worker_ms": 299.8337110000002,
+        "total_work": 2091
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "frugal-expander",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "frugal-expander",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 201.6741979999997,
+        "worker_ms": 117.8805769999999,
+        "total_work": 68
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "attrition-raider",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 201.6741979999997,
+        "worker_ms": 117.8805769999999,
+        "total_work": 68
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "adaptive-allocator",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "delegate": "frugal-expander",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "reward_evidence": {
+          "accepted": 0,
+          "basis": "Only matched Wait trials; passive accrual and unmatched opponent effects receive no policy credit."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 201.6741979999997,
+        "worker_ms": 117.8805769999999,
+        "total_work": 68
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "forced-fire-check",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "candidate": "wait",
+        "reason": "Paired candidate diagnostic, not a policy update"
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "wait_future_inputs": "92211ec63dc92fc7e313a415caa2a210fd43213b086a2b94a1aa02d315a79a52",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "8064"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "19775390625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 201.6741979999997,
+        "worker_ms": 117.8805769999999,
+        "total_work": 68
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "frugal-expander",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "frugal-expander",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -1.4988678993836415,
+            "heuristic": {
+              "gain": 0.002265333333333333,
+              "area": 0,
+              "loss": 3,
+              "kills": 3,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "elapsed-window-with-idle",
+                "candidate_logical_ticks": 1,
+                "wait_logical_ticks": 8,
+                "elapsed_window_ns": {
+                  "$integer": "8000000000"
+                }
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "wait_future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "244140625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 346.02387199999976,
+        "worker_ms": 263.461781,
+        "total_work": 3005
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "attrition-raider",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -0.4982346666666666,
+            "heuristic": {
+              "gain": 0.002265333333333333,
+              "area": 0,
+              "loss": 3,
+              "kills": 3,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "elapsed-window-with-idle",
+                "candidate_logical_ticks": 1,
+                "wait_logical_ticks": 8,
+                "elapsed_window_ns": {
+                  "$integer": "8000000000"
+                }
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "wait_future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "244140625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 346.02387199999976,
+        "worker_ms": 263.461781,
+        "total_work": 3005
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "policy": "adaptive-allocator",
+        "version": "b2z-policies-3",
+        "candidate": "wait",
+        "ranking": [
+          {
+            "candidate": "wait",
+            "rank": 0,
+            "heuristic": {
+              "gain": 0,
+              "area": 0,
+              "loss": 0,
+              "kills": 0,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0
+            }
+          },
+          {
+            "candidate": "fire",
+            "rank": -1.4988678993836415,
+            "heuristic": {
+              "gain": 0.002265333333333333,
+              "area": 0,
+              "loss": 3,
+              "kills": 3,
+              "dormant": 0,
+              "cost_icp_for_ranking_only": 0.1001
+            }
+          }
+        ],
+        "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+        "delegate": "frugal-expander",
+        "forecast_coverage": [
+          {
+            "candidate": "wait",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          },
+          {
+            "candidate": "fire",
+            "scored_scenarios": [
+              "no-new-opponent-actions",
+              "plausible-public-last-heading-response",
+              "delayed-admission-opponent-first"
+            ],
+            "comparison_bases": [
+              {
+                "scenario": "no-new-opponent-actions",
+                "basis": "elapsed-window-with-idle",
+                "candidate_logical_ticks": 1,
+                "wait_logical_ticks": 8,
+                "elapsed_window_ns": {
+                  "$integer": "8000000000"
+                }
+              },
+              {
+                "scenario": "plausible-public-last-heading-response",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              },
+              {
+                "scenario": "delayed-admission-opponent-first",
+                "basis": "same-logical-horizon",
+                "candidate_logical_ticks": 8,
+                "wait_logical_ticks": 8
+              }
+            ],
+            "unassessed": []
+          }
+        ],
+        "robustness": {
+          "assessed_all_declared_scenarios": true,
+          "note": "A positive immediate-admission ranking does not establish robustness across unassessed delays."
+        },
+        "reward_evidence": {
+          "accepted": 0,
+          "basis": "Only matched Wait trials; passive accrual and unmatched opponent effects receive no policy credit."
+        },
+        "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "wait_future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "244140625"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "receipt_statuses": [
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 346.02387199999976,
+        "worker_ms": 263.461781,
+        "total_work": 3005
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    },
+    {
+      "fixture": "mutual",
+      "seat": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "forced-fire-check",
+      "policy_version": "b2z-policies-3",
+      "decision": {
+        "candidate": "fire",
+        "reason": "Paired candidate diagnostic, not a policy update"
+      },
+      "comparison": "matched-wait",
+      "complete": true,
+      "initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "wait_initial_state": "7af192710c80af2f1df1dcb99379f32e57cb28130e28b39ab3da99854759adda",
+      "future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "wait_future_inputs": "f1a451b8776cf4b83fcd8837ac39a0188058e110c704f8531d68bb0fa5bc9032",
+      "logical_horizon": 8,
+      "wait_logical_horizon": 8,
+      "budget_e8s": {
+        "$integer": "25000000"
+      },
+      "wait_budget_e8s": {
+        "$integer": "25000000"
+      },
+      "natural_wait_score_delta": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "actual_score_delta": [
+        {
+          "$integer": "114651096"
+        },
+        {
+          "$integer": "47140721875"
+        }
+      ],
+      "incremental_score_delta": [
+        {
+          "$integer": "1744282653125"
+        },
+        {
+          "$integer": "736573779296875"
+        }
+      ],
+      "full_expenditure_e8s": {
+        "$integer": "10010000"
+      },
+      "receipt_statuses": [
+        "applied",
+        "applied"
+      ],
+      "forecast_status": "complete",
+      "forecast_measurements": {
+        "elapsed_ms": 346.02387199999976,
+        "worker_ms": 263.461781,
+        "total_work": 3005
+      },
+      "forecast_bounds": {
+        "horizon": 8,
+        "max_candidates": 2,
+        "max_work": 60000,
+        "hard_wall_ms": 5300
+      }
+    }
+  ],
+  "total_work": 22803,
+  "elapsed_ms": 3995.135635,
+  "limitations": [
+    "Two selected fixture geometries and two seats; no statistical winner claim",
+    "Frozen scripted opponent stream, not a forecast of actual opponent intentions",
+    "Forecast ranking scenarios and the separately supplied experimental opponent stream are explicitly different assumptions"
+  ]
+}

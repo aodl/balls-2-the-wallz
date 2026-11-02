@@ -1,0 +1,13 @@
+✔ public price reference agrees with kernel occupancy pricing and capacity (2.122929ms)
+✔ operational reference withholds purchase encouragement while paused, unbound or unhealthy (0.335004ms)
+✔ healthy idle is distinct from pause, errors and an active authenticated world (0.338104ms)
+✔ reserve protection disables encouragement and never disguises preserved pending payments (0.268904ms)
+✔ reserve protection replaces the indefinite catch-up spinner only after verification and fresh healthy operations (0.546607ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 102.317676

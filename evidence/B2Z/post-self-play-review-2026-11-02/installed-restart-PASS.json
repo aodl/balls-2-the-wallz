@@ -1,0 +1,16 @@
+{
+  "id": "agent-paid-executor",
+  "command": [
+    "/home/codexdev/src/b2z-prelaunch-rules/tools/s09-integration/target/debug/deps/s14_index-e437f15eb0c89328",
+    "agent_playtesting::restricted_executor_ledger_index_rehearsal",
+    "--exact",
+    "--ignored",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "exit_code": 0,
+  "status": "PASS",
+  "elapsed_seconds": 256.423,
+  "timeout_seconds": 420,
+  "log": "logs/agent-paid-executor.log"
+}

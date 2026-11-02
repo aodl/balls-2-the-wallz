@@ -1,0 +1,220 @@
+{
+  "status": "PASS",
+  "scope": "Locally built candidate over HTTP with production CSP, genuine read-only mainnet certificates and operational data; not deployed",
+  "title": "Balls 2 the wallZ - B2Z",
+  "errors": [],
+  "arena_note": "Gameplay paused to conserve cycles",
+  "catching_up": true,
+  "catching_up_text": "Gameplay paused to conserve cycles\n\nShowing the verified timeline. Gameplay resumes when funding permits; source and funding maintenance continue.",
+  "head": 85761,
+  "controls": [
+    {
+      "id": "toolbar-play",
+      "label": "Play",
+      "text": "Play",
+      "scroll_width": 39,
+      "client_width": 39,
+      "scroll_height": 53,
+      "client_height": 53,
+      "box": {
+        "x": 19,
+        "y": 117,
+        "width": 41,
+        "height": 55
+      },
+      "visible": true
+    },
+    {
+      "id": "toolbar-players",
+      "label": "Players",
+      "text": "Players",
+      "scroll_width": 49,
+      "client_width": 49,
+      "scroll_height": 53,
+      "client_height": 53,
+      "box": {
+        "x": 67,
+        "y": 117,
+        "width": 50.703125,
+        "height": 55
+      },
+      "visible": true
+    },
+    {
+      "id": "toolbar-rules",
+      "label": "Rules",
+      "text": "Rules",
+      "scroll_width": 40,
+      "client_width": 40,
+      "scroll_height": 53,
+      "client_height": 53,
+      "box": {
+        "x": 124.703125,
+        "y": 117,
+        "width": 42.28125,
+        "height": 55
+      },
+      "visible": true
+    },
+    {
+      "id": "toolbar-view",
+      "label": "View",
+      "text": "View",
+      "scroll_width": 39,
+      "client_width": 39,
+      "scroll_height": 53,
+      "client_height": 53,
+      "box": {
+        "x": 173.984375,
+        "y": 117,
+        "width": 41,
+        "height": 55
+      },
+      "visible": true
+    },
+    {
+      "id": "toolbar-settings",
+      "label": "Settings",
+      "text": "Settings",
+      "scroll_width": 53,
+      "client_width": 53,
+      "scroll_height": 53,
+      "client_height": 53,
+      "box": {
+        "x": 221.984375,
+        "y": 117,
+        "width": 54.921875,
+        "height": 55
+      },
+      "visible": true
+    },
+    {
+      "id": "join-action",
+      "label": "Join",
+      "text": "Join",
+      "scroll_width": 37,
+      "client_width": 37,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 19,
+        "y": 179,
+        "width": 39.140625,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "fire-action",
+      "label": "Fire balls",
+      "text": "Fire balls",
+      "scroll_width": 68,
+      "client_width": 68,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 62.140625,
+        "y": 179,
+        "width": 70.171875,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "move-action",
+      "label": "Move cannon",
+      "text": "Move cannon",
+      "scroll_width": 91,
+      "client_width": 91,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 136.3125,
+        "y": 179,
+        "width": 92.515625,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "fit-world",
+      "label": "Overview",
+      "text": "Overview",
+      "scroll_width": 69,
+      "client_width": 69,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 19,
+        "y": 209,
+        "width": 70.703125,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "centre-cannon",
+      "label": "Centre selected cannon",
+      "text": "Centre selected cannon",
+      "scroll_width": 149,
+      "client_width": 149,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 93.703125,
+        "y": 209,
+        "width": 151.203125,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "zoom-in",
+      "label": "Zoom in",
+      "text": "Zoom in",
+      "scroll_width": 61,
+      "client_width": 61,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 248.90625,
+        "y": 209,
+        "width": 63.453125,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "zoom-out",
+      "label": "Zoom out",
+      "text": "Zoom out",
+      "scroll_width": 70,
+      "client_width": 70,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 19,
+        "y": 203,
+        "width": 71.671875,
+        "height": 40
+      },
+      "visible": true
+    },
+    {
+      "id": "toggle-minimap",
+      "label": "Minimap",
+      "text": "Minimap",
+      "scroll_width": 64,
+      "client_width": 64,
+      "scroll_height": 38,
+      "client_height": 38,
+      "box": {
+        "x": 94.671875,
+        "y": 203,
+        "width": 66.265625,
+        "height": 40
+      },
+      "visible": true
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "native_events": [
+    {
+      "ball": {
+        "cell": 1103,
+        "id": 4,
+        "owner": 2,
+        "vx": 29564,
+        "vy": 12246,
+        "x0": {
+          "$integer": "105984"
+        },
+        "y0": {
+          "$integer": "1536"
+        }
+      },
+      "cannon": 3,
+      "heading": 4096,
+      "kind": "ball_spawned",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 3,
+        "next_territory_id": 4,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "attacker": 2,
+      "ball": 3,
+      "cancelled_capture": true,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture_annihilation",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 3,
+        "next_territory_id": 4,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [],
+      "pairs": [
+        {
+          "balls": [
+            3,
+            1
+          ],
+          "positions": [
+            [
+              [
+                {
+                  "$integer": "1695745"
+                },
+                {
+                  "$integer": "16"
+                }
+              ],
+              [
+                {
+                  "$integer": "1536"
+                },
+                {
+                  "$integer": "1"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "$integer": "1695745"
+                },
+                {
+                  "$integer": "16"
+                }
+              ],
+              [
+                {
+                  "$integer": "512"
+                },
+                {
+                  "$integer": "1"
+                }
+              ]
+            ]
+          ]
+        }
+      ],
+      "reactivated_cannons": [],
+      "sequence": 8,
+      "strike": 1,
+      "target": 103,
+      "time": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "16"
+        }
+      ]
+    },
+    {
+      "attacker": 2,
+      "ball": 4,
+      "cancelled_capture": true,
+      "cancelled_strikes": [],
+      "dormant": [
+        {
+          "cannon": 3,
+          "deadline_ns": {
+            "$integer": "9093604254740993"
+          },
+          "generation": 2
+        },
+        {
+          "cannon": 2,
+          "deadline_ns": {
+            "$integer": "9093604254740993"
+          },
+          "generation": 2
+        }
+      ],
+      "kind": "capture_annihilation",
+      "metadata_delta": {
+        "lifecycle": [
+          {
+            "cannon": 2,
+            "deadline_ns": {
+              "$integer": "9093604254740993"
+            },
+            "dormant_since_ns": {
+              "$integer": "9007204254740993"
+            },
+            "generation": 2,
+            "player": 1
+          },
+          {
+            "cannon": 3,
+            "deadline_ns": {
+              "$integer": "9093604254740993"
+            },
+            "dormant_since_ns": {
+              "$integer": "9007204254740993"
+            },
+            "generation": 2,
+            "player": 2
+          }
+        ],
+        "next_player_id": 3,
+        "next_territory_id": 5,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "kind": "clear",
+          "owner": 3
+        },
+        {
+          "cell": 1103,
+          "kind": "set",
+          "owner": 3
+        },
+        {
+          "kind": "clear",
+          "owner": 4
+        },
+        {
+          "cell": 106,
+          "kind": "set",
+          "owner": 4
+        }
+      ],
+      "pairs": [
+        {
+          "balls": [
+            4,
+            2
+          ],
+          "positions": [
+            [
+              [
+                {
+                  "$integer": "422689"
+                },
+                {
+                  "$integer": "4"
+                }
+              ],
+              [
+                {
+                  "$integer": "581655"
+                },
+                {
+                  "$integer": "3112"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "$integer": "672393605"
+                },
+                {
+                  "$integer": "6224"
+                }
+              ],
+              [
+                {
+                  "$integer": "512"
+                },
+                {
+                  "$integer": "1"
+                }
+              ]
+            ]
+          ]
+        }
+      ],
+      "reactivated_cannons": [],
+      "sequence": 29,
+      "strike": 3,
+      "target": 105,
+      "time": [
+        {
+          "$integer": "2437"
+        },
+        {
+          "$integer": "6224"
+        }
+      ]
+    }
+  ],
+  "reported_loss": 1,
+  "oldLost": 1,
+  "spawned": 1,
+  "actualLoss": 2
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Newly purchased attackers must not become free casualties in strategic rankings
+
+1 !== 2
+
+    at file:///home/codexdev/src/b2z-prelaunch-rules/.work/b2z-newborn-loss/repro.mjs:3:346
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 2,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

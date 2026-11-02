@@ -1,3 +1,26 @@
+# Focused post-self-play corrections — local PASS, exact-commit CI pending
+
+Executable candidate `b4a00231b91d6029cdb5ffa3cfdc39f0c8ae518a` corrects
+same-horizon newborn casualties, counterfactual consent comparisons, adaptive
+reward attribution and player-scoped proposal access. Formatting is isolated in
+`9550a83`; agent corrections are `a66d55e`. All eight policy types remain.
+The prepared frontend replaces the indefinite Reserve Protection catch-up spinner
+with an honest pause message; no authenticated playback changes.
+
+PASS: 106 focused JS tests, 20 native/reference comparisons, native format/clippy,
+16 matched local policy/candidate rows, exact-candidate mobile HTTP check and one
+corrected installed-IC Ledger/Index/receipt/duplicate/restart rehearsal. Genuine
+original casualty and stale-harness failures remain preserved. No real ICP spent,
+backend/DTR/rules change, production deployment or new campaign.
+
+CI 41419529020 for earlier `b7adfda` has a Native conformance failure; its exact
+subcheck is unavailable through the unauthenticated log API (403). Operator log
+text requested. The new candidate awaits operator push and exact-commit CI; it
+is not claimed release-qualified. The completed campaign remains expired/stopped.
+[Focused report, hashes, tests, comparisons and mobile evidence](evidence/B2Z/post-self-play-review-2026-11-02/REPORT.md).
+
+---
+
 # B2Z overnight pilot — expired, fully reconciled
 
 The approved paid window ended 2 November 2026 at 07:14:09.902 UTC. The runner
