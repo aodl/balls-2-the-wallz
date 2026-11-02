@@ -378,3 +378,19 @@ A zero funding pace, disabled gameplay or closed admission yields `status:
 "paused"`, zero simulated work and no invented progressing/admitted outcome.
 The default policies choose Wait. A future resume is not silently assumed; expiry
 maintenance and its authenticated deadlines remain separate from physics pacing.
+
+
+### Passive observation cadence
+
+Passive shared-observer refreshes use five seconds normally, ten seconds at
+Survival pace and fifteen seconds at Lifeline/zero pace. The operational cache
+continues its separate fifteen-second refresh. This reduces duplicate observation
+queries when publications are slow; it is not a billed-cycle savings claim.
+
+`refresh()` remains the urgent path used before payment preparation/submission and
+during receipt reconciliation. Passive calls explicitly use `refresh({idle:true})`;
+an outstanding submitted payment also keeps the pilot loop urgent. Certificate
+freshness limits, artifact verification and the accepted floor do not change.
+A controlled genuine-certificate test made four passive observation calls instead
+of twelve over sixty seconds at Lifeline pace; an urgent request still bypassed
+the passive interval. Cached replies never invent a newer certificate timestamp.

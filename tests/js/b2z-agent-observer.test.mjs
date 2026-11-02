@@ -38,3 +38,13 @@ test('persistent retired artifacts exhaust bounded retries without advancing the
 test('a bad certificate encountered after retired transport is still a verification failure',async t=>{
  const s=make(t);await s.o.refresh();const floor=s.o.current.reference.root;s.advance();let once=true;const bundle=s.o.connection.client.bundle;s.o.connection.client.bundle=async n=>{if(once){once=false;s.invalidCertificate=true;throw Error('publication unavailable: snapshot resync required');}return bundle(n);};await assert.rejects(s.o.refresh());assert.equal(s.o.current.reference.root,floor);assert.equal(s.o.metrics.moving_snapshot_retries,1);
 });
+
+
+test('slow-tier passive polling coalesces queries while urgent refresh remains immediate',async t=>{
+ const s=make(t);await s.o.refresh();s.o.connection.readStatus=async()=>({run:{pace:{nominal_milli:50}}});await s.o.operational();assert.equal(s.o.passiveCadence(),15000);const initial=s.calls.observations;
+ for(let i=0;i<12;i++){t.mock.timers.tick(5000);await s.o.refresh({idle:true});}
+ assert.equal(s.calls.observations-initial,4);t.mock.timers.tick(1000);const before=s.calls.observations;assert.equal((await s.o.refresh({idle:true})).status,'cached');await s.o.refresh();assert.equal(s.calls.observations,before+1);assert.equal(s.o.current.reference.root,s.o.sequence.last.root_hash);
+});
+test('passive cadence follows funding pace without fabricating a fresh certificate or changing the floor',async t=>{
+ const s=make(t);await s.o.refresh();let pace=200;s.o.connection.readStatus=async()=>({run:{pace:{nominal_milli:pace}}});await s.o.operational();assert.equal(s.o.passiveCadence(),5000);const original=s.o.current.observed_ns;pace=100;t.mock.timers.tick(15000);await s.o.operational();assert.equal(s.o.passiveCadence(),10000);pace=0;t.mock.timers.tick(15000);await s.o.operational();assert.equal(s.o.passiveCadence(),15000);await s.o.refresh({idle:true});assert.equal(s.o.current.observed_ns,original);assert.equal(s.o.current.reference.root,s.o.sequence.last.root_hash);
+});

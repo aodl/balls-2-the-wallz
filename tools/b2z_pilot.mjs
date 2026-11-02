@@ -48,7 +48,7 @@ try{
  for(const alias of order){const p=campaign.players.find(p=>p.alias===alias);await observer.refresh();await observer.operational();if(observer.current.world.cannons.some(c=>c.account===p.account_identifier))continue;if(executor.rows().some(r=>r.player===alias))continue;executor.checkAdmission(observer.current);const angle={'b2z-agent-expander':0,'b2z-agent-defender':16384,'b2z-agent-raider':32768,'b2z-agent-adaptive':49152}[alias];await pay(p,{New:{angle,quantity:2,cell:null}},{policy:p.strategy,reason:'Bounded first join, two balls; canonical cardinal heading chosen before admission, no targeting of an outside player.'});}
  while(!stop&&BigInt(Date.now())*1000000n<approval.expires_ns){
   if(existsSync(join(dir,'STOP'))){stop=true;break;}if(existsSync(join(dir,'RESTART'))){restart=true;break;}if(existsSync(join(dir,'HOLD'))){status('operator-compute-hold');await sleep(5000);continue;}
-  await observer.refresh();await observer.operational();executor.checkSnapshot(observer.current,{freshMs:300000});state.cycles++;
+  await observer.refresh({idle:!executor.rows().some(r=>!terminal.has(r.status)&&r.status!=='prepared')});await observer.operational();executor.checkSnapshot(observer.current,{freshMs:300000});state.cycles++;
   for(const row of executor.rows())if(!terminal.has(row.status)&&row.status!=='prepared')await finish(executor.row(row.id));
   await archiveCombat();const s=observer.current;save('latest-observation.json',observer.analysis({budgets:totals()}).observe_game({limit:16}));
   if(!s.operational?.run.running||!s.operational.run.pace?.admission_open||s.operational.source.last_error.length){status('game-admission-closed');await sleep(15000);continue;}
