@@ -1,6 +1,7 @@
 import { Worker } from "node:worker_threads";
 import { candidates } from "./actions.mjs";
 import { check, envelope, integer, stringify } from "./common.mjs";
+export const FORECAST_METRICS_VERSION = "b2z-forecast-metrics-2";
 const cache = new Map();
 export function forecastWorkerArgs(args = process.execArgv) {
   const out = [];
@@ -101,6 +102,7 @@ export async function evaluateActions(
     board.snapshot.operational?.run.pace?.admission_open === false
   )
     return envelope("evaluate_actions", board, {
+      derived_metrics_version: FORECAST_METRICS_VERSION,
       engine: { kind: "not run" },
       status: "paused",
       candidates: choices,
@@ -121,6 +123,8 @@ export async function evaluateActions(
       },
     });
   const key =
+    FORECAST_METRICS_VERSION +
+    "/" +
     (process.env.B2Z_AGENT_NATIVE ?? "js-reference") +
     "/" +
     (process.env.B2Z_AGENT_NATIVE_SHA256 ?? "unfrozen") +
@@ -177,6 +181,7 @@ export async function evaluateActions(
   if (!includeStates)
     for (const row of result.results) delete row.next_state_hex;
   const out = envelope("evaluate_actions", board, {
+    derived_metrics_version: FORECAST_METRICS_VERSION,
     engine: result.engine ?? {
       kind: process.env.B2Z_AGENT_NATIVE
         ? "existing-rust-kernel; interrupted before metadata"

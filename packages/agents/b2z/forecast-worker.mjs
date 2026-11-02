@@ -18,6 +18,7 @@ import {
 import { expireV6 } from "../../kernels/b2z/lifecycle-v6.mjs";
 import { dueFences } from "../../kernels/b2z/playability.mjs";
 import { quoteAction, opponentResponse } from "./actions.mjs";
+import { ballOutcomes } from "./analysis.mjs";
 import { fractionSub } from "./common.mjs";
 function payload(account, amount, memo) {
   const bytes = encodePayment(account, amount, { kind: "angle", value: 0 });
@@ -33,6 +34,66 @@ const cells = (w, id) =>
         w.playability.territories.find((t) => t.id === label)?.player === id,
     )
     .reduce((n, [, v]) => n + v, 0);
+/** One existing-kernel segment, with the caller's remaining work/time budget. */
+function simulateSegment({
+  world,
+  inputs,
+  context,
+  elapsed,
+  native,
+  remainingWork,
+  remainingMs,
+}) {
+  if (native) {
+    if (remainingMs < 10) return { status: "bounded_incomplete", used: 0 };
+    const request = {
+      initial_hex: Buffer.from(encodeWorld(world)).toString("hex"),
+      inputs_hex: Buffer.from(encodeCanonical(inputs)).toString("hex"),
+      context_hex: Buffer.from(encodeCanonical(context)).toString("hex"),
+      observed_ns: String(elapsed),
+      max_work: Math.max(1, remainingWork),
+    };
+    let response;
+    try {
+      response = JSON.parse(
+        execFileSync(native, ["segment-json"], {
+          input: JSON.stringify(request),
+          encoding: "utf8",
+          timeout: Math.floor(remainingMs),
+          maxBuffer: 16 * 1024 * 1024,
+          env: { PATH: process.env.PATH },
+        }),
+      );
+    } catch (e) {
+      if (e.code === "ETIMEDOUT")
+        return { status: "bounded_incomplete", used: 0 };
+      throw e;
+    }
+    if (response.status !== "complete")
+      return { status: "bounded_incomplete", used: response.used };
+    return {
+      status: "complete",
+      used: response.used,
+      output: {
+        state: Buffer.from(response.state_hex, "hex"),
+        events: Buffer.from(response.events_hex, "hex"),
+        scores: Buffer.from(response.scores_hex, "hex"),
+      },
+    };
+  }
+  const cursor = new B2zCursor(encodeWorld(world), inputs, context),
+    deadline = performance.now() + remainingMs;
+  let used = 0;
+  for (;;) {
+    const result = cursor.step(1);
+    used += result.used;
+    if (result.complete) break;
+    if (used >= remainingWork || performance.now() > deadline)
+      return { status: "bounded_incomplete", used };
+  }
+  cursor.finalizeElapsed(elapsed);
+  return { status: "complete", used, output: cursor.result() };
+}
 parentPort.on(
   "message",
   ({
@@ -100,6 +161,7 @@ parentPort.on(
         let w = cloneCanonical(before),
           elapsed = w.playability.elapsed_ns,
           events = [],
+          audits = [],
           receipts = [],
           opponentActions = [],
           ticks = 0,
@@ -164,7 +226,9 @@ parentPort.on(
               const ex = expireV6(w, elapsed, dueFences(w, elapsed));
               if (ex) {
                 w = decodeWorld(ex.output.state);
-                events.push(...decodeCanonical(ex.output.events).events);
+                const audit = decodeCanonical(ex.output.events);
+                events.push(...audit.events);
+                audits.push({ ...audit, slot: tick, inputs: [] });
               }
               continue;
             }
@@ -177,90 +241,40 @@ parentPort.on(
               logical_start: start,
               logical_end: start + 1n,
             };
-            let output;
-            if (native) {
-              const request = {
-                initial_hex: Buffer.from(encodeWorld(w)).toString("hex"),
-                inputs_hex: Buffer.from(encodeCanonical(inputs)).toString(
-                  "hex",
-                ),
-                context_hex: Buffer.from(encodeCanonical(context)).toString(
-                  "hex",
-                ),
-                observed_ns: String(elapsed),
-                max_work: Math.max(1, maxWork - totalWork),
-              };
-              const remaining = Math.floor(
-                maxMs - (performance.now() - started),
-              );
-              if (remaining < 10) {
-                status = "bounded_incomplete";
-                break;
-              }
-              let response;
-              try {
-                response = JSON.parse(
-                  execFileSync(native, ["segment-json"], {
-                    input: JSON.stringify(request),
-                    encoding: "utf8",
-                    timeout: remaining,
-                    maxBuffer: 16 * 1024 * 1024,
-                    env: { PATH: process.env.PATH },
-                  }),
-                );
-              } catch (e) {
-                if (e.code === "ETIMEDOUT") {
-                  status = "bounded_incomplete";
-                  break;
-                }
-                throw e;
-              }
-              totalWork += response.used;
-              if (response.status !== "complete") {
-                status = "bounded_incomplete";
-                break;
-              }
-              output = {
-                state: Buffer.from(response.state_hex, "hex"),
-                events: Buffer.from(response.events_hex, "hex"),
-                scores: Buffer.from(response.scores_hex, "hex"),
-              };
-            } else {
-              const cursor = new B2zCursor(encodeWorld(w), inputs, context);
-              for (;;) {
-                const r = cursor.step(1);
-                totalWork += r.used;
-                if (r.complete) break;
-                if (
-                  totalWork >= maxWork ||
-                  performance.now() - started > maxMs
-                ) {
-                  status = "bounded_incomplete";
-                  break;
-                }
-              }
-              if (status !== "complete") break;
-              cursor.finalizeElapsed(elapsed);
-              output = cursor.result();
+            const simulated = simulateSegment({
+              world: w,
+              inputs,
+              context,
+              elapsed,
+              native,
+              remainingWork: maxWork - totalWork,
+              remainingMs: maxMs - (performance.now() - started),
+            });
+            totalWork += simulated.used;
+            if (simulated.status !== "complete") {
+              status = "bounded_incomplete";
+              break;
             }
+            const output = simulated.output;
             w = decodeWorld(output.state);
             const audit = decodeCanonical(output.events);
             events.push(...audit.events);
+            audits.push({ ...audit, slot: tick, inputs });
             receipts.push(...audit.receipts);
             ticks++;
             const expiry = expireV6(w, elapsed, dueFences(w, elapsed));
             if (expiry) {
               w = decodeWorld(expiry.output.state);
-              events.push(...decodeCanonical(expiry.output.events).events);
+              const audit = decodeCanonical(expiry.output.events);
+              events.push(...audit.events);
+              audits.push({ ...audit, slot: tick, inputs: [] });
             }
           }
           const pid = w.playability.players.find(
               (p) => p.account === account,
             )?.id,
             oursBefore = before.balls.filter((b) => b.owner === id),
-            oursAfter = w.balls.filter((b) => b.owner === pid),
-            enemiesBefore = before.balls.filter((b) => b.owner !== id),
-            enemiesAfter = w.balls.filter((b) => b.owner !== pid);
+            oursAfter = w.balls.filter((b) => b.owner === pid);
           results.push({
             planned_transfer_e8s: choice.quote.amount_e8s,
             candidate: choice.id,
@@ -283,21 +297,7 @@ parentPort.on(
             territory_after: cells(w, pid),
             balls_before: oursBefore.length,
             balls_after: oursAfter.length,
-            own_balls_lost: oursBefore.filter(
-              (b) => !oursAfter.some((a) => a.id === b.id),
-            ).length,
-            opponent_balls_lost: enemiesBefore.filter(
-              (b) => !enemiesAfter.some((a) => a.id === b.id),
-            ).length,
-            opposing_ball_losses: enemiesBefore
-              .filter((b) => !enemiesAfter.some((a) => a.id === b.id))
-              .map((b) => ({
-                id: b.id,
-                player: b.owner,
-                account:
-                  before.playability.players.find((p) => p.id === b.owner)
-                    ?.account ?? null,
-              })),
+            ...ballOutcomes(before, w, audits, account),
             cannons_after: w.cannons.filter((c) => c.account === account)
               .length,
             islands_after: w.playability.territories.filter(

@@ -57,8 +57,23 @@ try{
    const unresolved=executor.rows().some(r=>r.player===player.alias&&!terminal.has(r.status)&&!(r.status==='prepared'&&executor.row(r.id).immutable.expires_ns<BigInt(now)*1000000n));if(unresolved)continue;const budget=remaining(player.alias);if(budget<=BigInt(campaign.max_fee_e8s))continue;
    const board=observer.analysis({budget_e8s:budget}),options=actionOptions(board,player.account_identifier,{budgetE8s:budget,feeE8s:await ledger.fee(),max:5,headingOffset:state.heading_cursor?.[player.alias]??0,limits:{max_cannons_per_player:campaign.max_cannons_per_player,max_balls_per_player:campaign.max_balls_per_player,max_quantity:campaign.max_quantity,per_action_max_e8s:campaign.per_action_max_e8s,allowed_actions:campaign.allowed_actions,approved_accounts:campaign.players.map(p=>p.account_identifier)}});
    state.heading_cursor??={};state.heading_cursor[player.alias]=((state.heading_cursor[player.alias]??0)+1)%65536;
-   const before=state.baselines[player.alias],score=board.playerSummary(player.account_identifier).accrued_score,h=state.histories[player.alias]??[];if(before){const delta=fractionSub(score,before.score);h.push({policy:before.policy,reward:board.snapshot.reference.logical_time>before.logical_time?Number(delta[0]*1000000n/(delta[1]*(board.snapshot.reference.logical_time-before.logical_time)))/1e6:0,reward_units:'canonical area-time per logical tick',canonical_score_delta:delta,logical_from:before.logical_time,logical_to:board.snapshot.reference.logical_time});}if(h.length>64)h.shift();state.histories[player.alias]=h;
-   const evaluation=consentEvaluation(await evaluateActions(board,player.account_identifier,{choices:options.candidates,horizon:8,maxCandidates:5,maxMs:process.env.B2Z_AGENT_NATIVE?5000:1500,maxWork:60000,budgetE8s:budget}),campaign.players.map(p=>p.account_identifier)),decision=decide(player.strategy,evaluation,{seed:state.cycles,ownHistory:h}),choice=options.candidates.find(c=>c.id===decision.candidate);state.baselines[player.alias]={score,logical_time:board.snapshot.reference.logical_time,policy:decision.delegate??decision.policy};episode({kind:'decision',player:player.alias,policy:player.strategy,version:POLICY_VERSION,reference:board.snapshot.reference,budget_e8s:budget,decision,options,forecasts:evaluation});
+   const before=state.baselines[player.alias];
+   const score=board.playerSummary(player.account_identifier).accrued_score;
+   const history=state.histories[player.alias]??[];
+   if(before){
+    const delta=fractionSub(score,before.score);
+    const elapsedLogicalTicks=board.snapshot.reference.logical_time-before.logical_time;
+    history.push({
+     policy:before.policy,
+     reward:elapsedLogicalTicks>0n?Number(delta[0]*1000000n/(delta[1]*elapsedLogicalTicks))/1e6:0,
+     comparison:'unmatched-observation',
+     reward_units:'canonical area-time per logical tick; descriptive only, not causal policy reward',
+     canonical_score_delta:delta,logical_from:before.logical_time,logical_to:board.snapshot.reference.logical_time
+    });
+   }
+   if(history.length>64)history.shift();
+   state.histories[player.alias]=history;
+   const evaluation=consentEvaluation(await evaluateActions(board,player.account_identifier,{choices:options.candidates,horizon:8,maxCandidates:5,maxMs:process.env.B2Z_AGENT_NATIVE?5000:1500,maxWork:60000,budgetE8s:budget}),campaign.players.map(p=>p.account_identifier)),decision=decide(player.strategy,evaluation,{seed:state.cycles,ownHistory:history}),choice=options.candidates.find(c=>c.id===decision.candidate);state.baselines[player.alias]={score,logical_time:board.snapshot.reference.logical_time,policy:decision.delegate??decision.policy};episode({kind:'decision',player:player.alias,policy:player.strategy,version:POLICY_VERSION,reference:board.snapshot.reference,budget_e8s:budget,decision,options,forecasts:evaluation});
    if(choice&&!choice.action.Wait){try{await pay(player,choice.action,decision);}catch(e){episode({kind:'action_blocked',player:player.alias,error:e.message});if(executor.rows().some(r=>r.player===player.alias&&!terminal.has(r.status)&&r.status!=='prepared'))state.paused_players[player.alias]=e.message;}}
   }
   status('running');await sleep(5000);

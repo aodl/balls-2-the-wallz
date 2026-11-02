@@ -1,3 +1,5 @@
+import { encodeCanonical } from "@dtr/timeline-runtime/runtime/canonical";
+import { sha256 } from "@dtr/timeline-runtime/runtime/seal";
 /** Decision-sized views of one compact state. No networking, keys or alternative physics. */
 import { rowRuns } from "../../kernels/b2z/territory-topology-v6.mjs";
 import {
@@ -616,4 +618,179 @@ export class BoardAnalysis {
       },
     });
   }
+}
+
+/** Canonical lifecycle audit. Global IDs are meaningful only inside one forecast. */
+export function ballOutcomes(before, after, audits, account) {
+  const accounts = new Map(
+    [...before.playability.players, ...after.playability.players].map((p) => [
+      p.id,
+      p.account,
+    ]),
+  );
+  const known = new Map(),
+    births = [],
+    deaths = [],
+    alive = new Set();
+  let attributed = true;
+  const digest = (value) => sha256(encodeCanonical(value));
+  for (const b of before.balls) {
+    known.set(b.id, {
+      id: b.id,
+      player: b.owner,
+      account: accounts.get(b.owner),
+      origin: "existing",
+      counterfactual_key: "existing:" + b.id,
+    });
+    alive.add(b.id);
+  }
+  // A bare event array can count lifecycle events but cannot prove their payment origins.
+  const segments =
+    audits.length && audits[0].kind
+      ? [{ events: audits, receipts: [], inputs: [], slot: 0 }]
+      : audits;
+  for (const segment of segments) {
+    const accepted = (segment.receipts ?? []).filter(
+      (r) => r.reason === "ACCEPTED",
+    );
+    let receiptIndex = 0,
+      pending = [];
+    for (const e of segment.events) {
+      if (["ball_spawned", "cannon_spawned"].includes(e.kind)) {
+        const b = e.ball;
+        check(b && !known.has(b.id), "FORECAST_REUSED_BALL_ID");
+        const row = {
+          id: b.id,
+          player: b.owner,
+          account: accounts.get(b.owner),
+          origin: "spawned",
+          birth: { slot: segment.slot, sequence: e.sequence, time: e.time },
+          cannon: typeof e.cannon === "object" ? e.cannon.id : e.cannon,
+        };
+        known.set(b.id, row);
+        alive.add(b.id);
+        births.push(row);
+        pending.push({ row, ball: b });
+      }
+      if (e.kind === "purchase_completed" || e.kind === "cannon_moved") {
+        const receipt = accepted[receiptIndex++];
+        const input = (segment.inputs ?? []).find(
+          (i) => i.position === receipt?.position,
+        );
+        const matched =
+          receipt &&
+          receipt.kind === e.kind &&
+          receipt.cannon === e.cannon &&
+          input;
+        if (!matched) attributed = false;
+        if (e.kind === "purchase_completed") {
+          check(
+            pending.length === e.actual_quantity,
+            "FORECAST_BIRTH_RECEIPT_COUNT",
+          );
+          for (const [ordinal, { row, ball }] of pending.entries()) {
+            check(
+              row.cannon === e.cannon && row.account === receipt?.account,
+              "FORECAST_BIRTH_PAYMENT_OWNER",
+            );
+            if (matched) {
+              const { id, ...birthState } = ball;
+              row.payment = {
+                position: receipt.position,
+                account: receipt.account,
+                amount_e8s: receipt.amount,
+                item_price_e8s: receipt.per_item_prices?.[ordinal] ?? null,
+                payload_hex: input.payload_hex,
+                ordinal,
+              };
+              // Exact input, slot and birth facts; synthetic allocation positions/IDs are excluded.
+              row.counterfactual_key =
+                "spawn:" +
+                digest({
+                  slot: segment.slot,
+                  payload_hex: input.payload_hex,
+                  ordinal,
+                  birthState,
+                });
+            } else attributed = false;
+          }
+          pending = [];
+        }
+      }
+      if (
+        [
+          "capture_annihilation",
+          "annihilation_cleanup",
+          "annihilation",
+        ].includes(e.kind)
+      ) {
+        for (const pair of e.pairs ?? []) {
+          const ids = pair.balls ?? pair;
+          check(ids.length === 2 && ids[0] !== ids[1], "FORECAST_DEATH_PAIR");
+          const members = ids.map((id) => {
+            check(alive.has(id), "FORECAST_UNKNOWN_OR_DUPLICATE_DEATH");
+            return known.get(id);
+          });
+          const keys = members.map((b) => b.counterfactual_key ?? null);
+          const comparable =
+            keys.every(Boolean) &&
+            pair.positions !== undefined &&
+            e.time !== undefined;
+          const deathKey = comparable
+            ? digest({
+                kind: e.kind,
+                time: e.time,
+                target: e.target ?? null,
+                members: keys
+                  .map((key, i) => ({ key, position: pair.positions[i] }))
+                  .sort((a, b) => a.key.localeCompare(b.key)),
+              })
+            : null;
+          for (const row of members) {
+            row.death = {
+              slot: segment.slot,
+              sequence: e.sequence,
+              time: e.time,
+              pair_ids: ids,
+              positions: pair.positions ?? null,
+            };
+            row.counterfactual_death_key = deathKey;
+            alive.delete(row.id);
+            deaths.push(row);
+          }
+          if (!comparable) attributed = false;
+        }
+      }
+    }
+    check(
+      !pending.length && receiptIndex === accepted.length,
+      "FORECAST_AUDIT_RECEIPTS",
+    );
+  }
+  check(
+    [...known.values()].every((b) => typeof b.account === "string"),
+    "FORECAST_PLAYER_BINDING",
+  );
+  check(
+    after.balls.length === alive.size &&
+      after.balls.every(
+        (b) => alive.has(b.id) && known.get(b.id)?.player === b.owner,
+      ),
+    "FORECAST_LIFECYCLE_RECONCILIATION",
+  );
+  const own = deaths.filter((b) => b.account === account),
+    opposing = deaths.filter((b) => b.account !== account);
+  return {
+    lifecycle_complete: true,
+    casualty_attribution_complete: attributed,
+    own_balls_spawned: births.filter((b) => b.account === account).length,
+    opponent_balls_spawned: births.filter((b) => b.account !== account).length,
+    own_balls_lost: own.length,
+    own_existing_balls_lost: own.filter((b) => b.origin === "existing").length,
+    own_spawned_balls_lost: own.filter((b) => b.origin === "spawned").length,
+    opponent_balls_lost: opposing.length,
+    ball_births: births,
+    own_ball_losses: own,
+    opposing_ball_losses: opposing,
+  };
 }

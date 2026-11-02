@@ -31,7 +31,7 @@ test('file workers discard only parent source-selection flags and retain securit
 
 
 test('campaign forecasts do not intentionally trade unknown players balls and distinguish natural losses',()=>{
- const candidates=[{id:'wait',action:{Wait:{}}},{id:'fire',action:{Fire:{cannon:1,angle:0,quantity:1}}}],rows=['now','response','delay'].flatMap(scenario=>[{candidate:'wait',scenario,status:'complete',opposing_ball_losses:[{id:9,account:'outside'}]},{candidate:'fire',scenario,status:'complete',opposing_ball_losses:[{id:9,account:'outside'},{id:10,account:'test'}]}]);
+ const candidates=[{id:'wait',action:{Wait:{}}},{id:'fire',action:{Fire:{cannon:1,angle:0,quantity:1}}}],rows=['now','response','delay'].flatMap(scenario=>[{candidate:'wait',scenario,status:'complete',lifecycle_complete:true,casualty_attribution_complete:true,action_admitted_within_horizon:true,logical_ticks_completed:1,elapsed_window_ns:1n,opposing_ball_losses:[{id:9,account:'outside',counterfactual_key:'existing:9',counterfactual_death_key:'same-canonical-death'}]},{candidate:'fire',scenario,status:'complete',lifecycle_complete:true,casualty_attribution_complete:true,action_admitted_within_horizon:true,logical_ticks_completed:1,elapsed_window_ns:1n,opposing_ball_losses:[{id:9,account:'outside',counterfactual_key:'existing:9',counterfactual_death_key:'same-canonical-death'},{id:10,account:'test'}]}]);
  assert.equal(consentEvaluation({candidates,forecasts:rows},['test']).candidates.length,2);
  const hostile=structuredClone(rows);hostile[1].opposing_ball_losses.push({id:11,account:'outside'});const blocked=consentEvaluation({candidates,forecasts:hostile},['test']);assert.deepEqual(blocked.candidates.map(c=>c.id),['wait']);assert.equal(blocked.consent_screen.blocked[0].reason,'PREDICTED_OUTSIDE_PLAYER_LOSS');
  assert.equal(consentEvaluation({candidates,forecasts:rows.slice(1)},['test']).consent_screen.blocked[0].reason,'INCOMPLETE_CONSENT_FORECAST');
@@ -47,7 +47,7 @@ test('bounded firing shortlists cover all eight exact coarse headings across rot
 test('marginal policy ranking does not punish a purchase for score already earned by waiting',()=>{
  const candidates=[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n},full_cost_e8s:0n},{id:'fire',action:{Fire:{cannon:1,angle:0,quantity:1}},quote:{amount_e8s:10000000n},full_cost_e8s:10010000n}],row=(candidate,scenario,gain,admitted=true)=>({candidate,scenario,status:'complete',logical_ticks_completed:8,action_admitted_within_horizon:admitted,canonical_score_delta:[BigInt(gain),1n],territory_before:1,territory_after:1,own_balls_lost:0,opponent_balls_lost:0,dormant_cannons:0}),evaluation={candidates,forecasts:['now','late','later'].flatMap(s=>[row('wait',s,1000,false),row('fire',s,s==='now'?1020:1000,s==='now')])};
  assert.equal(decide('frugal-expander',evaluation,{version:'b2z-policies-1'}).candidate,'wait');
- const d=decide('frugal-expander',evaluation);assert.equal(d.candidate,'fire');assert.equal(d.version,'b2z-policies-2');assert.equal(d.ranking.find(r=>r.candidate==='fire').heuristic.gain,20);assert.equal(d.ranking.find(r=>r.candidate==='fire').heuristic.cost_icp_for_ranking_only,.1001);assert.equal(d.forecast_coverage.find(r=>r.candidate==='fire').unassessed.length,2);
+ const d=decide('frugal-expander',evaluation);assert.equal(d.candidate,'fire');assert.equal(d.version,'b2z-policies-3');assert.equal(d.ranking.find(r=>r.candidate==='fire').heuristic.gain,20);assert.equal(d.ranking.find(r=>r.candidate==='fire').heuristic.cost_icp_for_ranking_only,.1001);assert.equal(d.forecast_coverage.find(r=>r.candidate==='fire').unassessed.length,2);
  const unmatched=structuredClone(evaluation);unmatched.forecasts[1].logical_ticks_completed=7;assert.equal(decide('frugal-expander',unmatched).candidate,'wait');
  const never=structuredClone(evaluation);never.forecasts[1].action_admitted_within_horizon=false;assert.equal(decide('frugal-expander',never).candidate,'wait');
  assert.throws(()=>decide('passive',evaluation,{version:'unknown'}),/UNKNOWN_POLICY_VERSION/);
@@ -92,4 +92,19 @@ test('manual or admission pauses do not become funding reductions or assumed res
 
 test('operational sample age and funding changes remain separate from an unchanged game head',()=>{
  const b=board('idle'),now=Date.now();b.snapshot={...b.snapshot,operational_observed_at_ms:now-15000,operational:{run:{running:true,pace:{mode:'Lifeline',nominal_milli:50,admission_open:true}},source:{last_error:[]}}};const first=operationalSample(b.snapshot),p=b.provenance();assert.ok(p.operational_age_ms>=15000);assert.equal(p.operational_observed_at_ms,now-15000);const paused=operationalSample({...b.snapshot,operational_observed_at_ms:now,operational:{...b.snapshot.operational,run:{running:true,pace:{mode:'ReserveProtection',nominal_milli:0,admission_open:false}}}});assert.notDeepEqual(first.values,paused.values);assert.equal(b.snapshot.reference.head,1n);assert.equal(paused.values.performance_limited,false);assert.equal(operationalSample({}),null);
+});
+
+test('an immediate benefit is not robust across unassessed 60/120-second delays',()=>{
+ const candidates=[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}},{id:'fire',action:{Fire:{}},quote:{amount_e8s:10000000n}}];
+ const forecasts=['now','60s','120s'].flatMap(scenario=>candidates.map(c=>({candidate:c.id,scenario,status:'complete',logical_ticks_completed:8,action_admitted_within_horizon:scenario==='now',canonical_score_delta:[c.id==='fire'&&scenario==='now'?100n:90n,1n],territory_before:1,territory_after:1,own_balls_lost:0,opponent_balls_lost:0,dormant_cannons:0})));
+ const e={candidates,forecasts},decision=decide('frugal-expander',e);assert.equal(decision.candidate,'fire');assert.equal(decision.robustness.assessed_all_declared_scenarios,false);assert.deepEqual(consentEvaluation(e,[]).candidates.map(c=>c.id),['wait']);
+});
+test('adaptive allocator ignores passive accrual and unmatched opponent effects',()=>{
+ const evaluation={candidates:[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}}],forecasts:[]};
+ const policies=['frugal-expander','anchor-defender','attrition-raider','island-engineer','opportunist'];
+ const ownHistory=policies.map((policy,i)=>({policy,reward:i===0?10000:10,comparison:'matched-wait',complete:true,initial_state:'same',wait_initial_state:'same',future_inputs:'identical-opponent-inputs',wait_future_inputs:'identical-opponent-inputs',logical_horizon:8,wait_logical_horizon:8,budget_e8s:25000000n,wait_budget_e8s:25000000n,incremental_score_delta:[i===1?8n:0n,1n]}));
+ assert.equal(decide('adaptive-allocator',evaluation,{version:'b2z-policies-2',ownHistory}).delegate,'frugal-expander');
+ assert.equal(decide('adaptive-allocator',evaluation,{ownHistory}).delegate,'anchor-defender');
+ assert.equal(decide('adaptive-allocator',evaluation,{ownHistory:[...ownHistory,{policy:'frugal-expander',reward:999999,comparison:'unmatched-observation'}]}).delegate,'anchor-defender');
+ assert.equal(decide('adaptive-allocator',evaluation,{ownHistory:ownHistory.map(r=>({...r,future_inputs:'different'}))}).reward_evidence.accepted,0);
 });

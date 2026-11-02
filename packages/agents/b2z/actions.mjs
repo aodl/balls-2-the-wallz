@@ -351,7 +351,10 @@ export function consentEvaluation(evaluation, accounts) {
       baseline.length !== 3 ||
       [...rows, ...baseline].some(
         (r) =>
-          r.status !== "complete" || !Array.isArray(r.opposing_ball_losses),
+          r.status !== "complete" ||
+          r.lifecycle_complete !== true ||
+          r.casualty_attribution_complete !== true ||
+          !Array.isArray(r.opposing_ball_losses),
       )
     ) {
       blocked.push({ candidate: c.id, reason: "INCOMPLETE_CONSENT_FORECAST" });
@@ -359,16 +362,27 @@ export function consentEvaluation(evaluation, accounts) {
     }
     for (const row of rows) {
       const same = baseline.find((r) => r.scenario === row.scenario);
-      if (!same) {
+      if (
+        !same ||
+        !row.action_admitted_within_horizon ||
+        row.elapsed_window_ns !== same.elapsed_window_ns ||
+        row.logical_ticks_completed !== same.logical_ticks_completed
+      ) {
         blocked.push({
           candidate: c.id,
           reason: "INCOMPLETE_CONSENT_FORECAST",
         });
         return false;
       }
-      const natural = new Set(same.opposing_ball_losses.map((b) => b.id)),
+      const identity = (b) =>
+          b.counterfactual_key && b.counterfactual_death_key
+            ? b.counterfactual_key + ":" + b.counterfactual_death_key
+            : null,
+        natural = new Set(same.opposing_ball_losses.map(identity)),
         outside = row.opposing_ball_losses.filter(
-          (b) => !approved.has(b.account) && !natural.has(b.id),
+          (b) =>
+            !approved.has(b.account) &&
+            (!identity(b) || !natural.has(identity(b))),
         );
       if (outside.length) {
         blocked.push({

@@ -213,6 +213,26 @@ export class GameExecutor {
       }
     return { total_e8s: total, players: by };
   }
+  checkPopulation(world, account, action) {
+    const type = Object.keys(action)[0],
+      quantity = action[type].quantity ?? 1;
+    const player = world.playability.players.find(
+      (p) => p.account === account,
+    )?.id;
+    check(quantity <= this.campaign.max_quantity, "QUANTITY_LIMIT");
+    check(
+      world.cannons.filter((c) => c.account === account).length +
+        (type === "New" ? 1 : 0) <=
+        this.campaign.max_cannons_per_player,
+      "PLAYER_CANNON_LIMIT",
+    );
+    check(
+      world.balls.filter((b) => b.owner === player).length +
+        (type === "Move" ? 0 : quantity) <=
+        this.campaign.max_balls_per_player,
+      "PLAYER_BALL_LIMIT",
+    );
+  }
   async prepare_action(player, action) {
     action = typedAction(action);
     const type = Object.keys(action)[0];
@@ -240,28 +260,9 @@ export class GameExecutor {
     );
     const amount = q.amount_e8s,
       full = amount + fee,
-      n = this.clock(),
-      own = s.world.playability.players.find(
-        (p) => p.account === payer.account_identifier,
-      )?.id;
+      n = this.clock();
     check(full <= BigInt(this.campaign.per_action_max_e8s), "ACTION_BUDGET");
-    check(
-      (action[type].quantity ?? 1) <= this.campaign.max_quantity,
-      "QUANTITY_LIMIT",
-    );
-    check(
-      s.world.cannons.filter((c) => c.account === payer.account_identifier)
-        .length +
-        (type === "New" ? 1 : 0) <=
-        this.campaign.max_cannons_per_player,
-      "PLAYER_CANNON_LIMIT",
-    );
-    check(
-      s.world.balls.filter((b) => b.owner === own).length +
-        (type === "Move" ? 0 : (action[type].quantity ?? 1)) <=
-        this.campaign.max_balls_per_player,
-      "PLAYER_BALL_LIMIT",
-    );
+    this.checkPopulation(s.world, payer.account_identifier, action);
     const plan = freeze({
       schema: "b2z-action-plan/1",
       campaign: this.campaign.id,
@@ -348,6 +349,11 @@ export class GameExecutor {
         BigInt(this.campaign.total_max_e8s) - this.totals().total_e8s,
     };
   }
+  // The trusted broker derives caller from its player-scoped channel, never request JSON.
+  async submit_player_proposal(caller, planId, campaignId) {
+    check(this.row(planId).player === caller, "PLAYER_SCOPE");
+    return this.submit_action(planId, campaignId);
+  }
   async submit_action(planId, campaignId) {
     check(campaignId === this.campaign.id, "CAMPAIGN_ID");
     check(this.isApproved(), "CAMPAIGN_NOT_APPROVED");
@@ -367,22 +373,8 @@ export class GameExecutor {
     if (this.observer.operational) await this.observer.operational();
     this.checkSnapshot(this.observer.current);
     this.checkAdmission(this.observer.current);
-    const current = this.observer.current,
-      w = current.world,
-      type = Object.keys(plan.action)[0],
-      pid = w.playability.players.find((p) => p.account === plan.account)?.id;
-    check(
-      w.cannons.filter((c) => c.account === plan.account).length +
-        (type === "New" ? 1 : 0) <=
-        this.campaign.max_cannons_per_player,
-      "PLAYER_CANNON_LIMIT",
-    );
-    check(
-      w.balls.filter((b) => b.owner === pid).length +
-        (type === "Move" ? 0 : (plan.action[type].quantity ?? 1)) <=
-        this.campaign.max_balls_per_player,
-      "PLAYER_BALL_LIMIT",
-    );
+    const current = this.observer.current;
+    this.checkPopulation(current.world, plan.account, plan.action);
     this.checkInteraction(current, plan);
     check(
       quoteAction(current, plan.account, plan.action).amount_e8s ===
@@ -577,4 +569,33 @@ export class GameExecutor {
   close() {
     this.db.close();
   }
+}
+
+/** Trusted launcher supplies the caller binding, never a field chosen by an LLM.
+ * This capability deliberately has no submit, reconciliation, stop or raw executor reference.
+ */
+export function playerProposalInterface(executor, player) {
+  check(
+    executor.campaign.players.some((p) => p.alias === player),
+    "PLAYER_NOT_APPROVED",
+  );
+  return Object.freeze({
+    async prepare_action(request) {
+      check(
+        request &&
+          Object.keys(request).every((k) => ["action", "player"].includes(k)),
+        "REQUEST_FIELDS",
+      );
+      check(
+        request.player === undefined || request.player === player,
+        "PLAYER_SCOPE",
+      );
+      return executor.prepare_action(player, request.action);
+    },
+    action_status(planId) {
+      const row = executor.row(planId);
+      check(row.player === player, "PLAYER_SCOPE");
+      return executor.action_status(planId);
+    },
+  });
 }

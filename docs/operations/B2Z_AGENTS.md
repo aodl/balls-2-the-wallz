@@ -411,3 +411,77 @@ submission still enforce their unchanged thirty-second freshness limit. A genuin
 certificate regression verifies that a sixty-second-old snapshot can be monitored
 but cannot pass the default financial check. Monitoring cannot extend an approval
 or bypass closed gameplay admission.
+
+### Focused post-pilot corrections (2 November 2026)
+
+The overnight campaign is expired and stopped. These tools do not extend its
+approval, spend remaining wallet funds, or authorise another campaign.
+
+Forecast metrics version `b2z-forecast-metrics-2` audits canonical cannon/ball
+births, purchase completion receipts and destruction pairs, including a ball
+purchased and destroyed in the same horizon. Each birth retains its funding
+account, exact synthetic payment payload/position, item ordinal and event
+slot/time/sequence. Deaths retain the canonical pair, positions and time. The
+final live population must reconcile exactly with births and deaths; otherwise
+the forecast fails. Kernel rules, DTR and payment formats are unchanged.
+
+A global hypothetical ball ID is not a counterfactual identity. Comparable births
+require identical input bytes, admission slot, ordinal and birth state (excluding
+the separately allocated ID). Natural-loss exceptions also require identical
+canonical death time, positions and paired entity origins. The campaign consent
+screen excludes a paid candidate if lifecycle attribution or any declared scenario
+is incomplete, the action was not admitted inside the horizon, the matched Wait
+horizon differs, or a new outside-player casualty cannot be excluded. Wait remains
+available. This bounded screen and the existing proximity guard cannot prove safety
+against all unknown future opponent inputs.
+
+Policies version `b2z-policies-3` retains all eight policy types. Versions 1 and 2
+remain selectable holdouts. Ranking is marginal against the matching Wait; the
+`robustness` field explicitly reports unassessed delays. Eight ticks at Conserve
+cover forty assumed seconds: 60/120-second admission is unassessed, not a robust
+success. Increasing the wait timeout does not evaluate those actions.
+
+Adaptive allocation accepts only complete matched-Wait reward records with equal
+initial state, fixed opponent input stream, logical horizon and spending ceiling.
+Its reward is incremental canonical score per logical tick. Unmatched live score
+changes remain descriptive observations and receive no policy credit. This removes
+passive territory accrual/opponent-action confounding; it is not reinforcement
+learning or a claim of causal learning from the completed live campaign.
+
+Run the bounded paired experiment with the existing native forecasting wrapper:
+
+```sh
+B2Z_AGENT_NATIVE=native/target/release/native-conformance-v4 node tools/b2z_matched_strategies.mjs
+node --test --test-concurrency=1 tests/js/forecast-losses.test.mjs tests/js/b2z-agent-analysis.test.mjs tests/js/b2z-agent-executor.test.mjs
+node tools/test_b2z_native_forecast.mjs native/target/release/native-conformance-v4
+```
+
+The paired experiment rotates policies between two existing player positions in
+two fixtures. Each candidate and its Wait control start from identical bytes,
+receive the same sealed opponent inputs, use eight logical ticks and the same
+fee-inclusive 0.25 ICP ceiling. Natural Wait score and incremental candidate score
+are separate. Forced-Fire rows are explicitly candidate diagnostics, not a ninth
+policy. Small selected trials do not establish a statistical winner.
+
+### Player proposals and the trusted signing boundary
+
+`tools/b2z_executor.mjs` without `--player` is a **trusted orchestrator interface**.
+Never connect an independent untrusted LLM session to its multi-player stdio.
+The trusted launcher may supply `--player b2z-agent-expander` (or another approved
+alias), exposing only that player's `prepare_action` and own `action_status`.
+It rejects submission, reconciliation, stop, arbitrary fields and cross-player
+requests; scoped mode cannot enable mainnet signing. The exported
+`playerProposalInterface(executor, alias)` supplies the same proposal-only
+capability to a trusted broker.
+
+The broker binds the caller to its channel outside request JSON. Only trusted
+code can invoke `submit_player_proposal(caller, planId, campaignId)`, which checks
+the plan's player before using the existing immutable-plan executor. The caller
+argument must never come from an untrusted `player` field. Destination, memo,
+fee, budget reservations, approval/expiry checks and ambiguous-transfer journal
+remain enforced by the existing executor. Proposal access is not spending consent.
+
+These are application capability boundaries, not an OS sandbox. Independent LLM
+processes must not have access to the trusted endpoint, signing environment or
+private journal. A prompt alone cannot restrict a process with unrestricted wallet
+or shell access. No keys are exported or identities changed by this interface.

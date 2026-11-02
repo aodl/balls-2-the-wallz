@@ -1,7 +1,8 @@
 /** Small frozen policies. Inputs are public analysis, own history and typed candidates only. */
 import { check, fractionSub } from "./common.mjs";
 export const LEGACY_POLICY_VERSION = "b2z-policies-1",
-  POLICY_VERSION = "b2z-policies-2";
+  PREVIOUS_POLICY_VERSION = "b2z-policies-2",
+  POLICY_VERSION = "b2z-policies-3";
 export const POLICIES = [
   "frugal-expander",
   "anchor-defender",
@@ -134,11 +135,39 @@ export function decide(
   { version = POLICY_VERSION, ...options } = {},
 ) {
   check(
-    [POLICY_VERSION, LEGACY_POLICY_VERSION].includes(version),
+    [POLICY_VERSION, PREVIOUS_POLICY_VERSION, LEGACY_POLICY_VERSION].includes(
+      version,
+    ),
     "UNKNOWN_POLICY_VERSION",
   );
   if (version === LEGACY_POLICY_VERSION)
     return decideV1(policy, evaluation, options);
+  if (version === POLICY_VERSION && policy === "adaptive-allocator") {
+    const history = options.ownHistory ?? [];
+    options = {
+      ...options,
+      ownHistory: history
+        .filter(
+          (r) =>
+            r.comparison === "matched-wait" &&
+            r.complete === true &&
+            r.initial_state === r.wait_initial_state &&
+            typeof r.initial_state === "string" &&
+            r.future_inputs === r.wait_future_inputs &&
+            typeof r.future_inputs === "string" &&
+            r.logical_horizon === r.wait_logical_horizon &&
+            Number.isSafeInteger(r.logical_horizon) &&
+            r.logical_horizon > 0 &&
+            r.budget_e8s === r.wait_budget_e8s &&
+            typeof r.budget_e8s === "bigint" &&
+            Array.isArray(r.incremental_score_delta),
+        )
+        .map((r) => ({
+          ...r,
+          reward: value(r.incremental_score_delta) / r.logical_horizon,
+        })),
+    };
+  }
   const wait = evaluation.candidates.find((c) => c.action.Wait);
   check(wait, "WAIT_REQUIRED");
   const rows = [],
@@ -222,7 +251,7 @@ export function decide(
   if (evaluation.status === "paused")
     return {
       policy,
-      version: POLICY_VERSION,
+      version,
       candidate: wait.id,
       forecast_coverage: coverage,
       reason:
@@ -232,14 +261,30 @@ export function decide(
     ...c,
     quote: { ...c.quote, amount_e8s: c.full_cost_e8s ?? c.quote.amount_e8s },
   }));
+  const selection = decideV1(
+    policy,
+    { ...evaluation, candidates, forecasts: rows },
+    options,
+  );
   return {
-    ...decideV1(
-      policy,
-      { ...evaluation, candidates, forecasts: rows },
-      options,
-    ),
-    version: POLICY_VERSION,
+    ...selection,
+    version,
     forecast_coverage: coverage,
+    robustness: {
+      assessed_all_declared_scenarios:
+        coverage.find((c) => c.candidate === selection.candidate)?.unassessed
+          .length === 0,
+      note: "A positive immediate-admission ranking does not establish robustness across unassessed delays.",
+    },
+    ...(policy === "adaptive-allocator" && version === POLICY_VERSION
+      ? {
+          reward_evidence: {
+            accepted: options.ownHistory?.length ?? 0,
+            basis:
+              "Only matched Wait trials; passive accrual and unmatched opponent effects receive no policy credit.",
+          },
+        }
+      : {}),
     reason:
       "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
     comparison_units:
