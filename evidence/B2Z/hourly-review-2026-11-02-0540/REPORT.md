@@ -35,8 +35,8 @@ queried immediately. Cached state did not acquire a fabricated newer certificate
 time. This measures observation operations, not billed-cycle savings. A real
 post-change comparison follows at the next hourly check.
 
-The recorder now holds nine real significant publications (about 2.18 MiB).
-All nine independently reverify against their recorded genuine IC certificates,
+At 05:27 the recorder held nine significant publications (about 2.18 MiB).
+A further authorised move was recorded during this review, and all ten independently reverify against their recorded genuine IC certificates,
 predecessor chains, event artifacts and canonical final-state hashes.
 [Verification results](verified-episodes.json). They contain actual move/entity
 evidence; no new combat death is claimed if none was recorded.
@@ -46,3 +46,8 @@ original approval, journal, balances, same browser and **07:14:09.902 UTC** expi
 No backend/frontend deployment, new epoch, funding transfer, source reset or
 controller operation occurred. Remote CI remains NOT RUN for local unpublished
 commits. Entities remain under ordinary conservation after paid-play expiry.
+
+The later attached live snapshot is at 05:37 and includes subsequently prepared
+move activity; its spending total includes any reserved in-flight value. The
+05:27 applied totals above are an earlier checkpoint, not a claim that a later
+submitted move has already completed. The runner continues normal reconciliation.
