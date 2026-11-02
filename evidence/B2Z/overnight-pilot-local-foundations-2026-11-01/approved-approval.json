@@ -1,0 +1,12 @@
+{
+  "campaign": "b2z-overnight-20261101",
+  "limits_hash": "b1b48949a010b1c86572709f9ae0e13cf27c79e17dceea30bbad183b43d78859",
+  "started_ns": {
+    "$integer": "1793574849902000000"
+  },
+  "expires_ns": {
+    "$integer": "1793603649902000000"
+  },
+  "aftermath": "leave_running",
+  "authorization": "Explicit operator selection: Up to 8 hours; use the four accounts\u2019 currently funded balances, frozen after verification. Existing one-cannon/two-ball caps, fee-inclusive limits, no top-ups and no deliberate outside-player attacks remain."
+}

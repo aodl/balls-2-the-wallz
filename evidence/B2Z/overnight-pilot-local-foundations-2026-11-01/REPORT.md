@@ -135,3 +135,33 @@ No successful no-refresh witness is claimed for these three early moves.
 The controlled RESTART path preserved the unchanged approval, budgets and expiry;
 all six overnight transfers are applied, with no unresolved action. Cumulative
 spend is 3.3009 ICP; remaining frozen allowance 3.599 ICP at this boundary.
+
+
+## Corrected live Move: PASS; pilot still running
+
+Raider block **39967473** applied the move of cannon #7 from cell 547297 to
+**546296**, spending 0.0001 ICP plus 0.0001 ICP Ledger fee. The real Accepted row
+appeared in browser window 3, then the verified presentation reached the exact
+destination. PASS: zero extra navigations, zero resyncs, zero page errors. Four
+transient delivery failures remain in diagnostics; no authentication check was
+removed. Receipt-to-presentation delay was **16.554 seconds** in this witness.
+[Actual authenticated receipt and browser witness](live-move.json).
+
+The final focused run passes **48 JS tests**; the naming audit and native Rust
+format check also pass. [Current local comparison](local-current-rules-results.json)
+preserves all 24 exact outcomes. New changes are local commits, with remote CI
+explicitly NOT RUN; no remote push or production module deployment occurred.
+
+The pilot continues under the original eight-hour expiry (2 November, 07:14:09.902
+UTC), fee-inclusive frozen ceilings, one cannon/two live balls per player and one
+unresolved payment per player. No automated top-up or outside-player attack is
+permitted. Waiting remains a valid strategy. The original requested adjacent-cannon
+experiment needed no extra live ICP: its freely endowed local regression passed.
+
+[Interim spending and test summary](interim-results.json) is time-stamped, not an
+assertion that the eight hours completed. [Operational sample](operational-sample.json)
+separates the measured short-window net decline from gross or per-action burn;
+credits, reservations and resets prevent a reliable isolated bot-cost attribution.
+Do not infer days of runway. Entities remain under ordinary conservation after
+runner expiry, per the selected aftermath. Private journals, receipt-proof archives
+and raw failures remain protected outside Git under `.work/`.

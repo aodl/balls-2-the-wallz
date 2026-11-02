@@ -1,0 +1,80 @@
+{
+  "plan_id": "52b29136cd381f6110a57ce18f8edc448ae25e8c5796c62bbde0eca67ed23a46",
+  "player": "b2z-agent-raider",
+  "status": "applied",
+  "block_index": "39967473",
+  "full_expenditure_e8s": "20000",
+  "authenticated_receipt": {
+    "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39967473",
+    "reference": {
+      "network": "ic",
+      "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "head": {
+        "$integer": "82159"
+      },
+      "logical_time": {
+        "$integer": "136310"
+      },
+      "root": "660a8b325115d9fd2659a36de47b014039c566471f4d8ca89f3ef63292cbea38",
+      "manifest": "8760da7ab884976e0d16dccec2d6b9ab8cac84d100b95f99815d5b2623bcfa62",
+      "state": "46617253a6bf85950070769462c59062449e61ff2eb107acfade41558f884ba7",
+      "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+      "epoch_index": {
+        "$integer": "4"
+      },
+      "source_cursor": {
+        "$integer": "39967474"
+      },
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+    },
+    "receipt": {
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "after": 546296,
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": 547297,
+      "cannon": 7,
+      "kind": "cannon_moved",
+      "position": {
+        "$integer": "39967473"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied"
+    },
+    "authenticated_at_ns": {
+      "$integer": "1793577441511304527"
+    }
+  },
+  "presentation": {
+    "version": "b2z-pilot-browser-3",
+    "presentation_cannon_cell": 546296,
+    "expected_cannon_cell": 546296,
+    "status": "PASS",
+    "plan_id": "52b29136cd381f6110a57ce18f8edc448ae25e8c5796c62bbde0eca67ed23a46",
+    "cannon": 7,
+    "visible_cannon_ids": [
+      7
+    ],
+    "rendered_logical_time": 136351.81494132028,
+    "head": 82204,
+    "root": "247b5c3bacce6451a9bcdcf3a9cfa13fea664bd4328ed584178d017a04d2939a",
+    "navigations_after_initial": 0,
+    "page_errors": [],
+    "receipt_text": "39967473f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388dAcceptedMoved cannon",
+    "receipt_seen_at_ms": 1793577440823.5464,
+    "visible_at_ms": 1793577457377.508,
+    "at_ms": 1793577666492.8645,
+    "resyncs": 0,
+    "delivery_failures": 16
+  }
+}

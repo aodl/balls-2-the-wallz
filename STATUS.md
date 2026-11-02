@@ -1,3 +1,24 @@
+# B2Z overnight agent pilot — running, bounded approval
+
+All four funded agents are admitted with authenticated applied receipts and
+same-page join presentation. The operator approved up to eight hours using the
+verified frozen remaining balances (6.8999 ICP including fees), ending 2 November
+2026 at 07:14:09.902 UTC. One retained cannon/two live balls per account, no top-ups,
+no deliberate outside-player attacks and one unresolved transfer per payer remain.
+The earlier single-account smoke spent 1.1001 ICP separately. Actual current spend
+and unresolved status are time-stamped in the linked interim report.
+
+Raider's live Move at block 39967473 has a complete receipt and no-refresh
+presentation witness at exact destination 546296. Earlier harness FAILs remain
+preserved. The existing Rust kernel now provides useful bounded local forecasts;
+48 focused JS tests and 18 native equality comparisons pass. Adjacent friendly
+cannon launches pass 24 independent Rust/JS stages without a gameplay defect.
+Agent-only commits are local; production backend/frontend and economics are
+unchanged. Remote CI has not run for these unpublished commits.
+[Findings, tests, interim spending and limitations](evidence/B2Z/overnight-pilot-local-foundations-2026-11-01/REPORT.md).
+
+---
+
 # B2Z first real agent payment — PASS
 
 The operator-funded Expander completed one restricted live join: Ledger block

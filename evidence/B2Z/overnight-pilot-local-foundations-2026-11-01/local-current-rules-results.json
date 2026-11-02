@@ -1,0 +1,795 @@
+{
+  "status": "PASS",
+  "scope": "Pure existing-kernel deterministic local comparisons; fixed fixture endowments and incremental 0.25 ICP budget per player, NOT installed-IC cost/authentication evidence",
+  "rows": [
+    {
+      "scenario": "idle",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "anchor-defender",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3456"
+        },
+        {
+          "$integer": "9"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "idle",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3456"
+        },
+        {
+          "$integer": "9"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "bridge_left",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3024"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "302400000000"
+        },
+        {
+          "$integer": "2812500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 2,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "bridge_left",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "island-engineer",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "48"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "bridge_left",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "island-engineer",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3024"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "302400000000"
+        },
+        {
+          "$integer": "2812500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 2,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "bridge_left",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "policy": "opportunist",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "48"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mutual",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "island-engineer",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3024"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "302400000000"
+        },
+        {
+          "$integer": "2812500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 2,
+      "balls_retained": 2,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mutual",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "opportunist",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "48"
+        },
+        {
+          "$integer": "15625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mutual",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "opportunist",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3024"
+        },
+        {
+          "$integer": "140625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "302400000000"
+        },
+        {
+          "$integer": "2812500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 2,
+      "balls_retained": 2,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mutual",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "52192"
+        },
+        {
+          "$integer": "1953125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "10010000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "5219200000000"
+        },
+        {
+          "$integer": "19550781250000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 2,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "wall_pair",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "opportunist",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "441963"
+        },
+        {
+          "$integer": "17578125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "10010000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "44196300000000"
+        },
+        {
+          "$integer": "175957031250000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 2,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "wall_pair",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "44153"
+        },
+        {
+          "$integer": "1953125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "10030000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "4415300000000"
+        },
+        {
+          "$integer": "19589843750000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 0,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "wall_pair",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "261081"
+        },
+        {
+          "$integer": "17578125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 2,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "wall_pair",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "policy": "bounded-random",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "35712"
+        },
+        {
+          "$integer": "1953125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20040000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "3571200000000"
+        },
+        {
+          "$integer": "39140625000000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 2,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "revival",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "adaptive-allocator",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "469728"
+        },
+        {
+          "$integer": "17578125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "10010000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "46972800000000"
+        },
+        {
+          "$integer": "175957031250000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "revival",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "bounded-random",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "500544"
+        },
+        {
+          "$integer": "17578125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20040000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "50054400000000"
+        },
+        {
+          "$integer": "352265625000000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 2,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "bounded-random",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3456"
+        },
+        {
+          "$integer": "9"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "40000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "345600000000"
+        },
+        {
+          "$integer": "360000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "passive",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "237687500000"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "policy": "frugal-expander",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "237250000000"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "23725000000000000000"
+        },
+        {
+          "$integer": "76293945312500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 1,
+      "starting_position_rotation": 0,
+      "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+      "policy": "anchor-defender",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "43512500000"
+        },
+        {
+          "$integer": "762939453125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "4351250000000000000"
+        },
+        {
+          "$integer": "15258789062500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "policy": "passive",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "3456"
+        },
+        {
+          "$integer": "9"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "policy": "frugal-expander",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "50237500000"
+        },
+        {
+          "$integer": "762939453125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "5023750000000000000"
+        },
+        {
+          "$integer": "15258789062500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "policy": "anchor-defender",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "237250000000"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "20000"
+      },
+      "score_per_icp": [
+        {
+          "$integer": "23725000000000000000"
+        },
+        {
+          "$integer": "76293945312500000"
+        }
+      ],
+      "zero_spend_note": null,
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    },
+    {
+      "scenario": "mixed-four",
+      "seed": 2,
+      "starting_position_rotation": 1,
+      "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+      "policy": "attrition-raider",
+      "policy_version": "b2z-policies-1",
+      "horizon_logical_ticks": 3,
+      "canonical_score_delta": [
+        {
+          "$integer": "40212500000"
+        },
+        {
+          "$integer": "762939453125"
+        }
+      ],
+      "full_incremental_expenditure_e8s": {
+        "$integer": "0"
+      },
+      "score_per_icp": null,
+      "zero_spend_note": "Undefined efficiency, not infinity",
+      "cannons_retained": 1,
+      "balls_retained": 1,
+      "cycle_cost": null,
+      "inference_calls": 0
+    }
+  ],
+  "economics": {
+    "one_account_eight_balls_e8s": {
+      "$integer": "1500000000"
+    },
+    "four_accounts_two_balls_each_e8s": {
+      "$integer": "440000000"
+    },
+    "not_equivalent_positions": true,
+    "fees_extra": true,
+    "classification": "D balance hypothesis; no KYC or rule change"
+  },
+  "rules_identity": {
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80"
+  },
+  "closed_world": {
+    "classification": "Rules-7 entry regression: occupied colours do not exclude a safe distant entrant",
+    "neutral_cells": 0,
+    "receipt": {
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "100000000"
+      },
+      "amount_used": {
+        "$integer": "100000000"
+      },
+      "cannon": 2,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "100000000"
+        }
+      ],
+      "position": {
+        "$integer": "127"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    "entry_succeeded": true
+  },
+  "work": 13103,
+  "elapsed_ms": 36959.188869,
+  "inference_calls": 0,
+  "cycle_cost": null,
+  "limitations": [
+    "Small selected sample, not an optimal-strategy claim",
+    "Two account/policy assignments over fixed fixture geometry; not independent random spatial seeds",
+    "No billed cycles claimed from JS work units",
+    "Four-player setup uses the real pure purchase kernel; installed signed Ledger/Index path is a separate named integration check"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-11-02T00:00:57.869Z",
+  "stage": "running",
+  "original_expires_ns": {
+    "$integer": "1793603649902000000"
+  },
+  "overnight_transfer_count": 7,
+  "overnight_spent_or_reserved_e8s": "330110000",
+  "remaining_frozen_e8s": "359880000",
+  "prior_smoke_spent_e8s": "110010000",
+  "unresolved": [],
+  "funding_mode": "Conserve",
+  "liquid_cycles": "10439982282057",
+  "sample_seconds": 242.149753632,
+  "net_rate_T_per_hour": 1.167914054473053,
+  "known_treasury_credit_delta": {
+    "$integer": "0"
+  },
+  "qualification": {
+    "focused_js": "48 PASS",
+    "native_equality": "18 PASS plus hash/work negative checks",
+    "rust_adjacent": "PASS 24 independent recovery stages",
+    "browser_receipt_unit": "2 PASS",
+    "rust_format": "PASS",
+    "naming": "PASS",
+    "remote_CI": "NOT RUN: unpublished local commits"
+  },
+  "backend_changes": "none",
+  "live_campaign": "still running; not a completed eight-hour result"
+}

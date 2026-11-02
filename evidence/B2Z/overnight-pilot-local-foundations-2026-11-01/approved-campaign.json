@@ -1,0 +1,82 @@
+{
+  "schema": "b2z-campaign/1",
+  "id": "b2z-overnight-20261101",
+  "network": "ic",
+  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+  "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+  "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+  "identity": {
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4"
+  },
+  "players": [
+    {
+      "alias": "b2z-agent-expander",
+      "principal": "nikzn-5d3lj-4f36z-7f3nq-gbx5k-2d5ah-5cgw2-ouxef-tinjj-vzbz6-kqe",
+      "account_identifier": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "strategy": "frugal-expander"
+    },
+    {
+      "alias": "b2z-agent-defender",
+      "principal": "gj6pg-jyjy3-uvkg6-5fkze-g2i3e-o3sln-mwzwn-rbhsr-fdizk-cfgso-vqe",
+      "account_identifier": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "strategy": "anchor-defender"
+    },
+    {
+      "alias": "b2z-agent-raider",
+      "principal": "6nsye-gd7l6-wqxem-vusia-pwvst-7rq2s-zphy4-xu76x-gqb4n-jcz4o-uqe",
+      "account_identifier": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "strategy": "attrition-raider"
+    },
+    {
+      "alias": "b2z-agent-adaptive",
+      "principal": "4o66e-3fxxr-5qbhu-icu55-xfg2t-msyvc-cpuiq-7tdbc-4idlz-eupzu-rqe",
+      "account_identifier": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+      "strategy": "adaptive-allocator"
+    }
+  ],
+  "duration_seconds": 28800,
+  "total_max_e8s": "689990000",
+  "per_player_max_e8s": "200000000",
+  "per_action_max_e8s": "110010000",
+  "max_fee_e8s": "10000",
+  "max_quantity": 2,
+  "max_cannons_per_player": 1,
+  "max_balls_per_player": 2,
+  "max_unresolved_per_player": 1,
+  "max_outstanding": 4,
+  "min_action_interval_seconds": 30,
+  "proposal_ttl_seconds": 30,
+  "allowed_actions": [
+    "New",
+    "Fire",
+    "Move"
+  ],
+  "bootstrap_player": "b2z-agent-defender",
+  "bootstrap_required": "First signed payment must reach Ledger acceptance, source admission, authenticated receipt/world change and observed browser presentation before other players join.",
+  "unknown_player_policy": "Do not deliberately target unknown players; stop adversarial experiments when a non-test player enters the interaction region.",
+  "automated_topups": false,
+  "controller_actions_available": false,
+  "approval_required": true,
+  "aftermath_selection_required": true,
+  "continuing_entity_cost": "Stopping this runner does not stop balls/cannons or backend cycle costs.",
+  "per_player_max_e8s_by_alias": {
+    "b2z-agent-expander": "89990000",
+    "b2z-agent-defender": "200000000",
+    "b2z-agent-raider": "200000000",
+    "b2z-agent-adaptive": "200000000"
+  },
+  "approved_player_aliases": [
+    "b2z-agent-expander",
+    "b2z-agent-defender",
+    "b2z-agent-raider",
+    "b2z-agent-adaptive"
+  ],
+  "decision_interval_seconds": 60,
+  "funding_freeze_observed_at": "2026-11-01T23:01:28.984Z",
+  "prior_smoke_spent_e8s": "110010000",
+  "aftermath": "leave_running"
+}
