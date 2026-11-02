@@ -24,7 +24,7 @@ export function decideV1(policy,evaluation,{seed=1,ownHistory=[]}={}){
 export function decide(policy,evaluation,{version=POLICY_VERSION,...options}={}){
  check([POLICY_VERSION,LEGACY_POLICY_VERSION].includes(version),'UNKNOWN_POLICY_VERSION');
  if(version===LEGACY_POLICY_VERSION)return decideV1(policy,evaluation,options);
- const wait=evaluation.candidates.find(c=>c.action.Wait);check(wait,'WAIT_REQUIRED');const rows=[],coverage=[];
+ const wait=evaluation.candidates.find(c=>c.action.Wait);check(wait,'WAIT_REQUIRED');const rows=[],coverage=[],expected=evaluation.assumptions?.scenarios?.map(s=>s.name)??[...new Set(evaluation.forecasts.map(r=>r.scenario))];
  for(const c of evaluation.candidates){const scored=[],unassessed=[];
   for(const r of evaluation.forecasts.filter(r=>r.candidate===c.id)){
    const baseline=evaluation.forecasts.find(b=>b.candidate===wait.id&&b.scenario===r.scenario);
@@ -32,6 +32,7 @@ export function decide(policy,evaluation,{version=POLICY_VERSION,...options}={})
    if(reason){unassessed.push({scenario:r.scenario,reason});continue;}
    scored.push(r.scenario);rows.push({...r,canonical_score_delta:fractionSub(r.canonical_score_delta,baseline.canonical_score_delta),territory_before:0,territory_after:(r.territory_after-r.territory_before)-(baseline.territory_after-baseline.territory_before),own_balls_lost:r.own_balls_lost-baseline.own_balls_lost,opponent_balls_lost:r.opponent_balls_lost-baseline.opponent_balls_lost,dormant_cannons:r.dormant_cannons-baseline.dormant_cannons});
   }
+  for(const scenario of expected)if(!evaluation.forecasts.some(r=>r.candidate===c.id&&r.scenario===scenario))unassessed.push({scenario,reason:'MISSING_FORECAST'});
   coverage.push({candidate:c.id,scored_scenarios:scored,unassessed});
  }
  const candidates=evaluation.candidates.map(c=>({...c,quote:{...c.quote,amount_e8s:c.full_cost_e8s??c.quote.amount_e8s}}));

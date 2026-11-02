@@ -70,3 +70,8 @@ test('response forecasts choose a nearby active opponent rather than the first d
 test('a dormant-only opposing world is not revived by a hypothetical response without evidence',async()=>{
  const b=board('revival'),out=await evaluateActions(b,accountIdentifier('aaaaa-aa'),{horizon:1,maxCandidates:1,maxMs:1000,budgetE8s:0n,delaySeconds:[0,0,0],includeStates:true});assert.equal(out.status,'complete');assert.equal(out.forecasts.length,3);for(const row of out.forecasts){assert.equal(row.assumed_opponent_actions.length,0);assert.equal(decodeWorld(Buffer.from(row.next_state_hex,'hex')).balls.length,0);}
 });
+
+
+test('interrupted forecasts name missing scenarios and cannot appear fully assessed',()=>{
+ const e={candidates:[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}},{id:'move',action:{Move:{cannon:1,cell:1}},quote:{amount_e8s:10000n}}],assumptions:{scenarios:[{name:'now'},{name:'delayed'}]},forecasts:[]},d=decide('frugal-expander',e);assert.equal(d.candidate,'wait');for(const c of d.forecast_coverage){assert.equal(c.unassessed.length,2);assert.ok(c.unassessed.every(s=>s.reason==='MISSING_FORECAST'));}
+});
