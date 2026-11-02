@@ -1,3 +1,23 @@
+# Diagnostic frontend release — published, CI green and deployed
+
+Published source `aa3a202fa91c640af2f425658f9036fe75a87830` passed all six substantive
+jobs in CI `41495569371` and is ready for ordinary merge into master. Production
+inventory remains separately BLOCKED. The exact frozen frontend assets are now
+publicly deployed and hash-verified; app SHA-256
+`8ee6c13b059413ea39af40044dca9f0883773c603a51645aefa4d013fa80fe98`.
+
+One focused live read-only mobile check passed at 320×640 and 390×844: thirteen
+accessible controls, no notice/toolbar intersection, separated status/minimap,
+verified non-spinning Reserve Protection at head 85761. Certificate-verified
+backend/observer Wasm, controllers and 34-node fiduciary placement are unchanged.
+No backend deployment, gameplay operation, ICP spending or campaign restart.
+[Exact CI, deployed identities, mobile evidence and strategic findings](evidence/B2Z/frontend-diagnostic-deployment-2026-11-02/REPORT.md).
+
+This closing evidence commit does not change the qualified executable bytes.
+Historical status entries below describe their original observation time.
+
+---
+
 # Diagnostic precedence closure — source ready, publication pending
 
 New executable source `899adec` aligns Settings with transition/error/binding/
