@@ -25,16 +25,18 @@ export function decide(policy,evaluation,{version=POLICY_VERSION,...options}={})
  check([POLICY_VERSION,LEGACY_POLICY_VERSION].includes(version),'UNKNOWN_POLICY_VERSION');
  if(version===LEGACY_POLICY_VERSION)return decideV1(policy,evaluation,options);
  const wait=evaluation.candidates.find(c=>c.action.Wait);check(wait,'WAIT_REQUIRED');const rows=[],coverage=[],expected=evaluation.assumptions?.scenarios?.map(s=>s.name)??[...new Set(evaluation.forecasts.map(r=>r.scenario))];
- for(const c of evaluation.candidates){const scored=[],unassessed=[];
+ for(const c of evaluation.candidates){const scored=[],unassessed=[],bases=[];
   for(const r of evaluation.forecasts.filter(r=>r.candidate===c.id)){
    const baseline=evaluation.forecasts.find(b=>b.candidate===wait.id&&b.scenario===r.scenario);
-   const reason=r.status!=='complete'?'INCOMPLETE_FORECAST':!c.action.Wait&&!r.action_admitted_within_horizon?'NOT_ADMITTED_WITHIN_HORIZON':typeof r.scenario!=='string'||!Number.isSafeInteger(r.logical_ticks_completed)||!baseline||baseline.status!=='complete'||baseline.logical_ticks_completed!==r.logical_ticks_completed?'MISSING_MATCHED_WAIT':null;
+   const idleWindow=baseline&&typeof r.elapsed_window_ns==='bigint'&&r.elapsed_window_ns===baseline.elapsed_window_ns&&(r.idle_slots>0||baseline.idle_slots>0);
+   const reason=r.status!=='complete'?'INCOMPLETE_FORECAST':!c.action.Wait&&!r.action_admitted_within_horizon?'NOT_ADMITTED_WITHIN_HORIZON':typeof r.scenario!=='string'||!Number.isSafeInteger(r.logical_ticks_completed)||!baseline||baseline.status!=='complete'||baseline.logical_ticks_completed!==r.logical_ticks_completed&&!idleWindow?'MISSING_MATCHED_WAIT':null;
    if(reason){unassessed.push({scenario:r.scenario,reason});continue;}
-   scored.push(r.scenario);rows.push({...r,canonical_score_delta:fractionSub(r.canonical_score_delta,baseline.canonical_score_delta),territory_before:0,territory_after:(r.territory_after-r.territory_before)-(baseline.territory_after-baseline.territory_before),own_balls_lost:r.own_balls_lost-baseline.own_balls_lost,opponent_balls_lost:r.opponent_balls_lost-baseline.opponent_balls_lost,dormant_cannons:r.dormant_cannons-baseline.dormant_cannons});
+   scored.push(r.scenario);bases.push({scenario:r.scenario,basis:baseline.logical_ticks_completed===r.logical_ticks_completed?'same-logical-horizon':'elapsed-window-with-idle',candidate_logical_ticks:r.logical_ticks_completed,wait_logical_ticks:baseline.logical_ticks_completed,...(idleWindow?{elapsed_window_ns:r.elapsed_window_ns}:{})});rows.push({...r,canonical_score_delta:fractionSub(r.canonical_score_delta,baseline.canonical_score_delta),territory_before:0,territory_after:(r.territory_after-r.territory_before)-(baseline.territory_after-baseline.territory_before),own_balls_lost:r.own_balls_lost-baseline.own_balls_lost,opponent_balls_lost:r.opponent_balls_lost-baseline.opponent_balls_lost,dormant_cannons:r.dormant_cannons-baseline.dormant_cannons});
   }
   for(const scenario of expected)if(!evaluation.forecasts.some(r=>r.candidate===c.id&&r.scenario===scenario))unassessed.push({scenario,reason:'MISSING_FORECAST'});
-  coverage.push({candidate:c.id,scored_scenarios:scored,unassessed});
+  coverage.push({candidate:c.id,scored_scenarios:scored,comparison_bases:bases,unassessed});
  }
+ if(evaluation.status==='paused')return{policy,version:POLICY_VERSION,candidate:wait.id,forecast_coverage:coverage,reason:'Gameplay/admission is paused; no progressing gameplay or immediate admission is assumed.'};
  const candidates=evaluation.candidates.map(c=>({...c,quote:{...c.quote,amount_e8s:c.full_cost_e8s??c.quote.amount_e8s}}));
- return{...decideV1(policy,{...evaluation,candidates,forecasts:rows},options),version:POLICY_VERSION,forecast_coverage:coverage,reason:'Marginal outcome against Wait in the same complete scenario/horizon; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.',comparison_units:'Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks.'};
+ return{...decideV1(policy,{...evaluation,candidates,forecasts:rows},options),version:POLICY_VERSION,forecast_coverage:coverage,reason:'Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.',comparison_units:'Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks.'};
 }

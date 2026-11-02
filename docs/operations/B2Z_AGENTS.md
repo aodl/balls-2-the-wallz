@@ -362,3 +362,19 @@ and artifact hash failures are not classified as this availability condition.
 Persistent retirement still fails safely after the bounded attempts. Diagnostics
 retain the warning after recovery; it clears from current status only after the
 verified handoff succeeds. No reload, payment retry or made-up receipt is involved.
+
+
+### Idle and paused forecast semantics
+
+A complete forecast reports both `logical_ticks_completed` and the assumed
+`elapsed_window_ns`, plus idle slots. When both candidates progress normally, v2
+compares matching logical horizons. When an otherwise idle world is revived, the
+comparison is explicitly `elapsed-window-with-idle`: Wait earns no logical ticks,
+while paid revival restarts physics within the same assumed elapsed window.
+The different logical tick counts remain visible. Do not use this planning
+comparison as an equal-logical-tick strategy league result.
+
+A zero funding pace, disabled gameplay or closed admission yields `status:
+"paused"`, zero simulated work and no invented progressing/admitted outcome.
+The default policies choose Wait. A future resume is not silently assumed; expiry
+maintenance and its authenticated deadlines remain separate from physics pacing.

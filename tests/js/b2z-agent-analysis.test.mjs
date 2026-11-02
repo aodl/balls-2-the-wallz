@@ -75,3 +75,16 @@ test('a dormant-only opposing world is not revived by a hypothetical response wi
 test('interrupted forecasts name missing scenarios and cannot appear fully assessed',()=>{
  const e={candidates:[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}},{id:'move',action:{Move:{cannon:1,cell:1}},quote:{amount_e8s:10000n}}],assumptions:{scenarios:[{name:'now'},{name:'delayed'}]},forecasts:[]},d=decide('frugal-expander',e);assert.equal(d.candidate,'wait');for(const c of d.forecast_coverage){assert.equal(c.unassessed.length,2);assert.ok(c.unassessed.every(s=>s.reason==='MISSING_FORECAST'));}
 });
+
+
+test('dormant-world revival compares the same elapsed window while keeping logical progress explicit',async()=>{
+ const b=board('revival'),e=await evaluateActions(b,account,{horizon:4,maxCandidates:2,maxMs:2000,budgetE8s:10010000n,delaySeconds:[0,0,0]}),d=decide('frugal-expander',e);assert.notEqual(d.candidate,'wait');const wait=e.forecasts.find(r=>r.candidate==='wait'),fire=e.forecasts.find(r=>r.candidate===d.candidate);assert.equal(wait.logical_ticks_completed,0);assert.equal(fire.logical_ticks_completed,4);assert.equal(wait.elapsed_window_ns,fire.elapsed_window_ns);assert.equal(fire.receipt_outcomes[0].amount_used,10000000n);assert.ok(d.forecast_coverage.find(c=>c.candidate===d.candidate).comparison_bases.every(r=>r.basis==='elapsed-window-with-idle'));
+});
+test('zero funding pace never produces invented immediate admission or progressing physics',async()=>{
+ const b=board('idle');b.snapshot={...b.snapshot,operational:{run:{pace:{nominal_milli:0}}}};const e=await evaluateActions(b,account,{horizon:4,maxCandidates:2,maxMs:1000,budgetE8s:10010000n});assert.equal(e.status,'paused');assert.equal(e.forecasts.length,0);assert.equal(e.measurements.total_work,0);assert.equal(decide('frugal-expander',e).candidate,'wait');assert.equal(decide('bounded-random',e,{seed:8}).candidate,'wait');
+});
+
+
+test('manual or admission pauses do not become funding reductions or assumed resumes',async()=>{
+ for(const run of[{running:false,pace:{nominal_milli:200}},{running:true,pace:{nominal_milli:200,admission_open:false}}]){const b=board('idle');b.snapshot={...b.snapshot,operational:{run}};const e=await evaluateActions(b,account,{maxCandidates:1});assert.equal(e.status,'paused');assert.equal(e.assumptions.zero_funding_rate,false);assert.equal(e.measurements.total_work,0);}
+});
