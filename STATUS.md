@@ -1,3 +1,16 @@
+# CI follow-up — missing native-job npm installation corrected
+
+CI 41436115233 tested pushed `d7b7ee1` and failed only the JS/native forecast
+subcheck: npm dependencies were absent in the native job. The public artifact
+confirms all other native checks passed. The workflow now installs the existing
+locked packages before execution. Local twelve-check native suite: OVERALL PASS;
+fresh npm installation followed by twenty forecast comparisons: PASS.
+The workflow correction awaits operator push and exact-commit CI. No game code,
+production state, spending authority or dependency versions changed.
+[Definitive failure and correction](evidence/B2Z/post-self-play-review-2026-11-02/ci-followup/REPORT.md).
+
+---
+
 # Focused post-self-play corrections — local PASS, exact-commit CI pending
 
 Executable candidate `b4a00231b91d6029cdb5ffa3cfdc39f0c8ae518a` corrects

@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "d7b7ee1ef319d926558765d654744c97b7023195",
+  "started_utc": "2026-11-02T11:21:25.774910+00:00",
+  "mode": "native",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "cargo-lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--format-version",
+        "1",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-lock.log",
+      "elapsed_seconds": 0.016,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "cargo-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-tests.log",
+      "elapsed_seconds": 1.325,
+      "timeout_seconds": 900,
+      "counts": {
+        "passed": 24,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    {
+      "id": "native-vectors",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
+        "-B",
+        "tools/verify_native.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/native-vectors.log",
+      "elapsed_seconds": 0.315,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "portable-lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--format-version",
+        "1",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-lock.log",
+      "elapsed_seconds": 0.016,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "portable-rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-rust-tests.log",
+      "elapsed_seconds": 37.682,
+      "timeout_seconds": 900,
+      "counts": {
+        "passed": 47,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    {
+      "id": "native-public-game",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
+        "-B",
+        "tools/verify_portable_native.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/native-public-game.log",
+      "elapsed_seconds": 0.866,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "agent-native-forecast-equality",
+      "command": [
+        "node",
+        "tools/test_b2z_native_forecast.mjs"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "log": "logs/agent-native-forecast-equality.log",
+      "elapsed_seconds": 0.064,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "native-public-host",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.17/x64/bin/python",
+        "-B",
+        "tools/verify_host_native.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/native-public-host.log",
+      "elapsed_seconds": 1.217,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "portable-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-format.log",
+      "elapsed_seconds": 0.164,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "portable-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--manifest-path",
+        "native/Cargo.toml",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-clippy.log",
+      "elapsed_seconds": 4.682,
+      "timeout_seconds": 900
+    },
+    {
+      "id": "cargo-format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-format.log",
+      "elapsed_seconds": 0.064,
+      "timeout_seconds": 300
+    },
+    {
+      "id": "cargo-clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/cargo-clippy.log",
+      "elapsed_seconds": 0.617,
+      "timeout_seconds": 900
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "FAIL"
+}
