@@ -51,3 +51,22 @@ Next hourly check: confirm automatic campaign expiry, reconcile all paid actions
 and actual remaining Ledger balances, and retain the authenticated final state.
 Further experiments after expiry must remain read-only or valueless local tests
 unless a new paid campaign is explicitly approved.
+
+
+## Paused monitor startup failure preserved and fixed
+
+The attached 06:48 status records a real safe-stop, STALE_SNAPSHOT. Startup had
+applied the thirty-second *payment* freshness check even when only monitoring a
+paused game. All 32 transfers remained applied; none was resubmitted. The failure
+is preserved, not interpreted as corrupt gameplay or a failed Ledger transfer.
+
+`d8c48d5` uses the existing five-minute read-only observation window at monitor
+startup. Payment preparation/submission still require thirty-second freshness;
+a genuine-certificate regression proves a sixty-second snapshot passes monitoring
+but fails the default financial check. PASS: 74 focused tests. No certificate
+verification was disabled or current world invented. The new browser witness
+window does not extend no-refresh claims across the safe stop.
+
+The monitor now runs normally with ReserveProtection and closed admission,
+recording a separately sourced operational sample. [Resumed monitor](resumed-monitor-status.json).
+There is still no extension of the 07:14:09.902 UTC financial approval.
