@@ -1,3 +1,25 @@
+# Diagnostic precedence closure — source ready, publication pending
+
+New executable source `899adec` aligns Settings with transition/error/binding/
+operator-stop/Reserve precedence. Nine focused diagnostic tests PASS. The prepared
+frontend app is `8ee6c13b059413ea39af40044dca9f0883773c603a51645aefa4d013fa80fe98`;
+no assets were uploaded. Exact new-head CI is required before merge/deployment.
+
+Direct GitHub inspection confirms `86a2344` was already published. Its changes
+after reviewed `c2dc7c2` are evidence/STATUS only, not product implementation.
+No authenticated publishing environment is available here; operator push is needed
+for the newly committed range. Prior successful CI on `4026bf2` remains preserved;
+production inventory stays substantively BLOCKED.
+
+A bounded follow-up uses the same kernel/runner: twenty paid comparisons share four
+Wait controls with matched budgets, equal-cost attack routes and canonical birth/
+death attribution. Cheap early Move protects one route; additional support or paid
+revival helps against the alternate connection at higher cost. No rule, price,
+signer, DTR, backend or campaign change; no real ICP spent.
+[Audit, tests, exact economic outcomes and publication state](evidence/B2Z/release-diagnostic-closure-2026-11-02/REPORT.md).
+
+---
+
 # Reactive-defence closure and unobscured pause notices
 
 Source `c2dc7c2` fixes notice/toolbar overlap on short mobile screens and gives

@@ -1,0 +1,21 @@
+{
+  "reviewed_source": "c2dc7c213cce6b118f2667899fae6a4b11337ed5",
+  "reviewed_archive_head": "86a23440aa4d9a11c27bc0b1ff01d898abccd1a7",
+  "changed_paths": [
+    "STATUS.md",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/REPORT.md",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/corridor-FAIL.log",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/focused-tests.log",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/hypothesis-FAIL.log",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/identities.json",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/mobile-320.png",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/mobile-390.png",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/mobile-check.py",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/mobile.json",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/pending-strike-reproduction.json",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/predecessor-ci.json",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/results.json",
+    "evidence/B2Z/reactive-defence-closure-2026-11-02/serve.py"
+  ],
+  "product_implementation_changed": false
+}

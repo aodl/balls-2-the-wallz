@@ -1,0 +1,17 @@
+✔ public price reference agrees with kernel occupancy pricing and capacity (7.759804ms)
+✔ operational reference withholds purchase encouragement while paused, unbound or unhealthy (0.641408ms)
+✔ healthy idle is distinct from pause, errors and an active authenticated world (0.542307ms)
+✔ reserve protection disables encouragement and never disguises preserved pending payments (0.373705ms)
+✔ reserve protection replaces the indefinite catch-up spinner only after verification and fresh healthy operations (4.129055ms)
+✔ operator pause and unverified source cannot promise funding-only resumption (0.498007ms)
+✔ fresh verified operator pause stops the BUFFERING spinner and distinguishes unchecked sources (2.928439ms)
+✔ diagnostics do not disguise an unverified Index binding as Reserve Protection (0.580408ms)
+✔ diagnostics report an operator stop before a closed funding admission gate (0.853711ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 440.993599

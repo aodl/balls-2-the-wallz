@@ -1,0 +1,43 @@
+✔ newly purchased attacker and pre-existing ball both count when native/reference mutual destruction removes them (703.584563ms)
+✖ the planner charges the attacker loss in a paid same-tick mutual exchange (3516.059142ms)
+✔ counterfactual birth/death identity follows exact payment and events, never allocation IDs (36.994896ms)
+✔ first-join births bind to the new funding player even when player and cannon IDs differ (2193.932328ms)
+✔ public price reference agrees with kernel occupancy pricing and capacity (6.157382ms)
+✔ operational reference withholds purchase encouragement while paused, unbound or unhealthy (4.48226ms)
+✔ healthy idle is distinct from pause, errors and an active authenticated world (0.548507ms)
+✔ reserve protection disables encouragement and never disguises preserved pending payments (0.330305ms)
+✔ reserve protection replaces the indefinite catch-up spinner only after verification and fresh healthy operations (0.826311ms)
+✔ operator pause and unverified source cannot promise funding-only resumption (0.553607ms)
+✔ fresh verified operator pause stops the BUFFERING spinner and distinguishes unchecked sources (1.102615ms)
+✔ diagnostics do not disguise an unverified Index binding as Reserve Protection (0.348404ms)
+✔ diagnostics report an operator stop before a closed funding admission gate (0.925812ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7595.149111
+
+✖ failing tests:
+
+test at tests/js/forecast-losses.test.mjs:72:1
+✖ the planner charges the attacker loss in a paid same-tick mutual exchange (3516.059142ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'hard_timeout'
+  - 'complete'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/forecast-losses.test.mjs:95:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'hard_timeout',
+    expected: 'complete',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
