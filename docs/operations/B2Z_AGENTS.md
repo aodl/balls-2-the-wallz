@@ -402,3 +402,12 @@ stays fixed. The pilot records operational transitions with their observed time,
 public mode/admission/idle/performance values and separately sourced liquid balance.
 Those records are not certified gameplay and do not reconstruct earlier missing
 mode transitions. No additional on-chain query is made for this logging.
+
+
+Pilot startup monitoring uses the same five-minute certificate window as ordinary
+verified observation/reconciliation. A paused game may present a certificate older
+than thirty seconds without requiring a paid action. Payment preparation and
+submission still enforce their unchanged thirty-second freshness limit. A genuine
+certificate regression verifies that a sixty-second-old snapshot can be monitored
+but cannot pass the default financial check. Monitoring cannot extend an approval
+or bypass closed gameplay admission.

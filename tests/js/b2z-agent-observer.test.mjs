@@ -3,6 +3,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';import {verifyRetainedPredecessor,sha256Web} from '@dtr/timeline-runtime/client/verification';
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {VerifiedObserver,MAINNET,requireCertified} from '../../packages/agents/b2z/observer.mjs';
+import {GameExecutor} from '../../packages/agents/b2z/executor.mjs';
 import {accountIdentifier} from '../../apps/b2z-observer/identity.mjs';
 const f=JSON.parse(readFileSync(new URL('../fixtures/b2z-agent-certified.json',import.meta.url))),[a,b]=f.observations;
 function make(t,{store=null}={}){if(!t._b2zClock){t.mock.timers.enable({apis:['Date'],now:Number(BigInt(b.certificate_ns)/1000000n)});t._b2zClock=true;}let current=a,badArtifact=false,missing=false,certificateBad=false,retired=0;const calls={observations:0,bundles:0,publications:0};
@@ -47,4 +48,10 @@ test('slow-tier passive polling coalesces queries while urgent refresh remains i
 });
 test('passive cadence follows funding pace without fabricating a fresh certificate or changing the floor',async t=>{
  const s=make(t);await s.o.refresh();let pace=200;s.o.connection.readStatus=async()=>({run:{pace:{nominal_milli:pace}}});await s.o.operational();assert.equal(s.o.passiveCadence(),5000);const original=s.o.current.observed_ns;pace=100;t.mock.timers.tick(15000);await s.o.operational();assert.equal(s.o.passiveCadence(),10000);pace=0;t.mock.timers.tick(15000);await s.o.operational();assert.equal(s.o.passiveCadence(),15000);await s.o.refresh({idle:true});assert.equal(s.o.current.observed_ns,original);assert.equal(s.o.current.reference.root,s.o.sequence.last.root_hash);
+});
+
+
+test('paused monitoring can read a sixty-second certificate while payment freshness stays thirty seconds',async t=>{
+ const s=make(t);await s.o.refresh();const snap=s.o.current,context={clock:()=>snap.observed_ns+60000000000n,campaign:{network:snap.reference.network,backend:snap.reference.canister,ledger:snap.source.ledger,recipient:snap.source.recipient,identity:snap.reference}};
+ GameExecutor.prototype.checkSnapshot.call(context,snap,{freshMs:300000});assert.throws(()=>GameExecutor.prototype.checkSnapshot.call(context,snap),/STALE_SNAPSHOT/);
 });
