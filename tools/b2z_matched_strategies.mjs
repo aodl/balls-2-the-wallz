@@ -20,15 +20,20 @@ import {
   ownershipCounts,
   ownerAt,
 } from "../packages/kernels/b2z/world.mjs";
-import { BoardAnalysis } from "../packages/agents/b2z/analysis.mjs";
+import {
+  BoardAnalysis,
+  ballOutcomes,
+} from "../packages/agents/b2z/analysis.mjs";
 import { quoteAction } from "../packages/agents/b2z/actions.mjs";
 import { evaluateActions } from "../packages/agents/b2z/forecast.mjs";
 import { decide, POLICY_VERSION } from "../packages/agents/b2z/policies.mjs";
 import { fractionSub, stringify } from "../packages/agents/b2z/common.mjs";
+const economic = process.argv.includes("--economic-defence");
+const extended = economic || process.argv.includes("--reactive-defence");
 const output = process.argv[2] ?? ".work/b2z-post-review/matched";
 mkdirSync(output, { recursive: true });
 const fixtures = JSON.parse(readFileSync("tests/fixtures/rules-v6.json")),
-  horizon = process.argv.includes("--reactive-defence") ? 16 : 8,
+  horizon = extended ? 16 : 8,
   budget = 25000000n,
   fee = 10000n,
   rows = [],
@@ -49,7 +54,8 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
     workStart = work;
   let w = cloneCanonical(initial),
     spent = 0n;
-  const receipts = [];
+  const receipts = [],
+    audits = [];
   for (let tick = 0; tick < horizon; tick++) {
     const inputs = [...(opponentInputs[tick] ?? [])];
     if (tick === admissionTick && !choice.action.Wait) {
@@ -71,14 +77,13 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
       if (r.complete) break;
     }
     c.finalizeElapsed(
-      w.playability.elapsed_ns +
-        (process.argv.includes("--reactive-defence")
-          ? 5000000000n
-          : 1000000000n),
+      w.playability.elapsed_ns + (extended ? 5000000000n : 1000000000n),
     );
     const out = c.result();
     w = decodeWorld(out.state);
-    receipts.push(...decodeCanonical(out.events).receipts);
+    const audit = decodeCanonical(out.events);
+    receipts.push(...audit.receipts);
+    audits.push({ ...audit, slot: tick, inputs });
   }
   assert.ok(spent <= budget);
   return {
@@ -86,22 +91,25 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
     spent,
     delta: fractionSub(score(w, account), score(initial, account)),
     receipts,
+    outcomes: ballOutcomes(initial, w, audits, account),
     work: work - workStart,
     elapsed_ms: performance.now() - runStart,
   };
 }
-if (
-  process.argv.includes("--bridge-defence") ||
-  process.argv.includes("--reactive-defence")
-) {
-  const reactive = process.argv.includes("--reactive-defence");
-  const scenarios = reactive
+if (process.argv.includes("--bridge-defence") || extended) {
+  const reactive = extended;
+  const scenarios = economic
     ? [
         { geometry: "bent-near", attackKind: "cardinal" },
-        { geometry: "bent-near", attackKind: "two-directions" },
-        { geometry: "straight-long-approach", attackKind: "cardinal" },
+        { geometry: "bent-near", attackKind: "diagonal-connection" },
       ]
-    : [{ geometry: "straight-near", attackKind: "cardinal" }];
+    : reactive
+      ? [
+          { geometry: "bent-near", attackKind: "cardinal" },
+          { geometry: "bent-near", attackKind: "two-directions" },
+          { geometry: "straight-long-approach", attackKind: "cardinal" },
+        ]
+      : [{ geometry: "straight-near", attackKind: "cardinal" }];
   for (const { geometry, attackKind } of scenarios) {
     for (const seat of [0, 1]) {
       const initial = decodeWorld(
@@ -109,7 +117,7 @@ if (
       );
       // Historical bridge fixture already has a strike due at 1/16 tick.
       // New valueless scenarios isolate only the explicit opposing inputs below.
-      if(reactive)initial.pending=[];
+      if (reactive) initial.pending = [];
       if (geometry === "bent-near") {
         setOwner(initial, 103, 0);
         for (const cell of [999102, 999103, 999104]) setOwner(initial, cell, 1);
@@ -124,7 +132,7 @@ if (
         ball.y0 += 101376n;
         // A distant neutral gap is not a free-flight corridor: captures reflect.
         // Endow a connected friendly approach so this scenario has an actual incoming threat.
-        for(let y=1;y<=100;y++)setOwner(initial,y*1000+103,3);
+        for (let y = 1; y <= 100; y++) setOwner(initial, y * 1000 + 103, 3);
       }
       const target = geometry === "bent-near" ? 999103 : 103;
       const catalog = JSON.parse(
@@ -150,7 +158,11 @@ if (
         action = { Move: { cannon: cannon.id, cell: target } },
         quote = quoteAction(snapshot, account, action);
       const headings =
-        attackKind === "two-directions" ? [49152, 57344] : [49152];
+        attackKind === "diagonal-connection"
+          ? [57344]
+          : attackKind === "two-directions"
+            ? [49152, 57344]
+            : [49152];
       const opposingInputs = {
         1: headings.map((angle, index) => {
           const quote = quoteAction(snapshot, enemy.account, {
@@ -172,6 +184,10 @@ if (
       ).id;
       const metrics = (r) => ({
         score_delta: r.delta,
+        ...r.outcomes,
+        live_supporting_ball_ids: r.world.balls
+          .filter((b) => b.owner === player)
+          .map((b) => b.id),
         final_state: sha256(encodeWorld(r.world)),
         territory: ownershipCounts(r.world).reduce(
           (n, [id, count]) =>
@@ -203,6 +219,84 @@ if (
         work: r.work,
         elapsed_ms: r.elapsed_ms,
       });
+      if (economic) {
+        const waitChoice = { action: { Wait: {} }, quote: { amount_e8s: 0n } };
+        const baselineRun = run(initial, account, waitChoice, opposingInputs),
+          baseline = metrics(baselineRun);
+        const fire = {
+          Fire: {
+            cannon: cannon.id,
+            angle: seat === 0 ? 0 : 32768,
+            quantity: 1,
+          },
+        };
+        const support = {
+          action: fire,
+          quote: quoteAction(snapshot, account, fire),
+        };
+        const choices = [
+          ["wait", waitChoice, 0],
+          ["move-proactive", { action, quote }, 0],
+          ["move-reactive-10s", { action, quote }, 2],
+          ["move-reactive-60s", { action, quote }, 12],
+          ["support-proactive", support, 0],
+          ["support-reactive-60s", support, 12],
+        ];
+        for (const [policy, choice, admission] of choices) {
+          const outcome =
+              policy === "wait"
+                ? baselineRun
+                : run(initial, account, choice, opposingInputs, admission),
+            candidate = metrics(outcome);
+          const own = outcome.receipts.filter((r) => r.account === account);
+          assert.equal(
+            own.length,
+            policy === "wait" ? 0 : 1,
+            "Every paid candidate has exactly one canonical receipt",
+          );
+          assert.ok(
+            own.every((r) =>
+              ["applied", "partially_applied", "rejected"].includes(r.status),
+            ),
+          );
+          assert.equal(
+            candidate.full_cost_e8s,
+            policy === "wait" ? 0n : choice.quote.amount_e8s + fee,
+          );
+          assert.ok(
+            outcome.receipts
+              .filter((r) => r.account !== account)
+              .every((r) => r.status === "applied" && r.actual_quantity === 1),
+          );
+          const delta = fractionSub(outcome.delta, baselineRun.delta);
+          rows.push({
+            geometry,
+            attack: attackKind,
+            account,
+            seat,
+            policy,
+            action: choice.action,
+            admission_tick: admission,
+            assumed_conserve_delay_seconds: admission * 5,
+            initial_state: initialHash,
+            wait_initial_state: initialHash,
+            opposing_inputs: attackHash,
+            wait_opposing_inputs: attackHash,
+            horizon_logical_ticks: horizon,
+            budget_e8s: budget,
+            wait_budget_e8s: budget,
+            candidate,
+            wait: baseline,
+            incremental_canonical_score: delta,
+            incremental_territory: candidate.territory - baseline.territory,
+            incremental_score_per_full_icp:
+              outcome.spent === 0n
+                ? null
+                : [delta[0] * 100000000n, delta[1] * outcome.spent],
+          });
+        }
+        continue;
+      }
       for (const admission of reactive ? [0, 2, 12] : [0, 2, 4]) {
         const wait = run(
           initial,
@@ -232,7 +326,10 @@ if (
         assert.equal(wait.spent, 0n);
         assert.equal(
           ownReceipts[0].status,
-          admission === 0 || geometry === 'straight-long-approach' && admission === 2 ? 'applied' : 'rejected',
+          admission === 0 ||
+            (geometry === "straight-long-approach" && admission === 2)
+            ? "applied"
+            : "rejected",
         );
         for (const arm of [move, wait]) {
           const attacks = arm.receipts.filter(
@@ -404,14 +501,22 @@ const result = {
   status: "PASS",
   scope: `Matched pure-kernel local trials; fixed opponent input stream and ${horizon} logical ticks; no ICP, inference or billed-cycle claim`,
   rows,
+  comparison_count: economic
+    ? rows.filter((r) => r.policy !== "wait").length
+    : rows.length,
+  baseline_count: economic
+    ? rows.filter((r) => r.policy === "wait").length
+    : null,
   total_work: work,
   elapsed_ms: performance.now() - started,
-  experiment: process.argv.includes("--reactive-defence")
-    ? "Bent near bridge or straight bridge with long approach; cardinal/diagonal attacks; proactive tick 0 versus reactive ticks 2/12; sixteen ticks at assumed Conserve pace"
-    : process.argv.includes("--bridge-defence") ||
-        process.argv.includes("--reactive-defence")
-      ? "Move versus Wait; left/right anchor and swapped account seats; same central northbound attack at tick 1; admission 0/2/4"
-      : "policy comparisons",
+  experiment: economic
+    ? "Economic defence: Move or one supporting ball versus Wait; equal-cost cardinal/alternative-connection attacks; 0/2/12 admission ticks"
+    : process.argv.includes("--reactive-defence")
+      ? "Bent near bridge or straight bridge with long approach; cardinal/diagonal attacks; proactive tick 0 versus reactive ticks 2/12; sixteen ticks at assumed Conserve pace"
+      : process.argv.includes("--bridge-defence") ||
+          process.argv.includes("--reactive-defence")
+        ? "Move versus Wait; left/right anchor and swapped account seats; same central northbound attack at tick 1; admission 0/2/4"
+        : "policy comparisons",
   limitations:
     process.argv.includes("--bridge-defence") ||
     process.argv.includes("--reactive-defence")
@@ -430,7 +535,7 @@ writeFileSync(output + "/results.json", stringify(result));
 console.log(
   "PASS",
   rows.length,
-  "paired trials;",
+  economic ? "rows with shared Wait controls;" : "paired trials;",
   work,
   "work units;",
   result.elapsed_ms.toFixed(1),

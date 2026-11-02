@@ -566,3 +566,30 @@ launch and every Move has one terminal receipt with full costs retained. Results
 record exact score, territory, survival, receipts, work and time; no future is
 presented as authenticated gameplay. A multiple-direction attack costs more than
 the single attack and cannot establish equal-budget dominance.
+
+### Economic defence screen
+
+```
+node tools/b2z_matched_strategies.mjs .work/economic-defence --economic-defence
+```
+
+One bounded follow-up compares Wait, proactive Move, Move admitted after 10/60
+assumed Conserve seconds, one proactive supporting ball and a supporting/recovery
+ball after 60 seconds. Two equal-cost single-ball attacks use the cardinal versus
+diagonal connection of the same bent bridge; both endpoint/account seats are used.
+Every group shares one immutable Wait control, initial state, fixed opposing input,
+sixteen logical ticks and a fee-inclusive 0.25 ICP defender ceiling. Historical
+pending strikes are removed only in this explicit synthetic setup, as in the
+reviewed reactive mode. Existing 2,000,000-work/60-second limits are unchanged.
+
+The runner reuses the existing canonical birth/death accounting, preserving payer,
+input and event attribution for balls purchased and destroyed in the same horizon.
+It records full transfer/fee costs, terminal receipts, original and spawned losses,
+surviving support and incremental canonical score/territory against Wait. Score
+per full ICP is an exact rational; zero-spend efficiency is undefined, not infinite.
+It is an experimental score-efficiency measure, not a token profit or payout.
+
+No strategy weights, game rules, movement price, signer, campaign or production
+state are changed. A caller-supplied planning flag remains insufficient for live
+consent: future integration must derive validity/expiry/approved accounts from
+trusted durable state, verify the snapshot and recheck population at dispatch.

@@ -17,7 +17,7 @@ test('public price reference agrees with kernel occupancy pricing and capacity',
 test('operational reference withholds purchase encouragement while paused, unbound or unhealthy',()=>{
  const s={run:{running:true,last_error:[]},source:{binding_checked:true,last_error:[],pending_records:1,admitted_to_exclusive:9007199254740993n}};
  assert.match(operationalText(s),/9007199254740993/);
- s.run.running=false;assert.match(operationalText(s),/paused — do not make purchases/);
+ s.run.running=false;assert.match(operationalText(s),/paused by operator — do not make purchases/);
  s.source.binding_checked=false;assert.match(operationalText(s),/binding pending/);
  s.source.last_error=['index unavailable'];assert.match(operationalText(s),/index unavailable/);
  assert.match(operationalText(null),/unavailable — wait/);
@@ -57,4 +57,17 @@ test('fresh verified operator pause stops the BUFFERING spinner and distinguishe
  const paused=catchupIndicator(args);assert.equal(paused.spinner,false);assert.equal(paused.kind,'operator-paused');assert.match(paused.description,/operator must resume/);
  const unbound=catchupIndicator({...args,operational:{...args.operational,source:{binding_checked:false,last_error:[]}}});assert.equal(unbound.spinner,false);assert.equal(unbound.kind,'paused-source-unverified');assert.match(unbound.description,/unverified/);
  for(const changes of [{verified:false},{operationalFresh:false},{phase:'ERROR'}])assert.notEqual(catchupIndicator({...args,...changes}).kind,'operator-paused');
+});
+
+test('diagnostics do not disguise an unverified Index binding as Reserve Protection',()=>{
+ const s={run:{running:true,last_error:[],pace:{mode:'ReserveProtection',admission_open:false}},source:{binding_checked:false,last_error:[]}};
+ assert.match(operationalText(s),/Index binding pending/);assert.doesNotMatch(operationalText(s),/Reserve protection/);
+ s.source.last_error=['Index unavailable'];assert.match(operationalText(s),/Service error.*Index unavailable/);
+ s.run.world_transition=true;assert.match(operationalText(s),/World transition/);
+});
+test('diagnostics report an operator stop before a closed funding admission gate',()=>{
+ const s={run:{running:false,last_error:[],pace:{mode:'ReserveProtection',admission_open:false}},source:{binding_checked:true,last_error:[]}};
+ assert.match(operationalText(s),/Gameplay paused/);assert.doesNotMatch(operationalText(s),/Reserve protection/);
+ s.run.last_error=['runtime failure'];assert.match(operationalText(s),/Service error.*runtime failure/);
+ s.run.last_error=[];s.run.running=true;assert.match(operationalText(s),/Reserve protection/);s.run.pace.mode='Normal';assert.match(operationalText(s),/admission closed/);assert.doesNotMatch(operationalText(s),/Reserve protection/);
 });
