@@ -485,3 +485,44 @@ These are application capability boundaries, not an OS sandbox. Independent LLM
 processes must not have access to the trusted endpoint, signing environment or
 private journal. A prompt alone cannot restrict a process with unrestricted wallet
 or shell access. No keys are exported or identities changed by this interface.
+
+### Conditional controlled-population planning and bridge defence
+
+`consentEvaluation(evaluation, accounts, {snapshot, campaignApproved})` supports a
+planning-only conditional shortlist when a trusted caller supplies an existing
+valid campaign approval and the identical authenticated head/root. Every player,
+cannon and ball in that snapshot must belong to the approved population. Default
+behaviour remains strict; the expired pilot runner is unchanged. Independent LLM
+sessions cannot confer approval by setting a JSON field on the trusted signer.
+
+Under these prerequisites an evaluated immediate-admission benefit may be ranked
+without treating the unadmitted 60/120-second rows as evaluated successes. Every
+row must still finish, reconcile casualties and match Wait, and at least one
+candidate admission must actually be evaluated. The result explicitly labels
+conditional eligibility and unevaluated delays; it does not assert long-latency
+safety. Outside-player presence, unknown ownership, wrong head/root, uncertified
+state or absent approval retain the strict exclusion. Before any future live use,
+the trusted orchestrator must recheck population, freshness, consent and admission
+at dispatch and stop on outside entry. This optional planner is not connected to
+paid dispatch in the expired runner and adds no spending authority.
+
+Current production does not meet the prerequisites: the campaign is expired and
+an outside player's retained cannon exists. Wait remains appropriate. The eight
+Conserve ticks cover forty assumed seconds, while 60/120-second inputs would
+arrive at ticks 12/24; no larger runtime bound or shorter claimed source delay was
+introduced.
+
+The existing matched runner supports a bounded tactical mode:
+
+```sh
+node tools/b2z_matched_strategies.mjs .work/bridge-defence --bridge-defence
+```
+
+It compares Move-to-bridge versus Wait from both endpoint cannons, swapping the
+public player accounts between seats. One fixed central northbound attack is
+admitted at tick 1; the move arrives at tick 0, 2 or 4. Every paired run shares
+initial bytes, opponent inputs, eight logical ticks and a fee-inclusive 0.25 ICP
+ceiling. Results preserve exact score/territory differences, ball and island
+survival, receipts, state hashes and work/time measurements. This is one selected
+bridge geometry, not a general movement-balance claim. All payments are valueless
+pure-kernel inputs; no signer, Ledger update or production mutation is involved.

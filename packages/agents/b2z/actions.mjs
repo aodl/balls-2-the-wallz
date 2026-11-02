@@ -338,7 +338,32 @@ export function actionOptions(
 }
 
 /** Campaign-only prediction guard. Natural wait losses are not attributed to a purchase. */
-export function consentEvaluation(evaluation, accounts) {
+export function consentEvaluation(
+  evaluation,
+  accounts,
+  { snapshot = null, campaignApproved = false } = {},
+) {
+  // Trusted orchestrator only: observation is not spending authority. Default remains strict.
+  const sameHead =
+    snapshot &&
+    evaluation.provenance?.root === snapshot.reference.root &&
+    evaluation.provenance?.head === snapshot.reference.head &&
+    typeof snapshot.reference.root === "string";
+  const controlled = Boolean(
+    campaignApproved === true &&
+      sameHead &&
+      snapshot.trust === "certificate-verifier" &&
+      snapshot.world.playability.players.every((p) =>
+        accounts.includes(p.account),
+      ) &&
+      snapshot.world.cannons.every((c) => accounts.includes(c.account)) &&
+      snapshot.world.balls.every((b) =>
+        accounts.includes(
+          snapshot.world.playability.players.find((p) => p.id === b.owner)
+            ?.account,
+        ),
+      ),
+  );
   const approved = new Set(accounts),
     wait = evaluation.candidates.find((c) => c.action.Wait),
     blocked = [];
@@ -348,6 +373,7 @@ export function consentEvaluation(evaluation, accounts) {
       baseline = evaluation.forecasts.filter((r) => r.candidate === wait.id);
     if (
       rows.length !== 3 ||
+      !rows.some((r) => r.action_admitted_within_horizon) ||
       baseline.length !== 3 ||
       [...rows, ...baseline].some(
         (r) =>
@@ -364,7 +390,7 @@ export function consentEvaluation(evaluation, accounts) {
       const same = baseline.find((r) => r.scenario === row.scenario);
       if (
         !same ||
-        !row.action_admitted_within_horizon ||
+        (!row.action_admitted_within_horizon && !controlled) ||
         row.elapsed_window_ns !== same.elapsed_window_ns ||
         row.logical_ticks_completed !== same.logical_ticks_completed
       ) {
@@ -400,6 +426,10 @@ export function consentEvaluation(evaluation, accounts) {
     candidates: allowed,
     consent_screen: {
       blocked,
+      controlled_population_conditional: controlled,
+      unassessed_delays: controlled
+        ? "Late admissions are not ranked or proven safe. Only the fully controlled current population permits this conditional shortlist; recheck before dispatch and stop on outside-player entry."
+        : null,
       note: "Derived bounded forecast compared with Wait, not a proof of future trajectory safety. Public entity proximity is checked separately.",
     },
   };

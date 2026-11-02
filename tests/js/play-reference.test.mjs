@@ -39,8 +39,14 @@ test('reserve protection disables encouragement and never disguises preserved pe
 
 
 test('reserve protection replaces the indefinite catch-up spinner only after verification and fresh healthy operations',async()=>{
- const {catchupIndicator}=await import('../../apps/b2z-observer/play-reference.mjs'),operational={run:{world_transition:false,pace:{mode:'ReserveProtection',admission_open:false},last_error:[]},source:{last_error:[]}},args={phase:'BUFFERING',verified:true,operationalFresh:true,operational};
+ const {catchupIndicator}=await import('../../apps/b2z-observer/play-reference.mjs'),operational={run:{running:true,world_transition:false,pace:{mode:'ReserveProtection',admission_open:false},last_error:[]},source:{binding_checked:true,last_error:[]}},args={phase:'BUFFERING',verified:true,operationalFresh:true,operational};
  const view=catchupIndicator(args);assert.equal(view.spinner,false);assert.equal(view.kind,'reserve');assert.match(view.title,/paused to conserve/);
  for(const change of [{verified:false},{operationalFresh:false},{phase:'ERROR'},{operational:{...operational,run:{...operational.run,world_transition:true}}}])assert.notEqual(catchupIndicator({...args,...change}).kind,'reserve');
  assert.equal(catchupIndicator({phase:'PLAYING',verified:true}).visible,false);
+});
+
+test('operator pause and unverified source cannot promise funding-only resumption',async()=>{
+ const {catchupIndicator}=await import('../../apps/b2z-observer/play-reference.mjs');
+ const args={phase:'BUFFERING',verified:true,operationalFresh:true,operational:{run:{running:true,world_transition:false,last_error:[],pace:{mode:'ReserveProtection',admission_open:false}},source:{binding_checked:true,last_error:[]}}};
+ for(const operational of [{...args.operational,run:{...args.operational.run,running:false}},{...args.operational,source:{...args.operational.source,binding_checked:false}}]){const v=catchupIndicator({...args,operational});assert.notEqual(v.kind,'reserve');assert.doesNotMatch(v.description,/resumes when funding/);}
 });

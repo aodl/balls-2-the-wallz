@@ -108,3 +108,12 @@ test('adaptive allocator ignores passive accrual and unmatched opponent effects'
  assert.equal(decide('adaptive-allocator',evaluation,{ownHistory:[...ownHistory,{policy:'frugal-expander',reward:999999,comparison:'unmatched-observation'}]}).delegate,'anchor-defender');
  assert.equal(decide('adaptive-allocator',evaluation,{ownHistory:ownHistory.map(r=>({...r,future_inputs:'different'}))}).reward_evidence.accepted,0);
 });
+
+test('controlled-population conditional shortlist needs trusted approval and one matching certified head',()=>{
+ const candidates=[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}},{id:'fire',action:{Fire:{}},quote:{amount_e8s:10000000n}}],rows=['now','60s','120s'].flatMap(scenario=>candidates.map(c=>({candidate:c.id,scenario,status:'complete',lifecycle_complete:true,casualty_attribution_complete:true,logical_ticks_completed:8,elapsed_window_ns:40000000000n,action_admitted_within_horizon:scenario==='now',canonical_score_delta:[c.id==='fire'&&scenario==='now'?120n:100n,1n],territory_before:1,territory_after:1,own_balls_lost:0,opponent_balls_lost:0,dormant_cannons:0,opposing_ball_losses:[]})));
+ const snapshot={trust:'certificate-verifier',reference:{root:'certified-root',head:1n},world:{playability:{players:[{id:1,account:'approved'}]},cannons:[{account:'approved'}],balls:[{owner:1}]}};
+ const evaluation={provenance:snapshot.reference,candidates,forecasts:rows};
+ assert.equal(consentEvaluation(evaluation,['approved']).candidates.length,1);
+ const good=consentEvaluation(evaluation,['approved'],{snapshot,campaignApproved:true});assert.equal(good.candidates.length,2);assert.equal(good.consent_screen.controlled_population_conditional,true);assert.match(good.consent_screen.unassessed_delays,/not ranked or proven safe/);assert.equal(decide('frugal-expander',good).candidate,'fire');assert.equal(decide('frugal-expander',good).robustness.assessed_all_declared_scenarios,false);
+ for(const context of [{snapshot,campaignApproved:false},{snapshot:{...snapshot,trust:'local-synthetic'},campaignApproved:true},{snapshot:{...snapshot,reference:{...snapshot.reference,head:2n}},campaignApproved:true},{snapshot:{...snapshot,world:{...snapshot.world,cannons:[...snapshot.world.cannons,{account:'outside'}]}},campaignApproved:true}])assert.equal(consentEvaluation(evaluation,['approved'],context).candidates.length,1);
+});
