@@ -1,0 +1,174 @@
+{
+  "stage": "running",
+  "at": "2026-11-02T03:20:07.851Z",
+  "expires_ns": {
+    "$integer": "1793603649902000000"
+  },
+  "budgets": {
+    "total_e8s": {
+      "$integer": "360320000"
+    },
+    "players": {
+      "b2z-agent-defender": {
+        "$integer": "130150000"
+      },
+      "b2z-agent-raider": {
+        "$integer": "120100000"
+      },
+      "b2z-agent-adaptive": {
+        "$integer": "110050000"
+      },
+      "b2z-agent-expander": {
+        "$integer": "20000"
+      }
+    },
+    "remaining_e8s": {
+      "$integer": "329670000"
+    }
+  },
+  "players": [
+    {
+      "alias": "b2z-agent-expander",
+      "remaining_e8s": {
+        "$integer": "89970000"
+      },
+      "paused": null
+    },
+    {
+      "alias": "b2z-agent-defender",
+      "remaining_e8s": {
+        "$integer": "69850000"
+      },
+      "paused": null
+    },
+    {
+      "alias": "b2z-agent-raider",
+      "remaining_e8s": {
+        "$integer": "79900000"
+      },
+      "paused": null
+    },
+    {
+      "alias": "b2z-agent-adaptive",
+      "remaining_e8s": {
+        "$integer": "89950000"
+      },
+      "paused": null
+    }
+  ],
+  "reference": {
+    "network": "ic",
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "head": {
+      "$integer": "84590"
+    },
+    "logical_time": {
+      "$integer": "138741"
+    },
+    "root": "4ad26d19ae82f29fd8607080664bac83bcacbd31f7ca28e58b17a330a9b814e4",
+    "manifest": "a4ddd5f301679856aee1626f56d0a6b4e586c37c4b066b94b6433f79a4cdd2b9",
+    "state": "5561b7255aa18de6672cf42a9bcd77f074e31bf412f6b76469ba91a4e4e3e2fe",
+    "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+    "epoch_index": {
+      "$integer": "4"
+    },
+    "source_cursor": {
+      "$integer": "39970750"
+    },
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+  },
+  "operational": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 200,
+        "supported_milli": 200,
+        "mode": "Conserve",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": {
+        "$integer": "1"
+      },
+      "publication_ticks": {
+        "$integer": "1"
+      },
+      "completed_segments": {
+        "$integer": "84586"
+      },
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": {
+        "$integer": "39970750"
+      }
+    },
+    "health": {
+      "resets": {
+        "$integer": "52"
+      },
+      "sample_end_ns": {
+        "$integer": "1793589598679362159"
+      },
+      "observed_at_ns": {
+        "$integer": "1793589601043806155"
+      },
+      "sample_start_total_cycles": {
+        "$integer": "6402754693665"
+      },
+      "sample_count": 5,
+      "runtime_started_ns": {
+        "$integer": "1793571633998730092"
+      },
+      "known_treasury_credit_delta": {
+        "$integer": "0"
+      },
+      "net_decline_cycles": [
+        {
+          "$integer": "114029707013"
+        }
+      ],
+      "version": 1,
+      "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+      "reservation_gap_end": {
+        "$integer": "157711381620"
+      },
+      "certified_gameplay": false,
+      "sample_end_total_cycles": {
+        "$integer": "6288724986652"
+      },
+      "total_cycles": {
+        "$integer": "6280738359798"
+      },
+      "reservation_gap_start": {
+        "$integer": "157711381620"
+      },
+      "sample_start_ns": {
+        "$integer": "1793589355268233277"
+      },
+      "liquid_cycles": {
+        "$integer": "6123026978178"
+      },
+      "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+    }
+  },
+  "observer": {
+    "queries": 126,
+    "artifact_bytes": 5060743,
+    "refreshes": 57,
+    "stale_responses": 0,
+    "resyncs": 1,
+    "moving_snapshot_retries": 0,
+    "restored_floor": "84034",
+    "last_refresh_ms": 371.64948599998024
+  },
+  "cycles": 1095
+}
