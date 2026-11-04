@@ -47,6 +47,7 @@ const fixtures = JSON.parse(readFileSync("tests/fixtures/rules-v6.json")),
   budget = 25000000n,
   fee = 10000n,
   rows = [],
+  initialStates = {},
   started = performance.now();
 let work = 0;
 const score = (w, a) =>
@@ -217,6 +218,9 @@ if (process.argv.includes("--bridge-defence") || extended) {
       const player = initial.playability.players.find(
         (p) => p.account === account,
       ).id;
+      initialStates[initialHash] = Buffer.from(encodeWorld(initial)).toString(
+        "hex",
+      );
       const metrics = (r) => ({
         defended_island: defendedIslandSupport(r.world, account, cannon.cell),
         score_delta: r.delta,
@@ -423,6 +427,9 @@ if (process.argv.includes("--bridge-defence") || extended) {
               seed,
               seat,
               policy,
+              defender_action: choice.action,
+              defender_quote: choice.quote,
+              opening_inputs: { tick: threatTick, inputs: opposingInputs[1] },
               response: response[0],
               admission_tick: admission,
               delay_seconds: admission * 5,
@@ -745,6 +752,7 @@ const result = {
   status: "PASS",
   scope: `Matched pure-kernel local trials; ${adaptive ? "public-state conditioned response rule" : "fixed opponent input stream"} and ${horizon} logical ticks; no ICP, inference or billed-cycle claim`,
   rows,
+  initial_states: initialStates,
   comparison_count: economic
     ? rows.filter((r) => r.policy !== "wait").length
     : rows.length,
