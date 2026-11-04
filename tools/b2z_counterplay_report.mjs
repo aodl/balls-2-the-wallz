@@ -55,19 +55,21 @@ for (const key of [
           r.candidate.opponent_balls_lost - r.wait.opponent_balls_lost,
       })),
   };
-  const forecasts = trials.map((r) => ({
-    candidate: r.policy,
-    scenario: r.response,
-    status: "complete",
-    action_admitted_within_horizon: true,
-    logical_ticks_completed: r.horizon_logical_ticks,
-    canonical_score_delta: r.candidate.score_delta,
-    territory_before: 0,
-    territory_after: r.candidate.territory,
-    own_balls_lost: r.candidate.own_balls_lost,
-    opponent_balls_lost: r.candidate.opponent_balls_lost,
-    dormant_cannons: r.candidate.live_supporting_ball_ids.length ? 0 : 1,
-  }));
+  const forecasts = trials
+    .filter((r) => responses.includes(r.response))
+    .map((r) => ({
+      candidate: r.policy,
+      scenario: r.response,
+      status: "complete",
+      action_admitted_within_horizon: true,
+      logical_ticks_completed: r.horizon_logical_ticks,
+      canonical_score_delta: r.candidate.score_delta,
+      territory_before: 0,
+      territory_after: r.candidate.territory,
+      own_balls_lost: r.candidate.own_balls_lost,
+      opponent_balls_lost: r.candidate.opponent_balls_lost,
+      dormant_cannons: r.candidate.live_supporting_ball_ids.length ? 0 : 1,
+    }));
   const oldEvaluation = {
     candidates,
     forecasts,
@@ -92,7 +94,12 @@ for (const key of [
   // Attacker selects from the resulting PUBLIC outcomes. This is local exhaustive
   // best response evidence, never future information supplied to a live player.
   const bestResponses = names.map((defence) => {
-    const variants = trials.filter((r) => r.policy === defence);
+    const variants = trials.filter(
+      (r) =>
+        r.policy === defence &&
+        r.response !== "public-policy" &&
+        !r.response_observation.some((o) => o.status),
+    );
     variants.sort((a, b) => {
       const x = a.candidate.score_delta,
         y = b.candidate.score_delta;
