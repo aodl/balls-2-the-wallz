@@ -1,3 +1,25 @@
+# Closed-loop counterplay correctness — 4 November 2026
+
+New source continues already-published `3f60e92`: explicit counterplay versioning,
+snapshot-local defended-island support, a public-state geometric attacker, legal
+hindsight oracle, and explicit Frugal discretionary investment budgets. Forty
+focused tests and twenty native/reference comparisons PASS.
+
+Original and held-out 120-row runs compare conserving, repeating, state-selected
+responses and affordable two-ball follow-ups. Public attacker matches the tested
+oracle in 8/20 situations in each set; its long-approach targeting is weak and can
+spend 0.4001 ICP for zero incremental score. The affordable extra identical-heading
+ball earns no additional score within this horizon despite surviving. These are
+valueless local inputs, not financial transfers or balance-change proposals.
+
+Exact initial-state hashes, defended/global support counts, receipts and budgets
+are checked. No backend, executor, DTR, signing privilege, production or campaign
+operation. Publication of new corrections is blocked by absent GitHub credentials;
+prior published CI does not qualify this code.
+[Commands, source identities, outcomes, compressed raw evidence and limitations](evidence/B2Z/closed-loop-counterplay-2026-11-04/REPORT.md).
+
+---
+
 # Local adaptive counterplay development — 4 November 2026
 
 Started from merged master `c4c955f`; local branch
