@@ -1,0 +1,16 @@
+file:///home/codexdev/src/b2z-prelaunch-rules/node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs:16
+    if (payload.length > 1024 || (prior !== null && position <= prior)) throw new Error('unordered/oversize input');
+                                                                              ^
+
+Error: unordered/oversize input
+    at file:///home/codexdev/src/b2z-prelaunch-rules/node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs:16:79
+    at Array.map (<anonymous>)
+    at canonicalInputs (file:///home/codexdev/src/b2z-prelaunch-rules/node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs:14:17)
+    at new B2zCursor (file:///home/codexdev/src/b2z-prelaunch-rules/packages/kernels/b2z/kernel.mjs:124:440)
+    at run (file:///home/codexdev/src/b2z-prelaunch-rules/tools/b2z_matched_strategies.mjs:66:15)
+    at file:///home/codexdev/src/b2z-prelaunch-rules/tools/b2z_matched_strategies.mjs:259:67
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0

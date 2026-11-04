@@ -1,3 +1,20 @@
+# Local adaptive counterplay development — 4 November 2026
+
+Started from merged master `c4c955f`; local branch
+`development/b2z-adaptive-counterplay`. Two bounded 80-arm exact-kernel experiments
+compare five defences against state-conditioned opponent responses. The local
+Pareto selector improves the long-approach vulnerable seat over the frozen Wait
+choice; a later opponent response changes the preferred support timing. Other
+positions retain cheap Move. No general policy superiority or balance change.
+
+PASS: 36 focused regressions, 20 native/reference fixture/forecast comparisons,
+complete canonical casualty/receipt accounting. Initial confounded budget and
+input-order FAIL are preserved. Remote CI awaits user-owned publication.
+No production operation, ICP spend, funded campaign, executor or DTR change.
+[Commands, exact outcomes, costs, policy comparisons and limitations](evidence/B2Z/adaptive-counterplay-2026-11-04/REPORT.md).
+
+---
+
 # Diagnostic frontend release — published, CI green and deployed
 
 Published source `aa3a202fa91c640af2f425658f9036fe75a87830` passed all six substantive

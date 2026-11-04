@@ -30,7 +30,9 @@ for (const key of [
     rows: trials.map((r) => ({
       candidate: r.policy,
       response: r.response,
-      status: "complete",
+      status: r.response_observation.some((o) => o.status)
+        ? "unassessed"
+        : "complete",
       casualty_attribution_complete: r.candidate.casualty_attribution_complete,
       incremental_score: r.incremental_canonical_score,
       full_cost_e8s: r.candidate.full_cost_e8s,
