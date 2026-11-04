@@ -1,5 +1,5 @@
 /** Small frozen policies. Inputs are public analysis, own history and typed candidates only. */
-import { check, fractionSub } from "./common.mjs";
+import { check, fractionSub, fractionCmp } from "./common.mjs";
 export const LEGACY_POLICY_VERSION = "b2z-policies-1",
   PREVIOUS_POLICY_VERSION = "b2z-policies-2",
   POLICY_VERSION = "b2z-policies-3";
@@ -134,6 +134,14 @@ export function decide(
   evaluation,
   { version = POLICY_VERSION, ...options } = {},
 ) {
+  if (
+    evaluation.kind === "local-counterplay" &&
+    ["anchor-defender", "frugal-expander", "adaptive-allocator"].includes(
+      policy,
+    )
+  ) {
+    return decideCounterplay(policy, evaluation);
+  }
   check(
     [POLICY_VERSION, PREVIOUS_POLICY_VERSION, LEGACY_POLICY_VERSION].includes(
       version,
@@ -289,5 +297,126 @@ export function decide(
       "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
     comparison_units:
       "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks.",
+  };
+}
+
+/** Local tactical selection over explicitly enumerated responses, never signing authority.
+ * Equal response weight describes this experiment, not opponent probabilities.
+ * A candidate must cover every response; missing futures cannot enter the shortlist.
+ */
+export function decideCounterplay(policy, evaluation) {
+  check(POLICIES.includes(policy), "UNKNOWN_POLICY");
+  const { candidates, responses } = evaluation;
+  check(
+    responses.length > 0 && new Set(responses).size === responses.length,
+    "RESPONSE_SET",
+  );
+  const wait = candidates.find((c) => c.action.Wait);
+  check(wait, "WAIT_REQUIRED");
+  const summaries = [],
+    unassessed = [];
+  for (const candidate of candidates) {
+    const rows = responses.map((response) => {
+      const matches = evaluation.rows.filter(
+        (r) => r.candidate === candidate.id && r.response === response,
+      );
+      return matches.length === 1 ? matches[0] : null;
+    });
+    if (
+      rows.some(
+        (r) =>
+          !r || r.status !== "complete" || !r.casualty_attribution_complete,
+      )
+    ) {
+      unassessed.push(candidate.id);
+      continue;
+    }
+    const increments = rows.map((r) => r.incremental_score);
+    const total = increments.reduce(
+      (a, b) => [a[0] * b[1] + b[0] * a[1], a[1] * b[1]],
+      [0n, 1n],
+    );
+    const mean = [total[0], total[1] * BigInt(rows.length)];
+    const worst = increments.reduce((a, b) => (fractionCmp(a, b) < 0 ? a : b));
+    const gains = increments.map(value);
+    summaries.push({
+      candidate: candidate.id,
+      full_cost_e8s: rows.reduce(
+        (n, r) => (r.full_cost_e8s > n ? r.full_cost_e8s : n),
+        0n,
+      ),
+      expected_incremental_score:
+        gains.reduce((n, v) => n + v, 0) / rows.length,
+      worst_incremental_score: Math.min(...gains),
+      exact_mean_increment: mean,
+      exact_worst_increment: worst,
+      worst_support_survival: Math.min(...rows.map((r) => r.support_survivors)),
+      worst_territory: Math.min(...rows.map((r) => r.territory)),
+      mean_opponent_losses:
+        rows.reduce((n, r) => n + r.incremental_opponent_losses, 0) /
+        rows.length,
+      // Lossless canonical deltas remain available alongside derived summaries.
+      canonical_increments: rows.map((r) => ({
+        response: r.response,
+        score: r.incremental_score,
+      })),
+    });
+  }
+  const dominates = (a, b) => {
+    const pairs = [
+      [a.worst_support_survival, b.worst_support_survival],
+      [a.worst_territory, b.worst_territory],
+    ];
+    return (
+      fractionCmp(a.exact_mean_increment, b.exact_mean_increment) >= 0 &&
+      fractionCmp(a.exact_worst_increment, b.exact_worst_increment) >= 0 &&
+      a.full_cost_e8s <= b.full_cost_e8s &&
+      pairs.every(([x, y]) => x >= y) &&
+      (a.full_cost_e8s < b.full_cost_e8s ||
+        fractionCmp(a.exact_mean_increment, b.exact_mean_increment) > 0 ||
+        fractionCmp(a.exact_worst_increment, b.exact_worst_increment) > 0 ||
+        pairs.some(([x, y]) => x > y))
+    );
+  };
+  const pareto = summaries.filter(
+    (b) => !summaries.some((a) => a !== b && dominates(a, b)),
+  );
+  const baseline = summaries.find((r) => r.candidate === wait.id);
+  check(baseline, "COMPLETE_WAIT_REQUIRED");
+  let eligible = pareto.filter(
+    (r) =>
+      r.exact_mean_increment[0] > 0n &&
+      r.exact_worst_increment[0] >= 0n &&
+      r.worst_support_survival >= baseline.worst_support_survival,
+  );
+  // A defence pays only for a demonstrated survival improvement or nonnegative
+  // counterplay benefit. Preserve ICP when all assessed investments have downside.
+  if (policy === "passive") eligible = [];
+  const cheap = (a, b) =>
+    a.full_cost_e8s < b.full_cost_e8s
+      ? -1
+      : a.full_cost_e8s > b.full_cost_e8s
+        ? 1
+        : a.candidate.localeCompare(b.candidate);
+  eligible.sort((a, b) =>
+    policy === "anchor-defender" || policy === "adaptive-allocator"
+      ? b.worst_support_survival - a.worst_support_survival ||
+        fractionCmp(b.exact_worst_increment, a.exact_worst_increment) ||
+        cheap(a, b)
+      : policy === "attrition-raider"
+        ? b.mean_opponent_losses - a.mean_opponent_losses || cheap(a, b)
+        : cheap(a, b),
+  );
+  return {
+    policy,
+    version: "b2z-counterplay-1",
+    candidate: eligible[0]?.candidate ?? wait.id,
+    pareto: pareto.map((r) => r.candidate),
+    summaries,
+    unassessed,
+    scope: "Local planning only; no campaign consent or payment authority",
+    rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Other policies prefer cheaper improvements; no weighted utility.",
+    uncertainty:
+      "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
   };
 }

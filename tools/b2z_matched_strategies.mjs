@@ -28,12 +28,15 @@ import { quoteAction } from "../packages/agents/b2z/actions.mjs";
 import { evaluateActions } from "../packages/agents/b2z/forecast.mjs";
 import { decide, POLICY_VERSION } from "../packages/agents/b2z/policies.mjs";
 import { fractionSub, stringify } from "../packages/agents/b2z/common.mjs";
+const lateCounterplay = process.argv.includes("--late-counterplay");
+const adaptive = process.argv.includes("--adaptive-defence");
 const economic = process.argv.includes("--economic-defence");
-const extended = economic || process.argv.includes("--reactive-defence");
+const extended =
+  adaptive || economic || process.argv.includes("--reactive-defence");
 const output = process.argv[2] ?? ".work/b2z-post-review/matched";
 mkdirSync(output, { recursive: true });
 const fixtures = JSON.parse(readFileSync("tests/fixtures/rules-v6.json")),
-  horizon = extended ? 16 : 8,
+  horizon = adaptive ? 32 : extended ? 16 : 8,
   budget = 25000000n,
   fee = 10000n,
   rows = [],
@@ -49,19 +52,33 @@ function payment(account, quote, position) {
   bytes.set(Buffer.from(quote.memo_hex, "hex"), 48);
   return { position, payload_hex: Buffer.from(bytes).toString("hex") };
 }
-function run(initial, account, choice, opponentInputs, admissionTick = 0) {
+function run(
+  initial,
+  account,
+  choice,
+  opponentInputs,
+  admissionTick = 0,
+  ticks = horizon,
+) {
   const runStart = performance.now(),
     workStart = work;
   let w = cloneCanonical(initial),
     spent = 0n;
   const receipts = [],
     audits = [];
-  for (let tick = 0; tick < horizon; tick++) {
-    const inputs = [...(opponentInputs[tick] ?? [])];
+  for (let tick = 0; tick < ticks; tick++) {
+    const inputs = [
+      ...(typeof opponentInputs === "function"
+        ? opponentInputs(tick, w)
+        : (opponentInputs[tick] ?? [])),
+    ];
     if (tick === admissionTick && !choice.action.Wait) {
       inputs.push(payment(account, choice.quote, 1001n + BigInt(tick) * 10n));
       spent = choice.quote.amount_e8s + fee;
     }
+    inputs.sort((a, b) =>
+      a.position < b.position ? -1 : a.position > b.position ? 1 : 0,
+    );
     const c = new B2zCursor(encodeWorld(w), inputs, {
       ...ENTRY_IDENTITY,
       logical_start: w.time[0],
@@ -71,7 +88,8 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
       const r = c.step(32);
       work += r.used;
       assert.ok(
-        work <= 2000000 && performance.now() - started < 60000,
+        work <= 2000000 &&
+          performance.now() - started < (adaptive ? 300000 : 60000),
         "Matched trial work/time bound",
       );
       if (r.complete) break;
@@ -98,18 +116,23 @@ function run(initial, account, choice, opponentInputs, admissionTick = 0) {
 }
 if (process.argv.includes("--bridge-defence") || extended) {
   const reactive = extended;
-  const scenarios = economic
+  const scenarios = adaptive
     ? [
         { geometry: "bent-near", attackKind: "cardinal" },
-        { geometry: "bent-near", attackKind: "diagonal-connection" },
+        { geometry: "straight-long-approach", attackKind: "cardinal" },
       ]
-    : reactive
+    : economic
       ? [
           { geometry: "bent-near", attackKind: "cardinal" },
-          { geometry: "bent-near", attackKind: "two-directions" },
-          { geometry: "straight-long-approach", attackKind: "cardinal" },
+          { geometry: "bent-near", attackKind: "diagonal-connection" },
         ]
-      : [{ geometry: "straight-near", attackKind: "cardinal" }];
+      : reactive
+        ? [
+            { geometry: "bent-near", attackKind: "cardinal" },
+            { geometry: "bent-near", attackKind: "two-directions" },
+            { geometry: "straight-long-approach", attackKind: "cardinal" },
+          ]
+        : [{ geometry: "straight-near", attackKind: "cardinal" }];
   for (const { geometry, attackKind } of scenarios) {
     for (const seat of [0, 1]) {
       const initial = decodeWorld(
@@ -219,6 +242,155 @@ if (process.argv.includes("--bridge-defence") || extended) {
         work: r.work,
         elapsed_ms: r.elapsed_ms,
       });
+      if (adaptive) {
+        const seed = geometry === "bent-near" ? 17 : 28;
+        const threatTick = (seed % 2) + 1;
+        const waitChoice = { action: { Wait: {} }, quote: { amount_e8s: 0n } };
+        const fire = {
+          Fire: {
+            cannon: cannon.id,
+            angle: seat === 0 ? 0 : 32768,
+            quantity: 1,
+          },
+        };
+        const support = {
+          action: fire,
+          quote: quoteAction(snapshot, account, fire),
+        };
+        const defences = [
+          ["wait", waitChoice, 0],
+          ["move-proactive", { action, quote }, 0],
+          ["support-proactive", support, 0],
+          ["move-reactive", { action, quote }, 4],
+          ["support-late", support, 12],
+        ];
+        // Follow-up quotes use only the public state at their stated decision tick.
+        // These local states are exact kernel outputs, NOT IC-authenticated snapshots.
+        const responses = [
+          ["original", 49152, 0],
+          ["alternate", 57344, 0],
+          ["changed-angle-delayed", 40960, 2],
+          ["wait", null, 0],
+        ];
+        function stream(response, trace) {
+          return (tick, world) => {
+            if (tick === threatTick) return opposingInputs[1];
+            if (
+              tick !== (lateCounterplay ? 14 : 4) + response[2] ||
+              response[1] === null
+            )
+              return [];
+            const observed = { world, configuration: ENTRY_CONFIG };
+            const a = {
+              Fire: { cannon: enemy.id, angle: response[1], quantity: 1 },
+            };
+            try {
+              const q = quoteAction(observed, enemy.account, a);
+              const spent = opposingInputs[1].reduce(
+                (n) =>
+                  n + ballPrice(territoryBallCount(initial, enemy.id)) + fee,
+                0n,
+              );
+              if (q.amount_e8s + fee + spent > 75000000n) {
+                trace.push({ tick, status: "budget-excluded" });
+                return [];
+              }
+              trace.push({
+                tick,
+                state: sha256(encodeWorld(world)),
+                action: a,
+                quote: q,
+              });
+              return [payment(enemy.account, q, 1005n + BigInt(tick) * 10n)];
+            } catch (error) {
+              if (!["NOT_OWNER", "BALL_CAPACITY"].includes(error.message))
+                throw error;
+              trace.push({
+                tick,
+                status: "unavailable",
+                reason: error.message,
+              });
+              return [];
+            }
+          };
+        }
+        for (const response of responses) {
+          const waitTrace = [],
+            base = run(
+              initial,
+              account,
+              waitChoice,
+              stream(response, waitTrace),
+            );
+          for (const [policy, choice, admission] of defences) {
+            const trace = [],
+              actual =
+                policy === "wait"
+                  ? base
+                  : run(
+                      initial,
+                      account,
+                      choice,
+                      stream(response, trace),
+                      admission,
+                    );
+            const candidate = metrics(actual),
+              baseline = metrics(base);
+            assert.equal(
+              actual.receipts.filter((r) => r.account === account).length,
+              policy === "wait" ? 0 : 1,
+            );
+            assert.ok(actual.outcomes.casualty_attribution_complete);
+            const replacement = (w, a) =>
+              w.cannons
+                .filter((c) => c.account === a)
+                .map((c) => ({
+                  cannon: c.id,
+                  island_pool: territoryBallCount(w, c.id),
+                  next_ball_e8s: ballPrice(territoryBallCount(w, c.id)),
+                }));
+            rows.push({
+              geometry,
+              seed,
+              seat,
+              policy,
+              response: response[0],
+              admission_tick: admission,
+              delay_seconds: admission * 5,
+              initial_state: initialHash,
+              horizon_logical_ticks: horizon,
+              budget_e8s: budget,
+              attacker_budget_e8s: 75000000n,
+              attacker_score_delta: fractionSub(
+                score(actual.world, enemy.account),
+                score(initial, enemy.account),
+              ),
+              attacker_cannons_retained: actual.world.cannons.filter(
+                (c) => c.account === enemy.account,
+              ).length,
+              defender_cannons_retained: actual.world.cannons.filter(
+                (c) => c.account === account,
+              ).length,
+              response_stage: lateCounterplay ? 14 : 4,
+              candidate,
+              wait: baseline,
+              incremental_canonical_score: fractionSub(
+                actual.delta,
+                base.delta,
+              ),
+              incremental_territory: candidate.territory - baseline.territory,
+              response_observation: policy === "wait" ? waitTrace : trace,
+              replacement_costs: {
+                defender: replacement(actual.world, account),
+                attacker: replacement(actual.world, enemy.account),
+              },
+              comparison:
+                "matched initial state and response rule; response quotes may adapt to resulting public state",
+            });
+          }
+        }
+        continue;
+      }
       if (economic) {
         const waitChoice = { action: { Wait: {} }, quote: { amount_e8s: 0n } };
         const baselineRun = run(initial, account, waitChoice, opposingInputs),
@@ -499,7 +671,7 @@ if (process.argv.includes("--bridge-defence") || extended) {
 }
 const result = {
   status: "PASS",
-  scope: `Matched pure-kernel local trials; fixed opponent input stream and ${horizon} logical ticks; no ICP, inference or billed-cycle claim`,
+  scope: `Matched pure-kernel local trials; ${adaptive ? "public-state conditioned response rule" : "fixed opponent input stream"} and ${horizon} logical ticks; no ICP, inference or billed-cycle claim`,
   rows,
   comparison_count: economic
     ? rows.filter((r) => r.policy !== "wait").length
@@ -509,17 +681,27 @@ const result = {
     : null,
   total_work: work,
   elapsed_ms: performance.now() - started,
-  experiment: economic
-    ? "Economic defence: Move or one supporting ball versus Wait; equal-cost cardinal/alternative-connection attacks; 0/2/12 admission ticks"
-    : process.argv.includes("--reactive-defence")
-      ? "Bent near bridge or straight bridge with long approach; cardinal/diagonal attacks; proactive tick 0 versus reactive ticks 2/12; sixteen ticks at assumed Conserve pace"
-      : process.argv.includes("--bridge-defence") ||
-          process.argv.includes("--reactive-defence")
-        ? "Move versus Wait; left/right anchor and swapped account seats; same central northbound attack at tick 1; admission 0/2/4"
-        : "policy comparisons",
-  limitations:
-    process.argv.includes("--bridge-defence") ||
-    process.argv.includes("--reactive-defence")
+  experiment: adaptive
+    ? `Two-stage adaptive defence; public-state requoted response at tick ${lateCounterplay ? "14/16" : "4/6"}, 32 logical ticks, Conserve 5s/tick, defender 0.25 ICP/attacker 0.75 ICP ceilings`
+    : economic
+      ? "Economic defence: Move or one supporting ball versus Wait; equal-cost cardinal/alternative-connection attacks; 0/2/12 admission ticks"
+      : process.argv.includes("--reactive-defence")
+        ? "Bent near bridge or straight bridge with long approach; cardinal/diagonal attacks; proactive tick 0 versus reactive ticks 2/12; sixteen ticks at assumed Conserve pace"
+        : process.argv.includes("--bridge-defence") ||
+            process.argv.includes("--reactive-defence")
+          ? "Move versus Wait; left/right anchor and swapped account seats; same central northbound attack at tick 1; admission 0/2/4"
+          : "policy comparisons",
+  limitations: adaptive
+    ? [
+        "Synthetic exact-kernel state, not IC-certified data",
+        "Two deterministic threat timings across distinct geometries; seeds are not a population sample",
+        "Equal tested-response weights are not measured opponent probabilities",
+        "0/20/60s defender delays; untested delays and future purchases remain unknown",
+        "No billed IC cycles or live admission-latency measurement",
+        "Attacker response rule is held fixed in each Wait pair; amounts re-quote from that arm, not identical future payment bytes",
+      ]
+    : process.argv.includes("--bridge-defence") ||
+        process.argv.includes("--reactive-defence")
       ? [
           "Selected bridge geometry/approach scenarios; left/right moving anchor and swapped accounts; no general balance conclusion",
           "Fixed identical attack stream per matched pair",
