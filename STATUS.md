@@ -1,3 +1,26 @@
+# Bounded forecast attack experiment — 4 November 2026
+
+Parent `5730a14` passed all six substantive CI jobs in run `41823976844`; its
+production-inventory wrapper remains substantively BLOCKED. The next local branch
+`development/b2z-bounded-attack-forecast` fixes incomplete forecast caching and adds
+an explicitly bounded four-tick attack selector using the same kernel and Pareto
+eligibility. New executable source: `80b6a9e`.
+
+PASS: 47 focused tests, 20 native/reference comparisons, source inventory and
+sixteen matched-input conditional replay hashes. Four reactive-input accuracy
+cases are explicitly unassessed. Across twenty recorded cases the selector gains
+score in twelve, ties eight, loses none, at unchanged full cost. It matches thirteen
+long-horizon oracle choices versus eight for the geometric holdout. These are
+reused synthetic cases, not an independent tournament or live campaign.
+
+Measured 160,590 work units / 34.253 seconds. Partial eight-tick preparation and a
+confounded report-mutation run are preserved. No production operation, real spend,
+new financial authority, kernel, DTR or executor change. New-branch CI remains
+pending publication; the parent's green run does not qualify these changes.
+[Evidence, commands, limits and outcomes](evidence/B2Z/bounded-attack-forecast-2026-11-04/REPORT.md).
+
+---
+
 # Closed-loop counterplay correctness — 4 November 2026
 
 New source continues already-published `3f60e92`: explicit counterplay versioning,

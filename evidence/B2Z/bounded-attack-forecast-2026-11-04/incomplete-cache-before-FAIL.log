@@ -1,0 +1,23 @@
+{
+  first_status: 'bounded_partial',
+  second_status: 'bounded_partial',
+  second_cache_hit: true,
+  first_work: 1,
+  second_work: 1
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: An incomplete evaluation must not become a permanent cache hit for the same snapshot and bounds
+    at file:///home/codexdev/src/b2z-prelaunch-rules/.work/b2z-next-forecast/cache-incomplete-repro.mjs:11:176
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: true,
+  operator: 'notStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

@@ -1,0 +1,7 @@
+{
+  "first_status": "bounded_partial",
+  "second_status": "bounded_partial",
+  "second_cache_hit": true,
+  "first_work": 1,
+  "second_work": 1
+}
