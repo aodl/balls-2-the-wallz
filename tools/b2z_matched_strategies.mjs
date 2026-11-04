@@ -33,10 +33,11 @@ import {
   choosePublicAttack,
 } from "../packages/agents/b2z/policies.mjs";
 import { fractionSub, stringify } from "../packages/agents/b2z/common.mjs";
+const fresh = process.argv.includes("--fresh-counterplay");
 const lateCounterplay = process.argv.includes("--late-counterplay");
-const closedLoop = process.argv.includes("--closed-loop");
+const closedLoop = fresh || process.argv.includes("--closed-loop");
 const heldOut = process.argv.includes("--held-out");
-const adaptive = process.argv.includes("--adaptive-defence");
+const adaptive = fresh || process.argv.includes("--adaptive-defence");
 const economic = process.argv.includes("--economic-defence");
 const extended =
   adaptive || economic || process.argv.includes("--reactive-defence");
@@ -95,6 +96,21 @@ function run(
     for (;;) {
       const r = c.step(32);
       work += r.used;
+      if (
+        !(
+          work <= 2000000 &&
+          performance.now() - started < (adaptive ? 300000 : 60000)
+        )
+      )
+        writeFileSync(
+          output + "/bound-FAIL.json",
+          stringify({
+            status: "FAIL",
+            work,
+            elapsed_ms: performance.now() - started,
+            completed_rows: rows,
+          }),
+        );
       assert.ok(
         work <= 2000000 &&
           performance.now() - started < (adaptive ? 300000 : 60000),
@@ -125,10 +141,12 @@ function run(
 if (process.argv.includes("--bridge-defence") || extended) {
   const reactive = extended;
   const scenarios = adaptive
-    ? [
-        { geometry: "bent-near", attackKind: "cardinal" },
-        { geometry: "straight-long-approach", attackKind: "cardinal" },
-      ]
+    ? fresh
+      ? [{ geometry: "bent-long-approach", attackKind: "cardinal" }]
+      : [
+          { geometry: "bent-near", attackKind: "cardinal" },
+          { geometry: "straight-long-approach", attackKind: "cardinal" },
+        ]
     : economic
       ? [
           { geometry: "bent-near", attackKind: "cardinal" },
@@ -149,11 +167,14 @@ if (process.argv.includes("--bridge-defence") || extended) {
       // Historical bridge fixture already has a strike due at 1/16 tick.
       // New valueless scenarios isolate only the explicit opposing inputs below.
       if (reactive) initial.pending = [];
-      if (geometry === "bent-near") {
+      if (geometry.startsWith("bent")) {
         setOwner(initial, 103, 0);
         for (const cell of [999102, 999103, 999104]) setOwner(initial, cell, 1);
       }
-      if (geometry === "straight-long-approach") {
+      if (
+        geometry === "straight-long-approach" ||
+        geometry.startsWith("bent-long")
+      ) {
         const source = initial.cannons.find((c) => c.id === 3),
           ball = initial.balls.find((b) => b.owner === 2);
         setOwner(initial, source.cell, 0);
@@ -170,7 +191,7 @@ if (process.argv.includes("--bridge-defence") || extended) {
         const b = initial.balls.find((b) => b.owner === 2);
         b.vx = -1;
       }
-      const target = geometry === "bent-near" ? 999103 : 103;
+      const target = geometry.startsWith("bent") ? 999103 : 103;
       const catalog = JSON.parse(
         readFileSync("config/agents/players.public.json"),
       ).players;
@@ -260,7 +281,9 @@ if (process.argv.includes("--bridge-defence") || extended) {
         elapsed_ms: r.elapsed_ms,
       });
       if (adaptive) {
-        const seed = (geometry === "bent-near" ? 17 : 28) + (heldOut ? 5 : 0);
+        const seed = geometry.startsWith("bent-long")
+          ? 41
+          : (geometry.startsWith("bent") ? 17 : 28) + (heldOut ? 5 : 0);
         const threatTick = (seed % 2) + 1;
         const waitChoice = { action: { Wait: {} }, quote: { amount_e8s: 0n } };
         const fire = {
@@ -578,7 +601,9 @@ if (process.argv.includes("--bridge-defence") || extended) {
         assert.equal(
           ownReceipts[0].status,
           admission === 0 ||
-            (geometry === "straight-long-approach" && admission === 2)
+            ((geometry === "straight-long-approach" ||
+              geometry.startsWith("bent-long")) &&
+              admission === 2)
             ? "applied"
             : "rejected",
         );
@@ -774,7 +799,9 @@ const result = {
   limitations: adaptive
     ? [
         "Synthetic exact-kernel state, not IC-certified data",
-        "Two deterministic threat timings across distinct geometries; seeds are not a population sample",
+        fresh
+          ? "One combined geometry, seed 41, both cannon positions; no broad generalisation"
+          : "Two deterministic threat timings across distinct geometries; seeds are not a population sample",
         "Equal tested-response weights are not measured opponent probabilities",
         "0/20/60s defender delays; untested delays and future purchases remain unknown",
         "No billed IC cycles or live admission-latency measurement",

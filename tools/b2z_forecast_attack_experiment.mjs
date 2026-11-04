@@ -24,12 +24,18 @@ import {
 const out = process.argv[2] ?? ".work/b2z-forecast-attack";
 mkdirSync(out, { recursive: true });
 const archive =
+  process.argv[3] ??
   "evidence/B2Z/closed-loop-counterplay-2026-11-04/heldout-results.json.gz";
-const data = parse(gunzipSync(readFileSync(archive)).toString());
+const bytes = readFileSync(archive);
+const data = parse(
+  (archive.endsWith(".gz") ? gunzipSync(bytes) : bytes).toString("utf8"),
+);
 const started = performance.now(),
   rows = [];
 let replayWork = 0,
-  forecastWork = 0;
+  forecastWork = 0,
+  forecastReportedWork = 0,
+  uncertainForecasts = 0;
 const fee = 10000n,
   workLimit = 2000000;
 function bound() {
@@ -159,6 +165,8 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
     ...p,
     quote: p.quote ?? { amount_e8s: 0n },
   }));
+  const allowance = Math.min(100000, workLimit - replayWork - forecastWork);
+  assert.ok(allowance > 0, "Offline forecast work budget exhausted");
   const evaluation = await evaluateActions(
     new BoardAnalysis(context.snapshot),
     context.account,
@@ -167,14 +175,21 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
       horizon: 4,
       maxCandidates: 5,
       maxMs: 5000,
-      maxWork: Math.min(100000, workLimit - replayWork - forecastWork),
+      maxWork: allowance,
       delaySeconds: [0, 5, 10],
       includeStates: true,
     },
   );
-  forecastWork += evaluation.cache_hit
-    ? 0
-    : (evaluation.measurements.total_work ?? 0);
+  if (!evaluation.cache_hit) {
+    const reported = evaluation.measurements.total_work;
+    const known = Number.isSafeInteger(reported) && reported >= 0;
+    forecastReportedWork += known ? reported : 0;
+    const uncertain = evaluation.status !== "complete" || !known;
+    forecastWork += uncertain
+      ? Math.max(allowance, known ? reported : 0)
+      : reported;
+    if (uncertain) uncertainForecasts++;
+  }
   bound();
   // Selection receives only the observed state and its bounded predictions.
   const selection = chooseForecastAttack(
@@ -262,7 +277,9 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
       },
       rows,
       replay_work: replayWork,
-      forecast_work: forecastWork,
+      forecast_work: forecastReportedWork,
+      forecast_work_budget_charge: forecastWork,
+      uncertain_forecast_runs: uncertainForecasts,
       elapsed_ms: performance.now() - started,
     }),
   );
@@ -284,8 +301,10 @@ console.log(
   "PASS",
   rows.length,
   "decisions;",
+  replayWork + forecastReportedWork,
+  "reported work units;",
   replayWork + forecastWork,
-  "work units;",
+  "budget charge;",
   (performance.now() - started).toFixed(1),
   "ms",
 );
