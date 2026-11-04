@@ -23,12 +23,19 @@ import {
 import {
   BoardAnalysis,
   ballOutcomes,
+  defendedIslandSupport,
 } from "../packages/agents/b2z/analysis.mjs";
 import { quoteAction } from "../packages/agents/b2z/actions.mjs";
 import { evaluateActions } from "../packages/agents/b2z/forecast.mjs";
-import { decide, POLICY_VERSION } from "../packages/agents/b2z/policies.mjs";
+import {
+  decide,
+  POLICY_VERSION,
+  choosePublicAttack,
+} from "../packages/agents/b2z/policies.mjs";
 import { fractionSub, stringify } from "../packages/agents/b2z/common.mjs";
 const lateCounterplay = process.argv.includes("--late-counterplay");
+const closedLoop = process.argv.includes("--closed-loop");
+const heldOut = process.argv.includes("--held-out");
 const adaptive = process.argv.includes("--adaptive-defence");
 const economic = process.argv.includes("--economic-defence");
 const extended =
@@ -157,6 +164,11 @@ if (process.argv.includes("--bridge-defence") || extended) {
         // Endow a connected friendly approach so this scenario has an actual incoming threat.
         for (let y = 1; y <= 100; y++) setOwner(initial, y * 1000 + 103, 3);
       }
+      if (heldOut) {
+        // Held-out opening velocity; unchanged geometry and canonical rules.
+        const b = initial.balls.find((b) => b.owner === 2);
+        b.vx = -1;
+      }
       const target = geometry === "bent-near" ? 999103 : 103;
       const catalog = JSON.parse(
         readFileSync("config/agents/players.public.json"),
@@ -206,6 +218,7 @@ if (process.argv.includes("--bridge-defence") || extended) {
         (p) => p.account === account,
       ).id;
       const metrics = (r) => ({
+        defended_island: defendedIslandSupport(r.world, account, cannon.cell),
         score_delta: r.delta,
         ...r.outcomes,
         live_supporting_ball_ids: r.world.balls
@@ -243,7 +256,7 @@ if (process.argv.includes("--bridge-defence") || extended) {
         elapsed_ms: r.elapsed_ms,
       });
       if (adaptive) {
-        const seed = geometry === "bent-near" ? 17 : 28;
+        const seed = (geometry === "bent-near" ? 17 : 28) + (heldOut ? 5 : 0);
         const threatTick = (seed % 2) + 1;
         const waitChoice = { action: { Wait: {} }, quote: { amount_e8s: 0n } };
         const fire = {
@@ -269,21 +282,77 @@ if (process.argv.includes("--bridge-defence") || extended) {
         const responses = [
           ["original", 49152, 0],
           ["alternate", 57344, 0],
-          ["changed-angle-delayed", 40960, 2],
+          [
+            closedLoop ? "changed-angle" : "changed-angle-delayed",
+            40960,
+            closedLoop ? 0 : 2,
+          ],
           ["wait", null, 0],
         ];
+        const followups = closedLoop
+          ? [...responses, ["extra-ball", 49152, 0], ["public-policy", null, 0]]
+          : responses;
         function stream(response, trace) {
           return (tick, world) => {
             if (tick === threatTick) return opposingInputs[1];
             if (
               tick !== (lateCounterplay ? 14 : 4) + response[2] ||
-              response[1] === null
+              (response[1] === null && response[0] !== "public-policy")
             )
               return [];
             const observed = { world, configuration: ENTRY_CONFIG };
-            const a = {
-              Fire: { cannon: enemy.id, angle: response[1], quantity: 1 },
+            let a = {
+              Fire: {
+                cannon: enemy.id,
+                angle: response[1],
+                quantity: response[0] === "extra-ball" ? 2 : 1,
+              },
             };
+            const remaining =
+              75000000n -
+              (ballPrice(territoryBallCount(initial, enemy.id)) + fee);
+            let decision = null;
+            if (response[0] === "public-policy") {
+              const proposals = [{ id: "wait", action: { Wait: {} } }];
+              for (const [id, angle, quantity] of [
+                ["original", 49152, 1],
+                ["alternate", 57344, 1],
+                ["changed-angle", 40960, 1],
+                ["extra-ball", 49152, 2],
+              ]) {
+                const action = { Fire: { cannon: enemy.id, angle, quantity } };
+                try {
+                  const quote = quoteAction(observed, enemy.account, action);
+                  if (quote.amount_e8s + fee <= remaining)
+                    proposals.push({ id, action, quote });
+                } catch (error) {
+                  if (!["NOT_OWNER", "BALL_CAPACITY"].includes(error.message))
+                    throw error;
+                }
+              }
+              decision = choosePublicAttack(
+                {
+                  world,
+                  account: enemy.account,
+                  cannon: enemy.id,
+                  remaining_e8s: remaining,
+                  fee_e8s: fee,
+                },
+                proposals,
+              );
+              const selected = proposals.find(
+                (p) => p.id === decision.candidate,
+              );
+              trace.push({
+                tick,
+                decision,
+                remaining_budget_e8s: remaining,
+                public_state: sha256(encodeWorld(world)),
+                proposals,
+              });
+              if (selected.action.Wait) return [];
+              a = selected.action;
+            }
             try {
               const q = quoteAction(observed, enemy.account, a);
               const spent = opposingInputs[1].reduce(
@@ -314,7 +383,7 @@ if (process.argv.includes("--bridge-defence") || extended) {
             }
           };
         }
-        for (const response of responses) {
+        for (const response of followups) {
           const waitTrace = [],
             base = run(
               initial,
@@ -361,6 +430,9 @@ if (process.argv.includes("--bridge-defence") || extended) {
               horizon_logical_ticks: horizon,
               budget_e8s: budget,
               attacker_budget_e8s: 75000000n,
+              attacker_remaining_e8s:
+                75000000n - candidate.opponent_full_cost_e8s,
+              defender_remaining_e8s: budget - candidate.full_cost_e8s,
               attacker_score_delta: fractionSub(
                 score(actual.world, enemy.account),
                 score(initial, enemy.account),

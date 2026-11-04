@@ -794,3 +794,28 @@ export function ballOutcomes(before, after, audits, account) {
     opposing_ball_losses: opposing,
   };
 }
+
+/** Resolve a defended location in THIS snapshot; island labels are not persistent. */
+export function defendedIslandSupport(world, account, cell) {
+  const player = world.playability.players.find(
+    (p) => p.account === account,
+  )?.id;
+  const label = ownerAt(world, cell);
+  const owned =
+    player !== undefined &&
+    world.playability.territories.some(
+      (t) => t.id === label && t.player === player,
+    );
+  const balls = owned
+    ? world.balls.filter(
+        (b) => b.owner === player && ownerAt(world, b.cell) === label,
+      )
+    : [];
+  return {
+    cell,
+    snapshot_island: owned ? label : null,
+    supporting_ball_ids: balls.map((b) => b.id),
+    active: balls.length > 0,
+    player_ball_count: world.balls.filter((b) => b.owner === player).length,
+  };
+}

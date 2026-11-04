@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 /** Summarise exact-kernel trials; no network, signer, or campaign access. */
 import { readFileSync, writeFileSync } from "node:fs";
-import { parse, stringify } from "../packages/agents/b2z/common.mjs";
+import {
+  parse,
+  stringify,
+  fractionSub,
+  fractionCmp,
+} from "../packages/agents/b2z/common.mjs";
 import { decide, decideCounterplay } from "../packages/agents/b2z/policies.mjs";
 const path = process.argv[2];
 const data = parse(readFileSync(path, "utf8"));
@@ -11,7 +16,9 @@ for (const key of [
 ]) {
   const trials = data.rows.filter((r) => `${r.geometry}:${r.seat}` === key);
   const names = [...new Set(trials.map((r) => r.policy))];
-  const responses = [...new Set(trials.map((r) => r.response))];
+  const responses = [...new Set(trials.map((r) => r.response))].filter(
+    (r) => !["public-policy", "extra-ball"].includes(r),
+  );
   const candidates = names.map((id) => ({
     id,
     action:
@@ -25,22 +32,28 @@ for (const key of [
   }));
   const evaluation = {
     kind: "local-counterplay",
+    investment_budget_e8s: 1000000n, // Frugal experimental allocation: 0.01 ICP, not signing authority.
     candidates,
     responses,
-    rows: trials.map((r) => ({
-      candidate: r.policy,
-      response: r.response,
-      status: r.response_observation.some((o) => o.status)
-        ? "unassessed"
-        : "complete",
-      casualty_attribution_complete: r.candidate.casualty_attribution_complete,
-      incremental_score: r.incremental_canonical_score,
-      full_cost_e8s: r.candidate.full_cost_e8s,
-      support_survivors: r.candidate.live_supporting_ball_ids.length,
-      territory: r.candidate.territory,
-      incremental_opponent_losses:
-        r.candidate.opponent_balls_lost - r.wait.opponent_balls_lost,
-    })),
+    rows: trials
+      .filter((r) => responses.includes(r.response))
+      .map((r) => ({
+        candidate: r.policy,
+        response: r.response,
+        status: r.response_observation.some((o) => o.status)
+          ? "unassessed"
+          : "complete",
+        casualty_attribution_complete:
+          r.candidate.casualty_attribution_complete,
+        incremental_score: r.incremental_canonical_score,
+        full_cost_e8s: r.candidate.full_cost_e8s,
+        support_survivors: r.candidate.live_supporting_ball_ids.length,
+        defended_island_support:
+          r.candidate.defended_island.supporting_ball_ids.length,
+        territory: r.candidate.territory,
+        incremental_opponent_losses:
+          r.candidate.opponent_balls_lost - r.wait.opponent_balls_lost,
+      })),
   };
   const forecasts = trials.map((r) => ({
     candidate: r.policy,
@@ -108,7 +121,50 @@ for (const key of [
       note: "Worst observed defender canonical score; not a proven minimax or attacker profit optimum",
     };
   });
+  const closedLoop = trials
+    .filter((r) => r.response === "public-policy")
+    .map((actual) => {
+      const alternatives = trials.filter(
+        (r) =>
+          r.policy === actual.policy &&
+          r.response !== "public-policy" &&
+          !r.response_observation.some((o) => o.status),
+      );
+      alternatives.sort(
+        (a, b) =>
+          fractionCmp(b.attacker_score_delta, a.attacker_score_delta) ||
+          Number(
+            a.candidate.opponent_full_cost_e8s -
+              b.candidate.opponent_full_cost_e8s,
+          ),
+      );
+      const conservation = alternatives.find((r) => r.response === "wait"),
+        best = alternatives[0];
+      const fixed = alternatives.find((r) => r.response === "original");
+      return {
+        defence: actual.policy,
+        public_decision: actual.response_observation.find((o) => o.decision),
+        realised_attacker_score: actual.attacker_score_delta,
+        score_gap_to_tested_oracle: fractionSub(
+          best.attacker_score_delta,
+          actual.attacker_score_delta,
+        ),
+        oracle_response: best.response,
+        incremental_score_vs_conservation: fractionSub(
+          actual.attacker_score_delta,
+          conservation.attacker_score_delta,
+        ),
+        full_cost_e8s: actual.candidate.opponent_full_cost_e8s,
+        extra_cost_vs_conservation_e8s:
+          actual.candidate.opponent_full_cost_e8s -
+          conservation.candidate.opponent_full_cost_e8s,
+        fixed_repeat_score: fixed?.attacker_score_delta,
+        conservation_score: conservation.attacker_score_delta,
+        oracle_is_hindsight: true,
+      };
+    });
   groups.push({
+    closedLoop,
     key,
     comparison,
     baselinePolicies,

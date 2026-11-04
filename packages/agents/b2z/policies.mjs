@@ -132,22 +132,27 @@ export function decideV1(
 export function decide(
   policy,
   evaluation,
-  { version = POLICY_VERSION, ...options } = {},
+  {
+    version = evaluation.kind === "local-counterplay"
+      ? "b2z-counterplay-2"
+      : POLICY_VERSION,
+    ...options
+  } = {},
 ) {
-  if (
-    evaluation.kind === "local-counterplay" &&
-    ["anchor-defender", "frugal-expander", "adaptive-allocator"].includes(
-      policy,
-    )
-  ) {
-    return decideCounterplay(policy, evaluation);
-  }
   check(
-    [POLICY_VERSION, PREVIOUS_POLICY_VERSION, LEGACY_POLICY_VERSION].includes(
-      version,
-    ),
+    [
+      POLICY_VERSION,
+      PREVIOUS_POLICY_VERSION,
+      LEGACY_POLICY_VERSION,
+      "b2z-counterplay-2",
+    ].includes(version),
     "UNKNOWN_POLICY_VERSION",
   );
+  if (evaluation.kind === "local-counterplay") {
+    check(version === "b2z-counterplay-2", "POLICY_EVALUATION_MISMATCH");
+    return decideCounterplay(policy, evaluation);
+  }
+  check(version !== "b2z-counterplay-2", "POLICY_EVALUATION_MISMATCH");
   if (version === LEGACY_POLICY_VERSION)
     return decideV1(policy, evaluation, options);
   if (version === POLICY_VERSION && policy === "adaptive-allocator") {
@@ -325,7 +330,10 @@ export function decideCounterplay(policy, evaluation) {
     if (
       rows.some(
         (r) =>
-          !r || r.status !== "complete" || !r.casualty_attribution_complete,
+          !r ||
+          r.status !== "complete" ||
+          !r.casualty_attribution_complete ||
+          !Number.isSafeInteger(r.defended_island_support),
       )
     ) {
       unassessed.push(candidate.id);
@@ -350,7 +358,9 @@ export function decideCounterplay(policy, evaluation) {
       worst_incremental_score: Math.min(...gains),
       exact_mean_increment: mean,
       exact_worst_increment: worst,
-      worst_support_survival: Math.min(...rows.map((r) => r.support_survivors)),
+      worst_support_survival: Math.min(
+        ...rows.map((r) => r.defended_island_support),
+      ),
       worst_territory: Math.min(...rows.map((r) => r.territory)),
       mean_opponent_losses:
         rows.reduce((n, r) => n + r.incremental_opponent_losses, 0) /
@@ -387,7 +397,11 @@ export function decideCounterplay(policy, evaluation) {
     (r) =>
       r.exact_mean_increment[0] > 0n &&
       r.exact_worst_increment[0] >= 0n &&
-      r.worst_support_survival >= baseline.worst_support_survival,
+      (policy === "frugal-expander" ||
+        r.worst_support_survival >= baseline.worst_support_survival) &&
+      (policy !== "frugal-expander" ||
+        (evaluation.investment_budget_e8s !== undefined &&
+          r.full_cost_e8s <= evaluation.investment_budget_e8s)),
   );
   // A defence pays only for a demonstrated survival improvement or nonnegative
   // counterplay benefit. Preserve ICP when all assessed investments have downside.
@@ -409,14 +423,83 @@ export function decideCounterplay(policy, evaluation) {
   );
   return {
     policy,
-    version: "b2z-counterplay-1",
+    version: "b2z-counterplay-2",
     candidate: eligible[0]?.candidate ?? wait.id,
     pareto: pareto.map((r) => r.candidate),
     summaries,
     unassessed,
     scope: "Local planning only; no campaign consent or payment authority",
-    rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Other policies prefer cheaper improvements; no weighted utility.",
+    rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Frugal instead requires an explicit investment budget and prefers cheaper nonnegative-score improvements; no weighted utility.",
     uncertainty:
       "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
+  };
+}
+
+/** Public geometric target choice, not trajectory prediction or hindsight.
+ * Receives only the current observation and affordable typed proposals.
+ */
+export function choosePublicAttack(observation, proposals) {
+  const wait = proposals.find((p) => p.id === "wait");
+  check(wait, "WAIT_REQUIRED");
+  const { world, account, cannon, remaining_e8s, fee_e8s } = observation;
+  check(
+    typeof remaining_e8s === "bigint" &&
+      remaining_e8s >= 0n &&
+      typeof fee_e8s === "bigint" &&
+      fee_e8s >= 0n,
+    "BUDGET_REQUIRED",
+  );
+  proposals = proposals.filter(
+    (p) =>
+      p.action.Wait ||
+      (typeof p.quote?.amount_e8s === "bigint" &&
+        p.quote.amount_e8s + fee_e8s <= remaining_e8s),
+  );
+  const own = world.cannons.find(
+    (c) => c.id === cannon && c.account === account,
+  );
+  check(own, "NOT_OWNER");
+  const player = world.playability.players.find(
+    (p) => p.account === account,
+  )?.id;
+  const wrap = (d) => (d > 500 ? d - 1000 : d < -500 ? d + 1000 : d);
+  const targets = world.balls
+    .filter((b) => b.owner !== player)
+    .map((b) => ({
+      id: b.id,
+      dx: wrap((b.cell % 1000) - (own.cell % 1000)),
+      dy: wrap(Math.floor(b.cell / 1000) - Math.floor(own.cell / 1000)),
+    }));
+  targets.sort(
+    (a, b) =>
+      Math.abs(a.dx) + Math.abs(a.dy) - Math.abs(b.dx) - Math.abs(b.dy) ||
+      a.id - b.id,
+  );
+  if (!targets.length)
+    return {
+      candidate: wait.id,
+      version: "public-attack-1",
+      reason: "No public opposing ball target; preserve ICP.",
+    };
+  const t = targets[0];
+  const angle =
+    t.dy < 0
+      ? Math.abs(t.dx) * 2 < Math.abs(t.dy)
+        ? 49152
+        : t.dx < 0
+          ? 40960
+          : 57344
+      : null;
+  const selected = proposals.find(
+    (p) => p.action.Fire?.angle === angle && p.action.Fire.quantity === 1,
+  );
+  return {
+    candidate: selected?.id ?? wait.id,
+    version: "public-attack-1",
+    target_ball: t.id,
+    reason:
+      "Choose an affordable single-ball approach toward the nearest public enemy ball by toroidal cell geometry; no future outcome inspected.",
+    limitations:
+      "Cell geometry ignores future reflection and admission changes; additional quantity is offered but this frugal attacker does not assume redundant fire is worthwhile.",
   };
 }
