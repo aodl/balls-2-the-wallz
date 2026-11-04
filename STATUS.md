@@ -1,3 +1,23 @@
+# Fresh geometry — bounded generalisation check
+
+Parent `ff10c80` passed all six substantive jobs in CI `41869373848`; production
+inventory remains separately BLOCKED. Continued without waiting for a merge on
+`development/b2z-fresh-geometry`; tools-only source `e5f7f1a`.
+
+A new combined bridge/approach case passed 60 exact-kernel arms. Forecast comparison
+is mixed: five gains, three ties, two score losses, with 1.6004 fewer synthetic ICP
+spent across ten independent cases. Three forecast evaluations complete, four
+partial, three time out. Earlier all-Wait replication and a 120-arm bound FAIL are
+preserved. No policy change was fitted to this result.
+
+Incomplete forecasts now reserve their full work allowance in the offline batch
+budget while reported work remains separate. Forty-seven focused tests pass;
+canonical hash/budget checks pass. New-source CI awaits publication. No production,
+spending, campaign, kernel, executor, DTR or identity operation.
+[Evidence, exact costs, bounds, reproduction and remaining limitations](evidence/B2Z/fresh-geometry-2026-11-04/REPORT.md).
+
+---
+
 # Bounded forecast attack experiment — 4 November 2026
 
 Parent `5730a14` passed all six substantive CI jobs in run `41823976844`; its
