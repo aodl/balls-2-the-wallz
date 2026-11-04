@@ -1,0 +1,95 @@
+{
+  "checked_at_utc": "2026-11-02T15:42:21.640565+00:00",
+  "remote_head": "86a23440aa4d9a11c27bc0b1ff01d898abccd1a7",
+  "local_executable_source": "899adec2562b250c59e9c8d66bcc4c3a263da6c2",
+  "ci": [
+    {
+      "id": 41457498231,
+      "head_sha": "4026bf2fc824d71658ffa017255d03f9c628428e",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/41457498231",
+      "jobs": [
+        {
+          "name": "Runtime-lab Wasm",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "S14 and million-cell installed-IC qualification",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native conformance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "BLOCKED production inventory (not a pass)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Source conformance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Browser HTTP and Web Crypto",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Packaged DTR and clean consumers",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 41467400216,
+      "head_sha": "86a23440aa4d9a11c27bc0b1ff01d898abccd1a7",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/41467400216",
+      "jobs": [
+        {
+          "name": "Runtime-lab Wasm",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native conformance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Packaged DTR and clean consumers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "BLOCKED production inventory (not a pass)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "S14 and million-cell installed-IC qualification",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Source conformance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Browser HTTP and Web Crypto",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

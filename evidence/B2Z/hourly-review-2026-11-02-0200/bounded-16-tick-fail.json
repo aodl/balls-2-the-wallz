@@ -1,0 +1,280 @@
+{
+  "schema": "b2z-agent/1",
+  "operation": "evaluate_actions",
+  "provenance": {
+    "network": "ic",
+    "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+    "head": {
+      "$integer": "83671"
+    },
+    "logical_time": {
+      "$integer": "137822"
+    },
+    "root": "53d69bb851b863148f6756636b7c5bb7c467303635e5d6cfae7f95967c2ab176",
+    "manifest": "75e6bc9d7af175c22ce17eb30b8be3a47929a610706742fbd873be8b441b742d",
+    "state": "202b70f7067549aa15d94510bab8d314b5e07c5ad246670add248d89813c84cb",
+    "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+    "epoch_index": {
+      "$integer": "4"
+    },
+    "source_cursor": {
+      "$integer": "39970750"
+    },
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+    "trust": "certificate-verifier",
+    "observation_age_ms": 11067.704616,
+    "history_gaps": [],
+    "units": {
+      "cell": "row-major y*1000+x, 1 cell; toroidal 1000x1000",
+      "position": "exact rational fixed-point units, 1024 units/cell",
+      "velocity": "fixed-point units/logical tick",
+      "heading": "unsigned nat16 full turn for actions; no degree rounding",
+      "elapsed": "consensus-observed nanoseconds",
+      "money": "integer e8s; wallet fee separate",
+      "score": "canonical rational accrued area-time"
+    }
+  },
+  "classification": {
+    "facts": "Authenticated state and original event artifacts, if provenance.trust is certificate-verifier",
+    "derived": "All summaries, geometry, prices and metrics are local derivations from that state",
+    "predictions": "Only explicitly labelled forecasts; not authenticated futures",
+    "operational": "Pace, wallet budgets and pending transactions are separately sourced, not certified gameplay"
+  },
+  "engine": {
+    "kind": "existing-rust-kernel; interrupted before metadata"
+  },
+  "status": "hard_timeout",
+  "candidates": [
+    {
+      "id": "wait",
+      "action": {
+        "Wait": {}
+      },
+      "quote": {
+        "amount_e8s": {
+          "$integer": "0"
+        }
+      },
+      "rationale": "No new expenditure; existing trajectories continue.",
+      "full_cost_e8s": {
+        "$integer": "0"
+      }
+    },
+    {
+      "id": "move-6-44796",
+      "action": {
+        "Move": {
+          "cannon": 6,
+          "cell": 44796
+        }
+      },
+      "quote": {
+        "action": {
+          "Move": {
+            "cannon": 6,
+            "cell": 44796
+          }
+        },
+        "amount_e8s": {
+          "$integer": "10000"
+        },
+        "per_item_e8s": [
+          {
+            "$integer": "10000"
+          }
+        ],
+        "maximum_fill": 1,
+        "requested_quantity": 1,
+        "island_pool": 0,
+        "memo_hex": "d60000000600aefc",
+        "text_memo": "MOVE 6 44796",
+        "non_reservation": true,
+        "notice": "Wallet fee is extra. Legality/prices are rechecked at processing. Partial fills, rejected payments and surplus remain retained."
+      },
+      "rationale": "Legal owned cell near sampled frontier/connection; final admission may reject a stale destination.",
+      "full_cost_e8s": {
+        "$integer": "20000"
+      }
+    },
+    {
+      "id": "move-6-45796",
+      "action": {
+        "Move": {
+          "cannon": 6,
+          "cell": 45796
+        }
+      },
+      "quote": {
+        "action": {
+          "Move": {
+            "cannon": 6,
+            "cell": 45796
+          }
+        },
+        "amount_e8s": {
+          "$integer": "10000"
+        },
+        "per_item_e8s": [
+          {
+            "$integer": "10000"
+          }
+        ],
+        "maximum_fill": 1,
+        "requested_quantity": 1,
+        "island_pool": 0,
+        "memo_hex": "d60000000600b2e4",
+        "text_memo": "MOVE 6 45796",
+        "non_reservation": true,
+        "notice": "Wallet fee is extra. Legality/prices are rechecked at processing. Partial fills, rejected payments and surplus remain retained."
+      },
+      "rationale": "Legal owned cell near sampled frontier/connection; final admission may reject a stale destination.",
+      "full_cost_e8s": {
+        "$integer": "20000"
+      }
+    }
+  ],
+  "forecasts": [
+    {
+      "planned_transfer_e8s": {
+        "$integer": "0"
+      },
+      "candidate": "wait",
+      "scenario": "no-new-opponent-actions",
+      "status": "complete",
+      "assumed_opponent_actions": [],
+      "logical_ticks_completed": 16,
+      "action_admitted_within_horizon": false,
+      "assumed_transfer_e8s": {
+        "$integer": "0"
+      },
+      "canonical_score_delta": [
+        {
+          "$integer": "8111446186593750000"
+        },
+        {
+          "$integer": "1108249664306640625"
+        }
+      ],
+      "territory_before": 444,
+      "territory_after": 449,
+      "balls_before": 2,
+      "balls_after": 2,
+      "own_balls_lost": 0,
+      "opponent_balls_lost": 0,
+      "opposing_ball_losses": [],
+      "cannons_after": 1,
+      "islands_after": 1,
+      "dormant_cannons": 0,
+      "capture_annihilations": 0,
+      "receipt_outcomes": []
+    },
+    {
+      "planned_transfer_e8s": {
+        "$integer": "0"
+      },
+      "candidate": "wait",
+      "scenario": "plausible-public-last-heading-response",
+      "status": "complete",
+      "assumed_opponent_actions": [
+        {
+          "tick": 1,
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "action": {
+            "Fire": {
+              "cannon": 8,
+              "angle": 49152,
+              "quantity": 1
+            }
+          },
+          "amount_e8s": {
+            "$integer": "40000000"
+          },
+          "selection": "nearest active opposing cannon; toroidal squared distance then cannon ID",
+          "unknown": "Future intent, funds and payment admission are not known."
+        }
+      ],
+      "logical_ticks_completed": 16,
+      "action_admitted_within_horizon": false,
+      "assumed_transfer_e8s": {
+        "$integer": "0"
+      },
+      "canonical_score_delta": [
+        {
+          "$integer": "8111446186593750000"
+        },
+        {
+          "$integer": "1108249664306640625"
+        }
+      ],
+      "territory_before": 444,
+      "territory_after": 449,
+      "balls_before": 2,
+      "balls_after": 2,
+      "own_balls_lost": 0,
+      "opponent_balls_lost": 0,
+      "opposing_ball_losses": [],
+      "cannons_after": 1,
+      "islands_after": 1,
+      "dormant_cannons": 0,
+      "capture_annihilations": 0,
+      "receipt_outcomes": []
+    }
+  ],
+  "bounds": {
+    "horizon": 16,
+    "max_candidates": 3,
+    "max_work": 60000,
+    "hard_wall_ms": 5300
+  },
+  "measurements": {
+    "elapsed_ms": 5321.742762,
+    "worker_ms": 4547.755998000001,
+    "total_work": 13848
+  },
+  "assumptions": {
+    "scenarios": [
+      {
+        "name": "no-new-opponent-actions",
+        "delay_ticks": 0,
+        "tick_ns": {
+          "$integer": "5000000000"
+        },
+        "opponent": false
+      },
+      {
+        "name": "plausible-public-last-heading-response",
+        "delay_ticks": 7,
+        "tick_ns": {
+          "$integer": "5000000000"
+        },
+        "opponent": true
+      },
+      {
+        "name": "delayed-admission-opponent-first",
+        "delay_ticks": 14,
+        "tick_ns": {
+          "$integer": "5000000000"
+        },
+        "opponent": true
+      }
+    ],
+    "opponent_selection": "Nearest active opposing cannon at response time, toroidal distance then ID; public heading only. No assumed dormant revival. Intent/funds/admission remain unknown.",
+    "deterministic": "Actual existing B2zCursor with explicit synthetic future Ledger positions and consensus-time facts; never mainnet mutation",
+    "unknowns": [
+      "Future opponent payments and budgets",
+      "Ledger/Index discovery and admission order",
+      "First-spawn sealed inputs",
+      "Actual wall-clock pacing"
+    ],
+    "latency": {
+      "source_fallback_seconds": 60,
+      "index_lag": "not bounded by fallback alone",
+      "browser_presentation": "Separate buffered delay; not payment admission"
+    },
+    "uncertainty": "Scenario outcomes are predictions, not authenticated futures. Delayed actions beyond this logical horizon are not executed in the scenario.",
+    "zero_funding_rate": false
+  }
+}

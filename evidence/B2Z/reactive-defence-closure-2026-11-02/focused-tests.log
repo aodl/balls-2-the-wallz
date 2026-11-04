@@ -1,0 +1,46 @@
+✔ lossless JSON preserves large integers and rational values (2.304432ms)
+✔ sector aggregation retains every owner and conserves one million cells (23.612623ms)
+✔ toroidal region inspection comes entirely from the local snapshot (22.024101ms)
+✔ missing history is reported, never replaced by invented events (7.238299ms)
+✔ player summary preserves exact canonical accrued score and shared island pool (12.948177ms)
+✔ typed actions reject unknown fields and out-of-range raw headings (0.67911ms)
+✔ raw heading 65535 remains exact; no unrepresentable decimal memo is substituted (19.173462ms)
+✔ candidate budget includes fee and always permits wait (19.298264ms)
+✔ passive baseline spends nothing and ranking chooses the stronger forecast (2.782738ms)
+✔ forecasts run the exact kernel with explicit time facts and bound every scenario (187.248261ms)
+✔ forecast cache binds the entire publication reference even when state bytes match (244.940851ms)
+✔ agent action options expose exact costs and campaign-specific rejection reasons at one head (6.60099ms)
+✔ an agent can inspect a specific owned cannon and cannot select an opponent (25.121543ms)
+✔ local candidate consent and execution share the same toroidal proximity check (9.278427ms)
+✔ shortlists retain both fire and movement rather than filling every slot with one action type (11.626759ms)
+✔ agent money inputs reject unsafe numeric JSON and preserve exact integer strings (0.71911ms)
+✔ file workers discard only parent source-selection flags and retain security/runtime flags (0.214403ms)
+✔ campaign forecasts do not intentionally trade unknown players balls and distinguish natural losses (1.242017ms)
+✔ bounded firing shortlists cover all eight exact coarse headings across rotations (23.465221ms)
+✔ marginal policy ranking does not punish a purchase for score already earned by waiting (1.331519ms)
+✔ selecting a cannon never falls back to paying for a new one under another account (4.459961ms)
+✔ response forecasts choose a nearby active opponent rather than the first dormant account (6.547989ms)
+✔ a dormant-only opposing world is not revived by a hypothetical response without evidence (104.55283ms)
+✔ interrupted forecasts name missing scenarios and cannot appear fully assessed (0.579508ms)
+✔ dormant-world revival compares the same elapsed window while keeping logical progress explicit (215.311645ms)
+✔ zero funding pace never produces invented immediate admission or progressing physics (3.434447ms)
+✔ manual or admission pauses do not become funding reductions or assumed resumes (8.121011ms)
+✔ operational sample age and funding changes remain separate from an unchanged game head (4.147757ms)
+✔ an immediate benefit is not robust across unassessed 60/120-second delays (0.665409ms)
+✔ adaptive allocator ignores passive accrual and unmatched opponent effects (0.858412ms)
+✔ controlled-population conditional shortlist needs trusted approval and one matching certified head (0.963513ms)
+✔ public price reference agrees with kernel occupancy pricing and capacity (2.234331ms)
+✔ operational reference withholds purchase encouragement while paused, unbound or unhealthy (0.380605ms)
+✔ healthy idle is distinct from pause, errors and an active authenticated world (0.321704ms)
+✔ reserve protection disables encouragement and never disguises preserved pending payments (0.294204ms)
+✔ reserve protection replaces the indefinite catch-up spinner only after verification and fresh healthy operations (0.596908ms)
+✔ operator pause and unverified source cannot promise funding-only resumption (0.333904ms)
+✔ fresh verified operator pause stops the BUFFERING spinner and distinguishes unchecked sources (0.429406ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1217.28225

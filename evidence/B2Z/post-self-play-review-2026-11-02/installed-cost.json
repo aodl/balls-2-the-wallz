@@ -1,0 +1,7 @@
+{
+  "module_sha256": "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e",
+  "net_cycles": "147542753614",
+  "scope": "One disposable fixture with real upstream Ledger/Index, signed ordinary identities, no mainnet funds or sustained throughput claim",
+  "status": "PASS",
+  "wall_seconds": 243.086558887
+}

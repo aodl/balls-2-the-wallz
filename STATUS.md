@@ -1,3 +1,163 @@
+# Diagnostic frontend release — published, CI green and deployed
+
+Published source `aa3a202fa91c640af2f425658f9036fe75a87830` passed all six substantive
+jobs in CI `41495569371` and is ready for ordinary merge into master. Production
+inventory remains separately BLOCKED. The exact frozen frontend assets are now
+publicly deployed and hash-verified; app SHA-256
+`8ee6c13b059413ea39af40044dca9f0883773c603a51645aefa4d013fa80fe98`.
+
+One focused live read-only mobile check passed at 320×640 and 390×844: thirteen
+accessible controls, no notice/toolbar intersection, separated status/minimap,
+verified non-spinning Reserve Protection at head 85761. Certificate-verified
+backend/observer Wasm, controllers and 34-node fiduciary placement are unchanged.
+No backend deployment, gameplay operation, ICP spending or campaign restart.
+[Exact CI, deployed identities, mobile evidence and strategic findings](evidence/B2Z/frontend-diagnostic-deployment-2026-11-02/REPORT.md).
+
+This closing evidence commit does not change the qualified executable bytes.
+Historical status entries below describe their original observation time.
+
+---
+
+# Diagnostic precedence closure — source ready, publication pending
+
+New executable source `899adec` aligns Settings with transition/error/binding/
+operator-stop/Reserve precedence. Nine focused diagnostic tests PASS. The prepared
+frontend app is `8ee6c13b059413ea39af40044dca9f0883773c603a51645aefa4d013fa80fe98`;
+no assets were uploaded. Exact new-head CI is required before merge/deployment.
+
+Direct GitHub inspection confirms `86a2344` was already published. Its changes
+after reviewed `c2dc7c2` are evidence/STATUS only, not product implementation.
+No authenticated publishing environment is available here; operator push is needed
+for the newly committed range. Prior successful CI on `4026bf2` remains preserved;
+production inventory stays substantively BLOCKED.
+
+A bounded follow-up uses the same kernel/runner: twenty paid comparisons share four
+Wait controls with matched budgets, equal-cost attack routes and canonical birth/
+death attribution. Cheap early Move protects one route; additional support or paid
+revival helps against the alternate connection at higher cost. No rule, price,
+signer, DTR, backend or campaign change; no real ICP spent.
+[Audit, tests, exact economic outcomes and publication state](evidence/B2Z/release-diagnostic-closure-2026-11-02/REPORT.md).
+
+---
+
+# Reactive-defence closure and unobscured pause notices
+
+Source `c2dc7c2` fixes notice/toolbar overlap on short mobile screens and gives
+fresh manual-stop states a non-spinning message, distinguishing unchecked sources.
+The frozen frontend passed actual rectangle-intersection/accessibility checks at
+320×640 and 390×844. Packaged locally; not deployed.
+
+The new isolated experiment removes an inherited pending strike only from its
+synthetic setup, preserving historical fixtures/evidence. Eighteen matched pairs
+show timely reactive defence succeeds on a friendly approach corridor; nearby or
+60-second-late movement fails. A cardinal-plus-diagonal attack defeats the single
+cell defence, at a higher attack cost. No rules/prices/executor/DTR change.
+
+PASS: 38 focused regressions and eighteen receipt-checked pairs (89,941 work units,
+13.339 seconds). No ICP spent; campaign remains expired/stopped. Conditional
+ranking remains planning-only; future validity/authenticity must derive from
+trusted durable state and population must be rechecked before dispatch.
+[Results, fixture confound, UI evidence and identities](evidence/B2Z/reactive-defence-closure-2026-11-02/REPORT.md).
+
+---
+
+# Tactical review — mobile and bounded planning corrections
+
+`bbf8617` tightens healthy Reserve Protection messaging, keeps mobile status above
+the minimap, adds a planning-only controlled-population conditional shortlist and
+extends the existing matched runner with Move-versus-Wait bridge defence.
+No production changes, spending, new approval or expired-campaign restart.
+
+PASS: 89 agent/reference tests, 37 final focused regressions, 20 native/reference
+comparisons, six bridge pairs and a two-viewport mobile browser check. Immediate
+Move preserves three cells; delays 2/4 are rejected after the split. No excessive
+counterplay or authoritative defect is established by this one geometry.
+
+Published workflow correction `dc4447b` passes native, source, browser, dependency
+and Wasm jobs in run 41438652555; installed-IC qualification also passed.
+The published workflow correction now has overall SUCCESS on its exact commit.
+The new follow-up source remains local and awaits its own publication/CI. The current campaign remains ineligible for
+conditional planning (expired approval and an outside retained cannon).
+[Exact results and packaged frontend identities](evidence/B2Z/tactical-review-2026-11-02/REPORT.md).
+
+---
+
+# CI follow-up — missing native-job npm installation corrected
+
+CI 41436115233 tested pushed `d7b7ee1` and failed only the JS/native forecast
+subcheck: npm dependencies were absent in the native job. The public artifact
+confirms all other native checks passed. The workflow now installs the existing
+locked packages before execution. Local twelve-check native suite: OVERALL PASS;
+fresh npm installation followed by twenty forecast comparisons: PASS.
+The workflow correction awaits operator push and exact-commit CI. No game code,
+production state, spending authority or dependency versions changed.
+[Definitive failure and correction](evidence/B2Z/post-self-play-review-2026-11-02/ci-followup/REPORT.md).
+
+---
+
+# Focused post-self-play corrections — local PASS, exact-commit CI pending
+
+Executable candidate `b4a00231b91d6029cdb5ffa3cfdc39f0c8ae518a` corrects
+same-horizon newborn casualties, counterfactual consent comparisons, adaptive
+reward attribution and player-scoped proposal access. Formatting is isolated in
+`9550a83`; agent corrections are `a66d55e`. All eight policy types remain.
+The prepared frontend replaces the indefinite Reserve Protection catch-up spinner
+with an honest pause message; no authenticated playback changes.
+
+PASS: 106 focused JS tests, 20 native/reference comparisons, native format/clippy,
+16 matched local policy/candidate rows, exact-candidate mobile HTTP check and one
+corrected installed-IC Ledger/Index/receipt/duplicate/restart rehearsal. Genuine
+original casualty and stale-harness failures remain preserved. No real ICP spent,
+backend/DTR/rules change, production deployment or new campaign.
+
+CI 41419529020 for earlier `b7adfda` has a Native conformance failure; its exact
+subcheck is unavailable through the unauthenticated log API (403). Operator log
+text requested. The new candidate awaits operator push and exact-commit CI; it
+is not claimed release-qualified. The completed campaign remains expired/stopped.
+[Focused report, hashes, tests, comparisons and mobile evidence](evidence/B2Z/post-self-play-review-2026-11-02/REPORT.md).
+
+---
+
+# B2Z overnight pilot — expired, fully reconciled
+
+The approved paid window ended 2 November 2026 at 07:14:09.902 UTC. The runner
+stopped automatically; its persistent stop flag is set and no paid campaign is
+active. All 32 overnight transfers are applied and independently match official
+Index records and Ledger balances. Overnight spend 3.6058 ICP; including the prior
+smoke, 4.7059 ICP total. Exactly 3.2941 ICP remains in the four ordinary accounts.
+All 33 receipt archives reverify. No unresolved payment or automatic top-up.
+
+Production rules 7 / schema 6 / epoch 4 remain unchanged on the 34-node fiduciary
+subnet. Genuine certified module/controller checks pass. Gameplay naturally entered
+ReserveProtection; source maintenance remains healthy. No manual override or new
+paid authority was used. Agent fixes are local commits with focused tests; remote
+CI has not run. Further hourly work is read-only or local unless a new campaign
+is explicitly approved.
+[Full results, remaining balances, exact identities, screenshots and limitations](evidence/B2Z/overnight-campaign-closeout-2026-11-02/REPORT.md).
+
+---
+
+# B2Z overnight agent pilot — running, bounded approval
+
+All four funded agents are admitted with authenticated applied receipts and
+same-page join presentation. The operator approved up to eight hours using the
+verified frozen remaining balances (6.8999 ICP including fees), ending 2 November
+2026 at 07:14:09.902 UTC. One retained cannon/two live balls per account, no top-ups,
+no deliberate outside-player attacks and one unresolved transfer per payer remain.
+The earlier single-account smoke spent 1.1001 ICP separately. Actual current spend
+and unresolved status are time-stamped in the linked interim report.
+
+Raider's live Move at block 39967473 has a complete receipt and no-refresh
+presentation witness at exact destination 546296. Earlier harness FAILs remain
+preserved. The existing Rust kernel now provides useful bounded local forecasts;
+48 focused JS tests and 18 native equality comparisons pass. Adjacent friendly
+cannon launches pass 24 independent Rust/JS stages without a gameplay defect.
+Agent-only commits are local; production backend/frontend and economics are
+unchanged. Remote CI has not run for these unpublished commits.
+[Findings, tests, interim spending and limitations](evidence/B2Z/overnight-pilot-local-foundations-2026-11-01/REPORT.md).
+
+---
+
 # B2Z first real agent payment — PASS
 
 The operator-funded Expander completed one restricted live join: Ledger block

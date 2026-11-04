@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {mkdtempSync,readFileSync,rmSync} from 'node:fs';import {tmpdir} from 'node:os';import {join} from 'node:path';
-import {GameExecutor,policyHash} from '../../packages/agents/b2z/executor.mjs';
+import {GameExecutor,policyHash,playerProposalInterface} from '../../packages/agents/b2z/executor.mjs';
 import {DfxGameLedger,playerCommandEnvironment} from '../../packages/agents/b2z/ledger-dfx.mjs';
 import {decodeWorld,PLAYABILITY_CONFIG} from '../../packages/kernels/b2z/world.mjs';
 const original=JSON.parse(readFileSync(new URL('../../config/agents/pilot.proposed.json',import.meta.url))),fixture=JSON.parse(readFileSync(new URL('../fixtures/rules-v6.json',import.meta.url)));
@@ -38,3 +38,18 @@ test('authoritative duplicate outcome is distinct and never submits a second tra
 
 test('one-account smoke approval excludes every other catalog player before preparation',async t=>{const first=original.players[0].alias,s=setup(t,{campaignChanges:{approved_player_aliases:[first]}});await assert.rejects(s.e.prepare_action(s.c.players[1].alias,{New:{angle:0,quantity:2,cell:null}}),/PLAYER_NOT_APPROVED/);assert.equal(s.calls,0);});
 test('plaintext acknowledgement is explicit, player-only and per-command',()=>{const base={DFX_WARNING:'inherited',DFX_IDENTITY_PASSPHRASE:'synthetic',DFX_IDENTITY:'codex_local'};const alias=original.players[0].alias;const a=playerCommandEnvironment(base,'/home/test',alias,'ic');assert.equal(a.DFX_WARNING,undefined);assert.equal(a.DFX_IDENTITY_PASSPHRASE,undefined);assert.equal(a.DFX_IDENTITY,alias);assert.equal(playerCommandEnvironment(base,'/home/test',alias,'ic',true).DFX_WARNING,'-mainnet_plaintext_identity');assert.equal(playerCommandEnvironment(base,'/home/test',alias,'pocketic-local',true).DFX_WARNING,undefined);assert.equal(base.DFX_WARNING,'inherited');assert.throws(()=>playerCommandEnvironment(base,'/home/test','codex_local','ic',true),/PLAYER_IDENTITY_ONLY/);});
+
+test('individually frozen wallet ceilings include reservations and cannot borrow another player budget',async t=>{const caps=Object.fromEntries(original.players.map((p,i)=>[p.alias,i===0?'10000999':'200000000'])),s=setup(t,{campaignChanges:{per_player_max_e8s:'999999999',per_player_max_e8s_by_alias:caps}});await assert.rejects(s.e.prepare_action(s.player,s.fire()),/PLAYER_BUDGET/);assert.equal(s.calls,0);const other=s.c.players[1];const p=await s.e.prepare_action(other.alias,{New:{angle:0,quantity:1,cell:null}});assert.equal(p.plan.full_cost_e8s,100010000n);});
+test('malformed per-player money ceilings cannot open an executor',async t=>{const s=setup(t);assert.throws(()=>new GameExecutor({campaign:{...s.c,id:'bad-ceiling',per_player_max_e8s_by_alias:{[s.player]:'1e8'}},journal:join(s.dir,'bad.db'),observer:s.observer,ledger:s.ledger,localMock:true}),/PLAYER_BUDGET_CONFIG/);});
+
+test('independent player capability can only prepare own proposals and cannot sign',async t=>{
+ const s=setup(t),scope=playerProposalInterface(s.e,s.player),other=s.c.players[1].alias;
+ assert.equal(scope.submit_action,undefined);assert.equal(scope.submit_player_proposal,undefined);assert.equal(scope.reconcile,undefined);assert.equal(scope.emergency_stop,undefined);
+ await assert.rejects(scope.prepare_action({player:other,action:{New:{angle:0,quantity:1,cell:null}}}),/PLAYER_SCOPE/);
+ await assert.rejects(scope.prepare_action({action:s.fire(),destination:s.c.recipient}),/REQUEST_FIELDS/);
+ const own=await scope.prepare_action({action:s.fire()});assert.equal(own.plan.player,s.player);
+ const theirs=await s.e.prepare_action(other,{New:{angle:0,quantity:1,cell:null}});
+ assert.throws(()=>scope.action_status(theirs.plan_id),/PLAYER_SCOPE/);
+ await assert.rejects(s.e.submit_player_proposal(s.player,theirs.plan_id,s.c.id),/PLAYER_SCOPE/);
+ assert.equal(s.calls,0);assert.equal((await s.e.submit_player_proposal(s.player,own.plan_id,s.c.id)).status,'ledger_accepted');assert.equal(s.calls,1);
+});

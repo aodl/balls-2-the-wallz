@@ -1,0 +1,4574 @@
+{
+  "status": "PASS",
+  "at": "2026-11-02T08:03:23.408Z",
+  "campaign": "b2z-overnight-20261101",
+  "original_expiry_ns": {
+    "$integer": "1793603649902000000"
+  },
+  "stopped": true,
+  "signing_enabled": false,
+  "scope": "Read-only official Ledger balances and official Index exact transfer matching; historical B2Z receipt proofs reverified, fresh final authenticated snapshot. No payment sent.",
+  "players": [
+    {
+      "alias": "b2z-agent-expander",
+      "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+      "opening_frozen_balance_e8s": {
+        "$integer": "89990000"
+      },
+      "spent_e8s": {
+        "$integer": "260000"
+      },
+      "remaining_balance_e8s": {
+        "$integer": "89730000"
+      },
+      "actions": 13
+    },
+    {
+      "alias": "b2z-agent-defender",
+      "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+      "opening_frozen_balance_e8s": {
+        "$integer": "200000000"
+      },
+      "spent_e8s": {
+        "$integer": "130170000"
+      },
+      "remaining_balance_e8s": {
+        "$integer": "69830000"
+      },
+      "actions": 10
+    },
+    {
+      "alias": "b2z-agent-raider",
+      "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+      "opening_frozen_balance_e8s": {
+        "$integer": "200000000"
+      },
+      "spent_e8s": {
+        "$integer": "120100000"
+      },
+      "remaining_balance_e8s": {
+        "$integer": "79900000"
+      },
+      "actions": 6
+    },
+    {
+      "alias": "b2z-agent-adaptive",
+      "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+      "opening_frozen_balance_e8s": {
+        "$integer": "200000000"
+      },
+      "spent_e8s": {
+        "$integer": "110050000"
+      },
+      "remaining_balance_e8s": {
+        "$integer": "89950000"
+      },
+      "actions": 3
+    }
+  ],
+  "transactions": [
+    {
+      "plan_id": "22668756dfba2f02a56efafbd04064f7dc0ffac82c5db83ea292687df89c5e0f",
+      "player": "b2z-agent-defender",
+      "block_index": "39965749",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "110000000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793574963226000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39965749"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "14285418030904114944"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "110000000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793574968684748850"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793574963226000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39965749",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "81676"
+          },
+          "logical_time": {
+            "$integer": "135827"
+          },
+          "root": "a2e9d2b8ac61489bbaa3b13f7943ec954eddfff3acb957a6cb841b8558fd25b8",
+          "manifest": "62b7b7c5e833f903bfc3861b69be9e89682faee36c276c922e79fefed1bf5bda",
+          "state": "9bf635c7c3a779e3db9260010688a41461e611e151ef99ccb1829c524c9596f2",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39965750"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 6,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "39965749"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793575027558807979"
+        }
+      }
+    },
+    {
+      "plan_id": "378f41e8591ef2a3a08856bf59dca872144909e77c0334e088caf3f1c57bc9a0",
+      "player": "b2z-agent-raider",
+      "block_index": "39965854",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "110000000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793575119334000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39965854"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "14303432429413596928"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+              "amount": {
+                "e8s": {
+                  "$integer": "110000000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793575122909453863"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793575119334000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39965854",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "81700"
+          },
+          "logical_time": {
+            "$integer": "135851"
+          },
+          "root": "a4cf81221713e48d12ffffb5af871b6ad2adf48b8d2cec4e40b27c0b6c6ce5b6",
+          "manifest": "f3da4ca65a62655e5e6efcc9e491bf46766fa2ec6f0adf59f9d87552c9052ba7",
+          "state": "df3c233bf1ac7011a30e5bd0fe2d8afa90a24bb9e66cbefdfd8e808c2367f8e8",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39965855"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 7,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "39965854"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793575146092679296"
+        }
+      }
+    },
+    {
+      "plan_id": "91b6d0bdaac627353e71dbea8c4e4da84de5f9aee128b6d34bd0b89dccd26c20",
+      "player": "b2z-agent-adaptive",
+      "block_index": "39965882",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "110000000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793575162938000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39965882"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "14321446827923078912"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+              "amount": {
+                "e8s": {
+                  "$integer": "110000000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793575166619649478"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793575162938000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39965882",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "81712"
+          },
+          "logical_time": {
+            "$integer": "135863"
+          },
+          "root": "582020407cd1ae001e2a0eda2ddc99fd1b1bcd699f05f5f21bd25093fab807dc",
+          "manifest": "d81ca22aaf117266c6597ebeb96f814019bde3d6b775aa9c21a18edd6659c039",
+          "state": "56a4bc1c2e8c5cabbd858ec9e7fd262ba3ffc04b3cea74add3dde55730950426",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39965883"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "actual_quantity": 2,
+          "amount": {
+            "$integer": "110000000"
+          },
+          "amount_used": {
+            "$integer": "110000000"
+          },
+          "cannon": 8,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            {
+              "$integer": "100000000"
+            },
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "39965882"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 2,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793575206403444624"
+        }
+      }
+    },
+    {
+      "plan_id": "08354b7e65529882762157a2f5a2939400d06dccfc79c09136e1c0c29f52d1e7",
+      "player": "b2z-agent-expander",
+      "block_index": "39966992",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793576688971000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39966992"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793576692509896734"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793576688971000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39966992",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82014"
+          },
+          "logical_time": {
+            "$integer": "136165"
+          },
+          "root": "44dec3b34afa310eb71524617cc70191fd27f54bcd59da59b77f7ff6bab836f8",
+          "manifest": "52d8f6397012509b0485f697a0a2bcb9ae872e0c0962e62fdc6d36041a44c514",
+          "state": "eb49479abeb7dd67ca9023aca3a048bdb4ceaef320b26b6fbfaaffb548ea0529",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39966993"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547797,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39966992"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793576717631680564"
+        }
+      }
+    },
+    {
+      "plan_id": "89208cb4d5c09cb386f2c1812196347280951e27cc59808a29f47626e1fae4d9",
+      "player": "b2z-agent-defender",
+      "block_index": "39967174",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793576904732000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39967174"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217288396"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793576908165600122"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793576904732000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39967174",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82062"
+          },
+          "logical_time": {
+            "$integer": "136213"
+          },
+          "root": "3987a93ef4ccd911514e1d5bd15e1c21e7a90f44b2fd6573d79a0c97b540c8a9",
+          "manifest": "c14af94ac649632029e216af94623b4d290340cc77b4a48271c8112cc752b298",
+          "state": "e1b481b14fc9814f0d94663458710ec8e891fe3b7db403dd7dd9d4c50fbaaea4",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39967175"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 46796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 47797,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39967174"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793577019725974824"
+        }
+      }
+    },
+    {
+      "plan_id": "5641fe5125aca264c92e2522bc4148c4b4177f2621d73634df850483091cc1af",
+      "player": "b2z-agent-adaptive",
+      "block_index": "39967338",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793577156187000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39967338"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124250986079"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793577160852933853"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793577156187000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39967338",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82110"
+          },
+          "logical_time": {
+            "$integer": "136261"
+          },
+          "root": "026d4d7d7fe73dcb46a10dcb1a82d6eb6190cecc91cd10a0bfcaf654677d74e6",
+          "manifest": "246729edc378471aaeb6bebba6c1d2179818e93ba6113f915ec9088d11c38b8c",
+          "state": "d8991766c76cacd949d9ea56bc1624824d1349a07c88fad5ab4f8f3a8aef3fe4",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39967339"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "after": 190047,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 297047,
+          "cannon": 8,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39967338"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793577197930016573"
+        }
+      }
+    },
+    {
+      "plan_id": "52b29136cd381f6110a57ce18f8edc448ae25e8c5796c62bbde0eca67ed23a46",
+      "player": "b2z-agent-raider",
+      "block_index": "39967473",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793577376392000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39967473"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124234565112"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793577378489354208"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793577376392000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39967473",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82159"
+          },
+          "logical_time": {
+            "$integer": "136310"
+          },
+          "root": "660a8b325115d9fd2659a36de47b014039c566471f4d8ca89f3ef63292cbea38",
+          "manifest": "8760da7ab884976e0d16dccec2d6b9ab8cac84d100b95f99815d5b2623bcfa62",
+          "state": "46617253a6bf85950070769462c59062449e61ff2eb107acfade41558f884ba7",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39967474"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "after": 546296,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547297,
+          "cannon": 7,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39967473"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793577441511304527"
+        }
+      }
+    },
+    {
+      "plan_id": "f4606d866d787291f04f38ec980c346495a4515b9203615cb5ed5085928e6f29",
+      "player": "b2z-agent-defender",
+      "block_index": "39968151",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793578417715000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39968151"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "17726168133435129857"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793578420063788263"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793578417715000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39968151",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82364"
+          },
+          "logical_time": {
+            "$integer": "136515"
+          },
+          "root": "95359e86021fbbc5486ee5de38e4e74d508a4a1ef18b739918853dc63316711c",
+          "manifest": "0a53c7e6486e67c6158d03e09d1bd562441c1c47f2966aefd4e1210c416b28b0",
+          "state": "7624f5a0009688358535dc50d7fb02e11dbee6e99a5368ed550db08bdb8cf01c",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39968152"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "actual_quantity": 1,
+          "amount": {
+            "$integer": "10000000"
+          },
+          "amount_used": {
+            "$integer": "10000000"
+          },
+          "cannon": 6,
+          "kind": "purchase_completed",
+          "new_cannon": false,
+          "per_item_prices": [
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "39968151"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 1,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793578465349364731"
+        }
+      }
+    },
+    {
+      "plan_id": "03e3160892d84035aff91072a43e062cc60c272c9dbb71c8e2b9ad2e0a4e5385",
+      "player": "b2z-agent-defender",
+      "block_index": "39969419",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580285748000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969419"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "17726168133430935553"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580289223791110"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580285748000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969419",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82737"
+          },
+          "logical_time": {
+            "$integer": "136888"
+          },
+          "root": "ca4ea0dc9afcb6a8d5ba9c08873628880642d77c56bdbf0063a402797e0adc95",
+          "manifest": "9214afe7922d348f00005abea8d4c9984f5e453f5ea7be2a01ac6a8ee1591589",
+          "state": "1d508a7db7e0e5db263c9a2c464bd7b2bed0212d4728246529056f2835053075",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969420"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "actual_quantity": 1,
+          "amount": {
+            "$integer": "10000000"
+          },
+          "amount_used": {
+            "$integer": "10000000"
+          },
+          "cannon": 6,
+          "kind": "purchase_completed",
+          "new_cannon": false,
+          "per_item_prices": [
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "39969419"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 1,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793580332300042708"
+        }
+      }
+    },
+    {
+      "plan_id": "677e7e9e342e5e9259911bf87e692003a3f4df17a029cd92ffb5753420d5cb54",
+      "player": "b2z-agent-defender",
+      "block_index": "39969455",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580364359000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969455"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217287396"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580367412669052"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580364359000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969455",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82750"
+          },
+          "logical_time": {
+            "$integer": "136901"
+          },
+          "root": "0c57458882e0d1004a48f5ab5e681d3f3bc30654e2f9462a56846b32915d3bb5",
+          "manifest": "3b21ed3a044bfe4506b09b84ad67862bb0a5c3ba789b8f8d792b7c8bc3174eb8",
+          "state": "3f489dfcd60e64c1a767e6be16355293c0ab3607e154154416d003c9af46e498",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969456"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 45796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 46796,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969455"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793580394803994337"
+        }
+      }
+    },
+    {
+      "plan_id": "7ffaa0cb85247586a824f8a9be1c8b49d7ba1c3ad4338c98d89fead338786b82",
+      "player": "b2z-agent-raider",
+      "block_index": "39969557",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580543449000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969557"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "17726168133454004225"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580545571179299"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580543449000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969557",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82786"
+          },
+          "logical_time": {
+            "$integer": "136937"
+          },
+          "root": "8840edeb201d089e447e085d53fc7b94bea4f1782be97ce35461ae2f532bad58",
+          "manifest": "f97999f4e13e0adc9eb47b1d43f36ac2445d7d33c2366022863e882f788a75f6",
+          "state": "1deee22b2009c4e7346d064e845c5cb9839ee31dcda4c44dadc32c97d6c520ce",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969558"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "actual_quantity": 1,
+          "amount": {
+            "$integer": "10000000"
+          },
+          "amount_used": {
+            "$integer": "10000000"
+          },
+          "cannon": 7,
+          "kind": "purchase_completed",
+          "new_cannon": false,
+          "per_item_prices": [
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "position": {
+            "$integer": "39969557"
+          },
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "requested_quantity": 1,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793580574963626451"
+        }
+      }
+    },
+    {
+      "plan_id": "86ce9aa61fccc616211ed728faa316f3a63c7f7baf2c6c73208d164db404056b",
+      "player": "b2z-agent-raider",
+      "block_index": "39969648",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580682016000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969648"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124234563113"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580686095382265"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580682016000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969648",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82810"
+          },
+          "logical_time": {
+            "$integer": "136961"
+          },
+          "root": "3336375dc0843d865d88fdbec9f4abf9de3d08ceec098544503aad8fe5d05762",
+          "manifest": "b72070057eed390dae058d8ed5be6e2b27a8203901f39d387e43f9898eadaa39",
+          "state": "e473f494524877d0f9f0366b0788b12be9f5f7ee92a58833d6651612870046e7",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969649"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "after": 544297,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546296,
+          "cannon": 7,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969648"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793580694670557436"
+        }
+      }
+    },
+    {
+      "plan_id": "a76c70ae6f91be699b9d5c7da377bacef66c4dfd90ec35f11b5b3215414d0b26",
+      "player": "b2z-agent-raider",
+      "block_index": "39969688",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580748677000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969688"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124234561111"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580752883359053"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580748677000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969688",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82834"
+          },
+          "logical_time": {
+            "$integer": "136985"
+          },
+          "root": "830524f6af02fe2e206aa63f6c3e3f75006223cbca03b67c6d0111c6bca18d93",
+          "manifest": "62a55a318311ce9e2cf3e27fc837e5c7a2d12d67bdaa5b458abd32d1d9a22b8f",
+          "state": "5b485fcae4dd6a5404e455959c03f57eb752a29be05aa4625eebce71a8ec068c",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969689"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "after": 542295,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 544297,
+          "cannon": 7,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969688"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793580814869103744"
+        }
+      }
+    },
+    {
+      "plan_id": "a0b053d4862f5b0fc3d1dcc0c80eaf4e626ce4a6b41a40ed75ddda5ee2cd2126",
+      "player": "b2z-agent-raider",
+      "block_index": "39969731",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580858943000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969731"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124234561113"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580862224695086"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580858943000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969731",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82846"
+          },
+          "logical_time": {
+            "$integer": "136997"
+          },
+          "root": "39ab2321106d84ee5c9fc2276efcaddb460a9f595d9175af2a926753f62636a8",
+          "manifest": "5644edb328d7c5754edc328cc0ce32e55f1a206d5dff6222bf6aeee5c6a17757",
+          "state": "c326d24516cdca63f7cc5705f99d5ec34a14092d0cd053edba870d5ef305bc5b",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969732"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "after": 542297,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 542295,
+          "cannon": 7,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969731"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793580879508162517"
+        }
+      }
+    },
+    {
+      "plan_id": "084dcba5d3e572a3ff9f0e4f1acb2bd7e805a86b8cdd2a28c3f30475a918754d",
+      "player": "b2z-agent-defender",
+      "block_index": "39969809",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793580982951000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969809"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217288450"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580986168441963"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793580982951000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969809",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82870"
+          },
+          "logical_time": {
+            "$integer": "137021"
+          },
+          "root": "bde8b19a42aca2820d4147f8f38063ad1e81f3c026dc768435de45052906af1a",
+          "manifest": "49e08108df3b067c9a6410203ee14aa0edc42c64dd2c98c3b96d906203d6d52d",
+          "state": "49137b95e82c760ec142ac767626787187c2f59334c7261ac3321ee3d7b5ce67",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969810"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 46850,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 45796,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969809"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793581000188803051"
+        }
+      }
+    },
+    {
+      "plan_id": "7aec1f5c533031f6df5050b92f0b4f8005d2722d4832bde0c39a3adbe4c6648c",
+      "player": "b2z-agent-defender",
+      "block_index": "39969847",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793581046077000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969847"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217286396"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793581049733499570"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793581046077000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969847",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82882"
+          },
+          "logical_time": {
+            "$integer": "137033"
+          },
+          "root": "01ff9a235c19b825112b88f3f323deb4b65c16c76b086c84bc27d575aabe0f39",
+          "manifest": "2cd905c3b0e701be6c76134a2a54f8df172b92dd9f537007b0910cfb97ed862d",
+          "state": "dd0a6bcf6fa4fdc89e493643038fc2a42aadb42855e3b8936534d8ff8a62e9ce",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969848"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 44796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 46850,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969847"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793581055422569300"
+        }
+      }
+    },
+    {
+      "plan_id": "42859904a7458e423298a67a2c5f4859448eae14bd4707d110548cf3765123f2",
+      "player": "b2z-agent-defender",
+      "block_index": "39969890",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793581109431000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969890"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217288357"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793581112532959916"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793581109431000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969890",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82907"
+          },
+          "logical_time": {
+            "$integer": "137058"
+          },
+          "root": "05209b5fcc4b044db4a5d778f2b80779f1b79e85973c806601cb28dfdb2818ea",
+          "manifest": "fda62c68c88d1d8df04c2f6f7621743950de1ac874041a8580570cdc2f7e4539",
+          "state": "973e92e5357ea3655691863a46c4522cdd6cdce98a30b7c6ba47ea9c9389bfda",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969891"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 46757,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 44796,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969890"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793581180196246392"
+        }
+      }
+    },
+    {
+      "plan_id": "e8d2ea46a241762782cc45af4abdaee3b3e09f0445eadcff9caf0f3d2d3f358c",
+      "player": "b2z-agent-defender",
+      "block_index": "39969957",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793581222130000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39969957"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217285396"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793581226932769407"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793581222130000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39969957",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "82919"
+          },
+          "logical_time": {
+            "$integer": "137070"
+          },
+          "root": "d5a3b5d406e2abff82b2c45b503c1729f7a44069332af61d6c34caa726f70daa",
+          "manifest": "f74b56d9ca7fb3fbd58746197e0037d0bcb67d02dabf7483fd18d5784b38c696",
+          "state": "84d93dc4fe1446ceaddf5ee1944955b84aa37134784525283bf37821b4b9268c",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39969958"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 43796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 46757,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39969957"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793581240410032979"
+        }
+      }
+    },
+    {
+      "plan_id": "b75b96053b36c8f948032acce026830331a254effdc0a978c89f1e5459d00a27",
+      "player": "b2z-agent-adaptive",
+      "block_index": "39970749",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793582656445000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39970749"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124250987079"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793582659479928403"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793582656445000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39970749",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "83210"
+          },
+          "logical_time": {
+            "$integer": "137361"
+          },
+          "root": "d8c103a45a31eeb37551b6db525317469b0b0bd3697c512846c39c405a41f72b",
+          "manifest": "9ed132dd7dd62894b6a6420ea8eb3a47bc8c507950e62ff28e53044e87594145",
+          "state": "f6727e534dcdf9613d3c3f5ea5769b820b408ce451043d01903ed3ece175779f",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39970750"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "after": 191047,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 190047,
+          "cannon": 8,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39970749"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793582696405367986"
+        }
+      }
+    },
+    {
+      "plan_id": "43071e6000cce45def753dff055b04e54f2a8806bdc358825c7c7e7fd406cc6a",
+      "player": "b2z-agent-defender",
+      "block_index": "39975600",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793591498577000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39975600"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124217287396"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793591503470026378"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793591498577000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39975600",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "84977"
+          },
+          "logical_time": {
+            "$integer": "139128"
+          },
+          "root": "aea7bf470d9141dd1936ef072712784e351b776afd814a3da1e385189be4495e",
+          "manifest": "7e0241f1aa5fafac134d14cafbc335d8763b48f5310d0b3278e688010371637f",
+          "state": "9ba601a3812ed53a0c3fce27e7d840a06c5137f1aa5ff7dbd256a921a3c7b3bd",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39975601"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "after": 45796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 43796,
+          "cannon": 6,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39975600"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793591539784300785"
+        }
+      }
+    },
+    {
+      "plan_id": "d50a1efc8f42a6cb6e005c58e91f09399d41652db106ac1c093a34807b767919",
+      "player": "b2z-agent-expander",
+      "block_index": "39975728",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793591883710000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39975728"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011384"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793591886945605725"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793591883710000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39975728",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85049"
+          },
+          "logical_time": {
+            "$integer": "139200"
+          },
+          "root": "23546858c801d352873920a0bfa90cfc8144bef3030a7382f15f831a0c7d736e",
+          "manifest": "92decf44a84e41be974013b304220b20d62109f9fd0f8fa3c53ce66ab4cb7265",
+          "state": "5b1c5954004a3ef540cf0cd0c8701b1efc54ccb8959225d0556c65cf661a5717",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39975729"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 547000,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546796,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39975728"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793591901168854306"
+        }
+      }
+    },
+    {
+      "plan_id": "08ef6af44fb06b072fe04565e65b706760702468b6ef52c613b4da3e2fe64051",
+      "player": "b2z-agent-expander",
+      "block_index": "39975777",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793592011121000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39975777"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793592013389017033"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793592011121000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39975777",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85073"
+          },
+          "logical_time": {
+            "$integer": "139224"
+          },
+          "root": "f82a63e5db05f233862de04515bc1307644c905703bbafa23fd5cfd9c8a18a4e",
+          "manifest": "5942a082568a48b53a889b5e19f51ef2dbe5a8f99a8ac155464ff3dfe4e62033",
+          "state": "b55da7424392a65290089d61d81394465edc3a326dcbd6afcaf5c67c1ab1fa1e",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39975778"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547000,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39975777"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793592020267544871"
+        }
+      }
+    },
+    {
+      "plan_id": "32e3d5ff42a48c13862f2b9a130adb311044855eb0c86f1185c8195f10fcc237",
+      "player": "b2z-agent-expander",
+      "block_index": "39977066",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793594408929000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39977066"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011384"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793594411742695929"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793594408929000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39977066",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85466"
+          },
+          "logical_time": {
+            "$integer": "139617"
+          },
+          "root": "e1ac6f94b0866a587993bdf92d1aa5489f40a243e4106199c05390cd383ae34d",
+          "manifest": "d3b51667e0da86c951e2040ef8194d0a30e61cac53260bb39fa3bd62f42eb4f0",
+          "state": "619d02d4db9871caf699016c6fd372713813221ce84c9ff9f31840b90e3ea177",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39977067"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 547000,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546796,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39977066"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793594441792980268"
+        }
+      }
+    },
+    {
+      "plan_id": "0abb1b4a39d63da498d758c987c1fd1805645023200ed1f83737fedc1d6b13dd",
+      "player": "b2z-agent-expander",
+      "block_index": "39977166",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793594618358000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39977166"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793594620694665939"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793594618358000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39977166",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85490"
+          },
+          "logical_time": {
+            "$integer": "139641"
+          },
+          "root": "fb638474d488aed0ddb7c758d42361d1c0eb895a7f1cfe10de23ba0cfcdca9b6",
+          "manifest": "eab3e05c5e3af4ad896cb05e937682c60171730f36b8efa29074b3f5eeeb8afc",
+          "state": "fa629f49d863b2a6f967aab038904c0c3a27ab80677760af843c9f1c4e8358f9",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39977167"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547000,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39977166"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793594682777208374"
+        }
+      }
+    },
+    {
+      "plan_id": "3991f0bfaba92c8e8d64b74b322db5bf31e2ab1e2929d6768dc2112ee4923214",
+      "player": "b2z-agent-expander",
+      "block_index": "39977306",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793594983684000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39977306"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011384"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793594987753683428"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793594983684000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39977306",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85527"
+          },
+          "logical_time": {
+            "$integer": "139678"
+          },
+          "root": "c50d08e2321d8807124d51b60444bd421d926411020ee64f6a7bf58654a210e6",
+          "manifest": "9bb710de32626414c1d13c93016ac1c44b95fa6970681811b7c9328dc4879ad4",
+          "state": "5d324ffa735d2fd1c5c9d419e35916a4ce766401e2f5a75b7493d6072e89c06b",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39977307"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 547000,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546796,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39977306"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793595051855193035"
+        }
+      }
+    },
+    {
+      "plan_id": "cf2103127621a5fcdc94fcaca25e902e6b6afae1c04fc60e21b23c4516d8143f",
+      "player": "b2z-agent-expander",
+      "block_index": "39977398",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793595228072000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39977398"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793595230244993238"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793595228072000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39977398",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85551"
+          },
+          "logical_time": {
+            "$integer": "139702"
+          },
+          "root": "622b0d9065f9de7bbff3bd450431cff14a2a58e619c621e996d847a25f88ac7e",
+          "manifest": "5dc076177e21626520aaa1fcc5d7aebb7e2878796213484f50990df0d964383f",
+          "state": "4587285c2d9fac790d5553feeb3450e19380a5558406cf9c859a7ff886a5280b",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39977399"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547000,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39977398"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793595292268243476"
+        }
+      }
+    },
+    {
+      "plan_id": "8b323e96db19c56e6cd8c4c8892102801eae1c6cd141bb6216303455dd07af9c",
+      "player": "b2z-agent-expander",
+      "block_index": "39977642",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793595842956000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39977642"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011384"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793595844793255242"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793595842956000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39977642",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85611"
+          },
+          "logical_time": {
+            "$integer": "139762"
+          },
+          "root": "98e9be6c47249418f7bb84066852da861a226cdc5af15d2c68f92beea12d9b37",
+          "manifest": "5eb3c510ea08b9a8860ac0f27aa60f8539b5eb19416d3e228019275add7c3c35",
+          "state": "d3fc100ae8ad601ad12cb99131b1d1cdbf5698b2bec701f05d1e368a0a3d06f2",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39977643"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 547000,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546796,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39977642"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793595893262769901"
+        }
+      }
+    },
+    {
+      "plan_id": "7bef66f306e09ce54f201972fe9fd7473087ae87d9e8c278895e7c10afb0a3fa",
+      "player": "b2z-agent-expander",
+      "block_index": "39977718",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793596063600000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39977718"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793596066160937189"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793596063600000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39977718",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85630"
+          },
+          "logical_time": {
+            "$integer": "139781"
+          },
+          "root": "8e93fa852eacc6b1b8501e09aa2279d8db08597281ea8c2d22d510f89472ec9d",
+          "manifest": "1fd69c14c415f2b5516f673ee0013248c7a61e58a63e93bb256b23479ed256fb",
+          "state": "a0f5377e5cd20143f615195e06cdacc575e287afc2359754166bdf34ae653300",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39977719"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547000,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39977718"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793596092874662218"
+        }
+      }
+    },
+    {
+      "plan_id": "25b6dc0b43ed8c1c881cbca900687858aebfcfc05d926e5c02faacf80635ee95",
+      "player": "b2z-agent-expander",
+      "block_index": "39978174",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793597324273000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39978174"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011384"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793597330325830259"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793597324273000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39978174",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85693"
+          },
+          "logical_time": {
+            "$integer": "139844"
+          },
+          "root": "c95d845d5411cd5a3b8b59aedfe7f75b3bc71493655ca1b5da77f3a99850159f",
+          "manifest": "3b9abb3140e2070e6432c5dac9f45aea04fd42a7e6dd534b1c5786e06a6c88d6",
+          "state": "f0ad4050da8775e45900e53d870fe9be5ed789a80a822b4406c98fa9de3f0b3e",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39978175"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 547000,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546796,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39978174"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793597351662295723"
+        }
+      }
+    },
+    {
+      "plan_id": "16eda1c4b1951ee412ad11af46cdfd9236ad55c04fc7eef975dff83436160803",
+      "player": "b2z-agent-expander",
+      "block_index": "39978339",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793597814609000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39978339"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793597817176357884"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793597814609000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39978339",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85717"
+          },
+          "logical_time": {
+            "$integer": "139868"
+          },
+          "root": "940452fdebb9222dd740266abf24686028d85b024a0d9d45028f4b736a7e8a73",
+          "manifest": "005a2c13a292d9ba90de7f72a4a7d9e50d1e0caa1490f602a3b3eac25d0e7e16",
+          "state": "af030652f8f16995133e1a6762754a789369163d7f24f2fb1c539a7e267e699f",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39978340"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547000,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39978339"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793597839244912600"
+        }
+      }
+    },
+    {
+      "plan_id": "33dc56b6185b1b9c95b2a8898b3360b52cd72a336d8720da30bbcf1fbc6843e4",
+      "player": "b2z-agent-expander",
+      "block_index": "39978396",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793597968868000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39978396"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011384"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793597970876205745"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793597968868000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39978396",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85726"
+          },
+          "logical_time": {
+            "$integer": "139877"
+          },
+          "root": "c43586f837f143bd8ef992950c60744dfe20007f0d65f38af99cda75f4754a26",
+          "manifest": "6dd591f199505282e85017895c7dac986fb0adb9d74f6109881018fc1227bf02",
+          "state": "bb1b445ea4e8d5c3d525c8341fcc948c7a25341cbeb0f16dd99bb4a36d0dd9a5",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39978397"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 547000,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 546796,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39978396"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793598011174899198"
+        }
+      }
+    },
+    {
+      "plan_id": "13ef7b083d8e53d5350e6b3d5691290cc323e627b8617eaa2d55187ba2e8314b",
+      "player": "b2z-agent-expander",
+      "block_index": "39978526",
+      "status": "applied",
+      "amount_e8s": {
+        "$integer": "10000"
+      },
+      "fee_e8s": {
+        "$integer": "10000"
+      },
+      "created_at_time_ns": {
+        "$integer": "1793598399940000000"
+      },
+      "official_index_record": {
+        "id": {
+          "$integer": "39978526"
+        },
+        "transaction": {
+          "memo": {
+            "$integer": "15420325124201011180"
+          },
+          "icrc1_memo": [],
+          "operation": {
+            "Transfer": {
+              "to": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+              "fee": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "from": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+              "amount": {
+                "e8s": {
+                  "$integer": "10000"
+                }
+              },
+              "spender": []
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793598401971882106"
+              }
+            }
+          ],
+          "created_at_time": [
+            {
+              "timestamp_nanos": {
+                "$integer": "1793598399940000000"
+              }
+            }
+          ]
+        }
+      },
+      "receipt": {
+        "key": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602:39978526",
+        "reference": {
+          "network": "ic",
+          "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+          "head": {
+            "$integer": "85748"
+          },
+          "logical_time": {
+            "$integer": "139899"
+          },
+          "root": "ff9c00d4ae1d79bd7434bd765724cc9ff64e883afb853781fabdda0f561e428c",
+          "manifest": "0d9485c61c60eefb4615aecdbf85efe9ae3b8e0eed38a2d1b86271335e3cf3e7",
+          "state": "9d1cfb0ee69d26cf0aed268a3712163c447ed92a24339ed188ebf59d0b4be5e0",
+          "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+          "epoch_index": {
+            "$integer": "4"
+          },
+          "source_cursor": {
+            "$integer": "39978527"
+          },
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+        },
+        "receipt": {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "after": 546796,
+          "amount": {
+            "$integer": "10000"
+          },
+          "amount_used": {
+            "$integer": "10000"
+          },
+          "before": 547000,
+          "cannon": 5,
+          "kind": "cannon_moved",
+          "position": {
+            "$integer": "39978526"
+          },
+          "reason": "ACCEPTED",
+          "remainder": {
+            "$integer": "0"
+          },
+          "status": "applied"
+        },
+        "authenticated_at_ns": {
+          "$integer": "1793598451280598781"
+        }
+      }
+    }
+  ],
+  "game_transfers_e8s": {
+    "$integer": "360260000"
+  },
+  "fees_e8s": {
+    "$integer": "320000"
+  },
+  "total_overnight_e8s": {
+    "$integer": "360580000"
+  },
+  "prior_smoke_e8s": {
+    "$integer": "110010000"
+  },
+  "total_including_smoke_e8s": {
+    "$integer": "470590000"
+  },
+  "total_remaining_e8s": {
+    "$integer": "329410000"
+  },
+  "receipt_archive_reverified": 33,
+  "final_observation": {
+    "schema": "b2z-agent/1",
+    "operation": "observe_game",
+    "provenance": {
+      "network": "ic",
+      "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+      "head": {
+        "$integer": "85761"
+      },
+      "logical_time": {
+        "$integer": "139912"
+      },
+      "root": "73d9b672e0f78d7ee20698c01933e1e41a03e6509b019e73702bc90defea385a",
+      "manifest": "e85737c05f4fe60ca81e4c46cdb13612bd2d9990ef874e2f7e7a0439de7f5f3e",
+      "state": "7e63ee81c0fae2de81aeaa6fea3e10445914ea78649ceaf2447669a74c4901f7",
+      "epoch": "4fb7adbb6e71fa4b0333988167d5e13c1a41c14173f154cdba1aafba9c0cd7a4",
+      "epoch_index": {
+        "$integer": "4"
+      },
+      "source_cursor": {
+        "$integer": "39978527"
+      },
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602",
+      "trust": "certificate-verifier",
+      "observation_age_ms": 2128.666677,
+      "history_gaps": [],
+      "operational_observed_at_ms": 1793606603372,
+      "operational_age_ms": 36,
+      "units": {
+        "cell": "row-major y*1000+x, 1 cell; toroidal 1000x1000",
+        "position": "exact rational fixed-point units, 1024 units/cell",
+        "velocity": "fixed-point units/logical tick",
+        "heading": "unsigned nat16 full turn for actions; no degree rounding",
+        "elapsed": "consensus-observed nanoseconds",
+        "money": "integer e8s; wallet fee separate",
+        "score": "canonical rational accrued area-time"
+      }
+    },
+    "classification": {
+      "facts": "Authenticated state and original event artifacts, if provenance.trust is certificate-verifier",
+      "derived": "All summaries, geometry, prices and metrics are local derivations from that state",
+      "predictions": "Only explicitly labelled forecasts; not authenticated futures",
+      "operational": "Pace, wallet budgets and pending transactions are separately sourced, not certified gameplay"
+    },
+    "world": {
+      "version": 6,
+      "rules_version": 7,
+      "width": 1000,
+      "height": 1000,
+      "logical_time": [
+        {
+          "$integer": "139912"
+        },
+        {
+          "$integer": "1"
+        }
+      ],
+      "elapsed_ns": {
+        "$integer": "1793598710453810489"
+      }
+    },
+    "entry": {
+      "neutral_cells": 996612,
+      "first_join_impossible": false,
+      "policy": "First cannon uses the legal 3x3 patch maximising squared distance to the nearest cannon on the torus; colours do not exclude it; lowest cell breaks ties. Not a reservation."
+    },
+    "counts": {
+      "players": 5,
+      "cannons": 5,
+      "balls": 8,
+      "active_islands": 4,
+      "dormant_islands": 1
+    },
+    "configuration": {
+      "annihilation_distance": 64,
+      "annihilation_time_window": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "16"
+        }
+      ],
+      "ball_base_e8s": {
+        "$integer": "10000000"
+      },
+      "ball_ownership": "funding-player",
+      "ball_price": "island-pool-floor-1-square",
+      "cannon_activity": "connected-island-ball-pool",
+      "cannon_price": "retained-plus-1-square",
+      "capture_resolution": "pair-and-cancel-1",
+      "dormancy_clock": "consensus-observed-ns-1",
+      "dormancy_grace_ns": {
+        "$integer": "86400000000000"
+      },
+      "first_spawn": "farthest-cannon-toroidal-euclidean-1",
+      "height": 1000,
+      "join_e8s": {
+        "$integer": "100000000"
+      },
+      "lifecycle_input_version": 1,
+      "max_balls": 64,
+      "max_cannons": 128,
+      "max_players": 1024,
+      "max_purchase_balls_per_island": 64,
+      "max_purchase_quantity": 64,
+      "max_retained_per_player": 16,
+      "max_segment_ticks": 64,
+      "max_spawn_searches_per_segment": 8,
+      "memo_adapter_version": 4,
+      "move_e8s": {
+        "$integer": "10000"
+      },
+      "move_limit_per_cannon_segment": 1,
+      "ownership": "scaled32-v1",
+      "player_identity": "authenticated-funding-account",
+      "rules_version": 7,
+      "score_area_denominator": 1000000,
+      "score_area_numerator": 1024,
+      "spawn_patch_side": 3,
+      "spawn_preserve_connectivity": true,
+      "spawn_tie_break": "lowest-row-major-cell",
+      "speed": 32000,
+      "topology": "torus",
+      "version": 6,
+      "width": 1000
+    },
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 0,
+          "supported_milli": 0,
+          "mode": "ReserveProtection",
+          "admission_open": false,
+          "performance_limited": false
+        },
+        "segment_ticks": {
+          "$integer": "1"
+        },
+        "publication_ticks": {
+          "$integer": "1"
+        },
+        "completed_segments": {
+          "$integer": "85758"
+        },
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": {
+          "$integer": "39978527"
+        }
+      },
+      "health": {
+        "resets": {
+          "$integer": "75"
+        },
+        "sample_end_ns": {
+          "$integer": "1793606599978376613"
+        },
+        "observed_at_ns": {
+          "$integer": "1793606602199265138"
+        },
+        "sample_start_total_cycles": {
+          "$integer": "2688125780806"
+        },
+        "sample_count": 5,
+        "runtime_started_ns": {
+          "$integer": "1793571633998730092"
+        },
+        "known_treasury_credit_delta": {
+          "$integer": "0"
+        },
+        "net_decline_cycles": [
+          {
+            "$integer": "1486070616"
+          }
+        ],
+        "version": 1,
+        "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+        "reservation_gap_end": {
+          "$integer": "157711814550"
+        },
+        "certified_gameplay": false,
+        "sample_end_total_cycles": {
+          "$integer": "2686639710190"
+        },
+        "total_cycles": {
+          "$integer": "2791041128971"
+        },
+        "reservation_gap_start": {
+          "$integer": "157711814550"
+        },
+        "sample_start_ns": {
+          "$integer": "1793606359113794071"
+        },
+        "liquid_cycles": {
+          "$integer": "2633329747351"
+        },
+        "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+      }
+    },
+    "players": {
+      "items": [
+        {
+          "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+          "player_id": 3,
+          "cannon_ids": [
+            3
+          ],
+          "balls": 0,
+          "cells": 1,
+          "accrued_score": [
+            {
+              "$integer": "1542007263525094420211028482441887517"
+            },
+            {
+              "$integer": "24284238493318114579898437500"
+            }
+          ],
+          "next_cannon_e8s": {
+            "$integer": "400000000"
+          },
+          "islands": [
+            {
+              "id": 3,
+              "balls": 0,
+              "cells": 1,
+              "next_ball_e8s": {
+                "$integer": "10000000"
+              }
+            }
+          ]
+        },
+        {
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "player_id": 5,
+          "cannon_ids": [
+            5
+          ],
+          "balls": 2,
+          "cells": 475,
+          "accrued_score": [
+            {
+              "$integer": "28081099041051420304"
+            },
+            {
+              "$integer": "22481264244140625"
+            }
+          ],
+          "next_cannon_e8s": {
+            "$integer": "400000000"
+          },
+          "islands": [
+            {
+              "id": 5,
+              "balls": 2,
+              "cells": 475,
+              "next_ball_e8s": {
+                "$integer": "40000000"
+              }
+            }
+          ]
+        },
+        {
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "player_id": 6,
+          "cannon_ids": [
+            6
+          ],
+          "balls": 2,
+          "cells": 763,
+          "accrued_score": [
+            {
+              "$integer": "1825714996951"
+            },
+            {
+              "$integer": "1052734375"
+            }
+          ],
+          "next_cannon_e8s": {
+            "$integer": "400000000"
+          },
+          "islands": [
+            {
+              "id": 6,
+              "balls": 2,
+              "cells": 763,
+              "next_ball_e8s": {
+                "$integer": "40000000"
+              }
+            }
+          ]
+        },
+        {
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "player_id": 7,
+          "cannon_ids": [
+            7
+          ],
+          "balls": 2,
+          "cells": 1786,
+          "accrued_score": [
+            {
+              "$integer": "285666055845988478"
+            },
+            {
+              "$integer": "64156705078125"
+            }
+          ],
+          "next_cannon_e8s": {
+            "$integer": "400000000"
+          },
+          "islands": [
+            {
+              "id": 7,
+              "balls": 2,
+              "cells": 1786,
+              "next_ball_e8s": {
+                "$integer": "40000000"
+              }
+            }
+          ]
+        },
+        {
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "player_id": 8,
+          "cannon_ids": [
+            8
+          ],
+          "balls": 2,
+          "cells": 363,
+          "accrued_score": [
+            {
+              "$integer": "440302315557"
+            },
+            {
+              "$integer": "435546875"
+            }
+          ],
+          "next_cannon_e8s": {
+            "$integer": "400000000"
+          },
+          "islands": [
+            {
+              "id": 8,
+              "balls": 2,
+              "cells": 363,
+              "next_ball_e8s": {
+                "$integer": "40000000"
+              }
+            }
+          ]
+        }
+      ],
+      "total": 5,
+      "truncated": false
+    },
+    "islands": {
+      "items": [
+        {
+          "id": 3,
+          "owner_player": 3,
+          "account": "f38ec579442bac2a6a25b97fb3206b56ee0fb03c69e232f0affc612b6781f096",
+          "cells": 1,
+          "status": "dormant",
+          "cannon_ids": [
+            3
+          ],
+          "ball_ids": [],
+          "supporting_balls": 0,
+          "next_ball_e8s": {
+            "$integer": "10000000"
+          },
+          "frontier_edges": 4,
+          "adjacent_players": [
+            {
+              "player": 0,
+              "edges": 4
+            }
+          ],
+          "risk": {
+            "kind": "derived heuristic, not a proven cut set",
+            "last_supporting_ball": false,
+            "narrow_connection_candidates": [
+              47297
+            ],
+            "candidate_search": "bounded samples of run endpoints/midpoints; incomplete"
+          },
+          "label_scope": "Snapshot-local; merges and splits may relabel islands"
+        },
+        {
+          "id": 5,
+          "owner_player": 5,
+          "account": "fe4db8b522fe596c4ec90677de13a3cc2049e92c513beb614880a8b149e9c383",
+          "cells": 475,
+          "status": "active",
+          "cannon_ids": [
+            5
+          ],
+          "ball_ids": [
+            7,
+            8
+          ],
+          "supporting_balls": 2,
+          "next_ball_e8s": {
+            "$integer": "40000000"
+          },
+          "frontier_edges": 944,
+          "adjacent_players": [
+            {
+              "player": 0,
+              "edges": 943
+            },
+            {
+              "player": 7,
+              "edges": 1
+            }
+          ],
+          "risk": {
+            "kind": "derived heuristic, not a proven cut set",
+            "last_supporting_ball": false,
+            "narrow_connection_candidates": [
+              546796,
+              546798,
+              547000,
+              547028,
+              547014,
+              547560,
+              547999,
+              547780,
+              548796,
+              548798
+            ],
+            "candidate_search": "bounded samples of run endpoints/midpoints; incomplete"
+          },
+          "label_scope": "Snapshot-local; merges and splits may relabel islands"
+        },
+        {
+          "id": 6,
+          "owner_player": 6,
+          "account": "f42428dd48a4e202ea1ed2de7a2d0381af29168a9e55073a19a35418cddbac13",
+          "cells": 763,
+          "status": "active",
+          "cannon_ids": [
+            6
+          ],
+          "ball_ids": [
+            15,
+            16
+          ],
+          "supporting_balls": 2,
+          "next_ball_e8s": {
+            "$integer": "40000000"
+          },
+          "frontier_edges": 1528,
+          "adjacent_players": [
+            {
+              "player": 0,
+              "edges": 1528
+            }
+          ],
+          "risk": {
+            "kind": "derived heuristic, not a proven cut set",
+            "last_supporting_ball": false,
+            "narrow_connection_candidates": [
+              43796,
+              44796,
+              45796,
+              46000,
+              46023,
+              46012,
+              46589,
+              46999,
+              46794,
+              47796,
+              48796,
+              49796,
+              50796,
+              51796,
+              52796,
+              53796,
+              54796,
+              55796,
+              56796,
+              57796,
+              58796,
+              59796,
+              60796,
+              61796,
+              62796,
+              63796,
+              64796,
+              65796,
+              66796,
+              67796,
+              68796,
+              69796
+            ],
+            "candidate_search": "bounded samples of run endpoints/midpoints; incomplete"
+          },
+          "label_scope": "Snapshot-local; merges and splits may relabel islands"
+        },
+        {
+          "id": 7,
+          "owner_player": 7,
+          "account": "f9ecbf934f1315c1c74e45eb5c897106a35d9e5bb184f17d0429b683aac8388d",
+          "cells": 1786,
+          "status": "active",
+          "cannon_ids": [
+            7
+          ],
+          "ball_ids": [
+            12,
+            17
+          ],
+          "supporting_balls": 2,
+          "next_ball_e8s": {
+            "$integer": "40000000"
+          },
+          "frontier_edges": 1700,
+          "adjacent_players": [
+            {
+              "player": 0,
+              "edges": 1699
+            },
+            {
+              "player": 5,
+              "edges": 1
+            }
+          ],
+          "risk": {
+            "kind": "derived heuristic, not a proven cut set",
+            "last_supporting_ball": false,
+            "narrow_connection_candidates": [
+              539290,
+              540292,
+              541289,
+              541293,
+              541298,
+              542295,
+              542297,
+              543289,
+              543299,
+              544163,
+              544288,
+              545162,
+              545165,
+              545300,
+              546302,
+              547029,
+              547507,
+              548163,
+              548303,
+              549165,
+              550166,
+              550288,
+              550293,
+              550296,
+              550303,
+              551290,
+              551292,
+              551297,
+              551304,
+              552298,
+              552300,
+              552302
+            ],
+            "candidate_search": "bounded samples of run endpoints/midpoints; incomplete"
+          },
+          "label_scope": "Snapshot-local; merges and splits may relabel islands"
+        },
+        {
+          "id": 8,
+          "owner_player": 8,
+          "account": "91a51052c642014c943aaef30aee47e127a113ca741c20193c8bd05c4fbc302f",
+          "cells": 363,
+          "status": "active",
+          "cannon_ids": [
+            8
+          ],
+          "ball_ids": [
+            13,
+            14
+          ],
+          "supporting_balls": 2,
+          "next_ball_e8s": {
+            "$integer": "40000000"
+          },
+          "frontier_edges": 720,
+          "adjacent_players": [
+            {
+              "player": 0,
+              "edges": 720
+            }
+          ],
+          "risk": {
+            "kind": "derived heuristic, not a proven cut set",
+            "last_supporting_ball": false,
+            "narrow_connection_candidates": [
+              189047,
+              190047,
+              191047,
+              192047,
+              193047,
+              194047,
+              195047,
+              196047,
+              197047,
+              198047,
+              199047,
+              200047,
+              201047,
+              202047,
+              203047,
+              204047,
+              205047,
+              206047,
+              207047,
+              208047,
+              209047,
+              210047,
+              211047,
+              212047,
+              213047,
+              214047,
+              215047,
+              216047,
+              217047,
+              218047,
+              219047,
+              220047
+            ],
+            "candidate_search": "bounded samples of run endpoints/midpoints; incomplete"
+          },
+          "label_scope": "Snapshot-local; merges and splits may relabel islands"
+        }
+      ],
+      "total": 5,
+      "truncated": false
+    },
+    "overview": [
+      {
+        "id": 0,
+        "x": 0,
+        "y": 0,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62415
+          },
+          {
+            "player": 6,
+            "cells": 24
+          },
+          {
+            "player": 8,
+            "cells": 61
+          }
+        ],
+        "cannons": 1,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 1,
+        "x": 250,
+        "y": 0,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62499
+          },
+          {
+            "player": 3,
+            "cells": 1
+          }
+        ],
+        "cannons": 1,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 2,
+        "x": 500,
+        "y": 0,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62339
+          },
+          {
+            "player": 6,
+            "cells": 161
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 3,
+        "x": 750,
+        "y": 0,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62044
+          },
+          {
+            "player": 6,
+            "cells": 456
+          }
+        ],
+        "cannons": 1,
+        "balls": 2,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 4,
+        "x": 0,
+        "y": 250,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62244
+          },
+          {
+            "player": 8,
+            "cells": 256
+          }
+        ],
+        "cannons": 0,
+        "balls": 2,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 5,
+        "x": 250,
+        "y": 250,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62500
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 6,
+        "x": 500,
+        "y": 250,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62500
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 7,
+        "x": 750,
+        "y": 250,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62378
+          },
+          {
+            "player": 6,
+            "cells": 122
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 8,
+        "x": 0,
+        "y": 500,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 61855
+          },
+          {
+            "player": 5,
+            "cells": 29
+          },
+          {
+            "player": 7,
+            "cells": 570
+          },
+          {
+            "player": 8,
+            "cells": 46
+          }
+        ],
+        "cannons": 0,
+        "balls": 1,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 9,
+        "x": 250,
+        "y": 500,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 61292
+          },
+          {
+            "player": 7,
+            "cells": 1208
+          }
+        ],
+        "cannons": 1,
+        "balls": 1,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 10,
+        "x": 500,
+        "y": 500,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62302
+          },
+          {
+            "player": 5,
+            "cells": 190
+          },
+          {
+            "player": 7,
+            "cells": 8
+          }
+        ],
+        "cannons": 0,
+        "balls": 2,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 11,
+        "x": 750,
+        "y": 500,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62244
+          },
+          {
+            "player": 5,
+            "cells": 256
+          }
+        ],
+        "cannons": 1,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 12,
+        "x": 0,
+        "y": 750,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62500
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 13,
+        "x": 250,
+        "y": 750,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62500
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 14,
+        "x": 500,
+        "y": 750,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62500
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      },
+      {
+        "id": 15,
+        "x": 750,
+        "y": 750,
+        "ownership": [
+          {
+            "player": 0,
+            "cells": 62500
+          }
+        ],
+        "cannons": 0,
+        "balls": 0,
+        "meaning": "Aggregated sector, not a gameplay cell; all minority owners included"
+      }
+    ],
+    "recent_events": {
+      "items": [
+        {
+          "head": {
+            "$integer": "85761"
+          },
+          "ball": 16,
+          "cancelled_capture": false,
+          "dormant": [],
+          "kind": "capture",
+          "pairs": [],
+          "sequence": 7,
+          "target": 46023,
+          "time": [
+            {
+              "$integer": "17488877"
+            },
+            {
+              "$integer": "125"
+            }
+          ]
+        }
+      ],
+      "total": 1,
+      "truncated": false
+    },
+    "ownership_hotspots": [
+      {
+        "sector": 0,
+        "captures": 1,
+        "sector_width": 125,
+        "complete": false,
+        "scope": "Only locally retained verified events"
+      }
+    ],
+    "requesting_player": null,
+    "local_budget_and_pending": {
+      "status": "not configured; no spending authority"
+    }
+  }
+}

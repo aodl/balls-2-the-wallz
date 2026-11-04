@@ -52,6 +52,51 @@ fn begin(case: &Value) -> Result<Cursor> {
 fn main_inner() -> Result<()> {
     let args: Vec<_> = env::args().collect();
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    if args.get(1).map(String::as_str) == Some("segment-json") {
+        use std::io::Read;
+        let mut raw = Vec::new();
+        std::io::stdin()
+            .take(4 * 1024 * 1024 + 1)
+            .read_to_end(&mut raw)
+            .map_err(|e| e.to_string())?;
+        if raw.len() > 4 * 1024 * 1024 {
+            return Err("segment input bound".into());
+        }
+        let request: Value = serde_json::from_slice(&raw).map_err(|e| e.to_string())?;
+        let limit = request["max_work"]
+            .as_u64()
+            .filter(|n| *n > 0 && *n <= 1_000_000)
+            .ok_or("segment work bound")? as usize;
+        let mut cursor = begin(&request)?;
+        let mut used = 0usize;
+        loop {
+            let (work, done) = cursor.step((limit - used).min(64))?;
+            used += work;
+            if done {
+                cursor.finalize_elapsed(
+                    request["observed_ns"]
+                        .as_str()
+                        .ok_or("segment elapsed")?
+                        .parse()
+                        .map_err(|_| "segment elapsed")?,
+                )?;
+                let out = cursor.result()?;
+                println!(
+                    "{}",
+                    serde_json::json!({"status":"complete","used":used,"state_hex":hex(&out.state),"events_hex":hex(&out.events),"scores_hex":hex(&out.scores)})
+                );
+                break;
+            }
+            if used >= limit {
+                println!(
+                    "{}",
+                    serde_json::json!({"status":"bounded_incomplete","used":used})
+                );
+                break;
+            }
+        }
+        return Ok(());
+    }
     if args.get(1).map(String::as_str) == Some("entry") {
         let data = load(&root, "entry-v7.json")?;
         for row in data["rows"].as_array().ok_or("entry rows")? {

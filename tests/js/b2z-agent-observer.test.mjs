@@ -1,13 +1,15 @@
 /** Authentic archived IC certificates at their recorded time; static transport, not live IC execution. */
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,mkdtempSync,rmSync} from 'node:fs';import {join} from 'node:path';import {tmpdir} from 'node:os';
-import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';import {verifyRetainedPredecessor,sha256Web} from '@dtr/timeline-runtime/client/verification';
+import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {VerifiedObserver,MAINNET,requireCertified} from '../../packages/agents/b2z/observer.mjs';
+import {GameExecutor} from '../../packages/agents/b2z/executor.mjs';
 import {accountIdentifier} from '../../apps/b2z-observer/identity.mjs';
 const f=JSON.parse(readFileSync(new URL('../fixtures/b2z-agent-certified.json',import.meta.url))),[a,b]=f.observations;
-function make(t,{store=null}={}){if(!t._b2zClock){t.mock.timers.enable({apis:['Date'],now:Number(BigInt(b.certificate_ns)/1000000n)});t._b2zClock=true;}let current=a,badArtifact=false,missing=false,certificateBad=false;const calls={observations:0,bundles:0,publications:0};
- const connection={verifyCertificate:certificateVerifier({network:'ic'}),client:{async observation(){calls.observations++;const cert=Buffer.from(current.certificate,'hex');if(certificateBad)cert[cert.length-1]^=1;return{publication:Buffer.from(current.publication,'hex'),certificate:cert};},async publication(n){calls.publications++;if(missing)throw Error('publication unavailable: snapshot resync required');assert.ok(f.publications[n]);return Buffer.from(f.publications[n],'hex');},async bundle(n){calls.bundles++;const parts=f.bundles[n].map(x=>Buffer.from(x,'hex'));if(badArtifact)parts[0][0]^=1;return parts;}}};
+function make(t,{store=null}={}){if(!t._b2zClock){t.mock.timers.enable({apis:['Date'],now:Number(BigInt(b.certificate_ns)/1000000n)});t._b2zClock=true;}let current=a,badArtifact=false,missing=false,certificateBad=false,retired=0;const calls={observations:0,bundles:0,publications:0};
+ const connection={verifyCertificate:certificateVerifier({network:'ic'}),client:{async observation(){calls.observations++;const cert=Buffer.from(current.certificate,'hex');if(certificateBad)cert[cert.length-1]^=1;return{publication:Buffer.from(current.publication,'hex'),certificate:cert};},async publication(n){calls.publications++;if(missing)throw Error('publication unavailable: snapshot resync required');assert.ok(f.publications[n]);return Buffer.from(f.publications[n],'hex');},async bundle(n){calls.bundles++;if(retired-->0)throw Error('publication unavailable: snapshot resync required');const parts=f.bundles[n].map(x=>Buffer.from(x,'hex'));if(badArtifact)parts[0][0]^=1;return parts;}}};
  const o=new VerifiedObserver({policy:MAINNET,connection,store,minRefreshMs:0,clock:()=>BigInt(b.certificate_ns)});o.sourceActor={async source_descriptor(){return{Ok:Buffer.from(f.source_descriptor_hex,'hex')};}};
- if(store)t.after(()=>rmSync(store,{recursive:true,force:true}));return{o,calls,advance(){current=b;},stale(){current=a;},set bad(v){badArtifact=v;},set missing(v){missing=v;},set invalidCertificate(v){certificateBad=v;}};
+ if(store)t.after(()=>rmSync(store,{recursive:true,force:true}));return{o,calls,advance(){current=b;},stale(){current=a;},set retired(v){retired=v;},set bad(v){badArtifact=v;},set missing(v){missing=v;},set invalidCertificate(v){certificateBad=v;}};
 }
 test('genuine IC root, canister, artifact hashes and v6 identities create a certified mirror',async t=>{const s=make(t);await s.o.refresh();assert.equal(s.o.current.trust,'certificate-verifier');assert.equal(s.o.current.reference.head,BigInt(a.head));requireCertified(s.o.current,{nowNs:BigInt(b.certificate_ns)});assert.equal(s.o.analysis().observe_game().entry.first_join_impossible,true);});
 test('four callers share one in-flight authenticated observation/decode',async t=>{const s=make(t);await Promise.all([s.o.refresh(),s.o.refresh(),s.o.refresh(),s.o.refresh()]);assert.equal(s.calls.observations,1);assert.equal(s.calls.bundles,1);});
@@ -19,3 +21,37 @@ test('bad certificates remain failures and cannot be cleared as stale transport'
 test('freshness is not replaced with offline trust',async t=>{const s=make(t);s.o.clock=()=>BigInt(b.certificate_ns)+301000000000n;await assert.rejects(s.o.refresh(),/freshness/);assert.equal(s.o.current,null);});
 test('durable certificate floor survives restart but cached data alone is not a fresh decision',async t=>{const dir=mkdtempSync(join(tmpdir(),'b2z-mirror-')),s=make(t,{store:dir});await s.o.refresh();const restart=make(t,{store:null});restart.o.store=dir;await restart.o.restoreFloor();assert.equal(restart.o.current,null);restart.advance();await restart.o.refresh();assert.ok(restart.o.current.reference.head>=BigInt(a.head));});
 test('an aged archived certificate restores only the floor, never freshness for spending',async t=>{const dir=mkdtempSync(join(tmpdir(),'b2z-mirror-aged-')),s=make(t,{store:dir});await s.o.refresh();t.mock.timers.tick(24*60*60*1000);const restart=make(t);restart.o.store=dir;await restart.o.restoreFloor();assert.equal(restart.o.current,null);assert.equal(restart.o.sequence.last.root_hash,s.o.sequence.last.root_hash);await assert.rejects(restart.o.refresh(),/Certificate is signed more than/);});
+
+
+test('combat event evidence reuses the same genuine certificate/chain/artifact proof as receipts',async t=>{
+ const s=make(t);await s.o.refresh();s.advance();await s.o.refresh();const snap=s.o.current,proof=await s.o.eventProof(snap.reference.root);let ticket=await s.o.verify({publication:Buffer.from(proof.tip.publication_hex,'hex'),certificate:Buffer.from(proof.tip.certificate_hex,'hex')});for(const raw of proof.chain.slice(0,-1).reverse())ticket=await verifyRetainedPredecessor(Buffer.from(raw,'hex'),ticket);
+ assert.equal(ticket.root_hash,snap.reference.root);assert.equal(await sha256Web(Buffer.from(proof.events_hex,'hex')),ticket.publication.artifacts.find(a=>a.kind==='events').sha256);assert.deepEqual(Buffer.from(proof.events_hex,'hex'),Buffer.from(encodeCanonical(snap.events)));
+ await assert.rejects(s.o.eventProof(snap.reference.root,new Uint8Array([1])),/EVENT_PROOF_ARTIFACT/);await assert.rejects(s.o.eventProof('00'.repeat(32)),/EVENT_PROOF_UNAVAILABLE/);
+});
+
+
+test('retired artifact transport retries a fresh certified snapshot without lowering the accepted floor',async t=>{
+ const s=make(t);await s.o.refresh();const floor=s.o.current.reference.root;s.advance();s.retired=1;const r=await s.o.refresh();assert.equal(r.status,'resynchronised');assert.equal(s.o.current.reference.head,BigInt(b.head));assert.notEqual(s.o.current.reference.root,floor);assert.equal(s.o.metrics.moving_snapshot_retries,1);assert.equal(s.o.metrics.resyncs,1);assert.equal(s.o.delivery.deliveryDiagnostics.active,null);assert.ok(s.o.delivery.deliveryDiagnostics.history.some(e=>e.kind==='retained-publication-unavailable'&&e.recovered_at_ms!==null));
+});
+test('persistent retired artifacts exhaust bounded retries without advancing the accepted floor',async t=>{
+ const s=make(t);await s.o.refresh();const floor=s.o.current.reference.root;s.advance();s.retired=10;await assert.rejects(s.o.refresh(),/publication unavailable/);assert.equal(s.o.current.reference.root,floor);assert.equal(s.o.sequence.last.root_hash,floor);assert.equal(s.o.metrics.moving_snapshot_retries,3);s.retired=0;await s.o.refresh();assert.equal(s.o.current.reference.head,BigInt(b.head));
+});
+test('a bad certificate encountered after retired transport is still a verification failure',async t=>{
+ const s=make(t);await s.o.refresh();const floor=s.o.current.reference.root;s.advance();let once=true;const bundle=s.o.connection.client.bundle;s.o.connection.client.bundle=async n=>{if(once){once=false;s.invalidCertificate=true;throw Error('publication unavailable: snapshot resync required');}return bundle(n);};await assert.rejects(s.o.refresh());assert.equal(s.o.current.reference.root,floor);assert.equal(s.o.metrics.moving_snapshot_retries,1);
+});
+
+
+test('slow-tier passive polling coalesces queries while urgent refresh remains immediate',async t=>{
+ const s=make(t);await s.o.refresh();s.o.connection.readStatus=async()=>({run:{pace:{nominal_milli:50}}});await s.o.operational();assert.equal(s.o.passiveCadence(),15000);const initial=s.calls.observations;
+ for(let i=0;i<12;i++){t.mock.timers.tick(5000);await s.o.refresh({idle:true});}
+ assert.equal(s.calls.observations-initial,4);t.mock.timers.tick(1000);const before=s.calls.observations;assert.equal((await s.o.refresh({idle:true})).status,'cached');await s.o.refresh();assert.equal(s.calls.observations,before+1);assert.equal(s.o.current.reference.root,s.o.sequence.last.root_hash);
+});
+test('passive cadence follows funding pace without fabricating a fresh certificate or changing the floor',async t=>{
+ const s=make(t);await s.o.refresh();let pace=200;s.o.connection.readStatus=async()=>({run:{pace:{nominal_milli:pace}}});await s.o.operational();assert.equal(s.o.passiveCadence(),5000);const original=s.o.current.observed_ns;pace=100;t.mock.timers.tick(15000);await s.o.operational();assert.equal(s.o.passiveCadence(),10000);pace=0;t.mock.timers.tick(15000);await s.o.operational();assert.equal(s.o.passiveCadence(),15000);await s.o.refresh({idle:true});assert.equal(s.o.current.observed_ns,original);assert.equal(s.o.current.reference.root,s.o.sequence.last.root_hash);
+});
+
+
+test('paused monitoring can read a sixty-second certificate while payment freshness stays thirty seconds',async t=>{
+ const s=make(t);await s.o.refresh();const snap=s.o.current,context={clock:()=>snap.observed_ns+60000000000n,campaign:{network:snap.reference.network,backend:snap.reference.canister,ledger:snap.source.ledger,recipient:snap.source.recipient,identity:snap.reference}};
+ GameExecutor.prototype.checkSnapshot.call(context,snap,{freshMs:300000});assert.throws(()=>GameExecutor.prototype.checkSnapshot.call(context,snap),/STALE_SNAPSHOT/);
+});

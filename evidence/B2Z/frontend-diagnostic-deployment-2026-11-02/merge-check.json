@@ -1,0 +1,9 @@
+{
+  "source": "aa3a202fa91c640af2f425658f9036fe75a87830",
+  "master": "48932aadb0ec7c5e5598c8429662cb90cd133f4a",
+  "base": "f5f9407288d7b5ba7bcac20a78eb2c2d9e3f5592",
+  "method": "git 2.34 compatible three-tree read-only merge-tree",
+  "exit_code": 0,
+  "conflict_marker_count": 0,
+  "status": "PASS"
+}

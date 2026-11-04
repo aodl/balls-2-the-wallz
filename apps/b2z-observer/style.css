@@ -16,3 +16,10 @@ dialog{color:inherit;background:#0e202e;border:1px solid #466078;border-radius:1
 .error{top:auto;bottom:56px;right:12px;max-height:30dvh;overflow:auto;pointer-events:none;z-index:9}.error button{pointer-events:auto}
 
 #quantity-controls{display:grid;grid-template-columns:1fr 5rem;gap:.4rem;align-items:center}#quantity-controls small{grid-column:1/-1;color:var(--muted);font-size:.75rem}
+
+/* Keep the complete status above the minimap on narrow screens. */
+@media(max-width:600px){.arena-stats{bottom:calc(140px + env(safe-area-inset-bottom));max-width:calc(100vw - 24px)}#arena-note{max-width:100%;overflow-wrap:anywhere}}
+
+/* Compact notices below the toolbar on short screens; retain centring elsewhere. */
+.catching-up{width:min(480px,calc(100vw - 24px));max-width:calc(100vw - 24px)}
+@media(max-height:700px) and (max-width:600px){.catching-up{left:12px;right:12px;top:270px;transform:none;padding:8px;font-size:11px;line-height:1.3}.catching-up strong{font-size:12px}.catching-up p{margin:4px 0 0}}

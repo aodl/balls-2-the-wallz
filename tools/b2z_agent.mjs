@@ -5,7 +5,7 @@ import {VerifiedObserver,MAINNET} from '../packages/agents/b2z/observer.mjs';
 import {agentOperation} from '../packages/agents/b2z/interface.mjs';
 import {parse,stringify,check} from '../packages/agents/b2z/common.mjs';
 const args=process.argv.slice(2),get=k=>{const i=args.indexOf(k);return i<0?null:args[i+1];};
-if(args.includes('--help')||!args.length){console.log('B2Z agent: node tools/b2z_agent.mjs <observe_game|inspect_region|inspect_player|inspect_island|changes_since|evaluate_actions|decide|stdio> [--request request.json] [--account 64hex] [--store directory] [--local-config pinned.json]\nJSON requests: {operation, params}. stdio keeps one shared verified mirror for all players. No real payment can be submitted by this CLI.');process.exit(0);}
+if(args.includes('--help')||!args.length){console.log('B2Z agent: node tools/b2z_agent.mjs <observe_game|inspect_region|inspect_player|inspect_island|changes_since|action_options|quote_action|evaluate_actions|decide|stdio> [--request request.json] [--account 64hex] [--store directory] [--local-config pinned.json]\nJSON requests: {operation, params}. stdio keeps one shared verified mirror for all players. No real payment can be submitted by this CLI.');process.exit(0);}
 let policy=MAINNET;if(get('--local-config')){const p=parse(await readFile(get('--local-config'),'utf8'));policy={...p,rootKey:Buffer.from(p.root_key_hex,'hex')};}
 const observer=await VerifiedObserver.connect({policy,store:get('--store')??null});
 const perform=req=>agentOperation(observer,req);

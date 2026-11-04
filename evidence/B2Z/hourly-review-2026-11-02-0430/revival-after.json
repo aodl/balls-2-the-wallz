@@ -1,0 +1,584 @@
+{
+  "evaluation": {
+    "schema": "b2z-agent/1",
+    "operation": "evaluate_actions",
+    "provenance": {
+      "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "head": {
+        "$integer": "1"
+      },
+      "source_cursor": {
+        "$integer": "100"
+      },
+      "trust": "local-synthetic",
+      "observation_age_ms": null,
+      "history_gaps": [],
+      "units": {
+        "cell": "row-major y*1000+x, 1 cell; toroidal 1000x1000",
+        "position": "exact rational fixed-point units, 1024 units/cell",
+        "velocity": "fixed-point units/logical tick",
+        "heading": "unsigned nat16 full turn for actions; no degree rounding",
+        "elapsed": "consensus-observed nanoseconds",
+        "money": "integer e8s; wallet fee separate",
+        "score": "canonical rational accrued area-time"
+      }
+    },
+    "classification": {
+      "facts": "Authenticated state and original event artifacts, if provenance.trust is certificate-verifier",
+      "derived": "All summaries, geometry, prices and metrics are local derivations from that state",
+      "predictions": "Only explicitly labelled forecasts; not authenticated futures",
+      "operational": "Pace, wallet budgets and pending transactions are separately sourced, not certified gameplay"
+    },
+    "engine": {
+      "kind": "existing-rust-kernel",
+      "sha256": "baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795"
+    },
+    "status": "complete",
+    "candidates": [
+      {
+        "id": "wait",
+        "action": {
+          "Wait": {}
+        },
+        "quote": {
+          "amount_e8s": {
+            "$integer": "0"
+          }
+        },
+        "rationale": "No new expenditure; existing trajectories continue.",
+        "full_cost_e8s": {
+          "$integer": "0"
+        }
+      },
+      {
+        "id": "fire-1-0-1",
+        "action": {
+          "Fire": {
+            "cannon": 1,
+            "angle": 0,
+            "quantity": 1
+          }
+        },
+        "quote": {
+          "action": {
+            "Fire": {
+              "cannon": 1,
+              "angle": 0,
+              "quantity": 1
+            }
+          },
+          "amount_e8s": {
+            "$integer": "10000000"
+          },
+          "per_item_e8s": [
+            {
+              "$integer": "10000000"
+            }
+          ],
+          "maximum_fill": 1,
+          "requested_quantity": 1,
+          "island_pool": 0,
+          "memo_hex": "f600000001000001",
+          "text_memo": "FIRE 1 0.00 1",
+          "non_reservation": true,
+          "notice": "Wallet fee is extra. Legality/prices are rechecked at processing. Partial fills, rejected payments and surplus remain retained."
+        },
+        "rationale": "Bounded coarse headings; shared-island sequential pricing.",
+        "full_cost_e8s": {
+          "$integer": "10010000"
+        }
+      }
+    ],
+    "forecasts": [
+      {
+        "planned_transfer_e8s": {
+          "$integer": "0"
+        },
+        "candidate": "wait",
+        "scenario": "no-new-opponent-actions",
+        "status": "complete",
+        "assumed_opponent_actions": [],
+        "logical_ticks_completed": 0,
+        "idle_slots": 4,
+        "elapsed_window_ns": {
+          "$integer": "20000000000"
+        },
+        "action_admitted_within_horizon": false,
+        "assumed_transfer_e8s": {
+          "$integer": "0"
+        },
+        "canonical_score_delta": [
+          {
+            "$integer": "0"
+          },
+          {
+            "$integer": "9"
+          }
+        ],
+        "territory_before": 1,
+        "territory_after": 1,
+        "balls_before": 0,
+        "balls_after": 0,
+        "own_balls_lost": 0,
+        "opponent_balls_lost": 0,
+        "opposing_ball_losses": [],
+        "cannons_after": 1,
+        "islands_after": 1,
+        "dormant_cannons": 1,
+        "capture_annihilations": 0,
+        "receipt_outcomes": []
+      },
+      {
+        "planned_transfer_e8s": {
+          "$integer": "0"
+        },
+        "candidate": "wait",
+        "scenario": "plausible-public-last-heading-response",
+        "status": "complete",
+        "assumed_opponent_actions": [],
+        "logical_ticks_completed": 0,
+        "idle_slots": 4,
+        "elapsed_window_ns": {
+          "$integer": "20000000000"
+        },
+        "action_admitted_within_horizon": false,
+        "assumed_transfer_e8s": {
+          "$integer": "0"
+        },
+        "canonical_score_delta": [
+          {
+            "$integer": "0"
+          },
+          {
+            "$integer": "9"
+          }
+        ],
+        "territory_before": 1,
+        "territory_after": 1,
+        "balls_before": 0,
+        "balls_after": 0,
+        "own_balls_lost": 0,
+        "opponent_balls_lost": 0,
+        "opposing_ball_losses": [],
+        "cannons_after": 1,
+        "islands_after": 1,
+        "dormant_cannons": 1,
+        "capture_annihilations": 0,
+        "receipt_outcomes": [],
+        "forecast_cache_hit": true
+      },
+      {
+        "planned_transfer_e8s": {
+          "$integer": "0"
+        },
+        "candidate": "wait",
+        "scenario": "delayed-admission-opponent-first",
+        "status": "complete",
+        "assumed_opponent_actions": [],
+        "logical_ticks_completed": 0,
+        "idle_slots": 4,
+        "elapsed_window_ns": {
+          "$integer": "20000000000"
+        },
+        "action_admitted_within_horizon": false,
+        "assumed_transfer_e8s": {
+          "$integer": "0"
+        },
+        "canonical_score_delta": [
+          {
+            "$integer": "0"
+          },
+          {
+            "$integer": "9"
+          }
+        ],
+        "territory_before": 1,
+        "territory_after": 1,
+        "balls_before": 0,
+        "balls_after": 0,
+        "own_balls_lost": 0,
+        "opponent_balls_lost": 0,
+        "opposing_ball_losses": [],
+        "cannons_after": 1,
+        "islands_after": 1,
+        "dormant_cannons": 1,
+        "capture_annihilations": 0,
+        "receipt_outcomes": [],
+        "forecast_cache_hit": true
+      },
+      {
+        "planned_transfer_e8s": {
+          "$integer": "10000000"
+        },
+        "candidate": "fire-1-0-1",
+        "scenario": "no-new-opponent-actions",
+        "status": "complete",
+        "assumed_opponent_actions": [],
+        "logical_ticks_completed": 4,
+        "idle_slots": 0,
+        "elapsed_window_ns": {
+          "$integer": "20000000000"
+        },
+        "action_admitted_within_horizon": true,
+        "assumed_transfer_e8s": {
+          "$integer": "10000000"
+        },
+        "canonical_score_delta": [
+          {
+            "$integer": "699552"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "territory_before": 1,
+        "territory_after": 14,
+        "balls_before": 0,
+        "balls_after": 1,
+        "own_balls_lost": 0,
+        "opponent_balls_lost": 0,
+        "opposing_ball_losses": [],
+        "cannons_after": 1,
+        "islands_after": 1,
+        "dormant_cannons": 0,
+        "capture_annihilations": 0,
+        "receipt_outcomes": [
+          {
+            "account": "1c7a48ba6a562aa9eaa2481a9049cdf0433b9738c992d698c31d8abf89cadc79",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 1,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "101"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ]
+      },
+      {
+        "planned_transfer_e8s": {
+          "$integer": "10000000"
+        },
+        "candidate": "fire-1-0-1",
+        "scenario": "plausible-public-last-heading-response",
+        "status": "complete",
+        "assumed_opponent_actions": [],
+        "logical_ticks_completed": 4,
+        "idle_slots": 0,
+        "elapsed_window_ns": {
+          "$integer": "20000000000"
+        },
+        "action_admitted_within_horizon": true,
+        "assumed_transfer_e8s": {
+          "$integer": "10000000"
+        },
+        "canonical_score_delta": [
+          {
+            "$integer": "699552"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "territory_before": 1,
+        "territory_after": 14,
+        "balls_before": 0,
+        "balls_after": 1,
+        "own_balls_lost": 0,
+        "opponent_balls_lost": 0,
+        "opposing_ball_losses": [],
+        "cannons_after": 1,
+        "islands_after": 1,
+        "dormant_cannons": 0,
+        "capture_annihilations": 0,
+        "receipt_outcomes": [
+          {
+            "account": "1c7a48ba6a562aa9eaa2481a9049cdf0433b9738c992d698c31d8abf89cadc79",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 1,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "101"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "forecast_cache_hit": true
+      },
+      {
+        "planned_transfer_e8s": {
+          "$integer": "10000000"
+        },
+        "candidate": "fire-1-0-1",
+        "scenario": "delayed-admission-opponent-first",
+        "status": "complete",
+        "assumed_opponent_actions": [],
+        "logical_ticks_completed": 4,
+        "idle_slots": 0,
+        "elapsed_window_ns": {
+          "$integer": "20000000000"
+        },
+        "action_admitted_within_horizon": true,
+        "assumed_transfer_e8s": {
+          "$integer": "10000000"
+        },
+        "canonical_score_delta": [
+          {
+            "$integer": "699552"
+          },
+          {
+            "$integer": "17578125"
+          }
+        ],
+        "territory_before": 1,
+        "territory_after": 14,
+        "balls_before": 0,
+        "balls_after": 1,
+        "own_balls_lost": 0,
+        "opponent_balls_lost": 0,
+        "opposing_ball_losses": [],
+        "cannons_after": 1,
+        "islands_after": 1,
+        "dormant_cannons": 0,
+        "capture_annihilations": 0,
+        "receipt_outcomes": [
+          {
+            "account": "1c7a48ba6a562aa9eaa2481a9049cdf0433b9738c992d698c31d8abf89cadc79",
+            "actual_quantity": 1,
+            "amount": {
+              "$integer": "10000000"
+            },
+            "amount_used": {
+              "$integer": "10000000"
+            },
+            "cannon": 1,
+            "kind": "purchase_completed",
+            "new_cannon": false,
+            "per_item_prices": [
+              {
+                "$integer": "10000000"
+              }
+            ],
+            "position": {
+              "$integer": "101"
+            },
+            "quantity_explicit": true,
+            "reason": "ACCEPTED",
+            "remainder": {
+              "$integer": "0"
+            },
+            "requested_quantity": 1,
+            "status": "applied",
+            "stop_reason": "quantity_limit"
+          }
+        ],
+        "forecast_cache_hit": true
+      }
+    ],
+    "bounds": {
+      "horizon": 4,
+      "max_candidates": 2,
+      "max_work": 100000,
+      "hard_wall_ms": 2300
+    },
+    "measurements": {
+      "elapsed_ms": 274.735292,
+      "worker_ms": 116.15086099999996,
+      "total_work": 704
+    },
+    "assumptions": {
+      "scenarios": [
+        {
+          "name": "no-new-opponent-actions",
+          "delay_ticks": 0,
+          "tick_ns": {
+            "$integer": "5000000000"
+          },
+          "opponent": false
+        },
+        {
+          "name": "plausible-public-last-heading-response",
+          "delay_ticks": 0,
+          "tick_ns": {
+            "$integer": "5000000000"
+          },
+          "opponent": true
+        },
+        {
+          "name": "delayed-admission-opponent-first",
+          "delay_ticks": 0,
+          "tick_ns": {
+            "$integer": "5000000000"
+          },
+          "opponent": true
+        }
+      ],
+      "opponent_selection": "Nearest active opposing cannon at response time, toroidal distance then ID; public heading only. No assumed dormant revival. Intent/funds/admission remain unknown.",
+      "deterministic": "Actual existing B2zCursor with explicit synthetic future Ledger positions and consensus-time facts; never mainnet mutation",
+      "unknowns": [
+        "Future opponent payments and budgets",
+        "Ledger/Index discovery and admission order",
+        "First-spawn sealed inputs",
+        "Actual wall-clock pacing"
+      ],
+      "latency": {
+        "source_fallback_seconds": 60,
+        "index_lag": "not bounded by fallback alone",
+        "browser_presentation": "Separate buffered delay; not payment admission"
+      },
+      "uncertainty": "Scenario outcomes are predictions, not authenticated futures. Delayed actions beyond this logical horizon are not executed in the scenario.",
+      "zero_funding_rate": false
+    }
+  },
+  "decision": {
+    "policy": "frugal-expander",
+    "version": "b2z-policies-2",
+    "candidate": "fire-1-0-1",
+    "ranking": [
+      {
+        "candidate": "fire-1-0-1",
+        "rank": 0.0263848075962019,
+        "heuristic": {
+          "gain": 0.039796,
+          "area": 13,
+          "loss": 0,
+          "kills": 0,
+          "dormant": -3,
+          "cost_icp_for_ranking_only": 0.1001
+        }
+      },
+      {
+        "candidate": "wait",
+        "rank": 0,
+        "heuristic": {
+          "gain": 0,
+          "area": 0,
+          "loss": 0,
+          "kills": 0,
+          "dormant": 0,
+          "cost_icp_for_ranking_only": 0
+        }
+      }
+    ],
+    "reason": "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
+    "forecast_coverage": [
+      {
+        "candidate": "wait",
+        "scored_scenarios": [
+          "no-new-opponent-actions",
+          "plausible-public-last-heading-response",
+          "delayed-admission-opponent-first"
+        ],
+        "comparison_bases": [
+          {
+            "scenario": "no-new-opponent-actions",
+            "basis": "same-logical-horizon",
+            "candidate_logical_ticks": 0,
+            "wait_logical_ticks": 0,
+            "elapsed_window_ns": {
+              "$integer": "20000000000"
+            }
+          },
+          {
+            "scenario": "plausible-public-last-heading-response",
+            "basis": "same-logical-horizon",
+            "candidate_logical_ticks": 0,
+            "wait_logical_ticks": 0,
+            "elapsed_window_ns": {
+              "$integer": "20000000000"
+            }
+          },
+          {
+            "scenario": "delayed-admission-opponent-first",
+            "basis": "same-logical-horizon",
+            "candidate_logical_ticks": 0,
+            "wait_logical_ticks": 0,
+            "elapsed_window_ns": {
+              "$integer": "20000000000"
+            }
+          }
+        ],
+        "unassessed": []
+      },
+      {
+        "candidate": "fire-1-0-1",
+        "scored_scenarios": [
+          "no-new-opponent-actions",
+          "plausible-public-last-heading-response",
+          "delayed-admission-opponent-first"
+        ],
+        "comparison_bases": [
+          {
+            "scenario": "no-new-opponent-actions",
+            "basis": "elapsed-window-with-idle",
+            "candidate_logical_ticks": 4,
+            "wait_logical_ticks": 0,
+            "elapsed_window_ns": {
+              "$integer": "20000000000"
+            }
+          },
+          {
+            "scenario": "plausible-public-last-heading-response",
+            "basis": "elapsed-window-with-idle",
+            "candidate_logical_ticks": 4,
+            "wait_logical_ticks": 0,
+            "elapsed_window_ns": {
+              "$integer": "20000000000"
+            }
+          },
+          {
+            "scenario": "delayed-admission-opponent-first",
+            "basis": "elapsed-window-with-idle",
+            "candidate_logical_ticks": 4,
+            "wait_logical_ticks": 0,
+            "elapsed_window_ns": {
+              "$integer": "20000000000"
+            }
+          }
+        ],
+        "unassessed": []
+      }
+    ],
+    "comparison_units": "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks."
+  }
+}

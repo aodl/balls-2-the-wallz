@@ -14,11 +14,12 @@ export function cannonReference(world,config){
 export function operationalText(status){
   if(!status)return 'Operational status unavailable — wait before making purchases.';
   if(status.run.world_transition)return 'World transition in progress — existing payments and unfinished work are draining. Wait before preparing a payment.';
-  if(status.run.pace?.admission_open===false)return 'Reserve protection — pending payments are preserved and funding recovery remains active; wait before making purchases.';
   const error=status.run.last_error[0]??status.source.last_error[0];
   if(error)return `Service error — wait before making purchases: ${error}`;
   if(!status.source.binding_checked)return 'Index binding pending — wait before making purchases.';
-  if(!status.run.running)return 'Gameplay paused — do not make purchases. Source reconciliation continues.';
+  if(!status.run.running)return 'Gameplay paused by operator — do not make purchases. Source reconciliation continues.';
+  if(status.run.pace?.mode==='ReserveProtection'&&status.run.pace.admission_open===false)return 'Reserve protection — pending payments are preserved and funding recovery remains active; wait before making purchases.';
+  if(status.run.pace?.admission_open===false)return 'Gameplay admission closed — wait before making purchases.';
   if(status.run.idle)return 'Arena idle — waiting for a payment. Independent 60-second Index polling continues.';
   return `Gameplay running; index cursor ${status.source.admitted_to_exclusive}; ${status.source.pending_records} history rows pending. Index lag and the 60-second fallback can delay discovery.`;
 }
@@ -26,4 +27,64 @@ export function operationalText(status){
 /** Operational idling may label only an authenticated empty snapshot. */
 export function idleArena(status,world){
  return Boolean(status?.run.running&&status.run.idle&&!status.run.last_error.length&&status.source.binding_checked&&!status.source.last_error.length&&world&&(world.cannons.length===0||world.version===6&&world.playability.lifecycle.every(l=>l.deadline_ns!==undefined))&&!world.balls.length&&!world.pending.length);
+}
+
+/** Operational messaging only; never advances, skips or authenticates playback. */
+export function catchupIndicator({
+  phase,
+  verified = false,
+  operational = null,
+  operationalFresh = false,
+}) {
+  const pending = [
+    "LOADING",
+    "BUFFERING",
+    "STALLED",
+    "DEGRADED_BUFFER",
+  ].includes(phase);
+  const statusKnown =
+    verified &&
+    operationalFresh &&
+    phase !== "ERROR" &&
+    operational?.run &&
+    !operational.run.world_transition &&
+    !operational.run.last_error.length &&
+    !operational.source?.last_error.length;
+  if (statusKnown && operational.run.running === false) {
+    const bound = operational.source?.binding_checked === true;
+    return {
+      visible: true,
+      spinner: false,
+      kind: bound ? "operator-paused" : "paused-source-unverified",
+      title: bound
+        ? "Gameplay paused by operator"
+        : "Gameplay stopped · source unverified",
+      description: bound
+        ? "The operator must resume gameplay. Funding alone will not resume it."
+        : "Source binding is unverified. Wait for verified service status before preparing a payment.",
+    };
+  }
+  const reserve =
+    statusKnown &&
+    operational.run.running === true &&
+    operational.source?.binding_checked === true &&
+    operational.run.pace?.mode === "ReserveProtection" &&
+    operational.run.pace.admission_open === false;
+  return reserve
+    ? {
+        visible: true,
+        spinner: false,
+        kind: "reserve",
+        title: "Gameplay paused to conserve cycles",
+        description:
+          "Showing the verified timeline. Gameplay resumes when funding permits; source and funding maintenance continue.",
+      }
+    : {
+        visible: pending,
+        spinner: true,
+        kind: "catching-up",
+        title: "Catching up",
+        description:
+          "Fetching and verifying on-chain gameplay. Motion comes from the on-chain runtime; your browser only renders the verified timeline.",
+      };
 }
