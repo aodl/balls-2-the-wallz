@@ -1,0 +1,20 @@
+[
+  {
+    "candidate": "wait",
+    "scenario": "original",
+    "status": "complete",
+    "cache": false
+  },
+  {
+    "candidate": "wait",
+    "scenario": "cached-equivalent",
+    "status": "complete",
+    "cache": true
+  },
+  {
+    "candidate": "fire",
+    "scenario": "original",
+    "status": "complete",
+    "cache": false
+  }
+]

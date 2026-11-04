@@ -1,0 +1,29 @@
+[
+  {
+    candidate: 'wait',
+    scenario: 'original',
+    status: 'complete',
+    cache: false
+  },
+  {
+    candidate: 'fire',
+    scenario: 'original',
+    status: 'complete',
+    cache: false
+  }
+]
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Completed cached result must be published before later work can be interrupted
+    at file:///home/codexdev/src/b2z-prelaunch-rules/.work/b2z-streamed-progress/reproduce.mjs:19:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

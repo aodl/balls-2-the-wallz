@@ -1,0 +1,53 @@
+{
+  "id": 41906883732,
+  "head_sha": "e7ff49186d689f5cfc1256a014d8415ab5225c66",
+  "status": "in_progress",
+  "conclusion": null,
+  "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/41906883732",
+  "observed_at": "2026-11-04T20:43:17.526965+00:00",
+  "jobs": [
+    {
+      "id": 126843816314,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126843816463,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126843816517,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126843816675,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126843816748,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126843816773,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 126843817251,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "jobs_observed_at": "2026-11-04T20:44:39.579109+00:00"
+}

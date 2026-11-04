@@ -1,0 +1,385 @@
+{
+  "cases": 10,
+  "hard_timeouts": 10,
+  "paid": 5,
+  "wait": 5,
+  "reported_work": 67082,
+  "budget_charge": 1015443,
+  "elapsed_ms": 64846.77888600001,
+  "before_cache_visibility": [
+    {
+      "seat": 0,
+      "defence": "wait",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 0,
+      "defence": "move-proactive",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 0,
+      "defence": "support-proactive",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 0,
+      "defence": "move-reactive",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 0,
+      "defence": "support-late",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 1,
+      "defence": "wait",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 1,
+      "defence": "move-proactive",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 1,
+      "defence": "support-proactive",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 1,
+      "defence": "move-reactive",
+      "cached_wait_rows": 0
+    },
+    {
+      "seat": 1,
+      "defence": "support-late",
+      "cached_wait_rows": 0
+    }
+  ],
+  "after_cache_visibility": [
+    {
+      "seat": 0,
+      "defence": "wait",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 0,
+      "defence": "move-proactive",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 0,
+      "defence": "support-proactive",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 0,
+      "defence": "move-reactive",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 0,
+      "defence": "support-late",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 1,
+      "defence": "wait",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 1,
+      "defence": "move-proactive",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 1,
+      "defence": "support-proactive",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 1,
+      "defence": "move-reactive",
+      "cached_wait_rows": 1
+    },
+    {
+      "seat": 1,
+      "defence": "support-late",
+      "cached_wait_rows": 1
+    }
+  ],
+  "rows": [
+    {
+      "seat": 0,
+      "defence": "wait",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "-9200000000"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "-40010000"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 0,
+      "defence": "move-proactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "-40010000"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 0,
+      "defence": "support-proactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "-1348593750"
+        },
+        {
+          "$integer": "30517578125"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "-40010000"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 0,
+      "defence": "move-reactive",
+      "candidate": "original",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "0"
+      },
+      "conditional_accuracy": "UNASSESSED"
+    },
+    {
+      "seat": 0,
+      "defence": "support-late",
+      "candidate": "original",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "135449218750"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "0"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 1,
+      "defence": "wait",
+      "candidate": "original",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "9200000000"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "0"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 1,
+      "defence": "move-proactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "-40010000"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 1,
+      "defence": "support-proactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "-1348593750"
+        },
+        {
+          "$integer": "30517578125"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "-40010000"
+      },
+      "conditional_accuracy": "PASS"
+    },
+    {
+      "seat": 1,
+      "defence": "move-reactive",
+      "candidate": "original",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "0"
+      },
+      "conditional_accuracy": "UNASSESSED"
+    },
+    {
+      "seat": 1,
+      "defence": "support-late",
+      "candidate": "original",
+      "status": "hard_timeout",
+      "reason": "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "137324218750"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_delta_e8s": {
+        "$integer": "0"
+      },
+      "conditional_accuracy": "PASS"
+    }
+  ]
+}

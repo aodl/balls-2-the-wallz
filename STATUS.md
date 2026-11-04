@@ -1,3 +1,23 @@
+# Forecast progress delivery correction
+
+Child branch `development/b2z-streamed-forecast-progress`, source `ce8a28e`, preserves
+completed cached scenarios in streamed partial replies before later work can be
+interrupted. A deterministic before-FAIL/after-PASS prefix proves the defect;
+50 focused tests and 20 native/reference comparisons pass. Final complete results
+and physics are unchanged.
+
+The parent `e7ff491` remains published; its CI 41906883732 was still running the
+last integration job at recording. This child does not alter the parent's source.
+Its own exact-commit CI requires publication. No financial, production, controller,
+DTR, game-rule, executor or signing-privilege operation occurred.
+
+Hard deadlines still limit forecast coverage. A ten-case shortlist preparation
+failed to improve completion and was not added to maintained policy code. The
+streaming fix is a correctness repair, not a claim of faster or universally better
+play. [Proof, commands, measurements and preserved negative results](evidence/B2Z/forecast-progress-2026-11-04/REPORT.md).
+
+---
+
 # Fresh geometry — bounded generalisation check
 
 Parent `ff10c80` passed all six substantive jobs in CI `41869373848`; production

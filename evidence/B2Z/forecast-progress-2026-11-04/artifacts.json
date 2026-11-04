@@ -1,0 +1,18 @@
+{
+  "source": "ce8a28e7ba2f843552b5a40bfe59d26bc24eb270",
+  "parent": "e7ff49186d689f5cfc1256a014d8415ab5225c66",
+  "artifacts": [
+    {
+      "file": "after-replay.json.gz",
+      "classification": "BOUNDED_PARTIAL",
+      "uncompressed_sha256": "03e89bceef9bd386f34a0757385afee13958c31c9e26d306751e87212c1b1ddf",
+      "bytes": 508240
+    },
+    {
+      "file": "shortlist-negative.json.gz",
+      "classification": "NEGATIVE_PREPARATION",
+      "uncompressed_sha256": "bf02a65717f1a1e57f6c27a5dc2bb0ab492c9eda714930b1cde9802b9f6fd49c",
+      "bytes": 219130
+    }
+  ]
+}
