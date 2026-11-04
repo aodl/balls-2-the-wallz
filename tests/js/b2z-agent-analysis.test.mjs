@@ -117,3 +117,15 @@ test('controlled-population conditional shortlist needs trusted approval and one
  const good=consentEvaluation(evaluation,['approved'],{snapshot,campaignApproved:true});assert.equal(good.candidates.length,2);assert.equal(good.consent_screen.controlled_population_conditional,true);assert.match(good.consent_screen.unassessed_delays,/not ranked or proven safe/);assert.equal(decide('frugal-expander',good).candidate,'fire');assert.equal(decide('frugal-expander',good).robustness.assessed_all_declared_scenarios,false);
  for(const context of [{snapshot,campaignApproved:false},{snapshot:{...snapshot,trust:'local-synthetic'},campaignApproved:true},{snapshot:{...snapshot,reference:{...snapshot.reference,head:2n}},campaignApproved:true},{snapshot:{...snapshot,world:{...snapshot.world,cannons:[...snapshot.world.cannons,{account:'outside'}]}},campaignApproved:true}])assert.equal(consentEvaluation(evaluation,['approved'],context).candidates.length,1);
 });
+
+
+test('incomplete forecast evaluations are retried while complete results remain cached',async()=>{
+ const b=board('idle');b.snapshot.reference={...b.snapshot.reference,root:'incomplete-cache-regression'};
+ const options={choices:[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}}],horizon:2,maxCandidates:1,maxMs:1000,maxWork:1,delaySeconds:[0,0,0]};
+ const first=await evaluateActions(b,account,options),second=await evaluateActions(b,account,options);
+ assert.notEqual(first.status,'complete');assert.notEqual(second.cache_hit,true);
+ assert.notEqual(second.status,'complete');
+ const complete={...options,maxWork:100000,maxMs:2000};
+ const a=await evaluateActions(b,account,complete),again=await evaluateActions(b,account,complete);
+ assert.equal(a.status,'complete');assert.equal(again.cache_hit,true);
+});

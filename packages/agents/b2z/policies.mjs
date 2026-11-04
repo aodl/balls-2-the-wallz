@@ -425,6 +425,7 @@ export function decideCounterplay(policy, evaluation) {
     policy,
     version: "b2z-counterplay-2",
     candidate: eligible[0]?.candidate ?? wait.id,
+    eligible_candidates: eligible.map((r) => r.candidate),
     pareto: pareto.map((r) => r.candidate),
     summaries,
     unassessed,
