@@ -205,3 +205,13 @@ test("public attacker changes direction using only present targets and respects 
   observation.remaining_e8s = 0n;
   assert.equal(choosePublicAttack(observation, proposals).candidate, "wait");
 });
+
+test("Frugal requires an explicit integer investment allocation rather than adopting the whole balance", () => {
+  const e = fixture();
+  delete e.investment_budget_e8s;
+  assert.equal(decideCounterplay("frugal-expander", e).candidate, "wait");
+  e.investment_budget_e8s = 10010000;
+  assert.equal(decideCounterplay("frugal-expander", e).candidate, "wait");
+  e.investment_budget_e8s = 10010000n;
+  assert.equal(decideCounterplay("frugal-expander", e).candidate, "support");
+});

@@ -400,7 +400,7 @@ export function decideCounterplay(policy, evaluation) {
       (policy === "frugal-expander" ||
         r.worst_support_survival >= baseline.worst_support_survival) &&
       (policy !== "frugal-expander" ||
-        (evaluation.investment_budget_e8s !== undefined &&
+        (typeof evaluation.investment_budget_e8s === "bigint" &&
           r.full_cost_e8s <= evaluation.investment_budget_e8s)),
   );
   // A defence pays only for a demonstrated survival improvement or nonnegative
