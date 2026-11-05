@@ -80,6 +80,13 @@ The experiment tool supports `--no-cache`, `--case-indices=15` and
 `--reverse-cases` for bounded reproductions. Candidate-major scheduling is retained;
 its tested scenario-major alternative did not improve decision reliability.
 
+For the offline attack experiment, `--paid-candidates=2` schedules Wait plus the
+first two already legal/affordable recorded proposals; `--reverse-paid` reverses
+the scheduled paid actions after truncation. Outputs list omitted proposals as
+`UNASSESSED`, with exact costs. This explicit experiment control does not change
+policy defaults or the forecast API, and does not authorize paid play. More
+complete comparisons in a smaller set do not establish global optimality.
+
 The scenarios explicitly vary new opponent actions and admission delays (default
 0/60/120 seconds). Opponent responses select the nearest active opposing cannon using public
 toroidal geometry (stable cannon ID breaks ties), and use its public last heading.
