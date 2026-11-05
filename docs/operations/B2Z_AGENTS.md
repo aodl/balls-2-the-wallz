@@ -66,6 +66,20 @@ code in a terminable worker. No approximate physics or on-chain hypothetical cal
 is added. Limits are at most 16 candidates/16 ticks/1,000,000 work units/5.3 seconds.
 Results distinguish complete, bounded partial, timeout and per-scenario error.
 
+`measurements.scenario_costs` attributes each delivered row's elapsed wall time and
+reported cursor work; `candidate_costs` sums those samples. `segment_ms` includes
+the existing segment wrapper (serialization and subprocess time on the Rust path),
+while `summary_ms` measures derived result construction. These are local wall times,
+not CPU instructions or billed IC cycles. Timings stay outside deterministic
+forecast rows. A hard interruption can leave in-flight work unreported; reserve
+the full requested allowance for an incomplete evaluation in any enclosing batch
+budget rather than treating the last reported counter as its complete cost.
+`cacheResults: false` bypasses only the completed-evaluation cache for matched
+measurements; the existing worker's identical-scenario reuse remains unchanged.
+The experiment tool supports `--no-cache`, `--case-indices=15` and
+`--reverse-cases` for bounded reproductions. Candidate-major scheduling is retained;
+its tested scenario-major alternative did not improve decision reliability.
+
 The scenarios explicitly vary new opponent actions and admission delays (default
 0/60/120 seconds). Opponent responses select the nearest active opposing cannon using public
 toroidal geometry (stable cannon ID breaks ties), and use its public last heading.

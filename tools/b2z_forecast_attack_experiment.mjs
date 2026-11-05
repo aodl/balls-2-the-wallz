@@ -30,6 +30,19 @@ const bytes = readFileSync(archive);
 const data = parse(
   (archive.endsWith(".gz") ? gunzipSync(bytes) : bytes).toString("utf8"),
 );
+const uncached = process.argv.includes("--no-cache");
+const indices = process.argv
+  .find((a) => a.startsWith("--case-indices="))
+  ?.split("=")[1]
+  .split(",")
+  .map(Number);
+let cases = data.rows.filter((r) => r.response === "public-policy");
+if (indices)
+  cases = indices.map((i) => {
+    assert.ok(Number.isInteger(i) && cases[i], "Case index");
+    return cases[i];
+  });
+if (process.argv.includes("--reverse-cases")) cases.reverse();
 const started = performance.now(),
   rows = [];
 let replayWork = 0,
@@ -158,7 +171,7 @@ function conditionalReplay(row, context, proposal, evaluation) {
     horizon_ticks: 4,
   };
 }
-for (const row of data.rows.filter((r) => r.response === "public-policy")) {
+for (const row of cases) {
   bound();
   const context = publicSnapshot(row);
   const choices = context.trace.proposals.map((p) => ({
@@ -178,6 +191,7 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
       maxWork: allowance,
       delaySeconds: [0, 5, 10],
       includeStates: true,
+      cacheResults: !uncached,
     },
   );
   if (!evaluation.cache_hit) {
@@ -267,6 +281,7 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
       scope:
         "Local synthetic replay comparison, not live authentication or spending",
       archive,
+      evaluation_cache_disabled: uncached,
       bounds: {
         horizon_ticks: 4,
         delay_seconds: [0, 5, 10],

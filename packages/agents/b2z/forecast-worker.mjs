@@ -109,7 +109,12 @@ parentPort.on(
     const started = performance.now(),
       results = [],
       cache = new Map();
-    let totalWork = 0;
+    let totalWork = 0,
+      taskStart = 0,
+      taskWork = 0,
+      simulationMs = 0,
+      summaryStart = 0;
+    const taskMetrics = [];
     const native = process.env.B2Z_AGENT_NATIVE;
     const engine = native
       ? {
@@ -128,15 +133,32 @@ parentPort.on(
     // Queue cached and fresh rows before continuing with work that may be interrupted.
     function publish(result) {
       results.push(result);
+      const elapsedMs = performance.now() - taskStart;
+      const metric = {
+        candidate: result.candidate,
+        scenario: result.scenario,
+        status: result.status,
+        cache_hit: result.forecast_cache_hit === true,
+        reported_work: totalWork - taskWork,
+        elapsed_ms: elapsedMs,
+        segment_ms: simulationMs,
+        summary_ms: summaryStart ? performance.now() - summaryStart : 0,
+      };
+      taskMetrics.push(metric);
       parentPort.postMessage({
         partial: true,
         result,
+        task_metrics: metric,
         total_work: totalWork,
         worker_ms: performance.now() - started,
       });
     }
     for (const choice of choices)
       for (const scenario of scenarios) {
+        taskStart = performance.now();
+        taskWork = totalWork;
+        simulationMs = 0;
+        summaryStart = 0;
         const before = snapshot.world;
         const otherPresent = opponentResponse(before, account) !== null,
           hasOwn =
@@ -251,15 +273,21 @@ parentPort.on(
               logical_start: start,
               logical_end: start + 1n,
             };
-            const simulated = simulateSegment({
-              world: w,
-              inputs,
-              context,
-              elapsed,
-              native,
-              remainingWork: maxWork - totalWork,
-              remainingMs: maxMs - (performance.now() - started),
-            });
+            const segmentStart = performance.now();
+            let simulated;
+            try {
+              simulated = simulateSegment({
+                world: w,
+                inputs,
+                context,
+                elapsed,
+                native,
+                remainingWork: maxWork - totalWork,
+                remainingMs: maxMs - (performance.now() - started),
+              });
+            } finally {
+              simulationMs += performance.now() - segmentStart;
+            }
             totalWork += simulated.used;
             if (simulated.status !== "complete") {
               status = "bounded_incomplete";
@@ -280,6 +308,7 @@ parentPort.on(
               audits.push({ ...audit, slot: tick, inputs: [] });
             }
           }
+          summaryStart = performance.now();
           const pid = w.playability.players.find(
               (p) => p.account === account,
             )?.id,
@@ -339,6 +368,7 @@ parentPort.on(
       results,
       total_work: totalWork,
       worker_ms: performance.now() - started,
+      task_metrics: taskMetrics,
       engine,
     });
   },
