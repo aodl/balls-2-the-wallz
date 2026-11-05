@@ -66,6 +66,7 @@ export function annotateDecision(evaluation, decision) {
     assessment: {
       selected_action: decision.candidate,
       declared_scenarios: {
+        scope: "SELECTED_ACTION_VS_MATCHED_WAIT",
         status: complete ? "COMPLETE" : "UNASSESSED",
         rows: declared,
         ...(evaluation.status === "paused"

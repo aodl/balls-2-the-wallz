@@ -37,6 +37,10 @@ test("complete declared comparisons do not establish global robustness or campai
   e.campaign_eligible = true;
   const r = annotateDecision(e, { candidate: "fire" });
   assert.equal(r.assessment.declared_scenarios.status, "COMPLETE");
+  assert.equal(
+    r.assessment.declared_scenarios.scope,
+    "SELECTED_ACTION_VS_MATCHED_WAIT",
+  );
   assert.deepEqual(
     r.assessment.known_omitted_schedules,
     e.assumptions.known_unassessed_schedules,
