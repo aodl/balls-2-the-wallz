@@ -1,3 +1,70 @@
+# Late payoff and public counterplay — 5 November 2026
+
+Published baseline `10975ea` is tracked by exact-commit CI
+[42084066590](https://github.com/aodl/balls-2-the-wallz/actions/runs/42084066590).
+Remote qualification is separate from the local results below; production inventory
+remains BLOCKED. The report preserves a timestamped CI observation rather than
+inferring CI from focused tests.
+
+New source `6bffc2c` adds explicit UNASSESSED metadata for a missing schedule:
+immediate own admission followed by a response one tick later. The existing three
+scenarios, forecasts, limits, rankings and permissions remain unchanged. 52 focused
+tests and source inventory pass. Exact-commit CI must qualify the published candidate.
+
+Fourteen bounded synthetic branches show that one cheap public response removes
+the changed angle's late advantage. Immediate admission earns less attacker score
+than delayed admission, but damages the specific defended island more; whole-player
+ball survival is not island survival. Independent JS/native replay agrees on all
+448 segments, states/events/scores and receipts. No game-rule, DTR, executor,
+financial, production, identity or expired-campaign operation.
+[Reproduction, exact costs, casualties and limits](evidence/B2Z/late-payoff-counterplay-2026-11-05/REPORT.md).
+
+---
+
+# Bounded candidate prefixes — 5 November 2026
+
+The streamed-progress merge is now published on master as `cbb8813`; measurement
+head `c614239` is published too. All six substantive jobs pass in exact-commit
+CI 42000588294 and 42000663809 respectively. Production inventory remains BLOCKED.
+The streamed-progress branch closure is complete. Earlier BLOCKED publication
+snapshots below remain historical evidence.
+
+New local tool-only source `b29ca4c` adds explicit paid-prefix/order controls and
+UNASSESSED omissions. No policy default changes. In ten fresh cases, the two-action
+prefix is stable across both orders (10/10 versus 5/10 for the full set), with lower
+mean JS wall time and higher aggregate realised score at the same synthetic cost.
+The reverse full set still beats it in two cases; no global superiority is claimed.
+A reused held-out state ties. Bounded 4/8/16-tick native probes remain faithful;
+the omitted angle only takes the score lead 26 ticks after the decision, outside
+the existing forecast horizon. No limit increase is justified.
+
+52 focused JS tests, source inventory and 195 shared native/reference forecast rows
+pass; twelve reactive-input state comparisons remain UNASSESSED. The new source's
+CI awaits publication. No production, financial, game-rule, DTR, executor, signing
+or expired-campaign operation occurred.
+[Exact costs, canonical outcomes, timings, CI and reproductions](evidence/B2Z/forecast-prefix-2026-11-05/REPORT.md).
+
+---
+
+# Bounded forecast scheduling — 5 November 2026
+
+The approved streamed-progress tip `27cdaf7` contains reviewed source `ce8a28e`
+with only documentation/evidence afterward. Parent and child CI runs 41906883732
+and 41914128217 passed all six substantive jobs; production inventory is BLOCKED.
+Normal merge `cbb8813` is prepared locally, but GitHub publishing cannot authenticate;
+remote master was still `c4c955f`. No published merge is claimed.
+
+New local source `5bd3475` adds bounded scenario/candidate cost telemetry and an
+uncached measurement option. The original scheduler is retained: the scenario-major
+challenger trades some full completions for fewer useful paid/Wait comparisons;
+both native schedules complete every fresh case. One new held-out state also ties.
+52 focused tests, 20 native/reference comparisons and source inventory pass.
+New-source exact-commit CI awaits publication. No production, financial, campaign,
+physics, DTR, executor, identity or signing-privilege changes.
+[Comparison, measured costs, exact identities and limits](evidence/B2Z/forecast-scheduling-2026-11-05/REPORT.md).
+
+---
+
 # Forecast progress delivery correction
 
 Child branch `development/b2z-streamed-forecast-progress`, source `ce8a28e`, preserves

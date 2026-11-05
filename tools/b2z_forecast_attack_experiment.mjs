@@ -30,6 +30,29 @@ const bytes = readFileSync(archive);
 const data = parse(
   (archive.endsWith(".gz") ? gunzipSync(bytes) : bytes).toString("utf8"),
 );
+const uncached = process.argv.includes("--no-cache");
+const paidArgument = process.argv.find((a) =>
+  a.startsWith("--paid-candidates="),
+);
+const paidLimit = paidArgument ? Number(paidArgument.split("=")[1]) : null;
+assert.ok(
+  paidLimit === null ||
+    (Number.isInteger(paidLimit) && paidLimit >= 1 && paidLimit <= 4),
+  "Paid candidate limit",
+);
+const reversePaid = process.argv.includes("--reverse-paid");
+const indices = process.argv
+  .find((a) => a.startsWith("--case-indices="))
+  ?.split("=")[1]
+  .split(",")
+  .map(Number);
+let cases = data.rows.filter((r) => r.response === "public-policy");
+if (indices)
+  cases = indices.map((i) => {
+    assert.ok(Number.isInteger(i) && cases[i], "Case index");
+    return cases[i];
+  });
+if (process.argv.includes("--reverse-cases")) cases.reverse();
 const started = performance.now(),
   rows = [];
 let replayWork = 0,
@@ -158,13 +181,27 @@ function conditionalReplay(row, context, proposal, evaluation) {
     horizon_ticks: 4,
   };
 }
-for (const row of data.rows.filter((r) => r.response === "public-policy")) {
+for (const row of cases) {
   bound();
   const context = publicSnapshot(row);
-  const choices = context.trace.proposals.map((p) => ({
+  const available = context.trace.proposals.map((p) => ({
     ...p,
     quote: p.quote ?? { amount_e8s: 0n },
   }));
+  const paid = available.filter((c) => !c.action.Wait);
+  const scheduledPaid = paid.slice(0, paidLimit ?? paid.length);
+  if (reversePaid) scheduledPaid.reverse();
+  const choices = [...available.filter((c) => c.action.Wait), ...scheduledPaid];
+  const omitted = available
+    .filter((c) => !choices.includes(c))
+    .map((c) => ({
+      candidate: c.id,
+      action: c.action,
+      full_cost_e8s: c.quote.amount_e8s + fee,
+      status: "UNASSESSED",
+      reason: "Not scheduled within the predeclared candidate prefix",
+    }));
+  assert.equal(choices.filter((c) => c.action.Wait).length, 1);
   const allowance = Math.min(100000, workLimit - replayWork - forecastWork);
   assert.ok(allowance > 0, "Offline forecast work budget exhausted");
   const evaluation = await evaluateActions(
@@ -178,6 +215,7 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
       maxWork: allowance,
       delaySeconds: [0, 5, 10],
       includeStates: true,
+      cacheResults: !uncached,
     },
   );
   if (!evaluation.cache_hit) {
@@ -237,6 +275,7 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
     remaining_before_e8s: context.trace.remaining_budget_e8s,
     geometric_choice: context.trace.decision.candidate,
     selection,
+    scheduling: { scheduled: choices.map((c) => c.id), omitted },
     forecast: recordedEvaluation,
     conditional_accuracy: accuracy,
     realised: {
@@ -267,6 +306,12 @@ for (const row of data.rows.filter((r) => r.response === "public-policy")) {
       scope:
         "Local synthetic replay comparison, not live authentication or spending",
       archive,
+      evaluation_cache_disabled: uncached,
+      candidate_prefix: {
+        paid_limit: paidLimit,
+        reverse_paid: reversePaid,
+        rule: "Declared legal/affordable proposal order; truncate before reversing. No forecast outcomes or geometry used to choose the prefix.",
+      },
       bounds: {
         horizon_ticks: 4,
         delay_seconds: [0, 5, 10],

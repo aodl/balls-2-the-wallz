@@ -47,6 +47,7 @@ export async function evaluateActions(
     cannonId = null,
     delaySeconds = [0, 60, 120],
     includeStates = false,
+    cacheResults = true,
   } = {},
 ) {
   integer(horizon, 1, 16);
@@ -140,10 +141,19 @@ export async function evaluateActions(
     (process.env.B2Z_AGENT_NATIVE_SHA256 ?? "unfrozen") +
     stringify(board.snapshot.reference, 0) +
     stringify(
-      { account, choices, horizon, scenarios, maxWork, maxMs, includeStates },
+      {
+        account,
+        choices,
+        horizon,
+        scenarios,
+        maxWork,
+        maxMs,
+        includeStates,
+      },
       0,
     );
-  if (cache.has(key)) return { ...cache.get(key), cache_hit: true };
+  if (cacheResults && cache.has(key))
+    return { ...cache.get(key), cache_hit: true };
   // Let Node inherit/filter process-wide flags normally. Inline source flags alone
   // require an explicit list because the worker loads a file, not parent stdin.
   const args = forecastWorkerArgs(),
@@ -154,7 +164,8 @@ export async function evaluateActions(
       sourceFlags ? { execArgv: args } : {},
     );
   let timer;
-  const partial = [];
+  const partial = [],
+    taskSamples = [];
   let lastProgress = {};
   const result = await new Promise((resolve, reject) => {
     timer = setTimeout(
@@ -164,12 +175,14 @@ export async function evaluateActions(
           total_work: lastProgress.total_work ?? null,
           worker_ms: lastProgress.worker_ms ?? null,
           status: "hard_timeout",
+          task_metrics: taskSamples,
         }),
       maxMs + 300,
     );
     worker.on("message", (m) => {
       if (m.partial) {
         partial.push(m.result);
+        if (m.task_metrics) taskSamples.push(m.task_metrics);
         lastProgress = m;
       } else resolve(m);
     });
@@ -214,9 +227,30 @@ export async function evaluateActions(
       elapsed_ms: performance.now() - started,
       worker_ms: result.worker_ms,
       total_work: result.total_work,
+      scenario_costs: result.task_metrics ?? taskSamples,
+      candidate_costs: choices.map((c) => {
+        const samples = (result.task_metrics ?? taskSamples).filter(
+          (t) => t.candidate === c.id,
+        );
+        return {
+          candidate: c.id,
+          completed: samples.filter((t) => t.status === "complete").length,
+          reported_work: samples.reduce((n, t) => n + t.reported_work, 0),
+          elapsed_ms: samples.reduce((n, t) => n + t.elapsed_ms, 0),
+        };
+      }),
     },
     assumptions: {
       scenarios,
+      known_unassessed_schedules: [
+        {
+          own_admission_tick: 0,
+          opponent_response_tick: 1,
+          status: "UNASSESSED",
+          reason:
+            "Opponent timing is coupled to own delay in the declared scenarios; immediate admission followed by a response is not evaluated.",
+        },
+      ],
       opponent_selection:
         "Nearest active opposing cannon at response time, toroidal distance then ID; public heading only. No assumed dormant revival. Intent/funds/admission remain unknown.",
       deterministic:
@@ -238,6 +272,7 @@ export async function evaluateActions(
     },
   });
   if (
+    cacheResults &&
     out.status === "complete" &&
     out.forecasts.length === choices.length * scenarios.length &&
     out.forecasts.every((r) => r.status === "complete")

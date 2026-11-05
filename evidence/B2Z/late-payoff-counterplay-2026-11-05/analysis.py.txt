@@ -1,0 +1,29 @@
+from pathlib import Path
+import json,gzip
+from fractions import Fraction
+root=Path('.work/b2z-late-counterplay')
+def dec(d):return int(d['$integer']) if set(d)=={'$integer'} else d
+def load(p):
+ b=Path(p).read_bytes();return json.loads(gzip.decompress(b) if str(p).endswith('.gz') else b,object_hook=dec)
+def frac(x):return Fraction(*x)
+def exact(x):return [str(x.numerator),str(x.denominator)]
+gold=load('evidence/B2Z/forecast-scheduling-2026-11-05/new-heldout.json.gz');groups=[]
+for mode in [0,1]:
+ d=load(root/f'mode-{mode}/results.json');baseline=next(r for r in d['rows'] if r['response']=='wait');rows=[]
+ for r in d['rows']:
+  c=r['candidate'];trace=r['response_observation'];a=c['attacker_outcomes'];assert a['casualty_attribution_complete'] and c['casualty_attribution_complete']
+  assert all(receipt['status']=='applied' and receipt['remainder']==0 for receipt in c['receipts'])
+  if mode==0 and r['response'] in ['alternate-d0','changed-angle-d0','wait']:
+   name=r['response'].removesuffix('-d0');old=next(x for x in gold['rows'] if x['response']==name)
+   assert r['initial_state']==old['initial_state'];assert c['final_state']==old['candidate']['final_state'];assert c['receipts']==old['candidate']['receipts'];assert r['attacker_score_delta']==old['attacker_score_delta']
+  submitted=[x for x in trace if x.get('kind')=='submitted'];prepared=[x for x in trace if x.get('kind')=='prepared']
+  if r['response']!='wait':
+   assert len(submitted)==len(prepared)==1;assert prepared[0]['tick']==4;assert prepared[0]['quote']==submitted[0]['quote']
+  rows.append({'response':r['response'],'initial_state':r['initial_state'],'final_state':c['final_state'],'attacker_increment_exact':exact(frac(r['attacker_score_delta'])-frac(baseline['attacker_score_delta'])),'attacker_increment_display':float(frac(r['attacker_score_delta'])-frac(baseline['attacker_score_delta'])),'defender_increment_exact':exact(frac(c['score_delta'])-frac(baseline['candidate']['score_delta'])),'attacker_full_cost_e8s':c['opponent_full_cost_e8s'],'attacker_response_cost_e8s':c['opponent_full_cost_e8s']-baseline['candidate']['opponent_full_cost_e8s'],'defender_full_cost_e8s':c['full_cost_e8s'],'attacker_remaining_e8s':r['attacker_remaining_e8s'],'defender_remaining_e8s':r['defender_remaining_e8s'],'defender_territory':c['territory'],'defended_island':c['defended_island'],'attacker_island':c['attacker_island'],'replacement_prices':r['replacement_costs'],'attacker_cannons_retained':r['attacker_cannons_retained'],'defender_cannons_retained':r['defender_cannons_retained'],'attacker_born':a['own_balls_spawned'],'attacker_lost':a['own_balls_lost'],'defender_born':a['opponent_balls_spawned'],'defender_lost':a['opponent_balls_lost'],'loss_attribution':[{'payment_position':x.get('payment',{}).get('position'),'paid_item_e8s':x.get('payment',{}).get('item_price_e8s'),'cannon':x.get('cannon'),'origin':x['origin'],'death_slot':x['death']['slot'],'pair_ids':x['death']['pair_ids'],'counterfactual_key':x['counterfactual_key']} for x in a['own_ball_losses']],'receipt_count':len(c['receipts'])})
+ groups.append({'public_response':bool(mode),'scope':'Matched conservation branch for this response rule','kernel_work':d['total_work'],'elapsed_ms':d['elapsed_ms'],'rows':rows})
+out={'scope':'Post-hoc local diagnostic on a reused fixture, not live or blind validation','groups':groups,'all_receipts_applied':True,'all_remainders_zero':True,'total_synthetic_e8s':sum(r['attacker_full_cost_e8s']+r['defender_full_cost_e8s'] for g in groups for r in g['rows'])}
+(root/'summary.json').write_text(json.dumps(out,indent=2)+'\n')
+for g in groups:
+ print('response',g['public_response'],'work',g['kernel_work'],'ms',round(g['elapsed_ms']))
+ for r in g['rows']:print(r['response'],round(r['attacker_increment_display'],6),'defender territory',r['defender_territory'],'defended active',r['defended_island']['active'],'player balls',r['defended_island']['player_ball_count'])
+print('PASS baseline hashes/receipts/score, frozen quotes, actual births/deaths, separate full-cost budgets; synthetic total ICP',out['total_synthetic_e8s']/1e8)

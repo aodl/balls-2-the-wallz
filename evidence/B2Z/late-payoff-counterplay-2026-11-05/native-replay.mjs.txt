@@ -1,0 +1,49 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {B2zCursor,encodePayment} from '../../packages/kernels/b2z/kernel.mjs';
+import {encodeWorld,decodeWorld,ENTRY_IDENTITY,ENTRY_CONFIG} from '../../packages/kernels/b2z/world.mjs';
+import {quoteAction,opponentResponse} from '../../packages/agents/b2z/actions.mjs';
+import {parse,stringify} from '../../packages/agents/b2z/common.mjs';
+const root='.work/b2z-late-counterplay',binary=resolve('.work/b2z-native-release/target/release/native-conformance-v4');
+const hash=b=>createHash('sha256').update(b).digest('hex');
+assert.equal(hash(readFileSync(binary)),'baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795');
+const started=performance.now(),cases=[];let jsWork=0,nativeWork=0,segments=0;
+const bound=()=>assert.ok(performance.now()-started<300000&&jsWork+nativeWork<=2000000,'Replay work/time bound');
+function payment(account,q,position){const bytes=encodePayment(account,q.amount_e8s,{kind:'angle',value:0});bytes.set(Buffer.from(q.memo_hex,'hex'),48);return{position,payload_hex:Buffer.from(bytes).toString('hex')};}
+for(const mode of [0,1]){
+ const data=parse(readFileSync(`${root}/mode-${mode}/results.json`,'utf8'));
+ for(const row of data.rows){
+  let w=decodeWorld(Buffer.from(data.initial_states[row.initial_state],'hex')),last=0n;const attacker=w.cannons.find(c=>c.id===3).account,receipts=[];
+  for(let tick=0;tick<32;tick++){
+   bound();const state=encodeWorld(w),inputs=tick===row.opening_inputs.tick?[...row.opening_inputs.inputs]:[];
+   for(const t of row.response_observation.filter(t=>t.tick===tick)){
+    if(t.public_state)assert.equal(hash(state),t.public_state,'Recorded public observation state');
+    if(t.kind==='submitted')inputs.push(payment(attacker,t.quote,1005n+BigInt(tick)*10n));
+    if(t.kind==='public-counterparty-payment'){
+     const actor=opponentResponse(w,attacker);assert.equal(actor.account,t.account);assert.equal(actor.id,t.action.Fire.cannon);assert.equal(actor.heading??0,t.action.Fire.angle);
+     assert.equal(quoteAction({world:w,configuration:ENTRY_CONFIG},t.account,t.action).amount_e8s,t.quote.amount_e8s);
+     inputs.push(payment(t.account,t.quote,1050n));
+    }
+   }
+   inputs.sort((a,b)=>a.position<b.position?-1:a.position>b.position?1:0);
+   for(const i of inputs){assert.ok(i.position>last,'Independent ordered source positions');last=i.position;}
+   const context={...ENTRY_IDENTITY,logical_start:w.time[0],logical_end:w.time[0]+1n},observed=w.playability.elapsed_ns+5000000000n;
+   const cursor=new B2zCursor(state,inputs,context);
+   for(;;){const p=cursor.step(32);jsWork+=p.used;bound();if(p.complete)break;}
+   cursor.finalizeElapsed(observed);const js=cursor.result();
+   const native=JSON.parse(execFileSync(binary,['segment-json'],{input:JSON.stringify({initial_hex:Buffer.from(state).toString('hex'),inputs_hex:Buffer.from(encodeCanonical(inputs)).toString('hex'),context_hex:Buffer.from(encodeCanonical(context)).toString('hex'),observed_ns:String(observed),max_work:100000}),encoding:'utf8',timeout:5000,maxBuffer:16*1024*1024,env:{PATH:process.env.PATH}}));
+   assert.equal(native.status,'complete');nativeWork+=native.used;bound();
+   for(const field of ['state','events','scores'])assert.equal(hash(Buffer.from(native[field+'_hex'],'hex')),hash(js[field]),`${mode}/${row.response}/${tick}/${field}`);
+   receipts.push(...decodeCanonical(js.events).receipts);w=decodeWorld(js.state);segments++;
+  }
+  assert.equal(hash(encodeWorld(w)),row.candidate.final_state);assert.deepEqual(receipts,row.candidate.receipts);
+  const sums=new Map();for(const r of receipts)sums.set(r.account,(sums.get(r.account)??0n)+r.amount+10000n);
+  assert.equal(sums.get(attacker),row.candidate.opponent_full_cost_e8s);assert.equal([...sums].filter(([a])=>a!==attacker).reduce((n,[,v])=>n+v,0n),row.candidate.full_cost_e8s);
+  cases.push({mode,response:row.response,final_state:row.candidate.final_state,receipt_count:receipts.length,attacker_spent:sums.get(attacker)});
+ }
+}
+const result={status:'PASS',scope:'Exact JS/native synthetic replay, not live authentication or ICP spending',cases,segments,js_work:jsWork,native_work:nativeWork,elapsed_ms:performance.now()-started};writeFileSync(`${root}/replay-PASS.json`,stringify(result));console.log('PASS',cases.length,'cases;',segments,'exact state/event/score segments;',jsWork+nativeWork,'work;',result.elapsed_ms.toFixed(1),'ms');

@@ -1,0 +1,32 @@
+{
+  "source_base": "c614239efeefa5932a0c357768d6adc56847c391",
+  "experiment_tool_sha256": "8f2702170710cf1ff55afda031b0d71b3a27e946f8b7e6b936b1d5c611cada2b",
+  "forecast_module_sha256": "a0e4d505de816e507f3bdfd1387076e9002714b0c59e84e8b2a827e6abbb5a1f",
+  "worker_sha256": "2cc6a8fbe2c1e021c6becc20e009bace2f4d3e8f8379782c38993bf4343e5c83",
+  "design": "Wait first. Full: original, alternate, changed-angle. Prefix: original, alternate. Truncate before reversing paid order. No forecasts, geometry or realised results choose the prefix. All omitted actions UNASSESSED.",
+  "limits": {
+    "horizon_ticks": 4,
+    "delays_seconds": [
+      0,
+      5,
+      10
+    ],
+    "max_ms": 5000,
+    "termination_allowance_ms": 300,
+    "max_work": 100000,
+    "batch_ms": 300000,
+    "batch_work": 2000000
+  },
+  "arms": [
+    "js-full-forward",
+    "js-prefix-reverse",
+    "js-prefix-forward",
+    "js-full-reverse"
+  ],
+  "secondary": "Repeat full/prefix order checks on the new reversed-velocity held-out state and prefix order checks with the unchanged frozen native helper. Reuse qualified native full-set results for canonical outcome comparison; do not compare elapsed times from separate sessions as a controlled speed test.",
+  "archives": {
+    "evidence/B2Z/fresh-geometry-2026-11-04/fresh-trials.json.gz": "63b09c11eae16a23d0afe64763d4d48251361657f45be668fa9bfaf3552e858e",
+    "evidence/B2Z/forecast-scheduling-2026-11-05/new-heldout.json.gz": "4f49c8b02775d2ff4e5fdc36e9addcef0235adb432196297493d8094cfa0615c"
+  },
+  "scope": "Local exact-kernel planning; no campaign or spending authority"
+}

@@ -1,0 +1,77 @@
+from pathlib import Path
+import hashlib,json,subprocess,os
+root=Path('.work/b2z-late-counterplay');source=Path('tools/b2z_matched_strategies.mjs')
+s=source.read_text().replace('../packages/','../../packages/')
+s=s.replace('import { quoteAction }','import { quoteAction, opponentResponse }')
+s=s.replace('for (const seat of [0, 1])','for (const seat of [1])',1)
+a='        // Follow-up quotes use only the public state at their stated decision tick.'
+assert s.count(a)==1;s=s.replace(a,'        defences.splice(1);\n'+a)
+a='''        const followups = closedLoop
+          ? [...responses, ["extra-ball", 49152, 0], ["public-policy", null, 0]]
+          : responses;'''
+assert s.count(a)==1;s=s.replace(a,'''        const followups = [
+          ...[0,1,2].flatMap(delay => [[`alternate-d${delay}`,57344,delay],[`changed-angle-d${delay}`,40960,delay]]),
+          ["wait",null,0],
+        ];''')
+start=s.index('        function stream(response, trace) {');end=s.index('        for (const response of followups) {',start)
+s=s[:start]+'''        function stream(response, trace) {
+          let prepared = null;
+          return (tick, world) => {
+            const inputs=[];
+            if(tick === threatTick) inputs.push(...opposingInputs[1]);
+            if(tick === 4 && response[1] !== null) {
+              const action={Fire:{cannon:enemy.id,angle:response[1],quantity:1}};
+              prepared=quoteAction({world,configuration:ENTRY_CONFIG},enemy.account,action);
+              assert.ok(prepared.amount_e8s+fee+ballPrice(territoryBallCount(initial,enemy.id))+fee<=75000000n);
+              trace.push({kind:"prepared",tick,public_state:sha256(encodeWorld(world)),action,quote:prepared});
+            }
+            if(tick === 5 && process.env.B2Z_PUBLIC_COUNTERPLAY === "1") {
+              const actor=opponentResponse(world,enemy.account);
+              if(!actor) trace.push({kind:"counterparty-unavailable",tick,reason:"NO_ACTIVE_PUBLIC_CANNON"});
+              else {
+                assert.equal(actor.account,account);
+                const action={Fire:{cannon:actor.id,angle:actor.heading??0,quantity:1}};
+                const quote=quoteAction({world,configuration:ENTRY_CONFIG},actor.account,action);
+                if(quote.amount_e8s+fee<=budget) {
+                  inputs.push(payment(actor.account,quote,1050n));
+                  trace.push({kind:"public-counterparty-payment",tick,public_state:sha256(encodeWorld(world)),account:actor.account,action,quote,
+                    rule:"Existing opponentResponse: nearest active opposing cannon, toroidal distance then ID; public last heading only"});
+                } else trace.push({kind:"counterparty-budget-excluded",tick,required:quote.amount_e8s+fee,budget});
+              }
+            }
+            if(tick === 4+response[2] && response[1] !== null) {
+              assert.ok(prepared);
+              inputs.push(payment(enemy.account,prepared,1005n+BigInt(tick)*10n));
+              trace.push({kind:"submitted",prepared_tick:4,tick,public_state:sha256(encodeWorld(world)),quote:prepared,
+                ordering:"Source positions sorted before physics; public response precedes simultaneous delayed attack"});
+            }
+            return inputs;
+          };
+        }
+'''+s[end:]
+s=s.replace('    outcomes: ballOutcomes(initial, w, audits, account),','    attacker_outcomes: ballOutcomes(initial,w,audits,initial.cannons.find(c=>c.account!==account).account),\n    outcomes: ballOutcomes(initial, w, audits, account),')
+s=s.replace('      const metrics = (r) => ({','      const metrics = (r) => ({\n        attacker_outcomes:r.attacker_outcomes,\n        attacker_island:defendedIslandSupport(r.world,enemy.account,enemy.cell),')
+s=s.replace('        full_cost_e8s: r.spent,','        full_cost_e8s: r.receipts.filter(receipt=>receipt.account===account).reduce((sum,receipt)=>sum+receipt.amount+fee,0n),')
+a='''              policy === "wait" ? 0 : 1,
+            );
+            assert.ok(actual.outcomes.casualty_attribution_complete);'''
+b='''              (policy === "wait" ? waitTrace : trace).filter(t=>t.kind==="public-counterparty-payment").length,
+            );
+            assert.ok(candidate.full_cost_e8s<=budget);
+            assert.ok(candidate.opponent_full_cost_e8s<=75000000n);
+            assert.ok(actual.attacker_outcomes.casualty_attribution_complete);
+            assert.ok(actual.outcomes.casualty_attribution_complete);'''
+assert s.count(a)==1;s=s.replace(a,b)
+a='writeFileSync(output + "/results.json", stringify(result));'
+b='''result.experiment="One reused reversed-velocity combined geometry, seat 1, Wait defence; two angles quoted at head 4, admission 0/1/2 ticks; optional bounded public last-heading response at head 5; 32-tick outcomes";
+result.counterplay={enabled:process.env.B2Z_PUBLIC_COUNTERPLAY==="1",defender_budget_e8s:budget,attacker_budget_e8s:75000000n,fee_e8s:fee,quote_head:4,response_head:5,admission_delay_ticks:[0,1,2]};
+result.limitations=["Post-hoc local diagnostic on an already inspected fixture; not a blind holdout or IC-authenticated observation","Public last-heading is one bounded response policy, not best-response or LLM adaptation","Frozen quotes are not reservations; receipts and full retained amounts determine outcomes/costs","No forecast engine/time/work limit, policy default, DTR, signer or live campaign changes","0/5/10 seconds of assumed Conserve admission; no 60/120-second admission claim or billed IC-cycle measurement"];
+'''+a
+assert s.count(a)==1;s=s.replace(a,b)
+tool=root/'counterplay-probe.mjs';tool.write_text(s)
+(root/'design.json').write_text(json.dumps({'source_base':'10975ea49acf142c369fc9d528e2e351b308f9ab','runner_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'probe_sha256':hashlib.sha256(tool.read_bytes()).hexdigest(),'design':'Fourteen exact-kernel 32-tick branches: two headings x three admission delays x two public response modes, plus one matched conservation branch per mode. Freeze attacker quotes at head 4. Counterparty uses current public state/heading at head 5 with 0.25 ICP full budget; attacker 0.75 ICP full budget. No future results inform action selection.','limits':{'work':2000000,'wall_ms':300000},'scope':'Synthetic canonical payments only; no ICP signing or production calls'},indent=2)+'\n')
+for mode in [0,1]:
+ env=os.environ.copy();env['B2Z_PUBLIC_COUNTERPLAY']=str(mode)
+ with (root/f'mode-{mode}.log').open('w') as log:
+  subprocess.run(['node',str(tool),str(root/f'mode-{mode}'),'--fresh-counterplay','--held-out'],env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
+print('PASS: fourteen bounded delayed-payment/public-response branches')

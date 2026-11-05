@@ -1,0 +1,14 @@
+from pathlib import Path
+import os,subprocess,json
+root=Path('.work/b2z-prefix')
+s=Path('tools/b2z_forecast_attack_experiment.mjs').read_text().replace('../packages/','../../packages/')
+s=s.replace('const uncached = process.argv.includes("--no-cache");','const probeHorizon = Number(process.env.B2Z_PROBE_HORIZON);\nassert.ok([4,8,16].includes(probeHorizon));\nconst uncached = process.argv.includes("--no-cache");')
+s=s.replace('tick < 8','tick < 4 + probeHorizon').replace('row.admission_tick < 8','row.admission_tick < 4 + probeHorizon')
+s=s.replace('horizon: 4,','horizon: probeHorizon,').replace('horizon_ticks: 4,','horizon_ticks: probeHorizon,')
+tool=root/'lookahead-probe.mjs';tool.write_text(s)
+env=os.environ.copy();env['B2Z_AGENT_NATIVE']=str(Path('.work/b2z-native-release/target/release/native-conformance-v4').resolve());env['B2Z_AGENT_NATIVE_SHA256']='baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795'
+for horizon in [4,8,16]:
+ env['B2Z_PROBE_HORIZON']=str(horizon)
+ with (root/f'lookahead-{horizon}.log').open('w') as log:
+  subprocess.run(['node',str(tool),str(root/f'lookahead-{horizon}'),'evidence/B2Z/forecast-scheduling-2026-11-05/new-heldout.json.gz','--no-cache'],stdout=log,stderr=subprocess.STDOUT,check=True,env=env)
+print('PASS: bounded native look-ahead probe; maintained sources untouched')
