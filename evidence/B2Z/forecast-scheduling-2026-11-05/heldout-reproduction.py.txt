@@ -1,0 +1,46 @@
+from pathlib import Path
+s=Path('tools/b2z_matched_strategies.mjs').read_text().replace('../packages/','../../packages/')
+s=s.replace('for (const seat of [0, 1])','for (const seat of [1])',1)
+a='        // Follow-up quotes use only the public state at their stated decision tick.'
+assert s.count(a)==1
+s=s.replace(a,'        defences.splice(1); // One held-out situation.\n'+a)
+Path('.work/b2z-scheduling/heldout-runner.mjs').write_text(s)
+
+# Run this setup first, then the following existing runner:
+# node .work/b2z-scheduling/heldout-runner.mjs .work/b2z-scheduling/new-heldout --fresh-counterplay --held-out
+
+from pathlib import Path
+import os,subprocess
+root=Path('.work/b2z-scheduling')
+worker=Path('packages/agents/b2z/forecast-worker.mjs')
+original=worker.read_bytes()
+archive=str(root/'new-heldout/results.json')
+def run(name, native=False, alternative=False):
+ env=os.environ.copy()
+ env.pop('B2Z_AGENT_NATIVE',None);env.pop('B2Z_AGENT_NATIVE_SHA256',None);env.pop('B2Z_EXPERIMENT_SCHEDULE',None)
+ if native:
+  env['B2Z_AGENT_NATIVE']=str(Path('.work/b2z-native-release/target/release/native-conformance-v4').resolve())
+  env['B2Z_AGENT_NATIVE_SHA256']='baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795'
+ if alternative:env['B2Z_EXPERIMENT_SCHEDULE']='wait-first-scenario-major'
+ with (root/(name+'.log')).open('w') as log:
+  subprocess.run(['node','tools/b2z_forecast_attack_experiment.mjs',str(root/name),archive,'--no-cache'],env=env,stdout=log,stderr=subprocess.STDOUT,check=True)
+run('new-heldout-js-baseline')
+run('new-heldout-native-baseline',native=True)
+try:
+ s=original.decode(); old='''    for (const choice of choices)
+      for (const scenario of scenarios) {'''
+ assert s.count(old)==1
+ new='''    const wait = choices.find(c => c.action.Wait);
+    const others = choices.filter(c => c !== wait).map((c,index) => ({c,index}))
+      .sort((a,b) => a.c.full_cost_e8s < b.c.full_cost_e8s ? -1 : a.c.full_cost_e8s > b.c.full_cost_e8s ? 1 : a.index-b.index).map(r => r.c);
+    const tasks = process.env.B2Z_EXPERIMENT_SCHEDULE === "wait-first-scenario-major"
+      ? [...scenarios.map(s => [wait,s]), ...scenarios.flatMap(s => others.map(c => [c,s]))]
+      : choices.flatMap(c => scenarios.map(s => [c,s]));
+    for (const [choice,scenario] of tasks) {'''
+ worker.write_text(s.replace(old,new))
+ patch=subprocess.check_output(['git','diff','HEAD','--',str(worker)])
+ (root/'new-heldout-experimental.patch').write_bytes(patch)
+ run('new-heldout-native-scenario',native=True,alternative=True)
+ run('new-heldout-js-scenario',alternative=True)
+finally:worker.write_bytes(original)
+print('PASS: held-out paired schedules; maintained worker restored')

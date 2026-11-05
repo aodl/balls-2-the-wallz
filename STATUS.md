@@ -1,3 +1,22 @@
+# Bounded forecast scheduling — 5 November 2026
+
+The approved streamed-progress tip `27cdaf7` contains reviewed source `ce8a28e`
+with only documentation/evidence afterward. Parent and child CI runs 41906883732
+and 41914128217 passed all six substantive jobs; production inventory is BLOCKED.
+Normal merge `cbb8813` is prepared locally, but GitHub publishing cannot authenticate;
+remote master was still `c4c955f`. No published merge is claimed.
+
+New local source `5bd3475` adds bounded scenario/candidate cost telemetry and an
+uncached measurement option. The original scheduler is retained: the scenario-major
+challenger trades some full completions for fewer useful paid/Wait comparisons;
+both native schedules complete every fresh case. One new held-out state also ties.
+52 focused tests, 20 native/reference comparisons and source inventory pass.
+New-source exact-commit CI awaits publication. No production, financial, campaign,
+physics, DTR, executor, identity or signing-privilege changes.
+[Comparison, measured costs, exact identities and limits](evidence/B2Z/forecast-scheduling-2026-11-05/REPORT.md).
+
+---
+
 # Forecast progress delivery correction
 
 Child branch `development/b2z-streamed-forecast-progress`, source `ce8a28e`, preserves
