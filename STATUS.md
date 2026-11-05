@@ -1,3 +1,29 @@
+# Bounded scenario coverage — 5 November 2026
+
+Reviewed remote `2a73e4d` contains `6bffc2c` plus evidence only. All six substantive
+jobs pass in exact-head CI [42088731555](https://github.com/aodl/balls-2-the-wallz/actions/runs/42088731555).
+Production inventory remains BLOCKED. Normal local merge `d9d3ac2` is prepared but
+not published: authenticated HTTPS write access is unavailable. Remote master was
+last checked at `cbb8813`; no published merge is claimed.
+
+New implementation `a88ace3` / `b00e74c` adds explicit selected-action/Wait coverage,
+known omitted schedules/candidates, UNKNOWN futures and NOT_ESTABLISHED campaign
+eligibility. It changes no rankings, defaults, worker, kernel, DTR or executor.
+58 focused JS tests, 20 native/reference comparisons and source checks pass.
+New exact-head CI is NOT_RUN pending publication, not qualified by the parent.
+
+A/B/C allocation comparison preserves fixed 5,000 ms / 100,000 work limits and
+four ticks. All selected/Wait comparisons complete; A has 11/12 fully assessed
+paid alternatives, B and C 8/8. Additional immediate-response coverage changes no
+selection in either geometry/seat. The candidate-major defaults remain unchanged.
+The held-out loop reverses the earlier timing/score relationship; short-horizon
+island disruption does not imply lasting shutdown. 704 native/JS segments per
+batch agree, with the corrected C rerun duplicating the same 22 realised futures.
+[Results, costs, omissions and reproduction](evidence/B2Z/scenario-coverage-2026-11-05/REPORT.md).
+No real spending, campaign, production or controller operation occurred.
+
+---
+
 # Late payoff and public counterplay — 5 November 2026
 
 Published baseline `10975ea` is tracked by exact-commit CI

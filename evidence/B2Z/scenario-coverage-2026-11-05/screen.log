@@ -1,0 +1,13 @@
+combined 0 A complete score:alternate defender-island:original
+combined 0 B complete score:alternate defender-island:original
+combined 0 C complete score:alternate defender-island:original
+combined 1 C complete score:alternate defender-island:original
+combined 1 B complete score:alternate defender-island:original
+combined 1 A bounded_partial score:alternate defender-island:original
+dual-route-loop 0 A complete score:alternate defender-island:wait
+dual-route-loop 0 B complete score:alternate defender-island:wait
+dual-route-loop 0 C complete score:alternate defender-island:wait
+dual-route-loop 1 C complete score:alternate defender-island:wait
+dual-route-loop 1 B complete score:alternate defender-island:wait
+dual-route-loop 1 A complete score:alternate defender-island:wait
+PASS 12 allocations; 22 selected-action futures; 495950 conservative work units
