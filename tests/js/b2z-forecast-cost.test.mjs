@@ -58,6 +58,19 @@ test("cost attribution is bounded, complete and separate from deterministic fore
   const { board, account, options } = setup();
   const e = await evaluateActions(board, account, options);
   assert.equal(e.status, "complete");
+  assert.equal(e.assumptions.scenarios.length, 3);
+  assert.deepEqual(
+    e.assumptions.known_unassessed_schedules.map(
+      ({ reason, ...schedule }) => schedule,
+    ),
+    [
+      {
+        own_admission_tick: 0,
+        opponent_response_tick: 1,
+        status: "UNASSESSED",
+      },
+    ],
+  );
   const samples = e.measurements.scenario_costs;
   assert.equal(samples.length, 6);
   assert.equal(

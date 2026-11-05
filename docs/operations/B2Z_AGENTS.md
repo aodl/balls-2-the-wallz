@@ -90,6 +90,10 @@ complete comparisons in a smaller set do not establish global optimality.
 The scenarios explicitly vary new opponent actions and admission delays (default
 0/60/120 seconds). Opponent responses select the nearest active opposing cannon using public
 toroidal geometry (stable cannon ID breaks ties), and use its public last heading.
+The current scenario family couples opposing activity to own admission delay;
+it omits immediate own admission followed by a response one tick later. Running
+forecast replies expose that combination in `known_unassessed_schedules` as
+`UNASSESSED`. This is a restricted set, not a guaranteed worst-case bound.
 Each row lists the assumed action/account/amount. Dormant-only opponents do not
 automatically receive an invented paid revival. Intent and funds remain unknown. Future
 payments, fees, discovery, order and timing remain assumptions. Actions outside the

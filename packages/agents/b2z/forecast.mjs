@@ -242,6 +242,15 @@ export async function evaluateActions(
     },
     assumptions: {
       scenarios,
+      known_unassessed_schedules: [
+        {
+          own_admission_tick: 0,
+          opponent_response_tick: 1,
+          status: "UNASSESSED",
+          reason:
+            "Opponent timing is coupled to own delay in the declared scenarios; immediate admission followed by a response is not evaluated.",
+        },
+      ],
       opponent_selection:
         "Nearest active opposing cannon at response time, toroidal distance then ID; public heading only. No assumed dormant revival. Intent/funds/admission remain unknown.",
       deterministic:
