@@ -1,3 +1,26 @@
+# Late payoff and public counterplay — 5 November 2026
+
+Published baseline `10975ea` is tracked by exact-commit CI
+[42084066590](https://github.com/aodl/balls-2-the-wallz/actions/runs/42084066590).
+Remote qualification is separate from the local results below; production inventory
+remains BLOCKED. The report preserves a timestamped CI observation rather than
+inferring CI from focused tests.
+
+New source `6bffc2c` adds explicit UNASSESSED metadata for a missing schedule:
+immediate own admission followed by a response one tick later. The existing three
+scenarios, forecasts, limits, rankings and permissions remain unchanged. 52 focused
+tests and source inventory pass. Exact-commit CI must qualify the published candidate.
+
+Fourteen bounded synthetic branches show that one cheap public response removes
+the changed angle's late advantage. Immediate admission earns less attacker score
+than delayed admission, but damages the specific defended island more; whole-player
+ball survival is not island survival. Independent JS/native replay agrees on all
+448 segments, states/events/scores and receipts. No game-rule, DTR, executor,
+financial, production, identity or expired-campaign operation.
+[Reproduction, exact costs, casualties and limits](evidence/B2Z/late-payoff-counterplay-2026-11-05/REPORT.md).
+
+---
+
 # Bounded candidate prefixes — 5 November 2026
 
 The streamed-progress merge is now published on master as `cbb8813`; measurement

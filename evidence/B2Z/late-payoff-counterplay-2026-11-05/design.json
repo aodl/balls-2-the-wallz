@@ -1,0 +1,11 @@
+{
+  "source_base": "10975ea49acf142c369fc9d528e2e351b308f9ab",
+  "runner_sha256": "5bd97bbfabd1aeb5de7f94ecdf47dd8748eb5ab3e081bd9e372a482659356eac",
+  "probe_sha256": "d3ad9c9cd2a11c62697c9d6dc2fd714bb791f9223b99dd59fc504b031f82dfe5",
+  "design": "Fourteen exact-kernel 32-tick branches: two headings x three admission delays x two public response modes, plus one matched conservation branch per mode. Freeze attacker quotes at head 4. Counterparty uses current public state/heading at head 5 with 0.25 ICP full budget; attacker 0.75 ICP full budget. No future results inform action selection.",
+  "limits": {
+    "work": 2000000,
+    "wall_ms": 300000
+  },
+  "scope": "Synthetic canonical payments only; no ICP signing or production calls"
+}

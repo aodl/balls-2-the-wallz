@@ -1,0 +1,1090 @@
+{
+  "scope": "Post-hoc local diagnostic on a reused fixture, not live or blind validation",
+  "groups": [
+    {
+      "public_response": false,
+      "scope": "Matched conservation branch for this response rule",
+      "kernel_work": 59889,
+      "elapsed_ms": 9689.485977,
+      "rows": [
+        {
+          "response": "alternate-d0",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "18e6aa6cb4deeace6d533d763449a88f182367fefb557205f0e88329d1487906",
+          "attacker_increment_exact": [
+            "269131008292",
+            "44193359375"
+          ],
+          "attacker_increment_display": 6.089851780859328,
+          "defender_increment_exact": [
+            "-199666284",
+            "4017578125"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 2,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 0
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 0,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1045,
+              "paid_item_e8s": 40000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 26,
+              "pair_ids": [
+                4,
+                1
+              ],
+              "counterfactual_key": "spawn:792666a6348391cb92f6bd8c54b0f64c3bea03d32423d2bf930c208275c5987d"
+            }
+          ],
+          "receipt_count": 2
+        },
+        {
+          "response": "changed-angle-d0",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "a8948297f34c5bc5f12c66acdd98356f5c3d87ad6064957e07b567beb61a26fd",
+          "attacker_increment_exact": [
+            "2176990272",
+            "353546875"
+          ],
+          "attacker_increment_display": 6.15757181279003,
+          "defender_increment_exact": [
+            "-559318058",
+            "8838671875"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 3,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3,
+              4
+            ],
+            "active": true,
+            "player_ball_count": 3
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 3,
+                "next_ball_e8s": 90000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 0,
+          "defender_born": 0,
+          "defender_lost": 0,
+          "loss_attribution": [],
+          "receipt_count": 2
+        },
+        {
+          "response": "alternate-d1",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "1624b4b879a044a109e11f202b4e975505aa99882e9cee706e665c618c16d2fc",
+          "attacker_increment_exact": [
+            "255509554292",
+            "44193359375"
+          ],
+          "attacker_increment_display": 5.781627780859328,
+          "defender_increment_exact": [
+            "-170868284",
+            "4017578125"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 2,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 0
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 0,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1055,
+              "paid_item_e8s": 40000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 27,
+              "pair_ids": [
+                4,
+                1
+              ],
+              "counterfactual_key": "spawn:999b5cffbc4cf047b85493c60e502b1333e4d32bde4e47523b28b483e22eed9a"
+            }
+          ],
+          "receipt_count": 2
+        },
+        {
+          "response": "changed-angle-d1",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "d371f88cf605aac54036464bbd0d22f43c134243dde1a458390d3c36af93897b",
+          "attacker_increment_exact": [
+            "2057343888",
+            "353546875"
+          ],
+          "attacker_increment_display": 5.8191544982542975,
+          "defender_increment_exact": [
+            "-495962458",
+            "8838671875"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 3,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3,
+              4
+            ],
+            "active": true,
+            "player_ball_count": 3
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 3,
+                "next_ball_e8s": 90000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 0,
+          "defender_born": 0,
+          "defender_lost": 0,
+          "loss_attribution": [],
+          "receipt_count": 2
+        },
+        {
+          "response": "alternate-d2",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "2a0b05a67354a74a511b2093fd468f3f13119308f1d11d8238f92a98d1a600fe",
+          "attacker_increment_exact": [
+            "241888100292",
+            "44193359375"
+          ],
+          "attacker_increment_display": 5.473403780859328,
+          "defender_increment_exact": [
+            "-142070284",
+            "4017578125"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 2,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 0
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 0,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1065,
+              "paid_item_e8s": 40000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 28,
+              "pair_ids": [
+                4,
+                1
+              ],
+              "counterfactual_key": "spawn:dafafff3ae1fe1c511ac7fc8e6b75f69fc6313b689b205c4745696d3eea78e20"
+            }
+          ],
+          "receipt_count": 2
+        },
+        {
+          "response": "changed-angle-d2",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "54799c88f505e2e4d51f56ea27cb55b0b8d2bffe2904587965edb8d4daeed1b5",
+          "attacker_increment_exact": [
+            "1938857056",
+            "353546875"
+          ],
+          "attacker_increment_display": 5.4840169524903875,
+          "defender_increment_exact": [
+            "-432606858",
+            "8838671875"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 3,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3,
+              4
+            ],
+            "active": true,
+            "player_ball_count": 3
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 3,
+                "next_ball_e8s": 90000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 0,
+          "defender_born": 0,
+          "defender_lost": 0,
+          "loss_attribution": [],
+          "receipt_count": 2
+        },
+        {
+          "response": "wait",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "f879601de0fea7f3f1a30e2deb45a9a917b1f423333bdf28f77453c0dd0a37ee",
+          "attacker_increment_exact": [
+            "0",
+            "1"
+          ],
+          "attacker_increment_display": 0.0,
+          "defender_increment_exact": [
+            "0",
+            "1"
+          ],
+          "attacker_full_cost_e8s": 10010000,
+          "attacker_response_cost_e8s": 0,
+          "defender_full_cost_e8s": 0,
+          "attacker_remaining_e8s": 64990000,
+          "defender_remaining_e8s": 25000000,
+          "defender_territory": 5,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 1,
+          "attacker_lost": 0,
+          "defender_born": 0,
+          "defender_lost": 0,
+          "loss_attribution": [],
+          "receipt_count": 1
+        }
+      ]
+    },
+    {
+      "public_response": true,
+      "scope": "Matched conservation branch for this response rule",
+      "kernel_work": 52585,
+      "elapsed_ms": 8038.524255,
+      "rows": [
+        {
+          "response": "alternate-d0",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "acd796cfcae17a3c0365b96a9239d4af902fcd8f7a0bff79177a90b1e8acb2e7",
+          "attacker_increment_exact": [
+            "969989794",
+            "365234375"
+          ],
+          "attacker_increment_display": 2.6558009333048127,
+          "defender_increment_exact": [
+            "-36266",
+            "390625"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 5,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1045,
+              "paid_item_e8s": 40000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 8,
+              "pair_ids": [
+                4,
+                5
+              ],
+              "counterfactual_key": "spawn:792666a6348391cb92f6bd8c54b0f64c3bea03d32423d2bf930c208275c5987d"
+            }
+          ],
+          "receipt_count": 3
+        },
+        {
+          "response": "changed-angle-d0",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "e7312021c03012e5e67bad1627b4058680b1d58d06bfc2a50c8522463f902312",
+          "attacker_increment_exact": [
+            "969989794",
+            "365234375"
+          ],
+          "attacker_increment_display": 2.6558009333048127,
+          "defender_increment_exact": [
+            "-36266",
+            "390625"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 5,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 4,
+            "supporting_ball_ids": [],
+            "active": false,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              3
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 0,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1045,
+              "paid_item_e8s": 40000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 8,
+              "pair_ids": [
+                4,
+                5
+              ],
+              "counterfactual_key": "spawn:034f65fc1b3eb30823d587b87a9272234d2bcb704f87de0e5fc379e9b4b27fd1"
+            }
+          ],
+          "receipt_count": 3
+        },
+        {
+          "response": "alternate-d1",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "bfea26f22b872ab0ab61f82df48f2ac605a530d87b0cf9c170b4cb0df31915c0",
+          "attacker_increment_exact": [
+            "50950952672",
+            "8838671875"
+          ],
+          "attacker_increment_display": 5.764548496942591,
+          "defender_increment_exact": [
+            "-3050672",
+            "8838671875"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 10,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 1,
+            "supporting_ball_ids": [
+              1
+            ],
+            "active": true,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              5
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1010,
+              "paid_item_e8s": 10000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 17,
+              "pair_ids": [
+                3,
+                4
+              ],
+              "counterfactual_key": "spawn:cd8315dbc181456e789861d9c7500b1b5f9a88921661b1531ee2ca905aed8c26"
+            }
+          ],
+          "receipt_count": 3
+        },
+        {
+          "response": "changed-angle-d1",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "294f3f2c24f553104f8fd4aecd5b25f1d2b48142c3df24e3d3bf83c083d870b2",
+          "attacker_increment_exact": [
+            "50950952672",
+            "8838671875"
+          ],
+          "attacker_increment_display": 5.764548496942591,
+          "defender_increment_exact": [
+            "-3050672",
+            "8838671875"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 10,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 1,
+            "supporting_ball_ids": [
+              1
+            ],
+            "active": true,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              5
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1010,
+              "paid_item_e8s": 10000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 17,
+              "pair_ids": [
+                3,
+                4
+              ],
+              "counterfactual_key": "spawn:cd8315dbc181456e789861d9c7500b1b5f9a88921661b1531ee2ca905aed8c26"
+            }
+          ],
+          "receipt_count": 3
+        },
+        {
+          "response": "alternate-d2",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "a4afdaafa82c68a20b49b0a22f9ed4020307ba75c343027419b3623072d1b01e",
+          "attacker_increment_exact": [
+            "9598482848",
+            "1767734375"
+          ],
+          "attacker_increment_display": 5.429821914279401,
+          "defender_increment_exact": [
+            "-537728",
+            "1767734375"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 10,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 1,
+            "supporting_ball_ids": [
+              1
+            ],
+            "active": true,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              5
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1010,
+              "paid_item_e8s": 10000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 17,
+              "pair_ids": [
+                3,
+                4
+              ],
+              "counterfactual_key": "spawn:cd8315dbc181456e789861d9c7500b1b5f9a88921661b1531ee2ca905aed8c26"
+            }
+          ],
+          "receipt_count": 3
+        },
+        {
+          "response": "changed-angle-d2",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "fdfb44de47a3bd6f0296e28a25927320274354ddbddaaa09b336552b7a9d1fb4",
+          "attacker_increment_exact": [
+            "9598482848",
+            "1767734375"
+          ],
+          "attacker_increment_display": 5.429821914279401,
+          "defender_increment_exact": [
+            "-537728",
+            "1767734375"
+          ],
+          "attacker_full_cost_e8s": 50020000,
+          "attacker_response_cost_e8s": 40010000,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 24980000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 10,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 1,
+            "supporting_ball_ids": [
+              1
+            ],
+            "active": true,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2,
+              5
+            ],
+            "active": true,
+            "player_ball_count": 2
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 2,
+                "next_ball_e8s": 40000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 2,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1010,
+              "paid_item_e8s": 10000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 17,
+              "pair_ids": [
+                3,
+                4
+              ],
+              "counterfactual_key": "spawn:cd8315dbc181456e789861d9c7500b1b5f9a88921661b1531ee2ca905aed8c26"
+            }
+          ],
+          "receipt_count": 3
+        },
+        {
+          "response": "wait",
+          "initial_state": "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75",
+          "final_state": "115c4b521f2e8ae57f2a152a5a26b56d0abe972149b00813d2bbddd8cab06683",
+          "attacker_increment_exact": [
+            "0",
+            "1"
+          ],
+          "attacker_increment_display": 0.0,
+          "defender_increment_exact": [
+            "0",
+            "1"
+          ],
+          "attacker_full_cost_e8s": 10010000,
+          "attacker_response_cost_e8s": 0,
+          "defender_full_cost_e8s": 10010000,
+          "attacker_remaining_e8s": 64990000,
+          "defender_remaining_e8s": 14990000,
+          "defender_territory": 10,
+          "defended_island": {
+            "cell": 106,
+            "snapshot_island": 1,
+            "supporting_ball_ids": [
+              1
+            ],
+            "active": true,
+            "player_ball_count": 1
+          },
+          "attacker_island": {
+            "cell": 100103,
+            "snapshot_island": 3,
+            "supporting_ball_ids": [
+              2
+            ],
+            "active": true,
+            "player_ball_count": 1
+          },
+          "replacement_prices": {
+            "defender": [
+              {
+                "cannon": 1,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              },
+              {
+                "cannon": 2,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              }
+            ],
+            "attacker": [
+              {
+                "cannon": 3,
+                "island_pool": 1,
+                "next_ball_e8s": 10000000
+              }
+            ]
+          },
+          "attacker_cannons_retained": 1,
+          "defender_cannons_retained": 2,
+          "attacker_born": 1,
+          "attacker_lost": 1,
+          "defender_born": 1,
+          "defender_lost": 1,
+          "loss_attribution": [
+            {
+              "payment_position": 1010,
+              "paid_item_e8s": 10000000,
+              "cannon": 3,
+              "origin": "spawned",
+              "death_slot": 11,
+              "pair_ids": [
+                3,
+                4
+              ],
+              "counterfactual_key": "spawn:cd8315dbc181456e789861d9c7500b1b5f9a88921661b1531ee2ca905aed8c26"
+            }
+          ],
+          "receipt_count": 2
+        }
+      ]
+    }
+  ],
+  "all_receipts_applied": true,
+  "all_remainders_zero": true,
+  "total_synthetic_e8s": 690330000
+}

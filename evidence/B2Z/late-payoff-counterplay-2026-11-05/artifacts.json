@@ -1,0 +1,29 @@
+{
+  "date_utc": "2026-11-05",
+  "baseline_head": "10975ea49acf142c369fc9d528e2e351b308f9ab",
+  "baseline_ci_run": 42084066590,
+  "implementation_source": "6bffc2ceaf11d041ae5e084b567174d2a60eff02",
+  "source_scope": "Additive explicit unassessed-schedule metadata only; no forecast rows, scenarios, ranking, work/time limits, game rules, DTR or execution permissions changed",
+  "native_sha256": "baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795",
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "source_files_sha256": {
+    "packages/agents/b2z/forecast.mjs": "be1784f93652e172ba87dd901d3a0f26088721c06c7bf62cf2198de1c8915ac4",
+    "packages/agents/b2z/forecast-worker.mjs": "2cc6a8fbe2c1e021c6becc20e009bace2f4d3e8f8379782c38993bf4343e5c83",
+    "tools/b2z_matched_strategies.mjs": "5bd97bbfabd1aeb5de7f94ecdf47dd8748eb5ab3e081bd9e372a482659356eac"
+  },
+  "artifacts_sha256": {
+    "REPORT.md": "bc9b4dff88e1febf82f096a7d838c31b23a4857bd7ebd1646ce1d927344b1795",
+    "analysis.py.txt": "281d1047f8be2b23fb10d0c911c0832fda4fbc69520095a2085626285cfcec0c",
+    "baseline-ci-observed.json": "1c191eb0143fd20970a9c91282164e948373b4a956ea41ffa1a8b92293ceff12",
+    "design.json": "5a06327729925f11e95d7f7feabc422a952a82e8cbddcc5c4059a91f3781fd1e",
+    "focused-PASS.log": "b9b3ef65b5d2e493a7cc5b4366943a7ad209811d7e54d4ea43cd97b6050f20a8",
+    "mode-0.json.gz": "2e343acba078fb6c6fb0cc018e7e0d0c255430e472fd030ea3a49a63759d62a1",
+    "mode-1.json.gz": "3d5cb70ce21fe0435c81ce360f19995b7a5f2a21e79e177b53c03212c0ee56c5",
+    "native-reference-PASS.json": "9ecbbdc6c3335a027758b8ea18f60c9abcbeb2a8d30b78a1da395c7f391f9617",
+    "native-reference-PASS.log": "c39fc1ed7696a74b69e7a1e0e90508e8bbad8b4d8cc8808c877979cc90df6427",
+    "native-replay.mjs.txt": "9436a8e0a416acda8a1fec45f832c81d758770c7791ae99a97f7b3367e0f5019",
+    "reproduction.py.txt": "4a7c96dfa3a0d55a99dbbc713eaad0b27f9bcdb034cf38c22b1e291daec6fbb1",
+    "source-PASS.log": "04d5fb95ab2f005169c95676e1ffadce24ac48aafe276e221b5ac250565103dd",
+    "summary.json": "01f532140d88d31e75bafd3b0949cd690c508bc2029f635f809e950fe2b8ef11"
+  }
+}

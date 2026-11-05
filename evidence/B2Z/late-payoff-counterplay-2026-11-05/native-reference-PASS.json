@@ -1,0 +1,136 @@
+{
+  "status": "PASS",
+  "scope": "Exact JS/native synthetic replay, not live authentication or ICP spending",
+  "cases": [
+    {
+      "mode": 0,
+      "response": "alternate-d0",
+      "final_state": "18e6aa6cb4deeace6d533d763449a88f182367fefb557205f0e88329d1487906",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 0,
+      "response": "changed-angle-d0",
+      "final_state": "a8948297f34c5bc5f12c66acdd98356f5c3d87ad6064957e07b567beb61a26fd",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 0,
+      "response": "alternate-d1",
+      "final_state": "1624b4b879a044a109e11f202b4e975505aa99882e9cee706e665c618c16d2fc",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 0,
+      "response": "changed-angle-d1",
+      "final_state": "d371f88cf605aac54036464bbd0d22f43c134243dde1a458390d3c36af93897b",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 0,
+      "response": "alternate-d2",
+      "final_state": "2a0b05a67354a74a511b2093fd468f3f13119308f1d11d8238f92a98d1a600fe",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 0,
+      "response": "changed-angle-d2",
+      "final_state": "54799c88f505e2e4d51f56ea27cb55b0b8d2bffe2904587965edb8d4daeed1b5",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 0,
+      "response": "wait",
+      "final_state": "f879601de0fea7f3f1a30e2deb45a9a917b1f423333bdf28f77453c0dd0a37ee",
+      "receipt_count": 1,
+      "attacker_spent": {
+        "$integer": "10010000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "alternate-d0",
+      "final_state": "acd796cfcae17a3c0365b96a9239d4af902fcd8f7a0bff79177a90b1e8acb2e7",
+      "receipt_count": 3,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "changed-angle-d0",
+      "final_state": "e7312021c03012e5e67bad1627b4058680b1d58d06bfc2a50c8522463f902312",
+      "receipt_count": 3,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "alternate-d1",
+      "final_state": "bfea26f22b872ab0ab61f82df48f2ac605a530d87b0cf9c170b4cb0df31915c0",
+      "receipt_count": 3,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "changed-angle-d1",
+      "final_state": "294f3f2c24f553104f8fd4aecd5b25f1d2b48142c3df24e3d3bf83c083d870b2",
+      "receipt_count": 3,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "alternate-d2",
+      "final_state": "a4afdaafa82c68a20b49b0a22f9ed4020307ba75c343027419b3623072d1b01e",
+      "receipt_count": 3,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "changed-angle-d2",
+      "final_state": "fdfb44de47a3bd6f0296e28a25927320274354ddbddaaa09b336552b7a9d1fb4",
+      "receipt_count": 3,
+      "attacker_spent": {
+        "$integer": "50020000"
+      }
+    },
+    {
+      "mode": 1,
+      "response": "wait",
+      "final_state": "115c4b521f2e8ae57f2a152a5a26b56d0abe972149b00813d2bbddd8cab06683",
+      "receipt_count": 2,
+      "attacker_spent": {
+        "$integer": "10010000"
+      }
+    }
+  ],
+  "segments": 448,
+  "js_work": 112474,
+  "native_work": 112474,
+  "elapsed_ms": 20975.462704999998
+}
