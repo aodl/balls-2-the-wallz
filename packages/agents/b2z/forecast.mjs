@@ -1,6 +1,16 @@
 import { Worker } from "node:worker_threads";
 import { candidates } from "./actions.mjs";
-import { check, envelope, integer, stringify } from "./common.mjs";
+import { decodeWorld } from "../../kernels/b2z/world.mjs";
+import { defendedIslandSupport } from "./analysis.mjs";
+import { decideCounterplay } from "./policies.mjs";
+import {
+  check,
+  envelope,
+  integer,
+  stringify,
+  fractionSub,
+  fractionCmp,
+} from "./common.mjs";
 export const FORECAST_METRICS_VERSION = "b2z-forecast-metrics-2";
 const cache = new Map();
 export function forecastWorkerArgs(args = process.execArgv) {
@@ -227,7 +237,130 @@ export async function evaluateActions(
       zero_funding_rate: milli === 0,
     },
   });
-  cache.set(key, out);
+  if (
+    out.status === "complete" &&
+    out.forecasts.length === choices.length * scenarios.length &&
+    out.forecasts.every((r) => r.status === "complete")
+  )
+    cache.set(key, out);
   if (cache.size > 32) cache.delete(cache.keys().next().value);
   return out;
+}
+
+/** Select only from bounded, fully assessed predictions; never grants spending authority. */
+export function chooseForecastAttack(
+  world,
+  account,
+  evaluation,
+  { cannon, investmentBudgetE8s },
+) {
+  check(
+    typeof investmentBudgetE8s === "bigint" && investmentBudgetE8s >= 0n,
+    "BUDGET_REQUIRED",
+  );
+  const wait = evaluation.candidates.find((c) => c.action.Wait);
+  check(wait, "WAIT_REQUIRED");
+  const anchor = world.cannons.find(
+    (c) => c.id === cannon && c.account === account,
+  );
+  check(anchor, "NOT_OWNER");
+  const scenarios = evaluation.assumptions.scenarios.map((s) => s.name);
+  const candidates = evaluation.candidates;
+  check(
+    candidates.every(
+      (c) => typeof c.full_cost_e8s === "bigint" && c.full_cost_e8s >= 0n,
+    ) && wait.full_cost_e8s === 0n,
+    "UNPRICED_FORECAST_CHOICES",
+  );
+  check(
+    candidates.every((c) => c.action.Wait || c.action.Fire?.cannon === cannon),
+    "FORECAST_ACTION_SCOPE",
+  );
+  const rows = evaluation.forecasts.map((r) => {
+    const baseline = evaluation.forecasts.find(
+      (b) => b.candidate === wait.id && b.scenario === r.scenario,
+    );
+    const idle =
+      baseline &&
+      r.elapsed_window_ns === baseline.elapsed_window_ns &&
+      (r.idle_slots > 0 || baseline.idle_slots > 0);
+    const complete =
+      r.status === "complete" &&
+      baseline?.status === "complete" &&
+      r.lifecycle_complete &&
+      r.casualty_attribution_complete &&
+      (r.candidate === wait.id || r.action_admitted_within_horizon) &&
+      (r.logical_ticks_completed === baseline.logical_ticks_completed ||
+        idle) &&
+      typeof r.next_state_hex === "string";
+    const choice = candidates.find((c) => c.id === r.candidate);
+    return {
+      candidate: r.candidate,
+      response: r.scenario,
+      status: complete ? "complete" : "unassessed",
+      casualty_attribution_complete: complete,
+      incremental_score: complete
+        ? fractionSub(r.canonical_score_delta, baseline.canonical_score_delta)
+        : [0n, 1n],
+      full_cost_e8s: choice.full_cost_e8s,
+      defended_island_support: complete
+        ? defendedIslandSupport(
+            decodeWorld(Buffer.from(r.next_state_hex, "hex")),
+            account,
+            anchor.cell,
+          ).supporting_ball_ids.length
+        : 0,
+      territory: r.territory_after ?? 0,
+      incremental_opponent_losses: complete
+        ? r.opponent_balls_lost - baseline.opponent_balls_lost
+        : 0,
+    };
+  });
+  const base = {
+    candidate: wait.id,
+    version: "b2z-forecast-attack-1",
+    scope: "Local derived planning only; no campaign authority",
+    assumptions: evaluation.assumptions,
+    note: "Only the declared bounded futures are assessed. Missing alternatives and longer delays may change the best action.",
+  };
+  if (
+    evaluation.status === "paused" ||
+    !scenarios.length ||
+    scenarios.some(
+      (s) =>
+        !rows.some(
+          (r) =>
+            r.candidate === wait.id &&
+            r.response === s &&
+            r.status === "complete",
+        ),
+    )
+  )
+    return { ...base, reason: "INCOMPLETE_OR_PAUSED_WAIT_FORECAST" };
+  const ranked = decideCounterplay("frugal-expander", {
+    kind: "local-counterplay",
+    candidates,
+    responses: scenarios,
+    rows,
+    investment_budget_e8s: investmentBudgetE8s,
+  });
+  const eligible = ranked.summaries.filter((r) =>
+    ranked.eligible_candidates.includes(r.candidate),
+  );
+  eligible.sort((a, b) =>
+    a.full_cost_e8s < b.full_cost_e8s
+      ? -1
+      : a.full_cost_e8s > b.full_cost_e8s
+        ? 1
+        : fractionCmp(b.exact_worst_increment, a.exact_worst_increment) ||
+          fractionCmp(b.exact_mean_increment, a.exact_mean_increment) ||
+          a.candidate.localeCompare(b.candidate),
+  );
+  return {
+    ...base,
+    candidate: eligible[0]?.candidate ?? wait.id,
+    analysis: ranked,
+    reason:
+      "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
+  };
 }

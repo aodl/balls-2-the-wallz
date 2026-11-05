@@ -1,5 +1,5 @@
 /** Small frozen policies. Inputs are public analysis, own history and typed candidates only. */
-import { check, fractionSub } from "./common.mjs";
+import { check, fractionSub, fractionCmp } from "./common.mjs";
 export const LEGACY_POLICY_VERSION = "b2z-policies-1",
   PREVIOUS_POLICY_VERSION = "b2z-policies-2",
   POLICY_VERSION = "b2z-policies-3";
@@ -132,14 +132,27 @@ export function decideV1(
 export function decide(
   policy,
   evaluation,
-  { version = POLICY_VERSION, ...options } = {},
+  {
+    version = evaluation.kind === "local-counterplay"
+      ? "b2z-counterplay-2"
+      : POLICY_VERSION,
+    ...options
+  } = {},
 ) {
   check(
-    [POLICY_VERSION, PREVIOUS_POLICY_VERSION, LEGACY_POLICY_VERSION].includes(
-      version,
-    ),
+    [
+      POLICY_VERSION,
+      PREVIOUS_POLICY_VERSION,
+      LEGACY_POLICY_VERSION,
+      "b2z-counterplay-2",
+    ].includes(version),
     "UNKNOWN_POLICY_VERSION",
   );
+  if (evaluation.kind === "local-counterplay") {
+    check(version === "b2z-counterplay-2", "POLICY_EVALUATION_MISMATCH");
+    return decideCounterplay(policy, evaluation);
+  }
+  check(version !== "b2z-counterplay-2", "POLICY_EVALUATION_MISMATCH");
   if (version === LEGACY_POLICY_VERSION)
     return decideV1(policy, evaluation, options);
   if (version === POLICY_VERSION && policy === "adaptive-allocator") {
@@ -289,5 +302,205 @@ export function decide(
       "Marginal outcome against Wait in the same complete scenario; idle baselines use an explicitly labelled equal elapsed window; unadmitted actions are unassessed. Scenario coverage limits confidence; spending is not required.",
     comparison_units:
       "Exact canonical score deltas, then bounded heuristic ranking. Fee-inclusive cost where supplied; no financial arithmetic uses ranks.",
+  };
+}
+
+/** Local tactical selection over explicitly enumerated responses, never signing authority.
+ * Equal response weight describes this experiment, not opponent probabilities.
+ * A candidate must cover every response; missing futures cannot enter the shortlist.
+ */
+export function decideCounterplay(policy, evaluation) {
+  check(POLICIES.includes(policy), "UNKNOWN_POLICY");
+  const { candidates, responses } = evaluation;
+  check(
+    responses.length > 0 && new Set(responses).size === responses.length,
+    "RESPONSE_SET",
+  );
+  const wait = candidates.find((c) => c.action.Wait);
+  check(wait, "WAIT_REQUIRED");
+  const summaries = [],
+    unassessed = [];
+  for (const candidate of candidates) {
+    const rows = responses.map((response) => {
+      const matches = evaluation.rows.filter(
+        (r) => r.candidate === candidate.id && r.response === response,
+      );
+      return matches.length === 1 ? matches[0] : null;
+    });
+    if (
+      rows.some(
+        (r) =>
+          !r ||
+          r.status !== "complete" ||
+          !r.casualty_attribution_complete ||
+          !Number.isSafeInteger(r.defended_island_support),
+      )
+    ) {
+      unassessed.push(candidate.id);
+      continue;
+    }
+    const increments = rows.map((r) => r.incremental_score);
+    const total = increments.reduce(
+      (a, b) => [a[0] * b[1] + b[0] * a[1], a[1] * b[1]],
+      [0n, 1n],
+    );
+    const mean = [total[0], total[1] * BigInt(rows.length)];
+    const worst = increments.reduce((a, b) => (fractionCmp(a, b) < 0 ? a : b));
+    const gains = increments.map(value);
+    summaries.push({
+      candidate: candidate.id,
+      full_cost_e8s: rows.reduce(
+        (n, r) => (r.full_cost_e8s > n ? r.full_cost_e8s : n),
+        0n,
+      ),
+      expected_incremental_score:
+        gains.reduce((n, v) => n + v, 0) / rows.length,
+      worst_incremental_score: Math.min(...gains),
+      exact_mean_increment: mean,
+      exact_worst_increment: worst,
+      worst_support_survival: Math.min(
+        ...rows.map((r) => r.defended_island_support),
+      ),
+      worst_territory: Math.min(...rows.map((r) => r.territory)),
+      mean_opponent_losses:
+        rows.reduce((n, r) => n + r.incremental_opponent_losses, 0) /
+        rows.length,
+      // Lossless canonical deltas remain available alongside derived summaries.
+      canonical_increments: rows.map((r) => ({
+        response: r.response,
+        score: r.incremental_score,
+      })),
+    });
+  }
+  const dominates = (a, b) => {
+    const pairs = [
+      [a.worst_support_survival, b.worst_support_survival],
+      [a.worst_territory, b.worst_territory],
+    ];
+    return (
+      fractionCmp(a.exact_mean_increment, b.exact_mean_increment) >= 0 &&
+      fractionCmp(a.exact_worst_increment, b.exact_worst_increment) >= 0 &&
+      a.full_cost_e8s <= b.full_cost_e8s &&
+      pairs.every(([x, y]) => x >= y) &&
+      (a.full_cost_e8s < b.full_cost_e8s ||
+        fractionCmp(a.exact_mean_increment, b.exact_mean_increment) > 0 ||
+        fractionCmp(a.exact_worst_increment, b.exact_worst_increment) > 0 ||
+        pairs.some(([x, y]) => x > y))
+    );
+  };
+  const pareto = summaries.filter(
+    (b) => !summaries.some((a) => a !== b && dominates(a, b)),
+  );
+  const baseline = summaries.find((r) => r.candidate === wait.id);
+  check(baseline, "COMPLETE_WAIT_REQUIRED");
+  let eligible = pareto.filter(
+    (r) =>
+      r.exact_mean_increment[0] > 0n &&
+      r.exact_worst_increment[0] >= 0n &&
+      (policy === "frugal-expander" ||
+        r.worst_support_survival >= baseline.worst_support_survival) &&
+      (policy !== "frugal-expander" ||
+        (typeof evaluation.investment_budget_e8s === "bigint" &&
+          r.full_cost_e8s <= evaluation.investment_budget_e8s)),
+  );
+  // A defence pays only for a demonstrated survival improvement or nonnegative
+  // counterplay benefit. Preserve ICP when all assessed investments have downside.
+  if (policy === "passive") eligible = [];
+  const cheap = (a, b) =>
+    a.full_cost_e8s < b.full_cost_e8s
+      ? -1
+      : a.full_cost_e8s > b.full_cost_e8s
+        ? 1
+        : a.candidate.localeCompare(b.candidate);
+  eligible.sort((a, b) =>
+    policy === "anchor-defender" || policy === "adaptive-allocator"
+      ? b.worst_support_survival - a.worst_support_survival ||
+        fractionCmp(b.exact_worst_increment, a.exact_worst_increment) ||
+        cheap(a, b)
+      : policy === "attrition-raider"
+        ? b.mean_opponent_losses - a.mean_opponent_losses || cheap(a, b)
+        : cheap(a, b),
+  );
+  return {
+    policy,
+    version: "b2z-counterplay-2",
+    candidate: eligible[0]?.candidate ?? wait.id,
+    eligible_candidates: eligible.map((r) => r.candidate),
+    pareto: pareto.map((r) => r.candidate),
+    summaries,
+    unassessed,
+    scope: "Local planning only; no campaign consent or payment authority",
+    rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Frugal instead requires an explicit investment budget and prefers cheaper nonnegative-score improvements; no weighted utility.",
+    uncertainty:
+      "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
+  };
+}
+
+/** Public geometric target choice, not trajectory prediction or hindsight.
+ * Receives only the current observation and affordable typed proposals.
+ */
+export function choosePublicAttack(observation, proposals) {
+  const wait = proposals.find((p) => p.id === "wait");
+  check(wait, "WAIT_REQUIRED");
+  const { world, account, cannon, remaining_e8s, fee_e8s } = observation;
+  check(
+    typeof remaining_e8s === "bigint" &&
+      remaining_e8s >= 0n &&
+      typeof fee_e8s === "bigint" &&
+      fee_e8s >= 0n,
+    "BUDGET_REQUIRED",
+  );
+  proposals = proposals.filter(
+    (p) =>
+      p.action.Wait ||
+      (typeof p.quote?.amount_e8s === "bigint" &&
+        p.quote.amount_e8s + fee_e8s <= remaining_e8s),
+  );
+  const own = world.cannons.find(
+    (c) => c.id === cannon && c.account === account,
+  );
+  check(own, "NOT_OWNER");
+  const player = world.playability.players.find(
+    (p) => p.account === account,
+  )?.id;
+  const wrap = (d) => (d > 500 ? d - 1000 : d < -500 ? d + 1000 : d);
+  const targets = world.balls
+    .filter((b) => b.owner !== player)
+    .map((b) => ({
+      id: b.id,
+      dx: wrap((b.cell % 1000) - (own.cell % 1000)),
+      dy: wrap(Math.floor(b.cell / 1000) - Math.floor(own.cell / 1000)),
+    }));
+  targets.sort(
+    (a, b) =>
+      Math.abs(a.dx) + Math.abs(a.dy) - Math.abs(b.dx) - Math.abs(b.dy) ||
+      a.id - b.id,
+  );
+  if (!targets.length)
+    return {
+      candidate: wait.id,
+      version: "public-attack-1",
+      reason: "No public opposing ball target; preserve ICP.",
+    };
+  const t = targets[0];
+  const angle =
+    t.dy < 0
+      ? Math.abs(t.dx) * 2 < Math.abs(t.dy)
+        ? 49152
+        : t.dx < 0
+          ? 40960
+          : 57344
+      : null;
+  const selected = proposals.find(
+    (p) => p.action.Fire?.angle === angle && p.action.Fire.quantity === 1,
+  );
+  return {
+    candidate: selected?.id ?? wait.id,
+    version: "public-attack-1",
+    target_ball: t.id,
+    reason:
+      "Choose an affordable single-ball approach toward the nearest public enemy ball by toroidal cell geometry; no future outcome inspected.",
+    limitations:
+      "Cell geometry ignores future reflection and admission changes; additional quantity is offered but this frugal attacker does not assume redundant fire is worthwhile.",
   };
 }

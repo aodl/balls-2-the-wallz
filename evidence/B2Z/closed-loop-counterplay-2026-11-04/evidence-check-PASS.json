@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "rows": 120,
+  "unique_initial_states": 4,
+  "initial_state_hashes_verified": true,
+  "recording_addition_preserves_all_terminal_hashes": true,
+  "all_budgets_nonnegative": true,
+  "all_casualties_attributed": true,
+  "oracle_gaps_nonnegative": true
+}

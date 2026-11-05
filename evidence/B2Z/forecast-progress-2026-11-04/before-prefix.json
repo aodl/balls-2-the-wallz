@@ -1,0 +1,14 @@
+[
+  {
+    "candidate": "wait",
+    "scenario": "original",
+    "status": "complete",
+    "cache": false
+  },
+  {
+    "candidate": "fire",
+    "scenario": "original",
+    "status": "complete",
+    "cache": false
+  }
+]

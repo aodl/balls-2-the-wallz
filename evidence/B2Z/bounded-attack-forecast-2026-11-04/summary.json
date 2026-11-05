@@ -1,0 +1,716 @@
+{
+  "rows": [
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "defence": "wait",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "54621799566406250"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "defence": "move-proactive",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "119609404785156250"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "defence": "support-proactive",
+      "selected": "original",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "25863018277343750"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "1902937500000"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "20020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "defence": "move-reactive",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "54621799566406250"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "UNASSESSED"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "defence": "support-late",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "53834671642578125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "defence": "wait",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "54621799566406250"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "defence": "move-proactive",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "34157497070312500"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "defence": "support-proactive",
+      "selected": "original",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "25863018277343750"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "1902937500000"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "20020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "defence": "move-reactive",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "54621799566406250"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "UNASSESSED"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "defence": "support-late",
+      "selected": "changed-angle",
+      "old": "changed-angle",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "78122120513916015625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "10418169175000000"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "78122120513916015625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "defence": "wait",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "21029593133203125"
+        },
+        {
+          "$integer": "3452606201171875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "21237761533203125"
+        },
+        {
+          "$integer": "3452606201171875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "490737204375000000"
+        },
+        {
+          "$integer": "78122120513916015625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "defence": "move-proactive",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "1183119680000"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "1183119680000"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "101495070523859375"
+        },
+        {
+          "$integer": "124995392822265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "defence": "support-proactive",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "4216170490000000"
+        },
+        {
+          "$integer": "690521240234375"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "105422363850000000"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "78122120513916015625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "defence": "move-reactive",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "1183119680000"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "1183119680000"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "101495070523859375"
+        },
+        {
+          "$integer": "124995392822265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "UNASSESSED"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "defence": "support-late",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "26943724701171875"
+        },
+        {
+          "$integer": "5077362060546875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "5445215734765625"
+        },
+        {
+          "$integer": "1015472412109375"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "87941017321416015625"
+        },
+        {
+          "$integer": "114885471343994140625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "defence": "wait",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "21029593133203125"
+        },
+        {
+          "$integer": "3452606201171875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "21237761533203125"
+        },
+        {
+          "$integer": "3452606201171875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "490737204375000000"
+        },
+        {
+          "$integer": "78122120513916015625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "defence": "move-proactive",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "1362542618125"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "1362542618125"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "3705191755718750"
+        },
+        {
+          "$integer": "124995392822265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "defence": "support-proactive",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "523317421607421875"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "105418121287500000"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "defence": "move-reactive",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "1362542618125"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "1362542618125"
+        },
+        {
+          "$integer": "220966796875"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "3705191755718750"
+        },
+        {
+          "$integer": "124995392822265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "UNASSESSED"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "defence": "support-late",
+      "selected": "alternate",
+      "old": "original",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "6093476958203125"
+        },
+        {
+          "$integer": "1015472412109375"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "6150812902734375"
+        },
+        {
+          "$integer": "1015472412109375"
+        }
+      ],
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "270318756103515625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "accuracy": "PASS"
+    }
+  ],
+  "cases": 20,
+  "improved": 12,
+  "equal": 8,
+  "worse": 0,
+  "oracle_matches": 13,
+  "cost_delta_e8s": {
+    "$integer": "0"
+  },
+  "accuracy_pass": 16,
+  "accuracy_unassessed": 4,
+  "total_work": 160590,
+  "elapsed_ms": 34252.85202
+}

@@ -1,0 +1,25 @@
+{
+  "source": "e5f7f1a6b5d261e471d2d4c88ef1b66f8f492ee5",
+  "qualified_parent": "ff10c8020db386b62ea28db5e02b482a19acff06",
+  "artifacts": [
+    {
+      "file": "fresh-trials.json.gz",
+      "classification": "PASS",
+      "uncompressed_sha256": "9776e8399f93dbd0298a9adc65ffb59466641c84a5e186900bdbd0f01ce2246a",
+      "bytes": 1178778
+    },
+    {
+      "file": "forecast-first-run.json.gz",
+      "classification": "BOUNDED_PARTIAL",
+      "uncompressed_sha256": "ed71974b83fb52dac3ccf0e605be0291626ae18746fa861694541bd0f1634870",
+      "bytes": 419568
+    },
+    {
+      "file": "forecast-reserved-work.json.gz",
+      "classification": "MIXED_COMPLETE_AND_PARTIAL",
+      "uncompressed_sha256": "4f4a7de5de5ce10619d54e805f968e85ae41fae231365915f921e1308d5ab570",
+      "bytes": 711046
+    }
+  ],
+  "execution_provenance": "Fresh setup/payment logic executed first in .work runner copied from the maintained runner; maintained flag now implies adaptive/closed-loop modes. Forecast policy is unchanged from the qualified parent. The final counter validation handles unknown/malformed counts conservatively; all actual numeric counts in these records satisfy it."
+}

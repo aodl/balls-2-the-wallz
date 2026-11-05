@@ -1,0 +1,2 @@
+PASS: 20 exact fixture/forecast comparisons; native work bound returns no invented state
+PASS: native artifact mismatch fails closed

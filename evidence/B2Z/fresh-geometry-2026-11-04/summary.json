@@ -1,0 +1,390 @@
+{
+  "cases": 10,
+  "improved": 5,
+  "equal": 3,
+  "worse": 2,
+  "cost_delta_e8s": {
+    "$integer": "-160040000"
+  },
+  "oracle_matches": 3,
+  "wait": 4,
+  "complete": 3,
+  "partial": 4,
+  "timeouts": 3,
+  "reported_work": 90607,
+  "budget_charge": 732459,
+  "uncertain_forecasts": 7,
+  "elapsed_ms": 50508.374773,
+  "rows": [
+    {
+      "seat": 0,
+      "defence": "wait",
+      "candidate": "alternate",
+      "status": "complete",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "104088458114062500"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "105129300114062500"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "oracle_response": "changed-angle",
+      "oracle_gap": [
+        {
+          "$integer": "26452162478482812500"
+        },
+        {
+          "$integer": "390610602569580078125"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": []
+    },
+    {
+      "seat": 0,
+      "defence": "move-proactive",
+      "candidate": "alternate",
+      "status": "bounded_partial",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "463167428955078125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "463167428955078125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "oracle_response": "alternate",
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": [
+        "changed-angle"
+      ]
+    },
+    {
+      "seat": 0,
+      "defence": "support-proactive",
+      "candidate": "wait",
+      "status": "bounded_partial",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "-1348593750"
+        },
+        {
+          "$integer": "30517578125"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "10010000"
+      },
+      "oracle_response": "alternate",
+      "oracle_gap": [
+        {
+          "$integer": "21084246500000000"
+        },
+        {
+          "$integer": "3452606201171875"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": [
+        "alternate",
+        "changed-angle"
+      ]
+    },
+    {
+      "seat": 0,
+      "defence": "move-reactive",
+      "candidate": "alternate",
+      "status": "complete",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "463167428955078125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "463167428955078125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "oracle_response": "alternate",
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "1953053012847900390625"
+        }
+      ],
+      "accuracy": "UNASSESSED",
+      "missing_candidates": []
+    },
+    {
+      "seat": 0,
+      "defence": "support-late",
+      "candidate": "alternate",
+      "status": "complete",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "105272727346484375"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "105885689241015625"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "oracle_response": "alternate",
+      "oracle_gap": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "78122120513916015625"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": []
+    },
+    {
+      "seat": 1,
+      "defence": "wait",
+      "candidate": "alternate",
+      "status": "bounded_partial",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "104088458114062500"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "105129300114062500"
+        },
+        {
+          "$integer": "17263031005859375"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "oracle_response": "changed-angle",
+      "oracle_gap": [
+        {
+          "$integer": "26452162478482812500"
+        },
+        {
+          "$integer": "390610602569580078125"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": [
+        "changed-angle"
+      ]
+    },
+    {
+      "seat": 1,
+      "defence": "move-proactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "10010000"
+      },
+      "oracle_response": "changed-angle",
+      "oracle_gap": [
+        {
+          "$integer": "532246522705078125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": null
+    },
+    {
+      "seat": 1,
+      "defence": "support-proactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "-1348593750"
+        },
+        {
+          "$integer": "30517578125"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "152587890625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "10010000"
+      },
+      "oracle_response": "alternate",
+      "oracle_gap": [
+        {
+          "$integer": "21084246500000000"
+        },
+        {
+          "$integer": "3452606201171875"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": null
+    },
+    {
+      "seat": 1,
+      "defence": "move-reactive",
+      "candidate": "wait",
+      "status": "hard_timeout",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "10010000"
+      },
+      "oracle_response": "changed-angle",
+      "oracle_gap": [
+        {
+          "$integer": "532246522705078125"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "accuracy": "UNASSESSED",
+      "missing_candidates": null
+    },
+    {
+      "seat": 1,
+      "defence": "support-late",
+      "candidate": "original",
+      "status": "bounded_partial",
+      "incremental_vs_geometric": [
+        {
+          "$integer": "0"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "incremental_vs_conservation": [
+        {
+          "$integer": "137324218750"
+        },
+        {
+          "$integer": "3814697265625"
+        }
+      ],
+      "cost_e8s": {
+        "$integer": "50020000"
+      },
+      "oracle_response": "alternate",
+      "oracle_gap": [
+        {
+          "$integer": "526338181357421875"
+        },
+        {
+          "$integer": "86315155029296875"
+        }
+      ],
+      "accuracy": "PASS",
+      "missing_candidates": [
+        "alternate",
+        "changed-angle"
+      ]
+    }
+  ]
+}

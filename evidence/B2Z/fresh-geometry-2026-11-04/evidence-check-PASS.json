@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "trial_rows": 60,
+  "decisions": 10,
+  "initial_state_hashes_valid": true,
+  "unknown_budget_reservations": 7,
+  "conservative_work_charge": 732459,
+  "known_work": 90607,
+  "geometric_oracle_matches": 0,
+  "conditional_replay_passes": 8,
+  "conditional_replay_unassessed": 2
+}

@@ -1,0 +1,30 @@
+{
+  "source": "80b6a9eacfd53560d3156f8b725bb1587403f540",
+  "parent": "5730a14197b81d02d6aec91fa75165d546366ae7",
+  "artifacts": [
+    {
+      "file": "results.json.gz",
+      "classification": "PASS",
+      "uncompressed_sha256": "7ef332d1fa60929f7a85ffe359dfbb4c4186a54c5467e3f84833ce8d30325a28",
+      "bytes": 2786304
+    },
+    {
+      "file": "mutated-report-CONFOUNDED.json.gz",
+      "classification": "CONFOUNDED",
+      "uncompressed_sha256": "19dce568dcc80a0521a7a8a269c63d7703434aa2ce6736cf08e7bf5baa7a2589",
+      "bytes": 2704452
+    },
+    {
+      "file": "preparation-eight-tick-js.json.gz",
+      "classification": "BOUNDED_PARTIAL",
+      "uncompressed_sha256": "eb2d04b277a58117a1a4ee254f08701f24cc55efcb2dc68d29d53633fd28d2c7",
+      "bytes": 1006502
+    },
+    {
+      "file": "preparation-eight-tick-native.json.gz",
+      "classification": "BOUNDED_PARTIAL",
+      "uncompressed_sha256": "06a24e27423acb16f296e1c568972135ccfc6320d9f48fd7a8fa9a25e5c9dc35",
+      "bytes": 966640
+    }
+  ]
+}

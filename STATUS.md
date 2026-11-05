@@ -1,3 +1,105 @@
+# Forecast progress delivery correction
+
+Child branch `development/b2z-streamed-forecast-progress`, source `ce8a28e`, preserves
+completed cached scenarios in streamed partial replies before later work can be
+interrupted. A deterministic before-FAIL/after-PASS prefix proves the defect;
+50 focused tests and 20 native/reference comparisons pass. Final complete results
+and physics are unchanged.
+
+The parent `e7ff491` remains published; its CI 41906883732 was still running the
+last integration job at recording. This child does not alter the parent's source.
+Its own exact-commit CI requires publication. No financial, production, controller,
+DTR, game-rule, executor or signing-privilege operation occurred.
+
+Hard deadlines still limit forecast coverage. A ten-case shortlist preparation
+failed to improve completion and was not added to maintained policy code. The
+streaming fix is a correctness repair, not a claim of faster or universally better
+play. [Proof, commands, measurements and preserved negative results](evidence/B2Z/forecast-progress-2026-11-04/REPORT.md).
+
+---
+
+# Fresh geometry — bounded generalisation check
+
+Parent `ff10c80` passed all six substantive jobs in CI `41869373848`; production
+inventory remains separately BLOCKED. Continued without waiting for a merge on
+`development/b2z-fresh-geometry`; tools-only source `e5f7f1a`.
+
+A new combined bridge/approach case passed 60 exact-kernel arms. Forecast comparison
+is mixed: five gains, three ties, two score losses, with 1.6004 fewer synthetic ICP
+spent across ten independent cases. Three forecast evaluations complete, four
+partial, three time out. Earlier all-Wait replication and a 120-arm bound FAIL are
+preserved. No policy change was fitted to this result.
+
+Incomplete forecasts now reserve their full work allowance in the offline batch
+budget while reported work remains separate. Forty-seven focused tests pass;
+canonical hash/budget checks pass. New-source CI awaits publication. No production,
+spending, campaign, kernel, executor, DTR or identity operation.
+[Evidence, exact costs, bounds, reproduction and remaining limitations](evidence/B2Z/fresh-geometry-2026-11-04/REPORT.md).
+
+---
+
+# Bounded forecast attack experiment — 4 November 2026
+
+Parent `5730a14` passed all six substantive CI jobs in run `41823976844`; its
+production-inventory wrapper remains substantively BLOCKED. The next local branch
+`development/b2z-bounded-attack-forecast` fixes incomplete forecast caching and adds
+an explicitly bounded four-tick attack selector using the same kernel and Pareto
+eligibility. New executable source: `80b6a9e`.
+
+PASS: 47 focused tests, 20 native/reference comparisons, source inventory and
+sixteen matched-input conditional replay hashes. Four reactive-input accuracy
+cases are explicitly unassessed. Across twenty recorded cases the selector gains
+score in twelve, ties eight, loses none, at unchanged full cost. It matches thirteen
+long-horizon oracle choices versus eight for the geometric holdout. These are
+reused synthetic cases, not an independent tournament or live campaign.
+
+Measured 160,590 work units / 34.253 seconds. Partial eight-tick preparation and a
+confounded report-mutation run are preserved. No production operation, real spend,
+new financial authority, kernel, DTR or executor change. New-branch CI remains
+pending publication; the parent's green run does not qualify these changes.
+[Evidence, commands, limits and outcomes](evidence/B2Z/bounded-attack-forecast-2026-11-04/REPORT.md).
+
+---
+
+# Closed-loop counterplay correctness — 4 November 2026
+
+New source continues already-published `3f60e92`: explicit counterplay versioning,
+snapshot-local defended-island support, a public-state geometric attacker, legal
+hindsight oracle, and explicit Frugal discretionary investment budgets. Forty
+focused tests and twenty native/reference comparisons PASS.
+
+Original and held-out 120-row runs compare conserving, repeating, state-selected
+responses and affordable two-ball follow-ups. Public attacker matches the tested
+oracle in 8/20 situations in each set; its long-approach targeting is weak and can
+spend 0.4001 ICP for zero incremental score. The affordable extra identical-heading
+ball earns no additional score within this horizon despite surviving. These are
+valueless local inputs, not financial transfers or balance-change proposals.
+
+Exact initial-state hashes, defended/global support counts, receipts and budgets
+are checked. No backend, executor, DTR, signing privilege, production or campaign
+operation. Publication of new corrections is blocked by absent GitHub credentials;
+prior published CI does not qualify this code.
+[Commands, source identities, outcomes, compressed raw evidence and limitations](evidence/B2Z/closed-loop-counterplay-2026-11-04/REPORT.md).
+
+---
+
+# Local adaptive counterplay development — 4 November 2026
+
+Started from merged master `c4c955f`; local branch
+`development/b2z-adaptive-counterplay`. Two bounded 80-arm exact-kernel experiments
+compare five defences against state-conditioned opponent responses. The local
+Pareto selector improves the long-approach vulnerable seat over the frozen Wait
+choice; a later opponent response changes the preferred support timing. Other
+positions retain cheap Move. No general policy superiority or balance change.
+
+PASS: 36 focused regressions, 20 native/reference fixture/forecast comparisons,
+complete canonical casualty/receipt accounting. Initial confounded budget and
+input-order FAIL are preserved. Remote CI awaits user-owned publication.
+No production operation, ICP spend, funded campaign, executor or DTR change.
+[Commands, exact outcomes, costs, policy comparisons and limitations](evidence/B2Z/adaptive-counterplay-2026-11-04/REPORT.md).
+
+---
+
 # Diagnostic frontend release — published, CI green and deployed
 
 Published source `aa3a202fa91c640af2f425658f9036fe75a87830` passed all six substantive

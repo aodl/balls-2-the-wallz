@@ -1,0 +1,8 @@
+{
+  "base": "bridge_left",
+  "account_player": 1,
+  "defended_cell": 100,
+  "remote_island": {"id": 4, "cells": [700100, 700101], "cannon": 4, "ball": 3},
+  "lost_ball": 1,
+  "expected": {"total_survivors": 1, "defended_support": 0}
+}

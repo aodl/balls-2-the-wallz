@@ -125,6 +125,16 @@ parentPort.on(
       engine.sha256 !== process.env.B2Z_AGENT_NATIVE_SHA256
     )
       throw Error("NATIVE_FORECAST_IDENTITY");
+    // Queue cached and fresh rows before continuing with work that may be interrupted.
+    function publish(result) {
+      results.push(result);
+      parentPort.postMessage({
+        partial: true,
+        result,
+        total_work: totalWork,
+        worker_ms: performance.now() - started,
+      });
+    }
     for (const choice of choices)
       for (const scenario of scenarios) {
         const before = snapshot.world;
@@ -146,7 +156,7 @@ parentPort.on(
             tick_ns: String(scenario.tick_ns),
           });
         if (cache.has(key)) {
-          results.push({
+          publish({
             ...cache.get(key),
             candidate: choice.id,
             scenario: scenario.name,
@@ -275,7 +285,7 @@ parentPort.on(
             )?.id,
             oursBefore = before.balls.filter((b) => b.owner === id),
             oursAfter = w.balls.filter((b) => b.owner === pid);
-          results.push({
+          const result = {
             planned_transfer_e8s: choice.quote.amount_e8s,
             candidate: choice.id,
             scenario: scenario.name,
@@ -313,17 +323,11 @@ parentPort.on(
             ...(includeStates
               ? { next_state_hex: Buffer.from(encodeWorld(w)).toString("hex") }
               : {}),
-          });
-          if (results.at(-1)?.status === "complete")
-            cache.set(key, results.at(-1));
-          parentPort.postMessage({
-            partial: true,
-            result: results.at(-1),
-            total_work: totalWork,
-            worker_ms: performance.now() - started,
-          });
+          };
+          if (result.status === "complete") cache.set(key, result);
+          publish(result);
         } catch (e) {
-          results.push({
+          publish({
             candidate: choice.id,
             scenario: scenario.name,
             status: "error",

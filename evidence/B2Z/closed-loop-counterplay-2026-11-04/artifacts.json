@@ -1,0 +1,49 @@
+{
+  "artifacts": [
+    {
+      "file": "original-results.json.gz",
+      "classification": "PASS",
+      "uncompressed_sha256": "9e12a79feb04178da35dda7db9f5aa88a96fd2c916d3f4ddb932ac17446e1004",
+      "uncompressed_bytes": 2329513
+    },
+    {
+      "file": "original-summary.json.gz",
+      "classification": "PASS",
+      "uncompressed_sha256": "4aa95bdd0fb59d4e678465f2b73639f455297fc98af58a318858e99ed0cab4db",
+      "uncompressed_bytes": 603515
+    },
+    {
+      "file": "heldout-results.json.gz",
+      "classification": "PASS",
+      "uncompressed_sha256": "c8dd4ff1dc8569f4531194a800febf75c4a6e7b60c8cf4614cc846d9f2e3a073",
+      "uncompressed_bytes": 2444260
+    },
+    {
+      "file": "heldout-summary.json.gz",
+      "classification": "PASS",
+      "uncompressed_sha256": "85678713a5ab8e81ddc9c5eeb03412892b5bb55c90a1fb701f90f61b966769ea",
+      "uncompressed_bytes": 604462
+    },
+    {
+      "file": "mismatched-delay-CONFOUNDED.json.gz",
+      "classification": "CONFOUNDED",
+      "uncompressed_sha256": "beeff6f547af37c604186d49b15d373200006f8166d1fcd7e52d13c4462e2d82",
+      "uncompressed_bytes": 2337802
+    }
+  ],
+  "sources": {
+    "original": "2ab0c7b: simulation code, followed by matched summary correction",
+    "recorded_heldout": "0063a172490d9208462b8a83e21633101a013005: frozen simulation and metadata",
+    "current_decision_source": "180af6636f05867d5cf9941f3dba7358c83533dc: integer-budget check; all recorded allocations were already bigint"
+  },
+  "measurements": {
+    "original": {
+      "cursor_work": 712493,
+      "elapsed_ms": 65681.1
+    },
+    "recorded_heldout": {
+      "cursor_work": 774830,
+      "elapsed_ms": 161190.8
+    }
+  }
+}
