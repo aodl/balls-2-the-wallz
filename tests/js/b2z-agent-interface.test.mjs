@@ -20,3 +20,13 @@ test('custom read-only quotes bind one snapshot and cannot override its destinat
  await assert.rejects(agentOperation(observer,{operation:'quote_action',params:{...params,destination:'attacker'}}),/REQUEST_FIELDS/);
  assert.ok(READ_OPERATIONS.has('quote_action'));
 });
+
+test('planning summaries preserve omissions and cannot accept caller-supplied campaign consent',async()=>{
+ const snapshot={world:decodeWorld(Buffer.from(fixture.cases.idle.state_hex,'hex')),reference:{head:9n,source_cursor:100n,root:'decision-summary-regression',...PLAYABILITY_IDENTITY},configuration:PLAYABILITY_CONFIG,trust:'local-synthetic',events:{events:[],receipts:[]},gaps:[]};
+ const observer={current:snapshot,metrics:{},async refresh(){},async operational(){},analysis(){return new BoardAnalysis(snapshot);}};
+ const result=await agentOperation(observer,{operation:'decide',params:{account:snapshot.world.cannons[0].account,policy:'passive',choices:[{id:'wait',action:{Wait:{}},quote:{amount_e8s:0n}}],horizon:1,maxCandidates:1,maxMs:2000,campaign_approved:true,campaign_eligible:true}});
+ assert.equal(result.decision.assessment.known_omitted_schedules[0].status,'UNASSESSED');
+ assert.equal(result.decision.assessment.beyond_horizon.status,'UNKNOWN');
+ assert.equal(result.decision.assessment.campaign_eligibility.status,'NOT_ESTABLISHED');
+ assert.equal(result.decision.assessment.campaign_eligibility.spending_authorized,false);
+});

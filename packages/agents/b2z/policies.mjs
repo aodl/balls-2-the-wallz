@@ -1,5 +1,6 @@
 /** Small frozen policies. Inputs are public analysis, own history and typed candidates only. */
 import { check, fractionSub, fractionCmp } from "./common.mjs";
+import { annotateDecision } from "./forecast-coverage.mjs";
 export const LEGACY_POLICY_VERSION = "b2z-policies-1",
   PREVIOUS_POLICY_VERSION = "b2z-policies-2",
   POLICY_VERSION = "b2z-policies-3";
@@ -129,7 +130,23 @@ export function decideV1(
 }
 
 /** Compare each admitted candidate to Wait under the identical public scenario. */
-export function decide(
+export function decide(policy, evaluation, options = {}) {
+  const selected = decideAssessed(policy, evaluation, options);
+  const result =
+    evaluation.kind === "local-counterplay"
+      ? selected
+      : annotateDecision(evaluation, selected);
+  if (result.robustness)
+    result.robustness = {
+      ...result.robustness,
+      assessed_all_declared_scenarios:
+        result.assessment.declared_scenarios.status === "COMPLETE",
+      robust_against_all_plausible_responses: false,
+    };
+  return result;
+}
+
+function decideAssessed(
   policy,
   evaluation,
   {
@@ -421,19 +438,22 @@ export function decideCounterplay(policy, evaluation) {
         ? b.mean_opponent_losses - a.mean_opponent_losses || cheap(a, b)
         : cheap(a, b),
   );
-  return {
-    policy,
-    version: "b2z-counterplay-2",
-    candidate: eligible[0]?.candidate ?? wait.id,
-    eligible_candidates: eligible.map((r) => r.candidate),
-    pareto: pareto.map((r) => r.candidate),
-    summaries,
-    unassessed,
-    scope: "Local planning only; no campaign consent or payment authority",
-    rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Frugal instead requires an explicit investment budget and prefers cheaper nonnegative-score improvements; no weighted utility.",
-    uncertainty:
-      "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
-  };
+  return annotateDecision(
+    { ...evaluation, kind: "local-counterplay" },
+    {
+      policy,
+      version: "b2z-counterplay-2",
+      candidate: eligible[0]?.candidate ?? wait.id,
+      eligible_candidates: eligible.map((r) => r.candidate),
+      pareto: pareto.map((r) => r.candidate),
+      summaries,
+      unassessed,
+      scope: "Local planning only; no campaign consent or payment authority",
+      rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Frugal instead requires an explicit investment budget and prefers cheaper nonnegative-score improvements; no weighted utility.",
+      uncertainty:
+        "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
+    },
+  );
 }
 
 /** Public geometric target choice, not trajectory prediction or hindsight.

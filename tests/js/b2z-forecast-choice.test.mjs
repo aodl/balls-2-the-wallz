@@ -60,6 +60,9 @@ test("equal-cost forecast choice prefers worst incremental gain over alphabetic 
   const d = chooseForecastAttack(world, account, evaluation(), options);
   assert.equal(d.candidate, "z-consistent");
   assert.equal(d.version, "b2z-forecast-attack-1");
+  assert.equal(d.assessment.declared_scenarios.status, "COMPLETE");
+  assert.equal(d.assessment.robust_against_all_plausible_responses, false);
+  assert.equal(d.assessment.campaign_eligibility.spending_authorized, false);
 });
 test("missing, incomplete and unadmitted futures cannot enter the shortlist", () => {
   const e = evaluation();

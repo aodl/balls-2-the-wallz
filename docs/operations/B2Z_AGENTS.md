@@ -94,6 +94,16 @@ The current scenario family couples opposing activity to own admission delay;
 it omits immediate own admission followed by a response one tick later. Running
 forecast replies expose that combination in `known_unassessed_schedules` as
 `UNASSESSED`. This is a restricted set, not a guaranteed worst-case bound.
+
+The returned `decision.assessment` separates complete selected-action/Wait comparisons
+for declared scenarios from known omissions and `UNKNOWN` outcomes beyond the
+horizon or outside the bounded candidate list. `robust_against_all_plausible_responses`
+is always false. A complete declared set is not a guarantee against other responses.
+`campaign_eligibility.status` is `NOT_ESTABLISHED`, `eligible` is null and
+`spending_authorized` is false: planning has no trusted campaign state. Treat this
+as no spending authority. Only the restricted executor, using durable consent,
+expiry, approved accounts, fresh authentic state, population and budgets, can
+establish actual campaign eligibility. Caller-supplied booleans cannot do so.
 Each row lists the assumed action/account/amount. Dormant-only opponents do not
 automatically receive an invented paid revival. Intent and funds remain unknown. Future
 payments, fees, discovery, order and timing remain assumptions. Actions outside the

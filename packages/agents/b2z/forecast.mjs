@@ -3,6 +3,7 @@ import { candidates } from "./actions.mjs";
 import { decodeWorld } from "../../kernels/b2z/world.mjs";
 import { defendedIslandSupport } from "./analysis.mjs";
 import { decideCounterplay } from "./policies.mjs";
+import { annotateDecision } from "./forecast-coverage.mjs";
 import {
   check,
   envelope,
@@ -371,12 +372,18 @@ export function chooseForecastAttack(
         ),
     )
   )
-    return { ...base, reason: "INCOMPLETE_OR_PAUSED_WAIT_FORECAST" };
+    return annotateDecision(evaluation, {
+      ...base,
+      reason: "INCOMPLETE_OR_PAUSED_WAIT_FORECAST",
+    });
   const ranked = decideCounterplay("frugal-expander", {
     kind: "local-counterplay",
     candidates,
     responses: scenarios,
     rows,
+    assumptions: evaluation.assumptions,
+    bounds: evaluation.bounds,
+    omitted_candidates: evaluation.omitted_candidates,
     investment_budget_e8s: investmentBudgetE8s,
   });
   const eligible = ranked.summaries.filter((r) =>
@@ -391,11 +398,11 @@ export function chooseForecastAttack(
           fractionCmp(b.exact_mean_increment, a.exact_mean_increment) ||
           a.candidate.localeCompare(b.candidate),
   );
-  return {
+  return annotateDecision(evaluation, {
     ...base,
     candidate: eligible[0]?.candidate ?? wait.id,
     analysis: ranked,
     reason:
       "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
-  };
+  });
 }
