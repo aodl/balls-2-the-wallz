@@ -1,3 +1,28 @@
+# Bounded candidate prefixes — 5 November 2026
+
+The streamed-progress merge is now published on master as `cbb8813`; measurement
+head `c614239` is published too. All six substantive jobs pass in exact-commit
+CI 42000588294 and 42000663809 respectively. Production inventory remains BLOCKED.
+The streamed-progress branch closure is complete. Earlier BLOCKED publication
+snapshots below remain historical evidence.
+
+New local tool-only source `b29ca4c` adds explicit paid-prefix/order controls and
+UNASSESSED omissions. No policy default changes. In ten fresh cases, the two-action
+prefix is stable across both orders (10/10 versus 5/10 for the full set), with lower
+mean JS wall time and higher aggregate realised score at the same synthetic cost.
+The reverse full set still beats it in two cases; no global superiority is claimed.
+A reused held-out state ties. Bounded 4/8/16-tick native probes remain faithful;
+the omitted angle only takes the score lead 26 ticks after the decision, outside
+the existing forecast horizon. No limit increase is justified.
+
+52 focused JS tests, source inventory and 195 shared native/reference forecast rows
+pass; twelve reactive-input state comparisons remain UNASSESSED. The new source's
+CI awaits publication. No production, financial, game-rule, DTR, executor, signing
+or expired-campaign operation occurred.
+[Exact costs, canonical outcomes, timings, CI and reproductions](evidence/B2Z/forecast-prefix-2026-11-05/REPORT.md).
+
+---
+
 # Bounded forecast scheduling — 5 November 2026
 
 The approved streamed-progress tip `27cdaf7` contains reviewed source `ce8a28e`

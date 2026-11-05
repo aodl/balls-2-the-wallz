@@ -1,0 +1,20 @@
+from pathlib import Path
+import subprocess
+root=Path('.work/b2z-prefix')
+s=Path('tools/b2z_matched_strategies.mjs').read_text().replace('../packages/','../../packages/')
+s=s.replace('for (const seat of [0, 1])','for (const seat of [1])',1)
+a='        // Follow-up quotes use only the public state at their stated decision tick.'
+assert s.count(a)==1;s=s.replace(a,'        defences.splice(1);\n'+a)
+a='        for (const response of followups) {';assert s.count(a)==1
+s=s.replace(a,'        for (const response of followups.filter(r => ["alternate", "changed-angle", "wait"].includes(r[0]))) {')
+s=s.replace('''  const receipts = [],
+    audits = [];''','''  const receipts = [], timeline = [],
+    audits = [];''')
+s=s.replace('    audits.push({ ...audit, slot: tick, inputs });','''    audits.push({ ...audit, slot: tick, inputs });
+    timeline.push({head:tick+1,state:sha256(out.state),credits:w.credits,events:audit.events});''')
+s=s.replace('    outcomes: ballOutcomes(initial, w, audits, account),','    timeline,\n    outcomes: ballOutcomes(initial, w, audits, account),')
+s=s.replace('      const metrics = (r) => ({','      const metrics = (r) => ({\n        timeline:r.timeline,')
+tool=root/'timeline-probe.mjs';tool.write_text(s)
+with (root/'timeline.log').open('w') as log:
+ subprocess.run(['node',str(tool),str(root/'timeline'),'--fresh-counterplay','--held-out'],stdout=log,stderr=subprocess.STDOUT,check=True)
+print('PASS: three bounded replay timelines captured; maintained sources untouched')

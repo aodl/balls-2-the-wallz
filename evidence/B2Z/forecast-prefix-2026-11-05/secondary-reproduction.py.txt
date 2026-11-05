@@ -1,0 +1,19 @@
+import os,subprocess
+from pathlib import Path
+out=Path('.work/b2z-prefix')
+fresh='evidence/B2Z/fresh-geometry-2026-11-04/fresh-trials.json.gz'
+held='evidence/B2Z/forecast-scheduling-2026-11-05/new-heldout.json.gz'
+def run(name,archive,options,native=False):
+ env=os.environ.copy();env.pop('B2Z_AGENT_NATIVE',None);env.pop('B2Z_AGENT_NATIVE_SHA256',None)
+ if native:
+  env['B2Z_AGENT_NATIVE']=str(Path('.work/b2z-native-release/target/release/native-conformance-v4').resolve())
+  env['B2Z_AGENT_NATIVE_SHA256']='baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795'
+ with (out/(name+'.log')).open('w') as log:
+  subprocess.run(['node','tools/b2z_forecast_attack_experiment.mjs',str(out/name),archive,'--no-cache',*options],stdout=log,stderr=subprocess.STDOUT,env=env,check=True)
+for name,opts in [('full-reverse',['--reverse-paid']),('prefix-forward',['--paid-candidates=2']),('prefix-reverse',['--paid-candidates=2','--reverse-paid']),('full-forward',[])]:
+ run('heldout-js-'+name,held,opts)
+run('native-prefix-reverse',fresh,['--paid-candidates=2','--reverse-paid','--reverse-cases'],True)
+run('native-prefix-forward',fresh,['--paid-candidates=2'],True)
+run('heldout-native-prefix-forward',held,['--paid-candidates=2'],True)
+run('heldout-native-prefix-reverse',held,['--paid-candidates=2','--reverse-paid'],True)
+print('PASS: secondary held-out and frozen-native comparisons')

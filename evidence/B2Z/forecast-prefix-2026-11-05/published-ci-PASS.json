@@ -1,0 +1,983 @@
+{
+  "observed_utc": "2026-11-05T10:03:18.199566+00:00",
+  "runs": [
+    {
+      "run": 42000588294,
+      "expected_sha": "cbb8813cacc723bf5f7beac83231fbca94b32dc8",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "Packaged DTR and clean consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154487602",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/verify_dtr_consumers.py --output .work/ci-package-consumers",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload package-consumer evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Source conformance",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154487688",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --ignore-scripts",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py source --output .work/ci-source",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload source evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Runtime-lab Wasm",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154487908",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python3 -B tools/check.py wasm --output .work/ci-wasm",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload Wasm evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "BLOCKED production inventory (not a pass)",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154487916",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run echo '::warning::BLOCKED: user-operated mainnet deployment, financial/settlement gates and measured target-subnet capacity remain unexecuted.'",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Native conformance",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154487968",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install locked JS dependencies for native forecast equality",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py native --output .work/ci-native",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload native evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "S14 and million-cell installed-IC qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154488007",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m playwright install chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py integration --output .work/ci-integration",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload local IC evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Browser HTTP and Web Crypto",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000588294/job/127154488234",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --ignore-scripts",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m playwright install chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture lifecycle HTTP/browser and independent replay regressions",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py browser --output .work/ci-browser",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload browser evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run": 42000663809,
+      "expected_sha": "c614239efeefa5932a0c357768d6adc56847c391",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "Packaged DTR and clean consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154744491",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/verify_dtr_consumers.py --output .work/ci-package-consumers",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload package-consumer evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Source conformance",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154744507",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --ignore-scripts",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py source --output .work/ci-source",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload source evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "BLOCKED production inventory (not a pass)",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154744579",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run echo '::warning::BLOCKED: user-operated mainnet deployment, financial/settlement gates and measured target-subnet capacity remain unexecuted.'",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Native conformance",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154744594",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install locked JS dependencies for native forecast equality",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py native --output .work/ci-native",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload native evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Runtime-lab Wasm",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154744736",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python3 -B tools/check.py wasm --output .work/ci-wasm",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload Wasm evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "S14 and million-cell installed-IC qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154744989",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m playwright install chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py integration --output .work/ci-integration",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload local IC evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "Browser HTTP and Web Crypto",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42000663809/job/127154745137",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --ignore-scripts",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m playwright install chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Assert exact DTR release provenance",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Capture lifecycle HTTP/browser and independent replay regressions",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -B tools/check.py browser --output .work/ci-browser",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload browser evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

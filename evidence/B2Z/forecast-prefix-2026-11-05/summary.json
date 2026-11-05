@@ -1,0 +1,2374 @@
+{
+  "scope": "Synthetic valueless exact-kernel experiments; no authenticated future or spending grant",
+  "arms": [
+    {
+      "arm": "heldout-js-full-forward",
+      "n": 1,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 1,
+      "fully_assessed_paid": 3,
+      "scheduled_paid": 3,
+      "complete_evaluations": 1,
+      "mean_ms": 4807.004916,
+      "max_ms": 4807.004916,
+      "reported_work": 15174,
+      "conservative_charge": 15174,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "269131008292",
+        "44193359375"
+      ],
+      "increment_score_display": 6.089851780859328,
+      "full_cost_e8s": 50020000,
+      "response_cost_e8s": 40010000,
+      "long_horizon_oracle_gap_exact": [
+        "2992775708",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.06772003193070227,
+      "accuracy_pass": 1,
+      "accuracy_unassessed": 0,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4807.004916,
+          "reported_work": 15174,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "heldout-js-full-reverse",
+      "n": 1,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 1,
+      "fully_assessed_paid": 3,
+      "scheduled_paid": 3,
+      "complete_evaluations": 1,
+      "mean_ms": 4748.6560150000005,
+      "max_ms": 4748.6560150000005,
+      "reported_work": 15174,
+      "conservative_charge": 15174,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "269131008292",
+        "44193359375"
+      ],
+      "increment_score_display": 6.089851780859328,
+      "full_cost_e8s": 50020000,
+      "response_cost_e8s": 40010000,
+      "long_horizon_oracle_gap_exact": [
+        "2992775708",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.06772003193070227,
+      "accuracy_pass": 1,
+      "accuracy_unassessed": 0,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4748.6560150000005,
+          "reported_work": 15174,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "heldout-js-prefix-forward",
+      "n": 1,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 1,
+      "fully_assessed_paid": 2,
+      "scheduled_paid": 2,
+      "complete_evaluations": 1,
+      "mean_ms": 3160.4445750000004,
+      "max_ms": 3160.4445750000004,
+      "reported_work": 10268,
+      "conservative_charge": 10268,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "269131008292",
+        "44193359375"
+      ],
+      "increment_score_display": 6.089851780859328,
+      "full_cost_e8s": 50020000,
+      "response_cost_e8s": 40010000,
+      "long_horizon_oracle_gap_exact": [
+        "2992775708",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.06772003193070227,
+      "accuracy_pass": 1,
+      "accuracy_unassessed": 0,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3160.4445750000004,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "heldout-js-prefix-reverse",
+      "n": 1,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 1,
+      "fully_assessed_paid": 2,
+      "scheduled_paid": 2,
+      "complete_evaluations": 1,
+      "mean_ms": 3080.2560940000003,
+      "max_ms": 3080.2560940000003,
+      "reported_work": 10268,
+      "conservative_charge": 10268,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "269131008292",
+        "44193359375"
+      ],
+      "increment_score_display": 6.089851780859328,
+      "full_cost_e8s": 50020000,
+      "response_cost_e8s": 40010000,
+      "long_horizon_oracle_gap_exact": [
+        "2992775708",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.06772003193070227,
+      "accuracy_pass": 1,
+      "accuracy_unassessed": 0,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3080.2560940000003,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "heldout-native-prefix-forward",
+      "n": 1,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 1,
+      "fully_assessed_paid": 2,
+      "scheduled_paid": 2,
+      "complete_evaluations": 1,
+      "mean_ms": 1004.5387699999999,
+      "max_ms": 1004.5387699999999,
+      "reported_work": 10268,
+      "conservative_charge": 10268,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "269131008292",
+        "44193359375"
+      ],
+      "increment_score_display": 6.089851780859328,
+      "full_cost_e8s": 50020000,
+      "response_cost_e8s": 40010000,
+      "long_horizon_oracle_gap_exact": [
+        "2992775708",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.06772003193070227,
+      "accuracy_pass": 1,
+      "accuracy_unassessed": 0,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1004.5387699999999,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "heldout-native-prefix-reverse",
+      "n": 1,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 1,
+      "fully_assessed_paid": 2,
+      "scheduled_paid": 2,
+      "complete_evaluations": 1,
+      "mean_ms": 965.8364469999999,
+      "max_ms": 965.8364469999999,
+      "reported_work": 10268,
+      "conservative_charge": 10268,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "269131008292",
+        "44193359375"
+      ],
+      "increment_score_display": 6.089851780859328,
+      "full_cost_e8s": 50020000,
+      "response_cost_e8s": 40010000,
+      "long_horizon_oracle_gap_exact": [
+        "2992775708",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.06772003193070227,
+      "accuracy_pass": 1,
+      "accuracy_unassessed": 0,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "a3bc85aec61dd3e3a9a50ee6591e5d8e7aba3afa27838b7fe6d8dc88d338ec75"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 965.8364469999999,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "js-full-forward",
+      "n": 10,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 10,
+      "fully_assessed_paid": 22,
+      "scheduled_paid": 30,
+      "complete_evaluations": 3,
+      "mean_ms": 5142.4211611,
+      "max_ms": 5337.193131999997,
+      "reported_work": 131172,
+      "conservative_charge": 740912,
+      "reserved_unobserved_work": 609740,
+      "increment_score_exact": [
+        "2367328128144",
+        "44193359375"
+      ],
+      "increment_score_display": 53.56750791575233,
+      "full_cost_e8s": 500200000,
+      "response_cost_e8s": 400100000,
+      "long_horizon_oracle_gap_exact": [
+        "278123454438",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 6.293331359537544,
+      "accuracy_pass": 8,
+      "accuracy_unassessed": 2,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "wait",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5155.418976,
+          "reported_work": 15089,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4513.690482,
+          "reported_work": 9794,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5253.511215,
+          "reported_work": 14426,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-reactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5253.60903,
+          "reported_work": 15174,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-late",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "271067364457",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5166.198133000002,
+          "reported_work": 14961,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "original",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 1,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "23552",
+            "390625"
+          ],
+          "oracle_gap": [
+            "53891845696",
+            "8838671875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5337.193131999997,
+          "reported_work": 7557,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "hard_timeout",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5318.330586000004,
+          "reported_work": 13743,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4978.744804999995,
+          "reported_work": 15944,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-reactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5190.911170000007,
+          "reported_work": 11150,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-late",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "10843042129",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5256.604081999998,
+          "reported_work": 13334,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "js-full-reverse",
+      "n": 10,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 10,
+      "fully_assessed_paid": 22,
+      "scheduled_paid": 30,
+      "complete_evaluations": 6,
+      "mean_ms": 5025.846259600001,
+      "max_ms": 5337.315980000007,
+      "reported_work": 126811,
+      "conservative_charge": 492764,
+      "reserved_unobserved_work": 365953,
+      "increment_score_exact": [
+        "2485797321388",
+        "44193359375"
+      ],
+      "increment_score_display": 56.24820915502082,
+      "full_cost_e8s": 500200000,
+      "response_cost_e8s": 400100000,
+      "long_horizon_oracle_gap_exact": [
+        "159654261194",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 3.612630120269059,
+      "accuracy_pass": 8,
+      "accuracy_unassessed": 2,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-late",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "changed-angle",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 1,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "237920816489",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "33155236736",
+            "44193359375"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5298.787454,
+          "reported_work": 9493,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-reactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "changed-angle",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 1,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "2180081757",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5297.52166,
+          "reported_work": 10591,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4389.816074,
+          "reported_work": 15944,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4864.982247,
+          "reported_work": 15354,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4772.113641,
+          "reported_work": 15174,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-late",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "271067364457",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5211.947795,
+          "reported_work": 15174,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-reactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4976.704926999999,
+          "reported_work": 15174,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 3,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4814.973437000001,
+          "reported_work": 15944,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "changed-angle",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 1,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "37270784",
+            "14141875"
+          ],
+          "oracle_gap": [
+            "965364189",
+            "353546875"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5337.315980000007,
+          "reported_work": 7056,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "wait",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "changed-angle",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 1,
+          "scheduled_paid": 3,
+          "omitted": [],
+          "score": [
+            "2176990272",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5294.299381000004,
+          "reported_work": 6907,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "js-prefix-forward",
+      "n": 10,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 10,
+      "fully_assessed_paid": 20,
+      "scheduled_paid": 20,
+      "complete_evaluations": 10,
+      "mean_ms": 3289.3727897999997,
+      "max_ms": 4493.553676999996,
+      "reported_work": 100430,
+      "conservative_charge": 100430,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "2633794580916",
+        "44193359375"
+      ],
+      "increment_score_display": 59.59706657661166,
+      "full_cost_e8s": 500200000,
+      "response_cost_e8s": 400100000,
+      "long_horizon_oracle_gap_exact": [
+        "11657001666",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.2637726986782163,
+      "accuracy_pass": 8,
+      "accuracy_unassessed": 2,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "wait",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3142.964135,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 2880.2632839999997,
+          "reported_work": 6628,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3080.2055790000004,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-reactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3178.211357,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-late",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "271067364457",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3217.272027000001,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3169.9604420000032,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3201.842327999999,
+          "reported_work": 10388,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3319.014114999998,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-reactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3210.440953999998,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-late",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10843042129",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4493.553676999996,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "js-prefix-reverse",
+      "n": 10,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 10,
+      "fully_assessed_paid": 19,
+      "scheduled_paid": 20,
+      "complete_evaluations": 9,
+      "mean_ms": 3687.8826860999993,
+      "max_ms": 5359.230854000001,
+      "reported_work": 98066,
+      "conservative_charge": 190162,
+      "reserved_unobserved_work": 92096,
+      "increment_score_exact": [
+        "2633794580916",
+        "44193359375"
+      ],
+      "increment_score_display": 59.59706657661166,
+      "full_cost_e8s": 500200000,
+      "response_cost_e8s": 400100000,
+      "long_horizon_oracle_gap_exact": [
+        "11657001666",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.2637726986782163,
+      "accuracy_pass": 8,
+      "accuracy_unassessed": 2,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-late",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10843042129",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3484.36587,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-reactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3688.9384119999995,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 4551.314343,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3606.545567000001,
+          "reported_work": 10388,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3590.7678799999994,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-late",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "271067364457",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3836.9108180000003,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-reactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "bounded_partial",
+          "selected_wait_complete": true,
+          "complete_paid": 1,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 5359.230854000001,
+          "reported_work": 7904,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3036.471110999999,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 2648.226567999998,
+          "reported_work": 6628,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "wait",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 3076.055437999996,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "native-prefix-forward",
+      "n": 10,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 10,
+      "fully_assessed_paid": 20,
+      "scheduled_paid": 20,
+      "complete_evaluations": 10,
+      "mean_ms": 1429.8707285,
+      "max_ms": 1986.378342,
+      "reported_work": 100430,
+      "conservative_charge": 100430,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "2633794580916",
+        "44193359375"
+      ],
+      "increment_score_display": 59.59706657661166,
+      "full_cost_e8s": 500200000,
+      "response_cost_e8s": 400100000,
+      "long_horizon_oracle_gap_exact": [
+        "11657001666",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.2637726986782163,
+      "accuracy_pass": 8,
+      "accuracy_unassessed": 2,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "wait",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 946.7754239999999,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 825.6895840000002,
+          "reported_work": 6628,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1606.7430639999998,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-reactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1986.378342,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-late",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "271067364457",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1817.6615620000011,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1710.9610420000008,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1667.2908510000016,
+          "reported_work": 10388,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1737.5395019999996,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-reactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 973.3414489999996,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-late",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10843042129",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1026.3264649999983,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    },
+    {
+      "arm": "native-prefix-reverse",
+      "n": 10,
+      "selected_wait_complete_percent": 100.0,
+      "paid_available_percent": 100.0,
+      "paid_choices": 10,
+      "fully_assessed_paid": 20,
+      "scheduled_paid": 20,
+      "complete_evaluations": 10,
+      "mean_ms": 1178.1862909000001,
+      "max_ms": 1783.0542710000009,
+      "reported_work": 100430,
+      "conservative_charge": 100430,
+      "reserved_unobserved_work": 0,
+      "increment_score_exact": [
+        "2633794580916",
+        "44193359375"
+      ],
+      "increment_score_display": 59.59706657661166,
+      "full_cost_e8s": 500200000,
+      "response_cost_e8s": 400100000,
+      "long_horizon_oracle_gap_exact": [
+        "11657001666",
+        "44193359375"
+      ],
+      "long_horizon_oracle_gap_display": 0.2637726986782163,
+      "accuracy_pass": 8,
+      "accuracy_unassessed": 2,
+      "cases": [
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-late",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10843042129",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 944.8540599999999,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-reactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 974.7400630000002,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "support-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1002.1426289999999,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "move-proactive",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "2157395956",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "22685801",
+            "353546875"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1005.4932740000004,
+          "reported_work": 10388,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            1,
+            "wait",
+            "06d1f812f5795a7477c4ac85f999656a9b8d8a74f4bd273893c0059c626fd193"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1783.0542710000009,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-late",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "271067364457",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1382.9896710000012,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-reactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1705.3600220000008,
+          "reported_work": 10268,
+          "conditional_accuracy": "UNASSESSED"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "support-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "10795134208",
+            "1767734375"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 1151.6811479999978,
+          "reported_work": 10903,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "move-proactive",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "1897133789",
+            "353546875"
+          ],
+          "oracle_gap": [
+            "0",
+            "1"
+          ],
+          "oracle_choice": "alternate",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 842.2893709999989,
+          "reported_work": 6628,
+          "conditional_accuracy": "PASS"
+        },
+        {
+          "case": [
+            "bent-long-approach",
+            0,
+            "wait",
+            "6d13f903dabc3054f878fd7792b19fc907cffef8a056930968143cf1fcbeb258"
+          ],
+          "choice": "alternate",
+          "status": "complete",
+          "selected_wait_complete": true,
+          "complete_paid": 2,
+          "scheduled_paid": 2,
+          "omitted": [
+            "changed-angle"
+          ],
+          "score": [
+            "269131008292",
+            "44193359375"
+          ],
+          "oracle_gap": [
+            "2992775708",
+            "44193359375"
+          ],
+          "oracle_choice": "changed-angle",
+          "full_cost_e8s": 50020000,
+          "response_cost_e8s": 40010000,
+          "elapsed_ms": 989.2584000000024,
+          "reported_work": 10268,
+          "conditional_accuracy": "PASS"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "pair": "js prefix order",
+      "same_choices": 10,
+      "n": 10,
+      "shared_exact_complete_rows": 87
+    },
+    {
+      "pair": "heldout-js prefix order",
+      "same_choices": 1,
+      "n": 1,
+      "shared_exact_complete_rows": 9
+    },
+    {
+      "pair": "native prefix order",
+      "same_choices": 10,
+      "n": 10,
+      "shared_exact_complete_rows": 90
+    },
+    {
+      "pair": "heldout-native prefix order",
+      "same_choices": 1,
+      "n": 1,
+      "shared_exact_complete_rows": 9
+    },
+    {
+      "pair": "js-prefix-forward vs native",
+      "n": 10,
+      "shared_exact_complete_rows": 90
+    },
+    {
+      "pair": "js-prefix-reverse vs native",
+      "n": 10,
+      "shared_exact_complete_rows": 87
+    },
+    {
+      "pair": "heldout-js-prefix-forward vs native",
+      "n": 1,
+      "shared_exact_complete_rows": 9
+    },
+    {
+      "pair": "heldout-js-prefix-reverse vs native",
+      "n": 1,
+      "shared_exact_complete_rows": 9
+    }
+  ],
+  "paired_score_comparisons": [
+    {
+      "prefix_vs": "js-full-forward",
+      "score_wins": 1,
+      "score_ties": 9,
+      "score_losses": 0
+    },
+    {
+      "prefix_vs": "js-full-reverse",
+      "score_wins": 2,
+      "score_ties": 6,
+      "score_losses": 2
+    }
+  ],
+  "oracle": "Hindsight best canonical 32-tick score among original legal affordable proposals; unavailable to choosing policy; no ICP-to-score conversion"
+}

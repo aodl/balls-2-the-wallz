@@ -1,0 +1,74 @@
+from pathlib import Path
+import json,gzip,statistics
+from fractions import Fraction
+root=Path('.work/b2z-prefix')
+def decode(d):return int(d['$integer']) if set(d)=={'$integer'} else d
+def load(p):
+ b=Path(p).read_bytes()
+ return json.loads(gzip.decompress(b) if str(p).endswith('.gz') else b,object_hook=decode)
+def fraction(f):return Fraction(int(f[0]),int(f[1]))
+def key(r):return (r['geometry'],r['seat'],r.get('defence',r.get('policy')),r['initial_state'])
+def exact(f):return [str(f.numerator),str(f.denominator)]
+archives={};summaries=[];raw={}
+for p in sorted(root.glob('*/results.json')):
+ if not p.parent.name.startswith(('js-','native-','heldout-')):continue
+ d=load(p);archive=archives.setdefault(d['archive'],load(d['archive']));rr=[]
+ for row in d['rows']:
+  f=row['forecast'];analysis=row['selection'].get('analysis',{});ss=analysis.get('summaries',[]);complete={s['candidate'] for s in ss};names={c['id'] for c in f['candidates']};omitted={c['candidate'] for c in row['scheduling']['omitted']};assert not names&omitted
+  assert f['bounds']['max_work']==100000 and f['bounds']['hard_wall_ms']==5300 and f['bounds']['horizon']==4
+  assert set(row['scheduling']['scheduled'])==names
+  assert all(x['status']=='UNASSESSED' for x in row['scheduling']['omitted'])
+  variants=[r for r in archive['rows'] if key(r)==key(row)];control=next(r for r in variants if r['response']=='wait')
+  public=next(r for r in variants if r['response']=='public-policy')
+  proposals=next(t['proposals'] for t in public['response_observation'] if t.get('decision'))
+  original=[p['id'] for p in proposals if 'Wait' not in p['action']]
+  selected=original[:d['candidate_prefix']['paid_limit']] if d['candidate_prefix']['paid_limit'] is not None else original
+  if d['candidate_prefix']['reverse_paid']:selected.reverse()
+  assert row['scheduling']['scheduled']==['wait']+selected
+  assert omitted==set(original)-set(selected)
+
+  options=[r for r in variants if r['response'] in names|omitted]
+  best=max(options,key=lambda r:(fraction(r['attacker_score_delta']),-r['candidate']['opponent_full_cost_e8s']))
+  m=f['measurements'];assert sum(x['reported_work'] for x in m['scenario_costs'])==(m['total_work'] or 0)
+  rr.append({'case':key(row),'choice':row['selection']['candidate'],'status':f['status'],'selected_wait_complete':row['selection']['candidate'] in complete and 'wait' in complete,'complete_paid':len(complete-{'wait'}),'scheduled_paid':len(names-{'wait'}),'omitted':sorted(omitted),'score':exact(fraction(row['realised']['incremental_vs_conservation'])),'oracle_gap':exact(fraction(best['attacker_score_delta'])-fraction(row['realised']['attacker_score_delta'])),'oracle_choice':best['response'],'full_cost_e8s':row['realised']['full_cost_e8s'],'response_cost_e8s':row['realised']['full_cost_e8s']-control['candidate']['opponent_full_cost_e8s'],'elapsed_ms':m['elapsed_ms'],'reported_work':m['total_work'],'conditional_accuracy':row['conditional_accuracy']['status']})
+ times=[r['elapsed_ms'] for r in rr];score=sum((fraction(r['score']) for r in rr),Fraction());gap=sum((fraction(r['oracle_gap']) for r in rr),Fraction())
+ summaries.append({'arm':p.parent.name,'n':len(rr),'selected_wait_complete_percent':100*sum(r['selected_wait_complete'] for r in rr)/len(rr),'paid_available_percent':100*sum(r['complete_paid']>0 for r in rr)/len(rr),'paid_choices':sum(r['choice']!='wait' for r in rr),'fully_assessed_paid':sum(r['complete_paid'] for r in rr),'scheduled_paid':sum(r['scheduled_paid'] for r in rr),'complete_evaluations':sum(r['status']=='complete' for r in rr),'mean_ms':statistics.mean(times),'max_ms':max(times),'reported_work':d['forecast_work'],'conservative_charge':d['forecast_work_budget_charge'],'reserved_unobserved_work':d['forecast_work_budget_charge']-d['forecast_work'],'increment_score_exact':exact(score),'increment_score_display':float(score),'full_cost_e8s':sum(r['full_cost_e8s'] for r in rr),'response_cost_e8s':sum(r['response_cost_e8s'] for r in rr),'long_horizon_oracle_gap_exact':exact(gap),'long_horizon_oracle_gap_display':float(gap),'accuracy_pass':sum(r['conditional_accuracy']=='PASS' for r in rr),'accuracy_unassessed':sum(r['conditional_accuracy']=='UNASSESSED' for r in rr),'cases':rr});raw[p.parent.name]=d
+checks=[]
+for engine in ['js','heldout-js','native','heldout-native']:
+ forward=engine+'-prefix-forward';reverse=engine+'-prefix-reverse'
+ if forward not in raw or reverse not in raw:continue
+ a={key(r):r for r in raw[forward]['rows']};b={key(r):r for r in raw[reverse]['rows']};assert a.keys()==b.keys();same_choices=0;common=0
+ for k,ar in a.items():
+  br=b[k];same_choices+=ar['selection']['candidate']==br['selection']['candidate'];assert ar['public_state']==br['public_state'];assert ar['remaining_before_e8s']==br['remaining_before_e8s'];assert ar['forecast']['bounds']==br['forecast']['bounds'];assert ar['forecast']['assumptions']==br['forecast']['assumptions']
+  lookup={(x['candidate'],x['scenario']):x for x in br['forecast']['forecasts'] if x['status']=='complete'}
+  for x in ar['forecast']['forecasts']:
+   y=lookup.get((x['candidate'],x['scenario']))
+   if x['status']=='complete' and y is not None:assert x==y;common+=1
+ checks.append({'pair':engine+' prefix order','same_choices':same_choices,'n':len(a),'shared_exact_complete_rows':common})
+for js,native in [('js-prefix-forward','native-prefix-forward'),('js-prefix-reverse','native-prefix-reverse'),('heldout-js-prefix-forward','heldout-native-prefix-forward'),('heldout-js-prefix-reverse','heldout-native-prefix-reverse')]:
+ a={key(r):r for r in raw[js]['rows']};b={key(r):r for r in raw[native]['rows']};common=0
+ for k,ar in a.items():
+  br=b[k];assert ar['realised']==br['realised']
+  lookup={(x['candidate'],x['scenario']):x for x in br['forecast']['forecasts'] if x['status']=='complete'}
+  for x in ar['forecast']['forecasts']:
+   y=lookup.get((x['candidate'],x['scenario']))
+   if x['status']=='complete' and y is not None:assert x==y;common+=1
+ checks.append({'pair':js+' vs native','n':len(a),'shared_exact_complete_rows':common})
+paired=[]
+lookup={a['arm']:a for a in summaries};target={tuple(r['case']):r for r in lookup['js-prefix-forward']['cases']}
+for arm in ['js-full-forward','js-full-reverse']:
+ wins=ties=losses=0
+ for r in lookup[arm]['cases']:
+  difference=fraction(target[tuple(r['case'])]['score'])-fraction(r['score'])
+  wins+=difference>0;ties+=difference==0;losses+=difference<0
+ paired.append({'prefix_vs':arm,'score_wins':wins,'score_ties':ties,'score_losses':losses})
+for d in raw.values():
+ for row in d['rows']:
+  cannon=next(c['action']['Fire']['cannon'] for c in row['forecast']['candidates'] if 'Fire' in c['action'])
+  receipts=[r for r in row['realised']['receipts'] if r.get('cannon')==cannon]
+  assert sum(r['amount']+10000 for r in receipts)==row['realised']['full_cost_e8s']
+  assert all(r['status']=='applied' for r in receipts)
+out={'scope':'Synthetic valueless exact-kernel experiments; no authenticated future or spending grant','arms':summaries,'checks':checks,'paired_score_comparisons':paired,'oracle':'Hindsight best canonical 32-tick score among original legal affordable proposals; unavailable to choosing policy; no ICP-to-score conversion'}
+(root/'summary.json').write_text(json.dumps(out,indent=2)+'\n')
+for x in summaries:print(x['arm'],x['n'],x['paid_available_percent'],str(x['fully_assessed_paid'])+'/'+str(x['scheduled_paid']),round(x['mean_ms']),x['reported_work'],x['conservative_charge'],round(x['increment_score_display'],6),x['full_cost_e8s']/1e8)
+print(checks)
