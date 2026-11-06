@@ -1,0 +1,16 @@
+✔ complete declared comparisons do not establish global robustness or campaign eligibility (28.999974ms)
+✔ normal completion requires explicit true accounting on selected and Wait rows (23.99381ms)
+✔ tactical selected and Wait require explicit casualties and valid island support (33.146428ms)
+✔ duplicate or conflicting evidence is unassessed; unrelated timeout preserves completed pairs (4.531059ms)
+✔ compatibility coverage and robustness derive from the same assessment (9.940528ms)
+✔ invalid declared names and malformed or conflicting completion windows fail closed (13.061169ms)
+✔ missing, interrupted, unadmitted and mismatched Wait comparisons remain unassessed (0.518207ms)
+✔ known omitted candidates and a pause remain distinct from a complete future (10.89814ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1018.800344

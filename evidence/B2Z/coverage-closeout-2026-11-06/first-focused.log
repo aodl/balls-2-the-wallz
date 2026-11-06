@@ -1,0 +1,129 @@
+✔ lossless JSON preserves large integers and rational values (3.331045ms)
+✔ sector aggregation retains every owner and conserves one million cells (48.061639ms)
+✔ toroidal region inspection comes entirely from the local snapshot (36.408384ms)
+✔ missing history is reported, never replaced by invented events (18.363144ms)
+✔ player summary preserves exact canonical accrued score and shared island pool (16.848725ms)
+✔ typed actions reject unknown fields and out-of-range raw headings (0.822011ms)
+✔ raw heading 65535 remains exact; no unrepresentable decimal memo is substituted (29.36519ms)
+✔ candidate budget includes fee and always permits wait (26.560653ms)
+✖ passive baseline spends nothing and ranking chooses the stronger forecast (4.149655ms)
+✔ forecasts run the exact kernel with explicit time facts and bound every scenario (421.374004ms)
+✔ forecast cache binds the entire publication reference even when state bytes match (2076.061414ms)
+✔ agent action options expose exact costs and campaign-specific rejection reasons at one head (72.983171ms)
+✔ an agent can inspect a specific owned cannon and cannot select an opponent (101.184046ms)
+✔ local candidate consent and execution share the same toroidal proximity check (37.410797ms)
+✔ shortlists retain both fire and movement rather than filling every slot with one action type (32.042426ms)
+✔ agent money inputs reject unsafe numeric JSON and preserve exact integer strings (0.585108ms)
+✔ file workers discard only parent source-selection flags and retain security/runtime flags (0.428205ms)
+✔ campaign forecasts do not intentionally trade unknown players balls and distinguish natural losses (1.159015ms)
+✔ bounded firing shortlists cover all eight exact coarse headings across rotations (38.220808ms)
+✖ marginal policy ranking does not punish a purchase for score already earned by waiting (1.50012ms)
+✔ selecting a cannon never falls back to paying for a new one under another account (5.857078ms)
+✔ response forecasts choose a nearby active opponent rather than the first dormant account (10.283136ms)
+✔ a dormant-only opposing world is not revived by a hypothetical response without evidence (182.459227ms)
+✔ interrupted forecasts name missing scenarios and cannot appear fully assessed (1.904226ms)
+✔ dormant-world revival compares the same elapsed window while keeping logical progress explicit (397.083443ms)
+✔ zero funding pace never produces invented immediate admission or progressing physics (8.045309ms)
+✔ manual or admission pauses do not become funding reductions or assumed resumes (16.22392ms)
+✔ operational sample age and funding changes remain separate from an unchanged game head (6.390187ms)
+✖ an immediate benefit is not robust across unassessed 60/120-second delays (0.883312ms)
+✔ adaptive allocator ignores passive accrual and unmatched opponent effects (0.963913ms)
+✔ controlled-population conditional shortlist needs trusted approval and one matching certified head (3.403146ms)
+✔ incomplete forecast evaluations are retried while complete results remain cached (667.108536ms)
+✔ counterplay excludes cheap brittle defence and dominated redundant purchase (10.006736ms)
+✔ unevaluated responses exclude paid actions; missing Wait fails closed (1.721624ms)
+✔ complete positive benefit permits bounded spending but no benefit chooses Wait (1.50552ms)
+✔ tiny canonical benefits and downside remain exact in tactical eligibility (0.580308ms)
+✔ conflicting duplicate response rows are incomplete rather than first-match wins (0.415706ms)
+✔ counterplay validates unknown and explicit historical versions before dispatch (2.744137ms)
+✔ a remote friendly island cannot conceal loss of the defended last ball (44.792507ms)
+✔ public attacker changes direction using only present targets and respects remaining budget (1.078115ms)
+✔ Frugal requires an explicit integer investment allocation rather than adopting the whole balance (0.947613ms)
+✔ complete declared comparisons do not establish global robustness or campaign eligibility (2.799038ms)
+✔ normal completion requires explicit true accounting on selected and Wait rows (2.268531ms)
+✔ tactical selected and Wait require explicit casualties and valid island support (2.869839ms)
+✔ duplicate or conflicting evidence is unassessed; unrelated timeout preserves completed pairs (0.450806ms)
+✔ compatibility coverage and robustness derive from the same assessment (1.732123ms)
+✔ missing, interrupted, unadmitted and mismatched Wait comparisons remain unassessed (0.432906ms)
+✔ known omitted candidates and a pause remain distinct from a complete future (0.268504ms)
+✔ equal-cost forecast choice prefers worst incremental gain over alphabetic order or mean alone (218.962565ms)
+✔ missing, incomplete and unadmitted futures cannot enter the shortlist (15.974416ms)
+✔ missing Wait prediction, paused operation and missing island state fall back without paid action (131.40488ms)
+✔ budget and natural accrual do not justify payment without a marginal benefit (162.449901ms)
+✔ corrupt predicted state is an error, not a fabricated safe future (0.679109ms)
+✔ forecast proposals require full integer prices and the selected own cannon (4.294258ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 51
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5866.508805
+
+✖ failing tests:
+
+test at tests/js/b2z-agent-analysis.test.mjs:19:1
+✖ passive baseline spends nothing and ranking chooses the stronger forecast (4.149655ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'wait' !== 'fire'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-agent-analysis.test.mjs:19:776)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'wait',
+    expected: 'fire',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/b2z-agent-analysis.test.mjs:47:1
+✖ marginal policy ranking does not punish a purchase for score already earned by waiting (1.50012ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'wait' !== 'fire'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-agent-analysis.test.mjs:50:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'wait',
+    expected: 'fire',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/b2z-agent-analysis.test.mjs:97:1
+✖ an immediate benefit is not robust across unassessed 60/120-second delays (0.883312ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'wait' !== 'fire'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-agent-analysis.test.mjs:100:77)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'wait',
+    expected: 'fire',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

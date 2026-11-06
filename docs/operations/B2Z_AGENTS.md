@@ -99,6 +99,13 @@ The returned `decision.assessment` separates complete selected-action/Wait compa
 for declared scenarios from known omissions and `UNKNOWN` outcomes beyond the
 horizon or outside the bounded candidate list. `robust_against_all_plausible_responses`
 is always false. A complete declared set is not a guarantee against other responses.
+Completion requires explicit `true` lifecycle and casualty-accounting flags on both
+the selected row and its unique matched Wait row. Tactical rows also require a
+nonnegative integer count of supporting balls on the defended island; player-wide
+ball counts do not substitute for this. Missing or contradictory evidence is
+UNASSESSED. A timeout in another candidate does not invalidate completed pairs.
+The compatibility `forecast_coverage` and `robustness` fields derive from the same
+assessment used by the selector.
 `campaign_eligibility.status` is `NOT_ESTABLISHED`, `eligible` is null and
 `spending_authorized` is false: planning has no trusted campaign state. Treat this
 as no spending authority. Only the restricted executor, using durable consent,

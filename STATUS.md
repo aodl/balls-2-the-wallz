@@ -1,3 +1,23 @@
+# Coverage correction and stable planner close-out — 6 November 2026
+
+Implementation `a8cd5a3` fails closed on selected/Wait lifecycle and casualty
+accounting, malformed or conflicting evidence, and island-specific tactical support.
+One shared assessment now drives annotations, rankings and compatibility fields.
+64 focused JS tests, 20 native/reference comparisons and source checks pass.
+The unchanged local runners pass 16 paired rows and 12 three-step matches;
+31 synthetic paid actions / 41 abstentions. Re-annotation preserves all 12 prior
+held-out tactical choices. Short-budget omissions and summary limitations remain
+explicit. No new allocation experiment or policy change; planner defaults are stable.
+[Close-out, exact costs and remaining limitations](evidence/B2Z/coverage-closeout-2026-11-06/REPORT.md).
+
+Remote master already contains `d9d3ac2`; no repeat merge. Remote coverage `aad11ff`
+contains reviewed `b00e74c` plus evidence. Its exact CI 42200724739 passes all six
+substantive jobs; production inventory remains BLOCKED. New exact-head CI and final
+merge are BLOCKED pending publication: HTTPS GitHub write authentication is absent.
+No parent-CI qualification claim, live spending, deployment or production change.
+
+---
+
 # Bounded scenario coverage — 5 November 2026
 
 Reviewed remote `2a73e4d` contains `6bffc2c` plus evidence only. All six substantive

@@ -1,0 +1,107 @@
+✔ complete declared comparisons do not establish global robustness or campaign eligibility (1.639722ms)
+✖ normal completion requires explicit true accounting on selected and Wait rows (2.366931ms)
+✖ tactical selected and Wait require explicit casualties and valid island support (0.566607ms)
+✖ duplicate or conflicting evidence is unassessed; unrelated timeout preserves completed pairs (0.531907ms)
+✖ compatibility coverage and robustness derive from the same assessment (13.164073ms)
+✔ missing, interrupted, unadmitted and mismatched Wait comparisons remain unassessed (0.406405ms)
+✔ known omitted candidates and a pause remain distinct from a complete future (0.291403ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 3
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.43552
+
+✖ failing tests:
+
+test at tests/js/b2z-decision-coverage.test.mjs:58:1
+✖ normal completion requires explicit true accounting on selected and Wait rows (2.366931ms)
+  AssertionError [ERR_ASSERTION]: fire lifecycle_complete undefined
+  + actual - expected
+  
+  + 'COMPLETE'
+  - 'UNASSESSED'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-decision-coverage.test.mjs:64:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'COMPLETE',
+    expected: 'UNASSESSED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/b2z-decision-coverage.test.mjs:88:1
+✖ tactical selected and Wait require explicit casualties and valid island support (0.566607ms)
+  AssertionError [ERR_ASSERTION]: fire casualty_attribution_complete undefined
+  + actual - expected
+  
+  + 'COMPLETE'
+  - 'UNASSESSED'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-decision-coverage.test.mjs:98:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'COMPLETE',
+    expected: 'UNASSESSED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/b2z-decision-coverage.test.mjs:102:1
+✖ duplicate or conflicting evidence is unassessed; unrelated timeout preserves completed pairs (0.531907ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'COMPLETE'
+  - 'UNASSESSED'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-decision-coverage.test.mjs:113:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'COMPLETE',
+    expected: 'UNASSESSED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/b2z-decision-coverage.test.mjs:116:1
+✖ compatibility coverage and robustness derive from the same assessment (13.164073ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(d.forecast_coverage.find((r) => r.candidate === "fire").unassessed.some((r) => r.scenario === "later"))
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z-prelaunch-rules/tests/js/b2z-decision-coverage.test.mjs:126:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
