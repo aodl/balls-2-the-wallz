@@ -3,6 +3,7 @@ import { candidates } from "./actions.mjs";
 import { decodeWorld } from "../../kernels/b2z/world.mjs";
 import { defendedIslandSupport } from "./analysis.mjs";
 import { decideCounterplay } from "./policies.mjs";
+import { annotateDecision, assessCandidate } from "./forecast-coverage.mjs";
 import {
   check,
   envelope,
@@ -311,28 +312,22 @@ export function chooseForecastAttack(
     candidates.every((c) => c.action.Wait || c.action.Fire?.cannon === cannon),
     "FORECAST_ACTION_SCOPE",
   );
+  const coverage = candidates.map((c) => assessCandidate(evaluation, c.id));
   const rows = evaluation.forecasts.map((r) => {
     const baseline = evaluation.forecasts.find(
       (b) => b.candidate === wait.id && b.scenario === r.scenario,
     );
-    const idle =
-      baseline &&
-      r.elapsed_window_ns === baseline.elapsed_window_ns &&
-      (r.idle_slots > 0 || baseline.idle_slots > 0);
     const complete =
-      r.status === "complete" &&
-      baseline?.status === "complete" &&
-      r.lifecycle_complete &&
-      r.casualty_attribution_complete &&
-      (r.candidate === wait.id || r.action_admitted_within_horizon) &&
-      (r.logical_ticks_completed === baseline.logical_ticks_completed ||
-        idle) &&
+      coverage
+        .find((c) => c.candidate === r.candidate)
+        ?.scored_scenarios.includes(r.scenario) &&
       typeof r.next_state_hex === "string";
     const choice = candidates.find((c) => c.id === r.candidate);
     return {
       candidate: r.candidate,
       response: r.scenario,
       status: complete ? "complete" : "unassessed",
+      lifecycle_complete: complete,
       casualty_attribution_complete: complete,
       incremental_score: complete
         ? fractionSub(r.canonical_score_delta, baseline.canonical_score_delta)
@@ -371,12 +366,18 @@ export function chooseForecastAttack(
         ),
     )
   )
-    return { ...base, reason: "INCOMPLETE_OR_PAUSED_WAIT_FORECAST" };
+    return annotateDecision(evaluation, {
+      ...base,
+      reason: "INCOMPLETE_OR_PAUSED_WAIT_FORECAST",
+    });
   const ranked = decideCounterplay("frugal-expander", {
     kind: "local-counterplay",
     candidates,
     responses: scenarios,
     rows,
+    assumptions: evaluation.assumptions,
+    bounds: evaluation.bounds,
+    omitted_candidates: evaluation.omitted_candidates,
     investment_budget_e8s: investmentBudgetE8s,
   });
   const eligible = ranked.summaries.filter((r) =>
@@ -391,11 +392,11 @@ export function chooseForecastAttack(
           fractionCmp(b.exact_mean_increment, a.exact_mean_increment) ||
           a.candidate.localeCompare(b.candidate),
   );
-  return {
+  return annotateDecision(evaluation, {
     ...base,
     candidate: eligible[0]?.candidate ?? wait.id,
     analysis: ranked,
     reason:
       "Cheapest fully assessed Pareto improvement over Wait; at equal cost prefer worst incremental score, then mean score. No ICP-to-score exchange rate.",
-  };
+  });
 }

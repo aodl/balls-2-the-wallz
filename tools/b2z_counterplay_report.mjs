@@ -43,6 +43,7 @@ for (const key of [
         status: r.response_observation.some((o) => o.status)
           ? "unassessed"
           : "complete",
+        lifecycle_complete: r.candidate.lifecycle_complete,
         casualty_attribution_complete:
           r.candidate.casualty_attribution_complete,
         incremental_score: r.incremental_canonical_score,
@@ -61,6 +62,8 @@ for (const key of [
       candidate: r.policy,
       scenario: r.response,
       status: "complete",
+      lifecycle_complete: r.candidate.lifecycle_complete,
+      casualty_attribution_complete: r.candidate.casualty_attribution_complete,
       action_admitted_within_horizon: true,
       logical_ticks_completed: r.horizon_logical_ticks,
       canonical_score_delta: r.candidate.score_delta,

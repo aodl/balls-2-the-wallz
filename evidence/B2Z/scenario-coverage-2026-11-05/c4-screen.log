@@ -1,0 +1,5 @@
+combined 0 C complete score:alternate defender-island:original
+combined 1 C complete score:alternate defender-island:original
+dual-route-loop 0 C complete score:alternate defender-island:wait
+dual-route-loop 1 C complete score:alternate defender-island:wait
+PASS 4 allocations; 22 selected-action futures; 336570 conservative work units

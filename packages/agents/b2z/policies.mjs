@@ -1,5 +1,6 @@
 /** Small frozen policies. Inputs are public analysis, own history and typed candidates only. */
 import { check, fractionSub, fractionCmp } from "./common.mjs";
+import { annotateDecision, assessCandidate } from "./forecast-coverage.mjs";
 export const LEGACY_POLICY_VERSION = "b2z-policies-1",
   PREVIOUS_POLICY_VERSION = "b2z-policies-2",
   POLICY_VERSION = "b2z-policies-3";
@@ -129,7 +130,14 @@ export function decideV1(
 }
 
 /** Compare each admitted candidate to Wait under the identical public scenario. */
-export function decide(
+export function decide(policy, evaluation, options = {}) {
+  return annotateDecision(
+    evaluation,
+    decideAssessed(policy, evaluation, options),
+  );
+}
+
+function decideAssessed(
   policy,
   evaluation,
   {
@@ -184,52 +192,17 @@ export function decide(
   const wait = evaluation.candidates.find((c) => c.action.Wait);
   check(wait, "WAIT_REQUIRED");
   const rows = [],
-    coverage = [],
-    expected = evaluation.assumptions?.scenarios?.map((s) => s.name) ?? [
-      ...new Set(evaluation.forecasts.map((r) => r.scenario)),
-    ];
+    coverage = [];
   for (const c of evaluation.candidates) {
-    const scored = [],
-      unassessed = [],
-      bases = [];
-    for (const r of evaluation.forecasts.filter((r) => r.candidate === c.id)) {
-      const baseline = evaluation.forecasts.find(
-        (b) => b.candidate === wait.id && b.scenario === r.scenario,
+    const assessed = assessCandidate(evaluation, c.id);
+    coverage.push(assessed);
+    for (const scenario of assessed.scored_scenarios) {
+      const r = evaluation.forecasts.find(
+        (r) => r.candidate === c.id && r.scenario === scenario,
       );
-      const idleWindow =
-        baseline &&
-        typeof r.elapsed_window_ns === "bigint" &&
-        r.elapsed_window_ns === baseline.elapsed_window_ns &&
-        (r.idle_slots > 0 || baseline.idle_slots > 0);
-      const reason =
-        r.status !== "complete"
-          ? "INCOMPLETE_FORECAST"
-          : !c.action.Wait && !r.action_admitted_within_horizon
-            ? "NOT_ADMITTED_WITHIN_HORIZON"
-            : typeof r.scenario !== "string" ||
-                !Number.isSafeInteger(r.logical_ticks_completed) ||
-                !baseline ||
-                baseline.status !== "complete" ||
-                (baseline.logical_ticks_completed !==
-                  r.logical_ticks_completed &&
-                  !idleWindow)
-              ? "MISSING_MATCHED_WAIT"
-              : null;
-      if (reason) {
-        unassessed.push({ scenario: r.scenario, reason });
-        continue;
-      }
-      scored.push(r.scenario);
-      bases.push({
-        scenario: r.scenario,
-        basis:
-          baseline.logical_ticks_completed === r.logical_ticks_completed
-            ? "same-logical-horizon"
-            : "elapsed-window-with-idle",
-        candidate_logical_ticks: r.logical_ticks_completed,
-        wait_logical_ticks: baseline.logical_ticks_completed,
-        ...(idleWindow ? { elapsed_window_ns: r.elapsed_window_ns } : {}),
-      });
+      const baseline = evaluation.forecasts.find(
+        (r) => r.candidate === wait.id && r.scenario === scenario,
+      );
       rows.push({
         ...r,
         canonical_score_delta: fractionSub(
@@ -247,19 +220,6 @@ export function decide(
         dormant_cannons: r.dormant_cannons - baseline.dormant_cannons,
       });
     }
-    for (const scenario of expected)
-      if (
-        !evaluation.forecasts.some(
-          (r) => r.candidate === c.id && r.scenario === scenario,
-        )
-      )
-        unassessed.push({ scenario, reason: "MISSING_FORECAST" });
-    coverage.push({
-      candidate: c.id,
-      scored_scenarios: scored,
-      comparison_bases: bases,
-      unassessed,
-    });
   }
   if (evaluation.status === "paused")
     return {
@@ -284,9 +244,6 @@ export function decide(
     version,
     forecast_coverage: coverage,
     robustness: {
-      assessed_all_declared_scenarios:
-        coverage.find((c) => c.candidate === selection.candidate)?.unassessed
-          .length === 0,
       note: "A positive immediate-admission ranking does not establish robustness across unassessed delays.",
     },
     ...(policy === "adaptive-allocator" && version === POLICY_VERSION
@@ -327,15 +284,11 @@ export function decideCounterplay(policy, evaluation) {
       );
       return matches.length === 1 ? matches[0] : null;
     });
-    if (
-      rows.some(
-        (r) =>
-          !r ||
-          r.status !== "complete" ||
-          !r.casualty_attribution_complete ||
-          !Number.isSafeInteger(r.defended_island_support),
-      )
-    ) {
+    const assessed = assessCandidate(
+      { ...evaluation, kind: "local-counterplay" },
+      candidate.id,
+    );
+    if (!assessed.scored_scenarios.length || assessed.unassessed.length) {
       unassessed.push(candidate.id);
       continue;
     }
@@ -421,19 +374,22 @@ export function decideCounterplay(policy, evaluation) {
         ? b.mean_opponent_losses - a.mean_opponent_losses || cheap(a, b)
         : cheap(a, b),
   );
-  return {
-    policy,
-    version: "b2z-counterplay-2",
-    candidate: eligible[0]?.candidate ?? wait.id,
-    eligible_candidates: eligible.map((r) => r.candidate),
-    pareto: pareto.map((r) => r.candidate),
-    summaries,
-    unassessed,
-    scope: "Local planning only; no campaign consent or payment authority",
-    rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Frugal instead requires an explicit investment budget and prefers cheaper nonnegative-score improvements; no weighted utility.",
-    uncertainty:
-      "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
-  };
+  return annotateDecision(
+    { ...evaluation, kind: "local-counterplay" },
+    {
+      policy,
+      version: "b2z-counterplay-2",
+      candidate: eligible[0]?.candidate ?? wait.id,
+      eligible_candidates: eligible.map((r) => r.candidate),
+      pareto: pareto.map((r) => r.candidate),
+      summaries,
+      unassessed,
+      scope: "Local planning only; no campaign consent or payment authority",
+      rule: "Require complete declared responses, positive mean incremental score and nonnegative worst score; defence prioritises worst support survival, then worst score, then full cost. Frugal instead requires an explicit investment budget and prefers cheaper nonnegative-score improvements; no weighted utility.",
+      uncertainty:
+        "Uniform tested-response mean is descriptive, not an empirical opponent probability. Untested responses/delays remain unknown.",
+    },
+  );
 }
 
 /** Public geometric target choice, not trajectory prediction or hindsight.

@@ -1,0 +1,370 @@
+{
+  "implementation": "a8cd5a3935ec5bc17eb1625aa96a168ab09c76b6",
+  "scope": "Valueless pure-kernel tests; no IC authentication, Ledger transfer, billed cycles or LLM-inference measurement",
+  "matched": {
+    "command": "node tools/b2z_matched_strategies.mjs .work/b2z-coverage-closeout/matched",
+    "comparisons": 16,
+    "policy_decisions": 12,
+    "policy_abstentions": 12,
+    "policy_cost_e8s": "0",
+    "policy_incremental_score_vs_wait": "0",
+    "forced_diagnostics": [
+      {
+        "fixture": "bridge_left",
+        "seat": 0,
+        "action": "fire",
+        "incremental_score_exact": [
+          {
+            "$integer": "10962876247443000000"
+          },
+          {
+            "$integer": "37289047576904296875"
+          }
+        ],
+        "incremental_score_display": 0.29399721794538597,
+        "full_cost_e8s": {
+          "$integer": "10010000"
+        }
+      },
+      {
+        "fixture": "bridge_left",
+        "seat": 1,
+        "action": "fire",
+        "incremental_score_exact": [
+          {
+            "$integer": "126821981886718750"
+          },
+          {
+            "$integer": "2301793060302734375"
+          }
+        ],
+        "incremental_score_display": 0.05509703894495146,
+        "full_cost_e8s": {
+          "$integer": "10010000"
+        }
+      },
+      {
+        "fixture": "mutual",
+        "seat": 0,
+        "action": "wait",
+        "incremental_score_exact": [
+          {
+            "$integer": "0"
+          },
+          {
+            "$integer": "19775390625"
+          }
+        ],
+        "incremental_score_display": 0.0,
+        "full_cost_e8s": {
+          "$integer": "0"
+        }
+      },
+      {
+        "fixture": "mutual",
+        "seat": 1,
+        "action": "fire",
+        "incremental_score_exact": [
+          {
+            "$integer": "1744282653125"
+          },
+          {
+            "$integer": "736573779296875"
+          }
+        ],
+        "incremental_score_display": 0.0023681031040638898,
+        "full_cost_e8s": {
+          "$integer": "10010000"
+        }
+      }
+    ],
+    "work": 22803,
+    "elapsed_ms": 9374.386192000002,
+    "prediction_accuracy": "UNASSESSED as a numerical future-outcome metric: realised sealed opponent stream differs from the declared forecast scenarios; exact-input correctness is tested separately by 20 native/reference comparisons"
+  },
+  "closed_loop": {
+    "command": "node tools/b2z_local_matches.mjs .work/b2z-coverage-closeout/local-matches",
+    "matches": 12,
+    "decisions": 72,
+    "paid_actions": 31,
+    "abstentions": 41,
+    "full_cost_e8s": "150470000",
+    "forecast_statuses": {
+      "complete": 48,
+      "hard_timeout": 20,
+      "bounded_partial": 4
+    },
+    "work": 14487,
+    "elapsed_ms": 66534.83286200001,
+    "limitations": [
+      "Existing runner uses a one-tick/1000ms forecast screen, not the unchanged four-tick/5000ms planner default",
+      "Final player scores are absolute, not matched Wait increments",
+      "Final retained balls/cannons are player-wide and cannot establish specific island survival",
+      "No complete forecast accuracy metric is persisted by this older runner"
+    ]
+  },
+  "reused_qualified_island_results": [
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "policy": "frugal-expander",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "7825457395119684375"
+        },
+        {
+          "$integer": "50623134093017578125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "policy": "anchor-defender",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "7825457395119684375"
+        },
+        {
+          "$integer": "50623134093017578125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 0,
+      "policy": "adaptive-allocator",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "7825457395119684375"
+        },
+        {
+          "$integer": "50623134093017578125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "policy": "frugal-expander",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": false,
+      "target_support": 0,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "39174206322798421875"
+        },
+        {
+          "$integer": "253115670465087890625"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "policy": "anchor-defender",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": false,
+      "target_support": 0,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "39174206322798421875"
+        },
+        {
+          "$integer": "253115670465087890625"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "bent-near",
+      "seat": 1,
+      "policy": "adaptive-allocator",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": false,
+      "target_support": 0,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "39174206322798421875"
+        },
+        {
+          "$integer": "253115670465087890625"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "policy": "frugal-expander",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "270879187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "policy": "anchor-defender",
+      "selected": "support-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 2,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "6562835156250"
+        },
+        {
+          "$integer": "61798095703125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "10010000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 0,
+      "policy": "adaptive-allocator",
+      "selected": "support-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 2,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "6562835156250"
+        },
+        {
+          "$integer": "61798095703125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "10010000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "policy": "frugal-expander",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "270879187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "policy": "anchor-defender",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "270879187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    },
+    {
+      "geometry": "straight-long-approach",
+      "seat": 1,
+      "policy": "adaptive-allocator",
+      "selected": "move-proactive",
+      "assessment": "COMPLETE",
+      "target_active": true,
+      "target_support": 1,
+      "score_vs_same_public_response_policy_wait": [
+        {
+          "$integer": "270879187500"
+        },
+        {
+          "$integer": "2471923828125"
+        }
+      ],
+      "full_cost_e8s": {
+        "$integer": "20000"
+      },
+      "scope": "Historical qualified kernel outcome re-annotated, not a new match or a decision based on future results"
+    }
+  ],
+  "unchanged_historical_tactical_selections": 12,
+  "unresolved_financial_transactions": 0,
+  "real_ICP_spent": "0",
+  "new_allocation_experiments": 0,
+  "remaining_limitations": [
+    "Short incomplete forecasts remain common in the old local runner",
+    "Public last-heading/direction response policies are bounded heuristics, not best responses",
+    "Known omitted response timings and futures beyond the horizon remain unassessed",
+    "These small gameplay checks do not establish general economic superiority"
+  ]
+}

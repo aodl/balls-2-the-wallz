@@ -1,0 +1,38 @@
+{
+  "reviewed_executable": "6bffc2ceaf11d041ae5e084b567174d2a60eff02",
+  "reviewed_published_head": "2a73e4df0423e09e25d3f9c9ee52c957f4e805b2",
+  "reviewed_suffix_files": [
+    "STATUS.md",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/REPORT.md",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/analysis.py.txt",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/artifacts.json",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/baseline-ci-observed.json",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/design.json",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/focused-PASS.log",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/mode-0.json.gz",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/mode-1.json.gz",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/native-reference-PASS.json",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/native-reference-PASS.log",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/native-replay.mjs.txt",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/reproduction.py.txt",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/source-PASS.log",
+    "evidence/B2Z/late-payoff-counterplay-2026-11-05/summary.json"
+  ],
+  "prepared_normal_merge": "d9d3ac2efc58c6d16c14198891474263bad3300b",
+  "new_executable_commits": [
+    "a88ace35f523f47b11741e12b6b2814bd55bfe73",
+    "b00e74c24a3ac854a5a92c303e3c37a25674a065"
+  ],
+  "new_executable_identity": "b00e74c24a3ac854a5a92c303e3c37a25674a065",
+  "DTR_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "native_helper_sha256": "baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795",
+  "new_exact_commit_ci": "NOT_RUN: publication unavailable; earlier CI does not qualify the new source",
+  "experiment_base": "2a73e4df0423e09e25d3f9c9ee52c957f4e805b2",
+  "experimental_source": "Compressed patches against experiment_base; not maintained or enabled in default evaluation",
+  "checks": {
+    "focused_JS": "PASS 58/58",
+    "native_reference": "PASS 20 comparisons",
+    "source_inventory": "PASS 170 JS syntax checks"
+  },
+  "preserved_failure": "invalid-test-observer-FAIL.log: new test fixture lacked source_cursor; fixture corrected, no verifier or runtime relaxation"
+}

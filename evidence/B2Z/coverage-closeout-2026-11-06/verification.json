@@ -1,0 +1,32 @@
+{
+  "implementation": "a8cd5a3935ec5bc17eb1625aa96a168ab09c76b6",
+  "remote_checked": {
+    "master": "d9d3ac2efc58c6d16c14198891474263bad3300b",
+    "development/b2z-scenario-coverage": "aad11ff14ac3ca1383916e3de1c2a6f06a04f5dd"
+  },
+  "reviewed_revisions": {
+    "b00e74c24a3ac854a5a92c303e3c37a25674a065": "reviewed executable source",
+    "aad11ff14ac3ca1383916e3de1c2a6f06a04f5dd": "b00e74c plus STATUS/evidence only; exact CI 42200724739 all six substantive jobs PASS",
+    "d9d3ac2efc58c6d16c14198891474263bad3300b": "already published master merge; do not repeat"
+  },
+  "new_exact_commit_CI": "BLOCKED pending authenticated publication; parent PASS does not qualify the new code",
+  "source_changes": "Shared strict accounting/row-pair assessment, derived compatibility fields, tactical lifecycle evidence, regression fixtures; no worker/kernel/executor/rules change",
+  "tests": {
+    "focused_JS": "PASS 64/64",
+    "deduplicated_fixture_recheck": "PASS 8/8",
+    "native_reference": "PASS 20 comparisons",
+    "source": "PASS 170 JavaScript syntax checks",
+    "paired_runner": "PASS 16 rows, 4 existing positions",
+    "existing_closed_loop_runner": "PASS 12 matches, 24 player outcomes, 72 decisions",
+    "historical_heldout_reannotation": "PASS 12 policy choices unchanged; no new simulation"
+  },
+  "failures_preserved": [
+    "reproduced-FAIL.log: actual pre-fix annotation and compatibility failures",
+    "first-focused.log: old synthetic fixtures omitted required accounting flags; corrected fixture evidence, not a relaxed assertion"
+  ],
+  "DTR_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "native_sha256": "baf2578c1388ade63abb722be761aa8860b549c7331d33bf40f389e23982c795",
+  "real_ICP_spent": "0",
+  "production_changes": false,
+  "previous_allocation_experiments": "unchanged; not rerun"
+}
