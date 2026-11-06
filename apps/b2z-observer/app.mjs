@@ -15,15 +15,17 @@ import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,remember
 const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
 const arenaRenderer=createArenaRenderer(),cycleMeterView=createCycleMeterView();
 let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
-let minimapHidden=false;
+let minimapHidden=false,preferencesLoaded=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
-const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),cell:(n,p)=>{
+const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
- const c=[...(visible?.cannons.values()??[])].find(c=>{if(!p)return c.cell===n;let dx=c.cell%visible.width+.5-p.x,dy=Math.floor(c.cell/visible.width)+.5-p.y;if(visible.torus){dx-=Math.round(dx/visible.width)*visible.width;dy-=Math.round(dy/visible.height)*visible.height;}return Math.hypot(dx,dy)*camera.scale<=Math.max(8,camera.scale*.4);});return c?arcade.selectCannon(c.id):false;
+ const hits=[...(visible?.cannons.values()??[])].filter(c=>{if(!p)return c.cell===n;let dx=c.cell%visible.width+.5-p.x,dy=Math.floor(c.cell/visible.width)+.5-p.y;if(visible.torus){dx-=Math.round(dx/visible.width)*visible.width;dy-=Math.round(dy/visible.height)*visible.height;}return Math.hypot(dx,dy)*camera.scale<=Math.max(22,camera.scale*.4);});
+ if(hits.length>1){arcade.openRoster();const list=$('pick-cannons');list.replaceChildren(...hits.map(c=>{const b=document.createElement('button');b.textContent=`Inspect cannon #${c.id}`;b.onclick=()=>{arcade.selectCannon(c.id);$('cannon-roster').hidden=true;};return b;}));return false;}
+ return hits[0]?arcade.selectCannon(hits[0].id):false;
 }});
 globalThis.__b2zCamera=camera;
-function showError(error){$('error-text').textContent=String(error?.message??error);$('error').hidden=false;$('service-status').textContent='Observation unhealthy — wait before making purchases.';}
+function showError(error){$('error-text').textContent='Arena verification is unavailable. Payment preparation is disabled. Details are in Settings.';$('observation-error').textContent=String(error?.message??error);$('error').hidden=false;$('service-status').textContent='Observation unhealthy — wait before making purchases.';}
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
 function active(s){return session===s&&!s.abort.signal.aborted;}
 async function start(recording){
@@ -258,7 +260,7 @@ function updatePlayReference(s,world,events){
     `#${c.id}`,`${c.owned_count} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
   ])));
   [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].style.color=accountColor(world.cannons[i].account);});
-  arcade.render(world,s.config,s.source);
+  arcade.render(world,s.config,s.source,s.root);
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
@@ -268,6 +270,7 @@ function updatePlayReference(s,world,events){
     const tr=row([r.position,r.account,outcome(r),actionNames[r.kind]??r.kind??'—']);
     tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
   }));
+  arcade.receipts([...s.receipts.values()]);
   const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.05,nominalPace(s.operational));
   $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${outcome(own)}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
   $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
@@ -364,18 +367,18 @@ function updateHud(){
   $('claimed').textContent=visible?`${Math.round(claimed/(visible.width*visible.height)*100)}%`:'—';
   $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
   const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
-  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition});
+  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition,operational:s?.operational,operationalFresh:performance.now()-(s?.operationalAt??-Infinity)<15000});
   const indicator=catchupIndicator({phase:p,verified:Boolean(s?.ready&&!s.error),
     operational:s?.operational,operationalFresh:performance.now()-(s?.operationalAt??-Infinity)<30000});
   const notice=$('catching-up');
-  notice.hidden=!indicator.visible;notice.dataset.kind=indicator.kind;
+  notice.hidden=!indicator.visible||Boolean(s?.ready&&!indicator.spinner);notice.dataset.kind=indicator.kind;
   notice.querySelector('.spinner').hidden=!indicator.spinner;
   for(const [selector,value]of [['strong',indicator.title],['p',indicator.description]]){
     const element=notice.querySelector(selector);
     if(element.textContent!==value)element.textContent=value;
   }
   const health=s?.operational?.health;const meter=$('cycle-meter');
-  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health);meter.textContent=(estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
+  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health),staleHealth=performance.now()-(s.operationalAt??-Infinity)>15000||Date.now()*1e6-Number(health.observed_at_ns)>30000000000;meter.textContent=(staleHealth?'Stale estimate':estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
   shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
   $('territory-owner-title').textContent=visible?.version===6?'Player / funding account':'Cannon';
   const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
@@ -391,17 +394,18 @@ function draw(){
   const width=Math.max(1,Math.round(rect.width*ratio)),height=Math.max(1,Math.round(rect.height*ratio));
   if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
   ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
-  if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the arena…',rect.width/2,rect.height/2);return;}
+  if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the on-chain arena…',rect.width/2,rect.height/2);return;}
+  if(!preferencesLoaded&&arcade.preferences()){const pref=arcade.preferences();minimapHidden=pref.minimapHidden===true;if(typeof pref.paused==='boolean')paused=pref.paused;$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));preferencesLoaded=true;}
   const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
   const locate=arcade.locate(v);if(locate!==null){camera.frameCell(v.cannons.get(locate).cell);}
   if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon());if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
   arenaRenderer.draw(ctx,v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),ratio});
-  const panel=$('play-dialog'),chosen=v.cannons.get(arcade.selectedCannon());if(!panel.hidden&&chosen){const pt=camera.screen(chosen.cell%v.width+.5,Math.floor(chosen.cell/v.width)+.5);panel.style.left=`${Math.max(8,Math.min(rect.width-320,pt.x+24))}px`;panel.style.top=`${Math.max(100,Math.min(rect.height-260,pt.y-80))}px`;}
+  shell.overlays();
   drawMinimap(v);
   canvas.setAttribute('aria-label',`B2Z territory arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
 function drawMinimap(v){
- const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=minimapHidden||!camera.minimapUseful;if(map.hidden)return;
+ const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=minimapHidden||arcade.active()||!camera.minimapUseful;if(map.hidden)return;
  const m=map.getContext('2d'),sx=map.width/v.width,sy=map.height/v.height;m.clearRect(0,0,map.width,map.height);
  m.imageSmoothingEnabled=false;m.drawImage(arenaRenderer.terrain(v).image,0,0,map.width,map.height);
  for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':v.color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
@@ -429,7 +433,7 @@ function frame(now){
   }
   void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
-$('pause').addEventListener('click',()=>{paused=!paused;lastFrame=null;updateHud();});
+$('pause').addEventListener('click',()=>{paused=!paused;arcade.preferences({paused});lastFrame=null;updateHud();});
 $('restart').addEventListener('click',()=>{if(session)void (session.mode==='live'?startLive(session.recording):session.mode==='local'?startLocal(session.recording):start(session.recording));});
 $('recording').addEventListener('change',()=>{const r=catalog.recordings.find(r=>r.id===$('recording').value);if(r)void start(r);});
 $('speed').addEventListener('change',()=>{if(session?.mode==='live'){speed=1;$('speed').value='1';return;}const n=Number($('speed').value);if([.5,1,2].includes(n))speed=n;});
@@ -480,7 +484,10 @@ try{
 await bootstrap();
 requestAnimationFrame(frame);
 
-for(const [id,mode] of [['join-action','start'],['fire-action','ball'],['move-action','move']])$(id).addEventListener('click',()=>{arcade.action(mode);$('play-dialog').hidden=false;});
+
 $('show-confirmed').addEventListener('click',()=>{const s=session;if(!s?.ready||s.error||!s.previousState)return;const w=snapshot(s.previousState),time=timeNumber(w.time);if(time<s.clock.playhead)return;resetLiveClock(s,time);visible=new B2zView(w);visibleTime=time;s.presentationHandoffs=(s.presentationHandoffs??0)+1;$('show-confirmed').hidden=true;});
 
-$('toggle-minimap').addEventListener('click',()=>{minimapHidden=!minimapHidden;$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));draw();});
+$('toggle-minimap').addEventListener('click',()=>{minimapHidden=!minimapHidden;arcade.preferences({minimapHidden});$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));draw();});
+
+// Deliberate planning uses accepted current state, independently of playback.
+document.addEventListener('b2z-plan',()=>{const s=session;if(!s?.ready||s.error||!s.previousState)return;const w=snapshot(s.previousState),time=timeNumber(w.time);if(time>s.clock.playhead){resetLiveClock(s,time);visible=new B2zView(w);visibleTime=time;$('copy-feedback').textContent='Planning from the latest confirmed state.';}});

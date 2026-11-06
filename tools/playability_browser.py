@@ -78,7 +78,7 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     head = lambda: page.evaluate('globalThis.__dtrLive.heads.at(-1)')
     def identify(account):
         page.locator('#identify-button').click()
-        page.locator('#identify-dialog details').first.evaluate('(e)=>e.open=true')
+        page.locator('#identity-mode').select_option('account')
         page.locator('#identity-account').fill(account)
         page.locator('#identity-principal').fill('')
         page.locator('#identity-save').click()
@@ -131,7 +131,7 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     purchases = phase('phase-purchases.json')
     wait_until(page, lambda: receipt(purchases['join']).count() == 1, 30000)
     confirmed = page.evaluate('performance.now()')
-    wait_until(page, lambda: counts(5,4) and page.locator('#selected-cannon').input_value() == '5', 30000)
+    wait_until(page, lambda: counts(5,4), 30000)
     report['no_refresh_join'] = {'confirmed_to_visible_ms':page.evaluate('performance.now()')-confirmed,
                                 'navigations_after_initial_load':len(navigations), 'head':head()}
     assert not navigations
@@ -174,18 +174,20 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
         report['checks'].append({'name':'complete-short-normal-sample-with-independent-production-bounds','status':'FAIL','details':result});save()
     identify(configuration['payer_account'])
     page.locator('#join-action').click()
+    page.locator('#new-cell').select_option(index=1)
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),30000)
     assert page.locator('#transfer-amount').inner_text()=='4 ICP'
     (out/'browser-actions-ready').write_text('PASS\n')
     actions=phase('phase-actions.json')
     wait_until(page,lambda:receipt(actions['illegal_move']).count()==1 and receipt(actions['wrong_owner']).count()==1,30000)
-    wait_until(page,lambda:counts(6,5) and page.locator('#selected-cannon').input_value()=='6',30000)
+    wait_until(page,lambda:counts(6,5),30000)
     assert 'move limit' in receipt(actions['illegal_move']).inner_text()
     assert 'not owner' in receipt(actions['wrong_owner']).inner_text()
+    page.locator('#centre-cannon').click();page.locator('#own-cannons button').filter(has_text='#6 ·').click()
     page.locator('#fire-action').click()
     wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.9 ICP')
     camera=page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')
-    page.locator('#selected-cannon').select_option('1')
+    page.locator('#centre-cannon').click();page.locator('#own-cannons button').filter(has_text='#1 ·').click()
     wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.9 ICP')
     assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')==camera
     assert page.locator('#territories tr').count()==5 # five funding players, six cannons
@@ -197,7 +199,7 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     page.set_viewport_size({'width':1440,'height':900})
     # A second page restores the same public declaration; primary page never reloads.
     restore=context.new_page();restore.goto(page.url);wait_until(restore,lambda:restore.evaluate('Boolean(globalThis.__dtrLive?.connected)'))
-    wait_until(restore,lambda:restore.locator('#identity-label').inner_text().startswith(configuration['payer_account'][:10]))
+    wait_until(restore,lambda:restore.locator('#identity-label').inner_text().startswith(configuration['payer_account'][:8]))
     restore.close()
     high=context.browser.new_context(viewport={'width':390,'height':844},device_scale_factor=2)
     highpage=high.new_page();highpage.goto(page.url);wait_until(highpage,lambda:highpage.evaluate('Boolean(globalThis.__dtrLive?.connected)'))

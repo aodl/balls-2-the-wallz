@@ -24,9 +24,9 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     wait_until(page,lambda:row().count()>0,90000)
     receipt=row().inner_text();assert 'applied' in receipt.lower(),receipt
     confirmed=time.monotonic();wait_until(page,lambda:page.locator('#cannons').inner_text()=='2'and page.locator('#balls').inner_text()=='6',60000)
-    assert page.locator('#selected-cannon').input_value()=='2'
+    page.locator('#centre-cannon').click();page.locator('#own-cannons button').filter(has_text='#2 ·').click()
     assert not navigations,navigations
-    page.locator('#play-dialog [data-close]').click();page.locator('#centre-cannon').click();page.screenshot(path=str(out/'after-join-desktop.png'))
+    page.locator('#close-action').click();page.locator('#centre-cannon').click();page.screenshot(path=str(out/'after-join-desktop.png'))
     page.set_viewport_size({'width':390,'height':844});page.wait_for_timeout(300);page.screenshot(path=str(out/'after-join-mobile.png'))
     report['entry']={'status':'PASS','existing_session':True,'navigation_after_initial':len(navigations),'rules6_full_world_quote_blocked':True,'rules7_full_world_quote_amount':'1.1 ICP','memo':'NEW 0 2','receipt':receipt,'position':sent['position'],'receipt_wait_seconds':confirmed-started,'confirmed_to_visible_seconds':time.monotonic()-confirmed,'heads':page.evaluate('__dtrLive.heads'),'camera_preserved_through_rules_handoff':True,'source':'Actual valueless Ledger/Index admission and authenticated artifacts, not inferred from counts'}
     record('rules-7-occupied-world-join-receipt-and-presentation',report['entry']);save()

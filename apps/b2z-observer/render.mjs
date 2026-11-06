@@ -172,7 +172,7 @@ export function createArenaRenderer(canvasFactory=()=>document.createElement('ca
       if(selection&&selection.width===v.width&&selection.height===v.height){
         ctx.save();ctx.setLineDash([.16*cell,.12*cell]);ctx.strokeStyle='#ffcc80';ctx.lineWidth=.04*cell;
         for(const n of selection.cells)ctx.strokeRect((n%v.width+.1)*cell,(Math.floor(n/v.width)+.1)*cell,.8*cell,.8*cell);
-        if(selection.cell!==null){ctx.setLineDash([]);ctx.lineWidth=.06*cell;const n=selection.cell;ctx.strokeRect((n%v.width+.16)*cell,(Math.floor(n/v.width)+.16)*cell,.68*cell,.68*cell);}ctx.restore();
+        if(selection.cell!==null){const n=selection.cell,c=v.cannons.get(selection.id);ctx.lineWidth=Math.max(2,.06*cell);ctx.setLineDash([6,5]);if(c){let dx=n%v.width-c.cell%v.width,dy=Math.floor(n/v.width)-Math.floor(c.cell/v.width);if(v.torus){dx-=Math.round(dx/v.width)*v.width;dy-=Math.round(dy/v.height)*v.height;}ctx.beginPath();ctx.moveTo((c.cell%v.width+.5)*cell,(Math.floor(c.cell/v.width)+.5)*cell);ctx.lineTo((c.cell%v.width+.5+dx)*cell,(Math.floor(c.cell/v.width)+.5+dy)*cell);ctx.stroke();}ctx.strokeRect((n%v.width+.1)*cell,(Math.floor(n/v.width)+.1)*cell,.8*cell,.8*cell);}ctx.restore();
       }
       for(const c of v.cannons.values()){
         const x=(c.cell%v.width+.5)*cell,y=(Math.floor(c.cell/v.width)+.5)*cell,r=g.cannonRadius;

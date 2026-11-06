@@ -244,7 +244,7 @@ def main():
                 wait_until(page,lambda:page.locator('#scenario-title').inner_text()=='Mutual destruction' and page.locator('#pause').is_enabled())
                 assert page.locator('#cannons').inner_text()=='2' and page.locator('#balls').inner_text()=='2'
                 assert page.locator('[data-copy="recipient"]').is_disabled()
-                assert page.locator('#live-status').inner_text()=='Verified replay'
+                assert page.locator('#live-status').inner_text() in ('Verified recording · exploration only','Animation paused on this device.')
                 close_settings(page)
                 page.screenshot(path=str(a.output/'competing-cannons.png'),full_page=True)
                 open_settings(page)
