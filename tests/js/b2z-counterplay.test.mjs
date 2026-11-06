@@ -23,6 +23,7 @@ function fixture() {
         candidate: c.id,
         response,
         status: "complete",
+        lifecycle_complete: true,
         casualty_attribution_complete: true,
         incremental_score: [
           c.id === "wait"

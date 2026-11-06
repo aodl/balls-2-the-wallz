@@ -56,6 +56,25 @@ function evaluation() {
   };
 }
 const options = { cannon: cannon.id, investmentBudgetE8s: 10010000n };
+test("forecast choice cannot rank against missing Wait accounting or truthy completion flags", () => {
+  for (const candidate of ["wait", "z-consistent", "a-variable"])
+    for (const field of ["lifecycle_complete", "casualty_attribution_complete"])
+      for (const invalid of [undefined, null, false, "true", 1]) {
+        const e = evaluation();
+        e.forecasts
+          .filter((r) => r.candidate === candidate)
+          .forEach((r) => (r[field] = invalid));
+        const d = chooseForecastAttack(world, account, e, options);
+        assert.notEqual(
+          d.candidate,
+          candidate === "wait" ? "z-consistent" : candidate,
+        );
+        if (candidate === "wait") {
+          assert.equal(d.candidate, "wait");
+          assert.equal(d.assessment.declared_scenarios.status, "UNASSESSED");
+        }
+      }
+});
 test("equal-cost forecast choice prefers worst incremental gain over alphabetic order or mean alone", () => {
   const d = chooseForecastAttack(world, account, evaluation(), options);
   assert.equal(d.candidate, "z-consistent");
