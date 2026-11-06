@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "scope": "Tab, typing and Enter only after navigation; no programmatic focus or pointer input. Synthetic fixture only.",
+  "steps": [
+    {
+      "target": "#identify-button",
+      "tabs": 3
+    },
+    {
+      "target": "#identity-principal",
+      "tabs": 2
+    },
+    {
+      "target": "#identity-save",
+      "tabs": 3
+    },
+    {
+      "target": "#centre-cannon",
+      "tabs": 5
+    },
+    {
+      "target": "#own-cannons button",
+      "tabs": 11
+    },
+    {
+      "target": "#fire-action",
+      "tabs": 6
+    },
+    {
+      "target": "#angle-degrees",
+      "tabs": 15
+    },
+    {
+      "target": "#ball-quantity",
+      "tabs": 1
+    },
+    {
+      "target": "[data-copy=\"text\"]",
+      "tabs": 2
+    },
+    {
+      "target": "#activity-button",
+      "tabs": 7
+    }
+  ]
+}

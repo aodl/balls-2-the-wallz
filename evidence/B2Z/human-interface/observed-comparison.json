@@ -1,0 +1,205 @@
+{
+  "scope": "Read-only actual production versus local candidate observing production, paused Reserve state; unforced heap point samples, ten-second frames, no performance gameplay qualification or human study.",
+  "rows": [
+    {
+      "label": "before",
+      "errors": [],
+      "memory": {
+        "usedSize": 7082772,
+        "totalSize": 15790080,
+        "embedderHeapUsedSize": 2541576,
+        "backingStorageSize": 1225016
+      },
+      "dom_nodes": 366,
+      "frame_ms": {
+        "median": 66.69999999999891,
+        "p95": 266.60000000000036,
+        "max": 300.10000000000036
+      },
+      "observations_in_10s": 18,
+      "post_methods": [
+        "read_state",
+        "query"
+      ],
+      "diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          85762
+        ],
+        "resyncs": 0,
+        "certificates": 15,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+              "version": 9,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+              },
+              "epoch": "f4e285e44c963a30650760ac6ac985629a749e3e55137dd4c0777b6b5628ab01",
+              "format": null,
+              "head": "85762",
+              "root": "b9c16dc0d07e90bdb9d43e7e9109fe2649c9aa13829cfcdcc35e31d0b365b662",
+              "certificate_time_ns": "1793979122655549351"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 14372.6,
+          "frame_ms": 100,
+          "verified_ticks": 139912,
+          "consumed_ticks": 139912,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1793979133561743473",
+          "certificate_age_ms": 3149.256704,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "BUFFERING",
+          "rate": 1,
+          "nominal_rate": 0,
+          "target_rate": 0,
+          "performance_limited": false,
+          "fetch_ms": 518,
+          "verify_ms": 175.5,
+          "artifact_ms": 16.200000000186265,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 85758,
+          "segment_ticks": 1
+        }
+      },
+      "status": "Gameplay paused to conserve cycles",
+      "public_configuration": {
+        "rules-identity": "Rules 982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f; configuration 8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "receiving-account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+        "command-prices": "Certified configuration: join 100000000 e8s; relocation 10000 e8s; ball base 10000000 e8s (existing occupancy pricing applies).",
+        "service-status": "Reserve protection \u2014 pending payments are preserved and funding recovery remains active; wait before making purchases."
+      }
+    },
+    {
+      "label": "after",
+      "errors": [],
+      "memory": {
+        "usedSize": 7806432,
+        "totalSize": 15265792,
+        "embedderHeapUsedSize": 2559736,
+        "backingStorageSize": 1247680
+      },
+      "dom_nodes": 361,
+      "frame_ms": {
+        "median": 33.399999999999636,
+        "p95": 216.70000000000073,
+        "max": 300.10000000000036
+      },
+      "observations_in_10s": 19,
+      "post_methods": [
+        "read_state",
+        "query"
+      ],
+      "diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          85762
+        ],
+        "resyncs": 0,
+        "certificates": 15,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+              "version": 9,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+              },
+              "epoch": "f4e285e44c963a30650760ac6ac985629a749e3e55137dd4c0777b6b5628ab01",
+              "format": null,
+              "head": "85762",
+              "root": "b9c16dc0d07e90bdb9d43e7e9109fe2649c9aa13829cfcdcc35e31d0b365b662",
+              "certificate_time_ns": "1793979138098057686"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 13551.4,
+          "frame_ms": 50.100000000000364,
+          "verified_ticks": 139912,
+          "consumed_ticks": 139912,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1793979125789852112",
+          "certificate_age_ms": 26515.147776,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "BUFFERING",
+          "rate": 1,
+          "nominal_rate": 0,
+          "target_rate": 0,
+          "performance_limited": false,
+          "fetch_ms": 276.8999999994412,
+          "verify_ms": 175.6000000005588,
+          "artifact_ms": 6.599999999627471,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 85758,
+          "segment_ticks": 1
+        }
+      },
+      "status": "Gameplay paused to conserve cycles.",
+      "public_configuration": {
+        "rules-identity": "Rules 982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f; configuration 8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "receiving-account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+        "command-prices": "Certified configuration: join 100000000 e8s; relocation 10000 e8s; ball base 10000000 e8s (existing occupancy pricing applies).",
+        "service-status": "Reserve protection \u2014 pending payments are preserved and funding recovery remains active; wait before making purchases."
+      }
+    }
+  ]
+}

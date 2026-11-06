@@ -1,3 +1,20 @@
+# Human-player workspace candidate — frontend-only publication blocked
+
+Implementation `9820380613aeb45652785e6351a77c7e728e515e` replaces overlapping
+Play/View controls with a right rail, direct cannon selection, board tools,
+explicit local quotes, frozen wallet packets and bounded historical Activity.
+Exact-source local checks PASS (1,720 JS tests); five measured viewport journeys,
+14 HTTP/browser checks, Tab-only interaction and the named disposable IC
+browser-independent Ledger activation test PASS. Host unit tests: 48 PASS.
+The clean frontend and full asset/header manifest are frozen locally.
+Hosted exact-commit CI requires user-owned source publication; no asset upload
+or production mutation occurred. Backend/modules/controllers/rules/payment
+configuration remain unchanged. Receipt auto-association remains unavailable
+because public receipts omit memo evidence; human and real-device checks are
+explicitly incomplete. [Implementation, genuine screenshots, hashes and blocker](evidence/B2Z/human-interface/REPORT.md).
+
+---
+
 # Coverage correction and stable planner close-out — 6 November 2026
 
 Implementation `a8cd5a3` fails closed on selected/Wait lifecycle and casualty

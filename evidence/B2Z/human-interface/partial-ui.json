@@ -1,0 +1,5 @@
+{
+  "status": "PASS",
+  "scope": "Existing pure purchase fixture, UI rendering only; no IC authentication or Ledger transfer claim",
+  "text": "Verified Ledger transaction 101 \u00b7 partially applied \u00b7 1/2 balls \u00b7 used 0.1 ICP \u00b7 retained 0.05 ICP \u00b7 insufficient payment. 0.15 ICP. Compare this public outcome to your wallet record; it is not automatically matched to a local instruction.Locate cannon #1"
+}

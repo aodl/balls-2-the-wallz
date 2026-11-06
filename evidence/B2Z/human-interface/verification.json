@@ -1,0 +1,734 @@
+{
+  "source": "9820380613aeb45652785e6351a77c7e728e515e",
+  "artifact_source_clean": true,
+  "local_source": {
+    "overall": "PASS",
+    "checks": [
+      {
+        "id": "b2z-naming-audit",
+        "status": "PASS",
+        "elapsed_seconds": 2.999
+      },
+      {
+        "id": "playability-policy",
+        "status": "PASS",
+        "elapsed_seconds": 0.22
+      },
+      {
+        "id": "playability-state-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 0.373
+      },
+      {
+        "id": "playability-purchase-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 0.88
+      },
+      {
+        "id": "playability-lifecycle-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 0.532
+      },
+      {
+        "id": "playability-island-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 0.939
+      },
+      {
+        "id": "playability-capture-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 0.897
+      },
+      {
+        "id": "playability-rules-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 25.474
+      },
+      {
+        "id": "entry-rules-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 6.887
+      },
+      {
+        "id": "adjacent-cannon-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 3.006
+      },
+      {
+        "id": "observer-recordings",
+        "status": "PASS",
+        "elapsed_seconds": 6.526
+      },
+      {
+        "id": "protocol-fixtures",
+        "status": "PASS",
+        "elapsed_seconds": 0.217
+      },
+      {
+        "id": "life-reference",
+        "status": "PASS",
+        "elapsed_seconds": 0.271
+      },
+      {
+        "id": "b2z-reference",
+        "status": "PASS",
+        "elapsed_seconds": 0.473
+      },
+      {
+        "id": "spawn-reference",
+        "status": "PASS",
+        "elapsed_seconds": 1.18
+      },
+      {
+        "id": "impact-reference",
+        "status": "PASS",
+        "elapsed_seconds": 0.273
+      },
+      {
+        "id": "b2z-full-traces",
+        "status": "PASS",
+        "elapsed_seconds": 0.824
+      },
+      {
+        "id": "numeric-reference",
+        "status": "PASS",
+        "elapsed_seconds": 0.323
+      },
+      {
+        "id": "coordinator-vectors",
+        "status": "PASS",
+        "elapsed_seconds": 1.335
+      },
+      {
+        "id": "observation-v6-reference",
+        "status": "PASS",
+        "elapsed_seconds": 0.168
+      },
+      {
+        "id": "observation-reference",
+        "status": "PASS",
+        "elapsed_seconds": 0.226
+      },
+      {
+        "id": "portable-cursors",
+        "status": "PASS",
+        "elapsed_seconds": 0.721
+      },
+      {
+        "id": "node-tests",
+        "status": "PASS",
+        "elapsed_seconds": 178.252
+      },
+      {
+        "id": "source-structure",
+        "status": "PASS",
+        "elapsed_seconds": 18.991
+      },
+      {
+        "id": "docs-links",
+        "status": "PASS",
+        "elapsed_seconds": 0.221
+      },
+      {
+        "id": "python-tool-tests",
+        "status": "PASS",
+        "elapsed_seconds": 28.315
+      }
+    ],
+    "js_tests": 1720
+  },
+  "hosted_exact_source_ci": {
+    "status": "BLOCKED",
+    "reason": "Unpublished commit; remote Git publication remains user-owned"
+  },
+  "frontend_publication": {
+    "status": "BLOCKED",
+    "ready_directory": "/home/codexdev/src/b2z/.work/human-interface/frozen-assets",
+    "reason": "Required hosted exact-commit CI has not run on this unpublished candidate"
+  },
+  "synthetic_ui": {
+    "status": "PASS",
+    "scope": "Sandboxed v6 widget checks. Synthetic data; no IC, payments or release claim.",
+    "sandbox": true,
+    "rows": [
+      {
+        "viewport": [
+          320,
+          640
+        ],
+        "status": "PASS",
+        "rectangles": {
+          "card": {
+            "x": 12,
+            "y": 317,
+            "width": 238,
+            "height": 258,
+            "top": 317,
+            "right": 250,
+            "bottom": 575,
+            "left": 12
+          },
+          "aim": {
+            "x": 31,
+            "y": 101,
+            "width": 200,
+            "height": 200,
+            "top": 101,
+            "right": 231,
+            "bottom": 301,
+            "left": 31
+          },
+          "rail": {
+            "x": 258,
+            "y": 76,
+            "width": 56,
+            "height": 552,
+            "top": 76,
+            "right": 314,
+            "bottom": 628,
+            "left": 258
+          },
+          "cardRail": false,
+          "aimCard": false,
+          "overflow": false,
+          "targets": [
+            {
+              "width": 48,
+              "height": 53
+            },
+            {
+              "width": 48,
+              "height": 53
+            },
+            {
+              "width": 48,
+              "height": 53
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            }
+          ]
+        },
+        "dom_nodes": 330,
+        "checks": [
+          "identify resumes Fire",
+          "two own cannons and exact target",
+          "batch quote",
+          "frozen packet and explicit replacement",
+          "reported sent is unresolved",
+          "wallet return restores Activity",
+          "illegal move blocked",
+          "first placement automatic",
+          "clipboard denial/manual handoff",
+          "dormant revival and missing target",
+          "keyboard selection/aim/quantity/copy/Activity"
+        ]
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "status": "PASS",
+        "rectangles": {
+          "card": {
+            "x": 12,
+            "y": 381,
+            "width": 304,
+            "height": 397.875,
+            "top": 381,
+            "right": 316,
+            "bottom": 778.875,
+            "left": 12
+          },
+          "aim": {
+            "x": 66,
+            "y": 101,
+            "width": 200,
+            "height": 200,
+            "top": 101,
+            "right": 266,
+            "bottom": 301,
+            "left": 66
+          },
+          "rail": {
+            "x": 328,
+            "y": 76,
+            "width": 56,
+            "height": 756,
+            "top": 76,
+            "right": 384,
+            "bottom": 832,
+            "left": 328
+          },
+          "cardRail": false,
+          "aimCard": false,
+          "overflow": false,
+          "targets": [
+            {
+              "width": 48,
+              "height": 53
+            },
+            {
+              "width": 48,
+              "height": 53
+            },
+            {
+              "width": 48,
+              "height": 53
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            },
+            {
+              "width": 48,
+              "height": 46
+            }
+          ]
+        },
+        "dom_nodes": 330,
+        "checks": [
+          "identify resumes Fire",
+          "two own cannons and exact target",
+          "batch quote",
+          "frozen packet and explicit replacement",
+          "reported sent is unresolved",
+          "wallet return restores Activity",
+          "illegal move blocked",
+          "first placement automatic",
+          "clipboard denial/manual handoff",
+          "dormant revival and missing target",
+          "keyboard selection/aim/quantity/copy/Activity"
+        ]
+      },
+      {
+        "viewport": [
+          844,
+          390
+        ],
+        "status": "PASS",
+        "rectangles": {
+          "card": {
+            "x": 12,
+            "y": 215.5,
+            "width": 304,
+            "height": 100,
+            "top": 215.5,
+            "right": 316,
+            "bottom": 315.5,
+            "left": 12
+          },
+          "aim": null,
+          "rail": {
+            "x": 770,
+            "y": 76,
+            "width": 64,
+            "height": 302,
+            "top": 76,
+            "right": 834,
+            "bottom": 378,
+            "left": 770
+          },
+          "cardRail": false,
+          "aimCard": null,
+          "overflow": false,
+          "targets": [
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            }
+          ]
+        },
+        "dom_nodes": 330,
+        "checks": [
+          "identify resumes Fire",
+          "two own cannons and exact target",
+          "batch quote",
+          "frozen packet and explicit replacement",
+          "reported sent is unresolved",
+          "wallet return restores Activity",
+          "illegal move blocked",
+          "first placement automatic",
+          "clipboard denial/manual handoff",
+          "dormant revival and missing target",
+          "keyboard selection/aim/quantity/copy/Activity"
+        ]
+      },
+      {
+        "viewport": [
+          768,
+          1024
+        ],
+        "status": "PASS",
+        "rectangles": {
+          "card": {
+            "x": 12,
+            "y": 452.5,
+            "width": 304,
+            "height": 496.765625,
+            "top": 452.5,
+            "right": 316,
+            "bottom": 949.265625,
+            "left": 12
+          },
+          "aim": {
+            "x": 250,
+            "y": 101,
+            "width": 200,
+            "height": 200,
+            "top": 101,
+            "right": 450,
+            "bottom": 301,
+            "left": 250
+          },
+          "rail": {
+            "x": 694,
+            "y": 76,
+            "width": 64,
+            "height": 936,
+            "top": 76,
+            "right": 758,
+            "bottom": 1012,
+            "left": 694
+          },
+          "cardRail": false,
+          "aimCard": false,
+          "overflow": false,
+          "targets": [
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            }
+          ]
+        },
+        "dom_nodes": 330,
+        "checks": [
+          "identify resumes Fire",
+          "two own cannons and exact target",
+          "batch quote",
+          "frozen packet and explicit replacement",
+          "reported sent is unresolved",
+          "wallet return restores Activity",
+          "illegal move blocked",
+          "first placement automatic",
+          "clipboard denial/manual handoff",
+          "dormant revival and missing target",
+          "keyboard selection/aim/quantity/copy/Activity"
+        ]
+      },
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "status": "PASS",
+        "rectangles": {
+          "card": {
+            "x": 798,
+            "y": 85.5,
+            "width": 304,
+            "height": 720.5,
+            "top": 85.5,
+            "right": 1102,
+            "bottom": 806,
+            "left": 798
+          },
+          "aim": {
+            "x": 586,
+            "y": 346,
+            "width": 200,
+            "height": 200,
+            "top": 346,
+            "right": 786,
+            "bottom": 546,
+            "left": 586
+          },
+          "rail": {
+            "x": 1366,
+            "y": 76,
+            "width": 64,
+            "height": 812,
+            "top": 76,
+            "right": 1430,
+            "bottom": 888,
+            "left": 1366
+          },
+          "cardRail": false,
+          "aimCard": false,
+          "overflow": false,
+          "targets": [
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 53
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            },
+            {
+              "width": 52,
+              "height": 46
+            }
+          ]
+        },
+        "dom_nodes": 330,
+        "checks": [
+          "identify resumes Fire",
+          "two own cannons and exact target",
+          "batch quote",
+          "frozen packet and explicit replacement",
+          "reported sent is unresolved",
+          "wallet return restores Activity",
+          "illegal move blocked",
+          "first placement automatic",
+          "clipboard denial/manual handoff",
+          "dormant revival and missing target",
+          "keyboard selection/aim/quantity/copy/Activity"
+        ]
+      }
+    ],
+    "page_errors": []
+  },
+  "disposable_ic": {
+    "overall": "PASS",
+    "test": "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+    "host_tests": 48,
+    "backend_source_unchanged_since_test": true,
+    "scope": "Ledger/browser independence; not full installed v6 payment-flow qualification"
+  },
+  "backend_and_observer_metadata_unchanged": true,
+  "served_frontend_remains_old": true,
+  "financial_commands_sent": 0,
+  "production_gameplay_updates_sent": 0,
+  "human_study": "NOT_PERFORMED",
+  "actual_phone_keyboard_chrome_and_native_zoom": "NOT_PERFORMED; qualified viewport simulations only",
+  "http_browser": {
+    "status": "PASS",
+    "source": "9820380613aeb45652785e6351a77c7e728e515e",
+    "checks": [
+      {
+        "name": "browser-selection",
+        "status": "PASS",
+        "details": "playwright-bundled: /home/codexdev/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome"
+      },
+      {
+        "name": "browser-sandbox",
+        "status": "PASS",
+        "details": "Chromium launched with Playwright sandbox support explicitly enabled."
+      },
+      {
+        "name": "startup-and-moving-playhead",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "canvas-pixels-change-during-playback",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "pause-freezes-presentation",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "desktop-and-mobile-layout",
+        "status": "PASS",
+        "details": "1400\u00d71100 and 390\u00d7844 viewports; no horizontal overflow."
+      },
+      {
+        "name": "buffer-exhaustion-stops-at-verified-head",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "download-recovery-resumes",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "bundled-competing-cannons-labelled-replay",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "bundled-annihilation-completes-with-hash-verified-finite-output",
+        "status": "PASS",
+        "details": "Offline content pins, not IC certification."
+      },
+      {
+        "name": "bundled-territory-change-and-elimination",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "reduced-motion-starts-paused",
+        "status": "PASS",
+        "details": ""
+      },
+      {
+        "name": "native-browser-webcrypto",
+        "status": "PASS",
+        "details": "True"
+      },
+      {
+        "name": "no-uncaught-page-errors",
+        "status": "PASS",
+        "details": ""
+      }
+    ],
+    "sandbox": {
+      "requested": true,
+      "launch_option": "chromium_sandbox=True"
+    },
+    "scope": "Local HTTP integration with actual browser Web Crypto and production static-page CSP; not IC certification."
+  },
+  "keyboard_only": "PASS",
+  "partial_fill_ui": "PASS"
+}

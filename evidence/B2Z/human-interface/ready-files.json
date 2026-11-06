@@ -1,0 +1,62 @@
+{
+  ".ic-assets.json5": {
+    "bytes": 1214,
+    "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c"
+  },
+  "agent-api.md": {
+    "bytes": 6076,
+    "sha256": "f14d4e999bb474e78dc218d69379986642b3a7c4a22ba16403f11f12e085e3c8"
+  },
+  "app.mjs": {
+    "bytes": 686665,
+    "sha256": "0eeb386ea1f3d1701c1a933291047b23af77342cfc3dad524b260dd64f6eecb3"
+  },
+  "backend.did": {
+    "bytes": 12081,
+    "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be"
+  },
+  "build-manifest.json": {
+    "bytes": 9002,
+    "sha256": "4ad19526165909d769df7e2c144b2a87056328e6e3fc0d563d3e5c0a98432b58"
+  },
+  "configuration-entry.bin": {
+    "bytes": 1163,
+    "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80"
+  },
+  "configuration-legacy.bin": {
+    "bytes": 368,
+    "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+  },
+  "configuration-million.bin": {
+    "bytes": 469,
+    "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03"
+  },
+  "configuration-playability.bin": {
+    "bytes": 994,
+    "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68"
+  },
+  "configuration-torus.bin": {
+    "bytes": 386,
+    "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4"
+  },
+  "configuration.bin": {
+    "bytes": 367,
+    "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+  },
+  "deployment.json": {
+    "bytes": 89,
+    "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2"
+  },
+  "icon.svg": {
+    "bytes": 235,
+    "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888"
+  },
+  "index.html": {
+    "bytes": 18371,
+    "sha256": "ad101a2f182ba604ba8de9603ee4b13d0e318a512e6b3ab4859a85e3cfe24ae6"
+  },
+  "style.css": {
+    "bytes": 10007,
+    "sha256": "09e1e79dbe2ad62f214485dbe1fe37b02bc80b289e03bd86f7d2296f9c33c63a"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "scope": "Synthetic browser UI; synchronous event-to-quote timings, no settlement or sustained frame claim",
+  "milliseconds": {
+    "median": 0.7999999998137355,
+    "p95": 5,
+    "max": 15.400000000372529
+  },
+  "requests_during_100_edits": 0,
+  "errors": [],
+  "screens": [
+    {
+      "card": {
+        "x": 12,
+        "y": 317,
+        "width": 304,
+        "height": 118,
+        "top": 317,
+        "right": 316,
+        "bottom": 435,
+        "left": 12
+      },
+      "rail": {
+        "x": 328,
+        "y": 76,
+        "width": 56,
+        "height": 412,
+        "top": 76,
+        "right": 384,
+        "bottom": 488,
+        "left": 328
+      },
+      "aim": {
+        "x": 66,
+        "y": 101,
+        "width": 200,
+        "height": 200,
+        "top": 101,
+        "right": 266,
+        "bottom": 301,
+        "left": 66
+      },
+      "overlap": false,
+      "overflow": false,
+      "qualification": "simulated-keyboard"
+    },
+    {
+      "card": {
+        "x": 12,
+        "y": 275.5,
+        "width": 304,
+        "height": 100,
+        "top": 275.5,
+        "right": 316,
+        "bottom": 375.5,
+        "left": 12
+      },
+      "rail": {
+        "x": 646,
+        "y": 76,
+        "width": 64,
+        "height": 362,
+        "top": 76,
+        "right": 710,
+        "bottom": 438,
+        "left": 646
+      },
+      "aim": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "overlap": 0,
+      "overflow": false,
+      "qualification": "emulated-effective-200-percent-viewport"
+    }
+  ]
+}
