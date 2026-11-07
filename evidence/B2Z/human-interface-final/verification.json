@@ -1,0 +1,99 @@
+{
+  "source": "33067280fa8cf42213fa3ecc109ea1fc398b6547",
+  "at": "2026-11-07T14:49:40.804940+00:00",
+  "reviewed_parent": "9820380613aeb45652785e6351a77c7e728e515e",
+  "source_dirty": false,
+  "local_tests": {
+    "status": "PASS",
+    "js_tests": 19,
+    "raw_log": ".work/human-interface-final/unit.log",
+    "responsive_browser_viewports": [
+      [
+        320,
+        640
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "browser_status": "PASS",
+    "sandbox": true,
+    "raw_browser_log": ".work/human-interface-final/ui-6.log"
+  },
+  "artifact_verification": {
+    "status": "PASS",
+    "files": 15,
+    "ready_files_sha256": "40939fb9c543a05c8c6722568c0bb418e952015e43e3323ea1b6ce3cc6c9c1a9",
+    "build_manifest_sha256": "c65fee291fd1092100b79e1db972e0ef54a500f88abe23bccdcf559cbe4cc754",
+    "changed_payloads_from_reviewed_candidate": [
+      "index.html",
+      "app.mjs"
+    ],
+    "unchanged_npm_lock": true,
+    "directory": ".work/human-interface-final/frozen-assets"
+  },
+  "hosted_exact_source_ci": {
+    "status": "BLOCKED",
+    "execution": "NOT_RUN",
+    "reason": "New source is not published; remote Git actions remain user-owned under AGENTS.md",
+    "last_checked_remote_head": "dc3b4073bb750de42798c7aec94dd46f9bc5b60b",
+    "applicable_substantive_jobs": [
+      "Source conformance",
+      "Native conformance",
+      "Packaged DTR and clean consumers",
+      "Runtime-lab Wasm",
+      "Browser HTTP and Web Crypto",
+      "S14 and million-cell installed-IC qualification"
+    ],
+    "production_inventory": "Separately labelled BLOCKED informational inventory; cannot qualify missing substantive jobs",
+    "push": "git push origin 33067280fa8cf42213fa3ecc109ea1fc398b6547:refs/heads/release/btz-prelaunch-playability",
+    "last_checked_at": "2026-11-07T14:50:44.736387+00:00",
+    "workflow_runs": []
+  },
+  "production_publication": {
+    "status": "BLOCKED",
+    "reason": "Source publication and applicable hosted exact-commit CI gates pending",
+    "target": "s45ab-wiaaa-aaaar-qcifq-cai",
+    "upload_performed": false,
+    "post_upload_verification": "NOT_RUN",
+    "currently_served_matches_candidate": false,
+    "current_security_headers_match": true
+  },
+  "read_only_smoke": {
+    "status": "PASS",
+    "scope": "Currently served production and frozen local candidate observing authenticated production; not post-deployment",
+    "request_types": [
+      "query",
+      "read_state"
+    ],
+    "backend_and_frontend_modules_controllers_subnet_preserved": true
+  },
+  "reused_qualification": {
+    "evidence": "../human-interface/verification.json",
+    "reason": "Backend, kernel, DTR, interfaces, memo/quote, locks and all non-UI executable inputs unchanged; no backend suite rerun",
+    "not_new_evidence": [
+      "1720 previous JS tests",
+      "48 previous host tests",
+      "previous named disposable S14 Ledger activation test"
+    ]
+  },
+  "limitations": [
+    "No safe automatic packet/receipt association: current public receipts omit original memo bytes; payer, amount and reported index are insufficient.",
+    "No human participants, real mobile device/soft-keyboard validation or real-wallet payment in these checks.",
+    "Production remained in Reserve protection; complete payment preparation uses explicitly synthetic UI fixtures.",
+    "No automatic refunds or payouts."
+  ]
+}

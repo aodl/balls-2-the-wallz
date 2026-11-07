@@ -1,3 +1,18 @@
+# Final human-player corrections — clean frozen source; publication gate pending
+
+Source `33067280fa8cf42213fa3ecc109ea1fc398b6547` exposes the receiving account
+and no-refund warning in the ordinary action card, and expires obsolete draft
+feedback while preserving frozen-packet warnings and unresolved Activity.
+19 focused JS tests and five browser viewports PASS, including exact clipboard
+bytes, denial and replacement. Genuine desktop/mobile read-only checks PASS.
+The clean 15-file frontend is frozen; only HTML/JS changed from accepted `9820380`.
+GitHub already contains the previous branch tip `dc3b407`; new source publication
+is user-owned and its exact CI is NOT_RUN. Asset upload/post-upload checks remain
+BLOCKED pending publication and substantive CI. Backend, authority and financial
+records are untouched. [Hashes, evidence and exact push](evidence/B2Z/human-interface-final/REPORT.md).
+
+---
+
 # Human-player workspace candidate — frontend-only publication blocked
 
 Implementation `9820380613aeb45652785e6351a77c7e728e515e` replaces overlapping

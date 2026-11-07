@@ -1,0 +1,218 @@
+{
+  "status": "PASS",
+  "scope": "Actual currently served production and frozen local candidate observing production; candidate is not yet deployed; no human participants or payments",
+  "sandbox": true,
+  "rows": [
+    {
+      "label": "production",
+      "url": "https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/",
+      "at_ns": 1794062882896069163,
+      "csp": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          85762
+        ],
+        "resyncs": 0,
+        "certificates": 4,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+              "version": 9,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+              },
+              "epoch": "f4e285e44c963a30650760ac6ac985629a749e3e55137dd4c0777b6b5628ab01",
+              "format": null,
+              "head": "85762",
+              "root": "b9c16dc0d07e90bdb9d43e7e9109fe2649c9aa13829cfcdcc35e31d0b365b662",
+              "certificate_time_ns": "1794062850968400825"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 3608.2,
+          "frame_ms": 16.699999999999818,
+          "verified_ticks": 139912,
+          "consumed_ticks": 139912,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1794062843367628320",
+          "certificate_age_ms": 39186.371584,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "BUFFERING",
+          "rate": 1,
+          "nominal_rate": 0,
+          "target_rate": 0,
+          "performance_limited": false,
+          "fetch_ms": 180.5,
+          "verify_ms": 71,
+          "artifact_ms": 1.2000000001862645,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 85758,
+          "segment_ticks": 1
+        }
+      },
+      "status": "Gameplay paused to conserve cycles",
+      "public_configuration": {
+        "rules-identity": "Rules 982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f; configuration 8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "receiving-account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+        "command-prices": "Certified configuration: join 100000000 e8s; relocation 10000 e8s; ball base 10000000 e8s (existing occupancy pricing applies).",
+        "service-status": "Reserve protection \u2014 pending payments are preserved and funding recovery remains active; wait before making purchases."
+      },
+      "viewports": [],
+      "errors": [],
+      "post_endpoints": [
+        "query",
+        "read_state"
+      ]
+    },
+    {
+      "label": "candidate",
+      "url": "http://127.0.0.1:35429/",
+      "at_ns": 1794062887530419398,
+      "csp": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          85762
+        ],
+        "resyncs": 0,
+        "certificates": 4,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s34gv-3qaaa-aaaar-qcifa-cai",
+              "version": 9,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "bb9d14d7f7fe6a523f0fd9946ecf536be6574cbd95158ec6cad9da1b6c2c2602"
+              },
+              "epoch": "f4e285e44c963a30650760ac6ac985629a749e3e55137dd4c0777b6b5628ab01",
+              "format": null,
+              "head": "85762",
+              "root": "b9c16dc0d07e90bdb9d43e7e9109fe2649c9aa13829cfcdcc35e31d0b365b662",
+              "certificate_time_ns": "1794062881447438183"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 3473.7,
+          "frame_ms": 16.59999999999991,
+          "verified_ticks": 139912,
+          "consumed_ticks": 139912,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1794062886101441264",
+          "certificate_age_ms": 1227.558656,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "BUFFERING",
+          "rate": 1,
+          "nominal_rate": 0,
+          "target_rate": 0,
+          "performance_limited": false,
+          "fetch_ms": 351.69999999995343,
+          "verify_ms": 89.20000000018626,
+          "artifact_ms": 5.699999999953434,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 85758,
+          "segment_ticks": 1
+        }
+      },
+      "status": "Gameplay paused to conserve cycles.",
+      "public_configuration": {
+        "rules-identity": "Rules 982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f; configuration 8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "receiving-account": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+        "command-prices": "Certified configuration: join 100000000 e8s; relocation 10000 e8s; ball base 10000000 e8s (existing occupancy pricing applies).",
+        "service-status": "Reserve protection \u2014 pending payments are preserved and funding recovery remains active; wait before making purchases."
+      },
+      "viewports": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "right_rail": {
+            "x": 1366,
+            "y": 76,
+            "width": 64,
+            "height": 812
+          },
+          "identify": "PASS",
+          "payment_preparation_disabled_in_reserve": "PASS"
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "right_rail": {
+            "x": 328,
+            "y": 76,
+            "width": 56,
+            "height": 756
+          },
+          "identify": "PASS",
+          "payment_preparation_disabled_in_reserve": "PASS"
+        }
+      ],
+      "errors": [],
+      "post_endpoints": [
+        "query",
+        "read_state"
+      ]
+    }
+  ]
+}

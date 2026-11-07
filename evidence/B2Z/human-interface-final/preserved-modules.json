@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "before": {
+    "at": "2026-11-07T14:44:03.816Z",
+    "records": [
+      {
+        "canisterId": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "module_hash": "cfcf6130432a040a40738627df65da65d0d5c57195c04d3bb147a848af6d8303",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "nodes": 34,
+        "certificate_verification": true
+      },
+      {
+        "canisterId": "s45ab-wiaaa-aaaar-qcifq-cai",
+        "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "nodes": 34,
+        "certificate_verification": true
+      }
+    ]
+  },
+  "after": {
+    "at": "2026-11-07T14:49:05.017Z",
+    "records": [
+      {
+        "canisterId": "s34gv-3qaaa-aaaar-qcifa-cai",
+        "module_hash": "cfcf6130432a040a40738627df65da65d0d5c57195c04d3bb147a848af6d8303",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "nodes": 34,
+        "certificate_verification": true
+      },
+      {
+        "canisterId": "s45ab-wiaaa-aaaar-qcifq-cai",
+        "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+        "controllers": [
+          "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+        ],
+        "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+        "nodes": 34,
+        "certificate_verification": true
+      }
+    ]
+  }
+}

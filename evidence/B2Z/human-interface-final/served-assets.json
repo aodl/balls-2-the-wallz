@@ -1,0 +1,202 @@
+{
+  "at_ns": 1794062864012478801,
+  "source": "33067280fa8cf42213fa3ecc109ea1fc398b6547",
+  "scope": "Read-only current served assets compared with frozen candidate; no upload has occurred",
+  "files": {
+    ".ic-assets.json5": {
+      "scope": "Upload header configuration; compare served headers rather than request hidden file",
+      "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c"
+    },
+    "agent-api.md": {
+      "status": 200,
+      "actual": {
+        "sha256": "f14d4e999bb474e78dc218d69379986642b3a7c4a22ba16403f11f12e085e3c8",
+        "bytes": 6076
+      },
+      "candidate": {
+        "sha256": "f14d4e999bb474e78dc218d69379986642b3a7c4a22ba16403f11f12e085e3c8",
+        "bytes": 6076
+      },
+      "matches_candidate": true
+    },
+    "app.mjs": {
+      "status": 200,
+      "actual": {
+        "sha256": "8ee6c13b059413ea39af40044dca9f0883773c603a51645aefa4d013fa80fe98",
+        "bytes": 671301
+      },
+      "candidate": {
+        "sha256": "920cd1fa42a2bee2a2807833d51958315a75e16651f7dc49435e28203a2bcec8",
+        "bytes": 687079
+      },
+      "matches_candidate": false
+    },
+    "backend.did": {
+      "status": 200,
+      "actual": {
+        "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+        "bytes": 12081
+      },
+      "candidate": {
+        "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+        "bytes": 12081
+      },
+      "matches_candidate": true
+    },
+    "build-manifest.json": {
+      "status": 200,
+      "actual": {
+        "sha256": "db3688ea7079ffde787bf72c63458db56454a6004469fbadb691f2447647884e",
+        "bytes": 8926
+      },
+      "candidate": {
+        "sha256": "c65fee291fd1092100b79e1db972e0ef54a500f88abe23bccdcf559cbe4cc754",
+        "bytes": 9002
+      },
+      "matches_candidate": false
+    },
+    "configuration-entry.bin": {
+      "status": 200,
+      "actual": {
+        "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "bytes": 1163
+      },
+      "candidate": {
+        "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "bytes": 1163
+      },
+      "matches_candidate": true
+    },
+    "configuration-legacy.bin": {
+      "status": 200,
+      "actual": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "candidate": {
+        "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "bytes": 368
+      },
+      "matches_candidate": true
+    },
+    "configuration-million.bin": {
+      "status": 200,
+      "actual": {
+        "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "bytes": 469
+      },
+      "candidate": {
+        "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "bytes": 469
+      },
+      "matches_candidate": true
+    },
+    "configuration-playability.bin": {
+      "status": 200,
+      "actual": {
+        "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "bytes": 994
+      },
+      "candidate": {
+        "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "bytes": 994
+      },
+      "matches_candidate": true
+    },
+    "configuration-torus.bin": {
+      "status": 200,
+      "actual": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "candidate": {
+        "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "bytes": 386
+      },
+      "matches_candidate": true
+    },
+    "configuration.bin": {
+      "status": 200,
+      "actual": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "candidate": {
+        "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "bytes": 367
+      },
+      "matches_candidate": true
+    },
+    "deployment.json": {
+      "status": 200,
+      "actual": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      "candidate": {
+        "sha256": "ba19be7bcefa35bd574d0c652c35df20e3a66e6c62aa570d0e53e0bd76076cf2",
+        "bytes": 89
+      },
+      "matches_candidate": true
+    },
+    "icon.svg": {
+      "status": 200,
+      "actual": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "candidate": {
+        "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "bytes": 235
+      },
+      "matches_candidate": true
+    },
+    "index.html": {
+      "status": 200,
+      "actual": {
+        "sha256": "fa437cad4dcd7ed7e4fe7021a7c03b1a2c75872b9f33a7d0ae4a669e6454c219",
+        "bytes": 19854
+      },
+      "candidate": {
+        "sha256": "64ec1ae93f7dd9a4edf586d212397673fd0a117dd1f026998ed3dfd2fabf9224",
+        "bytes": 18409
+      },
+      "matches_candidate": false
+    },
+    "style.css": {
+      "status": 200,
+      "actual": {
+        "sha256": "760ffc86ad7d9306a6b9ec1506f936aabc43263d8675e1f27e33de9cd09eeb24",
+        "bytes": 11937
+      },
+      "candidate": {
+        "sha256": "09e1e79dbe2ad62f214485dbe1fe37b02bc80b289e03bd86f7d2296f9c33c63a",
+        "bytes": 10007
+      },
+      "matches_candidate": false
+    }
+  },
+  "all_public_files_match": false,
+  "security_headers": {
+    "Content-Security-Policy": {
+      "expected": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "actual": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "matches": true
+    },
+    "Referrer-Policy": {
+      "expected": "no-referrer",
+      "actual": "no-referrer",
+      "matches": true
+    },
+    "X-Content-Type-Options": {
+      "expected": "nosniff",
+      "actual": "nosniff",
+      "matches": true
+    },
+    "Permissions-Policy": {
+      "expected": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+      "actual": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+      "matches": true
+    }
+  }
+}

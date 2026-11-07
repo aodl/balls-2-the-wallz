@@ -1,0 +1,829 @@
+{
+  "status": "PASS",
+  "scope": "Sandboxed v6 widget checks. Synthetic data; no IC, payments or release claim.",
+  "sandbox": true,
+  "rows": [
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "rectangles": {
+        "card": {
+          "x": 12,
+          "y": 317,
+          "width": 238,
+          "height": 258,
+          "top": 317,
+          "right": 250,
+          "bottom": 575,
+          "left": 12
+        },
+        "aim": {
+          "x": 31,
+          "y": 101,
+          "width": 200,
+          "height": 200,
+          "top": 101,
+          "right": 231,
+          "bottom": 301,
+          "left": 31
+        },
+        "rail": {
+          "x": 258,
+          "y": 76,
+          "width": 56,
+          "height": 552,
+          "top": 76,
+          "right": 314,
+          "bottom": 628,
+          "left": 258
+        },
+        "cardRail": false,
+        "aimCard": false,
+        "overflow": false,
+        "targets": [
+          {
+            "width": 48,
+            "height": 53
+          },
+          {
+            "width": 48,
+            "height": 53
+          },
+          {
+            "width": 48,
+            "height": 53
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          }
+        ]
+      },
+      "dom_nodes": 349,
+      "payment_fields": {
+        "#transfer-amount": {
+          "x": 25,
+          "y": 427.5,
+          "width": 212,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 25,
+          "y": 433.5,
+          "width": 212,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 25,
+          "y": 515.5,
+          "width": 212,
+          "height": 58.5
+        },
+        "#paying-account": {
+          "x": 25,
+          "y": 417,
+          "width": 211.328125,
+          "height": 57
+        },
+        "#payment-risk": {
+          "x": 25,
+          "y": 485,
+          "width": 212,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 25,
+          "y": 423.5,
+          "width": 212,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 25,
+          "y": 424,
+          "width": 212,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 25,
+          "y": 317.5,
+          "width": 212,
+          "height": 44
+        }
+      },
+      "copied_recipient": "3112deb17c0ab9ce3386430dfe9af5ca916fe8522ce8fcb9f652399f4d2ac649",
+      "copied_memo_utf8": [
+        70,
+        73,
+        82,
+        69,
+        32,
+        50,
+        32,
+        57,
+        48,
+        32,
+        50
+      ],
+      "checks": [
+        "identify resumes Fire",
+        "two own cannons and exact target",
+        "wallet fields reachable with disclosure closed",
+        "exact clipboard recipient/amount/memo bytes",
+        "batch quote",
+        "frozen packet and explicit replacement",
+        "reported sent is unresolved",
+        "wallet return restores Activity",
+        "illegal move blocked",
+        "first placement automatic",
+        "clipboard denial/manual handoff",
+        "dormant revival and missing target",
+        "new cannon clears obsolete feedback; historical Activity retained",
+        "missing frozen target keeps warning and replacement gate",
+        "keyboard selection/aim/quantity/copy/Activity"
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "rectangles": {
+        "card": {
+          "x": 12,
+          "y": 381,
+          "width": 304,
+          "height": 397.875,
+          "top": 381,
+          "right": 316,
+          "bottom": 778.875,
+          "left": 12
+        },
+        "aim": {
+          "x": 66,
+          "y": 101,
+          "width": 200,
+          "height": 200,
+          "top": 101,
+          "right": 266,
+          "bottom": 301,
+          "left": 66
+        },
+        "rail": {
+          "x": 328,
+          "y": 76,
+          "width": 56,
+          "height": 756,
+          "top": 76,
+          "right": 384,
+          "bottom": 832,
+          "left": 328
+        },
+        "cardRail": false,
+        "aimCard": false,
+        "overflow": false,
+        "targets": [
+          {
+            "width": 48,
+            "height": 53
+          },
+          {
+            "width": 48,
+            "height": 53
+          },
+          {
+            "width": 48,
+            "height": 53
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          },
+          {
+            "width": 48,
+            "height": 46
+          }
+        ]
+      },
+      "dom_nodes": 349,
+      "payment_fields": {
+        "#transfer-amount": {
+          "x": 25,
+          "y": 726.5,
+          "width": 123,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 25,
+          "y": 567.5,
+          "width": 123,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 25,
+          "y": 638.5,
+          "width": 123,
+          "height": 97.5
+        },
+        "#paying-account": {
+          "x": 25,
+          "y": 742,
+          "width": 273.9375,
+          "height": 36
+        },
+        "#payment-risk": {
+          "x": 25,
+          "y": 641,
+          "width": 278,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 156,
+          "y": 557.5,
+          "width": 147,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 156,
+          "y": 734.25,
+          "width": 147,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 156,
+          "y": 626.5,
+          "width": 147,
+          "height": 44
+        }
+      },
+      "copied_recipient": "3112deb17c0ab9ce3386430dfe9af5ca916fe8522ce8fcb9f652399f4d2ac649",
+      "copied_memo_utf8": [
+        70,
+        73,
+        82,
+        69,
+        32,
+        50,
+        32,
+        57,
+        48,
+        32,
+        50
+      ],
+      "checks": [
+        "identify resumes Fire",
+        "two own cannons and exact target",
+        "wallet fields reachable with disclosure closed",
+        "exact clipboard recipient/amount/memo bytes",
+        "batch quote",
+        "frozen packet and explicit replacement",
+        "reported sent is unresolved",
+        "wallet return restores Activity",
+        "illegal move blocked",
+        "first placement automatic",
+        "clipboard denial/manual handoff",
+        "dormant revival and missing target",
+        "new cannon clears obsolete feedback; historical Activity retained",
+        "missing frozen target keeps warning and replacement gate",
+        "keyboard selection/aim/quantity/copy/Activity"
+      ]
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "status": "PASS",
+      "rectangles": {
+        "card": {
+          "x": 12,
+          "y": 215.5,
+          "width": 304,
+          "height": 100,
+          "top": 215.5,
+          "right": 316,
+          "bottom": 315.5,
+          "left": 12
+        },
+        "aim": null,
+        "rail": {
+          "x": 770,
+          "y": 76,
+          "width": 64,
+          "height": 302,
+          "top": 76,
+          "right": 834,
+          "bottom": 378,
+          "left": 770
+        },
+        "cardRail": false,
+        "aimCard": null,
+        "overflow": false,
+        "targets": [
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          }
+        ]
+      },
+      "dom_nodes": 349,
+      "payment_fields": {
+        "#transfer-amount": {
+          "x": 27,
+          "y": 247,
+          "width": 121,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 27,
+          "y": 253,
+          "width": 121,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 27,
+          "y": 217,
+          "width": 121,
+          "height": 97.5
+        },
+        "#paying-account": {
+          "x": 27,
+          "y": 247.5,
+          "width": 273.9375,
+          "height": 36
+        },
+        "#payment-risk": {
+          "x": 27,
+          "y": 251.5,
+          "width": 274,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 156,
+          "y": 243,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 156,
+          "y": 243.75,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 156,
+          "y": 243,
+          "width": 145,
+          "height": 44
+        }
+      },
+      "copied_recipient": "3112deb17c0ab9ce3386430dfe9af5ca916fe8522ce8fcb9f652399f4d2ac649",
+      "copied_memo_utf8": [
+        70,
+        73,
+        82,
+        69,
+        32,
+        50,
+        32,
+        57,
+        48,
+        32,
+        50
+      ],
+      "checks": [
+        "identify resumes Fire",
+        "two own cannons and exact target",
+        "wallet fields reachable with disclosure closed",
+        "exact clipboard recipient/amount/memo bytes",
+        "batch quote",
+        "frozen packet and explicit replacement",
+        "reported sent is unresolved",
+        "wallet return restores Activity",
+        "illegal move blocked",
+        "first placement automatic",
+        "clipboard denial/manual handoff",
+        "dormant revival and missing target",
+        "new cannon clears obsolete feedback; historical Activity retained",
+        "missing frozen target keeps warning and replacement gate",
+        "keyboard selection/aim/quantity/copy/Activity"
+      ]
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "status": "PASS",
+      "rectangles": {
+        "card": {
+          "x": 12,
+          "y": 452.5,
+          "width": 304,
+          "height": 496.765625,
+          "top": 452.5,
+          "right": 316,
+          "bottom": 949.265625,
+          "left": 12
+        },
+        "aim": {
+          "x": 250,
+          "y": 101,
+          "width": 200,
+          "height": 200,
+          "top": 101,
+          "right": 450,
+          "bottom": 301,
+          "left": 250
+        },
+        "rail": {
+          "x": 694,
+          "y": 76,
+          "width": 64,
+          "height": 936,
+          "top": 76,
+          "right": 758,
+          "bottom": 1012,
+          "left": 694
+        },
+        "cardRail": false,
+        "aimCard": false,
+        "overflow": false,
+        "targets": [
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          }
+        ]
+      },
+      "dom_nodes": 343,
+      "payment_fields": {
+        "#transfer-amount": {
+          "x": 27,
+          "y": 800,
+          "width": 121,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 27,
+          "y": 918,
+          "width": 121,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 27,
+          "y": 652,
+          "width": 121,
+          "height": 97.5
+        },
+        "#paying-account": {
+          "x": 27,
+          "y": 783.5,
+          "width": 273.9375,
+          "height": 36
+        },
+        "#payment-risk": {
+          "x": 27,
+          "y": 830.5,
+          "width": 274,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 156,
+          "y": 459,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 156,
+          "y": 678.75,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 156,
+          "y": 571,
+          "width": 145,
+          "height": 44
+        }
+      },
+      "copied_recipient": "3112deb17c0ab9ce3386430dfe9af5ca916fe8522ce8fcb9f652399f4d2ac649",
+      "copied_memo_utf8": [
+        70,
+        73,
+        82,
+        69,
+        32,
+        50,
+        32,
+        57,
+        48,
+        32,
+        50
+      ],
+      "checks": [
+        "identify resumes Fire",
+        "two own cannons and exact target",
+        "wallet fields reachable with disclosure closed",
+        "exact clipboard recipient/amount/memo bytes",
+        "batch quote",
+        "frozen packet and explicit replacement",
+        "reported sent is unresolved",
+        "wallet return restores Activity",
+        "illegal move blocked",
+        "first placement automatic",
+        "clipboard denial/manual handoff",
+        "dormant revival and missing target",
+        "new cannon clears obsolete feedback; historical Activity retained",
+        "missing frozen target keeps warning and replacement gate",
+        "keyboard selection/aim/quantity/copy/Activity"
+      ]
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "rectangles": {
+        "card": {
+          "x": 798,
+          "y": 68,
+          "width": 304,
+          "height": 756,
+          "top": 68,
+          "right": 1102,
+          "bottom": 824,
+          "left": 798
+        },
+        "aim": {
+          "x": 586,
+          "y": 346,
+          "width": 200,
+          "height": 200,
+          "top": 346,
+          "right": 786,
+          "bottom": 546,
+          "left": 586
+        },
+        "rail": {
+          "x": 1366,
+          "y": 76,
+          "width": 64,
+          "height": 812,
+          "top": 76,
+          "right": 1430,
+          "bottom": 888,
+          "left": 1366
+        },
+        "cardRail": false,
+        "aimCard": false,
+        "overflow": false,
+        "targets": [
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 53
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          },
+          {
+            "width": 52,
+            "height": 46
+          }
+        ]
+      },
+      "dom_nodes": 349,
+      "payment_fields": {
+        "#transfer-amount": {
+          "x": 813,
+          "y": 415.5,
+          "width": 121,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 813,
+          "y": 533.5,
+          "width": 121,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 813,
+          "y": 604.5,
+          "width": 121,
+          "height": 97.5
+        },
+        "#paying-account": {
+          "x": 813,
+          "y": 736,
+          "width": 273.9375,
+          "height": 36
+        },
+        "#payment-risk": {
+          "x": 813,
+          "y": 760,
+          "width": 274,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 942,
+          "y": 388.5,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 942,
+          "y": 608.25,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 942,
+          "y": 500.5,
+          "width": 145,
+          "height": 44
+        }
+      },
+      "copied_recipient": "3112deb17c0ab9ce3386430dfe9af5ca916fe8522ce8fcb9f652399f4d2ac649",
+      "copied_memo_utf8": [
+        70,
+        73,
+        82,
+        69,
+        32,
+        50,
+        32,
+        57,
+        48,
+        32,
+        50
+      ],
+      "checks": [
+        "identify resumes Fire",
+        "two own cannons and exact target",
+        "wallet fields reachable with disclosure closed",
+        "exact clipboard recipient/amount/memo bytes",
+        "batch quote",
+        "frozen packet and explicit replacement",
+        "reported sent is unresolved",
+        "wallet return restores Activity",
+        "illegal move blocked",
+        "first placement automatic",
+        "clipboard denial/manual handoff",
+        "dormant revival and missing target",
+        "new cannon clears obsolete feedback; historical Activity retained",
+        "missing frozen target keeps warning and replacement gate",
+        "keyboard selection/aim/quantity/copy/Activity"
+      ]
+    }
+  ],
+  "page_errors": []
+}
