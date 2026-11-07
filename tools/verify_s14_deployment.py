@@ -11,30 +11,69 @@ from wire_capture import WireCapture
 ROOT=Path(__file__).resolve().parents[1]
 
 def identify_account(page,account=None):
-    page.locator('#identify-button').click()
-    page.locator('#identify-dialog details').first.evaluate('(e)=>e.open=true')
+    # These accounts come from the authenticated Players table or the owned
+    # disposable fixture, never from a wallet or a signing API.
     if account is None:
-        page.locator('#existing-player').select_option(index=1)
-    else:
-        page.locator('#identity-account').fill(account)
+        account=page.locator('#live-cannons tr small').first.text_content()
+    page.locator('#identify-button').click()
+    page.locator('#identity-mode').select_option('account')
+    page.locator('#identity-account').fill(account)
     page.locator('#identity-save').click()
     assert not page.locator('#identify-dialog').evaluate('(e)=>e.open'),page.locator('#identity-note').inner_text()
 
+def review_instructions(page):
+    if page.locator('#replace-instructions').is_visible():
+        assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled')
+        page.locator('#replace-instructions').click()
+
+def choose_action(page,kind,review=True):
+    page.locator({'start':'#join-action','ball':'#fire-action','move':'#move-action'}[kind]).click()
+    if review:review_instructions(page)
+
+def select_cannon(page,cannon=1):
+    import re
+    page.locator('#centre-cannon').click()
+    page.locator('#own-cannons button').filter(has_text=re.compile(r'^#'+str(cannon)+r' ·')).click()
+
+def selected_cell(page):
+    # The real board-native aim ring is centred on the selected cannon.
+    choose_action(page,'ball')
+    page.locator('#aim-pad').wait_for(state='visible')
+    cell=page.evaluate("()=>{const r=document.getElementById('aim-pad').getBoundingClientRect();return __b2zCamera.cell(r.x+r.width/2,r.y+r.height/2);}")
+    assert isinstance(cell,int)
+    return cell
+
+def tab_in_modal(page):
+    assert page.locator('dialog[open]').evaluate('(d)=>d.matches(":modal")')
+    page.keyboard.press('Tab')
+    # Chromium includes a body-focus boundary when cycling a native modal
+    # with only one control. The next Tab must return inside that same modal.
+    if page.evaluate('document.activeElement===document.body'):page.keyboard.press('Tab')
+    assert page.evaluate('document.activeElement.closest("dialog")!==null')
+
+def open_players(page):
+    page.locator('#activity-button').click()
+    page.locator('#activity-drawer [data-dialog="players-dialog"]').click()
+
+def close_players(page):
+    page.keyboard.press('Escape')
+    if page.locator('#activity-drawer').is_visible():page.locator('#close-activity').click()
+
 def verify_torus_scene(page,context,out,record,report,save):
     (out/'browser-scene-ready').write_text('certified genesis visible\n')
-    page.locator('#toolbar-play').click()
-    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+    choose_action(page,'ball')
+    wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
     assert '32 × 32' in page.locator('#world-rules').text_content()
     assert 'wraparound' in page.locator('#world-rules').text_content()
-    page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    select_cannon(page);choose_action(page,'ball');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
-    page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'
-    page.locator('#action-mode').select_option('move');page.locator('#move-cell').select_option('0');page.locator('#pick-move').click()
+    page.locator('#angle-degrees').fill('225');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
+    choose_action(page,'move');page.locator('#move-cell').fill('0')
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
     point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
-    assert page.locator('#play-dialog').evaluate('(d)=>!d.hidden')
+    assert page.locator('#action-card').is_visible()
     assert page.locator('#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
-    page.keyboard.press('Escape');assert page.locator('#minimap').is_visible();assert page.evaluate('__b2zCamera.minimapRects().length')==4
+    page.keyboard.press('Escape');page.locator('#minimap').wait_for(state='visible',timeout=5000);assert page.evaluate('__b2zCamera.minimapRects().length')==4
     page.screenshot(path=str(out/'torus-seam-move.png'));record('corner-seam-camera-hit-test-prepares-the-underlying-cell-once')
     # Native touch pan and pinch, preserving the numeric aim alternative.
     cdp=context.new_cdp_session(page);old=page.evaluate('__b2zCamera.scale')
@@ -110,18 +149,17 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     (out/'browser-million-ready').write_text('certified million-cell genesis visible; begin production\n')
     assert '1,000 × 1,000' in page.locator('#world-rules').text_content()
     assert 'wraparound' in page.locator('#world-rules').text_content()
-    page.locator('#toolbar-play').click()
-    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
-    page.locator('#action-mode').select_option('move');page.locator('#selected-cannon').select_option('1')
-    # The selector is intentionally sparse; exact camera picking adds one
-    # authenticated owned cell instead of constructing 1,000,000 DOM options.
-    assert page.locator('#move-cell option').count()<=2
-    page.locator('#pick-move').click()
+    choose_action(page,'ball')
+    wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+    select_cannon(page);choose_action(page,'move')
+    # Numeric entry and exact board picking avoid 1,000,000 DOM options.
+    assert page.locator('#move-cell').get_attribute('type')=='number'
+    # Move is selected directly through the right rail.
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
     assert page.locator('#move-cell').input_value()=='0'
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
-    page.keyboard.press('Escape');assert page.locator('#minimap').is_visible();assert page.evaluate('__b2zCamera.minimapRects().length')==4
+    page.keyboard.press('Escape');page.locator('#minimap').wait_for(state='visible',timeout=5000);assert page.evaluate('__b2zCamera.minimapRects().length')==4
     page.screenshot(path=str(out/'million-seam-pick.png'))
     record('million-cell-culling-seam-picking-and-sparse-move-selector')
     page.locator('#board').focus();page.keyboard.press('Home')
@@ -191,7 +229,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     # Funding tier names are diagnostic data, not player-facing status labels.
     # Qualify the actual operational rate and the requested conservation message.
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000)
-    assert page.locator('#arena-note').text_content()=='Reduced speed to conserve cycles'
+    assert page.locator('#arena-note').text_content()=='Reduced speed to conserve cycles.'
     page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)
     stop_capture()
@@ -211,31 +249,33 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
 
 def verify_epoch_transition(page,context,out,record,report,save):
     wait_until(page,lambda:'16 × 8' in page.locator('#world-rules').text_content(),30000)
-    page.locator('#toolbar-play').click()
-    wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
-    page.locator('#action-mode').select_option('move');page.locator('#selected-cannon').select_option('1')
-    cells=page.locator('#move-cell option').evaluate_all('(xs)=>xs.map(x=>x.value).filter(Boolean)');assert cells
-    old_cell=int(cells[0]);page.locator('#move-cell').select_option(str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    choose_action(page,'ball')
+    wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+    select_cannon(page);choose_action(page,'move')
+    old_cell=selected_cell(page);choose_action(page,'move');page.locator('#move-cell').fill(str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
     assert page.locator('#payment-address').text_content()==report['receiving_account']
-    page.keyboard.press('Escape')
+    page.locator('[data-copy="text"]').click()
+    wait_until(page,lambda:'Copied.' in page.locator('#copy-feedback').text_content(),5000)
+    # Keep this packet active across the epoch. Escape now explicitly cancels
+    # a local action; historical instructions remain separately in Activity.
     reconnect=context.new_page();reconnect.goto(page.url,timeout=30000)
     wait_until(reconnect,lambda:reconnect.evaluate('Boolean(globalThis.__dtrLive?.connected)') and '16 × 8' in reconnect.locator('#world-rules').text_content(),30000)
     reconnect.locator('#toolbar-settings').click();reconnect.locator('.diagnostics').evaluate('(node)=>node.open=true');reconnect.locator('#network-pause').check();reconnect.keyboard.press('Escape')
     old_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)')
     page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n')
-    wait_until(page,lambda:'World transition' in page.locator('#arena-note').text_content(),30000)
-    page.locator('#toolbar-play').click();assert page.locator('#prepare-transfer').is_disabled();assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
-    page.keyboard.press('Escape');(out/'browser-fence-seen').write_text('payment preparation held\n')
+    wait_until(page,lambda:'Rules transition' in page.locator('#arena-note').text_content(),30000)
+    choose_action(page,'move',review=False);assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
+    (out/'browser-fence-seen').write_text('payment preparation held; frozen packet retained\n')
     wait_until(page,lambda:'32 × 32' in page.locator('#world-rules').text_content(),60000)
     assert 'wraparound' in page.locator('#world-rules').text_content()
-    page.locator('#toolbar-play').click()
-    wait_until(page,lambda:'Quote changed' in page.locator('#preparation-note').inner_text(),30000)
+    choose_action(page,'move',review=False)
+    wait_until(page,lambda:page.locator('#replace-choice').is_visible() and 'Review and replace' in page.locator('#preparation-note').inner_text(),30000)
     assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
-    assert 'Quote changed' in page.locator('#preparation-note').inner_text()
-    assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
+    assert 'Review and replace' in page.locator('#preparation-note').inner_text()
+    assert page.locator('#text-memo').text_content()==f'MOVE {old_cell}'
     mapped=(old_cell//16+12)*32+old_cell%16+8
-    page.locator('#move-cell').select_option(str(mapped));wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    page.locator('#move-cell').fill(str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
     assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
     page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
@@ -459,7 +499,7 @@ def main():
             assert 'Waiting for players' in page.locator('#live-status').text_content()
             page.screenshot(path=str(out/'healthy-idle.png'))
             record('certified-idle-genesis-allows-transfer-preparation')
-            page.locator('#dismiss-empty').click();assert not page.locator('#empty-arena').is_visible()
+            page.locator('#just-watch').click();assert not page.locator('#welcome').is_visible()
             assert page.title()=='Balls 2 the wallZ - B2Z'
             assert page.locator('.mark').inner_text()=='B2Z'
             assert 'on ICP' in page.locator('body').inner_text()
@@ -471,9 +511,9 @@ def main():
             assert 'Rules ' in page.locator('#rules-identity').text_content()
             record('certified-backend-receiving-account-and-price-identities')
             page.keyboard.press('Escape');identify_account(page,configuration['payer_account'])
-            page.locator('#toolbar-play').click()
+            choose_action(page,'start')
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
-            assert page.locator('#join-price').inner_text()=='1 ICP'
+            assert page.locator('#transfer-amount').inner_text()=='1 ICP'
             assert page.locator('.hero,footer').count()==0
             assert page.locator('#payment-address').text_content()==configuration['recipient']
             page.bring_to_front()
@@ -484,36 +524,12 @@ def main():
             # an actual click; do not enable clipboard reading in production.
             page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
             for selector,expected in [('[data-copy="text"]','ANGLE 37.5'),('[data-copy="owner"]',configuration['canister_id']),('[data-copy="amount"]','1'),('[data-copy="recipient"]',configuration['recipient']),('[data-copy="hex"]','414e474c452033372e35')]:
-                if 'recipient' in selector:page.locator('#transfer-controls details').evaluate('(node)=>node.open=true')
+                if any(kind in selector for kind in ['owner','hex']):page.locator('#transfer-controls details').evaluate('(node)=>node.open=true')
                 page.locator(selector).click()
                 wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==expected,5000)
             page.locator('#transfer-controls details').evaluate('(node)=>node.open=false')
             record('exact-authenticated-text-and-UTF8-hex-copy')
             page.evaluate('''()=>{globalThis.__s15Timing=[];setInterval(()=>{const p=globalThis.__dtrLive?.playback;if(p&&globalThis.__s15Timing.length<1200)globalThis.__s15Timing.push({...p,resyncs:globalThis.__dtrLive.resyncs});},250);}''')
-            # Real mouse geometry and pointer capture, every quadrant and non-cardinal defaults.
-            pad=page.locator('#aim-pad');pad.scroll_into_view_if_needed();box=pad.bounding_box()
-            import math
-            for angle in [0,37.5,90,135,180,225,270,315,359.99]:
-                r=math.radians(angle);page.mouse.click(box['x']+box['width']/2+70*math.cos(r),box['y']+box['height']/2+70*math.sin(r))
-                assert abs(float(page.locator('#angle-degrees').input_value())-angle)<.02,(angle,page.locator('#angle-degrees').input_value(),box,pad.bounding_box())
-                expected=int((round(angle*100)*65536+18000)//36000)%65536
-                assert abs(int(pad.get_attribute('data-heading'))-expected)<=2
-            page.mouse.move(box['x']+box['width']/2+65,box['y']+box['height']/2);page.mouse.down()
-            page.mouse.move(box['x']+box['width']/2-65,box['y']+box['height']/2-65,steps=10);page.mouse.up()
-            assert page.locator('#angle-degrees').input_value()=='225'
-            pad.focus();page.keyboard.press('Home');page.keyboard.press('ArrowDown');assert page.locator('#angle-degrees').input_value()=='1'
-            page.keyboard.press('Shift+ArrowDown');page.keyboard.press('Alt+ArrowLeft');assert page.locator('#angle-degrees').input_value()=='10.99'
-            page.keyboard.press('End');page.keyboard.press('ArrowRight');assert page.locator('#angle-degrees').input_value()=='0.99'
-            page.locator('#angle-degrees').fill('360');assert page.locator('#angle-degrees').input_value()=='0'
-            assert not page.locator('[data-angle="90"]').is_visible()
-            # Touch input uses browser-dispatched native touch events, no gesture library.
-            box=pad.bounding_box();cdp=context.new_cdp_session(page)
-            for kind,points in [('touchStart',[{'x':box['x']+box['width']/2,'y':box['y']+box['height']/2-65}]),('touchMove',[{'x':box['x']+box['width']/2+65,'y':box['y']+box['height']/2}]),('touchEnd',[])]:
-                cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':points})
-            assert page.locator('#angle-degrees').input_value()=='0'
-            page.locator('#angle-degrees').fill('37.5')
-            wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
-            record('full-circle-pointer-touch-and-keyboard-aim')
             for width,height in [(1440,900),(768,1024),(390,844)]:
                 page.set_viewport_size({'width':width,'height':height});page.evaluate('scrollTo(0,0)')
                 page.wait_for_timeout(150)
@@ -525,10 +541,13 @@ def main():
                 page.screenshot(path=str(out/f'arcade-empty-{width}x{height}.png'),full_page=True)
             record('arena-fills-desktop-tablet-mobile-without-page-content')
             assert page.locator('.hero,footer').count()==0
-            for name in ['players','rules','view','settings']:
-                page.locator('#toolbar-'+name).click();page.keyboard.press('Tab')
-                assert page.evaluate('document.activeElement.closest("dialog")!==null')
+            for name in ['rules','settings']:
+                page.locator('#toolbar-'+name).click();tab_in_modal(page)
                 page.keyboard.press('Escape');assert page.locator('#toolbar-'+name).evaluate('(e)=>document.activeElement===e')
+            open_players(page);tab_in_modal(page)
+            page.keyboard.press('Escape')
+            assert page.locator('#activity-drawer [data-dialog="players-dialog"]').evaluate('(e)=>document.activeElement===e')
+            page.locator('#close-activity').click();page.locator('#fit-world').click()
             page.locator('#board').focus();page.keyboard.press('Home')
             page.mouse.move(190,300);anchor=page.evaluate('__b2zCamera.world(190,300)')
             page.mouse.wheel(0,-240);page.wait_for_timeout(200)
@@ -542,18 +561,20 @@ def main():
             record('modal-focus-restore-anchored-zoom-pan-and-minimap')
             page.set_viewport_size({'width':1440,'height':900})
 
-            page.locator('#toolbar-play').click()
+            choose_action(page,'start')
             initial=page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')
             certificates=page.evaluate('globalThis.__dtrLive.certificates')
             wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.certificates')>certificates,15000)
             assert page.locator('body').get_attribute('data-phase')=='IDLE'
             assert page.evaluate('globalThis.__dtrLive.heads.at(-1) ?? -1')==initial
             assert page.locator('[data-copy="text"]').is_enabled()
-            assert not page.locator('#empty-arena').is_visible()
+            assert not page.locator('#welcome').is_visible()
             record('fresh-idle-certificates-with-stable-publication-and-copyable-transfer')
             (out/'browser-connected').write_text('ready\n')
             wait_until(page,lambda:page.locator('#live-cannons tr').count()==1,60000)
-            assert page.evaluate('globalThis.__dtrLive.heads.at(-1)')>initial
+            wait_until(page,lambda:page.evaluate('initial=>(globalThis.__dtrLive.heads.at(-1)??-1)>initial',initial),15000)
+            assert page.evaluate('globalThis.__dtrLive.delivery.blocking') is None
+            assert page.locator('#new-controls').is_hidden()
             first_tx=wait_file(page,out/'harness-first-payment',30000)
             receipt_seen=lambda tx:page.locator('#live-receipts tr').evaluate_all('(rows,id)=>rows.some(r=>r.cells[0].textContent===id)',str(tx))
             wait_until(page,lambda:receipt_seen(first_tx),60000)
@@ -562,14 +583,40 @@ def main():
             assert len(navigation_count)==1,navigation_count
             report['join_no_refresh']={'confirmed_to_visible_ms':page.evaluate('performance.now()')-confirmed_ms,'navigations':len(navigation_count),'camera_scale':page.evaluate('__b2zCamera.scale'),'source':'Real disposable Ledger/Index admission, certified artifacts, verified playout, rendered entity counters'}
             (out/'browser-first-receipt-seen').write_text('first authenticated receipt and presentation observed\n')
-            wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
+            select_cannon(page);choose_action(page,'ball')
+            wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
             report['receipt_coordination']='Controller holds each paid setup publication until its receipt is authenticated; replica and certificates stay live. All holds end before measured playback/reconnect. Retention and full seal replay are unchanged.'
             record('first-index-payment-wakes-idle-arena')
             page.screenshot(path=str(out/'arcade-first-cannon.png'),full_page=True)
-            page.locator('#action-mode').select_option('ball');page.locator('#selected-cannon').select_option('1')
+            select_cannon(page);choose_action(page,'ball')
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
-            assert page.locator('#prepared-action').inner_text()=='Fire balls'
+            assert page.locator('#action-title').inner_text().startswith('Fire')
+            # Real mouse geometry and pointer capture, every quadrant and non-cardinal defaults.
+            pad=page.locator('#aim-pad');pad.scroll_into_view_if_needed();box=pad.bounding_box()
+            import math
+            for angle in [0,37.5,90,135,180,225,270,315,359.99]:
+                r=math.radians(angle);page.mouse.click(box['x']+box['width']/2+70*math.cos(r),box['y']+box['height']/2+70*math.sin(r))
+                assert abs(float(page.locator('#angle-degrees').input_value())-angle)<.02,(angle,page.locator('#angle-degrees').input_value(),box,pad.bounding_box())
+                assert abs(float(pad.get_attribute('aria-valuenow'))-angle)<.02
+                drawn=page.locator('#aim-line').evaluate('(n)=>(Math.atan2(+n.getAttribute("y2")-100,+n.getAttribute("x2")-100)*180/Math.PI+360)%360')
+                assert abs((drawn-angle+180)%360-180)<.1
+            page.mouse.move(box['x']+box['width']/2+65,box['y']+box['height']/2);page.mouse.down()
+            page.mouse.move(box['x']+box['width']/2-65,box['y']+box['height']/2-65,steps=10);page.mouse.up()
+            assert float(page.locator('#angle-degrees').input_value())==225
+            page.locator('#angle-degrees').fill('0');pad.focus();page.keyboard.press('ArrowDown');assert float(page.locator('#angle-degrees').input_value())==1
+            page.keyboard.press('Shift+ArrowDown');page.keyboard.press('Alt+ArrowLeft');assert page.locator('#angle-degrees').input_value()=='10.99'
+            page.locator('#angle-degrees').fill('359.99');pad.focus();page.keyboard.press('ArrowRight');assert page.locator('#angle-degrees').input_value()=='0.99'
+            page.locator('#angle-degrees').fill('360');assert page.locator('#aim-pad').get_attribute('aria-valuenow')=='0';review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 0'
+            assert not page.locator('[data-angle="90"]').is_visible()
+            # Touch input uses browser-dispatched native touch events, no gesture library.
+            box=pad.bounding_box();cdp=context.new_cdp_session(page)
+            for kind,points in [('touchStart',[{'x':box['x']+box['width']/2,'y':box['y']+box['height']/2-65}]),('touchMove',[{'x':box['x']+box['width']/2+65,'y':box['y']+box['height']/2}]),('touchEnd',[])]:
+                cdp.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':points})
+            assert float(page.locator('#angle-degrees').input_value())==0
+            page.locator('#angle-degrees').fill('37.5');review_instructions(page)
+            wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+            record('full-circle-pointer-touch-and-keyboard-aim')
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
             second_tx=wait_file(page,out/'harness-second-payment',120000)
             wait_until(page,lambda:receipt_seen(second_tx),60000)
@@ -578,30 +625,29 @@ def main():
             (out/'browser-second-receipt-seen').write_text('second authenticated receipt and ball presentation observed\n')
             paid=json.loads(wait_file(page,out/'harness-payments-done',120000))
             wait_until(page,lambda:page.locator('#live-receipts tr').count()>=len(paid),30000)
-            page.keyboard.press('Escape');page.locator('#toolbar-players').click()
+            page.keyboard.press('Escape');open_players(page)
             receipts=page.locator('#live-receipts tr').evaluate_all('(rows)=>rows.map(r=>Array.from(r.cells,c=>c.textContent).join("\\t"))')
             for tx,kind in zip(paid,['Joined arena','Launched ball','Moved cannon']):
                 matching=[row for row in receipts if row.split('\t')[0]==str(tx)]
                 assert len(matching)==1 and 'Accepted' in matching[0] and kind in matching[0],receipts
             assert page.locator('#live-cannons tr').count()==1
             (out/'browser-paid-receipts-seen').write_text('all three authenticated outcomes observed\n')
-            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
-            wait_until(page,lambda:not page.locator('#prepare-transfer').is_disabled(),30000)
-            page.keyboard.press('Escape');page.locator('#toolbar-players').click()
+            close_players(page);choose_action(page,'ball')
+            wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+            page.keyboard.press('Escape');open_players(page)
             assert len(navigation_count)==1,navigation_count
             record('paid-join-ball-fallback-and-legal-move-visible-once-without-refresh',receipts)
             assert page.locator('#live-cannons').inner_text().find('0.4 ICP')>=0
-            assert not page.locator('#empty-arena').is_visible()
+            assert not page.locator('#welcome').is_visible()
             page.screenshot(path=str(out/'arcade-paid-cannon.png'),full_page=True)
-            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
+            close_players(page);choose_action(page,'ball')
             # A new ball changes the automatic quote from the same verified revision.
             wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.4 ICP',15000)
             assert page.locator('[data-copy="text"]').is_enabled()
             assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
-            page.locator('#action-mode').select_option('move')
-            page.locator('#move-cell').select_option(index=1)
-            cell=int(page.locator('#move-cell').input_value())
-            page.locator('#pick-move').click()
+            cell=selected_cell(page);choose_action(page,'move')
+            page.locator('#move-cell').fill(str(cell))
+            # Move is selected directly through the right rail.
             point=page.evaluate('(cell)=>__b2zCamera.screen(cell%16+.5,Math.floor(cell/16)+.5)',cell)
             page.mouse.click(point['x'],point['y'])
             assert page.locator('#move-cell').input_value()==str(cell)
@@ -611,9 +657,9 @@ def main():
             page.screenshot(path=str(out/'s15-move-selection.png'),full_page=True)
             record('action-price-pairing-stable-card-and-visual-owned-move')
             # A publication and resize never reset local aim selection.
-            page.locator('#action-mode').select_option('start');assert page.locator('#angle-degrees').input_value()=='37.5'
+            choose_action(page,'start');assert page.locator('#angle-degrees').input_value()=='37.5'
             record('aim-survives-certified-state-updates-and-resize')
-            page.locator('#action-mode').select_option('ball')
+            choose_action(page,'ball')
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
 
             page.keyboard.press('Escape')
@@ -644,9 +690,9 @@ def main():
             page.locator('#toolbar-settings').click();page.locator('.diagnostics').evaluate('(node)=>node.open=true')
             page.locator('#network-pause').check();(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',90000))
-            wait_until(page,lambda:page.locator('#prepare-transfer').is_disabled(),20000)
-            page.keyboard.press('Escape');page.locator('#toolbar-play').click()
-            page.locator('#angle-degrees').fill('225');assert page.locator('#aim-preview').inner_text()=='ANGLE 225'
+            wait_until(page,lambda:page.locator('#transfer-controls').evaluate('(node)=>node.disabled') and page.locator('[data-copy="text"]').is_disabled(),20000)
+            close_players(page);choose_action(page,'ball')
+            page.locator('#angle-degrees').fill('225');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
             assert not page.locator('#aim-pad').is_disabled()
             page.locator('#angle-degrees').fill('37.5')
             record('disconnected-local-aim-with-unavailable-payment-preparation')
@@ -687,14 +733,15 @@ def main():
                     report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#error-text').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
                 assert negative.locator('[data-copy="recipient"]').is_disabled()
                 assert not negative.locator('#angle-degrees').is_disabled()
-                negative.locator('#toolbar-play').click()
+                identify_account(negative,configuration['payer_account']);choose_action(negative,'start')
                 negative.locator('#angle-degrees').fill('225')
-                assert negative.locator('#aim-preview').inner_text()=='ANGLE 225'
-                assert negative.locator('#prepare-transfer').is_disabled()
-                assert negative.locator('#live-status').inner_text()=='Disconnected'
+                assert negative.locator('#angle-degrees').input_value()=='225'
+                assert negative.locator('#transfer-controls').evaluate('(node)=>node.disabled')
+                assert 'Verification failed' in negative.locator('#live-status').inner_text()
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
                 if fault=='wrong-certificate-root':
-                    message=negative.locator('#error-text').inner_text().lower()
+                    negative.locator('#toolbar-settings').click();negative.locator('.diagnostics').evaluate('(n)=>n.open=true')
+                    message=negative.locator('#observation-error').inner_text().lower()
                     assert any(word in message for word in ['certificate','signature','root','bls']),message
                 negative.close()
             report.pop('current_negative_case',None)
@@ -702,7 +749,7 @@ def main():
             reduced=browser.new_context(reduced_motion='reduce');still=reduced.new_page();still.goto(url,timeout=30000)
             wait_until(still,lambda:still.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
             assert still.locator('body').get_attribute('data-phase')=='PAUSED'
-            wait_until(still,lambda:'Catching up' in still.locator('#live-status').inner_text(),15000)
+            wait_until(still,lambda:'Animation paused' in still.locator('#live-status').inner_text(),15000)
             reduced.close();record('deployment-bundle-reduced-motion-pauses-playback')
 
             assert posts and all(url.endswith(('/query','/read_state')) for url in posts),posts
@@ -714,8 +761,6 @@ def main():
         return 0
     except Exception as error:
         __import__('traceback').print_exc()
-        try:page.screenshot(path=str(out/'failure.png'),full_page=True)
-        except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
         if wire_capture:

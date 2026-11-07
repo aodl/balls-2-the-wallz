@@ -1,3 +1,36 @@
+# European continuation — browser repair ready; qualification and publication blocked
+
+The published `07693c7` run completed with five substantive jobs passing and
+installed-IC qualification failing. Its digest-verified artifact identifies five
+obsolete browser-selector failures. The installed browser harness now follows the
+approved right rail, Identify, action card, numeric board selection, explicit
+packet replacement and cancellation. A five-line frontend correction gates v6-only
+adjacent placement by world version, preventing `EXPECTED_V6` when a New draft
+remains open across the first real disposable legacy-world cannon admission.
+No backend, pacing, financial, certificate or dependency implementation changed.
+
+Local results: 29 focused JS checks, 14 HTTP/Web Crypto checks, five responsive
+synthetic wallet journeys, genuine disposable paid-flow/reconnect/upgrade/negative
+certificate checks, authenticated epoch crossing and torus scene checks PASS.
+The million-cell Normal assertion FAILed twice: one resync and approximately
+0.72–0.73 displayed ticks/s; the second run also sampled two stalls. Slow upstream
+calls and shared-host workload were observed, but causation is unresolved. This
+is an assertion failure, not a pass or an established environment-only failure.
+Protected timing/crypto/queue assertions and the 900-second measurement are
+unchanged; the long case was not rerun locally. New exact-source CI is required.
+
+The frozen normal backend `612ad0d0…` and its separate ignored natural-startup
+[result](evidence/B2Z/europe-final/natural-budget.json) remain unchanged. Synthetic
+low-budget setup and normal-module recovery remain separately identified in the
+[previous focused evidence](evidence/B2Z/europe-final/verification.json).
+Git HTTPS write authentication is unavailable. Both European targets were checked
+again empty on the expected certified 13-node subnet, with unchanged controllers
+and zero official receiving-account balance/history. No install, asset upload,
+transfer, controller change or former-deployment operation occurred. Fresh frontend
+bytes/provenance and the exact continuation are recorded separately after this commit.
+
+---
+
 # Final European release frozen — local focused PASS; publication/install BLOCKED
 
 Source `07693c7f5a2102fce080ed6fbe156512d4c6fbe9` changes only production Trickle
