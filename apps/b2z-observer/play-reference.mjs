@@ -71,7 +71,7 @@ export function catchupIndicator({
     operational.source?.binding_checked === true &&
     operational.run.pace?.mode === "ReserveProtection" &&
     operational.run.pace.admission_open === false;
-  if (statusKnown && operational.run.running && operational.source?.binding_checked && operational.run.pace?.mode === 'Trickle') {
+  if (statusKnown && operational.run.running && operational.source?.binding_checked && operational.run.pace?.mode === 'Trickle' && phase !== 'DEGRADED_BUFFER') {
     return {visible:pending,spinner:false,kind:'trickle',title:'Gameplay progressing very slowly',description:'One logical tick per 100 seconds. Showing only authenticated time coverage; payment receipts are separate from delayed visual playback.'};
   }
   return reserve

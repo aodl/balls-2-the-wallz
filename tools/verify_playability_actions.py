@@ -113,6 +113,7 @@ with sync_playwright() as p:
         common['operational']['run']['running']=True;page.evaluate('(v)=>fixture.status(v)',common);assert page.locator('#arena-note').inner_text()=='Gameplay paused to conserve cycles.'
         common.update(phase='BUFFERING',healthy=True,paused=False,pace={'mode':'Trickle','nominal_milli':10,'supported_milli':10,'admission_open':True})
         page.evaluate('(v)=>fixture.status(v)',common);assert 'Gameplay progressing very slowly' in page.locator('#arena-note').inner_text()
+        common['phase']='DEGRADED_BUFFER';page.evaluate('(v)=>fixture.status(v)',common);assert 'Catching up' in page.locator('#arena-note').inner_text()
         common['phase']='ERROR';page.evaluate('(v)=>fixture.status(v)',common);assert 'Verification failed' in page.locator('#arena-note').inner_text()
         context.close()
         # In-memory operation survives storage denial.

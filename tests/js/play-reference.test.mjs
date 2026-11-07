@@ -78,5 +78,5 @@ test('Trickle is slow production rather than a network error or spinner',()=>{
  assert.match(operationalText(s),/receipts.*before delayed visual/);
  const view=catchupIndicator({phase:'BUFFERING',verified:true,operationalFresh:true,operational:s});
  assert.equal(view.kind,'trickle');assert.equal(view.spinner,false);
- assert.notEqual(catchupIndicator({phase:'ERROR',verified:true,operationalFresh:true,operational:s}).kind,'trickle');
+ for(const phase of ['ERROR','DEGRADED_BUFFER'])assert.notEqual(catchupIndicator({phase,verified:true,operationalFresh:true,operational:s}).kind,'trickle');
 });
