@@ -1,5 +1,5 @@
 {
-  "source": "a69723e56bb30b4eaa6698fc9653670e4ed1bab2",
+  "source": "4db8279a47c9b6c6caf1857cba17e265a322cde0",
   "status": "LOCAL_PASS; PUBLICATION_AND_INSTALLATION_BLOCKED",
   "host_tests": 49,
   "focused_js_tests": 130,
@@ -29,7 +29,7 @@
       ]
     ],
     "scope": "Synthetic task content, sandboxed real Chromium, exact actual clipboard-write bytes; no IC authentication claim",
-    "raw": ".work/europe/ui-1/results.json"
+    "raw": ".work/europe/ui-final/results.json"
   },
   "installed_cases": [
     {
@@ -120,8 +120,10 @@
   "raw_failures_retained": ".work/europe/",
   "final_frozen_byte_reuse": {
     "normal_wasm_identical_to_exercised_hash": "c4b7b9101353bd0bb6155e6d03ed2d125481c09c4813e5060b3020e1d3e3b9ff",
-    "frontend_payloads_identical": true,
-    "reason": "Only tests and historical-document routing markers changed after the first freeze; final reviewed builders ran from clean committed source and byte equality was checked. No older CI is claimed to qualify changed application code."
+    "frontend_payloads_identical": false,
+    "reason": "The final source corrects the Trickle/network-delay label. Backend byte equality preserves its installed qualification. All 130 focused JS tests, 14 native-HTTP browser checks and five responsive task journeys were rerun for the final frontend; no older hosted CI qualifies this source.",
+    "final_js_log": ".work/europe/final-js-status.log",
+    "final_http_results": ".work/europe/http-final/results.json"
   },
   "preserved_local_ui_artifacts": {
     "source": "33067280fa8cf42213fa3ecc109ea1fc398b6547",
@@ -133,11 +135,11 @@
     "status": "BLOCKED",
     "execution": "NOT_RUN",
     "reason": "HTTPS write authentication absent; actual non-force push failed without reading or exporting credentials",
-    "last_checked_at": "2026-11-07T17:47:35.771982+00:00",
+    "last_checked_at": "2026-11-07T18:11:49.957063+00:00",
     "remote_branch": "33067280fa8cf42213fa3ecc109ea1fc398b6547\trefs/heads/release/btz-prelaunch-playability",
     "substantive_jobs": "No applicable exact-source hosted job is claimed to pass",
     "production_inventory": "Separately labelled BLOCKED informational inventory, not a substantive test pass",
-    "push": "git push origin a69723e56bb30b4eaa6698fc9653670e4ed1bab2:refs/heads/release/btz-prelaunch-playability"
+    "push": "git push origin 4db8279a47c9b6c6caf1857cba17e265a322cde0:refs/heads/release/btz-prelaunch-playability"
   },
   "deployment": {
     "status": "BLOCKED",

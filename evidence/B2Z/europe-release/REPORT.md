@@ -1,12 +1,12 @@
 # European B2Z release — locally qualified; publication/install blocked
 
-Source **`a69723e56bb30b4eaa6698fc9653670e4ed1bab2`**. No mainnet installation or
+Source **`4db8279a47c9b6c6caf1857cba17e265a322cde0`**. No mainnet installation or
 asset upload occurred. The actual non-force push failed because HTTPS Git could
 not obtain a username. GitHub contains reviewed UI `3306728`; the European source
 has no hosted CI run. No parent CI is claimed to qualify changed code.
 
 ```sh
-git push origin a69723e56bb30b4eaa6698fc9653670e4ed1bab2:refs/heads/release/btz-prelaunch-playability
+git push origin 4db8279a47c9b6c6caf1857cba17e265a322cde0:refs/heads/release/btz-prelaunch-playability
 ```
 
 Publish this exact source first and pass its applicable substantive hosted jobs.
@@ -19,16 +19,17 @@ change controllers, buy/transfer cycles, send ICP or endow a notifier.
 | Frozen identity | Value |
 |---|---|
 | Normal backend SHA-256 | `c4b7b9101353bd0bb6155e6d03ed2d125481c09c4813e5060b3020e1d3e3b9ff` |
-| Frontend JS SHA-256 | `0870c699ee1b3c3f40c25ddbd3104996608d539156be9b39d9cebb8a297a8642` |
-| Complete frontend file-manifest SHA-256 | `a860019ec2622c2145d8de889530e562b77791ddd85266590ddbe75109ddd922` |
+| Frontend JS SHA-256 | `15928f745abb7ec918cef4aa0bd514cf3d351fac666507adbba6e1e40a7b348e` |
+| Complete frontend file-manifest SHA-256 | `6132ec22f90933e4d3589f2bdb7e3957ed5e54de32322ef8c0ebd9596c5cc5dd` |
 | DTR revision / client | `282d709143dacb4bca769a4d6e72b97fc93ef518` / `0.15.0` |
 
 [Backend provenance/exports](backend-manifest.json), [frontend provenance](frontend-build-manifest.json),
 [all 15 file identities](frontend-ready-files.json), [headers](security-headers.json).
-Clean-source reviewed builders froze `.work/europe/final/backend/normal.wasm` and
-`.work/europe/final/frontend/`. The final normal Wasm is byte-identical to the
-installed-test artifact; frontend payloads also match. Final commits after the
-first freeze changed tests/document routing only. DTR, locks, game kernels,
+Clean-source reviewed builders froze `.work/europe/shipping/backend/normal.wasm` and
+`.work/europe/shipping/frontend/`. The final normal Wasm is byte-identical to the
+installed-test artifact. The final frontend separates delayed network delivery
+from ordinary Trickle progress; its focused JS, native-HTTP browser and responsive
+journeys were rerun and pass. DTR, locks, game kernels,
 physics, scoring, prices and memo interpretation are unchanged from reviewed inputs.
 
 ## Targets and authority
@@ -77,7 +78,7 @@ The proposed eight bands and hysteresis pass boundaries, replenishment and ident
 32-tick state comparisons. Trickle publishes one tick/100 seconds. A separate
 [104-second real-cadence sample](trickle-real-cadence.json) produces one additional
 tick. Browser/model tests cover cold snapshot rendering, bounded verified coverage,
-several publications, reconnect, tier changes and slow/error labels. This combines
+several publications, reconnect, tier changes and distinct slow/network-delay/error labels. This combines
 qualified tests; it is not a deployed European Trickle browser journey.
 
 [Floor/recovery measurement](floor-and-recovery.json): current-rules one-ball

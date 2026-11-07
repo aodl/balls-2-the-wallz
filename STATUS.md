@@ -1,11 +1,12 @@
 # European release frozen — local PASS; source publication/install BLOCKED
 
-Source `a69723e56bb30b4eaa6698fc9653670e4ed1bab2` retains UI `3306728`, binds the
+Source `4db8279a47c9b6c6caf1857cba17e265a322cde0` retains UI `3306728`, binds the
 treasury to self, activates a fresh empty world through all four authenticated
 transitions and adds the requested conservative Trickle policy throughout the observer.
 49 host tests, 130 focused JS tests, 14 HTTP checks, five viewport journeys and
 16 scoped installed probes pass (one corrected floor-probe rerun; raw failures retained).
-The clean final normal Wasm and all frontend assets are frozen. Measured 1T protection
+The clean final normal Wasm and all frontend assets are frozen. The final network-delay
+label correction passes rerun JS/HTTP and five-viewport checks. Measured 1T protection
 supports bounded one-ball execution/protected recovery; maximum-population lifetime
 is unqualified. 60/600/3600 polling costs are measured; assistance remains disabled
 and the production candidate keeps 60 seconds. Natural 1.5T starting budget activates

@@ -8,8 +8,8 @@
     "sha256": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a"
   },
   "app.mjs": {
-    "bytes": 687951,
-    "sha256": "0870c699ee1b3c3f40c25ddbd3104996608d539156be9b39d9cebb8a297a8642"
+    "bytes": 688085,
+    "sha256": "15928f745abb7ec918cef4aa0bd514cf3d351fac666507adbba6e1e40a7b348e"
   },
   "backend.did": {
     "bytes": 12081,
@@ -17,7 +17,7 @@
   },
   "build-manifest.json": {
     "bytes": 9002,
-    "sha256": "4f584da9492866043e77a90e7e0d30f59e39c2877de462de00b7a51c48e47fe5"
+    "sha256": "0ce412cd3cc84ee7bdbcaa4b6dd8fdca24ca29d5a757084621ed0af92cc51c89"
   },
   "configuration-entry.bin": {
     "bytes": 1163,
