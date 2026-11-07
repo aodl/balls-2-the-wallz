@@ -1,19 +1,25 @@
-# Final European entry correction — frozen release publication pending
+# Final European release frozen — local focused PASS; publication/install BLOCKED
 
-Trickle entry is 1.25T liquid; its 1T exit, all upper tiers, source/treasury/transition
-floors, DTR, 60-second fallback and disabled Event Horizon remain unchanged.
-The natural 1.5T disposable starting budget completes all four authenticated
-transitions, selects Trickle with admission open, idles efficiently, processes an
-ordinary valueless Ledger payment and preserves its world/cursor on normal upgrade.
-50 host tests and focused frontend/certificate checks pass. Archived certificate
-tests now use their recorded canister policy and explicitly reject that proof under
-the European policy; the existing health test follows the approved 300-second
-maintenance cadence. The active operator runbook contains only European commands;
-its historical section is preserved verbatim in a separate archive.
-The final normal Wasm and assets must be frozen from this committed source, published
-and pass substantive exact-source hosted CI before installation. Both European
-targets were rechecked empty on the expected 13-node subnet with unchanged controllers.
-No installation, transfer, controller change or former-deployment operation occurred.
+Source `07693c7f5a2102fce080ed6fbe156512d4c6fbe9` changes only production Trickle
+entry to 1.25T liquid, retaining the 1T exit and every upper/source/treasury/transition
+floor. Exact frozen normal Wasm `612ad0d0…` passes natural 1.5T starting-budget
+activation, efficient idle, ordinary Ledger-only payment, Trickle trajectory,
+upgrade/cursor preservation, below-floor protection and pending-payment recovery.
+50 host tests, 94 focused JS checks, 18 archived-certificate checks and focused
+installed/treasury/health checks pass. The repaired health test follows existing
+300-second maintenance; historical certificate tests retain their original policy
+and prove European policy rejection. Frontend payloads exactly match reviewed
+`4db8279`; final build provenance and the complete asset manifest identify this source.
+Active operator commands now contain only European targets; historical commands
+were moved verbatim to a separate archive. Both new targets were rechecked empty,
+with unchanged controllers on the expected 13-node European subnet, and their
+new receiving account has zero official Ledger/Index balance/history.
+The actual non-force push failed for missing HTTPS write authentication. GitHub
+still points to `4db8279`; final exact-source hosted CI and installation are NOT_RUN.
+Prior `4db8279` CI failed substantive source/integration jobs, separately from the
+informational BLOCKED inventory; locally repaired tests do not substitute for new CI.
+No install, asset upload, funds/controller/notifier operation or former-deployment
+operation occurred. [Final hashes, ancestry, focused evidence and exact push](evidence/B2Z/europe-final/REPORT.md).
 
 ---
 

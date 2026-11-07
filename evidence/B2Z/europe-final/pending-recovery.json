@@ -1,0 +1,11 @@
+{
+  "disposable_replenishment": "500000000000",
+  "held_cursor": 2,
+  "liquid_api_not_overridden": true,
+  "paid_cannons": 1,
+  "protection_target": "900000000000",
+  "received_e8s": "100000000",
+  "recovered_mode": "Trickle",
+  "status": "PASS",
+  "upgrade_preserved_pending_payment": true
+}

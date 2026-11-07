@@ -1,0 +1,216 @@
+{
+  "source": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+  "status": "LOCAL_FOCUSED_PASS; PUBLICATION_AND_DEPLOYMENT_BLOCKED",
+  "artifacts": {
+    "normal_wasm_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+    "raw_development_wasm_sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488",
+    "test_hooks_disposable_only_sha256": "d1f08a35a83be563f275023f732040c039bcf11001c64ead75e8054a71ba6513",
+    "frontend_js_sha256": "15928f745abb7ec918cef4aa0bd514cf3d351fac666507adbba6e1e40a7b348e",
+    "complete_asset_manifest_sha256": "919eba1e186a299affdcf97ed027429078919b15f8a6cccf1a2eed3852177f9e",
+    "backend_raw_and_frozen_are_distinct": true,
+    "reviewed_metadata_attachment": "Existing prepare_mvp_release.py / ic-wasm re-encodes the raw module when adding checked candid:service. Final installed probes use the frozen artifact, not the initial raw build."
+  },
+  "host_tests": 50,
+  "focused_browser_model_authority_tests": 94,
+  "archived_certificate_tests": 18,
+  "frozen_installed_checks": [
+    {
+      "id": "europe-europe_natural_initial_budget_activates_rules_and_enters_trickle",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "europe::europe_natural_initial_budget_activates_rules_and_enters_trickle",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 96.957,
+      "timeout_seconds": 550,
+      "log": "logs/europe-europe_natural_initial_budget_activates_rules_and_enters_trickle.log"
+    },
+    {
+      "id": "europe-europe_low_floor_transition_and_recovery_headroom",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "europe::europe_low_floor_transition_and_recovery_headroom",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 94.818,
+      "timeout_seconds": 550,
+      "log": "logs/europe-europe_low_floor_transition_and_recovery_headroom.log"
+    },
+    {
+      "id": "europe-europe_trickle_pending_payment_recovers_after_replenishment",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "europe::europe_trickle_pending_payment_recovers_after_replenishment",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 40.824,
+      "timeout_seconds": 550,
+      "log": "logs/europe-europe_trickle_pending_payment_recovers_after_replenishment.log"
+    },
+    {
+      "id": "public_runtime_health_is_bounded_operational_and_anonymous",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "public_runtime_health_is_bounded_operational_and_anonymous",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 18.502,
+      "timeout_seconds": 550,
+      "log": "logs/public_runtime_health_is_bounded_operational_and_anonymous.log"
+    }
+  ],
+  "frozen_installed_raw": ".work/europe-final/frozen-probes/",
+  "treasury_defer_recovery": {
+    "id": "funding_tests-funding_low_liquid_cycles_defer_then_recover_without_browser",
+    "command": [
+      "/home/codexdev/src/b2z/.work/europe-final/probes-final/harness",
+      "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 28.537,
+    "timeout_seconds": 550,
+    "log": "logs/funding_tests-funding_low_liquid_cycles_defer_then_recover_without_browser.log",
+    "raw": ".work/europe-final/probes-final/",
+    "reason_for_reuse": "This case uses only the identical d1f08a35 test-hooks module, official disposable Ledger/Index and CMC double. It never installs the raw normal module."
+  },
+  "browser_reuse": {
+    "prior_source": "4db8279a47c9b6c6caf1857cba17e265a322cde0",
+    "all_14_frontend_payload_files_byte_identical": true,
+    "only_changed_file": "build-manifest.json",
+    "prior_evidence": "../europe-release/verification.json",
+    "http_checks": 14,
+    "responsive_viewports": [
+      [
+        320,
+        640
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "scope": "Synthetic browser task content, actual Chromium/Web Crypto. Not a European production certificate or actual-device/human test."
+  },
+  "raw_failures_retained": {
+    "source": ".work/europe-final/source-before/",
+    "source_resolution": "1708 unchanged tests passed; 17 archived-certificate tests used the new default against a former-backend certificate. The repaired file pins its historical policy and adds explicit European rejection: 18/18 PASS. Full source group was not rerun or relabelled PASS. Other original source checks and 196 Python tool tests passed.",
+    "health": ".work/europe-final/health-before/",
+    "health_resolution": "Existing test expected samples after 180s. Approved maintenance cadence is 300s: two such samples preserve all assertions and pass on the final frozen artifact. No production cadence changed.",
+    "natural_setup": ".work/europe-final/probes/",
+    "natural_setup_resolution": "Disposable network correctly initializes treasury paused. The probe enables it through the ordinary controller API to match mainnet and then passes; no liquid override or added cycles."
+  },
+  "hosted_exact_source_ci": {
+    "at": "2026-11-07T19:05:28.158698+00:00",
+    "source": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+    "repository": "aodl/balls-2-the-wallz",
+    "branch_ref": "4db8279a47c9b6c6caf1857cba17e265a322cde0\trefs/heads/release/btz-prelaunch-playability",
+    "total_count": 0,
+    "workflow_runs": []
+  },
+  "prior_hosted_ci": {
+    "source": "4db8279a47c9b6c6caf1857cba17e265a322cde0",
+    "run_id": 42400350684,
+    "jobs": [
+      {
+        "name": "Packaged DTR and clean consumers",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source conformance",
+        "conclusion": "failure"
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "conclusion": "success"
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "conclusion": "success"
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "conclusion": "success"
+      },
+      {
+        "name": "S14 and million-cell installed-IC qualification",
+        "conclusion": "failure"
+      },
+      {
+        "name": "Native conformance",
+        "conclusion": "success"
+      }
+    ],
+    "limitation": "Public logs denied; supplied integration output shows only wrapper failure. Locally reproduced stale tests were fixed, but remaining causes cannot be ruled out before exact-source hosted CI."
+  },
+  "publication": {
+    "status": "BLOCKED",
+    "actual_push_exit_code": 128,
+    "reason": "HTTPS username/write authentication unavailable; no credential inspection/export",
+    "raw_log": ".work/europe-final/push.log",
+    "operator_command": "git push origin 07693c7f5a2102fce080ed6fbe156512d4c6fbe9:refs/heads/release/btz-prelaunch-playability"
+  },
+  "deployment": {
+    "status": "BLOCKED",
+    "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "frontend": "s2jxj-liaaa-aaaas-amynq-cai",
+    "expected_subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+    "reason": "Final source unpublished and substantive exact-source CI pending",
+    "backend_installed": false,
+    "frontend_installed": false,
+    "source_and_current_rules_certificate": "NOT_RUN",
+    "actual_post_install_liquid_cycles_and_pacing": "NOT_RUN",
+    "served_hashes_and_security_headers": "NOT_RUN",
+    "production_desktop_mobile_smoke": "NOT_RUN"
+  },
+  "limits": [
+    "Bounded current-rules one-ball natural startup and recovery; no maximum-population/lifetime guarantee.",
+    "Trickle query balance observations do not guarantee every later callback balance; platform reserves are already excluded.",
+    "Receipt association remains unavailable without original memo evidence.",
+    "No real-wallet payment, human participant or actual-device/soft-keyboard study."
+  ],
+  "preserved": {
+    "upper_pacing_tiers_and_1T_exit": true,
+    "source_treasury_transition_floors": true,
+    "DTR_and_verification": true,
+    "economics_prices_physics_payment_rules": true,
+    "ledger_only_authority": true,
+    "fallback_seconds": 60,
+    "event_horizon": "disabled",
+    "former_deployment_touched": false,
+    "real_icp_or_cycles_transfers": false,
+    "controller_changes": false
+  }
+}

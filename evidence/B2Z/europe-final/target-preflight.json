@@ -1,0 +1,82 @@
+{
+  "at": "2026-11-07T18:46:51.731Z",
+  "records": [
+    {
+      "canisterId": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": null,
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "node_ids": [
+        "foa3b-mjkuu-3qlgu-6o64i-2omzt-x6suc-5gzcq-6j2gz-bftru-j5idg-gae",
+        "yf2ct-a2auf-nofdz-acf6v-ugwyb-k5f6j-5sr3y-7h3xi-svcdg-mhpgg-aae",
+        "popmv-gccw7-zincv-gtcgo-jxfby-ar7zq-odvna-4jcs2-cnovy-qiha6-yae",
+        "6jce6-bckzx-lz47i-xega6-gt5kk-47etw-cctyf-pkyjf-hqhxw-gy2qv-2ae",
+        "xypz2-ls2al-37boh-5a22g-5z3qj-rh53t-63qjo-khc65-izr5n-hth7g-uae",
+        "ldqxr-qdliy-howvj-2tamr-3fwul-liakv-7523k-tmhrz-5geyk-jlu7b-uae",
+        "xzpf4-zeihc-upncx-zz65w-rep5j-xh2sy-yw6bg-qtgwu-5z3ez-er2gz-sae",
+        "c4xi6-jnokz-uhpvd-lpwoe-hra3h-ph7ia-77clm-xfxf3-lskj2-4fohp-tqe",
+        "3yok3-yvswm-l4ior-bjh62-fsi73-vfqp3-77wji-coglq-l2bjw-rxrph-uqe",
+        "wq2um-36gqt-pvygv-uwfwa-qthgq-bgrrl-76hlx-qu5ig-557sj-i3ekh-lqe",
+        "mjte3-dopva-7tttu-5hnnu-q572b-p3wwy-b56of-4q6h7-hbtf4-f3m32-tae",
+        "oa5q5-7w6up-xqtxs-3jd3y-pqxk2-txcng-m7347-u74zx-d3yyg-y33rr-7ae",
+        "dtils-hheoo-rdblu-kev3g-qhdea-mb2oq-zgl2c-osrlf-nkimi-5ws23-dqe"
+      ],
+      "certificate_verification": true,
+      "total_cycles": "1499847335121",
+      "reserved_cycles": "0",
+      "freezing_threshold_seconds": 2592000,
+      "idle_cycles_burned_per_day": "864326044",
+      "actual_installed_liquid_cycles": null,
+      "installed": false
+    },
+    {
+      "canisterId": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": null,
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "node_ids": [
+        "foa3b-mjkuu-3qlgu-6o64i-2omzt-x6suc-5gzcq-6j2gz-bftru-j5idg-gae",
+        "yf2ct-a2auf-nofdz-acf6v-ugwyb-k5f6j-5sr3y-7h3xi-svcdg-mhpgg-aae",
+        "popmv-gccw7-zincv-gtcgo-jxfby-ar7zq-odvna-4jcs2-cnovy-qiha6-yae",
+        "6jce6-bckzx-lz47i-xega6-gt5kk-47etw-cctyf-pkyjf-hqhxw-gy2qv-2ae",
+        "xypz2-ls2al-37boh-5a22g-5z3qj-rh53t-63qjo-khc65-izr5n-hth7g-uae",
+        "ldqxr-qdliy-howvj-2tamr-3fwul-liakv-7523k-tmhrz-5geyk-jlu7b-uae",
+        "xzpf4-zeihc-upncx-zz65w-rep5j-xh2sy-yw6bg-qtgwu-5z3ez-er2gz-sae",
+        "c4xi6-jnokz-uhpvd-lpwoe-hra3h-ph7ia-77clm-xfxf3-lskj2-4fohp-tqe",
+        "3yok3-yvswm-l4ior-bjh62-fsi73-vfqp3-77wji-coglq-l2bjw-rxrph-uqe",
+        "wq2um-36gqt-pvygv-uwfwa-qthgq-bgrrl-76hlx-qu5ig-557sj-i3ekh-lqe",
+        "mjte3-dopva-7tttu-5hnnu-q572b-p3wwy-b56of-4q6h7-hbtf4-f3m32-tae",
+        "oa5q5-7w6up-xqtxs-3jd3y-pqxk2-txcng-m7347-u74zx-d3yyg-y33rr-7ae",
+        "dtils-hheoo-rdblu-kev3g-qhdea-mb2oq-zgl2c-osrlf-nkimi-5ws23-dqe"
+      ],
+      "certificate_verification": true,
+      "total_cycles": "1499847595219",
+      "reserved_cycles": "0",
+      "freezing_threshold_seconds": 2592000,
+      "idle_cycles_burned_per_day": "864326044",
+      "actual_installed_liquid_cycles": null,
+      "installed": false
+    }
+  ],
+  "scope": "Certified module absence, controllers, subnet and all node IDs; authenticated management total balances. Actual post-install liquid balance cannot be read before installation.",
+  "alias_map": {
+    "b2z": {
+      "ic": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    "observer": {
+      "ic": "s2jxj-liaaa-aaaas-amynq-cai"
+    }
+  },
+  "runtime_dfx_aliases_verified": {
+    "b2z": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "observer": "s2jxj-liaaa-aaaas-amynq-cai"
+  }
+}

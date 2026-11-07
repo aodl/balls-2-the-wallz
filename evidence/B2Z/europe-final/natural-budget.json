@@ -1,0 +1,28 @@
+{
+  "activated_query_liquid": "1_420_911_235_679",
+  "activated_total": "1_479_654_819_239",
+  "added_or_burned_cycles": false,
+  "admission_open": true,
+  "after_liquid": "1_401_542_594_169",
+  "after_total": "1_460_386_783_869",
+  "authenticated_transitions": [
+    "torus",
+    "million",
+    "playability",
+    "entry"
+  ],
+  "before_liquid": "1_422_895_755_745",
+  "before_total": "1_481_438_421_355",
+  "current_rules": true,
+  "empty_treasury_maintenance": true,
+  "healthy_source": true,
+  "idle_without_ticks": true,
+  "initial_cycles": "1500000000000",
+  "ledger_only_payment_applied_seconds": 92.000000277,
+  "normal_upgrade_preserved_world_and_cursor": true,
+  "normal_wasm_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "paid_trajectory_progressed": true,
+  "scope": "Disposable default Application 13-node cost schedule; bounded natural starting-budget execution/recovery, not maximum-population capacity or a mainnet balance",
+  "selected_mode": "Trickle",
+  "status": "PASS"
+}
