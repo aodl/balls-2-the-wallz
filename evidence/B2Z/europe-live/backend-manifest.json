@@ -1,0 +1,161 @@
+{
+  "status": "PASS",
+  "source_commit": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+  "source_tree": "1d0a755ed48910fd2a7bc6529033f7c9e3acb203",
+  "build_environment": {
+    "checkout": "/home/codexdev/src/b2z",
+    "cargo_home": "/home/codexdev/.cargo",
+    "rustflags": {
+      "RUSTFLAGS": "",
+      "CARGO_ENCODED_RUSTFLAGS": "",
+      "CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS": ""
+    },
+    "path_packages": [
+      {
+        "name": "b2z-mechanics",
+        "id": "path+file:///home/codexdev/src/b2z/kernels/b2z-mechanics#0.5.0"
+      },
+      {
+        "name": "b2z-native",
+        "id": "path+file:///home/codexdev/src/b2z/native/b2z-native#0.5.0"
+      },
+      {
+        "name": "b2z-protocol",
+        "id": "path+file:///home/codexdev/src/b2z/crates/b2z-protocol#0.5.0"
+      },
+      {
+        "name": "dtr-runtime-lab",
+        "id": "path+file:///home/codexdev/src/b2z/canisters/runtime-lab#dtr-runtime-lab@0.5.0"
+      }
+    ],
+    "cross_directory_byte_equality": "not claimed; Cargo path package identities, Rust symbol hashes and embedded source paths vary; identify and test every installed artifact by its exact SHA-256"
+  },
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "javascript_package": {
+    "version": "0.15.0",
+    "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+    "integrity": "sha512-DV/YC5bmSSoifJqdQjFFdL1IH0QVTda/8ppbityy2vEDy0smACGZSQ+N+dM8YGiMiUeBfd4IKRq7pKfxlwsvhQ==",
+    "dependencies": {
+      "@icp-sdk/core": "6.1.0"
+    },
+    "engines": {
+      "node": ">=22.16.0"
+    }
+  },
+  "dependency_sha256": {
+    "Cargo.lock": "ada9bb4f4e3ebc77b6b0fc3f98b2677bf500097f247adf0c2fe1645aeb2f2b59",
+    "native/Cargo.lock": "bdfa74603f84fec0ff748dd0597ada80946f9a7a911fdc73dbebba1f5c89f6ff",
+    "canisters/runtime-lab/Cargo.lock": "757cf3408f5542966d808b17ccce13999d8abe88a56c79d0bcde4a45c08bc71a",
+    "tools/s09-integration/Cargo.lock": "e30755662683a9bcdce34a0f91c870e052c57ca5f417495e17899a64016890f5",
+    "tools/fixtures/dtr-consumer-rust/Cargo.lock": "136ccb0d982c40cec379f4c032692d86e95c0bbb7f44f5d04f97bdcad4498759",
+    "package-lock.json": "06c12c7a029b645e1bfb7c1aa3137664d579c9f4fbf00092f6999e7b9eda71e5",
+    "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720",
+    "dfx.json": "12de00be1b8949cde90eb299ca8f35b010aafcc6d332d66e75db3c8162153ad1",
+    "config/economics/prelaunch.json": "e45452ef0220547ea74e044afd28a2362713efaed49148d17a9d5f761e8bc147",
+    "config/rules/v6.json": "00d35637bc27d5d91c275d5899ceb0325f530ed244afd4585d4c33ac9031972c",
+    "config/rules/v7-entry.json": "3b81508a817e69aec753eb057ca4c834aa54bb8769e227a873dd2771d1d628aa",
+    "apps/b2z-observer/configuration-entry.bin": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "packages/kernels/b2z/economics.generated.mjs": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+    "native/b2z-native/src/economics_generated.rs": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9",
+    "apps/b2z-observer/configuration-playability.bin": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68"
+  },
+  "rules_activation": 7,
+  "fresh_authenticated_sequence": [
+    "v3-genesis",
+    "torus",
+    "million",
+    "playability",
+    "entry"
+  ],
+  "memo_adapter_version_before_activation": 3,
+  "memo_adapter_version_after_v6_activation": 4,
+  "memo_format": "Historical adapters unchanged; targeted/bounded v6 Fire/New/Move only after authenticated activation; canonical BTZPAY02 unchanged",
+  "upgrade_only": false,
+  "normal_features": [],
+  "normal_exports": [
+    "memory",
+    "canister_init",
+    "canister_post_upgrade",
+    "canister_query action_quote",
+    "canister_query artifact_bundle",
+    "canister_query artifact_chunk",
+    "canister_query cannon_state",
+    "canister_query controller_funding",
+    "canister_query controller_runtime",
+    "canister_query controller_work",
+    "canister_query entry_transition_status",
+    "canister_query epoch_metadata",
+    "canister_query game_info",
+    "canister_query get_api_doc",
+    "canister_query lab_status",
+    "canister_query million_transition_status",
+    "canister_query nearby_region",
+    "canister_query observation",
+    "canister_query observation_bundle",
+    "canister_query payment_receipt",
+    "canister_query playability_transition_status",
+    "canister_query player_state",
+    "canister_query retained_artifact_chunk",
+    "canister_query retained_publication",
+    "canister_query retention_status",
+    "canister_query runtime_health",
+    "canister_query source_descriptor",
+    "canister_query torus_transition_status",
+    "canister_update commit_entry_transition",
+    "canister_update commit_million_transition",
+    "canister_update commit_playability_transition",
+    "canister_update commit_torus_transition",
+    "canister_update pause_autonomous",
+    "canister_update poke",
+    "canister_update prepare_entry_transition",
+    "canister_update prepare_million_transition",
+    "canister_update prepare_playability_transition",
+    "canister_update prepare_torus_transition",
+    "canister_update set_funding_paused",
+    "canister_update start_autonomous",
+    "get_candid_pointer",
+    "canister_global_timer",
+    "canister_update <ic-cdk internal> timer_executor",
+    "__data_end",
+    "__heap_base"
+  ],
+  "artifacts": {
+    "generated.did": {
+      "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+      "bytes": 12081
+    },
+    "init.did": {
+      "sha256": "b97570e0408e3cf50fc2a5099d65012b831e8492c922eddd443430703998a912",
+      "bytes": 1670
+    },
+    "launch.json": {
+      "sha256": "e6ccaf7901d60f0ed205e2b4bb54e99f109db4e4593d7ae7f4de41656fed3ae3",
+      "bytes": 1885
+    },
+    "normal.metadata.wasm": {
+      "sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "bytes": 3348365
+    },
+    "normal.wasm": {
+      "sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "bytes": 3348365
+    },
+    "world.bin": {
+      "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae",
+      "bytes": 481
+    }
+  },
+  "tools": {
+    "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)",
+    "cargo": "cargo 1.94.1 (29ea6fb6a 2026-03-24)",
+    "node": "v24.15.0",
+    "npm": "11.12.1",
+    "dfx": "dfx 0.31.0",
+    "python": "Python 3.11.14"
+  },
+  "install": "Fresh empty target only: install frozen normal.wasm explicitly with its supported v3 init, then all authenticated transitions; never reinstall.",
+  "observer": "Build separately with the ACTUAL backend ID from this same clean checkout; retain build-manifest.json.",
+  "world_transition": "Fresh supported empty v3 through torus/million/playability/entry authenticated source fences. No imported history or arbitrary cursor; current rules only after all four commits.",
+  "mainnet": "NOT_RUN",
+  "remote_ci": "NOT_RUN"
+}

@@ -1,0 +1,188 @@
+{
+  "status": "DEPLOYED_AND_VERIFIED",
+  "qualified_source": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c",
+  "ci_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42418003762",
+  "substantive_CI_passes": 6,
+  "backend_build_source": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+  "frontend_build_source": "6d788f554bcfdcb542fa14082d6384a0ba75416d",
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "dtr_client": "0.15.0",
+  "backend": {
+    "canisterId": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_hash": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+    "nodes": 13,
+    "node_ids": [
+      "foa3b-mjkuu-3qlgu-6o64i-2omzt-x6suc-5gzcq-6j2gz-bftru-j5idg-gae",
+      "yf2ct-a2auf-nofdz-acf6v-ugwyb-k5f6j-5sr3y-7h3xi-svcdg-mhpgg-aae",
+      "popmv-gccw7-zincv-gtcgo-jxfby-ar7zq-odvna-4jcs2-cnovy-qiha6-yae",
+      "6jce6-bckzx-lz47i-xega6-gt5kk-47etw-cctyf-pkyjf-hqhxw-gy2qv-2ae",
+      "xypz2-ls2al-37boh-5a22g-5z3qj-rh53t-63qjo-khc65-izr5n-hth7g-uae",
+      "ldqxr-qdliy-howvj-2tamr-3fwul-liakv-7523k-tmhrz-5geyk-jlu7b-uae",
+      "xzpf4-zeihc-upncx-zz65w-rep5j-xh2sy-yw6bg-qtgwu-5z3ez-er2gz-sae",
+      "c4xi6-jnokz-uhpvd-lpwoe-hra3h-ph7ia-77clm-xfxf3-lskj2-4fohp-tqe",
+      "3yok3-yvswm-l4ior-bjh62-fsi73-vfqp3-77wji-coglq-l2bjw-rxrph-uqe",
+      "wq2um-36gqt-pvygv-uwfwa-qthgq-bgrrl-76hlx-qu5ig-557sj-i3ekh-lqe",
+      "mjte3-dopva-7tttu-5hnnu-q572b-p3wwy-b56of-4q6h7-hbtf4-f3m32-tae",
+      "oa5q5-7w6up-xqtxs-3jd3y-pqxk2-txcng-m7347-u74zx-d3yyg-y33rr-7ae",
+      "dtils-hheoo-rdblu-kev3g-qhdea-mb2oq-zgl2c-osrlf-nkimi-5ws23-dqe"
+    ],
+    "certificate_verification": true
+  },
+  "frontend": {
+    "canisterId": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+    "nodes": 13,
+    "node_ids": [
+      "foa3b-mjkuu-3qlgu-6o64i-2omzt-x6suc-5gzcq-6j2gz-bftru-j5idg-gae",
+      "yf2ct-a2auf-nofdz-acf6v-ugwyb-k5f6j-5sr3y-7h3xi-svcdg-mhpgg-aae",
+      "popmv-gccw7-zincv-gtcgo-jxfby-ar7zq-odvna-4jcs2-cnovy-qiha6-yae",
+      "6jce6-bckzx-lz47i-xega6-gt5kk-47etw-cctyf-pkyjf-hqhxw-gy2qv-2ae",
+      "xypz2-ls2al-37boh-5a22g-5z3qj-rh53t-63qjo-khc65-izr5n-hth7g-uae",
+      "ldqxr-qdliy-howvj-2tamr-3fwul-liakv-7523k-tmhrz-5geyk-jlu7b-uae",
+      "xzpf4-zeihc-upncx-zz65w-rep5j-xh2sy-yw6bg-qtgwu-5z3ez-er2gz-sae",
+      "c4xi6-jnokz-uhpvd-lpwoe-hra3h-ph7ia-77clm-xfxf3-lskj2-4fohp-tqe",
+      "3yok3-yvswm-l4ior-bjh62-fsi73-vfqp3-77wji-coglq-l2bjw-rxrph-uqe",
+      "wq2um-36gqt-pvygv-uwfwa-qthgq-bgrrl-76hlx-qu5ig-557sj-i3ekh-lqe",
+      "mjte3-dopva-7tttu-5hnnu-q572b-p3wwy-b56of-4q6h7-hbtf4-f3m32-tae",
+      "oa5q5-7w6up-xqtxs-3jd3y-pqxk2-txcng-m7347-u74zx-d3yyg-y33rr-7ae",
+      "dtils-hheoo-rdblu-kev3g-qhdea-mb2oq-zgl2c-osrlf-nkimi-5ws23-dqe"
+    ],
+    "certificate_verification": true
+  },
+  "frontend_url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "frontend_JS_sha256": "b452a8bdd5632bf9c9bc20500e768c725add15b72c21a9b980386dc31b48c07c",
+  "complete_asset_manifest_sha256": "2b1da4a704a04644b45693470319b616c3d575e43c2a1f24bcf331cbe0e0d7eb",
+  "receiving_account": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+  "certified_identity": {
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "rules_version": 7,
+  "world_schema": 6,
+  "world_dimensions": [
+    1000,
+    1000
+  ],
+  "epoch_index": 4,
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "clean_financial_history": true,
+  "selected_pace": {
+    "nominal_milli": 10,
+    "supported_milli": 10,
+    "mode": "Trickle",
+    "admission_open": true,
+    "performance_limited": false
+  },
+  "idle": true,
+  "latest_sdk_health": {
+    "resets": "0",
+    "sample_end_ns": "1794092665314045163",
+    "observed_at_ns": "1794092883296789460",
+    "sample_start_total_cycles": "1396384809130",
+    "sample_count": 2,
+    "runtime_started_ns": "1794091464433566400",
+    "known_treasury_credit_delta": "0",
+    "net_decline_cycles": [],
+    "version": 1,
+    "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+    "reservation_gap_end": "55529089200",
+    "certified_gameplay": false,
+    "sample_end_total_cycles": "1395961217610",
+    "total_cycles": "1477728203808",
+    "reservation_gap_start": "55529089200",
+    "sample_start_ns": "1794092365184284925",
+    "liquid_cycles": "1422199114608",
+    "discontinuity": ""
+  },
+  "setup_expenditure": {
+    "backend": {
+      "preinstall_total": 1499701800936,
+      "settled_window_start_total": 1478730019841,
+      "net_setup_decline": 20971781095,
+      "scope": "Install, activation where applicable, serving/browser and verification/setup interval combined; separate from steady window."
+    },
+    "frontend": {
+      "preinstall_total": 1499702061034,
+      "settled_window_start_total": 1491605755962,
+      "net_setup_decline": 8096305072,
+      "scope": "Install, activation where applicable, serving/browser and verification/setup interval combined; separate from steady window."
+    }
+  },
+  "steady_expenditure": {
+    "status": "PASS",
+    "scope": "Empty-world actual European operating observation, after installation/activation/browser checks settled; net balance changes, not marginal polling cost or populated-world lifetime",
+    "elapsed_seconds": 642.453890571,
+    "start_at": "2026-11-07T22:55:44.819490+00:00",
+    "end_at": "2026-11-07T23:06:27.330883+00:00",
+    "balances": {
+      "backend-status": {
+        "start": 1478730019841,
+        "end": 1477881915574,
+        "net_decline": 848104267,
+        "net_cycles_per_hour": 4752364965.034922
+      },
+      "frontend-status": {
+        "start": 1491605755962,
+        "end": 1491594499392,
+        "net_decline": 11256570,
+        "net_cycles_per_hour": 63076358.62238051
+      }
+    },
+    "backend_liquid_start": 1423202874641,
+    "backend_liquid_end": 1422354770374,
+    "pace": {
+      "admission_open": true,
+      "mode": "Trickle",
+      "nominal_milli": 10,
+      "performance_limited": false,
+      "supported_milli": 10
+    },
+    "source_index_calls_delta": 10,
+    "source_cursor_start": "0",
+    "source_cursor_end": "0",
+    "game_publication_unchanged": true,
+    "completed_segments_delta": 0,
+    "treasury_maintenance_nonce_delta": 2,
+    "periodic_sample_end_advance_seconds": 600.318810159,
+    "known_treasury_cycle_credits": 0,
+    "known_discontinuities": [],
+    "platform_reservation_gap_start": 55529089200,
+    "platform_reservation_gap_end": 55529089200,
+    "reservation_policy": "SDK liquid observed directly; platform reservations not subtracted again. Callback totals include execution reserve and are not treated as settled debit. Both endpoint source scans settled and treasury Idle.",
+    "workload": "No game entities/payments; source fallback, treasury/health maintenance, storage/idle costs and three bounded operator snapshot groups (existing status/health/funding queries) included. Browsers closed before baseline."
+  },
+  "no_real_ICP_test_payment_or_cycles_transfer": true,
+  "former_deployment_untouched": true,
+  "no_controller_subnet_reinstall_upgrade_or_migration_operation": true,
+  "assistance": "DISABLED; independent fallback 60 seconds",
+  "limitations": [
+    "Automatic packet/receipt association unavailable: receipts omit original memo evidence.",
+    "No human study, physical-device/soft-keyboard or real-wallet payment testing.",
+    "No production populated-world/max-population/lifetime measurement. Prior bounded disposable evidence retained.",
+    "Two preceding local Normal playback timing assertions failed; exact-source hosted Normal and 900-second sustained cases pass. Local upstream-latency causation remains unresolved."
+  ],
+  "read_only_harness_setup_corrections": [
+    "Genesis may have zero-length events/scores artifacts, authenticated against their declared empty hashes.",
+    "Raw configuration uses version=6 and rules_version=7 for entry; no release bytes changed.",
+    "Clipboard-denial injection wrapped to avoid Playwright invoking the assigned function during setup. Failed setup capture preserved under .work/europe-live/browser-attempt-1."
+  ]
+}

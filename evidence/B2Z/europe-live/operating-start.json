@@ -1,0 +1,226 @@
+{
+  "at": "2026-11-07T22:55:44.819490+00:00",
+  "sample": "start",
+  "scope": "Post-settle operating observation; existing queries/status reads included in measured workload. No cycle transfer or update gameplay call.",
+  "records": {
+    "backend-status": {
+      "command": [
+        "/home/codexdev/.local/share/dfx/bin/dfx",
+        "canister",
+        "status",
+        "s5ir5-gqaaa-aaaas-amyna-cai",
+        "--network",
+        "ic"
+      ],
+      "started_at_ns": 1794092143704923726,
+      "completed_at_ns": 1794092144819000915,
+      "exit_code": 0,
+      "text": "Canister status call result for s5ir5-gqaaa-aaaas-amyna-cai.\nStatus: Running\nControllers: amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe\nMemory allocation: 0 Bytes\nCompute allocation: 0 %\nFreezing threshold: 2_592_000 Seconds\nIdle cycles burned per day: 1_850_969_640 Cycles\nMemory Size: 38_631_911 Bytes\nBalance: 1_478_730_019_841 Cycles\nReserved: 0 Cycles\nReserved cycles limit: 5_000_000_000_000 Cycles\nWasm memory limit: 3_221_225_472 Bytes\nWasm memory threshold: 0 Bytes\nModule hash: 0x612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948\nNumber of queries: 78\nInstructions spent in queries: 541_257_262\nTotal query request payload size: 3_718 Bytes\nTotal query response payload size: 157_833 Bytes\nLog visibility: public\n"
+    },
+    "frontend-status": {
+      "command": [
+        "/home/codexdev/.local/share/dfx/bin/dfx",
+        "canister",
+        "status",
+        "s2jxj-liaaa-aaaas-amynq-cai",
+        "--network",
+        "ic"
+      ],
+      "started_at_ns": 1794092143707083957,
+      "completed_at_ns": 1794092144786331320,
+      "exit_code": 0,
+      "text": "Canister status call result for s2jxj-liaaa-aaaas-amynq-cai.\nStatus: Running\nControllers: amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe\nMemory allocation: 0 Bytes\nCompute allocation: 0 %\nFreezing threshold: 2_592_000 Seconds\nIdle cycles burned per day: 1_015_385_427 Cycles\nMemory Size: 5_925_520 Bytes\nBalance: 1_491_605_755_962 Cycles\nReserved: 0 Cycles\nReserved cycles limit: 5_000_000_000_000 Cycles\nWasm memory limit: 3_221_225_472 Bytes\nWasm memory threshold: 0 Bytes\nModule hash: 0x04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62\nNumber of queries: 0\nInstructions spent in queries: 0\nTotal query request payload size: 0 Bytes\nTotal query response payload size: 0 Bytes\nLog visibility: public\n"
+    },
+    "runtime_health": {
+      "command": [
+        "/home/codexdev/.local/share/dfx/bin/dfx",
+        "canister",
+        "call",
+        "s5ir5-gqaaa-aaaas-amyna-cai",
+        "runtime_health",
+        "()",
+        "--query",
+        "--network",
+        "ic",
+        "--candid",
+        ".work/europe-final/frozen/backend/generated.did",
+        "--output",
+        "json"
+      ],
+      "started_at_ns": 1794092143710616309,
+      "completed_at_ns": 1794092144163996033,
+      "exit_code": 0,
+      "value": {
+        "certified_gameplay": false,
+        "discontinuity": "",
+        "known_treasury_credit_delta": "0",
+        "liquid_cycles": "1_423_202_874_641",
+        "net_decline_cycles": [
+          "510_141_539"
+        ],
+        "observed_at_ns": "1794092143303811793",
+        "reservation_gap_end": "55_529_089_200",
+        "reservation_gap_start": "55_529_089_200",
+        "resets": "0",
+        "runtime_started_ns": "1794091464433566400",
+        "sample_count": 2,
+        "sample_end_ns": "1794092064995235004",
+        "sample_end_total_cycles": "1_396_809_511_082",
+        "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+        "sample_start_ns": "1794091764676698956",
+        "sample_start_total_cycles": "1_397_319_652_621",
+        "total_cycles": "1_478_731_963_841",
+        "version": 1
+      }
+    },
+    "lab_status": {
+      "command": [
+        "/home/codexdev/.local/share/dfx/bin/dfx",
+        "canister",
+        "call",
+        "s5ir5-gqaaa-aaaas-amyna-cai",
+        "lab_status",
+        "()",
+        "--query",
+        "--network",
+        "ic",
+        "--candid",
+        ".work/europe-final/frozen/backend/generated.did",
+        "--output",
+        "json"
+      ],
+      "started_at_ns": 1794092144164078334,
+      "completed_at_ns": 1794092144522093664,
+      "exit_code": 0,
+      "value": {
+        "Ok": {
+          "publication_hash": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+          "revision": "18",
+          "run": {
+            "callback_count": "4",
+            "completed_segments": "4",
+            "current_segment_work": "0",
+            "generation": "1",
+            "idle": true,
+            "last_error": [],
+            "last_segment_work": "3",
+            "max_segment_work": "1027",
+            "pace": {
+              "admission_open": true,
+              "mode": "Trickle",
+              "nominal_milli": 10,
+              "performance_limited": false,
+              "supported_milli": 10
+            },
+            "pacing_seconds": 1,
+            "publication_ticks": "1",
+            "running": true,
+            "segment_ticks": "2",
+            "total_work": "1164",
+            "work_budget": 512,
+            "world_transition": false
+          },
+          "source": {
+            "admitted_to_exclusive": "0",
+            "binding_checked": true,
+            "event_horizon": [],
+            "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+            "index_calls": "18",
+            "last_error": [],
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "network": "ic",
+            "pending_records": 0,
+            "receiving_subaccount": "0",
+            "recipient_account": [
+              197,
+              132,
+              135,
+              134,
+              157,
+              70,
+              239,
+              4,
+              148,
+              199,
+              215,
+              192,
+              49,
+              43,
+              39,
+              96,
+              171,
+              183,
+              22,
+              78,
+              175,
+              210,
+              63,
+              0,
+              9,
+              164,
+              43,
+              149,
+              69,
+              245,
+              59,
+              222
+            ],
+            "reconciliation_requested": false,
+            "scan_in_flight": false
+          },
+          "version": 7
+        }
+      }
+    },
+    "controller_funding": {
+      "command": [
+        "/home/codexdev/.local/share/dfx/bin/dfx",
+        "canister",
+        "call",
+        "s5ir5-gqaaa-aaaas-amyna-cai",
+        "controller_funding",
+        "()",
+        "--query",
+        "--network",
+        "ic",
+        "--candid",
+        ".work/europe-final/frozen/backend/generated.did",
+        "--output",
+        "json"
+      ],
+      "started_at_ns": 1794092144522192866,
+      "completed_at_ns": 1794092144813147044,
+      "exit_code": 0,
+      "value": {
+        "Ok": {
+          "halted": false,
+          "last_error": [],
+          "last_plan_ns": "0",
+          "last_refund": [],
+          "last_success": [],
+          "lease_started_ns": "1794092067484942504",
+          "nonce": "3",
+          "observed_balance": [
+            {
+              "e8s": "0",
+              "observed_at_ns": "1794092067484942504"
+            }
+          ],
+          "observed_fee": [
+            {
+              "e8s": "10000",
+              "observed_at_ns": "1794092070084465824"
+            }
+          ],
+          "paused": false,
+          "phase": {
+            "Idle": null
+          },
+          "total_converted_e8s": "0",
+          "total_cycles_reported": "0",
+          "version": 1
+        }
+      }
+    }
+  }
+}

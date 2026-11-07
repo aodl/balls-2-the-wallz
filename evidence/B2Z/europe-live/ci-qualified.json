@@ -1,0 +1,178 @@
+{
+  "at": "2026-11-07T22:43:30.034116+00:00",
+  "run": {
+    "id": 42418003762,
+    "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42418003762"
+  },
+  "jobs": [
+    {
+      "id": 128540225616,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128540225763,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128540225839,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128540225874,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128540225883,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128540225903,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 128540226246,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "substantive_passes": 6,
+  "inventory": "Informational BLOCKED, excluded from substantive count",
+  "artifacts": [
+    {
+      "id": 13593359372,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5MzM1OTM3Mg==",
+      "name": "local-ic-evidence",
+      "size_in_bytes": 25718778,
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13593359372",
+      "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13593359372/zip",
+      "expired": false,
+      "digest": "sha256:1e778c0cf36b1536dabb7a4c24f5282f601f9afe521b33e83406cb974b74843a",
+      "created_at": "2026-11-07T22:42:37Z",
+      "updated_at": "2026-11-07T22:42:37Z",
+      "expires_at": "2026-11-21T22:42:33Z",
+      "workflow_run": {
+        "id": 42418003762,
+        "repository_id": 1413439514,
+        "head_repository_id": 1413439514,
+        "head_branch": "release/btz-prelaunch-playability",
+        "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c"
+      }
+    },
+    {
+      "id": 13592875214,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5Mjg3NTIxNA==",
+      "name": "browser-evidence",
+      "size_in_bytes": 1817052,
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13592875214",
+      "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13592875214/zip",
+      "expired": false,
+      "digest": "sha256:831f1b4199e26e4c5dc812c47b9ebbb9d146758a66aea70d9ee04f32da8bffda",
+      "created_at": "2026-11-07T21:55:31Z",
+      "updated_at": "2026-11-07T21:55:31Z",
+      "expires_at": "2026-11-21T21:55:30Z",
+      "workflow_run": {
+        "id": 42418003762,
+        "repository_id": 1413439514,
+        "head_repository_id": 1413439514,
+        "head_branch": "release/btz-prelaunch-playability",
+        "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c"
+      }
+    },
+    {
+      "id": 13592521331,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5MjUyMTMzMQ==",
+      "name": "package-consumer-evidence",
+      "size_in_bytes": 15374,
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13592521331",
+      "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13592521331/zip",
+      "expired": false,
+      "digest": "sha256:90f0d1a1df0895227d687b69de7b150764095d78219d62c7d0db6b5574fe36c2",
+      "created_at": "2026-11-07T21:54:22Z",
+      "updated_at": "2026-11-07T21:54:22Z",
+      "expires_at": "2026-11-21T21:54:21Z",
+      "workflow_run": {
+        "id": 42418003762,
+        "repository_id": 1413439514,
+        "head_repository_id": 1413439514,
+        "head_branch": "release/btz-prelaunch-playability",
+        "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c"
+      }
+    },
+    {
+      "id": 13592401226,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5MjQwMTIyNg==",
+      "name": "wasm-evidence",
+      "size_in_bytes": 5886,
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13592401226",
+      "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13592401226/zip",
+      "expired": false,
+      "digest": "sha256:1fcba146f1a1567fd747382967e0c96dcb27f89f5d9817d4107808740563a0db",
+      "created_at": "2026-11-07T21:56:07Z",
+      "updated_at": "2026-11-07T21:56:07Z",
+      "expires_at": "2026-11-21T21:56:07Z",
+      "workflow_run": {
+        "id": 42418003762,
+        "repository_id": 1413439514,
+        "head_repository_id": 1413439514,
+        "head_branch": "release/btz-prelaunch-playability",
+        "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c"
+      }
+    },
+    {
+      "id": 13591924925,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5MTkyNDkyNQ==",
+      "name": "source-evidence",
+      "size_in_bytes": 41659,
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13591924925",
+      "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13591924925/zip",
+      "expired": false,
+      "digest": "sha256:ef1eee1d87344bb9d03f8ed5fdd023d66b3a5a3d9d59ecafcec1e163cfbcf4e8",
+      "created_at": "2026-11-07T21:55:49Z",
+      "updated_at": "2026-11-07T21:55:49Z",
+      "expires_at": "2026-11-21T21:55:48Z",
+      "workflow_run": {
+        "id": 42418003762,
+        "repository_id": 1413439514,
+        "head_repository_id": 1413439514,
+        "head_branch": "release/btz-prelaunch-playability",
+        "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c"
+      }
+    },
+    {
+      "id": 13591853437,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5MTg1MzQzNw==",
+      "name": "native-evidence",
+      "size_in_bytes": 9473,
+      "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13591853437",
+      "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13591853437/zip",
+      "expired": false,
+      "digest": "sha256:1e562259e61eb0c48a7722db599692f12bb1ccbad39f394331f7506a7c723aa9",
+      "created_at": "2026-11-07T21:55:14Z",
+      "updated_at": "2026-11-07T21:55:14Z",
+      "expires_at": "2026-11-21T21:55:13Z",
+      "workflow_run": {
+        "id": 42418003762,
+        "repository_id": 1413439514,
+        "head_repository_id": 1413439514,
+        "head_branch": "release/btz-prelaunch-playability",
+        "head_sha": "7a74f1a206aa7c6272e2efc58691d496d95a1a4c"
+      }
+    }
+  ]
+}

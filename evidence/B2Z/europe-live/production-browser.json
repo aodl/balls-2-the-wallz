@@ -1,0 +1,782 @@
+{
+  "status": "PASS",
+  "scope": "Genuine read-only European production observation; emulated viewports, no real wallet/payment or physical device",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "sandbox": true,
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "at_ns": 1794092032964972493,
+      "certificate": {
+        "mode": "certificate-verifier",
+        "network": "ic",
+        "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "version": 8,
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "format": null,
+        "head": "7",
+        "root": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+        "certificate_time_ns": "1794092024952616401"
+      },
+      "board_without_identify": true,
+      "rail": {
+        "x": 1366,
+        "y": 76,
+        "width": 64,
+        "height": 812
+      },
+      "identify": "local declaration; no signing",
+      "status": "Waiting for players.",
+      "fields": {
+        "#transfer-amount": {
+          "x": 27,
+          "y": 499.5,
+          "width": 121,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 27,
+          "y": 617.5,
+          "width": 121,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 27,
+          "y": 688.5,
+          "width": 121,
+          "height": 97.5
+        },
+        "#paying-account": {
+          "x": 27,
+          "y": 787,
+          "width": 273.9375,
+          "height": 36
+        },
+        "#payment-risk": {
+          "x": 27,
+          "y": 684,
+          "width": 274,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 156,
+          "y": 312.5,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 156,
+          "y": 532.25,
+          "width": 145,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 156,
+          "y": 424.5,
+          "width": 145,
+          "height": 44
+        }
+      },
+      "payment_preparation": "PASS: exact authenticated quote, native copy bytes, denial and explicit replacement",
+      "copied": [
+        {
+          "text": "1.1",
+          "bytes": [
+            49,
+            46,
+            49
+          ]
+        },
+        {
+          "text": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+          "bytes": [
+            99,
+            53,
+            56,
+            52,
+            56,
+            55,
+            56,
+            54,
+            57,
+            100,
+            52,
+            54,
+            101,
+            102,
+            48,
+            52,
+            57,
+            52,
+            99,
+            55,
+            100,
+            55,
+            99,
+            48,
+            51,
+            49,
+            50,
+            98,
+            50,
+            55,
+            54,
+            48,
+            97,
+            98,
+            98,
+            55,
+            49,
+            54,
+            52,
+            101,
+            97,
+            102,
+            100,
+            50,
+            51,
+            102,
+            48,
+            48,
+            48,
+            57,
+            97,
+            52,
+            50,
+            98,
+            57,
+            53,
+            52,
+            53,
+            102,
+            53,
+            51,
+            98,
+            100,
+            101
+          ]
+        },
+        {
+          "text": "NEW 37.5 2",
+          "bytes": [
+            78,
+            69,
+            87,
+            32,
+            51,
+            55,
+            46,
+            53,
+            32,
+            50
+          ]
+        }
+      ],
+      "activity_keys": [
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai",
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai:receipts"
+      ],
+      "pause_status": "Animation paused on this device \u00b7 gameplay progressing very slowly.",
+      "continued_without_refresh": true,
+      "errors": [],
+      "query_only": true,
+      "final_diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          7
+        ],
+        "resyncs": 0,
+        "certificates": 35,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "version": 8,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+              },
+              "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "format": null,
+              "head": "7",
+              "root": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+              "certificate_time_ns": "1794092024952616401"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 24967.8,
+          "frame_ms": 166.59999999999854,
+          "verified_ticks": 4,
+          "consumed_ticks": 4,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1.08,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1794092033417701578",
+          "certificate_age_ms": 16554.298368,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "IDLE",
+          "rate": 1,
+          "nominal_rate": 0.01,
+          "target_rate": 0.01,
+          "performance_limited": false,
+          "fetch_ms": 367.69999999925494,
+          "verify_ms": 129.09999999776483,
+          "artifact_ms": 0.5,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 4,
+          "segment_ticks": 1
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "at_ns": 1794092054979948401,
+      "certificate": {
+        "mode": "certificate-verifier",
+        "network": "ic",
+        "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "version": 8,
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "format": null,
+        "head": "7",
+        "root": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+        "certificate_time_ns": "1794092050319399694"
+      },
+      "board_without_identify": true,
+      "rail": {
+        "x": 328,
+        "y": 76,
+        "width": 56,
+        "height": 756
+      },
+      "identify": "local declaration; no signing",
+      "status": "Waiting for players.",
+      "fields": {
+        "#transfer-amount": {
+          "x": 25,
+          "y": 561.5,
+          "width": 123,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 25,
+          "y": 679.5,
+          "width": 123,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 25,
+          "y": 680.5,
+          "width": 123,
+          "height": 97.5
+        },
+        "#paying-account": {
+          "x": 25,
+          "y": 594,
+          "width": 273.9375,
+          "height": 36
+        },
+        "#payment-risk": {
+          "x": 25,
+          "y": 641,
+          "width": 278,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 156,
+          "y": 557.5,
+          "width": 147,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 156,
+          "y": 734.25,
+          "width": 147,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 156,
+          "y": 626.5,
+          "width": 147,
+          "height": 44
+        }
+      },
+      "payment_preparation": "PASS: exact authenticated quote, native copy bytes, denial and explicit replacement",
+      "copied": [
+        {
+          "text": "1.1",
+          "bytes": [
+            49,
+            46,
+            49
+          ]
+        },
+        {
+          "text": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+          "bytes": [
+            99,
+            53,
+            56,
+            52,
+            56,
+            55,
+            56,
+            54,
+            57,
+            100,
+            52,
+            54,
+            101,
+            102,
+            48,
+            52,
+            57,
+            52,
+            99,
+            55,
+            100,
+            55,
+            99,
+            48,
+            51,
+            49,
+            50,
+            98,
+            50,
+            55,
+            54,
+            48,
+            97,
+            98,
+            98,
+            55,
+            49,
+            54,
+            52,
+            101,
+            97,
+            102,
+            100,
+            50,
+            51,
+            102,
+            48,
+            48,
+            48,
+            57,
+            97,
+            52,
+            50,
+            98,
+            57,
+            53,
+            52,
+            53,
+            102,
+            53,
+            51,
+            98,
+            100,
+            101
+          ]
+        },
+        {
+          "text": "NEW 37.5 2",
+          "bytes": [
+            78,
+            69,
+            87,
+            32,
+            51,
+            55,
+            46,
+            53,
+            32,
+            50
+          ]
+        }
+      ],
+      "activity_keys": [
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai",
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai:receipts"
+      ],
+      "pause_status": "Animation paused on this device \u00b7 gameplay progressing very slowly.",
+      "continued_without_refresh": true,
+      "errors": [],
+      "query_only": true,
+      "final_diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          7
+        ],
+        "resyncs": 0,
+        "certificates": 16,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "version": 8,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+              },
+              "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "format": null,
+              "head": "7",
+              "root": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+              "certificate_time_ns": "1794092050319399694"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 12007.7,
+          "frame_ms": 16.80000000000109,
+          "verified_ticks": 4,
+          "consumed_ticks": 4,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1.08,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1794092041214490738",
+          "certificate_age_ms": 21097.509376,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "IDLE",
+          "rate": 1,
+          "nominal_rate": 0.01,
+          "target_rate": 0.01,
+          "performance_limited": false,
+          "fetch_ms": 178.19999999925494,
+          "verify_ms": 68,
+          "artifact_ms": 0.6000000014901161,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 4,
+          "segment_ticks": 1
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "at_ns": 1794092066891827975,
+      "certificate": {
+        "mode": "certificate-verifier",
+        "network": "ic",
+        "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "version": 8,
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "format": null,
+        "head": "7",
+        "root": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+        "certificate_time_ns": "1794092024952616401"
+      },
+      "board_without_identify": true,
+      "rail": {
+        "x": 258,
+        "y": 76,
+        "width": 56,
+        "height": 552
+      },
+      "identify": "local declaration; no signing",
+      "status": "Waiting for players.",
+      "fields": {
+        "#transfer-amount": {
+          "x": 25,
+          "y": 427.5,
+          "width": 212,
+          "height": 36
+        },
+        "#text-memo": {
+          "x": 25,
+          "y": 433.5,
+          "width": 212,
+          "height": 24
+        },
+        "#payment-address": {
+          "x": 25,
+          "y": 515.5,
+          "width": 212,
+          "height": 58.5
+        },
+        "#paying-account": {
+          "x": 25,
+          "y": 417,
+          "width": 211.328125,
+          "height": 57
+        },
+        "#payment-risk": {
+          "x": 25,
+          "y": 485,
+          "width": 212,
+          "height": 63
+        },
+        "[data-copy=\"amount\"]": {
+          "x": 25,
+          "y": 423.5,
+          "width": 212,
+          "height": 44
+        },
+        "[data-copy=\"recipient\"]": {
+          "x": 25,
+          "y": 424,
+          "width": 212,
+          "height": 44
+        },
+        "[data-copy=\"text\"]": {
+          "x": 25,
+          "y": 317.5,
+          "width": 212,
+          "height": 44
+        }
+      },
+      "payment_preparation": "PASS: exact authenticated quote, native copy bytes, denial and explicit replacement",
+      "copied": [
+        {
+          "text": "1.1",
+          "bytes": [
+            49,
+            46,
+            49
+          ]
+        },
+        {
+          "text": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+          "bytes": [
+            99,
+            53,
+            56,
+            52,
+            56,
+            55,
+            56,
+            54,
+            57,
+            100,
+            52,
+            54,
+            101,
+            102,
+            48,
+            52,
+            57,
+            52,
+            99,
+            55,
+            100,
+            55,
+            99,
+            48,
+            51,
+            49,
+            50,
+            98,
+            50,
+            55,
+            54,
+            48,
+            97,
+            98,
+            98,
+            55,
+            49,
+            54,
+            52,
+            101,
+            97,
+            102,
+            100,
+            50,
+            51,
+            102,
+            48,
+            48,
+            48,
+            57,
+            97,
+            52,
+            50,
+            98,
+            57,
+            53,
+            52,
+            53,
+            102,
+            53,
+            51,
+            98,
+            100,
+            101
+          ]
+        },
+        {
+          "text": "NEW 37.5 2",
+          "bytes": [
+            78,
+            69,
+            87,
+            32,
+            51,
+            55,
+            46,
+            53,
+            32,
+            50
+          ]
+        }
+      ],
+      "activity_keys": [
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai",
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai:receipts"
+      ],
+      "pause_status": "Animation paused on this device \u00b7 gameplay progressing very slowly.",
+      "continued_without_refresh": true,
+      "errors": [],
+      "query_only": true,
+      "final_diagnostics": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          7
+        ],
+        "resyncs": 0,
+        "certificates": 11,
+        "skipped": true,
+        "maxBufferSegments": 0,
+        "maxBufferLogical": 0,
+        "delivery": {
+          "failures": 0,
+          "recoveries": 0,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "ic",
+              "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "version": 8,
+              "identity": {
+                "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+              },
+              "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "format": null,
+              "head": "7",
+              "root": "3a854addb1d59804fc6ed0c8a00a4a97adc8c8eef37bd455b4360bcb138149d9",
+              "certificate_time_ns": "1794092024952616401"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 8116.2,
+          "frame_ms": 16.599999999999454,
+          "verified_ticks": 4,
+          "consumed_ticks": 4,
+          "admitted_ticks": 0,
+          "played_ticks": 0,
+          "buffer_ticks": 0,
+          "buffer_target_ticks": 1.08,
+          "buffer_bytes": 0,
+          "queue_segments": 0,
+          "certificate_time_ns": "1794092068583674227",
+          "certificate_age_ms": 1986.32576,
+          "catchup_segments": 0,
+          "catchup_ms": 0,
+          "phase": "IDLE",
+          "rate": 1,
+          "nominal_rate": 0.01,
+          "target_rate": 0.01,
+          "performance_limited": false,
+          "fetch_ms": 44.20000000298023,
+          "verify_ms": 61.599999997764826,
+          "artifact_ms": 0.5,
+          "derive_ms": 0,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 0,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 4,
+          "segment_ticks": 1
+        }
+      }
+    }
+  ]
+}

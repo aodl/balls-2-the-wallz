@@ -1,0 +1,399 @@
+{
+  "at": "2026-11-07T22:45:05.156Z",
+  "policy": {
+    "network": "ic",
+    "host": "https://icp-api.io",
+    "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai"
+  },
+  "certificate_verified": true,
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "configuration": {
+    "annihilation_distance": 64,
+    "annihilation_time_window": [
+      "1",
+      "16"
+    ],
+    "ball_base_e8s": "10000000",
+    "join_e8s": "100000000",
+    "max_balls": 64,
+    "max_cannons": 32,
+    "max_cells": 1024,
+    "max_per_cannon": 32,
+    "max_segment_ticks": 64,
+    "max_spawn_searches_per_segment": 8,
+    "max_width": 32,
+    "move_e8s": "10000",
+    "speed": 1024,
+    "version": 3
+  },
+  "publication": {
+    "artifacts": [
+      {
+        "chunks": [
+          "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae"
+        ],
+        "kind": "state",
+        "length": 481,
+        "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae"
+      },
+      {
+        "chunks": [],
+        "kind": "events",
+        "length": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "chunks": [],
+        "kind": "scores",
+        "length": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "chunk_bytes": 16384,
+    "head": {
+      "logical_end": "0",
+      "manifest_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "seal": null,
+      "segment_id": null,
+      "source_to_exclusive": "0",
+      "state_hash": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae"
+    },
+    "identity": {
+      "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+      "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "render_format": null,
+    "version": 6
+  },
+  "root": "55cd80c1e9c0eff48e262e662d0fb33283ca1d5f3c7476540b9e00ce2327463c",
+  "artifacts": {
+    "state": {
+      "balls": [],
+      "cannons": [],
+      "cells": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "credits": [],
+      "height": 8,
+      "next_ball_id": 1,
+      "next_cannon_id": 1,
+      "next_strike_id": 1,
+      "pending": [],
+      "received_e8s": "0",
+      "time": [
+        "0",
+        "1"
+      ],
+      "version": 3,
+      "width": 16
+    },
+    "events": null,
+    "scores": null
+  },
+  "status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "2",
+      "publication_ticks": "1",
+      "completed_segments": "0",
+      "running": false
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "0"
+    },
+    "health": {
+      "resets": "0",
+      "sample_end_ns": "0",
+      "observed_at_ns": "1794091503707400470",
+      "sample_start_total_cycles": "0",
+      "sample_count": 0,
+      "runtime_started_ns": "1794091464433566400",
+      "known_treasury_credit_delta": "0",
+      "net_decline_cycles": [],
+      "version": 1,
+      "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+      "reservation_gap_end": "0",
+      "certified_gameplay": false,
+      "sample_end_total_cycles": "0",
+      "total_cycles": "1481132920695",
+      "reservation_gap_start": "0",
+      "sample_start_ns": "0",
+      "liquid_cycles": "1425804749445",
+      "discontinuity": "upgrade/startup: measuring"
+    }
+  },
+  "runtime": {
+    "run": {
+      "last_error": [],
+      "callback_count": "0",
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "publication_ticks": "1",
+      "completed_segments": "0",
+      "running": false
+    },
+    "source": {
+      "last_error": [],
+      "receiving_subaccount": "0",
+      "index_calls": "1",
+      "binding_checked": true,
+      "reconciliation_requested": false,
+      "event_horizon": [],
+      "network": "ic",
+      "pending_records": 0,
+      "ledger": {
+        "__principal__": "ryjl3-tyaaa-aaaaa-aaaba-cai"
+      },
+      "index": {
+        "__principal__": "qhbym-qaaaa-aaaaa-aaafq-cai"
+      },
+      "recipient_account": {
+        "0": 197,
+        "1": 132,
+        "2": 135,
+        "3": 134,
+        "4": 157,
+        "5": 70,
+        "6": 239,
+        "7": 4,
+        "8": 148,
+        "9": 199,
+        "10": 215,
+        "11": 192,
+        "12": 49,
+        "13": 43,
+        "14": 39,
+        "15": 96,
+        "16": 171,
+        "17": 183,
+        "18": 22,
+        "19": 78,
+        "20": 175,
+        "21": 210,
+        "22": 63,
+        "23": 0,
+        "24": 9,
+        "25": 164,
+        "26": 43,
+        "27": 149,
+        "28": 69,
+        "29": 245,
+        "30": 59,
+        "31": 222
+      },
+      "admitted_to_exclusive": "0",
+      "scan_in_flight": false
+    },
+    "version": 7,
+    "revision": "0",
+    "publication_hash": "55cd80c1e9c0eff48e262e662d0fb33283ca1d5f3c7476540b9e00ce2327463c"
+  },
+  "retained": {
+    "max_segments": 16,
+    "max_bytes": 8388608,
+    "retained_bytes": 0,
+    "entries": []
+  },
+  "verified_predecessors": [
+    {
+      "root": "55cd80c1e9c0eff48e262e662d0fb33283ca1d5f3c7476540b9e00ce2327463c",
+      "publication": {
+        "artifacts": [
+          {
+            "chunks": [
+              "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae"
+            ],
+            "kind": "state",
+            "length": 481,
+            "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae"
+          },
+          {
+            "chunks": [],
+            "kind": "events",
+            "length": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "chunks": [],
+            "kind": "scores",
+            "length": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "chunk_bytes": 16384,
+        "head": {
+          "logical_end": "0",
+          "manifest_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "seal": null,
+          "segment_id": null,
+          "source_to_exclusive": "0",
+          "state_hash": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae"
+        },
+        "identity": {
+          "config_hash": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "rules_hash": "1647187ec03a468d957cbffd84b2928110cb4aada9e05b671ddf1b3e8e9ddee0",
+          "schema_hash": "c1e0a56ec208d69a9f0c08bae3ee1fe02ff0bd0f6ac11de5f86dcc3f02f49692",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "render_format": null,
+        "version": 6
+      }
+    }
+  ],
+  "metadata": []
+}

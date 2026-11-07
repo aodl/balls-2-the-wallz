@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "scope": "Empty-world actual European operating observation, after installation/activation/browser checks settled; net balance changes, not marginal polling cost or populated-world lifetime",
+  "elapsed_seconds": 642.453890571,
+  "start_at": "2026-11-07T22:55:44.819490+00:00",
+  "end_at": "2026-11-07T23:06:27.330883+00:00",
+  "balances": {
+    "backend-status": {
+      "start": 1478730019841,
+      "end": 1477881915574,
+      "net_decline": 848104267,
+      "net_cycles_per_hour": 4752364965.034922
+    },
+    "frontend-status": {
+      "start": 1491605755962,
+      "end": 1491594499392,
+      "net_decline": 11256570,
+      "net_cycles_per_hour": 63076358.62238051
+    }
+  },
+  "backend_liquid_start": 1423202874641,
+  "backend_liquid_end": 1422354770374,
+  "pace": {
+    "admission_open": true,
+    "mode": "Trickle",
+    "nominal_milli": 10,
+    "performance_limited": false,
+    "supported_milli": 10
+  },
+  "source_index_calls_delta": 10,
+  "source_cursor_start": "0",
+  "source_cursor_end": "0",
+  "game_publication_unchanged": true,
+  "completed_segments_delta": 0,
+  "treasury_maintenance_nonce_delta": 2,
+  "periodic_sample_end_advance_seconds": 600.318810159,
+  "known_treasury_cycle_credits": 0,
+  "known_discontinuities": [],
+  "platform_reservation_gap_start": 55529089200,
+  "platform_reservation_gap_end": 55529089200,
+  "reservation_policy": "SDK liquid observed directly; platform reservations not subtracted again. Callback totals include execution reserve and are not treated as settled debit. Both endpoint source scans settled and treasury Idle.",
+  "workload": "No game entities/payments; source fallback, treasury/health maintenance, storage/idle costs and three bounded operator snapshot groups (existing status/health/funding queries) included. Browsers closed before baseline."
+}

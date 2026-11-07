@@ -1,3 +1,24 @@
+# B2Z European game live — qualified and verified
+
+The new game is installed at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Published tree `7a74f1a206aa7c6272e2efc58691d496d95a1a4c` passes all six substantive
+jobs in hosted run 42418003762 (inventory separately informational). Preserved normal
+Wasm `612ad0d0…`, frontend JS `b452a8bd…` and complete 15-file manifest `2b1da4a7…`
+match actual installed/served bytes and CSP. All four authenticated fresh transitions
+complete: rules 7/schema 6, 1000×1000, epoch 4, new receiving account, clean financial
+history, healthy source/treasury, Trickle selected/admission open at .01 ticks/s.
+Controllers and certified 13-node European placement are preserved. Genuine desktop,
+390×844 and 320×640 browser checks pass; no signing/transfers/login or gameplay updates.
+A 642.45-second settled empty-world operating window spans two maintenance intervals:
+848,104,267 backend and 11,256,570 frontend net cycles, no credits/discontinuities,
+10 source scans and no unnecessary simulation segments. Ledger authority and recovery
+floors are unchanged; assistance remains off and fallback 60 seconds. No former-target,
+real ICP test payment, extra cycles transfer, controller change or migration operation.
+[Exact sources, hashes, balances, CI, proof bytes, screenshots and limitations](evidence/B2Z/europe-live/REPORT.md).
+Frontend implementation stops pending actual human usability feedback.
+
+---
+
 # European continuation — browser repair ready; qualification and publication blocked
 
 Corrected candidate source: `6d788f554bcfdcb542fa14082d6384a0ba75416d`.
