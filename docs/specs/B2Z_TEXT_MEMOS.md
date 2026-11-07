@@ -34,7 +34,7 @@ Pick Start a cannon, Add a ball or Move cannon; aim or select an owned cell; pre
 
 Use an ICRC-1 text/UTF-8 memo field in an existing wallet. Advanced hexadecimal entry encodes exactly the same text: `ANGLE 37.5` is `414e474c452033372e35`. Some wallets do not expose the required memo controls. There is no login, wallet connection, signing, allowance, account linking or transaction submission. Selected cannon is local inspection, not proof of ownership.
 
-ICRC owner remains `s34gv-3qaaa-aaaar-qcifa-cai`, with default subaccount omitted or 32 zero bytes. Wallets requiring an AccountIdentifier use the derived `344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a`. These representations are labelled separately and authenticated before actionable copying.
+ICRC owner remains `s5ir5-gqaaa-aaaas-amyna-cai`, with default subaccount omitted or 32 zero bytes. Wallets requiring an AccountIdentifier use the derived `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`. These representations are labelled separately and authenticated before actionable copying.
 
 Join remains 1 ICP; additional-ball base remains 0.1 ICP times active-ball-count squared; MOVE remains 0.0001 ICP. Exact integer formatting and certified configuration determine the card amount. Wallet fees are separate. Payments and excess are retained; refunds and automatic payouts remain unavailable.
 

@@ -1,45 +1,39 @@
-# Balls 2 the wallZ — B2Z
+# B2Z
 
-The [live game](https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/) runs authenticated
-**v6 on a 1000×1000 torus**, epoch index 3, on the existing 34-node fiduciary subnet.
-Backend `s34gv-3qaaa-aaaar-qcifa-cai` retains normal Wasm `b618e4f3…` and published
-DTR `282d7091…`. Current limits are 128 cannons, 64 global balls, 64 purchase-pool
-balls per island and 16 retained cannons per paying account. Event Horizon remains
-disabled; official ICP Index reconciliation uses its 60-second independent fallback.
+The current release targets a fresh European game on backend
+`s5ir5-gqaaa-aaaas-amyna-cai` and [frontend](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/)
+`s2jxj-liaaa-aaaas-amynq-cai`, on verified 13-node subnet
+`bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe`.
+Installation/publication status is recorded in [STATUS.md](STATUS.md); a target URL
+is not a claim that installation or current-rule activation has completed.
 
-The browser title is **Balls 2 the wallZ - B2Z**. The browser observes certified
-state and prepares external-wallet instructions; it has no login, wallet connection
-or transaction signing. Payments and unused remainders are retained, with no automatic
-refunds or payouts. Current state, quotes and receipt retention still require care.
+A fresh supported empty genesis reaches current rules 7/world schema 6 on the
+1000×1000 torus through all four authenticated transitions. No former game, score,
+payment, receipt or cursor is imported. The official ICP Ledger/Index remains the
+payment authority. Receiving default-account AccountIdentifier:
+`c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
+Always verify the current source/configuration and copy instructions from the UI.
 
-**New-player entry is currently blocked:** the verified arena is entirely owned,
-so no neutral 3×3 first-spawn patch exists. Do not send a join payment in this state.
-The new browser/agent preflight rejects this known-impossible quote. Changing the
-entry rule requires a separate product/release decision; never reset the paid world.
+The human interface retains the right rail, board controls, Identify, frozen
+external-wallet instructions and backend-scoped Activity. It has no login, signing
+or transaction sending. Payments and unused amounts are retained, with no automatic
+refunds or payouts. Receipt matching, human studies and actual-device limitations
+remain documented. Trickle targets one logical tick per 100 seconds; empty and
+dormant-only worlds retain efficient idle behaviour. Event Horizon assistance is
+disabled unless its actual ABI, subscription and health can be established; the
+safe independent fallback remains 60 seconds.
 
-Read-only strategic tools share the existing DTR observer, compact ownership state,
-exact game kernel and memo/quote implementation:
-
-```sh
-npm ci
-node tools/b2z_agent.mjs observe_game
-node tools/b2z_agent.mjs stdio --store .work/agents/mirror
-```
-
-See [agent commands and safety boundaries](docs/operations/B2Z_AGENTS.md),
-[public funding accounts](config/agents/players.public.json),
-[proposed campaign limits](config/agents/pilot.proposed.json),
-[current status](STATUS.md) and the
-[reviewed foundation results](evidence/B2Z/agent-foundations-2026-11-01/REPORT.md).
-The local restricted executor requires separate campaign approval; funding is not
-spending authorization. No real ICP has been spent by these agents. Production
-backend changes remain separately authorized. Remote Git operations remain user-owned.
+See the [current operator procedure](docs/operations/S14_OPERATOR.md),
+[application contract](docs/specs/B2Z_APPLICATION.md),
+[pacing policy](docs/specs/B2Z_ARENA_AND_PACE.md) and
+[treasury route/recovery](docs/operations/PRELAUNCH_SELF_FUNDING.md).
+Existing agent tools use the current deployment for read-only observation; no agent
+campaign or real-money execution is authorised by this release.
 
 ## Historical release notes — superseded deployment descriptions
 
 The notes below are preserved context. Their old world sizes, dependency pins,
-module hashes and deployment assertions describe earlier releases, not the current
-v6 baseline above. Immutable checkpoint/evidence artifacts remain unchanged.
+module hashes and deployment assertions describe earlier releases, not the European release above. Immutable checkpoint/evidence artifacts remain unchanged.
 
 
 **Local preparation only:** the [prelaunch self-funding worker](docs/operations/PRELAUNCH_SELF_FUNDING.md)

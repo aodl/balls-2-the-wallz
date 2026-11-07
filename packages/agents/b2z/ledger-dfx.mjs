@@ -4,6 +4,7 @@ import {execFile} from 'node:child_process';import {promisify} from 'node:util';
 import {Actor,HttpAgent} from '@icp-sdk/core/agent';import {IDL} from '@icp-sdk/core/candid';
 import {accountIdentifier,canonicalAccount} from '../../../apps/b2z-observer/identity.mjs';
 import {check} from './common.mjs';
+import {MAINNET} from './observer.mjs';
 const exec=promisify(execFile),nat=s=>BigInt(String(s).replaceAll('_',''));
 // Explicit trusted-launch acknowledgement is scoped to each dfx child, never inherited.
 export function playerCommandEnvironment(base,root,alias,network,acknowledged=false){
@@ -15,7 +16,7 @@ export function playerCommandEnvironment(base,root,alias,network,acknowledged=fa
 export class DfxGameLedger{
  constructor({policy,players,identityRoot,allowMainnet=false,acknowledgePlaintextMainnet=false}){
   check(policy.network==='ic'||policy.network==='pocketic-local','LEDGER_NETWORK');
-  if(policy.network==='ic')check(policy.recipient==='344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a'&&policy.ledger==='ryjl3-tyaaa-aaaaa-aaaba-cai'&&policy.index==='qhbym-qaaaa-aaaaa-aaafq-cai'&&policy.host==='https://icp-api.io','OFFICIAL_ICP_BINDING');
+  if(policy.network==='ic')check(policy.canister_id===MAINNET.canister_id&&policy.recipient===accountIdentifier(MAINNET.canister_id)&&policy.ledger==='ryjl3-tyaaa-aaaaa-aaaba-cai'&&policy.index==='qhbym-qaaaa-aaaaa-aaafq-cai'&&policy.host==='https://icp-api.io','OFFICIAL_ICP_BINDING');
   else check(['localhost','127.0.0.1'].includes(new URL(policy.host).hostname),'LOCAL_GATEWAY_REQUIRED');
   check(typeof identityRoot==='string'&&identityRoot.startsWith('/home/'),'PRIVATE_PLAYER_STORAGE_REQUIRED');this.policy=Object.freeze({...policy});this.players=new Map(players.map(p=>[p.alias,Object.freeze({...p})]));this.identityRoot=identityRoot;this.liveEnabled=allowMainnet;this.plaintextAcknowledged=allowMainnet&&acknowledgePlaintextMainnet;
  }

@@ -16,7 +16,7 @@ import {encodeV6Memo,parseV6TextMemo} from '../packages/protocol/memo-v6.mjs';
 const args=process.argv.slice(2),get=name=>{const i=args.indexOf(name);return i<0?null:args[i+1];};
 if(args.includes('--help')){console.log('node tools/inspect_b2z_player.mjs --account <64-hex AccountIdentifier> [--quantity 1..64] [--receipt <Ledger ID>] [--local-config <pinned disposable JSON>]');process.exit(0);}
 const account=canonicalAccount(get('--account')??''),quantity=Number(get('--quantity')??1);if(!Number.isInteger(quantity)||quantity<1||quantity>64)throw Error('quantity bounds');
-let policy={network:'ic',host:'https://icp-api.io',canister_id:'s34gv-3qaaa-aaaar-qcifa-cai',ledger:'ryjl3-tyaaa-aaaaa-aaaba-cai',index:'qhbym-qaaaa-aaaaa-aaafq-cai'};
+let policy={network:'ic',host:'https://icp-api.io',canister_id:'s5ir5-gqaaa-aaaas-amyna-cai',ledger:'ryjl3-tyaaa-aaaaa-aaaba-cai',index:'qhbym-qaaaa-aaaaa-aaafq-cai'};
 if(get('--local-config')){const p=JSON.parse(await readFile(get('--local-config'),'utf8'));if(p.network!=='pocketic-local'||!['127.0.0.1','localhost'].includes(new URL(p.host).hostname))throw Error('explicit disposable loopback configuration required');policy={...p,rootKey:unhex(p.root_key_hex)};}
 const {rootKey,network,host,canister_id}=policy,verify=certificateVerifier({network,...(rootKey?{rootKey}:{})}),base=await liveClient({network,host,canister_id,...(rootKey?{rootKey}:{})});
 // Reuse the actual browser's atomic delivery client on the explicitly pinned

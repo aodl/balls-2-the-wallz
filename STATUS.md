@@ -1,3 +1,21 @@
+# Fresh European release — implementation and final local checks in progress
+
+The authorised targets are backend `s5ir5-gqaaa-aaaas-amyna-cai` and frontend
+`s2jxj-liaaa-aaaas-amynq-cai`. Certified placement matches the expected European
+subnet and its 13-node membership. Both targets are empty with about 1.49994T
+total cycles before installation; no former deployment is touched. Current code
+retains human interface `3306728`, derives treasury beneficiary/source binding from
+self, adds conservative eight-band pacing including .01-tick/s Trickle and fixes
+paused fresh-genesis transition sealing through the existing bounded driver.
+Normal-Wasm fresh activation through all four authenticated epochs and subsequent
+valueless Ledger payment without a website/poke pass locally. Final artifacts,
+cost/headroom checks and evidence are being completed. Event Horizon assistance
+remains disabled; production fallback stays 60 seconds. Remote Git authentication
+is unavailable, so source publication/exact CI and installation remain pending.
+No mainnet install, transfer, controller change or former-canister operation.
+
+---
+
 # Final human-player corrections — clean frozen source; publication gate pending
 
 Source `33067280fa8cf42213fa3ecc109ea1fc398b6547` exposes the receiving account

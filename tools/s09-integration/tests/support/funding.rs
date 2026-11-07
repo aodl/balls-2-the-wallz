@@ -519,7 +519,7 @@ fn funding_low_liquid_cycles_defer_then_recover_without_browser() {
     assert!(s.last_error.unwrap().contains("insufficient liquid cycles"));
     assert_eq!(balance(&pic, ledger, id), 100_000_000);
     assert_eq!(stats(&pic).calls, 0);
-    pic.add_cycles(id, 1_000_000_000_000);
+    pic.add_cycles(id, 300_000_000_000);
     maintenance(&pic);
     assert_eq!(stats(&pic).credits, 1);
     assert_eq!(balance(&pic, ledger, id), 0);

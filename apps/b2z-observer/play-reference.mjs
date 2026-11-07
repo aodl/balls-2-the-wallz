@@ -20,6 +20,7 @@ export function operationalText(status){
   if(!status.run.running)return 'Gameplay paused by operator — do not make purchases. Source reconciliation continues.';
   if(status.run.pace?.mode==='ReserveProtection'&&status.run.pace.admission_open===false)return 'Reserve protection — pending payments are preserved and funding recovery remains active; wait before making purchases.';
   if(status.run.pace?.admission_open===false)return 'Gameplay admission closed — wait before making purchases.';
+  if(status.run.pace?.mode==='Trickle'&&!status.run.idle)return 'Gameplay progressing very slowly: one logical tick per 100 seconds. Verified payment receipts can arrive before delayed visual playback. Independent 60-second Index polling continues.';
   if(status.run.idle)return 'Arena idle — waiting for a payment. Independent 60-second Index polling continues.';
   return `Gameplay running; index cursor ${status.source.admitted_to_exclusive}; ${status.source.pending_records} history rows pending. Index lag and the 60-second fallback can delay discovery.`;
 }
@@ -70,6 +71,9 @@ export function catchupIndicator({
     operational.source?.binding_checked === true &&
     operational.run.pace?.mode === "ReserveProtection" &&
     operational.run.pace.admission_open === false;
+  if (statusKnown && operational.run.running && operational.source?.binding_checked && operational.run.pace?.mode === 'Trickle') {
+    return {visible:pending,spinner:false,kind:'trickle',title:'Gameplay progressing very slowly',description:'One logical tick per 100 seconds. Showing only authenticated time coverage; payment receipts are separate from delayed visual playback.'};
+  }
   return reserve
     ? {
         visible: true,

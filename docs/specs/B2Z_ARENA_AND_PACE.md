@@ -1,3 +1,44 @@
+# Current European wall-clock pacing policy
+
+This section supersedes the historical scheduling descriptions below. Logical
+physics, prices, scores and movement per logical tick are unchanged.
+
+| Mode | ticks/s | Enter at liquid T | Exit below liquid T |
+|---|---:|---:|---:|
+| Normal | 1 | 40 | 30 |
+| Cruise | .75 | 30 | 24 |
+| Economy | .5 | 20 | 16 |
+| Steady | .3 | 15 | 12 |
+| Conserve | .2 | 10 | 8 |
+| Survival | .1 | 5 | 4 |
+| Lifeline | .05 | 3 | 2 |
+| Trickle | .01 | 1.5 | 1 |
+| Reserve Protection | 0 | — | Below safe Trickle exit |
+
+Hysteresis retains an active band to its exit. Replenishment selects the fastest
+eligible entry immediately. Trickle's 1T exit requires a bounded default
+13-node Application-cost execution/transition/recovery probe; it is not a claim of
+maximum-world capacity or indefinite lifetime. SDK liquid balances already exclude
+freezing/resource/current-message/call reserves. The 0.15T source, 0.2T treasury
+and 0.5T transition application floors remain independent and are not extra copies
+of system reservations. Low funding never changes payment history or disables
+protection. Empty/dormant-only idle is preserved. Explicit authenticated transitions can
+finish their bounded drain/seal work under the independent transition floor while
+gameplay is stopped; this creates no payments, entities or credits.
+
+Slow modes publish one logical tick per segment. At .01 ticks/s the observer shows
+the latest authenticated snapshot promptly, waits for contiguous verified motion
+coverage, retains queue/byte and certificate limits and explains slow production.
+A receipt can be confirmed before delayed playback. Neither a pace hint nor an
+unavailable successor authorises invented motion. Operational errors remain
+separate from slow progress. Runtime-health sampling reuses five-minute treasury
+maintenance; source fallback is independently rearmed and remains 60 seconds while
+notification compatibility/subscription/health is unestablished.
+
+---
+
+# Historical pacing and live-world descriptions — superseded
+
 # B2Z arena, pacing and staged world transition
 
 ## Graduated pacing release candidate (2026-10-23)

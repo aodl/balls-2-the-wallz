@@ -9,9 +9,9 @@ import binascii
 import hashlib
 import json
 
-BACKEND = 's34gv-3qaaa-aaaar-qcifa-cai'
+BACKEND = 's5ir5-gqaaa-aaaas-amyna-cai'
 CMC = 'rkp4c-7iaaa-aaaaa-aaaca-cai'
-EXPECTED = 'fa4c0ec911194217d5d4f3ec27f7ac26a7f19e74fbeeba39d469e4f24071b8de'
+EXPECTED = '01db2df26557f23705b1733728e728d3f44d17e30ffd79ee9886a9642fe59109'
 
 
 def principal(text):

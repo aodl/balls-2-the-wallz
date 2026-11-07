@@ -4,7 +4,7 @@ import {PlayoutClock} from '@dtr/timeline-runtime/client/playout';
 import {LIVE_BUFFER_LIMITS,liveBufferPolicy,prepareIdlePlayout} from '../../apps/b2z-observer/model.mjs';
 import {prefetchRetained} from '../../apps/b2z-observer/transport.mjs';
 
-const modes=[['Normal',1000],['Cruise',750],['Economy',500],['Steady',300],['Conserve',200],['Survival',100],['Lifeline',50],['ReserveProtection',0]];
+const modes=[['Normal',1000],['Cruise',750],['Economy',500],['Steady',300],['Conserve',200],['Survival',100],['Lifeline',50],['Trickle',10],['ReserveProtection',0]];
 const status=(mode,milli)=>({run:{running:true,publication_ticks:1,pace:{mode,nominal_milli:milli,supported_milli:milli}}});
 
 for(const [mode,milli] of modes){

@@ -25,7 +25,7 @@ if(values['profile-output']){
   run:{segment_ticks:2,pacing_seconds:1,work_budget:512},retention:{publications:3,max_bytes:8388608},
   ball_price:'ball_base_e8s × active balls belonging to this cannon squared, evaluated when applied',
   payments:'Retained, including rejected commands and overpayments; no refunds. Wallet fees separate.',
-  cycles:'Operator funded separately; gameplay ICP is not converted into cycles.',automatic_payouts:false};
+  cycles:'Existing autonomous treasury converts qualifying retained ICP into this backend’s operating cycles; no manual test conversion or automatic payout.',automatic_payouts:false};
  await mkdir(dirname(values['profile-output']),{recursive:true});
  await writeFile(values['profile-output'],JSON.stringify(profile,(_key,value)=>typeof value==='bigint'?value.toString():value,2)+'\n');
 }

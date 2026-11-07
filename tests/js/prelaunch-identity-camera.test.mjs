@@ -6,3 +6,11 @@ test('official principal/default subaccount derives existing certified ICP accou
 test('colours follow account bytes across cannon IDs, order and rejoin',()=>{const a=accountIdentifier('s34gv-3qaaa-aaaar-qcifa-cai');const v=new B2zView({version:4,width:32,height:32,cells:Array(1024).fill(1),cannons:[{id:1,account:a,cell:0},{id:7,account:a,cell:1}],balls:[],pending:[]});assert.equal(v.color(1),v.color(7));const original=v.color(1);v.cannons.clear();v.cannons.set(99,{id:99,account:a,cell:800});assert.equal(v.color(99),original);assert.notEqual(accountColor(a),accountColor(accountIdentifier('aaaaa-aa')));});
 test('declarations persist only in scoped versioned preference storage, failure graceful',()=>{const m=new Map(),storage={getItem:k=>m.get(k),setItem:(k,v)=>m.set(k,v),removeItem:k=>m.delete(k)};const a=accountIdentifier('aaaaa-aa'),s=identityStore('ic','backend',storage);s.write({account:a,cannon:'3'});assert.equal(s.read().cannon,'3');assert.equal(identityStore('local','backend',storage).read(),null);s.forget();assert.equal(s.read(),null);const bad=identityStore('ic','b',undefined);assert.equal(bad.read(),null);assert.equal(bad.write({account:a}),false);bad.forget();});
 for(const [w,h] of [[1440,900],[390,844],[2048,1024]])test(`coverage minimum, resize and toroidal picking ${w}x${h}`,()=>{const c=new Camera();c.configure(1000,1000,w,h,true);assert.ok(c.scale*1000>=w&&c.scale*1000>=h);c.zoom(.001);assert.equal(c.scale,Math.max(w,h)/1000);c.centre(999.9,999.9);const pos=c.screen(1000.1,1000.1);assert.equal(c.cell(pos.x,pos.y),0);c.zoom(3);const centre=[c.x,c.y],scale=c.scale;c.configure(1000,1000,w+500,h+500,true);assert.deepEqual([c.x,c.y],centre);assert.equal(c.scale,Math.max(scale,(w+500)/1000,(h+500)/1000));});
+
+test('European backend default account is newly derived and separate from historical intents',()=>{
+ const owner='s5ir5-gqaaa-aaaas-amyna-cai',account=accountIdentifier(owner);
+ assert.equal(account,'c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde');
+ assert.equal(canonicalAccount(account),account);
+ assert.notEqual(account,accountIdentifier('s34gv-3qaaa-aaaar-qcifa-cai'));
+ assert.notEqual(account,accountIdentifier(owner,'00'.repeat(31)+'01'));
+});

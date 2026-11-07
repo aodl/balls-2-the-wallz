@@ -7,7 +7,7 @@ class CmcRouteTests(unittest.TestCase):
         result = route()
         self.assertEqual(result['cmc_account_identifier'], EXPECTED)
         self.assertEqual(result['subaccount_hex'],
-                         '0a000000000230120a0101000000000000000000000000000000000000000000')
+                         '0a000000000240661a0101000000000000000000000000000000000000000000')
         self.assertEqual(result['top_up_memo'], 1347768404)
         self.assertNotEqual(result['cmc_account_identifier'],
-                            '344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a')
+                            'c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde')

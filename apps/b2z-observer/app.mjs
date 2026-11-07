@@ -271,7 +271,7 @@ function updatePlayReference(s,world,events){
     tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
   }));
   arcade.receipts([...s.receipts.values()]);
-  const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.05,nominalPace(s.operational));
+  const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.01,nominalPace(s.operational));
   $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${outcome(own)}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
   $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
 }

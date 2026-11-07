@@ -2,10 +2,10 @@
   "schema": "b2z-campaign/1",
   "id": "b2z-pilot-001",
   "network": "ic",
-  "backend": "s34gv-3qaaa-aaaar-qcifa-cai",
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
   "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
   "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
-  "recipient": "344885ef3e3823194dbc0367cd02c4cbe69f7dca0ba764f15f2a86e70dbeca7a",
+  "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
   "identity": {
     "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
     "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",

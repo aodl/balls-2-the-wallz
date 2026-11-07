@@ -89,7 +89,7 @@ test('terminal idle playback drains a short verified segment and resumes ordinar
 });
 test('shared graduated pace uses supported rate without misreporting its cycle target',async()=>{
  const {nominalPace,approachPace}=await import('../../apps/b2z-observer/model.mjs');
- for(const [mode,milli]of[['Normal',1000],['Cruise',750],['Economy',500],['Steady',300],['Conserve',200],['Survival',100],['Lifeline',50],['ReserveProtection',0]])assert.equal(nominalPace({run:{pace:{mode,nominal_milli:milli,supported_milli:milli}}}),milli/1000);
+ for(const [mode,milli]of[['Normal',1000],['Cruise',750],['Economy',500],['Steady',300],['Conserve',200],['Survival',100],['Lifeline',50],['Trickle',10],['ReserveProtection',0]])assert.equal(nominalPace({run:{pace:{mode,nominal_milli:milli,supported_milli:milli}}}),milli/1000);
  assert.equal(nominalPace({run:{pace:{mode:'Normal',nominal_milli:1000,supported_milli:400,performance_limited:true}}}),.4);
  assert.equal(nominalPace({run:{pace:{mode:'Normal',nominal_milli:1e6}}}),.25);
  let rate=1;for(let n=0;n<200;n++){const next=approachPace(rate,.2,.016);assert.ok(rate-next<=.004001);rate=next;}assert.ok(rate<.21);
@@ -98,7 +98,7 @@ test('shared graduated pace uses supported rate without misreporting its cycle t
 test('every neighbouring active pace transition keeps verified playback continuous',async()=>{
  const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
  const {approachPace,liveBufferPolicy}=await import('../../apps/b2z-observer/model.mjs');
- const rates=[1,.75,.5,.3,.2,.1,.05],names=['Normal','Cruise','Economy','Steady','Conserve','Survival','Lifeline'];
+ const rates=[1,.75,.5,.3,.2,.1,.05,.01],names=['Normal','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Trickle'];
  for(let pair=0;pair<rates.length-1;pair++)for(const reverse of [false,true]){
   const from=reverse?pair+1:pair,to=reverse?pair:pair+1;
   let status={run:{publication_ticks:rates[from]<=.1?1:2,pace:{mode:names[from],nominal_milli:rates[from]*1000,supported_milli:rates[from]*1000}}};
@@ -128,6 +128,31 @@ test('Lifeline starts within two publications and interpolates only verified mot
  for(let second=0;second<20;second++){const state=clock.sample(.05);assert(state.playhead>prior);assert(state.playhead<=state.available);prior=state.playhead;}
  const stopped=clock.playhead;for(let second=0;second<40;second++)clock.sample(0);
  assert.equal(clock.playhead,stopped,'a disconnected viewer invents no future motion');
+});
+
+test('Trickle cold board, successive coverage, reconnect and funding changes never extrapolate',async()=>{
+ const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
+ const {liveBufferPolicy,nominalPace}=await import('../../apps/b2z-observer/model.mjs');
+ const status={run:{publication_ticks:1,pace:{mode:'Trickle',nominal_milli:10,supported_milli:10}}};
+ assert.equal(nominalPace(status),.01);
+ assert.equal(new B2zView(snapshot(a.state)).cannons.size,snapshot(a.state).cannons.length,'cold authenticated snapshot is immediately renderable');
+ const policy=liveBufferPolicy(status);assert.deepEqual(policy,{target:1.08,low:.01});
+ const clock=new PlayoutClock({start:0,...policy,max_frame_delta:1});clock.append(0,1);
+ assert.equal(clock.sample(.01).phase,'BUFFERING');assert.equal(clock.playhead,0);
+ clock.append(1,2);
+ for(let n=0;n<500;n++){
+  if(n===100)clock.append(2,3);
+  if(n===200)clock.append(3,4);
+  clock.sample(.01);assert.ok(clock.playhead<=clock.available);
+ }
+ const stopped=clock.playhead;for(let n=0;n<100;n++)clock.sample(0);
+ assert.equal(clock.playhead,stopped,'network reconnect cannot invent an unavailable successor');
+ const resumed=new PlayoutClock({start:clock.available,...policy,max_frame_delta:1});
+ resumed.append(clock.available,clock.available+2);
+ for(const [mode,milli]of[['Trickle',10],['Normal',1000],['Lifeline',50],['ReserveProtection',0],['Trickle',10]]){
+  status.run.pace={mode,nominal_milli:milli,supported_milli:milli};Object.assign(resumed,liveBufferPolicy(status));
+  for(let n=0;n<10;n++){resumed.sample(nominalPace(status));assert.ok(resumed.playhead<=resumed.available);}
+ }
 });
 
 test('operator resume rebuilds the startup buffer without losing verified time or queued segments',async()=>{

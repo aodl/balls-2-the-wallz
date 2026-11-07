@@ -1,3 +1,31 @@
+# Current European self-funding context
+
+The treasury derives its beneficiary from `canister_self()`, validates the local
+immutable official Ledger/Index source configuration and its certified source ID,
+requires receiving subaccount zero and the exact derived default AccountIdentifier.
+Every durable plan is checked against that owner, official CMC, destination and
+memo before execution or recovery. No caller may redirect it. Amount, fee, memo,
+destination and creation time remain the original transfer identity on retries.
+
+For backend `s5ir5-gqaaa-aaaas-amyna-cai`, the player receiving AccountIdentifier is
+`c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
+The distinct CMC route is owner `rkp4c-7iaaa-aaaaa-aaaca-cai`, subaccount
+`0a000000000240661a0101000000000000000000000000000000000000000000`,
+AccountIdentifier `01db2df26557f23705b1733728e728d3f44d17e30ffd79ee9886a9642fe59109`,
+memo `1347768404`. `tools/verify_cmc_route.py` checks it independently.
+This is treasury documentation, never a player payment destination or permission
+to initiate a manual conversion. The existing five-minute autonomous policy,
+duplicate-safe recovery, floors, dust threshold and funding-pause independence
+remain. No new funding allocation policy is introduced.
+
+See [current operator instructions](S14_OPERATOR.md) for executed deployment status.
+The historical conversion and route below belong to the former backend and must
+never be copied into this release's plans or payment instructions.
+
+---
+
+# Historical treasury activation and preparation — former deployment
+
 # Current prelaunch treasury — active on the existing backend
 
 **2026-10-23:** the user explicitly authorized the reviewed automatic CMC route,

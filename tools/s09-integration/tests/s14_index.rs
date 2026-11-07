@@ -20,6 +20,8 @@ use std::{
 mod source;
 #[path = "support/agent_playtesting.rs"]
 mod agent_playtesting;
+#[path = "support/europe.rs"]
+mod europe;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
 #[path = "support/playability_browser.rs"]
@@ -3633,10 +3635,11 @@ fn arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments()
         ("Cruise", 27_000_000_000_000u64, 0.75),
         ("Economy", 17_000_000_000_000u64, 0.5),
         ("Steady", 14_000_000_000_000u64, 0.3),
-        ("Conserve", 6_000_000_000_000u64, 0.2),
-        ("Survival", 3_700_000_000_000u64, 0.1),
-        // Falling from a faster band retains Survival at or above its 3T exit.
+        ("Conserve", 11_000_000_000_000u64, 0.2),
+        ("Survival", 4_500_000_000_000u64, 0.1),
+        // Falling from a faster band retains Survival at or above its 4T exit.
         ("Lifeline", 2_800_000_000_000u64, 0.05),
+        ("Trickle", 1_400_000_000_000u64, 0.01),
     ] {
         let (pic, id, _, _) =
             arena_setup_world(bytes("B2Z_S14_TEST_WASM"), pace_world().encode().unwrap());

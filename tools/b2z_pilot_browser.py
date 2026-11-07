@@ -13,7 +13,7 @@ nav=[];errors=[];current=None;seen={};started=time.monotonic();ignored=json.load
 with sync_playwright()as p:
  b=p.chromium.launch(headless=True,chromium_sandbox=True);c=b.new_context(viewport={'width':1440,'height':900});page=c.new_page();page.on('framenavigated',lambda f:nav.append(f.url)if f==page.main_frame else None);page.on('pageerror',lambda e:errors.append(str(e)))
  try:
-  page.goto('https://s45ab-wiaaa-aaaar-qcifq-cai.icp0.io/',timeout=60000);wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),60000);save('connected.json',{'at_ms':time.time()*1000,'head':page.evaluate('__dtrLive.heads.at(-1)')})
+  page.goto('https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/',timeout=60000);wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),60000);save('connected.json',{'at_ms':time.time()*1000,'head':page.evaluate('__dtrLive.heads.at(-1)')})
   while time.monotonic()-started<8*3600+600 and not (out.parent/'browser-stop').exists():
    request=out/'request.json'
    if request.exists():

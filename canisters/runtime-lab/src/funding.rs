@@ -13,7 +13,6 @@ use std::{
 };
 
 pub const CMC: &str = "rkp4c-7iaaa-aaaaa-aaaca-cai";
-pub const BENEFICIARY: &str = "s34gv-3qaaa-aaaar-qcifa-cai";
 pub const TOP_UP_MEMO: u64 = 1_347_768_404;
 pub const INTERVAL: u64 = 300;
 const CALL_FLOOR: u128 = 200_000_000_000;
@@ -144,17 +143,50 @@ fn context() -> Result<(Principal, Principal, bool), String> {
     let r = super::root()?;
     let owner = ic_cdk::api::canister_self();
     let local = r.source.network == "pocketic-local";
-    if r.source.receiving_subaccount != 0
-        || (!local
-            && (owner.to_text() != BENEFICIARY || r.source.ledger != super::source::LEDGER_ID))
-    {
-        return Err("funding requires the reviewed backend default account".into());
+    validate_source(&r.source, owner)?;
+    let publication: dtr_host::observation::Publication =
+        dtr_wire::decode(&dtr_wire::unhex(&r.publication_hex)?)?;
+    let identity = super::source::identity_bytes(
+        &r.source.network,
+        Principal::from_text(&r.source.ledger).map_err(|e| e.to_string())?,
+        Principal::from_text(&r.source.index).map_err(|e| e.to_string())?,
+        owner,
+        r.source.receiving_subaccount,
+        &r.source.recipient_hex,
+    )?;
+    if dtr_wire::hash(&identity) != publication.identity.source_id {
+        return Err("funding source identity mismatch".into());
     }
     Ok((
         Principal::from_text(&r.source.ledger).map_err(|e| e.to_string())?,
         owner,
         local,
     ))
+}
+fn validate_source(source: &super::SourceState, owner: Principal) -> Result<(), String> {
+    source.validate()?;
+    if source.receiving_subaccount != 0
+        || source.recipient_hex != super::source::receiving_account(owner, 0).to_hex()
+        || (source.network == "ic"
+            && (source.ledger != super::source::LEDGER_ID
+                || source.index != super::source::INDEX_ID))
+    {
+        return Err("funding requires this backend's bound default ICP account".into());
+    }
+    Ok(())
+}
+fn validate_plan(p: &Plan, ledger: Principal, owner: Principal) -> Result<(), String> {
+    if p.ledger != ledger.to_text()
+        || p.beneficiary != owner.to_text()
+        || p.cmc != CMC
+        || p.to != destination(owner).as_bytes()
+        || p.memo != TOP_UP_MEMO
+        || p.amount_e8s == 0
+    {
+        Err("funding identity mismatch".into())
+    } else {
+        Ok(())
+    }
 }
 fn validate(s: &State) -> Result<(), String> {
     if s.version != 1
@@ -165,17 +197,7 @@ fn validate(s: &State) -> Result<(), String> {
     }
     let check = |p: &Plan| -> Result<(), String> {
         let (ledger, owner, _) = context()?;
-        if p.ledger != ledger.to_text()
-            || p.beneficiary != owner.to_text()
-            || p.cmc != CMC
-            || p.to != destination(owner).as_bytes()
-            || p.memo != TOP_UP_MEMO
-            || p.amount_e8s == 0
-        {
-            Err("funding identity mismatch".into())
-        } else {
-            Ok(())
-        }
+        validate_plan(p, ledger, owner)
     };
     match &s.phase {
         Phase::Idle => {}
@@ -244,6 +266,8 @@ pub fn pause(paused: bool) -> Result<State, String> {
 fn install_timer() {
     ic_cdk_timers::set_timer(Duration::from_secs(INTERVAL), async {
         install_timer();
+        // Reuse existing maintenance, even when idle or assistance slows source polling.
+        super::sample_health();
         tick().await;
     });
 }
@@ -576,6 +600,63 @@ fn apply_transfer_error(s: &mut State, e: TransferError, was_uncertain: bool) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    const HISTORICAL_VECTOR: &str = "s34gv-3qaaa-aaaar-qcifa-cai";
+    #[test]
+    fn self_source_and_durable_plan_cannot_redirect() {
+        let owner = Principal::from_text("s5ir5-gqaaa-aaaas-amyna-cai").unwrap();
+        let other = Principal::from_text(HISTORICAL_VECTOR).unwrap();
+        let ledger = Principal::from_text(super::super::source::LEDGER_ID).unwrap();
+        let (source, _) = super::super::source::SourceState::configured(
+            super::super::source::IndexConfig {
+                network: "ic".into(),
+                ledger,
+                index: Principal::from_text(super::super::source::INDEX_ID).unwrap(),
+                receiving_subaccount: 0,
+                event_horizon: None,
+                starting_policy: super::super::source::StartingPolicy::FromBeginning,
+            },
+            owner,
+        )
+        .unwrap();
+        assert!(validate_source(&source, owner).is_ok());
+        assert!(validate_source(&source, other).is_err());
+        for field in ["recipient", "ledger", "index", "subaccount"] {
+            let mut bad = source.clone();
+            match field {
+                "recipient" => {
+                    bad.recipient_hex = super::super::source::receiving_account(other, 0).to_hex()
+                }
+                "ledger" => bad.ledger = other.to_text(),
+                "index" => bad.index = other.to_text(),
+                _ => bad.receiving_subaccount = 1,
+            }
+            assert!(validate_source(&bad, owner).is_err(), "{field}");
+        }
+        let plan = Plan {
+            ledger: ledger.to_text(),
+            beneficiary: owner.to_text(),
+            cmc: CMC.into(),
+            to: destination(owner).as_bytes().to_vec(),
+            amount_e8s: 1_000_000,
+            fee_e8s: 10_000,
+            memo: TOP_UP_MEMO,
+            created_at_time_ns: 123,
+        };
+        assert!(validate_plan(&plan, ledger, owner).is_ok());
+        assert!(validate_plan(&plan, ledger, other).is_err());
+        for field in ["beneficiary", "destination", "cmc", "ledger", "memo"] {
+            let mut bad = plan.clone();
+            match field {
+                "beneficiary" => bad.beneficiary = other.to_text(),
+                "destination" => bad.to = destination(other).as_bytes().to_vec(),
+                "cmc" => bad.cmc = other.to_text(),
+                "ledger" => bad.ledger = other.to_text(),
+                _ => bad.memo += 1,
+            }
+            assert!(validate_plan(&bad, ledger, owner).is_err(), "{field}");
+        }
+        assert_eq!(plan.args().created_at_time.unwrap().timestamp_nanos, 123);
+    }
     #[test]
     fn threshold_and_dust() {
         assert_eq!(worthwhile(1_010_000, 10_000), Some(1_000_000));
@@ -586,7 +667,7 @@ mod tests {
     }
     #[test]
     fn principal_subaccount_is_not_default() {
-        let p = Principal::from_text(BENEFICIARY).unwrap();
+        let p = Principal::from_text(HISTORICAL_VECTOR).unwrap();
         let s = cmc_subaccount(p);
         assert_ne!(s.0, [0; 32]);
         assert_eq!(s.0[0] as usize, p.as_slice().len());
@@ -605,9 +686,9 @@ mod tests {
             phase: Phase::TransferPending {
                 plan: Plan {
                     ledger: super::super::source::LEDGER_ID.into(),
-                    beneficiary: BENEFICIARY.into(),
+                    beneficiary: HISTORICAL_VECTOR.into(),
                     cmc: CMC.into(),
-                    to: destination(Principal::from_text(BENEFICIARY).unwrap())
+                    to: destination(Principal::from_text(HISTORICAL_VECTOR).unwrap())
                         .as_bytes()
                         .to_vec(),
                     amount_e8s: 99_990_000,

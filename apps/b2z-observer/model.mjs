@@ -230,7 +230,7 @@ export function prepareIdlePlayout(session,idle){
 /** Shared operational speed is presentation input only; the verified clock remains the ceiling. */
 export function nominalPace(status){
  const p=status?.run.pace;if(!p)return .5;
- const modes=['Normal','Cruise','Economy','Steady','Conserve','Survival','Lifeline','ReserveProtection','Legacy'];
+ const modes=['Normal','Cruise','Economy','Steady','Conserve','Survival','Lifeline','Trickle','ReserveProtection','Legacy'];
  const milli=p.supported_milli??p.nominal_milli;
  if(!modes.includes(p.mode)||!Number.isInteger(p.nominal_milli)||p.nominal_milli<0||p.nominal_milli>1000||!Number.isInteger(milli)||milli<0||milli>p.nominal_milli)return .25;
  return milli/1000;
@@ -239,7 +239,7 @@ export function approachPace(current,target,seconds){return current+Math.max(-.2
 
 /** One publication plus sixteen wall seconds of delivery jitter at faster rates,
  * eight at slow rates, expressed in ticks.
- * Slow modes publish one-tick segments, bounding Lifeline cold start to two
+ * Slow modes publish one-tick segments, bounding slow-mode cold start to two
  * authenticated publications instead of several minutes of accumulated play. */
 export const LIVE_BUFFER_LIMITS=Object.freeze({segments:24,bytes:8*1024*1024});
 export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=Infinity){
@@ -251,7 +251,7 @@ export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=I
  // maximum-size segment can start by itself rather than wait for a second.
  const usable=Math.max(1,slots-Math.max(1,Math.ceil(slots/4)));
  const target=Math.min(ticks+(pace>=.5?16:8)*pace,usable*ticks,bufferAtCapacity>0?bufferAtCapacity:Infinity);
- return {target,low:Math.min(target/2,Math.max(.05,pace))};
+ return {target,low:Math.min(target/2,Math.max(.01,pace))};
 }
 
 

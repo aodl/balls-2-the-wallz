@@ -70,7 +70,7 @@ impl Meter {
             || self
                 .samples
                 .front()
-                .is_some_and(|s| at.saturating_sub(s.at) > 300_000_000_000)
+                .is_some_and(|s| at.saturating_sub(s.at) > 600_000_000_000)
         {
             self.samples.pop_front();
         }

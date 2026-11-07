@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {cannonReference,operationalText,idleArena} from '../../apps/b2z-observer/play-reference.mjs';
+import {cannonReference,operationalText,idleArena,catchupIndicator} from '../../apps/b2z-observer/play-reference.mjs';
 import {TEST_CONFIG} from '../../packages/kernels/b2z/world.mjs';
 import {ballPrice} from '../../packages/kernels/b2z/kernel.mjs';
 test('public price reference agrees with kernel occupancy pricing and capacity',()=>{
@@ -70,4 +70,13 @@ test('diagnostics report an operator stop before a closed funding admission gate
  assert.match(operationalText(s),/Gameplay paused/);assert.doesNotMatch(operationalText(s),/Reserve protection/);
  s.run.last_error=['runtime failure'];assert.match(operationalText(s),/Service error.*runtime failure/);
  s.run.last_error=[];s.run.running=true;assert.match(operationalText(s),/Reserve protection/);s.run.pace.mode='Normal';assert.match(operationalText(s),/admission closed/);assert.doesNotMatch(operationalText(s),/Reserve protection/);
+});
+
+test('Trickle is slow production rather than a network error or spinner',()=>{
+ const s={run:{running:true,idle:false,last_error:[],pace:{mode:'Trickle',nominal_milli:10,admission_open:true}},source:{binding_checked:true,last_error:[],pending_records:0,admitted_to_exclusive:0}};
+ assert.match(operationalText(s),/one logical tick per 100 seconds/);
+ assert.match(operationalText(s),/receipts.*before delayed visual/);
+ const view=catchupIndicator({phase:'BUFFERING',verified:true,operationalFresh:true,operational:s});
+ assert.equal(view.kind,'trickle');assert.equal(view.spinner,false);
+ assert.notEqual(catchupIndicator({phase:'ERROR',verified:true,operationalFresh:true,operational:s}).kind,'trickle');
 });

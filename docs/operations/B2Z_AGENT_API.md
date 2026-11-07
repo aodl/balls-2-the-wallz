@@ -1,8 +1,8 @@
 # B2Z v6 public player API
 
 These additive public query interfaces are deployed on the v6 backend
-`s34gv-3qaaa-aaaar-qcifa-cai`; the observer remains
-`s45ab-wiaaa-aaaar-qcifq-cai`. Authenticate current state before using any
+`s5ir5-gqaaa-aaaas-amyna-cai`; the observer remains
+`s2jxj-liaaa-aaaas-amynq-cai`. Authenticate current state before using any
 quotation. This guide authorises no transaction.
 
 The generated `canisters/runtime-lab/runtime-lab.did` is the actual service

@@ -68,10 +68,12 @@ thread_local! {
     static RETAINED:RefCell<StableBTreeMap<u64,Vec<u8>,Memory>>=RefCell::new(StableBTreeMap::init(memory(2)));
     static RUN_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
     static POKE_POLICY:RefCell<Option<(Principal,u64)>>=const { RefCell::new(None) };
+    static SOURCE_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
     static WAKE_TIMER:RefCell<Option<ic_cdk_timers::TimerId>>=const { RefCell::new(None) };
 }
 #[cfg(feature = "test-hooks")]
 thread_local! {
+    static TEST_SOURCE_INTERVAL:Cell<u64>=const { Cell::new(source::FALLBACK_SECONDS) };
     static TRAP_NEXT_INDEX_REPLY:std::cell::Cell<bool>=const { std::cell::Cell::new(false) };
 }
 /// Authorized fault injection only; absent from normal Wasm/Candid. The flag is
@@ -895,11 +897,34 @@ fn save_root_only(r: &Root) -> AppResult<()> {
     Ok(())
 }
 fn install_source_timer() {
-    ic_cdk_timers::set_timer(Duration::from_secs(source::FALLBACK_SECONDS), async {
-        sample_health();
+    #[cfg(feature = "test-hooks")]
+    let seconds = TEST_SOURCE_INTERVAL.with(Cell::get);
+    #[cfg(not(feature = "test-hooks"))]
+    let seconds = source::FALLBACK_SECONDS;
+    if seconds == 0 {
+        return;
+    }
+    let timer = ic_cdk_timers::set_timer(Duration::from_secs(seconds), async {
+        SOURCE_TIMER.with(|slot| slot.borrow_mut().take());
         install_source_timer(); // independent of any await or poke retry chain
         let _ = request_reconciliation();
     });
+    SOURCE_TIMER.with(|slot| *slot.borrow_mut() = Some(timer));
+}
+/// Measurement-only interval control; never exported by normal Wasm.
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::update]
+fn test_source_interval(seconds: u64) -> std::result::Result<(), String> {
+    authorized()?;
+    if root()?.source.network != "pocketic-local" || ![0, 60, 600, 3600].contains(&seconds) {
+        return Err("disposable source interval".into());
+    }
+    if let Some(timer) = SOURCE_TIMER.with(|slot| slot.borrow_mut().take()) {
+        ic_cdk_timers::clear_timer(timer);
+    }
+    TEST_SOURCE_INTERVAL.with(|value| value.set(seconds));
+    install_source_timer();
+    Ok(())
 }
 fn cache_poke_policy(source: &SourceState) {
     POKE_POLICY.with(|p| {
@@ -964,14 +989,13 @@ fn refresh_pace() {
             .refresh(ic_cdk::api::canister_liquid_cycle_balance())
     });
 }
+fn transition_maintenance(r: &Root) -> bool {
+    active_transition(r).is_ok_and(|t| t.is_some())
+        && ic_cdk::api::canister_liquid_cycle_balance() >= transition::MIN_LIQUID_CYCLES
+}
 fn maintenance_requested(r: &Root) -> bool {
     r.run.last_error.is_none()
-        && (r
-            .playability_transition
-            .as_ref()
-            .is_some_and(|t| t.holding())
-            || r.entry_transition.as_ref().is_some_and(|t| t.holding())
-            || r.lifecycle_barrier.is_some())
+        && (active_transition(r).is_ok_and(|t| t.is_some()) || r.lifecycle_barrier.is_some())
 }
 fn driver_needs_work(h: &Coordinator<B2zHostKernel>, r: &Root) -> AppResult<bool> {
     if !r.run.running && r.lifecycle_barrier.is_some() && active_transition(r)?.is_none() {
@@ -985,7 +1009,8 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         return Ok(());
     }
     refresh_pace();
-    if !PACE.with(|p| p.borrow().hint().admission_open) {
+    let transition_work = transition_maintenance(&r);
+    if !PACE.with(|p| p.borrow().hint().admission_open) && !transition_work {
         return Ok(());
     }
     let now = ic_cdk::api::time();
@@ -999,7 +1024,8 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     let publication_ticks = PACE.with(|p| p.borrow().publication_ticks(run.segment_ticks));
     let mut actions = 0u32;
     let mut work = 0u64;
-    if h.record.journal.stage.is_none()
+    if !transition_work
+        && h.record.journal.stage.is_none()
         && PACE.with(|p| p.borrow_mut().wait(now, publication_ticks)) > 0
     {
         return Ok(());
@@ -1106,7 +1132,10 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     }
     Ok(())
 }
-fn run_delay(run: &RunState) -> Duration {
+fn run_delay(run: &RunState, transition_work: bool) -> Duration {
+    if transition_work {
+        return Duration::from_millis(1);
+    }
     if !PACE.with(|p| p.borrow().hint().admission_open) {
         return Duration::from_secs(60);
     }
@@ -1136,7 +1165,10 @@ fn arm_run_timer(generation: u64, delay: Duration) {
         if let Ok(next) = root() {
             clear_run_timer();
             if (next.run.running || maintenance_requested(&next)) && !ARENA_IDLE.with(Cell::get) {
-                arm_run_timer(generation, run_delay(&next.run));
+                arm_run_timer(
+                    generation,
+                    run_delay(&next.run, transition_maintenance(&next)),
+                );
             }
         }
     });
@@ -1150,10 +1182,13 @@ fn ensure_run_timer(run: &RunState) {
 fn install_run_timer(run: &RunState) {
     clear_run_timer();
     refresh_pace();
-    if (run.running || root().is_ok_and(|r| maintenance_requested(&r)))
-        && !ARENA_IDLE.with(Cell::get)
+    let r = root().ok();
+    if (run.running || r.as_ref().is_some_and(maintenance_requested)) && !ARENA_IDLE.with(Cell::get)
     {
-        arm_run_timer(run.generation, run_delay(run));
+        arm_run_timer(
+            run.generation,
+            run_delay(run, r.as_ref().is_some_and(transition_maintenance)),
+        );
     }
 }
 #[derive(CandidType, Deserialize)]

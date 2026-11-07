@@ -5,12 +5,14 @@ use serde::Deserialize;
 // Liquid API already accounts for freezing/resource and current message/call reserves.
 // Extra headroom below is application policy, not another subtraction of those reserves.
 pub const INDEX_FLOOR: u128 = 150_000_000_000;
-pub const LIFELINE_EXIT: u128 = 2_500_000_000_000;
+pub const TRICKLE_EXIT: u128 = 1_000_000_000_000;
+pub const TRICKLE_ENTER: u128 = 1_500_000_000_000;
+pub const LIFELINE_EXIT: u128 = 2_000_000_000_000;
 pub const LIFELINE_ENTER: u128 = 3_000_000_000_000;
-pub const SURVIVAL_EXIT: u128 = 3_000_000_000_000;
-pub const SURVIVAL_ENTER: u128 = 3_500_000_000_000;
-pub const CONSERVE_EXIT: u128 = 4_000_000_000_000;
-pub const CONSERVE_ENTER: u128 = 5_000_000_000_000;
+pub const SURVIVAL_EXIT: u128 = 4_000_000_000_000;
+pub const SURVIVAL_ENTER: u128 = 5_000_000_000_000;
+pub const CONSERVE_EXIT: u128 = 8_000_000_000_000;
+pub const CONSERVE_ENTER: u128 = 10_000_000_000_000;
 pub const STEADY_EXIT: u128 = 12_000_000_000_000;
 pub const STEADY_ENTER: u128 = 15_000_000_000_000;
 pub const ECONOMY_EXIT: u128 = 16_000_000_000_000;
@@ -23,7 +25,7 @@ pub const MAX_ACTIONS: usize = 8;
 pub const MAX_WORK: u64 = 2048;
 pub const INSTRUCTION_YIELD: u64 = 600_000_000;
 
-const MIN_PERFORMANCE_MILLI: u32 = 50;
+const MIN_PERFORMANCE_MILLI: u32 = 10;
 const PERFORMANCE_SAMPLE_COUNT: u8 = 3;
 const RECOVERY_SAMPLE_COUNT: u8 = 5;
 
@@ -36,6 +38,7 @@ pub enum Mode {
     Conserve,
     Survival,
     Lifeline,
+    Trickle,
     #[default]
     ReserveProtection,
 }
@@ -54,19 +57,21 @@ impl Mode {
             Self::Conserve => 200,
             Self::Survival => 100,
             Self::Lifeline => 50,
+            Self::Trickle => 10,
             Self::ReserveProtection => 0,
         }
     }
 
     pub fn rank(self) -> u8 {
         match self {
-            Self::Normal => 7,
-            Self::Cruise => 6,
-            Self::Economy => 5,
-            Self::Steady => 4,
-            Self::Conserve => 3,
-            Self::Survival => 2,
-            Self::Lifeline => 1,
+            Self::Normal => 8,
+            Self::Cruise => 7,
+            Self::Economy => 6,
+            Self::Steady => 5,
+            Self::Conserve => 4,
+            Self::Survival => 3,
+            Self::Lifeline => 2,
+            Self::Trickle => 1,
             Self::ReserveProtection => 0,
         }
     }
@@ -80,12 +85,13 @@ impl Mode {
             Self::Conserve => CONSERVE_EXIT,
             Self::Survival => SURVIVAL_EXIT,
             Self::Lifeline => LIFELINE_EXIT,
+            Self::Trickle => TRICKLE_EXIT,
             Self::ReserveProtection => 0,
         }
     }
 }
 
-const ACTIVE_MODES: [Mode; 7] = [
+const ACTIVE_MODES: [Mode; 8] = [
     Mode::Normal,
     Mode::Cruise,
     Mode::Economy,
@@ -93,6 +99,7 @@ const ACTIVE_MODES: [Mode; 7] = [
     Mode::Conserve,
     Mode::Survival,
     Mode::Lifeline,
+    Mode::Trickle,
 ];
 
 fn entry(mode: Mode) -> u128 {
@@ -104,6 +111,7 @@ fn entry(mode: Mode) -> u128 {
         Mode::Conserve => CONSERVE_ENTER,
         Mode::Survival => SURVIVAL_ENTER,
         Mode::Lifeline => LIFELINE_ENTER,
+        Mode::Trickle => TRICKLE_ENTER,
         Mode::ReserveProtection => u128::MAX,
     }
 }
@@ -116,7 +124,7 @@ fn enterable(balance: u128) -> Mode {
 }
 
 pub fn select(current: Mode, liquid: u128) -> Mode {
-    if liquid < LIFELINE_EXIT {
+    if liquid < TRICKLE_EXIT {
         return Mode::ReserveProtection;
     }
     let fastest = enterable(liquid);
@@ -187,7 +195,7 @@ impl Clock {
     /// Keep very slow publications at a bounded wall-clock cadence. This changes
     /// only segment boundaries; the kernel still advances every logical tick.
     pub fn publication_ticks(&self, configured: u64) -> u64 {
-        if matches!(self.mode, Mode::Survival | Mode::Lifeline) {
+        if matches!(self.mode, Mode::Survival | Mode::Lifeline | Mode::Trickle) {
             configured.min(1)
         } else {
             configured
@@ -282,7 +290,7 @@ impl Clock {
 mod tests {
     use super::*;
 
-    const BANDS: [(Mode, u128, u128, u32); 7] = [
+    const BANDS: [(Mode, u128, u128, u32); 8] = [
         (Mode::Normal, NORMAL_ENTER, NORMAL_EXIT, 1000),
         (Mode::Cruise, CRUISE_ENTER, CRUISE_EXIT, 750),
         (Mode::Economy, ECONOMY_ENTER, ECONOMY_EXIT, 500),
@@ -290,6 +298,7 @@ mod tests {
         (Mode::Conserve, CONSERVE_ENTER, CONSERVE_EXIT, 200),
         (Mode::Survival, SURVIVAL_ENTER, SURVIVAL_EXIT, 100),
         (Mode::Lifeline, LIFELINE_ENTER, LIFELINE_EXIT, 50),
+        (Mode::Trickle, TRICKLE_ENTER, TRICKLE_EXIT, 10),
     ];
 
     #[test]
@@ -302,7 +311,7 @@ mod tests {
             assert_eq!(mode.milli(), milli);
         }
         assert_eq!(
-            select(Mode::ReserveProtection, LIFELINE_EXIT),
+            select(Mode::ReserveProtection, TRICKLE_EXIT),
             Mode::ReserveProtection
         );
         assert_eq!(
@@ -310,10 +319,7 @@ mod tests {
             Mode::Lifeline
         );
         assert_eq!(select(Mode::Lifeline, LIFELINE_EXIT), Mode::Lifeline);
-        assert_eq!(
-            select(Mode::Lifeline, LIFELINE_EXIT - 1),
-            Mode::ReserveProtection
-        );
+        assert_eq!(select(Mode::Lifeline, LIFELINE_EXIT - 1), Mode::Trickle);
     }
 
     #[test]
@@ -339,7 +345,7 @@ mod tests {
         assert_eq!(select(Mode::Normal, SURVIVAL_EXIT), Mode::Survival);
         assert_eq!(select(Mode::Normal, LIFELINE_EXIT), Mode::Lifeline);
         assert_eq!(
-            select(Mode::Normal, LIFELINE_EXIT - 1),
+            select(Mode::Normal, TRICKLE_EXIT - 1),
             Mode::ReserveProtection
         );
         assert_eq!(select(Mode::ReserveProtection, CRUISE_ENTER), Mode::Cruise);
