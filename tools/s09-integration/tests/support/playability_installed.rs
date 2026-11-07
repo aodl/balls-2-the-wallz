@@ -542,14 +542,23 @@ pub(super) struct BoundaryWork {
 #[test]
 #[ignore = "explicit normal-module paid v5→v6 rehearsal; local only"]
 fn paid_island_upgrade_rehearsal() {
-    assert_eq!(std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref(), Ok("1"));
+    let european = std::env::var("B2Z_EUROPE_LONG_FALLBACK").as_deref() == Ok("1");
+    if !european {
+        assert_eq!(std::env::var("B2Z_PROFILE_FIDUCIARY").as_deref(), Ok("1"));
+    }
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
-    let old = bytes("B2Z_PLAYABILITY_PRIOR_WASM");
-    assert_eq!(
-        dtr_wire::hash(&old),
-        "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526"
-    );
+    let old = bytes(if european {
+        "B2Z_S14_WASM"
+    } else {
+        "B2Z_PLAYABILITY_PRIOR_WASM"
+    });
+    if !european {
+        assert_eq!(
+            dtr_wire::hash(&old),
+            "c7d12fd76146554186e63330fc95094d86941caf119bceef47f9f76c777c6526"
+        );
+    }
     let module = bytes("B2Z_S14_WASM");
     let browser = std::env::var("B2Z_PLAYABILITY_BROWSER").as_deref() == Ok("1");
     let initial = controls(browser);
@@ -793,7 +802,34 @@ fn paid_island_upgrade_rehearsal() {
         .unwrap();
     let current = pic.get_time().as_nanos_since_unix_epoch();
     assert!(deadline >= current);
-    pic.advance_time(Duration::from_nanos(deadline - current + 1));
+    let mut before_expiry_calls = None;
+    if european {
+        // Same candidate lifecycle code, with a disposable-only interval override.
+        // Rearm ordinary fallback 600 seconds away, only 120 seconds before expiry.
+        pic.upgrade_canister(
+            id,
+            bytes("B2Z_S14_TEST_WASM"),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        let current = pic.get_time().as_nanos_since_unix_epoch();
+        pic.advance_time(Duration::from_nanos(deadline - current - 120_000_000_000));
+        for _ in 0..40 {
+            pic.tick();
+        }
+        get_result::<()>(
+            &pic,
+            id,
+            "test_source_interval",
+            candid::encode_one(600u64).unwrap(),
+        );
+        before_expiry_calls = Some(status(&pic, id).source.index_calls);
+        let current = pic.get_time().as_nanos_since_unix_epoch();
+        pic.advance_time(Duration::from_nanos(deadline - current + 1));
+    } else {
+        pic.advance_time(Duration::from_nanos(deadline - current + 1));
+    }
     let mut expired = false;
     for _ in 0..1800 {
         advance(&pic);
@@ -807,6 +843,21 @@ fn paid_island_upgrade_rehearsal() {
         expired,
         "elapsed lifecycle timer did not expire the dormant controls"
     );
+    if let Some(calls) = before_expiry_calls {
+        assert!(
+            pic.get_time().as_nanos_since_unix_epoch() < deadline + 400_000_000_000,
+            "ordinary fallback must not have fired yet"
+        );
+        assert!(
+            status(&pic, id).source.index_calls > calls,
+            "expiry must request its own authoritative reconciliation"
+        );
+        save(
+            &out,
+            "europe-long-fallback-expiry.json",
+            &serde_json::json!({"status":"PASS","ordinary_fallback_seconds":600,"ordinary_fallback_not_due":true,"expiry_reconciliation_independent":true,"scope":"Candidate code with disposable-only interval override after normal authenticated activation; synthetic starting board, subsequent real valueless Ledger payments"}),
+        );
+    }
     let final_world = arena_world(&pic, id);
     assert_eq!(final_world.time, dormant.time);
     assert_eq!(final_world.received_e8s, dormant.received_e8s);
