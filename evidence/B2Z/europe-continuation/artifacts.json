@@ -1,0 +1,64 @@
+{
+  "status": "FROZEN_CANDIDATE_NOT_QUALIFIED_FOR_INSTALL",
+  "release_source": "6d788f554bcfdcb542fa14082d6384a0ba75416d",
+  "backend_build_source": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+  "backend_artifacts_verified": {
+    "generated.did": {
+      "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+      "bytes": 12081
+    },
+    "init.did": {
+      "sha256": "b97570e0408e3cf50fc2a5099d65012b831e8492c922eddd443430703998a912",
+      "bytes": 1670
+    },
+    "launch.json": {
+      "sha256": "e6ccaf7901d60f0ed205e2b4bb54e99f109db4e4593d7ae7f4de41656fed3ae3",
+      "bytes": 1885
+    },
+    "normal.metadata.wasm": {
+      "sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "bytes": 3348365
+    },
+    "normal.wasm": {
+      "sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "bytes": 3348365
+    },
+    "world.bin": {
+      "sha256": "9d62259e11ce98cb4ab776adbf990db326f1b0a36e96161e047c351c2277fdae",
+      "bytes": 481
+    }
+  },
+  "backend_rebuilt": false,
+  "backend_source_and_dependency_inputs_unchanged": true,
+  "changed_paths_since_backend_build": [
+    "STATUS.md",
+    "apps/b2z-observer/arcade.mjs",
+    "evidence/B2Z/europe-final/REPORT.md",
+    "evidence/B2Z/europe-final/account-check.json",
+    "evidence/B2Z/europe-final/backend-manifest.json",
+    "evidence/B2Z/europe-final/floor-and-recovery.json",
+    "evidence/B2Z/europe-final/frontend-build-manifest.json",
+    "evidence/B2Z/europe-final/frontend-ready-files.json",
+    "evidence/B2Z/europe-final/hosted-ci.json",
+    "evidence/B2Z/europe-final/natural-budget.json",
+    "evidence/B2Z/europe-final/pending-recovery.json",
+    "evidence/B2Z/europe-final/reconciliation.json",
+    "evidence/B2Z/europe-final/security-headers.json",
+    "evidence/B2Z/europe-final/target-preflight.json",
+    "evidence/B2Z/europe-final/verification.json",
+    "tools/verify_s14_deployment.py"
+  ],
+  "frontend_source": "6d788f554bcfdcb542fa14082d6384a0ba75416d",
+  "frontend_files": 15,
+  "frontend_js_sha256": "b452a8bdd5632bf9c9bc20500e768c725add15b72c21a9b980386dc31b48c07c",
+  "complete_frontend_manifest_sha256": "2b1da4a704a04644b45693470319b616c3d575e43c2a1f24bcf331cbe0e0d7eb",
+  "changed_frontend_files": [
+    "app.mjs",
+    "build-manifest.json"
+  ],
+  "frontend_payload_equal_to_inspected_production_policy_build": true,
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "ci_gate": "NOT_RUN for corrected source; original CI integration FAIL; local million-cell timing assertion unresolved",
+  "deployment": "NOT_RUN",
+  "at": "2026-11-07T21:10:27.337925+00:00"
+}

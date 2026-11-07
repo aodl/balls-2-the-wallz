@@ -1,0 +1,258 @@
+{
+  "candidate_source": "6d788f554bcfdcb542fa14082d6384a0ba75416d",
+  "overall": "BLOCKED: new exact-source CI unavailable; local million-cell timing assertion FAIL",
+  "focused_js": {
+    "passed": 29,
+    "failed": 0,
+    "raw_log": ".work/europe-install/js-compatibility-final.log"
+  },
+  "source_structure": {
+    "status": "PASS",
+    "javascript_syntax_files": 173,
+    "raw_log": ".work/europe-install/source-structure.log",
+    "qualification": "Inventory/syntax only; not the entire hosted Source conformance job."
+  },
+  "http": {
+    "status": "PASS",
+    "checks": 14,
+    "trust": "offline",
+    "raw": ".work/europe-install/http-correction/results.json"
+  },
+  "responsive_ui": {
+    "status": "PASS",
+    "scope": "Sandboxed v6 widget checks. Synthetic data; no IC, payments or release claim.",
+    "viewports": [
+      [
+        320,
+        640
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "page_errors": [],
+    "raw": ".work/europe-install/current-ui/results.json"
+  },
+  "installed_passes": [
+    {
+      "id": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 271.607,
+      "timeout_seconds": 850,
+      "log": "logs/deployed_bundle_live_index_payments_reconnect_and_upgrade.log",
+      "raw_output": ".work/europe-install/browser-7"
+    },
+    {
+      "id": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 93.443,
+      "timeout_seconds": 850,
+      "log": "logs/torus_browser_authenticated_epoch_recovers_and_stales_old_move.log",
+      "raw_output": ".work/europe-install/browser-8"
+    },
+    {
+      "id": "torus_browser_scene_camera_and_continuous_supported_playback",
+      "command": [
+        "/home/codexdev/src/b2z/.work/europe-final/frozen-probes/harness",
+        "torus_browser_scene_camera_and_continuous_supported_playback",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 201.905,
+      "timeout_seconds": 850,
+      "log": "logs/torus_browser_scene_camera_and_continuous_supported_playback.log",
+      "raw_output": ".work/europe-install/browser-8"
+    }
+  ],
+  "million_timing_failures": [
+    {
+      "raw_result": ".work/europe-install/browser-9/million_browser_normal_lifeline_and_cold_reconnect/million-browser-normal/results.json",
+      "result_sha256": "1b3d6e73eba8d0242b3a02adaf24d7c74f7f2926971ee55842f4f2db86e2f568",
+      "status": "FAIL",
+      "classification": "Actual Normal playback timing assertion; environmental causation unresolved. Not a passing qualification.",
+      "normal": {
+        "seconds": 89.963,
+        "backend_ticks_per_second": 1.0115269610840012,
+        "admitted_ticks_per_second": 0.7780976623723087,
+        "displayed_ticks_per_second": 0.7325164660046621,
+        "stalled_samples": 0,
+        "resyncs": 1,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 0,
+          "max": 24
+        },
+        "buffer_ticks": {
+          "min": 0,
+          "max": 23.107517333000004
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 252.10000000149012,
+            "max": 7425.800000000745
+          },
+          "verify_ms": {
+            "median": 110.89999999850988,
+            "max": 436.19999999925494
+          },
+          "artifact_ms": {
+            "median": 308.5,
+            "max": 4717.60000000149
+          },
+          "derive_ms": {
+            "median": 8.399999998509884,
+            "max": 73.30000000074506
+          },
+          "catchup_ms": {
+            "median": 1839.699999999255,
+            "max": 8795.199999999255
+          }
+        },
+        "max_catchup_segments": 27,
+        "buffer_bytes": {
+          "min": 0,
+          "max": 903126
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 117,
+        "certified_publications_per_second": 0.7780976623723087,
+        "authenticated_observation_queries_per_second": 0.2445449796027256,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 19.9164608888,
+        "buffer_end": 23.027871959014846,
+        "admitted_ticks": 70,
+        "displayed_ticks": 65.89937883117742,
+        "phase_samples": {
+          "BUFFERING": 38,
+          "DEGRADED_BUFFER": 1,
+          "PLAYING": 116
+        }
+      },
+      "error": "AssertionError({'seconds': 89.963, 'backend_ticks_per_second': 1.0115269610840012, 'admitted_ticks_per_second': 0.7780976623723087, 'displayed_ticks_per_second': 0.7325164660046621, 'stalled_samples': 0, 'resyncs': 1, 'nominal_rate': 1, 'performance_limited': False, 'queue_segments': {'min': 0, 'max': 24}, 'buffer_ticks': {'min': 0, 'max': 23.107517333000004}, 'latency_ms': {'fetch_ms': {'median': 252.10000000149012, 'max': 7425.800000000745}, 'verify_ms': {'median': 110.89999999850988, 'max': 436.19999999925494}, 'artifact_ms': {'median': 308.5, 'max': 4717.60000000149}, 'derive_ms': {'median': 8.399999998509884, 'max': 73.30000000074506}, 'catchup_ms': {'median': 1839.699999999255, 'max': 8795.199999999255}}, 'max_catchup_segments': 27, 'buffer_bytes': {'min': 0, 'max': 903126}, 'buffer_target_ticks': {'min': 17, 'max': 17}, 'distinct_playheads': 117, 'certified_publications_per_second': 0.7780976623723087, 'authenticated_observation_queries_per_second': 0.2445449796027256, 'timing_qualification': 'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.', 'buffer_start': 19.9164608888, 'buffer_end': 23.027871959014846, 'admitted_ticks': 70, 'displayed_ticks': 65.89937883117742, 'phase_samples': {'BUFFERING': 38, 'DEGRADED_BUFFER': 1, 'PLAYING': 116}})"
+    },
+    {
+      "raw_result": ".work/europe-install/browser-10/million_browser_normal_lifeline_and_cold_reconnect/million-browser-normal/results.json",
+      "result_sha256": "d7699487b02394b51f9b022d7307c8028e73aa3890c717af0da881327830ca72",
+      "status": "FAIL",
+      "classification": "Actual Normal playback timing assertion; environmental causation unresolved. Not a passing qualification.",
+      "normal": {
+        "seconds": 89.6131,
+        "backend_ticks_per_second": 0.993158366354919,
+        "admitted_ticks_per_second": 0.7922948765303287,
+        "displayed_ticks_per_second": 0.7232908592689734,
+        "stalled_samples": 2,
+        "resyncs": 1,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 0,
+          "max": 24
+        },
+        "buffer_ticks": {
+          "min": 0,
+          "max": 23.298553899243743
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 176.19999999925494,
+            "max": 6826.099999997765
+          },
+          "verify_ms": {
+            "median": 120.40000000223517,
+            "max": 467.79999999701977
+          },
+          "artifact_ms": {
+            "median": 17.300000000745058,
+            "max": 7620
+          },
+          "derive_ms": {
+            "median": 18.699999999254942,
+            "max": 75.80000000074506
+          },
+          "catchup_ms": {
+            "median": 890.4000000022352,
+            "max": 8738
+          }
+        },
+        "max_catchup_segments": 19,
+        "buffer_bytes": {
+          "min": 0,
+          "max": 902446
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 110,
+        "certified_publications_per_second": 0.7922948765303287,
+        "authenticated_observation_queries_per_second": 0.5691132211696727,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 16.583399999999997,
+        "buffer_end": 22.767063899243695,
+        "admitted_ticks": 71,
+        "displayed_ticks": 64.81633610075644,
+        "phase_samples": {
+          "BUFFERING": 36,
+          "DEGRADED_BUFFER": 2,
+          "PLAYING": 107,
+          "STALLED": 2
+        }
+      },
+      "error": "AssertionError({'seconds': 89.6131, 'backend_ticks_per_second': 0.993158366354919, 'admitted_ticks_per_second': 0.7922948765303287, 'displayed_ticks_per_second': 0.7232908592689734, 'stalled_samples': 2, 'resyncs': 1, 'nominal_rate': 1, 'performance_limited': False, 'queue_segments': {'min': 0, 'max': 24}, 'buffer_ticks': {'min': 0, 'max': 23.298553899243743}, 'latency_ms': {'fetch_ms': {'median': 176.19999999925494, 'max': 6826.099999997765}, 'verify_ms': {'median': 120.40000000223517, 'max': 467.79999999701977}, 'artifact_ms': {'median': 17.300000000745058, 'max': 7620}, 'derive_ms': {'median': 18.699999999254942, 'max': 75.80000000074506}, 'catchup_ms': {'median': 890.4000000022352, 'max': 8738}}, 'max_catchup_segments': 19, 'buffer_bytes': {'min': 0, 'max': 902446}, 'buffer_target_ticks': {'min': 17, 'max': 17}, 'distinct_playheads': 110, 'certified_publications_per_second': 0.7922948765303287, 'authenticated_observation_queries_per_second': 0.5691132211696727, 'timing_qualification': 'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.', 'buffer_start': 16.583399999999997, 'buffer_end': 22.767063899243695, 'admitted_ticks': 71, 'displayed_ticks': 64.81633610075644, 'phase_samples': {'BUFFERING': 36, 'DEGRADED_BUFFER': 2, 'PLAYING': 107, 'STALLED': 2}})"
+    }
+  ],
+  "long_900_second_case": "NOT_RUN locally; protected measurement AST, all timing/queue/certificate assertions and duration unchanged; still required in hosted CI.",
+  "natural_startup": "Reused unchanged exact 612ad0d0 normal artifact, separately invoked ignored initial-budget test. See ../europe-final/natural-budget.json and verification.json. Generic hosted CI is not credited with running it.",
+  "depletion_and_recovery": "Deliberate low-budget disposable setup uses actual cycle burns/test hooks, followed by normal-module recovery. See ../europe-final/floor-and-recovery.json and pending-recovery.json. Not an all-normal production depletion experiment.",
+  "raw_failures_preserved": ".work/europe-install",
+  "publication": {
+    "status": "BLOCKED",
+    "command": "git push origin 6d788f554bcfdcb542fa14082d6384a0ba75416d:refs/heads/release/btz-prelaunch-playability",
+    "error": "fatal: could not read Username for 'https://github.com': terminal prompts disabled",
+    "observed_remote_head": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9"
+  },
+  "deployment": {
+    "backend_install": "NOT_RUN",
+    "authenticated_activation": "NOT_RUN",
+    "frontend_install": "NOT_RUN",
+    "served_files_and_CSP": "NOT_RUN",
+    "production_three_viewport_smoke": "NOT_RUN",
+    "post_activation_600_second_operating_window": "NOT_RUN"
+  }
+}

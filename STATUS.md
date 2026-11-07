@@ -1,5 +1,8 @@
 # European continuation — browser repair ready; qualification and publication blocked
 
+Corrected candidate source: `6d788f554bcfdcb542fa14082d6384a0ba75416d`.
+[Exact frozen identities, CI diagnosis, executed results and remaining action](evidence/B2Z/europe-continuation/REPORT.md).
+
 The published `07693c7` run completed with five substantive jobs passing and
 installed-IC qualification failing. Its digest-verified artifact identifies five
 obsolete browser-selector failures. The installed browser harness now follows the
@@ -26,8 +29,7 @@ low-budget setup and normal-module recovery remain separately identified in the
 Git HTTPS write authentication is unavailable. Both European targets were checked
 again empty on the expected certified 13-node subnet, with unchanged controllers
 and zero official receiving-account balance/history. No install, asset upload,
-transfer, controller change or former-deployment operation occurred. Fresh frontend
-bytes/provenance and the exact continuation are recorded separately after this commit.
+transfer, controller change or former-deployment operation occurred. The linked evidence record preserves the fresh frontend freeze and its separate source identity.
 
 ---
 

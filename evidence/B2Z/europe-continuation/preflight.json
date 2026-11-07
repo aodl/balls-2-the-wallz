@@ -1,0 +1,96 @@
+{
+  "at": "2026-11-07T21:04:37.011Z",
+  "records": [
+    {
+      "canisterId": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": null,
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "node_ids": [
+        "foa3b-mjkuu-3qlgu-6o64i-2omzt-x6suc-5gzcq-6j2gz-bftru-j5idg-gae",
+        "yf2ct-a2auf-nofdz-acf6v-ugwyb-k5f6j-5sr3y-7h3xi-svcdg-mhpgg-aae",
+        "popmv-gccw7-zincv-gtcgo-jxfby-ar7zq-odvna-4jcs2-cnovy-qiha6-yae",
+        "6jce6-bckzx-lz47i-xega6-gt5kk-47etw-cctyf-pkyjf-hqhxw-gy2qv-2ae",
+        "xypz2-ls2al-37boh-5a22g-5z3qj-rh53t-63qjo-khc65-izr5n-hth7g-uae",
+        "ldqxr-qdliy-howvj-2tamr-3fwul-liakv-7523k-tmhrz-5geyk-jlu7b-uae",
+        "xzpf4-zeihc-upncx-zz65w-rep5j-xh2sy-yw6bg-qtgwu-5z3ez-er2gz-sae",
+        "c4xi6-jnokz-uhpvd-lpwoe-hra3h-ph7ia-77clm-xfxf3-lskj2-4fohp-tqe",
+        "3yok3-yvswm-l4ior-bjh62-fsi73-vfqp3-77wji-coglq-l2bjw-rxrph-uqe",
+        "wq2um-36gqt-pvygv-uwfwa-qthgq-bgrrl-76hlx-qu5ig-557sj-i3ekh-lqe",
+        "mjte3-dopva-7tttu-5hnnu-q572b-p3wwy-b56of-4q6h7-hbtf4-f3m32-tae",
+        "oa5q5-7w6up-xqtxs-3jd3y-pqxk2-txcng-m7347-u74zx-d3yyg-y33rr-7ae",
+        "dtils-hheoo-rdblu-kev3g-qhdea-mb2oq-zgl2c-osrlf-nkimi-5ws23-dqe"
+      ],
+      "certificate_verification": true,
+      "total_cycles": 1499762276800,
+      "reserved_cycles": 0,
+      "management_module_absence": true,
+      "management_log_completed_at": "2026-11-07T21:04:31.342987+00:00",
+      "liquid_cycles": "NOT_AVAILABLE: uninstalled backend has no SDK query"
+    },
+    {
+      "canisterId": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": null,
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "node_ids": [
+        "foa3b-mjkuu-3qlgu-6o64i-2omzt-x6suc-5gzcq-6j2gz-bftru-j5idg-gae",
+        "yf2ct-a2auf-nofdz-acf6v-ugwyb-k5f6j-5sr3y-7h3xi-svcdg-mhpgg-aae",
+        "popmv-gccw7-zincv-gtcgo-jxfby-ar7zq-odvna-4jcs2-cnovy-qiha6-yae",
+        "6jce6-bckzx-lz47i-xega6-gt5kk-47etw-cctyf-pkyjf-hqhxw-gy2qv-2ae",
+        "xypz2-ls2al-37boh-5a22g-5z3qj-rh53t-63qjo-khc65-izr5n-hth7g-uae",
+        "ldqxr-qdliy-howvj-2tamr-3fwul-liakv-7523k-tmhrz-5geyk-jlu7b-uae",
+        "xzpf4-zeihc-upncx-zz65w-rep5j-xh2sy-yw6bg-qtgwu-5z3ez-er2gz-sae",
+        "c4xi6-jnokz-uhpvd-lpwoe-hra3h-ph7ia-77clm-xfxf3-lskj2-4fohp-tqe",
+        "3yok3-yvswm-l4ior-bjh62-fsi73-vfqp3-77wji-coglq-l2bjw-rxrph-uqe",
+        "wq2um-36gqt-pvygv-uwfwa-qthgq-bgrrl-76hlx-qu5ig-557sj-i3ekh-lqe",
+        "mjte3-dopva-7tttu-5hnnu-q572b-p3wwy-b56of-4q6h7-hbtf4-f3m32-tae",
+        "oa5q5-7w6up-xqtxs-3jd3y-pqxk2-txcng-m7347-u74zx-d3yyg-y33rr-7ae",
+        "dtils-hheoo-rdblu-kev3g-qhdea-mb2oq-zgl2c-osrlf-nkimi-5ws23-dqe"
+      ],
+      "certificate_verification": true,
+      "total_cycles": 1499762536898,
+      "reserved_cycles": 0,
+      "management_module_absence": true,
+      "management_log_completed_at": "2026-11-07T21:04:31.070984+00:00",
+      "liquid_cycles": "NOT_AVAILABLE: uninstalled backend has no SDK query"
+    }
+  ],
+  "account": {
+    "at": "2026-11-07T21:04:47.523Z",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "numeric_subaccount": 0,
+    "account_identifier": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+    "ledger_balance_e8s": "0",
+    "index_balance_e8s": "0",
+    "index_transactions": 0,
+    "index_oldest": null,
+    "index_ledger_binding": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "query_signature_verification": true,
+    "game_source_certificate": "NOT_RUN: backend uninstalled"
+  },
+  "scope": "Read-only PREINSTALL observations; no installed rules, SDK liquid balance, selected pace or steady game operating consumption is claimed.",
+  "independent_derivation": {
+    "implementation": "DFX ledger account-id (Rust), independently agreeing with observer derivation and user-provided expected account",
+    "principal": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount_hex": "0000000000000000000000000000000000000000000000000000000000000000",
+    "result": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+    "command": "DFX_IDENTITY=codex_local dfx ledger account-id --of-principal s5ir5-gqaaa-aaaas-amyna-cai --subaccount 0000000000000000000000000000000000000000000000000000000000000000",
+    "offline": true
+  },
+  "frozen_constructor": {
+    "init_sha256": "b97570e0408e3cf50fc2a5099d65012b831e8492c922eddd443430703998a912",
+    "official_ledger_and_index": true,
+    "receiving_subaccount": 0,
+    "starting_policy": "FromBeginning",
+    "beneficiary": "Derived from installed self; no former owner principal copied"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "ci": {
+    "at": "2026-11-07T20:37:00.165480+00:00",
+    "run": {
+      "id": 42407503656,
+      "head_sha": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42407503656"
+    },
+    "jobs": [
+      {
+        "id": 128508267049,
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267049"
+      },
+      {
+        "id": 128508267170,
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267170"
+      },
+      {
+        "id": 128508267270,
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267270"
+      },
+      {
+        "id": 128508267295,
+        "name": "S14 and million-cell installed-IC qualification",
+        "status": "completed",
+        "conclusion": "failure",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267295"
+      },
+      {
+        "id": 128508267296,
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267296"
+      },
+      {
+        "id": 128508267320,
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267320"
+      },
+      {
+        "id": 128508267321,
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success",
+        "check_run_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/check-runs/128508267321"
+      }
+    ]
+  },
+  "artifact": {
+    "id": 13588472798,
+    "official_digest": "sha256:c52c24195cd864c1525ce2bc9530c5145b5e925786bee8dc65acd29a257a7f57",
+    "retrieved_sha256": "c52c24195cd864c1525ce2bc9530c5145b5e925786bee8dc65acd29a257a7f57",
+    "source": "Public run artifact via nightly.link; bytes verified against official GitHub artifact digest. Only JSON/log/DID inspected; no artifact binaries executed."
+  },
+  "installed": {
+    "source_revision": "07693c7f5a2102fce080ed6fbe156512d4c6fbe9",
+    "overall": "FAIL",
+    "reason": "Installed tests failed: deployed_bundle_live_index_payments_reconnect_and_upgrade, torus_browser_authenticated_epoch_recovers_and_stales_old_move, torus_browser_scene_camera_and_continuous_supported_playback, million_browser_normal_lifeline_and_cold_reconnect, million_browser_sustained_normal_and_cold_lifeline",
+    "passing": 52,
+    "nonpassing": [
+      {
+        "id": "installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 37.801,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade.log",
+        "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      {
+        "id": "installed-index-integration--torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 34.334,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration--torus_browser_authenticated_epoch_recovers_and_stales_old_move.log",
+        "test": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      {
+        "id": "installed-index-integration--torus_browser_scene_camera_and_continuous_supported_playback",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "torus_browser_scene_camera_and_continuous_supported_playback",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 34.971,
+        "timeout_seconds": 900,
+        "log": "logs/installed-index-integration--torus_browser_scene_camera_and_continuous_supported_playback.log",
+        "test": "torus_browser_scene_camera_and_continuous_supported_playback",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      {
+        "id": "installed-million-integration--million_browser_normal_lifeline_and_cold_reconnect",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "million_browser_normal_lifeline_and_cold_reconnect",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 34.235,
+        "timeout_seconds": 900,
+        "log": "logs/installed-million-integration--million_browser_normal_lifeline_and_cold_reconnect.log",
+        "test": "million_browser_normal_lifeline_and_cold_reconnect",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      {
+        "id": "installed-million-integration--million_browser_sustained_normal_and_cold_lifeline",
+        "command": [
+          "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+          "million_browser_sustained_normal_and_cold_lifeline",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 34.16,
+        "timeout_seconds": 2100,
+        "log": "logs/installed-million-integration--million_browser_sustained_normal_and_cold_lifeline.log",
+        "test": "million_browser_sustained_normal_and_cold_lifeline",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    ]
+  },
+  "diagnosis": "All five hosted failures were obsolete UI-selector timeouts (#dismiss-empty or #existing-player), before measurement. Updating the harness exposed EXPECTED_V6 when a New draft remained open across first paid legacy v3 cannon admission. V6 adjacent-placement code now runs only on v6 worlds. No backend, financial, certificate or pacing change."
+}
