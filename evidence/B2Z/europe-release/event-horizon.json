@@ -1,0 +1,20 @@
+{
+  "status": "DISABLED",
+  "instance": "eo6ei-gaaaa-aaaar-qchra-cai",
+  "observed_ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+  "certified_module": {
+    "at": "2026-11-07T16:22:45.234Z",
+    "module_hash": "e012e7138cfe2d251bd24edf868cb74aa5fd35856412facd926b65ad519cdcca",
+    "subnet": "pzp6e-ekpqk-3c5x7-2h6so-njoeq-mt45d-h3h6c-q3mxf-vpeq5-fk5o7-yae",
+    "nodes": 34,
+    "certificate_verification": true
+  },
+  "get_instance": "PASS: observed Ledger and ICP profile confirmed",
+  "certified_candid_metadata": "ABSENT",
+  "preview_subscription": "REJECTED: no such query method on deployed service",
+  "new_backend_subscription": "UNESTABLISHED",
+  "outbound_notification_abi": "UNESTABLISHED; unchanged certified module from prior assessment does not supply a newly verified ABI",
+  "cadence_and_health": "UNAVAILABLE through verified deployed APIs; no invented query or off-chain health service",
+  "index_lag": "Existing bounded [2,10] hint retries and independent 60-second fallback remain; notifications never supply authoritative rows",
+  "endowment_or_service_mutation": false
+}

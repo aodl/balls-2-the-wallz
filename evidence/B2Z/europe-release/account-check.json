@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-07T17:54:56.908Z",
+  "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "numeric_subaccount": 0,
+  "account_identifier": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+  "ledger_balance_e8s": "0",
+  "index_balance_e8s": "0",
+  "index_transactions": 0,
+  "index_oldest": null,
+  "index_ledger_binding": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+  "query_signature_verification": true,
+  "game_source_certificate": "NOT_RUN: backend uninstalled"
+}

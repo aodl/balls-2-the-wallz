@@ -1,0 +1,7 @@
+{
+  "expiry_reconciliation_independent": true,
+  "ordinary_fallback_not_due": true,
+  "ordinary_fallback_seconds": 600,
+  "scope": "Candidate code with disposable-only interval override after normal authenticated activation; synthetic starting board, subsequent real valueless Ledger payments",
+  "status": "PASS"
+}

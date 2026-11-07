@@ -1,0 +1,166 @@
+{
+  "source": "a69723e56bb30b4eaa6698fc9653670e4ed1bab2",
+  "status": "LOCAL_PASS; PUBLICATION_AND_INSTALLATION_BLOCKED",
+  "host_tests": 49,
+  "focused_js_tests": 130,
+  "http_browser_checks": 14,
+  "responsive_browser": {
+    "status": "PASS",
+    "viewports": [
+      [
+        320,
+        640
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        768,
+        1024
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "scope": "Synthetic task content, sandboxed real Chromium, exact actual clipboard-write bytes; no IC authentication claim",
+    "raw": ".work/europe/ui-1/results.json"
+  },
+  "installed_cases": [
+    {
+      "id": "europe-europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment",
+      "status": "PASS",
+      "elapsed_seconds": 35.834
+    },
+    {
+      "id": "europe-europe_low_floor_transition_and_recovery_headroom",
+      "status": "PASS",
+      "elapsed_seconds": 25.261,
+      "initial_status": "FAIL",
+      "resolution": "Focused corrected probe distinguishes 1.4T permitted execution and an explicitly below-exit 0.9T protection context, then upgrade/maintenance recovery. 1.1T ingress/query values do not guarantee a later scheduling balance. Runtime thresholds were not relaxed.",
+      "rerun_log": ".work/europe/targeted-floor-3/logs/europe-europe_low_floor_transition_and_recovery_headroom.log"
+    },
+    {
+      "id": "europe-europe_empty_reconciliation_and_maintenance_costs",
+      "status": "PASS",
+      "elapsed_seconds": 150.365
+    },
+    {
+      "id": "europe-europe_hint_costs_and_independent_fallback",
+      "status": "PASS",
+      "elapsed_seconds": 34.103
+    },
+    {
+      "id": "europe-europe_trickle_bounded_real_cadence",
+      "status": "PASS",
+      "elapsed_seconds": 121.84
+    },
+    {
+      "id": "funding_tests-funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+      "status": "PASS",
+      "elapsed_seconds": 112.948
+    },
+    {
+      "id": "funding_tests-funding_low_liquid_cycles_defer_then_recover_without_browser",
+      "status": "PASS",
+      "elapsed_seconds": 15.439
+    },
+    {
+      "id": "funding_tests-funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+      "status": "PASS",
+      "elapsed_seconds": 21.117
+    },
+    {
+      "id": "upstream_index_poke_fallback_upgrade_and_replay",
+      "status": "PASS",
+      "elapsed_seconds": 45.824
+    },
+    {
+      "id": "slow_index_calls_coalesce_timers_and_fence_late_responses",
+      "status": "PASS",
+      "elapsed_seconds": 46.759
+    },
+    {
+      "id": "b2z_callback_trap_recovers_through_fallback_without_reset",
+      "status": "PASS",
+      "elapsed_seconds": 20.992
+    },
+    {
+      "id": "controlled_index_pagination_lag_failure_and_upgrade",
+      "status": "PASS",
+      "elapsed_seconds": 13.862
+    },
+    {
+      "id": "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+      "status": "PASS",
+      "elapsed_seconds": 56.309
+    },
+    {
+      "id": "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+      "status": "PASS",
+      "elapsed_seconds": 487.811
+    },
+    {
+      "id": "playability_installed-paid_island_upgrade_rehearsal",
+      "status": "PASS",
+      "elapsed_seconds": 95.069
+    }
+  ],
+  "additional_ignored_budget_probe": {
+    "status": "PASS",
+    "scope": "Disposable default Application 13-node cost schedule; estimate for target budget, not an actual mainnet post-install balance",
+    "raw": ".work/europe/targeted/europe-europe_natural_initial_budget_activates_rules_and_stays_protected"
+  },
+  "initial_consolidated_status": "FAIL",
+  "raw_failures_retained": ".work/europe/",
+  "final_frozen_byte_reuse": {
+    "normal_wasm_identical_to_exercised_hash": "c4b7b9101353bd0bb6155e6d03ed2d125481c09c4813e5060b3020e1d3e3b9ff",
+    "frontend_payloads_identical": true,
+    "reason": "Only tests and historical-document routing markers changed after the first freeze; final reviewed builders ran from clean committed source and byte equality was checked. No older CI is claimed to qualify changed application code."
+  },
+  "preserved_local_ui_artifacts": {
+    "source": "33067280fa8cf42213fa3ecc109ea1fc398b6547",
+    "report": "../human-interface-final/REPORT.md",
+    "manifest": "../human-interface-final/ready-files.json",
+    "provenance": "Previously available local workspace/Git evidence. Independent inclusion in the supplied ZIP was not established."
+  },
+  "hosted_exact_source_ci": {
+    "status": "BLOCKED",
+    "execution": "NOT_RUN",
+    "reason": "HTTPS write authentication absent; actual non-force push failed without reading or exporting credentials",
+    "last_checked_at": "2026-11-07T17:47:35.771982+00:00",
+    "remote_branch": "33067280fa8cf42213fa3ecc109ea1fc398b6547\trefs/heads/release/btz-prelaunch-playability",
+    "substantive_jobs": "No applicable exact-source hosted job is claimed to pass",
+    "production_inventory": "Separately labelled BLOCKED informational inventory, not a substantive test pass",
+    "push": "git push origin a69723e56bb30b4eaa6698fc9653670e4ed1bab2:refs/heads/release/btz-prelaunch-playability"
+  },
+  "deployment": {
+    "status": "BLOCKED",
+    "targets": [
+      "s5ir5-gqaaa-aaaas-amyna-cai",
+      "s2jxj-liaaa-aaaas-amynq-cai"
+    ],
+    "reason": "Source publication and applicable exact-source hosted CI pending",
+    "modules_installed": false,
+    "assets_uploaded": false,
+    "served_asset_and_csp_match": "NOT_RUN",
+    "production_read_only_smoke": "NOT_RUN",
+    "actual_post_install_liquid_and_selected_speed": "NOT_RUN",
+    "former_deployment_touched": false,
+    "mainnet_payments_cycles_purchases_transfers_controller_changes": false
+  },
+  "limitations": [
+    "Current public receipts lack original memo evidence; no safe automatic packet/receipt matching is implemented.",
+    "No human participants, actual-device/soft-keyboard study or real-wallet payment test.",
+    "Trickle browser validation combines existing native-HTTP/browser and model/fixture checks with installed scheduler cadence; no deployed European Trickle browser journey is claimed.",
+    "1T protection is a bounded current-rules one-ball execution/recovery result; maximum-population capacity and indefinite lifetime are not qualified.",
+    "Natural 1.5T disposable starting budget activates current rules but selects Reserve; actual European post-install balances and entry shortfall require installation first.",
+    "Assisted mode is unavailable; longer fallbacks remain experimental and inactive.",
+    "Automatic refunds and payouts remain unavailable."
+  ]
+}

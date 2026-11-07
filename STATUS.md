@@ -1,3 +1,22 @@
+# European release frozen — local PASS; source publication/install BLOCKED
+
+Source `a69723e56bb30b4eaa6698fc9653670e4ed1bab2` retains UI `3306728`, binds the
+treasury to self, activates a fresh empty world through all four authenticated
+transitions and adds the requested conservative Trickle policy throughout the observer.
+49 host tests, 130 focused JS tests, 14 HTTP checks, five viewport journeys and
+16 scoped installed probes pass (one corrected floor-probe rerun; raw failures retained).
+The clean final normal Wasm and all frontend assets are frozen. Measured 1T protection
+supports bounded one-ball execution/protected recovery; maximum-population lifetime
+is unqualified. 60/600/3600 polling costs are measured; assistance remains disabled
+and the production candidate keeps 60 seconds. Natural 1.5T starting budget activates
+rules but selects Reserve. Both European targets still have no modules; their certified
+13-node placement/controllers are verified. Actual source push failed for absent HTTPS
+authentication; exact-source hosted CI and installation/served verification remain
+BLOCKED. GitHub already contains `3306728`. Former canisters and financial records
+were untouched. [Release identities, measurements and exact continuation](evidence/B2Z/europe-release/REPORT.md).
+
+---
+
 # Fresh European release — implementation and final local checks in progress
 
 The authorised targets are backend `s5ir5-gqaaa-aaaas-amyna-cai` and frontend

@@ -1,0 +1,12 @@
+{
+  "after_liquid": "1_421_258_308_323",
+  "after_total": "1_480_001_891_883",
+  "before_liquid": "1_422_895_755_754",
+  "before_total": "1_481_438_421_364",
+  "current_rules": true,
+  "healthy_source": true,
+  "initial_cycles": "1500000000000",
+  "scope": "Disposable default Application 13-node cost schedule; estimate for target budget, not an actual mainnet post-install balance",
+  "selected_mode": "ReserveProtection",
+  "status": "PASS"
+}

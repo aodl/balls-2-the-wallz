@@ -1,0 +1,9 @@
+{
+  "additional_logical_ticks": 1,
+  "mode": "Trickle",
+  "nominal_milli": 10,
+  "normal_wasm": true,
+  "real_wall_seconds": 104.044118355,
+  "scope": "Bounded real-cadence normal-Wasm scheduler observation on synthetic v3 trajectory fixture; not fresh-genesis or browser certificate evidence",
+  "status": "PASS"
+}

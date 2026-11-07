@@ -1,0 +1,284 @@
+{
+  "status": "PASS",
+  "measurement": "PocketIC default Application 13-node normal cost schedule; backend settled cycle debits, not physical consensus, target-subnet capacity, gross fleet consumption or actual mainnet cost",
+  "empty_windows": [
+    {
+      "active_simulation": false,
+      "configuration": "PocketIC default Application / 13-node normal cost schedule; not physical consensus or target-subnet capacity evidence",
+      "fallback_seconds": 0,
+      "index_calls": 0,
+      "settled_cycles": "292956479",
+      "treasury_credits": 0,
+      "treasury_enabled": false,
+      "window_seconds": 3600.20000114
+    },
+    {
+      "active_simulation": false,
+      "configuration": "PocketIC default Application / 13-node normal cost schedule; not physical consensus or target-subnet capacity evidence",
+      "fallback_seconds": 0,
+      "index_calls": 0,
+      "settled_cycles": "468487036",
+      "treasury_credits": 0,
+      "treasury_enabled": true,
+      "window_seconds": 3600.20000114
+    },
+    {
+      "active_simulation": false,
+      "configuration": "PocketIC default Application / 13-node normal cost schedule; not physical consensus or target-subnet capacity evidence",
+      "fallback_seconds": 60,
+      "index_calls": 60,
+      "settled_cycles": "3466464079",
+      "treasury_credits": 0,
+      "treasury_enabled": true,
+      "window_seconds": 3600.20000114
+    },
+    {
+      "active_simulation": false,
+      "configuration": "PocketIC default Application / 13-node normal cost schedule; not physical consensus or target-subnet capacity evidence",
+      "fallback_seconds": 600,
+      "index_calls": 6,
+      "settled_cycles": "742127545",
+      "treasury_credits": 0,
+      "treasury_enabled": true,
+      "window_seconds": 3600.20000114
+    },
+    {
+      "active_simulation": false,
+      "configuration": "PocketIC default Application / 13-node normal cost schedule; not physical consensus or target-subnet capacity evidence",
+      "fallback_seconds": 3600,
+      "index_calls": 1,
+      "settled_cycles": "514089932",
+      "treasury_credits": 0,
+      "treasury_enabled": true,
+      "window_seconds": 3600.20000114
+    }
+  ],
+  "baseline_maintenance_and_storage_cycles_per_hour": 292956479,
+  "incremental_empty_treasury_cycles_per_hour": 175530557,
+  "baseline_with_empty_treasury_cycles_per_hour": 468487036,
+  "marginal_empty_reconciliation_cycles": {
+    "60": 49966284.05,
+    "600": 45606751.5,
+    "3600": 45602896.0
+  },
+  "saving_60_to_600_cycles_per_hour": 2724336534,
+  "incremental_saving_600_to_3600_cycles_per_hour": 228037613,
+  "hint_probe": {
+    "bounded_retry_index_calls": 3,
+    "ignored_four_target_cycle_debit": "23302263",
+    "independent_hourly_experimental_deadline": true,
+    "no_payload_admission": true,
+    "production_fallback": 60,
+    "sender_cycle_debit_including_forwarding": "97124892",
+    "service_health": "Unavailable on deployed Event Horizon; no assistance activated",
+    "service_health_queries": 0,
+    "status": "PASS",
+    "valid_hint_and_bounded_retry_target_debit": "144941527"
+  },
+  "conditional_net_saving": {
+    "formula": "60s\u2192600s backend saving = 2724336534 - 144941527 * accepted_hint_bursts_per_hour - service_health_cycles_per_hour",
+    "one_burst_no_health_example_cycles_per_hour": 2579395007,
+    "twenty_bursts_no_health_example_cycles_per_hour": -174494006,
+    "scope": "Illustrative measured-component arithmetic at active or Trickle operation; external notifier costs and deployed health API/cost are unknown. Active traffic can erase the saving. Actual enabled saving is zero."
+  },
+  "active_and_trickle_profiles": [
+    {
+      "bytes": {
+        "artifacts": 1471,
+        "publication": 2077,
+        "stable_memory": 33619968
+      },
+      "cycles": "891323592",
+      "cycles_per_second": 29710786.042480208,
+      "instructions": {
+        "max_message": 31293486,
+        "publish": 44385890,
+        "seal": 89421177,
+        "stable_persist": 98159494,
+        "step": 95283002
+      },
+      "mode": "Normal",
+      "publication_ticks": 2,
+      "rate": 1.0666666538311111,
+      "seconds": 30.000000361,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 1471,
+        "publication": 2077,
+        "stable_memory": 33619968
+      },
+      "cycles": "891597115",
+      "cycles_per_second": 22289927.60696362,
+      "instructions": {
+        "max_message": 31293539,
+        "publish": 44386082,
+        "seal": 89421177,
+        "stable_persist": 98159494,
+        "step": 95283002
+      },
+      "mode": "Cruise",
+      "publication_ticks": 2,
+      "rate": 0.7999999903800001,
+      "seconds": 40.000000481,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 1471,
+        "publication": 2077,
+        "stable_memory": 33619968
+      },
+      "cycles": "954794119",
+      "cycles_per_second": 15913235.125442624,
+      "instructions": {
+        "max_message": 31293540,
+        "publish": 44394495,
+        "seal": 89189104,
+        "stable_persist": 98159978,
+        "step": 95260246
+      },
+      "mode": "Economy",
+      "publication_ticks": 2,
+      "rate": 0.5333333269244446,
+      "seconds": 60.000000721,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 1471,
+        "publication": 2077,
+        "stable_memory": 33619968
+      },
+      "cycles": "953748826",
+      "cycles_per_second": 9537488.145454766,
+      "instructions": {
+        "max_message": 31236122,
+        "publish": 44450580,
+        "seal": 89113605,
+        "stable_persist": 98176472,
+        "step": 95438639
+      },
+      "mode": "Steady",
+      "publication_ticks": 2,
+      "rate": 0.3199999961568,
+      "seconds": 100.000001201,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 1471,
+        "publication": 2077,
+        "stable_memory": 33619968
+      },
+      "cycles": "1016375055",
+      "cycles_per_second": 6775833.618644824,
+      "instructions": {
+        "max_message": 31296096,
+        "publish": 44464422,
+        "seal": 89674853,
+        "stable_persist": 98227389,
+        "step": 95213987
+      },
+      "mode": "Conserve",
+      "publication_ticks": 2,
+      "rate": 0.21333333077191113,
+      "seconds": 150.000001801,
+      "segments": 16,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 993,
+        "publication": 2076,
+        "stable_memory": 33619968
+      },
+      "cycles": "2055303741",
+      "cycles_per_second": 6630012.05777553,
+      "instructions": {
+        "max_message": 30376747,
+        "publish": 80572652,
+        "seal": 179027428,
+        "stable_persist": 199299539,
+        "step": 160069998
+      },
+      "mode": "Survival",
+      "publication_ticks": 1,
+      "rate": 0.10322580629644121,
+      "seconds": 310.000000466,
+      "segments": 32,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 993,
+        "publication": 2076,
+        "stable_memory": 33619968
+      },
+      "cycles": "2383729816",
+      "cycles_per_second": 3844725.50390413,
+      "instructions": {
+        "max_message": 30359450,
+        "publish": 80626309,
+        "seal": 178635576,
+        "stable_persist": 198819438,
+        "step": 160189834
+      },
+      "mode": "Lifeline",
+      "publication_ticks": 1,
+      "rate": 0.05161290314830384,
+      "seconds": 620.000000931,
+      "segments": 32,
+      "ticks": 32
+    },
+    {
+      "bytes": {
+        "artifacts": 993,
+        "publication": 2076,
+        "stable_memory": 33619968
+      },
+      "cycles": "5072684529",
+      "cycles_per_second": 1636349.8456094635,
+      "instructions": {
+        "max_message": 30353280,
+        "publish": 80420866,
+        "seal": 175944882,
+        "stable_persist": 199181613,
+        "step": 160888360
+      },
+      "mode": "Trickle",
+      "publication_ticks": 1,
+      "rate": 0.01032258062967409,
+      "seconds": 3100.000004651,
+      "segments": 32,
+      "ticks": 32
+    }
+  ],
+  "profile_scope": "32 identical logical ticks in each mode on the existing synthetic v3 trajectory fixture; includes maintenance, not a marginal simulation-cost isolation or current-world lifetime claim",
+  "latency": {
+    "observed_60s_payment_to_admission_virtual_seconds": 60.000000181,
+    "observed_60s_payment_to_applied_virtual_seconds": 61.000000184,
+    "assisted_wake_retries_seconds": [
+      2,
+      10
+    ],
+    "missed_notification_fallback_seconds": [
+      60,
+      600,
+      3600
+    ],
+    "qualification": "Fallback values are timer opportunities plus Index lag, calls, backpressure and publication. An hourly timer is not a one-hour completion deadline. Deployed notification latency is unestablished."
+  },
+  "reservations_and_credits": "In-flight source replies settled before idle-window balances; no treasury credits or simulation. System reservations/freezing are already excluded by liquid API and are not a second expenditure subtraction. Baseline includes storage and timer/health work. Instruction counters are separate in profiles.",
+  "selected_policy": {
+    "event_horizon": "DISABLED",
+    "fallback_seconds": 60,
+    "600_seconds": "NOT_ACTIVE: requires verified ABI, relevant subscription and fresh health",
+    "3600_seconds": "NOT_ACTIVE: path unestablished, small incremental saving and missed-hint delay not accepted"
+  }
+}
