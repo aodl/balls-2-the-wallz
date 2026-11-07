@@ -1,3 +1,7 @@
+> Historical qualification/preflight for the former deployment. Current European
+> deployment instructions and targets are in [S14_OPERATOR.md](S14_OPERATOR.md).
+> Do not execute the former-canister commands below for the current release.
+
 # Pre-launch A2 independent Normal/capture/replay acceptance
 
 Policy identifier: **prelaunch-a2-independent-normal-capture-replay-1**. Authority: the user's explicit qualification-policy decision following review of evidence commit **37aecd16039f4ccf9dd52133fac74748be23eaaf**. This changes the release decision criteria prospectively; it changes no historical test result or A2 threshold.

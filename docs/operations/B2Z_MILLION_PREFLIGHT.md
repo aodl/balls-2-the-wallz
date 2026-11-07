@@ -1,3 +1,7 @@
+> Historical qualification/preflight for the former deployment. Current European
+> deployment instructions and targets are in [S14_OPERATOR.md](S14_OPERATOR.md).
+> Do not execute the former-canister commands below for the current release.
+
 # Million-cell candidate: future deployment preflight and activation order
 
 This is a prepared procedure, **not authorization to execute it**. This

@@ -185,27 +185,43 @@ fn europe_low_floor_transition_and_recovery_headroom() {
             break;
         }
     }
-    assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    assert_eq!(arena_world(&pic, id).balls.len(), 1);
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     get_result::<Status>(
         &pic,
         id,
         "test_liquid_budget",
-        candid::encode_one(1_100_000_000_000u64).unwrap(),
+        candid::encode_one(1_400_000_000_000u64).unwrap(),
     );
-    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "Trickle");
-    let before = pic.cycle_balance(id);
+    let execution_before = pic.cycle_balance(id);
     let segments = status(&pic, id).run.completed_segments;
     start_arena(&pic, id);
-    for _ in 0..20 {
+    for _ in 0..150 {
         tick(&pic);
         if status(&pic, id).run.completed_segments > segments {
             break;
         }
     }
-    assert!(status(&pic, id).run.completed_segments > segments);
+    assert!(
+        status(&pic, id).run.completed_segments > segments,
+        "Trickle must execute while its scheduling liquid balance permits"
+    );
+    let execution_debit = execution_before - pic.cycle_balance(id);
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    get_result::<Status>(
+        &pic,
+        id,
+        "test_liquid_budget",
+        candid::encode_one(900_000_000_000u64).unwrap(),
+    );
+    let before = pic.cycle_balance(id);
     let world = arena_world(&pic, id).encode().unwrap();
+    start_arena(&pic, id);
+    advance(&pic, 65);
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "ReserveProtection");
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), world);
+    assert!(status(&pic, id).run.last_error.is_none());
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     pic.upgrade_canister(
         id,
         bytes("B2Z_S14_WASM"),
@@ -217,13 +233,14 @@ fn europe_low_floor_transition_and_recovery_headroom() {
     assert_eq!(arena_world(&pic, id).encode().unwrap(), world);
     assert!(status(&pic, id).source.last_error.is_none());
     let remaining = pic.cycle_balance(id);
+    let health: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
     assert!(
         before - remaining < 100_000_000_000,
-        "bounded execution/recovery margin exhausted"
+        "bounded protected recovery margin exhausted"
     );
     output(
         "europe-floor.json",
-        serde_json::json!({"status":"PASS","initial_liquid_target":"1100000000000","settled_current_rules_execution_upgrade_maintenance_cycles":(before-remaining).to_string(),"remaining_total_cycles":remaining.to_string(),"source_call_floor":"150000000000","treasury_call_floor":"200000000000","transition_floor":"500000000000","application_protection_floor":"1000000000000","system_reservations":"Already excluded by liquid API; not subtracted twice","scope":"Bounded current-rules million-cell/one-ball execution, upgrade, source and paused-treasury maintenance; maximum-population capacity and lifetime are not claimed"}),
+        serde_json::json!({"status":"PASS","active_test_liquid_target":"1400000000000","protected_test_liquid_target":"900000000000","settled_active_execution_cycles":execution_debit.to_string(),"settled_protection_upgrade_maintenance_cycles":(before-remaining).to_string(),"test_budget_burn_excluded":true,"after_total_cycles":health.total_cycles.to_string(),"after_query_liquid_cycles":health.liquid_cycles.to_string(),"source_call_floor":"150000000000","treasury_call_floor":"200000000000","transition_floor":"500000000000","application_protection_floor":"1000000000000","reservation_observation":"The 0.9T liquid-budget context selects Reserve below the 1T exit and preserves the world without errors. A query or previous ingress liquid balance is not the later scheduling balance; reserves are not subtracted a second time.","scope":"Current-rules million-cell/one-ball execution and protected recovery; maximum-population capacity and indefinite lifetime are not claimed"}),
     );
 }
 
@@ -375,5 +392,35 @@ fn europe_trickle_bounded_real_cadence() {
     output(
         "europe-trickle-real-cadence.json",
         serde_json::json!({"status":"PASS","real_wall_seconds":elapsed,"additional_logical_ticks":1,"normal_wasm":true,"mode":"Trickle","nominal_milli":10,"scope":"Bounded real-cadence normal-Wasm scheduler observation on synthetic v3 trajectory fixture; not fresh-genesis or browser certificate evidence"}),
+    );
+}
+
+#[derive(CandidType, Deserialize)]
+struct Liquid {
+    liquid_cycles: candid::Nat,
+    total_cycles: candid::Nat,
+}
+#[test]
+#[ignore = "explicit 1.5T starting-budget probe; set B2Z_PROFILE_INITIAL_CYCLES"]
+fn europe_natural_initial_budget_activates_rules_and_stays_protected() {
+    assert_eq!(
+        std::env::var("B2Z_PROFILE_INITIAL_CYCLES").as_deref(),
+        Ok("1500000000000")
+    );
+    let (pic, id, _, _) = arena_setup(bytes("B2Z_S14_WASM"));
+    let before: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
+    activate(&pic, id);
+    start_arena(&pic, id);
+    let world = arena_world(&pic, id).encode().unwrap();
+    advance(&pic, 65);
+    let status = status(&pic, id);
+    let after: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
+    assert!(status.source.binding_checked && status.source.last_error.is_none());
+    assert_eq!(arena_world(&pic, id).version, 6);
+    assert_eq!(status.run.pace.unwrap().mode, "ReserveProtection");
+    assert_eq!(world, arena_world(&pic, id).encode().unwrap());
+    output(
+        "europe-natural-initial-budget.json",
+        serde_json::json!({"status":"PASS","initial_cycles":"1500000000000","before_total":before.total_cycles.to_string(),"before_liquid":before.liquid_cycles.to_string(),"after_total":after.total_cycles.to_string(),"after_liquid":after.liquid_cycles.to_string(),"selected_mode":"ReserveProtection","current_rules":true,"healthy_source":true,"scope":"Disposable default Application 13-node cost schedule; estimate for target budget, not an actual mainnet post-install balance"}),
     );
 }
