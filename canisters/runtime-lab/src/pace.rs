@@ -6,7 +6,7 @@ use serde::Deserialize;
 // Extra headroom below is application policy, not another subtraction of those reserves.
 pub const INDEX_FLOOR: u128 = 150_000_000_000;
 pub const TRICKLE_EXIT: u128 = 1_000_000_000_000;
-pub const TRICKLE_ENTER: u128 = 1_500_000_000_000;
+pub const TRICKLE_ENTER: u128 = 1_250_000_000_000;
 pub const LIFELINE_EXIT: u128 = 2_000_000_000_000;
 pub const LIFELINE_ENTER: u128 = 3_000_000_000_000;
 pub const SURVIVAL_EXIT: u128 = 4_000_000_000_000;
@@ -320,6 +320,31 @@ mod tests {
         );
         assert_eq!(select(Mode::Lifeline, LIFELINE_EXIT), Mode::Lifeline);
         assert_eq!(select(Mode::Lifeline, LIFELINE_EXIT - 1), Mode::Trickle);
+    }
+
+    #[test]
+    fn fresh_trickle_entry_retains_exit_and_recovery_hysteresis() {
+        assert_eq!(TRICKLE_ENTER, 1_250_000_000_000);
+        assert_eq!(TRICKLE_EXIT, 1_000_000_000_000);
+        let mut clock = Clock::default();
+        clock.refresh(TRICKLE_ENTER - 1);
+        assert!(!clock.hint().admission_open);
+        clock.refresh(TRICKLE_ENTER);
+        assert_eq!(clock.mode, Mode::Trickle);
+        assert_eq!(clock.hint().nominal_milli, 10);
+        for liquid in [1_421_000_000_000, TRICKLE_ENTER - 1, TRICKLE_EXIT] {
+            clock.refresh(liquid);
+            assert_eq!(clock.mode, Mode::Trickle);
+            assert!(clock.hint().admission_open);
+        }
+        clock.refresh(TRICKLE_EXIT - 1);
+        assert!(!clock.hint().admission_open);
+        clock.refresh(TRICKLE_ENTER - 1);
+        assert_eq!(clock.mode, Mode::ReserveProtection);
+        clock.refresh(TRICKLE_ENTER);
+        assert_eq!(clock.mode, Mode::Trickle);
+        clock.refresh(NORMAL_ENTER);
+        assert_eq!(clock.mode, Mode::Normal);
     }
 
     #[test]

@@ -402,25 +402,141 @@ struct Liquid {
 }
 #[test]
 #[ignore = "explicit 1.5T starting-budget probe; set B2Z_PROFILE_INITIAL_CYCLES"]
-fn europe_natural_initial_budget_activates_rules_and_stays_protected() {
+fn europe_natural_initial_budget_activates_rules_and_enters_trickle() {
     assert_eq!(
         std::env::var("B2Z_PROFILE_INITIAL_CYCLES").as_deref(),
         Ok("1500000000000")
     );
-    let (pic, id, _, _) = arena_setup(bytes("B2Z_S14_WASM"));
+    let module = bytes("B2Z_S14_WASM");
+    let (pic, id, ledger, payer) = arena_setup(module.clone());
     let before: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
-    activate(&pic, id);
+    // Disposable-local initialization pauses funding by default. Enable its
+    // ordinary production worker through the public controller API, as on IC.
+    get_result::<Treasury>(
+        &pic,
+        id,
+        "set_funding_paused",
+        candid::encode_one(false).unwrap(),
+    );
+    let epochs = activate(&pic, id);
     start_arena(&pic, id);
     let world = arena_world(&pic, id).encode().unwrap();
-    advance(&pic, 65);
-    let status = status(&pic, id);
-    let after: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
-    assert!(status.source.binding_checked && status.source.last_error.is_none());
+    let initial = status(&pic, id);
+    // Production Wasm, naturally funded once at creation: no budget setter,
+    // added cycles, mocked liquid API or gameplay mutation in this probe.
+    advance(&pic, 305);
+    let idle = status(&pic, id);
+    let activated: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
+    assert!(idle.source.binding_checked && idle.source.last_error.is_none());
     assert_eq!(arena_world(&pic, id).version, 6);
-    assert_eq!(status.run.pace.unwrap().mode, "ReserveProtection");
+    let pace = idle.run.pace.as_ref().unwrap();
+    assert_eq!(pace.mode, "Trickle");
+    assert!(pace.admission_open);
+    assert_eq!((pace.nominal_milli, pace.supported_milli), (10, 10));
+    assert_eq!(idle.run.idle, Some(true));
+    assert_eq!(idle.run.completed_segments, initial.run.completed_segments);
+    assert!(idle.source.index_calls > initial.source.index_calls);
     assert_eq!(world, arena_world(&pic, id).encode().unwrap());
+    #[derive(CandidType, Deserialize)]
+    struct Treasury {
+        paused: bool,
+        halted: bool,
+        last_error: Option<String>,
+        observed_balance: Option<TreasuryBalance>,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct TreasuryBalance {
+        e8s: u64,
+    }
+    let treasury: Treasury = get_query(&pic, id, "controller_funding", encode_args(()).unwrap());
+    assert!(!treasury.paused && !treasury.halted && treasury.last_error.is_none());
+    assert_eq!(treasury.observed_balance.unwrap().e8s, 0);
+    // Ordinary valueless Ledger command, with no website, quote or poke.
+    let sent = pic.get_time().as_nanos_since_unix_epoch();
+    let at = transfer_text(&pic, ledger, payer, id, 100_000_000, b"NEW 0 1");
+    for _ in 0..180 {
+        tick(&pic);
+        if arena_world(&pic, id).cannons.len() == 1 {
+            break;
+        }
+    }
+    assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    assert_eq!(arena_world(&pic, id).balls.len(), 1);
+    assert_eq!(arena_world(&pic, id).received_e8s, 100_000_000.into());
+    let applied_seconds = (pic.get_time().as_nanos_since_unix_epoch() - sent) as f64 / 1e9;
+    let paid = status(&pic, id);
+    assert_eq!(paid.source.admitted_to_exclusive, at + 1);
+    assert_eq!(paid.run.pace.as_ref().unwrap().mode, "Trickle");
+    advance(&pic, 105);
+    assert!(status(&pic, id).run.completed_segments > paid.run.completed_segments);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    let paused_world = arena_world(&pic, id).encode().unwrap();
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    pic.upgrade_canister(id, module, encode_args(()).unwrap(), Some(controller()))
+        .unwrap();
+    advance(&pic, 65);
+    let final_status = status(&pic, id);
+    let after: Liquid = get_query(&pic, id, "controller_runtime", encode_args(()).unwrap());
+    assert_eq!(paused_world, arena_world(&pic, id).encode().unwrap());
+    assert_eq!(final_status.source.admitted_to_exclusive, cursor);
+    assert!(final_status.source.binding_checked && final_status.source.last_error.is_none());
+    assert!(final_status.run.last_error.is_none());
+    assert!(after.liquid_cycles > candid::Nat::from(1_250_000_000_000u64));
+    assert!(after.total_cycles < candid::Nat::from(1_500_000_000_000u64));
     output(
         "europe-natural-initial-budget.json",
-        serde_json::json!({"status":"PASS","initial_cycles":"1500000000000","before_total":before.total_cycles.to_string(),"before_liquid":before.liquid_cycles.to_string(),"after_total":after.total_cycles.to_string(),"after_liquid":after.liquid_cycles.to_string(),"selected_mode":"ReserveProtection","current_rules":true,"healthy_source":true,"scope":"Disposable default Application 13-node cost schedule; estimate for target budget, not an actual mainnet post-install balance"}),
+        serde_json::json!({"status":"PASS","initial_cycles":"1500000000000","normal_wasm_sha256":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"before_total":before.total_cycles.to_string(),"before_liquid":before.liquid_cycles.to_string(),"activated_total":activated.total_cycles.to_string(),"activated_query_liquid":activated.liquid_cycles.to_string(),"after_total":after.total_cycles.to_string(),"after_liquid":after.liquid_cycles.to_string(),"selected_mode":"Trickle","admission_open":true,"current_rules":true,"authenticated_transitions":epochs.iter().map(|v|v["stage"].clone()).collect::<Vec<_>>(),"healthy_source":true,"empty_treasury_maintenance":true,"idle_without_ticks":true,"ledger_only_payment_applied_seconds":applied_seconds,"paid_trajectory_progressed":true,"normal_upgrade_preserved_world_and_cursor":true,"added_or_burned_cycles":false,"scope":"Disposable default Application 13-node cost schedule; bounded natural starting-budget execution/recovery, not maximum-population capacity or a mainnet balance"}),
+    );
+}
+
+#[test]
+fn europe_trickle_pending_payment_recovers_after_replenishment() {
+    let (pic, id, ledger, payer) = arena_setup(bytes("B2Z_S14_TEST_WASM"));
+    activate(&pic, id);
+    // Deliberate depletion exercises the real liquid-balance selector; this
+    // test hook burns cycles and does not override the API or admission result.
+    get_result::<Status>(
+        &pic,
+        id,
+        "test_liquid_budget",
+        candid::encode_one(900_000_000_000u64).unwrap(),
+    );
+    start_arena(&pic, id);
+    let at = transfer_text(&pic, ledger, payer, id, 100_000_000, b"NEW 0 1");
+    for _ in 0..120 {
+        tick(&pic);
+        if status(&pic, id).source.admitted_to_exclusive > at {
+            break;
+        }
+    }
+    let held = status(&pic, id);
+    assert_eq!(held.source.admitted_to_exclusive, at + 1);
+    assert_eq!(held.run.pace.as_ref().unwrap().mode, "ReserveProtection");
+    assert!(arena_world(&pic, id).cannons.is_empty());
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, at + 1);
+    pic.add_cycles(id, 500_000_000_000);
+    start_arena(&pic, id);
+    for _ in 0..150 {
+        tick(&pic);
+        if arena_world(&pic, id).cannons.len() == 1 {
+            break;
+        }
+    }
+    let recovered = status(&pic, id);
+    assert_eq!(recovered.run.pace.as_ref().unwrap().mode, "Trickle");
+    assert_eq!(arena_world(&pic, id).cannons.len(), 1);
+    assert_eq!(arena_world(&pic, id).received_e8s, 100_000_000.into());
+    assert_eq!(recovered.source.admitted_to_exclusive, at + 1);
+    assert!(recovered.source.last_error.is_none() && recovered.run.last_error.is_none());
+    output(
+        "europe-trickle-pending-recovery.json",
+        serde_json::json!({"status":"PASS","protection_target":"900000000000","disposable_replenishment":"500000000000","held_cursor":at+1,"recovered_mode":"Trickle","paid_cannons":1,"received_e8s":"100000000","upgrade_preserved_pending_payment":true,"liquid_api_not_overridden":true}),
     );
 }

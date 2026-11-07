@@ -6917,8 +6917,10 @@ fn public_runtime_health_is_bounded_operational_and_anonymous() {
     assert!(!initial.certified_gameplay);
     assert!(initial.total_cycles >= initial.liquid_cycles);
     assert!(initial.net_decline_cycles.is_none());
-    for _ in 0..3 {
-        pic.advance_time(Duration::from_secs(60));
+    // Health sampling reuses independent treasury maintenance every 300s;
+    // ordinary source reconciliation remains at 60s and does not sample it.
+    for _ in 0..2 {
+        pic.advance_time(Duration::from_secs(300));
         for _ in 0..8 {
             pic.tick();
         }

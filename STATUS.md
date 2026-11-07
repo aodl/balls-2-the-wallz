@@ -1,3 +1,22 @@
+# Final European entry correction — frozen release publication pending
+
+Trickle entry is 1.25T liquid; its 1T exit, all upper tiers, source/treasury/transition
+floors, DTR, 60-second fallback and disabled Event Horizon remain unchanged.
+The natural 1.5T disposable starting budget completes all four authenticated
+transitions, selects Trickle with admission open, idles efficiently, processes an
+ordinary valueless Ledger payment and preserves its world/cursor on normal upgrade.
+50 host tests and focused frontend/certificate checks pass. Archived certificate
+tests now use their recorded canister policy and explicitly reject that proof under
+the European policy; the existing health test follows the approved 300-second
+maintenance cadence. The active operator runbook contains only European commands;
+its historical section is preserved verbatim in a separate archive.
+The final normal Wasm and assets must be frozen from this committed source, published
+and pass substantive exact-source hosted CI before installation. Both European
+targets were rechecked empty on the expected 13-node subnet with unchanged controllers.
+No installation, transfer, controller change or former-deployment operation occurred.
+
+---
+
 # European release frozen — local PASS; source publication/install BLOCKED
 
 Source `4db8279a47c9b6c6caf1857cba17e265a322cde0` retains UI `3306728`, binds the

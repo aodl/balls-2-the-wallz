@@ -12,7 +12,7 @@ physics, prices, scores and movement per logical tick are unchanged.
 | Conserve | .2 | 10 | 8 |
 | Survival | .1 | 5 | 4 |
 | Lifeline | .05 | 3 | 2 |
-| Trickle | .01 | 1.5 | 1 |
+| Trickle | .01 | 1.25 | 1 |
 | Reserve Protection | 0 | — | Below safe Trickle exit |
 
 Hysteresis retains an active band to its exit. Replenishment selects the fastest
