@@ -1,7 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createHandoffs,instructionKey} from '../../apps/b2z-observer/handoff.mjs';
-import {placeCard,intersects,nearestPoint} from '../../apps/b2z-observer/workspace.mjs';
-import {Camera} from '../../apps/b2z-observer/camera.mjs';
+import {createHandoffs,instructionKey,receiptSummary} from '../../apps/b2z-observer/handoff.mjs';
 const q={account:'ab'.repeat(32),memo:'FIRE 7 37.5 2',amount:50000000n,network:'local',snapshot:'a',cannon:7};
 test('first handoff is an immutable coherent public packet; later drafts cannot mutate it',()=>{const h=createHandoffs(undefined,'key'),p=h.freeze(q);q.cannon=8;assert.equal(p.cannon,7);assert.equal(p.memo,'FIRE 7 37.5 2');assert.equal(p.amount,'50000000');assert.equal(h.records()[0].state,'copied');assert.equal(h.records()[0].receipt,undefined);assert.equal(h.sent,undefined);});
 test('snapshot changes alone do not alter canonical instructions; amount and target do',()=>{assert.equal(instructionKey({...q,snapshot:'a'}),instructionKey({...q,snapshot:'b'}));assert.notEqual(instructionKey(q),instructionKey({...q,amount:1n}));assert.notEqual(instructionKey(q),instructionKey({...q,cannon:2}));});
@@ -10,3 +8,10 @@ test('UX-09 obsolete reports migrate to unknown history, with no transaction-rep
 // UX-03 replaces floating rail/card collision geometry with one shared docked panel.
 // Its scroll reachability and non-overlap with camera controls are measured in browser journeys.
 test('receipt cache remains bounded historical public data across reload, isolated by backend',()=>{const m=new Map(),storage={getItem:k=>m.get(k),setItem:(k,v)=>m.set(k,v)},h=createHandoffs(storage,'a');h.rememberReceipts(Array.from({length:70},(_,n)=>({account:q.account,amount:1n,position:BigInt(n),reason:'ACCEPTED',status:'applied'})),'root');assert.equal(h.cachedReceipts().length,64);const restored=createHandoffs(storage,'a').cachedReceipts();assert.equal(restored.length,64);assert.equal(restored[0].snapshot,'root');assert.equal(restored[0].position,'6');assert.equal(restored[0].verified,undefined);assert.equal(createHandoffs(storage,'b').cachedReceipts().length,0);});
+
+test('UX-09/10 receipt labels use verified new_cannon and actual quantity, never a local packet guess',()=>{
+ assert.equal(receiptSummary({new_cannon:true,actual_quantity:3,requested_quantity:3,remainder:0,stop_reason:'quantity_limit'}),'Cannon built · 3 balls');
+ assert.equal(receiptSummary({new_cannon:false,actual_quantity:2,requested_quantity:2,remainder:0,stop_reason:'quantity_limit'}),'2 balls launched');
+ assert.match(receiptSummary({actual_quantity:1,requested_quantity:3,remainder:10,stop_reason:'island_limit'}),/1 ball launched.*retained.*island limit/);
+ assert.match(receiptSummary({reason:'MOVE_LIMIT',status:'rejected'}),/not applied.*payment retained/);
+});

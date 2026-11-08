@@ -33,7 +33,7 @@ export class Camera {
   cell(sx,sy){const p=this.world(sx,sy),x=Math.floor(this.torus?wrap(p.x,this.width):p.x),y=Math.floor(this.torus?wrap(p.y,this.height):p.y);return x>=0&&x<this.width&&y>=0&&y<this.height?y*this.width+x:null;}
   bounds(){const {width,height}=this.viewport,p=[[0,0],[width,0],[0,height],[width,height]].map(([x,y])=>this.world(x,y)),x=Math.min(...p.map(p=>p.x)),y=Math.min(...p.map(p=>p.y));return {x,y,width:Math.max(...p.map(p=>p.x))-x,height:Math.max(...p.map(p=>p.y))-y};}
   copies(padding=0){
-    if(!this.torus||this.scale<=this.fitScale*1.01)return [{x:0,y:0}];
+    if(!this.torus||this.scale<=this.fitScale*1.01&&Math.abs(this.x-this.width/2)<1e-8&&Math.abs(this.y-this.height/2)<1e-8)return [{x:0,y:0}];
     const bounds=this.bounds(),b={x:bounds.x-padding,y:bounds.y-padding,width:bounds.width+2*padding,height:bounds.height+2*padding},out=[];
     for(let y=Math.floor(b.y/this.height);y<=Math.floor((b.y+b.height)/this.height);y++)for(let x=Math.floor(b.x/this.width);x<=Math.floor((b.x+b.width)/this.width);x++)out.push({x:x*this.width,y:y*this.height});
     return out.sort((a,b)=>Math.hypot(a.x+this.width/2-this.x,a.y+this.height/2-this.y)-Math.hypot(b.x+this.width/2-this.x,b.y+this.height/2-this.y)).slice(0,25);

@@ -106,7 +106,7 @@ Local facts: verified-delivery age/errors, clock/queue, visibility and renderer.
 Do not describe operational telemetry as certified game state.
 
 Precedence: authentication/render failure → unavailable/stale delivery → observed
-operator stop → protection (Refuelling only with actual pending treasury evidence)
+operator stop/transition → source/processing error → protection (Refuelling only with actual pending treasury evidence)
 → empty/dormant idle → presentation resynchronising/waiting → advancing Slow/Live.
 An unchanged head with a fresh valid certificate is not stale. A successful fetch
 alone is not advancing motion. Retained verified motion may finish after a
@@ -148,14 +148,38 @@ no travel effect. Reset on spawn/discontinuity and suppress with reduced motion.
 
 No million-object graph, million-cell per-frame scan, per-ball dynamic shadows or
 unbounded effects. Share geometry/materials, instance visible tiles/entities, use
-overview LOD and bounded cosmetic state. Cap DPR at 2; explicit context loss/error,
+overview LOD and bounded cosmetic state. Cap DPR at 2 and the drawing buffer at one million pixels; explicit context loss/error,
 recover renderer without replacing verified session; dispose resources on teardown.
 
-Copy/layout budgets: arena has at most one primary status sentence, no persistent
-technical paragraph; action context at most one concise restriction; wallet keeps
-the mandatory five fields and retention/fee warning visible in its single scroll;
-technical addresses wrap/select without truncating clipboard bytes. Primary touch
-controls target 44 CSS px. Financial warnings are an explicit copy-budget exception.
+Copy/layout budgets (dynamic addresses, prices and memos excluded):
+
+| Surface | Budget / constraint |
+| --- | --- |
+| Permanent arena chrome | At most 20 words; one primary status, no technical paragraph. |
+| Cannon inspection | At most 30 words plus contextual labelled actions. |
+| Action restriction | One reason, normally at most 12 words. |
+| Replacement choice | One inline choice, normally at most 18 words. |
+| Ordinary wallet view | At most 65 static words, including the mandatory fee/retention warning; one scroll. |
+| Account declaration | At most 40 words before advanced detail/history. |
+| Help | Secondary, at most 110 words. |
+| Technical status/history | Disclosed; bounded source data/records, no default-arena paragraph budget. |
+
+Financial warnings are explicit exceptions if more information is necessary; never
+hide them to satisfy a count. Panel width is 380 CSS px on desktop, viewport minus
+16 px on mobile; mobile maximum height 62dvh leaves camera controls usable.
+Financial values/body copy remain at least 14 CSS px. Primary controls target 44 px.
+Addresses wrap/select without changing clipboard bytes. The player action chip
+stays clear of the panel. One opening accommodation may move an occluded selection;
+background updates do not repeat it. Latest-state planning positions use a distinct
+hollow marker/short guide and a concise notice when they differ from the displayed
+cannon. They never replace the displayed authoritative entity or clock.
+
+The renderer caps tiles at 8,192, entity instances at 4,096 per shared batch,
+cosmetic tiles at 128 and torus copies at 25. Matte tile faces use shared prelit
+vertex colours; solids use shared diffuse lighting, with no per-entity shadow map.
+Terrain layout is cached by ownership identity/revision, never rebuilt for each pan
+frame. Move highlights evaluate canonical legality on bounded visible tiles; a tap
+or numeric destination is checked canonically even when outside those highlights.
 
 Performance targets (not claims): desktop 60 fps, physical phone 30 fps; measure
 p50/p95 frame time, interaction delay, heap, draw/instance counts and verification

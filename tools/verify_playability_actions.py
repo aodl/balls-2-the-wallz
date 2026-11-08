@@ -22,7 +22,7 @@ def close(page):
  if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
 def select(page,n):page.evaluate('(n)=>fixture.select(n)',n)
 with sync_playwright() as pw:
- browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
+ browser=pw.chromium.launch(executable_path=pw.chromium.executable_path,headless=True,chromium_sandbox=True)
  try:
   for width,height in [(1440,900),(390,844),(320,640)]:
    context=browser.new_context(viewport={'width':width,'height':height},permissions=['clipboard-write'],record_video_dir=str(out/'video'),record_video_size={'width':width,'height':height})
@@ -52,7 +52,15 @@ with sync_playwright() as pw:
     print('account click',flush=True);page.locator('#identify-button').click();print('account open',flush=True);close(page);select(page,1);page.locator('#fire-action').click();page.locator('#angle-degrees').fill(str(20+i));page.wait_for_timeout(200);close(page)
    assert page.evaluate('fixture.sameClock()');assert page.evaluate('fixture.summary().time')>initial;page.wait_for_timeout(1000);page.screenshot(path=str(out/f'{width}x{height}-moving.png'))
    assert not page.evaluate('document.documentElement.scrollWidth>innerWidth');assert page.locator('.camera-controls button').evaluate_all('(ns)=>ns.every(n=>{const r=n.getBoundingClientRect();return r.width>=44&&r.height>=44})')
+   # Contextual opponent/Build/Move paths use canonical helpers, not disabled action walls.
+   page.evaluate('fixture.render("bridge_both","initial")');select(page,3);assert page.locator('#context-actions').is_hidden();close(page)
+   page.evaluate('fixture.render("additional","final")');select(page,1);page.locator('#move-action').click();page.locator('#move-cell').fill('999999');assert page.locator('#prepared-card').is_hidden();page.keyboard.press('Escape')
+   select(page,1);page.locator('#build-action').click();assert page.locator('#new-controls').is_visible();assert page.evaluate('fixture.sites().length')>0
+   site=page.evaluate('fixture.sites()[0]');page.locator('#new-cell').select_option(str(site));assert page.locator('#text-memo').inner_text().endswith(' '+str(site));close(page)
    metrics=page.evaluate('fixture.metrics()');rows.append({'viewport':[width,height],'status':'PASS','metrics':metrics,'recording':str(Path(page.video.path()).relative_to(out)),'coverage':['contextual Fire/Revive/Join','exact coherent bytes','principal/default/legacy equality','denied/manual clipboard','edit and replacement','history/account scoping','one panel','clock/queue identity and progress','populated WebGL rendering']});context.close();print(f'PASS {width}x{height}',flush=True)
+  context=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce');page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(origin);page.wait_for_function('()=>!!window.fixture');identify(page);close(page);page.evaluate('fixture.motion("idle",.01)');before=page.evaluate('fixture.summary().time');page.wait_for_timeout(600);assert page.evaluate('fixture.summary().time')>before
+  page.set_viewport_size({'width':390,'height':500});page.locator('#identify-button').click();page.locator('#change-account').click();page.locator('#sending-account').fill('aaaaa-aa');assert page.locator('#identity-save').is_visible();page.locator('#identity-save').click();page.keyboard.press('Escape');page.set_viewport_size({'width':320,'height':640});before_zoom=page.evaluate('devicePixelRatio');page.keyboard.press('ControlOrMeta+Equal');native_zoom=page.evaluate('devicePixelRatio')!=before_zoom;page.evaluate("document.documentElement.style.fontSize='24px'");assert not page.evaluate('document.documentElement.scrollWidth>innerWidth');rows.append({'status':'PASS','coverage':['reduced motion continues live motion','software-keyboard viewport resize','150% root text-size emulation'],'native_browser_zoom_shortcut_changed_dpr':native_zoom});context.close()
+  context=browser.new_context(viewport={'width':390,'height':844});context.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw Error('blocked')}})");page=context.new_page();page.goto(origin);page.wait_for_function('()=>!!window.fixture');identify(page);assert 'this visit only' in page.locator('#storage-note').inner_text();close(page);select(page,1);page.locator('#fire-action').click();assert page.locator('[data-copy="text"]').is_enabled();context.close()
   assert not errors,errors
  except Exception:
   print('FAILURE',errors,flush=True);page.screenshot(path=str(out/'failure.png'),timeout=5000);(out/'failure.json').write_text(json.dumps({'errors':errors,'text':page.locator('body').inner_text()},indent=2));raise

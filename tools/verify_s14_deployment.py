@@ -403,7 +403,7 @@ def main():
             url=configuration['host']+'/';wait_for_server(url,server)
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw, ExitStack() as capture_finalizers:
-            browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
+            browser=pw.chromium.launch(executable_path=pw.chromium.executable_path,headless=True,chromium_sandbox=True)
             report['browser_version']=browser.version;save()
             context_options={'permissions':['clipboard-write'],'has_touch':True,'viewport':{'width':1440,'height':900}}
             # Video encoding is optional evidence, not part of observer delivery.
@@ -658,6 +658,22 @@ def main():
                     assert .9<=report['steady_playback'][key]<=1.15,(key,report['steady_playback'])
                 assert steady[-1]['resyncs']==steady[0]['resyncs'],report['steady_playback']
             report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
+            # UX-04/05/11: controlled Chromium engine suspension while the genuine
+            # disposable producer runs. Headless focus emulation does not deliver
+            # native tab freeze events; dispatch lifecycle inputs explicitly and
+            # pause the real JS engine. This is not a native hidden-tab/device claim.
+            page.evaluate("()=>{globalThis.__lifecycleEvents=[];for(const type of ['freeze','resume'])document.addEventListener(type,()=>__lifecycleEvents.push({type,at:performance.timeOrigin+performance.now()}));}")
+            lifecycle_cdp=context.new_cdp_session(page)
+            before_gap=page.evaluate('({head:__dtrLive.heads.at(-1).toString(),resyncs:__dtrLive.resyncs,camera:{x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale}})')
+            page.evaluate("document.dispatchEvent(new Event('freeze'))");lifecycle_cdp.send('Debugger.enable');frozen_at=time.time();lifecycle_cdp.send('Debugger.pause');time.sleep(35)
+            lifecycle_cdp.send('Debugger.resume');page.evaluate("document.dispatchEvent(new Event('resume'))");lifecycle_cdp.send('Debugger.disable');page.bring_to_front()
+            (out/'suspension-diagnostics.json').write_text(json.dumps(page.evaluate('({events:__lifecycleEvents,wall:Date.now(),perf:performance.now(),hidden:document.hidden,resyncs:__dtrLive.resyncs,head:__dtrLive.heads.at(-1).toString()})'),indent=2)+'\n')
+            wait_until(page,lambda:page.evaluate('__dtrLive.resyncs')>before_gap['resyncs'],30000)
+            assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')==before_gap['camera']
+            assert page.evaluate('__dtrLive.playback.consumed_ticks<=__dtrLive.playback.verified_ticks')
+            lifecycle_events=page.evaluate('__lifecycleEvents');assert {'freeze','resume'}<={e['type']for e in lifecycle_events}
+            report['suspended_return']={'frozen_at_epoch_seconds':frozen_at,'resumed_at_epoch_seconds':time.time(),'before':before_gap,'events':lifecycle_events,'after':page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'),'qualification':'Controlled lifecycle events plus actual Chromium debugger suspension; genuine disposable certified producer/retained-gap recovery. Native hidden-tab lifecycle is not established by this headless test. No physical-device or production timing claim.'}
+            record('UX-04-05-11-controlled-suspended-return-authenticates-recent-view',report['suspended_return'])
             open_settings(page)
             page.evaluate('__b2zTools.delivery(true)');(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',90000))

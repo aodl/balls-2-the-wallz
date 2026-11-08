@@ -5,6 +5,7 @@ import {displayedMotion} from '../../apps/b2z-observer/motion-effects.mjs';
 const base={verified:true,fresh:true,operationalFresh:true,healthy:true,advancing:true,phase:'PLAYING',world:{balls:[{}],cannons:[{}]},operational:{run:{running:true,idle:false,last_error:[],pace:{mode:'Normal',supported_milli:1000,nominal_milli:1000,admission_open:true}},source:{binding_checked:true,last_error:[]}}};
 const status=override=>experienceStatus({...base,...override});
 test('UX-06 precedence distinguishes producer, verification, delivery and presentation',()=>{
+ assert.equal(status({live:false}).label,'Replay · offline');assert.match(status({live:false}).detail,/not IC-certified/);assert.equal(status({live:false,trust:'certificate'}).label,'Verified recording');
  assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Waiting for next update');
  const slow={...base.operational,run:{...base.operational.run,pace:{mode:'Trickle',supported_milli:10,admission_open:true}}};
  assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Waiting for next update · slow mode');
@@ -15,14 +16,19 @@ test('UX-06 precedence distinguishes producer, verification, delivery and presen
  assert.equal(status({operational:{...protectedRun,run:{...protectedRun.run,running:false}}}).label,'Game paused');
  assert.equal(status({world:{balls:[],cannons:[]},operational:{...slow,run:{...slow.run,idle:true}}}).label,'Waiting for players');
  assert.equal(status({world:{balls:[],cannons:[{}]},operational:{...slow,run:{...slow.run,idle:true}}}).label,'No active balls');
+ assert.equal(status({operational:{...protectedRun,source:{binding_checked:false,last_error:[]}}}).label,'Payment processing unavailable');
  assert.equal(status({phase:'STALLED'}).canPrepare,true);assert.equal(status({fresh:false}).canPrepare,false);assert.equal(status({operational:protectedRun}).canPrepare,false);
 });
-test('UX-04/11 scheduler is single-flight, survives visibility return and fences teardown',async()=>{
- const pending=[];let hidden=false,time=0,calls=0,refresh=0,release,returned=[];
- const loop=observationLoop({work:async()=>{calls++;await new Promise(r=>release=r);},refresh:async()=>refresh++,schedule:f=>(pending.push(f),f),cancel:f=>{const i=pending.indexOf(f);if(i>=0)pending.splice(i,1);},hidden:()=>hidden,now:()=>time,onReturn:g=>returned.push(g)});
- const running=pending.shift()();assert.equal(calls,1);hidden=true;loop.visibility();time=60000;hidden=false;loop.visibility();assert.deepEqual(returned,[60000]);assert.equal(calls,1);
- release();await running;assert.equal(pending.length,1);assert.equal(refresh,1);
- const second=pending.shift()();assert.equal(calls,2);loop.stop();release();await second;assert.equal(pending.length,0);
+test('UX-04/11 workers are independently single-flight, visibility-safe and fenced on teardown',async()=>{
+ const pending=[];let hidden=false,time=0,calls=0,refresh=0,release,releaseHealth,returned=[];
+ const settle=()=>new Promise(resolve=>setImmediate(resolve));
+ const loop=observationLoop({work:async()=>{calls++;await new Promise(r=>release=r);},refresh:async()=>{refresh++;await new Promise(r=>releaseHealth=r);},schedule:f=>(pending.push(f),f),cancel:f=>{const i=pending.indexOf(f);if(i>=0)pending.splice(i,1);},hidden:()=>hidden,now:()=>time,onReturn:g=>returned.push(g)});
+ pending.shift()();await settle();assert.equal(calls,1);assert.equal(refresh,1);
+ pending.shift()();await settle();assert.equal(calls,1);assert.equal(refresh,1);
+ release();await settle();pending.shift()();await settle();assert.equal(calls,2);assert.equal(refresh,1,'slow health must not hold observation');
+ hidden=true;loop.visibility();time=60000;hidden=false;loop.visibility();await settle();assert.deepEqual(returned,[60000]);assert.equal(calls,2);
+ loop.suspend();time+=40000;loop.resume();await settle();assert.deepEqual(returned,[60000,40000]);
+ loop.stop();release();releaseHealth();await settle();assert.equal(pending.length,0);
 });
 test('UX-12 effects use displayed displacement, unwrap seams and clear discontinuities',()=>{
  const m=displayedMotion({limit:4});const sample=(x,y,time,wallMs=0,more={})=>m.sample([{id:1,x,y}],{width:1000,height:1000,torus:true,time,wallMs,...more});

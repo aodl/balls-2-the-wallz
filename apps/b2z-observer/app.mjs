@@ -20,7 +20,7 @@ let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null
 let cameraRestored=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
-const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p)=>{
+const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
  const hits=[...(visible?.cannons.values()??[])].map(c=>{let dx=c.cell%visible.width+.5-p.x,dy=Math.floor(c.cell/visible.width)+.5-p.y;if(visible.torus){dx-=Math.round(dx/visible.width)*visible.width;dy-=Math.round(dy/visible.height)*visible.height;}const a=camera.screen(p.x+dx,p.y+dy),b=camera.screen(p.x,p.y);return {c,d:Math.hypot(a.x-b.x,a.y-b.y)};}).filter(h=>h.d<=Math.max(22,camera.scale*.4)).sort((a,b)=>a.d-b.d||a.c.id-b.c.id);
  return hits[0]?arcade.selectCannon(hits[0].c.id):false;
@@ -124,6 +124,7 @@ async function liveArtifacts(s,ticket){
   s.artifactMs=performance.now()-started;const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;const artifacts=Object.fromEntries(results.map(r=>r.value));
   return artifacts;
 }
+function rememberHead(head){const heads=globalThis.__dtrLive.heads;heads.push(head);if(heads.length>4096)heads.splice(0,heads.length-4096);}
 function resetLiveClock(s,time){
   s.queue=[];s.bytes=0;s.largestSegmentBytes=0;s.idleDrain=false;visibleTime=time;
   s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),max_frame_delta:1});
@@ -208,7 +209,7 @@ async function admitLive(s,ticket,prefetched){
   if(config)s.config=config;
     s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;
     s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
-    globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+    globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;rememberHead(Number(ticket.publication.head.segment_id));
     globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);return;
   }
   const deriving=performance.now();
@@ -223,7 +224,7 @@ async function admitLive(s,ticket,prefetched){
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;
   updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
-  globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+  rememberHead(Number(ticket.publication.head.segment_id));
   globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);
   globalThis.__dtrLive.maxBufferLogical=Math.max(globalThis.__dtrLive.maxBufferLogical,s.clock.state().buffer);
 }
@@ -233,7 +234,7 @@ async function resyncLive(s,ticket){
   const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);rememberLiveAcceptance(s,ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
   resetLiveClock(s,time);arenaRenderer?.reset();visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
-  globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
+  globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;rememberHead(Number(ticket.publication.head.segment_id));
 }
 function updatePlayReference(s,world,events){
   s.referenceWorld=world;
@@ -324,7 +325,7 @@ function phase(){
 function updateHud(){
  const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=now-(s?.certifiedAt??-Infinity)<30000;
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
- const resolved=experienceStatus({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,deliveryError:s?.deliveryError,renderError});
+ const resolved=experienceStatus({trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,deliveryError:s?.deliveryError,renderError});
  arcade.status({resolved});document.body.dataset.phase=p;
  const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;
@@ -336,6 +337,7 @@ function draw(){
  const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
+ arcade.presentation(v);
  try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
  canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);

@@ -27,12 +27,13 @@ def main():
  try:from playwright.sync_api import sync_playwright
  except ImportError:report['overall']='BLOCKED';record('browser-tooling','BLOCKED','Playwright unavailable');return 2
  with sync_playwright() as pw:
-  browser=pw.chromium.launch(headless=True,chromium_sandbox=True,**({'executable_path':a.browser}if a.browser else{}));report.update(browser_version=browser.version,playwright_version=importlib.metadata.version('playwright'),sandbox=True);record('browser-sandbox')
+  browser=pw.chromium.launch(headless=True,chromium_sandbox=True,executable_path=a.browser or pw.chromium.executable_path);report.update(browser_version=browser.version,playwright_version=importlib.metadata.version('playwright'),sandbox=True);record('browser-sandbox')
   context=browser.new_context(viewport={'width':1440,'height':900});page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
   try:
    response=page.goto(a.url);wait_until(page,lambda:page.evaluate('Boolean(__b2zExperience?.session?.ready)'))
    assert page.evaluate('isSecureContext&&typeof crypto.subtle.digest==="function"');record('native-browser-web-crypto')
    assert response and "script-src 'self'" in response.headers.get('content-security-policy','');assert page.locator('#workspace').is_hidden();assert not page.locator('dialog').count();record('csp-and-unobstructed-arena')
+   if a.trust=='offline':assert page.evaluate('__b2zExperience.status.kind')=='replay';assert 'not IC-certified' in page.evaluate('__b2zExperience.status.detail')
    if a.trust=='live':
     c=a.coordination;c.mkdir(parents=True,exist_ok=True);wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)'));(c/'browser-connected').write_text('connected\n');wait_until(page,lambda:page.evaluate('__dtrLive.heads.length')>=2)
     assert page.evaluate('__dtrLive.resyncs')==0;assert page.evaluate('__dtrLive.heads.slice(0,2)')==[0,1];record('fresh-live-certified-publications')
@@ -49,6 +50,9 @@ def main():
    for w,h in[(1440,900),(390,844),(320,640)]:
     page.set_viewport_size({'width':w,'height':h});page.wait_for_timeout(150);assert not page.evaluate('document.documentElement.scrollWidth>innerWidth');page.screenshot(path=str(a.output/f'{w}x{h}.png'))
    record('responsive-rendered-arena');assert page.evaluate('Boolean(__b2zRender?.draw_calls)');record('actual-webgl-renderer')
+   # Real WebGL context loss restores renderer resources without replacing verified state.
+   page.evaluate('()=>{window.contextClock=__b2zExperience.clock;window.contextQueue=__b2zExperience.queue;window.contextLoss=document.getElementById("board").getContext("webgl2").getExtension("WEBGL_lose_context");if(!contextLoss)throw Error("Context-loss test extension unavailable");contextLoss.loseContext();}')
+   wait_until(page,lambda:page.locator('#render-error').is_visible());page.wait_for_timeout(200);page.evaluate('contextLoss.restoreContext()');wait_until(page,lambda:page.locator('#render-error').is_hidden());assert page.evaluate('contextClock===__b2zExperience.clock&&contextQueue===__b2zExperience.queue');record('UX-12-context-restore-preserves-verified-session')
    reduced=browser.new_context(reduced_motion='reduce');rp=reduced.new_page();rp.goto(a.url);wait_until(rp,lambda:rp.evaluate('Boolean(globalThis.__b2zExperience?.session?.ready)'))
    wait_until(rp,lambda:rp.evaluate('__b2zExperience.clock.playhead>0||__b2zExperience.session.mode==="live"'));assert rp.locator('body').get_attribute('data-phase')!='PAUSED';record('UX-11-reduced-motion-retains-live-updates');reduced.close()
    # Corruption cannot fall back to an offline trust policy.

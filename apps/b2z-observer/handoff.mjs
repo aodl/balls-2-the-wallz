@@ -7,7 +7,12 @@ try{const v=JSON.parse(storage?.getItem(key));if(Array.isArray(v)&&JSON.stringif
  const save=()=>{records=records.slice(0,32);try{storage?.setItem(key,packetKey(records));return true;}catch{return false;}};
  return {records:()=>records,cachedReceipts:()=>cached,rememberReceipts(rows,snapshot){const merged=new Map(cached.map(r=>[r.position,r]));for(const row of rows)if(!merged.has(String(row.position)))merged.set(String(row.position),JSON.parse(packetKey({...row,snapshot}))); cached=[...merged.values()].slice(-64);try{storage?.setItem(key+':receipts',packetKey(cached));}catch{}},freeze(q){const r=JSON.parse(packetKey({...q,id:`${Date.now()}-${Math.random().toString(36).slice(2)}`,prepared_at:Date.now(),state:'copied'}));records.unshift(r);save();return r;}};
 }
-export function receiptSummary(r,format=n=>`${n} e8s`){
- if(r.actual_quantity!==undefined){const applied=Number(r.actual_quantity);return `${r.kind==='cannon_spawned'&&applied?'Cannon built':applied?`${applied} ball${applied===1?'':'s'} launched`:'Action not applied'}${Number(r.remainder)>0?' · unused payment retained':''}${r.stop_reason&&r.stop_reason!=='COMPLETE'?' · '+r.stop_reason.replaceAll('_',' ').toLowerCase():''}`;}
- return r.reason==='ACCEPTED'?({cannon_spawned:'Cannon built',ball_spawned:'Ball launched',cannon_moved:'Cannon moved'}[r.kind]??'Action applied'):`Rejected · ${r.reason.replaceAll('_',' ').toLowerCase()} · payment retained`;
+export function receiptSummary(r){
+ if(r.actual_quantity!==undefined){
+  const n=Number(r.actual_quantity),full=n===Number(r.requested_quantity);
+  const result=n?(r.new_cannon===true?`Cannon built · ${n} ball${n===1?'':'s'}`:`${n} ball${n===1?'':'s'} launched`):'Action not applied';
+  const restriction=!full&&r.stop_reason?' · '+r.stop_reason.replaceAll('_',' ').toLowerCase():'';
+  return result+(Number(r.remainder)>0?' · unused payment retained':'')+restriction;
+ }
+ return r.reason==='ACCEPTED'?({cannon_spawned:'Cannon built',ball_spawned:'Ball launched',cannon_moved:'Cannon moved'}[r.kind]??'Action applied'):`Action not applied · ${r.reason.replaceAll('_',' ').toLowerCase()} · payment retained`;
 }

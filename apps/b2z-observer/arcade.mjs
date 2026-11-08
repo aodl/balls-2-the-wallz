@@ -9,12 +9,12 @@ export function formatIcp(e8s){if(typeof e8s!=='bigint'||e8s<0n)throw Error('exa
 export const transferMemo=degrees=>describeTextMemo('angle',degrees);
 export function createArcade(doc){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
- let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='37.5',cell=null,packet=null,quote=null,manual=null,busy=false,pending=null,warning='',status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,activityKey='',rosterKey='';
+ let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='37.5',cell=null,packet=null,keepPrevious=false,quote=null,manual=null,busy=false,pending=null,warning='',status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,planningBehind=false,activityKey='',rosterKey='';
  try{storage=globalThis.localStorage;}catch{}
  const selected=()=>refs.find(c=>c.id===id),mine=()=>refs.filter(c=>c.account===declaration?.account);
  const emit=()=>doc.dispatchEvent(new CustomEvent('b2z-overlay'));
  function show(name,title){
-  if(view===null)opener=doc.activeElement;view=name;$('workspace').hidden=false;
+  if(!$('workspace').contains(doc.activeElement))opener=doc.activeElement;if(view!==name)doc.querySelector('.panel-body').scrollTop=0;view=name;$('workspace').hidden=false;
   for(const n of doc.querySelectorAll('.panel-view'))n.hidden=n.id!==name+'-view';
   text('panel-title',title);emit();
  }
@@ -43,17 +43,18 @@ export function createArcade(doc){
   const c=selected(),own=c?.account===declaration?.account;
   $('join-action').hidden=!world||Boolean(declaration&&mine().length);$('centre-cannon').hidden=!mine().length;text('centre-cannon',mine().length===1?'My cannon':'My cannons');
   $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own;text('fire-action',c?.dormant?'Revive':'Fire');
-  $('move-action').disabled=Boolean(c?.dormant);$('move-action').title=c?.dormant?'Revive the island before moving.':'';
-  text('cannon-life',c?`${own?'Your cannon':'Opponent cannon'} #${c.id} · ${c.dormant?'Dormant':`${c.balls} ball${c.balls===1?'':'s'}`}`:'Cannon no longer present.');text('inspect-note',own&&c?.dormant?'Revive before its on-chain expiry.':own?'Actions prepare instructions for your wallet.':'');
+  $('fire-action').disabled=Boolean(own&&c.next_ball_e8s===null);$('fire-action').setAttribute('aria-describedby','inspect-note');
+  $('move-action').disabled=Boolean(c?.dormant);$('move-action').setAttribute('aria-describedby','inspect-note');$('move-action').title=c?.dormant?'Revive the island before moving.':'';
+  text('cannon-life',c?`${own?'Your cannon':'Opponent cannon'} #${c.id} · ${c.dormant?'Dormant':`${c.balls} ball${c.balls===1?'':'s'}`}`:'Cannon no longer present.');text('inspect-note',own&&c.next_ball_e8s===null?'Ball capacity reached.':own&&c?.dormant?'Revive before moving or its on-chain expiry.':own?'Actions prepare instructions for your wallet.':'');
   $('angle-controls').hidden=mode==='move';$('quantity-controls').hidden=mode!=='ball'||world?.version!==6;$('move-controls').hidden=mode!=='move';$('new-controls').hidden=mode!=='start'||!mine().length||world?.version!==6;
   if(view==='action'){
    text('panel-title',mode==='start'?mine().length?'Build cannon':'New cannon':mode==='move'?'Move cannon':c?.dormant?'Revive cannon':'Fire balls');
-   quote=candidate();const changed=Boolean(packet&&instructionKey(quote)!==instructionKey(packet));
-   $('replace-choice').hidden=!changed;$('prepared-card').hidden=Boolean(!quote||quote.reason||changed);
+   quote=candidate();if(manual&&instructionKey(manual.q)!==instructionKey(packet??quote)){manual=null;$('manual-copy').hidden=true;}const differs=Boolean(packet&&instructionKey(quote)!==instructionKey(packet)),changed=differs&&!keepPrevious;
+   $('replace-choice').hidden=!changed;$('prepared-card').hidden=Boolean(changed||(!packet&&(!quote||quote.reason)));
    if(!$('prepared-card').hidden)renderPacket(packet??quote);
    $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(quote?.reason)||changed||Boolean(warning);
-   text('preparation-note',warning||(!status.canPrepare?status.label:quote?.reason??''));
-   text('placement-note',mode==='start'?(mine().length?'Choose an adjacent site. One ball included.':'Automatic first site. One ball included.'):mode==='ball'&&Number($('ball-quantity').value)>1?'Capacity may limit fulfilment.':'');
+   text('preparation-note',warning||(!status.canPrepare?status.label:quote?.reason??(keepPrevious&&differs?'Saved quote; the current price or conditions have changed.':'')));
+   text('placement-note',planningBehind?'Preview uses the latest verified position.':mode==='start'?(mine().length?'Choose an adjacent site. One ball included.':'Automatic first site. One ball included.'):mode==='ball'&&Number($('ball-quantity').value)>1?'Capacity may limit fulfilment.':'');
   }
   emit();
  }
@@ -66,7 +67,7 @@ export function createArcade(doc){
   if(!history)return;const key=JSON.stringify([declaration?.account,history.records(),history.cachedReceipts(),receipts],(_,v)=>typeof v==='bigint'?String(v):v);if(key===activityKey)return;activityKey=key;const saved=[];
   for(const r of history.records().filter(r=>r.account===declaration?.account)){
    const entry=doc.createElement('article'),label=doc.createElement('p'),b=doc.createElement('button');label.textContent=`${r.memo} · ${formatIcp(BigInt(r.amount))}${r.state==='unknown'?' · outcome unknown':''}`;entry.append(label);
-   if(r.backend===source.owner&&r.network===source.network&&r.owner&&r.recipient&&r.hex){b.textContent='View saved instructions';b.onclick=()=>{mode=r.action;id=r.cannon;cell=r.cell;degrees=r.angle??degrees;packet=r;warning='Saved instructions may no longer apply. Review before using.';$('angle-degrees').value=degrees;$('ball-quantity').value=r.requested??1;$('move-cell').value=cell??'';show('action','Saved instructions');refresh();};entry.append(b);}saved.push(entry);
+   if(r.backend===source.owner&&r.network===source.network&&r.owner&&r.recipient&&r.hex){b.textContent='View saved instructions';b.onclick=()=>{mode=r.action;id=r.cannon;cell=r.cell;degrees=r.angle??degrees;packet=r;keepPrevious=true;warning='Saved instructions may no longer apply. Review before using.';$('angle-degrees').value=degrees;$('ball-quantity').value=r.requested??1;$('move-cell').value=cell??'';show('action','Saved instructions');refresh();};entry.append(b);}saved.push(entry);
   }
   if(!saved.length){const p=doc.createElement('p');p.textContent='No saved instructions.';saved.push(p);}$('saved-list').replaceChildren(...saved);
   const outcomes=new Map(history.cachedReceipts().map(r=>[String(r.position),{...r,cached:true}]));for(const r of receipts)outcomes.set(String(r.position),r);
@@ -75,20 +76,20 @@ export function createArcade(doc){
  }
  function action(value){
   if(!declaration){pending=value;api.openAccount();return;}
-  clearDraft();mode=value;cell=null;$('move-cell').value='';$('new-cell').value='';
+  clearDraft();keepPrevious=false;mode=value;cell=null;$('move-cell').value='';$('new-cell').value='';
   if(value!=='start'&&selected()?.account!==declaration.account){if(mine().length===1)id=mine()[0].id;else{api.openRoster();return;}}
   if(value==='start')$('ball-quantity').value='1';
   if(world?.version===6&&value==='start'){$('new-cell').replaceChildren(new Option('Choose on the board',''),...legalAdjacentSites(world,declaration.account).map(n=>new Option(`Cell ${n}`,n)));}
   show('action','Wallet instructions');refresh();
  }
- $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){packet=null;warning='';id=null;mode='inspect';}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
+ $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){packet=null;keepPrevious=false;warning='';id=null;mode='inspect';}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
  $('change-account').onclick=$('payer-change').onclick=()=>{show('account','Sending account');$('identity-form').hidden=false;$('account-summary').hidden=true;$('sending-account').value=declaration?.display??declaration?.principal??declaration?.account??'';$('identity-subaccount').value='';$('sending-account').focus();};
  $('identity-forget').onclick=()=>{store?.forget();declaration=null;id=null;packet=null;warning='';pending=null;mode='inspect';identityLabel();activity();refresh();};
  $('identify-button').onclick=()=>api.openAccount();$('join-action').onclick=()=>action('start');$('fire-action').onclick=()=>action('ball');$('move-action').onclick=()=>action('move');$('build-action').onclick=()=>action('start');
- for(const name of ['angle-degrees','ball-quantity','move-cell','new-cell'])$(name).addEventListener('input',()=>{clearDraft();degrees=$('angle-degrees').value;cell=mode==='move'?$('move-cell').value===''?null:Number($('move-cell').value):mode==='start'?$('new-cell').value===''?null:Number($('new-cell').value):cell;refresh();});
- $('replace-instructions').onclick=()=>{packet=null;warning='';manual=null;$('manual-copy').hidden=true;text('copy-feedback','');refresh();};
- $('keep-instructions').onclick=()=>{if(!packet)return;mode=packet.action;id=packet.cannon;cell=packet.cell;degrees=packet.angle??degrees;$('angle-degrees').value=degrees;$('ball-quantity').value=packet.requested;$('move-cell').value=cell??'';$('new-cell').value=cell??'';refresh();};
- function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account)packet=saved;activity();return saved;}
+ for(const name of ['angle-degrees','ball-quantity','move-cell','new-cell'])$(name).addEventListener('input',()=>{clearDraft();keepPrevious=false;degrees=$('angle-degrees').value;cell=mode==='move'?$('move-cell').value===''?null:Number($('move-cell').value):mode==='start'?$('new-cell').value===''?null:Number($('new-cell').value):cell;refresh();});
+ $('replace-instructions').onclick=()=>{packet=null;keepPrevious=false;warning='';manual=null;$('manual-copy').hidden=true;text('copy-feedback','');refresh();};
+ $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;cell=packet.cell;degrees=packet.angle??degrees;$('angle-degrees').value=degrees;$('ball-quantity').value=packet.requested;$('move-cell').value=cell??'';$('new-cell').value=cell??'';refresh();};
+ function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account){packet=saved;if(q.cannon!==null&&!refs.some(c=>c.id===q.cannon&&c.account===q.account))warning='The copied target is no longer present. Saved instructions remain in Account.';}activity();return saved;}
  for(const b of doc.querySelectorAll('[data-copy]'))b.addEventListener('click',async()=>{
   refresh();if($('transfer-controls').disabled)return;const q=packet??quote,h=history,value={amount:formatIcp(BigInt(q.amount)).replace(' ICP',''),owner:q.owner,recipient:q.recipient,text:q.memo,hex:q.hex}[b.dataset.copy];busy=true;refresh();
   try{await navigator.clipboard.writeText(value);freeze(q,h);text('copy-feedback','Copied. Instructions saved; no payment sent.');}
@@ -100,21 +101,22 @@ export function createArcade(doc){
  const api={
   render(w,c,s,root=''){
    const nextContext=`${s.network}:${s.owner}`;
-   if(context!==nextContext){const firstContext=context===null;context=nextContext;store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);packet=null;warning='';id=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;id=Number.isSafeInteger(declaration?.cannon)?declaration.cannon:null;identityLabel();}
+   if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);packet=null;keepPrevious=false;warning='';id=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;id=Number.isSafeInteger(declaration?.cannon)?declaration.cannon:null;identityLabel();}
    world=w;config=c;source=s;revision=root;try{destination=paymentDestination(s);}catch(error){destination=null;status={canPrepare:false,label:'Unable to verify destination'};warning=error.message;}
    refs=cannonReference(w,c);
    if(id!==null&&!refs.some(c=>c.id===id)){id=null;mode='inspect';if(packet)warning='The copied target is no longer present. Saved instructions remain in Account.';else{warning='';text('copy-feedback','');}if(view==='action'||view==='inspect'){show('roster','Choose a cannon');text('roster-note','The selected cannon is no longer present. Choose another.');}}
    updateRoster();activity();refresh();
   },
   status(input){status=input.resolved??experienceStatus({...input,world});if(!destination)status={...status,canPrepare:false};text('arena-note',status.label);text('status-explanation',status.detail||status.label);refresh();return{available:status.canPrepare,label:status.label};},
-  action,selectCannon(n){const c=refs.find(c=>c.id===n);if(!c)return false;id=n;mode='inspect';cell=null;clearDraft();persist();show('inspect',`Cannon #${n}`);refresh();return true;},
-  cancel(){view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected?opener:$('board')).focus({preventScroll:true});},
+  action,selectCannon(n){const c=refs.find(c=>c.id===n);if(!c)return false;id=n;keepPrevious=false;mode='inspect';cell=null;clearDraft();persist();show('inspect',`Cannon #${n}`);refresh();return true;},
+  cancel(){view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
+  presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},
   selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,
-  aimAt(dx,dy){if(mode!=='ball'&&mode!=='start')return;degrees=((Math.atan2(dy,dx)*180/Math.PI+360)%360).toFixed(2);$('angle-degrees').value=degrees;clearDraft();refresh();},
+  aimAt(dx,dy){if(mode!=='ball'&&mode!=='start')return;degrees=(Math.round((Math.atan2(dy,dx)*180/Math.PI+360)%360*100)%36000/100).toFixed(2);$('angle-degrees').value=degrees;keepPrevious=false;clearDraft();refresh();},
   adjustAngle(delta){degrees=((Number(degrees)+delta+360)%360).toFixed(2);$('angle-degrees').value=degrees;refresh();},
   aim:()=>view==='action'&&['ball','start'].includes(mode)&&selected()?{cannon:selected(),angle:degrees}:null,
   moveSelection(){const c=selected();if(view!=='action')return null;if(world?.version===6&&mode==='start'&&mine().length)return{kind:'new',width:world.width,height:world.height,cells:legalAdjacentSites(world,declaration.account),cell};return mode==='move'&&c?{key:revision+'/'+id,width:world.width,height:world.height,id,cells:[],legal:n=>world.version===6?legalMove(world,declaration.account,id,n):c.owns(n),cell,reference:world}:null;},
-  chooseCell(n){const selection=api.moveSelection();if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){text('preparation-note','That destination is unavailable.');return false;}cell=n;$(mode==='move'?'move-cell':'new-cell').value=n;clearDraft();refresh();return true;},
+  chooseCell(n){const selection=api.moveSelection();if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){text('preparation-note','That destination is unavailable.');return false;}keepPrevious=false;cell=n;$(mode==='move'?'move-cell':'new-cell').value=n;clearDraft();refresh();return true;},
   openAccount(){identityLabel();activity();updateRoster();show('account','Account');if(!declaration)$('sending-account').focus();},
   openRoster(){if(mine().length===1){api.selectCannon(mine()[0].id);doc.dispatchEvent(new CustomEvent('b2z-locate'));}else{updateRoster();show('roster','My cannons');}},
   openActivity(){api.openAccount();$('saved-list').scrollIntoView({block:'nearest'});},

@@ -6,30 +6,33 @@ import {territoryLayout,boundaryIndex} from './terrain.mjs';
 import {displayedMotion} from './motion-effects.mjs';
 export const RENDER_LIMITS=Object.freeze({tiles:8192,pieces:4096,effects:128,dpr:2});
 export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={}){
- const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
+ const renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'low-power'});
  renderer.setClearColor('#151d24');renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;
  const scene=new T.Scene(),ortho=new T.OrthographicCamera(-1,1,1,-1,.1,10000);
  scene.add(new T.HemisphereLight(0xe8eef7,0x49565c,1.3));const sun=new T.DirectionalLight(0xffecd6,2);sun.position.set(-20,40,10);scene.add(sun);
  const material=new T.MeshLambertMaterial({flatShading:true});
  const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion();let lost=false,terrainKey='',lastView=null,layout=null,layoutStamp='',layoutView=null,layoutRevision=-1,tilePoints=[],lastDrawKey='',lastStats=null,effectUntil=0,previewKey='';
+ renderer.debug.onShaderError=()=>{lost=true;onError('The arena shader could not be compiled.');throw Error('Arena shader compilation failed');};
  const groups=[];
  function batch(geometry,max=RENDER_LIMITS.pieces,mat=material){const m=new T.InstancedMesh(geometry,mat,max);m.count=0;m.frustumCulled=false;scene.add(m);groups.push(m);return m;}
- const tiles=batch(new T.BoxGeometry(1,.10,1),RENDER_LIMITS.tiles),bases=batch(new T.CylinderGeometry(.29,.34,.13,8)),turrets=batch(new T.SphereGeometry(.22,12,8)),barrels=batch(new T.CylinderGeometry(.085,.10,.45,10)),balls=batch(new T.SphereGeometry(.10,12,8));
- const shadows=batch(new T.CircleGeometry(.31,16),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({color:0x03080c,transparent:true,opacity:.28,depthWrite:false}));
+ const tiles=batch(new T.BoxGeometry(1,.10,1),RENDER_LIMITS.tiles,new T.MeshBasicMaterial({vertexColors:true,toneMapped:false})),bases=batch(new T.CylinderGeometry(.29,.34,.13,8)),turrets=batch(new T.SphereGeometry(.22,12,8)),barrels=batch(new T.CylinderGeometry(.085,.10,.45,10)),balls=batch(new T.SphereGeometry(.10,12,8));
+ const normals=tiles.geometry.attributes.normal,faceColors=new Float32Array(normals.count*3);for(let i=0;i<normals.count;i++){const light=Math.max(.28,Math.min(1,normals.getX(i)*-.4+normals.getY(i)*.8+normals.getZ(i)*.2+.3));faceColors.set([light,light,light],i*3);}tiles.geometry.setAttribute('color',new T.BufferAttribute(faceColors,3));
+ const shadows=batch(new T.CircleGeometry(.31,16),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'varying vec2 shadowUv; void main(){shadowUv=uv;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 shadowUv; void main(){float a=.26*(1.-smoothstep(.08,.5,length(shadowUv-vec2(.5))));gl_FragColor=vec4(.015,.025,.03,a);}'}));
  const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:0xffdf9d,side:T.DoubleSide}));
  const highlights=batch(new T.PlaneGeometry(.87,.87),RENDER_LIMITS.effects,new T.MeshBasicMaterial({color:0xffffdc,transparent:true,opacity:.15,depthWrite:false}));
  const preview=batch(new T.PlaneGeometry(.85,.85),8192,new T.MeshBasicMaterial({color:0xffd895,transparent:true,opacity:.35,depthWrite:false,side:T.DoubleSide}));
  const edgeGeometry=new T.BufferGeometry();edgeGeometry.setAttribute('position',new T.BufferAttribute(new Float32Array(8192*6),3));const edges=new T.LineSegments(edgeGeometry,new T.LineBasicMaterial({color:0xc6d1d1,transparent:true,opacity:.4}));scene.add(edges);
  const guideGeometry=new T.BufferGeometry().setFromPoints([new T.Vector3(),new T.Vector3()]);
+ const marker=new T.Mesh(new T.RingGeometry(.36,.43,4),new T.MeshBasicMaterial({color:0xffdf9d,side:T.DoubleSide,transparent:true,opacity:.75}));marker.rotation.set(-Math.PI/2,0,Math.PI/4);scene.add(marker);
  const guide=new T.Line(guideGeometry,new T.LineDashedMaterial({color:0xffdf9d,dashSize:.18,gapSize:.12}));scene.add(guide);
  function instance(mesh,x,z,h,sx=1,sy=1,sz=1,tint=null,rotation=null){if(mesh.count>=mesh.instanceMatrix.count)return;dummy.position.set(x,h,z);dummy.scale.set(sx,sy,sz);dummy.rotation.set(rotation?.[0]??0,rotation?.[1]??0,rotation?.[2]??0);dummy.updateMatrix();mesh.setMatrixAt(mesh.count,dummy.matrix);if(tint)mesh.setColorAt(mesh.count,color.set(tint));mesh.count++;}
  function visible(camera,x,y,margin=2){const p=camera.screen(x,y);return p.x>=-margin*camera.scale&&p.y>=-margin*camera.scale&&p.x<=camera.viewport.width+margin*camera.scale&&p.y<=camera.viewport.height+margin*camera.scale;}
  const lostHandler=e=>{e.preventDefault();lost=true;motion.reset();onError('Graphics context lost. Waiting to restore the arena.');};
- const restoreHandler=()=>{lost=false;terrainKey='';motion.reset();onRestore();};
+ const restoreHandler=()=>{lost=false;terrainKey='';lastDrawKey='';motion.reset();onRestore();};
  canvas.addEventListener('webglcontextlost',lostHandler);canvas.addEventListener('webglcontextrestored',restoreHandler);
  function draw(v,camera,{time=0,selected=null,selection=null,aim=null,reducedMotion=false,wallMs=performance.now()}={}){
   if(lost)return;
-  const drawKey=[camera.x,camera.y,camera.scale,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selection?.key,selection?.cell,selection?.cells?.length,aim?.angle,reducedMotion,devicePixelRatio].join('/');
+  const drawKey=[camera.x,camera.y,camera.scale,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,reducedMotion,devicePixelRatio].join('/');
   if(lastView===v&&lastDrawKey===drawKey&&wallMs>effectUntil)return lastStats;
   if(time!==lastStats?.time)effectUntil=wallMs+400;lastDrawKey=drawKey;
   const {width,height}=camera.viewport;renderer.setPixelRatio(Math.min(devicePixelRatio||1,RENDER_LIMITS.dpr,Math.sqrt(1000000/(width*height))));renderer.setSize(width,height,false);
@@ -38,7 +41,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const copies=camera.copies(1),bounds=camera.bounds();
   // Cache terrain on local camera/ownership changes; no per-frame world scan.
   const key=[camera.x,camera.y,camera.scale,width,height,v.territoryRevision,v.entityKey()].join('/');
-  if(key!==terrainKey||lastView!==v){
+  const updateTerrain=key!==terrainKey||lastView!==v;
+  if(updateTerrain){
    terrainKey=key;lastView=v;tiles.count=0;tilePoints=[];
    const stamp=layoutView===v&&layoutRevision===v.territoryRevision?layoutStamp:JSON.stringify([v.ownership??v.cells,v.entityKey()]);layoutView=v;layoutRevision=v.territoryRevision;if(layoutStamp!==stamp){layoutStamp=stamp;layout=territoryLayout(v);layout.index=boundaryIndex(layout.edges,v.width,v.height);}
    let edgeCount=0;const positions=edgeGeometry.attributes.position;
@@ -71,10 +75,12 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
    for(const e of effects){const x=e.cell%v.width+.5+copy.x,y=Math.floor(e.cell/v.width)+.5+copy.y;if(visible(camera,x,y))instance(highlights,x,y,.012,1,1,1,'#'+color.set('#ffffdc').lerp(new T.Color('#39484e'),1-e.alpha).getHexString(),[-Math.PI/2,0,0]);}
    if(updatePreview&&selection&&!selection.legal)for(const cell of selection.cells){const x=cell%v.width+.5+copy.x,y=Math.floor(cell/v.width)+.5+copy.y;if(visible(camera,x,y))instance(preview,x,y,.02,1,1,1,null,[-Math.PI/2,0,0]);}
   }
+  const markCell=selection?.cell??(aim&&v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell?aim.cannon.cell:null);marker.visible=markCell!==null;
+  if(marker.visible){let x=markCell%v.width+.5,y=Math.floor(markCell/v.width)+.5;if(v.torus){x-=Math.round((x-camera.x)/v.width)*v.width;y-=Math.round((y-camera.y)/v.height)*v.height;}marker.position.set(x,.03,y);}
   guide.visible=Boolean(aim);if(aim){const c=aim.cannon,x=c.cell%v.width+.5,y=Math.floor(c.cell/v.width)+.5;let dx=x-camera.x,dy=y-camera.y;if(v.torus){dx-=Math.round(dx/v.width)*v.width;dy-=Math.round(dy/v.height)*v.height;}const a=Number(aim.angle)*Math.PI/180,positions=guide.geometry.attributes.position;positions.setXYZ(0,camera.x+dx,.025,camera.y+dy);positions.setXYZ(1,camera.x+dx+Math.cos(a)*2,.025,camera.y+dy+Math.sin(a)*2);positions.needsUpdate=true;guide.computeLineDistances();}
-  for(const mesh of groups){mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;}
+  for(const mesh of groups){if(mesh===tiles&&!updateTerrain||mesh===preview&&!updatePreview)continue;if(mesh.count){mesh.instanceMatrix.addUpdateRange(0,mesh.count*16);mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor){mesh.instanceColor.addUpdateRange(0,mesh.count*3);mesh.instanceColor.needsUpdate=true;}}}
   renderer.render(scene,ortho);
   lastStats={time,draw_calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,tiles:tiles.count,pieces:bases.count+balls.count,effects:effects.length,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures};return lastStats;
  }
- return {draw,reset(){motion.reset();lastDrawKey='';},dispose(){canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);for(const m of groups){m.geometry.dispose();if(m.material!==material)m.material.dispose();m.dispose();}material.dispose();edgeGeometry.dispose();edges.material.dispose();guide.geometry.dispose();guide.material.dispose();renderer.dispose();}};
+ return {draw,reset(){motion.reset();lastDrawKey='';},dispose(){canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);for(const m of groups){m.geometry.dispose();if(m.material!==material)m.material.dispose();m.dispose();}material.dispose();marker.geometry.dispose();marker.material.dispose();edgeGeometry.dispose();edges.material.dispose();guide.geometry.dispose();guide.material.dispose();renderer.dispose();}};
 }

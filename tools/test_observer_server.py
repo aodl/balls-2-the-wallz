@@ -18,7 +18,7 @@ class ObserverServerTests(unittest.TestCase):
         r=c.getresponse();result=(r.status,dict(r.getheaders()),r.read());c.close();return result
     def test_entry(self):
         status,headers,body=self.get('/apps/b2z-observer/')
-        self.assertEqual(status,200);self.assertIn(b'Not IC-certified',body)
+        self.assertEqual(status,200);self.assertIn(b'Verifying game',body);self.assertIn(b'id="transfer-controls" disabled',body) # UX-01/05 initial trust is undecided, not a hard-coded replay claim
         self.assertIn("frame-ancestors 'none'",headers['Content-Security-Policy'])
         self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
     def test_module_mime(self):

@@ -4,8 +4,8 @@
 <main id="arena" aria-label="B2Z game">
  <canvas id="board" tabindex="0" aria-label="B2Z arena" aria-describedby="board-help"></canvas>
  <p id="board-help" class="sr-only">Drag to pan, pinch or use plus and minus to zoom. Arrow keys pan. Select a cannon to inspect. Heading and destination fields provide keyboard alternatives.</p>
- <header class="arena-header"><a class="brand" href="./" aria-label="B2Z home">B2Z <small>on ICP</small></a><button id="status-button" aria-controls="workspace"><span id="arena-note">Verifying game</span></button><button id="identify-button" aria-controls="workspace"><i id="identity-color"></i><span id="identity-label">Account</span></button></header>
- <nav class="player-controls" aria-label="Your game"><button id="join-action" hidden>Join</button><button id="centre-cannon" hidden>My cannon</button></nav>
+ <div class="arena-chrome"><header class="arena-header"><div class="brand" aria-label="B2Z on ICP">B2Z <small>on ICP</small></div><button id="status-button" aria-controls="workspace"><span id="arena-note">Verifying game</span></button><button id="identify-button" aria-controls="workspace"><i id="identity-color"></i><span id="identity-label">Account</span></button></header>
+ <nav class="player-controls" aria-label="Your game"><button id="join-action" hidden>Join</button><button id="centre-cannon" hidden>My cannon</button></nav></div>
  <nav class="camera-controls" aria-label="Camera"><button id="fit" title="Overview" aria-label="Overview"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button><button id="help-button" title="Help" aria-label="Help">?</button></nav>
  <div id="render-error" role="alert" hidden></div>
  <section id="workspace" class="panel" aria-label="Game panel" tabindex="-1" hidden>
