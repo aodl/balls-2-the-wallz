@@ -1,0 +1,53 @@
+[
+  {
+    "file": "production-1440.webm",
+    "sha256": "d4907411612f40cca6a764c00c70211972e43789cd018e9a933f9dda4088d13a",
+    "source": ".work/minimal-isometric/production-browser-final-1440/video/page@bea2a2657f146908fdbb9beb9bee7d02.webm",
+    "source_sha256": "57617382efdeddf7cb8c80a5b0352540000fe7709ac2088e6795a82c7d963075",
+    "source_duration_seconds": 195.28,
+    "requested_start_seconds": 159.28,
+    "requested_duration_seconds": 24,
+    "editing": "Keyframe packet copy only; chronological real captured frames; boundaries may include adjacent keyframes. No speed change, overlays or generated images.",
+    "scope": "Actually served European production app, native sandboxed Chromium, emulated viewport, no wallet signing/transfer; verified existing paid state.",
+    "viewport": [
+      1440,
+      900
+    ],
+    "frontend_build_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+    "qualification_source": "e85f45171e244a92093a779c1b567baf2d2e6650"
+  },
+  {
+    "file": "production-390.webm",
+    "sha256": "b96cf1a33916d5225d170bcd029d11338f5ea353566ab1c591fe1e3dc53faa95",
+    "source": ".work/minimal-isometric/production-browser-final-390/video/page@6957acee62a70747506c855081ca6fde.webm",
+    "source_sha256": "50d7da679b5325d7299bc8ab460b53e7705d1d40fe5a7333ff895d4f15b08796",
+    "source_duration_seconds": 48.36,
+    "requested_start_seconds": 12.36,
+    "requested_duration_seconds": 24,
+    "editing": "Keyframe packet copy only; chronological real captured frames; boundaries may include adjacent keyframes. No speed change, overlays or generated images.",
+    "scope": "Actually served European production app, native sandboxed Chromium, emulated viewport, no wallet signing/transfer; verified existing paid state.",
+    "viewport": [
+      390,
+      844
+    ],
+    "frontend_build_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+    "qualification_source": "e85f45171e244a92093a779c1b567baf2d2e6650"
+  },
+  {
+    "file": "production-320.webm",
+    "sha256": "955e7aedf74ed3602cd5e6343c0eaa015ed70ec0c1f0776ce2339397c08cd59a",
+    "source": ".work/minimal-isometric/production-browser-final-320/video/page@3bda438bd903332b92db67c127aa577e.webm",
+    "source_sha256": "b07252dbd277d95ee973cac8b8070860802c5f639dc590d9c0a12bbca2021dd0",
+    "source_duration_seconds": 35.04,
+    "requested_start_seconds": 0,
+    "requested_duration_seconds": 24,
+    "editing": "Keyframe packet copy only; chronological real captured frames; boundaries may include adjacent keyframes. No speed change, overlays or generated images.",
+    "scope": "Actually served European production app, native sandboxed Chromium, emulated viewport, no wallet signing/transfer; verified existing paid state.",
+    "viewport": [
+      320,
+      640
+    ],
+    "frontend_build_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+    "qualification_source": "e85f45171e244a92093a779c1b567baf2d2e6650"
+  }
+]

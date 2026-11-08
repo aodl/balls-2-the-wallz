@@ -1,0 +1,71 @@
+{
+  "overall": "PASS",
+  "mode": "http",
+  "trust": "offline",
+  "qualification": "Actual HTTP browser integration: native Web Crypto/CSP, bounded playback and fail-closed verification.\nThe separate populated UX fixture qualifies composer/renderer interactions. No wallet or gameplay updates.\n",
+  "checks": [
+    {
+      "name": "browser-sandbox",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "native-browser-web-crypto",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "csp-and-unobstructed-arena",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "verified-coverage-advances",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "session-generation-fencing",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "UX-04-panels-preserve-clock-and-queue",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "responsive-rendered-arena",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "actual-webgl-renderer",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "UX-12-context-restore-preserves-verified-session",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "UX-11-reduced-motion-retains-live-updates",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "corruption-fails-closed",
+      "status": "PASS",
+      "details": null
+    },
+    {
+      "name": "application-errors",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "browser_version": "153.0.8010.12",
+  "playwright_version": "1.63.0",
+  "sandbox": true
+}

@@ -1,0 +1,38 @@
+{
+  "contracts": [
+    "UX-08",
+    "UX-11"
+  ],
+  "before": {
+    "status": "FAIL",
+    "source": "b8bce7b42e8b455fa518adfd46b695c47d2d2589",
+    "raw": ".work/minimal-ui18",
+    "assertion": "After denied API copy, native Ctrl+C and an edit must expose Update instructions / Keep previous; b8 exposed the replacement values directly."
+  },
+  "after": {
+    "status": "PASS",
+    "source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+    "raw": ".work/minimal-ui19",
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        320,
+        640
+      ]
+    ],
+    "coverage": [
+      "native Copy of manual fallback freezes original packet",
+      "edit requires explicit replacement or keep",
+      "native Copy of financial DOM text freezes packet even with denied storage",
+      "no system clipboard success claim from an unobservable native default action"
+    ]
+  },
+  "scope": "Actual Chromium Copy events, coherent local instruction retention; no wallet, transfer or payment claim."
+}

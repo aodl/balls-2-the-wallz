@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "scope": "Read-only prior frontend browser transport preflight, not the new candidate deployment",
+  "at_epoch_seconds": 1794154647.5169454,
+  "browser": "153.0.8010.12",
+  "http_status": 200,
+  "errors": [],
+  "failed_requests": [],
+  "state": {
+    "phase": "BUFFERING",
+    "connected": true,
+    "delivery": {
+      "failures": 0,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": null,
+      "blocking": null,
+      "history": [],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "ic",
+          "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "format": null,
+          "head": "1199",
+          "root": "c202bbdcaccd480ca9585af17c7120b3d015212375d62d47b4aa25bb346b83fc",
+          "certificate_time_ns": "1794154644932125464"
+        }
+      ],
+      "acceptedEvicted": 0
+    },
+    "error": ""
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-08T18:21:57.750212+00:00",
+  "status": "PASS",
+  "identities_controllers_placement": "Verified expected paid targets, modules, controller sets, certified 13 nodes",
+  "staging": "Exact frozen 15-file set, no rebuild",
+  "ci": "e85f451 all six substantive PASS, run 42504995515",
+  "source_binding": "Verified official Ledger/Index/backend/default account",
+  "operation_authorized": "observer assets only; no asset-canister Wasm upgrade or backend operation"
+}

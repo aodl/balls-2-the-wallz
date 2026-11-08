@@ -1,15 +1,29 @@
-# Minimal isometric human interface — implemented; release gates pending
+# Minimal isometric B2Z frontend — live and verified
 
-Actual human feedback reopens the frontend under the scoped frontend-only authority.
-The paid European backend remains unchanged. Populated desktop/mobile, actual
-clock/copy/status and disposable certified Ledger/playback checks pass locally.
-Exact-source hosted CI and frontend publication remain release gates. Software
-SwiftShader frame targets are not met; physical-device/GPU coverage is unavailable.
-Normative requirements and regression
-map: [UX-01–13](docs/specs/B2Z_HUMAN_EXPERIENCE.md). Current operations:
-[installed paid-game frontend procedure](docs/operations/S14_OPERATOR.md).
-The baseline certificate capture on 8 November verified one cannon/one ball,
-healthy source and Lifeline; this is not an empty-install target.
+The completed frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Qualification source `e85f45171e244a92093a779c1b567baf2d2e6650` passes all six
+substantive jobs in run 42504995515. The exact frozen runtime was built from
+`391df3a0a4165d4aaa05e3bc35612689b52b061c`; the later test-only qualification
+correction changes no runtime/build inputs. No artifact rebuild for evidence.
+JS `1b6a6d26…`, complete manifest `444d0fda…`, all 14 served files and their
+CSP/security headers match. Genuine desktop/390×844/320×640 production journeys
+pass with exact canonical wallet copies and progressing unchanged clocks/queues.
+
+The interface has a solid isometric arena, contextual actions, one shared panel,
+principal-first coherent wallet instructions and truthful motion/waiting states.
+Manual payment reporting and ordinary playback controls are removed. The paid
+backend module `612ad0d0…`, controllers, certified 13-node European placement,
+source/payment binding and Ledger authority are preserved; no backend operation,
+manual financial transaction or former-deployment action occurred. Source/treasury
+are healthy; the existing paid cannon/ball continue at Lifeline, .05 ticks/s.
+Software-rendering smoothness targets remain unmet; physical-device and actual-wallet
+coverage is unavailable. No automatic receipt association or payment-success claim.
+[Release identities, CI, served verification, proof bytes, recordings and limits](evidence/B2Z/minimal-isometric/REPORT.md).
+Normative [UX-01–13 contracts/regressions](docs/specs/B2Z_HUMAN_EXPERIENCE.md);
+[current paid-game operations](docs/operations/S14_OPERATOR.md).
+Frontend implementation stops pending further actual human usability feedback.
+
+---
 
 # B2Z European game live — qualified and verified
 

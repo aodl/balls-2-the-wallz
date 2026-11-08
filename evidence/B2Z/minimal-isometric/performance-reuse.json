@@ -1,0 +1,13 @@
+{
+  "measured_source": "b8bce7b42e8b455fa518adfd46b695c47d2d2589",
+  "final_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+  "identical_component_inputs": {
+    "render.mjs": "ec9d730fba283fd6ee8fdc10b55f0447eb864c6fac210efcd038cf76e76bf418",
+    "camera.mjs": "a15b099639f3fa0b594359f3fd7b52780d2e62a3994b29c27d179a0c6599e7e0",
+    "model.mjs": "0bbc584b925cd99e3ea86dcbca369c9e9c830f21441c40df6f75be3a0cd8b512",
+    "motion-effects.mjs": "7835f44b03f1b094463f0bca8dc04de939c3e5a322ce8e0fc1f2b72809fd1027",
+    "handoff.mjs": "2e217c715ca8cb8858f77fc087fb46da5dc335b0a6a3422cebe84d5685e52dee"
+  },
+  "only_changed_component": "arcade.mjs: native Copy event freezes an instruction packet; renderer, layout, shaders, camera, trajectory and effects unchanged.",
+  "scope": "Reuse as the measured rendering-component development envelope; not a new full-bundle hardware/phone performance qualification."
+}

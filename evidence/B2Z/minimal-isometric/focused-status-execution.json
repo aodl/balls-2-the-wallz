@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "exit_code": 0,
+  "command": [
+    "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+    "million_browser_normal_lifeline_and_cold_reconnect",
+    "--exact",
+    "--ignored",
+    "--nocapture",
+    "--test-threads=1"
+  ],
+  "normal_wasm": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "hooks_wasm": "d1f08a35a83be563f275023f732040c039bcf11001c64ead75e8054a71ba6513",
+  "harness": "2dbfc6cb1af949fdd4be43a9827ad048c26874f685d9e25557c4a7df98d13c03",
+  "artifact_reuse": "Unchanged backend and Rust harness, no compilation. Frontend built by existing test driver from current maintained sources.",
+  "source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+  "dirty": true
+}

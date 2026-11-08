@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-08T16:17:54.068234+00:00",
+  "status": "PASS",
+  "source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+  "file_count": 15,
+  "staged": ".work/s14/assets",
+  "preserved_previous_staging": ".work/minimal-isometric/prior-staged-assets",
+  "manifest_sha256": "444d0fda939dd715ac98010f958da470cca0ed163dd82bd215ecabd7f30dcc8c",
+  "production_upload": "NOT_RUN; final CI gate pending"
+}

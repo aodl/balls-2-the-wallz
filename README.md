@@ -1,34 +1,47 @@
 # B2Z
 
-The current release targets a fresh European game on backend
-`s5ir5-gqaaa-aaaas-amyna-cai` and [frontend](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/)
-`s2jxj-liaaa-aaaas-amynq-cai`, on verified 13-node subnet
-`bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe`.
-Installation/publication status is recorded in [STATUS.md](STATUS.md); a target URL
-is not a claim that installation or current-rule activation has completed.
+[Play B2Z on ICP](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/).
+The European backend `s5ir5-gqaaa-aaaas-amyna-cai` contains real paid gameplay.
+Never reset, reinstall or repeat the historical fresh activation against it.
+Current deployment status and exact release evidence are in [STATUS.md](STATUS.md).
 
-A fresh supported empty genesis reaches current rules 7/world schema 6 on the
-1000×1000 torus through all four authenticated transitions. No former game, score,
-payment, receipt or cursor is imported. The official ICP Ledger/Index remains the
-payment authority. Receiving default-account AccountIdentifier:
+The live frontend presents a solid isometric arena, one status,
+contextual actions and one shared panel. Observation needs no account declaration.
+Account is a local sending-account declaration, not a login or wallet connection.
+The browser composes coherent external-wallet instructions; it never signs,
+sends transfers or submits gameplay updates. Panels and action editing preserve
+verified playback. Saved instructions are not payment evidence; there is no
+transaction-reporting workflow or heuristic receipt association.
+
+The sole normative [human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md)
+protects screen structure, truthful motion/status, payment handoff, accessibility
+and bounded rendering. [The release report](evidence/B2Z/minimal-isometric/REPORT.md)
+records implementation, six passing substantive hosted jobs, verified served assets,
+production desktop/mobile journeys and actual performance/coverage limitations.
+It distinguishes frozen build source from test-only qualification source.
+
+The official ICP Ledger remains the sole player command interface. A valid wallet
+transaction needs no prior site visit, quote, copy or callback. Current rules are
+7/world schema 6 on the 1000×1000 torus. The verified default recipient is backend
+principal `s5ir5-gqaaa-aaaas-amyna-cai`, whose legacy AccountIdentifier is
 `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
-Always verify the current source/configuration and copy instructions from the UI.
+Always verify the current source/configuration and exact instructions in the UI.
+Wallet fees are extra. Payments and unused ICP are kept, with no automatic refunds
+or payouts.
 
-The human interface retains the right rail, board controls, Identify, frozen
-external-wallet instructions and backend-scoped Activity. It has no login, signing
-or transaction sending. Payments and unused amounts are retained, with no automatic
-refunds or payouts. Receipt matching, human studies and actual-device limitations
-remain documented. Trickle targets one logical tick per 100 seconds; empty and
-dormant-only worlds retain efficient idle behaviour. Event Horizon assistance is
-disabled unless its actual ABI, subscription and health can be established; the
-safe independent fallback remains 60 seconds.
+Trickle remains 0.01 ticks/s (one logical tick per 100 seconds), entry 1.25T liquid,
+exit below 1T; existing upper tiers and safety floors are unchanged. Empty and
+dormant worlds idle efficiently. Event Horizon remains disabled; independent
+Index reconciliation fallback remains 60 seconds. No new wallet/device or
+maximum-population qualification is implied.
 
-See the [current operator procedure](docs/operations/S14_OPERATOR.md),
+Use the [installed paid-game operator procedure](docs/operations/S14_OPERATOR.md),
 [application contract](docs/specs/B2Z_APPLICATION.md),
 [pacing policy](docs/specs/B2Z_ARENA_AND_PACE.md) and
 [treasury route/recovery](docs/operations/PRELAUNCH_SELF_FUNDING.md).
-Existing agent tools use the current deployment for read-only observation; no agent
-campaign or real-money execution is authorised by this release.
+The European subnet is `bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe`;
+refresh certified placement/membership before publication. The scoped release
+route changes frontend assets only; controller access is not backend-upgrade authority.
 
 ## Historical release notes — superseded deployment descriptions
 

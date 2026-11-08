@@ -1,0 +1,824 @@
+{
+  "at": "2026-11-08T18:40:43.467739+00:00",
+  "status": "PASS",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "browser": "153.0.8010.12",
+  "sandbox": true,
+  "frontend_build_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+  "qualification_source": "e85f45171e244a92093a779c1b567baf2d2e6650",
+  "scope": "Genuine served production frontend; read-only, emulated desktop/mobile, no actual wallet/transfer/device claim",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "at_epoch_seconds": 1794162848.6279957,
+      "certificate": {
+        "mode": "certificate-verifier",
+        "network": "ic",
+        "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "version": 8,
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "format": null,
+        "head": "1609",
+        "root": "41a8ad5c7e7b38dd4c6a47bf7455a5b0205d3178524e1eb659a3e3ec94b04b06",
+        "certificate_time_ns": "1794162842993068480"
+      },
+      "initial": {
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": 4,
+        "rules": 7,
+        "width": 1000,
+        "height": 1000,
+        "entities": [
+          1,
+          1
+        ],
+        "pace": {
+          "nominal_milli": 50,
+          "supported_milli": 50,
+          "mode": "Lifeline",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update \u00b7 slow mode",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 1606,
+          "draw_calls": 6,
+          "triangles": 14020,
+          "tiles": 1147,
+          "pieces": 1,
+          "effects": 0,
+          "geometries": 10,
+          "textures": 0
+        }
+      },
+      "sending_declaration": "Public principal, local only; no wallet connection or key-control claim",
+      "fields": {
+        "transfer-amount": {
+          "x": 1136,
+          "y": 368.78125,
+          "width": 192.484375,
+          "height": 31.03125
+        },
+        "payment-owner": {
+          "x": 1136,
+          "y": 431.78125,
+          "width": 192.484375,
+          "height": 53.0625
+        },
+        "text-memo": {
+          "x": 1136,
+          "y": 492.84375,
+          "width": 192.484375,
+          "height": 31.03125
+        },
+        "paying-account": {
+          "x": 1136,
+          "y": 488.84375,
+          "width": 174.390625,
+          "height": 97.125
+        },
+        "payment-risk": {
+          "x": 1063,
+          "y": 609.96875,
+          "width": 327,
+          "height": 40.59375
+        }
+      },
+      "join_preparation": {
+        "status": "PASS",
+        "expected": {
+          "amount": "1 ICP",
+          "amount_copy": "1",
+          "memo": "NEW 37.5 1",
+          "hex": "4e45572033372e352031",
+          "account": "bab708d3f58aad4861d1ece056efbe900721dd02c7037af5cab4488e288f2236",
+          "payer": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "copied": [
+          {
+            "text": "1",
+            "bytes": [
+              49
+            ]
+          },
+          {
+            "text": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "bytes": [
+              115,
+              53,
+              105,
+              114,
+              53,
+              45,
+              103,
+              113,
+              97,
+              97,
+              97,
+              45,
+              97,
+              97,
+              97,
+              97,
+              115,
+              45,
+              97,
+              109,
+              121,
+              110,
+              97,
+              45,
+              99,
+              97,
+              105
+            ]
+          },
+          {
+            "text": "NEW 37.5 1",
+            "bytes": [
+              78,
+              69,
+              87,
+              32,
+              51,
+              55,
+              46,
+              53,
+              32,
+              49
+            ]
+          },
+          {
+            "text": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+            "bytes": [
+              99,
+              53,
+              56,
+              52,
+              56,
+              55,
+              56,
+              54,
+              57,
+              100,
+              52,
+              54,
+              101,
+              102,
+              48,
+              52,
+              57,
+              52,
+              99,
+              55,
+              100,
+              55,
+              99,
+              48,
+              51,
+              49,
+              50,
+              98,
+              50,
+              55,
+              54,
+              48,
+              97,
+              98,
+              98,
+              55,
+              49,
+              54,
+              52,
+              101,
+              97,
+              102,
+              100,
+              50,
+              51,
+              102,
+              48,
+              48,
+              48,
+              57,
+              97,
+              52,
+              50,
+              98,
+              57,
+              53,
+              52,
+              53,
+              102,
+              53,
+              51,
+              98,
+              100,
+              101
+            ]
+          }
+        ]
+      },
+      "activity_keys": [
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai",
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai:receipts"
+      ],
+      "owned_fire_preparation": {
+        "status": "PASS",
+        "expected": {
+          "amount": "0.5 ICP",
+          "amount_copy": "0.5",
+          "memo": "FIRE 1 90 2",
+          "hex": "4649524520312039302032",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        }
+      },
+      "final": {
+        "playhead": 1614.4666581555782,
+        "head": "1619",
+        "status": {
+          "kind": "slow",
+          "label": "Slow",
+          "detail": "",
+          "canPrepare": true
+        },
+        "certificates": 100,
+        "phase": "PLAYING",
+        "queue": 2,
+        "bytes": 55355,
+        "resyncs": 0
+      },
+      "elapsed_seconds": 189.69635613099672,
+      "same_clock_and_queue": true,
+      "read_only": true,
+      "errors": [],
+      "recording": "video/page@bea2a2657f146908fdbb9beb9bee7d02.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "at_epoch_seconds": 1794162704.4985883,
+      "certificate": {
+        "mode": "certificate-verifier",
+        "network": "ic",
+        "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "version": 8,
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "format": null,
+        "head": "1602",
+        "root": "ec48d9841acfed1c2b0251841e931151d0845b20776b9ecf1a9bf3f17a635581",
+        "certificate_time_ns": "1794162694208388078"
+      },
+      "initial": {
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": 4,
+        "rules": 7,
+        "width": 1000,
+        "height": 1000,
+        "entities": [
+          1,
+          1
+        ],
+        "pace": {
+          "nominal_milli": 50,
+          "supported_milli": 50,
+          "mode": "Lifeline",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "status": {
+          "kind": "slow",
+          "label": "Slow",
+          "detail": "",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 1598.0675,
+          "draw_calls": 6,
+          "triangles": 4492,
+          "tiles": 353,
+          "pieces": 1,
+          "effects": 1,
+          "geometries": 10,
+          "textures": 0
+        }
+      },
+      "sending_declaration": "Public principal, local only; no wallet connection or key-control claim",
+      "fields": {
+        "transfer-amount": {
+          "x": 85,
+          "y": 486.515625,
+          "width": 207.484375,
+          "height": 29.875
+        },
+        "payment-owner": {
+          "x": 85,
+          "y": 521.515625,
+          "width": 207.484375,
+          "height": 50.75
+        },
+        "text-memo": {
+          "x": 85,
+          "y": 532.265625,
+          "width": 207.484375,
+          "height": 29.875
+        },
+        "paying-account": {
+          "x": 85,
+          "y": 511.265625,
+          "width": 189.390625,
+          "height": 71.625
+        },
+        "payment-risk": {
+          "x": 23,
+          "y": 571.890625,
+          "width": 329,
+          "height": 40.59375
+        }
+      },
+      "join_preparation": {
+        "status": "PASS",
+        "expected": {
+          "amount": "1 ICP",
+          "amount_copy": "1",
+          "memo": "NEW 37.5 1",
+          "hex": "4e45572033372e352031",
+          "account": "bab708d3f58aad4861d1ece056efbe900721dd02c7037af5cab4488e288f2236",
+          "payer": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "copied": [
+          {
+            "text": "1",
+            "bytes": [
+              49
+            ]
+          },
+          {
+            "text": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "bytes": [
+              115,
+              53,
+              105,
+              114,
+              53,
+              45,
+              103,
+              113,
+              97,
+              97,
+              97,
+              45,
+              97,
+              97,
+              97,
+              97,
+              115,
+              45,
+              97,
+              109,
+              121,
+              110,
+              97,
+              45,
+              99,
+              97,
+              105
+            ]
+          },
+          {
+            "text": "NEW 37.5 1",
+            "bytes": [
+              78,
+              69,
+              87,
+              32,
+              51,
+              55,
+              46,
+              53,
+              32,
+              49
+            ]
+          },
+          {
+            "text": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+            "bytes": [
+              99,
+              53,
+              56,
+              52,
+              56,
+              55,
+              56,
+              54,
+              57,
+              100,
+              52,
+              54,
+              101,
+              102,
+              48,
+              52,
+              57,
+              52,
+              99,
+              55,
+              100,
+              55,
+              99,
+              48,
+              51,
+              49,
+              50,
+              98,
+              50,
+              55,
+              54,
+              48,
+              97,
+              98,
+              98,
+              55,
+              49,
+              54,
+              52,
+              101,
+              97,
+              102,
+              100,
+              50,
+              51,
+              102,
+              48,
+              48,
+              48,
+              57,
+              97,
+              52,
+              50,
+              98,
+              57,
+              53,
+              52,
+              53,
+              102,
+              53,
+              51,
+              98,
+              100,
+              101
+            ]
+          }
+        ]
+      },
+      "activity_keys": [
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai",
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai:receipts"
+      ],
+      "final": {
+        "playhead": 1600.102920498466,
+        "head": "1604",
+        "status": {
+          "kind": "slow",
+          "label": "Slow",
+          "detail": "",
+          "canPrepare": true
+        },
+        "certificates": 54,
+        "phase": "PLAYING",
+        "queue": 1,
+        "bytes": 28578,
+        "resyncs": 0
+      },
+      "elapsed_seconds": 41.53707214099995,
+      "same_clock_and_queue": true,
+      "read_only": true,
+      "errors": [],
+      "recording": "video/page@6957acee62a70747506c855081ca6fde.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "at_epoch_seconds": 1794162781.25788,
+      "certificate": {
+        "mode": "certificate-verifier",
+        "network": "ic",
+        "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "version": 8,
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "format": null,
+        "head": "1605",
+        "root": "3526f1f039a0d71595744163b5e4c30293b6606e9c950114ebf9ec5a0a63ae5e",
+        "certificate_time_ns": "1794162772686548594"
+      },
+      "initial": {
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "epoch": 4,
+        "rules": 7,
+        "width": 1000,
+        "height": 1000,
+        "entities": [
+          1,
+          1
+        ],
+        "pace": {
+          "nominal_milli": 50,
+          "supported_milli": 50,
+          "mode": "Lifeline",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update \u00b7 slow mode",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 1602,
+          "draw_calls": 6,
+          "triangles": 3148,
+          "tiles": 241,
+          "pieces": 1,
+          "effects": 0,
+          "geometries": 10,
+          "textures": 0
+        }
+      },
+      "sending_declaration": "Public principal, local only; no wallet connection or key-control claim",
+      "fields": {
+        "transfer-amount": {
+          "x": 85,
+          "y": 391.578125,
+          "width": 137.484375,
+          "height": 29.875
+        },
+        "payment-owner": {
+          "x": 85,
+          "y": 380.578125,
+          "width": 137.484375,
+          "height": 50.75
+        },
+        "text-memo": {
+          "x": 85,
+          "y": 391.328125,
+          "width": 137.484375,
+          "height": 29.875
+        },
+        "paying-account": {
+          "x": 85,
+          "y": 339.328125,
+          "width": 119.390625,
+          "height": 134.25
+        },
+        "payment-risk": {
+          "x": 23,
+          "y": 375.578125,
+          "width": 259,
+          "height": 60.890625
+        }
+      },
+      "join_preparation": {
+        "status": "PASS",
+        "expected": {
+          "amount": "1 ICP",
+          "amount_copy": "1",
+          "memo": "NEW 37.5 1",
+          "hex": "4e45572033372e352031",
+          "account": "bab708d3f58aad4861d1ece056efbe900721dd02c7037af5cab4488e288f2236",
+          "payer": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "copied": [
+          {
+            "text": "1",
+            "bytes": [
+              49
+            ]
+          },
+          {
+            "text": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "bytes": [
+              115,
+              53,
+              105,
+              114,
+              53,
+              45,
+              103,
+              113,
+              97,
+              97,
+              97,
+              45,
+              97,
+              97,
+              97,
+              97,
+              115,
+              45,
+              97,
+              109,
+              121,
+              110,
+              97,
+              45,
+              99,
+              97,
+              105
+            ]
+          },
+          {
+            "text": "NEW 37.5 1",
+            "bytes": [
+              78,
+              69,
+              87,
+              32,
+              51,
+              55,
+              46,
+              53,
+              32,
+              49
+            ]
+          },
+          {
+            "text": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+            "bytes": [
+              99,
+              53,
+              56,
+              52,
+              56,
+              55,
+              56,
+              54,
+              57,
+              100,
+              52,
+              54,
+              101,
+              102,
+              48,
+              52,
+              57,
+              52,
+              99,
+              55,
+              100,
+              55,
+              99,
+              48,
+              51,
+              49,
+              50,
+              98,
+              50,
+              55,
+              54,
+              48,
+              97,
+              98,
+              98,
+              55,
+              49,
+              54,
+              52,
+              101,
+              97,
+              102,
+              100,
+              50,
+              51,
+              102,
+              48,
+              48,
+              48,
+              57,
+              97,
+              52,
+              50,
+              98,
+              57,
+              53,
+              52,
+              53,
+              102,
+              53,
+              51,
+              98,
+              100,
+              101
+            ]
+          }
+        ]
+      },
+      "activity_keys": [
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai",
+        "B2Z-activity-v1:ic:s5ir5-gqaaa-aaaas-amyna-cai:receipts"
+      ],
+      "final": {
+        "playhead": 1603.47458852273,
+        "head": "1607",
+        "status": {
+          "kind": "slow",
+          "label": "Slow",
+          "detail": "",
+          "canPrepare": true
+        },
+        "certificates": 38,
+        "phase": "PLAYING",
+        "queue": 1,
+        "bytes": 28649,
+        "resyncs": 0
+      },
+      "elapsed_seconds": 29.87296076900384,
+      "same_clock_and_queue": true,
+      "read_only": true,
+      "errors": [],
+      "recording": "video/page@3bda438bd903332b92db67c127aa577e.webm"
+    }
+  ],
+  "prior_attempts": [
+    "Initial process SIGTERM interrupted, not PASS.",
+    "Earlier desktop application assertions passed before a local recording-relative-path ValueError; clean full rerun follows a path-only harness correction."
+  ]
+}

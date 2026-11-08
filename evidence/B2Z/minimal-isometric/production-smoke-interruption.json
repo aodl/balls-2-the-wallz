@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-08T18:26:03.600844+00:00",
+  "status": "INTERRUPTED",
+  "exit": 143,
+  "reason": "Process terminated by SIGTERM before completing the first viewport; no assertion error or traceback was emitted. External cause is not established. Partial screenshots and recording preserved; not a pass.",
+  "scope": "Read-only production browser; deployed assets unchanged"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "command": "node evidence/B2Z/minimal-isometric/verify-frozen.mjs",
+  "checked_at": "2026-11-08T13:29:38.590209+00:00",
+  "frozen_assets": 15,
+  "preserved_normal_wasm": true,
+  "archived_proof": "Normal IC root/canister/delegation/source/artifact checks at the recorded observation time using a local controlled Node Date, as in maintained archived-certificate tests. Live SDK policy is unchanged.",
+  "expired_certificate_rejected_after_ms": 301000,
+  "qualification": "Offline archival evidence and exact local files; not fresh production, deployment or hosted CI evidence.",
+  "source": "391df3a0a4165d4aaa05e3bc35612689b52b061c"
+}

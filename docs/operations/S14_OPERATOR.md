@@ -15,7 +15,7 @@ transition, migration, controller change, ICP/cycle transfer, cycle purchase,
 new canister or former-deployment operation is part of this procedure. Normal
 existing autonomous processing continues. Do not pause gameplay for an asset update.
 
-Read [STATUS](../../STATUS.md), the current release report and the normative
+Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/minimal-isometric/REPORT.md) and the normative
 [human-experience contract](../specs/B2Z_HUMAN_EXPERIENCE.md). Changes to controls,
 flows, statuses, handoff, rendering or playback must identify affected UX IDs,
 update intentional contract changes and execute corresponding regressions.

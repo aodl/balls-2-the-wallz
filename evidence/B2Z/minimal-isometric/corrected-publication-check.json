@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-08T18:42:32.567891+00:00",
+  "source": "e85f45171e244a92093a779c1b567baf2d2e6650",
+  "remote_branch": "release/btz-prelaunch-playability",
+  "owner_published": true,
+  "remote_git_write_by_agent": false,
+  "run": 42504995515,
+  "all_six_substantive": "PASS",
+  "artifact_rebuild": "NONE"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "REPORT_PACKAGING_FAIL",
+  "reason": "Absolute Playwright video path compared against relative output path. ValueError occurs after all desktop application assertions; no application assertion failure.",
+  "fix": "Resolve only the local output path before deriving recording-relative path; no runtime, assets or assertions changed.",
+  "previous_log": ".work/minimal-isometric/production-smoke-1440.log",
+  "rerun": "Clean final per-viewport runs retained separately."
+}

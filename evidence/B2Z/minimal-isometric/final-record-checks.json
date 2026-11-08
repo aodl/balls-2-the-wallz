@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-08T18:44:49.167414+00:00",
+  "current_document_links": "PASS: 327 links resolve",
+  "diff_whitespace": "PASS",
+  "frozen_asset_and_archived_proof_verifier": "PASS: all 15 frozen files, preserved normal Wasm, IC root/source/destination and expired-certificate rejection",
+  "ci": "PASS: all six substantive exact-source jobs, e85f451, run 42504995515",
+  "served": "PASS: all 14 public file bytes, complete inventory and security headers",
+  "production_browser": "PASS: clean 1440x900, 390x844 and 320x640 runs",
+  "artifact_rebuild": "NONE",
+  "backend_operation": "NONE",
+  "evidence_commit_parent": "e85f45171e244a92093a779c1b567baf2d2e6650"
+}

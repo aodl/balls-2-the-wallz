@@ -1,0 +1,72 @@
+[
+  {
+    "file": "desktop-wallet.webm",
+    "sha256": "ec2249a3612f45d363c806978568df275e862db2aeb21f7ff9b7f1dabcd49bc2",
+    "source": ".work/minimal-ui19/video/page@cfb0fac5b92e14a473e6483ca57ecedb.webm",
+    "source_sha256": "26b138da0d3539fdf06e57cace3635a172b4d42e274de40d3158c9db76fa8bfd",
+    "requested_start_seconds": 0,
+    "requested_duration_seconds": 20,
+    "editing": "Keyframe packet copy only; chronological actual captured frames, seek boundaries may include adjacent keyframes.",
+    "scope": "Actual composer/renderer: copy/edit/replace and contextual wallet actions; synthetic canonical world.",
+    "duration": "00:00:20.00",
+    "fixture_bundle_sha256": "299805c9e9e1d75e6b32cf8f996094b503dc94b626a533a9672b339676a00ad9",
+    "runtime_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c"
+  },
+  {
+    "file": "desktop-panels-motion.webm",
+    "sha256": "30cf2c3fc827315fbd1294cd0f322c73707811bb53bd0de4e2178ef8de11a653",
+    "source": ".work/minimal-ui19/video/page@cfb0fac5b92e14a473e6483ca57ecedb.webm",
+    "source_sha256": "26b138da0d3539fdf06e57cace3635a172b4d42e274de40d3158c9db76fa8bfd",
+    "requested_start_seconds": 45,
+    "requested_duration_seconds": 30,
+    "editing": "Keyframe packet copy only; chronological actual captured frames, seek boundaries may include adjacent keyframes.",
+    "scope": "Repeated shared panels/account/action use while the pinned clock presents canonical motion; synthetic world.",
+    "duration": "00:00:34.04",
+    "fixture_bundle_sha256": "299805c9e9e1d75e6b32cf8f996094b503dc94b626a533a9672b339676a00ad9",
+    "runtime_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c"
+  },
+  {
+    "file": "mobile-wallet.webm",
+    "sha256": "d92889d34f0e684ff7cb9bda75094bd5f5d4dfe2ffea4232e5c450c819208c26",
+    "source": ".work/minimal-ui19/video/page@a66e667c909b64d4a77ada8f51fce884.webm",
+    "source_sha256": "e3cc134d79fedcc1d56fe630749fde9fb60c28c5f437cfeac6a5b6736393e7b4",
+    "requested_start_seconds": 0,
+    "requested_duration_seconds": 25,
+    "editing": "Keyframe packet copy only; chronological actual captured frames, seek boundaries may include adjacent keyframes.",
+    "scope": "390\u00d7844 emulated viewport, actual wallet instruction/copy/edit journey; synthetic canonical world.",
+    "duration": "00:00:25.00",
+    "fixture_bundle_sha256": "299805c9e9e1d75e6b32cf8f996094b503dc94b626a533a9672b339676a00ad9",
+    "runtime_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c"
+  },
+  {
+    "file": "certified-motion.webm",
+    "sha256": "7170e9fe9343b84320c4c8e92757135cbe2045c471a36ec54625fb24bdbc03c8",
+    "source": ".work/minimal-isometric/installed-focused07/deployment/video/page@d707bd6eba698ded90439dd271459966.webm",
+    "source_sha256": "92867655c4f2ead63b2706493ca858c7273b4b604c95667941e3114b190dfb48",
+    "requested_start_seconds": 130,
+    "requested_duration_seconds": 35,
+    "editing": "Keyframe packet copy only; chronological actual captured frames, seek boundaries may include adjacent keyframes.",
+    "scope": "Actual built app, genuine disposable certificates and valueless Ledger-produced entities; real-time Normal playback.",
+    "duration": "00:00:37.00"
+  },
+  {
+    "file": "certified-suspended-return.webm",
+    "sha256": "7db5ced63bc67927bf9c6e5fc212b4b999cfe8444af33e54539cd68a7bd1014b",
+    "source": ".work/minimal-isometric/installed-focused07/deployment/video/page@d707bd6eba698ded90439dd271459966.webm",
+    "source_sha256": "92867655c4f2ead63b2706493ca858c7273b4b604c95667941e3114b190dfb48",
+    "requested_start_seconds": 175,
+    "requested_duration_seconds": 48,
+    "editing": "Keyframe packet copy only; chronological actual captured frames, seek boundaries may include adjacent keyframes.",
+    "scope": "Actual debugger suspension plus controlled lifecycle events, recent verified resync; not native hidden-tab/device evidence.",
+    "duration": "00:00:48.92"
+  },
+  {
+    "file": "slow-wait-resume-wrap.webm",
+    "sha256": "365a631d97b1defe9e7db4935cfe03697c4d4d4b8e34aaff827341aeadb24049",
+    "source": ".work/minimal-ui19/video/page@67400d77db357f1fe0ee93e847bac08c.webm",
+    "scope": "Actual clock/renderer, synthetic canonical torus, three intervals with 20x accelerated disposable wall time at Trickle policy; no IC/production cadence claim.",
+    "duration": "00:00:20.80",
+    "fixture_bundle_sha256": "299805c9e9e1d75e6b32cf8f996094b503dc94b626a533a9672b339676a00ad9",
+    "runtime_source": "391df3a0a4165d4aaa05e3bc35612689b52b061c"
+  }
+]

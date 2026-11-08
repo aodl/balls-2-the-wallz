@@ -1,0 +1,146 @@
+{
+  "status": "PASS",
+  "scope": "UX-01..13 populated synthetic UI journeys; real HTTP/WebGL/Web Crypto, no IC or payment claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "metrics": {
+        "frames": 477,
+        "p50": 66.59999999999854,
+        "p95": 350,
+        "draw_p50": 0.20000000298023224,
+        "draw_p95": 8.899999991059303,
+        "heap": 13659778,
+        "stats": {
+          "time": 1,
+          "draw_calls": 11,
+          "triangles": 14364,
+          "tiles": 1147,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 11,
+          "textures": 0
+        }
+      },
+      "recording": "video/page@cfb0fac5b92e14a473e6483ca57ecedb.webm",
+      "coverage": [
+        "contextual Fire/Revive/Join",
+        "exact coherent bytes",
+        "principal/default/legacy equality",
+        "denied/manual clipboard",
+        "edit and replacement",
+        "history/account scoping",
+        "one panel",
+        "clock/queue identity and progress",
+        "populated WebGL rendering"
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "metrics": {
+        "frames": 509,
+        "p50": 16.700000000000728,
+        "p95": 116.60000000000036,
+        "draw_p50": 0.20000000298023224,
+        "draw_p95": 6.699999988079071,
+        "heap": 16971259,
+        "stats": {
+          "time": 1,
+          "draw_calls": 11,
+          "triangles": 4896,
+          "tiles": 358,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 11,
+          "textures": 0
+        }
+      },
+      "recording": "video/page@a66e667c909b64d4a77ada8f51fce884.webm",
+      "coverage": [
+        "contextual Fire/Revive/Join",
+        "exact coherent bytes",
+        "principal/default/legacy equality",
+        "denied/manual clipboard",
+        "edit and replacement",
+        "history/account scoping",
+        "one panel",
+        "clock/queue identity and progress",
+        "populated WebGL rendering"
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "metrics": {
+        "frames": 526,
+        "p50": 16.700000000000728,
+        "p95": 83.29999999999927,
+        "draw_p50": 0.20000000298023224,
+        "draw_p95": 6.5,
+        "heap": 17726689,
+        "stats": {
+          "time": 1,
+          "draw_calls": 6,
+          "triangles": 3500,
+          "tiles": 245,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 11,
+          "textures": 0
+        }
+      },
+      "recording": "video/page@36ded81bbda88efe5d6ce384b24032f9.webm",
+      "coverage": [
+        "contextual Fire/Revive/Join",
+        "exact coherent bytes",
+        "principal/default/legacy equality",
+        "denied/manual clipboard",
+        "edit and replacement",
+        "history/account scoping",
+        "one panel",
+        "clock/queue identity and progress",
+        "populated WebGL rendering"
+      ]
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "reduced motion continues live motion",
+        "software-keyboard viewport resize",
+        "150% root text-size emulation"
+      ],
+      "native_browser_zoom_shortcut_changed_dpr": false
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "CDP touch drag/pinch cannot select a paid destination",
+        "account caret survives live background updates"
+      ],
+      "qualification": "Emulated touch input; no physical-device claim"
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "Trickle one complete interval starts",
+        "waiting has no movement effect",
+        "two later canonical publications resume same clock",
+        "toroidal rendered travel"
+      ],
+      "timing": "20x accelerated disposable wall time at actual 0.01 policy; not production cadence",
+      "recording": "video/page@67400d77db357f1fe0ee93e847bac08c.webm"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,21 @@
+{
+  "source": "391df3a0a4165d4aaa05e3bc35612689b52b061c",
+  "run": 42498634335,
+  "status": "FAIL",
+  "failing_test": "million_browser_sustained_normal_and_cold_lifeline",
+  "failing_assertion": "tools/verify_s14_deployment.py:223 immediate #arena-note == Slow after target_rate becomes .05",
+  "normal_900_second_analysis": "PASS; unchanged protected assertions, 1.000131 displayed ticks/s, no stalls/resync",
+  "lifeline_and_cold_tail": "NOT_RUN in this sustained case: stopped at status assertion",
+  "artifact": {
+    "id": 13625833897,
+    "name": "local-ic-evidence",
+    "sha256": "9065c897ead8a0c4b694f5461c7c54c3675680e8b9eb6ce37fa5e5dd319caf08",
+    "retrieval": "Read-only public nightly.link artifact URL; bytes verified against GitHub official API digest. No credentials inspected or exported.",
+    "primary_metadata": ".work/minimal-isometric/hosted-ci/artifacts.data",
+    "metadata_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13625833897"
+  },
+  "correction": "Bounded wait for Slow plus actual advancing verified coverage. No frontend runtime, timing bounds, certificate policy or backend change.",
+  "deployment": "NOT_RUN",
+  "correction_source": "e85f45171e244a92093a779c1b567baf2d2e6650",
+  "focused_installed_test": "PASS; million_browser_normal_lifeline_and_cold_reconnect, 264.22s"
+}

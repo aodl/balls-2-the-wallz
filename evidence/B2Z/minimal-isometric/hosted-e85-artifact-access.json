@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-08T18:27:22.332446+00:00",
+  "official_API": "Run metadata and all six substantive completed/success job conclusions available; exact head e85f451",
+  "public_download": "Two public nightly.link artifact routes returned HTTP 500; final raw local-IC archive not downloaded. Official artifact ID/digest metadata preserved.",
+  "gate": "All six hosted job conclusions independently verified via official GitHub API; failed raw download is not a failing application job."
+}

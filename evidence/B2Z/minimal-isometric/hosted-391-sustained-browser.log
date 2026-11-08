@@ -1,0 +1,11 @@
+Built observer for dfj7p-ut777-77776-qaaba-cai: /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/deployment/million-browser-sustained/assets
+Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/deployment/million-browser-sustained/mainnet-assets
+Traceback (most recent call last):
+  File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_s14_deployment.py", line 483, in main
+    elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_s14_deployment.py", line 223, in verify_million_scene
+    assert page.locator('#arena-note').text_content()=='Slow'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+AssertionError()

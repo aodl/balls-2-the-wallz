@@ -1,0 +1,94 @@
+{
+  "at": "2026-11-08T18:30:36.798Z",
+  "status": "PASS",
+  "backend_operation": "NONE; frontend assets only",
+  "module_and_controllers_before_after_identical": true,
+  "certified_subnet_nodes": 13,
+  "source_and_config_identity_before_after_identical": true,
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "independent_destination_derivation": "Python principal CRC/base32 decoding and SHA-224 account-id domain/default 32-byte subaccount agrees with certified descriptor and UI",
+  "rules_version": 7,
+  "schema": 6,
+  "epoch": "4",
+  "world_dimensions": [
+    1000,
+    1000
+  ],
+  "world_entities_before_after": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "logical_time_before_after": [
+    [
+      "1568",
+      "1"
+    ],
+    [
+      "1595",
+      "1"
+    ]
+  ],
+  "source_cursor_before_after": [
+    "40180669",
+    "40180669"
+  ],
+  "pending_records": 0,
+  "financial_state": "Existing real paid world retained. No reset, transition, financial update or test payment. Legitimate autonomous motion/scoring/maintenance continues; not byte-identical world assertion.",
+  "treasury_phase": {
+    "Idle": null
+  },
+  "treasury_previous_conversion_unchanged": true,
+  "run": {
+    "last_error": [],
+    "world_transition": false,
+    "idle": false,
+    "pace": {
+      "nominal_milli": 50,
+      "supported_milli": 50,
+      "mode": "Lifeline",
+      "admission_open": true,
+      "performance_limited": false
+    },
+    "segment_ticks": "2",
+    "publication_ticks": "1",
+    "completed_segments": "1596",
+    "running": true
+  },
+  "health": {
+    "resets": "6",
+    "sample_end_ns": "1794162609324659555",
+    "observed_at_ns": "1794162635669079721",
+    "sample_start_total_cycles": "2746590368222",
+    "sample_count": 2,
+    "runtime_started_ns": "1794091464433566400",
+    "known_treasury_credit_delta": "0",
+    "net_decline_cycles": [
+      "3532442680"
+    ],
+    "version": 1,
+    "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+    "reservation_gap_end": "56232302100",
+    "certified_gameplay": false,
+    "sample_end_total_cycles": "2743057925542",
+    "total_cycles": "2824626123527",
+    "reservation_gap_start": "56232302100",
+    "sample_start_ns": "1794162308986620734",
+    "liquid_cycles": "2768393821427",
+    "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+  },
+  "event_horizon": [],
+  "independent_fallback_seconds": 60
+}

@@ -1,0 +1,3335 @@
+{
+  "at": "2026-11-08T18:21:38.396Z",
+  "policy": {
+    "network": "ic",
+    "host": "https://icp-api.io",
+    "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai"
+  },
+  "certificate_verified": true,
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "configuration": {
+    "annihilation_distance": 64,
+    "annihilation_time_window": [
+      "1",
+      "16"
+    ],
+    "ball_base_e8s": "10000000",
+    "ball_ownership": "funding-player",
+    "ball_price": "island-pool-floor-1-square",
+    "cannon_activity": "connected-island-ball-pool",
+    "cannon_price": "retained-plus-1-square",
+    "capture_resolution": "pair-and-cancel-1",
+    "dormancy_clock": "consensus-observed-ns-1",
+    "dormancy_grace_ns": "86400000000000",
+    "first_spawn": "farthest-cannon-toroidal-euclidean-1",
+    "height": 1000,
+    "join_e8s": "100000000",
+    "lifecycle_input_version": 1,
+    "max_balls": 64,
+    "max_cannons": 128,
+    "max_players": 1024,
+    "max_purchase_balls_per_island": 64,
+    "max_purchase_quantity": 64,
+    "max_retained_per_player": 16,
+    "max_segment_ticks": 64,
+    "max_spawn_searches_per_segment": 8,
+    "memo_adapter_version": 4,
+    "move_e8s": "10000",
+    "move_limit_per_cannon_segment": 1,
+    "ownership": "scaled32-v1",
+    "player_identity": "authenticated-funding-account",
+    "rules_version": 7,
+    "score_area_denominator": 1000000,
+    "score_area_numerator": 1024,
+    "spawn_patch_side": 3,
+    "spawn_preserve_connectivity": true,
+    "spawn_tie_break": "lowest-row-major-cell",
+    "speed": 32000,
+    "topology": "torus",
+    "version": 6,
+    "width": 1000
+  },
+  "publication": {
+    "artifacts": [
+      {
+        "chunks": [
+          "96b6739a3cb3fca51a3b2f461b8db27f0d34a0267194da3bf8da5ea347f156ee"
+        ],
+        "kind": "state",
+        "length": 7946,
+        "sha256": "96b6739a3cb3fca51a3b2f461b8db27f0d34a0267194da3bf8da5ea347f156ee"
+      },
+      {
+        "chunks": [
+          "6608989ec528264a0ad5fabf1df054d79f71342647f2e75e9f42e47302ce9132"
+        ],
+        "kind": "events",
+        "length": 13701,
+        "sha256": "6608989ec528264a0ad5fabf1df054d79f71342647f2e75e9f42e47302ce9132"
+      },
+      {
+        "chunks": [
+          "1963dd6d4d788677fc8b02e7505b926d7b8ef35e655ada5e048d046021b8696f"
+        ],
+        "kind": "scores",
+        "length": 173,
+        "sha256": "1963dd6d4d788677fc8b02e7505b926d7b8ef35e655ada5e048d046021b8696f"
+      }
+    ],
+    "chunk_bytes": 16384,
+    "epoch": {
+      "event_hash": "cbcb9d33d28838d46f009064cc76d8dc58d8353f89fd549b7aa38b0abaa705e9",
+      "logical_boundary": "4",
+      "metadata_hash": "f7f9d9984126e2c2f6f61cd01dda10d7c095debefb26bfc0ded5a7974ec9d417",
+      "new_identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "predecessor": {
+        "epoch_hash": "764736e979f1b12632fb2c351866fe75ef0393c7dea62d60314e9daf79251e38",
+        "identity": {
+          "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "logical_end": "4",
+        "manifest_hash": "e27b17513549896f53d5396543eb679fd32e2ec8053ca99f868cd9525ab5048e",
+        "publication_hash": "10091820944562eba5476f70ebbabd81a8a3538fd783948f2855aefb09048993",
+        "segment_id": "6",
+        "source_cursor": "0",
+        "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+        "version": 8
+      },
+      "previous_chain_hash": "c1370dd01568fb7b2e4a0bab94b5d40d27889741f22683b6f027d144f92380ae",
+      "previous_publication_hex": "",
+      "score_hash": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89",
+      "segment_id": "7",
+      "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_cursor": "0",
+      "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+      "transition_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+      "transition_index": "4",
+      "version": 2
+    },
+    "head": {
+      "logical_end": "1568",
+      "manifest_hash": "186e969cb245f95b41949d77a3ebaf19da67ff1bb4ec5f753b8b4140bd4ea41f",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "1568",
+        "logical_start": "1567",
+        "previous_manifest": "f1d29fe4db8ffa850b455872659fe29d822e03784b7d588f4a1eca8bf76444fe",
+        "previous_state": "ef5f80260c954ef1bf6accf5f54c5c980a9f83bb87cfab5f283b0168eb0e756b",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "1571",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "1571",
+      "source_to_exclusive": "40180669",
+      "state_hash": "96b6739a3cb3fca51a3b2f461b8db27f0d34a0267194da3bf8da5ea347f156ee"
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "render_format": null,
+    "version": 8
+  },
+  "root": "8080663ce46086eed690d5b464b09556d13989eea661f56e3735b8f06ff07fb5",
+  "artifacts": {
+    "state": {
+      "balls": [
+        {
+          "cell": 980020,
+          "id": 1,
+          "owner": 1,
+          "vx": -25387,
+          "vy": 19481,
+          "x0": "39828140",
+          "y0": "-29541988"
+        }
+      ],
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 0,
+          "heading": 6827,
+          "id": 1
+        }
+      ],
+      "credits": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "5408500381877248",
+            "1545512959375"
+          ]
+        }
+      ],
+      "height": 1000,
+      "next_ball_id": 2,
+      "next_cannon_id": 2,
+      "next_strike_id": 1,
+      "ownership": {
+        "base": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "counts": [
+          {
+            "cells": 3728,
+            "owner": 1
+          }
+        ],
+        "format": "scaled32-v1",
+        "overrides": [
+          {
+            "end": 36,
+            "owner": 1,
+            "start": 0
+          },
+          {
+            "end": 1036,
+            "owner": 1,
+            "start": 958
+          },
+          {
+            "end": 2037,
+            "owner": 1,
+            "start": 1959
+          },
+          {
+            "end": 3038,
+            "owner": 1,
+            "start": 2960
+          },
+          {
+            "end": 4039,
+            "owner": 1,
+            "start": 3960
+          },
+          {
+            "end": 5041,
+            "owner": 1,
+            "start": 4960
+          },
+          {
+            "end": 6040,
+            "owner": 1,
+            "start": 5961
+          },
+          {
+            "end": 7041,
+            "owner": 1,
+            "start": 6961
+          },
+          {
+            "end": 7964,
+            "owner": 1,
+            "start": 7960
+          },
+          {
+            "end": 8043,
+            "owner": 1,
+            "start": 7966
+          },
+          {
+            "end": 8964,
+            "owner": 1,
+            "start": 8961
+          },
+          {
+            "end": 9044,
+            "owner": 1,
+            "start": 8965
+          },
+          {
+            "end": 9963,
+            "owner": 1,
+            "start": 9962
+          },
+          {
+            "end": 10044,
+            "owner": 1,
+            "start": 9965
+          },
+          {
+            "end": 11040,
+            "owner": 1,
+            "start": 10966
+          },
+          {
+            "end": 11043,
+            "owner": 1,
+            "start": 11042
+          },
+          {
+            "end": 12038,
+            "owner": 1,
+            "start": 11967
+          },
+          {
+            "end": 13037,
+            "owner": 1,
+            "start": 12968
+          },
+          {
+            "end": 14037,
+            "owner": 1,
+            "start": 13970
+          },
+          {
+            "end": 15039,
+            "owner": 1,
+            "start": 14970
+          },
+          {
+            "end": 16040,
+            "owner": 1,
+            "start": 15971
+          },
+          {
+            "end": 17039,
+            "owner": 1,
+            "start": 16970
+          },
+          {
+            "end": 17041,
+            "owner": 1,
+            "start": 17040
+          },
+          {
+            "end": 18042,
+            "owner": 1,
+            "start": 17971
+          },
+          {
+            "end": 19042,
+            "owner": 1,
+            "start": 18971
+          },
+          {
+            "end": 20019,
+            "owner": 1,
+            "start": 19969
+          },
+          {
+            "end": 20022,
+            "owner": 1,
+            "start": 20021
+          },
+          {
+            "end": 20043,
+            "owner": 1,
+            "start": 20023
+          },
+          {
+            "end": 21016,
+            "owner": 1,
+            "start": 20968
+          },
+          {
+            "end": 21044,
+            "owner": 1,
+            "start": 21021
+          },
+          {
+            "end": 22014,
+            "owner": 1,
+            "start": 21968
+          },
+          {
+            "end": 22032,
+            "owner": 1,
+            "start": 22020
+          },
+          {
+            "end": 22044,
+            "owner": 1,
+            "start": 22033
+          },
+          {
+            "end": 23015,
+            "owner": 1,
+            "start": 22969
+          },
+          {
+            "end": 23023,
+            "owner": 1,
+            "start": 23021
+          },
+          {
+            "end": 23027,
+            "owner": 1,
+            "start": 23025
+          },
+          {
+            "end": 23029,
+            "owner": 1,
+            "start": 23028
+          },
+          {
+            "end": 23040,
+            "owner": 1,
+            "start": 23034
+          },
+          {
+            "end": 23043,
+            "owner": 1,
+            "start": 23042
+          },
+          {
+            "end": 24013,
+            "owner": 1,
+            "start": 23973
+          },
+          {
+            "end": 24038,
+            "owner": 1,
+            "start": 24037
+          },
+          {
+            "end": 25015,
+            "owner": 1,
+            "start": 24972
+          },
+          {
+            "end": 26016,
+            "owner": 1,
+            "start": 25973
+          },
+          {
+            "end": 26019,
+            "owner": 1,
+            "start": 26017
+          },
+          {
+            "end": 27020,
+            "owner": 1,
+            "start": 26974
+          },
+          {
+            "end": 28019,
+            "owner": 1,
+            "start": 27976
+          },
+          {
+            "end": 29019,
+            "owner": 1,
+            "start": 28976
+          },
+          {
+            "end": 30019,
+            "owner": 1,
+            "start": 29975
+          },
+          {
+            "end": 31012,
+            "owner": 1,
+            "start": 30976
+          },
+          {
+            "end": 31018,
+            "owner": 1,
+            "start": 31013
+          },
+          {
+            "end": 32013,
+            "owner": 1,
+            "start": 31979
+          },
+          {
+            "end": 32016,
+            "owner": 1,
+            "start": 32014
+          },
+          {
+            "end": 32992,
+            "owner": 1,
+            "start": 32980
+          },
+          {
+            "end": 33012,
+            "owner": 1,
+            "start": 32994
+          },
+          {
+            "end": 33986,
+            "owner": 1,
+            "start": 33980
+          },
+          {
+            "end": 33992,
+            "owner": 1,
+            "start": 33987
+          },
+          {
+            "end": 34013,
+            "owner": 1,
+            "start": 33995
+          },
+          {
+            "end": 34982,
+            "owner": 1,
+            "start": 34981
+          },
+          {
+            "end": 34985,
+            "owner": 1,
+            "start": 34984
+          },
+          {
+            "end": 34990,
+            "owner": 1,
+            "start": 34987
+          },
+          {
+            "end": 35006,
+            "owner": 1,
+            "start": 34997
+          },
+          {
+            "end": 35012,
+            "owner": 1,
+            "start": 35008
+          },
+          {
+            "end": 35989,
+            "owner": 1,
+            "start": 35988
+          },
+          {
+            "end": 36006,
+            "owner": 1,
+            "start": 35998
+          },
+          {
+            "end": 36011,
+            "owner": 1,
+            "start": 36010
+          },
+          {
+            "end": 37007,
+            "owner": 1,
+            "start": 37000
+          },
+          {
+            "end": 38006,
+            "owner": 1,
+            "start": 38000
+          },
+          {
+            "end": 39005,
+            "owner": 1,
+            "start": 39001
+          },
+          {
+            "end": 40004,
+            "owner": 1,
+            "start": 40003
+          },
+          {
+            "end": 972017,
+            "owner": 1,
+            "start": 972015
+          },
+          {
+            "end": 972979,
+            "owner": 1,
+            "start": 972978
+          },
+          {
+            "end": 973018,
+            "owner": 1,
+            "start": 973014
+          },
+          {
+            "end": 973980,
+            "owner": 1,
+            "start": 973977
+          },
+          {
+            "end": 974020,
+            "owner": 1,
+            "start": 974015
+          },
+          {
+            "end": 974981,
+            "owner": 1,
+            "start": 974976
+          },
+          {
+            "end": 975002,
+            "owner": 1,
+            "start": 974996
+          },
+          {
+            "end": 975004,
+            "owner": 1,
+            "start": 975003
+          },
+          {
+            "end": 975021,
+            "owner": 1,
+            "start": 975013
+          },
+          {
+            "end": 975983,
+            "owner": 1,
+            "start": 975977
+          },
+          {
+            "end": 976005,
+            "owner": 1,
+            "start": 975993
+          },
+          {
+            "end": 976023,
+            "owner": 1,
+            "start": 976014
+          },
+          {
+            "end": 976025,
+            "owner": 1,
+            "start": 976024
+          },
+          {
+            "end": 976984,
+            "owner": 1,
+            "start": 976978
+          },
+          {
+            "end": 977005,
+            "owner": 1,
+            "start": 976992
+          },
+          {
+            "end": 977026,
+            "owner": 1,
+            "start": 977009
+          },
+          {
+            "end": 977988,
+            "owner": 1,
+            "start": 977979
+          },
+          {
+            "end": 978006,
+            "owner": 1,
+            "start": 977991
+          },
+          {
+            "end": 978026,
+            "owner": 1,
+            "start": 978007
+          },
+          {
+            "end": 979027,
+            "owner": 1,
+            "start": 978980
+          },
+          {
+            "end": 979979,
+            "owner": 1,
+            "start": 979978
+          },
+          {
+            "end": 980028,
+            "owner": 1,
+            "start": 979981
+          },
+          {
+            "end": 980033,
+            "owner": 1,
+            "start": 980032
+          },
+          {
+            "end": 981002,
+            "owner": 1,
+            "start": 980975
+          },
+          {
+            "end": 981034,
+            "owner": 1,
+            "start": 981003
+          },
+          {
+            "end": 982034,
+            "owner": 1,
+            "start": 981974
+          },
+          {
+            "end": 983035,
+            "owner": 1,
+            "start": 982975
+          },
+          {
+            "end": 983038,
+            "owner": 1,
+            "start": 983036
+          },
+          {
+            "end": 984039,
+            "owner": 1,
+            "start": 983976
+          },
+          {
+            "end": 985040,
+            "owner": 1,
+            "start": 984976
+          },
+          {
+            "end": 986039,
+            "owner": 1,
+            "start": 985975
+          },
+          {
+            "end": 987038,
+            "owner": 1,
+            "start": 986976
+          },
+          {
+            "end": 988038,
+            "owner": 1,
+            "start": 987976
+          },
+          {
+            "end": 989035,
+            "owner": 1,
+            "start": 988977
+          },
+          {
+            "end": 989037,
+            "owner": 1,
+            "start": 989036
+          },
+          {
+            "end": 990036,
+            "owner": 1,
+            "start": 989979
+          },
+          {
+            "end": 991037,
+            "owner": 1,
+            "start": 990977
+          },
+          {
+            "end": 992038,
+            "owner": 1,
+            "start": 991975
+          },
+          {
+            "end": 993037,
+            "owner": 1,
+            "start": 992974
+          },
+          {
+            "end": 993964,
+            "owner": 1,
+            "start": 993963
+          },
+          {
+            "end": 993970,
+            "owner": 1,
+            "start": 993968
+          },
+          {
+            "end": 993988,
+            "owner": 1,
+            "start": 993972
+          },
+          {
+            "end": 994035,
+            "owner": 1,
+            "start": 993989
+          },
+          {
+            "end": 994965,
+            "owner": 1,
+            "start": 994962
+          },
+          {
+            "end": 994986,
+            "owner": 1,
+            "start": 994967
+          },
+          {
+            "end": 995034,
+            "owner": 1,
+            "start": 994988
+          },
+          {
+            "end": 995985,
+            "owner": 1,
+            "start": 995960
+          },
+          {
+            "end": 996034,
+            "owner": 1,
+            "start": 995987
+          },
+          {
+            "end": 996037,
+            "owner": 1,
+            "start": 996035
+          },
+          {
+            "end": 996980,
+            "owner": 1,
+            "start": 996959
+          },
+          {
+            "end": 996984,
+            "owner": 1,
+            "start": 996982
+          },
+          {
+            "end": 997038,
+            "owner": 1,
+            "start": 996986
+          },
+          {
+            "end": 997982,
+            "owner": 1,
+            "start": 997959
+          },
+          {
+            "end": 998036,
+            "owner": 1,
+            "start": 997984
+          },
+          {
+            "end": 998983,
+            "owner": 1,
+            "start": 998959
+          },
+          {
+            "end": 999035,
+            "owner": 1,
+            "start": 998984
+          },
+          {
+            "end": 1000000,
+            "owner": 1,
+            "start": 999959
+          }
+        ],
+        "source_height": 32,
+        "source_width": 32
+      },
+      "pending": [],
+      "playability": {
+        "elapsed_ns": "1794162073542415913",
+        "lifecycle": [
+          {
+            "cannon": 1,
+            "generation": 1,
+            "player": 1
+          }
+        ],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [
+          {
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "id": 1
+          }
+        ],
+        "territories": [
+          {
+            "id": 1,
+            "player": 1
+          }
+        ]
+      },
+      "received_e8s": "100000000",
+      "time": [
+        "1568",
+        "1"
+      ],
+      "version": 6,
+      "width": 1000
+    },
+    "events": {
+      "events": [
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 991010,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 992010,
+          "kind": "motion",
+          "sequence": 0,
+          "time": [
+            "30527076",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 991011,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 991010,
+          "kind": "motion",
+          "sequence": 1,
+          "time": [
+            "39782060",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 991012,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 991011,
+          "kind": "motion",
+          "sequence": 2,
+          "time": [
+            "39783084",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 990012,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 991012,
+          "kind": "motion",
+          "sequence": 3,
+          "time": [
+            "30528100",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 990013,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 990012,
+          "kind": "motion",
+          "sequence": 4,
+          "time": [
+            "39784108",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 989013,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 990013,
+          "kind": "motion",
+          "sequence": 5,
+          "time": [
+            "30529124",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 989014,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 989013,
+          "kind": "motion",
+          "sequence": 6,
+          "time": [
+            "39785132",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 988014,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 989014,
+          "kind": "motion",
+          "sequence": 7,
+          "time": [
+            "2775468",
+            "1771"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 988015,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 988014,
+          "kind": "motion",
+          "sequence": 8,
+          "time": [
+            "39786156",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 988016,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 988015,
+          "kind": "motion",
+          "sequence": 9,
+          "time": [
+            "39787180",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 987016,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 988016,
+          "kind": "motion",
+          "sequence": 10,
+          "time": [
+            "4361596",
+            "2783"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 987017,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 987016,
+          "kind": "motion",
+          "sequence": 11,
+          "time": [
+            "39788204",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 986017,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 987017,
+          "kind": "motion",
+          "sequence": 12,
+          "time": [
+            "30532196",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 986018,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 986017,
+          "kind": "motion",
+          "sequence": 13,
+          "time": [
+            "39789228",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 985018,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 986018,
+          "kind": "motion",
+          "sequence": 14,
+          "time": [
+            "30533220",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 985019,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 985018,
+          "kind": "motion",
+          "sequence": 15,
+          "time": [
+            "39790252",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 984019,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 985019,
+          "kind": "motion",
+          "sequence": 16,
+          "time": [
+            "30534244",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 984020,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 984019,
+          "kind": "motion",
+          "sequence": 17,
+          "time": [
+            "39791276",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 984021,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 984020,
+          "kind": "motion",
+          "sequence": 18,
+          "time": [
+            "39792300",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 983021,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 984021,
+          "kind": "motion",
+          "sequence": 19,
+          "time": [
+            "30535268",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 983022,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 983021,
+          "kind": "motion",
+          "sequence": 20,
+          "time": [
+            "39793324",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 982022,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 983022,
+          "kind": "motion",
+          "sequence": 21,
+          "time": [
+            "30536292",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 982023,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 982022,
+          "kind": "motion",
+          "sequence": 22,
+          "time": [
+            "39794348",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 981023,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 982023,
+          "kind": "motion",
+          "sequence": 23,
+          "time": [
+            "30537316",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 981024,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 981023,
+          "kind": "motion",
+          "sequence": 24,
+          "time": [
+            "39795372",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 981025,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 981024,
+          "kind": "motion",
+          "sequence": 25,
+          "time": [
+            "39796396",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 980025,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39770796",
+            "y0": "31542884"
+          },
+          "from_cell": 981025,
+          "kind": "motion",
+          "sequence": 26,
+          "time": [
+            "4362620",
+            "2783"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 980025,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": -19481,
+            "x0": "39824044",
+            "y0": "31542884"
+          },
+          "from_cell": 980025,
+          "kind": "motion",
+          "sequence": 27,
+          "time": [
+            "39797420",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "attacker": 1,
+          "ball": 1,
+          "cancelled_capture": false,
+          "cancelled_strikes": [],
+          "dormant": [],
+          "kind": "capture",
+          "metadata_delta": {
+            "lifecycle": [],
+            "next_player_id": 2,
+            "next_territory_id": 2,
+            "players": [],
+            "retired_cannons": [],
+            "retired_territories": [],
+            "territories": []
+          },
+          "ownership_ops": [
+            {
+              "end": 980027,
+              "from": 0,
+              "kind": "set_range",
+              "start": 980026,
+              "to": 1
+            }
+          ],
+          "pairs": [],
+          "reactivated_cannons": [],
+          "sequence": 28,
+          "target": 980026,
+          "time": [
+            "39797420",
+            "25387"
+          ]
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 979025,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": -19481,
+            "x0": "39824044",
+            "y0": "31542884"
+          },
+          "from_cell": 980025,
+          "kind": "motion",
+          "sequence": 29,
+          "time": [
+            "30539364",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 979024,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": -19481,
+            "x0": "39824044",
+            "y0": "31542884"
+          },
+          "from_cell": 979025,
+          "kind": "motion",
+          "sequence": 30,
+          "time": [
+            "39798444",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 978024,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": -19481,
+            "x0": "39824044",
+            "y0": "31542884"
+          },
+          "from_cell": 979024,
+          "kind": "motion",
+          "sequence": 31,
+          "time": [
+            "30540388",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 978023,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": -19481,
+            "x0": "39824044",
+            "y0": "31542884"
+          },
+          "from_cell": 978024,
+          "kind": "motion",
+          "sequence": 32,
+          "time": [
+            "39799468",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 978023,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39776940",
+            "y0": "31542884"
+          },
+          "from_cell": 978023,
+          "kind": "motion",
+          "sequence": 33,
+          "time": [
+            "39800492",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "attacker": 1,
+          "ball": 1,
+          "cancelled_capture": false,
+          "cancelled_strikes": [],
+          "dormant": [],
+          "kind": "capture",
+          "metadata_delta": {
+            "lifecycle": [],
+            "next_player_id": 2,
+            "next_territory_id": 2,
+            "players": [],
+            "retired_cannons": [],
+            "retired_territories": [],
+            "territories": []
+          },
+          "ownership_ops": [
+            {
+              "end": 978023,
+              "from": 0,
+              "kind": "set_range",
+              "start": 978022,
+              "to": 1
+            }
+          ],
+          "pairs": [],
+          "reactivated_cannons": [],
+          "sequence": 34,
+          "target": 978022,
+          "time": [
+            "39800492",
+            "25387"
+          ]
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 977023,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39776940",
+            "y0": "31542884"
+          },
+          "from_cell": 978023,
+          "kind": "motion",
+          "sequence": 35,
+          "time": [
+            "2776492",
+            "1771"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 977024,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": -19481,
+            "x0": "-39776940",
+            "y0": "31542884"
+          },
+          "from_cell": 977023,
+          "kind": "motion",
+          "sequence": 36,
+          "time": [
+            "750972",
+            "479"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 977024,
+            "id": 1,
+            "owner": 1,
+            "vx": 25387,
+            "vy": 19481,
+            "x0": "-39776940",
+            "y0": "-29541988"
+          },
+          "from_cell": 977024,
+          "kind": "motion",
+          "sequence": 37,
+          "time": [
+            "1327932",
+            "847"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "attacker": 1,
+          "ball": 1,
+          "cancelled_capture": false,
+          "cancelled_strikes": [],
+          "dormant": [],
+          "kind": "capture",
+          "metadata_delta": {
+            "lifecycle": [],
+            "next_player_id": 2,
+            "next_territory_id": 2,
+            "players": [],
+            "retired_cannons": [],
+            "retired_territories": [],
+            "territories": []
+          },
+          "ownership_ops": [
+            {
+              "end": 976025,
+              "from": 0,
+              "kind": "set_range",
+              "start": 976024,
+              "to": 1
+            }
+          ],
+          "pairs": [],
+          "reactivated_cannons": [],
+          "sequence": 38,
+          "target": 976024,
+          "time": [
+            "1327932",
+            "847"
+          ]
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 977024,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 977024,
+          "kind": "motion",
+          "sequence": 39,
+          "time": [
+            "39802540",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "attacker": 1,
+          "ball": 1,
+          "cancelled_capture": false,
+          "cancelled_strikes": [],
+          "dormant": [],
+          "kind": "capture",
+          "metadata_delta": {
+            "lifecycle": [],
+            "next_player_id": 2,
+            "next_territory_id": 2,
+            "players": [],
+            "retired_cannons": [],
+            "retired_territories": [],
+            "territories": []
+          },
+          "ownership_ops": [
+            {
+              "end": 977026,
+              "from": 0,
+              "kind": "set_range",
+              "start": 977025,
+              "to": 1
+            }
+          ],
+          "pairs": [],
+          "reactivated_cannons": [],
+          "sequence": 40,
+          "target": 977025,
+          "time": [
+            "39802540",
+            "25387"
+          ]
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 978024,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 977024,
+          "kind": "motion",
+          "sequence": 41,
+          "time": [
+            "30543460",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 978023,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 978024,
+          "kind": "motion",
+          "sequence": 42,
+          "time": [
+            "39803564",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 979023,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 978023,
+          "kind": "motion",
+          "sequence": 43,
+          "time": [
+            "30544484",
+            "19481"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 979022,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 979023,
+          "kind": "motion",
+          "sequence": 44,
+          "time": [
+            "39804588",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 979021,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 979022,
+          "kind": "motion",
+          "sequence": 45,
+          "time": [
+            "39805612",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 980021,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 979021,
+          "kind": "motion",
+          "sequence": 46,
+          "time": [
+            "4363644",
+            "2783"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "ball": 1,
+          "ball_state": {
+            "cell": 980020,
+            "id": 1,
+            "owner": 1,
+            "vx": -25387,
+            "vy": 19481,
+            "x0": "39828140",
+            "y0": "-29541988"
+          },
+          "from_cell": 980021,
+          "kind": "motion",
+          "sequence": 47,
+          "time": [
+            "39806636",
+            "25387"
+          ],
+          "vertex_blocked": false
+        },
+        {
+          "kind": "lifecycle_time",
+          "observed_ns": "1794162073542415913",
+          "previous_elapsed_ns": "1794162053496499426",
+          "sequence": 48,
+          "stamped": [],
+          "time": [
+            "1568",
+            "1"
+          ]
+        }
+      ],
+      "receipts": [],
+      "version": 6
+    },
+    "scores": {
+      "area_time": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "units": [
+            "1281559781056",
+            "335981078125"
+          ]
+        }
+      ],
+      "version": 6
+    }
+  },
+  "status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 50,
+        "supported_milli": 50,
+        "mode": "Lifeline",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "2",
+      "publication_ticks": "1",
+      "completed_segments": "1569",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    },
+    "health": {
+      "resets": "6",
+      "sample_end_ns": "1794162008765630307",
+      "observed_at_ns": "1794162097598829827",
+      "sample_start_total_cycles": "2753728557162",
+      "sample_count": 2,
+      "runtime_started_ns": "1794091464433566400",
+      "known_treasury_credit_delta": "0",
+      "net_decline_cycles": [
+        "3573972988"
+      ],
+      "version": 1,
+      "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+      "reservation_gap_end": "56232302100",
+      "certified_gameplay": false,
+      "sample_end_total_cycles": "2750154584174",
+      "total_cycles": "2831018169570",
+      "reservation_gap_start": "56232302100",
+      "sample_start_ns": "1794161708632921557",
+      "liquid_cycles": "2774785867470",
+      "discontinuity": "balance increase, credit or clock discontinuity; rate restarted"
+    }
+  },
+  "runtime": {
+    "run": {
+      "last_error": [],
+      "callback_count": "1569",
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 50,
+        "supported_milli": 50,
+        "mode": "Lifeline",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "publication_ticks": "1",
+      "completed_segments": "1569",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "receiving_subaccount": "0",
+      "index_calls": "1180",
+      "binding_checked": true,
+      "reconciliation_requested": false,
+      "event_horizon": [],
+      "network": "ic",
+      "pending_records": 0,
+      "ledger": {
+        "__principal__": "ryjl3-tyaaa-aaaaa-aaaba-cai"
+      },
+      "index": {
+        "__principal__": "qhbym-qaaaa-aaaaa-aaafq-cai"
+      },
+      "recipient_account": {
+        "0": 197,
+        "1": 132,
+        "2": 135,
+        "3": 134,
+        "4": 157,
+        "5": 70,
+        "6": 239,
+        "7": 4,
+        "8": 148,
+        "9": 199,
+        "10": 215,
+        "11": 192,
+        "12": 49,
+        "13": 43,
+        "14": 39,
+        "15": 96,
+        "16": 171,
+        "17": 183,
+        "18": 22,
+        "19": 78,
+        "20": 175,
+        "21": 210,
+        "22": 63,
+        "23": 0,
+        "24": 9,
+        "25": 164,
+        "26": 43,
+        "27": 149,
+        "28": 69,
+        "29": 245,
+        "30": 59,
+        "31": 222
+      },
+      "admitted_to_exclusive": "40180669",
+      "scan_in_flight": false
+    },
+    "version": 7,
+    "revision": "4715",
+    "publication_hash": "c7a5188f196e5a5320d7f6954477debc0d45d8734a40fe676ff26af1eacb399b"
+  },
+  "retained": {
+    "max_segments": 16,
+    "max_bytes": 8388608,
+    "retained_bytes": 393116,
+    "entries": [
+      {
+        "segment_id": 1557,
+        "publication_hash": "adb3d8d95d573a061eae5483734156b1c044b081c4fbe74f337114637a7e8696",
+        "bytes": 23973,
+        "current": false
+      },
+      {
+        "segment_id": 1558,
+        "publication_hash": "3c279693babc3cc61527211dc4851faa0fe52a9db21898ab8ee940850113537f",
+        "bytes": 24651,
+        "current": false
+      },
+      {
+        "segment_id": 1559,
+        "publication_hash": "2b2ef63a4a6ae9bc9d0b26faea4d6d5d423d83a3a37a46cc355f7d3098198338",
+        "bytes": 24057,
+        "current": false
+      },
+      {
+        "segment_id": 1560,
+        "publication_hash": "8dea0b3f631eaeac5a9a1dd6d564587e8aa540944dba9ce153cd9e4e65120c16",
+        "bytes": 25075,
+        "current": false
+      },
+      {
+        "segment_id": 1561,
+        "publication_hash": "d46346d53849d069cc22bf08df194a393be5a194052043894cbf03818ca80b7a",
+        "bytes": 24045,
+        "current": false
+      },
+      {
+        "segment_id": 1562,
+        "publication_hash": "2d72c5751b565f618bf162953e9b62997bdd776c945bba0a13a38f07fc746f3f",
+        "bytes": 24979,
+        "current": false
+      },
+      {
+        "segment_id": 1563,
+        "publication_hash": "d6fd5beddbee249b3bdb11256a482231ac49517f28b6134db4596736d0c02905",
+        "bytes": 23750,
+        "current": false
+      },
+      {
+        "segment_id": 1564,
+        "publication_hash": "f1e5ea5c9d9dd5f5fc51dc831dcf3633ea129257f9036f4ca4eff5f4135ba878",
+        "bytes": 25529,
+        "current": false
+      },
+      {
+        "segment_id": 1565,
+        "publication_hash": "dfb9a8c23d43bccd104f061d271f7e08d5a876349e27d132a96fb9941b5b252b",
+        "bytes": 24608,
+        "current": false
+      },
+      {
+        "segment_id": 1566,
+        "publication_hash": "aafe0a0714e2e2dd7b3bf401d80169778e1dc4cd5db0ffa37a01bdfc1288955a",
+        "bytes": 24014,
+        "current": false
+      },
+      {
+        "segment_id": 1567,
+        "publication_hash": "c2f7a6396bf30ca32a134e0e1be618397b5e0703b8ed1b257705c181335cb088",
+        "bytes": 25848,
+        "current": false
+      },
+      {
+        "segment_id": 1568,
+        "publication_hash": "f945ee801b73281b89c44f5addd2e0143e2276d97eed5b73f0e99742b9af83b1",
+        "bytes": 23742,
+        "current": false
+      },
+      {
+        "segment_id": 1569,
+        "publication_hash": "855a059f8ae7ecc61a4518492c40634bc9d748e4e0afbd1bc28e847b787af582",
+        "bytes": 25033,
+        "current": false
+      },
+      {
+        "segment_id": 1570,
+        "publication_hash": "47e750dc05e9090d5bfb96e86433e2f7e231784b78461b0bb2ca73239cc77454",
+        "bytes": 24105,
+        "current": false
+      },
+      {
+        "segment_id": 1571,
+        "publication_hash": "8080663ce46086eed690d5b464b09556d13989eea661f56e3735b8f06ff07fb5",
+        "bytes": 25901,
+        "current": false
+      },
+      {
+        "segment_id": 1572,
+        "publication_hash": "c7a5188f196e5a5320d7f6954477debc0d45d8734a40fe676ff26af1eacb399b",
+        "bytes": 23806,
+        "current": true
+      }
+    ]
+  },
+  "verified_predecessors": [
+    {
+      "root": "8080663ce46086eed690d5b464b09556d13989eea661f56e3735b8f06ff07fb5",
+      "publication": {
+        "artifacts": [
+          {
+            "chunks": [
+              "96b6739a3cb3fca51a3b2f461b8db27f0d34a0267194da3bf8da5ea347f156ee"
+            ],
+            "kind": "state",
+            "length": 7946,
+            "sha256": "96b6739a3cb3fca51a3b2f461b8db27f0d34a0267194da3bf8da5ea347f156ee"
+          },
+          {
+            "chunks": [
+              "6608989ec528264a0ad5fabf1df054d79f71342647f2e75e9f42e47302ce9132"
+            ],
+            "kind": "events",
+            "length": 13701,
+            "sha256": "6608989ec528264a0ad5fabf1df054d79f71342647f2e75e9f42e47302ce9132"
+          },
+          {
+            "chunks": [
+              "1963dd6d4d788677fc8b02e7505b926d7b8ef35e655ada5e048d046021b8696f"
+            ],
+            "kind": "scores",
+            "length": 173,
+            "sha256": "1963dd6d4d788677fc8b02e7505b926d7b8ef35e655ada5e048d046021b8696f"
+          }
+        ],
+        "chunk_bytes": 16384,
+        "epoch": {
+          "event_hash": "cbcb9d33d28838d46f009064cc76d8dc58d8353f89fd549b7aa38b0abaa705e9",
+          "logical_boundary": "4",
+          "metadata_hash": "f7f9d9984126e2c2f6f61cd01dda10d7c095debefb26bfc0ded5a7974ec9d417",
+          "new_identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "predecessor": {
+            "epoch_hash": "764736e979f1b12632fb2c351866fe75ef0393c7dea62d60314e9daf79251e38",
+            "identity": {
+              "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+              "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "logical_end": "4",
+            "manifest_hash": "e27b17513549896f53d5396543eb679fd32e2ec8053ca99f868cd9525ab5048e",
+            "publication_hash": "10091820944562eba5476f70ebbabd81a8a3538fd783948f2855aefb09048993",
+            "segment_id": "6",
+            "source_cursor": "0",
+            "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+            "version": 8
+          },
+          "previous_chain_hash": "c1370dd01568fb7b2e4a0bab94b5d40d27889741f22683b6f027d144f92380ae",
+          "previous_publication_hex": "",
+          "score_hash": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89",
+          "segment_id": "7",
+          "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+          "source_cursor": "0",
+          "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+          "transition_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "transition_index": "4",
+          "version": 2
+        },
+        "head": {
+          "logical_end": "1568",
+          "manifest_hash": "186e969cb245f95b41949d77a3ebaf19da67ff1bb4ec5f753b8b4140bd4ea41f",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "1568",
+            "logical_start": "1567",
+            "previous_manifest": "f1d29fe4db8ffa850b455872659fe29d822e03784b7d588f4a1eca8bf76444fe",
+            "previous_state": "ef5f80260c954ef1bf6accf5f54c5c980a9f83bb87cfab5f283b0168eb0e756b",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "1571",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "1571",
+          "source_to_exclusive": "40180669",
+          "state_hash": "96b6739a3cb3fca51a3b2f461b8db27f0d34a0267194da3bf8da5ea347f156ee"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "render_format": null,
+        "version": 8
+      }
+    }
+  ],
+  "metadata": [
+    {
+      "epoch": {
+        "event_hash": "cbcb9d33d28838d46f009064cc76d8dc58d8353f89fd549b7aa38b0abaa705e9",
+        "logical_boundary": "4",
+        "metadata_hash": "f7f9d9984126e2c2f6f61cd01dda10d7c095debefb26bfc0ded5a7974ec9d417",
+        "new_identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "predecessor": {
+          "epoch_hash": "764736e979f1b12632fb2c351866fe75ef0393c7dea62d60314e9daf79251e38",
+          "identity": {
+            "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+            "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "logical_end": "4",
+          "manifest_hash": "e27b17513549896f53d5396543eb679fd32e2ec8053ca99f868cd9525ab5048e",
+          "publication_hash": "10091820944562eba5476f70ebbabd81a8a3538fd783948f2855aefb09048993",
+          "segment_id": "6",
+          "source_cursor": "0",
+          "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+          "version": 8
+        },
+        "previous_chain_hash": "c1370dd01568fb7b2e4a0bab94b5d40d27889741f22683b6f027d144f92380ae",
+        "previous_publication_hex": "",
+        "score_hash": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89",
+        "segment_id": "7",
+        "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_cursor": "0",
+        "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+        "transition_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "transition_index": "4",
+        "version": 2
+      },
+      "metadata": {
+        "account_history_complete_through": "40166398",
+        "index_synced": "40166399",
+        "ledger_cutover": "40166398",
+        "logical_boundary": [
+          "4",
+          "1"
+        ],
+        "memo_adapter_after": 4,
+        "memo_adapter_before": 4,
+        "migration": "B2Z_FARTHEST_ENTRY_RULES_07",
+        "new_identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "new_state": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+        "old_identity": {
+          "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "previous_state": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+        "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_cursor": "0",
+        "version": 4
+      }
+    }
+  ]
+}
