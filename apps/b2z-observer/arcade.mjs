@@ -40,7 +40,7 @@ export function createArcade(doc){
  }
  function refresh(){
   $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(warning);
-  const c=selected(),own=c?.account===declaration?.account;
+  const c=selected(),own=Boolean(c&&declaration&&c.account===declaration.account);
   $('join-action').hidden=!world||Boolean(declaration&&mine().length);$('centre-cannon').hidden=!mine().length;text('centre-cannon',mine().length===1?'My cannon':'My cannons');
   $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own;text('fire-action',c?.dormant?'Revive':'Fire');
   $('fire-action').disabled=Boolean(own&&c.next_ball_e8s===null);$('fire-action').setAttribute('aria-describedby','inspect-note');

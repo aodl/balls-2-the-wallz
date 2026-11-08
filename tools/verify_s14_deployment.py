@@ -99,7 +99,7 @@ def verify_torus_scene(page,context,out,record,report,save):
     assert report['scene']['resyncs']==0,report['scene']
     record('populated-torus-sustained-authenticated-normal-playback',report['scene'])
     # A modal cannot pause the shared backend.
-    page.locator('#help-button').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
+    page.locator('#identify-button').click();page.locator('#help-button').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
 
 def install_boundary_trace(page):
@@ -533,8 +533,9 @@ def main():
             record('arena-fills-desktop-tablet-mobile-without-page-content')
             assert page.locator('.hero,footer').count()==0
             for selector in ['#help-button','#status-button','#identify-button']:
+                if selector=='#help-button':page.locator('#identify-button').click()
                 page.locator(selector).click();tab_in_modal(page)
-                page.keyboard.press('Escape');assert page.locator(selector).evaluate('(e)=>document.activeElement===e')
+                page.keyboard.press('Escape');assert page.locator('#identify-button'if selector=='#help-button'else selector).evaluate('(e)=>document.activeElement===e')
             page.locator('#fit').click();page.locator('#board').focus();page.keyboard.press('Home')
             page.mouse.move(190,300);anchor=page.evaluate('__b2zCamera.world(190,300)')
             page.mouse.wheel(0,-240);page.wait_for_timeout(200)
@@ -719,7 +720,7 @@ def main():
                 except Exception:
                     report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#observation-error').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
                 assert negative.locator('#transfer-controls').evaluate('(n)=>n.disabled')
-                assert negative.locator('#arena-note').inner_text()=='Unable to verify game'
+                assert negative.locator('#arena-note').inner_text()==('Reconnecting'if fault=='unavailable-config'else'Unable to verify game')
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
                 if fault=='wrong-certificate-root':
                     open_settings(negative)

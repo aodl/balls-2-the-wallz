@@ -31,7 +31,7 @@ corresponding regressions. A screenshot is not behaviour evidence.
 
 The screen contains the arena, B2Z / quiet “on ICP”, one status button, account chip,
 contextual Join or My cannons, and a small camera group (Overview, Zoom out/in).
-Help is secondary. No unavailable network selector, permanent action rail,
+Help is an entry in the secondary Account panel menu; it requires no declaration. No unavailable network selector, permanent action rail,
 onboarding modal, live pause/restart/download controls or payment-report workflow.
 
 Desktop has one docked nonmodal panel; mobile uses the same panel as a bottom
@@ -112,7 +112,10 @@ An unchanged head with a fresh valid certificate is not stale. A successful fetc
 alone is not advancing motion. Retained verified motion may finish after a
 producer stop; details explain that distinction. A depleted presentation queue at
 slow production says “Waiting for next update · slow mode”, never simply Slow.
-No speculative countdown. Ordinary buffering does not close admission; missing
+Explicit transport failures say Reconnecting and can recover only after fresh
+verified accepted history; certificate, conflict and rollback failures remain
+blocking within the session and require a fresh verified reload. Unknown failures
+are verification failures. No speculative countdown. Ordinary buffering does not close admission; missing
 verification/configuration/source binding or real admission failure does.
 
 Observation/status scheduling is independent of rendering and panels: bounded

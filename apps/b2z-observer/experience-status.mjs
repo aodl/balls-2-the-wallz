@@ -4,10 +4,11 @@ export function experienceStatus(input={}){
  const run=operational?.run,pace=input.pace??run?.pace;
  const source=operational?.source;
  const sourceOk=Boolean(source?.binding_checked&&!source.last_error?.length&&!run?.last_error?.length);
- const canPrepare=Boolean(live&&verified&&fresh&&operationalFresh&&healthy&&sourceOk&&run?.running&&!run?.world_transition&&pace?.admission_open!==false&&!renderError);
+ const canPrepare=Boolean(live&&verified&&fresh&&operationalFresh&&healthy&&sourceOk&&run?.running&&!run?.world_transition&&pace?.admission_open!==false&&!renderError&&!input.deliveryError&&!input.failureKind);
  const out=(kind,label,detail='')=>({kind,label,detail,canPrepare});
  if(renderError)return out('render-error','Arena unavailable','The renderer could not display the verified game.');
- if(phase==='ERROR')return out('verification-error','Unable to verify game','Payment preparation is disabled until verification succeeds.');
+ if(phase==='ERROR'&&input.failureKind==='delivery')return out('reconnecting','Reconnecting','Delivery is unavailable. Payment preparation is disabled.');
+ if(phase==='ERROR'||input.failureKind==='verification')return out('verification-error','Unable to verify game','Verification failed. Reload to start a fresh verified session; saved instructions are retained.');
  if(!verified)return out('connecting','Verifying game');
  if(!live)return input.trust==='certificate'?out('recording','Verified recording','Finite playback from a pinned disposable IC certificate.'):out('replay','Replay · offline','Content consistency only; not IC-certified.');
  if(live&&(!fresh||!operationalFresh||input.deliveryError))return out('reconnecting','Reconnecting','Earlier verified motion may still be visible.');

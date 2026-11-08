@@ -37,3 +37,9 @@ test('UX-12 effects use displayed displacement, unwrap seams and clear discontin
  assert.equal(sample(.2,1,.3,500).length,0);assert.equal(sample(500,500,.4,600).length,0);
  m.reset();assert.equal(sample(.5,1,.5,700).length,0);assert.equal(sample(.7,1,.6,800,{reducedMotion:true}).length,0);
 });
+test('UX-06 network failure is reconnecting; verification failure never leaves copying enabled',()=>{
+ assert.equal(status({phase:'ERROR',failureKind:'delivery',deliveryError:'Failed to fetch'}).label,'Reconnecting');
+ assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).label,'Unable to verify game');
+ assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).canPrepare,false);
+ assert.equal(status({phase:'PLAYING',failureKind:'delivery',deliveryError:'Failed to fetch'}).canPrepare,false);
+});

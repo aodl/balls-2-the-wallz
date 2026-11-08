@@ -12,7 +12,7 @@ import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepar
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {idleArena} from './play-reference.mjs';
-import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
+import {observationFailure,liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
 const $=id=>document.getElementById(id),canvas=$('board');
 let arenaRenderer=null,renderError=null;
 try{arenaRenderer=createArenaRenderer(canvas,{onError(message){renderError=message;$('render-error').hidden=false;$('render-error').textContent=message;},onRestore(){renderError=null;$('render-error').hidden=true;}});}catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='This browser could not start the 3D arena. WebGL 2 is required.';}
@@ -38,7 +38,7 @@ async function start(recording){
     const entry=await loadEntry(recording,0,signal(s));if(!active(s))return;
     const w=snapshot(entry.state);if(timeNumber(w.time)!==0||entry.ticket.publication.head.segment_id!==null)throw new Error('recording requires a genesis snapshot');
     s.sequence.accept(entry.ticket);s.previousState=entry.state;s.root=entry.ticket.root_hash;visible=new B2zView(w);s.ready=true;
-  }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
+  }catch(e){if(!active(s))return;s.error=e;s.failureKind=observationFailure(e);showError(e);}finally{s.busy=false;updateHud();draw();}
 }
 function localMetadata(value){
   const keys=['version','trust','network','canister_id','root_key_sha256','logical_start','logical_end','tick_seconds'];
@@ -85,7 +85,7 @@ async function startLocal(recording){
     if(segment.start!==recording.logical_start||segment.end!==recording.logical_end)throw new Error('local IC snapshot timeline');
     s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes=segment.bytes;
     s.previousState=state;s.root=ticket.root_hash;visible=new B2zView(segment.initial);s.ready=true;
-  }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
+  }catch(e){if(!active(s))return;s.error=e;s.failureKind=observationFailure(e);showError(e);}finally{s.busy=false;updateHud();draw();}
 }
 async function certifiedTicket(s,response){
   if(!response.certificate)throw new Error('live IC certificate missing');
@@ -180,7 +180,7 @@ async function startLive(recording,startupRetries=0){
     if(startupRetries<2&&['stale observation publication','publication unavailable: snapshot resync required'].includes(e?.message)){
       await startLive(recording,startupRetries+1);return;
     }
-    s.error=e;showError(e);
+    s.error=e;s.failureKind=observationFailure(e);showError(e);
   }finally{s.busy=false;updateHud();draw();}
 }
 async function epochConfiguration(s,ticket){
@@ -294,7 +294,7 @@ async function pumpLive(now,s){
     liveDeliverySuccess(s,s.sequence.last.root_hash===current.root_hash?s.sequence.last:null,performance.now());s.nextDue=performance.now()+(deferred?250:0);
   }catch(e){
     if(!active(s))return;
-    if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
+    if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;s.failureKind=observationFailure(e);showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
   }finally{s.busy=false;if(active(s))updateHud();}
 }
 async function pump(now){
@@ -312,7 +312,7 @@ async function pump(now){
     s.sequence.accept(next.ticket);s.clock.append(segment.start,segment.end);
     s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
     s.previousState=next.state;s.root=next.ticket.root_hash;s.entry++;s.nextDue=performance.now()+600;
-  }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;if(active(s))updateHud();}
+  }catch(e){if(!active(s))return;s.error=e;s.failureKind=observationFailure(e);showError(e);}finally{s.busy=false;if(active(s))updateHud();}
 }
 function idleState(s){
  return Boolean(s?.mode==='live'&&s.ready&&!s.error&&!deliveryPaused&&performance.now()-(s.operationalAt??-Infinity)<15000&&performance.now()-(s.certifiedAt??-Infinity)<30000&&idleArena(s.operational,s.referenceWorld));
@@ -325,8 +325,9 @@ function phase(){
 function updateHud(){
  const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=now-(s?.certifiedAt??-Infinity)<30000;
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
- const resolved=experienceStatus({trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,deliveryError:s?.deliveryError,renderError});
- arcade.status({resolved});document.body.dataset.phase=p;
+ const failure=s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':s?.error?s.failureKind:null;
+ const resolved=experienceStatus({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,deliveryError:s?.deliveryError,renderError});
+ arcade.status({resolved});document.body.dataset.phase=p;$('retry').hidden=failure==='verification'||!Boolean(bootError||s?.error);
  const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;
  globalThis.__b2zExperience={status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};

@@ -112,3 +112,16 @@ test('accepted-head context is bounded and verified forward epochs can recover o
  const s={retryFailures:0,error:null,deliveryDiagnostics:liveDeliveryDiagnostics()};for(let i=0;i<70;i++)rememberLiveAcceptance(s,diagnosticTicket(i,'old'));assert.equal(s.deliveryDiagnostics.acceptedHeads.length,64);assert.equal(s.deliveryDiagnostics.acceptedEvicted,6);
  const old=diagnosticTicket(68,'old'),current=diagnosticTicket(70,'current'),forward=diagnosticTicket(71,'forward');rememberLiveAcceptance(s,current);s.sequence={last:current};liveDeliveryFailure(s,new Error('observation epoch identity'),old,current,1);rememberLiveAcceptance(s,forward);s.sequence.last=forward;liveDeliverySuccess(s,forward,2);assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.recoveries,1);
 });
+test('UX-06 a transport outage recovers only from a verified accepted head, retaining history',async t=>{
+ const f=await fixtures(t),s=session(f.accepted);rememberLiveAcceptance(s,f.accepted);
+ liveDeliveryFailure(s,new TypeError('Failed to fetch'),null,f.accepted,1);
+ assert.equal(s.deliveryDiagnostics.active.kind,'delivery-unavailable');liveDeliverySuccess(s,null,2);assert.ok(s.deliveryError);
+ s.sequence.accept(f.accepted);liveDeliverySuccess(s,f.accepted,3);
+ assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,3);assert.equal(s.sequence.last,f.accepted);
+});
+test('UX-06 recovered transport cannot clear an earlier certificate blocker',async t=>{
+ const f=await fixtures(t),s=session(f.accepted);rememberLiveAcceptance(s,f.accepted);
+ liveDeliveryFailure(s,Error('certificate verification failed'),null,f.accepted,1);
+ liveDeliveryFailure(s,new TypeError('Failed to fetch'),null,f.accepted,2);liveDeliverySuccess(s,f.accepted,3);
+ assert.equal(s.deliveryError,'certificate verification failed');assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,null);
+});

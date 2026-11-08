@@ -1,4 +1,10 @@
 /** Diagnostics only: certificate verification and PublicationSequence own trust. */
+/** A delivery label cannot turn an authentication error into availability. */
+export function observationFailure(error){
+ const message=String(error?.message??error);
+ if(/certificate|signature|fingerprint|integrity|mismatch|conflict|rollback|not bound|deployment|delegation/i.test(message))return 'verification';
+ return ['AbortError','TimeoutError'].includes(error?.name)||/failed to fetch|fetch failed|networkerror|network error|download HTTP (?:408|429|5\d\d)|HTTP (?:408|429|5\d\d)/i.test(message)?'delivery':'verification';
+}
 export function liveDeliveryDiagnostics(){return {failures:0,recoveries:0,evicted:0,active:null,blocking:null,history:[],acceptedHeads:[],acceptedEvicted:0};}
 function observation(ticket){
  if(!ticket)return null;
@@ -27,7 +33,8 @@ export function liveDeliveryFailure(s,error,current,accepted,now){
  const olderEpoch=['observation epoch identity','observation epoch changed','observation epoch rollback'].includes(message)&&sameDeployment(rejected,floor)&&known(d,rejected);
  const stale=(ordinary||olderEpoch)&&rejected.mode==='certificate-verifier'&&rejected.head!==null&&floor.head!==null&&BigInt(rejected.head)<BigInt(floor.head);
  const unavailable=message==='publication unavailable: snapshot resync required'&&sameContext(rejected,floor)&&rejected.mode==='certificate-verifier'&&rejected.head!==null&&floor.head!==null&&BigInt(rejected.head)>BigInt(floor.head);
- const event={id:++d.failures,at_ms:now,message,kind:stale?'stale-certified-observation':unavailable?'retained-publication-unavailable':'delivery-or-verification-error',rejected,accepted:floor,resynchronisations:s.resyncs??0,recovered_at_ms:null};
+ const network=!stale&&!unavailable&&observationFailure(error)==='delivery';
+ const event={id:++d.failures,at_ms:now,message,kind:stale?'stale-certified-observation':unavailable?'retained-publication-unavailable':network?'delivery-unavailable':'delivery-or-verification-error',rejected,accepted:floor,resynchronisations:s.resyncs??0,recovered_at_ms:null};
  if(!stale&&!unavailable)d.blocking??=event;
  d.active=event;d.history.push(event);if(d.history.length>64){d.history.shift();d.evicted++;}
  s.deliveryError=message;s.retryFailures++;
@@ -36,6 +43,14 @@ export function liveDeliveryFailure(s,error,current,accepted,now){
 export function liveDeliverySuccess(s,verifiedAccepted,now){
  s.retryFailures=0;
  const d=s.deliveryDiagnostics,event=d?.active,ticket=observation(verifiedAccepted);
+ // Explicit transport outages recover only from a fresh verified accepted head
+ // in this deployment. Existing certificate/conflict/rollback blockers remain.
+ const context=event?.rejected??event?.accepted;
+ const networkContext=sameContext(ticket,context)||(ticket&&event?.accepted&&known(d,event.accepted)&&sameDeployment(ticket,event.accepted));
+ if(!s.error&&event?.kind==='delivery-unavailable'&&networkContext&&s.sequence?.last?.root_hash===ticket?.root&&known(d,ticket)&&(!event.rejected||event.rejected.head===null||ticket.head!==null&&BigInt(ticket.head)>=BigInt(event.rejected.head))){
+  event.recovered_at_ms=now;d.recoveries++;if(d.blocking===event)d.blocking=null;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;return;
+ }
+
  // Availability is recovered only after the existing artifact verification and
  // authenticated snapshot-resync path completes. An unchanged head, ordinary
  // retry success, invalid certificate or conflicting chain cannot clear it.
