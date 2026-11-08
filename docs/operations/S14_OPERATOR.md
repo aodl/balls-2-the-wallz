@@ -30,7 +30,7 @@ Do not push an evidence-only replacement while qualification is running.
 Freeze clean committed frontend source with the existing reviewed builder:
 
 ```sh
-node tools/build_observer_playability.mjs --canister s5ir5-gqaaa-aaaas-amyna-cai --output .work/minimal-isometric/frozen/frontend
+node tools/build_observer_playability.mjs --canister s5ir5-gqaaa-aaaas-amyna-cai --output .work/minimal-isometric/release/frontend
 ```
 
 Use a fresh output directory. Retain the preceding served asset set and its full

@@ -13,7 +13,7 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | UX-02 | Controls serve the current task; secondary detail is progressive. | `arcade.mjs`; contextual action browser matrix |
 | UX-03 | One nonmodal shared panel; no stacked dialogs or duplicate paths. | `shell.mjs`, `index.html`; navigation/focus browser journey |
 | UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey |
-| UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock and authenticated delivery regressions |
+| UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock, three-publication slow/wrap journey and authenticated delivery regressions |
 | UX-06 | Producer, delivery and presentation states remain distinct. | `experience-status.mjs`; status truth table |
 | UX-07 | Verified backend principal/default account is primary; legacy is secondary. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
 | UX-08 | Copies share one frozen amount/recipient/payer/memo/action binding. | `handoff.mjs`, `arcade.mjs`; edit, denial, manual copy and reload regressions |
@@ -187,8 +187,27 @@ or numeric destination is checked canonically even when outside those highlights
 Performance targets (not claims): desktop 60 fps, physical phone 30 fps; measure
 p50/p95 frame time, interaction delay, heap, draw/instance counts and verification
 interference on populated journeys. Release report records measured budgets and
-environments, including viewport versus physical-device limits. No maximum-world
+environments, including viewport versus physical-device limits. The release report must identify software-rendered VM measurements explicitly; a
+mobile viewport or text-size emulation is neither a physical-phone nor native
+browser-zoom pass. No maximum-world
 qualification is inferred from a small fixture or an empty production screenshot.
+
+Measured release-development envelope (8 November 2026, Chromium 153, software
+ANGLE/SwiftShader VM, seven-second steady populated canonical fixture, no video):
+
+| Viewport | Frame p50 / p95 | Draw CPU p95 | Visible tiles / draw calls |
+| --- | --- | --- | --- |
+| 1440×900 | 216.6 / 266.6 ms | 6.6 ms | 1,147 / 7 |
+| 390×844 | 66.7 / 116.6 ms | 5.9 ms | 353 / 7 |
+| 320×640 | 50.0 / 66.7 ms | 5.7 ms | 241 / 7 |
+
+Measured JS heap was 13.5–13.8 MB; it excludes GPU/process memory. These software
+results miss the frame targets and do not qualify a hardware desktop, phone or
+maximum population. Geometry sharing, cached visible layout, bounded uploads,
+no MSAA and the one-million-pixel cap are the measured design's detail limits.
+Automation click-to-visible durations include Playwright/input/stability overhead
+and must be labelled accordingly, not presented as isolated input-handler timing.
+Keep raw measurements and fixture/source identities in the release evidence.
 
 ## Review and release checklist
 

@@ -90,13 +90,14 @@ export function createArcade(doc){
  $('replace-instructions').onclick=()=>{packet=null;keepPrevious=false;warning='';manual=null;$('manual-copy').hidden=true;text('copy-feedback','');refresh();};
  $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;cell=packet.cell;degrees=packet.angle??degrees;$('angle-degrees').value=degrees;$('ball-quantity').value=packet.requested;$('move-cell').value=cell??'';$('new-cell').value=cell??'';refresh();};
  function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account){packet=saved;if(q.cannon!==null&&!refs.some(c=>c.id===q.cannon&&c.account===q.account))warning='The copied target is no longer present. Saved instructions remain in Account.';}activity();return saved;}
+ function savedNote(h){return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';}
  for(const b of doc.querySelectorAll('[data-copy]'))b.addEventListener('click',async()=>{
   refresh();if($('transfer-controls').disabled)return;const q=packet??quote,h=history,value={amount:formatIcp(BigInt(q.amount)).replace(' ICP',''),owner:q.owner,recipient:q.recipient,text:q.memo,hex:q.hex}[b.dataset.copy];busy=true;refresh();
-  try{await navigator.clipboard.writeText(value);freeze(q,h);text('copy-feedback','Copied. Instructions saved; no payment sent.');}
+  try{await navigator.clipboard.writeText(value);freeze(q,h);text('copy-feedback','Copied. '+savedNote(h));}
   catch{manual={q,h};$('manual-copy').hidden=false;$('manual-value').value=value;text('copy-feedback','Clipboard unavailable. Copy the exact value below.');$('manual-value').focus();$('manual-value').select();}
   finally{busy=false;refresh();}
  });
- $('manual-handoff').onclick=()=>{if(!manual||instructionKey(manual.q)!==instructionKey(packet??quote)||!status.canPrepare)return;freeze(manual.q,manual.h);manual=null;$('manual-copy').hidden=true;text('copy-feedback','Instructions saved. No payment sent.');refresh();};
+ $('manual-handoff').onclick=()=>{if(!manual||instructionKey(manual.q)!==instructionKey(packet??quote)||!status.canPrepare)return;const h=manual.h;freeze(manual.q,h);manual=null;$('manual-copy').hidden=true;text('copy-feedback',savedNote(h));refresh();};
  $('close-panel').onclick=()=>api.cancel();
  const api={
   render(w,c,s,root=''){

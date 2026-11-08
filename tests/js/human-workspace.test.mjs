@@ -15,3 +15,4 @@ test('UX-09/10 receipt labels use verified new_cannon and actual quantity, never
  assert.match(receiptSummary({actual_quantity:1,requested_quantity:3,remainder:10,stop_reason:'island_limit'}),/1 ball launched.*retained.*island limit/);
  assert.match(receiptSummary({reason:'MOVE_LIMIT',status:'rejected'}),/not applied.*payment retained/);
 });
+test('UX-08/11 storage denial preserves coherent instructions without claiming durable storage',()=>{for(const storage of [undefined,{getItem(){throw Error('denied')},setItem(){throw Error('quota')}}]){const h=createHandoffs(storage,'key');assert.equal(h.freeze(q).memo,q.memo);assert.equal(h.persisted(),false);assert.equal(h.records().length,1);}const values=new Map(),h=createHandoffs({getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v)},'key');h.freeze(q);assert.equal(h.persisted(),true);assert.equal(createHandoffs({getItem:k=>values.get(k)},'key').records().length,1);});

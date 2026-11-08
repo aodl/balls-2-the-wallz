@@ -1,7 +1,11 @@
-# Minimal isometric human interface — implementation in progress
+# Minimal isometric human interface — implemented; release gates pending
 
 Actual human feedback reopens the frontend under the scoped frontend-only authority.
-The paid European backend remains unchanged. Normative requirements and regression
+The paid European backend remains unchanged. Populated desktop/mobile, actual
+clock/copy/status and disposable certified Ledger/playback checks pass locally.
+Exact-source hosted CI and frontend publication remain release gates. Software
+SwiftShader frame targets are not met; physical-device/GPU coverage is unavailable.
+Normative requirements and regression
 map: [UX-01–13](docs/specs/B2Z_HUMAN_EXPERIENCE.md). Current operations:
 [installed paid-game frontend procedure](docs/operations/S14_OPERATOR.md).
 The baseline certificate capture on 8 November verified one cannon/one ball,
