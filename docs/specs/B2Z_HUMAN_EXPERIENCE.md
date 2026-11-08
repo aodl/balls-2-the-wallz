@@ -118,7 +118,11 @@ slow production says “Waiting for next update · slow mode”, never simply Sl
 Explicit transport failures say Reconnecting and can recover only after fresh
 verified accepted history; certificate, conflict and rollback failures remain
 blocking within the session and require a fresh verified reload. Unknown failures
-are verification failures. No speculative countdown. Ordinary buffering does not close admission; missing
+are verification failures. Display status settles asynchronously after operational queries; browser tests
+must wait for a label consistent with verified presentation, rather than require
+a DOM change in the same task as a rate change. Slow requires advancing coverage;
+it cannot conceal buffering, failed delivery or authentication.
+No speculative countdown. Ordinary buffering does not close admission; missing
 verification/configuration/source binding or real admission failure does.
 
 Observation/status scheduling is independent of rendering and panels: bounded

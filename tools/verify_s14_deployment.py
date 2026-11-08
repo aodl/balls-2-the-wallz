@@ -220,7 +220,12 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     # Funding tier names are diagnostic data, not player-facing status labels.
     # Qualify the actual operational rate and the requested conservation message.
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.05,30000)
-    assert page.locator('#arena-note').text_content()=='Slow'
+    # UX-06: the frame's operational rate can precede the bounded HUD refresh.
+    # Require Slow only once verified presentation actually advances; never let
+    # producer wording conceal buffering, a delivery failure or an auth error.
+    report['lifeline_status_before_settle']=page.evaluate('()=>({label:document.querySelector("#arena-note").textContent,status:__b2zExperience.status,playback:__dtrLive.playback})')
+    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback,s=__b2zExperience.status;return p.target_rate===.05&&p.consumed_ticks<p.verified_ticks&&['PLAYING','DEGRADED_BUFFER'].includes(p.phase)&&s.kind==='slow'&&s.label==='Slow'&&document.querySelector('#arena-note').textContent==='Slow';}'''),15000)
+    record('UX-06-lifeline-label-follows-advancing-verified-presentation')
     page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)
     stop_capture()
