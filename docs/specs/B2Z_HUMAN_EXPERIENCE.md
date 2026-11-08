@@ -80,7 +80,10 @@ Partial quantity is described as “Up to N”; no guaranteed fulfilment or refu
 First successful copy freezes the complete binding. Later copies use that packet,
 including when live prices change. Editing requires an inline Update instructions /
 Keep previous decision before replacement values become copyable. A denied copy
-shows exact selectable text, claims no success, and explicit manual handoff freezes
+shows exact selectable text and claims no success. A native Copy event over the
+manual fallback or financial fields conservatively freezes the complete packet,
+without claiming the OS clipboard write succeeded. Keep the selected DOM intact
+until the browser default copy completes. Explicit manual handoff also freezes
 the same complete packet. This prevents paying an old amount with a new memo.
 Account/backend/target changes cannot silently retarget a copied packet. Closing
 or reloading retains bounded scoped history; old instructions are historical, not

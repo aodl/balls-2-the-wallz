@@ -97,6 +97,19 @@ export function createArcade(doc){
   catch{manual={q,h};$('manual-copy').hidden=false;$('manual-value').value=value;text('copy-feedback','Clipboard unavailable. Copy the exact value below.');$('manual-value').focus();$('manual-value').select();}
   finally{busy=false;refresh();}
  });
+ // UX-08: native Copy bypasses clipboard.writeText (including the fallback).
+ // Freeze conservatively on the event, without claiming that the OS write worked.
+ // Keep the selected DOM intact so the browser's default copy can still complete.
+ doc.addEventListener('copy',()=>{
+  let q,h;if(manual&&doc.activeElement===$('manual-value')){q=manual.q;h=manual.h;}
+  else if(view==='action'&&!$('prepared-card').hidden&&status.canPrepare){
+   const selection=doc.getSelection();if(!selection?.rangeCount||selection.isCollapsed)return;
+   const range=selection.getRangeAt(0);
+   if(!['transfer-amount','payment-owner','text-memo','paying-account','payment-address','hex-memo'].some(name=>range.intersectsNode($(name))))return;
+   q=packet??quote;h=history;
+  }
+  if(!q||q.reason||!h)return;freeze(q,h);text('copy-feedback',savedNote(h));refresh();
+ });
  $('manual-handoff').onclick=()=>{if(!manual||instructionKey(manual.q)!==instructionKey(packet??quote)||!status.canPrepare)return;const h=manual.h;freeze(manual.q,h);manual=null;$('manual-copy').hidden=true;text('copy-feedback',savedNote(h));refresh();};
  $('close-panel').onclick=()=>api.cancel();
  const api={
