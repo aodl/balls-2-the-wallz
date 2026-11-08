@@ -1,46 +1,43 @@
+import {replayTools} from './replay-tools.mjs';
+import {observationLoop} from './observation-loop.mjs';
+import {experienceStatus} from './experience-status.mjs';
 import {Camera} from './camera.mjs';
 import {createShell} from './shell.mjs';
 import {createArenaRenderer} from './render.mjs';
-import {createArcade,formatIcp} from './arcade.mjs';
+import {createArcade} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
-import {cannonReference,operationalText,idleArena,catchupIndicator} from './play-reference.mjs';
-import {accountColor} from './identity.mjs';
-import {createCycleMeterView} from './cycle-health.mjs';
+import {idleArena} from './play-reference.mjs';
 import {liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
-const $=id=>document.getElementById(id),canvas=$('board'),ctx=canvas.getContext('2d');
-const arenaRenderer=createArenaRenderer(),cycleMeterView=createCycleMeterView();
-let bootError=null,catalog=null,session=null,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,speed=1,lastFrame=null,lastHud=0;
-let minimapHidden=false,preferencesLoaded=false;
+const $=id=>document.getElementById(id),canvas=$('board');
+let arenaRenderer=null,renderError=null;
+try{arenaRenderer=createArenaRenderer(canvas,{onError(message){renderError=message;$('render-error').hidden=false;$('render-error').textContent=message;},onRestore(){renderError=null;$('render-error').hidden=true;}});}catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='This browser could not start the 3D arena. WebGL 2 is required.';}
+let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null,lastHud=0;
+let cameraRestored=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
 const shell=createShell(document,camera,arcade,{selected:()=>visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
- const hits=[...(visible?.cannons.values()??[])].filter(c=>{if(!p)return c.cell===n;let dx=c.cell%visible.width+.5-p.x,dy=Math.floor(c.cell/visible.width)+.5-p.y;if(visible.torus){dx-=Math.round(dx/visible.width)*visible.width;dy-=Math.round(dy/visible.height)*visible.height;}return Math.hypot(dx,dy)*camera.scale<=Math.max(22,camera.scale*.4);});
- if(hits.length>1){arcade.openRoster();const list=$('pick-cannons');list.replaceChildren(...hits.map(c=>{const b=document.createElement('button');b.textContent=`Inspect cannon #${c.id}`;b.onclick=()=>{arcade.selectCannon(c.id);$('cannon-roster').hidden=true;};return b;}));return false;}
- return hits[0]?arcade.selectCannon(hits[0].id):false;
+ const hits=[...(visible?.cannons.values()??[])].map(c=>{let dx=c.cell%visible.width+.5-p.x,dy=Math.floor(c.cell/visible.width)+.5-p.y;if(visible.torus){dx-=Math.round(dx/visible.width)*visible.width;dy-=Math.round(dy/visible.height)*visible.height;}const a=camera.screen(p.x+dx,p.y+dy),b=camera.screen(p.x,p.y);return {c,d:Math.hypot(a.x-b.x,a.y-b.y)};}).filter(h=>h.d<=Math.max(22,camera.scale*.4)).sort((a,b)=>a.d-b.d||a.c.id-b.c.id);
+ return hits[0]?arcade.selectCannon(hits[0].c.id):false;
 }});
 globalThis.__b2zCamera=camera;
-function showError(error){$('error-text').textContent='Arena verification is unavailable. Payment preparation is disabled. Details are in Settings.';$('observation-error').textContent=String(error?.message??error);$('error').hidden=false;$('service-status').textContent='Observation unhealthy — wait before making purchases.';}
+function showError(error){$('observation-error').textContent=String(error?.message??error);$('retry').hidden=false;}
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
 function active(s){return session===s&&!s.abort.signal.aborted;}
 async function start(recording){
   session?.abort.abort();const s={recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:1,bytes:0,
     queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:Math.min(8,recording.logical_end),
       low:Math.min(2,recording.logical_end/2),max_frame_delta:1})};
-  session=s;visible=null;visibleTime=0;lastFrame=null;$('error').hidden=true;
-  $('speed').disabled=s.mode==='live';
-  $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
-  $('timeline').max=recording.logical_end;$('pause').disabled=true;$('restart').disabled=true;
+  session=s;visible=null;visibleTime=0;lastFrame=null;
   try{
     const entry=await loadEntry(recording,0,signal(s));if(!active(s))return;
     const w=snapshot(entry.state);if(timeNumber(w.time)!==0||entry.ticket.publication.head.segment_id!==null)throw new Error('recording requires a genesis snapshot');
-    s.sequence.accept(entry.ticket);s.previousState=entry.state;s.root=entry.ticket.root_hash;
-    visible=new B2zView(w);s.ready=true;$('pause').disabled=false;$('restart').disabled=false;
+    s.sequence.accept(entry.ticket);s.previousState=entry.state;s.root=entry.ticket.root_hash;visible=new B2zView(w);s.ready=true;
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
 }
 function localMetadata(value){
@@ -70,9 +67,7 @@ async function startLocal(recording){
   session?.abort.abort();const s={mode:'local',recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:2,bytes:0,
     queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:recording.logical_start,
       target:Math.min(8,recording.logical_end-recording.logical_start),low:Math.min(2,(recording.logical_end-recording.logical_start)/2),max_frame_delta:1})};
-  session=s;visible=null;visibleTime=recording.logical_start;lastFrame=null;$('error').hidden=true;
-  $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
-  $('timeline').min=recording.logical_start;$('timeline').max=recording.logical_end;$('pause').disabled=true;$('restart').disabled=true;
+  session=s;visible=null;visibleTime=0;lastFrame=null;
   try{
     const abort=signal(s),[catalogBytes,certificate,rootKey,initial]=await Promise.all([
       readBytes('/s09-local/catalog.bin',65536,abort),readBytes('/s09-local/certificate.cbor',262144,abort),
@@ -90,7 +85,6 @@ async function startLocal(recording){
     if(segment.start!==recording.logical_start||segment.end!==recording.logical_end)throw new Error('local IC snapshot timeline');
     s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes=segment.bytes;
     s.previousState=state;s.root=ticket.root_hash;visible=new B2zView(segment.initial);s.ready=true;
-    $('pause').disabled=false;$('restart').disabled=false;
   }catch(e){if(!active(s))return;s.error=e;showError(e);}finally{s.busy=false;updateHud();draw();}
 }
 async function certifiedTicket(s,response){
@@ -138,10 +132,7 @@ async function startLive(recording,startupRetries=0){
   session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
     sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1}),
     client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};
-  session=s;visible=null;visibleTime=0;lastFrame=null;$('error').hidden=true;
-  $('speed').disabled=s.mode==='live';
-  $('scenario-title').textContent=recording.title;$('scenario-description').textContent=recording.description;
-  $('timeline').min=0;$('timeline').max=2048;$('pause').disabled=true;$('restart').disabled=true;
+  session=s;visible=null;visibleTime=0;lastFrame=null;
   try{
     let ticket;
     if(recording.deployment){
@@ -153,12 +144,8 @@ async function startLive(recording,startupRetries=0){
       if(initial[1].status==='fulfilled'){s.operational=initial[1].value;s.operationalAt=performance.now();s.statusDue=s.operationalAt+2000;}
       ticket=await certifiedTicket(s,initial[0].value);
       const source=await deploymentSource(recording.deployment,ticket);
-      $('receiving-account').textContent=source.recipient;
-      $('backend-identity').textContent=source.owner;
       const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
-      s.config=config;s.source=source;$('live-play-reference').hidden=false;
-      $('command-prices').textContent=`Certified configuration: join ${config.join_e8s} e8s; relocation ${config.move_e8s} e8s; ball base ${config.ball_base_e8s} e8s (existing occupancy pricing applies).`;
-      $('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;
+      s.config=config;s.source=source;
     }else{
       const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));
       if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
@@ -182,7 +169,6 @@ async function startLive(recording,startupRetries=0){
     const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
     resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
-    $('timeline').max=Math.max(2048,time+64);$('pause').disabled=false;$('restart').disabled=false;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
   }catch(e){
@@ -206,7 +192,8 @@ async function epochConfiguration(s,ticket){
   return certifiedConfiguration(ticket);
 }
 function applyEpochPresentation(s,world,config){
-  if(config){s.config=config;$('rules-identity').textContent=`Rules ${s.sequence.last.publication.identity.rules_hash}; configuration ${s.sequence.last.publication.identity.config_hash}`;}
+  if(config)s.config=config;
+  arenaRenderer?.reset();
   if(!visible||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version>=5;}
 }
 async function admitLive(s,ticket,prefetched){
@@ -218,7 +205,7 @@ async function admitLive(s,ticket,prefetched){
     if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer checkpoint byte capacity');
     if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
     s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);
-    if(config){s.config=config;$('rules-identity').textContent=`Rules ${ticket.publication.identity.rules_hash}; configuration ${ticket.publication.identity.config_hash}`;}
+  if(config)s.config=config;
     s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;
     s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
     globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
@@ -234,7 +221,7 @@ async function admitLive(s,ticket,prefetched){
 
   s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
-  s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;$('timeline').max=Math.max(Number($('timeline').max),segment.end+64);
+  s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;
   updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
   globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
   globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);
@@ -244,42 +231,24 @@ async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
   const config=await epochConfiguration(s,ticket);if(!active(s))return;
   const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);rememberLiveAcceptance(s,ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
-  resetLiveClock(s,time);visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
+  resetLiveClock(s,time);arenaRenderer?.reset();visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;globalThis.__dtrLive.heads.push(Number(ticket.publication.head.segment_id));
 }
 function updatePlayReference(s,world,events){
   s.referenceWorld=world;
   if(!s.config)return;
-  const six=world.version===6;
-  $('rules-actions').textContent=six?'Identify your funding account, select an exact cannon and prepare New cannon, Fire balls or Move instructions. Copying sends nothing; payment must come from the correct account.':'Send an ANGLE transfer from your existing wallet to start a cannon or add a ball. MOVE relocates an existing cannon to an owned cell. Funding accounts identify players; selecting a cannon is local inspection.';
-  $('rules-lifecycle').textContent=six?'Any friendly ball supports every cannon on its connected island. Empty islands lose ordinary land and retain dormant cannon anchors for 24 elapsed hours. Paid fire can revive them; expiry releases the anchors. Cannon cells reflect attacks. Defended captures can destroy one attacker and one defender while cancelling that claim. Accrued area-time credits remain.':'Balls capture territory and reflect at verified collisions. Territory earns logical area-time credits. A cannon losing its last ball is eliminated; earned credits remain.';
-  $('rules-pricing').textContent=six?'Next cannon: 1 ICP × (retained cannon count + 1)², including one ball. Extra balls: sequential 0.1 ICP × max(1, current island ball count)². Quantity is a maximum; capacity and affordability can cause partial fills. Move: 0.0001 ICP. Wallet fees are extra. Quotes are not reservations. Payments and unused amounts are retained, with no refunds or automatic payouts.':'Join: 1 ICP. Additional balls: 0.1 ICP × active count squared. Move: 0.0001 ICP. Always copy the current authenticated amount from Play. Fees are separate. Payments are retained, with no refunds or automatic payouts.';
-  const row=values=>{const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}return tr;};
-  $('live-cannons').replaceChildren(...cannonReference(world,s.config).map(c=>row([
-    `#${c.id}`,`${c.owned_count} cells`,c.balls,c.next_ball_e8s===null?'At capacity':formatIcp(c.next_ball_e8s)
-  ])));
-  [...$('live-cannons').rows].forEach((tr,i)=>{const account=document.createElement('small');account.textContent=world.cannons[i].account;tr.cells[0].append(account);tr.cells[0].style.color=accountColor(world.cannons[i].account);});
   arcade.render(world,s.config,s.source,s.root);
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
-  const actionNames={cannon_spawned:'Joined arena',ball_spawned:'Launched ball',cannon_moved:'Moved cannon'};
-  const outcome=r=>r.actual_quantity!==undefined?`${r.status.replaceAll('_',' ')} · ${r.actual_quantity}/${r.requested_quantity} balls · used ${formatIcp(r.amount_used)} · retained ${formatIcp(r.remainder)} · ${r.stop_reason.replaceAll('_',' ')}`:r.reason==='ACCEPTED'?'Accepted':r.reason.replaceAll('_',' ').toLowerCase();
-  $('live-receipts').replaceChildren(...[...s.receipts.values()].reverse().map(r=>{
-    const tr=row([r.position,r.account,outcome(r),actionNames[r.kind]??r.kind??'—']);
-    tr.dataset.reason=r.reason;tr.dataset.kind=r.kind??'';return tr;
-  }));
   arcade.receipts([...s.receipts.values()]);
-  const own=[...s.receipts.values()].filter(r=>r.account===arcade.account()).at(-1);const delay=s.clock.state().buffer/Math.max(.01,nominalPace(s.operational));
-  $('confirmed-feedback').textContent=own?`Confirmed transaction ${own.position}: ${outcome(own)}. Verified presentation may lag ~${Math.ceil(delay)}s.`:'';$('show-confirmed').hidden=!own||delay<5;
-  $('reference-time').textContent=`Latest certified snapshot: ${timeNumber(world.time)} logical ticks. Prices and owned cells may change before a payment is assigned; playback can lag this snapshot.`;
 }
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
   s.statusBusy=true;s.statusDue=now+2000;
-  try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));$('service-status').textContent=operationalText(status);}}
-  catch{if(active(s)){s.operational=null;$('service-status').textContent=operationalText(null);}}
+  try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}}
+  catch{if(active(s)){s.operational=null;}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
@@ -290,6 +259,7 @@ async function pumpLive(now,s){
     const current=await certifiedTicket(s,response);observed=current;s.verifyMs=performance.now()-verifying;if(!active(s))return;
     globalThis.__dtrLive.certificates++;s.certifiedAt=performance.now();
     const prior=s.sequence.last,past=prior.publication.head.segment_id,next=current.publication.head.segment_id;
+    if(s.returning){s.returning=false;if(current.root_hash===s.sequence.last.root_hash){s.sequence.accept(current);const w=snapshot(s.previousState,current.publication.identity);resetLiveClock(s,timeNumber(w.time));visible=new B2zView(w);arenaRenderer?.reset();s.resyncs++;globalThis.__dtrLive.resyncs=s.resyncs;s.skipped=true;}else await resyncLive(s,current);liveDeliverySuccess(s,current,performance.now());s.nextDue=performance.now()+500;return;}
     if(current.root_hash===prior.root_hash){liveDeliverySuccess(s,current,performance.now());s.nextDue=performance.now()+Math.max(0,500-s.fetchMs);return;}
     if(next===null||past!==null&&next<=past){s.sequence.accept(current);s.nextDue=performance.now()+500;return;}
     const expected=past===null?0n:past+1n;
@@ -352,64 +322,23 @@ function phase(){
   return paused?'PAUSED':idleState(s)&&s.clock.available===s.clock.playhead?'IDLE':s.clock.phase;
 }
 function updateHud(){
-  const s=session,state=s?.clock.state()??{playhead:0,available:0,buffer:0,rate:1};
-  const p=phase();$('phase').textContent=p.replaceAll('_',' ');$('phase').dataset.state=p;document.body.dataset.phase=p;
-  $('playhead').textContent=state.playhead.toFixed(2);$('available').textContent=state.available.toFixed(2);
-  $('buffer').textContent=state.buffer.toFixed(2);$('rate').textContent=state.rate.toFixed(3)+'×';
-  $('timeline').value=state.playhead;$('buffer-meter').value=state.buffer;
-  $('segments').textContent=s?.mode==='live'?`${s.accepted} verified · ${s.resyncs} resync`:`${Math.max(0,(s?.entry??1)-1)} / ${s?.recording.segments??0}`;
-  $('root').textContent=s?.root??'—';$('verification-label').textContent=s?.ready?(s.mode==='live'?'Fresh IC certificates + chained retained publications':s.mode==='local'?'IC certificate + catalog + artifacts':'Hash-checked local content'):'Waiting for verification';
-  $('pause').textContent=paused?'Resume playback':'Pause playback';
-  $('delivery').textContent=deliveryPaused?'Downloads paused; an in-flight segment may finish.':s?.mode==='live'?(s.skipped?'Live delivery resumed from a certified snapshot; unavailable animation was skipped.':'Live certified delivery · bounded retained catch-up.'):
-    p==='COMPLETE'?'End of finite recording. Restart to replay.':s?.mode==='local'?'Authenticated local snapshot · finite playback.':'Finite recording · staged local delivery.';
-  $('balls').textContent=visible?.balls.size??'—';$('cannons').textContent=visible?.cannons.size??'—';
-  const claimed=visible?.claimedCells()??0;
-  $('claimed').textContent=visible?`${Math.round(claimed/(visible.width*visible.height)*100)}%`:'—';
-  $('world-rules').textContent=visible?`${visible.width.toLocaleString('en-US')} × ${visible.height.toLocaleString('en-US')} cells · ${visible.torus?'wraparound world':'bounded world'}. Camera copies never add entities.`:'Waiting for a verified world.';
-  const healthy=Boolean(s?.operational&&performance.now()-(s.operationalAt??0)<15000&&s.operational.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
-  arcade.status({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh:performance.now()-(s?.certifiedAt??-Infinity)<30000,healthy,paused,idle:p==='IDLE',pace:s?.operational?.run.pace,transitioning:s?.operational?.run.world_transition,operational:s?.operational,operationalFresh:performance.now()-(s?.operationalAt??-Infinity)<15000});
-  const indicator=catchupIndicator({phase:p,verified:Boolean(s?.ready&&!s.error),
-    operational:s?.operational,operationalFresh:performance.now()-(s?.operationalAt??-Infinity)<30000});
-  const notice=$('catching-up');
-  notice.hidden=!indicator.visible||Boolean(s?.ready&&!indicator.spinner);notice.dataset.kind=indicator.kind;
-  notice.querySelector('.spinner').hidden=!indicator.spinner;
-  for(const [selector,value]of [['strong',indicator.title],['p',indicator.description]]){
-    const element=notice.querySelector(selector);
-    if(element.textContent!==value)element.textContent=value;
-  }
-  const health=s?.operational?.health;const meter=$('cycle-meter');
-  if(health){const span=Number(health.sample_end_ns-health.sample_start_ns),estimate=cycleMeterView(health),staleHealth=performance.now()-(s.operationalAt??-Infinity)>15000||Date.now()*1e6-Number(health.observed_at_ns)>30000000000;meter.textContent=(staleHealth?'Stale estimate':estimate.rate!==null?`~${estimate.rate.toFixed(2)}T cycles/h`:'Measuring')+` · ${(Number(health.liquid_cycles)/1e12).toFixed(2)}T liquid`;meter.title=`Operational query, not certified gameplay. ${estimate.reason}. Sample ${Math.round(span/1e9)}s ending ${Math.max(0,Math.round((Date.now()*1e6-Number(health.sample_end_ns))/1e9))}s ago; balance observed ${Math.max(0,Math.round((Date.now()*1e6-Number(health.observed_at_ns))/1e9))}s ago. ${health.sample_scope}. ${health.discontinuity}`;}else{meter.textContent='Cycle telemetry unavailable';}
-  shell.update(visible,Boolean(s?.mode==='live'&&s.config&&s.source&&s.ready&&!s.error&&healthy));
-  $('territory-owner-title').textContent=visible?.version===6?'Player / funding account':'Cannon';
-  const rows=[];for(const r of visible?.stats()??[]){const tr=document.createElement('tr');
-    for(const [i,v] of [visible.version===6?r.account.slice(0,10)+'…':`#${String(r.id).padStart(2,'0')}`,r.area,r.balls].entries()){
-      const td=document.createElement('td');td.textContent=v;if(i===0){td.style.color=visible.version===6?visible.playerColor(r.id):visible.color(r.id);if(r.account)td.title=r.account;}tr.append(td);
-    }rows.push(tr);
-  }$('territories').replaceChildren(...rows);$('event-label').textContent=visible?.lastEvent??'—';
+ const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=now-(s?.certifiedAt??-Infinity)<30000;
+ const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
+ const resolved=experienceStatus({phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,deliveryError:s?.deliveryError,renderError});
+ arcade.status({resolved});document.body.dataset.phase=p;
+ const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
+ const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;
+ globalThis.__b2zExperience={status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};
 }
 function draw(){
-  if(!ctx)return;
-  const rect=canvas.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2);
-  if(rect.width<=20||rect.height<=20)return; // Hidden/transient layout has no drawable arena.
-  const width=Math.max(1,Math.round(rect.width*ratio)),height=Math.max(1,Math.round(rect.height*ratio));
-  if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
-  ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,rect.width,rect.height);
-  if(!visible){ctx.fillStyle='#a2b3c7';ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillText('Verifying the on-chain arena…',rect.width/2,rect.height/2);return;}
-  if(!preferencesLoaded&&arcade.preferences()){const pref=arcade.preferences();minimapHidden=pref.minimapHidden===true;if(typeof pref.paused==='boolean')paused=pref.paused;$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));preferencesLoaded=true;}
-  const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
-  const locate=arcade.locate(v);if(locate!==null){camera.frameCell(v.cannons.get(locate).cell);}
-  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon());if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
-  arenaRenderer.draw(ctx,v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),ratio});
-  shell.overlays();
-  drawMinimap(v);
-  canvas.setAttribute('aria-label',`B2Z territory arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
-}
-function drawMinimap(v){
- const map=$('minimap');const height=Math.round(map.width*v.height/v.width);if(map.height!==height)map.height=height;map.hidden=minimapHidden||arcade.active()||!camera.minimapUseful;if(map.hidden)return;
- const m=map.getContext('2d'),sx=map.width/v.width,sy=map.height/v.height;m.clearRect(0,0,map.width,map.height);
- m.imageSmoothingEnabled=false;m.drawImage(arenaRenderer.terrain(v).image,0,0,map.width,map.height);
- for(const c of v.cannons.values()){m.fillStyle=c.id===arcade.selectedCannon()?'#ffcc80':v.color(c.id);m.beginPath();m.arc((c.cell%v.width+.5)*sx,(Math.floor(c.cell/v.width)+.5)*sy,3,0,Math.PI*2);m.fill();}
- m.strokeStyle='#fff';m.lineWidth=1.5;for(const r of camera.minimapRects())m.strokeRect(r.x*sx,r.y*sy,r.width*sx,r.height*sy);
+ if(!arenaRenderer||!visible)return;
+ const rect=canvas.getBoundingClientRect();if(rect.width<=20||rect.height<=20)return;
+ const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
+ if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
+ if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
+ try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});}
+ catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
+ canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
 function frame(now){
   const s=session,elapsed=lastFrame===null?0:(now-lastFrame)/1000,dt=Math.min(elapsed,s?.mode==='live'?1:.25);lastFrame=now;
@@ -431,63 +360,42 @@ function frame(now){
   if(s?.mode==='live'&&globalThis.__dtrLive){
     const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
-  void pump(now);void refreshOperational(now);draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
+  draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
-$('pause').addEventListener('click',()=>{paused=!paused;arcade.preferences({paused});lastFrame=null;updateHud();});
-$('restart').addEventListener('click',()=>{if(session)void (session.mode==='live'?startLive(session.recording):session.mode==='local'?startLocal(session.recording):start(session.recording));});
-$('recording').addEventListener('change',()=>{const r=catalog.recordings.find(r=>r.id===$('recording').value);if(r)void start(r);});
-$('speed').addEventListener('change',()=>{if(session?.mode==='live'){speed=1;$('speed').value='1';return;}const n=Number($('speed').value);if([.5,1,2].includes(n))speed=n;});
-$('network-pause').addEventListener('change',()=>{deliveryPaused=$('network-pause').checked;updateHud();});
-$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;$('error').hidden=true;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
-document.addEventListener('visibilitychange',()=>{lastFrame=null;});
+$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
+const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;if(gap>30000)s.returning=true;}}});
+document.addEventListener('visibilitychange',()=>observations.visibility());
+document.addEventListener('freeze',()=>observations.suspend());
+document.addEventListener('resume',()=>{lastFrame=null;observations.resume();});
+addEventListener('pagehide',event=>{if(!event.persisted){observations.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
+addEventListener('pageshow',event=>{if(event.persisted){lastFrame=null;observations.visibility();}});
 new ResizeObserver(draw).observe(canvas);
 async function bootstrap(){
-bootError=null;$('error').hidden=true;
+bootError=null;
 try{
-  if(!ctx||!globalThis.crypto?.subtle)throw new Error('Canvas and Web Crypto require a supported browser on localhost or HTTPS.');
+  if(!globalThis.crypto?.subtle)throw new Error('Web Crypto requires a supported browser on localhost or HTTPS.');
   if(deployment!==null){
     const policy=await deploymentPolicy(deployment);
-    $('trust-title').textContent=policy.network==='ic'?'Internet Computer — certified observer':'Disposable local deployment — certified observer';
-    $('trust-detail').textContent=policy.network==='ic'?'SDK mainnet root, configured backend, fresh certificates and verified publication artifacts.':'Test-only bundle, pinned disposable root, configured backend and fresh certified artifacts.';
-    $('integrity-help').textContent='The configured IC trust root authenticates fresh publication catalogs. Artifact hashes and retained predecessor links bind the displayed state, audit and scores.';
-    $('network-help').textContent='Read-only observation. Transfers use your existing wallet; this site never signs or sends.';
     const recording={id:'mainnet',title:'B2Z live observer',description:'Account-index payments, authoritative simulation. Automatic payouts are unavailable.',
       network:policy.network,canister_id:policy.canister_id,tick_seconds:1,deployment:policy};
-    const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
-    $('recording').replaceChildren(option);$('recording').disabled=true;catalog={recordings:[recording]};await startLive(recording);return;
+    catalog={recordings:[recording]};await startLive(recording);return;
   }
   const params=new URLSearchParams(location.search);
   if(params.get('mode')==='live'){
-    $('trust-title').textContent='Live local IC — test-network certified';$('trust-detail').textContent='Pinned PocketIC root, intended canister, fresh certificates, chained publications and artifact hashes.';
-    $('integrity-help').textContent='The current head is certified by the configured local root. Retained predecessors are admitted only through exact manifest/state/time/source links to that certified head.';
-    $('network-help').textContent='Read-only live observation of a disposable local IC. No wallet, gameplay command or public network.';
     const metadata=liveMetadata(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await readBytes('/s10-live/metadata.json',65536,AbortSignal.timeout(10000)))));
     const recording={...metadata,id:'live-local-ic',title:'Live certified local game',description:'Autonomous runtime-lab publications retrieved while PocketIC remains running.'};
-    catalog={recordings:[recording]};const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
-    $('recording').replaceChildren(option);$('recording').value=recording.id;$('recording').disabled=true;await startLive(recording);return;
+    catalog={recordings:[recording]};await startLive(recording);return;
   }
   if(params.get('mode')==='local'){
-    $('trust-title').textContent='Local IC / test-network certified';$('trust-detail').textContent='Pinned PocketIC root, canister identity, certificate time, catalog and artifact hashes.';
-    $('integrity-help').textContent='Standard IC certificate verification binds this flat catalog to the configured local canister and root. No root is fetched from the endpoint.';
-    $('network-help').textContent='Valueless PocketIC test records only. No ICP, wallet or production network.';
     const metadata=localMetadata(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await readBytes('/s09-local/metadata.json',65536,AbortSignal.timeout(10000)))));
     const recording={...metadata,id:'local-ic',title:'Certified local ledger slice',description:'Pinned upstream test ledger → runtime-lab → authenticated committed B2Z artifacts.',segments:1,roots:['local-predecessor','local-commit']};
-    catalog={recordings:[recording]};const option=document.createElement('option');option.value=recording.id;option.textContent=recording.title;
-    $('recording').replaceChildren(option);$('recording').value=recording.id;$('recording').disabled=true;await startLocal(recording);return;
+    catalog={recordings:[recording]};await startLocal(recording);return;
   }
   catalog=validateIndex(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(await readBytes('./recordings/index.json',65536,AbortSignal.timeout(10000)))));
-  $('recording').replaceChildren();for(const r of catalog.recordings){const o=document.createElement('option');o.value=r.id;o.textContent=r.title;$('recording').append(o);}
   const requested=params.get('recording'),r=catalog.recordings.find(r=>r.id===requested)??catalog.recordings[0];
-  $('recording').value=r.id;$('recording').disabled=false;await start(r);
+  await start(r);
 }catch(e){bootError=e;showError(e);updateHud();}
 }
+if(deployment===null||deployment.network==='pocketic-local')globalThis.__b2zTools=replayTools({session:()=>session,visible:()=>visible,selection:()=>arcade.selectedCannon(),pause:value=>{paused=Boolean(value);lastFrame=null;},delivery:value=>{deliveryPaused=Boolean(value);},start,local:startLocal,live:startLive,catalog:()=>catalog});
 await bootstrap();
 requestAnimationFrame(frame);
-
-
-$('show-confirmed').addEventListener('click',()=>{const s=session;if(!s?.ready||s.error||!s.previousState)return;const w=snapshot(s.previousState),time=timeNumber(w.time);if(time<s.clock.playhead)return;resetLiveClock(s,time);visible=new B2zView(w);visibleTime=time;s.presentationHandoffs=(s.presentationHandoffs??0)+1;$('show-confirmed').hidden=true;});
-
-$('toggle-minimap').addEventListener('click',()=>{minimapHidden=!minimapHidden;arcade.preferences({minimapHidden});$('toggle-minimap').setAttribute('aria-pressed',String(!minimapHidden));draw();});
-
-// Deliberate planning uses accepted current state, independently of playback.
-document.addEventListener('b2z-plan',()=>{const s=session;if(!s?.ready||s.error||!s.previousState)return;const w=snapshot(s.previousState),time=timeNumber(w.time);if(time>s.clock.playhead){resetLiveClock(s,time);visible=new B2zView(w);visibleTime=time;$('copy-feedback').textContent='Planning from the latest confirmed state.';}});

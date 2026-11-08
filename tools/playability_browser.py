@@ -76,23 +76,16 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     page.on('requestfinished', lambda r: inflight.discard(r))
     page.on('requestfailed', lambda r: inflight.discard(r))
     head = lambda: page.evaluate('globalThis.__dtrLive.heads.at(-1)')
-    def identify(account):
-        page.locator('#identify-button').click()
-        page.locator('#identity-mode').select_option('account')
-        page.locator('#identity-account').fill(account)
-        page.locator('#identity-principal').fill('')
-        page.locator('#identity-save').click()
-        assert not page.locator('#identify-dialog').evaluate('(e)=>e.open')
+    from verify_s14_deployment import identify_account,select_cannon,choose_action
+    def identify(account):identify_account(page,account)
     def phase(name, timeout=150000):
         return json.loads(wait_file(page, out/name, timeout))
-    def counts(cannons, balls):
-        return page.locator('#cannons').inner_text() == str(cannons) and page.locator('#balls').inner_text() == str(balls)
-    def receipt(position):
-        return page.locator('#live-receipts tr').filter(has=page.locator('td:first-child', has_text=re.compile('^'+str(position)+'$')))
+    def counts(cannons,balls):return page.evaluate('([c,b])=>__b2zExperience.visible.cannons.size===c&&__b2zExperience.visible.balls.size===b',[cannons,balls])
+    def receipt(position):return page.evaluate('(p)=>__b2zExperience.session.receipts.get(String(p))??null',position)
     def sample():
-        return page.evaluate('''()=>({...__dtrLive.playback,wall_epoch_ms:performance.timeOrigin+__dtrLive.playback.wall_ms,resyncs:__dtrLive.resyncs,visible_balls:Number(document.querySelector('#balls').textContent)})''')
+        return page.evaluate('''()=>({...__dtrLive.playback,wall_epoch_ms:performance.timeOrigin+__dtrLive.playback.wall_ms,resyncs:__dtrLive.resyncs,visible_balls:__b2zExperience.visible.balls.size})''')
 
-    assert page.title() == 'Balls 2 the wallZ - B2Z'
+    assert page.title() == 'B2Z · on ICP'
     page.screenshot(path=str(out/'desktop-before.png'))
     # Hold one genuine query reply unchanged. Its signature still binds the
     # original request; no canned certificate or replay under a new request ID.
@@ -115,32 +108,32 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     wait_until(page, lambda: head() >= dormant['head'] and counts(4,1), 60000)
     assert page.evaluate('globalThis.__dtrLive.checkpoints') >= 1
     identify(configuration['revival_account'])
-    page.locator('#fire-action').click()
+    choose_action(page,'ball')
     wait_until(page, lambda: 'Dormant' in page.locator('#cannon-life').inner_text())
     page.screenshot(path=str(out/'dormant-verified.png'))
-    assert '24 elapsed hours' in page.locator('#rules-lifecycle').inner_text()
-    assert not page.locator('#error').is_visible()
+    assert page.locator('#inspect-note').inner_text() or page.locator('#panel-title').inner_text().startswith('Revive')
+    assert page.locator('body').get_attribute('data-phase')!='ERROR'
     record('same-session-authenticated-v5-to-v6-and-island-dormancy', dormant)
     identify(configuration['new_player_account'])
-    page.locator('#join-action').click()
+    choose_action(page,'start')
     (out/'browser-dormant-checked').write_text('PASS\n')
     wait_until(page, lambda: page.locator('[data-copy="text"]').is_enabled() and page.locator('#transfer-amount').inner_text() == '1 ICP', 30000)
     page.screenshot(path=str(out/'new-player-before-payment.png'))
     (out/'browser-join-prepared').write_text('read-only payment preparation; Rust owns valueless transfer\n')
 
     purchases = phase('phase-purchases.json')
-    wait_until(page, lambda: receipt(purchases['join']).count() == 1, 30000)
+    wait_until(page, lambda: receipt(purchases['join']) is not None, 30000)
     confirmed = page.evaluate('performance.now()')
     wait_until(page, lambda: counts(5,4), 30000)
     report['no_refresh_join'] = {'confirmed_to_visible_ms':page.evaluate('performance.now()')-confirmed,
                                 'navigations_after_initial_load':len(navigations), 'head':head()}
     assert not navigations
-    assert 'retained 0.05 ICP' in receipt(purchases['join']).inner_text()
-    assert 'partially applied' in receipt(purchases['partial_fire']).inner_text()
+    assert str(receipt(purchases['join'])['remainder'])=='5000000'
+    assert receipt(purchases['partial_fire'])['actual_quantity']<receipt(purchases['partial_fire'])['requested_quantity']
     identify(configuration['revival_account'])
-    page.locator('#fire-action').click()
-    wait_until(page, lambda:'Active' in page.locator('#cannon-life').inner_text())
-    assert receipt(purchases['revival']).count() == 1
+    choose_action(page,'ball')
+    wait_until(page,lambda:not page.locator('#panel-title').inner_text().startswith('Revive'))
+    assert receipt(purchases['revival']) is not None
     record('genuine-ledger-join-partial-batch-and-dormant-revival-without-refresh', {**purchases, **report['no_refresh_join']})
     assert delayed
     report['delayed_genuine_response'] = delayed
@@ -173,53 +166,53 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
         # lifecycle/capture checks too. The final attempt still exits FAIL.
         report['checks'].append({'name':'complete-short-normal-sample-with-independent-production-bounds','status':'FAIL','details':result});save()
     identify(configuration['payer_account'])
-    page.locator('#join-action').click()
+    choose_action(page,'start')
     page.locator('#new-cell').select_option(index=1)
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),30000)
     assert page.locator('#transfer-amount').inner_text()=='4 ICP'
     (out/'browser-actions-ready').write_text('PASS\n')
     actions=phase('phase-actions.json')
-    wait_until(page,lambda:receipt(actions['illegal_move']).count()==1 and receipt(actions['wrong_owner']).count()==1,30000)
+    wait_until(page,lambda:receipt(actions['illegal_move'])is not None and receipt(actions['wrong_owner'])is not None,30000)
     wait_until(page,lambda:counts(6,5),30000)
-    assert 'move limit' in receipt(actions['illegal_move']).inner_text()
-    assert 'not owner' in receipt(actions['wrong_owner']).inner_text()
-    page.locator('#centre-cannon').click();page.locator('#own-cannons button').filter(has_text='#6 ·').click()
-    page.locator('#fire-action').click()
+    assert 'MOVE_LIMIT' in receipt(actions['illegal_move'])['reason']
+    assert 'NOT_OWNER' in receipt(actions['wrong_owner'])['reason']
+    select_cannon(page,6)
+    choose_action(page,'ball')
     wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.9 ICP')
     camera=page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')
-    page.locator('#centre-cannon').click();page.locator('#own-cannons button').filter(has_text='#1 ·').click()
+    select_cannon(page,1);choose_action(page,'ball')
     wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.9 ICP')
-    assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')==camera
-    assert page.locator('#territories tr').count()==5 # five funding players, six cannons
+    assert page.evaluate('__b2zCamera.scale')==camera['scale'] # explicit My cannon navigation centres the requested cannon
+    assert page.evaluate('__b2zExperience.visible.stats().length')==5 # five funding players, six cannons
     for width,height in [(1440,900),(390,844),(900,500),(500,900)]:
         page.set_viewport_size({'width':width,'height':height});page.wait_for_timeout(100)
-        assert page.evaluate('__b2zCamera.scale>=Math.max(innerWidth/1000,innerHeight/1000)')
+        assert page.evaluate('__b2zCamera.scale>=__b2zCamera.fitScale')
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
         page.screenshot(path=str(out/f'after-{width}x{height}.png'))
     page.set_viewport_size({'width':1440,'height':900})
     # A second page restores the same public declaration; primary page never reloads.
     restore=context.new_page();restore.goto(page.url);wait_until(restore,lambda:restore.evaluate('Boolean(globalThis.__dtrLive?.connected)'))
-    wait_until(restore,lambda:restore.locator('#identity-label').inner_text().startswith(configuration['payer_account'][:8]))
+    restore.locator('#identify-button').click();wait_until(restore,lambda:restore.locator('#account-name').inner_text()==configuration['payer_account'])
     restore.close()
     high=context.browser.new_context(viewport={'width':390,'height':844},device_scale_factor=2)
     highpage=high.new_page();highpage.goto(page.url);wait_until(highpage,lambda:highpage.evaluate('Boolean(globalThis.__dtrLive?.connected)'))
     assert highpage.evaluate('devicePixelRatio')==2
     highpage.screenshot(path=str(out/'after-mobile-dpr2.png'));high.close()
-    assert not page.locator('#error').is_visible()
+    assert page.locator('body').get_attribute('data-phase')!='ERROR'
     record('targeted-new-move-rejection-shared-island-price-account-stats-camera-and-responsive-ui',actions)
 
     # End real-time sampling. Drain all current requests before the explicit
     # consensus-clock jump; no old response may be hidden by clock manipulation.
-    open_settings(page);page.locator('#network-pause').check();close_settings(page)
+    open_settings(page);page.evaluate('__b2zTools.delivery(true)');close_settings(page)
     wait_until(page,lambda:not inflight and not capture.pending,15000)
     page.wait_for_timeout(1000)
     assert not inflight and not capture.pending
     (out/'browser-clock-ready').write_text('downloads paused and requests/body callbacks drained\n')
     expiry=phase('phase-expiry.json')
     page.clock.set_fixed_time(browser_time(expiry['now_ns']))
-    open_settings(page);page.locator('#network-pause').uncheck();close_settings(page)
+    open_settings(page);page.evaluate('__b2zTools.delivery(false)');close_settings(page)
     wait_until(page,lambda:head()>=expiry['head'] and counts(4,5),30000)
-    assert not page.locator('#error').is_visible()
+    assert page.locator('body').get_attribute('data-phase')!='ERROR'
     assert not navigations
     page.screenshot(path=str(out/'elapsed-expiry-no-refresh.png'))
     report['elapsed_clock_phase']={'scope':'Explicit disposable PocketIC +24h clock; browser Date matched only after real-time sample and complete request drain. Original certificate policies/query signatures unchanged. No wall-time rate claim across this phase.',**expiry}
@@ -234,15 +227,15 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     record('error-free-fenced-wire-capture-and-independent-full-history-replay',json.loads((out/'independent-replay.json').read_text()))
     # One declared gap/reconnect regression follows the successful capture
     # boundary, just as historical fault phases are separate from strict samples.
-    open_settings(page);page.locator('#network-pause').check();close_settings(page)
+    open_settings(page);page.evaluate('__b2zTools.delivery(true)');close_settings(page)
     before=head();resync=page.evaluate('__dtrLive.resyncs')
     (out/'browser-reconnect-ready').write_text(str(before)+'\n')
     reconnect=phase('phase-reconnect.json')
     page.clock.set_fixed_time(browser_time(reconnect['now_ns']))
-    open_settings(page);page.locator('#network-pause').uncheck();close_settings(page)
+    open_settings(page);page.evaluate('__b2zTools.delivery(false)');close_settings(page)
     wait_until(page,lambda:head()>=reconnect['head'] and page.evaluate('__dtrLive.resyncs')==resync+1,30000)
     wait_until(page,lambda:counts(reconnect['cannons'],reconnect['balls']),30000)
-    assert not page.locator('#error').is_visible() and not navigations
+    assert page.locator('body').get_attribute('data-phase')!='ERROR' and not navigations
     record('declared-post-capture-retention-gap-reconnect-without-navigation',{'old_head':before,**reconnect,'expected_resynchronisations':1})
     report['primary_navigations_after_initial_load']=len(navigations)
     report['primary_final_state']=page.evaluate('({...__dtrLive,playback:{...__dtrLive.playback}})')

@@ -1,3 +1,12 @@
+# Minimal isometric human interface — implementation in progress
+
+Actual human feedback reopens the frontend under the scoped frontend-only authority.
+The paid European backend remains unchanged. Normative requirements and regression
+map: [UX-01–13](docs/specs/B2Z_HUMAN_EXPERIENCE.md). Current operations:
+[installed paid-game frontend procedure](docs/operations/S14_OPERATOR.md).
+The baseline certificate capture on 8 November verified one cannon/one ball,
+healthy source and Lifeline; this is not an empty-install target.
+
 # B2Z European game live — qualified and verified
 
 The new game is installed at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.

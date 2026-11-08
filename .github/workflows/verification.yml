@@ -167,6 +167,8 @@ jobs:
       - name: Capture lifecycle HTTP/browser and independent replay regressions
         run: python -B tools/verify_wire_capture_browser.py --output .work/ci-wire-capture
       - run: python -B tools/check.py browser --output .work/ci-browser
+      - name: Minimal human interface contract journeys (UX-01 through UX-13)
+        run: python -B tools/verify_playability_actions.py --output .work/ci-human-experience
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -179,6 +181,7 @@ jobs:
             .work/ci-browser/browser-http/results.json
             .work/ci-browser/browser-http/*.png
             .work/ci-wire-capture/**
+            .work/ci-human-experience/**
           if-no-files-found: warn
           retention-days: 14
 

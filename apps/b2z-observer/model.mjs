@@ -239,8 +239,7 @@ export function approachPace(current,target,seconds){return current+Math.max(-.2
 
 /** One publication plus sixteen wall seconds of delivery jitter at faster rates,
  * eight at slow rates, expressed in ticks.
- * Slow modes publish one-tick segments, bounding slow-mode cold start to two
- * authenticated publications instead of several minutes of accumulated play. */
+ * Slow modes publish one-tick segments, allowing one complete low-rate interval to start without an extra publication. */
 export const LIVE_BUFFER_LIMITS=Object.freeze({segments:24,bytes:8*1024*1024});
 export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=Infinity){
  const pace=nominalPace(status),raw=Number(status?.run.publication_ticks??status?.run.segment_ticks??2);
@@ -250,7 +249,7 @@ export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=I
  // Reserve a quarter of the feasible queue for delivery jitter. A single
  // maximum-size segment can start by itself rather than wait for a second.
  const usable=Math.max(1,slots-Math.max(1,Math.ceil(slots/4)));
- const target=Math.min(ticks+(pace>=.5?16:8)*pace,usable*ticks,bufferAtCapacity>0?bufferAtCapacity:Infinity);
+ const target=Math.min(pace<.5?ticks:ticks+16*pace,usable*ticks,bufferAtCapacity>0?bufferAtCapacity:Infinity);
  return {target,low:Math.min(target/2,Math.max(.01,pace))};
 }
 

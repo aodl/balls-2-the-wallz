@@ -96,3 +96,11 @@ B2Z owns payment classification, ICP-index reconciliation, Event Horizon routing
 4. **Removed/deferred:** global-ledger scanner/archive path, alternative laboratory hosts, manual production game controls, scanner throughput campaigns, wallet/login features, dynamic scheduler and general notification/source frameworks.
 
 Historical baseline: [S13 report](checkpoints/S13_REPORT.md). Historical deployment preparation: [MVP evidence](evidence/S14/mvp-preparation.json) and the [operator play/deployment runbook](docs/operations/S14_OPERATOR.md). The live join is **1 ICP**; the solo join/first extra ball/relocation exercise is **1.1001 ICP plus wallet fees**, conditional on the current ball price. Source/index recovery baseline: [S14 closeout](checkpoints/S14_CLOSEOUT.md). The [earlier S14 report](checkpoints/S14_REPORT.md) remains historical; prior CI did not execute new local code.
+
+## Human interface contract
+
+Use [B2Z human experience](docs/specs/B2Z_HUMAN_EXPERIENCE.md) for all controls,
+flows, status labels, payment handoff, rendering and playback lifecycle changes.
+Name affected UX contracts, update intentional requirements and run their regressions.
+The [operator procedure](docs/operations/S14_OPERATOR.md) now defaults to frontend
+updates of the installed paid European game; fresh installation is historical.

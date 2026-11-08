@@ -2,9 +2,9 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {Camera,splitInterval} from '../../apps/b2z-observer/camera.mjs';
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 test('camera preserves world aspect and pointer anchor at bounded zoom',()=>{
- const c=new Camera();c.configure(32,32,1200,800);assert.equal(c.scale,37.5);
+ const c=new Camera();c.configure(32,32,1200,800);near(c.scale,.9*Math.min(1200/(64/Math.SQRT2),800/(64/Math.sqrt(6))));
  const a=c.world(250,320);c.zoom(2,250,320);const b=c.world(250,320);near(a.x,b.x);near(a.y,b.y);
- for(const factor of [1e9,1e-9]){c.zoom(factor);assert.ok(c.scale>=c.fitScale&&c.scale<=c.fitScale*24);}
+ for(const factor of [1e9,1e-9]){c.zoom(factor);assert.ok(c.scale>=c.fitScale&&c.scale<=c.maxScale);}
 });
 test('pan, resize and publications preserve local camera centre and picking',()=>{
  const c=new Camera();c.configure(16,8,1000,800);c.zoom(3);c.pan(100,-90);const {x,y,scale}=c;
@@ -22,7 +22,7 @@ test('wrap picking and split minimap rectangles refer to one underlying world',(
 });
 test('million-cell desktop and mobile reach a useful absolute cell scale without losing pointer picking',()=>{
  for(const [width,height] of [[1440,900],[390,844]]){
-  const c=new Camera();c.configure(1000,1000,width,height,true);c.frameCell(47297);near(c.scale,24);near(c.x,297.5);near(c.y,47.5);
+  const c=new Camera();c.configure(1000,1000,width,height,true);c.frameCell(47297);near(c.scale,48);near(c.x,297.5);near(c.y,47.5);
   c.zoom(1e6,width*.3,height*.4);near(c.scale,96);const p=c.screen(297.5,47.5);assert.equal(c.cell(p.x,p.y),47297);
   const anchor=c.world(75,100);c.zoom(.5,75,100);near(c.world(75,100).x,anchor.x);near(c.world(75,100).y,anchor.y);
   c.pan(12,-7);const prior={x:c.x,y:c.y,scale:c.scale};c.configure(1000,1000,width,height,true);assert.deepEqual({x:c.x,y:c.y,scale:c.scale},prior);

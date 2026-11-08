@@ -121,9 +121,9 @@ test('Lifeline starts within two publications and interpolates only verified mot
  const {PlayoutClock}=await import('@dtr/timeline-runtime/client/playout');
  const {liveBufferPolicy}=await import('../../apps/b2z-observer/model.mjs');
  const status={run:{publication_ticks:1,pace:{mode:'Lifeline',nominal_milli:50,supported_milli:50}}},policy=liveBufferPolicy(status);
- assert.deepEqual(policy,{target:1.4,low:.05});
+ assert.deepEqual(policy,{target:1,low:.05});
  const clock=new PlayoutClock({start:0,...policy,max_frame_delta:1});clock.append(0,1);
- assert.equal(clock.sample(.05).phase,'BUFFERING');
+ assert.equal(clock.sample(.05).phase,'PLAYING');
  clock.append(1,2);let prior=clock.playhead;
  for(let second=0;second<20;second++){const state=clock.sample(.05);assert(state.playhead>prior);assert(state.playhead<=state.available);prior=state.playhead;}
  const stopped=clock.playhead;for(let second=0;second<40;second++)clock.sample(0);
@@ -136,9 +136,9 @@ test('Trickle cold board, successive coverage, reconnect and funding changes nev
  const status={run:{publication_ticks:1,pace:{mode:'Trickle',nominal_milli:10,supported_milli:10}}};
  assert.equal(nominalPace(status),.01);
  assert.equal(new B2zView(snapshot(a.state)).cannons.size,snapshot(a.state).cannons.length,'cold authenticated snapshot is immediately renderable');
- const policy=liveBufferPolicy(status);assert.deepEqual(policy,{target:1.08,low:.01});
+ const policy=liveBufferPolicy(status);assert.deepEqual(policy,{target:1,low:.01});
  const clock=new PlayoutClock({start:0,...policy,max_frame_delta:1});clock.append(0,1);
- assert.equal(clock.sample(.01).phase,'BUFFERING');assert.equal(clock.playhead,0);
+ assert.equal(clock.sample(.01).phase,'PLAYING');assert.ok(clock.playhead>0);
  clock.append(1,2);
  for(let n=0;n<500;n++){
   if(n===100)clock.append(2,3);

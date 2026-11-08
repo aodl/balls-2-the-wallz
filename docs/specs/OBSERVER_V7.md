@@ -1,3 +1,8 @@
+> Current human UI/layout/playback policy is maintained in
+> [B2Z_HUMAN_EXPERIENCE](B2Z_HUMAN_EXPERIENCE.md). Earlier toolbar, dialog,
+> live-pause and reporting requirements below are superseded. Authentication,
+> artifact validation and deterministic projection requirements remain binding.
+
 # S07 observer contract
 
 20 September 2026. Current observer specification; it supplements, not replaces, the S06 simplification contract. No B2Z v3 state, event, score, price, memo, input-seal or publication-v6 rule changes.

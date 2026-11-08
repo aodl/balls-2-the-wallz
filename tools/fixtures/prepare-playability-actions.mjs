@@ -11,7 +11,7 @@ import {PRICING} from '../../packages/kernels/b2z/economics.generated.mjs';
 const f=JSON.parse(fs.readFileSync(new URL('../../tests/fixtures/rules-v6.json',import.meta.url))),cases={};
 for(const[name,row]of Object.entries(f.cases)){
  const cursor=new B2zCursor(unhex(row.state_hex),decodeCanonical(unhex(row.inputs_hex)),decodeCanonical(unhex(row.seal_hex)));let work=0;while(!cursor.step(512).complete)if(++work>10000)throw Error('fixture work bound');cursor.finalizeElapsed(BigInt(row.observed_ns));const out=cursor.result(),w=decodeWorld(out.state);
- cases[name]={initial:row.state_hex,final:hex(out.state),events:hex(out.events)};
+ cases[name]={initial:row.state_hex,final:hex(out.state),events:hex(out.events),seal:row.seal_hex};
  const deadline=w.playability.lifecycle.reduce((last,l)=>l.deadline_ns!==undefined&&l.deadline_ns>last?l.deadline_ns:last,0n);
  if(deadline){const expiry=expireV6(w,deadline,dueFences(w,deadline));if(expiry)cases[name].expired=hex(expiry.output.state);}
 }

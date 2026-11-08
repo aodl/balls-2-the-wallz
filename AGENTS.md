@@ -41,3 +41,11 @@ Current transition candidate pins published DTR `c12af747190f7e24d5e68cdf57dbb14
 Controlled MVP deployment uses the existing `dfx.json`, `tools/prepare_mvp_release.py` and definitive `docs/operations/S14_OPERATOR.md`. Freeze/install the normal artifact explicitly; do not substitute a later test build. Keep actual prices unless the user approves precise changes. Event Horizon may be explicitly disabled for first play; independent fallback still works. Source configuration is immutable in this version. Mainnet IDs/funding/transfers remain user-owned; never reinstall to change configuration. Do not reopen scanner/polling benchmarks or create another deployment framework.
 
 Prelaunch UX/pricing work uses `config/economics/prelaunch.json` and `tools/generate_economics.mjs`; never hand-edit generated prices or historical goldens. Keep original S14 configuration identifiable. A normal upgrade preserves its journal profile and cannot be assumed to reprice it. Stage exact source/artifacts for user approval; no reset/reinstall without separate explicit approval and a fresh payment/history check. The observer derives actionable prices/destination from certified configuration/source, emits prefix-free text with the shared adapter v3 memo codec, and disables payment preparation before verification or during unhealthy operation.
+
+## Human interface contract
+
+Use [B2Z human experience](docs/specs/B2Z_HUMAN_EXPERIENCE.md) for all controls,
+flows, status labels, payment handoff, rendering and playback lifecycle changes.
+Name affected UX contracts, update intentional requirements and run their regressions.
+The [operator procedure](docs/operations/S14_OPERATOR.md) now defaults to frontend
+updates of the installed paid European game; fresh installation is historical.

@@ -22,5 +22,29 @@ export function accountColor(account){
 }
 export function identityStore(network,backend,storage){
  const key=`BTZ-identify-v1:${network}:${backend}`;
- return {read(){try{const d=JSON.parse(storage.getItem(key));return d?.version===1&&canonicalAccount(d.account)?d:null;}catch{return null;}},write(d){try{storage.setItem(key,JSON.stringify({version:1,...d}));return true;}catch{return false;}},forget(){try{storage.removeItem(key);}catch{}}};
+ return {read(){try{const raw=storage.getItem(key);if(!raw||raw.length>4096)return null;const d=JSON.parse(raw);if(d?.version!==1||!canonicalAccount(d.account))return null;if(d.principal&&accountIdentifier(d.principal,d.subaccount)!==d.account)return null;return {...d,display:d.principal?textualAccount(d.principal,(d.subaccount??'').toLowerCase()):d.account};}catch{return null;}},write(d){try{storage.setItem(key,JSON.stringify({version:1,...d}));return true;}catch{return false;}},forget(){try{storage.removeItem(key);}catch{}}};
+}
+const base32=bytes=>{let bits=0,value=0,out='';for(const byte of bytes){value=(value<<8)|byte;bits+=8;while(bits>=5){bits-=5;out+='abcdefghijklmnopqrstuvwxyz234567'[(value>>>bits)&31];}value&=(1<<bits)-1;}if(bits)out+='abcdefghijklmnopqrstuvwxyz234567'[(value<<(5-bits))&31];return out;};
+export function textualAccount(principal,subaccount=''){
+ const p=Principal.fromText(principal);if(p.toText()!==principal)throw Error('Use the canonical principal spelling');
+ const sub=subaccount||'0'.repeat(64);if(!/^[0-9a-f]{64}$/.test(sub))throw Error('Subaccount must have 64 hex digits');
+ if(/^0+$/.test(sub))return principal;
+ const bytes=Uint8Array.from(sub.match(/../g),n=>parseInt(n,16)),all=new Uint8Array(p.toUint8Array().length+32);all.set(p.toUint8Array());all.set(bytes,all.length-32);
+ const crc=new Uint8Array(4);new DataView(crc.buffer).setUint32(0,getCrc32(all));
+ return `${principal}-${base32(crc)}.${sub.replace(/^0+/,'')}`;
+}
+export function parseSendingAccount(value,advanced=''){
+ const input=value.trim();if(!input||input.length>220)throw Error('Enter your sending account');
+ const sub=advanced.trim().toLowerCase();if(sub&&!/^[a-f0-9]{64}$/.test(sub))throw Error('Subaccount must have 64 hex digits');
+ if(/^[a-fA-F0-9]{64}$/.test(input)){if(sub)throw Error('A legacy address already includes its subaccount');return {principal:null,subaccount:'',account:canonicalAccount(input),display:canonicalAccount(input)};}
+ let principal=input,embedded='';
+ if(input.includes('.')){const m=/^(.*)-([a-z2-7]{7})\.([1-9a-f][0-9a-f]{0,63})$/.exec(input);if(!m)throw Error('Use the canonical ICRC account');principal=m[1];embedded=m[3].padStart(64,'0');if(textualAccount(principal,embedded)!==input)throw Error('ICRC account checksum');if(sub&&sub!==embedded)throw Error('Subaccount conflicts with the ICRC account');}
+ const selected=embedded||sub;return {principal,subaccount:selected,account:accountIdentifier(principal,selected),display:textualAccount(principal,selected)};
+}
+export function paymentDestination(source){
+ if(!source||typeof source.owner!=='string')throw Error('Verified destination unavailable');
+ const numeric=BigInt(source.subaccount);if(numeric<0n||numeric>18446744073709551615n)throw Error('Receiving subaccount bounds');
+ const sub=numeric.toString(16).padStart(64,'0'),derived=accountIdentifier(source.owner,sub);
+ if(derived!==canonicalAccount(source.recipient))throw Error('Receiving account does not match its owner/subaccount');
+ return {primary:textualAccount(source.owner,sub),legacy:derived,owner:source.owner,subaccount:sub};
 }

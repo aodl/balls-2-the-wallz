@@ -1,3 +1,8 @@
+> Human screen structure, account/copy flow, statuses and playback lifecycle are
+> governed by [B2Z_HUMAN_EXPERIENCE](B2Z_HUMAN_EXPERIENCE.md). Earlier rail/dialog,
+> live-pause and transaction-reporting UI descriptions are superseded. Ledger,
+> source, payment and game authority requirements here remain normative.
+
 # B2Z application contract — prefix-free text input extension
 
 Version scope: the contract below records the original S14 application and its

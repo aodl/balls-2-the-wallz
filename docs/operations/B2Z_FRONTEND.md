@@ -1,0 +1,36 @@
+# B2Z frontend maintenance
+
+The single normative UI contract is [B2Z_HUMAN_EXPERIENCE](../specs/B2Z_HUMAN_EXPERIENCE.md).
+Name affected UX IDs for control, flow, status, handoff, renderer or lifecycle
+changes. Update intentional policy and run its mapped regressions. Keep the
+[installed-game release procedure](S14_OPERATOR.md) separate from fresh-install history.
+
+Maintained sources are `apps/b2z-observer`: `app.mjs` verifies/queues observations;
+`observation-loop.mjs` schedules bounded work independently of rendering;
+`experience-status.mjs` resolves producer/delivery/presentation facts;
+`arcade.mjs` owns the one-panel local composer; `handoff.mjs` scopes saved public
+instructions; `identity.mjs` validates account formats and derives the receiving
+account; `camera.mjs` supplies the invertible ground-plane projection;
+`render.mjs` uses locally bundled pinned Three.js and shared bounded instances;
+`terrain.mjs` preserves compact ownership geography; `motion-effects.mjs` derives
+cosmetics only from displayed displacement. Canonical rules/quotes remain in the
+existing maintained kernel/helpers, not the renderer.
+
+Ordinary live gameplay has no pause/restart/replay/recording controls. Explicit
+local/replay diagnostics in `replay-tools.mjs` are exposed only for null or
+`pocketic-local` deployment, through `__b2zTools`; they manipulate local observation
+or replay, never issue canister updates. HTTP/browser and installed-canister
+harnesses exercise that boundary separately from the ordinary game controls.
+
+Use `npm ci --ignore-scripts`; dependency versions and integrity are locked. No
+runtime CDN, vendored runtime edit, signing client or backend update belongs here.
+The existing frozen builder bundles normal source and emits complete provenance.
+Never hand-edit the generated bundle. The older served frontend is rollback data,
+not another selectable interface.
+
+`tools/verify_playability_actions.py` uses actual composer/renderer modules with
+synthetic canonical kernel fixtures on loopback HTTP. Its recordings are not IC
+certificate or physical-device evidence. `tools/verify_observer_http.py` exercises
+actual Web Crypto/CSP and fail-closed transport; `tools/verify_s14_local.py` supplies
+the named genuine disposable installed-IC/financial evidence. Keep these claims
+separate. Production smoke is read-only and must preserve paid backend identity.

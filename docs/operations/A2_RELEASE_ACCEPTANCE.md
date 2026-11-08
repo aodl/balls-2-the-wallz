@@ -1,3 +1,7 @@
+> For the installed paid European game, use [S14_OPERATOR](S14_OPERATOR.md).
+> Frontend changes also require the [UX-01–13 contract checklist](../specs/B2Z_HUMAN_EXPERIENCE.md).
+> Earlier qualification evidence retains its original source/artifact scope.
+
 > Historical qualification/preflight for the former deployment. Current European
 > deployment instructions and targets are in [S14_OPERATOR.md](S14_OPERATOR.md).
 > Do not execute the former-canister commands below for the current release.

@@ -30,15 +30,18 @@ for(const [mode,milli] of modes){
   const rate=milli/1000,policy=liveBufferPolicy(status(mode,milli));
   const clock=new PlayoutClock({start:0,...policy,max_frame_delta:1});
   const initial=Math.ceil(policy.target);clock.append(0,initial);let produced=initial,received=initial;
-  const pending=[];
+  const pending=[];let stall=0,maxStall=0;
   for(let frame=0;frame<2400;frame++){
    const wall=frame/10;
    const frontier=initial+Math.floor(wall*rate);
    while(produced<frontier){produced++;pending.push({end:produced,due:wall+(produced%7===0?2:0)});}
    while(pending.length&&pending[0].due<=wall){const next=pending.shift();clock.append(received,next.end);received=next.end;}
-   assert.notEqual(clock.sample(.1*rate).phase,'STALLED');
+   const state=clock.sample(.1*rate);stall=state.phase==='STALLED'?stall+.1:0;maxStall=Math.max(maxStall,stall);assert.ok(state.playhead<=state.available);
    assert.ok(clock.state().buffer<=LIVE_BUFFER_LIMITS.segments);
   }
+  // UX-05 starts a complete slow interval immediately. A late successor can
+  // require truthful bounded waiting, instead of mandatory extra-interval latency.
+  assert.ok(maxStall<=(rate>=.5?0:2.2),`bounded delivery wait ${maxStall}s`);
   assert.ok(clock.playhead>=240*rate*.9,'display must follow authoritative rate');
  });
 }
