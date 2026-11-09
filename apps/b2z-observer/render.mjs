@@ -42,6 +42,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide}));
  const accents=batch(new T.RingGeometry(.25,.31,24),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({side:T.DoubleSide,toneMapped:false}));
  const muzzles=batch(new T.CircleGeometry(.071,12),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({color:0x0b0e11,side:T.DoubleSide}));
+ const contourUnderlay=batch(new T.RingGeometry(.46,.59,4),8,new T.MeshBasicMaterial({color:guideUnderInk,side:T.DoubleSide,toneMapped:false}));
  const hoverRings=batch(new T.RingGeometry(.48,.53,4),4,new T.MeshBasicMaterial({color:hoverInk,side:T.DoubleSide,toneMapped:false}));
  const chosenRings=batch(new T.RingGeometry(.48,.57,4),2,new T.MeshBasicMaterial({color:chosenInk,side:T.DoubleSide,toneMapped:false}));
  const invalidRings=batch(new T.RingGeometry(.48,.54,4),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide,toneMapped:false}));
@@ -89,7 +90,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
     const [dx,dy]=heading(aim?.cannon.id===c.id&&aim.cannon.cell===c.cell?aim.heading:Number.isInteger(c.heading)?c.heading:0),theta=Math.atan2(dy,dx),length=.29*lod;
     instance(barrels,x+Math.cos(theta)*length,y+Math.sin(theta)*length,.27,lod,lod,lod,cannonBarrel,[0,-theta,Math.PI/2]);
     instance(muzzles,x+Math.cos(theta)*.52*lod,y+Math.sin(theta)*.52*lod,.27,lod,lod,lod,null,[0,Math.PI/2-theta,0]);
-    if(hover?.kind==='cannon'&&hover.id===c.id&&c.id!==selected)instance(hoverRings,x,y,.02,lod,1,lod,null,[-Math.PI/2,0,Math.PI/4]);
+    if(hover?.kind==='cannon'&&hover.id===c.id&&c.id!==selected){instance(contourUnderlay,x,y,.019,lod,1,lod,null,[-Math.PI/2,0,Math.PI/4]);instance(hoverRings,x,y,.02,lod,1,lod,null,[-Math.PI/2,0,Math.PI/4]);}
     if(c.id===selected)instance(rings,x,y,.015,lod,1,lod,null,[-Math.PI/2,0,0]);
    }
    for(const b of points){const p=camera.point(b.x,b.y),x=p.x,y=p.y;if(!visible(camera,x,y))continue;const lod=Math.max(1,10/camera.scale);instance(shadows,x+.04,y+.05,.008,lod*.6,1,lod*.6,null,[-Math.PI/2,0,0]);instance(glow,x,y,.14*lod,lod*.65,lod*.65,1,null,[-Math.atan(1/Math.SQRT2),Math.PI/4,0]);instance(balls,x,y,.14*lod,lod,lod,lod);}
@@ -101,7 +102,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   if(marker.visible){const p=camera.cellPoint(markCell);marker.position.set(p.x,.03,p.y);}
   if(aim&&(aim.cannon.id===null||v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell)){const p=camera.cellPoint(aim.cannon.cell),a=aim.angle*Math.PI/180;instance(ghostBase,p.x,p.y,.09);instance(ghostTurret,p.x,p.y,.24);instance(ghostBarrel,p.x+Math.cos(a)*.29,p.y+Math.sin(a)*.29,.27,1,1,1,null,[0,-a,Math.PI/2]);}
   guide.visible=guideUnder.visible=Boolean(aim);if(aim){const p=camera.cellPoint(aim.cannon.cell),a=Number(aim.angle)*Math.PI/180,dx=Math.cos(a),dy=Math.sin(a),length=Math.min(3.5,110/(camera.scale*Math.hypot((dx-dy)/Math.SQRT2,(dx+dy)/Math.sqrt(6)))),x=p.x+dx*length,y=p.y+dy*length,tip=.20;guideGeometry.setPositions([p.x,.035,p.y,x,.035,y,x+Math.cos(a+2.6)*tip,.035,y+Math.sin(a+2.6)*tip,x,.035,y,x+Math.cos(a-2.6)*tip,.035,y+Math.sin(a-2.6)*tip]);}
-  const contour=(cell,mesh)=>{if(cell===null||cell===undefined)return;const p=camera.cellPoint(cell);instance(mesh,p.x,p.y,.045,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);};
+  const contour=(cell,mesh)=>{if(cell===null||cell===undefined)return;const p=camera.cellPoint(cell);instance(contourUnderlay,p.x,p.y,.044,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(mesh,p.x,p.y,.045,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);};
   if(selection){contour(v.cannons.get(selected)?.cell,rings);const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?invalidRings:chosenRings);
    if(selection.cell!==null&&selection.id!==undefined){const p=camera.cellPoint(selection.cell);instance(ghostBase,p.x,p.y,.09);instance(ghostTurret,p.x,p.y,.24);}
    if(hover?.cell!==null&&hover?.cell!==undefined){contour(hover.cell,hover.kind==='place'?hoverRings:invalidRings);if(hover.kind==='place'&&hover.cell!==selection.cell){const p=camera.cellPoint(hover.cell);instance(hoverGhost,p.x,p.y,.09);}if(hover.kind==='invalid'){const p=camera.cellPoint(hover.cell);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,-Math.PI/4]);}}
