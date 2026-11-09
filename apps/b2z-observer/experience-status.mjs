@@ -25,6 +25,6 @@ export function experienceStatus(input={}){
  if(balls===0)return out('idle',cannons?'No active balls':'Waiting for players');
  if(resynchronising)return out('resynchronising','Reconnecting','Returning to a recent verified view.');
  const slow=Number(pace?.supported_milli??pace?.nominal_milli??1000)<500;
- if(!advancing||['BUFFERING','STALLED'].includes(phase))return out('waiting',slow?'Waiting for next update · slow mode':'Waiting for next update',slow?'Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.':'No next verified motion is available yet.');
+ if(!advancing||['BUFFERING','STALLED'].includes(phase))return out('waiting','Rendering on-chain activity ...',slow?'Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.':'No next verified motion is available yet.');
  return out(slow?'slow':'live',slow?'Slow':'Live',phase==='DEGRADED_BUFFER'?'Verified motion continues; the buffer is low.':'');
 }

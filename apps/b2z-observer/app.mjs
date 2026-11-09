@@ -1,3 +1,4 @@
+import {publicCycleMonitor,renderCycleReadout} from './public-cycles.mjs';
 import {replayTools} from './replay-tools.mjs';
 import {observationLoop} from './observation-loop.mjs';
 import {experienceStatus} from './experience-status.mjs';
@@ -16,13 +17,14 @@ import {observationFailure,liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliv
 const $=id=>document.getElementById(id),canvas=$('board');
 let arenaRenderer=null,renderError=null;
 try{arenaRenderer=createArenaRenderer(canvas,{onError(message){renderError=message;$('render-error').hidden=false;$('render-error').textContent=message;},onRestore(){renderError=null;$('render-error').hidden=true;}});}catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='This browser could not start the 3D arena. WebGL 2 is required.';}
+let cycleMonitor=null;
 let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null,lastHud=0;
 let cameraRestored=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
-const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p)=>{
+const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p,screen)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
- const hits=[...(visible?.cannons.values()??[])].map(c=>{let dx=c.cell%visible.width+.5-p.x,dy=Math.floor(c.cell/visible.width)+.5-p.y;if(visible.torus){dx-=Math.round(dx/visible.width)*visible.width;dy-=Math.round(dy/visible.height)*visible.height;}const a=camera.screen(p.x+dx,p.y+dy),b=camera.screen(p.x,p.y);return {c,d:Math.hypot(a.x-b.x,a.y-b.y)};}).filter(h=>h.d<=Math.max(22,camera.scale*.4)).sort((a,b)=>a.d-b.d||a.c.id-b.c.id);
+ const hits=[...(visible?.cannons.values()??[])].map(c=>{const a=camera.cellPoint(c.cell);return {c,d:Math.hypot(a.sx-screen.x,a.sy-screen.y)};}).filter(h=>h.d<=Math.max(22,camera.scale*.4)).sort((a,b)=>a.d-b.d||a.c.id-b.c.id);
  return hits[0]?arcade.selectCannon(hits[0].c.id):false;
 }});
 globalThis.__b2zCamera=camera;
@@ -30,7 +32,7 @@ function showError(error){$('observation-error').textContent=String(error?.messa
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
 function active(s){return session===s&&!s.abort.signal.aborted;}
 async function start(recording){
-  session?.abort.abort();const s={recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:1,bytes:0,
+  cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();const s={recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:1,bytes:0,
     queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:Math.min(8,recording.logical_end),
       low:Math.min(2,recording.logical_end/2),max_frame_delta:1})};
   session=s;visible=null;visibleTime=0;lastFrame=null;
@@ -64,7 +66,7 @@ async function localArtifact(ticket,kind,signal){
   return assembler.finish();
 }
 async function startLocal(recording){
-  session?.abort.abort();const s={mode:'local',recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:2,bytes:0,
+  cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();const s={mode:'local',recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:2,bytes:0,
     queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:recording.logical_start,
       target:Math.min(8,recording.logical_end-recording.logical_start),low:Math.min(2,(recording.logical_end-recording.logical_start)/2),max_frame_delta:1})};
   session=s;visible=null;visibleTime=0;lastFrame=null;
@@ -130,7 +132,7 @@ function resetLiveClock(s,time){
   s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),max_frame_delta:1});
 }
 async function startLive(recording,startupRetries=0){
-  session?.abort.abort();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
+  cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
     sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1}),
     client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};
   session=s;visible=null;visibleTime=0;lastFrame=null;
@@ -147,6 +149,7 @@ async function startLive(recording,startupRetries=0){
       const source=await deploymentSource(recording.deployment,ticket);
       const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
       s.config=config;s.source=source;
+      if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s))renderCycleReadout(document,value);}});
     }else{
       const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));
       if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
@@ -341,6 +344,7 @@ function draw(){
  arcade.presentation(v);
  try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
+ shell.update(v,arenaRenderer.surface());
  canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
 function frame(now){
@@ -367,10 +371,10 @@ function frame(now){
 }
 $('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
 const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;if(gap>30000)s.returning=true;}}});
-document.addEventListener('visibilitychange',()=>observations.visibility());
+document.addEventListener('visibilitychange',()=>{observations.visibility();cycleMonitor?.visibility();});
 document.addEventListener('freeze',()=>observations.suspend());
 document.addEventListener('resume',()=>{lastFrame=null;observations.resume();});
-addEventListener('pagehide',event=>{if(!event.persisted){observations.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
+addEventListener('pagehide',event=>{if(!event.persisted){observations.stop();cycleMonitor?.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
 addEventListener('pageshow',event=>{if(event.persisted){lastFrame=null;observations.visibility();}});
 new ResizeObserver(draw).observe(canvas);
 async function bootstrap(){

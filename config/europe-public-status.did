@@ -1,0 +1,9 @@
+// Narrow management-canister interface, not a game backend interface.
+type visibility = variant { controllers; public; allowed_viewers : vec principal };
+service : {
+ canister_status : (record { canister_id : principal }) -> (record {
+  cycles : nat; reserved_cycles : nat; idle_cycles_burned_per_day : nat;
+  version : nat64; module_hash : opt blob;
+  settings : record { status_visibility : visibility; log_visibility : visibility; snapshot_visibility : visibility; controllers : vec principal };
+ }) query;
+}

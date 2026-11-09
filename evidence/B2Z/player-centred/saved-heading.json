@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "scope": "Final canonical historical world-heading restore and exact memo text/hex bytes through actual saved-instruction UI; synthetic browser fixture",
+  "source_inputs_sha256": {
+    "apps/b2z-observer/action-quote-v6.mjs": "214fb1e100d8529331c397345772cc0e47250e692d6472962a14ab678f1c9c5d",
+    "apps/b2z-observer/app.mjs": "8ab1530a9eaf71ee6c752955d2d9ade4aa8815c102c8a76d2476f3994bcd9ba9",
+    "apps/b2z-observer/arcade.mjs": "61964b3d1d3524b5f8c475f474b9718bcd9e32fee9e184d76be8a30d4ae8c7cd",
+    "apps/b2z-observer/camera.mjs": "6d4712ed94aea72b6a32fc9dd7aa5e9d544e54801317e8a79c01e6b18c99819f",
+    "apps/b2z-observer/configuration.generated.mjs": "6cae1329083846e36899a4dcd2b6251416e4ebdaf099a63c8584656088cfe478",
+    "apps/b2z-observer/deployment.mjs": "3e7939c6a60bd11a665e0a2a076c9b9be088d521513689ba19f4ec450ccc798c",
+    "apps/b2z-observer/experience-status.mjs": "ae02f8721afd81c7b64408637a46d832384194787a03e06ca1bd66490f90a07c",
+    "apps/b2z-observer/handoff.mjs": "2e217c715ca8cb8858f77fc087fb46da5dc335b0a6a3422cebe84d5685e52dee",
+    "apps/b2z-observer/headings.mjs": "6efacdc002ee0d6966fb73c1e3be0eef87c42aea5c9a9ee29157b907ceca1c78",
+    "apps/b2z-observer/identity.mjs": "02c1b3f5742188ea504f22494f1712025d3b68c3d935a30a32c812ab145a920c",
+    "apps/b2z-observer/live-delivery.mjs": "cca218a24b76e4fcf42a4b990e74f8169dc4d05a402fc97dcab90195bda1719e",
+    "apps/b2z-observer/mainnet.mjs": "e4a02e8bb6c3b74d67e44f96f37a392fd8f2e682c3320b100dc591c01ce18bba",
+    "apps/b2z-observer/minimap.mjs": "ac66ccef859ce719994025467d1633428d341c2205c1a272206a2faae1613a6d",
+    "apps/b2z-observer/model-v6.mjs": "05abc2f6c76a54b1f5d3a216fcfac66067fe95d39acded94a20cf1d3b59239b9",
+    "apps/b2z-observer/model.mjs": "0bbc584b925cd99e3ea86dcbca369c9e9c830f21441c40df6f75be3a0cd8b512",
+    "apps/b2z-observer/motion-effects.mjs": "14306d7fe4687a0b49e6f749a74bfa2acc2461916d1a97455379e3136c7e07b5",
+    "apps/b2z-observer/observation-loop.mjs": "cbc388331721af0a3393947cbd27521cceb8d95240ce9d202a13b0c585b1e248",
+    "apps/b2z-observer/play-reference.mjs": "b3dc33053a139997a883d76e4c649fad93f80ac0a73cc74af0a9d7513fc30aba",
+    "apps/b2z-observer/public-cycles.mjs": "948120cc06da851609dbe8ae421a84e14c1e066db5d34ce8ce8db906fb7b452e",
+    "apps/b2z-observer/render.mjs": "14fe48ff1ca34b37ee86f59988a34681b67fc2997825b8360233a87971bff6f3",
+    "apps/b2z-observer/replay-tools.mjs": "c0ea10f9f239c27812aab959ab99b28dcdf83c63efd5be2f3c2c62ae9a887b4c",
+    "apps/b2z-observer/shell.mjs": "e485ce9f4cf6b6fe27bc8caeef82c57547ab05187e4ac07cf10bebe175a8491d",
+    "apps/b2z-observer/terrain-surface.mjs": "6ce6a6e981a68619b75257c2b3f381cbfe6a8fef9d9ab8bced2cf45062742f8b",
+    "apps/b2z-observer/terrain.mjs": "8687bf629ea3b44dcbbaf04c8f9ba77103bd0434bd73a66117be19f36709f7b8",
+    "apps/b2z-observer/torus-identity.generated.mjs": "8564fb89b20eaba7d40d3326ad0ac850bca58248c030c1107005e54ef2f89829",
+    "apps/b2z-observer/transport.mjs": "d8bf1c93ecae75b209be594f97da4e47216814327ae64bbb5e0760e666776288"
+  },
+  "errors": []
+}

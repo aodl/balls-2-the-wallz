@@ -1,5 +1,11 @@
 # B2Z
 
+The **player-centred source candidate** is being qualified for review; it is not
+a new deployment. See the [correction report](evidence/B2Z/player-centred-release/REPORT.md)
+and [maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
+The deployed release described below remains the previously verified candidate.
+
+
 [Play B2Z on ICP](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/).
 The European backend `s5ir5-gqaaa-aaaas-amyna-cai` contains real paid gameplay.
 Never reset, reinstall or repeat the historical fresh activation against it.

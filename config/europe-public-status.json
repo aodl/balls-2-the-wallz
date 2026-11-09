@@ -1,0 +1,8 @@
+{
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "required_preserved_settings": { "status_visibility": "public" },
+  "observed_public_read_only": "2026-11-08T20:47:21Z",
+  "setting_change_needed": false,
+  "approval_required_for_any_future_change": true,
+  "scope": "Public operational status only. No log/snapshot visibility, controllers, cycles or backend code change. Not applied by this task."
+}

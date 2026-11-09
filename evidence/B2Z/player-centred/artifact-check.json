@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "scope": "All 15 local review files and verified destination binding; NOT served verification or deployment",
+  "files": 15,
+  "javascript": "2d9ea9db4144b2a4659fce89a2dd18f4468a8a9220b84cf603ea64b6f7a759d6",
+  "complete_manifest": "be6eae07e3a5cf47332bbe57b5abc6f279691923a08e6ff5934486a9def4f8e7",
+  "receiving_account": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+  "deployment": {
+    "network": "ic",
+    "host": "https://icp-api.io",
+    "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai"
+  },
+  "headers": {
+    "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+    "Referrer-Policy": "no-referrer",
+    "X-Content-Type-Options": "nosniff",
+    "Permissions-Policy": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()"
+  }
+}

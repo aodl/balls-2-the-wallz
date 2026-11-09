@@ -9,7 +9,11 @@ reset, activation or transition sequence against it.
 - Expected subnet: `bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe`, 13 nodes; refresh certified membership.
 - Default receiving AccountIdentifier: `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
 
-The scoped authority is asset-only frontend publication. Backend controller access
+Asset-only frontend publication is a procedure, not standing authority. The
+review-gap close-out authorizes a reviewed source commit, ordinary non-force
+publication and exact-source CI. It authorizes no production deployment or live
+setting change. Production approval remains a separate decision. The applicable approved
+release route remains asset-only frontend publication. Backend controller access
 is not upgrade authority. No backend install/upgrade/reinstall, stop/start,
 transition, migration, controller change, ICP/cycle transfer, cycle purchase,
 new canister or former-deployment operation is part of this procedure. Normal
@@ -58,6 +62,30 @@ continuing. No automatic reinstall or rollback. SDK liquid already excludes plat
 reserves; do not subtract again. Current Trickle entry 1.25T, exit below 1T, rate
 0.01 ticks/s and existing floors are backend policy, unchanged by a frontend update.
 Event Horizon remains disabled; independent fallback remains 60 seconds.
+
+## Public cycles status — preserve existing setting
+
+Read-only controller and anonymous SDK queries on 8 November 2026 verified backend
+`status_visibility = public`; no setting change is currently necessary. The
+[required policy](../../config/europe-public-status.json) records this expectation.
+Use [the narrow management query interface](../../config/europe-public-status.did)
+to read it without accessing identity material:
+
+```sh
+DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity dfx canister call aaaaa-aa canister_status '(record { canister_id = principal "s5ir5-gqaaa-aaaas-amyna-cai" })' --query --network ic --candid config/europe-public-status.did --output json
+```
+
+The existing SDK 6.1.0 frontend queries management `aaaaa-aa` with the backend as
+both argument and effective routing ID; it keeps mainnet root/query signatures.
+The installed DFX 0.31.0 has no status-visibility flag. Do not run a broad settings
+sync or change log/snapshot visibility/controllers to enable the meter. If the
+setting later differs, prepare a **status_visibility-only** management setting
+change with the then-current interface for explicit approval. Preserve every
+unrelated setting. No backend method/upgrade/proxy is needed for public status.
+Idle cycles/day is the idle baseline, not total gameplay burn; the frontend's
+approximate net decline is a bounded, non-authoritative observation. Public status
+permission does not make canister_metrics public. Treasury/financial accounting
+and all existing safety floors remain unchanged.
 
 ## Asset-only publication
 

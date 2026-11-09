@@ -1,0 +1,113 @@
+{
+  "scope": "Actual application captures, same maintained module inputs as frozen source candidate; synthetic canonical populated fixtures, native clipboard, no transfer. Waiting/resumption scene uses declared 20x disposable time, not production timing. No physical-phone/native-keyboard/real-wallet/hardware-GPU claim.",
+  "runtime_input_hashes": {
+    "apps/b2z-observer/action-quote-v6.mjs": "214fb1e100d8529331c397345772cc0e47250e692d6472962a14ab678f1c9c5d",
+    "apps/b2z-observer/app.mjs": "f07c59aa17178cef3de31aa47d2b7ed689a995a3269c08438b4b308689a15a37",
+    "apps/b2z-observer/arcade.mjs": "61964b3d1d3524b5f8c475f474b9718bcd9e32fee9e184d76be8a30d4ae8c7cd",
+    "apps/b2z-observer/camera.mjs": "6d4712ed94aea72b6a32fc9dd7aa5e9d544e54801317e8a79c01e6b18c99819f",
+    "apps/b2z-observer/configuration-entry.bin": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "apps/b2z-observer/configuration-legacy.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+    "apps/b2z-observer/configuration-million.bin": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+    "apps/b2z-observer/configuration-playability.bin": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+    "apps/b2z-observer/configuration-torus.bin": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+    "apps/b2z-observer/configuration.bin": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+    "apps/b2z-observer/configuration.generated.mjs": "6cae1329083846e36899a4dcd2b6251416e4ebdaf099a63c8584656088cfe478",
+    "apps/b2z-observer/deployment.mjs": "3e7939c6a60bd11a665e0a2a076c9b9be088d521513689ba19f4ec450ccc798c",
+    "apps/b2z-observer/experience-status.mjs": "ae02f8721afd81c7b64408637a46d832384194787a03e06ca1bd66490f90a07c",
+    "apps/b2z-observer/handoff.mjs": "2e217c715ca8cb8858f77fc087fb46da5dc335b0a6a3422cebe84d5685e52dee",
+    "apps/b2z-observer/headings.mjs": "6efacdc002ee0d6966fb73c1e3be0eef87c42aea5c9a9ee29157b907ceca1c78",
+    "apps/b2z-observer/icon.svg": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+    "apps/b2z-observer/identity.mjs": "02c1b3f5742188ea504f22494f1712025d3b68c3d935a30a32c812ab145a920c",
+    "apps/b2z-observer/index.html": "7555021db9de08934c2c7ce46bc71ac5e359df99e7c4ce5b794845d089ec0995",
+    "apps/b2z-observer/live-delivery.mjs": "cca218a24b76e4fcf42a4b990e74f8169dc4d05a402fc97dcab90195bda1719e",
+    "apps/b2z-observer/mainnet.mjs": "8f0dd2195a4035180d184b2abc43e119cd587865dd8c8dbd53d02c86ba9f5c04",
+    "apps/b2z-observer/minimap.mjs": "ac66ccef859ce719994025467d1633428d341c2205c1a272206a2faae1613a6d",
+    "apps/b2z-observer/model-v6.mjs": "05abc2f6c76a54b1f5d3a216fcfac66067fe95d39acded94a20cf1d3b59239b9",
+    "apps/b2z-observer/model.mjs": "0bbc584b925cd99e3ea86dcbca369c9e9c830f21441c40df6f75be3a0cd8b512",
+    "apps/b2z-observer/motion-effects.mjs": "14306d7fe4687a0b49e6f749a74bfa2acc2461916d1a97455379e3136c7e07b5",
+    "apps/b2z-observer/observation-loop.mjs": "cbc388331721af0a3393947cbd27521cceb8d95240ce9d202a13b0c585b1e248",
+    "apps/b2z-observer/play-reference.mjs": "b3dc33053a139997a883d76e4c649fad93f80ac0a73cc74af0a9d7513fc30aba",
+    "apps/b2z-observer/public-cycles.mjs": "7da5a2251d38a2c81eb793db2208c72a94d0d9d5f4c27f2b76fc75ec8669e8eb",
+    "apps/b2z-observer/render.mjs": "14fe48ff1ca34b37ee86f59988a34681b67fc2997825b8360233a87971bff6f3",
+    "apps/b2z-observer/replay-tools.mjs": "c0ea10f9f239c27812aab959ab99b28dcdf83c63efd5be2f3c2c62ae9a887b4c",
+    "apps/b2z-observer/shell.mjs": "e485ce9f4cf6b6fe27bc8caeef82c57547ab05187e4ac07cf10bebe175a8491d",
+    "apps/b2z-observer/style.css": "79ffb1cff440202558ca10ada7f532ba3adb3111c8eace652860e97e24fb888b",
+    "apps/b2z-observer/terrain-surface.mjs": "6ce6a6e981a68619b75257c2b3f381cbfe6a8fef9d9ab8bced2cf45062742f8b",
+    "apps/b2z-observer/terrain.mjs": "8687bf629ea3b44dcbbaf04c8f9ba77103bd0434bd73a66117be19f36709f7b8",
+    "apps/b2z-observer/torus-identity.generated.mjs": "8564fb89b20eaba7d40d3326ad0ac850bca58248c030c1107005e54ef2f89829",
+    "apps/b2z-observer/transport.mjs": "d8bf1c93ecae75b209be594f97da4e47216814327ae64bbb5e0760e666776288"
+  },
+  "fixture_bundle_sha256": "85f7082f333b0fc9dabc9777d817ece0c4a594b65928831ffe49e7fb528ca1a1",
+  "fixture_data_sha256": "a36aac9de0c389bc506aa8c3b811687ea33207c18f150d1966d17c787af9212d",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "recording": "desktop.webm",
+      "sha256": "1ab81c5997224abe3a3077ee76f95ebca3e4587baa380da4e40a9b4e384f1895",
+      "duration_seconds": 88.88,
+      "screenshots": [
+        {
+          "path": "1440x900-populated.png",
+          "sha256": "c3c318f3de029e16ebd202ef7cc04e7f6a34d477b4b8af0d622a9ba3e590b2a0"
+        },
+        {
+          "path": "1440x900-wallet.png",
+          "sha256": "c21c9f48c3981de3d0794dca9edf69161ec89c0664345d485b2e6d75b743f73b"
+        },
+        {
+          "path": "1440x900-waiting.png",
+          "sha256": "144c645202c3a706ec14fc7ce19a15dffaa2dcf85e0f2b34fbc084be09491715"
+        }
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "recording": "390x844.webm",
+      "sha256": "0a8da5de0c4ac51f63c6110322eeedee10cd8434525baf050d8b5d1dec1d0410",
+      "duration_seconds": 39.32,
+      "screenshots": [
+        {
+          "path": "390x844-populated.png",
+          "sha256": "84c7b09c41d887945fa27f6b953bba72b2e6e314c24b3be9f2995222c47c2e89"
+        },
+        {
+          "path": "390x844-wallet.png",
+          "sha256": "e6be0f0f4ee2e533dc5d7b46bc4c0823b6b0af17b83461fa2203eecd3b4abd3e"
+        },
+        {
+          "path": "390x844-waiting.png",
+          "sha256": "e3720e5e261061a2b6310758b9466fbd611f16d4f4093d2752203a46dc6ba089"
+        }
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "recording": "320x640.webm",
+      "sha256": "768ec89f3678bc27058ffd50c9adf4686771156944aa636c3a3d2c8ada12ca55",
+      "duration_seconds": 27.2,
+      "screenshots": [
+        {
+          "path": "320x640-populated.png",
+          "sha256": "5f685beb69df3abeb50fbf8783c9047694dc82342f0cbd969ff05260b59b1cf0"
+        },
+        {
+          "path": "320x640-wallet.png",
+          "sha256": "9f1034a3d18cccb3ec51c7789eacd1ff9aec8111e2309e648d6b0cf71649b9e1"
+        },
+        {
+          "path": "320x640-waiting.png",
+          "sha256": "220ea9dbeb2fd6a371f4de1eed4f9f6ded8303443deac5f9e5ff4912098a7222"
+        }
+      ]
+    }
+  ]
+}

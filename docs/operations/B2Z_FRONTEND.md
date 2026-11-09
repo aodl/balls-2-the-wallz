@@ -8,11 +8,15 @@ changes. Update intentional policy and run its mapped regressions. Keep the
 Maintained sources are `apps/b2z-observer`: `app.mjs` verifies/queues observations;
 `observation-loop.mjs` schedules bounded work independently of rendering;
 `experience-status.mjs` resolves producer/delivery/presentation facts;
-`arcade.mjs` owns the one-panel local composer; `handoff.mjs` scopes saved public
+`arcade.mjs` owns the single local composer and anchored action card; `handoff.mjs` scopes saved public
 instructions; `identity.mjs` validates account formats and derives the receiving
 account; `camera.mjs` supplies the invertible ground-plane projection;
 `render.mjs` uses locally bundled pinned Three.js and shared bounded instances;
-`terrain.mjs` preserves compact ownership geography; `motion-effects.mjs` derives
+`terrain.mjs` preserves compact ownership geography; `terrain-surface.mjs` keeps
+one persistent exact ownership atlas with bounded dirty-row uploads, also used by
+`minimap.mjs`; `headings.mjs` converts screen bearings to unchanged canonical
+headings; `public-cycles.mjs` independently queries public management status and
+labels observed net decline separately from idle allocation cost; `motion-effects.mjs` derives
 cosmetics only from displayed displacement. Canonical rules/quotes remain in the
 existing maintained kernel/helpers, not the renderer.
 

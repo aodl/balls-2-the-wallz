@@ -1,0 +1,224 @@
+{
+  "scope": "Bounded sequential matched baseline/candidate worktree comparison; unchanged rules and forecast code/tests. Historical resource contention is not proved by a later pass.",
+  "environment": {
+    "platform": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.35",
+    "node": "v24.15.0"
+  },
+  "rules_comparison": [
+    {
+      "tree": "baseline",
+      "rules_test_sha256": "121e22e95a45dc66be53ea82893022561a84a5dd533c992ae26e8dc4bfa9c991",
+      "status": "PASS",
+      "tests": 22,
+      "duration_ms": 40490.483367,
+      "cases": [
+        {
+          "name": "complete v6 idle segment restores at every work boundary and matches output bytes",
+          "duration_ms": 1091.966764
+        },
+        {
+          "name": "complete v6 fire segment restores at every work boundary and matches output bytes",
+          "duration_ms": 2479.818631
+        },
+        {
+          "name": "complete v6 first segment restores at every work boundary and matches output bytes",
+          "duration_ms": 13983.536895
+        },
+        {
+          "name": "complete v6 additional segment restores at every work boundary and matches output bytes",
+          "duration_ms": 2572.158925
+        },
+        {
+          "name": "complete v6 legacy segment restores at every work boundary and matches output bytes",
+          "duration_ms": 2102.029068
+        },
+        {
+          "name": "complete v6 move segment restores at every work boundary and matches output bytes",
+          "duration_ms": 915.450245
+        },
+        {
+          "name": "complete v6 rejected segment restores at every work boundary and matches output bytes",
+          "duration_ms": 916.542758
+        },
+        {
+          "name": "complete v6 ordered segment restores at every work boundary and matches output bytes",
+          "duration_ms": 13861.289019
+        },
+        {
+          "name": "complete v6 malformed segment restores at every work boundary and matches output bytes",
+          "duration_ms": 830.735964
+        },
+        {
+          "name": "complete v6 revival segment restores at every work boundary and matches output bytes",
+          "duration_ms": 957.826428
+        },
+        {
+          "name": "complete v6 bridge_left segment restores at every work boundary and matches output bytes",
+          "duration_ms": 144.300962
+        },
+        {
+          "name": "complete v6 bridge_both segment restores at every work boundary and matches output bytes",
+          "duration_ms": 140.195514
+        },
+        {
+          "name": "complete v6 mutual segment restores at every work boundary and matches output bytes",
+          "duration_ms": 53.348014
+        },
+        {
+          "name": "complete v6 mutual_last segment restores at every work boundary and matches output bytes",
+          "duration_ms": 52.792008
+        },
+        {
+          "name": "complete v6 wall_pair segment restores at every work boundary and matches output bytes",
+          "duration_ms": 52.286702
+        },
+        {
+          "name": "ordered payments are tallied once, with explicit partial-fill and rejection outcomes",
+          "duration_ms": 0.86431
+        },
+        {
+          "name": "explicit New buys one cannon and the requested prefix, not another cannon",
+          "duration_ms": 0.217603
+        },
+        {
+          "name": "illegal second move preserves the first committed position and reports retained payment",
+          "duration_ms": 0.251103
+        },
+        {
+          "name": "the full interpreter pairs a defended capture, preserves unpaired balls and stamps real elapsed grace",
+          "duration_ms": 1.095712
+        },
+        {
+          "name": "a completed bridge capture marks only the empty island dormant without silently deleting balls",
+          "duration_ms": 0.258103
+        },
+        {
+          "name": "a paid zero-ball island revival cancels grace without restoring the lost territory",
+          "duration_ms": 2.491029
+        },
+        {
+          "name": "simultaneous defended-wall pairing kills each participant once before capture resolution",
+          "duration_ms": 0.383305
+        }
+      ]
+    },
+    {
+      "tree": "candidate",
+      "rules_test_sha256": "121e22e95a45dc66be53ea82893022561a84a5dd533c992ae26e8dc4bfa9c991",
+      "status": "PASS",
+      "tests": 22,
+      "duration_ms": 44494.892826,
+      "cases": [
+        {
+          "name": "complete v6 idle segment restores at every work boundary and matches output bytes",
+          "duration_ms": 1163.537994
+        },
+        {
+          "name": "complete v6 fire segment restores at every work boundary and matches output bytes",
+          "duration_ms": 2590.891525
+        },
+        {
+          "name": "complete v6 first segment restores at every work boundary and matches output bytes",
+          "duration_ms": 14213.304382
+        },
+        {
+          "name": "complete v6 additional segment restores at every work boundary and matches output bytes",
+          "duration_ms": 3166.773551
+        },
+        {
+          "name": "complete v6 legacy segment restores at every work boundary and matches output bytes",
+          "duration_ms": 3270.943624
+        },
+        {
+          "name": "complete v6 move segment restores at every work boundary and matches output bytes",
+          "duration_ms": 961.102576
+        },
+        {
+          "name": "complete v6 rejected segment restores at every work boundary and matches output bytes",
+          "duration_ms": 957.290632
+        },
+        {
+          "name": "complete v6 ordered segment restores at every work boundary and matches output bytes",
+          "duration_ms": 14606.612784
+        },
+        {
+          "name": "complete v6 malformed segment restores at every work boundary and matches output bytes",
+          "duration_ms": 1331.013634
+        },
+        {
+          "name": "complete v6 revival segment restores at every work boundary and matches output bytes",
+          "duration_ms": 744.059772
+        },
+        {
+          "name": "complete v6 bridge_left segment restores at every work boundary and matches output bytes",
+          "duration_ms": 202.471232
+        },
+        {
+          "name": "complete v6 bridge_both segment restores at every work boundary and matches output bytes",
+          "duration_ms": 140.083514
+        },
+        {
+          "name": "complete v6 mutual segment restores at every work boundary and matches output bytes",
+          "duration_ms": 51.246291
+        },
+        {
+          "name": "complete v6 mutual_last segment restores at every work boundary and matches output bytes",
+          "duration_ms": 58.596375
+        },
+        {
+          "name": "complete v6 wall_pair segment restores at every work boundary and matches output bytes",
+          "duration_ms": 51.593395
+        },
+        {
+          "name": "ordered payments are tallied once, with explicit partial-fill and rejection outcomes",
+          "duration_ms": 1.541317
+        },
+        {
+          "name": "explicit New buys one cannon and the requested prefix, not another cannon",
+          "duration_ms": 0.188302
+        },
+        {
+          "name": "illegal second move preserves the first committed position and reports retained payment",
+          "duration_ms": 0.153401
+        },
+        {
+          "name": "the full interpreter pairs a defended capture, preserves unpaired balls and stamps real elapsed grace",
+          "duration_ms": 0.575306
+        },
+        {
+          "name": "a completed bridge capture marks only the empty island dormant without silently deleting balls",
+          "duration_ms": 0.216702
+        },
+        {
+          "name": "a paid zero-ball island revival cancels grace without restoring the lost territory",
+          "duration_ms": 2.401527
+        },
+        {
+          "name": "simultaneous defended-wall pairing kills each participant once before capture resolution",
+          "duration_ms": 0.334704
+        }
+      ]
+    }
+  ],
+  "candidate_complete_source": {
+    "status": "PASS",
+    "node_tests": 1758,
+    "python_tests": 196,
+    "source_wrapper_allowance_changed": false,
+    "forecast_tests_in_complete_suite": [
+      {
+        "name": "cost attribution is bounded, complete and separate from deterministic forecast rows",
+        "duration_ms": 394.045952
+      },
+      {
+        "name": "cache bypass runs fresh work while normal completed-result caching is retained",
+        "duration_ms": 638.92158
+      }
+    ]
+  },
+  "historical_attempts": {
+    "300s": "FAIL timeout, original record preserved in prior player-centred evidence",
+    "600s": "FAIL incomplete at rules-v6, also reported untouched forecast cache-bypass assertion at 2431.079 ms. Exact assertion cause not established; its maxMs=2000 application budget was not changed."
+  },
+  "conclusion": "No current rules assertion defect or candidate-specific regression found in this comparison. Original interrupted evidence cannot establish the exact historic cause. No runtime budget/assertions/shards changed; full candidate suite completed once under the unchanged 300-second harness."
+}

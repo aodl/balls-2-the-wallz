@@ -1,6 +1,6 @@
 /** Compact territory geometry shared by isometric presentation and integrity checks. */
 const append=(runs,start,end,owner)=>{if(start>=end)return;const last=runs.at(-1);if(last&&last.end===start&&last.owner===owner)last.end=end;else runs.push({start,end,owner});};
-export function territoryLayout(v){
+export function territoryLayout(v,{includeRows=false}={}){
   const rows=[],overrides=Array.from({length:v.height},()=>[]),base=[];
   if(v.version>=5){
     for(let sy=0;sy<32;sy++){
@@ -46,7 +46,7 @@ export function territoryLayout(v){
     }else edges.push({x1:0,y1:0,x2:v.width,y2:0});
   }
   if(!v.torus)edges.push({x1:0,y1:v.height,x2:v.width,y2:v.height});
-  return {rects,edges};
+  return includeRows?{rects,edges,rows}:{rects,edges};
 }
 /** Fixed spatial bins; each query visits only intersecting bins and emits once.
  * The stamp array avoids allocating a Set/list of edges during camera movement.

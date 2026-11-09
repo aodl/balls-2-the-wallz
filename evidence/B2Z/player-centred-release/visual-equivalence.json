@@ -1,0 +1,7 @@
+{
+  "visual_bundle_recorded": "85f7082f333b0fc9dabc9777d817ece0c4a594b65928831ffe49e7fb528ca1a1",
+  "visual_bundle_final": "85f7082f333b0fc9dabc9777d817ece0c4a594b65928831ffe49e7fb528ca1a1",
+  "identical": true,
+  "scope": "Subsequent optional-monitor queued-callback fencing changes unused exports only. Actual compiled visual fixture, renderer/input/layout/sampler outputs remain byte-identical. Final mainnet bundle is frozen/tested separately.",
+  "changed_module_sha256": "d64e9b977d537d63575232c6d25e54714953ab26d471afcaafdc05e7be70d217"
+}

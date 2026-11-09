@@ -1,0 +1,197 @@
+{
+  "scope": "Bounded ABBA same canonical 3-cannon/3-ball seam fixture, same viewport/SDK/Three/browser/host. Seven-second windows, no video; reduced-motion/card-closed are diagnostic conditions, not replacement product modes or hardware qualification.",
+  "viewport": [
+    1440,
+    900
+  ],
+  "browser": "153.0.8010.12",
+  "fixture_sha256": "a36aac9de0c389bc506aa8c3b811687ea33207c18f150d1966d17c787af9212d",
+  "bundles": {
+    "baseline": "4e89b9e36a293da10d848ade694f14fbcc6e1dd90fbe2b0150c98fc1f526d24f",
+    "candidate": "85f7082f333b0fc9dabc9777d817ece0c4a594b65928831ffe49e7fb528ca1a1"
+  },
+  "rows": [
+    {
+      "frames": 37,
+      "p50": 150,
+      "p95": 366.6999999999989,
+      "draw_p50": 4.100000023841858,
+      "draw_p95": 16,
+      "heap": 13435327,
+      "stats": {
+        "time": 0.06416700000000004,
+        "draw_calls": 9,
+        "triangles": 15138,
+        "tiles": 1147,
+        "pieces": 6,
+        "effects": 3,
+        "geometries": 10,
+        "textures": 0
+      },
+      "tree": "baseline",
+      "mode": "full",
+      "elapsed_seconds": 7.96610270999372,
+      "gpu": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    },
+    {
+      "frames": 74,
+      "p50": 83.40000000000146,
+      "p95": 133.3000000000011,
+      "draw_p50": 4.5999999940395355,
+      "draw_p95": 13.400000005960464,
+      "render_p95": 11.5,
+      "shell_p95": 0.7999999821186066,
+      "status_p95": 6.200000017881393,
+      "heap": 19607793,
+      "stats": {
+        "time": 0.0971610000000001,
+        "draw_calls": 11,
+        "triangles": 1452,
+        "tiles": 2,
+        "pieces": 6,
+        "effects": 3,
+        "geometries": 12,
+        "textures": 1,
+        "terrain_revision": 3,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 3,
+        "preview_cells": 0,
+        "tails": 3
+      },
+      "tree": "candidate",
+      "mode": "full",
+      "elapsed_seconds": 7.096526745008305,
+      "gpu": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    },
+    {
+      "frames": 75,
+      "p50": 83.29999999999927,
+      "p95": 299.90000000000146,
+      "draw_p50": 2.2999999821186066,
+      "draw_p95": 15,
+      "render_p95": 14.099999994039536,
+      "shell_p95": 0.9000000059604645,
+      "status_p95": 4.300000011920929,
+      "heap": 18726451,
+      "stats": {
+        "time": 0.08149899999999999,
+        "draw_calls": 11,
+        "triangles": 1452,
+        "tiles": 2,
+        "pieces": 6,
+        "effects": 3,
+        "geometries": 12,
+        "textures": 1,
+        "terrain_revision": 3,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 3,
+        "preview_cells": 0,
+        "tails": 3
+      },
+      "tree": "candidate",
+      "mode": "full",
+      "elapsed_seconds": 7.146040455001639,
+      "gpu": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    },
+    {
+      "frames": 45,
+      "p50": 150,
+      "p95": 183.39999999999964,
+      "draw_p50": 2.600000023841858,
+      "draw_p95": 6.5,
+      "heap": 13968029,
+      "stats": {
+        "time": 0.07316600000000005,
+        "draw_calls": 9,
+        "triangles": 15138,
+        "tiles": 1147,
+        "pieces": 6,
+        "effects": 3,
+        "geometries": 10,
+        "textures": 0
+      },
+      "tree": "baseline",
+      "mode": "full",
+      "elapsed_seconds": 7.34676834900165,
+      "gpu": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    },
+    {
+      "frames": 91,
+      "p50": 83.29999999999927,
+      "p95": 83.40000000000146,
+      "draw_p50": 2.5999999940395355,
+      "draw_p95": 6.699999988079071,
+      "render_p95": 5.9000000059604645,
+      "shell_p95": 1.5,
+      "status_p95": 4.9000000059604645,
+      "heap": 20667517,
+      "stats": {
+        "time": 0.09949399999999993,
+        "draw_calls": 9,
+        "triangles": 1398,
+        "tiles": 2,
+        "pieces": 6,
+        "effects": 0,
+        "geometries": 12,
+        "textures": 1,
+        "terrain_revision": 3,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 3,
+        "preview_cells": 0,
+        "tails": 0
+      },
+      "tree": "candidate",
+      "mode": "reduced-motion",
+      "elapsed_seconds": 7.123964083002647,
+      "gpu": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    },
+    {
+      "frames": 91,
+      "p50": 83.20000000000073,
+      "p95": 100,
+      "draw_p50": 2.600000023841858,
+      "draw_p95": 6.200000017881393,
+      "render_p95": 5.5,
+      "shell_p95": 2.5999999940395355,
+      "status_p95": 3.0999999940395355,
+      "heap": 19666967,
+      "stats": {
+        "time": 0.10899600000000002,
+        "draw_calls": 10,
+        "triangles": 1452,
+        "tiles": 2,
+        "pieces": 6,
+        "effects": 3,
+        "geometries": 12,
+        "textures": 1,
+        "terrain_revision": 3,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 3,
+        "preview_cells": 0,
+        "tails": 3
+      },
+      "tree": "candidate",
+      "mode": "card-closed",
+      "elapsed_seconds": 7.14230010099709,
+      "gpu": {
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)"
+      }
+    }
+  ]
+}

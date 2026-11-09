@@ -6,9 +6,9 @@ const base={verified:true,fresh:true,operationalFresh:true,healthy:true,advancin
 const status=override=>experienceStatus({...base,...override});
 test('UX-06 precedence distinguishes producer, verification, delivery and presentation',()=>{
  assert.equal(status({live:false}).label,'Replay · offline');assert.match(status({live:false}).detail,/not IC-certified/);assert.equal(status({live:false,trust:'certificate'}).label,'Verified recording');
- assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Waiting for next update');
+ assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Rendering on-chain activity ...');
  const slow={...base.operational,run:{...base.operational.run,pace:{mode:'Trickle',supported_milli:10,admission_open:true}}};
- assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Waiting for next update · slow mode');
+ assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Rendering on-chain activity ...');
  assert.equal(status({operational:slow,phase:'ERROR'}).label,'Unable to verify game');
  assert.equal(status({operational:slow,fresh:false}).label,'Reconnecting');
  const protectedRun={...slow,run:{...slow.run,pace:{mode:'ReserveProtection',admission_open:false}}};

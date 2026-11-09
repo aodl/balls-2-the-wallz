@@ -6,7 +6,7 @@ import {seedPatch,beginSpawn,spawnStep}from '../../packages/kernels/b2z/spawn.mj
 import {encodeCanonical,decodeCanonical}from '@dtr/timeline-runtime/runtime/canonical';import {sha256}from '@dtr/timeline-runtime/runtime/seal';
 import{torusCases,world,ball}from '../scenarios/b2z-torus.mjs';import{stageTorusMigration}from '../../packages/kernels/b2z/migration.mjs';
 import{B2zView,snapshot,prepareDerivedSegment}from '../../apps/b2z-observer/model.mjs';import{projectAnimationEvents}from '../../packages/kernels/b2z/animation-projection.mjs';
-import{Camera}from '../../apps/b2z-observer/camera.mjs';
+import{Camera,polygonArea}from '../../apps/b2z-observer/camera.mjs';
 export function run(v,budgets=[512]){let c=new B2zCursor(encodeWorld(v.world),v.inputs,v.context),i=0,work=0;while(c.phase!=='done'){work+=c.step(budgets[i++%budgets.length]).used;if(i%13===0){const b=c.snapshot();c=B2zCursor.restore(b,sha256(b));}assert(i<100000);}return{raw:c.result(),work};}
 for(const v of torusCases())test(`torus: ${v.name}, exact interrupted replay and presentation`,()=>{
  const a=run(v,[512]),b=run(v,[7,31,127]);assert.deepEqual(a.raw,b.raw);
@@ -48,8 +48,9 @@ test('migration preserves players, motion, payment totals, scores and source bou
  assert.equal(result.transition.source_cursor,39526412n);assert.equal(result.transition.new_identity.source_id,boundary.identity.source_id);
  assert.notEqual(TORUS_IDENTITY.rules_hash,PRELAUNCH_IDENTITY.rules_hash);assert.notEqual(TORUS_IDENTITY.schema_hash,PRELAUNCH_IDENTITY.schema_hash);
 });
-test('toroidal camera picks, repeated copies and minimap seam outlines share one world',()=>{
- const c=new Camera();c.configure(32,32,1000,600,true);c.zoom(5);c.centre(31.8,31.8);assert.equal(c.cell(...Object.values(c.screen(32.25,32.25))),0);assert.equal(c.minimapRects().length,4);assert(c.copies().length<=4);
+test('toroidal camera picks, nonduplicating fragments and exact minimap seam polygons share one world',()=>{
+ const c=new Camera();c.configure(32,32,1000,600,true);c.zoom(5);c.centre(31.8,31.8);assert.equal(c.cell(...Object.values(c.screen(32.25,32.25))),0);// UX-12 supersedes the old world-axis bounding rectangles with clipped footprints.
+ const polygons=c.minimapPolygons();assert.equal(polygons.length,4);assert.ok(polygons.flat().every(p=>p.x>=-1e-9&&p.x<=32+1e-9&&p.y>=-1e-9&&p.y<=32+1e-9));assert.ok(Math.abs(polygons.reduce((n,p)=>n+polygonArea(p),0)-1000*600*Math.sqrt(3)/c.scale**2)<1e-6);assert(c.copies().length<=4);
 });
 
 for(const version of [6,7])test(`v${version} observer admits only its bound v4 rules/schema and applies heading at the playback event`,async()=>{

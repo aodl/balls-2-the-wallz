@@ -6,7 +6,7 @@ export function cannonReference(world,config){
     const playerAt=cell=>{const id=ownerAt(cell);return world.version===6?(id===0?0:world.playability.territories.find(r=>r.id===id)?.player):id;};
     const balls=world.balls.filter(b=>b.owner===player&&(world.version!==6||ownerAt(b.cell)===region)).length;
     const owned_count=world.version>=5?(world.ownership.counts.find(n=>n.owner===region)?.cells??0):world.cells.filter(owner=>owner===c.id).length;
-    return {id:c.id,account:c.account,cell:c.cell,balls,
+    return {id:c.id,account:c.account,cell:c.cell,heading:c.heading,balls,
       next_ball_e8s:balls>=(world.version===6?config.max_purchase_balls_per_island:config.max_per_cannon)||world.balls.length>=config.max_balls?null:config.ball_base_e8s*BigInt(world.version===6?Math.max(1,balls):balls)**2n,
       owned_count,owned_cells:world.version>=5?[c.cell]:world.cells.flatMap((owner,n)=>owner===c.id?[n]:[]),owns:cell=>Number.isSafeInteger(cell)&&cell>=0&&cell<world.width*world.height&&playerAt(cell)===player,...(life?{island_id:region,player_id:player,dormant:life.deadline_ns!==undefined,deadline_ns:life.deadline_ns}:{})};
   });

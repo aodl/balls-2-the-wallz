@@ -58,13 +58,13 @@ def verify_torus_scene(page,context,out,record,report,save):
     assert 'wraparound' in world_text(page)
     select_cannon(page);choose_action(page,'ball');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
-    page.locator('#angle-degrees').fill('225');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
+    page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
     choose_action(page,'move');page.locator('#move-cell').fill('0')
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
     point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
     assert page.locator('#action-view').is_visible()
     assert page.locator('#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
-    page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 overview replaces the compulsory minimap
+    page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
     page.screenshot(path=str(out/'torus-seam-move.png'));record('corner-seam-camera-hit-test-prepares-the-underlying-cell-once')
     # Native touch pan and pinch, preserving the numeric aim alternative.
     cdp=context.new_cdp_session(page);old=page.evaluate('__b2zCamera.scale')
@@ -145,12 +145,12 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     select_cannon(page);choose_action(page,'move')
     # Numeric entry and exact board picking avoid 1,000,000 DOM options.
     assert page.locator('#move-cell').get_attribute('type')=='number'
-    # Move is selected directly through the right rail.
+    # Move is selected from the cannon context.
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
     assert page.locator('#move-cell').input_value()=='0'
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
-    page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 overview replaces the compulsory minimap
+    page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
     page.screenshot(path=str(out/'million-seam-pick.png'))
     record('million-cell-culling-seam-picking-and-sparse-move-selector')
     page.locator('#board').focus();page.keyboard.press('Home')
@@ -508,6 +508,7 @@ def main():
             record('certified-backend-receiving-account-and-price-identities')
             page.keyboard.press('Escape');identify_account(page,configuration['payer_account'])
             choose_action(page,'start')
+            page.locator('#angle-degrees').fill('167.15');review_instructions(page)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='1 ICP'
             assert page.locator('.hero,footer').count()==0
@@ -583,15 +584,16 @@ def main():
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
             assert page.locator('#panel-title').inner_text().startswith('Fire')
-            # UX-12: invert the isometric ground plane before calculating headings.
+            # Player-centred UX-12: display angles are clockwise from screen up.
+            # Pointer capture lets the handle aim across the card without panning.
             import math
             for angle in [0,37.5,90,135,180,225,270,315,359.99]:
-                point=page.evaluate('(angle)=>{const s=__b2zExperience.session.referenceWorld,c=s.cannons.find(c=>c.id===__b2zTools.selection()),r=angle*Math.PI/180;return __b2zCamera.screen(c.cell%s.width+.5+Math.cos(r)*2,Math.floor(c.cell/s.width)+.5+Math.sin(r)*2);}',angle)
-                page.mouse.click(point['x'],point['y']);review_instructions(page)
-                assert abs(float(page.locator('#angle-degrees').input_value())-angle)<.03,(angle,page.locator('#angle-degrees').input_value())
-            # Numeric heading remains the keyboard alternative; pan/pinch are not aim gestures.
-            page.locator('#angle-degrees').fill('359.99');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 359.99'
-            page.locator('#angle-degrees').fill('37.5');review_instructions(page)
+                origin=page.evaluate('()=>{const w=__b2zExperience.session.referenceWorld,c=w.cannons.find(c=>c.id===__b2zTools.selection());return __b2zCamera.cellPoint(c.cell);}')
+                h=page.locator('#aim-handle').bounding_box();page.mouse.move(h['x']+22,h['y']+22);page.mouse.down();page.mouse.move(origin['sx']+math.sin(math.radians(angle))*90,origin['sy']-math.cos(math.radians(angle))*90,steps=3);page.mouse.up();review_instructions(page)
+                actual=float(page.locator('#angle-degrees').input_value());assert abs((actual-angle+180)%360-180)<.03,(angle,actual)
+            # Numeric heading remains the keyboard alternative; empty drag/pinch are camera gestures.
+            page.locator('#angle-degrees').fill('119.99');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 359.99'
+            page.locator('#angle-degrees').fill('167.15');review_instructions(page)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             record('UX-12-world-plane-heading-and-keyboard-alternative')
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
@@ -624,7 +626,7 @@ def main():
             assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
             cell=selected_cell(page);choose_action(page,'move')
             page.locator('#move-cell').fill(str(cell))
-            # Move is selected directly through the right rail.
+            # Move is selected from the cannon context.
             point=page.evaluate('(cell)=>__b2zCamera.screen(cell%16+.5,Math.floor(cell/16)+.5)',cell)
             page.mouse.click(point['x'],point['y'])
             assert page.locator('#move-cell').input_value()==str(cell)
@@ -685,9 +687,9 @@ def main():
             target=int(wait_file(page,out/'harness-upgrade-ready',90000))
             wait_until(page,lambda:page.locator('#transfer-controls').evaluate('(node)=>node.disabled') and page.locator('[data-copy="text"]').is_disabled(),20000)
             close_players(page);choose_action(page,'ball')
-            page.locator('#angle-degrees').fill('225');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
+            page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
             assert not page.locator('#angle-degrees').is_disabled()
-            page.locator('#angle-degrees').fill('37.5')
+            page.locator('#angle-degrees').fill('167.15')
             record('disconnected-local-aim-with-unavailable-payment-preparation')
             # Negative verification below also covers local aiming before authentication.
             page.keyboard.press('Escape');open_settings(page)

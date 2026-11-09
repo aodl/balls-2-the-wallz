@@ -1,0 +1,59 @@
+{
+  "at": "2026-11-08T20:47:21.492Z",
+  "anonymous": true,
+  "query_signature_verification": true,
+  "mainnet_root": true,
+  "urls": [
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state"
+  ],
+  "status": "AVAILABLE",
+  "value": {
+    "version": "18578",
+    "cycles": "2725822244065",
+    "settings": {
+      "status_visibility": {
+        "public": null
+      }
+    },
+    "idle_cycles_burned_per_day": "1876084387",
+    "module_hash": [
+      {
+        "0": 97,
+        "1": 42,
+        "2": 208,
+        "3": 208,
+        "4": 137,
+        "5": 198,
+        "6": 55,
+        "7": 243,
+        "8": 44,
+        "9": 209,
+        "10": 160,
+        "11": 80,
+        "12": 203,
+        "13": 185,
+        "14": 220,
+        "15": 1,
+        "16": 174,
+        "17": 98,
+        "18": 69,
+        "19": 20,
+        "20": 91,
+        "21": 150,
+        "22": 64,
+        "23": 8,
+        "24": 108,
+        "25": 0,
+        "26": 157,
+        "27": 189,
+        "28": 232,
+        "29": 168,
+        "30": 233,
+        "31": 72
+      }
+    ],
+    "reserved_cycles": "0",
+    "backend": "s5ir5-gqaaa-aaaas-amyna-cai"
+  }
+}

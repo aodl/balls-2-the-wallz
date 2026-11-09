@@ -1,3 +1,18 @@
+# Player-centred candidate — source qualification in progress
+
+The reviewed arena correction is being frozen and qualified under source-only
+publication authority. Production deployment and live setting changes are not
+part of this continuation. The paid backend and currently served frontend remain
+unchanged. [Candidate report](evidence/B2Z/player-centred-release/REPORT.md) records
+the exact source/artifacts, visual review and six substantive CI conclusions;
+[prior dirty development evidence](evidence/B2Z/player-centred/REPORT.md) is retained.
+
+The optional cycles reader now has scoped cancellation and honest recovery/status
+labels. The [UX contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md) explicitly requires all
+six exact-source CI gates and visual review before separate production approval.
+
+---
+
 # Minimal isometric B2Z frontend — live and verified
 
 The completed frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.

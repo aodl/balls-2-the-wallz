@@ -1,5 +1,6 @@
 """HTTP-serving behavior, independent of Chromium's environment navigation policy."""
 import concurrent.futures, hashlib, http.client, http.server, json, tempfile, threading, unittest
+from html.parser import HTMLParser
 from pathlib import Path
 from unittest.mock import patch
 import serve_observer
@@ -18,7 +19,16 @@ class ObserverServerTests(unittest.TestCase):
         r=c.getresponse();result=(r.status,dict(r.getheaders()),r.read());c.close();return result
     def test_entry(self):
         status,headers,body=self.get('/apps/b2z-observer/')
-        self.assertEqual(status,200);self.assertIn(b'Verifying game',body);self.assertIn(b'id="transfer-controls" disabled',body) # UX-01/05 initial trust is undecided, not a hard-coded replay claim
+        self.assertEqual(status,200);self.assertIn(b'Verifying game',body)
+        # UX-01/05/11: trust starts undecided; attribute order is not a contract.
+        controls=[]
+        class Fields(HTMLParser):
+            def handle_starttag(self,tag,attrs):
+                row=dict(attrs)
+                if tag=='fieldset' and row.get('id')=='transfer-controls':controls.append(row)
+        Fields().feed(body.decode('utf-8'))
+        self.assertEqual(len(controls),1);self.assertIn('disabled',controls[0])
+        self.assertEqual(controls[0]['aria-describedby'],'payment-risk')
         self.assertIn("frame-ancestors 'none'",headers['Content-Security-Policy'])
         self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
     def test_module_mime(self):
