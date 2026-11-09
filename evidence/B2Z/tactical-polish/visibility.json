@@ -1,0 +1,54 @@
+{
+  "status": "BLOCKED",
+  "reason": "Browser reports both tabs visible; no real hidden lifecycle can be asserted",
+  "verified_before": {
+    "state": {
+      "phase": "BUFFERING",
+      "playhead": 4428,
+      "available": 4428,
+      "buffer": 0,
+      "rate": 1
+    },
+    "root": "27e52a211d56fc1f58226ca1140a2fdbfdf9628593b2435e9739963e9307a2ea",
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "subaccount": 0,
+      "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+    },
+    "proof": {
+      "mode": "certificate-verifier",
+      "network": "ic",
+      "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "version": 8,
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+      "format": null,
+      "head": "4431",
+      "root": "27e52a211d56fc1f58226ca1140a2fdbfdf9628593b2435e9739963e9307a2ea",
+      "certificate_time_ns": "1794263375588653111"
+    },
+    "heap": 21700000,
+    "status": {
+      "kind": "waiting",
+      "label": "Rendering on-chain activity ...",
+      "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+      "canPrepare": true
+    }
+  },
+  "events": [],
+  "no_throttling_override": true
+}

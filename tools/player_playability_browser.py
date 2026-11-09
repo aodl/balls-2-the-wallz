@@ -98,12 +98,25 @@ def verify_player_controls(page,width,height):
  assert page.locator('#workspace').is_visible();assert not page.locator('#workspace').evaluate('(n)=>n.inert')
  close();page.locator('#minimap').focus();page.keyboard.press('ArrowLeft');page.wait_for_timeout(300);assert page.evaluate('fixture.sameClock()')and page.evaluate('fixture.summary().time')>start
  print('eligibility and clock PASS',width,flush=True)
+ verify_pan_ownership(page,width,height)
  # The centre state comes from the resolver, and never masks pause/error/idle.
  page.evaluate('fixture.render("idle","initial")')
  base='({phase:"STALLED",live:true,verified:true,fresh:true,healthy:true,operationalFresh:true,advancing:false,operational:{run:{running:true,last_error:[],pace:{mode:"Trickle",supported_milli:10,admission_open:true}},source:{binding_checked:true,last_error:[]}}})'
  page.evaluate('fixture.status('+base+')');page.wait_for_timeout(550);page.evaluate('fixture.status('+base+')');assert page.locator('#motion-wait').is_visible();expect(page.locator('#waiting-label')).to_have_text('Rendering on-chain activity ...')
  page.evaluate('fixture.status({...'+base+',phase:"ERROR",failureKind:"verification"})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Unable to verify game')
  page.reload();page.wait_for_function('()=>!!window.fixture')
+
+def verify_pan_ownership(page,width,height):
+ """UX-02/04/12: real captured drag, cursor threshold and continuous seam pan."""
+ import time
+ if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
+ page.evaluate('fixture.render("wrap","initial");fixture.camera.scale=48;fixture.camera.frameCell(999999);fixture.draw()')
+ before=page.evaluate('fixture.summary().camera');x,y=width*.4,height*.35
+ page.mouse.move(x,y);page.mouse.down();down=page.locator('#board').get_attribute('data-cursor');assert down!='grabbing'
+ start=time.monotonic();page.mouse.move(x+80,y+10);page.wait_for_function('()=>document.getElementById("board").dataset.cursor==="grabbing"',timeout=2000);latency=(time.monotonic()-start)*1000
+ dragging=page.locator('#board').evaluate('(n)=>getComputedStyle(n).cursor');assert dragging=='grabbing';after=page.evaluate('fixture.summary().camera');page.mouse.up()
+ assert before!=after and after[1]<10,after
+ return {'cursor_at_press':down,'cursor_during_drag':dragging,'before':before,'after':after,'automation_observed_pan_response_ms':latency,'latency_scope':'One CDP/renderer observed response, includes automation scheduling; not native hardware latency'}
 
 def verify_saved_world_heading(page):
  """Stored angle metadata is canonical world space, never a new display angle."""

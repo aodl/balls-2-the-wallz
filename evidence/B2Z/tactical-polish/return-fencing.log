@@ -1,0 +1,26 @@
+✔ UX-12 diamond matches ground projection, inverse and transparent corners (5.592365ms)
+✔ UX-02/12 shared picking consumes illegal placement without retargeting (18.658018ms)
+✔ UX-04 hidden due-time work is quiet, single-flight, resumes and never resurrects (35.392913ms)
+✔ UX-04/05 warm return preserves usable slow coverage and bounds playback lag (2.696331ms)
+✔ UX-04 scoped observation deadline reaches the underlying fetch; abort never changes global fetch (15.39508ms)
+✔ UX-12 reflected tails retain bounded real path and expire by wall time at varied sampling rates (7.494788ms)
+✔ UX-04 actual SDK observation query cancellation reaches its pending transport (773.801532ms)
+✔ UX-06 delayed replies cannot relabel old certificates or pre-hide health as fresh (5.505264ms)
+✔ UX-04 fresh slow-tier information rebases a warm backlog without requiring new coverage (0.254003ms)
+✔ UX-06 precedence distinguishes producer, verification, delivery and presentation (16.771396ms)
+✔ UX-04/11 workers are independently single-flight, visibility-safe and fenced on teardown (29.786548ms)
+✔ UX-12 effects use displayed displacement, unwrap seams and clear discontinuities (8.295197ms)
+✔ UX-06 network failure is reconnecting; verification failure never leaves copying enabled (0.362904ms)
+✔ UX-05 one complete Trickle interval starts the actual clock (9.710713ms)
+✔ UX-05 one complete Lifeline interval starts the actual clock (0.561006ms)
+✔ UX-05 one complete Survival interval starts the actual clock (0.487106ms)
+✔ UX-04 action planning never resets live presentation (1.558318ms)
+✔ UX-11 reduced motion never initializes live playback paused (0.382005ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2645.596881

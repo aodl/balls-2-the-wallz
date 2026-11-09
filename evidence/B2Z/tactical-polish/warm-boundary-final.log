@@ -1,0 +1,20 @@
+✔ UX-12 diamond matches ground projection, inverse and transparent corners (21.95476ms)
+✔ UX-02/12 shared picking consumes illegal placement without retargeting (8.037295ms)
+✔ UX-04 hidden due-time work is quiet, single-flight, resumes and never resurrects (63.278449ms)
+✔ UX-04/05 warm return preserves usable slow coverage and bounds playback lag (0.82541ms)
+✔ UX-04 scoped observation deadline reaches the underlying fetch; abort never changes global fetch (24.280387ms)
+✔ UX-12 reflected tails retain bounded real path and expire by wall time at varied sampling rates (19.275328ms)
+✔ UX-04 actual SDK observation query cancellation reaches its pending transport (611.008332ms)
+✔ UX-05 one complete Trickle interval starts the actual clock (13.005852ms)
+✔ UX-05 one complete Lifeline interval starts the actual clock (0.581506ms)
+✔ UX-05 one complete Survival interval starts the actual clock (3.376739ms)
+✔ UX-04 action planning never resets live presentation (9.709612ms)
+✔ UX-11 reduced motion never initializes live playback paused (0.462705ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4511.34346

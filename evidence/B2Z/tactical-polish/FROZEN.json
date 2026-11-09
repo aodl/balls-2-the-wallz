@@ -1,0 +1,11 @@
+{
+  "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+  "javascript_sha256": "f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde",
+  "complete_manifest_sha256": "a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2",
+  "file_count": 16,
+  "public_file_count": 15,
+  "source_dirty": false,
+  "production_policy_unchanged": true,
+  "artifact_directory": ".work/tactical-polish/frozen-final/frontend",
+  "qualification": "PENDING, no deployment authority"
+}

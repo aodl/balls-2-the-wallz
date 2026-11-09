@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_tactical_grid.py", line 21, in <module>
+    assert mean<=1.5 and large<=.025,rows[-1]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'dpr': 1, 'scale': 9.37, 'at': [0, 500], 'mean_abs_rgba': 0.626220703125, 'fraction_gt8': 0.03125, 'interior_sample': [79, 98, 109, 255, 69, 85, 95, 255, 64, 79, 88, 255, 65, 80, 90, 255, 74, 91, 102, 255, 82, 102, 114, 255, 83, 103, 115, 255, 83, 103, 115, 255], 'seam_sample': [79, 98, 109, 255, 69, 85, 95, 255, 64, 79, 88, 255, 65, 80, 90, 255, 74, 91, 102, 255, 82, 102, 114, 255, 83, 103, 115, 255, 83, 103, 115, 255], 'state': {'camera': [0, 500, 9.37], 'stats': {'time': 0, 'draw_calls': 1, 'triangles': 4, 'tiles': 2, 'pieces': 0, 'effects': 0, 'geometries': 19, 'textures': 1, 'terrain_revision': 2, 'terrain_bytes': 4000000, 'terrain_dirty_rows': 252, 'preview_cells': 0, 'tails': 0}, 'surface': {'owner': 0, 'rgba': [83, 103, 115, 0], 'revision': 2, 'previews': []}}}

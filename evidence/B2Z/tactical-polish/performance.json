@@ -1,0 +1,409 @@
+{
+  "environment": "ANGLE/SwiftShader; same local host; no video in measured windows; contention not isolated",
+  "windows_seconds": 5,
+  "workloads": {
+    "baseline": [
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "metrics": {
+          "frames": 295,
+          "p50": 16.699999999999818,
+          "p95": 16.799999999999272,
+          "draw_p50": 0.30000001192092896,
+          "draw_p95": 1.899999976158142,
+          "render_p95": 0.30000001192092896,
+          "shell_p95": 0.4000000059604645,
+          "status_p95": 0,
+          "heap": 16100000,
+          "stats": {
+            "time": 0,
+            "draw_calls": 7,
+            "triangles": 1350,
+            "tiles": 2,
+            "pieces": 6,
+            "effects": 0,
+            "geometries": 11,
+            "textures": 1,
+            "terrain_revision": 2,
+            "terrain_bytes": 4000000,
+            "terrain_dirty_rows": 256,
+            "preview_cells": 0,
+            "tails": 0
+          },
+          "cpu_task_seconds": 0.49598800000000004,
+          "moving": {
+            "frames": 18,
+            "p50": 266.6999999999989,
+            "p95": 1083.2999999999993,
+            "draw_p50": 12.799999982118607,
+            "draw_p95": 89.5,
+            "render_p95": 87.40000000596046,
+            "shell_p95": 7.5999999940395355,
+            "status_p95": 9.599999994039536,
+            "heap": 16100000,
+            "stats": {
+              "time": 0.18166000000000015,
+              "draw_calls": 9,
+              "triangles": 472,
+              "tiles": 1,
+              "pieces": 2,
+              "effects": 1,
+              "geometries": 11,
+              "textures": 1,
+              "terrain_revision": 3,
+              "terrain_bytes": 4000000,
+              "terrain_dirty_rows": 256,
+              "preview_cells": 0,
+              "tails": 1
+            },
+            "cpu_task_seconds": 5.0718700000000005
+          }
+        },
+        "renderer": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1
+        },
+        "errors": [],
+        "video": null
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "metrics": {
+          "frames": 296,
+          "p50": 16.699999999999818,
+          "p95": 16.800000000000182,
+          "draw_p50": 0.30000001192092896,
+          "draw_p95": 2.5,
+          "render_p95": 0.5,
+          "shell_p95": 1,
+          "status_p95": 0,
+          "heap": 16100000,
+          "stats": {
+            "time": 0,
+            "draw_calls": 7,
+            "triangles": 1350,
+            "tiles": 2,
+            "pieces": 6,
+            "effects": 0,
+            "geometries": 11,
+            "textures": 1,
+            "terrain_revision": 2,
+            "terrain_bytes": 4000000,
+            "terrain_dirty_rows": 256,
+            "preview_cells": 0,
+            "tails": 0
+          },
+          "cpu_task_seconds": 0.537636,
+          "moving": {
+            "frames": 42,
+            "p50": 116.60000000000036,
+            "p95": 150,
+            "draw_p50": 12.400000005960464,
+            "draw_p95": 22.5,
+            "render_p95": 22.400000005960464,
+            "shell_p95": 11.099999994039536,
+            "status_p95": 5.800000011920929,
+            "heap": 16100000,
+            "stats": {
+              "time": 0.413034732328,
+              "draw_calls": 9,
+              "triangles": 474,
+              "tiles": 1,
+              "pieces": 2,
+              "effects": 2,
+              "geometries": 11,
+              "textures": 1,
+              "terrain_revision": 3,
+              "terrain_bytes": 4000000,
+              "terrain_dirty_rows": 256,
+              "preview_cells": 0,
+              "tails": 1
+            },
+            "cpu_task_seconds": 4.8904749999999995
+          }
+        },
+        "renderer": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1
+        },
+        "errors": [],
+        "video": null
+      },
+      {
+        "viewport": [
+          320,
+          640
+        ],
+        "metrics": {
+          "frames": 286,
+          "p50": 16.699999999999818,
+          "p95": 16.800000000000182,
+          "draw_p50": 0.30000001192092896,
+          "draw_p95": 1.300000011920929,
+          "render_p95": 0.20000001788139343,
+          "shell_p95": 0.5999999940395355,
+          "status_p95": 0,
+          "heap": 18200000,
+          "stats": {
+            "time": 0,
+            "draw_calls": 7,
+            "triangles": 1350,
+            "tiles": 2,
+            "pieces": 6,
+            "effects": 0,
+            "geometries": 11,
+            "textures": 1,
+            "terrain_revision": 2,
+            "terrain_bytes": 4000000,
+            "terrain_dirty_rows": 256,
+            "preview_cells": 0,
+            "tails": 0
+          },
+          "cpu_task_seconds": 0.447972,
+          "moving": {
+            "frames": 65,
+            "p50": 66.70000000000073,
+            "p95": 100.10000000000036,
+            "draw_p50": 8.900000005960464,
+            "draw_p95": 19.80000001192093,
+            "render_p95": 17.80000001192093,
+            "shell_p95": 5.5,
+            "status_p95": 2.800000011920929,
+            "heap": 18200000,
+            "stats": {
+              "time": 0.459531336212,
+              "draw_calls": 9,
+              "triangles": 474,
+              "tiles": 1,
+              "pieces": 2,
+              "effects": 2,
+              "geometries": 11,
+              "textures": 1,
+              "terrain_revision": 3,
+              "terrain_bytes": 4000000,
+              "terrain_dirty_rows": 256,
+              "preview_cells": 0,
+              "tails": 1
+            },
+            "cpu_task_seconds": 4.872361
+          }
+        },
+        "renderer": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1
+        },
+        "errors": [],
+        "video": null
+      }
+    ],
+    "candidate": [
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "metrics": {
+          "frames": 300,
+          "p50": 16.699999999999818,
+          "p95": 16.800000000000182,
+          "draw_p50": 0.3999999761581421,
+          "draw_p95": 2.699999988079071,
+          "render_p95": 0.29999998211860657,
+          "shell_p95": 2,
+          "status_p95": 0,
+          "heap": 18200000,
+          "stats": {
+            "time": 0,
+            "draw_calls": 9,
+            "triangles": 1510,
+            "tiles": 2,
+            "pieces": 6,
+            "effects": 0,
+            "geometries": 20,
+            "textures": 1,
+            "terrain_revision": 2,
+            "terrain_bytes": 4000000,
+            "terrain_dirty_rows": 256,
+            "preview_cells": 0,
+            "tails": 0
+          },
+          "cpu_task_seconds": 0.485825,
+          "moving": {
+            "frames": 22,
+            "p50": 283.40000000000146,
+            "p95": 450,
+            "draw_p50": 16.69999998807907,
+            "draw_p95": 27,
+            "render_p95": 26.5,
+            "shell_p95": 4.5,
+            "status_p95": 1.5,
+            "heap": 18200000,
+            "stats": {
+              "time": 0.2216600000000002,
+              "draw_calls": 12,
+              "triangles": 538,
+              "tiles": 1,
+              "pieces": 2,
+              "effects": 1,
+              "geometries": 20,
+              "textures": 1,
+              "terrain_revision": 3,
+              "terrain_bytes": 4000000,
+              "terrain_dirty_rows": 256,
+              "preview_cells": 0,
+              "tails": 1
+            },
+            "cpu_task_seconds": 5.147838999999999
+          }
+        },
+        "renderer": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1
+        },
+        "errors": [],
+        "video": null
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "metrics": {
+          "frames": 304,
+          "p50": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "draw_p50": 0.30000001192092896,
+          "draw_p95": 0.5999999940395355,
+          "render_p95": 0.20000001788139343,
+          "shell_p95": 0.30000001192092896,
+          "status_p95": 0,
+          "heap": 18200000,
+          "stats": {
+            "time": 0,
+            "draw_calls": 9,
+            "triangles": 1510,
+            "tiles": 2,
+            "pieces": 6,
+            "effects": 0,
+            "geometries": 20,
+            "textures": 1,
+            "terrain_revision": 2,
+            "terrain_bytes": 4000000,
+            "terrain_dirty_rows": 256,
+            "preview_cells": 0,
+            "tails": 0
+          },
+          "cpu_task_seconds": 0.389333,
+          "moving": {
+            "frames": 56,
+            "p50": 83.39999999999964,
+            "p95": 166.60000000000036,
+            "draw_p50": 8.699999988079071,
+            "draw_p95": 18.700000017881393,
+            "render_p95": 16.599999994039536,
+            "shell_p95": 12.600000023841858,
+            "status_p95": 5.199999988079071,
+            "heap": 18200000,
+            "stats": {
+              "time": 0.4462618719960001,
+              "draw_calls": 12,
+              "triangles": 604,
+              "tiles": 1,
+              "pieces": 2,
+              "effects": 2,
+              "geometries": 20,
+              "textures": 1,
+              "terrain_revision": 3,
+              "terrain_bytes": 4000000,
+              "terrain_dirty_rows": 256,
+              "preview_cells": 0,
+              "tails": 3
+            },
+            "cpu_task_seconds": 4.942722
+          }
+        },
+        "renderer": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1
+        },
+        "errors": [],
+        "video": null
+      },
+      {
+        "viewport": [
+          320,
+          640
+        ],
+        "metrics": {
+          "frames": 307,
+          "p50": 16.699999999999818,
+          "p95": 16.799999999999272,
+          "draw_p50": 0.30000001192092896,
+          "draw_p95": 0.5,
+          "render_p95": 0.20000001788139343,
+          "shell_p95": 0.30000001192092896,
+          "status_p95": 0,
+          "heap": 18200000,
+          "stats": {
+            "time": 0,
+            "draw_calls": 9,
+            "triangles": 1510,
+            "tiles": 2,
+            "pieces": 6,
+            "effects": 0,
+            "geometries": 20,
+            "textures": 1,
+            "terrain_revision": 2,
+            "terrain_bytes": 4000000,
+            "terrain_dirty_rows": 256,
+            "preview_cells": 0,
+            "tails": 0
+          },
+          "cpu_task_seconds": 0.7082,
+          "moving": {
+            "frames": 50,
+            "p50": 100,
+            "p95": 133.39999999999964,
+            "draw_p50": 12.800000011920929,
+            "draw_p95": 28.600000023841858,
+            "render_p95": 28.400000005960464,
+            "shell_p95": 2.199999988079071,
+            "status_p95": 2.800000011920929,
+            "heap": 18200000,
+            "stats": {
+              "time": 0.431307216328,
+              "draw_calls": 12,
+              "triangles": 636,
+              "tiles": 1,
+              "pieces": 2,
+              "effects": 2,
+              "geometries": 20,
+              "textures": 1,
+              "terrain_revision": 3,
+              "terrain_bytes": 4000000,
+              "terrain_dirty_rows": 256,
+              "preview_cells": 0,
+              "tails": 4
+            },
+            "cpu_task_seconds": 4.94676
+          }
+        },
+        "renderer": {
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "dpr": 1
+        },
+        "errors": [],
+        "video": null
+      }
+    ]
+  },
+  "script_sha256": "e02307a6c67390774a2a31dbccfc0364a2f985fd498f35c90e2ea0d1f4006527",
+  "note": "Raw --baseline flag selects measurement-only UI path for both runs; fixture bytes distinguish baseline and candidate. Not hardware or production lifetime evidence.",
+  "candidate_fixture": "review-final/fixture.mjs; final renderer inputs"
+}

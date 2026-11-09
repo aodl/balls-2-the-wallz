@@ -1,0 +1,19 @@
+{
+  "cursor_at_press": "camera",
+  "cursor_during_drag": "grabbing",
+  "before": [
+    999.5,
+    999.5,
+    48
+  ],
+  "after": [
+    998.0663335164825,
+    0.42335612043768833,
+    48
+  ],
+  "automation_observed_pan_response_ms": 388.8576150056906,
+  "latency_scope": "One CDP/renderer observed response, includes automation scheduling; not native hardware latency",
+  "status": "PASS",
+  "scope": "Actual maintained pan regression, synthetic canonical torus; no IC/device/native-pointer-video claim",
+  "recording": "seam-pan.webm"
+}

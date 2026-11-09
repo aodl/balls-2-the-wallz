@@ -1,0 +1,15 @@
+{
+  "status": "NOT_RUN",
+  "reason": "Source not published: ordinary Git HTTPS push cannot obtain a username; no credential inspection or workaround",
+  "required_substantive_jobs": {
+    "Source conformance": "NOT_RUN",
+    "Native conformance": "NOT_RUN",
+    "Packaged DTR and clean consumers": "NOT_RUN",
+    "Runtime-lab Wasm": "NOT_RUN",
+    "Browser HTTP and Web Crypto": "NOT_RUN",
+    "S14 and million-cell installed-IC qualification": "NOT_RUN"
+  },
+  "production_inventory": "Informational; not qualification",
+  "last_observed_remote": "4f902870da894f34e83d288add3fd833e16c23a2",
+  "frozen_runtime_source": "031a8dfa0bbd797176fe52557ef8676dfc26451a"
+}

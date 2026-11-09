@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "scope": "UX-01..13 populated synthetic UI journeys; real HTTP/WebGL/Web Crypto, no IC or payment claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "screenshots": [
+        "1440x900-populated.png",
+        "1440x900-wallet.png",
+        "1440x900-waiting.png"
+      ],
+      "scope": "Actual application renderer/composer with synthetic canonical fixtures; seam waiting/resume at 100x disposable wall time; no IC certificate, transfer or physical-device claim.",
+      "recording": "1440-journey.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "screenshots": [
+        "390x844-populated.png",
+        "390x844-wallet.png",
+        "390x844-waiting.png"
+      ],
+      "scope": "Actual application renderer/composer with synthetic canonical fixtures; seam waiting/resume at 100x disposable wall time; no IC certificate, transfer or physical-device claim.",
+      "recording": "390-journey.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "screenshots": [
+        "320x640-populated.png",
+        "320x640-wallet.png",
+        "320x640-waiting.png"
+      ],
+      "scope": "Actual application renderer/composer with synthetic canonical fixtures; seam waiting/resume at 100x disposable wall time; no IC certificate, transfer or physical-device claim.",
+      "recording": "320-journey.webm"
+    }
+  ],
+  "errors": [],
+  "fixture_sha256": "3fcb4589a4a0164fdde20c54480889f9f0d33223fcecfb59445a22d164416f21",
+  "timing": "100x disposable visual review; not production cadence or performance measurement"
+}

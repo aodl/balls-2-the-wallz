@@ -51,4 +51,4 @@ for actual renderer/interaction capture and `verify_tactical_grid.py` for shader
 pixel comparisons. `verify_warm_browser.py` requires actual tab visibility
 transitions and records unsupported headless environments as BLOCKED, separate
 from controlled hidden scheduling. It never spoofs OS hiding.
-Do not deploy this next candidate without new release-specific approval.
+Each frontend publication requires release-specific production approval.

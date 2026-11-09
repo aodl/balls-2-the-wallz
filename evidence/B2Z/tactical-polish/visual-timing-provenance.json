@@ -1,0 +1,6 @@
+{
+  "scope": "Visual review only, actual current fixture/application modules; not production timing",
+  "change": "Only capture playbackScale 20 -> 100; functional 20x assertions unchanged and already passing",
+  "original_helper_sha256": "7fd9b37d9521e00389a3d300ff62684815a1d3bb69f2d547411dce541644094a",
+  "visual_helper_sha256": "cf4d8b6cd8dd9c3670c940ce96495000c513a30a38d1eff8144bde138a4a9ecd"
+}

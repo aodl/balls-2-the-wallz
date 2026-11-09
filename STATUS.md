@@ -10,6 +10,14 @@ Focused frontend/payment/security checks pass; the first broad source run timed 
 in node-tests/source-structure and is not qualified. All six exact-source hosted
 jobs remain required. [Consolidated candidate evidence and limitations](evidence/B2Z/tactical-polish/REPORT.md).
 
+Frozen runtime source is `031a8dfa0bbd797176fe52557ef8676dfc26451a`, from a clean isolated
+worktree. Sixteen files include the new local cursor; complete manifest is in the
+report. 266 focused tests, 96 GPU seam comparisons, HTTP/Web Crypto and actual
+frozen-bundle read-only IC/copy checks pass. Hosted source publication/CI is blocked
+by unavailable Git HTTPS credentials; all six substantive gates remain NOT_RUN.
+Real hidden-tab review is unsupported on this headless host. Software moving-scene
+frame spikes remain documented; no hardware smoothness or production approval claim.
+
 Earlier release entries below retain their historical status.
 
 ---

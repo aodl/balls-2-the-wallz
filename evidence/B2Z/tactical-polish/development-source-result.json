@@ -1,0 +1,139 @@
+{
+  "overall": "FAIL",
+  "git_revision": "4f902870da894f34e83d288add3fd833e16c23a2",
+  "scope": "Unfrozen development attempt; not clean-source qualification",
+  "checks": [
+    {
+      "id": "b2z-naming-audit",
+      "status": "PASS",
+      "elapsed_seconds": 10.573
+    },
+    {
+      "id": "playability-policy",
+      "status": "PASS",
+      "elapsed_seconds": 0.384
+    },
+    {
+      "id": "playability-state-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 0.632
+    },
+    {
+      "id": "playability-purchase-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 1.143
+    },
+    {
+      "id": "playability-lifecycle-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 0.629
+    },
+    {
+      "id": "playability-island-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 0.784
+    },
+    {
+      "id": "playability-capture-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 0.979
+    },
+    {
+      "id": "playability-rules-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 37.104
+    },
+    {
+      "id": "entry-rules-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 15.71
+    },
+    {
+      "id": "adjacent-cannon-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 11.756
+    },
+    {
+      "id": "observer-recordings",
+      "status": "PASS",
+      "elapsed_seconds": 14.115
+    },
+    {
+      "id": "protocol-fixtures",
+      "status": "PASS",
+      "elapsed_seconds": 1.585
+    },
+    {
+      "id": "life-reference",
+      "status": "PASS",
+      "elapsed_seconds": 0.796
+    },
+    {
+      "id": "b2z-reference",
+      "status": "PASS",
+      "elapsed_seconds": 1.497
+    },
+    {
+      "id": "spawn-reference",
+      "status": "PASS",
+      "elapsed_seconds": 2.761
+    },
+    {
+      "id": "impact-reference",
+      "status": "PASS",
+      "elapsed_seconds": 0.431
+    },
+    {
+      "id": "b2z-full-traces",
+      "status": "PASS",
+      "elapsed_seconds": 2.246
+    },
+    {
+      "id": "numeric-reference",
+      "status": "PASS",
+      "elapsed_seconds": 0.527
+    },
+    {
+      "id": "coordinator-vectors",
+      "status": "PASS",
+      "elapsed_seconds": 3.381
+    },
+    {
+      "id": "observation-v6-reference",
+      "status": "PASS",
+      "elapsed_seconds": 0.578
+    },
+    {
+      "id": "observation-reference",
+      "status": "PASS",
+      "elapsed_seconds": 0.431
+    },
+    {
+      "id": "portable-cursors",
+      "status": "PASS",
+      "elapsed_seconds": 1.849
+    },
+    {
+      "id": "node-tests",
+      "status": "FAIL",
+      "elapsed_seconds": 313.722,
+      "reason": "Per-check timeout after 300s"
+    },
+    {
+      "id": "source-structure",
+      "status": "FAIL",
+      "elapsed_seconds": 187.955,
+      "reason": "Per-check timeout after 180s"
+    },
+    {
+      "id": "docs-links",
+      "status": "PASS",
+      "elapsed_seconds": 37.384
+    },
+    {
+      "id": "python-tool-tests",
+      "status": "PASS",
+      "elapsed_seconds": 71.835
+    }
+  ]
+}
