@@ -1,9 +1,12 @@
 # B2Z player-centred release candidate
 
-**Source qualification complete; candidate available for production approval.**
-Published source `984a1aacdf807072f867963eef776b1db6c7ffe0` passes all six substantive jobs in
-[run 42668858702](https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702). No production deployment or live setting change was
-authorised or performed. The previous failures below remain historical evidence.
+**Deployed and verified for controlled prelaunch playtesting.** The owner
+subsequently authorised the exact frozen asset-only publication. The player-centred
+frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+[Actual served hashes, production browser checks, backend preservation, balances,
+rollback and limits](../player-centred-live/REPORT.md) append the deployment result.
+Qualified source remains `984a1aacdf807072f867963eef776b1db6c7ffe0`; the earlier
+qualification/failure records below are preserved. No backend or settings change.
 
 ## Final exact-source CI
 
@@ -35,8 +38,8 @@ The hosted pass does not erase the local startup/stall failures or establish
 their precise cause. Those remain valid observations under their recorded
 conditions. Software-renderer measurements are not a hardware smoothness pass;
 physical-phone, native-keyboard, actual-wallet, receipt-association and population
-limits remain as documented. This candidate still requires separate production
-approval and actual served-asset verification after any authorised publication.
+limits remain as documented. At qualification close-out, production approval was still pending; the later
+authorised publication and actual served verification are recorded above.
 
 ## Installed seam setup follow-up
 

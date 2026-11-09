@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "certified_modules_controllers_placement_equal": true,
+  "rules": 7,
+  "schema": 6,
+  "epoch": 4,
+  "dimensions": [
+    1000,
+    1000
+  ],
+  "source_configuration_identity_equal": true,
+  "before_world_summary": {
+    "version": 6,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "after_world_summary": {
+    "version": 6,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "before_source_cursor": "40180669",
+  "after_source_cursor": "40180669",
+  "before_completed_segments": "4336",
+  "after_completed_segments": "4348",
+  "financial_success_and_conversion_totals_equal": true,
+  "authority": "Ledger-only, official Ledger/Index/default backend account; no backend update/stop/start/controller/settings/financial operation invoked. Autonomous changes expected."
+}

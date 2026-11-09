@@ -1,0 +1,235 @@
+{
+  "at_before": "2026-11-09T19:57:30.218Z",
+  "at_after": "2026-11-09T20:16:49.985Z",
+  "before": {
+    "runtime": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_025_826_480_061",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "196410922",
+        "last_persist_instructions": "43270016",
+        "last_publish_instructions": "22773050",
+        "last_seal_instructions": "28671401",
+        "last_step_instructions": "56847876",
+        "max_actions": 5,
+        "max_instructions": "213211946",
+        "messages": "4336",
+        "persist_instructions": "173658865465",
+        "publish_instructions": "92478078711",
+        "seal_instructions": "108322933584",
+        "step_instructions": "233878459025"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_082_109_011_671"
+    },
+    "run": {
+      "callback_count": "4336",
+      "completed_segments": "4336",
+      "current_segment_work": "0",
+      "generation": "1",
+      "idle": false,
+      "last_error": [],
+      "last_segment_work": "223",
+      "max_segment_work": "1027",
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "pacing_seconds": 1,
+      "publication_ticks": "1",
+      "running": true,
+      "segment_ticks": "2",
+      "total_work": "999764",
+      "work_budget": 512,
+      "world_transition": false
+    },
+    "source": {
+      "admitted_to_exclusive": "40180669",
+      "binding_checked": true,
+      "event_horizon": [],
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "index_calls": "2710",
+      "last_error": [],
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "network": "ic",
+      "pending_records": 0,
+      "receiving_subaccount": "0",
+      "recipient_account": [
+        197,
+        132,
+        135,
+        134,
+        157,
+        70,
+        239,
+        4,
+        148,
+        199,
+        215,
+        192,
+        49,
+        43,
+        39,
+        96,
+        171,
+        183,
+        22,
+        78,
+        175,
+        210,
+        63,
+        0,
+        9,
+        164,
+        43,
+        149,
+        69,
+        245,
+        59,
+        222
+      ],
+      "reconciliation_requested": false,
+      "scan_in_flight": false
+    }
+  },
+  "after": {
+    "runtime": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_021_177_765_198",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "200060193",
+        "last_persist_instructions": "44417126",
+        "last_publish_instructions": "23348074",
+        "last_seal_instructions": "28861894",
+        "last_step_instructions": "58403796",
+        "max_actions": 5,
+        "max_instructions": "213211946",
+        "messages": "4348",
+        "persist_instructions": "174187937965",
+        "publish_instructions": "92755107001",
+        "seal_instructions": "108669986685",
+        "step_instructions": "234569724493"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_077_460_296_808"
+    },
+    "run": {
+      "callback_count": "4348",
+      "completed_segments": "4348",
+      "current_segment_work": "0",
+      "generation": "1",
+      "idle": false,
+      "last_error": [],
+      "last_segment_work": "228",
+      "max_segment_work": "1027",
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "pacing_seconds": 1,
+      "publication_ticks": "1",
+      "running": true,
+      "segment_ticks": "2",
+      "total_work": "1002465",
+      "work_budget": 512,
+      "world_transition": false
+    },
+    "source": {
+      "admitted_to_exclusive": "40180669",
+      "binding_checked": true,
+      "event_horizon": [],
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "index_calls": "2730",
+      "last_error": [],
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "network": "ic",
+      "pending_records": 0,
+      "receiving_subaccount": "0",
+      "recipient_account": [
+        197,
+        132,
+        135,
+        134,
+        157,
+        70,
+        239,
+        4,
+        148,
+        199,
+        215,
+        192,
+        49,
+        43,
+        39,
+        96,
+        171,
+        183,
+        22,
+        78,
+        175,
+        210,
+        63,
+        0,
+        9,
+        164,
+        43,
+        149,
+        69,
+        245,
+        59,
+        222
+      ],
+      "reconciliation_requested": false,
+      "scan_in_flight": false
+    }
+  },
+  "balance_semantics": "controller_runtime total/liquid are SDK query observations; liquid is used as reported, with no second subtraction of platform reserves. Before/after totals are not a gross burn or lifetime measurement.",
+  "treasury": {
+    "before": {
+      "phase": {
+        "Idle": null
+      },
+      "halted": false,
+      "paused": false,
+      "last_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1794254169947772258"
+        }
+      ],
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "1766023380000"
+    },
+    "after": {
+      "phase": {
+        "Idle": null
+      },
+      "halted": false,
+      "paused": false,
+      "last_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1794255370474517663"
+        }
+      ],
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "1766023380000"
+    },
+    "last_success_and_conversion_totals_preserved": true,
+    "warning": "Retained balance-query deadline warning predates asset publication. Idle, unpaused, unhalted; no pending transfer/notification plan. No manual recovery attempted."
+  }
+}

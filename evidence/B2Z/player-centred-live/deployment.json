@@ -1,0 +1,31 @@
+{
+  "status": "DEPLOYED_AND_VERIFIED",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "qualified_source": "984a1aacdf807072f867963eef776b1db6c7ffe0",
+  "passing_ci": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702",
+  "frozen_source": "d9cf54235623cbaa8432311561cfd0e5b9275e8c",
+  "prior_evidence_only_commit": "22ea3f295a8ae694acb5313930e79bcdf51fbeaf",
+  "javascript_sha256": "51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370",
+  "complete_15_file_manifest_sha256": "be6214af8ba24c09dcdc5c5706044b37a00eb8c986d2bc3f47d7c9028a8d4ea9",
+  "public_assets_verified": 14,
+  "upload_configuration_files_verified": 1,
+  "all_headers_match": true,
+  "complete_public_inventory_verified": true,
+  "backend_module": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "frontend_asset_module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "post_total_cycles": "2_077_460_296_808",
+  "post_liquid_cycles": "2_021_177_765_198",
+  "pace": {
+    "admission_open": true,
+    "mode": "Trickle",
+    "nominal_milli": 10,
+    "performance_limited": false,
+    "supported_milli": 10
+  },
+  "rollback_directory": ".work/player-centred-live/rollback/frontend",
+  "rollback_manifest_sha256": "444d0fda939dd715ac98010f958da470cca0ed163dd82bd215ecabd7f30dcc8c",
+  "rollback_used": false,
+  "artifact_rebuild": false,
+  "canister_settings_changed": false,
+  "production_financial_operations": false
+}

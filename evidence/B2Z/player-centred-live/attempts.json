@@ -1,0 +1,51 @@
+[
+  {
+    "attempt": "initial packaging path failure",
+    "log": ".work/player-centred-live/smoke.log",
+    "sha256": "faf9f30ec247007f41efc092da010146a72c19ecd3dc295527b8a2f06b89ffeb",
+    "tail": [
+      "BEGIN 1440",
+      "Traceback (most recent call last):",
+      "  File \"/home/codexdev/src/b2z/.work/player-centred-live/smoke.py\", line 52, in <module>",
+      "    resyncs=page.evaluate('__dtrLive.resyncs');same=page.evaluate('keepClock===__b2zExperience.clock&&keepQueue===__b2zExperience.queue');assert same or resyncs>page.evaluate('keepResyncs');assert page.evaluate('__dtrLive.certificates')>certs;final=page.evaluate('({playhead:__b2zExperience.clock.playhead,phase:document.body.dataset.phase,status:__b2zExperience.status,certificates:__dtrLive.certificates,resyncs:__dtrLive.resyncs})');assert final['phase']!='ERROR';page.screenshot(path=str(out/f'{width}-final.png'));rows.append({'viewport':[width,height],'status':'PASS','proof':proof,'initial':initial,'fire':q,'replaced_fire':q2,'move':qm,'build':build,'restored_account':True,'clipboard':page.evaluate('copied'),'same_clock_queue':same,'final':final,'initial_playhead':start,'movement_observed':final['playhead']>start,'read_only_posts':True,'errors':errors,'optional_telemetry_failure':width==320,'recording':str(Path(page.video.path()).relative_to(out))});c.close();print('PASS',width,flush=True)",
+      "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/pathlib.py\", line 730, in relative_to",
+      "    raise ValueError(\"{!r} is not in the subpath of {!r}\"",
+      "ValueError: '/home/codexdev/src/b2z/.work/player-centred-live/browser/video/page@c8fbb7c498aa8a6f1cae33b5a6b6ed70.webm' is not in the subpath of '.work/player-centred-live/browser' OR one path is relative and the other is absolute."
+    ],
+    "scope": "Evidence harness failure, not application regression; retained, not labelled a full pass. Corrected complete no-video matrix follows."
+  },
+  {
+    "attempt": "clipboard probe setup failure",
+    "log": ".work/player-centred-live/smoke-final.log",
+    "sha256": "40c10697714a3267d6ede49f196894e1025c78dd8ffba92ab7e4f71445e7935e",
+    "tail": [
+      "PASS 1440",
+      "BEGIN 390",
+      "Traceback (most recent call last):",
+      "  File \"/home/codexdev/src/b2z/.work/player-centred-live/smoke.py\", line 47, in <module>",
+      "    select(page);page.locator('#fire-action').click();review(page);page.evaluate('navigator.clipboard.writeText=async()=>{throw Error(\"denied probe\")}');page.locator('[data-copy=\"owner\"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Clipboard unavailable');assert page.locator('#manual-value').input_value()=='s5ir5-gqaaa-aaaas-amyna-cai';page.evaluate('navigator.clipboard.writeText=writeAllowed');close(page)",
+      "                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py\", line 9413, in evaluate",
+      "    self._sync(",
+      "  File \"/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync",
+      "    return task.result()",
+      "           ^^^^^^^^^^^^^",
+      "  File \"/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_page.py\", line 474, in evaluate",
+      "    return await self._main_frame.evaluate(expression, arg)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_frame.py\", line 346, in evaluate",
+      "    await self._channel.send(",
+      "  File \"/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py\", line 76, in send",
+      "    return await self._connection.wrap_api_call(",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call",
+      "    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None",
+      "playwright._impl._errors.Error: Page.evaluate: Error: denied probe",
+      "    at navigator.clipboard.writeText (eval at evaluate (:311:30), <anonymous>:1:47)",
+      "    at UtilityScript.evaluate (<anonymous>:318:18)",
+      "    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    ],
+    "scope": "Evidence harness failure, not application regression; retained, not labelled a full pass. Corrected complete no-video matrix follows."
+  }
+]

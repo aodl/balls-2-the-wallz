@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED",
+  "scope": "Evidence publication only; frontend deployment and verification already succeeded",
+  "reason": "fatal: could not read Username for 'https://github.com': terminal prompts disabled",
+  "qualified_remote_head": "984a1aacdf807072f867963eef776b1db6c7ffe0",
+  "source_runtime_changes": false,
+  "ci_policy": "Evidence-only commit includes [skip ci]; qualified source retains six passing jobs",
+  "continuation": "git push origin HEAD:refs/heads/release/btz-prelaunch-playability",
+  "credential_inspection_or_workaround": false,
+  "at": "2026-11-09T20:23:38.976452+00:00"
+}

@@ -1,11 +1,11 @@
 # B2Z
 
-The **player-centred candidate is source-qualified** at `984a1aacdf807072f867963eef776b1db6c7ffe0`:
-[run 42668858702](https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702) passes all six substantive gates. The clean frozen
-frontend is unchanged; this candidate has not been deployed. See the
-[release report and review evidence](evidence/B2Z/player-centred-release/REPORT.md)
-and [maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
-The deployed release described below remains the previously verified candidate.
+The **player-centred frontend is live** at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Qualified source `984a1aac` passes all six substantive CI gates. The exact frozen
+assets, security headers and desktop/mobile production checks verify; the paid
+backend and financial authority are preserved. [Deployment evidence and limits](evidence/B2Z/player-centred-live/REPORT.md).
+This is a controlled prelaunch playtest, with physical-device/actual-wallet and
+software-performance limits retained. The older release notes below are historical.
 
 
 [Play B2Z on ICP](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/).

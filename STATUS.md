@@ -1,3 +1,35 @@
+# Player-centred frontend — live, verified, controlled prelaunch
+
+The owner authorised asset-only publication to `s2jxj-liaaa-aaaas-amynq-cai`.
+https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/ now serves exact JS `51c7f92a…`
+from frozen `d9cf542`; full 15-file deployment manifest `be6214af…` verifies.
+Fourteen public files, one consumed upload configuration and all served policy
+headers match, with the exact signed public inventory. Qualified source `984a1aa`
+passes all six substantive jobs in run 42668858702; no runtime rebuild/new CI.
+
+Genuine desktop/390×844/320×640 checks pass: observation without Identify, account
+restoration, Fire/Move/Build, exact canonical copies/replacement, camera/minimap,
+clock/queue preservation and telemetry-failure isolation. Deliberate browser-only
+config corruption fails closed. Actual pause/protection were not induced; retained
+qualified fixtures cover unavailable production scenarios. No real transfer.
+
+Backend module `612ad0d0…`, frontend asset module `04e565b3…`, controllers, certified
+13-node European placement, rules 7/schema 6/epoch 4 and financial/source binding
+are preserved. Paid cannon/ball and received/converted totals remain; autonomous
+segments advance. SDK total/liquid: 2,077,460,296,808 / 2,021,177,765,198 cycles;
+Trickle 0.01 ticks/s, admission open, no source/run error or pending source record.
+Treasury remains idle with a pre-existing balance-query deadline warning; no
+manual financial recovery or policy/settings/controller/backend operation occurred.
+
+[Release report, exact files, operational observations, rollback and limitations](evidence/B2Z/player-centred-live/REPORT.md).
+Rollback assets are retained. Physical-phone/actual-wallet/human-research and
+software performance limits remain; this is not final-polish/hardware qualification.
+Stop implementation pending actual human playtest feedback.
+
+Earlier entries below are historical and retain their then-pending actions.
+
+---
+
 # Player-centred candidate — all six hosted gates pass
 
 Published qualified source `984a1aacdf807072f867963eef776b1db6c7ffe0` passes Source, Native,

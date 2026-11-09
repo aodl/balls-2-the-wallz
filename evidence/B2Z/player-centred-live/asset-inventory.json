@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-09T20:01:08.539Z",
+  "keys": [
+    "/agent-api.md",
+    "/app.mjs",
+    "/backend.did",
+    "/build-manifest.json",
+    "/configuration-entry.bin",
+    "/configuration-legacy.bin",
+    "/configuration-million.bin",
+    "/configuration-playability.bin",
+    "/configuration-torus.bin",
+    "/configuration.bin",
+    "/deployment.json",
+    "/icon.svg",
+    "/index.html",
+    "/style.css"
+  ],
+  "expected": [
+    "/agent-api.md",
+    "/app.mjs",
+    "/backend.did",
+    "/build-manifest.json",
+    "/configuration-entry.bin",
+    "/configuration-legacy.bin",
+    "/configuration-million.bin",
+    "/configuration-playability.bin",
+    "/configuration-torus.bin",
+    "/configuration.bin",
+    "/deployment.json",
+    "/icon.svg",
+    "/index.html",
+    "/style.css"
+  ],
+  "matches": true,
+  "query_signatures_verified": true
+}
