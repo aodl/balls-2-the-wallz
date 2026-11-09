@@ -1,18 +1,29 @@
-# Player-centred candidate — frozen; publication/CI blocked
+# Player-centred candidate — focused CI correction
 
-Runtime source `3ec1cb5d40b3cde5a1014e79a590649f835b9df1` is committed and the normal
-frontend is frozen from a clean tree (`source_dirty: false`). Complete local source
-qualification passes 1,759 JS and 196 Python tests. Desktop/mobile visual journeys,
-SDK cancellation/body-abort regressions and exact-bundle read-only IC/clipboard
-checks pass. [Candidate report, manifests and visual package](evidence/B2Z/player-centred-release/REPORT.md).
+Published parent `9b15cf0714bc85cca245fc918664767ed18553fb` is confirmed on the
+remote. [Run 42584741125](https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125)
+finished with four substantive passes and two failures (Browser and S14/million-cell).
+The inventory job remains informational. No gate is waived.
 
-Ordinary HTTPS source publication is blocked because Git cannot obtain a username;
-the remote head was checked directly. No new hosted candidate CI exists. All six
-substantive exact-source jobs remain required before separate production approval.
-This later evidence/docs-only continuation does not rebuild the frozen runtime.
-Production modules, settings, controllers and paid state remain unchanged by this
-work. No deployment or financial operation is authorized. Hardware/phone/wallet
-coverage remains limited; software rendering is not a smoothness pass.
+The supplied browser traceback is reproduced: Locate changed the camera but left
+the card offscreen/inert until another render frame. The correction synchronously
+positions the card; a same-turn regression and the full recorded desktop/390×844/
+320×640 journeys pass while preserving clock identity and progress.
+
+Local installed-browser diagnosis exposed an obsolete expectation that a closed
+legacy draft still had `ANGLE 37.5`. Fresh actions now use the deliberate screen-up
+default for v3 (which has no stored heading). The harness retains exact canonical
+memo/amount/receipt checks and explicitly establishes the edited draft used for
+resize/restart persistence. The affected disposable case passes: 115 exact replayed publications, three inputs
+once, authenticated recovery and negative certificate/configuration checks.
+
+Full local source verification passes: 1,759 JS / 198 Python, no skips, unchanged
+300-second Node allowance. The earlier clean source/artifacts remain preserved.
+A new clean corrective freeze
+and publication record follow the local checks; all six hosted gates are still
+required. [Report and evidence](evidence/B2Z/player-centred-release/REPORT.md).
+Production deployment, paid state, settings, controllers and financial authority
+are untouched; this task authorizes no production operation.
 
 ---
 

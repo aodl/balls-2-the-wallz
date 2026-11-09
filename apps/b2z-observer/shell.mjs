@@ -11,7 +11,7 @@ export function createShell(doc,camera,arcade,onPick){
  const pair=()=>{const [a,b]=[...pointers.values()];return {x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)};};
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
  function locate(precision=false){const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;if(!precision||camera.scale<24)camera.frameCell(c.cell);else if(!camera.cellPoint(c.cell).visible)camera.centre(c.cell%camera.width+.5,Math.floor(c.cell/camera.width)+.5);
-  if(precision&&camera.viewport.width<=700){const p=camera.cellPoint(c.cell),top=doc.querySelector('.arena-chrome').getBoundingClientRect().bottom;camera.pan(0,top+80-p.sy);}save();}
+  if(precision&&camera.viewport.width<=700){const p=camera.cellPoint(c.cell),top=doc.querySelector('.arena-chrome').getBoundingClientRect().bottom;camera.pan(0,top+80-p.sy);}position();save();}
  listen(doc,'b2z-locate',()=>locate());listen(doc,'b2z-precision',()=>locate(true));
  $('locate-context').onclick=$('focus-cannon').onclick=()=>locate(true);
  $('status-button').onclick=()=>arcade.openStatus();$('help-button').onclick=()=>arcade.openHelp();$('centre-cannon').onclick=()=>arcade.openRoster();

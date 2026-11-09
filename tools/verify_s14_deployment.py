@@ -623,7 +623,14 @@ def main():
             # A new ball changes the automatic quote from the same verified revision.
             wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.4 ICP',15000)
             assert page.locator('[data-copy="text"]').is_enabled()
-            assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
+            # This historical v3 world has no stored cannon heading. UX-12 uses
+            # the screen-up default, rather than carrying an unrelated earlier
+            # draft through Account/inspection. Screen-up encodes world 225.
+            assert page.evaluate('__b2zExperience.session.referenceWorld.version')==3
+            assert page.evaluate('__b2zExperience.session.referenceWorld.cannons[0].heading===undefined')
+            assert page.locator('#angle-degrees').input_value()=='0'
+            assert page.locator('#text-memo').inner_text()=='ANGLE 225',page.locator('#text-memo').inner_text()
+            record('fresh-legacy-action-uses-screen-up-not-an-unrelated-draft')
             cell=selected_cell(page);choose_action(page,'move')
             page.locator('#move-cell').fill(str(cell))
             # Move is selected from the cannon context.
@@ -635,11 +642,19 @@ def main():
             assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
             page.screenshot(path=str(out/'s15-move-selection.png'),full_page=True)
             record('action-price-pairing-stable-card-and-visual-owned-move')
-            # A publication and resize never reset local aim selection.
-            choose_action(page,'start');assert page.locator('#angle-degrees').input_value()=='37.5'
-            record('aim-survives-certified-state-updates-and-resize')
+            # New action defaults use the selected cannon; intentional edits in
+            # the current action must still survive resize/publication/restart.
+            # UX-02: explicit Build belongs to v6, not this legacy ANGLE adapter.
+            # Current-rules Build/site/ghost coverage lives in the populated UX
+            # journeys; do not try to click a deliberately hidden legacy action.
+            select_cannon(page);assert page.locator('#build-action').is_hidden()
             choose_action(page,'ball')
+            assert page.locator('#angle-degrees').input_value()=='0'
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+            page.locator('#angle-degrees').fill('167.15');review_instructions(page)
+            assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
+            page.set_viewport_size({'width':390,'height':844});page.set_viewport_size({'width':1440,'height':900})
+            assert page.locator('#angle-degrees').input_value()=='167.15'
 
             page.keyboard.press('Escape')
             # Receipt setup deliberately holds production at authenticated outcomes.
@@ -649,7 +664,9 @@ def main():
             page.evaluate('()=>{void __b2zTools.restart()}')
             wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected && globalThis.__dtrLive !== globalThis.__beforeSteadyLive)'),30000)
             assert source_value(page,'recipient')==configuration['recipient']
-            assert page.locator('#angle-degrees').input_value()=='37.5'
+            assert page.locator('#angle-degrees').input_value()=='167.15'
+            assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
+            record('aim-survives-certified-state-updates-and-resize')
             close_settings(page)
             report['steady_setup']='Fresh certified restart after controlled receipt holds; ordinary production remains running throughout the trace and reconnect.'
             # Inspect sustained populated motion in normal playback, rather than screenshots alone.

@@ -88,7 +88,15 @@ def verify_player_controls(page,width,height):
  close();page.evaluate('fixture.render("additional","initial")');select(1);page.locator('#build-action').click();page.locator('#new-cell').select_option('453579');page.evaluate('fixture.publish("additional","final")');assert page.locator('#new-cell').input_value()=='453579';assert page.locator('#prepared-card').is_hidden();expect(page.locator('#preparation-note')).to_contain_text('eligible')
  assert page.locator('#new-cell option:checked').is_disabled()
  close();page.evaluate('fixture.motion("idle",.01)');page.evaluate('fixture.markClock()');start=page.evaluate('fixture.summary().time')
- page.locator('#identify-button').click();close();select(1);page.locator('#fire-action').click();page.locator('#angle-degrees').fill('45');page.evaluate('fixture.camera.centre(800,800);fixture.draw()');assert page.locator('#locate-context').is_visible();page.locator('#locate-context').click();assert page.locator('#workspace').is_visible();assert not page.locator('#workspace').evaluate('(n)=>n.inert');close();page.locator('#minimap').focus();page.keyboard.press('ArrowLeft');page.wait_for_timeout(300);assert page.evaluate('fixture.sameClock()')and page.evaluate('fixture.summary().time')>start
+ page.locator('#identify-button').click();close();select(1);page.locator('#fire-action').click();page.locator('#angle-degrees').fill('45')
+ # No animation frame can run inside this evaluation. Locate must update the
+ # reachable card in the same turn as its camera mutation (UX-03/04/11).
+ immediate=page.evaluate('()=>{fixture.camera.centre(800,800);fixture.draw();const card=document.getElementById("workspace"),wasOffscreen=card.classList.contains("offscreen");document.getElementById("locate-context").click();return{wasOffscreen,visible:!card.hidden&&getComputedStyle(card).visibility!=="hidden",inert:card.inert,sameClock:fixture.sameClock()};}')
+ assert immediate['wasOffscreen']and immediate['visible']and not immediate['inert']and immediate['sameClock'],immediate
+ # Keep the actual pointer path and the original visibility/inertness checks.
+ page.evaluate('fixture.camera.centre(800,800);fixture.draw()');assert page.locator('#locate-context').is_visible();page.locator('#locate-context').click()
+ assert page.locator('#workspace').is_visible();assert not page.locator('#workspace').evaluate('(n)=>n.inert')
+ close();page.locator('#minimap').focus();page.keyboard.press('ArrowLeft');page.wait_for_timeout(300);assert page.evaluate('fixture.sameClock()')and page.evaluate('fixture.summary().time')>start
  print('eligibility and clock PASS',width,flush=True)
  # The centre state comes from the resolver, and never masks pause/error/idle.
  page.evaluate('fixture.render("idle","initial")')

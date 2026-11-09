@@ -1,0 +1,42 @@
+{
+  "qualification_parent": "9b15cf0714bc85cca245fc918664767ed18553fb",
+  "failed_hosted_run": 42584741125,
+  "hosted_failure": "390x844: workspace visibility assertion immediately after #locate-context.click() in verify_player_controls",
+  "cause": "locate changed the camera but did not update card offscreen/inert state until a later render frame",
+  "correction": "Call the existing position() synchronously after the camera mutation; observation clock, queue and session are untouched",
+  "regression": "Single JS turn prevents animation frames between offscreen setup and Locate; original real pointer assertion retained at all three viewports",
+  "before": {
+    "wasOffscreen": true,
+    "visible": false,
+    "inert": true,
+    "offscreen": true,
+    "sameClock": true,
+    "camera": [
+      584.3155447392542,
+      459.31554473925416
+    ]
+  },
+  "after": {
+    "wasOffscreen": true,
+    "visible": true,
+    "inert": false,
+    "offscreen": false,
+    "sameClock": true,
+    "camera": [
+      584.3155447392542,
+      459.31554473925416
+    ]
+  },
+  "full_browser_result": "locate-browser.json",
+  "full_browser_status": "PASS",
+  "affected_contracts": [
+    "UX-03",
+    "UX-04",
+    "UX-11"
+  ],
+  "changed_input_sha256": {
+    "apps/b2z-observer/shell.mjs": "2257c1e12fd7bc1f6d8a37e9caad882d26b746523a8b8a8eecdc532c1aab0f50",
+    "tools/player_playability_browser.py": "9be9fafb3b846e41050b5912910687eb26b3df85eade27789fb52dc1b596f4f0"
+  },
+  "scope": "Local real Chromium/application fixture; no IC authenticity, physical device or production deployment claim"
+}

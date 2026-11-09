@@ -1,0 +1,15 @@
+{
+  "source_parent": "9b15cf0714bc85cca245fc918664767ed18553fb",
+  "scope": "Changed executable inputs were stable throughout final local source/browser checks; clean corrective commit is linked after commit without rebuilding evidence-only artifacts. Raw precommit reports retain their original parent revision.",
+  "changed_executable_sha256": {
+    "apps/b2z-observer/shell.mjs": "2257c1e12fd7bc1f6d8a37e9caad882d26b746523a8b8a8eecdc532c1aab0f50",
+    "tools/check.py": "07c3e5f266e7831e128e4ac560db3e39352476d19d2a2ae79492c306829519a1",
+    "tools/player_playability_browser.py": "9be9fafb3b846e41050b5912910687eb26b3df85eade27789fb52dc1b596f4f0",
+    "tools/test_check.py": "3bcc9486f1c1ed53827962d4994b9333694144084b97563a782657b206a927c1",
+    "tools/verify_s14_deployment.py": "509bf8e1db342e7393978d11b85911246f6f604c55feb8044f7779a89f06883e"
+  },
+  "backend_code_dependencies_and_locks": "unchanged from parent",
+  "source_wrapper": "correction-source",
+  "browser_wrapper": "locate-browser",
+  "installed_case": "installed-browser-qualified"
+}

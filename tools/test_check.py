@@ -1,6 +1,26 @@
-import hashlib,sys,tempfile,unittest
+import contextlib,hashlib,io,json,sys,tempfile,unittest
 from pathlib import Path
-from check import BLOCKED_EXIT_CHECKS,blocked_requirements,classify,planned_checks,run_one,snapshot_artifact,tested_artifacts
+from check import BLOCKED_EXIT_CHECKS,blocked_requirements,classify,planned_checks,report_s14_failure,run_one,snapshot_artifact,tested_artifacts
+class TestNestedFailureEvidence(unittest.TestCase):
+    def test_failure_exposes_exact_test_and_bounded_tail_without_changing_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out=Path(directory);nested=out/'s14-local';(nested/'logs').mkdir(parents=True)
+            result={'overall':'FAIL','reason':'Installed tests failed: browser_case','checks':[
+                {'id':'setup','status':'PASS'},
+                {'id':'installed--browser_case','status':'FAIL','exit_code':101,'elapsed_seconds':42.5,'log':'logs/browser.log'}]}
+            path=nested/'results.json';path.write_text(json.dumps(result));before=path.read_bytes()
+            (nested/'logs/browser.log').write_text('old line\n'*40+'AssertionError: exact failed assertion\n')
+            captured=io.StringIO()
+            with contextlib.redirect_stdout(captured):report_s14_failure(out)
+            text=captured.getvalue();self.assertIn('Installed tests failed: browser_case',text)
+            self.assertIn('installed--browser_case FAIL exit=101 elapsed=42.5s',text)
+            self.assertIn('AssertionError: exact failed assertion',text)
+            self.assertEqual(text.count('old line'),23);self.assertNotIn('setup PASS',text)
+            self.assertEqual(path.read_bytes(),before)
+    def test_missing_nested_evidence_is_explicit(self):
+        with tempfile.TemporaryDirectory() as directory,contextlib.redirect_stdout(io.StringIO()) as captured:
+            report_s14_failure(Path(directory))
+        self.assertIn('S14 details unavailable',captured.getvalue())
 class TestEvidenceClassification(unittest.TestCase):
     def test_missing_tool_is_not_pass(self):self.assertEqual(classify(None,''),'BLOCKED')
     def test_argparse_usage_exit_is_failure(self):self.assertEqual(classify(2,'usage: tool [-h]\ntool: error: required arguments'),'FAIL')

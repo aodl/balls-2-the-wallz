@@ -45,7 +45,9 @@ Account, Help, saved instructions and technical details use that same DOM surfac
 in global mode. No duplicated desktop/mobile composer or opaque docked slab.
 The card flips/clamps around its anchor, excludes the aimer, camera controls,
 cycles readout and minimap, and scrolls naturally once. If its anchor leaves view,
-a small Locate cannon affordance replaces the detached card. Explicit Locate or
+a small Locate cannon affordance replaces the detached card. Locate updates card
+visibility/inertness synchronously with its camera mutation; it must not await a
+render frame to make the card reachable. Explicit Locate or
 one precision-mode entry can focus/zoom; publications never repeatedly recenter.
 The background remains interactive: no modal semantics, scrim or focus trap.
 Close/Escape returns focus and removes a local preview, never saved instructions.

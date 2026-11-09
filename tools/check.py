@@ -29,6 +29,23 @@ def counts_for(kind,text):
         return {'passed':sum(int(passed) for passed,_,_ in rows),'failed':sum(int(failed) for _,failed,_ in rows),'ignored':sum(int(ignored) for _,_,ignored in rows)}
     return {}
 
+def report_s14_failure(outdir):
+    """Expose the disposable runner's existing evidence in the hosted console."""
+    nested=outdir/'s14-local'
+    try:result=json.loads((nested/'results.json').read_text())
+    except (OSError,ValueError):
+        print('S14 details unavailable; inspect logs/s14-index-poke-local-slice.log',flush=True)
+        return
+    print('S14 reason:',result.get('reason','No completed nested reason recorded'),flush=True)
+    for check in result.get('checks',[]):
+        if check['status']=='PASS':continue
+        print('S14 check:',check['id'],check['status'],
+              f"exit={check.get('exit_code')} elapsed={check.get('elapsed_seconds')}s",
+              check.get('reason',''),f"log=s14-local/{check.get('log','')}",flush=True)
+        try:tail=(nested/check['log']).read_text(errors='replace').splitlines()[-24:]
+        except (OSError,KeyError):continue
+        print('\n'.join(tail)[-6000:],flush=True)
+
 def classify(exit_code,text,kind='normal',allow_blocked_exit=False):
     """Classify process evidence; exit 2 is BLOCKED only for designated wrappers."""
     if exit_code is None:return 'BLOCKED'
@@ -193,6 +210,7 @@ def main():
         allow_blocked_exit=name in BLOCKED_EXIT_CHECKS
         row=run_one(name,command,args.output,kind,requires,timeout,allow_blocked_exit);capture_tested_artifacts(name,row)
         report['checks'].append(row);destination.write_text(json.dumps(report,indent=2)+'\n');print(name,row['status'],flush=True)
+        if name=='s14-index-poke-local-slice' and row['status']!='PASS':report_s14_failure(args.output)
     if args.mode=='all':
         for name,reason in blocked_requirements():report['checks'].append({'id':name,'status':'BLOCKED','exit_code':None,'reason':reason})
     report['tested_artifacts']=tested_artifacts(report['checks'])

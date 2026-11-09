@@ -1,49 +1,58 @@
 {
   "source_commit": "3ec1cb5d40b3cde5a1014e79a590649f835b9df1",
-  "checked_at": "2026-11-09T07:46:50.112265+00:00",
-  "publication": "BLOCKED: ordinary HTTPS push cannot obtain a username; no credential workaround attempted",
-  "observed_remote_head": "2491d55f30125b421bedb7155db0fcac9bf0711f",
-  "candidate_workflow_runs": 0,
-  "run_url": null,
+  "checked_at": "2026-11-09T09:31:53.512879+00:00",
+  "publication": "PUBLISHED; remote head verified directly",
+  "observed_remote_head": "9b15cf0714bc85cca245fc918664767ed18553fb",
+  "candidate_workflow_runs": 1,
+  "run_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125",
   "workflow_sha256": "15b6c13bee3fd537a89be458809de622f177c4b06bdaee8f25e1c25f5c1dd248",
   "required_jobs": [
     {
-      "name": "Source conformance",
-      "status": "not_created",
-      "conclusion": null,
-      "release_requirement": true
-    },
-    {
-      "name": "Native conformance",
-      "status": "not_created",
-      "conclusion": null,
-      "release_requirement": true
-    },
-    {
-      "name": "Packaged DTR and clean consumers",
-      "status": "not_created",
-      "conclusion": null,
-      "release_requirement": true
-    },
-    {
+      "id": 129051745567,
       "name": "Runtime-lab Wasm",
-      "status": "not_created",
-      "conclusion": null,
-      "release_requirement": true
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125/job/129051745567"
     },
     {
-      "name": "Browser HTTP and Web Crypto",
-      "status": "not_created",
-      "conclusion": null,
-      "release_requirement": true
+      "id": 129051745838,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125/job/129051745838"
     },
     {
+      "id": 129051745886,
       "name": "S14 and million-cell installed-IC qualification",
-      "status": "not_created",
-      "conclusion": null,
-      "release_requirement": true
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125/job/129051745886"
+    },
+    {
+      "id": 129051745922,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125/job/129051745922"
+    },
+    {
+      "id": 129051745985,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125/job/129051745985"
+    },
+    {
+      "id": 129051746088,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125/job/129051746088"
     }
   ],
   "informational_job": "BLOCKED production inventory (not a pass); not qualification",
-  "note": "No new hosted run exists for the frozen source. Evidence-only descendant publication can trigger exact-head qualification with unchanged runtime inputs; no required gate is waived."
+  "note": "Completed parent run: four substantive passes, browser and installed-IC failures. Owner-supplied browser traceback reproduced with same-turn Locate regression; product fix passes all three viewports. Local installed case exposed stale legacy draft/hidden Build assumptions; corrected case passes exact replay of 115 publications and inputs 1/2/3 once. Hosted nested failure remains inaccessible, not proven identical. New corrective source still requires all six exact-source hosted gates. No production operation.",
+  "qualification_commit": "9b15cf0714bc85cca245fc918664767ed18553fb",
+  "runtime_source_commit": "3ec1cb5d40b3cde5a1014e79a590649f835b9df1",
+  "run_id": 42584741125
 }
