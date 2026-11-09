@@ -3,7 +3,9 @@
 This is the normative human-interface contract. It supersedes the screen layout,
 toolbar, dialog, reporting and live-pause requirements in earlier observer and
 human-interface documents. Historical evidence remains evidence of its own release.
-The player-centred correction brief supersedes the former docked-panel, full-diamond
+The tactical continuation below additionally supersedes square-map orientation,
+bright passing-tile highlights, the old .6-cell tail cap and unconditional hidden
+observation suspension. The player-centred correction brief supersedes the former docked-panel, full-diamond
 overview, east-facing display-zero and removed-minimap presentation requirements.
 Those earlier release artifacts remain historical evidence.
 The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
@@ -15,7 +17,7 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | UX-01 | Arena first; no declaration or compulsory dialog to observe. | `index.html`, `arcade.mjs`; integrated browser journey |
 | UX-02 | Controls serve the current task; secondary detail is progressive. | `arcade.mjs`; contextual action browser matrix |
 | UX-03 | One composer, anchored to its selected cannon/site; compact global secondary views, no stacked dialogs or duplicate paths. | `shell.mjs`, `index.html`; navigation/focus browser journey and `verify_s14_deployment.py:locate_seam_action` |
-| UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey and installed seam→Locate identity checks |
+| UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey, `warm-return.mjs` / `tactical-polish.test.mjs`, `verify_warm_browser.py` and installed seam→Locate identity checks |
 | UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock, three-publication slow/wrap journey and authenticated delivery regressions |
 | UX-06 | Producer, delivery and presentation states remain distinct. | `experience-status.mjs`; status truth table |
 | UX-07 | Verified backend principal/default account is primary; legacy is secondary. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
@@ -23,7 +25,7 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | UX-09 | No transaction reporting/index entry; instructions are not payment evidence. | `handoff.mjs`; legacy migration, account history and browser absence assertions |
 | UX-10 | Exact prices, fee, retention risk and restrictions at the handoff. | canonical `quoteV6`, wallet panel; narrow-screen field and legality checks |
 | UX-11 | Accessible/reduced-motion UI retains essential live updates. | semantic panel, `shell.mjs`; keyboard, zoom, reduced-motion browser checks |
-| UX-12 | Exact ownership at every zoom, non-repeating seamless torus, persistent overview and shared screen-heading/picking projection. | `camera.mjs`, renderer/effects; round-trip, seams, displacement and performance checks |
+| UX-12 | Exact ownership at every zoom, non-repeating seamless torus, persistent overview and shared screen-heading/picking projection. | `camera.mjs`, `interaction.mjs`, `minimap-projection.mjs`, renderer/effects; `tactical-polish.test.mjs`, `verify_tactical_grid.py`, `verify_tactical_browser.py` and existing round-trip/payment/pointer checks |
 | UX-13 | Paid state, scoping, financial integrity and authentication survive releases. | unchanged backend, certificate pipeline, scoped storage; release before/after identities and existing finance/security suites |
 
 Every change to a control, flow, status label, payment handoff, renderer or playback
@@ -195,12 +197,12 @@ Matte shallow tiles, coherent ownership, volumetric bases/turrets/barrels and so
 spheres with shared lighting/contact shadows. Local aim uses a distinct short
 ground guide. Balls have an unlit, tone-mapping-independent white core, shared soft white glow
 and minimum ~2 CSS-pixel core at wide views. No perpetual bobbing. A tapered,
-low-opacity white tail is at most .6 world cells (a few normal ball diameters),
+low-opacity white tail is at most 1.2 world cells (six normal core diameters),
 derived only from recent displayed displacement and fading over 350 ms. It unwraps
 the short torus path, disappears on stationary frames, and resets at spawn/despawn,
 backward/discontinuous time, resync/source/world change or graphics restoration.
-Reduced motion removes tails/highlights while retaining readable white balls. Any passing-tile
-highlight is bounded, wall-clock fading, secondary to ownership and derived from
+Reduced motion removes tails/darkening while retaining readable white balls. Passing-tile
+darkening is bounded to 20%, wall-clock fading over 350 ms, secondary to ownership and derived from
 displayed world displacement. Stationary balls, camera movement and resync create
 no travel effect. Reset on spawn/discontinuity and suppress with reduced motion.
 
@@ -247,11 +249,11 @@ actual inverse-projected quadrilateral, clipped/split at canonical seams.
 verified territory layout (4 MB for 1000²). Main shader and cached overview consume
 this same raster/layout. Ownership colour is never centre-sampled into mixed blocks.
 Fine anti-aliased procedural tile divisions fade at subpixel scale; real boundary
-bits persist longer. Geometry is a shallow shared box per intersecting world copy,
+bits persist longer. Geometry is a continuous top plane per intersecting toroidal copy (a shallow box only for bounded historical boards),
 not a million-object graph. Selected/eligible cells remain unit-size overlays,
 independent of terrain detail. At imprecise zooms, Focus provides precision instead
 of highlighting coarse blocks as legal. Ownership/palette revisions compare compact row runs and update dirty cells plus
-edge neighbours in the persistent atlas, with at most 32 GPU row-band updates; camera movement/render frames do not scan or allocate the million-cell map.
+edge neighbours in the persistent atlas, with at most 32 single-row GPU updates or one bounded full persistent-atlas upload for a larger change; camera movement/render frames do not scan or allocate the million-cell map.
 The overview paints those same cached dirty rows (full exact regions on initialization),
 not a second ownership model. A one-cell capture dirties at most three rows; no
 million-cell buffer is allocated for an incremental capture.
@@ -262,6 +264,91 @@ drawing pixels. Geometry/materials are shared; no per-ball lights/shadow maps,
 full-screen bloom or independent simulation clock. Resize buffers only when their
 actual dimensions/DPR change. Texture/canvas memory is disclosed separately from
 JS heap. All geometry/effects are presentation only.
+
+## Tactical presentation and warm return (UX-02/03/04/05/11/12)
+
+The hierarchy is terrain → solid gunmetal cannon → white ball → temporary warm
+interaction cue. CSS custom properties in `style.css` maintain surfaces, ink,
+quiet text, accent, invalid and cannon material tokens; renderer reads its cannon
+colours from those properties. Ownership colours remain the exact atlas palette.
+Cards use near-opaque graphite, an 8px edge, fine highlight and modest local shadow.
+Button feedback is 120ms; local aiming is immediate. No full-screen blur/scrim.
+Amount is dominant, but recipient/memo/payer and the fee/retention warning remain
+ordinary accessible content. Important text targets 4.5:1; disabled text remains
+readable. Forced colours uses system pointers; reduced motion removes transitions.
+
+| Input state | Resolution / presentation | Regression |
+| --- | --- | --- |
+| Empty / camera capture | Grab / grabbing, no pretend touch pointer | shell pointer journeys |
+| Displayed cannon | Shared projected base/barrel hit, pointer + footprint contour; opponent inspection only | `interaction.mjs`, tactical tests/browser |
+| Captured aim | Local reticle SVG, 14×14 hotspot, native crosshair fallback; gesture cannot pan | aim/pinch/cancel browser checks |
+| Legal Move/Build hover | Disposable unit-cell contour + wire ghost; never changes quote | shared resolver + tactical browser |
+| Chosen target | Persistent stronger contour + translucent ghost, never actual relocation | existing canonical selection/quote browser tests |
+| Illegal hover / invalidated target | Cross/negative contour; retain target, block new unsafe copies | canonical revision/invalid-click checks |
+
+Hover and activation use `resolveInteraction`; DOM surfaces win, then captured
+input, placement, cannon inspection, camera. Hover is recomputed from one retained
+pointer during visible rendering, without network calls or cell scans. Leave,
+hiding, graphics loss and overlays clear it. Touch and keyboard do not need hover.
+Card-side hysteresis avoids flipping while its current side still fits.
+
+The minimap projects one canonical atlas into the same sqrt(3)-aspect diamond as
+the arena. `diamondMap` provides exact forward/inverse transforms for ownership,
+markers, seam-clipped viewport polygons and navigation. Transparent corners are
+CSS-clipped and rejected by hit testing. A captured drag outside the diamond
+retains its last valid point; it does not clamp to an unrelated corner. Arrow keys
+move in projected screen directions. Width is 164px desktop / 124px narrow.
+
+Grid footprint derivatives use continuous `ground` before wrapped lookup, not
+`fwidth(mod(...))`. Torus geometry has no boundary skirt. Same-owner seams must be
+compared at equivalent pixel phase; real boundary bits must remain visible.
+GPU pixel comparisons, not a plausible shader edit alone, qualify a seam claim.
+
+Local barrel orientation uses the final canonical encoded heading only for the
+selected displayed cannon at the same planning cell. A latest-position difference
+uses a separate ghost. Cancel/invalid heading removes the override; verified
+`c.heading` is never written. A 2px light / 4px dark `Line2` guide has stable CSS
+width. Its short ground direction is intent, not collision prediction.
+
+Balls have unlit white cores and batched camera-facing depth-tested halos. Short
+travel history retains at most 12 segments per ball, 1.2 world-cell extent and
+350ms age, merged for tiny collinear samples. Inner/outer tapered streaks follow
+actual displayed travel, with seam unwrapping and discontinuity resets. Passing
+cells receive at most 20% transient black overlay; overlaps do not accumulate in
+the atlas or minimap. Stationary cores can glow, but cannot generate travel.
+
+Visible observation is due every 250ms (the worker additionally honours delivery
+backoff); hidden-but-executing checks are due every 15s, operational refresh every
+60s. Hidden rendering, pointer and optional-cycle work stops. There is one pipeline,
+single flight per worker, finite scoped HTTP deadlines and normal certificate /
+continuity / anti-rollback policy. No wake-lock or throttling workaround. Hidden
+queues compact through retained verified SegmentPlayers to at most two seconds of
+supported-rate presentation lag, before the capacity guard. This is a visual skip,
+not simulation or payment evidence. Cosmetic history clears on a skip.
+
+Return uses monotonic elapsed time and retained coverage, advancing no further
+than the later verified point minus two seconds at supported rate. A short gap
+preserves useful coverage/clock/queue; an unchanged head does not reset to its
+endpoint. Cached verified presentation can draw before a network round trip;
+payment preparation still requires fresh verification and operational admission.
+Frozen/BFCache pages disarm scheduling; resume re-arms once. Discard/reload follows
+normal authenticated boot. Hidden/offline requests can be throttled or suspended;
+there is no background freshness guarantee. Two tabs have bounded independent
+readers; no new leader-election service is introduced. Measurements and actual
+browser visibility coverage belong in the tactical release report, separately
+from controlled-clock policy tests and hardware/device claims.
+
+Adopted research principles: [Riot UI](https://www.riotgames.com/en/artedu/user-interface-design)
+(task hierarchy), [Riot clarity](https://www.riotgames.com/en/news/valorant-shaders-and-gameplay-clarity)
+(readability within performance constraints), [Ubisoft](https://news.ubisoft.com/en-us/article/3FpgxppxEUmS0dciV2vsY7/create-the-unknown-communicating-information-in-games-is-more-complicated-than-you-think)
+(function before ornament), Xbox [contrast](https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/102)
+and [additional cues](https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/103)
+(shape as well as colour). Lifecycle follows [Chrome](https://developer.chrome.com/docs/web-platform/page-lifecycle-api),
+[visibility](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)
+and [throttling limits](https://developer.chrome.com/blog/timer-throttling-in-chrome-88).
+[Cursor](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor),
+[wide lines](https://threejs.org/docs/pages/Line2.html) and camera-facing halo
+semantics use the pinned local Three/standard CSS facilities. No borrowed art/assets.
 
 ## Public operational cycles
 

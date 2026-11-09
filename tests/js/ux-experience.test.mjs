@@ -23,10 +23,10 @@ test('UX-04/11 workers are independently single-flight, visibility-safe and fenc
  const pending=[];let hidden=false,time=0,calls=0,refresh=0,release,releaseHealth,returned=[];
  const settle=()=>new Promise(resolve=>setImmediate(resolve));
  const loop=observationLoop({work:async()=>{calls++;await new Promise(r=>release=r);},refresh:async()=>{refresh++;await new Promise(r=>releaseHealth=r);},schedule:f=>(pending.push(f),f),cancel:f=>{const i=pending.indexOf(f);if(i>=0)pending.splice(i,1);},hidden:()=>hidden,now:()=>time,onReturn:g=>returned.push(g)});
- pending.shift()();await settle();assert.equal(calls,1);assert.equal(refresh,1);
- pending.shift()();await settle();assert.equal(calls,1);assert.equal(refresh,1);
- release();await settle();pending.shift()();await settle();assert.equal(calls,2);assert.equal(refresh,1,'slow health must not hold observation');
- hidden=true;loop.visibility();time=60000;hidden=false;loop.visibility();await settle();assert.deepEqual(returned,[60000]);assert.equal(calls,2);
+ time+=250;pending.shift()();await settle();assert.equal(calls,1);assert.equal(refresh,1);
+ time+=250;pending.shift()();await settle();assert.equal(calls,1);assert.equal(refresh,1);
+ release();await settle();time+=250;pending.shift()();await settle();assert.equal(calls,2);assert.equal(refresh,1,'slow health must not hold observation');
+ hidden=true;loop.visibility();time+=60000;hidden=false;loop.visibility();await settle();assert.deepEqual(returned,[60000]);assert.equal(calls,2);
  loop.suspend();time+=40000;loop.resume();await settle();assert.deepEqual(returned,[60000,40000]);
  loop.stop();release();releaseHealth();await settle();assert.equal(pending.length,0);
 });

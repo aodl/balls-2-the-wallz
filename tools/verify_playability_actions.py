@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """UX-01..13 populated synthetic UI journeys; real HTTP/WebGL/Web Crypto, no IC or payment claim."""
-import argparse,functools,http.server,json,subprocess,threading,time
+import argparse,functools,http.server,json,subprocess,threading,time,traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from player_playability_browser import verify_player_controls,verify_saved_world_heading,capture_player_review
@@ -10,6 +10,7 @@ root=Path(__file__).resolve().parents[1];out=a.output.absolute();out.mkdir(paren
 subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json')],cwd=root,check=True)
 subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'fixture.mjs')],cwd=root,check=True)
 (out/'index.html').write_text((root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"'))
+(out/'cursors').mkdir();(out/'cursors/reticle.svg').write_bytes((root/'apps/b2z-observer/cursors/reticle.svg').read_bytes())
 for n in ['style.css','icon.svg']:(out/n).write_bytes((root/'apps/b2z-observer'/n).read_bytes())
 class Handler(http.server.SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
@@ -83,6 +84,9 @@ with sync_playwright() as pw:
    page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t+1',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000);page.screenshot(path=str(out/'slow-wait-resume-wrap.png'));rows.append({'status':'PASS','coverage':['Trickle one complete interval starts','waiting has no movement effect','two later canonical publications resume same clock','toroidal rendered travel'],'timing':'20x accelerated disposable wall time at actual 0.01 policy; not production cadence','recording':str(Path(page.video.path()).relative_to(out))if page.video else None});context.close()
   assert not errors,errors
  except Exception:
-  print('FAILURE',errors,flush=True);page.screenshot(path=str(out/'failure.png'),timeout=5000);(out/'failure.json').write_text(json.dumps({'errors':errors,'text':page.locator('body').inner_text()},indent=2));raise
+  traceback.print_exc();print('FAILURE',errors,flush=True)
+  try:page.screenshot(path=str(out/'failure.png'),timeout=5000);(out/'failure.json').write_text(json.dumps({'errors':errors,'text':page.locator('body').inner_text()},indent=2))
+  except Exception as capture_error:print('Failure capture unavailable:',capture_error,flush=True)
+  raise
  finally:browser.close();server.shutdown()
 (out/'results.json').write_text(json.dumps({'status':'PASS','scope':__doc__,'rows':rows,'errors':errors},indent=2)+'\n')

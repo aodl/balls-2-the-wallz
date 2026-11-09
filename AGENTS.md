@@ -49,3 +49,5 @@ flows, status labels, payment handoff, rendering and playback lifecycle changes.
 Name affected UX contracts, update intentional requirements and run their regressions.
 The [operator procedure](docs/operations/S14_OPERATOR.md) now defaults to frontend
 updates of the installed paid European game; fresh installation is historical.
+Intentional visual/lifecycle changes also require populated before/after evidence;
+keep controlled hidden scheduling separate from actual browser suspension/visibility.

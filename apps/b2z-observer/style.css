@@ -12,3 +12,14 @@
 @media(max-height:500px){#cycles-display{display:flex;flex-direction:row;font-size:11px;gap:8px}}
 
 .short-edit .player-controls{display:none}
+
+/* UX-02/03/11/12: machined tactical surfaces; meanings also differ by shape. */
+:root{--paper:#202429;--line:#68717a;--ink:#f1f4f5;--quiet:#bec6cb;--accent:#f5d29a;--hover:#fff4d9;--invalid:#f3a8a1;--field:#13171c;--pressed:#414a53;--radius:8px}
+button{border-radius:var(--radius);background:#2a3037;transition:background-color 120ms,border-color 120ms,box-shadow 120ms}button:hover{background:#3a434c;border-color:#c5d0d8}button:active{background:var(--pressed);box-shadow:inset 0 2px 3px #0006}button:disabled{opacity:1;color:#aab2b9;background:#252b31;border-color:#4b555f;cursor:not-allowed}input,select,textarea{background:var(--field);border-radius:6px}.panel{background:#202429fa;border:1px solid #78838b;border-top-color:#b0b9bd;border-radius:var(--radius);box-shadow:0 10px 28px #0008,inset 0 1px #ffffff0a}.panel-header{background:#ffffff04;letter-spacing:.025em;border-bottom-color:#646e7766}.panel-header h1{font-size:.95rem;font-weight:700}.panel-body{padding-top:10px}#action-inputs label{font-size:.8rem;color:var(--quiet)}#transfer-amount{font-size:1.2rem;font-weight:750;color:#fff}.wallet-fields>div{border-bottom-color:#67727a55}.wallet-fields dd{font-variant-numeric:tabular-nums}#payment-risk{color:#f1d7ae}.camera-controls button,#status-button,#identify-button,#cycles-display{background:#202429ed;border-radius:6px}#aim-handle{background:#202429e8;color:var(--accent);border-color:var(--accent);box-shadow:0 0 0 2px #111c;cursor:crosshair}#aim-ring{border:2px dashed var(--accent);filter:drop-shadow(0 1px 1px #000)}#minimap{width:164px;height:94.69px;border:0;border-radius:0;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:transparent;filter:drop-shadow(0 2px 3px #0008);box-shadow:none;cursor:crosshair}#minimap:focus-visible{outline:none;filter:drop-shadow(0 0 3px #fff)}#board{cursor:grab}#board[data-cursor=cannon]{cursor:pointer}#board[data-cursor=place],#board[data-cursor=aim]{cursor:crosshair}#board[data-cursor=invalid]{cursor:not-allowed}#board[data-cursor=grabbing]{cursor:grabbing}
+@media(max-width:700px){#minimap{width:124px;height:71.59px}.panel-header h1{font-size:.9rem}}
+@media(max-height:500px){#minimap{width:112px;height:64.66px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+@media(forced-colors:active){#board[data-cursor],#board{cursor:auto}.panel{border:1px solid CanvasText}button{forced-color-adjust:auto}}
+@media(hover:hover) and (pointer:fine){#board[data-cursor=place],#board[data-cursor=aim],#aim-handle{cursor:url('./cursors/reticle.svg') 14 14,crosshair}}
+@media(forced-colors:active){#board[data-cursor=place],#board[data-cursor=aim],#aim-handle{cursor:crosshair}}
+:root{--cannon-base:#303940;--cannon-turret:#424c55;--cannon-barrel:#65717c}

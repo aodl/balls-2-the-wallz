@@ -1,3 +1,19 @@
+# Tactical frontend candidate — implementation, qualification pending
+
+Frontend-only continuation of the deployed player-centred release. Shared hover
+picking, diamond overview, continuous grid filtering, corrected large atlas uploads,
+local canonical barrel previews, graphite cards, luminous balls/dark transient cells
+and bounded warm-return scheduling are implemented. Backend and live assets/settings
+are unchanged. No production deployment authority applies to this next candidate.
+
+Focused frontend/payment/security checks pass; the first broad source run timed out
+in node-tests/source-structure and is not qualified. All six exact-source hosted
+jobs remain required. [Consolidated candidate evidence and limitations](evidence/B2Z/tactical-polish/REPORT.md).
+
+Earlier release entries below retain their historical status.
+
+---
+
 # Player-centred frontend — live, verified, controlled prelaunch
 
 The owner authorised asset-only publication to `s2jxj-liaaa-aaaas-amynq-cai`.

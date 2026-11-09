@@ -40,7 +40,7 @@ def verify_player_controls(page,width,height):
  page.locator('#fit').click();assert page.locator('#minimap').is_visible()
  for x,y in [(0,0),(999.9,0),(0,999.9),(999.9,999.9)]:
   polys=page.evaluate('([x,y])=>{fixture.camera.centre(x,y);fixture.draw();return fixture.camera.minimapPolygons()}',[x,y]);assert polys and all(3<=len(p)<=8 for p in polys)
- before=page.evaluate('fixture.summary().camera');mini=page.locator('#minimap').bounding_box();page.mouse.click(mini['x']+mini['width']*.25,mini['y']+mini['height']*.75);after=page.evaluate('fixture.summary().camera');assert after!=before;assert abs(after[0]-250)<12 and abs(after[1]-750)<12
+ before=page.evaluate('fixture.summary().camera');mini=page.locator('#minimap').bounding_box();page.mouse.click(mini['x']+mini['width']*.25,mini['y']+mini['height']*.5);after=page.evaluate('fixture.summary().camera');assert after!=before;assert abs(after[0]-250)<12 and abs(after[1]-750)<12
  page.locator('#minimap').focus();page.keyboard.press('ArrowRight');assert page.evaluate('fixture.summary().camera[0]')!=after[0]
  page.evaluate('fixture.render("idle","initial")');gap=page.evaluate('fixture.effectGap()');assert gap['moving']['effects']>0 and gap['moving']['tails']>0;assert gap['stopped']['effects']==0 and gap['stopped']['tails']==0
  page.evaluate('fixture.render("additional","initial")');select(1);page.locator('#fire-action').click()

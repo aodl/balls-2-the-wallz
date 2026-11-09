@@ -1,7 +1,9 @@
 /** One local input owner per gesture. No observation/playback lifecycle operations. */
+import {resolveInteraction} from './interaction.mjs';
 import {createMinimap} from './minimap.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
+ let hover=null,pointer=null,cardSide=null;
  let saveTimer=null,disposed=false,lastView=null,lastSurface=null,positionKey='',lastViewport='';
  const listen=(node,event,fn,options)=>{if(!node)return;node.addEventListener(event,fn,options);cleanups.push(()=>node.removeEventListener(event,fn,options));};
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
@@ -20,7 +22,7 @@ export function createShell(doc,camera,arcade,onPick){
  const measureChrome=()=>{const chrome=doc.querySelector('.arena-chrome');if(chrome)doc.documentElement.style.setProperty('--chrome-bottom',Math.ceil(chrome.getBoundingClientRect().bottom+12)+'px');positionKey='';};
  const chromeObserver=new ResizeObserver(measureChrome);chromeObserver.observe(doc.querySelector('.arena-chrome'));measureChrome();if(globalThis.visualViewport)listen(visualViewport,'resize',measureChrome);
  function down(e){if(e.button!==0)return;const p=point(e);pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);
-  if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle?'aim':'pan';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;}
+  if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'grabbing';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;}
   else{pinch=pair();owner='camera';pinched=true;moved=true;}
   if(e.currentTarget!==handle)canvas.focus({preventScroll:true});e.preventDefault();
  }
@@ -29,11 +31,22 @@ export function createShell(doc,camera,arcade,onPick){
   if(pointers.size>=2){const next=pair();if(pinch){camera.zoom(next.d/Math.max(1,pinch.d),pinch.x,pinch.y);camera.pan(next.x-pinch.x,next.y-pinch.y);}pinch=next;save();return;}
   if(!last||pinched)return;if(owner==='aim'){aimAt(p);moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6)moved=true;if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
  });
- function pick(p){const w=camera.world(p.x,p.y),n=camera.cell(p.x,p.y);
-  // Invalid paid destinations are consumed here, never reinterpreted as aiming.
-  if(arcade.moveSelection()){if(n!==null)arcade.chooseCell(n);return;}
-  if(n!==null&&onPick.cell(n,w,p))return;const aim=arcade.aim();if(aim){aimOrigin=camera.cellPoint(aim.cannon.cell);aimAt(p);}
+ function resolve(p){const hit=resolveInteraction(camera,onPick.cannons?.()??lastView?.cannons??new Map(),p,arcade.moveSelection(),arcade.aim());return hit.kind==='cannon'&&arcade.hasCannon&&!arcade.hasCannon(hit.id)?{kind:'camera',cell:hit.cell}:hit;}
+ function pick(p){const hit=resolve(p);
+  if(hit.kind==='place'||hit.kind==='invalid'){if(hit.cell!==null)arcade.chooseCell(hit.cell);return;}
+  if(hit.kind==='cannon'){arcade.selectCannon(hit.id);return;}
+  const w=camera.world(p.x,p.y),n=camera.cell(p.x,p.y);if(n!==null&&onPick.cell(n,w,p))return;const aim=arcade.aim();if(aim){aimOrigin=camera.cellPoint(aim.cannon.cell);aimAt(p);}
  }
+ function updateHover(){
+  if(disposed||doc.hidden||pointers.size||!pointer){hover=null;canvas.dataset.cursor=owner==='aim'?'aim':pointers.size?'grabbing':'camera';return;}
+  const r=canvas.getBoundingClientRect(),node=doc.elementFromPoint?.(pointer.x+r.left,pointer.y+r.top);
+  hover=node&&node!==canvas?null:resolve(pointer);canvas.dataset.cursor=hover?.kind??'camera';
+ }
+ listen(canvas,'pointermove',e=>{if(e.pointerType!=='touch')pointer=point(e);});
+ listen(canvas,'pointerleave',()=>{pointer=null;hover=null;canvas.dataset.cursor='camera';});
+ function clearInput(){pointer=null;hover=null;for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
+ listen(doc,'visibilitychange',()=>{if(doc.hidden)clearInput();});listen(doc,'freeze',clearInput);
+ listen(canvas,'webglcontextlost',clearInput);
  listen(canvas,'pointerup',e=>{const tap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(tap)pick(p);if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);owner=null;moved=true;pinched=true;pinch=null;};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
  listen(canvas,'wheel',e=>{e.preventDefault();const p=point(e);camera.zoom(Math.exp(-Math.max(-100,Math.min(100,e.deltaY))*.002),p.x,p.y);save();},{passive:false});
@@ -50,7 +63,7 @@ export function createShell(doc,camera,arcade,onPick){
   $('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!anchor;card.dataset.surface=anchor?'context':'global';if(card.hidden||off)return;
   const vv=globalThis.visualViewport,W=Math.min(camera.viewport.width,vv?.width??Infinity),H=Math.min(camera.viewport.height,vv?.height??Infinity),top=doc.querySelector('.arena-chrome').getBoundingClientRect().bottom+10,mini=$('minimap').getBoundingClientRect(),cw=Math.min(360,W-16,H<520&&W>700?Math.max(260,W/2-90):360),desired=card.querySelector('.panel-header').offsetHeight+card.querySelector('.panel-body').scrollHeight+4;
   let x=W-cw-8,y=top,available=H-top-80;
-  if(at){const right=at.sx+74,left=at.sx-74-cw;if(right+cw<=W-8)x=right;else if(left>=8)x=left;else x=Math.max(8,Math.min(W-cw-8,at.sx-cw/2));
+  if(at){const right=at.sx+74,left=at.sx-74-cw;const side=cardSide==='right'&&right+cw<=W-4?'right':cardSide==='left'&&left>=4?'left':right+cw<=W-16?'right':left>=16?'left':null;cardSide=side;if(side==='right')x=right;else if(side==='left')x=left;else x=Math.max(8,Math.min(W-cw-8,at.sx-cw/2));
    let bottom=H-74;for(const obstacle of [mini,$('cycles-display').getBoundingClientRect(),doc.querySelector('.camera-controls').getBoundingClientRect()])if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
    if(right+cw<=W-8||left>=8){y=Math.max(top,Math.min(bottom-120,at.sy-60));available=bottom-y;}
    else{const below=bottom-at.sy-74,above=at.sy-74-top;if(below>=above){y=at.sy+74;available=below;}else{available=above;y=at.sy-74-Math.min(desired,available);}}
@@ -59,5 +72,5 @@ export function createShell(doc,camera,arcade,onPick){
   if(next!==positionKey){positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.max(top,Math.round(y))}px`;card.style.width=`${cw}px`;card.style.maxHeight=`${h}px`;}
  }
  listen(doc,'b2z-overlay',position);
- return {overlays(){},update(v,surface){if(v)lastView=v;if(surface)lastSurface=surface;position();if(lastView)map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account());},dispose(){disposed=true;map.dispose();chromeObserver.disconnect();clearTimeout(saveTimer);for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()};
+ return {hover:()=>hover,overlays(){},update(v,surface){if(v)lastView=v;updateHover();if(surface)lastSurface=surface;position();if(lastView)map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account());},dispose(){disposed=true;map.dispose();chromeObserver.disconnect();clearTimeout(saveTimer);for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()};
 }

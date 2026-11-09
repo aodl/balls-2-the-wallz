@@ -4,5 +4,5 @@ export default null;
 // The production implementation always applies the mainnet policy. The local
 // deployment acceptance build replaces this MODULE explicitly, not URL policy.
 export async function deploymentPolicy(value){return (await import('./mainnet.mjs')).mainnetPolicy(value);}
-export async function deploymentConnection(value){return (await import('./mainnet.mjs')).mainnetConnection(value);}
+export async function deploymentConnection(value,options){return (await import('./mainnet.mjs')).mainnetConnection(value,options);}
 export async function deploymentSource(value,ticket){return (await import('./mainnet.mjs')).certifiedSource(value,ticket);}

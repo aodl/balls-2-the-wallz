@@ -169,6 +169,10 @@ jobs:
       - run: python -B tools/check.py browser --output .work/ci-browser
       - name: Minimal human interface contract journeys (UX-01 through UX-13)
         run: python -B tools/verify_playability_actions.py --output .work/ci-human-experience
+      - name: Tactical projection, interaction and GPU seam regressions
+        run: |
+          python -B tools/verify_tactical_grid.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-grid
+          python -B tools/verify_tactical_browser.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-journey
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -182,6 +186,8 @@ jobs:
             .work/ci-browser/browser-http/*.png
             .work/ci-wire-capture/**
             .work/ci-human-experience/**
+            .work/ci-tactical-grid/**
+            .work/ci-tactical-journey/**
           if-no-files-found: warn
           retention-days: 14
 

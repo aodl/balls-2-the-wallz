@@ -133,7 +133,7 @@ export function createArcade(doc){
   action,selectCannon(n){const c=refs.find(c=>c.id===n);if(!c)return false;id=n;keepPrevious=false;mode='inspect';cell=null;clearDraft();persist();show('inspect',`Cannon #${n}`);refresh();return true;},
   cancel(){view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
   presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},
-  selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:view==='action'&&mode==='start'&&cell!==null?{cell}:selected(),
+  hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:view==='action'&&mode==='start'&&cell!==null?{cell}:selected(),
 
   aimAt(dx,dy){if(mode!=='ball'&&mode!=='start')return;degrees=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);worldAngle=null;$('angle-degrees').value=degrees;keepPrevious=false;clearDraft();refresh();},
   adjustAngle(delta){degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;keepPrevious=false;clearDraft();$('angle-degrees').value=degrees;refresh();},

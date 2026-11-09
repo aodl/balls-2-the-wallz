@@ -25,8 +25,9 @@ export function createTerrainSurface(){
    for(const [a,b]of merged)for(let x=a;x<b;x++){const id=owner(x,y),c=colours.get(id),n=(y*v.width+x)*4;rgba[n]=c[0];rgba[n+1]=c[1];rgba[n+2]=c[2];rgba[n+3]=(owner(x-1,y)!==id?1:0)|(owner(x+1,y)!==id?2:0)|(owner(x,y-1)!==id?4:0)|(owner(x,y+1)!==id?8:0);}
   }
   const dirtyRows=[...dirty.keys()].sort((a,b)=>a-b),ranges=[];
-  // At most 32 GPU row-band updates; no full raster allocation for incremental changes.
-  if(!initial){const chunk=Math.max(1,Math.ceil(dirtyRows.length/32));for(let i=0;i<dirtyRows.length;i+=chunk){const first=dirtyRows[i],last=dirtyRows[Math.min(i+chunk-1,dirtyRows.length-1)];ranges.push({start:first*v.width*4,count:(last-first+1)*v.width*4});}}
+  // Three DataTexture partial updates are SINGLE ROWS. Wider bands are not rectangles.
+  // At most 32 rows; larger changes upload the persistent atlas once, without rebuilding it.
+  if(!initial&&dirtyRows.length<=32)for(const y of dirtyRows)ranges.push({start:y*v.width*4,count:v.width*4});
   const changed=initial||dirtyRows.length>0;data={width:v.width,height:v.height,rgba,layout,revision:changed?++serial:data.revision,dirtyRows,ranges,initial,owner:cell=>v.owner(cell)};palette=colours;return data;
  }};
 }

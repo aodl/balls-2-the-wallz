@@ -1,3 +1,4 @@
+import {boundedObservationClient,observationFetch} from './bounded-observation.mjs';
 import {publicStatusReader} from './public-cycles.mjs';
 import {CONFIGURATION_ASSETS} from './configuration.generated.mjs';
 /** B2Z deployment policy and certified source descriptor; no wallet or signing API. */
@@ -6,7 +7,7 @@ import {readBytes} from './transport.mjs';
 import {Actor,HttpAgent} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {Principal} from '@icp-sdk/core/principal';
-import {certificateVerifier,liveClient} from '../../node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs';
+import {certificateVerifier} from '../../node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 export function mainnetPolicy(value){
   if(!value||Object.keys(value).sort().join(',')!=='canister_id,host,network'||value.network!=='ic'||value.host!=='https://icp-api.io')throw new Error('reviewed mainnet deployment policy required');
@@ -14,10 +15,10 @@ export function mainnetPolicy(value){
   if(canister_id==='aaaaa-aa'||canister_id==='2vxsx-fae')throw new Error('backend canister required');
   return Object.freeze({network:'ic',host:value.host,canister_id});
 }
-export async function mainnetConnection(policy){
+export async function mainnetConnection(policy,{signal}={}){
   policy=mainnetPolicy(policy);
-  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
-  const base=await liveClient(policy),client=artifactDeliveryClient(agent,policy.canister_id,base);
+  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1,fetch:observationFetch(undefined,signal)});
+  const base=await boundedObservationClient(policy,{signal}),client=artifactDeliveryClient(agent,policy.canister_id,base);
   return {verifyCertificate:certificateVerifier({network:'ic'}),client,readStatus:operationalReader(agent,policy.canister_id),readCycles:publicStatusReader(policy)};
 }
 function artifactBundleReader(agent,canisterId){
@@ -52,8 +53,8 @@ function artifactDeliveryClient(agent,canisterId,base){
 /** Local acceptance uses the same atomic delivery query with its pinned root. */
 export async function artifactBundleClient({network,rootKey,canister_id,host},base){
  if(network!=='pocketic-local'||!(rootKey instanceof Uint8Array)||rootKey.length<32||rootKey.length>1024)throw new Error('configured local bundle root required');
- const agent=await HttpAgent.create({host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1});
- return artifactDeliveryClient(agent,Principal.fromText(canister_id),base);
+ const agent=await HttpAgent.create({host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1,fetch:observationFetch()});
+ return artifactDeliveryClient(agent,Principal.fromText(canister_id),await boundedObservationClient({network,rootKey,canister_id,host}));
 }
 /** Operational query only: never authorizes a payment or a game outcome. */
 export function operationalReader(agent,canisterId){
@@ -65,7 +66,7 @@ export function operationalReader(agent,canisterId){
 }
 export async function certifiedSource(policy,ticket){
   policy=mainnetPolicy(policy);
-  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
+  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1,fetch:observationFetch()});
   const actor=Actor.createActor(({IDL})=>IDL.Service({source_descriptor:IDL.Func([],[IDL.Variant({Ok:IDL.Vec(IDL.Nat8),Err:IDL.Text})],['query'])}),{agent,canisterId:policy.canister_id});
   const result=await actor.source_descriptor();if(!result.Ok)throw new Error('source descriptor unavailable');
   const bytes=Uint8Array.from(result.Ok);

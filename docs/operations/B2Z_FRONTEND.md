@@ -38,3 +38,16 @@ certificate or physical-device evidence. `tools/verify_observer_http.py` exercis
 actual Web Crypto/CSP and fail-closed transport; `tools/verify_s14_local.py` supplies
 the named genuine disposable installed-IC/financial evidence. Keep these claims
 separate. Production smoke is read-only and must preserve paid backend identity.
+
+Tactical polish preserves those contracts. Shared `interaction.mjs` resolves hover
+and activation from displayed wrapped pieces/current canonical eligibility;
+`minimap-projection.mjs` supplies diamond projection/inversion;
+`warm-return.mjs` selects a recent point only within retained verified coverage.
+`bounded-observation.mjs` adds scoped finite SDK fetch deadlines to the existing
+read-only query ABI, with unchanged DTR verification/root policy. Local cursors
+are copied and hashed by the established wrapper builder. Any intentional visual
+change needs populated before/after evidence; use `verify_tactical_browser.py`
+for actual renderer/interaction capture and `verify_tactical_grid.py` for shader
+pixel comparisons. `verify_warm_browser.py` separates real browser suspension
+from controlled hidden scheduling and never claims headless visibility as OS hiding.
+Do not deploy this next candidate without new release-specific approval.

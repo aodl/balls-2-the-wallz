@@ -1,5 +1,6 @@
 import {publicCycleMonitor,renderCycleReadout} from './public-cycles.mjs';
 import {replayTools} from './replay-tools.mjs';
+import {recentPresentationPoint} from './warm-return.mjs';
 import {observationLoop} from './observation-loop.mjs';
 import {experienceStatus} from './experience-status.mjs';
 import {Camera} from './camera.mjs';
@@ -24,9 +25,9 @@ let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
 const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p,screen)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
- const hits=[...(visible?.cannons.values()??[])].map(c=>{const a=camera.cellPoint(c.cell);return {c,d:Math.hypot(a.sx-screen.x,a.sy-screen.y)};}).filter(h=>h.d<=Math.max(22,camera.scale*.4)).sort((a,b)=>a.d-b.d||a.c.id-b.c.id);
- return hits[0]?arcade.selectCannon(hits[0].c.id):false;
-}});
+ return false;
+},cannons:()=>visible?.cannons??new Map()
+});
 globalThis.__b2zCamera=camera;
 function showError(error){$('observation-error').textContent=String(error?.message??error);$('retry').hidden=false;}
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
@@ -140,7 +141,7 @@ async function startLive(recording,startupRetries=0){
     let ticket;
     if(recording.deployment){
       const module=await import('./mainnet.mjs');
-      const connection=await deploymentConnection(recording.deployment);
+      const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
       const initial=await Promise.allSettled([s.client.observation(),s.readStatus()]);
       if(initial[0].status==='rejected')throw initial[0].reason;
@@ -242,11 +243,11 @@ async function resyncLive(s,ticket){
 function updatePlayReference(s,world,events){
   s.referenceWorld=world;
   if(!s.config)return;
-  arcade.render(world,s.config,s.source,s.root);
+  if(!document.hidden)arcade.render(world,s.config,s.source,s.root);
   s.receipts??=new Map();
   for(const r of events?decodeCanonical(events).receipts:[])s.receipts.set(String(r.position),r);
   while(s.receipts.size>100)s.receipts.delete(s.receipts.keys().next().value);
-  arcade.receipts([...s.receipts.values()]);
+  if(!document.hidden)arcade.receipts([...s.receipts.values()]);
 }
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
@@ -256,6 +257,7 @@ async function refreshOperational(now){
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
+  if(document.hidden)warmPresentation(s,Number.MAX_SAFE_INTEGER);
   if(now<s.nextDue||s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.clock.state().buffer>=32)return;s.busy=true;
   let observed=null;const acceptedBefore=s.sequence.last;
   try{
@@ -263,7 +265,7 @@ async function pumpLive(now,s){
     const current=await certifiedTicket(s,response);observed=current;s.verifyMs=performance.now()-verifying;if(!active(s))return;
     globalThis.__dtrLive.certificates++;s.certifiedAt=performance.now();
     const prior=s.sequence.last,past=prior.publication.head.segment_id,next=current.publication.head.segment_id;
-    if(s.returning){s.returning=false;if(current.root_hash===s.sequence.last.root_hash){s.sequence.accept(current);const w=snapshot(s.previousState,current.publication.identity);resetLiveClock(s,timeNumber(w.time));visible=new B2zView(w);arenaRenderer?.reset();s.resyncs++;globalThis.__dtrLive.resyncs=s.resyncs;s.skipped=true;}else await resyncLive(s,current);liveDeliverySuccess(s,current,performance.now());s.nextDue=performance.now()+500;return;}
+
     if(current.root_hash===prior.root_hash){liveDeliverySuccess(s,current,performance.now());s.nextDue=performance.now()+Math.max(0,500-s.fetchMs);return;}
     if(next===null||past!==null&&next<=past){s.sequence.accept(current);s.nextDue=performance.now()+500;return;}
     const expected=past===null?0n:past+1n;
@@ -298,7 +300,7 @@ async function pumpLive(now,s){
   }catch(e){
     if(!active(s))return;
     if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;s.failureKind=observationFailure(e);showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
-  }finally{s.busy=false;if(active(s))updateHud();}
+  }finally{s.busy=false;if(active(s)&&!document.hidden)updateHud();}
 }
 async function pump(now){
   const s=session;if(!s?.ready||s.busy||s.error||deliveryPaused)return;
@@ -342,12 +344,24 @@ function draw(){
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
  arcade.presentation(v);
- try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});}
+ try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
  shell.update(v,arenaRenderer.surface());
  canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
 }
+function presentVerified(s,time){
+ function show(q,at){if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,time);q.presented=true;}visible=q.player.advance(at);}
+ while(s.queue.length&&time>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
+ if(s.queue.length)show(s.queue[0],time);
+ visibleTime=time;
+}
+function warmPresentation(s,gapSeconds){
+ if(!s?.ready||s.error||s.mode!=='live')return;
+ const point=recentPresentationPoint(s.clock.state(),nominalPace(s.operational),gapSeconds);
+ if(point>s.clock.playhead){s.clock.playhead=point;if(s.clock.available>point){s.clock.started=true;s.clock.phase='PLAYING';}presentVerified(s,point);arenaRenderer?.reset();}
+}
 function frame(now){
+  if(document.hidden){lastFrame=null;requestAnimationFrame(frame);return;}
   const s=session,elapsed=lastFrame===null?0:(now-lastFrame)/1000,dt=Math.min(elapsed,s?.mode==='live'?1:.25);lastFrame=now;
   if(s?.ready&&!s.error&&!paused){
     // Drain a verified terminal empty segment without waiting for nonexistent
@@ -357,12 +371,8 @@ function frame(now){
     const previous=s.clock.playhead;
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
     s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
-    function show(q,time){
-      if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,visibleTime);q.presented=true;}
-      visible=q.player.advance(time);
-    }
-    while(s.queue.length&&visibleTime>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
-    if(s.queue.length)show(s.queue[0],visibleTime);
+    presentVerified(s,visibleTime);
+
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
     const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
@@ -370,12 +380,12 @@ function frame(now){
   draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
 $('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
-const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;if(gap>30000)s.returning=true;}}});
+const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;warmPresentation(s,gap/1000);if(s.referenceWorld){arcade.render(s.referenceWorld,s.config,s.source,s.root);arcade.receipts([...(s.receipts?.values()??[])]);}updateHud();draw();}}});
 document.addEventListener('visibilitychange',()=>{observations.visibility();cycleMonitor?.visibility();});
 document.addEventListener('freeze',()=>observations.suspend());
 document.addEventListener('resume',()=>{lastFrame=null;observations.resume();});
-addEventListener('pagehide',event=>{if(!event.persisted){observations.stop();cycleMonitor?.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
-addEventListener('pageshow',event=>{if(event.persisted){lastFrame=null;observations.visibility();}});
+addEventListener('pagehide',event=>{if(event.persisted)observations.suspend();if(!event.persisted){observations.stop();cycleMonitor?.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
+addEventListener('pageshow',event=>{if(event.persisted){lastFrame=null;observations.resume();}});
 new ResizeObserver(draw).observe(canvas);
 async function bootstrap(){
 bootError=null;
