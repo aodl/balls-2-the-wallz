@@ -1,10 +1,42 @@
 # B2Z player-centred release candidate
 
-**Not ready for production approval:** the owner published
-`5cb490eed480bd6fd14d319fed717935a44d2ecb`. Its new hosted run passes five gates;
-S14/million-cell fails three browser scene setups. A test-only correction follows
-below. All six substantive gates remain required; no production operation is
-authorised or performed.
+**Source qualification complete; candidate available for production approval.**
+Published source `984a1aacdf807072f867963eef776b1db6c7ffe0` passes all six substantive jobs in
+[run 42668858702](https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702). No production deployment or live setting change was
+authorised or performed. The previous failures below remain historical evidence.
+
+## Final exact-source CI
+
+[Reviewed job conclusions and input equality](ci-correction/hosted-42668858702.json):
+
+| Required substantive gate | Conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+The informational production-inventory job is not qualification. The complete
+hosted gate, including sustained assertions, passed; no focused subset, skipped
+job or renamed job substitutes for it. This is a hosted job conclusion from the
+actual GitHub API, not an independent reinspection of inaccessible job artifacts.
+
+Frozen runtime source remains `d9cf54235623cbaa8432311561cfd0e5b9275e8c`.
+All frozen runtime inputs are byte-identical in the qualified source (verified
+against Git objects); all 15 frozen files and manifest hashes verify unchanged.
+No rebuild, replacement artifact, production update or extra source push follows
+this evidence-only record. Its later local documentation commit is distinct from
+the published qualified source and changes no executable/test/build/dependency
+input. No additional push is needed to qualify `984a1aacdf807072f867963eef776b1db6c7ffe0`.
+
+The hosted pass does not erase the local startup/stall failures or establish
+their precise cause. Those remain valid observations under their recorded
+conditions. Software-renderer measurements are not a hardware smoothness pass;
+physical-phone, native-keyboard, actual-wallet, receipt-association and population
+limits remain as documented. This candidate still requires separate production
+approval and actual served-asset verification after any authorised publication.
 
 ## Installed seam setup follow-up
 
@@ -114,12 +146,12 @@ already exists. No setting change is needed or made. Paid state/financial record
 continue autonomously; no reset, upgrade, financial transaction or manual game
 operation occurred.
 
-[Publication/required CI](ci-correction/publication.json): publication of `5cb490e`
-is confirmed; its exact-source result is five passes / one failed substantive
-gate, not release qualification. The subsequent test-only correction needs a new
-published-source run with all six gates. The ordinary HTTPS route in this session
-has lacked credentials; no credential inspection/workaround is authorised.
-Production deployment and live setting changes remain outside this task.
+[Publication/required CI](ci-correction/publication.json): owner publication of
+`984a1aacdf807072f867963eef776b1db6c7ffe0` is confirmed, and its exact-source run 42668858702 passes all six
+substantive gates. Earlier failed heads and local failures are retained below.
+The ordinary HTTPS route in this session has lacked credentials; no credential
+inspection or workaround was used. No further runtime/evidence push or production
+operation is performed for this CI close-out.
 
 ## Executed correction commands
 

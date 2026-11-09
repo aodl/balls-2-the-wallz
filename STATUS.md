@@ -1,3 +1,28 @@
+# Player-centred candidate — all six hosted gates pass
+
+Published qualified source `984a1aacdf807072f867963eef776b1db6c7ffe0` passes Source, Native,
+Packaged DTR/clean consumers, Runtime-lab Wasm, Browser HTTP/Web Crypto and the
+complete S14/million-cell installed-IC job in [run 42668858702](https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702).
+The separately informational inventory supplies no qualification.
+
+Frozen runtime source remains `d9cf54235623cbaa8432311561cfd0e5b9275e8c`:
+JS `51c7f92a…`, complete 15-file manifest `be6214af…`. Every frozen file and all
+runtime inputs match the qualified source. No artifact rebuild for CI evidence.
+The following evidence-only update changes no runtime/test/build/dependency inputs
+and needs no superseding CI run to qualify that published source.
+
+The candidate is available for production approval and visual review; it is not
+deployed. This task authorizes no production operation or live setting change.
+Paid backend, modules, controllers and financial authority were not modified.
+Local failed delivery measurements, baseline comparison, software frame limits,
+physical-device/actual-wallet/receipt-association limitations remain documented.
+The hosted pass qualifies its actual tested conditions, not universal performance.
+[Report and exact CI/frozen identities](evidence/B2Z/player-centred-release/REPORT.md).
+
+Earlier entries below retain historical failures and their then-pending actions.
+
+---
+
 # Installed browser seam qualification follow-up
 
 The owner published `5cb490eed480bd6fd14d319fed717935a44d2ecb`.

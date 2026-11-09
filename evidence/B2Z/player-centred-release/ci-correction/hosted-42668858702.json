@@ -1,0 +1,48 @@
+{
+  "qualified_source": "984a1aacdf807072f867963eef776b1db6c7ffe0",
+  "frozen_runtime_source": "d9cf54235623cbaa8432311561cfd0e5b9275e8c",
+  "run_id": 42668858702,
+  "run_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702",
+  "conclusion": "success",
+  "checked_at": "2026-11-09T18:47:02.092922+00:00",
+  "required_jobs": [
+    {
+      "name": "Source conformance",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702/job/129339703678"
+    },
+    {
+      "name": "Native conformance",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702/job/129339703795"
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702/job/129339703926"
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702/job/129339703979"
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702/job/129339703994"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702/job/129339704214"
+    }
+  ],
+  "informational_inventory": "not qualification",
+  "javascript_sha256": "51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370",
+  "complete_manifest_sha256": "be6214af8ba24c09dcdc5c5706044b37a00eb8c986d2bc3f47d7c9028a8d4ea9",
+  "all_frozen_files_verified": 15,
+  "qualified_runtime_inputs_equal_frozen": true,
+  "artifact_rebuild": "NONE",
+  "production_operation": "NONE",
+  "limitations": "Local failed delivery measurements and software/hardware/device/wallet limitations remain retained. Hosted pass qualifies its tested conditions, not universal timing or physical hardware."
+}

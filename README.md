@@ -1,12 +1,10 @@
 # B2Z
 
-The **player-centred candidate** is published at `5cb490e`; its hosted run passes
-five substantive gates and fails installed-IC qualification in three browser
-scene setups. A focused test-only follow-up restores the anchored-card Locate
-path before seam wallet assertions. The runtime and clean frozen assets remain
-unchanged. All six exact-source gates remain required; this candidate is not deployed.
-See the [correction report](evidence/B2Z/player-centred-release/REPORT.md) and
-[maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
+The **player-centred candidate is source-qualified** at `984a1aacdf807072f867963eef776b1db6c7ffe0`:
+[run 42668858702](https://github.com/aodl/balls-2-the-wallz/actions/runs/42668858702) passes all six substantive gates. The clean frozen
+frontend is unchanged; this candidate has not been deployed. See the
+[release report and review evidence](evidence/B2Z/player-centred-release/REPORT.md)
+and [maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
 The deployed release described below remains the previously verified candidate.
 
 
