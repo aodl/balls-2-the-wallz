@@ -15,6 +15,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  scene.add(new T.HemisphereLight(0xe8eef7,0x49565c,1.3));const sun=new T.DirectionalLight(0xffecd6,2);sun.position.set(-20,40,10);scene.add(sun);
  const surface=createTerrainSurface();let lastHover=null,surfaceData=null,texture=null,surfaceRevision=-1,forceTerrainUpload=false,previewData=[];
  const tokens=getComputedStyle(canvas),token=(name,fallback)=>tokens.getPropertyValue('--'+name).trim()||fallback;
+ const eligibleInk=token('eligible','#bddde9');
+ const hoverInk=token('hover','#fff4d9'),chosenInk=token('selected','#f5c77e'),invalidInk=token('invalid','#f3a8a1'),previewInk=token('preview','#ffdf9d'),guideInk=token('guide','#ffedc9'),guideUnderInk=token('guide-under','#101317');
  const cannonBase=token('cannon-base','#303940'),cannonTurret=token('cannon-turret','#424c55'),cannonBarrel=token('cannon-barrel','#65717c');
  const material=new T.MeshLambertMaterial({flatShading:true});
  const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion();let lost=false,terrainKey='',lastView=null,lastDrawKey='',lastStats=null,effectUntil=0,previewKey='',sizeKey='';
@@ -34,21 +36,21 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const tails=batch(new T.ConeGeometry(.075,1,8),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,vertexShader:'attribute float tailAlpha;varying float fade;void main(){fade=tailAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.23*fade);}'} ));
  tails.geometry.setAttribute('tailAlpha',new T.InstancedBufferAttribute(new Float32Array(RENDER_LIMITS.pieces),1));
  const tailInner=batch(tails.geometry,RENDER_LIMITS.pieces,tails.material.clone());tailInner.material.fragmentShader='varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.65*fade);}';
- const ghostMaterial=new T.MeshBasicMaterial({color:0xffe1a5,transparent:true,opacity:.45,depthWrite:false,toneMapped:false}),ghostBase=batch(bases.geometry,1,ghostMaterial),ghostTurret=batch(turrets.geometry,1,ghostMaterial),ghostBarrel=batch(barrels.geometry,1,ghostMaterial);
- const hoverGhost=batch(new T.CylinderGeometry(.29,.34,.13,8),1,new T.MeshBasicMaterial({color:0xfff4d9,transparent:true,opacity:.22,wireframe:true,depthWrite:false}));
+ const ghostMaterial=new T.MeshBasicMaterial({color:token('ghost','#ffe1a5'),transparent:true,opacity:.45,depthWrite:false,toneMapped:false}),ghostBase=batch(bases.geometry,1,ghostMaterial),ghostTurret=batch(turrets.geometry,1,ghostMaterial),ghostBarrel=batch(barrels.geometry,1,ghostMaterial);
+ const hoverGhost=batch(new T.CylinderGeometry(.29,.34,.13,8),1,new T.MeshBasicMaterial({color:hoverInk,transparent:true,opacity:.22,wireframe:true,depthWrite:false}));
  const shadows=batch(new T.CircleGeometry(.31,16),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'varying vec2 shadowUv; void main(){shadowUv=uv;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 shadowUv; void main(){float a=.26*(1.-smoothstep(.08,.5,length(shadowUv-vec2(.5))));gl_FragColor=vec4(.015,.025,.03,a);}'}));
- const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:0xffdf9d,side:T.DoubleSide}));
+ const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide}));
  const accents=batch(new T.RingGeometry(.25,.31,24),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({side:T.DoubleSide,toneMapped:false}));
  const muzzles=batch(new T.CircleGeometry(.071,12),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({color:0x0b0e11,side:T.DoubleSide}));
- const hoverRings=batch(new T.RingGeometry(.48,.53,4),4,new T.MeshBasicMaterial({color:0xfff4d9,side:T.DoubleSide,toneMapped:false}));
- const chosenRings=batch(new T.RingGeometry(.48,.57,4),2,new T.MeshBasicMaterial({color:0xf5c77e,side:T.DoubleSide,toneMapped:false}));
- const invalidRings=batch(new T.RingGeometry(.48,.54,4),2,new T.MeshBasicMaterial({color:0xf3a8a1,side:T.DoubleSide,toneMapped:false}));
- const crosses=batch(new T.PlaneGeometry(.6,.08),2,new T.MeshBasicMaterial({color:0xf3a8a1,side:T.DoubleSide}));
+ const hoverRings=batch(new T.RingGeometry(.48,.53,4),4,new T.MeshBasicMaterial({color:hoverInk,side:T.DoubleSide,toneMapped:false}));
+ const chosenRings=batch(new T.RingGeometry(.48,.57,4),2,new T.MeshBasicMaterial({color:chosenInk,side:T.DoubleSide,toneMapped:false}));
+ const invalidRings=batch(new T.RingGeometry(.48,.54,4),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide,toneMapped:false}));
+ const crosses=batch(new T.PlaneGeometry(.6,.08),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide}));
  const highlights=batch(new T.PlaneGeometry(.97,.97),RENDER_LIMITS.effects,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'attribute float effectAlpha;varying float fade;void main(){fade=effectAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(0.,0.,0.,.20*fade);}'}));highlights.geometry.setAttribute('effectAlpha',new T.InstancedBufferAttribute(new Float32Array(RENDER_LIMITS.effects),1));
  const preview=batch(new T.PlaneGeometry(.85,.85),8192,new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.35,depthWrite:false,side:T.DoubleSide}));
  const guideGeometry=new LineGeometry().setPositions([0,0,0,0,0,0]);
- const marker=new T.Mesh(new T.RingGeometry(.36,.43,4),new T.MeshBasicMaterial({color:0xffdf9d,side:T.DoubleSide,transparent:true,opacity:.75}));marker.rotation.set(-Math.PI/2,0,Math.PI/4);scene.add(marker);
- const guide=new Line2(guideGeometry,new LineMaterial({color:0xffedc9,linewidth:2,depthTest:false,toneMapped:false})),guideUnder=new Line2(guideGeometry,new LineMaterial({color:0x101317,linewidth:4,depthTest:false,toneMapped:false}));guideUnder.renderOrder=10;guide.renderOrder=11;scene.add(guideUnder,guide);
+ const marker=new T.Mesh(new T.RingGeometry(.36,.43,4),new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide,transparent:true,opacity:.75}));marker.rotation.set(-Math.PI/2,0,Math.PI/4);scene.add(marker);
+ const guide=new Line2(guideGeometry,new LineMaterial({color:guideInk,linewidth:2,depthTest:false,toneMapped:false})),guideUnder=new Line2(guideGeometry,new LineMaterial({color:guideUnderInk,linewidth:4,depthTest:false,toneMapped:false}));guideUnder.renderOrder=10;guide.renderOrder=11;scene.add(guideUnder,guide);
  function instance(mesh,x,z,h,sx=1,sy=1,sz=1,tint=null,rotation=null){if(mesh.count>=mesh.instanceMatrix.count)return;dummy.position.set(x,h,z);dummy.scale.set(sx,sy,sz);dummy.rotation.set(rotation?.[0]??0,rotation?.[1]??0,rotation?.[2]??0);if(mesh===glow)dummy.quaternion.copy(ortho.quaternion);dummy.updateMatrix();mesh.setMatrixAt(mesh.count,dummy.matrix);if(tint)mesh.setColorAt(mesh.count,color.set(tint));mesh.count++;}
  function visible(camera,x,y,margin=2){const p=camera.screen(x,y);return p.x>=-margin*camera.scale&&p.y>=-margin*camera.scale&&p.x<=camera.viewport.width+margin*camera.scale&&p.y<=camera.viewport.height+margin*camera.scale;}
  const lostHandler=e=>{e.preventDefault();lost=true;motion.reset();onError('Graphics context lost. Waiting to restore the arena.');};
@@ -93,7 +95,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
    for(const b of points){const p=camera.point(b.x,b.y),x=p.x,y=p.y;if(!visible(camera,x,y))continue;const lod=Math.max(1,10/camera.scale);instance(shadows,x+.04,y+.05,.008,lod*.6,1,lod*.6,null,[-Math.PI/2,0,0]);instance(glow,x,y,.14*lod,lod*.65,lod*.65,1,null,[-Math.atan(1/Math.SQRT2),Math.PI/4,0]);instance(balls,x,y,.14*lod,lod,lod,lod);}
    for(const t of motion.tails(wallMs).slice(-RENDER_LIMITS.pieces)){tails.geometry.attributes.tailAlpha.setX(tails.count,t.alpha);const p=camera.point(t.x,t.y),length=t.distance,theta=Math.atan2(t.dy,t.dx);instance(tails,p.x-Math.cos(theta)*length/2,p.y-Math.sin(theta)*length/2,.14,1,length,1,null,[0,-theta,-Math.PI/2]);instance(tailInner,p.x-Math.cos(theta)*length/2,p.y-Math.sin(theta)*length/2,.14,.45,length,.45,null,[0,-theta,-Math.PI/2]);}
    for(const e of effects){highlights.geometry.attributes.effectAlpha.setX(highlights.count,e.alpha);const p=camera.cellPoint(e.cell),x=p.x,y=p.y;if(visible(camera,x,y))instance(highlights,x,y,.012,1,1,1,null,[-Math.PI/2,0,0]);}
-   if(updatePreview)for(const cell of previewData){const p=camera.cellPoint(cell),x=p.x,y=p.y;if(visible(camera,x,y)){const a=selection?.anchor,dx=a===undefined?0:Math.abs(cell%v.width-a%v.width),dy=a===undefined?0:Math.abs(Math.floor(cell/v.width)-Math.floor(a/v.width)),near=a!==undefined&&Math.min(dx,v.width-dx)+Math.min(dy,v.height-dy)===1;instance(preview,x,y,.02,1,1,1,near?'#ffdf9d':'#bddde9',[-Math.PI/2,0,0]);}}
+   if(updatePreview)for(const cell of previewData){const p=camera.cellPoint(cell),x=p.x,y=p.y;if(visible(camera,x,y)){const a=selection?.anchor,dx=a===undefined?0:Math.abs(cell%v.width-a%v.width),dy=a===undefined?0:Math.abs(Math.floor(cell/v.width)-Math.floor(a/v.width)),near=a!==undefined&&Math.min(dx,v.width-dx)+Math.min(dy,v.height-dy)===1;instance(preview,x,y,.02,1,1,1,near?previewInk:eligibleInk,[-Math.PI/2,0,0]);}}
   }
   const markCell=selection?.cell??(aim&&v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell?aim.cannon.cell:null);marker.visible=markCell!==null;
   if(marker.visible){const p=camera.cellPoint(markCell);marker.position.set(p.x,.03,p.y);}

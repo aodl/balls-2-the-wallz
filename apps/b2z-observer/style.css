@@ -23,3 +23,5 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 @media(hover:hover) and (pointer:fine){#board[data-cursor=place],#board[data-cursor=aim],#aim-handle{cursor:url('./cursors/reticle.svg') 14 14,crosshair}}
 @media(forced-colors:active){#board[data-cursor=place],#board[data-cursor=aim],#aim-handle{cursor:crosshair}}
 :root{--cannon-base:#303940;--cannon-turret:#424c55;--cannon-barrel:#65717c}
+
+:root{--selected:#f5c77e;--preview:#ffdf9d;--ghost:#ffe1a5;--guide:#ffedc9;--guide-under:#101317;--eligible:#bddde9}
