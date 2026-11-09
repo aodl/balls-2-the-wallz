@@ -86,7 +86,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
     instance(bases,x,y,.09,lod,lod,lod,cannonBase);instance(turrets,x,y,.24,lod,lod*.8,lod,cannonTurret);instance(accents,x,y,.16,lod,1,lod,tint,[-Math.PI/2,0,0]);
     const [dx,dy]=heading(aim?.cannon.id===c.id&&aim.cannon.cell===c.cell?aim.heading:Number.isInteger(c.heading)?c.heading:0),theta=Math.atan2(dy,dx),length=.29*lod;
     instance(barrels,x+Math.cos(theta)*length,y+Math.sin(theta)*length,.27,lod,lod,lod,cannonBarrel,[0,-theta,Math.PI/2]);
-    instance(muzzles,x+Math.cos(theta)*.52*lod,y+Math.sin(theta)*.52*lod,.27,lod,lod,lod,null,[Math.PI/2,0,theta-Math.PI/2]);
+    instance(muzzles,x+Math.cos(theta)*.52*lod,y+Math.sin(theta)*.52*lod,.27,lod,lod,lod,null,[0,Math.PI/2-theta,0]);
     if(hover?.kind==='cannon'&&hover.id===c.id&&c.id!==selected)instance(hoverRings,x,y,.02,lod,1,lod,null,[-Math.PI/2,0,Math.PI/4]);
     if(c.id===selected)instance(rings,x,y,.015,lod,1,lod,null,[-Math.PI/2,0,0]);
    }
