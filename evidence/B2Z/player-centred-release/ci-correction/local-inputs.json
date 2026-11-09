@@ -11,5 +11,7 @@
   "backend_code_dependencies_and_locks": "unchanged from parent",
   "source_wrapper": "correction-source",
   "browser_wrapper": "locate-browser",
-  "installed_case": "installed-browser-qualified"
+  "installed_case": "installed-browser-qualified",
+  "clean_corrective_commit": "d9cf54235623cbaa8432311561cfd0e5b9275e8c",
+  "clean_commit_input_equality_verified": true
 }

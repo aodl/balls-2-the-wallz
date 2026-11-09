@@ -1,10 +1,95 @@
 # B2Z player-centred release candidate
 
-**Not ready for production approval:** the published parent
-`9b15cf0714bc85cca245fc918664767ed18553fb` failed two substantive hosted gates.
-The focused follow-up fixes immediate Locate card recovery and corrects stale
-installed-browser expectations. New exact-source CI is required; production
-operations remain outside this task's authority.
+**Not ready for production approval:** the correction is locally checked and
+cleanly frozen, but ordinary GitHub publication is blocked by missing HTTPS
+authentication. The remote remains `9b15cf0714bc85cca245fc918664767ed18553fb`, whose
+run failed two substantive gates. All six gates must pass on the corrective source
+before production approval. No production operation is authorised or performed.
+
+## Current corrective candidate
+
+| Identity | Value |
+| --- | --- |
+| Clean runtime source | `d9cf54235623cbaa8432311561cfd0e5b9275e8c` |
+| JavaScript SHA-256 | `51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370` |
+| Complete 15-file manifest SHA-256 | `be6214af8ba24c09dcdc5c5706044b37a00eb8c986d2bc3f47d7c9028a8d4ea9` |
+| Builder manifest SHA-256 | `fa165fac7512d4724e88b8356619297304eae88af2c9dc7c7e4df08f6caa1fa2` |
+| Provenance | `source_dirty: false` |
+
+[Complete files](ci-correction/frontend-files.json),
+[builder provenance](ci-correction/frontend-build-manifest.json),
+[freeze/difference record](ci-correction/freeze.json),
+[local-check input linkage](ci-correction/local-inputs.json).
+All 15 files verify. Only `app.mjs` and `build-manifest.json` differ from the previous
+clean freeze; the other 13 files, dependencies, HTML/CSS and CSP are identical.
+The assets are `.work/review-closeout/correction-frozen/frontend/`. The later
+report/media/manifest commit changes no runtime/test/build/dependency inputs and
+does not rebuild this artifact. Old manifests and assets remain preserved.
+
+[All-file local HTTP verification](ci-correction/served-local.json) checks every
+frozen byte and generated security header. [Genuine IC-root local preview](ci-correction/frozen-live.json)
+checks desktop/390×844/320×640, new backend/default-account binding, exact native
+clipboard values (`0.1`, backend principal, `FIRE 1 255 1`, hex
+`464952452031203235352031`) and continued authenticated observation during forced
+optional-telemetry failure. Clock/queue stay identical, 35 certificates verify and
+admission remains available. The verified playhead is correctly waiting at the end
+of coverage; no motion is invented. These are local candidate files reading IC
+data, not newly deployed production files or an actual-wallet transfer test.
+
+Refreshed actual-application populated recordings: [desktop](ci-correction/desktop.webm)
+(96 s), [390×844](ci-correction/390x844.webm) (53 s),
+[320×640](ci-correction/320x640.webm) (33 s).
+[Desktop](ci-correction/1440x900-populated.png),
+[390×844](ci-correction/390x844-populated.png),
+[320×640](ci-correction/320x640-populated.png) populated screenshots and each size's
+wallet/waiting images are bound by [the capture manifest](ci-correction/media.json).
+They cover actual controls, aim dragging, Move/Build, coherent copy/replacement,
+continuing playback through card use, minimap/seams and waiting/resumption.
+Waiting uses 20× disposable time, not production timing. Existing software-frame
+measurements below remain limitations, not a hardware or smoothness pass. The
+renderer/per-frame paths are unchanged; only an explicit Locate adds one layout
+update, so no new general benchmark campaign is substituted for review.
+
+[Fresh read-only identities](ci-correction/production-readonly.json) confirm the
+backend `612ad0d0…` and frontend `04e565b3…` modules, both controller sets and
+certified European 13-node placement are preserved. [Public status](ci-correction/public-status.json)
+works anonymously with SDK signature/root checks; `status_visibility = public`
+already exists. No setting change is needed or made. Paid state/financial records
+continue autonomously; no reset, upgrade, financial transaction or manual game
+operation occurred.
+
+[Publication/required CI](ci-correction/publication.json): ordinary non-force push
+is blocked by `fatal: could not read Username for 'https://github.com': terminal
+prompts disabled`. No credentials were inspected or requested. Operator continuation:
+`git push origin release/btz-prelaunch-playability:refs/heads/release/btz-prelaunch-playability`.
+The exact evidence head is provided in the completion response. After publication,
+refresh the resulting run and require all six named substantive gates below.
+The previous four passes and focused local installed case do not waive them.
+
+## Executed correction commands
+
+Browser commands used the existing Python 3.11 browser virtualenv and
+`LD_LIBRARY_PATH=/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu`.
+No test framework, dependency pin or normal build process changed.
+
+```sh
+.work/browser-venv/bin/python -B tools/check.py source --output .work/review-closeout/correction-source
+.work/browser-venv/bin/python -B tools/verify_playability_actions.py --output .work/review-closeout/locate-browser
+.work/browser-venv/bin/python -B tools/verify_playability_actions.py --visual-review --output .work/review-closeout/correction-visual
+node tools/build_observer_playability.mjs --canister s5ir5-gqaaa-aaaas-amyna-cai --output .work/review-closeout/correction-frozen/frontend
+```
+
+The installed focused case reused the already checked disposable Wasms and binary
+through existing runner helpers, with `DFX_IDENTITY=codex_local`:
+
+```sh
+.work/browser-venv/bin/python -B .work/review-closeout/reproduce-installed-browser.py deployed_bundle_live_index_payments_reconnect_and_upgrade .work/review-closeout/installed-browser-qualified
+```
+
+Its exact binary command, unchanged deadline, artifact hashes and result are in
+[the installed-case record](ci-correction/installed-case.json). A new independent
+reproduction can use the maintained `tools/verify_s14_local.py --test-filter`
+entry point; it rebuilds disposable artifacts and is not a production procedure.
 
 ## Focused CI correction
 
@@ -62,7 +147,7 @@ commit; their executable input hashes are bound to that clean source below, and
 do not substitute for its still-required hosted CI.
 
 The earlier source/artifact record below remains identifiable as the previous
-candidate. A clean corrective source/complete asset freeze is recorded separately
+candidate. The clean corrective source/complete asset freeze is recorded above
 after local verification; the old manifests and captures are not overwritten.
 
 The initial checkout was HEAD `2491d55f30125b421bedb7155db0fcac9bf0711f` on the

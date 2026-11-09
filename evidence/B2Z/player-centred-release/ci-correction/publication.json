@@ -1,0 +1,38 @@
+{
+  "runtime_source_commit": "d9cf54235623cbaa8432311561cfd0e5b9275e8c",
+  "publication": "BLOCKED: ordinary HTTPS Git push cannot obtain a username; no credential workaround attempted",
+  "checked_at": "2026-11-09T09:41:53.292087+00:00",
+  "observed_remote_head": "9b15cf0714bc85cca245fc918664767ed18553fb",
+  "ordinary_push_command": "git push origin release/btz-prelaunch-playability:refs/heads/release/btz-prelaunch-playability",
+  "new_source_ci_run": null,
+  "required_jobs": [
+    {
+      "name": "Runtime-lab Wasm",
+      "conclusion": "NOT_RUN; corrective source not published"
+    },
+    {
+      "name": "Native conformance",
+      "conclusion": "NOT_RUN; corrective source not published"
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "conclusion": "NOT_RUN; corrective source not published"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "conclusion": "NOT_RUN; corrective source not published"
+    },
+    {
+      "name": "Source conformance",
+      "conclusion": "NOT_RUN; corrective source not published"
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "conclusion": "NOT_RUN; corrective source not published"
+    }
+  ],
+  "previous_failed_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125",
+  "previous_gates_not_a_waiver": true,
+  "production_operation": "NONE; not authorised by this task",
+  "artifact_policy": "Later evidence-only commit does not rebuild the d9cf542 frozen runtime"
+}

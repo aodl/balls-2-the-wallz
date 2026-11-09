@@ -18,10 +18,13 @@ resize/restart persistence. The affected disposable case passes: 115 exact repla
 once, authenticated recovery and negative certificate/configuration checks.
 
 Full local source verification passes: 1,759 JS / 198 Python, no skips, unchanged
-300-second Node allowance. The earlier clean source/artifacts remain preserved.
-A new clean corrective freeze
-and publication record follow the local checks; all six hosted gates are still
-required. [Report and evidence](evidence/B2Z/player-centred-release/REPORT.md).
+300-second Node allowance. Corrective source `d9cf54235623cbaa8432311561cfd0e5b9275e8c`
+is cleanly frozen: JS `51c7f92a…`, complete 15-file manifest `be6214af…`.
+Refreshed populated desktop/mobile recordings and genuine IC-root local frozen-
+bundle preview pass, including exact clipboard bytes and telemetry non-interference.
+The prior clean/dirty evidence remains preserved. Ordinary Git publication is
+blocked by unavailable HTTPS authentication; the remote is still `9b15cf0`.
+All six new exact-source hosted gates remain required. No new CI pass is claimed. [Report and evidence](evidence/B2Z/player-centred-release/REPORT.md).
 Production deployment, paid state, settings, controllers and financial authority
 are untouched; this task authorizes no production operation.
 

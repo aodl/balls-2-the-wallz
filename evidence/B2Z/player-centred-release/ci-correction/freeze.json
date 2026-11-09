@@ -1,0 +1,17 @@
+{
+  "source_commit": "d9cf54235623cbaa8432311561cfd0e5b9275e8c",
+  "source_dirty": false,
+  "assets_directory": ".work/review-closeout/correction-frozen/frontend",
+  "javascript_sha256": "51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370",
+  "complete_manifest_sha256": "be6214af8ba24c09dcdc5c5706044b37a00eb8c986d2bc3f47d7c9028a8d4ea9",
+  "builder_manifest_sha256": "fa165fac7512d4724e88b8356619297304eae88af2c9dc7c7e4df08f6caa1fa2",
+  "all_files_verified": 15,
+  "changed_files_from_previous_clean_freeze": [
+    "app.mjs",
+    "build-manifest.json"
+  ],
+  "unchanged_files": 13,
+  "previous_source": "3ec1cb5d40b3cde5a1014e79a590649f835b9df1",
+  "previous_complete_manifest_sha256": "179c06783d3915ea917f9376ad6bda86c51038028d3c9b82ed98f27f7495d050",
+  "preservation": "Prior clean artifacts/manifests and dirty review evidence retained; no backend artifact or production asset modified"
+}

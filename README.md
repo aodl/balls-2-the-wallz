@@ -1,9 +1,9 @@
 # B2Z
 
-The **player-centred candidate** has a focused CI follow-up: immediate Locate card
-recovery and version-correct installed-browser expectations. The preceding hosted
-run passed four substantive gates and failed two; new exact-source qualification
-is required. It is not deployed. See the [correction report](evidence/B2Z/player-centred-release/REPORT.md)
+The **player-centred candidate** is corrected, locally checked and cleanly frozen
+at source `d9cf542`. Publication is blocked by unavailable GitHub authentication;
+all six new exact-source CI gates remain required. The preceding hosted run passed
+four substantive gates and failed two. This candidate is not deployed. See the [correction report](evidence/B2Z/player-centred-release/REPORT.md)
 and [maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
 The deployed release described below remains the previously verified candidate.
 
