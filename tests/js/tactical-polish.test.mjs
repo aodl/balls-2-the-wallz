@@ -57,3 +57,14 @@ test('UX-04 actual SDK observation query cancellation reaches its pending transp
  const client=await boundedObservationClient({network:'ic',host:'https://icp-api.io',canister_id:'s5ir5-gqaaa-aaaas-amyna-cai'},{signal:controller.signal,fetch:async(input,{signal})=>{seen.push(signal);if(signal.aborted)throw signal.reason;return new Promise((resolve,reject)=>signal.addEventListener('abort',()=>reject(signal.reason),{once:true}));}});
  const pending=client.observation(),timer=setTimeout(()=>controller.abort(),15);await assert.rejects(pending);clearTimeout(timer);assert.ok(seen.length>0);assert.ok(seen.every(s=>s.aborted));
 });
+
+import {freshObservation,operationalReplyCurrent} from '../../apps/b2z-observer/warm-return.mjs';
+test('UX-06 delayed replies cannot relabel old certificates or pre-hide health as fresh',()=>{
+ const s={certifiedAt:100,certificateAgeMs:0,certificateTimeNs:'1000000000',lifecycleGeneration:1};
+ assert.equal(freshObservation(s,101,1001),true);assert.equal(freshObservation(s,102,36000),false,'wall certificate age covers clocks paused during sleep');assert.equal(freshObservation(s,30101,500),false,'backward wall adjustment cannot defeat monotonic age');
+ assert.equal(operationalReplyCurrent(s,1,100,200),true);s.lifecycleGeneration++;
+ assert.equal(operationalReplyCurrent(s,1,100,200),false);assert.equal(operationalReplyCurrent(s,2,100,15100),false);assert.equal(operationalReplyCurrent(s,2,200,100),false);
+});
+test('UX-04 fresh slow-tier information rebases a warm backlog without requiring new coverage',()=>{
+ const state={playhead:0,available:1};assert.equal(recentPresentationPoint(state,1,35),0);assert.equal(recentPresentationPoint(state,.01,35),.98);
+});

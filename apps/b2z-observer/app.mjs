@@ -1,6 +1,6 @@
 import {publicCycleMonitor,renderCycleReadout} from './public-cycles.mjs';
 import {replayTools} from './replay-tools.mjs';
-import {recentPresentationPoint} from './warm-return.mjs';
+import {recentPresentationPoint,freshObservation,operationalReplyCurrent} from './warm-return.mjs';
 import {observationLoop} from './observation-loop.mjs';
 import {experienceStatus} from './experience-status.mjs';
 import {Camera} from './camera.mjs';
@@ -143,9 +143,9 @@ async function startLive(recording,startupRetries=0){
       const module=await import('./mainnet.mjs');
       const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
-      const initial=await Promise.allSettled([s.client.observation(),s.readStatus()]);
+      const initialStarted=performance.now();const initial=await Promise.allSettled([s.client.observation(),s.readStatus()]);
       if(initial[0].status==='rejected')throw initial[0].reason;
-      if(initial[1].status==='fulfilled'){s.operational=initial[1].value;s.operationalAt=performance.now();s.statusDue=s.operationalAt+2000;}
+      if(initial[1].status==='fulfilled'&&performance.now()-initialStarted<15000){s.operational=initial[1].value;s.operationalAt=initialStarted;s.statusDue=s.operationalAt+2000;}
       ticket=await certifiedTicket(s,initial[0].value);
       const source=await deploymentSource(recording.deployment,ticket);
       const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
@@ -251,9 +251,9 @@ function updatePlayReference(s,world,events){
 }
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
-  s.statusBusy=true;s.statusDue=now+2000;
-  try{const status=await s.readStatus();if(active(s)){s.operational=status;s.operationalAt=performance.now();if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}}
-  catch{if(active(s)){s.operational=null;}}
+  s.statusBusy=true;s.statusDue=now+2000;const generation=s.lifecycleGeneration??0,started=now;
+  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=status;s.operationalAt=started;if(s.resumeWarm){warmPresentation(s,3);s.resumeWarm=false;}if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
+  catch{if(active(s)&&(s.lifecycleGeneration??0)===generation){s.operational=null;}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
@@ -320,7 +320,7 @@ async function pump(now){
   }catch(e){if(!active(s))return;s.error=e;s.failureKind=observationFailure(e);showError(e);}finally{s.busy=false;if(active(s))updateHud();}
 }
 function idleState(s){
- return Boolean(s?.mode==='live'&&s.ready&&!s.error&&!deliveryPaused&&performance.now()-(s.operationalAt??-Infinity)<15000&&performance.now()-(s.certifiedAt??-Infinity)<30000&&idleArena(s.operational,s.referenceWorld));
+ return Boolean(s?.mode==='live'&&s.ready&&!s.error&&!deliveryPaused&&performance.now()-(s.operationalAt??-Infinity)<15000&&freshObservation(s,performance.now())&&idleArena(s.operational,s.referenceWorld));
 }
 function phase(){
   const s=session;if(bootError||s?.error)return 'ERROR';if(!s?.ready)return 'LOADING';
@@ -328,7 +328,7 @@ function phase(){
   return paused?'PAUSED':idleState(s)&&s.clock.available===s.clock.playhead?'IDLE':s.clock.phase;
 }
 function updateHud(){
- const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=now-(s?.certifiedAt??-Infinity)<30000;
+ const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=freshObservation(s,now);
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
  const failure=s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':s?.error?s.failureKind:null;
  const resolved=experienceStatus({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,deliveryError:s?.deliveryError,renderError});
@@ -380,7 +380,7 @@ function frame(now){
   draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
 $('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
-const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;warmPresentation(s,gap/1000);if(s.referenceWorld){arcade.render(s.referenceWorld,s.config,s.source,s.root);arcade.receipts([...(s.receipts?.values()??[])]);}updateHud();draw();}}});
+const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;s.lifecycleGeneration=(s.lifecycleGeneration??0)+1;s.operationalAt=-Infinity;s.resumeWarm=gap>2000||!freshObservation(s,performance.now());warmPresentation(s,s.resumeWarm?3:gap/1000);if(s.referenceWorld){arcade.render(s.referenceWorld,s.config,s.source,s.root);arcade.receipts([...(s.receipts?.values()??[])]);}updateHud();draw();}}});
 document.addEventListener('visibilitychange',()=>{observations.visibility();cycleMonitor?.visibility();});
 document.addEventListener('freeze',()=>observations.suspend());
 document.addEventListener('resume',()=>{lastFrame=null;observations.resume();});

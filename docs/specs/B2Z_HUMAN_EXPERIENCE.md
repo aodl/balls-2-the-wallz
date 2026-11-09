@@ -332,6 +332,12 @@ preserves useful coverage/clock/queue; longer gaps select the recent retained po
 not an elapsed-time slice of an old 100-second interval; an unchanged head does not reset to its
 endpoint. Cached verified presentation can draw before a network round trip;
 payment preparation still requires fresh verification and operational admission.
+Health replies retain their request-start age and lifecycle generation; pre-hide
+replies cannot become fresh after return. Certificate freshness uses the actual
+certificate timestamp as well as monotonic elapsed time, including a frozen clock.
+Fresh pace information rechecks the recent retained point once, so a stale faster
+hint cannot leave a long Trickle backlog. These checks neither reset the clock nor
+relax the five-minute certificate verifier or the financial admission rules.
 Frozen/BFCache pages disarm scheduling; resume re-arms once. Discard/reload follows
 normal authenticated boot. Hidden/offline requests can be throttled or suspended;
 there is no background freshness guarantee. Two tabs have bounded independent
