@@ -39,6 +39,19 @@ def choose_action(page,kind,review=True):
     if review:review_instructions(page)
 def selected_cell(page):
     return page.evaluate('()=>{const id=__b2zTools.selection();return __b2zExperience.session.referenceWorld.cannons.find(c=>c.id===id).cell;}')
+def locate_seam_action(page):
+    # UX-03/04/12: panning away hides the anchored card, not the draft.
+    # Compare in one JS turn: genuine authenticated recovery between browser
+    # RPCs may replace a clock independently of navigation. Invoke the actual
+    # control handler; native pointer Locate is also covered by the UX journeys.
+    assert page.evaluate('''() => {
+      const clock=__b2zExperience.clock,queue=__b2zExperience.queue,cannon=__b2zTools.selection();
+      const locate=document.getElementById('locate-context');
+      if(locate&&!locate.hidden)locate.click();
+      return Boolean(clock&&queue)&&clock===__b2zExperience.clock&&queue===__b2zExperience.queue&&cannon===__b2zTools.selection();
+    }''')
+    assert page.locator('#action-view').is_visible()
+    assert not page.locator('#workspace').evaluate('(n)=>n.inert')
 def tab_in_modal(page):
     # UX-03/11 supersedes modal focus trapping: the background remains interactive.
     assert page.locator('#workspace').is_visible()
@@ -62,7 +75,7 @@ def verify_torus_scene(page,context,out,record,report,save):
     choose_action(page,'move');page.locator('#move-cell').fill('0')
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
     point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
-    assert page.locator('#action-view').is_visible()
+    locate_seam_action(page)
     assert page.locator('#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
     page.screenshot(path=str(out/'torus-seam-move.png'));record('corner-seam-camera-hit-test-prepares-the-underlying-cell-once')
@@ -149,6 +162,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
     assert page.locator('#move-cell').input_value()=='0'
+    locate_seam_action(page)
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
     page.screenshot(path=str(out/'million-seam-pick.png'))

@@ -1,10 +1,66 @@
 # B2Z player-centred release candidate
 
-**Not ready for production approval:** the correction is locally checked and
-cleanly frozen, but ordinary GitHub publication is blocked by missing HTTPS
-authentication. The remote remains `9b15cf0714bc85cca245fc918664767ed18553fb`, whose
-run failed two substantive gates. All six gates must pass on the corrective source
-before production approval. No production operation is authorised or performed.
+**Not ready for production approval:** the owner published
+`5cb490eed480bd6fd14d319fed717935a44d2ecb`. Its new hosted run passes five gates;
+S14/million-cell fails three browser scene setups. A test-only correction follows
+below. All six substantive gates remain required; no production operation is
+authorised or performed.
+
+## Installed seam setup follow-up
+
+[Run 42617695852 and all six conclusions](ci-correction/hosted-42617695852.json).
+The owner supplied the exact three failing case names. [Local diagnosis and
+preserved failures](ci-correction/seam-followup.json) confirm torus fails at card
+visibility and million at visible memo text after panning to the seam. UX-03/12
+intentionally hide an offscreen cannon's anchored card behind Locate. The test
+now uses that actual control and verifies clock, queue and cannon identity before
+retaining the exact `MOVE 0` wallet assertions. Both million variants share this
+setup function. This supersedes docked-card assumptions, not financial/security
+assertions. No application, backend or dependency changed.
+
+The corrected torus installed case passes completely in 419.6 s, including
+independent replay and the unchanged 90-second measurement: ~1.00 displayed
+ticks/s, zero stalls/resyncs. Million setup/memo checks pass. Its first local run
+then fails 60-second startup with fetches up to 10.6 s and three resyncs while
+torus replay overlapped. An isolated run passes startup but fails the unchanged
+Normal window: seven stalled samples, three resyncs, .309 displayed ticks/s versus
+1.023 backend ticks/s, fetch/artifact maxima ~16–17 s. Neither failure is relabelled.
+
+One baseline comparison uses the existing detached `2491d55` checkout, identical
+lock and backend artifacts, actual pinned-root prebuilt-assets route, same fixture
+and assertions. Its first run observes background recovery between browser RPCs,
+so the newly added identity guard cannot attribute that change to navigation.
+The guard now compares real clock/queue/cannon references within the same JS turn
+as the actual Locate handler. It still rejects handler-induced changes. The
+baseline comparison then fails the existing 60-second startup condition too.
+This supports keeping environment/delivery uncertainty separate from the repaired
+seam assertions, but proves neither an exact cause nor a candidate performance
+pass. No runtime, startup or safety budget changed. Each repetition follows a
+recorded harness correction or the single stated contention comparison; no failed
+run is discarded or relabelled. These failed measurements remain a qualification
+limitation. No further timing reruns or tuning are performed.
+
+No local repeat of the unchanged 900-second sustained window is claimed. Both
+million variants share the corrected setup before their unchanged measurement
+branches. The full new hosted gate remains mandatory, including all sustained
+assertions; no focused pass or old evidence waives it.
+
+All **199 Python tool tests** pass (47.8 s, zero failures/skips). The actual
+maintained Locate helper is also checked against the unchanged real component
+fixture/pinned clock: it reaches the offscreen card and preserves actual clock/
+queue identity; independently injected clock and queue replacements are rejected.
+That controlled fixture is not IC authenticity evidence. The genuine torus case
+above supplies its installed/certificate/replay evidence. Existing 1,759 JS and
+five hosted passing jobs remain prior evidence for unchanged inputs, not a waiver
+of the new exact-source six-gate requirement.
+
+CI diagnostics now include bounded tails from actual failed `browser.log` files,
+so the Python assertion is visible with its Rust wrapper. A regression excludes
+successful-browser noise; classification and test inventories are unchanged.
+
+The following clean runtime/artifacts/captures remain byte-identical. This test
+follow-up does not rebuild or replace them. Current UI regressions and their
+UX-03/04 evidence map now include the installed seam→Locate path.
 
 ## Current corrective candidate
 
@@ -58,13 +114,12 @@ already exists. No setting change is needed or made. Paid state/financial record
 continue autonomously; no reset, upgrade, financial transaction or manual game
 operation occurred.
 
-[Publication/required CI](ci-correction/publication.json): ordinary non-force push
-is blocked by `fatal: could not read Username for 'https://github.com': terminal
-prompts disabled`. No credentials were inspected or requested. Operator continuation:
-`git push origin release/btz-prelaunch-playability:refs/heads/release/btz-prelaunch-playability`.
-The exact evidence head is provided in the completion response. After publication,
-refresh the resulting run and require all six named substantive gates below.
-The previous four passes and focused local installed case do not waive them.
+[Publication/required CI](ci-correction/publication.json): publication of `5cb490e`
+is confirmed; its exact-source result is five passes / one failed substantive
+gate, not release qualification. The subsequent test-only correction needs a new
+published-source run with all six gates. The ordinary HTTPS route in this session
+has lacked credentials; no credential inspection/workaround is authorised.
+Production deployment and live setting changes remain outside this task.
 
 ## Executed correction commands
 

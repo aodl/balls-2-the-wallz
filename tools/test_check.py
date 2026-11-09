@@ -21,6 +21,17 @@ class TestNestedFailureEvidence(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory,contextlib.redirect_stdout(io.StringIO()) as captured:
             report_s14_failure(Path(directory))
         self.assertIn('S14 details unavailable',captured.getvalue())
+    def test_actual_failed_browser_assertion_is_exposed_without_success_log_noise(self):
+        with tempfile.TemporaryDirectory() as directory:
+            out=Path(directory);nested=out/'s14-local';nested.mkdir()
+            (nested/'results.json').write_text(json.dumps({'reason':'browser failed','checks':[]}))
+            for name,status in [('torus-scene','FAIL'),('other-scene','PASS')]:
+                scene=nested/'deployment'/name;scene.mkdir(parents=True)
+                (scene/'results.json').write_text(json.dumps({'status':status}))
+                (scene/'browser.log').write_text(name+' actual assertion\n')
+            with contextlib.redirect_stdout(io.StringIO()) as captured:report_s14_failure(out)
+            self.assertIn('torus-scene actual assertion',captured.getvalue())
+            self.assertNotIn('other-scene actual assertion',captured.getvalue())
 class TestEvidenceClassification(unittest.TestCase):
     def test_missing_tool_is_not_pass(self):self.assertEqual(classify(None,''),'BLOCKED')
     def test_argparse_usage_exit_is_failure(self):self.assertEqual(classify(2,'usage: tool [-h]\ntool: error: required arguments'),'FAIL')

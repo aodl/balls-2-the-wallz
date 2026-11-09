@@ -45,6 +45,13 @@ def report_s14_failure(outdir):
         try:tail=(nested/check['log']).read_text(errors='replace').splitlines()[-24:]
         except (OSError,KeyError):continue
         print('\n'.join(tail)[-6000:],flush=True)
+    # Rust reports the browser path; expose its actual Python assertion too.
+    for log in sorted((nested/'deployment').glob('**/browser.log')):
+        try:browser=json.loads((log.parent/'results.json').read_text())
+        except (OSError,ValueError):continue
+        if browser.get('status')!='FAIL':continue
+        print('S14 browser log:',log.relative_to(outdir),flush=True)
+        print('\n'.join(log.read_text(errors='replace').splitlines()[-24:])[-6000:],flush=True)
 
 def classify(exit_code,text,kind='normal',allow_blocked_exit=False):
     """Classify process evidence; exit 2 is BLOCKED only for designated wrappers."""

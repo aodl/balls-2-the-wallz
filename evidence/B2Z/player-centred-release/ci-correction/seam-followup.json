@@ -1,0 +1,781 @@
+{
+  "failed_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852",
+  "qualified_head_under_test": "5cb490eed480bd6fd14d319fed717935a44d2ecb",
+  "substantive_results": [
+    {
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573389"
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573677"
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573688"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573743"
+    },
+    {
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573801"
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573894"
+    }
+  ],
+  "cause": "Seam pan leaves the selected cannon offscreen. UX-03/12 intentionally hide its anchored action card behind Locate. Torus asserted card visibility; million variants read visible inner_text from the hidden memo.",
+  "correction": "Use the real Locate control before wallet assertions. Preserve queue, clock and selected cannon identity; retain exact MOVE 0, destination and pacing assertions. No application/backend/dependency change.",
+  "local_failures": [
+    {
+      "case": "torus_browser_scene_camera_and_continuous_supported_playback",
+      "result": {
+        "id": "torus_browser_scene_camera_and_continuous_supported_playback",
+        "command": [
+          "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+          "torus_browser_scene_camera_and_continuous_supported_playback",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 81.871,
+        "timeout_seconds": 900,
+        "log": "logs/torus_browser_scene_camera_and_continuous_supported_playback.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      "traceback": [
+        "Built observer for dfj7p-ut777-77776-qaaba-cai: /home/codexdev/src/b2z/.work/review-closeout/torus-ci-repro/deployment/torus-scene/assets",
+        "Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/codexdev/src/b2z/.work/review-closeout/torus-ci-repro/deployment/torus-scene/mainnet-assets",
+        "Traceback (most recent call last):",
+        "  File \"/home/codexdev/src/b2z/tools/verify_s14_deployment.py\", line 489, in main",
+        "    else:verify_torus_scene(page,context,out,record,report,save)",
+        "         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/home/codexdev/src/b2z/tools/verify_s14_deployment.py\", line 65, in verify_torus_scene",
+        "    assert page.locator('#action-view').is_visible()",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError",
+        "AssertionError()"
+      ]
+    },
+    {
+      "case": "million_browser_normal_lifeline_and_cold_reconnect",
+      "result": {
+        "id": "million_browser_normal_lifeline_and_cold_reconnect",
+        "command": [
+          "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+          "million_browser_normal_lifeline_and_cold_reconnect",
+          "--exact",
+          "--ignored",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 76.737,
+        "timeout_seconds": 900,
+        "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      },
+      "traceback": [
+        "Built observer for dfj7p-ut777-77776-qaaba-cai: /home/codexdev/src/b2z/.work/review-closeout/million-ci-repro/deployment/million-browser-normal/assets",
+        "Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/codexdev/src/b2z/.work/review-closeout/million-ci-repro/deployment/million-browser-normal/mainnet-assets",
+        "Traceback (most recent call last):",
+        "  File \"/home/codexdev/src/b2z/tools/verify_s14_deployment.py\", line 488, in main",
+        "    elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)",
+        "                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "  File \"/home/codexdev/src/b2z/tools/verify_s14_deployment.py\", line 152, in verify_million_scene",
+        "    wait_until(page,lambda:page.locator('[data-copy=\"text\"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'",
+        "                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "AssertionError",
+        "AssertionError()"
+      ]
+    }
+  ],
+  "sustained_qualification": "Both million variants use the same setup function before unchanged Normal/900s/slow measurements. New complete hosted CI remains required.",
+  "unchanged_frozen_javascript_sha256": "51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370",
+  "corrected_torus_case": {
+    "id": "torus_browser_scene_camera_and_continuous_supported_playback",
+    "command": [
+      "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+      "torus_browser_scene_camera_and_continuous_supported_playback",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 419.614,
+    "timeout_seconds": 900,
+    "log": "logs/torus_browser_scene_camera_and_continuous_supported_playback.log",
+    "pocketic_server_exit": null
+  },
+  "corrected_torus_browser": {
+    "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+    "seconds": 88.5798,
+    "verified_ticks_per_second": 1.0160330007518643,
+    "displayed_ticks_per_second": 1.00064790667145,
+    "stalled_samples": 0,
+    "nominal_rate": 1,
+    "backend_ticks_per_second": 1.0160330007518643,
+    "resyncs": 0,
+    "queue_segments": {
+      "min": 6,
+      "max": 11
+    },
+    "buffer_ticks": {
+      "min": 11.195138048079862,
+      "max": 21.554197824928806
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 878.5,
+        "max": 5536.5999999940395
+      },
+      "verify_ms": {
+        "median": 211.59999999403954,
+        "max": 629.3000000119209
+      },
+      "artifact_ms": {
+        "median": 0.29999998211860657,
+        "max": 1179.7999999821186
+      },
+      "derive_ms": {
+        "median": 11.400000005960464,
+        "max": 39.400000005960464
+      },
+      "catchup_ms": {
+        "median": 1143,
+        "max": 2602.300000011921
+      }
+    },
+    "max_catchup_segments": 3,
+    "latency_qualification": "Frame-sampled last-operation durations. Atomic observation query includes artifact network delivery; artifact_ms normally measures cached bundle validation, and includes a network query for retained bundles.",
+    "timestamp_qualification": "Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound."
+  },
+  "million_parallel_attempt": {
+    "check": {
+      "id": "million_browser_normal_lifeline_and_cold_reconnect",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "FAIL",
+      "elapsed_seconds": 154.989,
+      "timeout_seconds": 900,
+      "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+      "pocketic_server_exit": null,
+      "reason": "Expected exactly one passing installed test"
+    },
+    "reason": "Seam/memo regression passed, then 60s startup timeout. Overlapped independent torus replay. This does not establish contention as the cause; one isolated comparison follows.",
+    "telemetry": {
+      "wall_ms": 92416.8,
+      "frame_ms": 16.69999999999709,
+      "verified_ticks": 59,
+      "consumed_ticks": 58,
+      "admitted_ticks": 12,
+      "played_ticks": 0,
+      "buffer_ticks": 1,
+      "buffer_target_ticks": 17,
+      "buffer_bytes": 37537,
+      "queue_segments": 1,
+      "certificate_time_ns": "1794230226376108150",
+      "certificate_age_ms": 942.892032,
+      "catchup_segments": 11,
+      "catchup_ms": 21.5,
+      "phase": "BUFFERING",
+      "rate": 1,
+      "nominal_rate": 1,
+      "target_rate": 1,
+      "performance_limited": false,
+      "fetch_ms": 10573.799999982119,
+      "verify_ms": 628.5,
+      "artifact_ms": 0.5999999940395355,
+      "derive_ms": 41.70000001788139,
+      "artifact_bundle": true,
+      "artifact_bundle_fallbacks": 0,
+      "artifact_bundle_error": null,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "backend_segments": 76,
+      "segment_ticks": 1
+    }
+  },
+  "candidate_isolated": {
+    "check": {
+      "id": "million_browser_normal_lifeline_and_cold_reconnect",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "FAIL",
+      "elapsed_seconds": 172.235,
+      "timeout_seconds": 900,
+      "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+      "pocketic_server_exit": null,
+      "reason": "Expected exactly one passing installed test"
+    },
+    "normal_measurement": {
+      "seconds": 89.92979999999999,
+      "backend_ticks_per_second": 1.023020177961032,
+      "admitted_ticks_per_second": 0.37807267446385967,
+      "displayed_ticks_per_second": 0.3091300102969204,
+      "stalled_samples": 7,
+      "resyncs": 3,
+      "nominal_rate": 1,
+      "performance_limited": false,
+      "queue_segments": {
+        "min": 0,
+        "max": 17
+      },
+      "buffer_ticks": {
+        "min": 0,
+        "max": 16.8
+      },
+      "latency_ms": {
+        "fetch_ms": {
+          "median": 716.4000000059605,
+          "max": 15786.59999999404
+        },
+        "verify_ms": {
+          "median": 251.39999997615814,
+          "max": 530.8999999761581
+        },
+        "artifact_ms": {
+          "median": 5.700000017881393,
+          "max": 17062.09999999404
+        },
+        "derive_ms": {
+          "median": 20.400000005960464,
+          "max": 71.40000000596046
+        },
+        "catchup_ms": {
+          "median": 1024.8999999761581,
+          "max": 11941.800000011921
+        }
+      },
+      "max_catchup_segments": 28,
+      "buffer_bytes": {
+        "min": 0,
+        "max": 631612
+      },
+      "buffer_target_ticks": {
+        "min": 17,
+        "max": 17
+      },
+      "distinct_playheads": 38,
+      "certified_publications_per_second": 0.37807267446385967,
+      "authenticated_observation_queries_per_second": 0.45591116626524253,
+      "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+      "buffer_start": 16.8,
+      "buffer_end": 9,
+      "admitted_ticks": 34,
+      "displayed_ticks": 27.799999999999986,
+      "phase_samples": {
+        "BUFFERING": 98,
+        "DEGRADED_BUFFER": 1,
+        "PLAYING": 36,
+        "STALLED": 7
+      }
+    },
+    "status": "FAIL: original no-stall/no-resync assertion; no other qualification from this task ran concurrently"
+  },
+  "baseline_comparison": {
+    "source": "2491d55f30125b421bedb7155db0fcac9bf0711f",
+    "same_dependency_lock": true,
+    "normal_backend_sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488",
+    "first_attempt": {
+      "id": "million_browser_normal_lifeline_and_cold_reconnect",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "FAIL",
+      "elapsed_seconds": 117.436,
+      "timeout_seconds": 900,
+      "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+      "pocketic_server_exit": null,
+      "reason": "Expected exactly one passing installed test"
+    },
+    "first_attempt_limit": "New cross-RPC identity guard observed background authenticated recovery (2 resyncs); not a performance result. Guard now checks one JS turn around the actual handler.",
+    "fenced_attempt": {
+      "id": "million_browser_normal_lifeline_and_cold_reconnect",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "FAIL",
+      "elapsed_seconds": 145.515,
+      "timeout_seconds": 900,
+      "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+      "pocketic_server_exit": null,
+      "reason": "Expected exactly one passing installed test"
+    },
+    "fenced_startup": {
+      "phase": "BUFFERING",
+      "live": {
+        "connected": true,
+        "startupRetries": 0,
+        "heads": [
+          0,
+          1,
+          15,
+          24,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73
+        ],
+        "resyncs": 3,
+        "certificates": 12,
+        "skipped": true,
+        "maxBufferSegments": 11,
+        "maxBufferLogical": 11,
+        "delivery": {
+          "failures": 1,
+          "recoveries": 1,
+          "evicted": 0,
+          "active": null,
+          "blocking": null,
+          "history": [
+            {
+              "id": 1,
+              "at_ms": 66543.59999999404,
+              "message": "publication unavailable: snapshot resync required",
+              "kind": "retained-publication-unavailable",
+              "rejected": {
+                "mode": "certificate-verifier",
+                "network": "pocketic-local",
+                "canister": "dfj7p-ut777-77776-qaaba-cai",
+                "version": 6,
+                "identity": {
+                  "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                  "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                  "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                  "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+                },
+                "epoch": null,
+                "format": null,
+                "head": "37",
+                "root": "ef687d69f186900f368396cf9b01eb1c4478b38bdfe7e21f12a26e726914dd0d",
+                "certificate_time_ns": "1794231043406591907"
+              },
+              "accepted": {
+                "mode": "certificate-verifier",
+                "network": "pocketic-local",
+                "canister": "dfj7p-ut777-77776-qaaba-cai",
+                "version": 6,
+                "identity": {
+                  "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                  "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                  "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                  "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+                },
+                "epoch": null,
+                "format": null,
+                "head": "24",
+                "root": "3d52269a93109939afe0620b6fe61ec18024fa7576ad6ae9402ba63f1936a010",
+                "certificate_time_ns": "1794231030431630982"
+              },
+              "resynchronisations": 2,
+              "recovered_at_ms": 70586.09999999404
+            }
+          ],
+          "acceptedHeads": [
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": null,
+              "root": "77085468af3a296bd04e8527ca3c7ac323904d401ae45c16ab35b52b0a554cc3",
+              "certificate_time_ns": "1794231000623649357"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "0",
+              "root": "9b56215abeed950a2b98815c7e7b3abf2bf0142d8117d96ba9f9471abf95c960",
+              "certificate_time_ns": "1794231006652501363"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "1",
+              "root": "bbebc25af7848b805a841d86ac5c9f9ef26b5a19ca91584a172fe5edbea2fa1e",
+              "certificate_time_ns": "1794231007391005529"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "15",
+              "root": "af64010246d4b6f53505b5887b01930afad7ffc89e02b9f29f4517631bdf1aa3",
+              "certificate_time_ns": "1794231021240756912"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "24",
+              "root": "3d52269a93109939afe0620b6fe61ec18024fa7576ad6ae9402ba63f1936a010",
+              "certificate_time_ns": "1794231030431630982"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "62",
+              "root": "a9b0c5e750f53e996d292585d15973afb93ff38247e77bc1b13335115bbc31e0",
+              "certificate_time_ns": "1794231068346643648"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "63",
+              "root": "234245fb5d6b0a209c3ff69c0a62bd9fc5ec2eca02b1ed5a6caa2e448b78e7ef",
+              "certificate_time_ns": "1794231068764985811"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "64",
+              "root": "dd92701fdee78dad38b5414a36fb53b229af265cb29cc6622ea36e5c44334b24",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "65",
+              "root": "91556e74b89ea3ebd5eff1b8297a8fdd747b9d20c87864eec9d52f263bb35ecb",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "66",
+              "root": "9aea848c9b837df829d24b2dd6ac13ca202b338b52b9858c5bc3607c4a52a6fb",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "67",
+              "root": "053449bf5edd8fb36dbec13af1b5535d95d0332f73a7c84248fcf758a3330302",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "68",
+              "root": "b213c6e2e57f7b9069a9b8c28cf881741549840d16002f1548d8a76141157f0c",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "69",
+              "root": "4547aa0c1b6b497e062404e2d19af627a63d07d9c9b9f542b2a36830eef45bcf",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "70",
+              "root": "2a30198515422a09688ae702adf9dc23f5e27357f2aac429fc9c31432268243d",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "71",
+              "root": "c62b2642c1555270fa83848d4ec100c10ebcf312a427f2906b331788e72c91cb",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "72",
+              "root": "ed4ff80334b8e9209ab5b6d1155f0e2f9476cb6049372bafb3c60f65979423af",
+              "certificate_time_ns": "1794231079403657415"
+            },
+            {
+              "mode": "certificate-verifier",
+              "network": "pocketic-local",
+              "canister": "dfj7p-ut777-77776-qaaba-cai",
+              "version": 6,
+              "identity": {
+                "config_hash": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+                "rules_hash": "0bb2169c5ccd71b6c43e0e47bb0ea341c577881ab3193bf1bbd3eed3b02ffb14",
+                "schema_hash": "a9317c0f2449e8c511c6d0aaef8d1988054b4b61f3f58984ead3a42c85a73d03",
+                "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+              },
+              "epoch": null,
+              "format": null,
+              "head": "73",
+              "root": "a1a48a93188e9ee3e8683f321b53df28ca91c2a5172821fdca8ce0d86521e9c0",
+              "certificate_time_ns": "1794231079403657415"
+            }
+          ],
+          "acceptedEvicted": 0
+        },
+        "playback": {
+          "wall_ms": 87801.2,
+          "frame_ms": 16.69999999999709,
+          "verified_ticks": 74,
+          "consumed_ticks": 63,
+          "admitted_ticks": 13,
+          "played_ticks": 1.120773789633006,
+          "buffer_ticks": 11,
+          "buffer_target_ticks": 17,
+          "buffer_bytes": 413451,
+          "queue_segments": 11,
+          "certificate_time_ns": "1794231085641641831",
+          "certificate_age_ms": 637.358336,
+          "catchup_segments": 6,
+          "catchup_ms": 4105.4000000059605,
+          "phase": "BUFFERING",
+          "rate": 1,
+          "nominal_rate": 1,
+          "target_rate": 1,
+          "performance_limited": false,
+          "fetch_ms": 2111.5,
+          "verify_ms": 321.2000000178814,
+          "artifact_ms": 194,
+          "derive_ms": 53.20000001788139,
+          "artifact_bundle": true,
+          "artifact_bundle_fallbacks": 5,
+          "artifact_bundle_error": null,
+          "delivery_failures": 0,
+          "delivery_error": null,
+          "backend_segments": 79,
+          "segment_ticks": 1
+        }
+      },
+      "error": "",
+      "service": "Waiting for next update",
+      "arena": "Waiting for next update"
+    },
+    "conclusion": "Baseline also times out at existing 60s startup. No matched Normal baseline pass or exact causal attribution established. No assertion/budget relaxed."
+  },
+  "remaining_qualification": "Corrected million seam setup passes, but local delivery/performance qualification remains failed. No local sustained 900s rerun claimed. New complete exact-source hosted CI is required; source publication may proceed without claiming release qualification.",
+  "changed_harness_sha256": "aefc8aebab63f753d80c6cd470bb56fb487e0ef2ed4c872bbd51cea80bd8d4c4",
+  "guard_regression": {
+    "status": "PASS",
+    "scope": "Actual maintained scene helper + real application component fixture and pinned clock; test reference facade for test globals, no IC authenticity claim",
+    "positive": "Actual offscreen Locate reaches card and preserves real fixture clock/queue",
+    "rejected_mutations": [
+      "clock",
+      "queue"
+    ]
+  },
+  "python_tools": {
+    "status": "PASS",
+    "tests": 199,
+    "failures": 0,
+    "skips": 0,
+    "elapsed_seconds": 47.761,
+    "raw_log": ".work/review-closeout/seam-python-tests.log"
+  }
+}

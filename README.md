@@ -1,10 +1,12 @@
 # B2Z
 
-The **player-centred candidate** is corrected, locally checked and cleanly frozen
-at source `d9cf542`. Publication is blocked by unavailable GitHub authentication;
-all six new exact-source CI gates remain required. The preceding hosted run passed
-four substantive gates and failed two. This candidate is not deployed. See the [correction report](evidence/B2Z/player-centred-release/REPORT.md)
-and [maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
+The **player-centred candidate** is published at `5cb490e`; its hosted run passes
+five substantive gates and fails installed-IC qualification in three browser
+scene setups. A focused test-only follow-up restores the anchored-card Locate
+path before seam wallet assertions. The runtime and clean frozen assets remain
+unchanged. All six exact-source gates remain required; this candidate is not deployed.
+See the [correction report](evidence/B2Z/player-centred-release/REPORT.md) and
+[maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
 The deployed release described below remains the previously verified candidate.
 
 

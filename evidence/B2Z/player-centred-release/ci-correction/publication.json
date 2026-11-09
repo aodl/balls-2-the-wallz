@@ -1,38 +1,51 @@
 {
   "runtime_source_commit": "d9cf54235623cbaa8432311561cfd0e5b9275e8c",
-  "publication": "BLOCKED: ordinary HTTPS Git push cannot obtain a username; no credential workaround attempted",
+  "publication": "PUBLISHED by owner at 5cb490eed480bd6fd14d319fed717935a44d2ecb; subsequent test-only follow-up not yet published",
   "checked_at": "2026-11-09T09:41:53.292087+00:00",
-  "observed_remote_head": "9b15cf0714bc85cca245fc918664767ed18553fb",
+  "observed_remote_head": "5cb490eed480bd6fd14d319fed717935a44d2ecb",
   "ordinary_push_command": "git push origin release/btz-prelaunch-playability:refs/heads/release/btz-prelaunch-playability",
-  "new_source_ci_run": null,
+  "new_source_ci_run": 42617695852,
   "required_jobs": [
     {
-      "name": "Runtime-lab Wasm",
-      "conclusion": "NOT_RUN; corrective source not published"
-    },
-    {
-      "name": "Native conformance",
-      "conclusion": "NOT_RUN; corrective source not published"
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573389"
     },
     {
       "name": "S14 and million-cell installed-IC qualification",
-      "conclusion": "NOT_RUN; corrective source not published"
-    },
-    {
-      "name": "Browser HTTP and Web Crypto",
-      "conclusion": "NOT_RUN; corrective source not published"
-    },
-    {
-      "name": "Source conformance",
-      "conclusion": "NOT_RUN; corrective source not published"
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573677"
     },
     {
       "name": "Packaged DTR and clean consumers",
-      "conclusion": "NOT_RUN; corrective source not published"
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573688"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573743"
+    },
+    {
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573801"
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852/job/129161573894"
     }
   ],
   "previous_failed_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42584741125",
   "previous_gates_not_a_waiver": true,
   "production_operation": "NONE; not authorised by this task",
-  "artifact_policy": "Later evidence-only commit does not rebuild the d9cf542 frozen runtime"
+  "artifact_policy": "Later evidence-only commit does not rebuild the d9cf542 frozen runtime",
+  "qualification": "FAIL: S14/million-cell; five substantive jobs pass"
 }

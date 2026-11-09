@@ -1,3 +1,38 @@
+# Installed browser seam qualification follow-up
+
+The owner published `5cb490eed480bd6fd14d319fed717935a44d2ecb`.
+[Run 42617695852](https://github.com/aodl/balls-2-the-wallz/actions/runs/42617695852)
+passes Source, Native, Packaged DTR/consumers, Runtime-lab Wasm and Browser.
+S14/million-cell fails three browser scenes. The informational inventory is not
+qualification. All six substantive gates remain mandatory.
+
+Local reproduction identifies stale seam setup expectations: panning away from
+the selected cannon intentionally hides its anchored card behind Locate. Torus
+asserted visibility; both million variants read visible memo text from that hidden
+card. The harness now uses the real Locate control before wallet assertions and
+checks unchanged clock/queue/cannon identity. Exact MOVE 0, certificate checks,
+startup deadlines and every pacing/performance assertion remain.
+
+The corrected torus case passes fully (419.6 s), including independent replay
+and its 90-second playback window. Million setup passes, but two local runs fail
+unchanged delivery/performance checks: first startup, then the isolated Normal
+window (seven stalls, three resyncs, ~16–17 s maximum fetch/artifact latency).
+A pinned `2491d55` baseline comparison also fails the existing 60-second startup
+condition. This does not establish an exact cause or a candidate timing pass.
+The earlier cross-RPC identity probe observed legitimate recovery; its corrected
+single-turn guard isolates navigation without weakening the measured zero-resync
+condition. All failed attempts remain recorded. No further timing retries/tuning.
+The unchanged 900-second sustained window still requires hosted qualification.
+All 199 Python tests and the focused real-component Locate guard pass, including
+independent negative checks for clock and queue replacement.
+
+No application/backend/dependency or workflow change. Frozen runtime `d9cf542`,
+JS `51c7f92a…` and complete manifest `be6214af…` are reused without rebuilding.
+Production modules, settings, controllers, paid state and Ledger authority are
+untouched. [Report and evidence](evidence/B2Z/player-centred-release/REPORT.md).
+
+---
+
 # Player-centred candidate — focused CI correction
 
 Published parent `9b15cf0714bc85cca245fc918664767ed18553fb` is confirmed on the

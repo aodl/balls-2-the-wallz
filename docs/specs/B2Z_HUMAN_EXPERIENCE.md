@@ -14,8 +14,8 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | --- | --- | --- |
 | UX-01 | Arena first; no declaration or compulsory dialog to observe. | `index.html`, `arcade.mjs`; integrated browser journey |
 | UX-02 | Controls serve the current task; secondary detail is progressive. | `arcade.mjs`; contextual action browser matrix |
-| UX-03 | One composer, anchored to its selected cannon/site; compact global secondary views, no stacked dialogs or duplicate paths. | `shell.mjs`, `index.html`; navigation/focus browser journey |
-| UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey |
+| UX-03 | One composer, anchored to its selected cannon/site; compact global secondary views, no stacked dialogs or duplicate paths. | `shell.mjs`, `index.html`; navigation/focus browser journey and `verify_s14_deployment.py:locate_seam_action` |
+| UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey and installed seam→Locate identity checks |
 | UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock, three-publication slow/wrap journey and authenticated delivery regressions |
 | UX-06 | Producer, delivery and presentation states remain distinct. | `experience-status.mjs`; status truth table |
 | UX-07 | Verified backend principal/default account is primary; legacy is secondary. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
