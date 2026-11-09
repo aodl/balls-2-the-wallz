@@ -32,7 +32,8 @@ import {recentPresentationPoint} from '../../apps/b2z-observer/warm-return.mjs';
 import {PlayoutClock} from '@dtr/timeline-runtime/client/playout';
 test('UX-04/05 warm return preserves usable slow coverage and bounds playback lag',()=>{
  const clock=new PlayoutClock({start:0,target:1,low:.05});clock.append(0,1);
- close(recentPresentationPoint(clock.state(),.01,35),.35);
+ close(recentPresentationPoint(clock.state(),.01,35),.98);
+ close(recentPresentationPoint(clock.state(),.01,1),.01);
  close(recentPresentationPoint(clock.state(),.01,3600),.98);
  const point=recentPresentationPoint(clock.state(),1,3600);assert.equal(point,0,'no extra unverified coverage');
  close(recentPresentationPoint({playhead:4,available:4},.01,3600),4);

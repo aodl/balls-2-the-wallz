@@ -327,8 +327,9 @@ supported-rate presentation lag, before the capacity guard. This is a visual ski
 not simulation or payment evidence. Cosmetic history clears on a skip.
 
 Return uses monotonic elapsed time and retained coverage, advancing no further
-than the later verified point minus two seconds at supported rate. A short gap
-preserves useful coverage/clock/queue; an unchanged head does not reset to its
+than the later verified point minus two seconds at supported rate. A short gap (at most two seconds)
+preserves useful coverage/clock/queue; longer gaps select the recent retained point,
+not an elapsed-time slice of an old 100-second interval; an unchanged head does not reset to its
 endpoint. Cached verified presentation can draw before a network round trip;
 payment preparation still requires fresh verification and operational admission.
 Frozen/BFCache pages disarm scheduling; resume re-arms once. Discard/reload follows
