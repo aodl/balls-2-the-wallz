@@ -1,0 +1,49 @@
+{
+  "source_commit": "3ec1cb5d40b3cde5a1014e79a590649f835b9df1",
+  "checked_at": "2026-11-09T07:46:50.112265+00:00",
+  "publication": "BLOCKED: ordinary HTTPS push cannot obtain a username; no credential workaround attempted",
+  "observed_remote_head": "2491d55f30125b421bedb7155db0fcac9bf0711f",
+  "candidate_workflow_runs": 0,
+  "run_url": null,
+  "workflow_sha256": "15b6c13bee3fd537a89be458809de622f177c4b06bdaee8f25e1c25f5c1dd248",
+  "required_jobs": [
+    {
+      "name": "Source conformance",
+      "status": "not_created",
+      "conclusion": null,
+      "release_requirement": true
+    },
+    {
+      "name": "Native conformance",
+      "status": "not_created",
+      "conclusion": null,
+      "release_requirement": true
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "status": "not_created",
+      "conclusion": null,
+      "release_requirement": true
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "status": "not_created",
+      "conclusion": null,
+      "release_requirement": true
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "status": "not_created",
+      "conclusion": null,
+      "release_requirement": true
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "not_created",
+      "conclusion": null,
+      "release_requirement": true
+    }
+  ],
+  "informational_job": "BLOCKED production inventory (not a pass); not qualification",
+  "note": "No new hosted run exists for the frozen source. Evidence-only descendant publication can trigger exact-head qualification with unchanged runtime inputs; no required gate is waived."
+}

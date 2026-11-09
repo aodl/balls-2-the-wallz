@@ -220,5 +220,14 @@
     "300s": "FAIL timeout, original record preserved in prior player-centred evidence",
     "600s": "FAIL incomplete at rules-v6, also reported untouched forecast cache-bypass assertion at 2431.079 ms. Exact assertion cause not established; its maxMs=2000 application budget was not changed."
   },
-  "conclusion": "No current rules assertion defect or candidate-specific regression found in this comparison. Original interrupted evidence cannot establish the exact historic cause. No runtime budget/assertions/shards changed; full candidate suite completed once under the unchanged 300-second harness."
+  "conclusion": "No current rules assertion defect or candidate-specific regression found in this comparison. Original interrupted evidence cannot establish the exact historic cause. No runtime budget/assertions/shards changed; full candidate suite completed once under the unchanged 300-second harness.",
+  "final_frozen_source": {
+    "source_commit": "3ec1cb5d40b3cde5a1014e79a590649f835b9df1",
+    "status": "PASS",
+    "node_tests": 1759,
+    "node_duration_seconds": 294.355924673,
+    "python_tests": 196,
+    "outer_allowance_seconds": 300,
+    "note": "No budget change, skip or retry-until-pass; a final scoped callback-fencing regression adds one test after the development pass."
+  }
 }

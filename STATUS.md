@@ -1,15 +1,18 @@
-# Player-centred candidate — source qualification in progress
+# Player-centred candidate — frozen; publication/CI blocked
 
-The reviewed arena correction is being frozen and qualified under source-only
-publication authority. Production deployment and live setting changes are not
-part of this continuation. The paid backend and currently served frontend remain
-unchanged. [Candidate report](evidence/B2Z/player-centred-release/REPORT.md) records
-the exact source/artifacts, visual review and six substantive CI conclusions;
-[prior dirty development evidence](evidence/B2Z/player-centred/REPORT.md) is retained.
+Runtime source `3ec1cb5d40b3cde5a1014e79a590649f835b9df1` is committed and the normal
+frontend is frozen from a clean tree (`source_dirty: false`). Complete local source
+qualification passes 1,759 JS and 196 Python tests. Desktop/mobile visual journeys,
+SDK cancellation/body-abort regressions and exact-bundle read-only IC/clipboard
+checks pass. [Candidate report, manifests and visual package](evidence/B2Z/player-centred-release/REPORT.md).
 
-The optional cycles reader now has scoped cancellation and honest recovery/status
-labels. The [UX contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md) explicitly requires all
-six exact-source CI gates and visual review before separate production approval.
+Ordinary HTTPS source publication is blocked because Git cannot obtain a username;
+the remote head was checked directly. No new hosted candidate CI exists. All six
+substantive exact-source jobs remain required before separate production approval.
+This later evidence/docs-only continuation does not rebuild the frozen runtime.
+Production modules, settings, controllers and paid state remain unchanged by this
+work. No deployment or financial operation is authorized. Hardware/phone/wallet
+coverage remains limited; software rendering is not a smoothness pass.
 
 ---
 

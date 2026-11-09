@@ -1,7 +1,7 @@
 # B2Z
 
-The **player-centred source candidate** is being qualified for review; it is not
-a new deployment. See the [correction report](evidence/B2Z/player-centred-release/REPORT.md)
+The **player-centred source candidate** is committed and cleanly frozen. Its
+publication/hosted CI is blocked; it is not a new deployment. See the [correction report](evidence/B2Z/player-centred-release/REPORT.md)
 and [maintained human-experience contract](docs/specs/B2Z_HUMAN_EXPERIENCE.md).
 The deployed release described below remains the previously verified candidate.
 

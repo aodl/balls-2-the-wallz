@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "source_commit": "3ec1cb5d40b3cde5a1014e79a590649f835b9df1",
+  "source_dirty": false,
+  "complete_manifest_sha256": "179c06783d3915ea917f9376ad6bda86c51038028d3c9b82ed98f27f7495d050",
+  "files_verified": 15,
+  "javascript_sha256": "8ecd824ff2bc37bafcbfdbe524fd7393634d7a6d293ba255f3df076bedda4532",
+  "backend_binding": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "scope": "Frozen local normal assets; NOT production served verification"
+}

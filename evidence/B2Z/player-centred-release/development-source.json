@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "2491d55f30125b421bedb7155db0fcac9bf0711f",
+  "started_utc": "2026-11-09T07:03:39.576656+00:00",
+  "mode": "source",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "b2z-naming-audit",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/check_b2z_names.py",
+        "--output",
+        ".work/review-closeout/source/naming-audit.json"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-naming-audit.log",
+      "elapsed_seconds": 2.579,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "playability-policy",
+      "command": [
+        "node",
+        "tools/generate_playability.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-policy.log",
+      "elapsed_seconds": 0.115,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-state-vectors",
+      "command": [
+        "node",
+        "tools/playability_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-state-vectors.log",
+      "elapsed_seconds": 0.117,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-purchase-vectors",
+      "command": [
+        "node",
+        "tools/purchase_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-purchase-vectors.log",
+      "elapsed_seconds": 0.317,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-lifecycle-vectors",
+      "command": [
+        "node",
+        "tools/lifecycle_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-lifecycle-vectors.log",
+      "elapsed_seconds": 0.168,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-island-vectors",
+      "command": [
+        "node",
+        "tools/island_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-island-vectors.log",
+      "elapsed_seconds": 0.221,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-capture-vectors",
+      "command": [
+        "node",
+        "tools/capture_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-capture-vectors.log",
+      "elapsed_seconds": 0.27,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-rules-vectors",
+      "command": [
+        "node",
+        "tools/rules_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-rules-vectors.log",
+      "elapsed_seconds": 7.013,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "entry-rules-vectors",
+      "command": [
+        "node",
+        "tools/entry_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/entry-rules-vectors.log",
+      "elapsed_seconds": 2.696,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "adjacent-cannon-vectors",
+      "command": [
+        "node",
+        "tools/adjacent_cannon_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/adjacent-cannon-vectors.log",
+      "elapsed_seconds": 2.067,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "observer-recordings",
+      "command": [
+        "node",
+        "tools/build_observer_recordings.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-recordings.log",
+      "elapsed_seconds": 2.44,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "protocol-fixtures",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/reference_fixtures.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/protocol-fixtures.log",
+      "elapsed_seconds": 0.066,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "life-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/life_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/life-reference.log",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "b2z-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/b2z_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-reference.log",
+      "elapsed_seconds": 0.265,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "spawn-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/spawn_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/spawn-reference.log",
+      "elapsed_seconds": 0.52,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "impact-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/impact_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/impact-reference.log",
+      "elapsed_seconds": 0.117,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "b2z-full-traces",
+      "command": [
+        "node",
+        "tools/b2z_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-full-traces.log",
+      "elapsed_seconds": 0.323,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "numeric-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/numeric_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/numeric-reference.log",
+      "elapsed_seconds": 0.17,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "coordinator-vectors",
+      "command": [
+        "node",
+        "tools/coordinator_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/coordinator-vectors.log",
+      "elapsed_seconds": 0.568,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "observation-v6-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/observation_reference.py",
+        "--version",
+        "6",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-v6-reference.log",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "observation-reference",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/observation_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-reference.log",
+      "elapsed_seconds": 0.117,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "portable-cursors",
+      "command": [
+        "node",
+        "tools/portable_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-cursors.log",
+      "elapsed_seconds": 0.422,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "node-tests",
+      "command": [
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "/home/codexdev/src/b2z/tests/js/action-quote-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/adjacent-cannons.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/animation-v1.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/arcade-pricing.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-agent-analysis.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-agent-economics.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-agent-executor.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-agent-interface.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-agent-observer.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-counterplay.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-decision-coverage.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-forecast-choice.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-forecast-cost.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-forecast-progress.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-million.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-torus.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z-v3.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/b2z.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/camera.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/capture-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/coordinator-simplified.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/coordinator-vectors.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/coordinator.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/entry-v7.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/forecast-losses.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/human-workspace.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/islands-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/lifecycle-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/live-delivery.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/mainnet-policy.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/memo-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/memo.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation-reference.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation-v6-reference.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observation.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-buffer.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-checkpoint-v9.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-playability-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-render.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-v7.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/observer-v8.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/payment.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/play-reference.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/playability-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/playability-wire-history.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/player-camera.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/player-headings.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/player-motion.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/player-terrain.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/portable-v4.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/prelaunch-identity-camera.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/pricing-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/public-cycle-lifecycle.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/public-cycle-transport.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/public-cycles.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/purchases-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/replay-playability-history.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/rules-v6.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/s12-workloads.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/storage-v4.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/text-memo.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/ux-accounts.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/ux-experience.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/ux-playback.test.mjs",
+        "/home/codexdev/src/b2z/tests/js/ux-projection.test.mjs"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/node-tests.log",
+      "elapsed_seconds": 151.272,
+      "timeout_seconds": 300,
+      "counts": {
+        "tests": 1758,
+        "pass": 1758,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "source-structure",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/check_source.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/source-structure.log",
+      "elapsed_seconds": 21.465,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "docs-links",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "tools/check_docs.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/docs-links.log",
+      "elapsed_seconds": 0.119,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "python-tool-tests",
+      "command": [
+        "/home/codexdev/.local/bin/python3.11",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/python-tool-tests.log",
+      "elapsed_seconds": 22.115,
+      "timeout_seconds": 300,
+      "counts": {
+        "tests": 196
+      }
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}
