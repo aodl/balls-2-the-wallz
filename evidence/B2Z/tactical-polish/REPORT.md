@@ -98,9 +98,10 @@ visual evidence only. Physical phones, native keyboards, actual wallets and
 hardware-backed performance are unavailable; no aesthetic acceptance is invented.
 
 Headless Chromium reports both tabs visible. Controlled hidden-clock tests are
-not real OS-hidden execution evidence. The browser lifecycle probe uses actual
-CDP freeze/resume with ordinary throttling enabled and records its actual result
-below; no background freshness guarantee or anti-suspension workaround exists.
+not real OS-hidden execution evidence. The original CDP freeze/resume attempt did not emit the required real lifecycle
+events and timed out; it is FAIL, not suspension evidence. The corrected probe
+requires actual tab hiding, keeps ordinary throttling enabled and reports BLOCKED
+when the browser reports both tabs visible; no background freshness guarantee or anti-suspension workaround exists.
 Residual independent read cost in two tabs is documented, not concealed by new
 coordination infrastructure. Receipt association remains unsupported; copied
 instructions are not payment proof. No real transfer or paid test scene is used.
