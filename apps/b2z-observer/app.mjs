@@ -338,7 +338,7 @@ function updateHud(){
  globalThis.__b2zExperience={status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};
 }
 function draw(){
- if(!arenaRenderer||!visible)return;
+ if(document.hidden||!arenaRenderer||!visible)return;
  const rect=canvas.getBoundingClientRect();if(rect.width<=20||rect.height<=20)return;
  const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
