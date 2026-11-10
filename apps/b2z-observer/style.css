@@ -72,3 +72,6 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #stop-follow{top:calc(var(--chrome-bottom,100px) + 8px);bottom:auto}
 /* Keep focused precision fields clear of fractional scrollport edges. */
 #action-inputs input,#action-inputs select{scroll-margin-block:3px}
+/* Keep the account chip intact while long status labels wrap at text zoom. */
+#identify-button{flex-shrink:0}
+#status-button{min-width:44px;overflow-wrap:anywhere;white-space:normal}

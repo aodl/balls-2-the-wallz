@@ -53,8 +53,8 @@ def locate_seam_action(page):
       if(locate&&!locate.hidden)locate.click();
       return Boolean(clock&&queue)&&clock===__b2zExperience.clock&&queue===__b2zExperience.queue&&cannon===__b2zTools.selection();
     }''')
-    assert page.locator('#action-view').is_visible()
     wait_until(page,lambda:not page.locator('#workspace').evaluate('(n)=>n.inert'),8000)
+    assert page.locator('#action-view').is_visible()
 def tab_in_modal(page):
     # UX-03/11 supersedes modal focus trapping: the background remains interactive.
     assert page.locator('#workspace').is_visible()
@@ -117,6 +117,33 @@ def verify_torus_scene(page,context,out,record,report,save):
     # A modal cannot pause the shared backend.
     page.locator('#identify-button').click();page.locator('#help-button').click();before=samples[-1]['backend_segments'];page.wait_for_timeout(6000);assert page.evaluate('__dtrLive.playback.backend_segments')>before;page.keyboard.press('Escape')
     record('native-dialogs-do-not-pause-shared-gameplay')
+    verify_controlled_verified_return(page,out,record)
+
+def verify_controlled_verified_return(page,out,record):
+    # Real installed application + SDK/certificates, controlled document.hidden.
+    # This does NOT establish native tab throttling or background CPU behaviour.
+    wait_until(page,lambda:page.evaluate('__b2zExperience.clock.available>__b2zExperience.clock.playhead&&__b2zExperience.session.queue.length>0'),15000)
+    cdp=page.context.new_cdp_session(page);cdp.send('Network.enable');wire=[];cdp.on('Network.loadingFinished',lambda event:wire.append(event['encodedDataLength']))
+    before=page.evaluate('''()=>{const s=__b2zExperience.session;window.__warmControl={clock:s.clock,queue:s.queue,session:s,camera:[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]};const r={head:s.root,accepted:s.accepted,certificates:__dtrLive.certificates,playhead:s.clock.playhead,available:s.clock.available,queue:s.queue.length,bytes:s.bytes};Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));return r;}''')
+    start=time.monotonic()
+    try:
+        page.wait_for_timeout(35000)
+        away=page.evaluate('''()=>{const s=__b2zExperience.session;return{accepted:s.accepted,head:s.root,certificates:__dtrLive.certificates,playhead:s.clock.playhead,available:s.clock.available,queue:s.queue.length,bytes:s.bytes,sameClock:s.clock===__warmControl.clock,sameQueue:s.queue===__warmControl.queue};}''');encoded=sum(wire)
+    finally:
+        page.evaluate("delete document.hidden;document.dispatchEvent(new Event('visibilitychange'))")
+    elapsed=time.monotonic()-start
+    returned=page.evaluate('''()=>{const s=__b2zExperience.session;return{sameClock:s.clock===__warmControl.clock,sameQueue:s.queue===__warmControl.queue,sameSession:s===__warmControl.session,camera:[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale],oldCamera:__warmControl.camera,playhead:s.clock.playhead,available:s.clock.available,firstVerifiedRenderSubmissionMs:s.firstWarmRenderAt===null?null:s.firstWarmRenderAt-s.returnStartedAt};}''')
+    assert returned['sameClock']and returned['sameQueue']and returned['sameSession'],returned
+    assert returned['camera']==returned['oldCamera'],returned
+    assert returned['firstVerifiedRenderSubmissionMs']is not None,returned
+    assert returned['playhead']<=returned['available'],returned
+    assert away['queue']<=24 and away['bytes']<=8*1024*1024,away
+    assert away['certificates']-before['certificates']<=4,away
+    if away['head']==before['head']:assert away['playhead']==before['playhead'],(before,away)
+    if returned['playhead']<returned['available']:
+        wait_until(page,lambda:page.evaluate('(t)=>__b2zExperience.clock.playhead>t',returned['playhead']),5000)
+    result={'scope':'Actual disposable installed app and authenticated heads; controlled visibility input, not native hidden-tab or hardware evidence','away_seconds':elapsed,'before':before,'away':away,'returned':returned,'encoded_bytes_received_during_controlled_away':encoded}
+    (out/'controlled-verified-return.json').write_text(json.dumps(result,indent=2)+'\n');record('controlled-verified-return-retains-motion-and-one-session',result)
 
 def install_boundary_trace(page):
     # Observe diagnostic counters only. Original values, requests, authentication,
@@ -241,7 +268,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     # Require Slow only once verified presentation actually advances; never let
     # producer wording conceal buffering, a delivery failure or an auth error.
     report['lifeline_status_before_settle']=page.evaluate('()=>({label:document.querySelector("#arena-note").textContent,status:__b2zExperience.status,playback:__dtrLive.playback})')
-    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback,s=__b2zExperience.status;return p.target_rate===.05&&p.consumed_ticks<p.verified_ticks&&['PLAYING','DEGRADED_BUFFER'].includes(p.phase)&&s.kind==='slow'&&s.label==='Slow'&&document.querySelector('#arena-note').textContent==='Slow';}'''),15000)
+    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback,s=__b2zExperience.status;const expected=p.presentation_lag_ticks/.05>10?'Slow · delayed':'Slow';return p.target_rate===.05&&p.consumed_ticks<p.verified_ticks&&['PLAYING','DEGRADED_BUFFER'].includes(p.phase)&&s.kind==='slow'&&s.label===expected&&document.querySelector('#arena-note').textContent===expected;}'''),15000)
     record('UX-06-lifeline-label-follows-advancing-verified-presentation')
     page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)

@@ -1,6 +1,7 @@
+import {elasticPlayback} from './elastic-playback.mjs';
 import {publicCycleMonitor,renderCycleReadout} from './public-cycles.mjs';
 import {replayTools} from './replay-tools.mjs';
-import {recentPresentationPoint,freshObservation,operationalReplyCurrent} from './warm-return.mjs';
+import {recentPresentationPoint,retainLatestVerifiedInterval,bridgeVerifiedPresentation,resumeVerifiedClock,assertForwardPresentation,canRetainAcrossResync,freshObservation,operationalReplyCurrent} from './warm-return.mjs';
 import {observationLoop} from './observation-loop.mjs';
 import {experienceStatus} from './experience-status.mjs';
 import {Camera} from './camera.mjs';
@@ -12,7 +13,7 @@ import {createArcade} from './arcade.mjs';
 import deployment,{deploymentPolicy,deploymentConnection,deploymentSource} from './deployment.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {ArtifactAssembler,PublicationSequence,sha256Web,verifyCertificatePublication,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
-import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,approachPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
+import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepareDerivedSegment,prepareSegment,timeNumber,prepareIdlePlayout,nominalPace,publicationTicks,approachPace,approachPresentationPace,liveBufferPolicy,LIVE_BUFFER_LIMITS,liveSessionBufferPolicy} from './model.mjs';
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {idleArena} from './play-reference.mjs';
@@ -130,9 +131,17 @@ async function liveArtifacts(s,ticket){
   return artifacts;
 }
 function rememberHead(head){const heads=globalThis.__dtrLive.heads;heads.push(head);if(heads.length>4096)heads.splice(0,heads.length-4096);}
+function presentationPace(s){return nominalPace(s.operational??s.lastPaceStatus);}
+function observePresentation(s,ticket,deliverySeconds=0){
+ const h=ticket.publication.head,ticks=h.seal?Number(h.seal.logical_end-h.seal.logical_start):publicationTicks(s.operational??s.lastPaceStatus);
+ s.elastic.observe({key:ticket.root_hash,end:timeNumber(s.referenceWorld.time),at:performance.now(),nominal:presentationPace(s),ticks,deliverySeconds,identity:JSON.stringify(ticket.publication.identity)});
+}
+function targetPresentationRate(s,now,seconds){
+ const base=presentationPace(s);return s.idleDrain?base:s.elastic.rate({now,nominal:base,remaining:s.clock.available-s.clock.playhead,seconds,reserveTicks:Math.max(0,s.clock.target-publicationTicks(s.operational??s.lastPaceStatus))});
+}
 function resetLiveClock(s,time){
-  s.queue=[];s.bytes=0;s.largestSegmentBytes=0;s.idleDrain=false;visibleTime=time;
-  s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),max_frame_delta:1});
+  s.queue=[];s.bytes=0;s.largestSegmentBytes=0;s.idleDrain=false;s.elastic=elasticPlayback();delete s.presentationFence;s.presentationSkip=false;visibleTime=time;
+  s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),min_rate:1,max_rate:1,max_frame_delta:1});
 }
 async function startLive(recording,startupRetries=0){
   cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
@@ -147,7 +156,7 @@ async function startLive(recording,startupRetries=0){
       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
       const initialStarted=performance.now();const initial=await Promise.allSettled([s.client.observation(),s.readStatus()]);
       if(initial[0].status==='rejected')throw initial[0].reason;
-      if(initial[1].status==='fulfilled'&&performance.now()-initialStarted<15000){s.operational=initial[1].value;s.operationalAt=initialStarted;s.statusDue=s.operationalAt+2000;}
+      if(initial[1].status==='fulfilled'&&performance.now()-initialStarted<15000){s.operational=s.lastPaceStatus=initial[1].value;s.operationalAt=initialStarted;s.statusDue=s.operationalAt+2000;}
       ticket=await certifiedTicket(s,initial[0].value);
       const source=await deploymentSource(recording.deployment,ticket);
       const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
@@ -175,7 +184,7 @@ async function startLive(recording,startupRetries=0){
     }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
     const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
-    resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;s.skipped=segment!==null;s.accepted=segment===null?0:1;
+    resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;observePresentation(s,ticket);s.skipped=segment!==null;s.accepted=segment===null?0:1;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
   }catch(e){
@@ -201,35 +210,40 @@ async function epochConfiguration(s,ticket){
 function applyEpochPresentation(s,world,config){
   if(config)s.config=config;
   arenaRenderer?.reset();
-  if(!visible||visible.width!==world.width||visible.height!==world.height){camera.initialized=false;focusOnNextDraw=world.version>=5;}
+  if(!visible||visible.width!==world.width||visible.height!==world.height){shell.controller.cancel({follow:true});camera.initialized=false;focusOnNextDraw=world.version>=5;}
 }
 async function admitLive(s,ticket,prefetched){
   const artifacts=prefetched??await liveArtifacts(s,ticket);if(!active(s))return;
   if([7,8,9].includes(ticket.publication.version)&&ticket.publication.head.seal===null){
     const config=await epochConfiguration(s,ticket);if(!active(s))return;
     const segment=await prepareCheckpoint(s.previousState,artifacts,ticket.publication,s.sequence.last.publication);if(!active(s))return;
-    if(segment.start!==s.clock.available)throw new Error('checkpoint timeline gap');
+    if(segment.start!==(s.presentationFence??s.clock.available))throw new Error('checkpoint timeline gap');
     if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer checkpoint byte capacity');
-    if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
+    if(!document.hidden&&!s.warmRecovery&&s.presentationFence===undefined&&(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes))return false;
     s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);
   if(config)s.config=config;
-    s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;
+    // A resynchronised source may be ahead of the retained visual interval.
+    // Keep its zero-time checkpoint in the authoritative anchor, not across an
+    // unavailable animated gap. The cached anchor is adopted after the remainder.
+    if(s.presentationFence===undefined){s.queue.push({segment,player:new CheckpointPlayer(segment),checkpoint:true});s.bytes+=segment.bytes;}
     s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
+    if(document.hidden||s.warmRecovery)retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);
     globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;rememberHead(Number(ticket.publication.head.segment_id));
     globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);return;
   }
   const deriving=performance.now();
   const segment=await prepareDerivedSegment(s.previousState,artifacts.state,artifacts.events,ticket.publication);s.deriveMs=performance.now()-deriving;if(!active(s))return;
-  if(segment.start!==s.clock.available)throw new Error('live timeline gap');
+  if(segment.start!==(s.presentationFence??s.clock.available))throw new Error('live timeline gap');
   if(segment.bytes>LIVE_BUFFER_LIMITS.bytes)throw new Error('observer segment byte capacity');
   s.largestSegmentBytes=Math.max(s.largestSegmentBytes??0,segment.bytes);
   Object.assign(s.clock,liveSessionBufferPolicy(s));
-  if(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes)return false;
+  if(!document.hidden&&!s.warmRecovery&&s.presentationFence===undefined&&(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes))return false;
 
-  s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
+  s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);bridgeVerifiedPresentation(s,segment.start);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment)});s.bytes+=segment.bytes;
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;
-  updatePlayReference(s,snapshot(artifacts.state),artifacts.events);
+  updatePlayReference(s,segment.final,artifacts.events);
+  if(document.hidden||s.warmRecovery)retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);
   rememberHead(Number(ticket.publication.head.segment_id));
   globalThis.__dtrLive.maxBufferSegments=Math.max(globalThis.__dtrLive.maxBufferSegments,s.queue.length);
   globalThis.__dtrLive.maxBufferLogical=Math.max(globalThis.__dtrLive.maxBufferLogical,s.clock.state().buffer);
@@ -237,8 +251,13 @@ async function admitLive(s,ticket,prefetched){
 async function resyncLive(s,ticket){
   const artifacts=await liveArtifacts(s,ticket);if(!active(s))return;
   const config=await epochConfiguration(s,ticket);if(!active(s))return;
-  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.resync(ticket);rememberLiveAcceptance(s,ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
-  resetLiveClock(s,time);arenaRenderer?.reset();shell.invalidateFollow();visible=new B2zView(world);s.resyncs++;s.skipped=true;s.accepted++;
+  const world=snapshot(artifacts.state,ticket.publication.identity),time=timeNumber(world.time);
+  assertForwardPresentation(s.clock,time);
+  const retain=time>=s.clock.available&&JSON.stringify(s.sequence.last.publication.identity)===JSON.stringify(ticket.publication.identity)&&canRetainAcrossResync(s,document.hidden);
+  s.sequence.resync(ticket);rememberLiveAcceptance(s,ticket);applyEpochPresentation(s,world,config);s.previousState=artifacts.state;s.root=ticket.root_hash;
+  if(retain){retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);s.presentationFence=time;s.presentationSkip=true;}
+  else{resetLiveClock(s,time);shell.invalidateFollow();visible=new B2zView(world);}
+  arenaRenderer?.reset();s.resyncs++;s.skipped=true;s.accepted++;
   updatePlayReference(s,world,artifacts.events);
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;rememberHead(Number(ticket.publication.head.segment_id));
 }
@@ -254,13 +273,12 @@ function updatePlayReference(s,world,events){
 async function refreshOperational(now){
   const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
   s.statusBusy=true;s.statusDue=now+2000;const generation=s.lifecycleGeneration??0,started=now;
-  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=status;s.operationalAt=started;if(s.resumeWarm){warmPresentation(s,3);s.resumeWarm=false;}if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
+  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=s.lastPaceStatus=status;s.operationalAt=started;if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
   catch{if(active(s)&&(s.lifecycleGeneration??0)===generation){s.operational=null;}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
-  if(document.hidden)warmPresentation(s,Number.MAX_SAFE_INTEGER);
-  if(now<s.nextDue||s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.clock.state().buffer>=32)return;s.busy=true;
+  if(now<s.nextDue||!document.hidden&&!s.warmRecovery&&(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.clock.state().buffer>=32))return;s.busy=true;
   let observed=null;const acceptedBefore=s.sequence.last;
   try{
     const started=performance.now(),response=await s.client.observation();s.fetchMs=performance.now()-started;const verifying=performance.now();
@@ -287,7 +305,7 @@ async function pumpLive(now,s){
       }
       if(!complete)await resyncLive(s,current);
       else{
-        const ordered=reverse.reverse().slice(0,LIVE_BUFFER_LIMITS.segments-s.queue.length);
+        const ordered=reverse.reverse().slice(0,document.hidden||s.warmRecovery?LIVE_BUFFER_LIMITS.segments:LIVE_BUFFER_LIMITS.segments-s.queue.length);
         const artifacts=prefetchRetained(ordered,ticket=>liveArtifacts(s,ticket));
         for(let i=0;i<ordered.length;i++){
           const result=await artifacts[i];if(result.status==='rejected')throw result.reason;
@@ -296,13 +314,14 @@ async function pumpLive(now,s){
       }
       s.catchupMs=performance.now()-catchupStarted;
     }
+    if(s.sequence.last.root_hash===current.root_hash)observePresentation(s,current,(performance.now()-started)/1000);
     // A changed head may already have a successor. Do not add a fixed rest to
     // authenticated catch-up; unchanged heads retain the bounded poll interval.
     liveDeliverySuccess(s,s.sequence.last.root_hash===current.root_hash?s.sequence.last:null,performance.now());s.nextDue=performance.now()+(deferred?250:0);
   }catch(e){
     if(!active(s))return;
     if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;s.failureKind=observationFailure(e);showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
-  }finally{s.busy=false;s.catchingUp=false;if(active(s)&&!document.hidden)updateHud();}
+  }finally{s.busy=false;s.catchingUp=false;if(active(s)&&!document.hidden){warmPresentation(s);if(observed&&s.sequence.last.root_hash===observed.root_hash)s.warmRecovery=false;updateHud();}}
 }
 async function pump(now){
   const s=session;if(!s?.ready||s.busy||s.error||deliveryPaused)return;
@@ -333,7 +352,7 @@ function updateHud(){
  const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=freshObservation(s,now);
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
  const failure=s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':s?.error?s.failureKind:null;
- const resolved=experienceStatus({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,catchingUp:s?.catchingUp,deliveryError:s?.deliveryError,renderError});
+ const resolved=experienceStatus({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&(s?.mode!=='live'||s.nominalRate>0)&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,catchingUp:s?.catchingUp,deliveryError:s?.deliveryError,renderError,presentationLagSeconds:s?.referenceWorld&&s?.clock&&presentationPace(s)>0?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead)/presentationPace(s):0});
  arcade.status({resolved});document.body.dataset.phase=p;$('retry').hidden=failure==='verification'||!Boolean(bootError||s?.error);
  const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;
@@ -346,7 +365,7 @@ function draw(){
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
  arcade.presentation(v);const points=ballPoints.get(v,visibleTime);shell.advance(v,visibleTime,performance.now(),JSON.stringify(session?.sequence.last?.publication.identity??{}),points);
- try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,points,followed:shell.followedBall(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});}
+ try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,points,followed:shell.followedBall(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
  shell.update(v,arenaRenderer.surface());
  canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
@@ -355,21 +374,31 @@ function presentVerified(s,time){
  function show(q,at){if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,time);q.presented=true;}visible=q.player.advance(at);}
  while(s.queue.length&&time>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
  if(s.queue.length)show(s.queue[0],time);
+ if(!s.queue.length&&s.presentationFence!==undefined&&time===s.clock.available){
+  const at=s.presentationFence;if(timeNumber(s.referenceWorld.time)!==at)throw Error('verified presentation anchor mismatch');
+  bridgeVerifiedPresentation(s,at);applyEpochPresentation(s,s.referenceWorld,null);visible=new B2zView(s.referenceWorld);time=at;
+  arenaRenderer?.reset();shell.rebaseFollow();s.presentationSkip=false;
+ }
  visibleTime=time;
 }
-function warmPresentation(s,gapSeconds){
- if(!s?.ready||s.error||s.mode!=='live')return;
- const point=recentPresentationPoint(s.clock.state(),nominalPace(s.operational),gapSeconds);
- if(point>s.clock.playhead){s.clock.playhead=point;if(s.clock.available>point){s.clock.started=true;s.clock.phase='PLAYING';}presentVerified(s,point);arenaRenderer?.reset();}
+function warmPresentation(s){
+ if(!s?.ready||s.error||s.mode!=='live'||!s.warmRecovery&&!s.presentationSkip)return;
+ const point=recentPresentationPoint(s.clock.state()),skip=s.presentationSkip;
+ if(skip){if(visible)visible.effects=[];arenaRenderer?.reset();shell.rebaseFollow();const first=s.queue[0];if(first)applyEpochPresentation(s,first.segment.initial,null);}
+ resumeVerifiedClock(s);s.nominalRate=targetPresentationRate(s,performance.now(),0);
+ if(skip||s.warmRecovery)presentVerified(s,point);
+ s.presentationSkip=false;
 }
 function frame(now){
   if(document.hidden){lastFrame=null;requestAnimationFrame(frame);return;}
   const s=session,elapsed=lastFrame===null?0:(now-lastFrame)/1000,dt=Math.min(elapsed,s?.mode==='live'?1:.25);lastFrame=now;
   if(s?.ready&&!s.error&&!paused){
+    if(s.mode==='live'&&s.presentationSkip)warmPresentation(s);
     // Drain a verified terminal empty segment without waiting for nonexistent
     // future empty segments. Use the existing clock API, with no extrapolation.
     prepareIdlePlayout(s,idleState(s));
-    const target=s.mode==='live'?nominalPace(s.operational):speed;s.nominalRate=approachPace(s.nominalRate??target,target,dt);
+    const base=s.mode==='live'?presentationPace(s):speed,target=s.mode==='live'?targetPresentationRate(s,now,dt):base;s.nominalRate=s.mode==='live'?approachPresentationPace(s.nominalRate??target,target,base,dt):approachPace(s.nominalRate??target,target,dt);
+    if(s.mode==='live'){s.clock.min_rate=s.clock.max_rate=s.clock.rate=1;}
     const previous=s.clock.playhead;
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
     s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
@@ -377,12 +406,12 @@ function frame(now){
 
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
-    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,nominal_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
+    const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,elastic:s.elastic?.state(),presentation_lag_ticks:s.referenceWorld?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead):0,nominal_rate:Number(pace?.nominal_milli??0)/1000,supported_rate:presentationPace(s),presentation_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
 $('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
-const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;s.lifecycleGeneration=(s.lifecycleGeneration??0)+1;s.operationalAt=-Infinity;s.resumeWarm=gap>2000||!freshObservation(s,performance.now());warmPresentation(s,s.resumeWarm?3:gap/1000);if(s.referenceWorld){arcade.render(s.referenceWorld,s.config,s.source,s.root);arcade.receipts([...(s.receipts?.values()??[])]);}updateHud();draw();}}});
+const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;s.lifecycleGeneration=(s.lifecycleGeneration??0)+1;s.operationalAt=-Infinity;s.warmRecovery=true;s.returnStartedAt=performance.now();s.firstWarmRenderAt=null;warmPresentation(s);if(s.referenceWorld){arcade.render(s.referenceWorld,s.config,s.source,s.root);arcade.receipts([...(s.receipts?.values()??[])]);}updateHud();draw();}}});
 document.addEventListener('visibilitychange',()=>{observations.visibility();cycleMonitor?.visibility();});
 document.addEventListener('freeze',()=>observations.suspend());
 document.addEventListener('resume',()=>{lastFrame=null;observations.resume();});

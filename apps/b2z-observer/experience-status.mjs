@@ -22,9 +22,10 @@ export function experienceStatus(input={}){
  }
  const balls=world?.balls?.size??world?.balls?.length;
  const cannons=world?.cannons?.size??world?.cannons?.length;
- if(balls===0)return out('idle',cannons?'No active balls':'Waiting for players');
+ if(balls===0)return out('idle',cannons?'No active balls':'Waiting for players',advancing?'Finishing earlier verified motion.':'');
  if(resynchronising||input.catchingUp)return out('catching-up','Catching up with on-chain activity ...','Presenting available authenticated history.');
  const slow=Number(pace?.supported_milli??pace?.nominal_milli??1000)<500;
  if(!advancing||['BUFFERING','STALLED'].includes(phase))return out('waiting','Waiting for next update',slow?'Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.':'No next verified motion is available yet.');
+ if(input.presentationLagSeconds>10)return out(slow?'slow':'live',slow?'Slow · delayed':'Live · delayed','Playing earlier verified activity. Wallet instructions use the latest authenticated state.');
  return out(slow?'slow':'live',slow?'Slow':'Live',phase==='DEGRADED_BUFFER'?'Verified motion continues; the buffer is low.':'');
 }

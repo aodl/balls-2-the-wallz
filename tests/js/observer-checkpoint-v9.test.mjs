@@ -63,3 +63,7 @@ test('v6 references price the current island pool and dormant-only state can dra
  const w=decodeWorld(unhex(life.previous_state_hex)),config={...V6_POLICY,ball_base_e8s:10000000n},c=cannonReference(w,config)[0];assert.equal(c.balls,0);assert.equal(c.dormant,true);assert.equal(c.next_ball_e8s,10000000n);
  const status={run:{running:true,idle:true,last_error:[]},source:{binding_checked:true,last_error:[]}};assert.equal(idleArena(status,w),true);const v=new B2zView(w);assert.equal(v.cannons.size,w.cannons.length);
 });
+
+import{retainLatestVerifiedInterval,resumeVerifiedClock}from'../../apps/b2z-observer/warm-return.mjs';
+import{LIVE_BUFFER_LIMITS}from'../../apps/b2z-observer/model.mjs';
+test('UX-05 retained expiry checkpoint is applied at its authenticated boundary without inventing motion',async()=>{const{prior,initial,artifacts,p}=expiry(),segment=await prepareCheckpoint(initial,artifacts,p,prior),clock=new PlayoutClock({start:segment.start,target:1,low:.01}),q={segment,player:new CheckpointPlayer(segment),checkpoint:true},packet=Object.freeze({memo:'MOVE 1 0',amount:10000n}),s={clock,queue:[q],bytes:segment.bytes,packet};retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);assert.equal(resumeVerifiedClock(s),false);assert.equal(clock.available,clock.playhead);assert.equal(clock.sample(.01).playhead,segment.start);q.player.advance(segment.start).matches(decodeWorld(artifacts.state));assert.equal(s.packet,packet);});

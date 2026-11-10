@@ -20,7 +20,7 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | UX-01 | Arena first; no declaration or compulsory dialog to observe. | `index.html`, `arcade.mjs`; integrated browser journey |
 | UX-02 | Controls serve the current task; secondary detail is progressive. | `arcade.mjs`; contextual action browser matrix |
 | UX-03 | One composer, anchored to its selected cannon/site; compact global secondary views, no stacked dialogs or duplicate paths. | `shell.mjs`, `index.html`; navigation/focus browser journey and `verify_s14_deployment.py:locate_seam_action` |
-| UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey, `warm-return.mjs` / `tactical-polish.test.mjs`, `verify_warm_browser.py` and installed seam→Locate identity checks |
+| UX-04 | Navigation never pauses, resets, drains or restarts live playback; return preserves useful verified intervals. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey, `warm-return.mjs` / `elastic-playback.test.mjs` / `tactical-polish.test.mjs`, `verify_warm_browser.py` and installed seam→Locate identity checks |
 | UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock, three-publication slow/wrap journey and authenticated delivery regressions |
 | UX-06 | Producer, delivery and presentation states remain distinct. | `experience-status.mjs`; status truth table |
 | UX-07 | Verified backend principal/default account is the ordinary destination; historic legacy data remains compatible. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
@@ -189,6 +189,7 @@ not hardware performance claims; record actual measurements with environment.
 
 | Contracts | New regression evidence |
 | --- | --- |
+| UX-04/05/06 | `elastic-playback.test.mjs`, retained expiry-checkpoint test, `measure_elastic_playback.mjs`, controlled rendered returns, actual installed observer and genuine browser lifecycle evidence labelled separately |
 | UX-04/05/11/12 | `fluid-experience.test.mjs`: intermediate camera frames, anchored zoom, cancellation, reduced motion, follow stop/resume and identity fencing |
 | UX-02/03/12 | Stable circular territory anchor, exact shifted map round trips/atlas areas/footprint clipping; populated navigation/gesture journeys |
 | UX-07/08/10/13 | Same-cell UI guard with legal zero, unchanged canonical helper, historic packets and exact modern wallet copies |
@@ -395,7 +396,7 @@ full-screen bloom or independent simulation clock. Resize buffers only when thei
 actual dimensions/DPR change. Texture/canvas memory is disclosed separately from
 JS heap. All geometry/effects are presentation only.
 
-## Tactical presentation and warm return (UX-02/03/04/05/11/12)
+## Tactical presentation and elastic verified return (UX-02/03/04/05/11/12)
 
 The hierarchy is terrain → solid gunmetal cannon → white ball → temporary warm
 interaction cue. CSS custom properties in `style.css` maintain surfaces, ink,
@@ -442,7 +443,7 @@ width. Its short ground direction is intent, not collision prediction.
 
 Balls have unlit white cores and batched camera-facing depth-tested halos. Short
 travel history retains at most 12 segments per ball, 1.2 world-cell extent and
-350ms age, merged for tiny collinear samples. Inner/outer tapered streaks follow
+350ms age, merged for tiny collinear samples only within a 50ms bucket; a merge never refreshes the original expiry. Slow travel cannot accumulate a long old tail. Inner/outer tapered streaks follow
 actual displayed travel, with seam unwrapping and discontinuity resets. Passing
 cells receive at most 20% transient black overlay; overlaps do not accumulate in
 the atlas or minimap. Stationary cores can glow, but cannot generate travel.
@@ -452,22 +453,77 @@ backoff); hidden-but-executing checks are due every 15s, operational refresh eve
 60s. Hidden rendering, pointer and optional-cycle work stops. There is one pipeline,
 single flight per worker, finite scoped HTTP deadlines and normal certificate /
 continuity / anti-rollback policy. No wake-lock or throttling workaround. Hidden
-queues compact through retained verified SegmentPlayers to at most two seconds of
-supported-rate presentation lag, before the capacity guard. This is a visual skip,
-not simulation or payment evidence. Cosmetic history clears on a skip.
+queues retain the most recent complete useful verified interval and trailing
+checkpoints, using existing segment initial/final state, event data and players.
+This explicitly supersedes the tactical two-second-tail policy: polling the same
+head must not consume a remainder. After admitting a newer hidden interval the
+application may discard older unseen visual history and move to the retained
+interval's start, never its last two seconds. The same queue/clock objects remain;
+8MiB/24-segment limits still apply. No duplicate world cache or independent verifier
+is introduced. Receipts, quotes and account state use the latest authenticated
+head regardless of displayed history. A byte-limit conflict may require retaining
+only an authenticated checkpoint, honestly leaving no motion.
 
-Return uses monotonic elapsed time and retained coverage, advancing no further
-than the later verified point minus two seconds at supported rate. A short gap (at most two seconds)
-preserves useful coverage/clock/queue; longer gaps select the recent retained point,
-not an elapsed-time slice of an old 100-second interval; an unchanged head does not reset to its
-endpoint. Cached verified presentation can draw before a network round trip;
-payment preparation still requires fresh verification and operational admission.
-Health replies retain their request-start age and lifecycle generation; pre-hide
-replies cannot become fresh after return. Certificate freshness uses the actual
-certificate timestamp as well as monotonic elapsed time, including a frozen clock.
-Fresh pace information rechecks the recent retained point once, so a stale faster
-hint cannot leave a long Trickle backlog. These checks neither reset the clock nor
-relax the five-minute certificate verifier or the financial admission rules.
+On return, an existing remainder resumes immediately; a newer retained complete
+interval starts at its beginning, without replaying superseded history. Consumed
+motion is never rewound or looped. With no unconsumed coverage, keep the last scene
+and say Waiting for next update. Warm reconstruction occurs before a round trip;
+fresh certificate/operational admission is still required for new instructions.
+An intentional forward skip clears cosmetic history and reacquires a valid followed
+ball through the same short toroidal camera transition, preserving zoom and local
+controls/packets. A cold foreground start retains its established startup buffer; snapshot recovery
+before that clock starts must not invoke the warm-return shortcut. Actual hidden/
+return recovery and already-started playback may retain an older
+unconsumed interval while the source advances. When the retained remainder ends, adopt the already cached authenticated anchor,
+including terminal expiry/checkpoint state, without waiting for another motion
+publication. The next verified interval must match the explicit new source fence; presentation skips the missing span without
+interpolating it. An epoch/source identity change uses the existing authenticated
+recovery and invalidates incompatible following. Discard/reload does not trust a
+stored scene as freshly authenticated.
+
+One application policy (`elastic-playback.mjs`) estimates arrival from distinct
+advancing certified heads, not repeated certificates or unchanged-head replies.
+It retains eight interval-normalized cadence samples and requires two differences
+(three distinct advancing observations). The median cadence is bounded below by
+the publication duration at the actual supported pace; a stale estimate (more than
+three periods) or insufficient evidence falls back to nominal. Pace/context changes
+reset evidence. Estimate timestamps/periods are operational observations, never
+certified predictions. Late arrival uses another estimated period as an uncertain
+horizon and may conserve remaining coverage at the lower rate, eventually exhausting
+it rather than promising infinite playback. The last valid pace hint may continue
+presentation through an operational-query failure; it never authorizes payments.
+
+Spendable verified ticks exclude the larger of the existing fast-mode jitter
+reserve (`buffer target − publication ticks`) and the maximum observed complete
+delivery-cycle duration times nominal pace, over the last eight distinct heads.
+Using the larger avoids counting those margins twice. This preserves Normal's
+already qualified delivery headroom: a real 4.35s fetch exposed a stall when an
+initial policy incorrectly accelerated through that reserve. Slow-mode startup
+still needs only one complete interval; its legacy extra reserve is zero, and a
+measured delivery margin never becomes a compulsory second-publication threshold.
+Spendable ticks divided by estimated time until the next distinct head selects a
+target of 0.5–1.5× nominal, with factor slew limited to 0.12 per wall second.
+Large supported-tier changes clamp the effective presentation rate into the new
+0.5–1.5 bounds immediately (zero means stopped); ordinary in-tier changes remain
+smooth. Warm return re-bases the rate, not the clock, so a stale Normal rate cannot
+consume a retained Trickle interval in one second. The pinned DTR clock still enforces the endpoint; its application-configured internal
+rate is unity so the two adaptations do not multiply. No game speed, physics,
+source timer or conservation threshold changes. Bounded intentional delay is
+disclosed as Live/Slow · delayed when more than ten nominal wall seconds behind
+the accepted head. That disclosure is secondary to error/protection/idle status
+and does not itself prevent safe latest-head preparation. Actual network catch-up
+and no-coverage waiting remain different states. Diagnostics distinguish producer
+nominal/supported rate, effective presentation rate and retained-buffer bytes.
+
+Controlled canonical-player comparisons retain 80s of a .8-tick Trickle remainder,
+versus about 2s with the deployed policy, and a complete 1-tick recent interval after
+several hidden admissions. These are controlled clocks, not production/lifecycle
+or continuous-delivery guarantees. The release report records exhaustion, delay,
+byte bounds and real rendered/browser coverage separately. A frozen browser cannot
+execute background checks, and exhausted verified coverage cannot produce motion.
+Health replies retain request-start age and lifecycle generation; pre-hide replies
+cannot become fresh after return. Certificate freshness uses actual certificate
+time plus monotonic elapsed time. No authentication/freshness check is relaxed.
 Frozen/BFCache pages disarm scheduling; resume re-arms once. Discard/reload follows
 normal authenticated boot. Hidden/offline requests can be throttled or suspended;
 there is no background freshness guarantee. Two tabs have bounded independent

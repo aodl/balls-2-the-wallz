@@ -56,3 +56,9 @@ Fluid camera, ball following, shifted map cuts, the icon toolbar and guide/effec
 layering changes require the UX-04/05/12 controlled-frame and populated-browser
 regressions. Preserve exact wallet bytes; UI no-op Move rejection must not change
 the authoritative Ledger interpreter or historic instruction data.
+
+Elastic playback changes must preserve UX-04/05/06: retain verified intervals,
+never consume coverage on an unchanged hidden head, count only distinct advancing
+heads for cadence, and keep latest-head financial authority separate from delayed
+presentation. Run actual pinned-clock/player regressions and label controlled
+lifecycle evidence separately from genuine browser visibility.

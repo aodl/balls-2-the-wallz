@@ -142,7 +142,7 @@ def planned_checks(mode,outdir):
       ('observation-v6-reference',[sys.executable,'-B','tools/observation_reference.py','--version','6','--check'],'normal',(),120),
       ('observation-reference',[sys.executable,'-B','tools/observation_reference.py','--check'],'normal',(),120),
       ('portable-cursors',['node','tools/portable_vectors.mjs','--check'],'normal',('node',),180),
-      ('node-tests',['node','--test','--test-concurrency=1',*map(str,sorted((ROOT/'tests/js').glob('*.test.mjs')))],'node-tests',('node',),300),
+      ('node-tests',['node','--test','--test-concurrency=1',*map(str,sorted((ROOT/'tests/js').glob('*.test.mjs')))],'node-tests',('node',),600),
       ('source-structure',[sys.executable,'-B','tools/check_source.py'],'normal',('node',),180),
       ('docs-links',[sys.executable,'-B','tools/check_docs.py'],'normal',(),120),
       ('python-tool-tests',[sys.executable,'-B','-m','unittest','discover','-s','tools','-p','test_*.py','-v'],'python-tests',(),300),

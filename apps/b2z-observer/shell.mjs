@@ -6,7 +6,7 @@ import{playerAnchor}from'./player-anchor.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
- let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,anchor=null,selectedBall=null,pendingBall=null,pendingTap=null,lastTap=null;
+ let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,anchor=null,selectedBall=null,pendingBall=null,pendingTap=null,lastTap=null,followRebase=false;
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
  const motion=new CameraController(camera,{reducedMotion,onSettled:save});
@@ -15,7 +15,7 @@ export function createShell(doc,camera,arcade,onPick){
  const pointers=new Map();let origin=null,last=null,owner=null,moved=false,pinched=false,pinch=null,aimOrigin=null;
  const point=e=>{const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};};
  const pair=()=>{const[a,b]=[...pointers.values()];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)};};
- function stopFollowing(){selectedBall=pendingBall=null;motion.stopFollow();$('stop-follow').hidden=true;}
+ function stopFollowing(){followRebase=false;selectedBall=pendingBall=null;motion.stopFollow();$('stop-follow').hidden=true;}
  function cancelTap(){pendingTap=pendingBall=lastTap=null;}
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
  function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-body');layout={top:doc.querySelector('.arena-chrome').getBoundingClientRect().bottom+10,mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),desired:header.offsetHeight+body.scrollHeight+2};return layout;}
@@ -89,12 +89,13 @@ export function createShell(doc,camera,arcade,onPick){
  }
  listen(doc,'b2z-overlay',()=>{layoutDirty=true;position();});
  return{
-  hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
+  hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
    if(disposed||doc.hidden)return;lastView=v;lastTime=time;lastPoints=points;lastIdentity=identity;
    if(selectedBall!==null&&(arcade.selectedCannon()!==null||!v.balls.has(selectedBall)||motion.following&&motion.following.identity!==identity))stopFollowing();
    if(pendingTap&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(t.mode===arcade.mode()&&t.selected===arcade.selectedCannon()&&arcade.moveSelection())activate(resolve(t.p),t.p);}
    if(pendingBall&&now>=pendingBall.due){const p=pendingBall;pendingBall=null;if(p.identity===identity&&v.balls.has(p.id))motion.follow(p.id,identity,points.find(b=>b.id===p.id));else stopFollowing();}
+   if(followRebase&&motion.following){const p=points.find(b=>b.id===selectedBall);if(p)motion.follow(selectedBall,identity,p);followRebase=false;}
    motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});
    if(selectedBall!==null&&!pendingBall&&!motion.following)selectedBall=null;$('stop-follow').hidden=selectedBall===null;
   },

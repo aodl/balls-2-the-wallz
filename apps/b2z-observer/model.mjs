@@ -236,14 +236,17 @@ export function nominalPace(status){
  return milli/1000;
 }
 export function approachPace(current,target,seconds){return current+Math.max(-.25*seconds,Math.min(.25*seconds,target-current));}
+/** Tier changes cannot replay a retained slow interval at a stale faster rate. */
+export function approachPresentationPace(current,target,nominal,seconds){if(!(nominal>0))return 0;return Math.max(.5*nominal,Math.min(1.5*nominal,approachPace(current,target,seconds)));}
+
 
 /** One publication plus sixteen wall seconds of delivery jitter at faster rates,
  * eight at slow rates, expressed in ticks.
  * Slow modes publish one-tick segments, allowing one complete low-rate interval to start without an extra publication. */
 export const LIVE_BUFFER_LIMITS=Object.freeze({segments:24,bytes:8*1024*1024});
+export function publicationTicks(status){const raw=Number(status?.run.publication_ticks??status?.run.segment_ticks??2);return Number.isInteger(raw)&&raw>=1&&raw<=64?raw:2;}
 export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=Infinity){
- const pace=nominalPace(status),raw=Number(status?.run.publication_ticks??status?.run.segment_ticks??2);
- const ticks=Number.isInteger(raw)&&raw>=1&&raw<=64?raw:2;
+ const pace=nominalPace(status),ticks=publicationTicks(status);
  const byteSlots=largestSegmentBytes>0?Math.floor(LIVE_BUFFER_LIMITS.bytes/largestSegmentBytes):LIVE_BUFFER_LIMITS.segments;
  const slots=Math.max(1,Math.min(LIVE_BUFFER_LIMITS.segments,byteSlots));
  // Reserve a quarter of the feasible queue for delivery jitter. A single
@@ -260,7 +263,7 @@ export function liveBufferPolicy(status,largestSegmentBytes=0,bufferAtCapacity=I
 export function liveSessionBufferPolicy(session){
  const full=(session.queue?.length??0)>=LIVE_BUFFER_LIMITS.segments||
    (session.bytes??0)+(session.largestSegmentBytes??0)>LIVE_BUFFER_LIMITS.bytes;
- return liveBufferPolicy(session.operational,session.largestSegmentBytes,full?session.clock.state().buffer:Infinity);
+ return liveBufferPolicy(session.operational??session.lastPaceStatus,session.largestSegmentBytes,full?session.clock.state().buffer:Infinity);
 }
 
 const sameCanonical=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);return x.length===y.length&&x.every((v,i)=>v===y[i]);};

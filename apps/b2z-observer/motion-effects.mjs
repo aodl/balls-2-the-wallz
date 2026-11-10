@@ -14,8 +14,8 @@ export function displayedMotion({limit=128,tailLifetime=350,tileLifetime=1250}={
     const t=trails.get(p.id)??{id:p.id,path:[]};
     const previous=t.path.at(-1),aligned=previous&&previous.dx*dx/distance+previous.dy*dy/distance>.995;
     // Merge tiny collinear samples; expiry is tied to actual movement, not frame count.
-    if(aligned&&previous.distance+distance<.2){previous.x=p.x;previous.y=p.y;previous.distance+=distance;previous.until=wallMs+tailLifetime;}
-    else t.path.push({x:p.x,y:p.y,dx:dx/distance,dy:dy/distance,distance,until:wallMs+tailLifetime});
+    if(aligned&&wallMs-previous.created<50&&previous.until>wallMs&&previous.distance+distance<.2){previous.x=p.x;previous.y=p.y;previous.distance+=distance;}
+    else t.path.push({x:p.x,y:p.y,dx:dx/distance,dy:dy/distance,distance,created:wallMs,until:wallMs+tailLifetime});
     t.path=t.path.filter(p=>p.until>wallMs);while(t.path.length>12||t.path.reduce((n,p)=>n+p.distance,0)>1.2)t.path.shift();
     t.until=wallMs+tailLifetime;trails.set(p.id,t);
     const steps=Math.min(8,Math.max(1,Math.ceil(distance*4)));

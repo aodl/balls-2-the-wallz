@@ -60,3 +60,11 @@ one instrument section with a principal/text-only handoff. Legacy history stays
 valid internally. The UI same-cell Move guard is not a backend rule. Run the
 fluid controlled-frame and populated browser regressions before freezing. This
 candidate grants no production authority; retain tactical assets for rollback.
+
+Elastic verified playback retains a complete recent interval in the existing bounded
+queue while hidden. Same-head returns retain the unconsumed remainder. Cadence is
+advisory and only distinct advancing authenticated heads count. The external
+presentation factor is 0.5–1.5× supported pace; the pinned clock remains the verified
+endpoint ceiling. See UX-04/05/06 and `tests/js/elastic-playback.test.mjs`.
+Never quote from the intentionally delayed presentation or treat a copied packet
+as a receipt. Controlled return fixtures are not genuine hidden-tab evidence.

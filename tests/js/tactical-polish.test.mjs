@@ -32,9 +32,9 @@ import {recentPresentationPoint} from '../../apps/b2z-observer/warm-return.mjs';
 import {PlayoutClock} from '@dtr/timeline-runtime/client/playout';
 test('UX-04/05 warm return preserves usable slow coverage and bounds playback lag',()=>{
  const clock=new PlayoutClock({start:0,target:1,low:.05});clock.append(0,1);
- close(recentPresentationPoint(clock.state(),.01,35),.98);
- close(recentPresentationPoint(clock.state(),.01,1),.01);
- close(recentPresentationPoint(clock.state(),.01,3600),.98);
+ close(recentPresentationPoint(clock.state(),.01,35),0);
+ close(recentPresentationPoint(clock.state(),.01,1),0);
+ close(recentPresentationPoint(clock.state(),.01,3600),0);
  const point=recentPresentationPoint(clock.state(),1,3600);assert.equal(point,0,'no extra unverified coverage');
  close(recentPresentationPoint({playhead:4,available:4},.01,3600),4);
 });
@@ -65,6 +65,6 @@ test('UX-06 delayed replies cannot relabel old certificates or pre-hide health a
  assert.equal(operationalReplyCurrent(s,1,100,200),true);s.lifecycleGeneration++;
  assert.equal(operationalReplyCurrent(s,1,100,200),false);assert.equal(operationalReplyCurrent(s,2,100,15100),false);assert.equal(operationalReplyCurrent(s,2,200,100),false);
 });
-test('UX-04 fresh slow-tier information rebases a warm backlog without requiring new coverage',()=>{
- const state={playhead:0,available:1};assert.equal(recentPresentationPoint(state,1,35),0);assert.equal(recentPresentationPoint(state,.01,35),.98);
+test('UX-04 fresh slow-tier information never consumes a retained remainder',()=>{
+ const state={playhead:0,available:1};assert.equal(recentPresentationPoint(state,1,35),0);assert.equal(recentPresentationPoint(state,.01,35),0);
 });
