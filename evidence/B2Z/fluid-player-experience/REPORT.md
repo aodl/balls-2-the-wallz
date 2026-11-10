@@ -1,12 +1,19 @@
 # Fluid player experience — candidate qualification
 
-**Implemented and frozen; not yet qualified for production approval. Not deployed.**
-All hosted exact-source gates are blocked by source-publication access. Local
-installed million-cell startup remains unresolved after the unchanged baseline
-failed the same predicate. Functional browser and security checks below are
-separate from those blockers. The paid
-European backend and existing tactical frontend have not been modified by this
-work. No canister, setting/controller or financial operation is authorised here.
+**Implemented and frozen locally, including the Move/Build warning. Not deployed.**
+The final source is `5c2bb2772dbaad95b50fc77cdabb50ba26e36cee`.
+[Complete sixteen-file manifest](frontend-files.json):
+`f1dc14eaafcb243dc3258c1a07832e34cd26ec526bc8c21a8f422b5ecef999da`.
+JavaScript: `4c0d389331ff1764fc328c04f4c0df0658ba8414666dd9d9aeceb024cd79aced`.
+[Provenance](build-manifest.json) records a clean source and unchanged locked
+dependencies. Actual files and all maintained bundled inputs were checked.
+
+**Not ready for production approval:** hosted exact-source qualification is
+blocked by publication credentials. The local installed million-cell startup
+gate remains unresolved; an unchanged baseline fails the same predicate.
+Rendered native hidden-return and hardware/phone performance are coverage
+limitations, separate from demonstrated application failures. The paid European
+backend and deployed tactical assets remain untouched.
 
 ## Implemented contract
 
@@ -396,3 +403,70 @@ sub-1.5s timeout assertion and all replay assertions are unchanged. In the later
 standalone run registration takes 0.012–1.036s, so that pass alone does **not**
 establish why the original contended attempt missed 15s. Both records remain.
 This is setup headroom, not a relaxed observation/certificate/runtime safety budget.
+
+## Final warning-inclusive freeze and release decision
+
+The final clean build is preserved at
+`.work/fluid-player-experience/frozen-with-warning/frontend`, source
+`5c2bb2772dbaad95b50fc77cdabb50ba26e36cee`. Its complete manifest above covers
+fifteen public assets plus consumed `.ic-assets.json5`; the local cursor is
+included. [Final maintained inputs](qualification/final-frozen-inputs.json) match
+the committed source. The preceding f792ca0 freeze remains preserved and is not
+substituted for these new bytes. Only HTML, JavaScript and build provenance change
+between those freezes, for the explicit warning, separate fee and field ordering.
+
+[Final exact-frozen verification](qualification/final-frozen-real-backend.json)
+passes desktop, 390×844 and 320×640 against the actual read-only European backend.
+All fifteen HTTP files match their actual frozen bytes, CSP/security headers
+match upload policy, and observation uses genuine certificate verification.
+First-cannon/account selection, exact text copy, Keep, principal/default address
+binding and clock/queue preservation pass; all POSTs are query/read_state.
+The backend's authenticated board advances naturally through ticks 5300–5301.
+Signed advisory observations show Trickle 0.01 ticks/s, admission open, no
+performance limitation, source binding checked, no source/run error and no
+pending records. This is a local serving check, **not production publication**.
+
+At 22:45 UTC a further [signed management query](qualification/backend-after-warning.json)
+still reports module `612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`,
+1,703,857,252,391 total cycles, zero reserved cycles and version 55563. No SDK
+liquid balance or gross-burn/lifetime is inferred. No financial or backend
+operation was performed. The production frontend still serves the tactical set.
+
+The ordinary non-force push of final runtime source 5c2bb27 was attempted after
+refreshing the remote head, which remains 079e542. It failed with exit 128:
+“could not read Username for https://github.com: terminal prompts disabled”.
+The connector write route also denies access. [Actual push output](qualification/source-push-final.log)
+is preserved; no credentials were inspected/requested. Thus there is no new
+hosted run or six-gate pass to report. A subsequent evidence-only local commit
+records these identities/results without rebuilding runtime artifacts.
+
+**Recommendation:** publish the prepared local HEAD using the non-force command
+above, obtain all six substantive exact-source conclusions, then make the separate
+asset-only controlled-playtest decision with the documented coverage limits.
+The installed startup failure cannot be labelled PASS from compilation or the
+unchanged baseline failure. No additional redesign, backend work or benchmark
+programme is proposed.
+
+Representative executed commands (all raw paths indexed in qualification):
+
+```sh
+python3.11 -B tools/check.py source --output .work/fluid-player-experience/source-final
+node --test --test-concurrency=1 tests/js/payment-warning.test.mjs tests/js/human-workspace.test.mjs tests/js/fluid-experience.test.mjs tests/js/ux-playback.test.mjs tests/js/arcade-pricing.test.mjs
+python3.11 -B -m unittest discover -s tools -p test_observer_server.py -v
+node tools/build_observer_playability.mjs --canister s5ir5-gqaaa-aaaas-amyna-cai --output .work/fluid-player-experience/frozen-with-warning/frontend
+```
+
+Browser commands use `.work/browser-venv/bin/python -B` and the existing local
+Chromium libraries (`LD_LIBRARY_PATH=/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu`):
+
+```sh
+tools/verify_fluid_browser.py --output .work/fluid-player-experience/browser-warning-accounts-corrected --video
+tools/verify_fluid_frozen.py --assets .work/fluid-player-experience/frozen-with-warning/frontend --output .work/fluid-player-experience/frozen-warning-browser
+```
+
+These latter lines are script arguments to that Python executable. Earlier
+1,807-test source execution and final focused 39-test/18-test warning runs are
+reported separately; the updated whole suite is not falsely described as one
+1,811-test hosted or clean-source run. [Reviewed conclusions](qualification/release-checks-reviewed.json)
+retain original failures, partial native graphics coverage and nonqualifying
+software performance measurements.

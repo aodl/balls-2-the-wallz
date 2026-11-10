@@ -1,5 +1,4 @@
 {
-  "runtime_source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
   "hosted_exact_source_qualification": "BLOCKED: ordinary push lacks credentials; connector write denied",
   "production_deployment": "NOT_AUTHORISED_NOT_ATTEMPTED",
   "checks": [
@@ -52,7 +51,30 @@
       "name": "million-cell-startup",
       "conclusion": "FAIL_UNRESOLVED_BASELINE_ALSO_FAILS",
       "record": "installed-million-startup.json"
+    },
+    {
+      "name": "warning-addendum",
+      "conclusion": "PASS_39_FOCUSED_18_HTTP_ALL_FIVE_ACTIONS_THREE_VIEWPORTS",
+      "record": "payment-warning-browser-final.json"
+    },
+    {
+      "name": "final-frozen-real-backend",
+      "conclusion": "PASS_EXACT_FINAL_ARTIFACT_READ_ONLY_NOT_DEPLOYED",
+      "record": "final-frozen-real-backend.json"
     }
   ],
-  "wrapper_note": "Raw orchestration prints PASS for native because its launcher exits zero after saving verifier exit 2. The underlying native record is authoritative PARTIAL, never a rendered return pass. Raw wrapper and original failed source/browser/installed records are preserved."
+  "wrapper_note": "Raw orchestration prints PASS for native because its launcher exits zero after saving verifier exit 2. The underlying native record is authoritative PARTIAL, never a rendered return pass. Raw wrapper and original failed source/browser/installed records are preserved.",
+  "base_runtime_source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+  "final_runtime_source": "5c2bb2772dbaad95b50fc77cdabb50ba26e36cee",
+  "final_javascript_sha256": "4c0d389331ff1764fc328c04f4c0df0658ba8414666dd9d9aeceb024cd79aced",
+  "final_complete_manifest_sha256": "f1dc14eaafcb243dc3258c1a07832e34cd26ec526bc8c21a8f422b5ecef999da",
+  "source_publication": {
+    "conclusion": "BLOCKED",
+    "actual_remote_head": "079e542e627bee2859d9efdf2d26aac2865a9e34",
+    "attempted_source": "5c2bb2772dbaad95b50fc77cdabb50ba26e36cee",
+    "exit_code": 128,
+    "reason": "HTTPS username unavailable with terminal prompting disabled; existing connector also denies repository writes",
+    "command": "git push origin HEAD:refs/heads/release/btz-prelaunch-playability",
+    "record": "source-push-final.log"
+  }
 }

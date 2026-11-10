@@ -180,5 +180,35 @@
   "direct-journey.json": {
     "raw_path": ".work/fluid-player-experience/direct-journey/results.json",
     "sha256": "e9e5e4c3a58337f9cebf4e57ea8ccd5cf967b38b614c7bbb27c03dbacf554f65"
+  },
+  "final-frozen-real-backend.json": {
+    "raw_path": ".work/fluid-player-experience/frozen-warning-browser/results.json",
+    "raw_sha256": "c7bd404e1baa031ef965f9a35337287a0932dc24bb3fa8bf99fa7f5c50775c8c",
+    "sha256": "c7bd404e1baa031ef965f9a35337287a0932dc24bb3fa8bf99fa7f5c50775c8c"
+  },
+  "final-frozen-inputs.json": {
+    "raw_path": ".work/fluid-player-experience/frozen-with-warning/input-verification.json",
+    "raw_sha256": "2029d801d52450fa3e9e4749ae8baa1b6566c9ba90a9869e8fc124ed140c7a74",
+    "sha256": "2029d801d52450fa3e9e4749ae8baa1b6566c9ba90a9869e8fc124ed140c7a74"
+  },
+  "backend-after-warning.json": {
+    "raw_path": ".work/fluid-player-experience/backend-after-warning.json",
+    "raw_sha256": "9ba452bf0dfb1cd5de5b8fb068e8746469aa0b65d121a3d84e3c8d769430f978",
+    "sha256": "9ba452bf0dfb1cd5de5b8fb068e8746469aa0b65d121a3d84e3c8d769430f978"
+  },
+  "source-push-final.log": {
+    "raw_path": ".work/fluid-player-experience/source-push-final.log",
+    "raw_sha256": "2e554a39e2bb4414b5e2c3f5a90ebc87b405b5b8231d692704ec6df4580e8f60",
+    "sha256": "2e554a39e2bb4414b5e2c3f5a90ebc87b405b5b8231d692704ec6df4580e8f60"
+  },
+  "final-source-structure.log": {
+    "raw_path": ".work/fluid-player-experience/source-structure-warning.log",
+    "raw_sha256": "b70acb84818ec624c1b748653f197f991846f4748019d7c1ec767e72c6fc8733",
+    "sha256": "b70acb84818ec624c1b748653f197f991846f4748019d7c1ec767e72c6fc8733"
+  },
+  "final-naming-summary.json": {
+    "raw_path": ".work/fluid-player-experience/naming-warning-final.json",
+    "raw_sha256": "3c2dbed49e690a8d3df754c6950f415b43e67ac5085c7537f97329820c841aa3",
+    "sha256": "26276e232a2ee0690dd606c8fd84f4718992f2164638f3ea8cc28da55f6faa8d"
   }
 }

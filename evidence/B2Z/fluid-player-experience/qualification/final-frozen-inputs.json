@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "source": "5c2bb2772dbaad95b50fc77cdabb50ba26e36cee",
+  "source_dirty_at_freeze": false,
+  "inputs": [
+    {
+      "path": "apps/b2z-observer/elastic-playback.mjs",
+      "sha256": "fa2f1ca9b700e8854941276ad9b66d79106e34eae2cce0c00762a0e6b77f60c0"
+    },
+    {
+      "path": "apps/b2z-observer/public-cycles.mjs",
+      "sha256": "d64e9b977d537d63575232c6d25e54714953ab26d471afcaafdc05e7be70d217"
+    },
+    {
+      "path": "apps/b2z-observer/replay-tools.mjs",
+      "sha256": "c0ea10f9f239c27812aab959ab99b28dcdf83c63efd5be2f3c2c62ae9a887b4c"
+    },
+    {
+      "path": "apps/b2z-observer/warm-return.mjs",
+      "sha256": "9523228a1ae5718fb2eb3126a7c8afed84084e5e10abf145e577f24db8b5fd2e"
+    },
+    {
+      "path": "apps/b2z-observer/observation-loop.mjs",
+      "sha256": "2ee32afa5e1fc34980423a15606516bceb96df73ec7a51a8a9355a9edd599489"
+    },
+    {
+      "path": "apps/b2z-observer/experience-status.mjs",
+      "sha256": "c0b4882d2e46ceee2c2ba72dd3e363ed19cd8017e2879448bf8c9364161939c4"
+    },
+    {
+      "path": "apps/b2z-observer/camera.mjs",
+      "sha256": "6014748b92da5d2c1d49b1fb8ded70de4f658d43b459a7df63d04bb17fd81fa3"
+    },
+    {
+      "path": "apps/b2z-observer/ball-presentation.mjs",
+      "sha256": "83ce36fe7af1994a8f6dcca390265a0caed6375c6c544838755cc6095c14c0a2"
+    },
+    {
+      "path": "packages/kernels/b2z/math.mjs",
+      "sha256": "494678e83107b4e786cff1fbd9f50bfcedd3389e7a86fbaff5a2e2baeab077d0"
+    },
+    {
+      "path": "apps/b2z-observer/interaction.mjs",
+      "sha256": "40fd5701f1af4ec822d9a19526c8905bbce6879718426494a23ba01eab698400"
+    },
+    {
+      "path": "apps/b2z-observer/minimap-projection.mjs",
+      "sha256": "5903a87e4cead8676afa37ee2b6bd99db2f1a2260dbfd7ea0989e53801f611d5"
+    },
+    {
+      "path": "apps/b2z-observer/minimap.mjs",
+      "sha256": "425f2cb8af190a87c623fa16226429341eff5bb4415f3c825aaccfa5bcc2f960"
+    },
+    {
+      "path": "apps/b2z-observer/camera-controller.mjs",
+      "sha256": "6f90f03f092d8e1b0418b3efd042630a7f8ab06d83d9b40d722f00e7744620b2"
+    },
+    {
+      "path": "apps/b2z-observer/player-anchor.mjs",
+      "sha256": "112a49d9a0022fe055077d147976a223e3d44f695ad26e5b71e02ada7b7fa388"
+    },
+    {
+      "path": "apps/b2z-observer/shell.mjs",
+      "sha256": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2"
+    },
+    {
+      "path": "apps/b2z-observer/terrain.mjs",
+      "sha256": "8687bf629ea3b44dcbbaf04c8f9ba77103bd0434bd73a66117be19f36709f7b8"
+    },
+    {
+      "path": "apps/b2z-observer/terrain-surface.mjs",
+      "sha256": "2a7db75d2303fadc486ee6fa86c0bf420a4804e950b1351be88cd24fd2ac4137"
+    },
+    {
+      "path": "apps/b2z-observer/motion-effects.mjs",
+      "sha256": "9bc3e332b032b630a24d2009c788187d0883409b7a15f04571098168aa78d9f7"
+    },
+    {
+      "path": "apps/b2z-observer/render.mjs",
+      "sha256": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad"
+    },
+    {
+      "path": "packages/protocol/memo.mjs",
+      "sha256": "15bee929a00560d8eff88c4eeca6dfe651b9c0d97064fe2ac58fc8a768a28a09"
+    },
+    {
+      "path": "apps/b2z-observer/identity.mjs",
+      "sha256": "02c1b3f5742188ea504f22494f1712025d3b68c3d935a30a32c812ab145a920c"
+    },
+    {
+      "path": "apps/b2z-observer/play-reference.mjs",
+      "sha256": "b3dc33053a139997a883d76e4c649fad93f80ac0a73cc74af0a9d7513fc30aba"
+    },
+    {
+      "path": "packages/kernels/b2z/economics.generated.mjs",
+      "sha256": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804"
+    },
+    {
+      "path": "packages/kernels/b2z/pricing-v6.mjs",
+      "sha256": "07d469d8241c5d021b39c7d1a733c99eeb2ab1fe605a484c6881f4401d9ecb28"
+    },
+    {
+      "path": "packages/protocol/memo-v6.mjs",
+      "sha256": "3324b707ca833a3ff4d1a27a03a493330750d13fe05ad14aefb0d6be00011e16"
+    },
+    {
+      "path": "apps/b2z-observer/action-quote-v6.mjs",
+      "sha256": "61a7caa23058d33e108c65c4217d94851fc528c624304ac1626e931c92a6b0a2"
+    },
+    {
+      "path": "apps/b2z-observer/handoff.mjs",
+      "sha256": "2e217c715ca8cb8858f77fc087fb46da5dc335b0a6a3422cebe84d5685e52dee"
+    },
+    {
+      "path": "apps/b2z-observer/headings.mjs",
+      "sha256": "6efacdc002ee0d6966fb73c1e3be0eef87c42aea5c9a9ee29157b907ceca1c78"
+    },
+    {
+      "path": "apps/b2z-observer/arcade.mjs",
+      "sha256": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898"
+    },
+    {
+      "path": "apps/b2z-observer/bounded-observation.mjs",
+      "sha256": "8be3468c861284005664f33444588d346aa67679788c1fbd97dd09cdd9ecf1ec"
+    },
+    {
+      "path": "apps/b2z-observer/configuration.generated.mjs",
+      "sha256": "6cae1329083846e36899a4dcd2b6251416e4ebdaf099a63c8584656088cfe478"
+    },
+    {
+      "path": "apps/b2z-observer/transport.mjs",
+      "sha256": "d8bf1c93ecae75b209be594f97da4e47216814327ae64bbb5e0760e666776288"
+    },
+    {
+      "path": "apps/b2z-observer/mainnet.mjs",
+      "sha256": "48fd988b238249e7813c2a5ffcde4c6fab6864f74117a9d7a054a10eee9839e1"
+    },
+    {
+      "path": "apps/b2z-observer/deployment.mjs",
+      "sha256": "d169ea25dcbbe05cc22ab41b61dece3dc3e9f364782f67a32c916cca8dbba12a"
+    },
+    {
+      "path": "packages/kernels/b2z/playability.generated.mjs",
+      "sha256": "d53a0da258e489c8034bbb4454ed49969c24f993b9607409b5e498a2bafc8413"
+    },
+    {
+      "path": "apps/b2z-observer/model-v6.mjs",
+      "sha256": "05abc2f6c76a54b1f5d3a216fcfac66067fe95d39acded94a20cf1d3b59239b9"
+    },
+    {
+      "path": "apps/b2z-observer/torus-identity.generated.mjs",
+      "sha256": "8564fb89b20eaba7d40d3326ad0ac850bca58248c030c1107005e54ef2f89829"
+    },
+    {
+      "path": "packages/kernels/b2z/animation-projection.mjs",
+      "sha256": "cc63159ca764a6c6d488313321148333f53bbca9aced0b8470b6a0a8465707ce"
+    },
+    {
+      "path": "apps/b2z-observer/model.mjs",
+      "sha256": "13e40ee52d2d8d977c6ce1fbfd7622c06d96ea3b3b349d24f3da896406935ab8"
+    },
+    {
+      "path": "apps/b2z-observer/live-delivery.mjs",
+      "sha256": "cca218a24b76e4fcf42a4b990e74f8169dc4d05a402fc97dcab90195bda1719e"
+    },
+    {
+      "path": "apps/b2z-observer/app.mjs",
+      "sha256": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+    }
+  ],
+  "complete_asset_count": 16
+}
