@@ -1,3 +1,11 @@
+# Fluid player experience — source candidate, not deployed
+
+The camera/follow/compact-toolbar continuation is being qualified locally on
+`release/btz-prelaunch-playability`. See the [candidate release record](evidence/B2Z/fluid-player-experience/REPORT.md)
+and [maintained UX contracts](docs/specs/B2Z_HUMAN_EXPERIENCE.md). Source publication,
+exact-source CI and a separate production decision are distinct gates. The
+following tactical release remains the deployed game.
+
 # Tactical-polish frontend — deployed controlled prelaunch
 
 https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/ serves the exact approved tactical

@@ -173,6 +173,10 @@ jobs:
         run: |
           python -B tools/verify_tactical_grid.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-grid
           python -B tools/verify_tactical_browser.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-journey
+      - name: Fluid camera, ball follow, compact controls and guide depth
+        run: |
+          python -B tools/verify_fluid_browser.py --output .work/ci-fluid-journeys --video
+          python -B tools/verify_fluid_depth.py --fixture-dir .work/ci-human-experience --output .work/ci-fluid-depth
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -188,6 +192,8 @@ jobs:
             .work/ci-human-experience/**
             .work/ci-tactical-grid/**
             .work/ci-tactical-journey/**
+            .work/ci-fluid-journeys/**
+            .work/ci-fluid-depth/**
           if-no-files-found: warn
           retention-days: 14
 

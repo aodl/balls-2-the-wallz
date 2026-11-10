@@ -52,3 +52,11 @@ pixel comparisons. `verify_warm_browser.py` requires actual tab visibility
 transitions and records unsupported headless environments as BLOCKED, separate
 from controlled hidden scheduling. It never spoofs OS hiding.
 Each frontend publication requires release-specific production approval.
+
+The fluid-player candidate keeps one `camera-controller.mjs` beside geometric
+`Camera`; `player-anchor.mjs` caches compact toroidal territory centres and
+`ball-presentation.mjs` shares displayed-only positions. One icon toolbar expands
+one instrument section with a principal/text-only handoff. Legacy history stays
+valid internally. The UI same-cell Move guard is not a backend rule. Run the
+fluid controlled-frame and populated browser regressions before freezing. This
+candidate grants no production authority; retain tactical assets for rollback.

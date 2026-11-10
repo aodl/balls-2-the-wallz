@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """UX-01..13 populated synthetic UI journeys; real HTTP/WebGL/Web Crypto, no IC or payment claim."""
+from fluid_playability_browser import action_field
 import argparse,functools,http.server,json,subprocess,threading,time,traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
@@ -26,7 +27,7 @@ def close(page):
  if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
 def select(page,n):
  page.evaluate('(n)=>fixture.select(n)',n)
- if page.locator('#locate-context').is_visible():page.locator('#locate-context').click()
+ if page.locator('#locate-context').is_visible():page.locator('#locate-context').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
 with sync_playwright() as pw:
  browser=pw.chromium.launch(executable_path=pw.chromium.executable_path,headless=True,chromium_sandbox=True)
  try:
@@ -48,13 +49,14 @@ with sync_playwright() as pw:
      page.locator(f'[data-copy="{kind}"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Copied.');page.wait_for_function('(v)=>copied.at(-1)===v',arg=value)
     page.locator('#angle-degrees').fill('180');assert page.locator('#replace-choice').is_visible();assert page.locator('#prepared-card').is_hidden();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text('FIRE 2 315 2')
     page.locator('#angle-degrees').fill('180');page.locator('#replace-instructions').click();page.locator('[data-copy="text"]').click();page.wait_for_function('(v)=>copied.at(-1)===v',arg='FIRE 2 45 2')
-    page.locator('#legacy-details summary').click();expect(page.locator('#payment-address')).to_have_text('c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde');page.locator('[data-copy="recipient"]').click();page.wait_for_function('(v)=>copied.at(-1)===v',arg='c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde')
+    # UX-07: principal/text only; preserve independent default-account binding.
+    assert page.locator('#legacy-details,#payment-address,#hex-memo,[data-copy="recipient"],[data-copy="hex"]').count()==0;assert page.evaluate('fixture.source().recipient')=='c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde'
     page.locator('#text-memo').scroll_into_view_if_needed();page.screenshot(path=str(out/f'{width}x{height}-wallet.png'))
     close(page);page.locator('#identify-button').click();expect(page.locator('#saved-list')).to_contain_text('FIRE 2 45 2');assert not page.locator('#saved-list input').count();close(page)
     # Denial is not success; manual save preserves the same instruction set.
     identify(page,'rrkah-fqaaa-aaaaa-aaaaq-cai');close(page);page.locator('#join-action').click();assert page.locator('#quantity-controls').is_hidden();expect(page.locator('#text-memo')).to_have_text('NEW 225 1')
     page.evaluate('()=>{navigator.clipboard.writeText=async()=>{throw Error("denied")}}');page.locator('[data-copy="owner"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Clipboard unavailable');assert page.locator('#manual-value').input_value()=='s5ir5-gqaaa-aaaas-amyna-cai';page.keyboard.press('ControlOrMeta+C');page.locator('#angle-degrees').fill('90');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();page.locator('#manual-handoff').click();expect(page.locator('#copy-feedback')).to_contain_text('Instructions saved')
-    close(page);identify(page);close(page);page.evaluate('fixture.render("mutual_last","final")');select(page,1);expect(page.locator('#fire-action')).to_have_text('Revive');assert page.locator('#move-action').is_disabled();page.locator('#fire-action').click();expect(page.locator('#panel-title')).to_contain_text('Revive')
+    close(page);identify(page);close(page);page.evaluate('fixture.render("mutual_last","final")');select(page,1);assert page.locator('#fire-action').get_attribute('aria-label')=='Revive';assert page.locator('#move-action').is_disabled();page.locator('#fire-action').click();expect(page.locator('#action-prompt')).to_have_text('Aim & Pay')
     page.evaluate('()=>{navigator.clipboard.writeText=window.realWrite}');page.locator('[data-copy="text"]').click();page.wait_for_timeout(100);page.evaluate('fixture.render("mutual_last","expired")');close(page);page.evaluate('fixture.render("additional","final")');select(page,1);page.locator('#fire-action').click();assert page.locator('#replace-choice').is_visible();page.locator('#replace-instructions').click();assert page.locator('[data-copy="text"]').is_enabled();close(page)
     # Actual clock and queue identity through repeated panels/account/action edits.
     page.evaluate('fixture.motion("idle",.01)');page.evaluate('fixture.markClock()');initial=page.evaluate('fixture.summary().time')
@@ -64,9 +66,9 @@ with sync_playwright() as pw:
     assert not page.evaluate('document.documentElement.scrollWidth>innerWidth');assert page.locator('.camera-controls button').evaluate_all('(ns)=>ns.every(n=>{const r=n.getBoundingClientRect();return r.width>=44&&r.height>=44})')
     # Contextual opponent/Build/Move paths use canonical helpers, not disabled action walls.
     page.evaluate('fixture.render("bridge_both","initial")');select(page,3);assert page.locator('#context-actions').is_hidden();close(page)
-    page.evaluate('fixture.render("additional","final")');select(page,1);page.locator('#move-action').click();page.locator('#move-cell').fill('999999');assert page.locator('#prepared-card').is_hidden();page.keyboard.press('Escape')
+    page.evaluate('fixture.render("additional","final")');select(page,1);page.locator('#move-action').click();action_field(page,'#move-cell').fill('999999');assert page.locator('#prepared-card').is_hidden();page.keyboard.press('Escape')
     select(page,1);page.locator('#build-action').click();assert page.locator('#new-controls').is_visible();assert page.evaluate('fixture.sites().length')>0
-    site=page.evaluate('fixture.sites()[0]');page.locator('#new-cell').select_option(str(site));assert page.locator('#text-memo').inner_text().endswith(' '+str(site));close(page)
+    site=page.evaluate('fixture.sites()[0]');action_field(page,'#new-cell').select_option(str(site));assert page.locator('#text-memo').inner_text().endswith(' '+str(site));close(page)
     metrics=page.evaluate('fixture.metrics()');rows.append({'viewport':[width,height],'status':'PASS','metrics':metrics,'recording':str(Path(page.video.path()).relative_to(out))if page.video else None,'player_controls':'PASS','coverage':['exact renderer ownership and cell previews','nonrepeating camera and minimap','screen headings and captured aiming','Move after hidden invalid heading','seam Build origin and revised eligibility','anchored card and viewport focus','contextual Fire/Revive/Join','exact coherent bytes','principal/default/legacy equality','denied/manual clipboard','edit and replacement','history/account scoping','one panel','clock/queue identity and progress','populated WebGL rendering']});context.close();print(f'PASS {width}x{height}',flush=True)
    context=browser.new_context(viewport={'width':390,'height':844},permissions=['clipboard-write']);page=context.new_page();page.goto(origin);page.wait_for_function('()=>!!window.fixture');verify_saved_world_heading(page);context.close();rows.append({'status':'PASS','coverage':['canonical stored world heading and memo bytes survive reload with new screen display']})
    context=browser.new_context(viewport={'width':390,'height':844},reduced_motion='reduce');page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(origin);page.wait_for_function('()=>!!window.fixture');identify(page);close(page);page.evaluate('fixture.motion("idle",.01)');before=page.evaluate('fixture.summary().time');page.wait_for_timeout(600);assert page.evaluate('fixture.summary().time')>before
@@ -79,7 +81,7 @@ with sync_playwright() as pw:
    # Actual pinned clock/presenter, canonical subsequent kernel intervals. The
    # clock runs at Trickle policy with explicitly accelerated disposable wall time.
    context=browser.new_context(viewport={'width':390,'height':844},**({}if a.no_video else dict(record_video_dir=str(out/'video'),record_video_size={'width':390,'height':844})));page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(origin);page.wait_for_function('()=>!!window.fixture');page.evaluate('fixture.motion("wrap",.01)');page.evaluate('fixture.camera.frameCell(999999);fixture.playbackScale(20);fixture.markClock()')
-   page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000);page.wait_for_timeout(400);page.wait_for_timeout(550);assert page.locator('#motion-wait').is_visible();assert page.locator('#waiting-label').inner_text()=='Rendering on-chain activity ...';assert page.evaluate('fixture.summary().stats.effects')==0
+   page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000);page.wait_for_timeout(400);page.wait_for_timeout(550);assert page.locator('#motion-wait').is_visible();assert page.locator('#waiting-label').inner_text()=='Waiting for next update';assert page.evaluate('fixture.summary().stats.effects')==0
    start=page.evaluate('fixture.summary().time');page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000)
    page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t+1',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000);page.screenshot(path=str(out/'slow-wait-resume-wrap.png'));rows.append({'status':'PASS','coverage':['Trickle one complete interval starts','waiting has no movement effect','two later canonical publications resume same clock','toroidal rendered travel'],'timing':'20x accelerated disposable wall time at actual 0.01 policy; not production cadence','recording':str(Path(page.video.path()).relative_to(out))if page.video else None});context.close()
   assert not errors,errors

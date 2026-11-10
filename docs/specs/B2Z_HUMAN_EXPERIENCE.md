@@ -3,6 +3,9 @@
 This is the normative human-interface contract. It supersedes the screen layout,
 toolbar, dialog, reporting and live-pause requirements in earlier observer and
 human-interface documents. Historical evidence remains evidence of its own release.
+The fluid-player continuation supersedes the inspection dialog, legacy/hex UI,
+instant camera commands, same-cell UI Moves and the previous waiting wording.
+Canonical financial semantics and historical records remain unchanged.
 The tactical continuation below additionally supersedes square-map orientation,
 bright passing-tile highlights, the old .6-cell tail cap and unconditional hidden
 observation suspension. The player-centred correction brief supersedes the former docked-panel, full-diamond
@@ -20,7 +23,7 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | UX-04 | Navigation never pauses, resets, drains or restarts live playback. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey, `warm-return.mjs` / `tactical-polish.test.mjs`, `verify_warm_browser.py` and installed seam→Locate identity checks |
 | UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock, three-publication slow/wrap journey and authenticated delivery regressions |
 | UX-06 | Producer, delivery and presentation states remain distinct. | `experience-status.mjs`; status truth table |
-| UX-07 | Verified backend principal/default account is primary; legacy is secondary. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
+| UX-07 | Verified backend principal/default account is the ordinary destination; historic legacy data remains compatible. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
 | UX-08 | Copies share one frozen amount/recipient/payer/memo/action binding. | `handoff.mjs`, `arcade.mjs`; edit, denial, manual copy and reload regressions |
 | UX-09 | No transaction reporting/index entry; instructions are not payment evidence. | `handoff.mjs`; legacy migration, account history and browser absence assertions |
 | UX-10 | Exact prices, fee, retention risk and restrictions at the handoff. | canonical `quoteV6`, wallet panel; narrow-screen field and legality checks |
@@ -47,9 +50,8 @@ Account, Help, saved instructions and technical details use that same DOM surfac
 in global mode. No duplicated desktop/mobile composer or opaque docked slab.
 The card flips/clamps around its anchor, excludes the aimer, camera controls,
 cycles readout and minimap, and scrolls naturally once. If its anchor leaves view,
-a small Locate cannon affordance replaces the detached card. Locate updates card
-visibility/inertness synchronously with its camera mutation; it must not await a
-render frame to make the card reachable. Explicit Locate or
+a small Locate cannon affordance replaces the detached card. Locate animates through the shared camera controller; the card becomes reachable
+when its anchor returns, while clock/queue identity remains unchanged. Explicit Locate or
 one precision-mode entry can focus/zoom; publications never repeatedly recenter.
 The background remains interactive: no modal semantics, scrim or focus trap.
 Close/Escape returns focus and removes a local preview, never saved instructions.
@@ -61,7 +63,7 @@ Close/Escape returns focus and removes a local preview, never saved instructions
 | Own active cannon | Fire opens local heading/quantity editing; Move selects a canonically legal board cell; Build shows legal adjacent sites. |
 | Own dormant cannon | Revive replaces Fire; brief expiry/restriction reason; canonical eligibility still applies. |
 | Opponent cannon | Compact inspection only. |
-| My cannons | Hidden without cannons; one centres directly; several open a compact chooser. |
+| My cannons | Hidden without cannons; one smoothly focuses it; several open a compact chooser. |
 | Widest arena view / zoom | Fixed orthographic projection, tight non-repeat zoom limit; pointer/pinch/buttons/Home/resize/restore all clamp consistently. Full-world overview belongs to the persistent minimap. |
 | Minimap | Exact canonical map plus seam-clipped inverse-projected viewport polygons, selected/own cannon markers; tap/drag or keyboard arrows navigate without gameplay input. |
 | Account | Sending declaration, Change/Forget, own cannons, saved instructions and recent verified account outcomes. |
@@ -69,7 +71,133 @@ Close/Escape returns focus and removes a local preview, never saved instructions
 
 Hide irrelevant actions. Disable a relevant temporarily unavailable action with
 one accessible concise reason. Never replace all explanations with disabled icons.
-Financial/gameplay actions have visible labels; camera icons have names/tooltips.
+Cannon action icons have accessible names, tooltips and 44px targets; the
+expanded prompt explains the task. Wallet Copy buttons retain visible labels.
+
+## Fluid player experience (UX-02/03/04/05/07/08/10/11/12/13)
+
+This section is the current camera/selection/composer contract. It intentionally
+supersedes the older inspection-card heading/action rows and secondary technical
+payment controls. Financial/authentication, exact ownership, no-repeat and
+verified-only contracts are unchanged.
+
+### Camera, shared territory focus and map
+
+One `camera-controller.mjs` owns explicit Focus/My cannon/Locate, widest view,
+zoom buttons/keys, map click/keys and double-click. `Camera` retains projection
+and constraints. Interpolate position with 220–380ms smoothstep and logarithmic
+scale, shortest torus periods and continuous no-repeat clamping. Replacement
+starts at the current interpolated state. Direct pan/pinch/wheel cancels animation;
+it never resumes later. Store only settled/debounced poses. Use frame timestamps,
+not frame counts; hidden/frozen transitions cancel safely. Reduced motion makes
+movement immediate. Keyboard viewport accommodation may be immediate.
+
+Focus is disabled at scale ≥36 when the working footprint has ≥52px safe margins
+and avoids camera/map/cycles controls. Focus targets at least scale 48 and a useful
+upper working position on narrow screens. Clicking a visible cannon only selects
+it; it does not steal camera control. Explicit camera actions keep selection,
+unsent drafts, copied packets and the playback clock/queue intact.
+
+`player-anchor.mjs` chooses selected owned island, then largest relevant active
+island by area/numeric-ID tie-break. Sum circular cell-centre moments analytically
+over the existing exact rectangles. Ambiguous centroids use a stable owned cannon.
+Cache across ordinary captures. Account/selected-island/source context or explicit
+Overview can rebase; ball movement cannot. Without ownership retain meaningful
+local focus. This is presentation, never an ownership or gameplay decision.
+
+The diamond remains a full world of aspect sqrt(3), with that stable anchor at its
+centre. `minimap-projection.mjs` translates/wraps one canonical cut, and applies the
+same transform to exact cached ownership, markers, cut-clipped camera polygons,
+picking and keyboard navigation. At most four existing-atlas rectangles are drawn;
+no second ownership model or per-frame million-cell reconstruction. Centre click
+navigates to the player anchor. Freeze the cut during map dragging. Drag is direct;
+click/keys animate. An outside-diamond drag keeps its last valid point.
+
+### Balls, gesture priority and verified-only following
+
+`ball-presentation.mjs` supplies displayed positions to renderer, picking and
+following; stationary coverage reuses the cached point array. Following requires
+no account and opens no payment/cannon dialog. Selection highlights a ball and
+shows a temporary Stop following control (also Escape; keyboard B cycles current
+balls, Enter selects the centre object). Initial acquisition pans smoothly without
+changing zoom. Tracking then uses a 32px deadband and damped correction only when
+the verified playhead changes. It stops at coverage end, resumes with new coverage,
+unwraps seams, and never predicts future motion. Destruction, identity/reset,
+another object, manual pan/pinch or an explicit camera target exits. Zoom buttons
+may retain follow. Identity is never persisted across browser sessions.
+
+Placement/captured gestures have priority. Otherwise displayed ball/cannon hit
+areas use the actual projection and deterministic physical depth: larger
+x+y+height is nearer this fixed camera. Occluded balls cannot steal cannon hits;
+practical core/halo targets remain bounded. Overlays exclude arena interaction.
+
+Mouse pairs use a 400ms/7px arena-only double-click window. Cannon selection is
+immediate; only placement commitment and ball camera acquisition defer for this
+window. Touch/keyboard activate immediately; no mandatory double-tap. A pair cancels
+pending placement/follow and animates 1.65× zoom about the clicked world point.
+At maximum zoom it changes no camera state. Fields, wallet values, buttons and map
+never participate. Empty terrain clicks no longer aim: use the handle/numeric/
+keyboard alternatives. The small contextual delay prevents an attempted zoom from
+first changing a paid destination or memo; it is not a universal selection delay.
+
+### Toolbar and one progressive instrument section
+
+Collapsed selection is one row: **Focus / Fire or Revive / Move / Build / Close**.
+No visible Cannon # heading or inspection wall. Identity/island facts remain
+accessible metadata/history. Opponents expose Focus/Close only. Icons have 44px
+hit areas, names/tooltips, visible focus and pressed/expanded state. Relevant
+disabled actions give concise accessible reasons. Close deselects; collapse retains
+selection/draft. Switching icons replaces one lower section, never a stacked dialog.
+
+Prompts: **Aim & Pay**, **Choose a Tile & Pay**, **Choose a Tile, Aim & Pay**. Pay is
+an external-wallet intention, not a transaction button. Fire has a precise heading
+chip and quantity stepper. Move hides heading and discloses numeric cell entry;
+Build chooses an eligible neighbour and aims its ghost. First Join stays automatic.
+Only exact amount, principal, canonical text memo, compact payer, Copy controls
+and short fee/retention warning appear in the ordinary handoff. Legacy/hex DOM and
+native-copy references are removed, while underlying validation/history bytes stay.
+
+Smoked glass has a readable solid fallback for narrow/reduced-transparency/forced
+colour conditions. Expansion uses 180ms opacity/clip feedback; reduced motion skips
+it. ResizeObservers invalidate content/chrome measurements; camera frames use
+cached geometry and side hysteresis, not repeated scroll-size measurement. Focus,
+caret, one natural scroll and keyboard viewport access must survive publications.
+
+UI Move preparation excludes the cannon's own cell, including manual entry:
+**Choose a different tile**. Valid cell zero stays legal from elsewhere. Revalidate
+on revisions, never silently replace a target, and retain old copied records as
+history. This safeguard does not change `quoteV6` or the Ledger interpreter:
+independent wallets can still submit same-cell commands accepted by the backend.
+No on-chain rejection rule is claimed. All other legality/prices/memo bytes remain.
+
+### Depth, effects and concrete implementation budgets
+
+Selected cannons have a persistent dual-tone ground footprint independent of Move
+or aim expansion. Hover is lighter; committed destinations are distinct ghosts.
+The canonical preview barrel and 2px/4px guide agree at encoded precision. Guide
+materials depth-test without writing depth; ground height .028 and start offset
+.42 cell keep solid cannon geometry above it. It is no collision forecast or
+canonical rotation. Build/selection overlays also respect depth.
+
+Tile darkening is capped at 20%, ≤128 cells, with an independent 1.25s squared
+fade. Tail lifetime remains .35s, brighter .92 inner/.36 outer opacity, ≤1.2 cells/
+12 recent path points per ball. Reflections/wrap follow actual displayed travel;
+stops/camera movement produce none. Reset on discontinuity/epoch/context restore;
+reduced motion suppresses optional effects. Atlas/minimap colours never change.
+No new full-screen pass, global bloom or per-ball light. These are work budgets,
+not hardware performance claims; record actual measurements with environment.
+
+| Contracts | New regression evidence |
+| --- | --- |
+| UX-04/05/11/12 | `fluid-experience.test.mjs`: intermediate camera frames, anchored zoom, cancellation, reduced motion, follow stop/resume and identity fencing |
+| UX-02/03/12 | Stable circular territory anchor, exact shifted map round trips/atlas areas/footprint clipping; populated navigation/gesture journeys |
+| UX-07/08/10/13 | Same-cell UI guard with legal zero, unchanged canonical helper, historic packets and exact modern wallet copies |
+| UX-05/12 | Separate wake/tail expiry, shared ball projection/depth hits, GPU guide occlusion and persistent selection |
+| UX-02/03/11 | Actual desktop/390/320 toolbar/glass/action/keyboard/focus tests and recorded populated journeys |
+
+All six exact-source CI gates and a separate production approval remain required.
+Local focused passes are not source qualification. Historical release evidence
+is not rewritten or treated as qualification for changed executable inputs.
 
 ## Accounts and wallet instructions
 
@@ -87,7 +215,8 @@ Nondefault receiving accounts require their complete ICRC representation.
 The wallet panel exposes Amount (exact ICP), Send to (principal/default account),
 Memo (canonical readable text), From (declared actual payer), Copy controls and
 “Wallet fee extra. Payments and unused ICP are kept; no automatic refunds.”
-Legacy address and identical memo bytes in hex are secondary disclosures. Display
+The ordinary handoff has no legacy-address or hexadecimal-memo controls. Internal
+AccountIdentifier/hex validation and historic records remain compatible. Display
 heading is screen-relative; wallet memo direction remains canonical. Copy the
 complete unchanged memo, never manually substitute the displayed angle.
 No Prepare → Confirm → Report chain. Editing and wallet instructions share a panel.
@@ -130,9 +259,10 @@ operator stop/transition → source/processing error → protection (Refuelling 
 → empty/dormant idle → presentation resynchronising/waiting → advancing Slow/Live.
 An unchanged head with a fresh valid certificate is not stale. A successful fetch
 alone is not advancing motion. Retained verified motion may finish after a
-producer stop; details explain that distinction. A depleted presentation queue with active balls resolves to waiting, never simply
-Slow. After 500 ms of continuous genuine waiting, the arena centre shows a white
-glowing spinner and exactly “Rendering on-chain activity ...”. The top control
+producer stop; details explain that distinction. A depleted presentation queue with active balls says **Waiting for next update**,
+with a static ring. Actual authenticated backlog admission/resynchronisation alone
+says **Catching up with on-chain activity ...**, with a spinner. Both debounce
+for 500ms and come from the same resolver; neither hides another failure state. The top control
 becomes Status rather than repeating a competing waiting paragraph. It dismisses
 when verified motion resumes. The indicator has no backdrop and no pointer events;
 reduced motion keeps a static ring. Meaningful visibility changes are announced
@@ -202,7 +332,7 @@ derived only from recent displayed displacement and fading over 350 ms. It unwra
 the short torus path, disappears on stationary frames, and resets at spawn/despawn,
 backward/discontinuous time, resync/source/world change or graphics restoration.
 Reduced motion removes tails/darkening while retaining readable white balls. Passing-tile
-darkening is bounded to 20%, wall-clock fading over 350 ms, secondary to ownership and derived from
+darkening is bounded to 20%, wall-clock fading over 1,250 ms, secondary to ownership and derived from
 displayed world displacement. Stationary balls, camera movement and resync create
 no travel effect. Reset on spawn/discontinuity and suppress with reduced motion.
 

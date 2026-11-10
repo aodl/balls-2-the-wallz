@@ -64,6 +64,10 @@ export class Camera {
       if(!best||score<best.score)best={x:wx,y:wy,sx:p.x,sy:p.y,visible:outside===0,score};}return best??{x,y,...Object.fromEntries(Object.entries(this.screen(x,y,height)).map(([k,v])=>[k==='x'?'sx':'sy',v])),visible:false};
   }
   cellPoint(cell,height=0){return this.point(cell%this.width+.5,Math.floor(cell/this.width)+.5,height);}
-  minimapPolygons(){const polygon=this.footprint();return this.copies().map(c=>clipPolygon(polygon.map(p=>({x:p.x-c.x,y:p.y-c.y})),0,0,this.width,this.height)).filter(p=>polygonArea(p)>1e-9);}
+  minimapPolygons(origin=null){
+    const polygon=this.footprint(),left=this.torus&&origin?origin.x-this.width/2:0,top=this.torus&&origin?origin.y-this.height/2:0,b=this.bounds(),out=[];
+    const xs=this.torus?[Math.floor((b.x-left)/this.width),Math.floor((b.x+b.width-left)/this.width)]:[0,0],ys=this.torus?[Math.floor((b.y-top)/this.height),Math.floor((b.y+b.height-top)/this.height)]:[0,0];
+    for(let y=ys[0];y<=ys[1];y++)for(let x=xs[0];x<=xs[1];x++){const dx=left+x*this.width,dy=top+y*this.height,p=clipPolygon(polygon.map(p=>({x:p.x-dx,y:p.y-dy})),0,0,this.width,this.height);if(polygonArea(p)>1e-9)out.push(p);}return out;
+  }
   get minimapUseful(){return true;}
 }

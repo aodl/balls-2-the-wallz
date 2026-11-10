@@ -25,3 +25,50 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 :root{--cannon-base:#303940;--cannon-turret:#424c55;--cannon-barrel:#65717c}
 
 :root{--selected:#f5c77e;--preview:#ffdf9d;--ghost:#ffe1a5;--guide:#ffedc9;--guide-under:#101317;--eligible:#bddde9}
+/* Fluid instrument surfaces: one toolbar and one progressive action section. */
+:root{--glass:#20262deb;--glass-edge:#7a858b;--glass-solid:#20262d;--control:#2b333b;--pressed:#544831}
+.panel{background:var(--glass);border-color:var(--glass-edge);border-radius:8px;box-shadow:0 10px 24px #0006;bottom:auto}
+.panel-header{padding:4px 6px;gap:4px;min-height:52px;justify-content:space-between}
+.panel-header>button,#context-actions>button{width:44px;height:44px;min-width:44px;padding:10px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;background:transparent;border:1px solid transparent;flex-shrink:0}
+.panel-header>button:hover,#context-actions>button:hover{background:var(--control);border-color:var(--line)}
+.panel-header button[aria-pressed=true]{background:var(--pressed);border-color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.panel-header button:disabled{opacity:.55;cursor:default}
+.panel[data-surface=context] #panel-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#context-actions{display:contents}
+.panel-body{padding:8px 12px 12px;scrollbar-gutter:auto}
+.panel[data-surface=context][data-expanded=false] .panel-body{padding:0 10px}
+#inspect-note:empty{display:none}#inspect-note{font-size:.8rem;margin:0 0 8px}
+#cannon-life{margin:0}
+#action-prompt{font-size:.95rem;letter-spacing:.025em;font-weight:650;margin:0 0 12px}
+#action-inputs{display:flex;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.heading-chip{display:flex;align-items:center;gap:6px;max-width:156px}
+.heading-chip label{font-size:.8rem;margin:0;color:var(--quiet)}
+.heading-chip input{width:78px;padding:7px;min-height:44px}
+.quantity-stepper>label{font-size:.8rem;margin:0 0 3px}
+.quantity-stepper>div{display:flex;align-items:center;gap:3px}
+.quantity-stepper input{width:51px;padding:6px;text-align:center;appearance:textfield}
+.quantity-stepper input::-webkit-inner-spin-button{appearance:none}
+.quantity-stepper button{padding:6px;min-width:44px;background:var(--control)}
+#move-controls,#new-controls{width:100%;margin:0}#move-controls details{margin:5px 0 0;border:0;padding:0}#new-controls{border:0;padding:0}
+#chosen-destination:empty{display:none}#chosen-destination{font-variant-numeric:tabular-nums}
+#move-alternative summary,#new-controls summary{font-size:.8rem}
+.wallet-hint{font-size:.78rem;color:var(--quiet);margin:0 0 6px}
+.wallet-fields{margin:7px 0}.wallet-fields>div{grid-template-columns:52px minmax(0,1fr) auto;gap:6px;padding:6px 0}
+.wallet-fields dt{font-size:.78rem}.wallet-fields dd{font-size:.875rem}
+#transfer-amount{font-size:1.2rem;font-weight:750;color:var(--ink)}
+#payment-risk{font-size:.8rem;line-height:1.45;margin:10px 0}
+#placement-note,#preparation-note,#copy-feedback{font-size:.8rem;line-height:1.4;margin:8px 0}
+.panel[data-expanded=true] #action-view{animation:instrument-in 180ms ease-out}
+@keyframes instrument-in{from{opacity:.1;clip-path:inset(0 0 100%);transform:translateY(-3px)}to{opacity:1;clip-path:inset(0);transform:translateY(0)}}
+#stop-follow{position:absolute;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);font-size:.8rem;background:var(--glass);z-index:3}
+#board[data-cursor=ball]{cursor:pointer}
+#motion-wait[data-kind=waiting] .spinner{animation:none;opacity:.55}
+@supports(backdrop-filter:blur(4px)){.panel{backdrop-filter:blur(4px)}}
+@media(max-width:700px){.panel{background:#20262df5;backdrop-filter:none}.panel-header{padding:4px 6px}.panel-body{padding:7px 10px 10px}.wallet-fields>div{grid-template-columns:45px minmax(0,1fr) auto}.wallet-fields button{padding:6px}.heading-chip{max-width:145px}}
+@media(prefers-reduced-motion:reduce){.panel #action-view{animation:none}}
+@media(prefers-reduced-transparency:reduce){.panel{background:var(--glass-solid);backdrop-filter:none}}
+@media(forced-colors:active){.panel{background:Canvas;backdrop-filter:none;border:1px solid CanvasText}.panel-header button[aria-pressed=true]{outline:2px solid Highlight}.panel button:disabled{opacity:1;color:GrayText}}
+
+#stop-follow{top:calc(var(--chrome-bottom,100px) + 8px);bottom:auto}
+/* Keep focused precision fields clear of fractional scrollport edges. */
+#action-inputs input,#action-inputs select{scroll-margin-block:3px}

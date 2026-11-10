@@ -25,6 +25,15 @@ Read [STATUS](../../STATUS.md), the [current frontend release report](../../evid
 flows, statuses, handoff, rendering or playback must identify affected UX IDs,
 update intentional contract changes and execute corresponding regressions.
 
+## Fluid-player candidate boundary
+
+The fluid-camera/ball-follow/compact-toolbar continuation is a **source candidate**.
+Its maintained implementation is described in the human-experience contract and
+[release record](../../evidence/B2Z/fluid-player-experience/REPORT.md). It does not
+replace the deployed tactical artifact above. Its source publication and CI are
+separate from production approval. A future approval must name the exact complete
+frozen manifest and retain the tactical assets for bounded asset-only rollback.
+
 ## Freeze and qualify
 
 Check actual branch/head, clean source and remote publication; never force-push.

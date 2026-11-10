@@ -51,3 +51,8 @@ The [operator procedure](docs/operations/S14_OPERATOR.md) now defaults to fronte
 updates of the installed paid European game; fresh installation is historical.
 Intentional visual/lifecycle changes also require populated before/after evidence;
 keep controlled hidden scheduling separate from actual browser suspension/visibility.
+
+Fluid camera, ball following, shifted map cuts, the icon toolbar and guide/effect
+layering changes require the UX-04/05/12 controlled-frame and populated-browser
+regressions. Preserve exact wallet bytes; UI no-op Move rejection must not change
+the authoritative Ledger interpreter or historic instruction data.

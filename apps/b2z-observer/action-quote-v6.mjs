@@ -39,3 +39,10 @@ export function quoteV6(w,config,account,{kind,cannon,angle='0',quantity=1,cell=
  const memo=encodeV6Memo(parseV6TextMemo(new TextEncoder().encode(text)));check(amount<=18446744073709551615n,'PRICE_OVERFLOW');
  return{amount,per_item,requested:kind==='move'?1:quantity,maximum_fill:fill,pool,cell,memo:text,memo_bytes:new TextEncoder().encode(text),numeric_memo_bytes:memo,non_reservation:true};
 }
+
+/** Observer safeguard only: the current Ledger interpreter still accepts no-op Move. */
+export function legalMoveDestination(w,account,cannon,cell){return w.cannons.find(c=>c.id===cannon)?.cell!==cell&&legalMove(w,account,cannon,cell);}
+export function prepareQuoteV6(w,config,account,command){
+ const cannon=w.cannons.find(c=>c.id===command.cannon);if(command.kind==='move'&&cannon&&cannon.cell===command.cell)throw Error('DIFFERENT_TILE');
+ return quoteV6(w,config,account,command);
+}

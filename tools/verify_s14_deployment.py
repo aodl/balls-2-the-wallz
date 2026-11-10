@@ -2,6 +2,7 @@
 """Actual deployment bundle against an owned live PocketIC. No wallet/update calls.
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
+from fluid_playability_browser import action_field
 import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
 from contextlib import ExitStack
@@ -37,6 +38,8 @@ def choose_action(page,kind,review=True):
         cannon=page.evaluate('__b2zTools.selection()');select_cannon(page,cannon)
         page.locator({'start':'#build-action','ball':'#fire-action','move':'#move-action'}[kind]).click()
     if review:review_instructions(page)
+def different_owned_cell(page):
+    return page.evaluate('''()=>{const w=__b2zExperience.session.referenceWorld,id=__b2zTools.selection(),c=w.cannons.find(c=>c.id===id);if(w.version>=5)throw Error('Use canonical compact-world fixture');const n=w.cells.findIndex((owner,n)=>owner===c.id&&n!==c.cell);if(n<0)throw Error('No different owned fixture cell');return n;}''')
 def selected_cell(page):
     return page.evaluate('()=>{const id=__b2zTools.selection();return __b2zExperience.session.referenceWorld.cannons.find(c=>c.id===id).cell;}')
 def locate_seam_action(page):
@@ -51,7 +54,7 @@ def locate_seam_action(page):
       return Boolean(clock&&queue)&&clock===__b2zExperience.clock&&queue===__b2zExperience.queue&&cannon===__b2zTools.selection();
     }''')
     assert page.locator('#action-view').is_visible()
-    assert not page.locator('#workspace').evaluate('(n)=>n.inert')
+    wait_until(page,lambda:not page.locator('#workspace').evaluate('(n)=>n.inert'),8000)
 def tab_in_modal(page):
     # UX-03/11 supersedes modal focus trapping: the background remains interactive.
     assert page.locator('#workspace').is_visible()
@@ -72,11 +75,11 @@ def verify_torus_scene(page,context,out,record,report,save):
     select_cannon(page);choose_action(page,'ball');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
     page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
-    choose_action(page,'move');page.locator('#move-cell').fill('0')
+    choose_action(page,'move');action_field(page,'#move-cell').fill('0')
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
     point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
     locate_seam_action(page)
-    assert page.locator('#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
+    assert action_field(page,'#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
     page.screenshot(path=str(out/'torus-seam-move.png'));record('corner-seam-camera-hit-test-prepares-the-underlying-cell-once')
     # Native touch pan and pinch, preserving the numeric aim alternative.
@@ -157,11 +160,11 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
     select_cannon(page);choose_action(page,'move')
     # Numeric entry and exact board picking avoid 1,000,000 DOM options.
-    assert page.locator('#move-cell').get_attribute('type')=='number'
+    assert action_field(page,'#move-cell').get_attribute('type')=='number'
     # Move is selected from the cannon context.
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
-    assert page.locator('#move-cell').input_value()=='0'
+    assert action_field(page,'#move-cell').input_value()=='0'
     locate_seam_action(page)
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
@@ -262,9 +265,9 @@ def verify_epoch_transition(page,context,out,record,report,save):
     choose_action(page,'ball')
     wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
     select_cannon(page);choose_action(page,'move')
-    old_cell=selected_cell(page);choose_action(page,'move');page.locator('#move-cell').fill(str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    old_cell=different_owned_cell(page);choose_action(page,'move');action_field(page,'#move-cell').fill(str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
-    assert page.locator('#payment-address').text_content()==report['receiving_account']
+    assert source_value(page,'recipient')==report['receiving_account'];assert page.locator('#payment-owner').text_content().startswith(source_value(page,'owner'));assert not page.locator('#payment-address,#hex-memo').count()
     page.locator('[data-copy="text"]').click()
     wait_until(page,lambda:'Copied.' in page.locator('#copy-feedback').text_content(),5000)
     # Keep this packet active across the epoch. Escape now explicitly cancels
@@ -285,7 +288,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     assert page.locator('#replace-choice').is_visible()
     assert page.evaluate('Boolean(__b2zExperience.session.ready)') # saved packet remains in scoped local history
     mapped=(old_cell//16+12)*32+old_cell%16+8
-    page.locator('#move-cell').fill(str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    action_field(page,'#move-cell').fill(str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
     assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
     page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
@@ -526,7 +529,7 @@ def main():
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='1 ICP'
             assert page.locator('.hero,footer').count()==0
-            assert page.locator('#payment-address').text_content()==configuration['recipient']
+            assert source_value(page,'recipient')==configuration['recipient'];assert page.locator('#payment-owner').text_content().startswith(source_value(page,'owner'));assert not page.locator('#payment-address,#hex-memo').count()
             page.bring_to_front()
             if asset_canister:
                 assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')
@@ -645,12 +648,12 @@ def main():
             assert page.locator('#angle-degrees').input_value()=='0'
             assert page.locator('#text-memo').inner_text()=='ANGLE 225',page.locator('#text-memo').inner_text()
             record('fresh-legacy-action-uses-screen-up-not-an-unrelated-draft')
-            cell=selected_cell(page);choose_action(page,'move')
-            page.locator('#move-cell').fill(str(cell))
+            cell=different_owned_cell(page);choose_action(page,'move')
+            action_field(page,'#move-cell').fill(str(cell))
             # Move is selected from the cannon context.
             point=page.evaluate('(cell)=>__b2zCamera.screen(cell%16+.5,Math.floor(cell/16)+.5)',cell)
             page.mouse.click(point['x'],point['y'])
-            assert page.locator('#move-cell').input_value()==str(cell)
+            assert action_field(page,'#move-cell').input_value()==str(cell)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#text-memo').inner_text()==f'MOVE {cell}'
             assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'

@@ -6,9 +6,9 @@ const base={verified:true,fresh:true,operationalFresh:true,healthy:true,advancin
 const status=override=>experienceStatus({...base,...override});
 test('UX-06 precedence distinguishes producer, verification, delivery and presentation',()=>{
  assert.equal(status({live:false}).label,'Replay · offline');assert.match(status({live:false}).detail,/not IC-certified/);assert.equal(status({live:false,trust:'certificate'}).label,'Verified recording');
- assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Rendering on-chain activity ...');
+ assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Waiting for next update');
  const slow={...base.operational,run:{...base.operational.run,pace:{mode:'Trickle',supported_milli:10,admission_open:true}}};
- assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Rendering on-chain activity ...');
+ assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Waiting for next update');
  assert.equal(status({operational:slow,phase:'ERROR'}).label,'Unable to verify game');
  assert.equal(status({operational:slow,fresh:false}).label,'Reconnecting');
  const protectedRun={...slow,run:{...slow.run,pace:{mode:'ReserveProtection',admission_open:false}}};
@@ -34,7 +34,7 @@ test('UX-12 effects use displayed displacement, unwrap seams and clear discontin
  const m=displayedMotion({limit:4});const sample=(x,y,time,wallMs=0,more={})=>m.sample([{id:1,x,y}],{width:1000,height:1000,torus:true,time,wallMs,...more});
  assert.equal(sample(999.8,1,0).length,0);assert.equal(sample(999.8,1,.1).length,0);
  const e=sample(.2,1,.2);assert.ok(e.length>0&&e.length<=2);assert.ok(e.every(e=>[1000,1999].includes(e.cell)));
- assert.equal(sample(.2,1,.3,500).length,0);assert.equal(sample(500,500,.4,600).length,0);
+ assert.ok(sample(.2,1,.3,500).length>0,'UX-12 tile wake now lasts 1.25s independently of tails');assert.equal(sample(.2,1,.3,1400).length,0);assert.equal(sample(500,500,.4,600).length,0);
  m.reset();assert.equal(sample(.5,1,.5,700).length,0);assert.equal(sample(.7,1,.6,800,{reducedMotion:true}).length,0);
 });
 test('UX-06 network failure is reconnecting; verification failure never leaves copying enabled',()=>{
