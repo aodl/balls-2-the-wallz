@@ -1,0 +1,243 @@
+{
+  "scope": "Read-only authenticated candidate on loopback HTTP; actual tab hiding required.\nActual document.hidden is required; controlled hidden-policy tests are separate.\nUse --cdp with ordinary headed Chromium to avoid Playwright focus emulation.\n",
+  "status": "PARTIAL",
+  "rendered_arena": false,
+  "graphics_message": "This browser could not start the 3D arena. WebGL 2 is required.",
+  "automation_defaults_disabled": true,
+  "actual_hidden_seconds": 35.006460837990744,
+  "return_to_visibility_observation_ms": 137.0674899953883,
+  "return_to_fresh_current_state_ms": 659.7602520196233,
+  "fresh_current_state": {
+    "state": {
+      "phase": "PLAYING",
+      "playhead": 4752.002332999999,
+      "available": 4753,
+      "buffer": 0.997667000000547,
+      "rate": 1
+    },
+    "status": {
+      "kind": "render-error",
+      "label": "Arena unavailable",
+      "detail": "The renderer could not display the verified game.",
+      "canPrepare": false
+    },
+    "root": "2a62d7aea1e497a048953d25f1271427e30e55e3299cebe7f7af740891f8438b"
+  },
+  "before": {
+    "verified_state_bytes": 10554,
+    "verified_queue_bytes": 0,
+    "accepted": 1,
+    "state": {
+      "phase": "BUFFERING",
+      "playhead": 4752,
+      "available": 4752,
+      "buffer": 0,
+      "rate": 1
+    },
+    "root": "e483c22f753624c4c1d7a3dad0daca463d69d453f1645e77610a3504186fde80",
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "subaccount": 0,
+      "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+    },
+    "proof": {
+      "mode": "certificate-verifier",
+      "network": "ic",
+      "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "version": 8,
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+      "format": null,
+      "head": "4755",
+      "root": "e483c22f753624c4c1d7a3dad0daca463d69d453f1645e77610a3504186fde80",
+      "certificate_time_ns": "1794295817526095006"
+    },
+    "heap": 9622698,
+    "status": {
+      "kind": "render-error",
+      "label": "Arena unavailable",
+      "detail": "The renderer could not display the verified game.",
+      "canPrepare": false
+    }
+  },
+  "after": {
+    "verified_state_bytes": 10554,
+    "verified_queue_bytes": 0,
+    "accepted": 1,
+    "state": {
+      "phase": "BUFFERING",
+      "playhead": 4752,
+      "available": 4752,
+      "buffer": 0,
+      "rate": 1
+    },
+    "sameClock": true,
+    "sameQueue": true,
+    "sameSession": true,
+    "camera": [
+      0,
+      0,
+      1
+    ],
+    "events": [
+      {
+        "name": "visibilitychange",
+        "time": 2244.0999999940395,
+        "hidden": true
+      },
+      {
+        "name": "visibilitychange",
+        "time": 37545.90000000596,
+        "hidden": false
+      }
+    ],
+    "heap": 7704318,
+    "status": {
+      "kind": "render-error",
+      "label": "Arena unavailable",
+      "detail": "The renderer could not display the verified game.",
+      "canPrepare": false
+    }
+  },
+  "requests_in_hidden_window": 2,
+  "fetched_encoded_bytes_while_hidden": 57523,
+  "cpu_task_seconds_during_away_and_return": 1.221651,
+  "memory_scope": "JS heap plus latest verified state/queued bytes are separate; native/GPU total is not measured",
+  "total_requests": 24,
+  "query_only": true,
+  "repeated_returns": [
+    {
+      "case": "short",
+      "elapsed_hidden_seconds": 3.0121502359979786,
+      "return_to_visible_observation_ms": 153.56108100968413,
+      "controlled_suspension": false,
+      "retained": {
+        "sameClock": true,
+        "sameQueue": true,
+        "sameSession": true,
+        "camera": [
+          0,
+          0,
+          1
+        ],
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 4752.980832991674,
+          "available": 4753,
+          "buffer": 0.01916700832589413,
+          "rate": 0.9999833399999999
+        },
+        "events": [
+          {
+            "name": "visibilitychange",
+            "time": 2244.0999999940395,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 37545.90000000596,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 38190.19999998808,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 41311.90000000596,
+            "hidden": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "simulated-suspension",
+      "elapsed_hidden_seconds": 8.028269968985114,
+      "return_to_visible_observation_ms": 303.8568180054426,
+      "controlled_suspension": true,
+      "retained": {
+        "sameClock": true,
+        "sameQueue": true,
+        "sameSession": true,
+        "camera": [
+          0,
+          0,
+          1
+        ],
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 4752.981665968357,
+          "available": 4753,
+          "buffer": 0.018334031642552873,
+          "rate": 0.9999666799999998
+        },
+        "events": [
+          {
+            "name": "visibilitychange",
+            "time": 2244.0999999940395,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 37545.90000000596,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 38190.19999998808,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 41311.90000000596,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 41437.40000000596,
+            "hidden": true
+          },
+          {
+            "name": "freeze",
+            "time": 41534,
+            "hidden": true
+          },
+          {
+            "name": "resume",
+            "time": 49554.09999999404,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 49772.69999998808,
+            "hidden": false
+          }
+        ]
+      }
+    }
+  ],
+  "second_tab": {
+    "ready": true,
+    "source": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "visibility": "visible"
+  },
+  "errors": [],
+  "first_verified_frame_latency": null,
+  "frame_limit": "Visibility observation and fresh-state timings are not first rendered-frame timings; graphics availability is recorded separately",
+  "hidden_executing": "Actual document.hidden verified; no spoofed visibility or disabled throttling"
+}

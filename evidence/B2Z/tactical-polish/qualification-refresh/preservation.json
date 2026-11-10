@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "qualification_source": "515f3f73afc87cfc2929e56ff0c331aea23cc41a",
+  "runtime_source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+  "production_metadata_equal_before_after": true,
+  "module_controller_subnet_records": [
+    {
+      "canisterId": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "certificate_verified": true
+    },
+    {
+      "canisterId": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "certificate_verified": true
+    }
+  ],
+  "tracked_followup_changes": [
+    "STATUS.md",
+    "evidence/B2Z/tactical-polish/FROZEN.json",
+    "evidence/B2Z/tactical-polish/REPORT.md",
+    "evidence/B2Z/tactical-polish/ci-status.json",
+    "tools/verify_warm_browser.py"
+  ],
+  "runtime_application_dependency_backend_configuration_changes": false,
+  "frozen_manifest_sha256": "a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2",
+  "runtime_assets_rebuilt": false,
+  "production_writes": false,
+  "remote_push": false,
+  "financial_operations": false
+}

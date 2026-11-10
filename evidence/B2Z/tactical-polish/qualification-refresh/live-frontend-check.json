@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10T07:37:47.346548+00:00",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+  "sha256": "51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370",
+  "bytes": 1875173,
+  "status": "PASS prior deployed JavaScript remains served",
+  "scope": "One HTTP file; not a new complete served-assets qualification"
+}

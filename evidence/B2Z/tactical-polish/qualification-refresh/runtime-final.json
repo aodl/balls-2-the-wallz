@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-11-10T07:39:43.633378+00:00",
+  "method": "controller_runtime",
+  "mode": "query",
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "response": {
+    "Ok": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "1_862_251_175_953",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "199751619",
+        "last_persist_instructions": "44193412",
+        "last_publish_instructions": "23180381",
+        "last_seal_instructions": "29512017",
+        "last_step_instructions": "57600607",
+        "max_actions": 5,
+        "max_instructions": "222301565",
+        "messages": "4758",
+        "persist_instructions": "192371351187",
+        "publish_instructions": "102280211112",
+        "seal_instructions": "120565844879",
+        "step_instructions": "258395166387"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "1_918_533_707_563"
+    }
+  }
+}

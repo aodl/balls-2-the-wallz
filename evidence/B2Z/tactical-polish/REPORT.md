@@ -1,4 +1,183 @@
-# B2Z tactical frontend candidate
+# B2Z tactical polish — release decision record
+
+## Qualification refresh — 10 November 2026
+
+**Hosted qualification: all six substantive jobs PASSED on published source
+`515f3f73afc87cfc2929e56ff0c331aea23cc41a`. All 16 frozen files are preserved and verified. Genuine hidden
+observation is verified, but rendered warm return is only partially qualified
+because native headed Chromium cannot initialise WebGL on this host. No
+hardware-backed performance was available. No new application defect was
+demonstrated. No production change or remote push was performed.**
+[Backend/configuration and artifact-preservation summary](qualification-refresh/preservation.json).
+
+[Hosted conclusions](qualification-refresh/hosted-ci.json), observed 07:39:43 UTC:
+Source conformance **PASS**; Native conformance **PASS**; Packaged DTR and clean
+consumers **PASS**; Runtime-lab Wasm **PASS**; Browser HTTP and Web Crypto **PASS**;
+S14 and million-cell installed-IC qualification **PASS** (completed 07:37:15 UTC).
+The informational production-inventory job is not included in these six.
+
+The current published source is `515f3f73afc87cfc2929e56ff0c331aea23cc41a`,
+not an unpublished candidate. [Exact-source run 42770541444](https://github.com/aodl/balls-2-the-wallz/actions/runs/42770541444)
+and [current job record](ci-status.json) supersede the pre-publication status
+preserved in [the original status file](ci-status-before-publication.json).
+The detailed implementation/development record below remains historical evidence;
+its NOT_RUN, unavailable-display and failed-push statements are not current facts.
+
+### Unchanged frozen release inputs
+
+| Identity | Exact value |
+| --- | --- |
+| Frozen runtime source | `031a8dfa0bbd797176fe52557ef8676dfc26451a` |
+| Published qualification source | `515f3f73afc87cfc2929e56ff0c331aea23cc41a` |
+| JavaScript SHA-256 | `f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde` |
+| Complete manifest SHA-256 | `a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2` |
+
+[Actual-file recheck](qualification-refresh/frozen-recheck.json) hashes and sizes
+all 16 deployment files, recursively including `cursors/reticle.svg`, and rejects
+missing or extra files. Fifteen files are public; `.ic-assets.json5` is consumed
+upload configuration. No rebuild or dependency change occurred. The runtime-to-
+qualification Git comparison changes evidence, documentation and test tooling,
+not application/build/dependency inputs. The complete [manifest](frontend-files.json)
+and [builder provenance](frontend-build-manifest.json) remain byte-identical.
+The [15-file prior rollback set](qualification-refresh/rollback-recheck.json)
+still matches the prior deployed manifest at `.work/tactical-polish/rollback/`.
+Existing populated captures/recordings remain linked below with their original
+fixture, acceleration and software-renderer limitations; no replacement media
+was needed for unchanged runtime inputs.
+
+### Genuine hidden operation: measured result and boundary
+
+[Measured native-headed probe](qualification-refresh/hidden-observation.json),
+[browser/GPU environment](qualification-refresh/browser-environment.json) and
+[short/suspended returns](qualification-refresh/repeated-returns.json):
+
+- A user-local Xvfb display ran real headed Chromium 153.0.8010.12. Native tabs
+  changed `document.hidden` through actual tab activation. No timer-throttling,
+  freezing or browser-sandbox bypass was used. The original Playwright launcher
+  remained unsuitable: its pinned driver enables focus emulation. Connecting to
+  a disposable native browser with `connect_over_cdp(..., no_defaults=True)`
+  avoids that automation override. Disabling focus emulation from a separate
+  CDP session did not clear the driver's own override; those earlier probes are
+  retained as setup limitations, not application failures.
+- During **35.006 seconds hidden**, two application requests ran and **57,523
+  encoded response bytes** completed. The accepted gameplay-head count stayed
+  one: no new gameplay head was admitted during that window. Authentication
+  remained the IC certificate verifier; an unchanged root is not a stale-
+  certificate failure. A newly available head was verified after return.
+- Return to observed visible state was **137 ms**; the probe's fresh certificate/
+  current operational-state predicate completed after **660 ms**. These include
+  automation/scheduling overhead and are **not first rendered-frame timings**.
+  CPU TaskDuration increased **1.222 seconds across away plus initial return**;
+  pure hidden CPU was not isolated. JS heap was 9,622,698→7,704,318 bytes, latest
+  verified state 10,554 bytes, queue bytes zero at the sampled boundaries. This
+  does not measure native/GPU memory or establish a long-run memory bound.
+- The same session, clock, queue and camera survived. A subsequent **3.012-second
+  real hidden return** and **8.028-second deliberately CDP-frozen return** preserved
+  them and stayed within authenticated coverage. The latter emitted actual
+  freeze/resume events but is explicitly simulated suspension, not proof of an
+  OS-driven freeze or a day-long absence. Controlled-clock tests cover long gaps,
+  full queues, deadlines and freshness races separately. A second authenticated
+  B2Z tab booted independently; no cross-tab queue sharing was added.
+- Native Chromium's graphics process exited three times (exit 133), then reported
+  WebGL disabled and the application correctly showed **Arena unavailable** with
+  new payment preparation disabled. Consequently this run cannot qualify visible
+  motion, first rendered frame, or selected-cannon/draft/copied-packet retention
+  in a rendered hidden-return journey. It did not enable unsafe graphics fallback
+  or weaken browser security to obtain a pass. The overall probe is **PARTIAL**,
+  exit 2. Separate exact-frozen rendered account/copy/clock tests below remain
+  valid, but do not fill this real-hidden rendering gap.
+
+No GPU-backed browser/device was available. The earlier moving SwiftShader p95
+450/167/133 ms measurements remain limitations, not hardware qualification.
+This pass found no measured rendering regression or bounded-work defect requiring
+another implementation round. It ran no new broad benchmark or backend suite.
+The [13 focused controlled regressions](qualification-refresh/controlled-regressions.log)
+pass; `python3.11 -m py_compile tools/verify_warm_browser.py` and its maintained CLI
+help pass. Verification tooling now supports a dedicated loopback native-browser
+connection, preserves normal lifecycle settings, records partial graphics results
+honestly, and exercises repeated returns. Product UX contracts are unchanged.
+
+### Refreshed read-only production facts
+
+[Certified metadata](qualification-refresh/production-identities.json) at
+07:16:39 UTC confirms both expected canisters/controllers on the expected
+13-node European subnet. Backend module is unchanged:
+`612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`.
+Frontend asset-canister module is unchanged:
+`04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62`.
+A [fresh HTTP check](qualification-refresh/live-frontend-check.json) also confirms
+the prior JavaScript `51c7f92a…` remains served; it is a one-file preservation
+check, not a new complete served-assets qualification.
+
+The [controller runtime query](qualification-refresh/runtime.json) reports total
+**1,923,984,940,571** and SDK liquid **1,867,702,408,961** cycles, **Trickle
+0.01 ticks/s**, admission open and normal autonomous processing. Liquid margin
+above the 1.25T entry is **617,702,408,961**; above the 1T exit it is
+**867,702,408,961**. These are snapshots, not runway guarantees; no reservations
+were subtracted a second time. The separate [public status sample](qualification-refresh/public-status.json)
+is timestamped by the associated metadata collection and is a different request,
+so its slightly lower total is not a discrepancy or a gross-burn measurement.
+
+[Source state](qualification-refresh/lab.json) retains the official Ledger/Index,
+default receiving account, checked binding, zero pending records and no source
+error. [Treasury](qualification-refresh/treasury.json) is idle, not paused/halted,
+with no pending conversion plan. Its pre-existing balance-query deadline warning
+remains disclosed; the last successful CMC result targets the actual backend.
+No manual payment, cycle transfer, treasury action, controller/setting change,
+backend operation or frontend deployment occurred. Legitimate autonomous state
+continued advancing. Event Horizon remains disabled and the 60-second fallback
+and all pacing/financial rules remain unchanged.
+
+### Final read-only snapshot after CI
+
+At **07:39 UTC**, [certified metadata](qualification-refresh/production-identities-final.json)
+again verifies the same backend/frontend modules, controller sets and 13-node
+European placement. [Final controller runtime](qualification-refresh/runtime-final.json)
+reports **1,918,533,707,563 total / 1,862,251,175,953 liquid cycles**. The
+[actual pace/source query](qualification-refresh/lab-final.json) still reports
+Trickle **0.01 ticks/s**, admission open, running, source bound with no error or
+pending records, and no transition. Liquid margin is **612,251,175,953 above entry**
+and **862,251,175,953 above protection exit**. No additional reserve subtraction or
+lifetime estimate is applied. [Final treasury query](qualification-refresh/treasury-final.json)
+remains idle with no pending plan and the same disclosed balance-query deadline
+warning. These observations were not a new consumption experiment; their net
+change is not reported as gross execution burn.
+
+### Release decision and narrow continuation
+
+**Recommendation: approve these exact frozen assets for a controlled-prelaunch
+frontend-only release, with explicit acceptance of the remaining rendered warm-
+return and hardware coverage limitations and bounded frontend rollback.** The real-
+hidden verifier work now has direct browser evidence. A rendered warm-return
+review remains a coverage limitation requiring an ordinary WebGL-capable browser;
+it is not a demonstrated application failure. Hardware performance, physical
+phones, native mobile keyboards, real-wallet entry and receipt association remain
+unqualified/limited as previously documented. No production publication is
+permitted by this task.
+
+All six source gates are closed; no implementation blocker was demonstrated.
+No push or replacement CI run is required for the already published runtime.
+This local follow-up changes only evidence/documentation and verification tooling;
+its later commit must remain distinct from the qualified source and frozen runtime.
+The owner will perform any final ordinary non-force evidence push.
+
+The narrow outstanding visual check is to run the maintained probe in a dedicated
+headed WebGL-capable browser with ordinary throttling, select a cannon, retain a
+local draft/copied packet without sending, background >30 seconds and return.
+Record first rendered verified frame and UI retention separately from certificate/
+operational freshness. [Continuation notes](qualification-refresh/README.md)
+explain the native-CDP option and the exact remaining evidence boundary.
+
+A later single deployment approval must name the unchanged manifest/hash above
+and explicitly cover frontend-assets-only publication plus bounded rollback via
+[the installed-game procedure](../../../docs/operations/S14_OPERATOR.md).
+Refresh operational facts immediately before any authorised publication. Never
+run fresh-genesis, backend deploy/activation, settings or financial commands.
+
+---
+
+## Historical implementation and pre-publication record at 515f3f73
+
 
 Implementation is frontend-only. This candidate is **not deployed or approved for
 production**. Exact-source hosted qualification and its concrete remaining actions

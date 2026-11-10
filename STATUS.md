@@ -1,22 +1,31 @@
-# Tactical frontend candidate — implementation, qualification pending
+# Tactical frontend candidate — six source gates passed, release decision ready
 
-Frontend-only continuation of the deployed player-centred release. Shared hover
-picking, diamond overview, continuous grid filtering, corrected large atlas uploads,
-local canonical barrel previews, graphite cards, luminous balls/dark transient cells
-and bounded warm-return scheduling are implemented. Backend and live assets/settings
-are unchanged. No production deployment authority applies to this next candidate.
+Published source is `515f3f73afc87cfc2929e56ff0c331aea23cc41a`; runtime inputs remain
+frozen at `031a8dfa0bbd797176fe52557ef8676dfc26451a`. All 16 actual frozen files and
+the prior 15-file rollback set recheck exactly. No rebuild, push, deployment,
+backend/settings/controller or financial change occurred during this refresh.
 
-Focused frontend/payment/security checks pass; the first broad source run timed out
-in node-tests/source-structure and is not qualified. All six exact-source hosted
-jobs remain required. [Consolidated candidate evidence and limitations](evidence/B2Z/tactical-polish/REPORT.md).
+[CI run 42770541444](https://github.com/aodl/balls-2-the-wallz/actions/runs/42770541444)
+completed **all six substantive jobs successfully** on that exact published
+source. Informational production inventory does not qualify the release.
+[Current decision record](evidence/B2Z/tactical-polish/REPORT.md) supersedes the
+preserved pre-publication NOT_RUN/failed-push status.
 
-Frozen runtime source is `031a8dfa0bbd797176fe52557ef8676dfc26451a`, from a clean isolated
-worktree. Sixteen files include the new local cursor; complete manifest is in the
-report. 266 focused tests, 96 GPU seam comparisons, HTTP/Web Crypto and actual
-frozen-bundle read-only IC/copy checks pass. Hosted source publication/CI is blocked
-by unavailable Git HTTPS credentials; all six substantive gates remain NOT_RUN.
-Real hidden-tab review is unsupported on this headless host. Software moving-scene
-frame spikes remain documented; no hardware smoothness or production approval claim.
+Native headed Chromium on a user-local virtual display genuinely hid the app for
+35 seconds: two read-only requests, retained clock/queue/session/camera and fresh
+verified state about 660 ms after return. Short and explicitly simulated suspended
+returns also preserve them. Native WebGL could not initialise, so rendered warm
+return, copied-action retention through that journey and hardware performance
+remain coverage gaps; this is a partial lifecycle result, not a graphics pass.
+Existing populated media and software frame-spike limitations remain documented.
+No new demonstrated application defect justified another implementation round.
+
+Read-only production refresh reports ~1.862T liquid cycles, Trickle 0.01 ticks/s,
+admission open, checked official source, no pending records and idle treasury.
+The pre-existing treasury balance-query deadline warning remains disclosed.
+Modules/controllers and 13-node European placement remain unchanged. The candidate
+is retained for a separate frontend-only controlled-prelaunch release decision;
+this task grants no production publication or rollback authority.
 
 Earlier release entries below retain their historical status.
 

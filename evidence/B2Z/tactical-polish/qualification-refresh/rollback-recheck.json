@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "files": [
+    ".ic-assets.json5",
+    "agent-api.md",
+    "app.mjs",
+    "backend.did",
+    "build-manifest.json",
+    "configuration-entry.bin",
+    "configuration-legacy.bin",
+    "configuration-million.bin",
+    "configuration-playability.bin",
+    "configuration-torus.bin",
+    "configuration.bin",
+    "deployment.json",
+    "icon.svg",
+    "index.html",
+    "style.css"
+  ],
+  "preserved_directory": ".work/tactical-polish/rollback"
+}

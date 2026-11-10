@@ -1,0 +1,112 @@
+[
+  {
+    "case": "short",
+    "elapsed_hidden_seconds": 3.0121502359979786,
+    "return_to_visible_observation_ms": 153.56108100968413,
+    "controlled_suspension": false,
+    "retained": {
+      "sameClock": true,
+      "sameQueue": true,
+      "sameSession": true,
+      "camera": [
+        0,
+        0,
+        1
+      ],
+      "state": {
+        "phase": "PLAYING",
+        "playhead": 4752.980832991674,
+        "available": 4753,
+        "buffer": 0.01916700832589413,
+        "rate": 0.9999833399999999
+      },
+      "events": [
+        {
+          "name": "visibilitychange",
+          "time": 2244.0999999940395,
+          "hidden": true
+        },
+        {
+          "name": "visibilitychange",
+          "time": 37545.90000000596,
+          "hidden": false
+        },
+        {
+          "name": "visibilitychange",
+          "time": 38190.19999998808,
+          "hidden": true
+        },
+        {
+          "name": "visibilitychange",
+          "time": 41311.90000000596,
+          "hidden": false
+        }
+      ]
+    }
+  },
+  {
+    "case": "simulated-suspension",
+    "elapsed_hidden_seconds": 8.028269968985114,
+    "return_to_visible_observation_ms": 303.8568180054426,
+    "controlled_suspension": true,
+    "retained": {
+      "sameClock": true,
+      "sameQueue": true,
+      "sameSession": true,
+      "camera": [
+        0,
+        0,
+        1
+      ],
+      "state": {
+        "phase": "PLAYING",
+        "playhead": 4752.981665968357,
+        "available": 4753,
+        "buffer": 0.018334031642552873,
+        "rate": 0.9999666799999998
+      },
+      "events": [
+        {
+          "name": "visibilitychange",
+          "time": 2244.0999999940395,
+          "hidden": true
+        },
+        {
+          "name": "visibilitychange",
+          "time": 37545.90000000596,
+          "hidden": false
+        },
+        {
+          "name": "visibilitychange",
+          "time": 38190.19999998808,
+          "hidden": true
+        },
+        {
+          "name": "visibilitychange",
+          "time": 41311.90000000596,
+          "hidden": false
+        },
+        {
+          "name": "visibilitychange",
+          "time": 41437.40000000596,
+          "hidden": true
+        },
+        {
+          "name": "freeze",
+          "time": 41534,
+          "hidden": true
+        },
+        {
+          "name": "resume",
+          "time": 49554.09999999404,
+          "hidden": true
+        },
+        {
+          "name": "visibilitychange",
+          "time": 49772.69999998808,
+          "hidden": false
+        }
+      ]
+    }
+  }
+]
