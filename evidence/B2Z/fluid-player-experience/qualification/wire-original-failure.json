@@ -1,0 +1,9 @@
+{
+  "qualification": "Capture lifecycle fixture only; expired preserved wire content is not new IC authentication or a historical gate PASS.",
+  "checks": [],
+  "status": "FAIL",
+  "fixture_sha256": "a41c1dae50bfe4d61e2f4a06b2987c696421b264577db08513db94f81fb7d33b",
+  "browser_version": "153.0.8010.12",
+  "sandbox": true,
+  "error": "AssertionError(('delayed', 36))"
+}

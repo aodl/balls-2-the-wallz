@@ -26,7 +26,7 @@ The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 | UX-07 | Verified backend principal/default account is the ordinary destination; historic legacy data remains compatible. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
 | UX-08 | Copies share one frozen amount/recipient/payer/memo/action binding. | `handoff.mjs`, `arcade.mjs`; edit, denial, manual copy and reload regressions |
 | UX-09 | No transaction reporting/index entry; instructions are not payment evidence. | `handoff.mjs`; legacy migration, account history and browser absence assertions |
-| UX-10 | Exact prices, fee, retention risk and restrictions at the handoff. | canonical `quoteV6`, wallet panel; narrow-screen field and legality checks |
+| UX-10 | Exact prices, fee, retention risk and restrictions at the handoff. | canonical `quoteV6`, `arcade.mjs:paymentWarning`, wallet panel; `payment-warning.test.mjs` and actual action-card narrow-screen/fee/legality checks |
 | UX-11 | Accessible/reduced-motion UI retains essential live updates. | semantic panel, `shell.mjs`; keyboard, zoom, reduced-motion browser checks |
 | UX-12 | Exact ownership at every zoom, non-repeating seamless torus, persistent overview and shared screen-heading/picking projection. | `camera.mjs`, `interaction.mjs`, `minimap-projection.mjs`, renderer/effects; `tactical-polish.test.mjs`, `verify_tactical_grid.py`, `verify_tactical_browser.py` and existing round-trip/payment/pointer checks |
 | UX-13 | Paid state, scoping, financial integrity and authentication survive releases. | unchanged backend, certificate pipeline, scoped storage; release before/after identities and existing finance/security suites |
@@ -192,7 +192,7 @@ not hardware performance claims; record actual measurements with environment.
 | UX-04/05/06 | `elastic-playback.test.mjs`, retained expiry-checkpoint test, `measure_elastic_playback.mjs`, controlled rendered returns, actual installed observer and genuine browser lifecycle evidence labelled separately |
 | UX-04/05/11/12 | `fluid-experience.test.mjs`: intermediate camera frames, anchored zoom, cancellation, reduced motion, follow stop/resume and identity fencing |
 | UX-02/03/12 | Stable circular territory anchor, exact shifted map round trips/atlas areas/footprint clipping; populated navigation/gesture journeys |
-| UX-07/08/10/13 | Same-cell UI guard with legal zero, unchanged canonical helper, historic packets and exact modern wallet copies |
+| UX-07/08/10/13 | `payment-warning.test.mjs` and actual action-card browser assertions cover Move/Build-specific warning, ordinary Fire/Revive/Join warning, separate fee and frozen-packet binding. Same-cell UI guard with legal zero, unchanged canonical helper, historic packets and exact modern wallet copies |
 | UX-05/12 | Separate wake/tail expiry, shared ball projection/depth hits, GPU guide occlusion and persistent selection |
 | UX-02/03/11 | Actual desktop/390/320 toolbar/glass/action/keyboard/focus tests and recorded populated journeys |
 
@@ -215,7 +215,19 @@ Nondefault receiving accounts require their complete ICRC representation.
 
 The wallet panel exposes Amount (exact ICP), Send to (principal/default account),
 Memo (canonical readable text), From (declared actual payer), Copy controls and
-“Wallet fee extra. Payments and unused ICP are kept; no automatic refunds.”
+“Wallet fee extra.” remains separate. Beneath the ordinary wallet fields, Fire,
+Revive and automatic first-cannon Join show “Payments and unused ICP are kept;
+no automatic refunds.” For Move or additional Build with an explicitly selected
+destination (including valid cell zero), replace that generic warning with exactly:
+
+> If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.
+
+Never show both warnings. Unchosen destinations do not expose a copyable packet
+or this destination warning. Choose the warning from the displayed instruction
+packet, including a frozen packet after Keep previous; editing another action
+must not mix its risk text into the retained handoff. This is explanation of the
+existing race/retention risk, not a change to on-chain eligibility or refunds.
+The warning stays in the same natural panel scroll, without another disclosure.
 The ordinary handoff has no legacy-address or hexadecimal-memo controls. Internal
 AccountIdentifier/hex validation and historic records remain compatible. Display
 heading is screen-relative; wallet memo direction remains canonical. Copy the

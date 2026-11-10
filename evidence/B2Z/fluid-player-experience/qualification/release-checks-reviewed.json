@@ -1,0 +1,58 @@
+{
+  "runtime_source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+  "hosted_exact_source_qualification": "BLOCKED: ordinary push lacks credentials; connector write denied",
+  "production_deployment": "NOT_AUTHORISED_NOT_ATTEMPTED",
+  "checks": [
+    {
+      "name": "source-development",
+      "conclusion": "PASS_AFTER_DOCUMENT_CORRECTION",
+      "record": "source-reviewed.json"
+    },
+    {
+      "name": "fluid-journeys",
+      "conclusion": "PASS",
+      "record": "fluid-journeys-final.json"
+    },
+    {
+      "name": "elastic-rendered-returns",
+      "conclusion": "PASS_CONTROLLED_FIXTURE",
+      "record": "elastic-rendered-returns.json"
+    },
+    {
+      "name": "tactical-journeys",
+      "conclusion": "PASS",
+      "record": "tactical-journeys.json"
+    },
+    {
+      "name": "http-webcrypto",
+      "conclusion": "PASS",
+      "record": "http-webcrypto.json"
+    },
+    {
+      "name": "wire-capture",
+      "conclusion": "PASS_AFTER_OUTER_READINESS_ALLOWANCE",
+      "record": "wire-registration-corrected.json"
+    },
+    {
+      "name": "frozen-real-backend",
+      "conclusion": "PASS_READ_ONLY_NOT_DEPLOYED",
+      "record": "frozen-real-backend.json"
+    },
+    {
+      "name": "native-hidden",
+      "conclusion": "PARTIAL_WEBGL_UNAVAILABLE",
+      "record": "native-visibility-partial.json"
+    },
+    {
+      "name": "performance",
+      "conclusion": "MEASURED_SOFTWARE_NOT_QUALIFIED",
+      "record": "matched-performance.json"
+    },
+    {
+      "name": "million-cell-startup",
+      "conclusion": "FAIL_UNRESOLVED_BASELINE_ALSO_FAILS",
+      "record": "installed-million-startup.json"
+    }
+  ],
+  "wrapper_note": "Raw orchestration prints PASS for native because its launcher exits zero after saving verifier exit 2. The underlying native record is authoritative PARTIAL, never a rendered return pass. Raw wrapper and original failed source/browser/installed records are preserved."
+}

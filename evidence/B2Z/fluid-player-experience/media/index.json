@@ -1,0 +1,306 @@
+{
+  "limitations": "Actual application components, canonical disposable fixtures, software WebGL/emulated viewports. Browser videos may omit OS cursor; no fake cursor, wallet transfer, hardware or physical-phone claim.",
+  "records": [
+    {
+      "file": "elastic-1440.webm",
+      "sha256": "6362559b14e1ee48ebcfeafa31f06c2df78585eb9abec477eea6276d9a3b7b04",
+      "scope": "Controlled canonical return/whole-interval/follow; not real visibility or production timing",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/elastic-browser-final/video/page@1c6859f14844c38047340faf7fcacdd5.webm"
+    },
+    {
+      "file": "elastic-1440.png",
+      "sha256": "6f261d312e0757677f996a1dbc01bd85af58508063550643f3cef5281ebdefc2",
+      "scope": "Controlled canonical verified-motion return",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": ".work/fluid-player-experience/elastic-browser-final/1440-verified-return.png"
+    },
+    {
+      "file": "elastic-390.webm",
+      "sha256": "65fae94096e596de8180ab24ef1be413b5b776a9a0814a2d785b0dc6470b1056",
+      "scope": "Controlled canonical return/whole-interval/follow; not real visibility or production timing",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/elastic-browser-final/video/page@79d414f17cd04e2d2e3d7e758e46dce9.webm"
+    },
+    {
+      "file": "elastic-390.png",
+      "sha256": "6199983733b9c37303ded2cb81d35f37c9494b7a6c75726f0ac0f33b00ef3ebe",
+      "scope": "Controlled canonical verified-motion return",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": ".work/fluid-player-experience/elastic-browser-final/390-verified-return.png"
+    },
+    {
+      "file": "elastic-320.webm",
+      "sha256": "ee8e0c72d1096fb89783c11b003d1719a9453251f7fd204c3a1ca733eaeb71ea",
+      "scope": "Controlled canonical return/whole-interval/follow; not real visibility or production timing",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/elastic-browser-final/video/page@fec7ab79b2a18be7ae0f4569abadf553.webm"
+    },
+    {
+      "file": "elastic-320.png",
+      "sha256": "bd75f5ea966260871d8a5c3d3c360297c4129bc56217e07fb4e51f508b37d49a",
+      "scope": "Controlled canonical verified-motion return",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": ".work/fluid-player-experience/elastic-browser-final/320-verified-return.png"
+    },
+    {
+      "file": "pre-warning-direct-390.webm",
+      "sha256": "9a49cf7f586131ee44d4698ac8dad716636d7a0851f557045c4cb8176134756e",
+      "scope": "Actual aim drag/copy/Move/Build/minimap/wait-resume; pre-warning payment wording is superseded",
+      "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/direct-journey/video/page@5aa3ec2e41496aae423a0b5d18e681ac.webm"
+    },
+    {
+      "file": "baseline-1440-six-entity-seam.png",
+      "sha256": "391fac616c738656be001893c044f6af37ea572c0708c1d041f6723eb1d64d2c",
+      "scope": "Populated preceding tactical source; same canonical fixture, not production screenshot",
+      "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+      "raw_path": ".work/fluid-player-experience/performance-final/deployed-runtime-1440-six-entity-seam.png"
+    },
+    {
+      "file": "baseline-1440-verified-motion-and-panel.png",
+      "sha256": "851dc6b4ca46d71575fa61d5e03f64968086c659aec016c91fa83a99b7d98df4",
+      "scope": "Populated preceding tactical source; same canonical fixture, not production screenshot",
+      "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+      "raw_path": ".work/fluid-player-experience/performance-final/deployed-runtime-1440-verified-motion-and-panel.png"
+    },
+    {
+      "file": "baseline-390-six-entity-seam.png",
+      "sha256": "af04ba5e7a965b519c648760d917e5e034b58928314ca814660126ad0c1c1ddb",
+      "scope": "Populated preceding tactical source; same canonical fixture, not production screenshot",
+      "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+      "raw_path": ".work/fluid-player-experience/performance-final/deployed-runtime-390-six-entity-seam.png"
+    },
+    {
+      "file": "baseline-390-verified-motion-and-panel.png",
+      "sha256": "bd089bd5bb0bf9d0861470b766050a07391ed72a551459d3af530660e6495384",
+      "scope": "Populated preceding tactical source; same canonical fixture, not production screenshot",
+      "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+      "raw_path": ".work/fluid-player-experience/performance-final/deployed-runtime-390-verified-motion-and-panel.png"
+    },
+    {
+      "file": "baseline-320-six-entity-seam.png",
+      "sha256": "65a2dc0aa2ac0531deb89ed53e4516a57de0f13bc79e8d21e9e5a157a54d589d",
+      "scope": "Populated preceding tactical source; same canonical fixture, not production screenshot",
+      "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+      "raw_path": ".work/fluid-player-experience/performance-final/deployed-runtime-320-six-entity-seam.png"
+    },
+    {
+      "file": "baseline-320-verified-motion-and-panel.png",
+      "sha256": "310cae9949dbe74862874ac5dd40508d5dd0485b15410f0d9745da679a938523",
+      "scope": "Populated preceding tactical source; same canonical fixture, not production screenshot",
+      "source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+      "raw_path": ".work/fluid-player-experience/performance-final/deployed-runtime-320-verified-motion-and-panel.png"
+    },
+    {
+      "file": "fluid-1440.webm",
+      "sha256": "9f3e08cb58133bb2b03abfcc231cc37c5a9d5cc9006f4864a537888b76641de3",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/browser-warning-accounts-corrected/video/page@15a670a91c7479fdc35b476e19e07afa.webm"
+    },
+    {
+      "file": "fluid-1440-toolbar.png",
+      "sha256": "30c6e79f268076f4880f8cf48e057c4041625bbbddfacd3e625dda058d65ce35",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/1440-toolbar.png"
+    },
+    {
+      "file": "fluid-1440-aim.png",
+      "sha256": "f7a0f20af69cd55121a717be85a7ad835a15c991510236bf7c76e64b987d8fa5",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/1440-aim.png"
+    },
+    {
+      "file": "fluid-1440-build.png",
+      "sha256": "3f291c1eb30702df2df9fe8bd0f5c0c2edced26a9e42fc5ed47eb54862b8d476",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/1440-build.png"
+    },
+    {
+      "file": "fluid-1440-follow.png",
+      "sha256": "d54bd523e17723528fd60d181422f4d92e65a4cf5981a1fd3de9228d4838f96d",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/1440-follow.png"
+    },
+    {
+      "file": "fluid-390.webm",
+      "sha256": "fa16def19efe3161bca5cacec27b8379716def7cab6e138168a13828646f74cf",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/browser-warning-accounts-corrected/video/page@c93e4dcef21d7d7c2178c7ade6eefbc8.webm"
+    },
+    {
+      "file": "fluid-390-toolbar.png",
+      "sha256": "1b68d3d57d77357953ba8ef0ed491cda79634a559b39dc6c081290af4e28c75a",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/390-toolbar.png"
+    },
+    {
+      "file": "fluid-390-aim.png",
+      "sha256": "64256896d4526b430c09303f110692dd04241c45a5a36b9aae9cc74bf537cbdd",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/390-aim.png"
+    },
+    {
+      "file": "fluid-390-build.png",
+      "sha256": "062956b49bd99953e9eb9cfd9a509b14b5963b61f23aa3cdc916753ef1b60528",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/390-build.png"
+    },
+    {
+      "file": "fluid-390-follow.png",
+      "sha256": "1e5fda47401f1bf29c7811488880d9d795ab10b93c82cabe64204e71abb01a2a",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/390-follow.png"
+    },
+    {
+      "file": "fluid-320.webm",
+      "sha256": "6f88f72104e1b6e316b686604048ad27a88f0260816fbeff0c3c0aeb09f6b610",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": "/home/codexdev/src/b2z/.work/fluid-player-experience/browser-warning-accounts-corrected/video/page@dab1fea191b6dc43b54d5654dbb2ac44.webm"
+    },
+    {
+      "file": "fluid-320-toolbar.png",
+      "sha256": "506b61dee05f7e4c9988d57e7cc4446301f3194b569c3317437b73fde4f4a15a",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/320-toolbar.png"
+    },
+    {
+      "file": "fluid-320-aim.png",
+      "sha256": "1c01a753ccd96afb0506a13f492d16ce2855cf4fd484fae3dfde6dfa82da4858",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/320-aim.png"
+    },
+    {
+      "file": "fluid-320-build.png",
+      "sha256": "dab917dfdee1333ce7857dbd68cbbbcffd598f4bb35f643009b7d70e8d63eba7",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/320-build.png"
+    },
+    {
+      "file": "fluid-320-follow.png",
+      "sha256": "60dc9aac8dec8758dcae55d876ee03d89dc4e592f2e9639f93a084ed801f21a1",
+      "scope": "Final warning-inclusive maintained application; canonical fixture; actual controls/clipboard, nominal acquisition plus accelerated follow/wait tests",
+      "runtime_input_sha256": {
+        "arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+        "index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+        "style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+        "render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+        "shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+        "app.mjs": "4d7fd2a8298ecf15062c46c6eb59229bfac2ecf1b3dee81bfff90b7d7f88cfb1"
+      },
+      "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/320-follow.png"
+    }
+  ]
+}

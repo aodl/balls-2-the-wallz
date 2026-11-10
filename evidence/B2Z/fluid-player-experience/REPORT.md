@@ -1,6 +1,10 @@
 # Fluid player experience — candidate qualification
 
-Implementation and local qualification in progress. **Not deployed.** The paid
+**Implemented and frozen; not yet qualified for production approval. Not deployed.**
+All hosted exact-source gates are blocked by source-publication access. Local
+installed million-cell startup remains unresolved after the unchanged baseline
+failed the same predicate. Functional browser and security checks below are
+separate from those blockers. The paid
 European backend and existing tactical frontend have not been modified by this
 work. No canister, setting/controller or financial operation is authorised here.
 
@@ -97,7 +101,18 @@ nor backend/application safety budgets were relaxed.
 
 ## Qualification and identities
 
-Final integrated results and clean artifact identities will be appended after execution.
+Pre-addendum runtime source: `f792ca028452366a5199cd761b1d4e7d71e402ae`.
+JavaScript: `3faaf030d13940b3154f47935b41a71f3b610bf511f4b9ca5ce93ffb1d65909b`.
+[Preserved pre-warning sixteen-file manifest](pre-warning-freeze/frontend-files.json):
+`ee8601863e31766f5e77035cbe3dfa2413d8544985f5931ba74705ac4ce44197`.
+[Pre-warning builder provenance](pre-warning-freeze/build-manifest.json) records `source_dirty: false`, unchanged
+locked dependencies and normal European backend binding. Fifteen files are public;
+`.ic-assets.json5` is consumed upload policy. Actual files and all 41 maintained
+bundled inputs were checked. Only HTML, CSS, JavaScript and builder provenance
+differ from the preserved deployed tactical asset set. The owner subsequently
+authorised the specific Move/Build warning below; that changes HTML/JavaScript
+and requires a new final freeze. These preceding identities remain historical,
+not interchangeable with the final candidate.
 The original fluid-camera checkpoint is `a37fd351f8e3ac7a35046bc0122069bdd334ddce`.
 Before the added elastic requirement, all 1,783 JavaScript tests passed in a bounded
 isolated run (333.86s); the earlier 300s contended wrapper failed/incompleted. The
@@ -155,8 +170,7 @@ This is a total/reserved management observation, not a separately measured SDK
 liquid balance, gross burn or lifetime forecast. No top-up or financial recovery
 was attempted. Production's fifteen public files still match deployed tactical
 identities; the retained sixteen-file rollback directory was checked byte for byte.
-Raw inventory is under `.work/fluid-player-experience/{backend,production,rollback}-preservation`
-(the precise reviewed JSON filenames are included in the final evidence index).
+Reviewed inventory and original raw paths are in the [evidence index](qualification/index.json).
 
 Local installed tests used normal Wasm
 `b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488`
@@ -175,3 +189,210 @@ The connected GitHub repository write route independently returned HTTP 403
 “Resource not accessible by integration”. No credentials were inspected or
 requested, no remote branch was rewritten, and no replacement CI run is claimed.
 The final operator command and actual local head will be recorded after freezing.
+
+## Final local source and browser checks
+
+The complete final JavaScript run passed **1,807/1,807**, zero skips, in 270.99s;
+199 Python tooling tests, all reference/vector checks, source structure and links
+also passed. The source wrapper's original overall FAIL is preserved: its one
+failing check was a new branch-name occurrence in STATUS.md's branding audit.
+That paragraph was corrected in the committed candidate and the separate audit
+passes. [Reviewed source record](qualification/source-reviewed.json) distinguishes
+this correction from the [original wrapper](qualification/source-original.json).
+This development run began before the clean source commit; matching maintained
+input hashes are recorded separately. It is not substituted for hosted exact-source
+qualification. No application budget/assertion was relaxed.
+
+The final [integrated journeys](qualification/integrated-journeys.json) pass all
+seven groups, including desktop/390/320, precise principal/memo/amount copies,
+clipboard denial/manual copying, Keep/Update, history/account scoping, dormant
+Revive, changed eligibility, keyboard/layout/reduced-motion checks, and unchanged
+clock/queue through repeated panels. Final rendered controlled returns pass all
+three sizes, with 7.9–20.5ms CPU render-submission timing for existing remainders
+and 11.0–15.2ms after three newer intervals. One retained interval is 6,535 encoded
+bytes; no request is needed for those controlled returns. These are synthetic
+canonical fixture timings, not photon latency, native hidden-tab or production
+certificate/latency evidence.
+
+A video journey's accelerated touch acquisition missed a moving ball on the
+390px software-rendered view. The original trace/image is retained. The verifier
+now acquires through a real pointer/touch event at nominal fixture rate and only
+accelerates after selection, retaining the same follow/zoom/coverage/clock tests.
+This changes test scheduling, not application code or frozen assets. The corrected journey passes at all three sizes; the original failure remains
+recorded alongside the final [fluid journeys](qualification/fluid-journeys-final.json).
+
+## Pre-addendum rendered/verified evidence (unchanged components)
+
+- [Tactical interactions](qualification/tactical-journeys.json), [HTTP/Web Crypto](qualification/http-webcrypto.json),
+  [elastic rendered returns](qualification/elastic-rendered-returns.json) and
+  [exact-frozen real-backend checks](qualification/frozen-real-backend.json) pass.
+  The latter serves unchanged frozen bytes on loopback, authenticates the existing
+  European paid game and verifies all fifteen public files and upload-policy
+  headers. **It does not publish to the production frontend.**
+- The real backend supplies schema 6 / 1000×1000 state, rules hash
+  `982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f`,
+  configuration `8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80`,
+  source `54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125`.
+  Board time legitimately advances from 5284 to 5285 during the checks.
+  Principal/default account agree with the verified source. Screen 45° copies
+  `FIRE 1 255 1` exactly (UTF-8 `46 49 52 45 20 31 20 32 35 35 20 31`),
+  with 0.1 ICP and separate fee/retention wording. Keep preserves that packet.
+  All POSTs are queries/read_state; no paid command or update is sent.
+- [Guide depth](qualification/guide-depth.json) retains sixteen heading/zoom
+  comparisons with zero fixed solid-body overdraw versus a deliberately
+  depth-disabled negative control. [Grid comparisons](qualification/seam-grid.json)
+  retain 96 seam/DPR cases. Their renderer/shader input is unchanged by the final
+  elastic/lifecycle corrections; reuse covers those static renderer paths, not
+  exact-source hosted qualification or hardware performance.
+
+### Genuine hidden lifecycle — PARTIAL, not a rendered return pass
+
+[Native visibility](qualification/native-visibility-partial.json),
+[environment](qualification/native-browser-environment.json), and
+[repeated returns](qualification/native-repeated-returns.json) use one ordinary
+headed Chromium 153.0.8010.12 on the existing user-local Xvfb. CDP attachment
+avoids driver focus emulation; no throttling, freezing, sandbox or graphics
+security bypass is used. Actual tab activation produces `document.hidden`.
+
+Across 35.007s hidden, two requests and 60,409 encoded response bytes completed;
+the accepted gameplay head count remained 1. An unchanged head is not a new
+interval. Session, clock, queue and camera survive, followed by a genuine short
+return and explicitly CDP-simulated suspension. Visibility observation takes
+150ms and the fresh-certificate/current-operational predicate 887ms. CPU task
+time is 0.796s across away plus initial return, not isolated hidden CPU.
+
+Headed Chromium cannot initialise WebGL and honestly displays Arena unavailable,
+so rendered return, first physical frame, selected-cannon/draft/packet retention
+with graphics and real hidden motion remain **unqualified**. No rendered latency
+is fabricated from network/CPU timestamps. Controlled-clock and installed
+controlled-hidden evidence stays separately labelled. No further unsupported
+headless/native attempts are used to manufacture a pass. A single normal
+WebGL-capable browser check after any separately authorised controlled release
+should cover the remaining rendered hidden-return boundary.
+
+### Bounded software performance — measured limitation
+
+[Matched samples](qualification/matched-performance.json) use identical canonical
+fixture JSON (`a36aac9d…`), deployed runtime 031a8dfa versus this candidate, five
+seconds per scene/viewport, without video. Chromium reports SwiftShader; this
+is not hardware, native touch or physical-phone performance. Static six-entity
+seam p95 is 16.7–16.8ms. Moving verified scene plus Fire panel:
+
+| Viewport | Deployed p50 / p95 ms | Candidate p50 / p95 ms |
+| --- | --- | --- |
+| 1440×900 | 83.3 / 316.6 | 283.4 / 383.3 |
+| 390×844 | 33.4 / 50.1 | 133.3 / 216.7 |
+| 320×640 | 33.3 / 33.4 | 100.0 / 333.4 |
+
+One [reverse-order diagnostic](qualification/reverse-performance.json) at 390px
+finds candidate p95 33.4ms, baseline 66.7ms, candidate 233.4ms. The same candidate
+is highly variable within that bounded session. All windows have zero measured
+layout time and comparable script/task totals; no million-cell scan, atlas rebuild
+or effect-buffer explosion was found. The earlier reverse attempt failed before
+measurement because its bare fixture name was evaluated before async setup; the
+verifier now waits safely for `globalThis.fixture`. That failed setup record is
+retained. No speculative renderer/visual reduction follows from these noisy
+software samples. They **do not establish smoothness** or erase the slow samples.
+
+The moving samples use 14–16 draws, 418–894 triangles, one 4,000,000-byte ownership
+atlas, 1–3 transient cells and 1–9 short tail segments at the sampled boundaries.
+JS heap is 18.2–20.5MB (not native/GPU memory). Synthetic pointer-to-next-frame
+samples are 3.3–23ms and include automation/renderer scheduling, not native input
+latency. There is no GPU-backed device result or maximum-population claim.
+
+## Current production preservation
+
+At 22:07 UTC a fresh signed management query still reports backend module
+`612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`,
+1,712,733,713,339 total cycles, zero reserved cycles and version 55181. The
+balance rose from the earlier sample: this discontinuity is not a gross-burn
+measurement or a manual transfer by this task. SDK liquid balance is not inferred.
+At 22:11 UTC the signed advisory run/source query reports Trickle 0.01 ticks/s,
+admission open, no performance limitation, checked source binding, no source/run
+error and zero pending records. No treasury operation was initiated.
+
+Backend/game/finance/DTR/pin paths have no diff from the initial 079e542 checkout.
+Production assets remain tactical; its exact retained sixteen-file rollback set
+is preserved. No backend, frontend canister, setting, controller, source cursor,
+financial journal or account was deliberately mutated. Ordinary autonomous paid
+gameplay remains active; live world equality is neither required nor claimed.
+
+## Exact-source CI and release continuation
+
+| Substantive hosted gate | Final candidate status |
+| --- | --- |
+| Source conformance | NOT_RUN — publication access blocked |
+| Native conformance | NOT_RUN — publication access blocked |
+| Packaged DTR and clean consumers | NOT_RUN — publication access blocked |
+| Runtime-lab Wasm | NOT_RUN — publication access blocked |
+| Browser HTTP and Web Crypto | NOT_RUN — publication access blocked |
+| S14 and million-cell installed-IC qualification | NOT_RUN — publication access blocked; local startup failures retained |
+
+The six actual jobs in `.github/workflows/verification.yml` remain required.
+No job is skipped/reclassified and the separate inventory is informational. The
+old deployed b23ed313 CI does not qualify this changed runtime. Later reviewed
+evidence/tool changes do not alter the frozen f792ca0 application inputs.
+
+After refreshing the remote head, the operator's ordinary non-force publication is:
+
+```sh
+git push origin HEAD:refs/heads/release/btz-prelaunch-playability
+```
+
+Publish the local runtime plus evidence/tool commits once, then obtain all six
+substantive conclusions for the resulting exact source. Do not deploy before
+that gate closes. If a hosted assertion fails, inspect that operation and its
+artifact rather than rerunning/weakening it. A separate frontend-only approval
+must identify the exact frozen sixteen files and include bounded tactical-asset
+rollback. Follow the installed-game operator route, never backend installation.
+
+Physical phones/native software keyboards, real-wallet entry/transfers, hardware
+frame rate, broad human research and maximum population remain unqualified. Local
+instructions are not payment evidence; no speculative receipt association or
+automatic refund claim is introduced.
+
+## Owner addendum — selected-tile payment warning (UX-08/10)
+
+Move and explicitly placed additional Build now show exactly, beneath the wallet
+fields: “If another player claims your chosen tile before your action is processed,
+the action fails and your ICP remains spent.” This replaces the generic warning;
+they are never displayed together. “Wallet fee extra.” stays a separate line.
+Fire, Revive and automatic first-cannon Join retain the ordinary retention warning.
+An unchosen Build/Move cannot expose a new copyable packet. The warning derives
+from the displayed packet, including Keep previous, not from an unrelated draft.
+No command bytes, prices, eligibility, payment processing or refund policy change.
+
+Four focused tests failed before implementation. The corrected focused
+financial/UX set passes 39 tests; the HTTP/accessible-description suite passes
+18 tests. Actual action-card browser assertions cover all five actions at
+desktop/390/320 and check warning/fee separation and natural-scroll readability.
+All five action cases pass in the final desktop/390/320 browser run, including
+readability and fee separation. One initial Join probe used an account that already
+owned a dormant cannon, correctly hiding Join; the test now uses the established
+additional-cannon fixture where that account has no cannon. The original setup
+failure is retained. The new final freeze is recorded separately. Earlier camera,
+renderer, depth, elastic, lifecycle and performance records use f792ca0 inputs;
+those input paths are unchanged by this copy addendum. They are reused only for
+those unchanged components, not represented as final-artifact screenshots or
+measurements. No second broad qualification programme is started.
+
+## Reviewed media and capture qualification
+
+[Populated screenshots and short actual-application recordings](media/README.md)
+include the final warning-inclusive desktop/390/320 journeys, with exact input
+hashes in the [media index](media/index.json). The unchanged elastic footage and
+pre-warning direct-aim footage have their older source and limited reuse labelled;
+older warning placement is superseded. No concept art, fake cursor or payment is
+used. Before-state captures use the actual preceding tactical modules and the same
+canonical fixture.
+
+The [wire capture regression](qualification/wire-registration-corrected.json)
+passes all eight scenarios, including independent replay of all 81 segments,
+malformed/missing content rejection, cancellation, timeout and shutdown fencing.
+The unchanged initial harness had registered only 36 responses before its 15s
+outer fixture-readiness allowance expired. The outer allowance is now bounded to
+60s with measured registration timing; capture/finalization deadlines, the
+sub-1.5s timeout assertion and all replay assertions are unchanged. In the later
+standalone run registration takes 0.012–1.036s, so that pass alone does **not**
+establish why the original contended attempt missed 15s. Both records remain.
+This is setup headroom, not a relaxed observation/certificate/runtime safety budget.

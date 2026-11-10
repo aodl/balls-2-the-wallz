@@ -1,0 +1,43 @@
+{
+  "scope": "Actual disposable installed app and authenticated heads; controlled visibility input, not native hidden-tab or hardware evidence",
+  "away_seconds": 35.061000077053905,
+  "before": {
+    "head": "a785cda2563cc20124afc090c9207df44f96281c502878753d460f9a70c12d40",
+    "accepted": 62,
+    "certificates": 119,
+    "playhead": 106.80309151140695,
+    "available": 124,
+    "queue": 9,
+    "bytes": 74699
+  },
+  "away": {
+    "accepted": 77,
+    "head": "18b60b513b631eda8128aed078b6122ec7a55e58df3ed2abe67237c9c7e26aeb",
+    "certificates": 121,
+    "playhead": 152,
+    "available": 154,
+    "queue": 1,
+    "bytes": 8590,
+    "sameClock": true,
+    "sameQueue": true
+  },
+  "returned": {
+    "sameClock": true,
+    "sameQueue": true,
+    "sameSession": true,
+    "camera": [
+      6.5,
+      10.5,
+      63.639616670750314
+    ],
+    "oldCamera": [
+      6.5,
+      10.5,
+      63.639616670750314
+    ],
+    "playhead": 152,
+    "available": 154,
+    "firstVerifiedRenderSubmissionMs": 31.600000023841858
+  },
+  "encoded_bytes_received_during_controlled_away": 131979
+}

@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "directory": ".work/tactical-polish/frozen-final/frontend",
+  "manifest": "evidence/B2Z/tactical-polish/frontend-files.json",
+  "manifest_sha256": "a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2",
+  "files": 16,
+  "javascript_sha256": "f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde",
+  "scope": "Preserved local exact deployed tactical assets; no production operation."
+}

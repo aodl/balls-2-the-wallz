@@ -66,9 +66,13 @@ def main():
                 case=out/mode;case.mkdir();context=browser.new_context();page=context.new_page();page.goto(f'http://127.0.0.1:{server.server_port}/')
                 capture=WireCapture(page,case/'wire-catalogs',max_packets=4096,max_bytes=128*1024*1024,timeout_seconds=.2 if mode=='timeout'else 10)
                 page.evaluate('''items=>{for(const {id,method,mode}of items){const controller=new AbortController();aborters[id]=controller;fetch('/'+mode+'/'+id+'/query',{method:'POST',body:method+':'+id,signal:controller.signal}).then(r=>r.arrayBuffer()).catch(e=>fetchErrors.push(String(e)));}}''',[{'id':i,'method':methods[i],'mode':'normal'if mode in ['missing','close_before_fence']else mode}for i in ids])
-                deadline=time.monotonic()+15
+                # Fixture request registration can be slow on shared software-
+                # rendered hosts. This outer readiness allowance does not alter
+                # WireCapture's per-response/finalization deadlines below.
+                registration_started=time.monotonic();deadline=registration_started+60
                 while capture.sequence<len(ids)and time.monotonic()<deadline:page.wait_for_timeout(10)
                 assert capture.sequence==len(ids),(mode,capture.sequence)
+                registration_seconds=time.monotonic()-registration_started
                 if mode=='cancel':page.evaluate('aborters[0].abort()')
                 if mode=='close_before_fence':context.close()
                 final_error=None;began=time.monotonic()
@@ -109,7 +113,7 @@ def main():
                 run_gate(case,mode=='delayed')
                 if mode=='delayed':assert json.loads((case/'replay.json').read_text())['segments']==81
                 if mode=='missing':assert 'captured publication gap'in(case/'capture_million_history.mjs.log').read_text()
-                report['checks'].append({'name':mode,'status':'PASS','capture_expected_success':expect_capture,'shutdown_ms':elapsed*1000,'peak_pending':capture.peak_pending,'observed_capture_errors':index['errors'],'independent_replay':'PASS 81 segments'if mode=='delayed'else'expected gate failure; replay NOT_RUN'});save()
+                report['checks'].append({'name':mode,'status':'PASS','capture_expected_success':expect_capture,'registration_seconds':registration_seconds,'shutdown_ms':elapsed*1000,'peak_pending':capture.peak_pending,'observed_capture_errors':index['errors'],'independent_replay':'PASS 81 segments'if mode=='delayed'else'expected gate failure; replay NOT_RUN'});save()
             browser.close()
         report['status']='PASS';save();print(json.dumps(report,indent=2));return 0
     except Exception as e:

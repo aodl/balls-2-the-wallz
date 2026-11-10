@@ -28,7 +28,8 @@ class ObserverServerTests(unittest.TestCase):
                 if tag=='fieldset' and row.get('id')=='transfer-controls':controls.append(row)
         Fields().feed(body.decode('utf-8'))
         self.assertEqual(len(controls),1);self.assertIn('disabled',controls[0])
-        self.assertEqual(controls[0]['aria-describedby'],'payment-risk')
+        # UX-10: fee and action-specific retention risk are separate descriptions.
+        self.assertEqual(set(controls[0]['aria-describedby'].split()),{'payment-fee','payment-risk'})
         self.assertIn("frame-ancestors 'none'",headers['Content-Security-Policy'])
         self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
     def test_module_mime(self):

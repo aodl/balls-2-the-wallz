@@ -1,0 +1,100 @@
+{
+  "scope": "Controlled clocks and canonical segment players; not real delivery, GPU, lifecycle or future-cadence guarantee",
+  "baseline_file": ".work/tactical-polish/freeze-source/apps/b2z-observer/warm-return.mjs",
+  "baseline_sha256": "7bbc5beeaca6e0fdf4361a7c4ff498982e9bf88ab60bfdba692fef765aab7d1e",
+  "same_head_and_hidden": [
+    {
+      "variant": "deployed-tail",
+      "gap_seconds": 5,
+      "authenticated_intervals": 1,
+      "unconsumed_ticks": 0.020000000000000018,
+      "first_verified_advance_seconds": 0,
+      "visible_verified_motion_seconds": 2.0166666666666644,
+      "retained_segment_delivery_bytes": 17256,
+      "coverage_end": 1,
+      "final_playhead": 1
+    },
+    {
+      "variant": "elastic-retained",
+      "gap_seconds": 5,
+      "authenticated_intervals": 1,
+      "unconsumed_ticks": 0.8,
+      "first_verified_advance_seconds": 0,
+      "visible_verified_motion_seconds": 80.01666666666341,
+      "retained_segment_delivery_bytes": 17256,
+      "coverage_end": 1,
+      "final_playhead": 1
+    },
+    {
+      "variant": "deployed-tail",
+      "gap_seconds": 35,
+      "authenticated_intervals": 1,
+      "unconsumed_ticks": 0.020000000000000018,
+      "first_verified_advance_seconds": 0,
+      "visible_verified_motion_seconds": 2.0166666666666644,
+      "retained_segment_delivery_bytes": 17256,
+      "coverage_end": 1,
+      "final_playhead": 1
+    },
+    {
+      "variant": "elastic-retained",
+      "gap_seconds": 35,
+      "authenticated_intervals": 1,
+      "unconsumed_ticks": 0.8,
+      "first_verified_advance_seconds": 0,
+      "visible_verified_motion_seconds": 80.01666666666341,
+      "retained_segment_delivery_bytes": 17256,
+      "coverage_end": 1,
+      "final_playhead": 1
+    },
+    {
+      "variant": "deployed-tail",
+      "gap_seconds": 300,
+      "authenticated_intervals": 4,
+      "unconsumed_ticks": 0.020000000000000018,
+      "first_verified_advance_seconds": 0,
+      "visible_verified_motion_seconds": 1.9999999999999978,
+      "retained_segment_delivery_bytes": 17540,
+      "coverage_end": 4,
+      "final_playhead": 4
+    },
+    {
+      "variant": "elastic-retained",
+      "gap_seconds": 300,
+      "authenticated_intervals": 4,
+      "unconsumed_ticks": 1,
+      "first_verified_advance_seconds": 0,
+      "visible_verified_motion_seconds": 99.99999999999561,
+      "retained_segment_delivery_bytes": 17540,
+      "coverage_end": 4,
+      "final_playhead": 4
+    }
+  ],
+  "jittered_delivery": [
+    {
+      "variant": "deployed-tail",
+      "window_seconds": 600,
+      "visible_verified_motion_seconds": 517.100000000187,
+      "exhaustion_episodes": 3,
+      "max_delay_seconds": 119.96666666656886,
+      "mean_delay_seconds": 50.63480555551307,
+      "presentation_rate_min": 0.01,
+      "presentation_rate_max": 0.01,
+      "peak_queued_bytes": 35401,
+      "distinct_new_head_arrivals": 6
+    },
+    {
+      "variant": "elastic-retained",
+      "window_seconds": 600,
+      "visible_verified_motion_seconds": 570.0333333334722,
+      "exhaustion_episodes": 2,
+      "max_delay_seconds": 127.43643557501585,
+      "mean_delay_seconds": 58.307628882502776,
+      "presentation_rate_min": 0.005,
+      "presentation_rate_max": 0.012801484371191257,
+      "peak_queued_bytes": 35077,
+      "distinct_new_head_arrivals": 6
+    }
+  ],
+  "network_requests_measured": false
+}

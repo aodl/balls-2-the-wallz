@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-10T22:11:06.603Z",
+  "scope": "Signed advisory operational query; not authenticated gameplay proof or financial mutation",
+  "status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "2",
+      "publication_ticks": "1",
+      "completed_segments": "5281",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    }
+  }
+}

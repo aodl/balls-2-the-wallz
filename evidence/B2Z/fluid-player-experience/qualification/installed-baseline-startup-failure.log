@@ -1,0 +1,13 @@
+Built observer for dfj7p-ut777-77776-qaaba-cai: /home/codexdev/src/b2z/.work/fluid-player-experience/installed-baseline05/million_browser_normal_lifeline_and_cold_reconnect/deployment/million-browser-normal/assets
+Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/codexdev/src/b2z/.work/fluid-player-experience/installed-baseline05/million_browser_normal_lifeline_and_cold_reconnect/deployment/million-browser-normal/mainnet-assets
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/fluid-player-experience/qualification-baseline/tools/verify_s14_deployment.py", line 502, in main
+    elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/fluid-player-experience/qualification-baseline/tools/verify_s14_deployment.py", line 173, in verify_million_scene
+    try:wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/fluid-player-experience/qualification-baseline/tools/browser_observer.py", line 15, in wait_until
+    raise TimeoutError(f'condition not met within {timeout}ms: {last}')
+TimeoutError: condition not met within 60000ms: None
+TimeoutError('condition not met within 60000ms: None')

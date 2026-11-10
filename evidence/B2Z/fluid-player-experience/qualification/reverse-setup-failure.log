@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/fluid-player-experience/diagnose-reverse-performance.py", line 16, in <module>
+    c=browser.new_context(viewport={'width':width,'height':height});page=c.new_page();page.goto(f'http://127.0.0.1:{server.server_port}');page.wait_for_function('()=>!!fixture');page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();session=c.new_cdp_session(page);session.send('Performance.enable');gpu=page.evaluate('()=>{const g=document.getElementById("board").getContext("webgl2"),e=g.getExtension("WEBGL_debug_renderer_info");return e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER)}')
+                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 12809, in wait_for_function
+    self._sync(
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_page.py", line 1153, in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 941, in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.wait_for_function: ReferenceError: fixture is not defined
+    at eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:5)
+    at predicate (eval at evaluate (:311:30), <anonymous>:13:29)
+    at next (eval at evaluate (:311:30), <anonymous>:29:33)
+    at eval (eval at evaluate (:311:30), <anonymous>:42:13)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)

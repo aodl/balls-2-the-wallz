@@ -1,0 +1,136 @@
+✖ UX-10 Move/additional Build use exact destination warning, including cell zero (8.236096ms)
+✖ UX-10 Fire, Revive, Join and unchosen destinations retain the ordinary warning (5.764266ms)
+✖ UX-08 warning derives from the displayed frozen packet without modifying it (0.620507ms)
+✖ UX-10 fee stays separate and the warning follows ordinary wallet fields (9.813314ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 766.707085
+
+✖ failing tests:
+
+test at tests/js/payment-warning.test.mjs:6:1
+✖ UX-10 Move/additional Build use exact destination warning, including cell zero (8.236096ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'undefined'
+  - 'function'
+
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/payment-warning.test.mjs:7:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/payment-warning.test.mjs:10:1
+✖ UX-10 Fire, Revive, Join and unchosen destinations retain the ordinary warning (5.764266ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'undefined'
+  - 'function'
+
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/payment-warning.test.mjs:11:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/payment-warning.test.mjs:14:1
+✖ UX-08 warning derives from the displayed frozen packet without modifying it (0.620507ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'undefined'
+  - 'function'
+
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/payment-warning.test.mjs:15:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/js/payment-warning.test.mjs:20:1
+✖ UX-10 fee stays separate and the warning follows ordinary wallet fields (9.813314ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /<p id="payment-fee">Wallet fee extra\.<\/p>/. Input:
+
+  '<!doctype html>\n' +
+    `<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'"><title>B2Z · on ICP</title><link rel="icon" href="./icon.svg"><link rel="stylesheet" href="./style.css"></head>\n` +
+    '<body>\n' +
+    '<main id="arena" aria-label="B2Z game">\n' +
+    ' <canvas id="board" tabindex="0" aria-label="B2Z arena" aria-describedby="board-help"></canvas>\n' +
+    ' <p id="board-help" class="sr-only">Drag to pan, pinch or use plus and minus to zoom. Arrow keys pan. Select a cannon for its controls or a ball to follow. Double-click terrain to zoom. Press B to select a ball; Escape stops following. Heading and destination controls provide keyboard alternatives.</p>\n' +
+    ' <div class="arena-chrome"><header class="arena-header"><div class="brand" aria-label="B2Z on ICP">B2Z <small>on ICP</small></div><button id="status-button" aria-controls="workspace"><span id="arena-note">Verifying game</span></button><button id="identify-button" aria-controls="workspace"><i id="identity-color"></i><span id="identity-label">Account</span></button></header>\n' +
+    ' <nav class="player-controls" aria-label="Your game"><button id="join-action" hidden>Join</button><button id="centre-cannon" hidden>My cannon</button></nav></div>\n' +
+    ' <nav class="camera-controls" aria-label="Camera"><button id="fit" title="Widest arena view" aria-label="Widest arena view"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button></nav>\n' +
+    ' <canvas id="minimap" tabindex="0" aria-label="World overview map. Click or drag to navigate; arrow keys also move the camera."></canvas>\n' +
+    ' <button id="aim-handle" aria-label="Drag to aim. Arrow keys adjust heading." title="Drag to aim · arrow keys adjust" hidden>⊙</button><div id="aim-ring" aria-hidden="true" hidden></div>\n' +
+    ' <button id="stop-follow" title="Stop following (Escape)" hidden>Following ball · ×</button>\n' +
+    ' <button id="locate-context" hidden>Locate cannon</button>\n' +
+    ' <div id="motion-wait" role="status" aria-live="polite" hidden><span class="spinner" aria-hidden="true"></span><span id="waiting-label">Waiting for next update</span></div>\n' +
+    ' <button id="cycles-display" aria-controls="workspace"><span>Cycles <b id="cycles-balance">Unavailable</b></span><span>Est. burn <b id="cycles-burn">Collecting</b></span></button>\n' +
+    ' <div id="render-error" role="alert" hidden></div>\n' +
+    ' <section id="workspace" class="panel" aria-labelledby="panel-title" tabindex="-1" hidden>\n' +
+    '  <header class="panel-header"><h1 id="panel-title">Account</h1><button id="focus-cannon" aria-label="Focus cannon" title="Focus cannon" hidden><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V3h5m8 0h5v5m0 8v5h-5M8 21H3v-5M8 12h8m-4-4v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="context-actions"><button id="fire-action" aria-label="Fire" title="Fire" aria-controls="action-view" aria-expanded="false" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16 5-7 3 2 6-7 3 3-8 7 2 3-7 3zM3 21h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button id="move-action" aria-label="Move" title="Move" aria-controls="action-view" aria-expanded="false" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M8 7l4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4m10-8 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button id="build-action" aria-label="Build" title="Build" aria-controls="action-view" aria-expanded="false" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4v9l-8 4-8-4V8m0 0 8 4 8-4m-8 4v9M17 2v6m-3-3h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div><button id="close-panel" aria-label="Close" title="Close" ><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></header>\n' +
+    '  <div class="panel-body"><p id="inspect-note" class="hint" hidden></p>\n' +
+    '   <section id="account-view" class="panel-view" hidden><nav class="account-menu" aria-label="More"><button id="help-button">How to play</button></nav>\n' +
+    '    <form id="identity-form"><label for="sending-account">Your sending account</label><input id="sending-account" autocomplete="off" spellcheck="false" maxlength="220" placeholder="Principal or account"><p class="hint">Used to find your cannons. No wallet connection.</p><details><summary>Subaccount</summary><label for="identity-subaccount">32-byte subaccount (hex)</label><input id="identity-subaccount" maxlength="64" autocomplete="off" spellcheck="false"></details><label class="check"><input id="remember-account" type="checkbox" checked>Remember on this device</label><button id="identity-save" type="submit">Continue</button><p id="identity-note" role="status"></p></form>\n' +
+    '    <p id="storage-note" class="hint"></p><div id="account-summary" hidden><p id="account-name" class="address"></p><div class="button-row"><button id="change-account">Change account</button><button id="identity-forget">Forget this device</button></div><h2>Your cannons</h2><div id="account-cannons"></div><h2>Saved instructions</h2><p class="hint">Local history, not proof of payment. Older instructions may no longer apply.</p><div id="saved-list"></div><h2>Recent outcomes</h2><div id="receipt-list"></div></div>\n' +
+    '   </section>\n' +
+    '   <section id="inspect-view" class="panel-view" hidden><p id="cannon-life" class="sr-only"></p></section>\n' +
+    '   <section id="action-view" class="panel-view" hidden>\n' +
+    '    <p id="action-prompt">Aim &amp; Pay</p>\n' +
+    '    <div id="action-inputs"><div id="angle-controls" class="heading-chip"><label for="angle-degrees"><span class="sr-only">Heading </span>°</label><input id="angle-degrees" aria-label="Heading in degrees clockwise from screen up" title="0 up · 90 right · 180 down · 270 left" type="number" inputmode="decimal" min="0" max="359.99" step="0.01" value="0"></div><div id="quantity-controls" class="quantity-stepper"><label for="ball-quantity" id="quantity-label">Balls · up to</label><div><button id="quantity-minus" aria-label="One fewer ball">−</button><input id="ball-quantity" aria-label="Requested balls" type="number" inputmode="numeric" min="1" max="64" value="1"><button id="quantity-plus" aria-label="One more ball">+</button></div></div><div id="move-controls"><span id="chosen-destination"></span><details id="move-alternative"><summary>Choose by cell</summary><label for="move-cell" class="sr-only">Destination cell</label><input id="move-cell" type="number" min="0" max="999999" inputmode="numeric"></details></div><details id="new-controls"><summary>Eligible sites</summary><label for="new-cell" class="sr-only">Adjacent site</label><select id="new-cell"><option value="">Choose on the board</option></select></details></div>\n' +
+    '    <p id="placement-note" class="hint"></p><p id="preparation-note" role="status"></p>\n' +
+    '    <div id="replace-choice" hidden><p>Keep the copied instructions or update the whole set?</p><div class="button-row"><button id="replace-instructions">Update instructions</button><button id="keep-instructions">Keep previous</button></div></div>\n' +
+    '    <div id="prepared-card" hidden><fieldset id="transfer-controls" aria-describedby="payment-risk" disabled><legend class="sr-only">Instructions for your external wallet</legend><p class="wallet-hint">Copy to your wallet</p><p id="payment-risk">Wallet fee extra. Payments and unused ICP are kept; no automatic refunds.</p><dl class="wallet-fields"><div><dt>Amount</dt><dd id="transfer-amount"></dd><button data-copy="amount" aria-label="Copy amount">Copy</button></div><div><dt>Send to</dt><dd id="payment-owner" class="address"></dd><button data-copy="owner" aria-label="Copy recipient">Copy</button></div><div><dt>Memo</dt><dd id="text-memo" class="address"></dd><button data-copy="text" aria-label="Copy memo">Copy</button></div><div><dt>From</dt><dd id="paying-account" class="address"></dd><button id="payer-change">Change</button></div></dl></fieldset></div>\n' +
+    '    <p id="copy-feedback" role="status" aria-live="polite"></p><div id="manual-copy" hidden><label for="manual-value">Select and copy this exact value</label><textarea id="manual-value" readonly rows="3"></textarea><button id="manual-handoff">Save these instructions</button></div>\n' +
+    '   </section>\n' +
+    '   <section id="roster-view" class="panel-view" hidden><p id="roster-note" class="hint"></p><div id="own-cannons"></div></section>\n' +
+    '   <section id="status-view" class="panel-view" hidden><p id="status-explanation"></p><p id="cycle-detail"></p><details><summary>Verification and operation</summary><pre id="status-details"></pre><p id="observation-error"></p></details><button id="retry" hidden>Retry observation</button></section>\n' +
+    '   <section id="help-view" class="panel-view" hidden><p>Select a cannon to inspect it. Declare your sending account to find your own.</p><p>Fire, Move and Build prepare instructions for your wallet. Only ICP Ledger payments issue commands; the site never sends them.</p><p>Territory earns scores. Automatic payouts and refunds are unavailable.</p><p>Drag to pan. Pinch or + / − to zoom; double-click to zoom towards the pointer. Select a ball (or press B) to follow; Escape or'... 394 more characters
+
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/payment-warning.test.mjs:21:72)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'"><title>B2Z · on ICP</title><link rel="icon" href="./icon.svg"><link rel="stylesheet" href="./style.css"></head>\n<body>\n<main id="arena" aria-label="B2Z game">\n <canvas id="board" tabindex="0" aria-label="B2Z arena" aria-describedby="board-help"></canvas>\n <p id="board-help" class="sr-only">Drag to pan, pinch or use plus and minus to zoom. Arrow keys pan. Select a cannon for its controls or a ball to follow. Double-click terrain to zoom. Press B to select a ball; Escape stops following. Heading and destination controls provide keyboard alternatives.</p>\n <div class="arena-chrome"><header class="arena-header"><div class="brand" aria-label="B2Z on ICP">B2Z <small>on ICP</small></div><button id="status-button" aria-controls="workspace"><span id="arena-note">Verifying game</span></button><button id="identify-button" aria-controls="workspace"><i id="identity-color"></i><span id="identity-label">Account</span></button></header>\n <nav class="player-controls" aria-label="Your game"><button id="join-action" hidden>Join</button><button id="centre-cannon" hidden>My cannon</button></nav></div>\n <nav class="camera-controls" aria-label="Camera"><button id="fit" title="Widest arena view" aria-label="Widest arena view"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button></nav>\n <canvas id="minimap" tabindex="0" aria-label="World overview map. Click or drag to navigate; arrow keys also move the camera."></canvas>\n <button id="aim-handle" aria-label="Drag to aim. Arrow keys adjust heading." title="Drag to aim · arrow keys adjust" hidden>⊙</button><div id="aim-ring" aria-hidden="true" hidden></div>\n <button id="stop-follow" title="Stop following (Escape)" hidden>Following ball · ×</button>\n <button id="locate-context" hidden>Locate cannon</button>\n <div id="motion-wait" role="status" aria-live="polite" hidden><span class="spinner" aria-hidden="true"></span><span id="waiting-label">Waiting for next update</span></div>\n <button id="cycles-display" aria-controls="workspace"><span>Cycles <b id="cycles-balance">Unavailable</b></span><span>Est. burn <b id="cycles-burn">Collecting</b></span></button>\n <div id="render-error" role="alert" hidden></div>\n <section id="workspace" class="panel" aria-labelledby="panel-title" tabindex="-1" hidden>\n  <header class="panel-header"><h1 id="panel-title">Account</h1><button id="focus-cannon" aria-label="Focus cannon" title="Focus cannon" hidden><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V3h5m8 0h5v5m0 8v5h-5M8 21H3v-5M8 12h8m-4-4v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="context-actions"><button id="fire-action" aria-label="Fire" title="Fire" aria-controls="action-view" aria-expanded="false" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16 5-7 3 2 6-7 3 3-8 7 2 3-7 3zM3 21h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button id="move-action" aria-label="Move" title="Move" aria-controls="action-view" aria-expanded="false" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M8 7l4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4m10-8 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button id="build-action" aria-label="Build" title="Build" aria-controls="action-view" aria-expanded="false" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 8 8-4 8 4v9l-8 4-8-4V8m0 0 8 4 8-4m-8 4v9M17 2v6m-3-3h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div><button id="close-panel" aria-label="Close" title="Close" ><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></header>\n  <div class="panel-body"><p id="inspect-note" class="hint" hidden></p>\n   <section id="account-view" class="panel-view" hidden><nav class="account-menu" aria-label="More"><button id="help-button">How to play</button></nav>\n    <form id="identity-form"><label for="sending-account">Your sending account</label><input id="sending-account" autocomplete="off" spellcheck="false" maxlength="220" placeholder="Principal or account"><p class="hint">Used to find your cannons. No wallet connection.</p><details><summary>Subaccount</summary><label for="identity-subaccount">32-byte subaccount (hex)</label><input id="identity-subaccount" maxlength="64" autocomplete="off" spellcheck="false"></details><label class="check"><input id="remember-account" type="checkbox" checked>Remember on this device</label><button id="identity-save" type="submit">Continue</button><p id="identity-note" role="status"></p></form>\n    <p id="storage-note" class="hint"></p><div id="account-summary" hidden><p id="account-name" class="address"></p><div class="button-row"><button id="change-account">Change account</button><button id="identity-forget">Forget this device</button></div><h2>Your cannons</h2><div id="account-cannons"></div><h2>Saved instructions</h2><p class="hint">Local history, not proof of payment. Older instructions may no longer apply.</p><div id="saved-list"></div><h2>Recent outcomes</h2><div id="receipt-list"></div></div>\n   </section>\n   <section id="inspect-view" class="panel-view" hidden><p id="cannon-life" class="sr-only"></p></section>\n   <section id="action-view" class="panel-view" hidden>\n    <p id="action-prompt">Aim &amp; Pay</p>\n    <div id="action-inputs"><div id="angle-controls" class="heading-chip"><label for="angle-degrees"><span class="sr-only">Heading </span>°</label><input id="angle-degrees" aria-label="Heading in degrees clockwise from screen up" title="0 up · 90 right · 180 down · 270 left" type="number" inputmode="decimal" min="0" max="359.99" step="0.01" value="0"></div><div id="quantity-controls" class="quantity-stepper"><label for="ball-quantity" id="quantity-label">Balls · up to</label><div><button id="quantity-minus" aria-label="One fewer ball">−</button><input id="ball-quantity" aria-label="Requested balls" type="number" inputmode="numeric" min="1" max="64" value="1"><button id="quantity-plus" aria-label="One more ball">+</button></div></div><div id="move-controls"><span id="chosen-destination"></span><details id="move-alternative"><summary>Choose by cell</summary><label for="move-cell" class="sr-only">Destination cell</label><input id="move-cell" type="number" min="0" max="999999" inputmode="numeric"></details></div><details id="new-controls"><summary>Eligible sites</summary><label for="new-cell" class="sr-only">Adjacent site</label><select id="new-cell"><option value="">Choose on the board</option></select></details></div>\n    <p id="placement-note" class="hint"></p><p id="preparation-note" role="status"></p>\n    <div id="replace-choice" hidden><p>Keep the copied instructions or update the whole set?</p><div class="button-row"><button id="replace-instructions">Update instructions</button><button id="keep-instructions">Keep previous</button></div></div>\n    <div id="prepared-card" hidden><fieldset id="transfer-controls" aria-describedby="payment-risk" disabled><legend class="sr-only">Instructions for your external wallet</legend><p class="wallet-hint">Copy to your wallet</p><p id="payment-risk">Wallet fee extra. Payments and unused ICP are kept; no automatic refunds.</p><dl class="wallet-fields"><div><dt>Amount</dt><dd id="transfer-amount"></dd><button data-copy="amount" aria-label="Copy amount">Copy</button></div><div><dt>Send to</dt><dd id="payment-owner" class="address"></dd><button data-copy="owner" aria-label="Copy recipient">Copy</button></div><div><dt>Memo</dt><dd id="text-memo" class="address"></dd><button data-copy="text" aria-label="Copy memo">Copy</button></div><div><dt>From</dt><dd id="paying-account" class="address"></dd><button id="payer-change">Change</button></div></dl></fieldset></div>\n    <p id="copy-feedback" role="status" aria-live="polite"></p><div id="manual-copy" hidden><label for="manual-value">Select and copy this exact value</label><textarea id="manual-value" readonly rows="3"></textarea><button id="manual-handoff">Save these instructions</button></div>\n   </section>\n   <section id="roster-view" class="panel-view" hidden><p id="roster-note" class="hint"></p><div id="own-cannons"></div></section>\n   <section id="status-view" class="panel-view" hidden><p id="status-explanation"></p><p id="cycle-detail"></p><details><summary>Verification and operation</summary><pre id="status-details"></pre><p id="observation-error"></p></details><button id="retry" hidden>Retry observation</button></section>\n   <section id="help-view" class="panel-view" hidden><p>Select a cannon to inspect it. Declare your sending account to find your own.</p><p>Fire, Move and Build prepare instructions for your wallet. Only ICP Ledger payments issue commands; the site never sends them.</p><p>Territory earns scores. Automatic payouts and refunds are unavailable.</p><p>Drag to pan. Pinch or + / − to zoom; double-click to zoom towards the pointer. Select a ball (or press B) to follow; Escape or`... 394 more characters,
+    expected: /<p id="payment-fee">Wallet fee extra\.<\/p>/,
+    operator: 'match',
+    diff: 'simple'
+  }

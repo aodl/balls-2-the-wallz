@@ -8,6 +8,8 @@ import {encodedHeading,displayHeading,worldToScreen} from './headings.mjs';
 import {experienceStatus} from './experience-status.mjs';
 export function formatIcp(e8s){if(typeof e8s!=='bigint'||e8s<0n)throw Error('exact nonnegative e8s required');const d=(e8s%100000000n).toString().padStart(8,'0').replace(/0+$/,'');return `${e8s/100000000n}${d?'.'+d:''} ICP`;}
 export const transferMemo=degrees=>describeTextMemo('angle',degrees);
+/** UX-08/10: describe the displayed packet, including a retained copied packet. */
+export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Payments and unused ICP are kept; no automatic refunds.';}
 export function createArcade(doc){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let sitesWorld=null,sitesConfig=null,sitesAccount=null,sitesRevision=null,eligibleSites=[];
@@ -43,6 +45,7 @@ export function createArcade(doc){
  }
  function renderPacket(q){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',q.owner);text('text-memo',q.memo);text('paying-account',q.payer??q.account);
+  text('payment-risk',paymentWarning(q));
  }
  function refresh(){
   $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(warning);

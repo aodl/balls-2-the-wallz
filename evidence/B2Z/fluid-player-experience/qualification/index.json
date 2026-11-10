@@ -1,0 +1,184 @@
+{
+  "source-original.json": {
+    "raw_path": ".work/fluid-player-experience/source-final/verification.json",
+    "sha256": "9551e4544ccda6fe6cd2d2951606b8bc2e5c587b385efd2b2addca10ef777a52"
+  },
+  "source-reviewed.json": {
+    "raw_path": ".work/fluid-player-experience/source-review.json",
+    "sha256": "6574b31be6a00bd9de5f817705b8d989f8de3e6d8461018b9a26e730666a4e43"
+  },
+  "naming-correction.json": {
+    "raw_path": ".work/fluid-player-experience/naming-correction.json",
+    "sha256": "f187089713b7830991308948769592b87983001f6088e71a07120f4a5823cddc",
+    "raw_sha256": "bddc963101858c3904d0733a06b15504d0a84c369748ad2077ffa3f9951ecbaf",
+    "normalization": "Reviewed status/count/failure summary; complete classified occurrence inventory retained at raw_path."
+  },
+  "all-javascript-tests.log": {
+    "raw_path": ".work/fluid-player-experience/source-final/logs/node-tests.log",
+    "sha256": "06b081951a6fad3e3dc59b80c5e053eb50ce16633ee54486c7c45ec39a786675"
+  },
+  "integrated-journeys.json": {
+    "raw_path": ".work/fluid-player-experience/integrated07/results.json",
+    "sha256": "149309757eeec63da67e813e5a2997aaaffe6a3b98176901c413c9593bb479ee"
+  },
+  "elastic-controlled-comparison.json": {
+    "raw_path": ".work/fluid-player-experience/elastic-measure03/results.json",
+    "sha256": "3780871d0ad30f19771b9be586091426e7fd79d2c5927533177bb022b7568991"
+  },
+  "guide-depth.json": {
+    "raw_path": ".work/fluid-player-experience/depth02/results.json",
+    "sha256": "873f334883260871f9889fe3c27673cb87621718e6b6639a58e361c5448b34d7"
+  },
+  "seam-grid.json": {
+    "raw_path": ".work/fluid-player-experience/grid01/comparisons.json",
+    "sha256": "4406590ebf8dd2e118db3f1d9fabc4dc1a0b9459dac0ea4d4421b2bfd53dcbd0"
+  },
+  "installed-torus-and-million-original.json": {
+    "raw_path": ".work/fluid-player-experience/installed-observer03/results.json",
+    "sha256": "959f9bc3e39ee6b0defb9e23e3966ef60b3c126611e86c47aead8503bf6294c5"
+  },
+  "installed-million-startup.json": {
+    "raw_path": ".work/fluid-player-experience/installed-million04/results.json",
+    "sha256": "fce5547ebad12f472ce6272d0b3de0ae9fa52ca8f85e7e4710493add13b6f154"
+  },
+  "unchanged-baseline-startup.json": {
+    "raw_path": ".work/fluid-player-experience/installed-baseline05/results.json",
+    "sha256": "9c9f86b29bfa197fc127212c21c427bd29a413b649ad9b386e6c4d4f2a6f041e"
+  },
+  "backend-before.json": {
+    "raw_path": ".work/fluid-player-experience/backend-preservation.json",
+    "sha256": "f677a10b396532523f12e03517def5b66c4f3511fff2cdf1c5e8e3565aca3ab0"
+  },
+  "backend-later.json": {
+    "raw_path": ".work/fluid-player-experience/backend-preservation-final.json",
+    "sha256": "48e21a19ba0235ed49825aad20c3e7846d438ca98ef1b204d3df4539e8e1603a"
+  },
+  "production-assets-preserved.json": {
+    "raw_path": ".work/fluid-player-experience/production-preservation.json",
+    "sha256": "453b2492ac312983cf795c9e22933c8cf672fd8d4b0aca0998c93ff5f90f64ac"
+  },
+  "rollback-files-preserved.json": {
+    "raw_path": ".work/fluid-player-experience/rollback-verification.json",
+    "sha256": "e38ff34493907b7e7bc1438a1c4b97fdede9ebb26970666a1b15f65d0e2f3aec"
+  },
+  "frozen-inputs.json": {
+    "raw_path": ".work/fluid-player-experience/frozen/input-verification.json",
+    "sha256": "d4cea06de7b3191a40725c8ca724e1322d4f134e8f2cbf7b604d222393f58263"
+  },
+  "installed-steady-scene.json": {
+    "raw_path": ".work/fluid-player-experience/installed-observer03/torus_browser_scene_camera_and_continuous_supported_playback/deployment/torus-scene/scene-telemetry.json",
+    "sha256": "53ef531b25115b92cae0bc57004911a8f53018760a55bf8fc070e661dae6c2ed"
+  },
+  "installed-controlled-return.json": {
+    "raw_path": ".work/fluid-player-experience/installed-observer03/torus_browser_scene_camera_and_continuous_supported_playback/deployment/torus-scene/controlled-verified-return.json",
+    "sha256": "de7e1fcf49f1d60dd1cc2729eb487a879c41e6a0f8e4a25de8298d0f38d0e847"
+  },
+  "installed-candidate-startup-failure.log": {
+    "raw_path": ".work/fluid-player-experience/installed-million04/million_browser_normal_lifeline_and_cold_reconnect/deployment/million-browser-normal/browser.log",
+    "sha256": "9383a3dfe491e61946fe6a501cede05bb92fcfa1e87c63fb4236bf907db25d1a"
+  },
+  "installed-baseline-startup-failure.log": {
+    "raw_path": ".work/fluid-player-experience/installed-baseline05/million_browser_normal_lifeline_and_cold_reconnect/deployment/million-browser-normal/browser.log",
+    "sha256": "679be624f449789ce3caa6b6739523a7aa38bb516377ac3614913316ec4399cb"
+  },
+  "elastic-rendered-returns.json": {
+    "raw_path": ".work/fluid-player-experience/elastic-browser-final/results.json",
+    "sha256": "9ed4dcbbc5c99ff2fbdd47577cb022724dc9f92a1e33c8b20db9885ee206bbd8"
+  },
+  "tactical-journeys.json": {
+    "raw_path": ".work/fluid-player-experience/tactical-final/results.json",
+    "sha256": "4c4d790c164b10275e8d5a54b68ea8bb352d5e37d7cd74fe4f600aab8d4ac620"
+  },
+  "http-webcrypto.json": {
+    "raw_path": ".work/fluid-player-experience/browser-http-final/verification.json",
+    "sha256": "4418aad86bfc75875d5487d31ce52b225f4ca32db9fd1c7fc905fcaf4389806e"
+  },
+  "frozen-real-backend.json": {
+    "raw_path": ".work/fluid-player-experience/frozen-browser-final/results.json",
+    "sha256": "dde37c2a40a0f4a5de6d4c0def01c28d8159cc4a82de09608188509f9ee81f27"
+  },
+  "matched-performance.json": {
+    "raw_path": ".work/fluid-player-experience/performance-final/results.json",
+    "sha256": "835b569232270bfde3eee9d2fdcf1d49e2dc111ebcf6e16c6516efe5d3a1abf8"
+  },
+  "native-visibility-partial.json": {
+    "raw_path": ".work/fluid-player-experience/native-final/observation/results.json",
+    "sha256": "84efc9c6f4f57547a54500bcca947d4a6061ca043c14b45e355de7cb5e414b18"
+  },
+  "native-browser-environment.json": {
+    "raw_path": ".work/fluid-player-experience/native-final/observation/browser-environment.json",
+    "sha256": "698ebd3aaf2db30fa3ef02eab5bb891b68f5b13a779d0a57122bd25e3a75f814"
+  },
+  "native-repeated-returns.json": {
+    "raw_path": ".work/fluid-player-experience/native-final/observation/repeated-returns.json",
+    "sha256": "df2fadc45726bd6391d4687b1975d6244677c766d3408985bc4ef2ed12e78edb"
+  },
+  "advisory-operation.json": {
+    "raw_path": ".work/fluid-player-experience/operational-final.json",
+    "sha256": "143ccd59c365dc78d84b0fc892706fddca2b7158aa09a81d51f2cf473a31fdeb"
+  },
+  "artifact-comparison.json": {
+    "raw_path": ".work/fluid-player-experience/frozen/artifact-comparison.json",
+    "sha256": "344027a537a466235c46fd5eb5cafd8273c5feba7d1af46211dae5bef7060b7a"
+  },
+  "wire-original-failure.json": {
+    "raw_path": ".work/fluid-player-experience/wire-final/results.json",
+    "sha256": "4cacf51c91f274f8ef650139f10671a3e77666b444820cf28ef813d66e008a2e"
+  },
+  "wire-original-failure.log": {
+    "raw_path": ".work/fluid-player-experience/wire-final.log",
+    "sha256": "487986aab2674388679f4f499fccca083c8264925652305d4b9b8657717245f3"
+  },
+  "touch-original-failure.log": {
+    "raw_path": ".work/fluid-player-experience/fluid-final.log",
+    "sha256": "22a4974480a558614f31fe838bd6d31675ace5b358c5e6c9ccac9b6c36e98c32"
+  },
+  "fluid-journeys-final.json": {
+    "raw_path": ".work/fluid-player-experience/browser-acquisition-corrected/results.json",
+    "sha256": "3acad1657107223ac28a6e28232c055446c9cb0f1804b934db07ef10a127a0b5"
+  },
+  "reverse-performance.json": {
+    "raw_path": ".work/fluid-player-experience/performance-reverse-ready/results.json",
+    "sha256": "50f542f588620399e10c3e763633c405d59b4287594f115a0041a7e2a3494d27"
+  },
+  "reverse-setup-failure.log": {
+    "raw_path": ".work/fluid-player-experience/performance-reverse.log",
+    "sha256": "8199d527c4cb5ccbe6a7a2b9ce4122cda63ef8aee014125588d654b0c3d148c8"
+  },
+  "wire-registration-corrected.json": {
+    "raw_path": ".work/fluid-player-experience/wire-registration-corrected/results.json",
+    "sha256": "07b87e9a3cc8d16c987c2eab7a91dd1b15d1c1d10b9cd1a83fc2a958d59c73e3"
+  },
+  "raw-browser-step-wrapper.json": {
+    "raw_path": ".work/fluid-player-experience/final-browser-steps.json",
+    "sha256": "d4d224c9597f02a0dbc8c1ef2ca1fac991153a1b64dc0e25a736d1b955841869"
+  },
+  "payment-warning-initial-failures.log": {
+    "raw_path": ".work/fluid-player-experience/payment-warning-before.log",
+    "sha256": "771e673f89482e37d24d53c955c79a4636d38ce571a5d1c3cbdac8f469ad3a83",
+    "raw_sha256": "fdb5b1229c16834dc106555025307df857037d4f781acaf8a9cac36117d0843a",
+    "normalization": "Reviewed copy removes only trailing whitespace/extra EOF blanks. Original raw log remains at raw_path."
+  },
+  "payment-warning-focused-pass.log": {
+    "raw_path": ".work/fluid-player-experience/payment-warning-focused.log",
+    "sha256": "56a78ed2d3cd44ee5e06543ea07ccfffffe2ac8ffa06ae215a9830532a302ccc"
+  },
+  "payment-warning-http-pass.log": {
+    "raw_path": ".work/fluid-player-experience/payment-warning-http-tests.log",
+    "sha256": "f69efccdd61d7ab40827c4d3fd613dbfae7e8d062db142787bf163ca36254604"
+  },
+  "payment-warning-browser-final.json": {
+    "raw_path": ".work/fluid-player-experience/browser-warning-accounts-corrected/results.json",
+    "sha256": "6c56d4082daefb0bac6296cfa1f7cb7d73d0db632d819b24c756500a5cafa8da"
+  },
+  "payment-warning-fixture-setup-failure.log": {
+    "raw_path": ".work/fluid-player-experience/browser-payment-warning.log",
+    "sha256": "157d3d13b9775317cbd80e5d00e3095b1d32f6e3fcba6f60b76f89bf57a263ad",
+    "raw_sha256": "d158e19463c0e0c4d2697f20284d6815494d93ceccce2e974954844c9aba8e83",
+    "normalization": "Reviewed copy removes only trailing whitespace/extra EOF blanks. Original raw log remains at raw_path."
+  },
+  "direct-journey.json": {
+    "raw_path": ".work/fluid-player-experience/direct-journey/results.json",
+    "sha256": "e9e5e4c3a58337f9cebf4e57ea8ccd5cf967b38b614c7bbb27c03dbacf554f65"
+  }
+}

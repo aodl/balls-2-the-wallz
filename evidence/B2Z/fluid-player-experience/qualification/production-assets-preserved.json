@@ -1,0 +1,133 @@
+{
+  "at": "2026-11-10T20:26:32.346748+00:00",
+  "scope": "Read-only existing production frontend bytes; no publication or backend operation",
+  "status": "PASS",
+  "files": [
+    {
+      "name": "agent-api.md",
+      "sha256": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+      "expected": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "app.mjs",
+      "sha256": "f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde",
+      "expected": "f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "backend.did",
+      "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+      "expected": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "build-manifest.json",
+      "sha256": "7d1bd090c72109dc96afa2a36c96a4ace485594f36859e90b60cdcf6a80c2aac",
+      "expected": "7d1bd090c72109dc96afa2a36c96a4ace485594f36859e90b60cdcf6a80c2aac",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "configuration-entry.bin",
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "expected": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "configuration-legacy.bin",
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "expected": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "configuration-million.bin",
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "expected": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "configuration-playability.bin",
+      "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "expected": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "configuration-torus.bin",
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "expected": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "configuration.bin",
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "expected": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "cursors/reticle.svg",
+      "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+      "expected": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "deployment.json",
+      "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "expected": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "icon.svg",
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "expected": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "match": true,
+      "headers": null
+    },
+    {
+      "name": "index.html",
+      "sha256": "c0165df9986d2b7fa1e59ccc9c2932a1f822ca06cfe6a01ae1414d20dd29d644",
+      "expected": "c0165df9986d2b7fa1e59ccc9c2932a1f822ca06cfe6a01ae1414d20dd29d644",
+      "match": true,
+      "headers": {
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "permissions-policy": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+        "content-security-policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "referrer-policy": "no-referrer",
+        "x-xss-protection": "1; mode=block",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "ic-certificateexpression": "default_certification(ValidationArgs{certification: Certification{no_request_certification: Empty{}, response_certification: ResponseCertification{certified_response_headers: ResponseHeaderList{headers: [\"content-type\", \"Content-Security-Policy\", \"Permissions-Policy\", \"Referrer-Policy\", \"Set-Cookie\", \"Strict-Transport-Security\", \"X-Content-Type-Options\", \"X-Frame-Options\", \"X-XSS-Protection\"]}}}})",
+        "set-cookie": "ic_env=ic%5Froot%5Fkey%3D308182301d060d2b0601040182dc7c0503010201060c2b0601040182dc7c05030201036100814c0e6ec71fab583b08bd81373c255c3c371b2e84863c98a4f1e08b74235d14fb5d9c0cd546d9685f913a0c0b2cc5341583bf4b4392e467db96d65b9bb4cb717112f8472e0d5a4d14505ffd7484b01291091c5f87b98883463f98091a0baaae; SameSite=Lax",
+        "ic-certificate": "version=2, certificate=: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:, tree=:2dn3gwGCBFggxaA7pV27IHeFeE8F/tPLnrZMoMHmyNA6IiBWcBkWAKiDAklodHRwX2V4cHKDAYIEWCA6pkE4fijs4mTevDeCDqCvSL24LSxvQ9qQTItHfawmS4MBggRYIBcrvv+hI1ttMVTL+HOG6HKdF0R9dDk3LMQRsCilI1ePgwGCBFggOuUSQ7ZaIqDGBHmLh9nQW2Z+Bg2cruGh8OilalLNyOWDAYIEWCA2wFKQHwRRZ/0iErkNn230gHTUfvk0JS3JoQoeSeTPMoMBggRYIOpmkMlbY8fV1p/55Ujp4iWxfdFZ90EztUQ2m1BLs+yKgwGDAkppbmRleC5odG1sgwJDPCQ+gwGDAlggiz+kFAmzwEKaattft3q4pBklAV9GoeJP+ILaQb3u1XqDAkCDAYMCWCBOi0TRI8WIUkpQ1nVJ/jLMBhd+AcUJm/eWKQEgdY1kaYIDQIMCWCD3BTHiiOnyIKaRNhFy1oYhT1+2Z7XXN22Jl3/6RAxUYIIDQIMCWCDDBoMy8IBJDNmi2bFehizJZSOK1yegP7c07+8OF+qKE4MCQIMBgwJYIEY+UAYLwGQuG7iSSnyLjwAPo0hMeKgpYE5ORz8hRyxlggNAgwJYIMuvAMI/5K7oetz1v9cecBLbU+iHn7sfF0YYg+M9sHEHggNAggRYIIN2KeToRSgg3z5c2R5C14+zcYRPYwaWospGgDJDYP8b:, expr_path=:2dn3g2lodHRwX2V4cHJqaW5kZXguaHRtbGM8JD4=:",
+        "x-cache-ttl": "10",
+        "access-control-expose-headers": "accept-ranges, content-length, content-range, x-request-id, x-ic-canister-id",
+        "access-control-allow-origin": "*",
+        "vary": "origin, access-control-request-method, access-control-request-headers",
+        "content-length": "8469",
+        "x-ic-canister-id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "x-request-id": "01a1c724-0ff8-7140-b49b-a240fa05ccbf",
+        "date": "Tue, 10 Nov 2026 20:26:31 GMT",
+        "connection": "close"
+      }
+    },
+    {
+      "name": "style.css",
+      "sha256": "7666880f878d313668dc1667b49d1ea7f8d670d76e38230892d16c3d9e84ef0e",
+      "expected": "7666880f878d313668dc1667b49d1ea7f8d670d76e38230892d16c3d9e84ef0e",
+      "match": true,
+      "headers": null
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+test_directory_listing_disabled (test_observer_server.ObserverServerTests.test_directory_listing_disabled) ... ok
+test_entry (test_observer_server.ObserverServerTests.test_entry) ... ok
+test_head_does_not_bypass_allowlist (test_observer_server.ObserverServerTests.test_head_does_not_bypass_allowlist) ... ok
+test_installed_packaged_modules_satisfy_prerequisite (test_observer_server.ObserverServerTests.test_installed_packaged_modules_satisfy_prerequisite) ... ok
+test_local_certificate_snapshot_is_disabled_by_default (test_observer_server.ObserverServerTests.test_local_certificate_snapshot_is_disabled_by_default) ... ok
+test_missing_packaged_modules_have_actionable_setup_error (test_observer_server.ObserverServerTests.test_missing_packaged_modules_have_actionable_setup_error) ... ok
+test_module_mime (test_observer_server.ObserverServerTests.test_module_mime) ... ok
+test_no_write_methods (test_observer_server.ObserverServerTests.test_no_write_methods) ... ok
+test_only_packaged_dtr_modules_are_served_from_dependencies (test_observer_server.ObserverServerTests.test_only_packaged_dtr_modules_are_served_from_dependencies) ... ok
+test_records (test_observer_server.ObserverServerTests.test_records) ... ok
+test_root_redirect (test_observer_server.ObserverServerTests.test_root_redirect) ... ok
+test_sensitive_paths (test_observer_server.ObserverServerTests.test_sensitive_paths) ... ok
+test_traversal (test_observer_server.ObserverServerTests.test_traversal) ... ok
+test_v6_assets_and_public_docs_use_the_explicit_deployment_allowlist (test_observer_server.ObserverServerTests.test_v6_assets_and_public_docs_use_the_explicit_deployment_allowlist) ... ok
+test_slow_upstream_body_is_distinguished_from_header_wait (test_observer_server.ProxyDiagnosticTests.test_slow_upstream_body_is_distinguished_from_header_wait) ... ok
+test_slow_upstream_headers_do_not_block_other_queries (test_observer_server.ProxyDiagnosticTests.test_slow_upstream_headers_do_not_block_other_queries) ... ok
+test_trace_refuses_old_output_and_bounds_new_output (test_observer_server.ProxyDiagnosticTests.test_trace_refuses_old_output_and_bounds_new_output) ... ok
+test_upstream_error_is_preserved_without_proxy_retry (test_observer_server.ProxyDiagnosticTests.test_upstream_error_is_preserved_without_proxy_retry) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 4.090s
+
+OK

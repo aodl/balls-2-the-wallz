@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-10T22:07:42.688Z",
+  "scope": "Anonymous signed management query only; no updates, identity, settings or financial mutation",
+  "module_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "cycles": "1712733713339",
+  "reserved_cycles": "0",
+  "version": "55181",
+  "status_visibility": {
+    "public": null
+  }
+}

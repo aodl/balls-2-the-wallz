@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_wire_capture_browser.py", line 71, in main
+    assert capture.sequence==len(ids),(mode,capture.sequence)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('delayed', 36)

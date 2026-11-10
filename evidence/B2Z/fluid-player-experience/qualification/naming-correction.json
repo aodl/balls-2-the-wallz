@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "counts": {
+    "3 compatibility-sensitive identifier": 106,
+    "4 immutable historical data": 1590,
+    "3 compatibility documentation": 13,
+    "2 internal audit patterns": 2
+  },
+  "failures": []
+}

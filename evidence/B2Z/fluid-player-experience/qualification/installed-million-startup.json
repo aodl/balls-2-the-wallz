@@ -1,0 +1,28 @@
+{
+  "scope": "Existing compiled S14 test, unchanged backend inputs, fresh pinned disposable PocketIC per named test; not full suite or production deployment",
+  "status": "FAIL",
+  "prepared_artifacts": "/home/codexdev/src/b2z/.work/fluid-player-experience/installed-torus01",
+  "normal_wasm_sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488",
+  "test_hooks_wasm_sha256": "d1f08a35a83be563f275023f732040c039bcf11001c64ead75e8054a71ba6513",
+  "harness_sha256": "2dbfc6cb1af949fdd4be43a9827ad048c26874f685d9e25557c4a7df98d13c03",
+  "checks": [
+    {
+      "id": "million_browser_normal_lifeline_and_cold_reconnect",
+      "command": [
+        "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "status": "FAIL",
+      "elapsed_seconds": 194.56,
+      "timeout_seconds": 900,
+      "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+      "pocketic_server_exit": null,
+      "reason": "Expected exactly one passing installed test"
+    }
+  ]
+}

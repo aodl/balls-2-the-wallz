@@ -1,0 +1,139 @@
+{
+  "status": "MEASURED",
+  "browser": "153.0.8010.12",
+  "rows": [
+    {
+      "variant": "candidate-before",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.003781922976486,
+      "metrics": {
+        "frames": 212,
+        "p50": 16.700000000000273,
+        "p95": 33.400000000000546,
+        "draw_p50": 2.5,
+        "draw_p95": 5.599999964237213,
+        "render_p95": 4.5,
+        "shell_p95": 0.9000000357627869,
+        "status_p95": 1.2000000476837158,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.5888371122800006,
+          "draw_calls": 16,
+          "triangles": 836,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 6,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 8
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.013495,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.690117,
+      "pointer_to_next_frame_ms": 3.5,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "deployed-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.007334461028222,
+      "metrics": {
+        "frames": 136,
+        "p50": 33.399999999999636,
+        "p95": 66.69999999999982,
+        "draw_p50": 2.800000011920929,
+        "draw_p95": 8.599999964237213,
+        "render_p95": 6.5,
+        "shell_p95": 4.899999976158142,
+        "status_p95": 5.399999976158142,
+        "heap": 20500000,
+        "stats": {
+          "time": 0.58881978131,
+          "draw_calls": 15,
+          "triangles": 766,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 3,
+          "geometries": 21,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 5
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 4.9980340000000005,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.68377,
+      "pointer_to_next_frame_ms": 12.5,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate-after",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.0106869239825755,
+      "metrics": {
+        "frames": 33,
+        "p50": 150,
+        "p95": 233.40000000000055,
+        "draw_p50": 16.80000001192093,
+        "draw_p95": 30.30000001192093,
+        "render_p95": 26.400000035762787,
+        "shell_p95": 8,
+        "status_p95": 9.699999988079071,
+        "heap": 20500000,
+        "stats": {
+          "time": 0.4246940000000001,
+          "draw_calls": 16,
+          "triangles": 606,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 1
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.394760999999999,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.6497740000000001,
+      "pointer_to_next_frame_ms": 40.19999998807907,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "limitations": "Software WebGL and emulated viewports; no hardware/physical-phone smoothness claim. Five-second bounded windows, no video encoding. Interaction latency is synthetic pointer dispatch to next render frame, not native input latency."
+}

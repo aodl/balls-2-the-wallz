@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "source": "f792ca028452366a5199cd761b1d4e7d71e402ae",
+  "row": {
+    "viewport": [
+      390,
+      844
+    ],
+    "status": "PASS",
+    "screenshots": [
+      "390x844-populated.png",
+      "390x844-wallet.png",
+      "390x844-waiting.png"
+    ],
+    "scope": "Actual application renderer/composer with synthetic canonical fixtures; seam waiting/resume at 20x disposable wall time; no IC certificate, transfer or physical-device claim.",
+    "video": "/home/codexdev/src/b2z/.work/fluid-player-experience/direct-journey/video/page@5aa3ec2e41496aae423a0b5d18e681ac.webm"
+  },
+  "scope": "Maintained populated capture_player_review; direct aim dragging, actual copy/replacement and board/minimap input on canonical fixture. Software WebGL/emulated viewport; no transfer, production/device/native-cursor claim."
+}
