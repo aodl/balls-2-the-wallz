@@ -7,7 +7,10 @@
   "source_dirty": false,
   "production_policy_unchanged": true,
   "artifact_directory": ".work/tactical-polish/frozen-final/frontend",
-  "qualification": "Six substantive CI gates PASS on 515f3f73; rendered hidden-return/hardware coverage limitations remain; not deployed",
+  "qualification": "All six substantive gates PASS on b23ed313; exact frontend assets deployed and verified; documented device/hidden-rendering limitations remain",
   "qualification_source": "515f3f73afc87cfc2929e56ff0c331aea23cc41a",
-  "ci_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42770541444"
+  "ci_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42780040722",
+  "latest_qualified_source": "b23ed313c2ae57d681235575d1284763875d0f8b",
+  "deployment_record": "production/deployment.json",
+  "deployed": true
 }

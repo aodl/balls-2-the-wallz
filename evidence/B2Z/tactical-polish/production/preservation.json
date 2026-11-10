@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-11-10T09:08:01.585Z",
+  "certified_modules_controllers_subnet_preserved": true,
+  "metadata": [
+    {
+      "canisterId": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "certificate_verified": true
+    },
+    {
+      "canisterId": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "controllers": [
+        "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+        "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+      ],
+      "subnet": "bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe",
+      "nodes": 13,
+      "certificate_verified": true
+    }
+  ],
+  "game_identity_epoch_source_preserved": true,
+  "world_before": {
+    "version": 6,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "world_after": {
+    "version": 6,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "source_cursor_before": "40180669",
+  "source_cursor_after": "40180669",
+  "segments_before": "4806",
+  "segments_after": "4811",
+  "treasury_conversion_identity_and_totals_preserved": true,
+  "normal_autonomous_processing_continued": true,
+  "backend_mutation_performed": false,
+  "asset_wasm_upgrade_performed": false,
+  "manual_financial_operation_performed": false,
+  "rollback_required": false,
+  "no_runtime_rebuild": true
+}

@@ -1,0 +1,45 @@
+{
+  "status": "DEPLOYED_AND_VERIFIED",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "frontend": "s2jxj-liaaa-aaaas-amynq-cai",
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "runtime_source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+  "runtime_qualification_source": "515f3f73afc87cfc2929e56ff0c331aea23cc41a",
+  "latest_qualified_source": "b23ed313c2ae57d681235575d1284763875d0f8b",
+  "ci_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42780040722",
+  "javascript_sha256": "f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde",
+  "complete_manifest_sha256": "a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2",
+  "public_asset_count": 15,
+  "consumed_configuration_count": 1,
+  "backend_module": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "frontend_module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "backend_total_cycles": "1897853578095",
+  "backend_liquid_cycles": "1841571046485",
+  "liquid_margin_above_trickle_entry": "591571046485",
+  "liquid_margin_above_protection_exit": "841571046485",
+  "pace": {
+    "admission_open": true,
+    "mode": "Trickle",
+    "nominal_milli": 10,
+    "performance_limited": false,
+    "supported_milli": 10
+  },
+  "source_cursor": "40180669",
+  "treasury_state": {
+    "Idle": null
+  },
+  "treasury_warning": [
+    "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+  ],
+  "served_verified_at": "2026-11-10T09:03:18.012837+00:00",
+  "rollback_directory": ".work/tactical-live/rollback/frontend",
+  "rollback_manifest": ".work/tactical-live/rollback/manifest.json",
+  "rollback_required": false,
+  "limitations": [
+    "Rendered genuine hidden-tab return not qualified on this host; native WebGL unavailable",
+    "No physical-phone, native-keyboard, actual-wallet or hardware-performance qualification",
+    "Transient 390px Reconnecting followed by passing focused fresh-delivery observation; exact transient cause not established",
+    "No automatic receipt/instruction association",
+    "No maximum-population or new performance qualification"
+  ]
+}

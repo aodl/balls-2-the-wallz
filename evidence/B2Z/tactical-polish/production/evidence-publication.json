@@ -1,0 +1,11 @@
+{
+  "status": "BLOCKED_EVIDENCE_PUBLICATION_ONLY",
+  "at": "2026-11-10T09:17:07.802921+00:00",
+  "github_connector_write": "403 Resource not accessible by integration",
+  "ordinary_git_push": "fatal: could not read Username for https://github.com: terminal prompts disabled",
+  "remote_head_confirmed": "b23ed313c2ae57d681235575d1284763875d0f8b",
+  "deployment_status": "DEPLOYED_AND_VERIFIED",
+  "no_credentials_inspected": true,
+  "operator_continuation": "git push origin HEAD:refs/heads/release/btz-prelaunch-playability",
+  "qualification_unaffected": true
+}

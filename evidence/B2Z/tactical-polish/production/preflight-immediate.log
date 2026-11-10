@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/tactical-live/preflight-immediate.py", line 16, in <module>
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4)as pool:rows=dict(pool.map(fetch,old.items()))
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/tactical-live/preflight-immediate.py", line 15, in fetch
+    actual={'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)};assert actual==w,(n,actual,w);assert all(headers.get(k.lower())==v for k,v in policy.items()),n;(rollback/n).parent.mkdir(parents=True,exist_ok=True);(rollback/n).write_bytes(data);return n,{'matches':True,**actual,'headers':headers}
+                                                                                ^^^^^^^^^
+AssertionError: ('app.mjs', {'sha256': '7f280d1bc5347dc9dfa23ef7ae1208bc4d289d3c02bac98615e68f951e0f3323', 'bytes': 382425}, {'sha256': '51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370', 'bytes': 1875173})

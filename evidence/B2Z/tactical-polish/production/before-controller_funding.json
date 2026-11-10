@@ -1,0 +1,81 @@
+{
+  "Ok": {
+    "halted": false,
+    "last_error": [
+      "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+    ],
+    "last_plan_ns": "1794130796502691675",
+    "last_refund": [],
+    "last_success": [
+      {
+        "block_index": "40180668",
+        "completed_at_ns": "1794130803390992707",
+        "cycles": "1_766_023_380_000",
+        "plan": {
+          "amount_e8s": "99990000",
+          "beneficiary": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+          "created_at_time_ns": "1794130796502691675",
+          "fee_e8s": "10000",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "memo": "1347768404",
+          "to": [
+            1,
+            219,
+            45,
+            242,
+            101,
+            87,
+            242,
+            55,
+            5,
+            177,
+            115,
+            55,
+            40,
+            231,
+            40,
+            211,
+            244,
+            77,
+            23,
+            227,
+            15,
+            253,
+            121,
+            238,
+            152,
+            134,
+            169,
+            100,
+            47,
+            229,
+            145,
+            9
+          ]
+        }
+      }
+    ],
+    "lease_started_ns": "1794298897291875229",
+    "nonce": "692",
+    "observed_balance": [
+      {
+        "e8s": "0",
+        "observed_at_ns": "1794298897291875229"
+      }
+    ],
+    "observed_fee": [
+      {
+        "e8s": "10000",
+        "observed_at_ns": "1794298900391168240"
+      }
+    ],
+    "paused": false,
+    "phase": {
+      "Idle": null
+    },
+    "total_converted_e8s": "99990000",
+    "total_cycles_reported": "1766023380000",
+    "version": 1
+  }
+}

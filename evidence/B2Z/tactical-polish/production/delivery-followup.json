@@ -1,0 +1,1268 @@
+{
+  "status": "PASS",
+  "scope": "Bounded read-only rendered production follow-up, including an observed delivery uncertainty.",
+  "ball_focus": {
+    "id": 1,
+    "x": 986.3935546875,
+    "y": 967.1416015625,
+    "verifiedTime": 4811
+  },
+  "rows": [
+    {
+      "at": 1794301727141,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 5,
+      "certificateTimeNs": "1794301725799914975",
+      "operationalAgeMs": 1729.8999999761581,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301728168,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 6,
+      "certificateTimeNs": "1794301726563430087",
+      "operationalAgeMs": 473.7000000178814,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301729187,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 7,
+      "certificateTimeNs": "1794301726563430087",
+      "operationalAgeMs": 1492.4000000059605,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301730199,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 9,
+      "certificateTimeNs": "1794301724971984301",
+      "operationalAgeMs": 457.90000000596046,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301731222,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 10,
+      "certificateTimeNs": "1794301729575860394",
+      "operationalAgeMs": 1480.7000000178814,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301732370,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 12,
+      "certificateTimeNs": "1794301731153699093",
+      "operationalAgeMs": 435,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301733389,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 13,
+      "certificateTimeNs": "1794301731153699093",
+      "operationalAgeMs": 1454,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301734414,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 14,
+      "certificateTimeNs": "1794301732714950931",
+      "operationalAgeMs": 478.59999999403954,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301735459,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 15,
+      "certificateTimeNs": "1794301733523745731",
+      "operationalAgeMs": 1523.3999999761581,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301736503,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 17,
+      "certificateTimeNs": "1794301735084876943",
+      "operationalAgeMs": 369.7999999821186,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301737532,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 18,
+      "certificateTimeNs": "1794301732714950931",
+      "operationalAgeMs": 1398.9000000059605,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301738705,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 20,
+      "certificateTimeNs": "1794301736669319932",
+      "operationalAgeMs": 2571.7999999821186,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301739726,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 21,
+      "certificateTimeNs": "1794301738242321386",
+      "operationalAgeMs": 1485.2999999821186,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301740757,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 22,
+      "certificateTimeNs": "1794301733523745731",
+      "operationalAgeMs": 485.09999999403954,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301741804,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 24,
+      "certificateTimeNs": "1794301735084876943",
+      "operationalAgeMs": 1531.800000011921,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301742835,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 25,
+      "certificateTimeNs": "1794301735084876943",
+      "operationalAgeMs": 343.5,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301743858,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 27,
+      "certificateTimeNs": "1794301736669319932",
+      "operationalAgeMs": 1366.7000000178814,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301744870,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 28,
+      "certificateTimeNs": "1794301743276631627",
+      "operationalAgeMs": 352.09999999403954,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301745897,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 29,
+      "certificateTimeNs": "1794301743276631627",
+      "operationalAgeMs": 1379,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    },
+    {
+      "at": 1794301746912,
+      "status": {
+        "kind": "waiting",
+        "label": "Rendering on-chain activity ...",
+        "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+        "canPrepare": true
+      },
+      "clock": {
+        "phase": "BUFFERING",
+        "playhead": 4811,
+        "available": 4811,
+        "buffer": 0,
+        "rate": 1
+      },
+      "certificates": 31,
+      "certificateTimeNs": "1794301735084876943",
+      "operationalAgeMs": 2393.9000000059605,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "ic",
+            "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+            },
+            "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "format": null,
+            "head": "4814",
+            "root": "07e4e59576794cee5c1c1751c41767c2455b89d1fc76542048499837b72594d1",
+            "certificate_time_ns": "1794301714013077164"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "render": {
+        "time": 4811,
+        "draw_calls": 4,
+        "triangles": 188,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 20,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0
+      }
+    }
+  ],
+  "camera_seam": {
+    "before": [
+      999.95,
+      999.5,
+      96
+    ],
+    "after": [
+      0.24462782549449003,
+      999.2053721745056,
+      96
+    ]
+  },
+  "same_clock_queue": true,
+  "errors": [],
+  "failed_requests": [],
+  "limits": "Rendered software browser/emulated viewport, not native phone, hardware performance or genuine hidden-tab evidence."
+}

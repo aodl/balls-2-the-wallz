@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-10T08:22:05.261Z",
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "subaccount": 0,
+  "account": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+  "destination": {
+    "primary": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "verified": true
+}

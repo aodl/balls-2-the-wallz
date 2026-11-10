@@ -1,3 +1,37 @@
+# Tactical-polish frontend — deployed controlled prelaunch
+
+https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/ serves the exact approved tactical
+bundle: JS `f993f930…`, full sixteen-file manifest `a7eb5d4a…` (fifteen public
+assets plus consumed upload policy). Runtime source is `031a8dfa`, preceding
+qualification `515f3f73`; latest source `b23ed313` passes all six substantive jobs
+in [run 42780040722](https://github.com/aodl/balls-2-the-wallz/actions/runs/42780040722).
+No artifact rebuild or backend/asset-Wasm update occurred. Signed inventory,
+every served hash and security headers pass. No rollback was required.
+
+Desktop, 390×844 and 320×640 production action/copy/browser checks pass with real
+IC verification and preserved clock/queue. A transient 390px Reconnecting state
+was truthful and recovered in a focused fresh-delivery check; a camera seam-test
+setup error was corrected without changing application code. Real rendered hidden
+return, hardware/physical-phone/native-wallet coverage remain limited. Prior
+populated media and software frame limitations remain; no new benchmark ran.
+
+Backend module `612ad0d0…`, frontend module `04e565b3…`, controllers, certified
+13-node placement, rules 7/schema 6/epoch 4 and paid/source/treasury identities
+are preserved. Post-smoke backend total/liquid is 1,897,853,578,095 /
+1,841,571,046,485 cycles; Trickle 0.01 ticks/s, admission open, no source error or
+pending record. Treasury is idle with its pre-existing balance-query deadline
+warning. No manual financial transaction, setting/controller or backend mutation.
+
+[Full release/rollback evidence and limitations](evidence/B2Z/tactical-polish/REPORT.md).
+Remote evidence publication is blocked by GitHub connector write permissions and
+missing Git HTTPS authentication; the deployment itself is complete. The final
+local evidence commit needs the ordinary non-force operator push.
+Stop frontend implementation pending actual human playtest feedback.
+
+Earlier entries retain their historical status.
+
+---
+
 # Tactical frontend candidate — six source gates passed, release decision ready
 
 Published source is `515f3f73afc87cfc2929e56ff0c331aea23cc41a`; runtime inputs remain

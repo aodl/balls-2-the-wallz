@@ -1,0 +1,167 @@
+{
+  "at": "2026-11-10T09:02:16.384Z",
+  "files": [
+    {
+      "key": "/agent-api.md",
+      "encodings": [
+        {
+          "encoding": "gzip",
+          "sha256": "7fb2c75a01d06accd7f9046bbf76e89280b86949c71d6ad90baa44f0f8dd6612",
+          "length": "2978"
+        },
+        {
+          "encoding": "identity",
+          "sha256": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+          "length": "6076"
+        }
+      ]
+    },
+    {
+      "key": "/app.mjs",
+      "encodings": [
+        {
+          "encoding": "gzip",
+          "sha256": "7f280d1bc5347dc9dfa23ef7ae1208bc4d289d3c02bac98615e68f951e0f3323",
+          "length": "382425"
+        },
+        {
+          "encoding": "identity",
+          "sha256": "51c7f92aeb0d648c0231fed979218005cbc553b264cf85877c603b549b96f370",
+          "length": "1875173"
+        }
+      ]
+    },
+    {
+      "key": "/backend.did",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+          "length": "12081"
+        }
+      ]
+    },
+    {
+      "key": "/build-manifest.json",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "fa165fac7512d4724e88b8356619297304eae88af2c9dc7c7e4df08f6caa1fa2",
+          "length": "9393"
+        }
+      ]
+    },
+    {
+      "key": "/configuration-entry.bin",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "length": "1163"
+        }
+      ]
+    },
+    {
+      "key": "/configuration-legacy.bin",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "length": "368"
+        }
+      ]
+    },
+    {
+      "key": "/configuration-million.bin",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+          "length": "469"
+        }
+      ]
+    },
+    {
+      "key": "/configuration-playability.bin",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "length": "994"
+        }
+      ]
+    },
+    {
+      "key": "/configuration-torus.bin",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+          "length": "386"
+        }
+      ]
+    },
+    {
+      "key": "/configuration.bin",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "length": "367"
+        }
+      ]
+    },
+    {
+      "key": "/deployment.json",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+          "length": "89"
+        }
+      ]
+    },
+    {
+      "key": "/icon.svg",
+      "encodings": [
+        {
+          "encoding": "identity",
+          "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+          "length": "235"
+        }
+      ]
+    },
+    {
+      "key": "/index.html",
+      "encodings": [
+        {
+          "encoding": "gzip",
+          "sha256": "21b77502c7e4d699b457bd81ac7bc2c4c658c7cd34d4ee2279841c4e1ac347c7",
+          "length": "3067"
+        },
+        {
+          "encoding": "identity",
+          "sha256": "c0165df9986d2b7fa1e59ccc9c2932a1f822ca06cfe6a01ae1414d20dd29d644",
+          "length": "8469"
+        }
+      ]
+    },
+    {
+      "key": "/style.css",
+      "encodings": [
+        {
+          "encoding": "gzip",
+          "sha256": "74006f9434aef24ee04a39872005a8807a8ded981ff1efa382ff11bda35a941f",
+          "length": "2713"
+        },
+        {
+          "encoding": "identity",
+          "sha256": "79ffb1cff440202558ca10ada7f532ba3adb3111c8eace652860e97e24fb888b",
+          "length": "8341"
+        }
+      ]
+    }
+  ],
+  "identity_encodings_match": true,
+  "query_signatures_verified": true
+}

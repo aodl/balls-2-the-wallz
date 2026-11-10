@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/tactical-live/followup.py", line 17, in <module>
+    page.evaluate('__b2zCamera.frameCell(999999);__b2zCamera.centre(999.5,999.5)');page.wait_for_timeout(200);before=page.evaluate('[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]');page.locator('#board').focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(200);after=page.evaluate('[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]');assert after!=before;assert after[0]<before[0];assert page.evaluate('followClock===__b2zExperience.clock&&followQueue===__b2zExperience.queue');page.screenshot(path=str(out/'390-live-seam.png'))
+                                                                                                                                                                                                                                                                                                                                                                                     ^^^^^^^^^^^^^^^^^^
+AssertionError

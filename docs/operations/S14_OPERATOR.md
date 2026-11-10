@@ -10,15 +10,17 @@ reset, activation or transition sequence against it.
 - Default receiving AccountIdentifier: `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
 
 Asset-only frontend publication requires explicit release-specific owner authority.
-The authorised player-centred asset release and its actual served verification are
-recorded in [the release report](../../evidence/B2Z/player-centred-live/REPORT.md).
+The authorised tactical-polish asset release and its actual served verification are
+recorded in [the current release report](../../evidence/B2Z/tactical-polish/REPORT.md).
+The [preceding player-centred release](../../evidence/B2Z/player-centred-live/REPORT.md)
+remains rollback/history evidence.
 That completed publication does not grant standing authority for future releases. Backend controller access
 is not upgrade authority. No backend install/upgrade/reinstall, stop/start,
 transition, migration, controller change, ICP/cycle transfer, cycle purchase,
 new canister or former-deployment operation is part of this procedure. Normal
 existing autonomous processing continues. Do not pause gameplay for an asset update.
 
-Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/player-centred-live/REPORT.md) and the normative
+Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/tactical-polish/REPORT.md) and the normative
 [human-experience contract](../specs/B2Z_HUMAN_EXPERIENCE.md). Changes to controls,
 flows, statuses, handoff, rendering or playback must identify affected UX IDs,
 update intentional contract changes and execute corresponding regressions.

@@ -1,0 +1,17 @@
+{
+  "mode": "frontend_assets_only",
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "frontend": "s2jxj-liaaa-aaaas-amynq-cai",
+  "required_ci_run": 42780040722,
+  "required_source": "b23ed313c2ae57d681235575d1284763875d0f8b",
+  "frozen_runtime": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
+  "frozen_assets": ".work/tactical-polish/frozen-final/frontend",
+  "manifest": "evidence/B2Z/tactical-polish/frontend-files.json",
+  "manifest_sha256": "a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2",
+  "rollback_assets": ".work/tactical-live/rollback/frontend",
+  "rollback_manifest": ".work/tactical-live/rollback/manifest.json",
+  "command": "DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_PRESENT=true dfx deploy observer --network ic --no-wallet --no-asset-upgrade",
+  "backend_operation_authorised": false,
+  "manual_financial_operation_authorised": false,
+  "runtime_rebuild": false
+}

@@ -1,9 +1,11 @@
 {
   "status": "PASS",
-  "observed_at": "2026-11-10T07:39:43.633378+00:00",
-  "qualified_source": "515f3f73afc87cfc2929e56ff0c331aea23cc41a",
+  "observed_at": "2026-11-10T09:00:19.215Z",
+  "qualified_source": "b23ed313c2ae57d681235575d1284763875d0f8b",
+  "preceding_qualified_source": "515f3f73afc87cfc2929e56ff0c331aea23cc41a",
+  "preceding_conclusions": "qualification-refresh/hosted-ci.json",
   "frozen_runtime_source": "031a8dfa0bbd797176fe52557ef8676dfc26451a",
-  "run_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42770541444",
+  "run_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42780040722",
   "required_substantive_jobs": {
     "Source conformance": "success",
     "Native conformance": "success",
@@ -13,8 +15,8 @@
     "S14 and million-cell installed-IC qualification": "success"
   },
   "production_inventory": "Informational; not qualification",
-  "previous_status": "ci-status-before-publication.json",
-  "no_push_or_rebuild": true,
+  "original_pre_publication_status": "ci-status-before-publication.json",
   "run_conclusion": "success",
-  "remote_head": "515f3f73afc87cfc2929e56ff0c331aea23cc41a"
+  "frozen_runtime_rebuilt": false,
+  "qualification_restarted": false
 }
