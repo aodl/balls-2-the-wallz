@@ -1,0 +1,17 @@
+{
+  "prior_runtime": "4dd90b394b2dd32f2218d3887ef14938f91514b7",
+  "runtime_source": "50f7eda4ea19206ad37829ce087b415f75e40b98",
+  "changed_maintained_runtime_inputs": [
+    "apps/b2z-observer/elastic-playback.mjs"
+  ],
+  "unchanged_visual_payment_inputs": {
+    "apps/b2z-observer/render.mjs": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+    "apps/b2z-observer/shell.mjs": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+    "apps/b2z-observer/camera.mjs": "6014748b92da5d2c1d49b1fb8ded70de4f658d43b459a7df63d04bb17fd81fa3",
+    "apps/b2z-observer/arcade.mjs": "d8ab8f112b4bd40b2c173b57d86487a934276ba705faa7d516d793a91a749898",
+    "apps/b2z-observer/handoff.mjs": "2e217c715ca8cb8858f77fc087fb46da5dc335b0a6a3422cebe84d5685e52dee",
+    "apps/b2z-observer/index.html": "33e2b70d4ae5b7d2bb39624fd7c6dcaaad936e5cb19b718af8279ccbfdd046b1",
+    "apps/b2z-observer/style.css": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1"
+  },
+  "reuse_scope": "Existing populated visual media apply to these unchanged maintained inputs. They do not prove the corrected delivery policy, native hidden visibility, hardware, real-wallet or installed continuity. New actual-clock and frozen read-only browser checks are separate."
+}

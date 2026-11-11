@@ -8,6 +8,50 @@ resulting source still needs ordinary owner publication and exact-source CI.
 The preceding frozen recovery files are retained unchanged, not substituted for
 the corrected elastic module. No production publication or financial operation.
 
+## Corrected clean freeze and local verification
+
+Runtime source is **`50f7eda4ea19206ad37829ce087b415f75e40b98`**.
+[Complete actual sixteen-file manifest](frontend-files-delivery-confidence.json):
+**`c7c8e77d199ff665685fa0d14d67ee413a5321d65720529b905cb11396aa195d`**.
+JavaScript: **`03be9e0fb77a268746bdc3f96b05795d9405d6a792bc8219a5b6ce8ae41435df`**.
+[Clean builder provenance](build-manifest-delivery-confidence.json) binds
+`.work/fluid-player-experience/frozen-delivery-confidence/frontend`, the existing
+European backend, immutable dependencies and all 15 public files plus consumed
+policy. Every actual byte matches. Only `app.mjs` and `build-manifest.json` differ
+from the preserved recovery freeze. This rebuild is required by the demonstrated
+elastic runtime correction, not by a documentation update.
+
+The [complete local source gate](source-confidence-verification.json) passes
+**1,813 JavaScript / 199 Python tests**, all reference/structure/doc checks, with
+no skipped/cancelled cases. JavaScript takes 324.59 seconds within the unchanged
+600-second outer allowance. [Controlled regression evidence](elastic-delivery-confidence.json)
+and [unchanged visual/payment-input provenance](confidence-input-provenance.json)
+separate timing tests from reuse of existing populated media.
+
+[Exact frozen browser result](frozen-confidence-browser.json) passes at 1440×900,
+390×844 and 320×640 on loopback with the real read-only European source: native
+certificate verification, every public served byte/header, current rules/source/
+destination binding, exact `FIRE 1 255 1` UTF-8 copies, Update/Keep and clock/queue
+identity. No Identify is required to observe; the local declared account is used
+only for composition. All network POSTs are query/read_state, never gameplay or
+Ledger updates. No production assets were published. The software browser does
+not establish hardware/physical-phone performance, a real II ceremony, real wallet
+compatibility, genuine rendered hidden-tab timing or a continuous-delivery pass.
+
+Source/evidence publication remains owner-owned. From this repository, recheck
+remote heads, then publish the two reviewed local branches without force:
+
+```sh
+git push origin release/btz-prelaunch-playability feature/b2z-icrc2-delegated-payments
+```
+
+All six substantive corrected-source hosted gates remain required; the existing
+installed failures above are not reclassified. **Recommendation: obtain corrected-
+source CI, resolve any remaining installed-delivery failure, then request a separate
+exact-artifact frontend-only release decision. Do not deploy this candidate now.**
+The independent feature additionally needs financial CI, real II origin/ceremony
+review and separately authorized state-preserving backend activation.
+
 ## Current correction and executed findings
 
 Hosted failures occur before continuity measurement. `action_field()` may press
