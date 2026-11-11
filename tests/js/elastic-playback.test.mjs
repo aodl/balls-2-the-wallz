@@ -59,3 +59,26 @@ test('UX-05 retention-pressure recovery cannot discard every cold Normal interva
  bridgeVerifiedPresentation(s,10);assert.equal(clock.playhead,10);assert.equal(clock.available,10);
  assert.equal(resumeVerifiedClock(s),false);assert.equal(clock.sample(1).playhead,10);
 });
+
+test('UX-05/06 a late Normal head retains cadence confidence for measured delivery variability',async()=>{
+ const rows=await intervals(18),s=session(rows),clock=s.clock,packet=s.packet,authority=s.referenceWorld,p=elasticPlayback();
+ // The installed trace had two-tick publications, 10.5-second observed delivery,
+ // an 18-tick verified buffer, then a 22-second gap. These are presentation-only
+ // data: one late request is not evidence that the producer/context changed.
+ for(let i=0;i<3;i++)p.observe({key:String(i),end:i*2,at:i*2000,nominal:1,ticks:2,deliverySeconds:10.5});
+ assert.equal(p.state().confidence_seconds,27);
+ const remaining=[];
+ for(let i=0;i<220;i++){
+  const rate=p.rate({now:4000+i*100,nominal:1,remaining:clock.available-clock.playhead,seconds:.1,reserveTicks:16});
+  assert.ok(rate>=.5&&rate<=1.5);const t=clock.sample(.1*rate).playhead;
+  while(s.queue.length&&t>=s.queue[0].segment.end){const q=s.queue.shift();q.player.advance(q.segment.end).matches(q.segment.final);}
+  if(s.queue.length)s.queue[0].player.advance(t);
+  assert.notEqual(clock.phase,'STALLED','use the modest conservative rate while measured delivery evidence remains usable');remaining.push(clock.available-t);
+ }
+ assert.ok(remaining.at(-1)>0);assert.ok(clock.playhead>10);assert.equal(s.packet,packet);assert.equal(s.referenceWorld,authority);
+ // Repeated certificates do not manufacture another distinct publication or
+ // extend confidence indefinitely when no gameplay head advances.
+ for(let i=0;i<30;i++)assert.equal(p.observe({key:'2',end:4,at:5000+i*1000,nominal:1,ticks:2,deliverySeconds:10.5}),false);
+ assert.equal(p.state().samples,2);assert.equal(p.state().last_distinct_at,4000);
+ assert.equal(p.rate({now:32001,nominal:1,remaining:1,seconds:1,reserveTicks:16}),1);
+});

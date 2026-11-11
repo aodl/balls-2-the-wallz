@@ -499,8 +499,15 @@ One application policy (`elastic-playback.mjs`) estimates arrival from distinct
 advancing certified heads, not repeated certificates or unchanged-head replies.
 It retains eight interval-normalized cadence samples and requires two differences
 (three distinct advancing observations). The median cadence is bounded below by
-the publication duration at the actual supported pace; a stale estimate (more than
-three periods) or insufficient evidence falls back to nominal. Pace/context changes
+the publication duration at the actual supported pace. Confidence expires after
+three observed periods plus twice the largest complete delivery duration in the
+last eight distinct heads; insufficient or expired evidence falls back to nominal.
+The delivery term covers a late request/catch-up window instead of declaring the
+estimate stale merely because that request exceeds three short Normal periods.
+A controlled actual-clock/player reproduction of a measured 22-second gap with
+10.5-second prior delivery proves conservation while sufficient verified coverage
+remains. This is advisory timing confidence, never certificate freshness or a
+continuous-delivery promise. Pace/context changes
 reset evidence. Estimate timestamps/periods are operational observations, never
 certified predictions. Late arrival uses another estimated period as an uncertain
 horizon and may conserve remaining coverage at the lower rate, eventually exhausting
@@ -660,6 +667,13 @@ existing populated HTTP browser harness. Existing playback, lifecycle, status,
 quote, memo, handoff and authentication regressions remain required. The review
 report records exact commands, scope, inputs and results rather than treating
 synthetic fixtures as certified mainnet or physical-device evidence.
+
+Installed camera/placement regressions (UX-04/12) must wait for deliberate camera
+transitions to settle before assigning a test view or measuring a wheel anchor.
+A predicate waiting for a committed destination is read-only: it must not open a
+panel or press Locate, which intentionally cancels an uncommitted gesture. Keep
+the exact cell/memo and continuous-playback assertions after that setup; a hidden
+or merely enabled stale instruction field is not a successful preparation.
 
 ## Development, source qualification and production release
 

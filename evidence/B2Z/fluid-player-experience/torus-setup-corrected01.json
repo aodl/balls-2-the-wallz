@@ -1,0 +1,73 @@
+{
+  "scope": "Existing compiled S14 test, unchanged backend inputs, fresh pinned disposable PocketIC per named test; not full suite or production deployment",
+  "status": "FAIL",
+  "test": {
+    "id": "torus_browser_scene_camera_and_continuous_supported_playback",
+    "command": [
+      "/home/codexdev/src/b2z/.work/fluid-player-experience/ci-07516cd/torus-setup-corrected01/installed-test-harness",
+      "torus_browser_scene_camera_and_continuous_supported_playback",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 101,
+    "status": "FAIL",
+    "elapsed_seconds": 231.594,
+    "timeout_seconds": 900,
+    "log": "logs/torus_browser_scene_camera_and_continuous_supported_playback.log",
+    "pocketic_server_exit": null,
+    "reason": "Expected exactly one passing installed test"
+  },
+  "normal_wasm_sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488",
+  "harness_sha256": "113af61605557d5687e817ded263451af19095ab4b21f6cb5a5f79fce380bc5e",
+  "passed_checks": [
+    "real-asset-build-and-mainnet-test-adapter-exclusion",
+    "corner-seam-camera-hit-test-prepares-the-underlying-cell-once"
+  ],
+  "error": "AssertionError({'qualification': 'Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition', 'seconds': 89.66309999999999, 'verified_ticks_per_second': 0.8476173587573931, 'displayed_ticks_per_second': 0.9412116508134836, 'stalled_samples': 3, 'nominal_rate': 1, 'backend_ticks_per_second': 0.981451678561192, 'resyncs': 0, 'queue_segments': {'min': 0, 'max': 15}, 'buffer_ticks': {'min': 0, 'max': 29.464316896900044}, 'latency_ms': {'fetch_ms': {'median': 877.1999999880791, 'max': 12178.900000035763}, 'verify_ms': {'median': 367.5999999642372, 'max': 552.4000000357628}, 'artifact_ms': {'median': 684.1999999880791, 'max': 13951.399999976158}, 'derive_ms': {'median': 15.599999964237213, 'max': 67.80000001192093}, 'catchup_ms': {'median': 1591.4000000357628, 'max': 15560.600000023842}}, 'max_catchup_segments': 9, 'latency_qualification': 'Frame-sampled last-operation durations. Atomic observation query includes artifact network delivery; artifact_ms normally measures cached bundle validation, and includes a network query for retained bundles.', 'timestamp_qualification': 'Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound.'})",
+  "scene": {
+    "qualification": "Staged 32x32 torus on a genuine disposable IC; synthetic populated genesis, no real funds or mainnet transition",
+    "seconds": 89.66309999999999,
+    "verified_ticks_per_second": 0.8476173587573931,
+    "displayed_ticks_per_second": 0.9412116508134836,
+    "stalled_samples": 3,
+    "nominal_rate": 1,
+    "backend_ticks_per_second": 0.981451678561192,
+    "resyncs": 0,
+    "queue_segments": {
+      "min": 0,
+      "max": 15
+    },
+    "buffer_ticks": {
+      "min": 0,
+      "max": 29.464316896900044
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 877.1999999880791,
+        "max": 12178.900000035763
+      },
+      "verify_ms": {
+        "median": 367.5999999642372,
+        "max": 552.4000000357628
+      },
+      "artifact_ms": {
+        "median": 684.1999999880791,
+        "max": 13951.399999976158
+      },
+      "derive_ms": {
+        "median": 15.599999964237213,
+        "max": 67.80000001192093
+      },
+      "catchup_ms": {
+        "median": 1591.4000000357628,
+        "max": 15560.600000023842
+      }
+    },
+    "max_catchup_segments": 9,
+    "latency_qualification": "Frame-sampled last-operation durations. Atomic observation query includes artifact network delivery; artifact_ms normally measures cached bundle validation, and includes a network query for retained bundles.",
+    "timestamp_qualification": "Certificate timestamps authenticate the current root, not publication creation time. Backend capture records first-observed replica timestamps with a two-second polling bound."
+  },
+  "steady_playback": null,
+  "interaction_failure": null
+}

@@ -1,4 +1,59 @@
-# Fluid player experience — candidate qualification
+# Fluid player experience — published CI follow-up
+
+**Not ready for production approval.** Published `07516cd03cebde92de1bc519b0045a64e8f74997`
+passes five substantive jobs in [run 42974709451](https://github.com/aodl/balls-2-the-wallz/actions/runs/42974709451).
+S14/million-cell installed-browser qualification fails. [Exact hosted record](hosted-ci-07516cd.json).
+The informational inventory is excluded. The corrections below are local; their
+resulting source still needs ordinary owner publication and exact-source CI.
+The preceding frozen recovery files are retained unchanged, not substituted for
+the corrected elastic module. No production publication or financial operation.
+
+## Current correction and executed findings
+
+Hosted failures occur before continuity measurement. `action_field()` may press
+Locate; using it inside the placement wait cancels the pending 400 ms single-click
+commit. The read-only wait now checks the committed field before Locate. The
+verifier also waits for approved Focus/Home animations before arranging the seam
+view or testing a wheel anchor. The torus preloads cell 1, then requires the real
+seam click to produce exact `MOVE 0`; both seam fixtures assert that the cannon
+is elsewhere. Cell zero remains a valid destination. No assertion was removed.
+Native disposable torus, million and payment journeys get past their original
+setup failures, but their subsequent continuity assertions still fail.
+
+A distinct, demonstrated elastic-policy issue is corrected: cadence expired after
+three short publication periods even while a measured long delivery was pending.
+Confidence now lasts three periods plus twice the largest complete delivery in
+the last eight advancing heads. This is advisory timing evidence, never root or
+certificate freshness. Actual pinned-clock/verified-player test fails before and
+passes after; all 24 elastic cases and 40 related buffer/live/playback cases pass.
+Same-head refreshes cannot extend confidence, source/pace changes reset it, and
+0.5–1.5 nominal bounds, finite endpoint, current-head quotes and packets remain.
+
+The original local failures remain [torus setup](torus-setup-corrected01.json),
+[payment camera](payment-camera-corrected01.json), [corrected-policy torus](torus-elastic-corrected02.json)
+and [million setup](million-setup-corrected01.json). The last reports backend
+1.0015 ticks/s, admitted 0.1002 and displayed 0.0668 over 89.86 seconds, 75 stalled
+samples and five resynchronisations. Artifact latency peaks at 31.13 seconds.
+The torus policy attempt also fails (six stalled samples, one resync). These are
+failed application assertions on this shared software-rendered environment;
+contention is possible, not a proven complete explanation. No timing pass is
+inferred from the positive controlled policy regression. The 900-second sustained
+assertions and all safety/authentication thresholds remain unchanged.
+
+The verifier retains camera/interaction diagnostics and uploads torus evidence.
+An explicit `S14_BROWSER_NO_VIDEO=1` development override isolates recording cost
+without changing the default capture policy, complete assertion set or hosted
+qualification. Populated visual-review recordings remain required and preserved.
+
+The [single no-video diagnostic](million-no-video-diagnostic01.json) still fails:
+89.75 seconds, backend 1.014 / admitted 0.379 / displayed 0.275 ticks/s, 31 stalled
+samples, three resynchronisations. The recorded predecessor had 75 stalled
+samples; artifact maxima fall from 31.13 to 6.14 seconds and derive maxima from
+117.1 to 54.1 ms. Catch-up still reaches 17.88 seconds. These sequential shared-host
+observations do not isolate video as the sole cause or establish a performance
+pass. No further lucky reruns or widened throughput/safety allowances are used.
+
+## Previously frozen recovery candidate (superseded by the local correction)
 
 **Implemented and frozen locally; not deployed or fully release-qualified.** The
 current runtime source is `4dd90b394b2dd32f2218d3887ef14938f91514b7`.

@@ -1,0 +1,48 @@
+{
+  "source_commit": "07516cd03cebde92de1bc519b0045a64e8f74997",
+  "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42974709451",
+  "substantive": {
+    "Source conformance": "PASS",
+    "Native conformance": "PASS",
+    "Packaged DTR and clean consumers": "PASS",
+    "Runtime-lab Wasm": "PASS",
+    "Browser HTTP and Web Crypto": "PASS",
+    "S14 and million-cell installed-IC qualification": "FAIL"
+  },
+  "informational_inventory_excluded": true,
+  "failed_installed_cases": [
+    {
+      "name": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+      "elapsed_seconds": 11.794,
+      "status": "FAIL",
+      "reason": "Expected exactly one passing installed test"
+    },
+    {
+      "name": "torus_browser_scene_camera_and_continuous_supported_playback",
+      "elapsed_seconds": 12.209,
+      "status": "FAIL",
+      "reason": "Expected exactly one passing installed test"
+    },
+    {
+      "name": "million_browser_normal_lifeline_and_cold_reconnect",
+      "elapsed_seconds": 14.648,
+      "status": "FAIL",
+      "reason": "Expected exactly one passing installed test"
+    },
+    {
+      "name": "million_browser_sustained_normal_and_cold_lifeline",
+      "elapsed_seconds": 14.794,
+      "status": "FAIL",
+      "reason": "Expected exactly one passing installed test"
+    }
+  ],
+  "artifact_id": 13836051114,
+  "artifact_zip_sha256": "d597d9c07b0c87f27148299b7c618d0bf88e30e368e1347854956906f0f6f0e4",
+  "first_failures": {
+    "deployed_bundle": "wheel anchor sampled while Home animation may still be active",
+    "torus_scene": "seam Move memo assertion",
+    "million_normal_and_sustained": "placement wait used action_field(), which can press Locate and cancel pending tap"
+  },
+  "qualification": "FAIL remains; verifier corrections require executed proof and corrected-source CI",
+  "production_operation": false
+}

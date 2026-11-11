@@ -1,0 +1,101 @@
+{
+  "scope": "Existing compiled S14 test, unchanged backend inputs, fresh pinned disposable PocketIC per named test; not full suite or production deployment",
+  "status": "FAIL",
+  "test": {
+    "id": "million_browser_normal_lifeline_and_cold_reconnect",
+    "command": [
+      "/home/codexdev/src/b2z/.work/fluid-player-experience/ci-07516cd/million-no-video-diagnostic01/installed-test-harness",
+      "million_browser_normal_lifeline_and_cold_reconnect",
+      "--exact",
+      "--ignored",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 101,
+    "status": "FAIL",
+    "elapsed_seconds": 189.162,
+    "timeout_seconds": 900,
+    "log": "logs/million_browser_normal_lifeline_and_cold_reconnect.log",
+    "pocketic_server_exit": null,
+    "reason": "Expected exactly one passing installed test"
+  },
+  "normal_wasm_sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488",
+  "harness_sha256": "113af61605557d5687e817ded263451af19095ab4b21f6cb5a5f79fce380bc5e",
+  "passed_checks": [
+    "real-asset-build-and-mainnet-test-adapter-exclusion",
+    "million-cell-culling-seam-picking-and-sparse-move-selector"
+  ],
+  "error": "AssertionError({'seconds': 89.74640000000001, 'backend_ticks_per_second': 1.0139682483085672, 'admitted_ticks_per_second': 0.3788452795878163, 'displayed_ticks_per_second': 0.274536460821827, 'stalled_samples': 31, 'resyncs': 3, 'nominal_rate': 1, 'performance_limited': False, 'queue_segments': {'min': 0, 'max': 20}, 'buffer_ticks': {'min': 0, 'max': 19.9833}, 'latency_ms': {'fetch_ms': {'median': 2009.6000000238419, 'max': 8508}, 'verify_ms': {'median': 246.19999998807907, 'max': 358.5}, 'artifact_ms': {'median': 179.9000000357628, 'max': 6141.300000011921}, 'derive_ms': {'median': 19.69999998807907, 'max': 54.10000002384186}, 'catchup_ms': {'median': 311.30000001192093, 'max': 17881.399999976158}}, 'max_catchup_segments': 26, 'buffer_bytes': {'min': 0, 'max': 751480}, 'buffer_target_ticks': {'min': 17, 'max': 17}, 'distinct_playheads': 51, 'certified_publications_per_second': 0.3788452795878163, 'authenticated_observation_queries_per_second': 0.40113029603415845, 'timing_qualification': 'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.', 'buffer_start': 0.6386590275000019, 'buffer_end': 10, 'admitted_ticks': 34, 'displayed_ticks': 24.638659027500015, 'phase_samples': {'BUFFERING': 59, 'DEGRADED_BUFFER': 8, 'PLAYING': 39, 'STALLED': 31}})",
+  "measurements": {
+    "million_normal_playback": {
+      "seconds": 89.74640000000001,
+      "backend_ticks_per_second": 1.0139682483085672,
+      "admitted_ticks_per_second": 0.3788452795878163,
+      "displayed_ticks_per_second": 0.274536460821827,
+      "stalled_samples": 31,
+      "resyncs": 3,
+      "nominal_rate": 1,
+      "performance_limited": false,
+      "queue_segments": {
+        "min": 0,
+        "max": 20
+      },
+      "buffer_ticks": {
+        "min": 0,
+        "max": 19.9833
+      },
+      "latency_ms": {
+        "fetch_ms": {
+          "median": 2009.6000000238419,
+          "max": 8508
+        },
+        "verify_ms": {
+          "median": 246.19999998807907,
+          "max": 358.5
+        },
+        "artifact_ms": {
+          "median": 179.9000000357628,
+          "max": 6141.300000011921
+        },
+        "derive_ms": {
+          "median": 19.69999998807907,
+          "max": 54.10000002384186
+        },
+        "catchup_ms": {
+          "median": 311.30000001192093,
+          "max": 17881.399999976158
+        }
+      },
+      "max_catchup_segments": 26,
+      "buffer_bytes": {
+        "min": 0,
+        "max": 751480
+      },
+      "buffer_target_ticks": {
+        "min": 17,
+        "max": 17
+      },
+      "distinct_playheads": 51,
+      "certified_publications_per_second": 0.3788452795878163,
+      "authenticated_observation_queries_per_second": 0.40113029603415845,
+      "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+      "buffer_start": 0.6386590275000019,
+      "buffer_end": 10,
+      "admitted_ticks": 34,
+      "displayed_ticks": 24.638659027500015,
+      "phase_samples": {
+        "BUFFERING": 59,
+        "DEGRADED_BUFFER": 8,
+        "PLAYING": 39,
+        "STALLED": 31
+      }
+    }
+  },
+  "capture": {
+    "video": false,
+    "diagnostic_no_video": true,
+    "sandbox": true,
+    "screenshots_and_raw_telemetry": true
+  },
+  "qualification": "One controlled diagnostic without video. Same fixture, module, harness, local browser and complete assertions as preceding recorded run; shared host conditions not held constant. Still FAIL; neither a video-only cause nor hardware performance is established."
+}
