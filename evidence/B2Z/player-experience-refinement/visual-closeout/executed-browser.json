@@ -1,0 +1,133 @@
+[
+  {
+    "name": "playability",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_playability_actions.py",
+      "--output",
+      ".work/player-refinement/visual-closeout/playability-final"
+    ],
+    "exit": 0,
+    "seconds": 259.06050352501916
+  },
+  {
+    "name": "refinement",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_refinement_browser.py",
+      "--output",
+      ".work/player-refinement/visual-closeout/refinement-final",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 149.04958806996
+  },
+  {
+    "name": "visual",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_visual_closeout.py",
+      "--fixture-dir",
+      ".work/player-refinement/visual-closeout/refinement-final",
+      "--output",
+      ".work/player-refinement/visual-closeout/visual-final",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 49.174131227016915
+  },
+  {
+    "name": "matched-before",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_visual_closeout.py",
+      "--fixture-dir",
+      ".work/player-refinement/visual-closeout/before",
+      "--output",
+      ".work/player-refinement/visual-closeout/matched-before",
+      "--baseline",
+      "--pose-from",
+      ".work/player-refinement/visual-closeout/visual-final/results.json"
+    ],
+    "exit": 0,
+    "seconds": 21.844071364961565
+  },
+  {
+    "name": "grid",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_tactical_grid.py",
+      "--fixture-dir",
+      ".work/player-refinement/visual-closeout/refinement-final",
+      "--output",
+      ".work/player-refinement/visual-closeout/grid-final"
+    ],
+    "exit": 0,
+    "seconds": 26.404955921985675
+  },
+  {
+    "name": "depth",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_depth.py",
+      "--fixture-dir",
+      ".work/player-refinement/visual-closeout/refinement-final",
+      "--output",
+      ".work/player-refinement/visual-closeout/depth-final"
+    ],
+    "exit": 0,
+    "seconds": 51.926810691016726
+  },
+  {
+    "name": "fluid",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_browser.py",
+      "--output",
+      ".work/player-refinement/visual-closeout/fluid-final",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 83.58416398701956
+  },
+  {
+    "name": "motion",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_refinement_motion.py",
+      "--baseline",
+      ".work/player-refinement/visual-closeout/before",
+      "--candidate",
+      ".work/player-refinement/visual-closeout/refinement-final",
+      "--output",
+      ".work/player-refinement/visual-closeout/motion-final"
+    ],
+    "exit": 0,
+    "seconds": 87.27005022502271
+  },
+  {
+    "name": "performance",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_performance.py",
+      "--baseline",
+      ".work/player-refinement/visual-closeout/before",
+      "--candidate",
+      ".work/player-refinement/visual-closeout/refinement-final",
+      "--output",
+      ".work/player-refinement/visual-closeout/performance-final",
+      "--include-build"
+    ],
+    "exit": 0,
+    "seconds": 152.37132582702907
+  }
+]

@@ -1,0 +1,101 @@
+{
+  "at": "2026-11-11T23:13:24.778629+00:00",
+  "scope": "read-only current production asset identity, no publication",
+  "status": "PASS",
+  "files": {
+    ".ic-assets.json5": {
+      "scope": "consumed upload configuration; checked preserved local file",
+      "matches": true
+    },
+    "agent-api.md": {
+      "sha256": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+      "bytes": 6076,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "app.mjs": {
+      "sha256": "79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a",
+      "bytes": 1982737,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "backend.did": {
+      "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+      "bytes": 12081,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "build-manifest.json": {
+      "sha256": "c7d4268d5b2df67d134fc6c7870e701d045d45999ed8accd1e5b93f1d32651e1",
+      "bytes": 10203,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "configuration-entry.bin": {
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "bytes": 1163,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "configuration-legacy.bin": {
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "bytes": 368,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "configuration-million.bin": {
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "bytes": 469,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "configuration-playability.bin": {
+      "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "bytes": 994,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "configuration-torus.bin": {
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "bytes": 386,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "configuration.bin": {
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "bytes": 367,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "cursors/reticle.svg": {
+      "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+      "bytes": 338,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "deployment.json": {
+      "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "bytes": 89,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "icon.svg": {
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "bytes": 235,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "index.html": {
+      "sha256": "0036b81e790ee99176c2768cbf014bbabcdf7926e95c91b0344c2a7592b60a41",
+      "bytes": 10465,
+      "matches": true,
+      "security_headers_match": true
+    },
+    "style.css": {
+      "sha256": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+      "bytes": 15669,
+      "matches": true,
+      "security_headers_match": true
+    }
+  }
+}

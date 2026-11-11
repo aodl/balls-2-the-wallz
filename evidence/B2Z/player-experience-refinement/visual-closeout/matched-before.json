@@ -1,0 +1,210 @@
+{
+  "status": "BASELINE",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "initial_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        88
+      ],
+      "baseline": true,
+      "errors": [],
+      "fire_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        88
+      ],
+      "mouse_hint_after_activation": true,
+      "build_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        88
+      ],
+      "build_preview_points": [
+        {
+          "x": 467.7746032555839,
+          "y": 306.82974264999064,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 467.77460325558746,
+          "y": 279.2707798319998,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 454.08501597181066,
+          "y": 310.4223276060717,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 481.46419053935716,
+          "y": 326.2297014128344,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        }
+      ],
+      "my_cannon_visible": true,
+      "ghost_style": null,
+      "grid_cameras": {},
+      "intermediate_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        12
+      ],
+      "wide_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        2.03646773346401
+      ],
+      "recording": null
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "initial_camera": [
+        583.3592111584435,
+        458.3592111584435,
+        64
+      ],
+      "baseline": true,
+      "errors": [],
+      "fire_camera": [
+        583.6271240990604,
+        458.62712409906044,
+        64
+      ],
+      "mouse_hint_after_activation": true,
+      "build_camera": [
+        583.6271240990604,
+        458.62712409906044,
+        64
+      ],
+      "build_preview_points": [
+        {
+          "x": 149.74516600406096,
+          "y": 115.4088469272632,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 149.74516600406355,
+          "y": 95.3659648778152,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 139.78910252495314,
+          "y": 118.02163598623116,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 159.7012294831688,
+          "y": 129.51790784569494,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        }
+      ],
+      "my_cannon_visible": true,
+      "ghost_style": null,
+      "grid_cameras": {},
+      "intermediate_camera": [
+        584.1271240990604,
+        459.12712409906044,
+        12
+      ],
+      "wide_camera": [
+        584.1271240990604,
+        459.12712409906044,
+        1.0336847748229683
+      ],
+      "recording": null
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "initial_camera": [
+        581.4072740196632,
+        456.4072740196632,
+        64
+      ],
+      "baseline": true,
+      "errors": [],
+      "fire_camera": [
+        581.6751869602801,
+        456.67518696028014,
+        64
+      ],
+      "mouse_hint_after_activation": true,
+      "build_camera": [
+        581.6751869602801,
+        456.67518696028014,
+        64
+      ],
+      "build_preview_points": [
+        {
+          "x": 114.74516600406096,
+          "y": 115.40884692726053,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 114.74516600406353,
+          "y": 95.36596487781262,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": true
+        },
+        {
+          "x": 104.78910252495314,
+          "y": 118.02163598622855,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 124.70122948316879,
+          "y": 129.51790784569235,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        }
+      ],
+      "my_cannon_visible": true,
+      "ghost_style": null,
+      "grid_cameras": {},
+      "intermediate_camera": [
+        582.1751869602801,
+        457.17518696028014,
+        12
+      ],
+      "wide_camera": [
+        582.1751869602801,
+        457.17518696028014,
+        0.7838367960742887
+      ],
+      "recording": null
+    }
+  ],
+  "scope": "Matched populated visual closeout and focused actual-component acceptance.\nUses the maintained canonical fixture bundle, no payment/network execution.\n"
+}

@@ -1,0 +1,34 @@
+{
+  "canisters": {
+    "82425fb": "86fb92a41d5f397e739265b61d0a7caa67371250",
+    "b0f6c7a": "86fb92a41d5f397e739265b61d0a7caa67371250"
+  },
+  "packages": {
+    "82425fb": "bf9fd83a7d955074cf7c341353e34953e6d5bfc0",
+    "b0f6c7a": "bf9fd83a7d955074cf7c341353e34953e6d5bfc0"
+  },
+  "native": {
+    "82425fb": "b4a60d377b208653f0f45e9ae3c035a9fdc2cf52",
+    "b0f6c7a": "b4a60d377b208653f0f45e9ae3c035a9fdc2cf52"
+  },
+  "Cargo.lock": {
+    "82425fb": "b82571cd610a903a7b144218a2fbcdde66588d69",
+    "b0f6c7a": "b82571cd610a903a7b144218a2fbcdde66588d69"
+  },
+  "package-lock.json": {
+    "82425fb": "29deb8e7e6e56d706dc0c858c87f577a8707d5e7",
+    "b0f6c7a": "29deb8e7e6e56d706dc0c858c87f577a8707d5e7"
+  },
+  "rust-toolchain.toml": {
+    "82425fb": "6af31eef7f39a5fe3e63c7eaee4ddfe795df2dd8",
+    "b0f6c7a": "6af31eef7f39a5fe3e63c7eaee4ddfe795df2dd8"
+  },
+  "dfx.json": {
+    "82425fb": "7fc41134b713abde21781a20c956edf52109cd00",
+    "b0f6c7a": "7fc41134b713abde21781a20c956edf52109cd00"
+  },
+  "canister_ids.json": {
+    "82425fb": "bb99674646a9d6a5b5690c6daf5428e2212f2a13",
+    "b0f6c7a": "bb99674646a9d6a5b5690c6daf5428e2212f2a13"
+  }
+}

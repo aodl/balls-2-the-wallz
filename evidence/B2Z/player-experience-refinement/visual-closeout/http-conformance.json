@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0",
+  "started_utc": "2026-11-11T23:29:30.492171+00:00",
+  "mode": "browser",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "observer-http-webcrypto",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_observer_http.py",
+        "--output",
+        ".work/player-refinement/visual-closeout/http-final/browser-http"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-http-webcrypto.log",
+      "elapsed_seconds": 15.593,
+      "timeout_seconds": 240,
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}

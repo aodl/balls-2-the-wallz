@@ -1,20 +1,25 @@
-# Final player-experience visual closeout — local qualification in progress
+# Final visual closeout — clean frozen candidate; hosted CI pending
 
-The ordinary release branch continues from `82425fb`. Its hosted Browser correction
-passed, alongside Source, Native, Packaged DTR and Wasm; installed-IC run 43111462126
-failed three seam-click waits. Those failures remain recorded. Local changed and
-unchanged installed torus journeys pass; this does not replace final hosted gates.
+Runtime `b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0` is frozen clean: 16 files,
+JS `42f30ead…`, complete manifest `216fac29…`. Only JS/CSS/provenance differ from
+the prior refinement freeze. Mobile preview clearance, filled ghost, modality-aware
+hints and quieter terrain pass actual-component checks; all UXR-01..25 regressions
+remain intact. Source passes 1,833 JS and 199 Python tests; HTTP/Web Crypto, frozen
+read-only production observation, 96 grid and 16 guide-depth cases pass.
 
-The closeout adds mobile source/Build-preview clearance, a filled translucent ghost,
-input-modality hints and restrained terrain/material hierarchy. It preserves the
-canonical-target, fixed-toolbar, payment and verified-playback contracts. See the
-[visual closeout record](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
-for actual tests, matched captures, final frozen identities and qualification status.
+The pushed `82425fb` correction passed five hosted gates, including Browser;
+run 43111462126 failed three installed-IC seam-click waits. Local unchanged and
+changed installed torus cases pass, but do not replace final six-gate qualification.
+The final source/evidence must be owner-published, then all six exact-source hosted
+gates must pass before frontend-only approval. No deployment is authorized here.
 
-No production deployment, backend build/upgrade, setting/controller change, financial
-operation or delegated-payment activation is part of this closeout. Production still
-serves ordinary fluid JavaScript `79acf867…`; its fifteen public files and security
-headers were rechecked read-only. Publication remains owner-operated under AGENTS.md.
+[Consolidated visual closeout](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
+contains matched captures, recordings, measured limitations and artifact identities.
+No hardware/physical-phone or genuine rendered hidden-tab pass is claimed.
+Production still serves ordinary fluid JS `79acf867…`; all fifteen public files
+and security headers were rechecked read-only. No backend build/upgrade, financial,
+setting/controller operation or ICRC-2 activation occurred. Publication remains
+owner-operated under AGENTS.md.
 
 ---
 

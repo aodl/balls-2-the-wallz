@@ -1,0 +1,588 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "initial_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        88
+      ],
+      "baseline": false,
+      "errors": [],
+      "fire_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        88
+      ],
+      "mouse_hint_after_activation": false,
+      "build_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        88
+      ],
+      "build_preview_points": [
+        {
+          "x": 467.7746032555839,
+          "y": 306.82974264999064,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 467.77460325558746,
+          "y": 279.2707798319998,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 454.08501597181066,
+          "y": 310.4223276060717,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 481.46419053935716,
+          "y": 326.2297014128344,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        }
+      ],
+      "my_cannon_visible": false,
+      "ghost_style": {
+        "wireframe": false,
+        "opacity": 0.55,
+        "depthTest": true,
+        "depthWrite": false,
+        "body": "829ba6",
+        "barrel": "b4c5cc"
+      },
+      "aim_directions": [
+        {
+          "screen_heading": "0",
+          "handle": {
+            "x": 445.765625,
+            "y": 335.921875,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            581.2792878051214,
+            453.22587215908857,
+            88
+          ]
+        },
+        {
+          "screen_heading": "90",
+          "handle": {
+            "x": 483.765625,
+            "y": 373.921875,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            581.2792878051214,
+            453.22587215908857,
+            88
+          ]
+        },
+        {
+          "screen_heading": "180",
+          "handle": {
+            "x": 445.765625,
+            "y": 411.921875,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            581.2792878051214,
+            453.22587215908857,
+            88
+          ]
+        },
+        {
+          "screen_heading": "270",
+          "handle": {
+            "x": 407.765625,
+            "y": 373.921875,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            581.2792878051214,
+            453.22587215908857,
+            88
+          ]
+        }
+      ],
+      "keyboard_viewport_contractions": [],
+      "reduced_transparency": {
+        "background": "rgb(32, 38, 45)",
+        "filter": "none"
+      },
+      "layout_race": {
+        "old": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "point": {
+          "x": 720.9999999999989,
+          "y": 356.0000000000029
+        },
+        "canonical": 0,
+        "oldLayout": "fire-action",
+        "settledLayout": "board"
+      },
+      "installed_seam_helper": {
+        "x": 720,
+        "y": 454.6557530363207
+      },
+      "grid_cameras": {},
+      "intermediate_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        12
+      ],
+      "wide_camera": [
+        581.2792878051214,
+        453.22587215908857,
+        2.03646773346401
+      ],
+      "recording": "video/page@c11e28e4fe211e26c9ba25ace1cdd3d1.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "initial_camera": [
+        583.3592111584435,
+        458.3592111584435,
+        64
+      ],
+      "baseline": false,
+      "errors": [],
+      "fire_camera": [
+        583.6271240990604,
+        458.62712409906044,
+        64
+      ],
+      "mouse_hint_after_activation": false,
+      "build_camera": [
+        583.6271240990604,
+        458.62712409906044,
+        64
+      ],
+      "build_preview_points": [
+        {
+          "x": 149.74516600406096,
+          "y": 115.4088469272632,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 149.74516600406355,
+          "y": 95.3659648778152,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 139.78910252495314,
+          "y": 118.02163598623116,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 159.7012294831688,
+          "y": 129.51790784569494,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        }
+      ],
+      "my_cannon_visible": false,
+      "ghost_style": {
+        "wireframe": false,
+        "opacity": 0.55,
+        "depthTest": true,
+        "depthWrite": false,
+        "body": "829ba6",
+        "barrel": "b4c5cc"
+      },
+      "aim_directions": [
+        {
+          "screen_heading": "0",
+          "handle": {
+            "x": 127.734375,
+            "y": 94.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            584.1271240990604,
+            459.12712409906044,
+            64
+          ]
+        },
+        {
+          "screen_heading": "90",
+          "handle": {
+            "x": 165.734375,
+            "y": 132.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            584.1271240990604,
+            459.12712409906044,
+            64
+          ]
+        },
+        {
+          "screen_heading": "180",
+          "handle": {
+            "x": 127.734375,
+            "y": 170.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            584.1271240990604,
+            459.12712409906044,
+            64
+          ]
+        },
+        {
+          "screen_heading": "270",
+          "handle": {
+            "x": 89.734375,
+            "y": 132.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            584.1271240990604,
+            459.12712409906044,
+            64
+          ]
+        }
+      ],
+      "keyboard_viewport_contractions": [
+        {
+          "viewport": [
+            390,
+            430
+          ],
+          "preview": [
+            {
+              "x": 295.0651660040545,
+              "y": 118.06462810663524,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 327.06516600405223,
+              "y": 116.49695467125251,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 285.1091025249467,
+              "y": 120.67741716560326,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 305.02122948316236,
+              "y": 132.17368902506706,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            }
+          ],
+          "scroll_height": 214
+        },
+        {
+          "viewport": [
+            390,
+            300
+          ],
+          "preview": [
+            {
+              "x": 290.6359578069448,
+              "y": 112.22199578349132,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 319.0395582961481,
+              "y": 110.8305092223616,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 281.7988312598903,
+              "y": 114.541140052038,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 299.4730843539994,
+              "y": 124.74537483364749,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            }
+          ],
+          "scroll_height": 96
+        }
+      ],
+      "reduced_transparency": {
+        "background": "rgb(32, 38, 45)",
+        "filter": "none"
+      },
+      "grid_cameras": {},
+      "intermediate_camera": [
+        584.1271240990604,
+        459.12712409906044,
+        12
+      ],
+      "wide_camera": [
+        584.1271240990604,
+        459.12712409906044,
+        1.0336847748229683
+      ],
+      "recording": "video/page@23aee8c6c7615025213053873b150593.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "initial_camera": [
+        581.4072740196632,
+        456.4072740196632,
+        64
+      ],
+      "baseline": false,
+      "errors": [],
+      "fire_camera": [
+        581.6751869602801,
+        456.67518696028014,
+        64
+      ],
+      "mouse_hint_after_activation": false,
+      "build_camera": [
+        581.6751869602801,
+        456.67518696028014,
+        64
+      ],
+      "build_preview_points": [
+        {
+          "x": 114.74516600406096,
+          "y": 115.40884692726053,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 114.74516600406353,
+          "y": 95.36596487781262,
+          "target": "aim-handle",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 104.78910252495314,
+          "y": 118.02163598622855,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        },
+        {
+          "x": 124.70122948316879,
+          "y": 129.51790784569235,
+          "target": "board",
+          "board": true,
+          "navigation": false
+        }
+      ],
+      "my_cannon_visible": false,
+      "ghost_style": {
+        "wireframe": false,
+        "opacity": 0.55,
+        "depthTest": true,
+        "depthWrite": false,
+        "body": "829ba6",
+        "barrel": "b4c5cc"
+      },
+      "aim_directions": [
+        {
+          "screen_heading": "0",
+          "handle": {
+            "x": 92.734375,
+            "y": 94.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            582.1751869602801,
+            457.17518696028014,
+            64
+          ]
+        },
+        {
+          "screen_heading": "90",
+          "handle": {
+            "x": 130.734375,
+            "y": 132.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            582.1751869602801,
+            457.17518696028014,
+            64
+          ]
+        },
+        {
+          "screen_heading": "180",
+          "handle": {
+            "x": 92.734375,
+            "y": 170.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            582.1751869602801,
+            457.17518696028014,
+            64
+          ]
+        },
+        {
+          "screen_heading": "270",
+          "handle": {
+            "x": 54.734375,
+            "y": 132.078125,
+            "width": 44,
+            "height": 44
+          },
+          "camera": [
+            582.1751869602801,
+            457.17518696028014,
+            64
+          ]
+        }
+      ],
+      "keyboard_viewport_contractions": [
+        {
+          "viewport": [
+            320,
+            430
+          ],
+          "preview": [
+            {
+              "x": 225.0651660040666,
+              "y": 118.06462810663524,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 257.0651660040643,
+              "y": 116.49695467125251,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 215.1091025249588,
+              "y": 120.67741716560326,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 235.02122948317444,
+              "y": 132.17368902506706,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            }
+          ],
+          "scroll_height": 214
+        },
+        {
+          "viewport": [
+            320,
+            300
+          ],
+          "preview": [
+            {
+              "x": 224.5695197718873,
+              "y": 112.22199578349132,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 252.97312026109051,
+              "y": 110.8305092223616,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 215.73239322483272,
+              "y": 114.541140052038,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            },
+            {
+              "x": 233.40664631894185,
+              "y": 124.74537483364749,
+              "target": "board",
+              "board": true,
+              "navigation": false
+            }
+          ],
+          "scroll_height": 96
+        }
+      ],
+      "reduced_transparency": {
+        "background": "rgb(32, 38, 45)",
+        "filter": "none"
+      },
+      "grid_cameras": {},
+      "intermediate_camera": [
+        582.1751869602801,
+        457.17518696028014,
+        12
+      ],
+      "wide_camera": [
+        582.1751869602801,
+        457.17518696028014,
+        0.7838367960742887
+      ],
+      "recording": "video/page@8e9c3352bc26cbe056924844fc2db17c.webm"
+    }
+  ],
+  "scope": "Matched populated visual closeout and focused actual-component acceptance.\nUses the maintained canonical fixture bundle, no payment/network execution.\n"
+}

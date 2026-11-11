@@ -1,0 +1,307 @@
+{
+  "status": "PASS",
+  "scope": "Exact frozen assets on loopback, anonymous/read-only certified European game.",
+  "production_frontend_modified": false,
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "world": {
+        "cannons": [
+          {
+            "id": 1,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 6191,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "board": {
+          "version": 6,
+          "width": 1000,
+          "height": 1000,
+          "time": [
+            6191,
+            1
+          ]
+        }
+      },
+      "handoff": {
+        "memo": "FIRE 1 255 1",
+        "utf8": [
+          70,
+          73,
+          82,
+          69,
+          32,
+          49,
+          32,
+          50,
+          53,
+          53,
+          32,
+          49
+        ],
+        "amount": "0.1 ICP",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+      },
+      "files": {
+        "agent-api.md": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+        "app.mjs": "42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5",
+        "backend.did": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+        "build-manifest.json": "de724fcac68fa0fbb5183999cc3a8438b72c82328286b2f4094e4f48e55d7b7a",
+        "configuration-entry.bin": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "configuration-legacy.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "configuration-million.bin": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "configuration-playability.bin": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "configuration-torus.bin": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "configuration.bin": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "cursors/reticle.svg": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+        "deployment.json": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+        "icon.svg": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "index.html": "3b1fd4c34571c874a04c4125884ae90d802ad7c21b1b771932faa9ae5dc299f9",
+        "style.css": "c965f44bb0d3de4ad2fda61fa63734d8e06dc3766775bc8dc0d001a87cd8274d"
+      },
+      "all_posts_read_only": true,
+      "errors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "world": {
+        "cannons": [
+          {
+            "id": 1,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 6192,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "board": {
+          "version": 6,
+          "width": 1000,
+          "height": 1000,
+          "time": [
+            6192,
+            1
+          ]
+        }
+      },
+      "handoff": {
+        "memo": "FIRE 1 255 1",
+        "utf8": [
+          70,
+          73,
+          82,
+          69,
+          32,
+          49,
+          32,
+          50,
+          53,
+          53,
+          32,
+          49
+        ],
+        "amount": "0.1 ICP",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+      },
+      "files": {
+        "agent-api.md": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+        "app.mjs": "42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5",
+        "backend.did": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+        "build-manifest.json": "de724fcac68fa0fbb5183999cc3a8438b72c82328286b2f4094e4f48e55d7b7a",
+        "configuration-entry.bin": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "configuration-legacy.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "configuration-million.bin": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "configuration-playability.bin": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "configuration-torus.bin": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "configuration.bin": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "cursors/reticle.svg": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+        "deployment.json": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+        "icon.svg": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "index.html": "3b1fd4c34571c874a04c4125884ae90d802ad7c21b1b771932faa9ae5dc299f9",
+        "style.css": "c965f44bb0d3de4ad2fda61fa63734d8e06dc3766775bc8dc0d001a87cd8274d"
+      },
+      "all_posts_read_only": true,
+      "errors": []
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "world": {
+        "cannons": [
+          {
+            "id": 1,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 6192,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "board": {
+          "version": 6,
+          "width": 1000,
+          "height": 1000,
+          "time": [
+            6192,
+            1
+          ]
+        }
+      },
+      "handoff": {
+        "memo": "FIRE 1 255 1",
+        "utf8": [
+          70,
+          73,
+          82,
+          69,
+          32,
+          49,
+          32,
+          50,
+          53,
+          53,
+          32,
+          49
+        ],
+        "amount": "0.1 ICP",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+      },
+      "files": {
+        "agent-api.md": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+        "app.mjs": "42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5",
+        "backend.did": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+        "build-manifest.json": "de724fcac68fa0fbb5183999cc3a8438b72c82328286b2f4094e4f48e55d7b7a",
+        "configuration-entry.bin": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "configuration-legacy.bin": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+        "configuration-million.bin": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+        "configuration-playability.bin": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "configuration-torus.bin": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+        "configuration.bin": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+        "cursors/reticle.svg": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+        "deployment.json": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+        "icon.svg": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+        "index.html": "3b1fd4c34571c874a04c4125884ae90d802ad7c21b1b771932faa9ae5dc299f9",
+        "style.css": "c965f44bb0d3de4ad2fda61fa63734d8e06dc3766775bc8dc0d001a87cd8274d"
+      },
+      "all_posts_read_only": true,
+      "errors": []
+    }
+  ]
+}

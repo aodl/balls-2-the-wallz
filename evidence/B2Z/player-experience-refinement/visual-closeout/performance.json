@@ -1,0 +1,997 @@
+{
+  "status": "MEASURED",
+  "browser": "153.0.8010.12",
+  "rows": [
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.011793261975981,
+      "metrics": {
+        "frames": 51,
+        "p50": 100,
+        "p95": 183.30000000000018,
+        "draw_p50": 5,
+        "draw_p95": 15.099999964237213,
+        "render_p95": 14.800000011920929,
+        "shell_p95": 2.300000011920929,
+        "status_p95": 4.699999988079071,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.24414000000000005,
+          "draw_calls": 12,
+          "triangles": 1612,
+          "tiles": 2,
+          "pieces": 6,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 3,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 3,
+          "preview_cells": 0,
+          "tails": 3,
+          "motion": {
+            "balls": 3,
+            "tiles": 3,
+            "pathPoints": 3,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3065999280819999,
+      "cpu_task_seconds": 5.065809,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.361169,
+      "pointer_to_next_frame_ms": 6.399999976158142,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.006668148969766,
+      "metrics": {
+        "frames": 45,
+        "p50": 116.60000000000036,
+        "p95": 133.40000000000146,
+        "draw_p50": 6.300000011920929,
+        "draw_p95": 12,
+        "render_p95": 10,
+        "shell_p95": 4.699999988079071,
+        "status_p95": 5.399999976158142,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.2974675099984999,
+          "draw_calls": 16,
+          "triangles": 768,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 4,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 6,
+          "motion": {
+            "balls": 1,
+            "tiles": 4,
+            "pathPoints": 6,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.365685976053,
+      "cpu_task_seconds": 5.0442730000000005,
+      "layout_seconds": 0.0001339999999999987,
+      "script_seconds": 0.32825400000000005,
+      "pointer_to_next_frame_ms": 4.099999964237213,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.005900077987462,
+      "metrics": {
+        "frames": 46,
+        "p50": 116.59999999999854,
+        "p95": 166.60000000000218,
+        "draw_p50": 7.5,
+        "draw_p95": 12.800000011920929,
+        "render_p95": 12.300000011920929,
+        "shell_p95": 4.899999976158142,
+        "status_p95": 4.399999976158142,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.269995401222,
+          "draw_calls": 24,
+          "triangles": 858,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 5,
+          "geometries": 24,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 4,
+          "tails": 7,
+          "motion": {
+            "balls": 1,
+            "tiles": 5,
+            "pathPoints": 7,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.33492498022200007,
+      "cpu_task_seconds": 5.026993000000001,
+      "layout_seconds": 0.0009440000000000004,
+      "script_seconds": 0.3955350000000002,
+      "pointer_to_next_frame_ms": 9.599999964237213,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.0059166100109,
+      "metrics": {
+        "frames": 101,
+        "p50": 50,
+        "p95": 66.70000000000073,
+        "draw_p50": 5,
+        "draw_p95": 11.799999952316284,
+        "render_p95": 10.600000023841858,
+        "shell_p95": 2.699999988079071,
+        "status_p95": 2.800000011920929,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.25831940222199995,
+          "draw_calls": 12,
+          "triangles": 1612,
+          "tiles": 2,
+          "pieces": 6,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 3,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 3,
+          "preview_cells": 0,
+          "tails": 3,
+          "motion": {
+            "balls": 3,
+            "tiles": 3,
+            "pathPoints": 3,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.2866368332484998,
+      "cpu_task_seconds": 4.967029,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.678669,
+      "pointer_to_next_frame_ms": 6.5,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.0078344530193135,
+      "metrics": {
+        "frames": 92,
+        "p50": 50,
+        "p95": 66.70000000000073,
+        "draw_p50": 5.199999988079071,
+        "draw_p95": 9.100000023841858,
+        "render_p95": 8.700000047683716,
+        "shell_p95": 3.400000035762787,
+        "status_p95": 3.800000011920929,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.30746710694199997,
+          "draw_calls": 16,
+          "triangles": 866,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 5,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 9,
+          "motion": {
+            "balls": 1,
+            "tiles": 5,
+            "pathPoints": 9,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3390857958019999,
+      "cpu_task_seconds": 4.934196,
+      "layout_seconds": 0.00015800000000000015,
+      "script_seconds": 0.62835,
+      "pointer_to_next_frame_ms": 8.5,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.0048915459774435,
+      "metrics": {
+        "frames": 84,
+        "p50": 66.59999999999854,
+        "p95": 66.79999999999927,
+        "draw_p50": 6.600000023841858,
+        "draw_p95": 11.5,
+        "render_p95": 8.199999988079071,
+        "shell_p95": 4.800000011920929,
+        "status_p95": 3,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.29080775008200005,
+          "draw_calls": 24,
+          "triangles": 956,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 6,
+          "geometries": 24,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 4,
+          "tails": 10,
+          "motion": {
+            "balls": 1,
+            "tiles": 6,
+            "pathPoints": 10,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.32742883608100004,
+      "cpu_task_seconds": 4.927911999999999,
+      "layout_seconds": 0.000902,
+      "script_seconds": 0.6288469999999999,
+      "pointer_to_next_frame_ms": 10.399999976158142,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.009262741019484,
+      "metrics": {
+        "frames": 155,
+        "p50": 33.30000000000018,
+        "p95": 50,
+        "draw_p50": 4.699999988079071,
+        "draw_p95": 9,
+        "render_p95": 8.800000011920929,
+        "shell_p95": 1.7000000476837158,
+        "status_p95": 2.700000047683716,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.2583242776384998,
+          "draw_calls": 12,
+          "triangles": 1612,
+          "tiles": 2,
+          "pieces": 6,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 3,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 3,
+          "preview_cells": 0,
+          "tails": 3,
+          "motion": {
+            "balls": 3,
+            "tiles": 3,
+            "pathPoints": 3,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.27831690255399977,
+      "cpu_task_seconds": 4.973707,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.903469,
+      "pointer_to_next_frame_ms": 9.599999964237213,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.004976294003427,
+      "metrics": {
+        "frames": 128,
+        "p50": 33.399999999999636,
+        "p95": 50.100000000000364,
+        "draw_p50": 5.300000011920929,
+        "draw_p95": 10.399999976158142,
+        "render_p95": 8.800000011920929,
+        "shell_p95": 2.600000023841858,
+        "status_p95": 3,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.30413123580350016,
+          "draw_calls": 16,
+          "triangles": 1058,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 5,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 15,
+          "motion": {
+            "balls": 1,
+            "tiles": 5,
+            "pathPoints": 15,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3299268244690001,
+      "cpu_task_seconds": 4.9584209999999995,
+      "layout_seconds": 0.0001370000000000017,
+      "script_seconds": 0.9358019999999998,
+      "pointer_to_next_frame_ms": 2.899999976158142,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.010586267977487,
+      "metrics": {
+        "frames": 114,
+        "p50": 49.900000000001455,
+        "p95": 66.60000000000218,
+        "draw_p50": 6,
+        "draw_p95": 11.300000011920929,
+        "render_p95": 8.800000011920929,
+        "shell_p95": 4.599999964237213,
+        "status_p95": 3,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.2824852778045002,
+          "draw_calls": 24,
+          "triangles": 1052,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 6,
+          "geometries": 24,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 4,
+          "tails": 13,
+          "motion": {
+            "balls": 1,
+            "tiles": 6,
+            "pathPoints": 13,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3141202659420002,
+      "cpu_task_seconds": 4.953746000000001,
+      "layout_seconds": 0.0012240000000000029,
+      "script_seconds": 0.8245610000000001,
+      "pointer_to_next_frame_ms": 8.099999964237213,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.004078180005308,
+      "metrics": {
+        "frames": 47,
+        "p50": 100.10000000000036,
+        "p95": 133.4000000000001,
+        "draw_p50": 5.900000035762787,
+        "draw_p95": 12.099999964237213,
+        "render_p95": 10.200000047683716,
+        "shell_p95": 3,
+        "status_p95": 2.800000011920929,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.23497500000000016,
+          "draw_calls": 12,
+          "triangles": 1612,
+          "tiles": 2,
+          "pieces": 6,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 3,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 3,
+          "preview_cells": 0,
+          "tails": 3,
+          "motion": {
+            "balls": 3,
+            "tiles": 3,
+            "pathPoints": 3,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.2999525000000002,
+      "cpu_task_seconds": 5.0345960000000005,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.362754,
+      "pointer_to_next_frame_ms": 8.400000035762787,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.045516990998294,
+      "metrics": {
+        "frames": 45,
+        "p50": 116.69999999999891,
+        "p95": 150,
+        "draw_p50": 6.199999988079071,
+        "draw_p95": 10.100000023841858,
+        "render_p95": 7.899999976158142,
+        "shell_p95": 4.700000047683716,
+        "status_p95": 4.800000011920929,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.29996250499950017,
+          "draw_calls": 16,
+          "triangles": 768,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 4,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 6,
+          "motion": {
+            "balls": 1,
+            "tiles": 4,
+            "pathPoints": 6,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3640254179715001,
+      "cpu_task_seconds": 5.094309999999998,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.36057099999999986,
+      "pointer_to_next_frame_ms": 9.100000023841858,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.0188726060441695,
+      "metrics": {
+        "frames": 44,
+        "p50": 116.70000000000073,
+        "p95": 150,
+        "draw_p50": 6.800000011920929,
+        "draw_p95": 10.399999976158142,
+        "render_p95": 9.800000011920929,
+        "shell_p95": 4.799999952316284,
+        "status_p95": 2.5,
+        "heap": 21700000,
+        "stats": {
+          "time": 0.2741500000000001,
+          "draw_calls": 22,
+          "triangles": 1102,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 5,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 4,
+          "tails": 7,
+          "motion": {
+            "balls": 1,
+            "tiles": 5,
+            "pathPoints": 7,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.33907850000000017,
+      "cpu_task_seconds": 4.995373000000001,
+      "layout_seconds": 0.0007349999999999995,
+      "script_seconds": 0.3549479999999998,
+      "pointer_to_next_frame_ms": 10.899999976158142,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.004293436999433,
+      "metrics": {
+        "frames": 107,
+        "p50": 50,
+        "p95": 66.70000000000027,
+        "draw_p50": 4.400000035762787,
+        "draw_p95": 9.800000011920929,
+        "render_p95": 9.399999976158142,
+        "shell_p95": 0.3999999761581421,
+        "status_p95": 3.800000011920929,
+        "heap": 19300000,
+        "stats": {
+          "time": 0.262493860222,
+          "draw_calls": 12,
+          "triangles": 1612,
+          "tiles": 2,
+          "pieces": 6,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 3,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 3,
+          "preview_cells": 0,
+          "tails": 3,
+          "motion": {
+            "balls": 3,
+            "tiles": 3,
+            "pathPoints": 3,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.28747738994350003,
+      "cpu_task_seconds": 4.990963,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.6473409999999999,
+      "pointer_to_next_frame_ms": 6,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.008314537000842,
+      "metrics": {
+        "frames": 86,
+        "p50": 50.100000000000364,
+        "p95": 83.30000000000109,
+        "draw_p50": 6.199999988079071,
+        "draw_p95": 10.600000023841858,
+        "render_p95": 9.5,
+        "shell_p95": 3.699999988079071,
+        "status_p95": 5.300000011920929,
+        "heap": 19300000,
+        "stats": {
+          "time": 0.3057940854155,
+          "draw_calls": 16,
+          "triangles": 962,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 5,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 12,
+          "motion": {
+            "balls": 1,
+            "tiles": 5,
+            "pathPoints": 12,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.34073779021999995,
+      "cpu_task_seconds": 4.910234,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.671399,
+      "pointer_to_next_frame_ms": 7.400000035762787,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.004499803006183,
+      "metrics": {
+        "frames": 84,
+        "p50": 66.60000000000218,
+        "p95": 66.70000000000073,
+        "draw_p50": 6.800000011920929,
+        "draw_p95": 12.400000035762787,
+        "render_p95": 9.699999988079071,
+        "shell_p95": 6.700000047683716,
+        "status_p95": 2.5,
+        "heap": 19300000,
+        "stats": {
+          "time": 0.29330210955499997,
+          "draw_calls": 22,
+          "triangles": 1232,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 6,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 4,
+          "tails": 11,
+          "motion": {
+            "balls": 1,
+            "tiles": 6,
+            "pathPoints": 11,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3332419584705,
+      "cpu_task_seconds": 4.924303,
+      "layout_seconds": 0.0009239999999999977,
+      "script_seconds": 0.7106719999999997,
+      "pointer_to_next_frame_ms": 21.100000023841858,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.008665891014971,
+      "metrics": {
+        "frames": 152,
+        "p50": 33.30000000000018,
+        "p95": 50,
+        "draw_p50": 4.300000011920929,
+        "draw_p95": 7.199999988079071,
+        "render_p95": 6.700000047683716,
+        "shell_p95": 2.5,
+        "status_p95": 1.399999976158142,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.26415316674949985,
+          "draw_calls": 12,
+          "triangles": 1612,
+          "tiles": 2,
+          "pieces": 6,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 3,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 3,
+          "preview_cells": 0,
+          "tails": 3,
+          "motion": {
+            "balls": 3,
+            "tiles": 3,
+            "pathPoints": 3,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.28664194455399983,
+      "cpu_task_seconds": 4.95017,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.748433,
+      "pointer_to_next_frame_ms": 4.199999988079071,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.003015454974957,
+      "metrics": {
+        "frames": 133,
+        "p50": 33.399999999999636,
+        "p95": 50.100000000000364,
+        "draw_p50": 5.199999988079071,
+        "draw_p95": 9.900000035762787,
+        "render_p95": 8.700000047683716,
+        "shell_p95": 4.5,
+        "status_p95": 3.300000011920929,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.2974722513304999,
+          "draw_calls": 16,
+          "triangles": 996,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 6,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 13,
+          "motion": {
+            "balls": 1,
+            "tiles": 6,
+            "pathPoints": 13,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.32077452069099993,
+      "cpu_task_seconds": 4.95733,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.8657549999999998,
+      "pointer_to_next_frame_ms": 13.199999988079071,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.008842776995152,
+      "metrics": {
+        "frames": 114,
+        "p50": 49.900000000001455,
+        "p95": 83.20000000000073,
+        "draw_p50": 6.199999988079071,
+        "draw_p95": 13.799999952316284,
+        "render_p95": 9.699999988079071,
+        "shell_p95": 5.300000011920929,
+        "status_p95": 2.899999976158142,
+        "heap": 23100000,
+        "stats": {
+          "time": 0.30162840247100026,
+          "draw_calls": 22,
+          "triangles": 1136,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 6,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 4,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 4,
+          "tails": 8,
+          "motion": {
+            "balls": 1,
+            "tiles": 6,
+            "pathPoints": 8,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "pace_ticks_per_second": 0.05,
+      "displayed_time": 0.3565404024710003,
+      "cpu_task_seconds": 4.993753999999999,
+      "layout_seconds": 0.0042169999999999985,
+      "script_seconds": 0.8849130000000001,
+      "pointer_to_next_frame_ms": 28.400000035762787,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "limitations": "Software WebGL and emulated viewports; no hardware/physical-phone smoothness claim. Five-second bounded windows, no video encoding. Interaction latency is synthetic pointer dispatch to next render frame, not native input latency."
+}

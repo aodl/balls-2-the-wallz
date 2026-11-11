@@ -1,0 +1,42 @@
+[
+  {
+    "name": "frozen",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_frozen.py",
+      "--assets",
+      ".work/player-refinement/visual-closeout/frozen/frontend",
+      "--output",
+      ".work/player-refinement/visual-closeout/frozen-browser"
+    ],
+    "exit": 0,
+    "seconds": 23.492834645032417
+  },
+  {
+    "name": "browser-http",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/check.py",
+      "browser",
+      "--output",
+      ".work/player-refinement/visual-closeout/http-final"
+    ],
+    "exit": 0,
+    "seconds": 17.30717913794797
+  },
+  {
+    "name": "source",
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/check.py",
+      "source",
+      "--output",
+      ".work/player-refinement/visual-closeout/source-final"
+    ],
+    "exit": 0,
+    "seconds": 269.33829857298406
+  }
+]
