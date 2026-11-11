@@ -579,3 +579,40 @@ with the corresponding `build-manifest-arrival-jitter-*.json`, bind directories
 All prior qualified/failed artifacts remain unchanged. Local source/browser
 closeout follows separately; no published source or old CI result is represented
 as qualification of these new bytes. No production feature activation.
+
+### Arrival-jitter local qualification closeout
+
+The [complete source run](source-arrival-jitter-verification.json) at evidence
+source **`c1c28dd841ad613653e79b164c69e89d6a5fa608`** passes **1,852 JavaScript /
+199 Python tests**, reference outputs, structure and docs, with zero skipped or
+cancelled tests. JavaScript takes 343.00 seconds within the unchanged 600-second
+outer allowance. Runtime, build, dependency and test inputs equal frozen `9a5cb2b…`;
+the subsequent merge only synchronises independent frontend evidence/status.
+The backend/protocol/financial components remain equal to qualified `af01692…`.
+
+[Exact experimental frozen browser](frozen-arrival-jitter-browser.json) passes
+desktop, 390×844 and 320×640 with real read-only European source/certificates,
+all served public files/headers, exact principal/text copies, Update/Keep and
+clock/queue preservation. The manual wallet route remains usable; no II session,
+allowance, signed transfer or activation is performed. The default build's pinned
+input graph excludes the auth SDK. New [controlled rendered-return evidence](../fluid-player-experience/controlled-arrival-jitter-browser.json)
+records the same policy/clock with separate fixture scope; it is not genuine
+hidden-tab, hardware, real-wallet or production delivery evidence.
+
+**New whole-source hosted CI is pending owner publication.** The preceding
+financial PASS and S14 FAIL remain separately recorded; none is relabelled.
+The exact source-qualified financial module `19c66e8c…` stays preserved, with no
+backend rebuild for this application-only timing change. Any future deployment
+requires its own exact-artifact decision; backend upgrade, II origin review and
+feature activation additionally require separate authority. No production or
+financial action occurred.
+
+Both reviewed branches can be published in one ordinary non-force operation:
+
+```sh
+git -C /home/codexdev/src/b2z push origin release/btz-prelaunch-playability feature/b2z-icrc2-delegated-payments
+```
+
+Recheck current remote heads before publishing and reconcile new work; never
+force. Do not rebuild runtime artifacts just to publish these evidence-only
+updates. The independent manual-payment frontend remains separate.

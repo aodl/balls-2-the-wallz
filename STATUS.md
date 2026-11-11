@@ -1,3 +1,19 @@
+# Current local jitter follow-up — complete source checks, hosted CI pending
+
+Independent source `662f905` passes 1,814 JS / 199 Python tests and exact frozen
+browser checks; its experimental-branch counterpart passes 1,852 JS / 199 Python
+tests, with no skips. The recorded cold Lifeline gap has an actual-clock/player
+red-green regression. Both complete freezes and controlled rendered returns pass.
+These new bytes need owner publication and exact-source CI. Earlier frontend
+`a0a59f9` passes all six gates; feature `af01692` passes its eight financial cases
+and five ordinary gates but fails the single cold Lifeline continuity sample.
+All evidence is preserved. Production and financial authority remain untouched.
+
+[Frontend report](evidence/B2Z/fluid-player-experience/REPORT.md) ·
+[Isolated optional-payment report](evidence/B2Z/icrc2-delegated-payments/REPORT.md).
+
+---
+
 # Published frontend passes six gates; local jitter follow-up
 
 `a0a59f9` passes all six substantive jobs in run 42984828168. Its qualified
