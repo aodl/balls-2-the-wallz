@@ -644,6 +644,7 @@ version = "0.1.0"
 dependencies = [
  "b2z-native",
  "b2z-protocol",
+ "binrw",
  "candid",
  "dtr-host",
  "dtr-wire",

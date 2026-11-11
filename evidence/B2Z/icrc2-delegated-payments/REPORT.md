@@ -255,3 +255,24 @@ claiming the replacement module qualified. The original failure is preserved.
 The independent frontend release branch remains separate. Neither this feature
 nor its backend correction is merged into it. No production mutation or financial
 operation was performed, and no hosted CI pass is assumed while the owner is away.
+
+The broader source check ran all **1,850 JavaScript tests successfully**. Its
+Python portion initially failed exactly one immutable delivery-builder assertion
+(198/199), because the feature flag had edited the pinned historical builder.
+The original builder is restored byte-for-byte; a separate small optional builder
+adds the explicit compile-time switch and excludes the signing graph by default.
+The maintained wrapper records both identities. All **199 Python tool tests now
+pass**, including the unchanged historical contract. No frozen assertion, 900-second
+measurement call or safety budget was weakened. Feature host **54/54 PASS** after
+the wire correction; malformed/truncated/oversized replies and 65-row pages fail.
+
+A replacement normal experimental module, built from clean backend source
+`ea7ba4a840039cbdd5de0d61836e67830fb69b61`, is frozen as
+`6d95d0bac4d571792c93f312c991c20e03f0d271a026d87eb96817194eb10378`
+(3,677,538 bytes). Only unrelated builder/harness files changed while it built;
+all backend input paths remained identical. Its exports pass the normal-module
+check and contain no synthetic mutation methods. Existing `cd5c1264…` installed/
+cost results remain evidence for that earlier exact module, not a substitute for
+the replacement module's pending installed reruns. The harness aliases its own
+already-pinned Candid 0.10.37 parser trait; the canister keeps Candid 0.10.28 and
+its existing binread version. No dependency version is upgraded.

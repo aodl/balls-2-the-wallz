@@ -11,6 +11,8 @@ name = "s14_index"
 path = "tests/s14_index.rs"
 
 [dependencies]
+# Candid 0.10.37 uses binrw; alias its pinned trait for the shared wire checker.
+binread = { package = "binrw", version = "=0.15.2", default-features = false, features = ["std"] }
 b2z-protocol = { path = "../../crates/b2z-protocol" }
 candid = { version = "=0.10.37", features = ["value"] }
 pocket-ic = "=16.1.0"
