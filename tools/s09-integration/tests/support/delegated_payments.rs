@@ -496,7 +496,7 @@ fn icrc2_installed_paid_upgrade_authorization_and_manual_payment() {
         get_query(&pic, id, "controller_work", encode_args(()).unwrap());
     assert_eq!(pending_restored.pending_inputs, pending_old.pending_inputs);
     let old_events = settle(old_rejected, "old-adapter-rejected-delegate");
-    assert!(format!("{old_events}").contains("INVALID_MEMO"));
+    assert!(format!("{old_events}").contains("MALFORMED_MEMO"));
     let boundary = arena_world(&pic, id);
     assert_eq!(boundary.received_e8s, 200_000_000.into());
     // A source grant alone does not alter history until the explicit cutover.
