@@ -509,3 +509,26 @@ installed evidence ZIP hash is verified against the upload digest. The frozen
 sixteen files and complete manifest still match exactly. A later ordinary owner
 push can qualify the corrective verification source; local work continues while
 the owner is away. No CI pass is assumed as an evidentiary fact.
+
+### Verified startup coverage under retention pressure
+
+Further inspection of the failed million-cell capture demonstrates a narrower
+mechanism than an unexplained timeout: accepted Normal heads advanced, three
+snapshot resynchronisations occurred, and each cold recovery discarded its
+unconsumed intervals before the 17-tick startup target could be met. The final
+capture retained only four verified ticks and had never started playback. This
+policy was present in the unchanged baseline too; that fact does not make it a
+usable recovery policy under retention pressure.
+
+A focused failing regression uses the actual pinned clock and verified segment
+players to reproduce cold Normal recovery. The correction retains useful
+same-identity verified coverage after an authenticated newer snapshot, using the
+existing explicit source fence and warm presentation path. Uninterrupted cold
+startup still uses its established jitter buffer. Missing spans are skipped,
+never interpolated; clock/queue, latest financial authority and copied packets
+retain identity. Exhausted intervals remain stopped. No backend pace, protection,
+certificate or admission check changes. UX-04/05/06 explicitly supersede only the
+old cold-resync discard rule. Twenty-eight focused playback/live tests pass; the
+new installed browser result and new frozen artifact identity must be recorded
+before this replacement is considered qualified. Original frozen `5c2bb277`
+assets and all red/incomplete evidence remain retained.
