@@ -1,0 +1,72 @@
+{
+  "source_commit": "a0a59f9a8c48d0e9b459669588076f17587d0ea9",
+  "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828168",
+  "substantive": {
+    "Native conformance": "PASS",
+    "Source conformance": "PASS",
+    "Packaged DTR and clean consumers": "PASS",
+    "S14 and million-cell installed-IC qualification": "PASS",
+    "Runtime-lab Wasm": "PASS",
+    "Browser HTTP and Web Crypto": "PASS"
+  },
+  "informational_inventory_excluded": true,
+  "jobs": [
+    {
+      "id": 130403406513,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:41Z",
+      "completed": "2026-11-11T08:10:50Z"
+    },
+    {
+      "id": 130403406608,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:42Z",
+      "completed": "2026-11-11T08:09:45Z"
+    },
+    {
+      "id": 130403406772,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:41Z",
+      "completed": "2026-11-11T08:11:33Z"
+    },
+    {
+      "id": 130403406785,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:41Z",
+      "completed": "2026-11-11T08:10:15Z"
+    },
+    {
+      "id": 130403406862,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:42Z",
+      "completed": "2026-11-11T09:03:27Z"
+    },
+    {
+      "id": 130403406884,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:41Z",
+      "completed": "2026-11-11T08:12:13Z"
+    },
+    {
+      "id": 130403406930,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T08:09:42Z",
+      "completed": "2026-11-11T08:14:29Z"
+    }
+  ],
+  "production_operation": false
+}

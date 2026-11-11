@@ -514,10 +514,16 @@ horizon and may conserve remaining coverage at the lower rate, eventually exhaus
 it rather than promising infinite playback. The last valid pace hint may continue
 presentation through an operational-query failure; it never authorizes payments.
 
-Spendable verified ticks exclude the larger of the existing fast-mode jitter
-reserve (`buffer target − publication ticks`) and the maximum observed complete
-delivery-cycle duration times nominal pace, over the last eight distinct heads.
-Using the larger avoids counting those margins twice. This preserves Normal's
+Spendable verified ticks exclude the largest of the existing fast-mode reserve
+(`buffer target − publication ticks`), maximum observed complete delivery-cycle
+duration times nominal pace, and observed peak-to-peak arrival jitter times nominal
+pace. Arrival jitter is the range of the last eight interval-normalized timings
+between distinct advancing heads; unchanged heads do not extend or alter it.
+The bounded window releases old jitter, and insufficient cadence still uses
+nominal pacing. A real Lifeline reconnect gap of 20.3781 seconds exposed a stall
+when only the 20-second median and .1985-second request duration were considered;
+the observed .5193-second arrival spread supplies the missing presentation margin.
+Using the largest avoids counting those margins repeatedly. This preserves Normal's
 already qualified delivery headroom: a real 4.35s fetch exposed a stall when an
 initial policy incorrectly accelerated through that reserve. Slow-mode startup
 still needs only one complete interval; its legacy extra reserve is zero, and a

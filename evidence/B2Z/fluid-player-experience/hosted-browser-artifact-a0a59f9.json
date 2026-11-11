@@ -1,0 +1,133 @@
+{
+  "source_commit": "a0a59f9a8c48d0e9b459669588076f17587d0ea9",
+  "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828168",
+  "job_id": 130403406930,
+  "job_status": "PASS",
+  "artifact_id": 13838274824,
+  "artifact_zip_sha256": "7796dc021463444b9e592cf1a67e8e0dc91adc3983fc088770e936d0c4d6eb4d",
+  "artifact_local_path": ".work/fluid-player-experience/ci-a0a59f9/browser-evidence.zip",
+  "extracted_media_base": ".work/fluid-player-experience/ci-a0a59f9/browser",
+  "qualification": "Actual app software-rendered disposable/controlled browser scenarios. Not physical-device/hardware, real-wallet or genuine hidden-tab qualification. Existing committed component media remains with unchanged visual/input provenance.",
+  "media": [
+    {
+      "path": "ci-fluid-journeys/1440-aim.png",
+      "bytes": 622762,
+      "sha256": "58ac130980933bdbeb94283bd233ddadfd037b4ef3c2115db9cdbb8ef908f8a7"
+    },
+    {
+      "path": "ci-fluid-journeys/1440-build.png",
+      "bytes": 477328,
+      "sha256": "1c2c707f2db3cf718a3527857a3fde7bb934536197c92d277dfec0889eb099a4"
+    },
+    {
+      "path": "ci-fluid-journeys/1440-follow.png",
+      "bytes": 391519,
+      "sha256": "016b2a5229c2a653b0c8c6ca7967369bb60b9e47ec0def8c2047e6d39081647a"
+    },
+    {
+      "path": "ci-fluid-journeys/1440-toolbar.png",
+      "bytes": 637151,
+      "sha256": "953ede3c55044206dbb2af661a92f9b5a4edafa0b552b72620f77f09720f536d"
+    },
+    {
+      "path": "ci-fluid-journeys/320-aim.png",
+      "bytes": 78205,
+      "sha256": "4d70b705fc9e9a14ed8c3af5626ca1a6d69fcf425efa6ff807a28f91404cf43e"
+    },
+    {
+      "path": "ci-fluid-journeys/320-build.png",
+      "bytes": 75506,
+      "sha256": "d6c76cc193ce3b7a634f88014a46b0f547f259be7b4b203c7bfe24d94b0d8cbf"
+    },
+    {
+      "path": "ci-fluid-journeys/320-follow.png",
+      "bytes": 54736,
+      "sha256": "29655351c5f392ba188d6e3c083610999e81964da0dc665671523c068f7a179e"
+    },
+    {
+      "path": "ci-fluid-journeys/320-toolbar.png",
+      "bytes": 67212,
+      "sha256": "2b4a6305172472956e7f1b388e1d007c5f4851705c93fdf95856cc0691bae52b"
+    },
+    {
+      "path": "ci-fluid-journeys/390-aim.png",
+      "bytes": 99160,
+      "sha256": "58c8e9976ce94da3101b3814946453342f210da7e8df9a8c8df5d071f25ff429"
+    },
+    {
+      "path": "ci-fluid-journeys/390-build.png",
+      "bytes": 101254,
+      "sha256": "27b42a03dadc8f078958188ebaafaacaf0454865b2d244c0dbd34fb406ed6cb1"
+    },
+    {
+      "path": "ci-fluid-journeys/390-follow.png",
+      "bytes": 70945,
+      "sha256": "f6f4e8af6ef9e96b974be1ed9b6e2bc8b7f6ffa513578844bbcd43168226c0c2"
+    },
+    {
+      "path": "ci-fluid-journeys/390-toolbar.png",
+      "bytes": 90214,
+      "sha256": "9a2ada262314f365ca1f57f6075e7902fe9d34c1d347edba9634405fcbb26774"
+    },
+    {
+      "path": "ci-fluid-journeys/video/page@225b54fe74a2575005ee06a0d2c34d7b.webm",
+      "bytes": 1089315,
+      "sha256": "d95f58d17cfe997d1e6aefe8896d363669f6b9ecadd740289e71f09ad6d9ac5a"
+    },
+    {
+      "path": "ci-fluid-journeys/video/page@9a5fac1cd655ac7d436acf1d483c0e04.webm",
+      "bytes": 1524748,
+      "sha256": "1e995c99750328eef64742b24f1eba294334e87ae0729cc671f4694b22a9160c"
+    },
+    {
+      "path": "ci-fluid-journeys/video/page@ab4ae3788c7c0b7cd0586979c92d87c4.webm",
+      "bytes": 980672,
+      "sha256": "c1e9625937df3b63fc7b4ea13020c1beea04514f393531186bb548346e14e15d"
+    },
+    {
+      "path": "ci-fluid-depth/no-guide.png",
+      "bytes": 62733,
+      "sha256": "77544fe2f5d756c743188cc5766fb8534fc7daaa1e4e86d593de67dbd5e82ce4"
+    },
+    {
+      "path": "ci-fluid-depth/normal.png",
+      "bytes": 62954,
+      "sha256": "2ccbc99bd5553242e2aab266ac0e265a0c61b6f7d99c5621b2e1959b8dedca79"
+    },
+    {
+      "path": "ci-fluid-depth/overdraw.png",
+      "bytes": 62968,
+      "sha256": "816829150a2ab11f6edafd00d9b896069339972490ed3bfcc7047e95cef50593"
+    },
+    {
+      "path": "ci-elastic-return/1440-verified-return.png",
+      "bytes": 400698,
+      "sha256": "e2356881503885bf73eb157445514301967eea71a11501e1e5b8ac394c653008"
+    },
+    {
+      "path": "ci-elastic-return/320-verified-return.png",
+      "bytes": 53735,
+      "sha256": "c15eb5e8edfa8d55f162cf65c955f4b736c897f975e7778e31be5aa9f8ba5f90"
+    },
+    {
+      "path": "ci-elastic-return/390-verified-return.png",
+      "bytes": 72329,
+      "sha256": "46cf680d70828b8a57ab42e8151aec06b6d59e45b59963b62300f317f3f0cc9f"
+    },
+    {
+      "path": "ci-elastic-return/video/page@52e8f3df1506adab1c2456937f41ce8f.webm",
+      "bytes": 432189,
+      "sha256": "12bfb5f308db0842aacf1c45752c90537c734bf2a14243bdd237d663e69115f6"
+    },
+    {
+      "path": "ci-elastic-return/video/page@b53042c0796a06c5a58ac5ccbeab48bc.webm",
+      "bytes": 729913,
+      "sha256": "372ed18e6721a128449c036e38a828fecb8398528df2016ce3e96913e7fac810"
+    },
+    {
+      "path": "ci-elastic-return/video/page@b9c570f624aef89db27cc21b51079f61.webm",
+      "bytes": 511114,
+      "sha256": "de205a681d3e7bac48789a722885ca912932e0da9b83367e409d3bf9f6ea605d"
+    }
+  ]
+}
