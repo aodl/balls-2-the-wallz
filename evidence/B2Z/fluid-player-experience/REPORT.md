@@ -65,6 +65,14 @@ checks; real II, wallet, phone/hardware and genuine rendered-hidden-tab limits
 remain. Earlier populated media applies to unchanged visual/copy/renderer inputs,
 not as a new installed continuity or performance claim.
 
+The fresh [controlled actual-component return](controlled-arrival-jitter-browser.json)
+passes all three viewports with [source-bound screenshots/recordings](controlled-arrival-jitter-media.json):
+same-head remainder retained, three hidden injected intervals compact to one full
+latest interval, clock/queue/follow/zoom survive, immediate verified progression
+and no return-triggered network requests. This is an explicit fixture suspension,
+not genuine browser hiding, IC authentication or hardware timing. The compiled
+fixture contains the new policy; no performance pass is inferred from recording.
+
 **Whole-source hosted qualification of this follow-up remains NOT_RUN.** Publish
 the reviewed local branches through the ordinary owner route below; obtain all
 six substantive conclusions and the isolated financial workflow. Do not relabel
