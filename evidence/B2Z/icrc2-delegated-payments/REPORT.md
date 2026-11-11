@@ -1,5 +1,15 @@
 # Optional delegated payments — isolated implementation and local qualification
 
+**Published CI update (2026-11-11):** source `1f86d9b…` is published. Its
+[dedicated financial qualification](https://github.com/aodl/balls-2-the-wallz/actions/runs/42974709064)
+passes all eight disposable cases and UI checks. Its [ordinary six-gate run](https://github.com/aodl/balls-2-the-wallz/actions/runs/42974709019)
+passes Source, Native, Packaged DTR and Browser, but fails Runtime-lab Clippy and
+S14 browser assertions. This is not production qualification. The two Clippy
+configuration guards are corrected locally; default/feature Clippy with
+`-D warnings` and four wire tests pass. The shared S14 verifier correction is
+being qualified on the independent frontend branch before integration here.
+
+
 **The delegated Ledger → Index → installed-game path works on disposable
 infrastructure, including actual A/S SDK signatures and an upgrade from the exact
 European predecessor.**
@@ -355,8 +365,9 @@ claimed. No signing identity material is retained in any artifact.
 
 The actual ordinary workflow still requires **Source conformance; Native
 conformance; Packaged DTR and clean consumers; Runtime-lab Wasm; Browser HTTP and
-Web Crypto; S14 and million-cell installed-IC qualification**. Every hosted
-conclusion is **NOT_RUN for this isolated source**, while the owner is away.
+Web Crypto; S14 and million-cell installed-IC qualification**. At the preceding local freeze every hosted
+conclusion was **NOT_RUN**; the dated publication follow-up above records the
+actual results after the owner pushed both branches.
 Informational production inventory is excluded. The additional financial workflow
 runs only on the isolated feature branch or explicit exact-SHA dispatch, with no
 production credentials, deployment step or relation to frontend-branch concurrency.
@@ -413,3 +424,31 @@ rebuilding these artifacts. The final backend remains the independently frozen
 approved**: exact-source hosted ordinary/financial CI and the separate explicit
 upgrade/activation decision remain required. The main manual-payment frontend
 candidate is separate and remains on its existing release branch.
+
+## Hosted financial artifact and narrow corrective source
+
+The [hosted result](hosted-financial-1f86d9b.json) records a clean checkout of
+`1f86d9b71865aad0a80cbb9866d1e4f564337d6d`, immutable dependencies, and all eight
+selected financial tests PASS, with no selected tests omitted. The separate
+[hosted UI result](hosted-financial-ui-1f86d9b.json) is PASS. The actual normal
+module tested there is **`f09135150bf1d213352fac7b0e6084f4c124adf8baeaf3e50039f4f5a8d29320`**
+(3,677,783 bytes); [artifact identities](hosted-identities-1f86d9b.json) bind it to
+artifact 13835630473 and ZIP SHA-256
+`c7ffa7bf2f1cf22ccc58e8a685ba8fd3484cbec5c93ac84eb05679b8428f0f68`.
+
+This differs from local frozen `d5cbcdd3…` (3,677,527 bytes). Both binaries
+contain their respective absolute project/registry build paths. No assertion that
+this is the only binary difference, independent byte reproducibility, or hash
+interchangeability is made. Both artifacts remain preserved under their actual
+executed evidence. Neither was installed on production.
+
+Ordinary CI's Wasm build, Candid and format passed; `runtime-lab-clippy` failed
+because the test-only `delegation_wire::check` and feature-only
+`Transition::delegation` were compiled where unused. The local correction uses
+`#[cfg(test)]` and `#[cfg(feature = "delegated-payments")]`, respectively. It adds
+no allow/expect suppression, changes no game/source/payment behavior, public
+interface, storage or operating floor, and preserves the frozen assets. Both
+exact default and feature-enabled Clippy commands now pass, as do the four wire
+regressions and format check. Corrected source still needs its own hosted run;
+the old failed job is not relabelled. No runtime artifact is rebuilt or replaced
+merely to publish these evidence/configuration changes.

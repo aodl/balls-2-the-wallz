@@ -1,0 +1,29 @@
+{
+  "published_source": "1f86d9b71865aad0a80cbb9866d1e4f564337d6d",
+  "original_check": "runtime-lab-clippy",
+  "original_status": "FAIL",
+  "changes": [
+    "cfg(test) on test-only check wrapper",
+    "cfg(feature = delegated-payments) on transition factory"
+  ],
+  "local_checks": [
+    {
+      "command": "CARGO_INCREMENTAL=0 cargo clippy --manifest-path canisters/runtime-lab/Cargo.toml --target wasm32-unknown-unknown --all-targets --locked --offline -j 1 -- -D warnings",
+      "status": "PASS",
+      "log": ".work/icrc2-delegated-payments/ci-1f86d9b/clippy-default-corrected.log"
+    },
+    {
+      "command": "CARGO_INCREMENTAL=0 cargo clippy --manifest-path canisters/runtime-lab/Cargo.toml --target wasm32-unknown-unknown --all-targets --features delegated-payments --locked --offline -j 1 -- -D warnings",
+      "status": "PASS",
+      "log": ".work/icrc2-delegated-payments/ci-1f86d9b/clippy-feature-corrected.log"
+    },
+    {
+      "command": "CARGO_INCREMENTAL=0 cargo test --manifest-path canisters/runtime-lab/Cargo.toml --lib delegation_wire::tests --locked --offline -j 1",
+      "status": "PASS",
+      "tests": 4
+    }
+  ],
+  "warnings_suppressed": false,
+  "frozen_assets_rebuilt": false,
+  "production_operation": false
+}

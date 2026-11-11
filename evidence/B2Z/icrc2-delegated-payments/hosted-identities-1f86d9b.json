@@ -1,0 +1,22 @@
+{
+  "source_commit": "1f86d9b71865aad0a80cbb9866d1e4f564337d6d",
+  "financial_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42974709064",
+  "status": "PASS",
+  "artifact_id": 13835630473,
+  "artifact_zip_sha256": "c7ffa7bf2f1cf22ccc58e8a685ba8fd3484cbec5c93ac84eb05679b8428f0f68",
+  "normal_wasm_sha256": "f09135150bf1d213352fac7b0e6084f4c124adf8baeaf3e50039f4f5a8d29320",
+  "normal_bytes": 3677783,
+  "local_frozen_normal_sha256": "d5cbcdd37fd3d8bcf30b490eb50ad0f1354dd1490631806edfc6f1f0bcab5aec",
+  "identity_note": "distinct byte identities; both contain differing build-root strings, no byte-reproducibility or interchangeability claim",
+  "ordinary_wasm_gate": {
+    "status": "FAIL",
+    "job_id": 130370968905,
+    "failing_check": "runtime-lab-clippy",
+    "errors": [
+      "test-only delegation_wire::check compiled into normal library",
+      "feature-only Transition::delegation compiled without feature"
+    ],
+    "artifact_zip_sha256": "4a42a8fc893c4fad1c0d3438b72a701c69b76aa7a04278ec6dd2feb55bd4f3dc"
+  },
+  "production_operation": false
+}

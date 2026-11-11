@@ -124,6 +124,7 @@ pub fn decode_checked(bytes: &[u8]) -> Result<crate::source::HistoryResult, Stri
     }
     Ok(result)
 }
+#[cfg(test)]
 pub fn check(bytes: &[u8]) -> Result<(), String> {
     decode_checked(bytes).map(|_| ())
 }

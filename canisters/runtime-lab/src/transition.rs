@@ -51,6 +51,7 @@ impl Transition {
             ..Self::new()
         }
     }
+    #[cfg(feature = "delegated-payments")]
     pub fn delegation() -> Self {
         Self {
             version: 5,
