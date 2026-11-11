@@ -412,6 +412,21 @@ fn icrc2_installed_paid_upgrade_authorization_and_manual_payment() {
         .unwrap())
     };
     let settle = |position: u64, label: &str| {
+        // This authorization/recovery fixture deliberately keeps simulation
+        // paused while the unchanged 60-second source fallback discovers the
+        // payment. Do not spend dozens of unrelated physics ticks per case.
+        // No cursor override, synthetic input or manual step hook is used.
+        for _ in 0..120 {
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                break;
+            }
+            tick(&pic);
+            assert!(status(&pic, id).source.last_error.is_none());
+        }
+        assert!(
+            status(&pic, id).source.admitted_to_exclusive > position,
+            "{label} source admission deadline"
+        );
         playability_installed::configuration(&pic, id, 512);
         for _ in 0..240 {
             tick(&pic);
