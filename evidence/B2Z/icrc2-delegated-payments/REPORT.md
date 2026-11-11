@@ -1,3 +1,46 @@
+# Delegated-payment qualification refresh and bounded playback follow-up
+
+**The complete optional signed Ledger → Index → installed-game feature passes
+all eight disposable financial cases on published `af01692b0ddbecb204927a2b14591b536540581c`.**
+[Financial run 42984828170](https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828170),
+[executed cases](hosted-financial-af01692.json), [UI results](hosted-financial-ui-af01692.json),
+[paid predecessor/replay preservation](hosted-upgrade-af01692.json),
+[pending-window](hosted-source-window-af01692.json) and
+[empty-cost](hosted-empty-cost-af01692.json) are retained. All eight selected cases
+pass; none is omitted. Actual A/S SDK signatures, exact lost-response Duplicate
+retry, official disposable Ledger/Index and the exact European predecessor are
+exercised. No real ICP, production approval, II ceremony or physical-phone claim.
+
+The actual hosted feature-enabled normal module is
+**`19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443`**,
+3,677,783 bytes. [Exact artifact identities](hosted-identities-af01692.json) bind
+artifact 13839667077, ZIP `72cefb8fdb7e1c8590df83ab598f013e16ee716da5bee6c3a42190e2184662ba`.
+It is distinct from prior hosted `f0913515…` and local `d5cbcdd3…`; every artifact
+remains under its actual tested identity. No module was silently rebuilt, replaced
+or installed. [Unchanged backend inputs](backend-input-provenance-af01692.json)
+justify component-evidence reuse for the frontend-only correction below.
+
+[Ordinary CI 42984828207](https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828207)
+passes Source, Native, Packaged DTR, Runtime-lab Wasm (including corrected Clippy)
+and Browser. S14 FAILS only the [cold Lifeline continuity assertion](hosted-lifeline-failure-af01692.json):
+one stalled sample over 119.78 seconds, no resync, backend/admitted ~.05009 and
+displayed ~.05004 ticks/s. The full 900-second Normal analysis PASSES. This is not
+a setup failure or an unavailable-evidence claim. The [exact jobs](hosted-ci-af01692.json)
+exclude informational inventory. No rerun disguises it.
+
+The shared application policy omitted observed arrival variability when choosing
+its delivery margin. A 20.3781-second gap exceeded its 20s median plus .1985s
+request margin; the prior arrival spread was .5193s. A correct actual-clock/player
+regression reproduces STALLED before and passes after adding that bounded spread
+as another candidate reserve. All 65 playback regressions pass. Old jitter ages
+out of eight samples; rates remain .5–1.5×, with existing slew/verified endpoint.
+No financial, backend, DTR, rules or production input changes. The correction is
+merged from the independent frontend branch and needs new whole-source CI and
+new frontend identities. The independently qualified frontend `a0a59f9` passes
+all six gates; its prior frozen assets remain intact. No production operation.
+
+## Earlier implementation and qualification evidence (preserved)
+
 # Optional delegated payments — isolated implementation and local qualification
 
 **Published CI update (2026-11-11):** source `1f86d9b…` is published. Its

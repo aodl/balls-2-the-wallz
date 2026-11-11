@@ -1,0 +1,17 @@
+{
+  "qualified_financial_source": "af01692b0ddbecb204927a2b14591b536540581c",
+  "shared_correction_source": "315cf3c8da4f4eb3fa4cf57e403d2b381b956961",
+  "compared_paths": [
+    "canisters",
+    "crates",
+    "native",
+    "packages/kernels",
+    "packages/protocol",
+    "packages/source",
+    "Cargo.lock",
+    "package-lock.json"
+  ],
+  "changed_backend_protocol_dependency_inputs": [],
+  "normal_qualified_sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+  "reuse_scope": "Unchanged backend/authorization/source/payment components. Does not grant whole-source CI or corrected frontend playback qualification. No module rebuilt or installed."
+}

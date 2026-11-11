@@ -1,0 +1,266 @@
+{
+  "source_commit": "af01692b0ddbecb204927a2b14591b536540581c",
+  "ordinary_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828207",
+  "artifact_id": 13841946722,
+  "artifact_zip_sha256": "fe1196730d6f0ccbddb8a68a613f664cf43b9e4aebb1bf0756e37bddb963f161",
+  "status": "FAIL",
+  "only_failed_installed_case": "million_browser_sustained_normal_and_cold_lifeline",
+  "normal_900_seconds": {
+    "status": "PASS",
+    "seconds": 900.2306999511719,
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "production_endpoint_tick_bounds": {
+      "start": [
+        106,
+        108
+      ],
+      "end": [
+        1007,
+        1009
+      ]
+    },
+    "produced_ticks_bounds": [
+      899,
+      903
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9986329060414861,
+      1.0030762115188676
+    ],
+    "admitted_ticks": 901,
+    "displayed_ticks": 900.2139693333485,
+    "admitted_ticks_per_second": 1.000854558780177,
+    "displayed_ticks_per_second": 0.9999814151885463,
+    "buffer_start": 16.027317665788104,
+    "buffer_end": 16.81334833240487,
+    "buffer_change": 0.7860306666167673,
+    "admitted_minus_displayed": 0.7860306666515271,
+    "buffer_conservation_error": -3.47597506333841e-11,
+    "rolling_buffer_minutes": [
+      {
+        "minute": 0,
+        "samples": 116,
+        "start": 16.027317665788104,
+        "end": 16.08843379869782,
+        "mean": 16.45051417834772,
+        "min": 15.717040318148477,
+        "max": 17.18948084514848
+      },
+      {
+        "minute": 1,
+        "samples": 116,
+        "start": 16.59076709059778,
+        "end": 17.128875074349622,
+        "mean": 16.4116993122776,
+        "min": 15.617150756801863,
+        "max": 17.128875074349622
+      },
+      {
+        "minute": 2,
+        "samples": 115,
+        "start": 16.565556551149598,
+        "end": 16.5685347528119,
+        "mean": 16.42437645935384,
+        "min": 15.741353574050038,
+        "max": 17.112344642711776
+      },
+      {
+        "minute": 3,
+        "samples": 116,
+        "start": 15.997476016812016,
+        "end": 16.226586658282315,
+        "mean": 16.414176683456837,
+        "min": 15.714412508393309,
+        "max": 17.2161482998946
+      },
+      {
+        "minute": 4,
+        "samples": 115,
+        "start": 16.745295158382305,
+        "end": 16.575387397303018,
+        "mean": 16.433258749268724,
+        "min": 15.663282804733797,
+        "max": 17.238234233367223
+      },
+      {
+        "minute": 5,
+        "samples": 116,
+        "start": 16.00957789430305,
+        "end": 16.36991788733326,
+        "mean": 16.454971424133724,
+        "min": 15.69296129665753,
+        "max": 17.222188407085014
+      },
+      {
+        "minute": 6,
+        "samples": 116,
+        "start": 15.798146152933214,
+        "end": 16.136243147663095,
+        "mean": 16.4332728448219,
+        "min": 15.653434172333391,
+        "max": 17.156419642033313
+      },
+      {
+        "minute": 7,
+        "samples": 115,
+        "start": 16.596541477663038,
+        "end": 16.300214470548667,
+        "mean": 16.445416896497115,
+        "min": 15.70509748965992,
+        "max": 17.207116607301373
+      },
+      {
+        "minute": 8,
+        "samples": 116,
+        "start": 16.810868365548686,
+        "end": 15.925789331361557,
+        "mean": 16.40035827087863,
+        "min": 15.647805803061829,
+        "max": 17.107098059877785
+      },
+      {
+        "minute": 9,
+        "samples": 115,
+        "start": 16.43390776116189,
+        "end": 16.16796757717111,
+        "mean": 16.431280927854832,
+        "min": 15.657949216046745,
+        "max": 17.09623143795045
+      },
+      {
+        "minute": 10,
+        "samples": 115,
+        "start": 16.6687031766711,
+        "end": 16.09384205958827,
+        "mean": 16.409993693130495,
+        "min": 15.638647352931002,
+        "max": 17.155255212978545
+      },
+      {
+        "minute": 11,
+        "samples": 115,
+        "start": 16.639210641488376,
+        "end": 16.081388945693448,
+        "mean": 16.454079684898577,
+        "min": 15.162812485189875,
+        "max": 17.208771264489883
+      },
+      {
+        "minute": 12,
+        "samples": 115,
+        "start": 16.567343176999316,
+        "end": 16.32774877038696,
+        "mean": 16.411807139586713,
+        "min": 15.666095196367337,
+        "max": 17.140717769766752
+      },
+      {
+        "minute": 13,
+        "samples": 115,
+        "start": 16.845750662487035,
+        "end": 16.29109060141718,
+        "mean": 16.447117533605017,
+        "min": 15.64458902489946,
+        "max": 17.17847280778767
+      },
+      {
+        "minute": 14,
+        "samples": 115,
+        "start": 16.831571144917007,
+        "end": 16.2912707565049,
+        "mean": 16.412231584889955,
+        "min": 15.6821502302397,
+        "max": 17.13323708590451
+      }
+    ],
+    "buffer_regression_ticks_per_second": -7.602558928936125e-06,
+    "last_three_minus_first_three_minute_mean": -0.005144563965828297,
+    "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+    "backend_observation_age_ms": {
+      "median_upper": 1030.568603515625,
+      "max_upper": 2069.34375
+    },
+    "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+    "phases": {
+      "PLAYING": 1732
+    },
+    "resynchronizations": 0,
+    "performance_limited": false,
+    "dense_phase_samples": {
+      "PLAYING": 3600
+    }
+  },
+  "cold_lifeline": {
+    "seconds": 119.7785,
+    "backend_ticks_per_second": 0.050092462336729884,
+    "admitted_ticks_per_second": 0.050092462336729884,
+    "displayed_ticks_per_second": 0.0500385581769112,
+    "stalled_samples": 1,
+    "resyncs": 0,
+    "nominal_rate": 0.05,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 0,
+      "max": 2
+    },
+    "buffer_ticks": {
+      "min": 0,
+      "max": 1.0120385984155291
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 54.5,
+        "max": 212.6999999997206
+      },
+      "verify_ms": {
+        "median": 17.799999999813735,
+        "max": 22
+      },
+      "artifact_ms": {
+        "median": 0.2999999998137355,
+        "max": 0.39999999990686774
+      },
+      "derive_ms": {
+        "median": 3.1999999997206032,
+        "max": 4.399999999906868
+      },
+      "catchup_ms": {
+        "median": 0,
+        "max": 0
+      }
+    },
+    "max_catchup_segments": 0,
+    "buffer_bytes": {
+      "min": 0,
+      "max": 75814
+    },
+    "buffer_target_ticks": {
+      "min": 1,
+      "max": 1
+    },
+    "distinct_playheads": 233,
+    "certified_publications_per_second": 0.050092462336729884,
+    "authenticated_observation_queries_per_second": 1.48607638265632,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 0.989994999999908,
+    "buffer_end": 0.9964515594067507,
+    "admitted_ticks": 6,
+    "displayed_ticks": 5.993543440593157,
+    "phase_samples": {
+      "DEGRADED_BUFFER": 9,
+      "PLAYING": 223,
+      "STALLED": 1
+    }
+  },
+  "error": "AssertionError({'seconds': 119.7785, 'backend_ticks_per_second': 0.050092462336729884, 'admitted_ticks_per_second': 0.050092462336729884, 'displayed_ticks_per_second': 0.0500385581769112, 'stalled_samples': 1, 'resyncs': 0, 'nominal_rate': 0.05, 'performance_limited': False, 'queue_segments': {'min': 0, 'max': 2}, 'buffer_ticks': {'min': 0, 'max': 1.0120385984155291}, 'latency_ms': {'fetch_ms': {'median': 54.5, 'max': 212.6999999997206}, 'verify_ms': {'median': 17.799999999813735, 'max': 22}, 'artifact_ms': {'median': 0.2999999998137355, 'max': 0.39999999990686774}, 'derive_ms': {'median': 3.1999999997206032, 'max': 4.399999999906868}, 'catchup_ms': {'median': 0, 'max': 0}}, 'max_catchup_segments': 0, 'buffer_bytes': {'min': 0, 'max': 75814}, 'buffer_target_ticks': {'min': 1, 'max': 1}, 'distinct_playheads': 233, 'certified_publications_per_second': 0.050092462336729884, 'authenticated_observation_queries_per_second': 1.48607638265632, 'timing_qualification': 'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.', 'buffer_start': 0.989994999999908, 'buffer_end': 0.9964515594067507, 'admitted_ticks': 6, 'displayed_ticks': 5.993543440593157, 'phase_samples': {'DEGRADED_BUFFER': 9, 'PLAYING': 223, 'STALLED': 1}})",
+  "classification": "Actual continuity assertion: one STALLED sample, no resync, after 900-second Normal PASS; not setup/environment/harness-budget failure. Shared application jitter reserve corrected locally; no assertion removed.",
+  "production_operation": false
+}

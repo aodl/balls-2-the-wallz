@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "scope": "Actual optional composer/UI and Web Locks; simulated II/Ledger. No payment/certificate claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "recording": "video/page@5da453fb3d2b9b40df125ac2dd0fce20.webm",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "recording": "video/page@336f8b92e29a6345a4b658e43723432e.webm",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "recording": "video/page@7f41cb271867a86052dca7be1c1e58c6.webm",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    }
+  ],
+  "errors": []
+}

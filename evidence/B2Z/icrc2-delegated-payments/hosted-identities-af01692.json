@@ -1,0 +1,30 @@
+{
+  "source_commit": "af01692b0ddbecb204927a2b14591b536540581c",
+  "financial_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828170",
+  "status": "PASS",
+  "selected_disposable_tests": 8,
+  "selected_omitted_tests": 0,
+  "ui_viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      320,
+      640
+    ]
+  ],
+  "artifact_id": 13839667077,
+  "artifact_zip_sha256": "72cefb8fdb7e1c8590df83ab598f013e16ee716da5bee6c3a42190e2184662ba",
+  "normal_wasm_sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+  "normal_bytes": 3677783,
+  "prior_hosted_normal_wasm_sha256": "f09135150bf1d213352fac7b0e6084f4c124adf8baeaf3e50039f4f5a8d29320",
+  "local_preceding_normal_wasm_sha256": "d5cbcdd37fd3d8bcf30b490eb50ad0f1354dd1490631806edfc6f1f0bcab5aec",
+  "identity_note": "Different exact bytes, no interchangeability or byte-reproducibility claim. Preserved under each actual tested source. No local rebuild or production installation.",
+  "ordinary_qualification": "S14 running at extraction; final status recorded separately",
+  "production_operation": false
+}

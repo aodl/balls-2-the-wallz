@@ -1,0 +1,11 @@
+{
+  "duplicate_receipts": 0,
+  "last_ledger_position": 257,
+  "normal_wasm_sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+  "pending_inputs_preserved": 256,
+  "received_e8s": "10000",
+  "registry_entries": 1,
+  "rows": 256,
+  "scope": "one existing maximum normalized source window with actual valueless Ledger/Index records; no population/throughput or production claim",
+  "status": "PASS"
+}
