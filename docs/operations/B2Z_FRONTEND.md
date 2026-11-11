@@ -87,3 +87,7 @@ The [player-refinement candidate record](../../evidence/B2Z/player-experience-re
 contains all 25 dispositions, exact frozen bytes, executed commands, populated
 media, software performance limits and the still-required hosted qualification.
 Do not substitute it for the currently deployed ordinary asset set.
+
+Payment-layout qualification waits for the actual panel/body transitions before
+scrolling exact values. Keep controlled intermediate-frame checks separate; do not
+mask an early measurement with a fixed sleep or loosen containment assertions.

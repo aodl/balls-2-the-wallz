@@ -1,0 +1,1193 @@
+[
+  {
+    "animations": 4,
+    "samples": [
+      {
+        "at_ms": 0,
+        "after_ms": 60,
+        "height": 208.453125,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 259.390625,
+            "bottom": 297.546875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 208.453125,
+              "top": 274,
+              "right": 368,
+              "bottom": 482.453125,
+              "left": 8
+            },
+            "contained": false
+          },
+          {
+            "id": "payment-owner",
+            "top": 268.375,
+            "bottom": 294.5625,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 208.453125,
+              "top": 274,
+              "right": 368,
+              "bottom": 482.453125,
+              "left": 8
+            },
+            "contained": false
+          },
+          {
+            "id": "text-memo",
+            "top": 317.375,
+            "bottom": 343.5625,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 208.453125,
+              "top": 274,
+              "right": 368,
+              "bottom": 482.453125,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 366.375,
+            "bottom": 392.5625,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 208.453125,
+              "top": 274,
+              "right": 368,
+              "bottom": 482.453125,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 433.765625,
+            "bottom": 472.953125,
+            "left": 18,
+            "right": 358,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 208.453125,
+              "top": 274,
+              "right": 368,
+              "bottom": 482.453125,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 30,
+        "after_ms": 90,
+        "height": 290.46875,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 299.203125,
+            "bottom": 337.359375,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 290.46875,
+              "top": 274,
+              "right": 368,
+              "bottom": 564.46875,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 348.1875,
+            "bottom": 374.375,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 290.46875,
+              "top": 274,
+              "right": 368,
+              "bottom": 564.46875,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 397.1875,
+            "bottom": 423.375,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 290.46875,
+              "top": 274,
+              "right": 368,
+              "bottom": 564.46875,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 446.1875,
+            "bottom": 472.375,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 290.46875,
+              "top": 274,
+              "right": 368,
+              "bottom": 564.46875,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 513.578125,
+            "bottom": 552.765625,
+            "left": 18,
+            "right": 358,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 290.46875,
+              "top": 274,
+              "right": 368,
+              "bottom": 564.46875,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 120,
+        "after_ms": 180,
+        "height": 362,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 361.796875,
+            "bottom": 399.953125,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 416.78125,
+            "bottom": 442.96875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 465.78125,
+            "bottom": 491.96875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 514.78125,
+            "bottom": 540.96875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 582.171875,
+            "bottom": 621.359375,
+            "left": 18,
+            "right": 358,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 180,
+        "after_ms": 180,
+        "height": 362,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 361.796875,
+            "bottom": 399.953125,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 416.78125,
+            "bottom": 442.96875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 465.78125,
+            "bottom": 491.96875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 514.78125,
+            "bottom": 540.96875,
+            "left": 67,
+            "right": 309,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 582.171875,
+            "bottom": 621.359375,
+            "left": 18,
+            "right": 358,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 360,
+              "height": 362,
+              "top": 274,
+              "right": 368,
+              "bottom": 636,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      }
+    ],
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  {
+    "animations": 4,
+    "samples": [
+      {
+        "at_ms": 0,
+        "after_ms": 60,
+        "height": 141.65625,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 259.390625,
+            "bottom": 297.546875,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 141.65625,
+              "top": 274,
+              "right": 312,
+              "bottom": 415.65625,
+              "left": 8
+            },
+            "contained": false
+          },
+          {
+            "id": "payment-owner",
+            "top": 256.46875,
+            "bottom": 300.84375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 141.65625,
+              "top": 274,
+              "right": 312,
+              "bottom": 415.65625,
+              "left": 8
+            },
+            "contained": false
+          },
+          {
+            "id": "text-memo",
+            "top": 265.75,
+            "bottom": 291.9375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 141.65625,
+              "top": 274,
+              "right": 312,
+              "bottom": 415.65625,
+              "left": 8
+            },
+            "contained": false
+          },
+          {
+            "id": "paying-account",
+            "top": 300.75,
+            "bottom": 326.9375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 141.65625,
+              "top": 274,
+              "right": 312,
+              "bottom": 415.65625,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 368.140625,
+            "bottom": 407.328125,
+            "left": 18,
+            "right": 302,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 141.65625,
+              "top": 274,
+              "right": 312,
+              "bottom": 415.65625,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 30,
+        "after_ms": 90,
+        "height": 197.390625,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 287.203125,
+            "bottom": 325.359375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 197.390625,
+              "top": 274,
+              "right": 312,
+              "bottom": 471.390625,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 283.28125,
+            "bottom": 327.65625,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 197.390625,
+              "top": 274,
+              "right": 312,
+              "bottom": 471.390625,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 304.5625,
+            "bottom": 330.75,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 197.390625,
+              "top": 274,
+              "right": 312,
+              "bottom": 471.390625,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 353.5625,
+            "bottom": 379.75,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 197.390625,
+              "top": 274,
+              "right": 312,
+              "bottom": 471.390625,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 420.953125,
+            "bottom": 460.140625,
+            "left": 18,
+            "right": 302,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 197.390625,
+              "top": 274,
+              "right": 312,
+              "bottom": 471.390625,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 120,
+        "after_ms": 180,
+        "height": 245,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 361.796875,
+            "bottom": 399.953125,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 365.875,
+            "bottom": 410.25,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 375.15625,
+            "bottom": 401.34375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 399.15625,
+            "bottom": 425.34375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 466.546875,
+            "bottom": 505.734375,
+            "left": 18,
+            "right": 302,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 180,
+        "after_ms": 180,
+        "height": 245,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 361.796875,
+            "bottom": 399.953125,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 373.875,
+            "bottom": 418.25,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 383.15625,
+            "bottom": 409.34375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 399.15625,
+            "bottom": 425.34375,
+            "left": 67,
+            "right": 253,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 466.546875,
+            "bottom": 505.734375,
+            "left": 18,
+            "right": 302,
+            "body": {
+              "x": 8,
+              "y": 274,
+              "width": 304,
+              "height": 245,
+              "top": 274,
+              "right": 312,
+              "bottom": 519,
+              "left": 8
+            },
+            "contained": true
+          }
+        ]
+      }
+    ],
+    "viewport": [
+      320,
+      640
+    ]
+  },
+  {
+    "animations": 4,
+    "samples": [
+      {
+        "at_ms": 0,
+        "after_ms": 60,
+        "height": 190.609375,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 483.390625,
+            "bottom": 521.546875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 190.609375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 688.609375,
+              "left": 830
+            },
+            "contained": false
+          },
+          {
+            "id": "payment-owner",
+            "top": 489.375,
+            "bottom": 515.5625,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 190.609375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 688.609375,
+              "left": 830
+            },
+            "contained": false
+          },
+          {
+            "id": "text-memo",
+            "top": 524.375,
+            "bottom": 550.5625,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 190.609375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 688.609375,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 573.375,
+            "bottom": 599.5625,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 190.609375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 688.609375,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 640.765625,
+            "bottom": 679.953125,
+            "left": 840,
+            "right": 1180,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 190.609375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 688.609375,
+              "left": 830
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 30,
+        "after_ms": 90,
+        "height": 265.59375,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 520.203125,
+            "bottom": 558.359375,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 265.59375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 763.59375,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 548.1875,
+            "bottom": 574.375,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 265.59375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 763.59375,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 597.1875,
+            "bottom": 623.375,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 265.59375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 763.59375,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 646.1875,
+            "bottom": 672.375,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 265.59375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 763.59375,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 713.578125,
+            "bottom": 752.765625,
+            "left": 840,
+            "right": 1180,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 265.59375,
+              "top": 498,
+              "right": 1190,
+              "bottom": 763.59375,
+              "left": 830
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 120,
+        "after_ms": 180,
+        "height": 330,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 585.796875,
+            "bottom": 623.953125,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 638.78125,
+            "bottom": 664.96875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 659.78125,
+            "bottom": 685.96875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 708.78125,
+            "bottom": 734.96875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 776.171875,
+            "bottom": 815.359375,
+            "left": 840,
+            "right": 1180,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          }
+        ]
+      },
+      {
+        "at_ms": 180,
+        "after_ms": 180,
+        "height": 330,
+        "fields": [
+          {
+            "id": "transfer-amount",
+            "top": 585.796875,
+            "bottom": 623.953125,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-owner",
+            "top": 640.78125,
+            "bottom": 666.96875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "text-memo",
+            "top": 659.78125,
+            "bottom": 685.96875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "paying-account",
+            "top": 708.78125,
+            "bottom": 734.96875,
+            "left": 889,
+            "right": 1131,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          },
+          {
+            "id": "payment-risk",
+            "top": 776.171875,
+            "bottom": 815.359375,
+            "left": 840,
+            "right": 1180,
+            "body": {
+              "x": 830,
+              "y": 498,
+              "width": 360,
+              "height": 330,
+              "top": 498,
+              "right": 1190,
+              "bottom": 828,
+              "left": 830
+            },
+            "contained": true
+          }
+        ]
+      }
+    ],
+    "viewport": [
+      1440,
+      900
+    ]
+  }
+]

@@ -109,6 +109,41 @@
       "path": ".work/player-refinement/performance-moving/results.json",
       "sha256": "ff81d11510b6e6801ff016b5ee1530d2609e1e577c8f39c5a143e5131a7b44fb",
       "bytes": 17818
+    },
+    "hosted/browser-job.log": {
+      "path": ".work/player-refinement/hosted/browser-job.log",
+      "sha256": "092b6d664fdeb1b67d39c1aa174cb20b0cfdf6f0d07d11fc3eeb8b868545139d",
+      "bytes": 55317
+    },
+    "hosted/43108214708-browser.zip": {
+      "path": ".work/player-refinement/hosted/43108214708-browser.zip",
+      "sha256": "95ced04a1d8e4556cbadc63989f466eb717bfd264dbe44a239bfb4385a081450",
+      "bytes": 6526856
+    },
+    "hosted/browser-artifact/wallet-expansion-moving-probe.json": {
+      "path": ".work/player-refinement/hosted/browser-artifact/wallet-expansion-moving-probe.json",
+      "sha256": "2e91eceac0a1f61f7cb61a75664d2b2fc716778428d6c28331a1fdae6529af66",
+      "bytes": 29213
+    },
+    "hosted/playability-layout-corrected/results.json": {
+      "path": ".work/player-refinement/hosted/playability-layout-corrected/results.json",
+      "sha256": "b0c9a6f247f7cf5da50fb6d5a13d529d4613aedfc08ec33b344be11728fdc11d",
+      "bytes": 6933
+    },
+    "hosted/fluid-layout-corrected/results.json": {
+      "path": ".work/player-refinement/hosted/fluid-layout-corrected/results.json",
+      "sha256": "6bc71f901ea0df566174a9f54ee29512f6c1d8ca8b9b41cf9c3561429575ca74",
+      "bytes": 2457
+    },
+    "hosted/python-tests.log": {
+      "path": ".work/player-refinement/hosted/python-tests.log",
+      "sha256": "423c8e3de263181d8a8d8a25dfc15312760197ea1039220a1e09fea7c7628b99",
+      "bytes": 25196
+    },
+    "hosted/write-permission.json": {
+      "path": ".work/player-refinement/hosted/write-permission.json",
+      "sha256": "5de91d96bb600e4b9d3a254112d037ed620388e49caa347daad766a7994caff9",
+      "bytes": 194
     }
   },
   "classification": {
@@ -123,6 +158,8 @@
     "real-speed-release/results.json": "Superseded visual comparison: Lifeline ball left frame. Zero white crop does not establish effect absence. Later fixed by following same displayed ball in both variants, with crop bounds asserted.",
     "performance/results.json": "Original seam scene was static; not moving-scene qualification. Retained unchanged.",
     "performance-moving/results.json": "Matched actual moving scene, before final warning-font/hint CSS. Retain all mixed software results.",
-    "action-scroll-before.log": "PASS investigation: explicit action change already reset scroll; no speculative scrolling implementation was added."
+    "action-scroll-before.log": "PASS investigation: explicit action change already reset scroll; no speculative scrolling implementation was added.",
+    "hosted/browser-job.log": "Hosted Browser FAIL on published37d0eb6: fixed60ms test measured an expanding scrollport; original failure retained. Fresh source qualification required.",
+    "hosted/write-permission.json": "Actual GitHub app write403, no repository mutation; not an automatic safety-review rejection."
   }
 }

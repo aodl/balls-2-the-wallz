@@ -1,19 +1,20 @@
-# Player-experience refinement — local qualification complete, hosted CI blocked
+# Player-experience refinement — verifier corrected, fresh CI required
 
-All 25 UXR findings have implemented corrections with maintained UX-01..13
-regressions and populated before/after review. Clean runtime `feb2ed6` freezes
-16 files / JS `afa45cbc…` / manifest `42f120d4…`. Complete source conformance
-passes 1,830 JavaScript and 199 Python tests. Final desktop/390/320 interaction,
-payment geometry and exact frozen-bundle certified read-only checks pass.
-[Consolidated candidate report](evidence/B2Z/player-experience-refinement/REPORT.md)
-records the original failures, mixed SwiftShader measurements and genuine
-hardware/physical-device/real-wallet/hidden-tab coverage limits.
+Published `37d0eb6` has four passing substantive gates in run 43108214708:
+Source, Native, Packaged DTR/clean consumers and Wasm. Browser failed a wallet-bound
+measurement during the 180ms panel expansion; installed-IC is still running.
+The controlled reproduction and original hosted failure are retained.
 
-All six exact-source hosted gates remain NOT_RUN: ordinary non-force Git push has
-no credentials in this session. Do not deploy or treat old CI as qualification.
-The currently served ordinary fluid assets, backend modules/controllers, paid
-state/settings and financial authority remain unchanged; optional ICRC-2 remains
-isolated/disabled. The exact prior fluid rollback set is preserved.
+The verification-only correction waits for actual finite layout transitions,
+retains exact containment/wallet assertions, and adds a paused-transition guard.
+Recorded playability and fluid journeys pass at desktop/390/320; 199 Python tests
+pass. Runtime `feb2ed6`, JS `afa45cbc…`, 16 files/manifest `42f120d4…` are unchanged.
+[Consolidated report](evidence/B2Z/player-experience-refinement/REPORT.md).
+
+The corrected source needs ordinary publication and fresh exact-source CI.
+Terminal Git lacks credentials and the GitHub app rejects writes with 403.
+No deployment, runtime rebuild, backend/state/settings/controller/financial action
+or ICRC-2 activation occurred. The original installed-IC run was left active.
 
 ---
 

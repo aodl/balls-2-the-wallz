@@ -16,10 +16,38 @@ def payment_warning(page,expected):
  other=ORDINARY_PAYMENT_WARNING if expected==TILE_PAYMENT_WARNING else TILE_PAYMENT_WARNING
  assert other not in page.locator('#prepared-card').inner_text()
  assert page.locator('#payment-risk').evaluate('(n)=>Boolean(document.querySelector(".wallet-fields").compareDocumentPosition(n)&Node.DOCUMENT_POSITION_FOLLOWING)')
+ settled_panel(page)
  page.locator('#payment-risk').scroll_into_view_if_needed()
  page.wait_for_function('()=>{const n=document.getElementById("payment-risk").getBoundingClientRect(),p=document.querySelector(".panel-body").getBoundingClientRect();return n.top>=p.top-2&&n.bottom<=p.bottom+2&&n.left>=0&&n.right<=innerWidth}')
 
 def settled(page):page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
+
+def settled_panel(page):
+ # Flush ResizeObserver/style work before reading active layout transitions.
+ # A financial field scrolled into a zero-height expanding panel can end up
+ # above the final scrollport even though scrolling after expansion is valid.
+ page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
+ page.wait_for_function('''()=>{const body=document.querySelector('.panel-body'),scroll=document.querySelector('.panel-scroll');return !fixture.shell.controller.active&&!document.getAnimations().some(a=>(a.effect?.target===body||a.effect?.target===scroll)&&!['finished','idle'].includes(a.playState));}''',timeout=8000)
+
+
+def wallet_fields_reachable(page,fields):
+ settled_panel(page)
+ for field in fields:
+  page.locator('#'+field).evaluate('(n)=>n.scrollIntoView({block:"center",inline:"nearest"})')
+  bounds=page.locator('#'+field).evaluate('''(n)=>{const r=n.getBoundingClientRect(),p=document.querySelector('.panel-body').getBoundingClientRect();return{field:n.id,rect:r.toJSON(),scrollport:p.toJSON(),contained:r.top>=p.top&&r.bottom<=p.bottom&&r.left>=p.left&&r.right<=p.right};}''')
+  assert bounds['contained'],bounds
+
+
+def verify_wallet_expansion(page,fields):
+ # Controlled timing regression on the actual composer: a paused expansion is
+ # not a settled payment scrollport. Normal field checks remain unchanged.
+ settled_panel(page)
+ timing=page.evaluate('''()=>{const body=document.querySelector('.panel-body'),scroll=document.querySelector('.panel-scroll'),fire=document.getElementById('fire-action'),relevant=()=>document.getAnimations().filter(a=>a.effect?.target===body||a.effect?.target===scroll);fire.click();getComputedStyle(body).height;relevant().forEach(a=>a.finish());fire.click();getComputedStyle(body).height;const animations=relevant();animations.forEach(a=>{a.pause();a.currentTime=60;});const started=performance.now();window.walletExpansionFinished=false;setTimeout(()=>{animations.forEach(a=>a.finish());window.walletExpansionFinished=true;},120);return{animations:animations.length,started};}''')
+ assert timing['animations']>0,timing
+ wallet_fields_reachable(page,fields)
+ result=page.evaluate('(t)=>({finished:window.walletExpansionFinished,elapsed_ms:performance.now()-t.started,animations:t.animations})',timing)
+ assert result['finished'],result
+ return result
 
 def verify_fluid_controls(page,width,height,out):
  from playwright.sync_api import expect

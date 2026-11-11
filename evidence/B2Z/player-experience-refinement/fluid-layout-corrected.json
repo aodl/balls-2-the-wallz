@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "toolbar": "single row, accessible44px",
+      "modern_handoff": {
+        "memo": "FIRE 1 255 1",
+        "amount": "0.1 ICP",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai"
+      },
+      "no_op_move_rejected": true,
+      "double_click_did_not_commit": true,
+      "stable_anchor": {
+        "x": 500,
+        "y": 500,
+        "owner": 1,
+        "torus": true
+      },
+      "ball_follow_zoom": 96,
+      "same_clock_queue": true,
+      "scope": "Actual components with canonical disposable fixtures; accelerated motion, not production/device evidence.",
+      "video": "/home/codexdev/src/b2z/.work/player-refinement/hosted/fluid-layout-corrected/video/page@b45e8eda184fe7f42aa22d892cb9023a.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "toolbar": "single row, accessible44px",
+      "modern_handoff": {
+        "memo": "FIRE 1 255 1",
+        "amount": "0.1 ICP",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai"
+      },
+      "no_op_move_rejected": true,
+      "double_click_did_not_commit": true,
+      "stable_anchor": {
+        "x": 500,
+        "y": 500,
+        "owner": 1,
+        "torus": true
+      },
+      "ball_follow_zoom": 96,
+      "same_clock_queue": true,
+      "scope": "Actual components with canonical disposable fixtures; accelerated motion, not production/device evidence.",
+      "video": "/home/codexdev/src/b2z/.work/player-refinement/hosted/fluid-layout-corrected/video/page@3484877ed38134029b528357caac4c51.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "toolbar": "single row, accessible44px",
+      "modern_handoff": {
+        "memo": "FIRE 1 255 1",
+        "amount": "0.1 ICP",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai"
+      },
+      "no_op_move_rejected": true,
+      "double_click_did_not_commit": true,
+      "stable_anchor": {
+        "x": 500,
+        "y": 500,
+        "owner": 1,
+        "torus": true
+      },
+      "ball_follow_zoom": 96,
+      "same_clock_queue": true,
+      "scope": "Actual components with canonical disposable fixtures; accelerated motion, not production/device evidence.",
+      "video": "/home/codexdev/src/b2z/.work/player-refinement/hosted/fluid-layout-corrected/video/page@57c36736384f949eaa7bf852b640b359.webm"
+    }
+  ],
+  "video": true
+}

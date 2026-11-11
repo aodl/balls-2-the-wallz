@@ -327,6 +327,15 @@
       "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
       "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
       "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "ci-43108214708-wallet-failure.png",
+      "sha256": "9e16bca784178cdd5bde118e203d9cff113753e514edeea07b1ff96767d5b70e",
+      "bytes": 100910,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "hosted_source": "37d0eb690fa280887d403a1b284ea69bae2bef84",
+      "environment": "Original hosted headless Chromium capture; GPU unspecified",
+      "fixture_scope": "Original failed measurement evidence, not a runtime correction screenshot"
     }
   ],
   "actual_application_captures": true,

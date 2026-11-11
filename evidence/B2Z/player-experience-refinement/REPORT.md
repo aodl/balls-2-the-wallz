@@ -1,10 +1,13 @@
 # B2Z player-experience refinement — implemented, hosted qualification blocked
 
-The ordinary frontend correction is implemented and frozen from clean source.
-**Not deployed; not yet eligible for production approval.** All six hosted gates
-are pending: the ordinary non-force Git push failed because this session has no
-GitHub Git credentials. The clean complete local source check passes 1,830 JavaScript + 199 Python tests,
-separately from focused/browser evidence. No CI result is assumed green.
+The owner published `37d0eb690fa280887d403a1b284ea69bae2bef84`.
+**Not deployed or source-qualified:** its hosted Browser gate failed a layout
+measurement race. Source, Native, Packaged DTR/clean consumers and Wasm passed;
+installed-IC qualification is still running at this report's snapshot.
+The verification-only correction passes the complete recorded playability and
+fluid journeys at desktop/390/320, plus 199 Python tests. A new exact-source run
+is required after publishing that correction; the original failed gate is retained.
+The clean frozen runtime, all 16 files and manifest 42f120d4… remain unchanged.
 
 ## Starting identities and boundaries
 
@@ -186,11 +189,23 @@ harness-coordinate correction, not permission for UI events to pan the arena.
 Async bootstrap guards now wait for `globalThis.fixture`; an undefined-fixture
 ReferenceError is not relabelled an application playback failure.
 
-All six substantive hosted conclusions for this candidate remain **NOT_RUN / BLOCKED**:
-Source conformance; Native conformance; Packaged DTR and clean consumers;
-Runtime-lab Wasm; Browser HTTP/Web Crypto; S14/million-cell installed-IC qualification.
-The production-inventory job is informational. Remote still points to `38e9cfb…`;
-its prior green run qualifies the deployed old release, not these changes.
+[Hosted run 43108214708](hosted-43108214708.json) checks published source
+`37d0eb690fa280887d403a1b284ea69bae2bef84`, with unchanged runtime inputs from
+`feb2ed663d832895080dcc9e796dc3438ae9b8bd`.
+
+| Substantive hosted gate | Observed conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | FAIL: wallet layout measurement during expansion; subsequent journey steps skipped by the runner. |
+| S14/million-cell installed-IC qualification | RUNNING; no pass/fail conclusion claimed. |
+
+Inventory is informational. No failed/skipped gate is called a pass. The original
+run was not cancelled or rerun by this closeout. The corrected verification source
+requires its own six-gate qualification after publication; no historical/input-
+identity reuse waives that release condition.
 
 ## Layout, financial handoff and accessibility evidence
 
@@ -298,17 +313,11 @@ No production frontend publication, backend/state change, controller/setting act
 financial transaction, allowance or signing activation occurred. Paid autonomous
 state legitimately advances independently. Feature worktree remains clean at bc06b15.
 
-Complete source publication with the ordinary **non-force** command, after checking
-that the remote is still an ancestor of this branch:
-
-```sh
-git -C /home/codexdev/src/b2z push origin release/btz-prelaunch-playability
-```
-
-No credentials were invented/exported. The connector's object APIs do not transfer
-these existing local commits with their original author/date identities; recreating
-an unrelated remote history is not an exact-source Git push. Obtain all six final
-hosted conclusions after publication. Evidence-only changes need no runtime rebuild.
+The owner completed ordinary source publication: remote and local release heads
+both match37d0eb6. The previous credential failures remain historical development
+evidence, no longer a publication blocker. The frozen runtime and every deployment
+byte remain unchanged. The Browser failure now requires a verification correction and fresh exact-source
+qualification; outstanding installed-IC results are retained too.
 
 After six passing gates and **separate explicit release approval**, follow the
 [observer-only operator procedure](../../../docs/operations/S14_OPERATOR.md): verify
@@ -326,8 +335,59 @@ manifest 68116cee…, with actual served fifteen-file copies in`.work/fluid-live
 Verify saved bytes, restage that set and use the same observer-only command under
 bounded rollback authority. The older tactical rollback remains preserved too.
 
-The concrete release blocker is missing exact-source hosted qualification. Mixed
+The concrete release blocker is fresh exact-source hosted qualification after
+the verifier correction. The prior Browser failure has a reproduced local fix,
+not a retroactive hosted pass. Mixed
 software performance and unavailable hardware/physical-device/real-wallet/genuine
 rendered-hidden-tab coverage are separately disclosed limits, not manufactured
 passes. No demonstrated financial, authentication or target-identity defect is
 being deferred as a future improvement.
+
+## Hosted Browser failure and verified-layout correction
+
+Run 43108214708's Browser job 130817009365 failed at
+`verify_playability_actions.py:47`, checking wallet-field bounds at 390px.
+[The original CI screenshot](media/ci-43108214708-wallet-failure.png) and raw
+job/archive remain preserved. Browser artifact 13894563435 has SHA-256
+`95ced04a1d8e4556cbadc63989f466eb717bfd264dbe44a239bfb4385a081450`.
+
+[Controlled reproduction on those exact downloaded components](wallet-expansion-reproduction.json)
+scrolls each financial value at expansion 0ms, then advances the existing CSS
+transition to 60ms before applying the original containment predicate. Amount and
+Recipient fail at 390px; at 320px Memo fails too. Scrolling after 180ms passes at
+all three viewports. The old fixed 60ms sleep therefore tested a changing scrollport,
+not the required settled handoff. No financial field or genuine layout failure
+was removed from the assertions.
+
+The verifier now flushes layout and waits for the actual body/scroller transitions
+and camera controller to settle, then retains exact top/bottom/left/right containment
+checks with diagnostic rectangles. A controlled paused-expansion regression verifies
+the helper cannot return before the transition finishes, with exact 4.1 ICP /
+`FIRE 2 315 2` unchanged through action collapse/reopen.
+[The complete recorded journey passes](playability-layout-corrected.json) at
+1440×900, 390×844 and 320×640. Each controlled case has four paused transitions
+and confirms completion before field measurement.
+[The fluid journeys also pass](fluid-layout-corrected.json) at all three sizes
+after the shared warning-readability helper adopts the same readiness check.
+All 199 Python tests pass in 22.812s, and 355 maintained-document links resolve. Runtime application, source configuration,
+security policy and all 16 frozen files are unchanged; no rebuild is necessary.
+
+### Corrected-source continuation
+
+The correction changes only `tools/fluid_playability_browser.py`,
+`tools/verify_playability_actions.py`, the maintained verification contract and
+evidence. Application, backend, protocol and frozen artifact inputs are identical
+to the published candidate. No rebuild or production action is appropriate.
+
+The terminal still cannot authenticate a Git push. A narrowly scoped write through
+the connected GitHub app was also rejected with 403 `Resource not accessible by
+integration`; no repository mutation occurred. Ordinary publication continuation:
+
+```sh
+git -C /home/codexdev/src/b2z push origin release/btz-prelaunch-playability
+```
+
+This publishes the reviewed verifier correction, requiring a new exact-source run.
+It is not an evidence-only CI replacement or an unexplained retry of the failed
+Browser job. The original installed-IC job remains active; preserve its eventual
+result independently and do not infer it from the four completed passing gates.

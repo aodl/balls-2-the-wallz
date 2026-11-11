@@ -247,6 +247,12 @@ requirements. Controlled fixtures are not certificate/physical-device evidence.
 | UXR-18/19 | Meaningful circular anchor invalidation; atlas cache/revision bounds and DPR 1/1.5/2/3 cap, same projected map inverse. |
 | UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, octagonal destination versus source footprint/wire ghost, compact routine Waiting. |
 
+Settled financial-readability assertions must wait for the actual finite panel
+layout transitions before scrolling a value into view. Retain exact containment
+and exact clipboard/amount/memo assertions; a fixed sleep or a relaxed boundary
+is not a replacement. Test expansion separately at controlled intermediate times,
+including a paused transition, so a settled-state check cannot silently run early.
+
 Routine no-coverage Waiting lives in the compact primary status, never a permanent
 central spinner. **Catching up with on-chain activity ...** is reserved for genuine
 catch-up. Failure/protection/operator-stop/idle priorities are unchanged. The
