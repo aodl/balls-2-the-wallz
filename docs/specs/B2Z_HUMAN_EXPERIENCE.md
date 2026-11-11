@@ -483,10 +483,12 @@ and say Waiting for next update. Warm reconstruction occurs before a round trip;
 fresh certificate/operational admission is still required for new instructions.
 An intentional forward skip clears cosmetic history and reacquires a valid followed
 ball through the same short toroidal camera transition, preserving zoom and local
-controls/packets. A cold foreground start retains its established startup buffer; snapshot recovery
-before that clock starts must not invoke the warm-return shortcut. Actual hidden/
-return recovery and already-started playback may retain an older
-unconsumed interval while the source advances. When the retained remainder ends, adopt the already cached authenticated anchor,
+controls/packets. An uninterrupted cold foreground start retains its established startup buffer.
+After a newer same-identity snapshot is authenticated, recovery retains useful
+unconsumed verified coverage even before first playback. Otherwise retention
+misses can repeatedly erase the buffer before startup completes. This recovery
+uses the same clock/queue and verified-only interval path as warm return; it does
+not change producer pacing or authenticate an unavailable span. When the retained remainder ends, adopt the already cached authenticated anchor,
 including terminal expiry/checkpoint state, without waiting for another motion
 publication. The next verified interval must match the explicit new source fence; presentation skips the missing span without
 interpolating it. An epoch/source identity change uses the existing authenticated

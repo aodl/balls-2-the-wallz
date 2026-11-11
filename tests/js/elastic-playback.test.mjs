@@ -43,4 +43,19 @@ import{approachPresentationPace}from'../../apps/b2z-observer/model.mjs';
 test('UX-05 a hidden funding-tier change cannot replay Trickle coverage at the old Normal rate',()=>{assert.equal(approachPresentationPace(1,.01,.01,0),.015);assert.equal(approachPresentationPace(1,0,0,.016),0);assert.equal(approachPresentationPace(.01,1,1,.016),.5);let rate=.01;for(let i=0;i<30;i++){const next=approachPresentationPace(rate,.008,.01,1/60);assert.ok(next>=.005&&next<=.015);rate=next;}});
 
 import{canRetainAcrossResync}from'../../apps/b2z-observer/warm-return.mjs';
-test('UX-05 cold foreground recovery keeps Normal startup qualification; warm/hidden retention remains immediate',async()=>{const s=session(await intervals(1));s.clock.target=17;s.clock.sample(.01);assert.equal(s.clock.started,false);assert.equal(canRetainAcrossResync(s),false);assert.equal(canRetainAcrossResync(s,true),true);s.warmRecovery=true;assert.equal(canRetainAcrossResync(s),true);s.warmRecovery=false;s.clock.started=true;assert.equal(canRetainAcrossResync(s),true);s.clock.playhead=s.clock.available;assert.equal(canRetainAcrossResync(s),false);});
+test('UX-05 ordinary cold startup buffers; authenticated recovery retains cold/warm coverage',async()=>{const s=session(await intervals(1));s.clock.target=17;s.clock.sample(.01);assert.equal(s.clock.started,false);assert.equal(canRetainAcrossResync(s),true);assert.equal(canRetainAcrossResync(s,true),true);s.warmRecovery=true;assert.equal(canRetainAcrossResync(s),true);s.warmRecovery=false;s.clock.started=true;assert.equal(canRetainAcrossResync(s),true);s.clock.playhead=s.clock.available;assert.equal(canRetainAcrossResync(s),false);});
+
+test('UX-05 retention-pressure recovery cannot discard every cold Normal interval before startup',async()=>{
+ const s=session(await intervals(1)),clock=s.clock,queue=s.queue,packet=s.packet,authority=s.referenceWorld;
+ clock.target=17;assert.equal(clock.sample(.1).playhead,queue[0].segment.start);assert.equal(clock.started,false);
+ // Caller has authenticated a newer same-identity snapshot; old coverage remains
+ // verified and useful. The missing span is an explicit source fence, not motion.
+ assert.equal(canRetainAcrossResync(s),true);s.presentationFence=10;
+ assert.equal(resumeVerifiedClock(s),true);const t=clock.sample(.1).playhead;assert.ok(t>queue[0].segment.start);
+ queue[0].player.advance(clock.available).matches(queue[0].segment.final);
+ for(let i=0;i<50;i++)clock.sample(.1);assert.equal(clock.playhead,clock.available);
+ assert.equal(canRetainAcrossResync(s),false);assert.equal(clock.sample(1).playhead,clock.available);
+ assert.equal(s.clock,clock);assert.equal(s.queue,queue);assert.equal(s.packet,packet);assert.equal(s.referenceWorld,authority);
+ bridgeVerifiedPresentation(s,10);assert.equal(clock.playhead,10);assert.equal(clock.available,10);
+ assert.equal(resumeVerifiedClock(s),false);assert.equal(clock.sample(1).playhead,10);
+});

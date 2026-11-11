@@ -35,5 +35,7 @@ export function resumeVerifiedClock(s){
 }
 /** Even a freshly authenticated resync must not reverse ordinary live presentation. */
 export function assertForwardPresentation(clock,time){if(!Number.isFinite(time)||time<clock.playhead)throw Error('live presentation rollback');}
-/** Warm retention must not bypass a cold foreground startup's jitter buffer. */
-export function canRetainAcrossResync(s,hidden=false){return Boolean((s.clock.started||hidden||s.warmRecovery)&&s.queue.some(q=>q.segment.end>q.segment.start&&q.segment.end>s.clock.playhead));}
+/** After authenticating a same-context snapshot, retain useful verified coverage
+ * even if startup has not begun. Repeated retention misses must not reset that
+ * buffer forever; ordinary uninterrupted cold startup keeps its jitter policy. */
+export function canRetainAcrossResync(s){return s.queue.some(q=>q.segment.end>q.segment.start&&q.segment.end>s.clock.playhead);}
