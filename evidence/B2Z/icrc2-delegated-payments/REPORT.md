@@ -1,11 +1,17 @@
 # Optional delegated payments — isolated implementation and local qualification
 
-The optional feature is implemented in the separate `feature/b2z-icrc2-delegated-payments`
-worktree. **Production activation is not authorised. Complete feature qualification
-is still in progress.** The fluid/elastic frontend remains independently frozen on
-`release/btz-prelaunch-playability`; no signing code is added to that candidate.
-No production canister, controller, setting, financial account or paid state was
-changed. All transfers/approvals described below use disposable valueless ICP.
+**The delegated Ledger → Index → installed-game path works on disposable
+infrastructure, including an upgrade from the exact European predecessor.**
+Optional signing/UI is implemented and remains disabled in ordinary production
+builds. Real Internet Identity ceremony, physical-device/real-wallet coverage and
+hosted exact-source qualification remain unexecuted; this is not production
+activation approval.
+
+Work remains isolated on `feature/b2z-icrc2-delegated-payments`. The fluid/elastic
+frontend is independently frozen on `release/btz-prelaunch-playability`; signing
+code is absent from that candidate. No production canister, controller, setting,
+financial account or paid state changed. Every transfer/approval below uses
+valueless disposable ICP.
 
 The maintained [DP-01..13 contract](../../../docs/specs/B2Z_DELEGATED_PAYMENTS.md)
 and [UX contracts](../../../docs/specs/B2Z_HUMAN_EXPERIENCE.md) define the trust
@@ -72,17 +78,18 @@ Raw results are under `.work/icrc2-delegated-payments/` in the isolated worktree
 
 | Check | Actual result |
 | --- | --- |
-| Focused JS protocol, registry, kernel, auth, context, intent, transport and setup tests | 36 PASS (`focused-final01.log`) |
+| Focused JS protocol, registry, kernel, auth, context, intent, transport and setup tests | 38 PASS (`focused-final02.log`), including complete intent-body rebinding |
 | Existing manual payments, memo codecs, canonical quotes, rules-7 replay, pricing, accounts and warning tests | 280 PASS (`manual-history-security01.log`) |
 | Default host and feature-enabled host suites, including exact Candid | 52 PASS each (`host-default-final01.log`, `host-feature-final02.log`) |
 | Sealed predecessor + minimal schema addition + coordinator restore | PASS (actual full-name native host test; earlier zero-test filter is not evidence) |
-| Actual pinned Ledger/Index owner grant, 32/33-byte boundary, A/S/G/memo provenance, exact duplicate | PASS, 25.608 s (`actual-ledger-wire01`) |
+| Actual pinned Ledger/Index owner grant, 32/33-byte boundary, A/S/G/memo provenance, exact duplicate | PASS, 24.46 s (`actual-ledger-wire03`), with explicit nondefault funding subaccount, immutable copied harness and exact Index fields |
 | Actual signed SDK user/leaf delegation, zero grant, approval, post-execution lost response and exact Duplicate retry | PASS, 20.313 s (`actual-signed-ledger01`) |
-| Actual optional UI/composer, populated desktop/390/320, pending/remount, exact receipt, unknown result and native two-tab exclusion | PASS (`ui-browser03`); simulated auth/transport, no certificate/payment claim |
+| Actual optional UI/composer, populated desktop/390/320, pending/remount, exact receipt, unknown result and native two-tab exclusion | PASS (`ui-browser06`); all three viewports, storage/lock failures, changed fee, copied replacement and revocation gating; simulated auth/transport, no certificate/payment claim |
 | Actual Ledger missing/fee-short/expired allowance, wrong A/S subaccount, stale fee, expired approval and insufficient funds | PASS, 19.74 s (`ledger-negatives01`) |
 | Existing harness inventory/result regressions | 8 PASS (`harness-unit01.log`) |
 | Complete native suite | 50 PASS, zero failures/ignored in 16 groups (`native-complete03.log`); original setup failures retained |
-| Installed paid upgrade, authorization/revocation and manual continuation | In progress; actual authorized Fire attributed to A already observed, full completion not yet claimed |
+| Exact `612ad0d0…` predecessor → clean feature module, pending old/new inputs, grants/replacement/revocation/expiry, retained invalid targets, manual continuation | PASS, 286.206 s (`installed-exact-production-prior01`); final certificate, source/destination and independent JS normalization/replay/presentation PASS |
+| Fixed empty maintenance cost windows, actual fallback work and no synthetic simulation | PASS (`empty-cost01`), three 600-second virtual windows |
 | Source publication/hosted qualification | NOT_RUN for this isolated candidate; owner away; no assumed green result |
 
 The signing proof generated disposable A/S/leaf identities only in memory. It
@@ -91,7 +98,7 @@ the real pinned Ledger through the HTTP SDK, not an Internet Identity ceremony.
 The UI test separately uses actual components, browser Web Locks and simulated
 sign-in/Ledger replies. Those scopes must not be conflated.
 
-Three populated screenshots and recordings are in `ui-browser03/`; they are real
+Three populated screenshots and recordings are in `ui-browser06/`; they are real
 application captures in sandboxed Chromium/SwiftShader. They do not establish
 physical-phone, hardware-GPU, native-wallet or Internet Identity ceremony coverage.
 
@@ -116,6 +123,49 @@ worktree's incremental caches were removed. Source, evidence, frozen runtime
 artifacts, prior frontend rollback assets and unrelated repositories were retained.
 The earlier failed/zero-test records remain under `.work/`.
 
+## Installed preservation and artifact identities
+
+The exact prior production normal Wasm is
+`612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`.
+It was copied from the retained European freeze, hash-checked, and is now retained
+as deterministic compressed **test evidence** in `vendor/b2z/europe-612ad0d0.wasm.gz`.
+No production operation was performed. The clean experimental normal Wasm is
+`cd5c1264a7142872ee363ade46c8296111426bc971888afb9e4934989281d768`
+(3,707,080 bytes), frozen from backend runtime source `6e44a186…` with
+`delegated-payments` only. It has the three controller activation exports and no
+synthetic/manual-step exports. The earlier development `3e7f315c…` differs and is
+not substituted for the clean artifact. Both the development-predecessor and exact
+production-predecessor complete rehearsals qualify the clean `cd5c1264…` module.
+
+The paid predecessor starts from the supported disposable empty genesis and gets
+its cannon through a real direct Ledger payment. Upgrade preserves the world,
+retained publications/artifacts, source cursor and a pending old rejected delegate.
+That input remains `MALFORMED_MEMO`. A sealed drained transition adds exactly an
+empty registry while preserving all other canonical state, source identity and
+account history. A pending adapter-5 input survives a subsequent upgrade and is
+processed once for A. The final same-module upgrade preserves the resulting state
+and authenticated history. Existing treasury/physics/pricing components are
+unchanged and retain their previous evidence plus host/default-suite checks;
+this rehearsal deliberately pauses treasury to isolate valueless gameplay.
+
+Executed actual transfers prove allowance-only rejection, zero-value owner grant,
+accepted delegated Fire, unrelated-spender rejection, owner revoke, continued
+manual play, delegated self-grant rejection, replacement, an authorized payment
+rejected for non-owned Move territory, game-grant-only spending failure, and
+seven-day game-grant expiry using immutable Ledger time. A transfer to another
+receiver succeeds at the Ledger but does not enter this game's history/accounting,
+showing why an allowance must not be called destination restricted. The expiry
+case advances **disposable virtual time**; it does not measure production timing.
+Deliberate valueless overpayments expose unchanged retained remainders and prices.
+
+Captured raw Index Candid rows are independently decoded/re-normalized in JS.
+Every paid/configuration segment independently reproduces exact canonical
+state/events/scores, with cursor recovery and verified-segment presentation.
+The actual activation checkpoint also passes application transition validation.
+Final DTR verification uses the explicit disposable root and controlled IC time,
+checks the source descriptor/default recipient/configuration, and retains wrong-
+canister and stale-certificate negatives. It is not a mainnet authentication claim.
+
 ## Cost and operational limits
 
 The bounded local Node measurement records canonical registry sizes of 159 bytes
@@ -125,12 +175,26 @@ serialization/validation measurements, not canister execution cycles or device
 performance. There are zero recurring backend allowance queries and zero new
 expiry timers. Registry projection is emitted on input segments only.
 
-No gross cost/lifetime claim follows from these measurements. Complete installed
-recovery, replay, browser signing/Internet Identity and backend-upgrade gates must
-be recorded before feature activation. The ordinary frontend release must not
+The actual same-module empty maintenance comparison measures 600 virtual seconds
+per condition, with **10 real source fallback calls and zero gameplay segments**:
+rules 7 debits 870,238,675 cycles; rules 8 with no grant 845,176,393; rules 8 with one
+grant 910,407,488. State sizes are 2,532 / 2,708 / 2,987 bytes. Grant discovery plus
+one input segment debits 294,237,385 cycles. These are net PocketIC balance changes
+with treasury paused, not isolated authorization instruction costs or gross billing.
+The one-grant window also includes an additional history record; do not attribute
+its whole difference to a lookup. No top-up/credit was added during the windows.
+Module size adds 358,715 uncompressed bytes over the exact prior artifact.
+
+No gross cost/lifetime claim follows from these measurements. Real II ceremony,
+exact-source hosted financial and ordinary gates must be recorded before activation. The ordinary frontend release must not
 wait for or expose an unfinished financial feature.
 
 ## Continuation and production boundary
+
+The additional `delegated-payments.yml` workflow is manual-only, binds a full
+source SHA, and uses a separate concurrency group. It does not replace/cancel the
+six ordinary gates, deploy anything, or request financial credentials. It has not
+been dispatched while the owner is away.
 
 Use `tools/verify_s14_local.py --delegated-payments` with explicit
 `--test-filter delegated_payments::...`, predecessor path and independently checked
@@ -140,8 +204,26 @@ The default installed inventory records these omissions explicitly. A default
 six-gate result alone does not qualify the experimental feature.
 
 Before any production decision: freeze clean exact feature source/Wasm/frontend,
-complete old/new pending-input and historical-rejection preservation, authenticate
-DTR outcomes and independently replay the captured history, qualify exact source,
+retain the executed old/new pending-input and historical-rejection preservation,
+authenticated DTR and independent replay evidence, qualify exact source,
 and review the explicit backend upgrade plus drained source cutover. Separate
 owner approval must cover the exact upgrade and feature-enable assets. No reset,
 reinstall, financial setup, transfer or activation is authorised by this report.
+
+### Remaining coverage and provenance limits
+
+The optional UI uses the supported pinned II SDK and verifies its actual user
+principal/returned signing scope, but a real II ceremony on the stable signing
+origin was not exercised. The actual SDK proof uses an in-memory delegated user
+identity and the real local Ledger; browser UI journeys use simulated auth/Ledger
+replies. These are separate, composed proofs, not a claimed single browser/II
+end-to-end success or real-wallet compatibility. No origin metadata/security policy
+was weakened to obtain a pass.
+
+Earlier development harness hashes were sampled at process completion while a
+parallel Cargo build could replace that path. They are not clean executable-identity
+claims. The final exact-predecessor, explicit-subaccount and cost cases freeze the
+executable before launch and record its immutable hash. The maintained installed
+runner now freezes it too and records dirty-source status. The clean Wasm identity
+is independently recorded by the installed case and the final certificate capture.
+The original failed/incomplete records remain available.

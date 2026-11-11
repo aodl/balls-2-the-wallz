@@ -21,7 +21,10 @@ a compromised S can spend it elsewhere. Recommend small amounts, finite expiry
 and a separately low-funded gameplay account. Allowance is not a deposit or game
 balance. Approval sets, rather than increments, an allowance, and costs a fee.
 Query the actual Ledger fee and remaining allowance; amount plus transfer fee
-must fit. Never consult today's remaining allowance to validate historic actions.
+must fit. Allowance displays are last queried values, explicitly labelled after
+one minute; no recurring allowance poll is added. Pay refreshes both allowance
+and fee before submitting, and a changed fee requires review and a new click.
+Never consult today's remaining allowance to validate historic actions.
 
 **DP-03:** Gameplay commands remain Ledger transfers. The browser signs only an
 explicit individual `icrc2_transfer_from` to G as S. It never calls a B2Z Fire,
@@ -126,7 +129,9 @@ only from the original request result or an exact authenticated source receipt.
 
 **DP-11:** Coordinate same-intent submissions across tabs with a bounded native
 exclusive lock. No automatic unsafe lease fallback. Rapid clicks cannot create
-new timestamps. An ambiguous prior attempt remains unknown even if a subsequent
+new timestamps. The submission boundary rebinds every payer/spender/recipient,
+network, amount, memo and grant field to the fresh verified authority; a matching
+quote-hash reference alone does not authorize an altered intent body. An ambiguous prior attempt remains unknown even if a subsequent
 retry is rejected, unless Ok/Duplicate or independently authenticated evidence
 settles it. Store returned indexes automatically. No manual transaction reporting
 and no amount/time/payer heuristics for gameplay-success claims.

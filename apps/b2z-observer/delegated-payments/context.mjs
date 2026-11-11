@@ -6,8 +6,8 @@ const hex=b=>Array.from(b,v=>v.toString(16).padStart(2,'0')).join('');
 const sha256=b=>hex(sha256Bytes(b));
 export function explicitFunding(account){if(!account?.owner||Principal.fromText(account.owner).toText()!==account.owner)throw Error('FUNDING_OWNER_REQUIRED');const subaccount=account.subaccount??'00'.repeat(32);if(!/^[a-f0-9]{64}$/.test(subaccount))throw Error('FUNDING_SUBACCOUNT');return{owner:account.owner,subaccount};}
 export function actionFromMemo(memo){const bytes=new TextEncoder().encode(memo),c=parseV6TextMemo(bytes),p=memo.split(' ');if(c.kind==='fire')return{kind:'fire',cannon:c.cannon,angle:p[2],quantity:c.quantity,cell:null};if(c.kind==='move_cannon')return{kind:'move',cannon:c.cannon,cell:c.cell,quantity:1};if(c.kind==='new')return{kind:'new',angle:p[1],quantity:c.quantity,cell:c.cell??null};throw Error('MODERN_GAMEPLAY_MEMO_REQUIRED');}
-export function verifiedPayment(session,funding,spender,packet,{canPrepare,now=performance.now(),wallNow=Date.now(),localTest=false}={}){
- if(!canPrepare||!session?.ready||session.error||!freshObservation(session,now,wallNow))throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
+export function verifiedGameAccess(session,funding,spender,{now=performance.now(),wallNow=Date.now(),localTest=false}={}){
+ if(!session?.ready||session.error||!freshObservation(session,now,wallNow))throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
  const publication=session.sequence?.last?.publication,identity=publication?.identity;
  if(!identity||Object.keys(DELEGATION_IDENTITY).some(k=>identity[k]!==DELEGATION_IDENTITY[k]))throw Error('GAME_DELEGATION_NOT_ACTIVE');
  if(sha256(encodeCanonical(session.config))!==DELEGATION_IDENTITY.config_hash)throw Error('PAYMENT_CONFIGURATION_BINDING');
@@ -16,12 +16,23 @@ export function verifiedPayment(session,funding,spender,packet,{canPrepare,now=p
  const from=explicitFunding(funding),a=icpAccount(from.owner,Uint8Array.from(from.subaccount.match(/../g),h=>parseInt(h,16))),s=Principal.fromText(spender);if(s.toUint8Array().length!==29||s.toUint8Array()[28]!==2||s.toText()!==spender)throw Error('USER_SPENDER_REQUIRED');
  const auth=session.referenceWorld?.playability?.authorization;validateAuthorization(auth);if(auth.recipient!==destination.legacy)throw Error('AUTH_RECIPIENT_BINDING');const g=auth.grants.find(g=>g.account===a&&g.spender_principal===hex(s.toUint8Array()));
  const nowNs=BigInt(Math.floor(wallNow))*1000000n,certNs=BigInt(session.certificateTimeNs);if(!g||g.expires_at_ns<=nowNs||g.expires_at_ns<=certNs)throw Error('GAME_ACCESS_EXPIRED_OR_UNAUTHORIZED');
+ return{from,account:a,grant:g,source,destination};
+}
+export function verifiedPayment(session,funding,spender,packet,{canPrepare,...options}={}){
+ if(!canPrepare)throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
+ const{from,account:a,grant:g,source,destination}=verifiedGameAccess(session,funding,spender,options);
  if(!packet||packet.reason||packet.account!==a||packet.backend!==source.owner||packet.network!==source.network||packet.owner!==source.owner||packet.recipient!==destination.legacy||packet.subaccount!=='0')throw Error('PAYMENT_PACKET_SCOPE');
  const command=actionFromMemo(packet.memo),quote=prepareQuoteV6(session.referenceWorld,session.config,a,command);
  if(quote.memo!==packet.memo||BigInt(packet.amount)!==quote.amount||hex(quote.memo_bytes)!==packet.hex)throw Error('PAYMENT_QUOTE_CHANGED');
  if(command.kind==='new'&&session.referenceWorld.cannons.some(c=>c.account===a)&&command.cell===null)throw Error('CHOOSE_BUILD_SITE');
  const key=sha256(encodeCanonical({network:source.network,ledger:source.ledger,backend:source.owner,from,spender,to:source.owner,amount:quote.amount,memo:hex(quote.memo_bytes)}));
  return{from,spender,to:{owner:source.owner,subaccount:'00'.repeat(32)},network:source.network,ledger:source.ledger,backend:source.owner,amount:String(quote.amount),memo:hex(quote.memo_bytes),quote:key,grant_position:String(g.activation_position),verified_root:session.root};
+}
+/** A quote hash is a reference, not proof that an intent body retained its payer. */
+export function assertIntentAuthority(verified,intent){
+ for(const key of['network','ledger','backend','spender','amount','memo','quote','grant_position'])if(verified[key]!==intent[key])throw Error('PAYMENT_INTENT_AUTHORITY_CHANGED');
+ for(const key of['from','to'])if(verified[key].owner!==intent[key]?.owner||verified[key].subaccount!==intent[key]?.subaccount)throw Error('PAYMENT_INTENT_AUTHORITY_CHANGED');
+ return true;
 }
 export function paymentIntent(verified,fee,createdAtNs,options){return makeIntent({...verified,fee:String(fee),created_at_time:String(createdAtNs)},options);}
 

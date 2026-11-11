@@ -72,7 +72,7 @@ def main():
     if a.delegated_payments and (not a.test_filter or not a.test_filter.startswith('delegated_payments::') or not a.delegation_prior_wasm or not a.delegation_prior_sha256):p.error('delegated qualification needs its explicit test filter and exact predecessor path/hash')
     if not a.delegated_payments and (a.delegation_prior_wasm or a.delegation_prior_sha256):p.error('delegation predecessor belongs to explicit feature qualification')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
-    result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
+    result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_dirty':bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=normal'],cwd=ROOT,text=True).strip()),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
     lock=tomllib.loads((ROOT/'canisters/runtime-lab/Cargo.lock').read_text())
     host=next(package for package in lock['package'] if package['name']=='dtr-host')
     result['dependency_mode']='explicit-development-override' if os.environ.get('S14_DTR_CONFIG') else 'published-immutable-git'
@@ -112,7 +112,8 @@ def main():
             if name=='normal':
                 assert all(not any(x in n for x in ['test_','__canbench','__tracing','ledger_hint','sync_ledger','canister_update apply']) for n in names)
                 assert 'canister_update poke' in names
-                assert ('canister_update prepare_delegation_transition' in names)==a.delegated_payments
+                for activation_export in ['canister_update prepare_delegation_transition','canister_update commit_delegation_transition','canister_query delegation_transition_status']:
+                    assert (activation_export in names)==a.delegated_payments
             else:assert 'canister_update test_apply' in names
             result['artifacts'].append({'name':name,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'exports':names});save()
         text=run('host-tests',cargo+['test','--manifest-path',manifest,'--locked','--offline',*feature_flags,'--','--nocapture'])
@@ -123,6 +124,10 @@ def main():
         run('harness-build',cargo+['test','--manifest-path','tools/s09-integration/Cargo.toml','--test','s14_index','--no-run','--locked','--offline','--message-format=json'])
         log=(out/'logs/harness-build.log').read_text();binaries=[json.loads(line)['executable'] for line in log.splitlines() if line.startswith('{') and json.loads(line).get('reason')=='compiler-artifact' and json.loads(line).get('executable')]
         assert len(binaries)==1
+        # Freeze the executable too: another local Cargo build must not change
+        # the identity later recorded for an already running installed test.
+        frozen_harness=out/'installed-test-harness';shutil.copyfile(binaries[0],frozen_harness);frozen_harness.chmod(0o700);binaries=[str(frozen_harness)]
+        result['artifacts'].append({'name':'installed-test-harness','path':str(frozen_harness),'sha256':hashlib.sha256(frozen_harness.read_bytes()).hexdigest()});save()
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')

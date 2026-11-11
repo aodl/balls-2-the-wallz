@@ -1,0 +1,19 @@
+/** Independent JS replay/presentation of one captured installed Rust segment.
+ * Certificate/source binding are separately checked by the final capture gate. */
+import fs from'node:fs/promises';import{IDL}from'@icp-sdk/core/candid';import assert from'node:assert/strict';import{decodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';import{B2zCursor}from'../packages/kernels/b2z/kernel.mjs';import{prepareDerivedSegment,prepareCheckpoint,SegmentPlayer}from'../apps/b2z-observer/model.mjs';import{normalizePaymentV5}from'../packages/source/payment.mjs';
+const [dir,label]=process.argv.slice(2),read=async name=>new Uint8Array(await fs.readFile(`${dir}/${label}-${name}.bin`));
+const initial=await read('initial'),p=decodeCanonical(await read('publication')),out=await Promise.all([0,1,2].map(n=>read(`artifact-${n}`))),inputs=decodeCanonical(await read('inputs'));
+for(let i=0;i<3;i++)assert.equal(sha256(out[i]),p.artifacts[i].sha256);
+if(p.head.seal===null){const prior=decodeCanonical(await read('prior-publication'));await prepareCheckpoint(initial,{state:out[0],events:out[1],scores:out[2]},p,prior);}
+else{
+ assert.equal(sha256(initial),p.head.seal.previous_state);let c=new B2zCursor(initial,inputs,p.head.seal),count=0;
+ for(;;){const r=c.step([1,7,31,127][count++%4]);if(count%3===0){const bytes=c.snapshot();c=B2zCursor.restore(bytes,sha256(bytes));}if(r.complete)break;assert.ok(count<100000,'bounded replay work');}
+ const event=decodeCanonical(out[1]).events.at(-1);assert.equal(event.kind,'lifecycle_time');c.finalizeElapsed(event.observed_ns);const computed=c.result();
+ for(const[k,i]of[['state',0],['events',1],['scores',2]])assert.equal(sha256(computed[k]),sha256(out[i]),`installed Rust vs JS ${label} ${k}`);
+ const segment=await prepareDerivedSegment(initial,out[0],out[1],p),player=new SegmentPlayer(segment);player.advance(segment.end).matches(segment.final);
+ const rows=decodeCanonical(await read('source-rows'));
+ const tokens=IDL.Record({e8s:IDL.Nat64}),time=IDL.Record({timestamp_nanos:IDL.Nat64}),operation=IDL.Variant({Transfer:IDL.Record({from:IDL.Text,to:IDL.Text,amount:tokens,fee:tokens,spender:IDL.Opt(IDL.Text)}),Mint:IDL.Record({to:IDL.Text,amount:tokens}),Burn:IDL.Record({from:IDL.Text,amount:tokens,spender:IDL.Opt(IDL.Text)}),Approve:IDL.Record({from:IDL.Text,spender:IDL.Text,allowance:tokens,expected_allowance:IDL.Opt(tokens),expires_at:IDL.Opt(time),fee:tokens})});
+ const rowType=IDL.Record({id:IDL.Nat64,transaction:IDL.Record({memo:IDL.Nat64,icrc1_memo:IDL.Opt(IDL.Vec(IDL.Nat8)),operation,created_at_time:IDL.Opt(time),timestamp:IDL.Opt(time)})});
+ for(const row of rows){const raw=Uint8Array.from(row.raw_candid_hex.match(/../g),h=>parseInt(h,16)),record=IDL.decode([rowType],raw)[0],t=record.transaction,transfer=t.operation.Transfer;assert.ok(transfer);const tx={kind:'Transfer',from:transfer.from,to:transfer.to,spender:transfer.spender[0]??null,amount_e8s:transfer.amount.e8s,fee_e8s:transfer.fee.e8s,memo:t.memo,icrc1_memo:t.icrc1_memo[0]??null,created_at_ns:t.created_at_time[0]?.timestamp_nanos??null,ledger_time_ns:t.timestamp[0]?.timestamp_nanos};const normalized=normalizePaymentV5(tx,row.recipient,{position:record.id,raw_digest:sha256(raw)});assert.equal(normalized.payload_hex,inputs.find(i=>i.position===record.id).payload_hex,'actual Index Candid normalization agrees byte for byte');}
+}
+await fs.writeFile(`${dir}/${label}-replay.json`,JSON.stringify({status:'PASS',label,scope:'independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate',source_rows_reencoded:inputs.filter(i=>i.payload_hex.startsWith('42325a5041593035')).length})+'\n');console.log('PASS independent installed capture',label);
