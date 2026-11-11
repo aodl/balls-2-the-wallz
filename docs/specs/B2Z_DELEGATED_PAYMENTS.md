@@ -142,6 +142,11 @@ and no amount/time/payer heuristics for gameplay-success claims.
 
 ## Product and release separation
 
+An allowance query is a timestamped observation, not a continuously current
+balance. Label it **Last checked allowance** after a submission may have consumed
+it, and when the query is over 60 seconds old. Requery fee/allowance at every
+explicit spending boundary; no idle allowance loop is introduced.
+
 **DP-12:** Account exposes optional setup; ordinary cannon icons only prepare.
 Pay is a separate deliberate spending action showing exact amount, payer,
 destination and fee, enabled only after both permissions are verified. Manual
@@ -165,7 +170,7 @@ and do not claim Internet Identity/browser signing or real-wallet compatibility.
 | DP-01/04/07 | `delegated-payment-protocol.test.mjs`, Rust protocol tests |
 | DP-02/04/05/08 | `delegation-registry.test.mjs`, generated authorization vectors, native `delegation` tests |
 | DP-04/07 | `delegated_payments::icrc2_actual_ledger_index_preserves_funder_spender_memo_and_zero_grant` (actual disposable; execution status in report) |
-| DP-09..11 | `delegated-payment-auth`, `context`, `intents`, `transport`, `setup` JS tests; actual signed disposable SDK test; `verify_delegated_payment_ui.py` native Web Locks and simulated UI transport (executed status in report) |
+| DP-09..11 | `delegated-payment-auth`, `context`, `intents`, `transport`, `setup` JS tests; `icrc2_actual_sdk_signing_and_immutable_duplicate_retry` and `icrc2_actual_signed_installed_gameplay_pipeline` (actual SDK signatures through installed game and certified results); `verify_delegated_payment_ui.py` native Web Locks and simulated UI transport (executed status in report) |
 | DP-08/13 | `icrc2_installed_paid_upgrade_authorization_and_manual_payment`, actual kernel vectors and cursor recovery; complete pending-input/old-rejection/installed replay scope remains a separately recorded qualification gate |
 
 Contributors must name affected DP and UX contracts, preserve historical fixtures,

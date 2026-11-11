@@ -1,0 +1,3974 @@
+{
+  "events": [
+    {
+      "ball": {
+        "cell": 0,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "158901"
+        },
+        "y0": {
+          "$integer": "158901"
+        }
+      },
+      "cannon": {
+        "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+        "cell": 0,
+        "heading": 40960,
+        "id": 1
+      },
+      "frontier_other": -1,
+      "kind": "cannon_spawned",
+      "metadata_delta": {
+        "lifecycle": [
+          {
+            "cannon": 1,
+            "generation": 1,
+            "player": 1
+          }
+        ],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [
+          {
+            "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+            "id": 1
+          }
+        ],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": [
+          {
+            "id": 1,
+            "player": 1
+          }
+        ]
+      },
+      "ownership_ops": [
+        {
+          "cell": 999999,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 999000,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 999001,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 999,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 0,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 1,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 1999,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 1000,
+          "kind": "set",
+          "owner": 1
+        },
+        {
+          "cell": 1001,
+          "kind": "set",
+          "owner": 1
+        }
+      ],
+      "patch": [
+        999999,
+        999000,
+        999001,
+        999,
+        0,
+        1,
+        1999,
+        1000,
+        1001
+      ],
+      "placement_class": 5,
+      "player": 1,
+      "previous_owners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "reactivated_cannons": [],
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "actual_quantity": 1,
+      "amount_used": {
+        "$integer": "100000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "100000000"
+        }
+      ],
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "sequence": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit",
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 0,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "58493"
+        },
+        "y0": {
+          "$integer": "216875"
+        }
+      },
+      "cannon": 1,
+      "heading": 46421,
+      "kind": "ball_spawned",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 2,
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "actual_quantity": 1,
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "10000000"
+        }
+      ],
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "sequence": 3,
+      "status": "applied",
+      "stop_reason": "quantity_limit",
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 0,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-223488"
+        }
+      },
+      "cannon": 1,
+      "heading": 16384,
+      "kind": "ball_spawned",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 4,
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "actual_quantity": 1,
+      "amount_used": {
+        "$integer": "40000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "40000000"
+        }
+      ],
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "sequence": 5,
+      "status": "applied",
+      "stop_reason": "quantity_limit",
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-223488"
+        }
+      },
+      "from_cell": 0,
+      "kind": "motion",
+      "sequence": 6,
+      "time": [
+        {
+          "$integer": "877"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999000,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "58493"
+        },
+        "y0": {
+          "$integer": "1240875"
+        }
+      },
+      "from_cell": 0,
+      "kind": "motion",
+      "sequence": 7,
+      "time": [
+        {
+          "$integer": "216875"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1182901"
+        },
+        "y0": {
+          "$integer": "1182901"
+        }
+      },
+      "from_cell": 0,
+      "kind": "motion",
+      "sequence": 8,
+      "time": [
+        {
+          "$integer": "158901"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "227584"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 9,
+      "time": [
+        {
+          "$integer": "881"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 3,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 2001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 2000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 10,
+      "target": 2000,
+      "time": [
+        {
+          "$integer": "881"
+        },
+        {
+          "$integer": "125"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999000,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "58493"
+        },
+        "y0": {
+          "$integer": "805077"
+        }
+      },
+      "from_cell": 999000,
+      "kind": "motion",
+      "sequence": 11,
+      "time": [
+        {
+          "$integer": "72633"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 998001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 998000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 12,
+      "target": 998000,
+      "time": [
+        {
+          "$integer": "72633"
+        },
+        {
+          "$integer": "10303"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1082493"
+        },
+        "y0": {
+          "$integer": "805077"
+        }
+      },
+      "from_cell": 999000,
+      "kind": "motion",
+      "sequence": 13,
+      "time": [
+        {
+          "$integer": "58493"
+        },
+        {
+          "$integer": "8283"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "863051"
+        },
+        "y0": {
+          "$integer": "863051"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 14,
+      "time": [
+        {
+          "$integer": "159925"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 999000,
+          "from": 0,
+          "kind": "set_range",
+          "start": 998999,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 15,
+      "target": 998999,
+      "time": [
+        {
+          "$integer": "159925"
+        },
+        {
+          "$integer": "22627"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-225536"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 16,
+      "time": [
+        {
+          "$integer": "177"
+        },
+        {
+          "$integer": "25"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1082493"
+        },
+        "y0": {
+          "$integer": "-218923"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 17,
+      "time": [
+        {
+          "$integer": "218923"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-225536"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 18,
+      "time": [
+        {
+          "$integer": "889"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1184949"
+        },
+        "y0": {
+          "$integer": "1184949"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 19,
+      "time": [
+        {
+          "$integer": "160949"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": true
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 1999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1082493"
+        },
+        "y0": {
+          "$integer": "-218923"
+        }
+      },
+      "from_cell": 999,
+      "kind": "motion",
+      "sequence": 20,
+      "time": [
+        {
+          "$integer": "219947"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "231680"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 21,
+      "time": [
+        {
+          "$integer": "893"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 3,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 3001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 3000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 22,
+      "target": 3000,
+      "time": [
+        {
+          "$integer": "893"
+        },
+        {
+          "$integer": "125"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 1999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "1082493"
+        },
+        "y0": {
+          "$integer": "223019"
+        }
+      },
+      "from_cell": 1999,
+      "kind": "motion",
+      "sequence": 23,
+      "time": [
+        {
+          "$integer": "73657"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 3000,
+          "from": 0,
+          "kind": "set_range",
+          "start": 2999,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 24,
+      "target": 2999,
+      "time": [
+        {
+          "$integer": "73657"
+        },
+        {
+          "$integer": "10303"
+        }
+      ]
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 998999,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "861003"
+        },
+        "y0": {
+          "$integer": "1184949"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 25,
+      "time": [
+        {
+          "$integer": "161973"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 999999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 999998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 26,
+      "target": 999998,
+      "time": [
+        {
+          "$integer": "161973"
+        },
+        {
+          "$integer": "22627"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "231680"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 27,
+      "time": [
+        {
+          "$integer": "897"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "1082493"
+        },
+        "y0": {
+          "$integer": "223019"
+        }
+      },
+      "from_cell": 1999,
+      "kind": "motion",
+      "sequence": 28,
+      "time": [
+        {
+          "$integer": "221995"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "963459"
+        },
+        "y0": {
+          "$integer": "223019"
+        }
+      },
+      "from_cell": 999,
+      "kind": "motion",
+      "sequence": 29,
+      "time": [
+        {
+          "$integer": "19839"
+        },
+        {
+          "$integer": "2761"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 30,
+      "target": 998,
+      "time": [
+        {
+          "$integer": "19839"
+        },
+        {
+          "$integer": "2761"
+        }
+      ]
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 998000,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "-162997"
+        },
+        "y0": {
+          "$integer": "858955"
+        }
+      },
+      "from_cell": 998999,
+      "kind": "motion",
+      "sequence": 31,
+      "time": [
+        {
+          "$integer": "162997"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 998000,
+          "from": 0,
+          "kind": "set_range",
+          "start": 997999,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 32,
+      "target": 997999,
+      "time": [
+        {
+          "$integer": "162997"
+        },
+        {
+          "$integer": "22627"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-229632"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 33,
+      "time": [
+        {
+          "$integer": "901"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "963459"
+        },
+        "y0": {
+          "$integer": "1247019"
+        }
+      },
+      "from_cell": 999,
+      "kind": "motion",
+      "sequence": 34,
+      "time": [
+        {
+          "$integer": "223019"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-229632"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 35,
+      "time": [
+        {
+          "$integer": "181"
+        },
+        {
+          "$integer": "25"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "963459"
+        },
+        "y0": {
+          "$integer": "1247019"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 36,
+      "time": [
+        {
+          "$integer": "74681"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999000,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "165045"
+        },
+        "y0": {
+          "$integer": "858955"
+        }
+      },
+      "from_cell": 998000,
+      "kind": "motion",
+      "sequence": 37,
+      "time": [
+        {
+          "$integer": "14911"
+        },
+        {
+          "$integer": "2057"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 998002,
+          "from": 0,
+          "kind": "set_range",
+          "start": 998001,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 38,
+      "target": 998001,
+      "time": [
+        {
+          "$integer": "14911"
+        },
+        {
+          "$integer": "2057"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 3000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-229632"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 39,
+      "time": [
+        {
+          "$integer": "909"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 997999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "963459"
+        },
+        "y0": {
+          "$integer": "1247019"
+        }
+      },
+      "from_cell": 998999,
+      "kind": "motion",
+      "sequence": 40,
+      "time": [
+        {
+          "$integer": "225067"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1189045"
+        },
+        "y0": {
+          "$integer": "1189045"
+        }
+      },
+      "from_cell": 999000,
+      "kind": "motion",
+      "sequence": 41,
+      "time": [
+        {
+          "$integer": "165045"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 3000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "237824"
+        }
+      },
+      "from_cell": 3000,
+      "kind": "motion",
+      "sequence": 42,
+      "time": [
+        {
+          "$integer": "913"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 3,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 4001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 4000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 43,
+      "target": 4000,
+      "time": [
+        {
+          "$integer": "913"
+        },
+        {
+          "$integer": "125"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 997999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "1247019"
+        }
+      },
+      "from_cell": 997999,
+      "kind": "motion",
+      "sequence": 44,
+      "time": [
+        {
+          "$integer": "60541"
+        },
+        {
+          "$integer": "8283"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 997001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 997000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 45,
+      "target": 997000,
+      "time": [
+        {
+          "$integer": "60541"
+        },
+        {
+          "$integer": "8283"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 997999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "794837"
+        }
+      },
+      "from_cell": 997999,
+      "kind": "motion",
+      "sequence": 46,
+      "time": [
+        {
+          "$integer": "226091"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 997000,
+          "from": 0,
+          "kind": "set_range",
+          "start": 996999,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 47,
+      "target": 996999,
+      "time": [
+        {
+          "$integer": "226091"
+        },
+        {
+          "$integer": "30909"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "237824"
+        }
+      },
+      "from_cell": 3000,
+      "kind": "motion",
+      "sequence": 48,
+      "time": [
+        {
+          "$integer": "917"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "856907"
+        },
+        "y0": {
+          "$integer": "856907"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 49,
+      "time": [
+        {
+          "$integer": "166069"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": true
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "794837"
+        }
+      },
+      "from_cell": 997999,
+      "kind": "motion",
+      "sequence": 50,
+      "time": [
+        {
+          "$integer": "75705"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "237824"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 51,
+      "time": [
+        {
+          "$integer": "921"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "794837"
+        }
+      },
+      "from_cell": 998999,
+      "kind": "motion",
+      "sequence": 52,
+      "time": [
+        {
+          "$integer": "228139"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1191093"
+        },
+        "y0": {
+          "$integer": "1191093"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 53,
+      "time": [
+        {
+          "$integer": "9829"
+        },
+        {
+          "$integer": "1331"
+        }
+      ],
+      "vertex_blocked": true
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-235776"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 54,
+      "time": [
+        {
+          "$integer": "37"
+        },
+        {
+          "$integer": "5"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "-229163"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 55,
+      "time": [
+        {
+          "$integer": "229163"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "854859"
+        },
+        "y0": {
+          "$integer": "854859"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 56,
+      "time": [
+        {
+          "$integer": "168117"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": true
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-235776"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 57,
+      "time": [
+        {
+          "$integer": "929"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "-229163"
+        }
+      },
+      "from_cell": 999,
+      "kind": "motion",
+      "sequence": 58,
+      "time": [
+        {
+          "$integer": "61565"
+        },
+        {
+          "$integer": "8283"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "231211"
+        }
+      },
+      "from_cell": 998,
+      "kind": "motion",
+      "sequence": 59,
+      "time": [
+        {
+          "$integer": "76729"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 1999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 1998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 60,
+      "target": 1998,
+      "time": [
+        {
+          "$integer": "76729"
+        },
+        {
+          "$integer": "10303"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 3000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-235776"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 61,
+      "time": [
+        {
+          "$integer": "933"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1193141"
+        },
+        "y0": {
+          "$integer": "1193141"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 62,
+      "time": [
+        {
+          "$integer": "169141"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": true
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "1255211"
+        }
+      },
+      "from_cell": 998,
+      "kind": "motion",
+      "sequence": 63,
+      "time": [
+        {
+          "$integer": "231211"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 4000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-235776"
+        }
+      },
+      "from_cell": 3000,
+      "kind": "motion",
+      "sequence": 64,
+      "time": [
+        {
+          "$integer": "937"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "790741"
+        }
+      },
+      "from_cell": 999998,
+      "kind": "motion",
+      "sequence": 65,
+      "time": [
+        {
+          "$integer": "232235"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 998999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 998998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 66,
+      "target": 998998,
+      "time": [
+        {
+          "$integer": "232235"
+        },
+        {
+          "$integer": "30909"
+        }
+      ]
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 998998,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1193141"
+        },
+        "y0": {
+          "$integer": "1193141"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 67,
+      "time": [
+        {
+          "$integer": "170165"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 4000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "246016"
+        }
+      },
+      "from_cell": 4000,
+      "kind": "motion",
+      "sequence": 68,
+      "time": [
+        {
+          "$integer": "941"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 3,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 5001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 5000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 69,
+      "target": 5000,
+      "time": [
+        {
+          "$integer": "941"
+        },
+        {
+          "$integer": "125"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1084541"
+        },
+        "y0": {
+          "$integer": "-233259"
+        }
+      },
+      "from_cell": 999998,
+      "kind": "motion",
+      "sequence": 70,
+      "time": [
+        {
+          "$integer": "77753"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "-233259"
+        }
+      },
+      "from_cell": 998,
+      "kind": "motion",
+      "sequence": 71,
+      "time": [
+        {
+          "$integer": "20863"
+        },
+        {
+          "$integer": "2761"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 998,
+          "from": 0,
+          "kind": "set_range",
+          "start": 997,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 72,
+      "target": 997,
+      "time": [
+        {
+          "$integer": "20863"
+        },
+        {
+          "$integer": "2761"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 3000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "246016"
+        }
+      },
+      "from_cell": 4000,
+      "kind": "motion",
+      "sequence": 73,
+      "time": [
+        {
+          "$integer": "189"
+        },
+        {
+          "$integer": "25"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 998998,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "850763"
+        },
+        "y0": {
+          "$integer": "850763"
+        }
+      },
+      "from_cell": 998998,
+      "kind": "motion",
+      "sequence": 74,
+      "time": [
+        {
+          "$integer": "171189"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 997999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 997998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 75,
+      "target": 997998,
+      "time": [
+        {
+          "$integer": "171189"
+        },
+        {
+          "$integer": "22627"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 1998,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "-233259"
+        }
+      },
+      "from_cell": 998,
+      "kind": "motion",
+      "sequence": 76,
+      "time": [
+        {
+          "$integer": "234283"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "246016"
+        }
+      },
+      "from_cell": 3000,
+      "kind": "motion",
+      "sequence": 77,
+      "time": [
+        {
+          "$integer": "949"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "850763"
+        },
+        "y0": {
+          "$integer": "850763"
+        }
+      },
+      "from_cell": 998998,
+      "kind": "motion",
+      "sequence": 78,
+      "time": [
+        {
+          "$integer": "172213"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 1998,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "237355"
+        }
+      },
+      "from_cell": 1998,
+      "kind": "motion",
+      "sequence": 79,
+      "time": [
+        {
+          "$integer": "235307"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 2999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 2998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 80,
+      "target": 2998,
+      "time": [
+        {
+          "$integer": "235307"
+        },
+        {
+          "$integer": "30909"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "246016"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 81,
+      "time": [
+        {
+          "$integer": "953"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "237355"
+        }
+      },
+      "from_cell": 1998,
+      "kind": "motion",
+      "sequence": 82,
+      "time": [
+        {
+          "$integer": "78777"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-243968"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 83,
+      "time": [
+        {
+          "$integer": "957"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999999,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1197237"
+        },
+        "y0": {
+          "$integer": "1197237"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 84,
+      "time": [
+        {
+          "$integer": "173237"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": true
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999998,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "1261355"
+        }
+      },
+      "from_cell": 998,
+      "kind": "motion",
+      "sequence": 85,
+      "time": [
+        {
+          "$integer": "237355"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "1261355"
+        }
+      },
+      "from_cell": 999998,
+      "kind": "motion",
+      "sequence": 86,
+      "time": [
+        {
+          "$integer": "5783"
+        },
+        {
+          "$integer": "753"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-243968"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 87,
+      "time": [
+        {
+          "$integer": "961"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 998998,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "1197237"
+        },
+        "y0": {
+          "$integer": "1197237"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 88,
+      "time": [
+        {
+          "$integer": "174261"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "1261355"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 89,
+      "time": [
+        {
+          "$integer": "238379"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 3000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-243968"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 90,
+      "time": [
+        {
+          "$integer": "193"
+        },
+        {
+          "$integer": "25"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 997999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "1261355"
+        }
+      },
+      "from_cell": 998999,
+      "kind": "motion",
+      "sequence": 91,
+      "time": [
+        {
+          "$integer": "79801"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 997998,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": -22627,
+        "x0": {
+          "$integer": "846667"
+        },
+        "y0": {
+          "$integer": "1197237"
+        }
+      },
+      "from_cell": 998998,
+      "kind": "motion",
+      "sequence": 92,
+      "time": [
+        {
+          "$integer": "15935"
+        },
+        {
+          "$integer": "2057"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 998998,
+          "from": 0,
+          "kind": "set_range",
+          "start": 998997,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 93,
+      "target": 998997,
+      "time": [
+        {
+          "$integer": "15935"
+        },
+        {
+          "$integer": "2057"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 4000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-243968"
+        }
+      },
+      "from_cell": 3000,
+      "kind": "motion",
+      "sequence": 94,
+      "time": [
+        {
+          "$integer": "969"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 996999,
+        "id": 2,
+        "owner": 1,
+        "vx": 8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "959363"
+        },
+        "y0": {
+          "$integer": "1261355"
+        }
+      },
+      "from_cell": 997999,
+      "kind": "motion",
+      "sequence": 95,
+      "time": [
+        {
+          "$integer": "240427"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 5000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-243968"
+        }
+      },
+      "from_cell": 4000,
+      "kind": "motion",
+      "sequence": 96,
+      "time": [
+        {
+          "$integer": "973"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 997999,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "846667"
+        },
+        "y0": {
+          "$integer": "844619"
+        }
+      },
+      "from_cell": 997998,
+      "kind": "motion",
+      "sequence": 97,
+      "time": [
+        {
+          "$integer": "176309"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 996999,
+          "from": 0,
+          "kind": "set_range",
+          "start": 996998,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 98,
+      "target": 996998,
+      "time": [
+        {
+          "$integer": "176309"
+        },
+        {
+          "$integer": "22627"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 996999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": -30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "1261355"
+        }
+      },
+      "from_cell": 996999,
+      "kind": "motion",
+      "sequence": 99,
+      "time": [
+        {
+          "$integer": "64637"
+        },
+        {
+          "$integer": "8283"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 996001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 996000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 100,
+      "target": 996000,
+      "time": [
+        {
+          "$integer": "64637"
+        },
+        {
+          "$integer": "8283"
+        }
+      ]
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 996999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "778453"
+        }
+      },
+      "from_cell": 996999,
+      "kind": "motion",
+      "sequence": 101,
+      "time": [
+        {
+          "$integer": "241451"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 2,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 996000,
+          "from": 0,
+          "kind": "set_range",
+          "start": 995999,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 102,
+      "target": 995999,
+      "time": [
+        {
+          "$integer": "241451"
+        },
+        {
+          "$integer": "30909"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 5000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "256256"
+        }
+      },
+      "from_cell": 5000,
+      "kind": "motion",
+      "sequence": 103,
+      "time": [
+        {
+          "$integer": "977"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 3,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 6001,
+          "from": 0,
+          "kind": "set_range",
+          "start": 6000,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 104,
+      "target": 6000,
+      "time": [
+        {
+          "$integer": "977"
+        },
+        {
+          "$integer": "125"
+        }
+      ]
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 998000,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "-177333"
+        },
+        "y0": {
+          "$integer": "844619"
+        }
+      },
+      "from_cell": 997999,
+      "kind": "motion",
+      "sequence": 105,
+      "time": [
+        {
+          "$integer": "177333"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 997999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "778453"
+        }
+      },
+      "from_cell": 996999,
+      "kind": "motion",
+      "sequence": 106,
+      "time": [
+        {
+          "$integer": "80825"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 4000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "256256"
+        }
+      },
+      "from_cell": 5000,
+      "kind": "motion",
+      "sequence": 107,
+      "time": [
+        {
+          "$integer": "981"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "778453"
+        }
+      },
+      "from_cell": 997999,
+      "kind": "motion",
+      "sequence": 108,
+      "time": [
+        {
+          "$integer": "243499"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 3000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "256256"
+        }
+      },
+      "from_cell": 4000,
+      "kind": "motion",
+      "sequence": 109,
+      "time": [
+        {
+          "$integer": "197"
+        },
+        {
+          "$integer": "25"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 999001,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "-177333"
+        },
+        "y0": {
+          "$integer": "844619"
+        }
+      },
+      "from_cell": 998000,
+      "kind": "motion",
+      "sequence": 110,
+      "time": [
+        {
+          "$integer": "178357"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999999,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "778453"
+        }
+      },
+      "from_cell": 998999,
+      "kind": "motion",
+      "sequence": 111,
+      "time": [
+        {
+          "$integer": "244523"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 2000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "256256"
+        }
+      },
+      "from_cell": 3000,
+      "kind": "motion",
+      "sequence": 112,
+      "time": [
+        {
+          "$integer": "989"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 999998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "778453"
+        }
+      },
+      "from_cell": 999999,
+      "kind": "motion",
+      "sequence": 113,
+      "time": [
+        {
+          "$integer": "21887"
+        },
+        {
+          "$integer": "2761"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 1,
+        "id": 1,
+        "owner": 1,
+        "vx": -22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "181429"
+        },
+        "y0": {
+          "$integer": "-179381"
+        }
+      },
+      "from_cell": 999001,
+      "kind": "motion",
+      "sequence": 114,
+      "time": [
+        {
+          "$integer": "179381"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "attacker": 1,
+      "ball": 1,
+      "cancelled_capture": false,
+      "cancelled_strikes": [],
+      "dormant": [],
+      "kind": "capture",
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "end": 999003,
+          "from": 0,
+          "kind": "set_range",
+          "start": 999002,
+          "to": 1
+        }
+      ],
+      "pairs": [],
+      "reactivated_cannons": [],
+      "sequence": 115,
+      "target": 999002,
+      "time": [
+        {
+          "$integer": "179381"
+        },
+        {
+          "$integer": "22627"
+        }
+      ]
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": -32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "256256"
+        }
+      },
+      "from_cell": 2000,
+      "kind": "motion",
+      "sequence": 116,
+      "time": [
+        {
+          "$integer": "993"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "-245547"
+        }
+      },
+      "from_cell": 999998,
+      "kind": "motion",
+      "sequence": 117,
+      "time": [
+        {
+          "$integer": "81849"
+        },
+        {
+          "$integer": "10303"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 1,
+      "ball_state": {
+        "cell": 1001,
+        "id": 1,
+        "owner": 1,
+        "vx": 22627,
+        "vy": 22627,
+        "x0": {
+          "$integer": "-179381"
+        },
+        "y0": {
+          "$integer": "-179381"
+        }
+      },
+      "from_cell": 1,
+      "kind": "motion",
+      "sequence": 118,
+      "time": [
+        {
+          "$integer": "180405"
+        },
+        {
+          "$integer": "22627"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 3,
+      "ball_state": {
+        "cell": 1000,
+        "id": 3,
+        "owner": 1,
+        "vx": 0,
+        "vy": 32000,
+        "x0": {
+          "$integer": "512"
+        },
+        "y0": {
+          "$integer": "-254208"
+        }
+      },
+      "from_cell": 1000,
+      "kind": "motion",
+      "sequence": 119,
+      "time": [
+        {
+          "$integer": "997"
+        },
+        {
+          "$integer": "125"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "ball": 2,
+      "ball_state": {
+        "cell": 1998,
+        "id": 2,
+        "owner": 1,
+        "vx": -8283,
+        "vy": 30909,
+        "x0": {
+          "$integer": "1088637"
+        },
+        "y0": {
+          "$integer": "-245547"
+        }
+      },
+      "from_cell": 998,
+      "kind": "motion",
+      "sequence": 120,
+      "time": [
+        {
+          "$integer": "246571"
+        },
+        {
+          "$integer": "30909"
+        }
+      ],
+      "vertex_blocked": false
+    },
+    {
+      "authorization": {
+        "grants": [
+          {
+            "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+            "activation_position": {
+              "$integer": "4"
+            },
+            "expires_at_ns": {
+              "$integer": "1794969701116641673"
+            },
+            "spender_principal": "1df5bb6e49f8ffe74c98dfd7b4ce3e2b6501764441ba1dc06b01ef6602"
+          }
+        ],
+        "last_position": {
+          "$integer": "7"
+        },
+        "ledger_time_ns": {
+          "$integer": "1794364904911046416"
+        },
+        "recipient": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d",
+        "version": 1
+      },
+      "kind": "lifecycle_time",
+      "observed_ns": {
+        "$integer": "1794364954560478494"
+      },
+      "previous_elapsed_ns": {
+        "$integer": "1794361289352070817"
+      },
+      "sequence": 121,
+      "stamped": [],
+      "time": [
+        {
+          "$integer": "8"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    }
+  ],
+  "receipts": [
+    {
+      "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "100000000"
+      },
+      "amount_used": {
+        "$integer": "100000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "100000000"
+        }
+      ],
+      "position": {
+        "$integer": "3"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit",
+      "transfer": {
+        "created_at_ns": null,
+        "fee": {
+          "$integer": "12345"
+        },
+        "ledger_time_ns": {
+          "$integer": "1794364896984727756"
+        },
+        "legacy_memo": {
+          "$integer": "0"
+        },
+        "memo": "4e4557203232352031",
+        "raw_digest": "eef52b0d9b8f3342fa3074a62f64fb999919f661b593cd94cab08c7cb7e85f35",
+        "to": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d"
+      }
+    },
+    {
+      "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+      "amount": {
+        "$integer": "0"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "kind": "game_access_granted",
+      "position": {
+        "$integer": "4"
+      },
+      "reason": "DELEGATION_GRANTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "configured",
+      "transfer": {
+        "created_at_ns": null,
+        "fee": {
+          "$integer": "12345"
+        },
+        "ledger_time_ns": {
+          "$integer": "1794364901116641673"
+        },
+        "legacy_memo": {
+          "$integer": "0"
+        },
+        "memo": "b2d11d1df5bb6e49f8ffe74c98dfd7b4ce3e2b6501764441ba1dc06b01ef6602",
+        "raw_digest": "5c4412197b8218ead620c8022883a3a22205c9c23b4f79fd5f35cbe3cdb1baf3",
+        "to": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d"
+      }
+    },
+    {
+      "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "10000000"
+        }
+      ],
+      "position": {
+        "$integer": "6"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "spender": "0ec684a604a80d0f3740d931cc7621e0ee0dae388cfa79b17678cbac2cfe9515",
+      "status": "applied",
+      "stop_reason": "quantity_limit",
+      "transfer": {
+        "created_at_ns": {
+          "$integer": "1794364903187000000"
+        },
+        "fee": {
+          "$integer": "12345"
+        },
+        "ledger_time_ns": {
+          "$integer": "1794364903345492980"
+        },
+        "legacy_memo": {
+          "$integer": "0"
+        },
+        "memo": "464952452031203235352031",
+        "raw_digest": "8d4258e35b5eafaef572fd58dae7a98d972fef449afc8f5d22d337bc26e07904",
+        "to": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d"
+      }
+    },
+    {
+      "account": "398108fde6a403a33ae538611eb64305c8abfea7fcd7c67ae707d2f0cb788276",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "40000000"
+      },
+      "amount_used": {
+        "$integer": "40000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "40000000"
+        }
+      ],
+      "position": {
+        "$integer": "7"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit",
+      "transfer": {
+        "created_at_ns": null,
+        "fee": {
+          "$integer": "12345"
+        },
+        "ledger_time_ns": {
+          "$integer": "1794364904911046416"
+        },
+        "legacy_memo": {
+          "$integer": "0"
+        },
+        "memo": "4649524520312039302031",
+        "raw_digest": "6ca11d1a4b420b9a622619dcde9ab595d07b735dcb33d43c01bb9e9246e04e8b",
+        "to": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d"
+      }
+    }
+  ],
+  "version": 6
+}

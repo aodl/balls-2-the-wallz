@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "scope": "explicit experimental disposable integration; exact executed test and its result define scope; no production or real II ceremony claim",
+  "test": {
+    "id": "delegated_payments::icrc2_maximum_source_window_preserves_backpressure_and_exactly_once",
+    "command": [
+      "/home/codexdev/src/b2z-icrc2/.work/icrc2-delegated-payments/source-window-final02/installed-test-harness",
+      "delegated_payments::icrc2_maximum_source_window_preserves_backpressure_and_exactly_once",
+      "--exact",
+      "--ignored",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 93.207,
+    "timeout_seconds": 900,
+    "log": "logs/delegated_payments::icrc2_maximum_source_window_preserves_backpressure_and_exactly_once.log",
+    "pocketic_server_exit": null
+  },
+  "artifacts": {
+    "POCKET_IC_BIN": {
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+      "path": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic"
+    },
+    "ICP_LEDGER_WASM": {
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm"
+    },
+    "ICP_INDEX_WASM": {
+      "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ic-icp-index-canister.wasm"
+    }
+  },
+  "harness_sha256": "6515aae62fafadc12d768a22d72c9ad6ba4a1c446b246265542e0d0669103e72",
+  "backend_modules": {
+    "B2Z_DELEGATION_WASM": {
+      "path": "/home/codexdev/src/b2z-icrc2/.work/icrc2-delegated-payments/wire-final/backend/delegated-payments.wasm",
+      "sha256": "d5cbcdd37fd3d8bcf30b490eb50ad0f1354dd1490631806edfc6f1f0bcab5aec"
+    },
+    "B2Z_DELEGATION_PRIOR_WASM": {
+      "path": "/home/codexdev/src/b2z/.work/fluid-player-experience/installed-torus01/normal.wasm",
+      "sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488"
+    }
+  }
+}

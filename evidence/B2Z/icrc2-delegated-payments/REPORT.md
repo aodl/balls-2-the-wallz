@@ -1,7 +1,8 @@
 # Optional delegated payments — isolated implementation and local qualification
 
 **The delegated Ledger → Index → installed-game path works on disposable
-infrastructure, including an upgrade from the exact European predecessor.**
+infrastructure, including actual A/S SDK signatures and an upgrade from the exact
+European predecessor.**
 Optional signing/UI is implemented and remains disabled in ordinary production
 builds. Real Internet Identity ceremony, physical-device/real-wallet coverage and
 hosted exact-source qualification remain unexecuted; this is not production
@@ -191,10 +192,11 @@ wait for or expose an unfinished financial feature.
 
 ## Continuation and production boundary
 
-The additional `delegated-payments.yml` workflow is manual-only, binds a full
-source SHA, and uses a separate concurrency group. It does not replace/cancel the
+The additional `delegated-payments.yml` workflow runs only on the isolated feature
+branch push or explicit dispatch, binds a full source SHA, and uses a separate
+concurrency group. It does not replace/cancel the
 six ordinary gates, deploy anything, or request financial credentials. It has not
-been dispatched while the owner is away.
+been triggered or dispatched while the owner is away.
 
 Use `tools/verify_s14_local.py --delegated-payments` with explicit
 `--test-filter delegated_payments::...`, predecessor path and independently checked
@@ -276,3 +278,102 @@ cost results remain evidence for that earlier exact module, not a substitute for
 the replacement module's pending installed reruns. The harness aliases its own
 already-pinned Candid 0.10.37 parser trait; the canister keeps Candid 0.10.28 and
 its existing binread version. No dependency version is upgraded.
+
+## Final module and integrated qualification
+
+The explicit-endian parser API shared by pinned Candid versions produces a final
+normal module `d5cbcdd37fd3d8bcf30b490eb50ad0f1354dd1490631806edfc6f1f0bcab5aec`
+(3,677,527 bytes), from clean runtime source
+`56829547ed4099b7aadf7a7eb6338fe8656e4afe`. The earlier `6d95d0ba…` differs by
+11 bytes and is retained, not substituted. The [final backend manifest](backend-final.json)
+records exact exports and has no synthetic mutation methods.
+
+- [Corrected full source window](source-window-final02.json): PASS, **93.207 s**,
+  256 actual records pending across upgrade and exactly 256 ordered receipts.
+- [Exact European predecessor upgrade](installed-exact-final02.json): PASS,
+  **334.587 s**, using `612ad0d0…` → final `d5cbcdd3…`; the complete old/new
+  pending-input, grant/revoke/replacement/expiry and retained-payment assertions
+  remain intact. [Final certificate/source proof](installed-final-authentication.json)
+  and all [17 independent replay stages](independent-replay-final.json) pass.
+- [Local source gate](source-recovery-final.json): PASS, including **1,850 JS**
+  and **199 Python** tests, unchanged historical delivery contract, structure and
+  documentation links. It starts at source `c2e41cc…`; its JS/application inputs
+  are unchanged in the later parser/API and integration-tooling commits. This is
+  local execution evidence, not a hosted exact-source conclusion for a later SHA.
+- Default/experimental host suites each pass **54/54** after strict wire recovery;
+  the shared modern-Candid harness also passes all four wire regressions.
+
+The [final same-module empty-cost measurement](empty-maintenance-cost-final.json)
+also passes, **99.167 s** wall time: three 600-second virtual windows each execute
+10 actual source fallbacks and no simulation. Net debits are 873,949,730 cycles
+(rules 7 empty), 845,209,884 (rules 8 empty registry), and 914,055,257 (one grant).
+Grant discovery plus execution is 294,548,720 cycles, including existing source
+work. State sizes remain 2,532 / 2,708 / 2,987 bytes. No added allowance/expiry loop,
+credit or transfer occurs in these windows. These remain net disposable costs,
+not gross production billing, a pure lookup comparison or lifetime estimates.
+
+The first combined signed-SDK/installed test preserves a FAIL (77.440 s): Ledger
+signatures and exact Duplicate recovery passed, but a game receipt assertion
+failed. The fixture had used the first Fire price again for its second manual
+Fire, even though the pool had grown from one to two. The shared pricing helper
+requires 0.4 ICP for that second request. The corrected fixture computes Join and
+both Fire amounts with the maintained canonical helpers; it also saves receipts
+before assertions for precise future diagnosis. No backend/economic rule or
+assertion was weakened, and the original failure remains available.
+
+The optional UI now marks an allowance **Last checked** immediately after a
+submission may have consumed it. Every new explicit Pay still re-queries the
+allowance and fee; this adds no polling. The independent frontend release remains
+on `release/btz-prelaunch-playability` with its own 16-file freeze; the isolated
+feature's 17-file asset sets include its additional configuration.
+
+### Signed installed path and final UI
+
+[Combined signed SDK → game proof](signed-installed-game02.json): **PASS,
+95.150 s** (outer harness timing is retained in the linked record). Distinct A and
+S keys and S's leaf delegation live only in the Node process. A signs a normal
+Join, zero-value game grant and finite approval; S signs the exact delegated Fire.
+After an injected post-execution response loss, retry of the original timestamp
+returns Duplicate and consumes amount plus fee once. A then signs a separate
+manual Fire. The child signer exits **before** game processing. The existing
+Index/source pipeline subsequently applies all three gameplay payments to A's
+cannon, and the [actual receipts](signed-installed-game-receipts.json) and
+[certificate/source verification](signed-installed-authentication.json) pass.
+This is an actual installed, signed, valueless payment path, not an II ceremony or
+browser-UI signing claim. The UI/component proof remains separately scoped.
+
+[Final browser result](ui-release08.json): PASS at desktop, 390×844 and 320×640,
+including Last checked allowance after spending, copy replacement, permissions,
+storage/lock errors, exact receipt and native two-tab exclusion. [Final populated
+captures/recordings](media-release08/) use actual application components with
+simulated auth/Ledger replies in Chromium/SwiftShader. Earlier media and failed
+attempts remain. All **38** focused payment tests pass after the last UI change.
+No hardware GPU, physical phone, native wallet or real Internet Identity pass is
+claimed. No signing identity material is retained in any artifact.
+
+### Hosted gates and source continuation
+
+The actual ordinary workflow still requires **Source conformance; Native
+conformance; Packaged DTR and clean consumers; Runtime-lab Wasm; Browser HTTP and
+Web Crypto; S14 and million-cell installed-IC qualification**. Every hosted
+conclusion is **NOT_RUN for this isolated source**, while the owner is away.
+Informational production inventory is excluded. The additional financial workflow
+runs only on the isolated feature branch or explicit exact-SHA dispatch, with no
+production credentials, deployment step or relation to frontend-branch concurrency.
+No push, force push, deployment, controller/setting update, real allowance or
+financial transfer occurred.
+
+After local review, the ordinary non-force feature publication is:
+
+```sh
+git -C /home/codexdev/src/b2z-icrc2 push origin HEAD:refs/heads/feature/b2z-icrc2-delegated-payments
+```
+
+Recheck the remote before publication and reconcile any new commits; do not force.
+The frontend-only candidate remains independently publishable from its existing
+release branch. Production activation of this experimental feature additionally
+requires exact-source ordinary and financial CI, a real II ceremony/origin review,
+and separate approval for the exact backend upgrade plus drained authenticated
+cutover and feature-enabled assets. Keep the preserved paid-state recovery path;
+never reset or reinterpret old inputs. Signing out and the two on-chain revocations
+remain distinct. This report authorizes no production operation.

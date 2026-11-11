@@ -2,6 +2,7 @@
 //! are PocketIC callers, not an Internet Identity/browser signing claim.
 use super::*;
 use candid::Nat;
+use ic_ledger_types::Subaccount;
 #[derive(CandidType)]
 struct Approve {
     from_subaccount: Option<Vec<u8>>,
@@ -386,7 +387,19 @@ fn icrc2_actual_ledger_index_preserves_funder_spender_memo_and_zero_grant() {
 #[test]
 #[ignore = "experimental delegated-payment qualification; explicit dedicated invocation"]
 fn icrc2_actual_sdk_signing_and_immutable_duplicate_retry() {
-    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("signed-ledger");
+    signed_sdk_proof(false);
+}
+#[test]
+#[ignore = "experimental delegated-payment qualification; explicit dedicated invocation"]
+fn icrc2_actual_signed_installed_gameplay_pipeline() {
+    signed_sdk_proof(true);
+}
+fn signed_sdk_proof(installed: bool) {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if installed {
+        "signed-gameplay"
+    } else {
+        "signed-ledger"
+    });
     std::fs::create_dir_all(&out).unwrap();
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let log = std::fs::File::create(out.join("signer.log")).unwrap();
@@ -396,6 +409,11 @@ fn icrc2_actual_sdk_signing_and_immutable_duplicate_retry() {
             .args([
                 "tools/fixtures/delegated-ledger-signer.mjs",
                 out.to_str().unwrap(),
+                if installed {
+                    "--installed-game"
+                } else {
+                    "--ledger-only"
+                },
             ])
             .stdout(log.try_clone().unwrap())
             .stderr(log)
@@ -412,21 +430,103 @@ fn icrc2_actual_sdk_signing_and_immutable_duplicate_retry() {
     let a = Principal::from_text(public["funding"].as_str().unwrap()).unwrap();
     let s = Principal::from_text(public["spender"].as_str().unwrap()).unwrap();
     assert_ne!(a, s);
-    let mut pic = PocketIcBuilder::new()
-        .with_nns_subnet()
-        .with_application_subnet()
-        .with_server_url(
-            std::env::var("POCKET_IC_SERVER_URL")
-                .unwrap()
-                .parse()
-                .unwrap(),
+    let (mut pic, ledger, receiver) = if installed {
+        let (pic, id, ledger, setup_payer) = arena_setup_world_fee_clock_payers_options(
+            bytes("B2Z_DELEGATION_WASM"),
+            initial_world(),
+            12345,
+            3600,
+            &[a],
+            true,
+        );
+        europe::activate(&pic, id);
+        playability_installed::funding_paused(&pic, id, true);
+        let fee: Nat = decode_one(
+            &pic.query_call(
+                ledger,
+                Principal::anonymous(),
+                "icrc1_fee",
+                encode_args(()).unwrap(),
+            )
+            .unwrap(),
         )
-        .build();
-    pic.set_time(std::time::SystemTime::now().into());
-    let ledger = deploy_ledger_options(&pic, &bytes("ICP_LEDGER_WASM"), &[a], 12345, true);
-    let receiver = create_controlled(&pic);
+        .unwrap();
+        let pos = num(call(
+            &pic,
+            ledger,
+            setup_payer,
+            "icrc1_transfer",
+            IcrcTransferArg {
+                to: acct(id),
+                fee: Some(fee),
+                memo: Some(b"INVALID".to_vec()),
+                from_subaccount: None,
+                created_at_time: None,
+                amount: 10_000u64.into(),
+            },
+        )
+        .unwrap());
+        for _ in 0..120 {
+            tick(&pic);
+            if status(&pic, id).source.admitted_to_exclusive > pos {
+                break;
+            }
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > pos);
+        playability_installed::one_tick(&pic, id);
+        playability_installed::prepare(&pic, id, "prepare_delegation_transition");
+        let mut ready = false;
+        for _ in 0..120 {
+            tick(&pic);
+            let bytes: Vec<u8> = get_query(
+                &pic,
+                id,
+                "delegation_transition_status",
+                encode_args(()).unwrap(),
+            );
+            let t: serde_json::Value = decode(&bytes).unwrap();
+            if t["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+                ready = true;
+                break;
+            }
+        }
+        assert!(ready);
+        let _: Vec<u8> = get_result(
+            &pic,
+            id,
+            "commit_delegation_transition",
+            candid::encode_one(observe(&pic, id).1.head.manifest_hash).unwrap(),
+        );
+        (pic, ledger, id)
+    } else {
+        let pic = PocketIcBuilder::new()
+            .with_nns_subnet()
+            .with_application_subnet()
+            .with_server_url(
+                std::env::var("POCKET_IC_SERVER_URL")
+                    .unwrap()
+                    .parse()
+                    .unwrap(),
+            )
+            .build();
+        pic.set_time(std::time::SystemTime::now().into());
+        let ledger = deploy_ledger_options(&pic, &bytes("ICP_LEDGER_WASM"), &[a], 12345, true);
+        let receiver = create_controlled(&pic);
+        (pic, ledger, receiver)
+    };
+    if installed {
+        let now = std::time::SystemTime::now();
+        assert!(
+            pic.get_time().as_nanos_since_unix_epoch()
+                <= now
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap()
+                    .as_nanos() as u64
+        );
+        pic.set_time(now.into());
+    }
     let gateway = pic.make_live(None);
-    let config = serde_json::json!({"network":"pocketic-local","ledger":ledger.to_text(),"host":gateway.as_str().trim_end_matches('/'),"canister_id":receiver.to_text(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    let config = serde_json::json!({"network":"pocketic-local","ledger":ledger.to_text(),"host":gateway.as_str().trim_end_matches('/'),"canister_id":receiver.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"installed_game":installed});
     std::fs::write(
         out.join("signed-config.json"),
         serde_json::to_vec(&config).unwrap(),
@@ -454,6 +554,66 @@ fn icrc2_actual_sdk_signing_and_immutable_duplicate_retry() {
     assert_eq!(result["funding"], a.to_text());
     assert_eq!(result["spender"], s.to_text());
     pic.stop_live();
+    if installed {
+        let last = result["manual_position"]
+            .as_str()
+            .unwrap()
+            .parse::<u64>()
+            .unwrap();
+        for _ in 0..120 {
+            tick(&pic);
+            assert!(status(&pic, receiver).source.last_error.is_none());
+            if status(&pic, receiver).source.admitted_to_exclusive > last {
+                break;
+            }
+        }
+        assert!(status(&pic, receiver).source.admitted_to_exclusive > last);
+        playability_installed::one_tick(&pic, receiver);
+        let world = arena_world(&pic, receiver);
+        let owner = AccountIdentifier::new(&a, &Subaccount([0; 32])).to_hex();
+        assert_eq!(world.cannons.len(), 1);
+        assert_eq!(world.cannons[0].account, owner);
+        assert_eq!(world.received_e8s, 150_010_000i64.into());
+        let (o, p) = observe(&pic, receiver);
+        let mut event = vec![];
+        for c in 0..p.artifacts[1].chunks.len() {
+            event.extend(get_query::<Vec<u8>>(
+                &pic,
+                receiver,
+                "artifact_chunk",
+                encode_args((dtr_wire::hash(&o.publication), 1u8, c as u16)).unwrap(),
+            ));
+        }
+        let event: serde_json::Value = decode(&event).unwrap();
+        std::fs::write(
+            out.join("game-receipts.json"),
+            serde_json::to_vec_pretty(&event).unwrap(),
+        )
+        .unwrap();
+        let receipts = event["receipts"].as_array().unwrap();
+        for key in ["join_position", "transfer_position", "manual_position"] {
+            let position = result[key].as_str().unwrap();
+            let row = receipts
+                .iter()
+                .find(|r| r["position"]["$integer"] == position)
+                .unwrap();
+            assert_eq!(row["account"], owner);
+            assert_eq!(row["status"], "applied", "{key}: {row}");
+            if key == "transfer_position" {
+                assert_eq!(
+                    row["spender"],
+                    AccountIdentifier::new(&s, &Subaccount([0; 32])).to_hex()
+                );
+                assert_eq!(row["transfer"]["memo"], result["memo"]);
+            }
+        }
+        std::fs::write(
+            out.join("game-receipts.json"),
+            serde_json::to_vec_pretty(&event).unwrap(),
+        )
+        .unwrap();
+        signed_game_authentication(&pic, receiver, ledger, &out);
+    }
     println!("SIGNED_LEDGER_RESULT {}", result);
 }
 
@@ -1577,4 +1737,45 @@ fn icrc2_maximum_source_window_preserves_backpressure_and_exactly_once() {
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     std::fs::write(out.join("delegation-source-window.json"),serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","scope":"one existing maximum normalized source window with actual valueless Ledger/Index records; no population/throughput or production claim","rows":256,"normal_wasm_sha256":dtr_wire::hash(&module),"pending_inputs_preserved":256,"last_ledger_position":last,"duplicate_receipts":0,"received_e8s":"10000","registry_entries":1})).unwrap()).unwrap();
+}
+
+fn signed_game_authentication(pic: &PocketIc, id: Principal, ledger: Principal, out: &Path) {
+    let auth = out.join("authenticated-final");
+    std::fs::create_dir(&auth).unwrap();
+    let (o, p) = observe(&pic, id);
+    let source: Vec<u8> = get_query(&pic, id, "source_descriptor", encode_args(()).unwrap());
+    std::fs::write(auth.join("source.bin"), source).unwrap();
+    std::fs::write(
+        auth.join("configuration.bin"),
+        b2z_native::delegation_v8::configuration(),
+    )
+    .unwrap();
+    std::fs::write(auth.join("catalog.bin"), &o.publication).unwrap();
+    std::fs::write(auth.join("certificate.cbor"), o.certificate.unwrap()).unwrap();
+    std::fs::write(auth.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    for (kind, name) in ["state", "events", "scores"].iter().enumerate() {
+        let mut body = vec![];
+        for chunk in 0..p.artifacts[kind].chunks.len() {
+            body.extend(get_query::<Vec<u8>>(
+                &pic,
+                id,
+                "artifact_chunk",
+                encode_args((dtr_wire::hash(&o.publication), kind as u8, chunk as u16)).unwrap(),
+            ));
+        }
+        assert_eq!(dtr_wire::hash(&body), p.artifacts[kind].sha256);
+        std::fs::write(auth.join(format!("{name}.bin")), body).unwrap();
+    }
+    std::fs::write(auth.join("metadata.json"),serde_json::to_vec_pretty(&serde_json::json!({"canister_id":id.to_text(),"now_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"publication_version":p.version,"scenario":"paid-delegation-v8","source_binding_required":true,"virtual_clock":true,"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text()})).unwrap()).unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "tools/verify_operation_cache_observation.mjs",
+                auth.to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
 }

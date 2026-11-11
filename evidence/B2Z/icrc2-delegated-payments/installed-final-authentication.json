@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "scenario": "paid-delegation-v8",
+  "source_binding": true,
+  "trust": "explicit disposable root, canister binding and certificate freshness",
+  "publication_version": 8,
+  "root_hash": "2dbf3d9d55a786acfc22ff3fca8c875b9d65f042070a0982c4702e991d74c30e",
+  "artifacts": [
+    "state",
+    "events",
+    "scores"
+  ]
+}

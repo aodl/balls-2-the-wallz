@@ -1,3 +1,15 @@
+# Optional delegated payments — isolated, disabled candidate
+
+The separate `feature/b2z-icrc2-delegated-payments` worktree implements finite
+owner grants, versioned source inputs and optional signed Ledger transfers.
+Actual A/S SDK signatures through disposable Ledger/Index, installed game and
+certified outcomes pass, as do exact-European-predecessor preservation and the
+256-record pending window. Ordinary builds exclude signing; production is
+unchanged. Real Internet Identity ceremony and hosted qualification remain
+outstanding. See the [single feature record](evidence/B2Z/icrc2-delegated-payments/REPORT.md)
+and [financial authorization contract](docs/specs/B2Z_DELEGATED_PAYMENTS.md).
+The independent frontend release branch does not contain this feature.
+
 # Fluid player experience — source candidate, not deployed
 
 The camera/follow/compact-toolbar continuation is being qualified locally on

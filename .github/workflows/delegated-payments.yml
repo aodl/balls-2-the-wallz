@@ -1,9 +1,11 @@
 name: experimental delegated-payment qualification
 
 # Additional financial qualification, never a substitute for the six ordinary
-# substantive jobs. Explicit dispatch prevents an unfinished feature becoming
-# part of the independent frontend release or activating production payments.
+# substantive jobs. Only the isolated feature branch or explicit dispatch runs
+# this path; it cannot activate production payments or gate the frontend branch.
 on:
+  push:
+    branches: [feature/b2z-icrc2-delegated-payments]
   workflow_dispatch:
     inputs:
       source_sha:
@@ -13,7 +15,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: delegated-payments-${{ inputs.source_sha }}
+  group: delegated-payments-${{ inputs.source_sha || github.sha }}
   cancel-in-progress: false
 jobs:
   disposable-financial-path:
@@ -25,13 +27,13 @@ jobs:
       CARGO_TERM_COLOR: always
       CARGO_INCREMENTAL: 0
       DFX_IDENTITY: codex_local
-      EXPECTED_SOURCE: ${{ inputs.source_sha }}
+      EXPECTED_SOURCE: ${{ inputs.source_sha || github.sha }}
     steps:
       - name: Require an exact source identity
         run: python3 -c 'import os,re; assert re.fullmatch("[0-9a-f]{40}",os.environ["EXPECTED_SOURCE"])'
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ inputs.source_sha }}
+          ref: ${{ inputs.source_sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
