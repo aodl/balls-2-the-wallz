@@ -1,3 +1,25 @@
+# Fluid frontend — six gates passed, awaiting separate release authority
+
+Published `454ec0380d5d76a01c809078b8fe625db98eaeda` passes all six substantive
+jobs in run 42996637314. Frozen runtime `662f905` / JS `79acf867…` / complete
+16-file manifest `68116cee…` remains intact and byte-checked. Normal 900-second
+continuity and cold Lifeline reconnect both pass without stalls/resyncs.
+[Qualified frontend report](evidence/B2Z/fluid-player-experience/REPORT.md).
+
+Isolated optional-payment `58027f4` passes all six ordinary gates and all eight
+disposable financial cases in runs 42996637074 / 42996637060. It stays disabled
+by default, with no production backend upgrade, II activation or real spending.
+
+Recommendation: separate exact-artifact frontend-only controlled-playtest approval.
+Production remains on the tactical release; paid backend/state/settings/controllers
+and financial authority are untouched. Hardware, physical-phone, actual-wallet,
+II ceremony and genuine rendered-hidden-tab limits remain. Later evidence-only
+commits do not replace the qualified runtime or require rebuilding its assets.
+
+Earlier entries retain their historical status.
+
+---
+
 # Published frontend passes six gates; local jitter follow-up
 
 `a0a59f9` passes all six substantive jobs in run 42984828168. Its qualified

@@ -1,0 +1,229 @@
+{
+  "status": "PASS",
+  "scope": "Rendered controlled return/retention with actual component fixture. Not genuine tab hiding.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "same_head": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 0.005999000000000001,
+          "available": 1,
+          "buffer": 0.994001,
+          "rate": 1
+        },
+        "renderedAt": 1368.5,
+        "queue": 1,
+        "bytes": 6534,
+        "sameClock": true,
+        "latencyMs": 1.3999999999650754
+      },
+      "three_new_intervals": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 3,
+          "available": 4,
+          "buffer": 1,
+          "rate": 1
+        },
+        "renderedAt": 1496.9000000000233,
+        "queue": 1,
+        "bytes": 6535,
+        "sameClock": true,
+        "latencyMs": 1.1000000000349246
+      },
+      "admissions": [
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 1,
+            "available": 2,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 2,
+            "available": 3,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6535,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 3,
+            "available": 4,
+            "buffer": 1,
+            "rate": 1
+          }
+        }
+      ],
+      "requests_during_controlled_return": 0,
+      "displayed_follow_preserved": true,
+      "zoom": 96,
+      "video": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-elastic-return/video/page@075a6e6030f2bbe24cec9c300b3a830e.webm",
+      "scope": "Explicitly paused fixture presentation, injected integrity-checked canonical segments; not IC-certified; not real visibility, certificate, background scheduler, device or production timing evidence."
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "same_head": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 0.004666000000000001,
+          "available": 1,
+          "buffer": 0.995334,
+          "rate": 1
+        },
+        "renderedAt": 1140.4000000000233,
+        "queue": 1,
+        "bytes": 6534,
+        "sameClock": true,
+        "latencyMs": 1.2999999999883585
+      },
+      "three_new_intervals": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 3,
+          "available": 4,
+          "buffer": 1,
+          "rate": 1
+        },
+        "renderedAt": 1248.9000000000233,
+        "queue": 1,
+        "bytes": 6535,
+        "sameClock": true,
+        "latencyMs": 1
+      },
+      "admissions": [
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 1,
+            "available": 2,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 2,
+            "available": 3,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6535,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 3,
+            "available": 4,
+            "buffer": 1,
+            "rate": 1
+          }
+        }
+      ],
+      "requests_during_controlled_return": 0,
+      "displayed_follow_preserved": true,
+      "zoom": 96,
+      "video": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-elastic-return/video/page@c5382ca7c6e3db11a76e0398a5c446f4.webm",
+      "scope": "Explicitly paused fixture presentation, injected integrity-checked canonical segments; not IC-certified; not real visibility, certificate, background scheduler, device or production timing evidence."
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "same_head": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 0.004334000000000001,
+          "available": 1,
+          "buffer": 0.995666,
+          "rate": 1
+        },
+        "renderedAt": 1045.399999999965,
+        "queue": 1,
+        "bytes": 6534,
+        "sameClock": true,
+        "latencyMs": 1.099999999976717
+      },
+      "three_new_intervals": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 3,
+          "available": 4,
+          "buffer": 1,
+          "rate": 1
+        },
+        "renderedAt": 1139.2999999999884,
+        "queue": 1,
+        "bytes": 6535,
+        "sameClock": true,
+        "latencyMs": 0.9000000000232831
+      },
+      "admissions": [
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 1,
+            "available": 2,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 2,
+            "available": 3,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6535,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 3,
+            "available": 4,
+            "buffer": 1,
+            "rate": 1
+          }
+        }
+      ],
+      "requests_during_controlled_return": 0,
+      "displayed_follow_preserved": true,
+      "zoom": 96,
+      "video": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-elastic-return/video/page@c987933dc48c8798a3b2ed58768c262a.webm",
+      "scope": "Explicitly paused fixture presentation, injected integrity-checked canonical segments; not IC-certified; not real visibility, certificate, background scheduler, device or production timing evidence."
+    }
+  ],
+  "video": true
+}

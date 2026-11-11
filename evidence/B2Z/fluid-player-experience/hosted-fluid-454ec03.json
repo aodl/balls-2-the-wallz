@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "toolbar": "single row, accessible44px",
+      "modern_handoff": {
+        "memo": "FIRE 1 255 1",
+        "amount": "0.1 ICP",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai"
+      },
+      "no_op_move_rejected": true,
+      "double_click_did_not_commit": true,
+      "stable_anchor": {
+        "x": 500,
+        "y": 500,
+        "owner": 1,
+        "torus": true
+      },
+      "ball_follow_zoom": 96,
+      "same_clock_queue": true,
+      "scope": "Actual components with canonical disposable fixtures; accelerated motion, not production/device evidence.",
+      "video": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-fluid-journeys/video/page@3dfccaf9d930af4190baaff9494143b3.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "toolbar": "single row, accessible44px",
+      "modern_handoff": {
+        "memo": "FIRE 1 255 1",
+        "amount": "0.1 ICP",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai"
+      },
+      "no_op_move_rejected": true,
+      "double_click_did_not_commit": true,
+      "stable_anchor": {
+        "x": 500,
+        "y": 500,
+        "owner": 1,
+        "torus": true
+      },
+      "ball_follow_zoom": 96,
+      "same_clock_queue": true,
+      "scope": "Actual components with canonical disposable fixtures; accelerated motion, not production/device evidence.",
+      "video": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-fluid-journeys/video/page@6e7c7e21b6d64fe36628a45870d96e23.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "toolbar": "single row, accessible44px",
+      "modern_handoff": {
+        "memo": "FIRE 1 255 1",
+        "amount": "0.1 ICP",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai"
+      },
+      "no_op_move_rejected": true,
+      "double_click_did_not_commit": true,
+      "stable_anchor": {
+        "x": 500,
+        "y": 500,
+        "owner": 1,
+        "torus": true
+      },
+      "ball_follow_zoom": 96,
+      "same_clock_queue": true,
+      "scope": "Actual components with canonical disposable fixtures; accelerated motion, not production/device evidence.",
+      "video": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-fluid-journeys/video/page@26cdd90145715b5472069c787552204b.webm"
+    }
+  ],
+  "video": true
+}

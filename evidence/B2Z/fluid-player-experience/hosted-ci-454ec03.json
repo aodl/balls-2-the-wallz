@@ -1,0 +1,80 @@
+{
+  "source_commit": "454ec0380d5d76a01c809078b8fe625db98eaeda",
+  "runtime_source": "662f9052bbb4235b2739df12646de66eca10dfbd",
+  "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/42996637314",
+  "overall_substantive": "PASS",
+  "substantive": {
+    "Packaged DTR and clean consumers": "PASS",
+    "Native conformance": "PASS",
+    "Browser HTTP and Web Crypto": "PASS",
+    "S14 and million-cell installed-IC qualification": "PASS",
+    "Source conformance": "PASS",
+    "Runtime-lab Wasm": "PASS"
+  },
+  "informational_inventory_excluded": true,
+  "jobs": [
+    {
+      "id": 130442243384,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T09:37:13Z"
+    },
+    {
+      "id": 130442243652,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T09:38:10Z"
+    },
+    {
+      "id": 130442243653,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T09:41:10Z"
+    },
+    {
+      "id": 130442243742,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T10:23:00Z"
+    },
+    {
+      "id": 130442243763,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T09:36:50Z"
+    },
+    {
+      "id": 130442243890,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T09:37:49Z"
+    },
+    {
+      "id": 130442243921,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "started": "2026-11-11T09:36:47Z",
+      "completed": "2026-11-11T09:39:09Z"
+    }
+  ],
+  "installed_artifact": {
+    "id": 13846199298,
+    "zip_sha256": "c976414019213e9e2b32b32cc80e4a5a1315bc250ea404d841cb0468d971e627"
+  },
+  "frozen_javascript_sha256": "79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a",
+  "complete_manifest_sha256": "68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03",
+  "production_operation": false
+}
