@@ -77,6 +77,25 @@ allowance approval/revocation. The S session must not offer a fake one-click
 owner revocation. Owner CLI instructions must be checked against the installed CLI
 and show both fees and all exact account/memo bytes before execution.
 
+Initial setup prepares only approval and the owner-originated grant. It must not
+pre-generate future revocations. Each explicit revocation request freshly queries
+the Ledger allowance and fee, then uses a new creation timestamp. Allowance
+revocation sets zero with `expected_allowance` equal to that fresh observation
+and no inherited approval expiry. A concurrent spend may cause `AllowanceChanged`:
+the owner must query again and review a newly prepared command. Never silently
+retry with different expected authority. Game-access revocation is a separately
+prepared owner-originated zero-amount transfer with the exact revoke memo and
+current fee/timestamp. Failed, lost or unexecuted commands are not revocation proof.
+
+Prepared CLI text is a short-lived snapshot. Clear both its content and visibility
+on funding-account/subaccount edits, sign-out or spender change, backend/network,
+certified authorization context or known fee/allowance changes, query failure and
+teardown. Fence pending replies so they cannot restore text for an earlier scope.
+Hide commands after 60 seconds using the existing UI lifecycle; explicit preparation
+must requery before showing a replacement. This is a UI staleness bound, not a
+Ledger acceptance guarantee or a new poller. CLI commands may still fail when
+state changes after preparation; the owner reviews actual Ledger results.
+
 ## Source and deterministic history
 
 **DP-07:** Adapter 5 preserves a versioned `B2ZPAY05` input: flags, A, optional S
@@ -171,6 +190,7 @@ and do not claim Internet Identity/browser signing or real-wallet compatibility.
 | DP-02/04/05/08 | `delegation-registry.test.mjs`, generated authorization vectors, native `delegation` tests |
 | DP-04/07 | `delegated_payments::icrc2_actual_ledger_index_preserves_funder_spender_memo_and_zero_grant` (actual disposable; execution status in report) |
 | DP-09..11 | `delegated-payment-auth`, `context`, `intents`, `transport`, `setup` JS tests; `icrc2_actual_sdk_signing_and_immutable_duplicate_retry` and `icrc2_actual_signed_installed_gameplay_pipeline` (actual SDK signatures through installed game and certified results); `verify_delegated_payment_ui.py` native Web Locks and simulated UI transport (executed status in report) |
+| DP-06/12, UX-07/08/13 | `delegated-payment-setup.test.mjs`; `icrc2_owner_setup_fresh_revocation_and_allowance_races` (actual disposable Ledger, generated request bytes, allowance races/expired timestamps); `verify_delegated_payment_ui.py` account/signer/backend/network/authorization/fee invalidation, late replies and controlled instruction expiry at all three viewports |
 | DP-08/13 | `icrc2_installed_paid_upgrade_authorization_and_manual_payment`, actual kernel vectors and cursor recovery; complete pending-input/old-rejection/installed replay scope remains a separately recorded qualification gate |
 
 Contributors must name affected DP and UX contracts, preserve historical fixtures,

@@ -1,3 +1,24 @@
+# Two-branch owner-setup review closeout
+
+Independent fluid frontend `38e9cfb` passes all six substantive jobs in run
+43010680568. Its existing 16-file freeze is preserved; it may be considered for
+separate frontend-only deployment approval. No deployment occurred.
+
+Experimental owner setup now separates setup from fresh-query revocation and
+clears stale commands across account/signer/backend/network/authorization changes.
+Local checks pass: 1,854 JS / 199 Python, 40 focused payment cases, three-viewport
+UI journeys and the actual valueless ICP Ledger allowance-race/expired-command
+case. New source requires publication and hosted qualification; the published
+`5d46061` baseline passes runs 43010680671 / 43010680594, which do not qualify
+these new runtime changes. Default signing exclusion and qualified backend
+`19c66e8c…` are preserved. Real II origin/ceremony acceptance and separate paid
+backend upgrade/cutover/activation approval remain outstanding. No production,
+controller/settings, real-money or remote Git operation occurred.
+
+Earlier reports below retain their historical qualification scope.
+
+---
+
 # Optional payments — six ordinary gates and financial suite passed
 
 Published `58027f4` passes all six ordinary jobs in run 42996637074 and all eight

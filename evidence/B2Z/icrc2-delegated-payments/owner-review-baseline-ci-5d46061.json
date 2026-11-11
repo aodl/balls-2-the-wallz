@@ -1,0 +1,97 @@
+{
+  "source_commit": "5d46061c5932673d49407707299751c8720132a1",
+  "scope": "Published baseline before owner-setup corrections; these hosted successes do not qualify the corrected source.",
+  "runs": [
+    {
+      "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671",
+      "jobs": [
+        {
+          "id": 130489203237,
+          "name": "S14 and million-cell installed-IC qualification",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489203237",
+          "started_at": "2026-11-11T11:17:17Z",
+          "completed_at": "2026-11-11T12:10:58Z"
+        },
+        {
+          "id": 130489203663,
+          "name": "Browser HTTP and Web Crypto",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489203663",
+          "started_at": "2026-11-11T11:17:17Z",
+          "completed_at": "2026-11-11T11:21:53Z"
+        },
+        {
+          "id": 130489203729,
+          "name": "Source conformance",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489203729",
+          "started_at": "2026-11-11T11:17:18Z",
+          "completed_at": "2026-11-11T11:19:14Z"
+        },
+        {
+          "id": 130489203737,
+          "name": "Native conformance",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489203737",
+          "started_at": "2026-11-11T11:17:18Z",
+          "completed_at": "2026-11-11T11:18:33Z"
+        },
+        {
+          "id": 130489203850,
+          "name": "Runtime-lab Wasm",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489203850",
+          "started_at": "2026-11-11T11:17:18Z",
+          "completed_at": "2026-11-11T11:20:21Z"
+        },
+        {
+          "id": 130489203939,
+          "name": "Packaged DTR and clean consumers",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489203939",
+          "started_at": "2026-11-11T11:17:18Z",
+          "completed_at": "2026-11-11T11:17:54Z"
+        },
+        {
+          "id": 130489204622,
+          "name": "BLOCKED production inventory (not a pass)",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671/job/130489204622",
+          "started_at": "2026-11-11T11:17:18Z",
+          "completed_at": "2026-11-11T11:17:22Z"
+        }
+      ]
+    },
+    {
+      "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680594",
+      "jobs": [
+        {
+          "id": 130489202848,
+          "name": "Optional ICRC-2 / exact predecessor / replay / UI",
+          "head_sha": "5d46061c5932673d49407707299751c8720132a1",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680594/job/130489202848",
+          "started_at": "2026-11-11T11:17:17Z",
+          "completed_at": "2026-11-11T11:23:49Z"
+        }
+      ]
+    }
+  ],
+  "informational_inventory_excluded": true
+}

@@ -1407,6 +1407,163 @@ fn icrc2_actual_ledger_fee_allowance_expiry_and_subaccount_rejections() {
 }
 
 #[test]
+#[ignore = "experimental owner-instruction qualification; explicit disposable Ledger invocation"]
+fn icrc2_owner_setup_fresh_revocation_and_allowance_races() {
+    let pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    pic.set_time(std::time::SystemTime::now().into());
+    let a = Principal::self_authenticating([41; 32]);
+    let s = Principal::self_authenticating([42; 32]);
+    let g = Principal::self_authenticating([43; 32]);
+    let ledger = deploy_ledger_options(&pic, &bytes("ICP_LEDGER_WASM"), &[a], 12345, true);
+    #[derive(CandidType)]
+    struct AllowanceArgs {
+        account: IcrcAccount,
+        spender: IcrcAccount,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Allowance {
+        allowance: Nat,
+        expires_at: Option<u64>,
+    }
+    let remaining = || {
+        let r: Allowance = decode_one(
+            &pic.query_call(
+                ledger,
+                Principal::anonymous(),
+                "icrc2_allowance",
+                candid::encode_one(AllowanceArgs {
+                    account: acct(a),
+                    spender: acct(s),
+                })
+                .unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        num(r.allowance)
+    };
+    let fee = || {
+        num(decode_one::<Nat>(
+            &pic.query_call(
+                ledger,
+                Principal::anonymous(),
+                "icrc1_fee",
+                encode_args(()).unwrap(),
+            )
+            .unwrap(),
+        )
+        .unwrap())
+    };
+    let fresh_time = || {
+        pic.advance_time(Duration::from_secs(1));
+        pic.tick();
+        pic.get_time().as_nanos_since_unix_epoch()
+    };
+    let request = |kind: &str, allowance: u64, at: u64| {
+        let input = serde_json::json!({"kind":kind,"backend":g.to_text(),"funding":{"owner":a.to_text()},"spender":s.to_text(),"fee":fee().to_string(),"currentAllowance":allowance.to_string(),"allowance":"1000000","createdAtNs":at.to_string(),"expiresAtNs":(at+604_800_000_000_000).to_string()});
+        let result = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args(["tools/fixtures/owner-setup-request.mjs", &input.to_string()])
+            .output()
+            .unwrap();
+        assert!(
+            result.status.success(),
+            "owner generator: {}",
+            String::from_utf8_lossy(&result.stderr)
+        );
+        let r: serde_json::Value = serde_json::from_slice(&result.stdout).unwrap();
+        (
+            r["method"].as_str().unwrap().to_string(),
+            dtr_wire::unhex(r["argument_hex"].as_str().unwrap()).unwrap(),
+        )
+    };
+    let execute = |r: &(String, Vec<u8>)| -> Result<Nat, Error> {
+        decode_one(&pic.update_call(ledger, a, &r.0, r.1.clone()).unwrap()).unwrap()
+    };
+    let pull = || {
+        call(
+            &pic,
+            ledger,
+            s,
+            "icrc2_transfer_from",
+            Pull {
+                spender_subaccount: None,
+                from: acct(a),
+                to: acct(g),
+                amount: 100_000u64.into(),
+                fee: Some(fee().into()),
+                memo: Some(b"FIRE 1 255 1".to_vec()),
+                created_at_time: None,
+            },
+        )
+    };
+    assert_eq!(remaining(), 0);
+    let setup_time = fresh_time();
+    execute(&request("approve", remaining(), setup_time)).unwrap();
+    assert_eq!(remaining(), 1_000_000);
+    assert!(
+        matches!(execute(&request("allowance", 0, setup_time)), Err(Error::AllowanceChanged { current_allowance }) if num(current_allowance.clone())==1_000_000)
+    );
+    assert_eq!(
+        remaining(),
+        1_000_000,
+        "a failed revoke does not change authority"
+    );
+    execute(&request("allowance", remaining(), fresh_time())).unwrap();
+    assert_eq!(
+        remaining(),
+        0,
+        "fresh query followed by successful zero approval revokes"
+    );
+    execute(&request("approve", remaining(), fresh_time())).unwrap();
+    pull().unwrap();
+    assert_eq!(
+        remaining(),
+        887_655,
+        "amount and queried fee consume the allowance"
+    );
+    let prepared_before_spend = request("allowance", remaining(), fresh_time());
+    pull().unwrap();
+    assert_eq!(remaining(), 775_310);
+    assert!(
+        matches!(execute(&prepared_before_spend), Err(Error::AllowanceChanged { current_allowance }) if num(current_allowance.clone())==775_310)
+    );
+    assert_eq!(remaining(), 775_310, "no automatic altered-authority retry");
+    execute(&request("allowance", remaining(), fresh_time())).unwrap();
+    assert_eq!(remaining(), 0);
+    let original_time = fresh_time();
+    execute(&request("approve", remaining(), original_time)).unwrap();
+    let old_revoke = request("allowance", remaining(), original_time);
+    let old_game_revoke = request("game", remaining(), original_time);
+    pic.advance_time(Duration::from_secs(2 * 86400));
+    pic.tick();
+    assert!(matches!(execute(&old_revoke), Err(Error::TooOld)));
+    assert!(matches!(execute(&old_game_revoke), Err(Error::TooOld)));
+    assert_eq!(
+        remaining(),
+        1_000_000,
+        "expired command timestamp is not a confirmed revocation"
+    );
+    execute(&request("allowance", remaining(), fresh_time())).unwrap();
+    assert_eq!(remaining(), 0);
+    let game_revoke = request("game", remaining(), fresh_time());
+    assert_eq!(game_revoke.0, "icrc1_transfer");
+    execute(&game_revoke).unwrap();
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(out.join("owner-setup-revocation.json"), serde_json::to_vec_pretty(&serde_json::json!({"status":"PASS","scope":"Actual pinned disposable ICP Ledger; Candid request objects generated by maintained JS owner instructions; PocketIC owner/spender callers, not II/browser signing, mainnet CLI execution or B2Z grant ingestion. No backend module rebuilt.","fee_e8s":fee(),"initial_allowance":0,"approved_allowance":1000000,"partial_remaining":887655,"concurrent_remaining":775310,"final_allowance":remaining(),"initial_expected_value_rejected":"AllowanceChanged","concurrent_revoke_rejected":"AllowanceChanged","old_timestamp_rejected":"TooOld","fresh_allowance_revoke":"PASS","fresh_zero_game_revoke":"PASS"})).unwrap()).unwrap();
+}
+
+#[test]
 #[ignore = "experimental delegated-payment qualification; explicit dedicated invocation"]
 fn icrc2_bounded_empty_maintenance_and_registry_cost() {
     let (pic, id, ledger, a) = arena_setup_world_fee_clock_payers_options(

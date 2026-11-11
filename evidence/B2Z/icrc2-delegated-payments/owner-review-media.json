@@ -1,0 +1,50 @@
+{
+  "scope": "Actual application UI with controlled auth/Ledger transport; viewport emulation, not physical phone or real Internet Identity. CLI panels may require ordinary scrolling; screenshots are not financial execution evidence.",
+  "files": [
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/1440-owner-revoke-allowance.png",
+      "bytes": 650187,
+      "sha256": "ac51317224550a56bfd6d0cfb98a3b706866ac780289e2b512fbc8d3fee94186"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/1440x900-pending.png",
+      "bytes": 652366,
+      "sha256": "709f03231d53a65cb6528e155aa77787e9abbaf89bfbcde4a4f14fcfc06096bd"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/320-owner-revoke-allowance.png",
+      "bytes": 75973,
+      "sha256": "c1c9a0e67e9b0f16fdb434213c74c842dd99562fe14de4c55d691d373cde0759"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/320x640-pending.png",
+      "bytes": 86150,
+      "sha256": "5e093c38ee982747f4131860f6cd700597f31ed03b3a8e2df292fddafd01d7ca"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/390-owner-revoke-allowance.png",
+      "bytes": 116705,
+      "sha256": "d065252fd6b848d92049e3425c0bd346074ed06f960ec982fbb177898b6a7a27"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/390x844-pending.png",
+      "bytes": 113875,
+      "sha256": "b8764b2c8c0edf0c1ecd789dfd5edf1816ea5191c805790b9d7e3c88c814b934"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/video/page@5b0ec12e0b6a2c337f1cbc147205cd15.webm",
+      "bytes": 1991100,
+      "sha256": "674b791272fab55d1abc464abf1ab16c4aaceed394176a3d7ccc4056e347669d"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/video/page@6b0bd16a16a0ec4edcfe611514b05c26.webm",
+      "bytes": 3210076,
+      "sha256": "009fa6c245ab95cf6893ba503937e1964b3def800b78083fa2a891fe60e35344"
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/video/page@71cd53581ea5b136626a7b4286e64a55.webm",
+      "bytes": 1042973,
+      "sha256": "bf110f46914efff3d330e18722cc6d89846fbce1ad32cbb9a7e100326107bb58"
+    }
+  ]
+}

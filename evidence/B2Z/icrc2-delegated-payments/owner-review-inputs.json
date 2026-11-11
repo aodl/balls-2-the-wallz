@@ -1,0 +1,17 @@
+{
+  "base_commit": "5d46061c5932673d49407707299751c8720132a1",
+  "source_inputs": {
+    "apps/b2z-observer/delegated-payments/setup.mjs": "048dfb274c672fea1909d28dddea2c76f7c94942d28fa8a9e39c5b0b525de8e3",
+    "apps/b2z-observer/delegated-payments/ui.mjs": "0c49c055a7e1eb03dcddf1604949befc77bf2217a33664eb54739a14066487ed",
+    "docs/operations/B2Z_FRONTEND.md": "cd1821a2799b6d10947f738c008c3d6d624d335caf11da4756461c9ec9f2ddf5",
+    "docs/operations/S14_OPERATOR.md": "69680bb3de17f121ea31cdee2144bad63d2870678ab8eb5cb198a749666ed331",
+    "docs/specs/B2Z_DELEGATED_PAYMENTS.md": "5ad90b1f8c72a133025a331f01dc278da2fc3e61e99df5933d7f8fc05b9768d8",
+    "docs/specs/B2Z_HUMAN_EXPERIENCE.md": "0b217686f79b7117deb4d6c4ffda50252d44e852dbc1d4966330cc1cdc2df045",
+    "tests/js/delegated-payment-setup.test.mjs": "1bc6882246ccdefa59dd4b5c0966544d7f2fff753fcc4a4041498588fd3c0120",
+    "tools/fixtures/delegated-payment-ui.mjs": "8c7c69995d9cd1a34bcc3e33100d641f623e1a563a1dd0507751450dbeeca9d4",
+    "tools/fixtures/owner-setup-request.mjs": "ec6d5c638bbf748f687642e2a4f88ad9697b7d0a039cc3a0b9e56063a0b8292e",
+    "tools/s09-integration/tests/support/delegated_payments.rs": "de7d429a7235ad02ff1c5377e7626db385346d6bfbc3907480f3dd7396890bbe",
+    "tools/verify_delegated_payment_ui.py": "237f98d03d1a1785d704def60bd8bb42f8e23d7073159038e2ab8f410f4fccb1"
+  },
+  "backend_protocol_executor_and_dependencies_changed": false
+}

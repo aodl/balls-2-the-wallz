@@ -78,3 +78,10 @@ never enable them by a URL/local-storage switch. Memory-only II credentials are
 separate from nonsecret durable payment intents. Require owner grant + allowance,
 latest certified quotes, exact destination and a deliberate final click.
 No production payment or feature enable is part of a frontend source build.
+
+Owner setup and each revoke are separate explicit requests. Each queries current
+allowance/fee and timestamps its own command; never reuse a setup-time revoke.
+Account/signer/backend/network/authorization changes, known fee changes and the
+one-minute presentation limit clear old CLI text. Maintain the pending-reply fence.
+Test `AllowanceChanged` and stale timestamps against the disposable Ledger, not
+only generated strings. No failed or merely displayed command proves revocation.

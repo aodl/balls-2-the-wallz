@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "frozen_sets": [
+    {
+      "manifest": "evidence/B2Z/fluid-player-experience/frontend-files-arrival-jitter.json",
+      "manifest_sha256": "68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03",
+      "source_commit": "662f9052bbb4235b2739df12646de66eca10dfbd",
+      "status": "PASS",
+      "file_count": 16,
+      "public_file_count": 15,
+      "app_sha256": "79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a",
+      "directory": "/home/codexdev/src/b2z/.work/fluid-player-experience/frozen-arrival-jitter/frontend"
+    },
+    {
+      "manifest": "evidence/B2Z/icrc2-delegated-payments/frontend-files-arrival-jitter-default.json",
+      "manifest_sha256": "c43a767cf476024042401793cbbd57c6b3ee4d395c926dde4166755ffd4350cf",
+      "source_commit": "9a5cb2be7a9de79aae536df5f01c99fd9da39ce4",
+      "status": "PASS",
+      "file_count": 17,
+      "public_file_count": 16,
+      "app_sha256": "7d410db3507e0e65af1b09a6df0fe2be8eddf8458ad3c10575c0e39c1c353109",
+      "directory": "/home/codexdev/src/b2z-icrc2/.work/icrc2-delegated-payments/arrival-jitter-default/frontend"
+    },
+    {
+      "manifest": "evidence/B2Z/icrc2-delegated-payments/frontend-files-arrival-jitter-experimental.json",
+      "manifest_sha256": "8ccd4ab6cd859fe6abb2d6ffcb76d157adaa54733ea6dae52cca3a52d2bedd75",
+      "source_commit": "9a5cb2be7a9de79aae536df5f01c99fd9da39ce4",
+      "status": "PASS",
+      "file_count": 17,
+      "public_file_count": 16,
+      "app_sha256": "d74b083778646df81332b7651206973a8f950a265b3bedc60e8ca6e633b778b4",
+      "directory": "/home/codexdev/src/b2z-icrc2/.work/icrc2-delegated-payments/arrival-jitter-experimental/frontend"
+    }
+  ],
+  "default_build_input_comparison": {
+    "against_source": "9a5cb2be7a9de79aae536df5f01c99fd9da39ce4",
+    "tracked_inputs_checked": 54,
+    "changed": [],
+    "signing_setup_excluded": true
+  },
+  "unchanged_qualified_backend": {
+    "sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+    "bytes": 3677783,
+    "rebuilt": false
+  },
+  "production_operations": false
+}

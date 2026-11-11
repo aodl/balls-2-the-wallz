@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "contracts": [
+    "DP-04",
+    "DP-06",
+    "DP-12",
+    "UX-07",
+    "UX-08",
+    "UX-13"
+  ],
+  "focused_js": {
+    "command": "node --test --test-concurrency=1 tests/js/delegated-*.test.mjs tests/js/delegation-registry.test.mjs",
+    "passed": 40,
+    "failed": 0,
+    "skipped": 0,
+    "log": ".work/icrc2-delegated-payments/owner-setup-correction/unit-final.log"
+  },
+  "full_source": {
+    "command": "/home/codexdev/src/b2z/.work/browser-venv/bin/python -B tools/check.py source --output .work/icrc2-delegated-payments/owner-setup-correction/source-final",
+    "status": "PASS",
+    "js_passed": 1854,
+    "python_passed": 199,
+    "skipped": 0
+  },
+  "browser": {
+    "command": "LD_LIBRARY_PATH=/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu /home/codexdev/src/b2z/.work/browser-venv/bin/python -B tools/verify_delegated_payment_ui.py --output .work/icrc2-delegated-payments/owner-setup-correction/browser-final03",
+    "status": "PASS",
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        320,
+        640
+      ]
+    ],
+    "coverage": [
+      "funding edit clears text and hides panel",
+      "fresh allowance/fee query for every explicit setup/revoke",
+      "initial setup excludes future revocations",
+      "sign-out and new signer",
+      "backend/network/authorization/verification changes",
+      "fee/allowance refresh",
+      "late query after funding change cannot resurrect text",
+      "controlled 61-second expiry and regeneration",
+      "existing immutable intent, copying, fee changes, receipt uncertainty, storage and native two-tab exclusion"
+    ],
+    "auth": "simulated; real II ceremony unexecuted"
+  },
+  "actual_disposable_ledger": {
+    "status": "PASS",
+    "test": "delegated_payments::icrc2_owner_setup_fresh_revocation_and_allowance_races",
+    "elapsed_seconds": 41.492,
+    "reuses_backend": false,
+    "scope": "Actual pinned valueless ICP Ledger requests generated from the maintained owner setup request objects. No B2Z backend, real II or mainnet CLI execution claim."
+  },
+  "rust_format": {
+    "command": "cargo fmt --manifest-path tools/s09-integration/Cargo.toml --all -- --check",
+    "status": "PASS"
+  },
+  "preserved_prior_failures": [
+    {
+      "record": ".work/icrc2-delegated-payments/owner-setup-correction/failing-setup-regressions.log",
+      "classification": "Expected pre-fix regression failures: 3 of 4 cases failed"
+    },
+    {
+      "record": ".work/icrc2-delegated-payments/owner-setup-correction/browser-before.log",
+      "classification": "Demonstrated pre-fix assertion: stale owner panel remains visible on funding edit"
+    },
+    {
+      "record": ".work/icrc2-delegated-payments/owner-setup-correction/harness-build.log",
+      "classification": "New test harness compile error E0507 in match guard, fixed by cloning Nat; not a backend or Ledger assertion failure"
+    },
+    {
+      "record": ".work/icrc2-delegated-payments/owner-setup-correction/ledger01.log",
+      "classification": "Python 3.10 setup failure: tomllib absent; rerun with existing Python 3.11 venv before any Ledger test ran"
+    }
+  ]
+}

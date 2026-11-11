@@ -745,3 +745,11 @@ The cannon icons never spend; final Pay is deliberate. Keep manual instructions,
 coherent copies and the exact Move/Build warning. No frontend gameplay API or
 manual receipt-reporting path is introduced. Unit, actual disposable and real
 Internet Identity/wallet evidence remain distinct.
+
+UX-07/08/13 also protect owner setup: initial setup never contains precomputed
+future revokes. Explicit revoke preparation queries current allowance/fee and uses
+a fresh timestamp. Old CLI text is cleared on scope/authorization changes and
+after one minute; late replies cannot restore it. `AllowanceChanged` requires a
+fresh query and owner review, never an automatic altered retry. Prepared commands
+are not confirmed permission changes. See DP-06 and its actual disposable-Ledger
+and three-viewport UI regressions; signing out remains separate from both revokes.

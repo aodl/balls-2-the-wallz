@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "Actual optional composer/UI and Web Locks; simulated II/Ledger. No payment/certificate claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "recording": "video/page@6b0bd16a16a0ec4edcfe611514b05c26.webm",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "recording": "video/page@5b0ec12e0b6a2c337f1cbc147205cd15.webm",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "recording": "video/page@71cd53581ea5b136626a7b4286e64a55.webm",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    }
+  ],
+  "errors": [],
+  "raw_result": ".work/icrc2-delegated-payments/owner-setup-correction/browser-final03/results.json",
+  "raw_result_sha256": "01a92f06ecaaee01bd5f66cd764a5135be267426110d456c81a686381126ca42"
+}

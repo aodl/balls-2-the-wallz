@@ -148,3 +148,12 @@ controllers, source fences and current paid world. Never reset for delegation.
 Owner approval/revocation of a Ledger allowance is a separate financial action;
 signing out is not revocation. No live activation/payment/settings authority is
 implied by access to the candidate or by controller access.
+
+For experimental owner setup, prepare initial approval/grant separately from
+later allowance/game revocation. Request revoke instructions at execution time:
+fresh allowance and fee query, fresh timestamp, owner review. An allowance revoke
+uses the observed `expected_allowance`; `AllowanceChanged` requires a new query
+and review, never an automatic retry with changed authority. Game revoke is a
+fresh owner-originated zero transfer plus fee. Prepared instructions expire from
+the UI after one minute and do not prove execution. CLI option shape is checked
+with dfx 0.31.0; disposable tests execute encoded requests, not mainnet CLI commands.
