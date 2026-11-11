@@ -1,6 +1,6 @@
 //! Adapter-5-only wire schema check before typed Candid optional compatibility.
 //! Validate the small type table once, not an untyped copy of every transaction.
-use binread::BinRead;
+use binread::BinReaderExt;
 use candid::{
     binary_parser::Header,
     types::{Type, TypeEnv, TypeInner},
@@ -53,8 +53,9 @@ pub fn decode_checked(bytes: &[u8]) -> Result<crate::source::HistoryResult, Stri
     if bytes.len() > 1_048_576 {
         return Err("AUTH_INDEX_REPLY_BOUND".into());
     }
-    let header =
-        Header::read_args(&mut Cursor::new(bytes), (Some(64),)).map_err(|_| "AUTH_INDEX_HEADER")?;
+    let header = Cursor::new(bytes)
+        .read_le_args::<Header>((Some(64),))
+        .map_err(|_| "AUTH_INDEX_HEADER")?;
     let (env, args) = header.to_types().map_err(|_| "AUTH_INDEX_TYPES")?;
     if args.len() != 1 {
         return Err("AUTH_INDEX_ARGUMENTS".into());

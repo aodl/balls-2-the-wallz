@@ -1,0 +1,13 @@
+{
+  "source_commit": "ea7ba4a840039cbdd5de0d61836e67830fb69b61",
+  "source_clean_at_build_start": true,
+  "runtime_input_changes_during_build": false,
+  "unrelated_in_progress_changes": "frontend builder/harness-only corrections after the build had read unchanged backend inputs",
+  "features": [
+    "delegated-payments"
+  ],
+  "sha256": "6d95d0bac4d571792c93f312c991c20e03f0d271a026d87eb96817194eb10378",
+  "bytes": 3677538,
+  "build_log": ".work/icrc2-delegated-payments/wire-recovery-build.log",
+  "production_operation": false
+}
