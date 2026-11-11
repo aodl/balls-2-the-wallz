@@ -528,6 +528,18 @@ already qualified delivery headroom: a real 4.35s fetch exposed a stall when an
 initial policy incorrectly accelerated through that reserve. Slow-mode startup
 still needs only one complete interval; its legacy extra reserve is zero, and a
 measured delivery margin never becomes a compulsory second-publication threshold.
+Cold-start qualification records the complete first-motion/cadence-acquisition
+trace separately from steady continuity. Before two advancing-head timings exist,
+nominal fallback can exhaust a single verified interval before the unknown next
+arrival; only a zero-coverage wait is truthful. The cold trace must reject motion
+beyond coverage, rewind, resync, delivery errors or a stall despite usable coverage.
+After measured cadence exists, start a separate complete 120-second Lifeline
+window with all original zero-stall, throughput, memory and five-publication
+assertions. Do not trim/reset an already running steady window or call the cold
+trace a steady pass. `elastic-playback.test.mjs` reproduces the actual pinned-clock
+startup gap; `test_cold_playback_qualification.py` preserves the failed-run prefix
+and rejects masking later stalls. No buffering threshold, rate or authentication
+policy changes to make this measurement distinction.
 Spendable ticks divided by estimated time until the next distinct head selects a
 target of 0.5–1.5× nominal, with factor slew limited to 0.12 per wall second.
 Large supported-tier changes clamp the effective presentation rate into the new

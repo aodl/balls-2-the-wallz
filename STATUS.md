@@ -6,14 +6,24 @@ separate frontend-only deployment approval. No deployment occurred.
 
 Experimental owner setup now separates setup from fresh-query revocation and
 clears stale commands across account/signer/backend/network/authorization changes.
-Local checks pass: 1,854 JS / 199 Python, 40 focused payment cases, three-viewport
+Owner checks pass: 1,854 JS / 199 Python, 40 focused payment cases, three-viewport
 UI journeys and the actual valueless ICP Ledger allowance-race/expired-command
-case. New source requires publication and hosted qualification; the published
-`5d46061` baseline passes runs 43010680671 / 43010680594, which do not qualify
+case. Corrected source/evidence `746df11` is now published. Hosted verification run
+43031622594 has five substantive passes and a failed cold Lifeline assertion.
+Financial run 43031622566 passes all nine selected cases plus the full UI journey;
+its normal backend is byte-identical to `19c66e8c…`. Six-gate qualification remains blocked. A pinned-clock reproduction shows one
+truthful zero-coverage wait before cadence exists. A harness-only correction
+records that complete startup separately and retains the full steady zero-stall
+window. Local installed qualification passes, including Normal 900.531s, cold
+Lifeline 120.362s and 1,036-publication independent replay. Final frozen Normal
+analysis/measurement guard is unchanged; only cold test orchestration is corrected.
+Final correction source checks pass: 1,855 JS / 206 Python with no skips.
+Publish and qualify the correction before declaring six-gate success. No runtime change or new freeze
+is justified. The `5d46061` baseline successes do not qualify
 these new runtime changes. Default signing exclusion and qualified backend
 `19c66e8c…` are preserved. Real II origin/ceremony acceptance and separate paid
-backend upgrade/cutover/activation approval remain outstanding. No production,
-controller/settings, real-money or remote Git operation occurred.
+backend upgrade/cutover/activation approval remain outstanding. The agent performed no production, controller/settings, real-money or remote Git
+write operation.
 
 Earlier reports below retain their historical qualification scope.
 

@@ -1,0 +1,787 @@
+{
+  "source_run": 43031622594,
+  "artifact_id": 13863703170,
+  "artifact_zip_sha256": "1ce1ca9d9e6ab235456ec2a916791600efcf28ca404b53e84f6c29de6ebeb943",
+  "scope": "Actual untrimmed cold-start telemetry prefix through first cadence-ready sample; failed original whole-run record retained. Not a 120-second pass.",
+  "rows": [
+    {
+      "wall_ms": 4284.8,
+      "consumed_ticks": 1044.009995,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.9900050000001102,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 4784.8,
+      "consumed_ticks": 1044.034995,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.9650050000000192,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 5301.4,
+      "consumed_ticks": 1044.0608249999998,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.9391750000002048,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 5818.1,
+      "consumed_ticks": 1044.0866600000002,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.9133399999998346,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 6334.8,
+      "consumed_ticks": 1044.1124950000005,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.8875049999994644,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 6851.4,
+      "consumed_ticks": 1044.1383250000006,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.8616749999994227,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 7351.4,
+      "consumed_ticks": 1044.1633250000007,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.8366749999993317,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 7884.7,
+      "consumed_ticks": 1044.1899900000012,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.8100099999987833,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 8401.4,
+      "consumed_ticks": 1044.2158250000014,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.7841749999986405,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 8934.7,
+      "consumed_ticks": 1044.242490000002,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.7575099999980921,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 9451.3,
+      "consumed_ticks": 1044.2683200000017,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.7316799999982777,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 9968,
+      "consumed_ticks": 1044.294155000002,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.7058449999979075,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 10501.3,
+      "consumed_ticks": 1044.3208200000026,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.6791799999973591,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 11017.9,
+      "consumed_ticks": 1044.3466500000031,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.6533499999968626,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 11551.3,
+      "consumed_ticks": 1044.3733200000038,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.6266799999962132,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 12084.5,
+      "consumed_ticks": 1044.3999800000038,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.6000199999962206,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 12617.9,
+      "consumed_ticks": 1044.4266500000037,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.5733499999962532,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 13117.8,
+      "consumed_ticks": 1044.4516450000035,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.5483549999964907,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 13634.5,
+      "consumed_ticks": 1044.477480000004,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.5225199999958932,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 14134.5,
+      "consumed_ticks": 1044.5024800000047,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.49751999999534746,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 14651.1,
+      "consumed_ticks": 1044.5283100000047,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.4716899999953057,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 15167.7,
+      "consumed_ticks": 1044.5541400000043,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.4458599999957187,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 15684.4,
+      "consumed_ticks": 1044.5799750000047,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.4200249999953485,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 16201,
+      "consumed_ticks": 1044.605805000005,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.39419499999507934,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 16701,
+      "consumed_ticks": 1044.6308050000052,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.369194999994761,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 17217.6,
+      "consumed_ticks": 1044.6566350000057,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.3433649999942645,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 17717.6,
+      "consumed_ticks": 1044.6816350000063,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.3183649999937188,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 18234.3,
+      "consumed_ticks": 1044.7074700000069,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.29252999999312124,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 18750.9,
+      "consumed_ticks": 1044.7333000000074,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.2666999999926247,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 19267.6,
+      "consumed_ticks": 1044.7591350000075,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.2408649999924819,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 19767.6,
+      "consumed_ticks": 1044.7841350000076,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.21586499999239095,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 20284.2,
+      "consumed_ticks": 1044.8099650000077,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.19003499999234919,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 20784.3,
+      "consumed_ticks": 1044.834970000008,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.1650299999919298,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 21300.9,
+      "consumed_ticks": 1044.8608000000083,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.13919999999166066,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 21817.5,
+      "consumed_ticks": 1044.8866300000086,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.11336999999139152,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 22317.5,
+      "consumed_ticks": 1044.9116300000092,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.08836999999084583,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 22834.2,
+      "consumed_ticks": 1044.9374650000098,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.06253499999024825,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 23350.8,
+      "consumed_ticks": 1044.9632950000096,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.03670499999043386,
+      "phase": "DEGRADED_BUFFER",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 23867.4,
+      "consumed_ticks": 1044.9891250000098,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0.010874999990164724,
+      "phase": "DEGRADED_BUFFER",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 24367.4,
+      "consumed_ticks": 1045,
+      "verified_ticks": 1045,
+      "buffer_ticks": 0,
+      "phase": "STALLED",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 1,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.04,
+        "last_distinct_at": 4117.300000000279
+      }
+    },
+    {
+      "wall_ms": 24917.4,
+      "consumed_ticks": 1045.026609759659,
+      "verified_ticks": 1046,
+      "buffer_ticks": 0.9733902403409047,
+      "phase": "PLAYING",
+      "resyncs": 0,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "elastic": {
+        "samples": 2,
+        "factor": 0.935992,
+        "expected_period_seconds": 20.305,
+        "confidence_seconds": 61.075799999999816,
+        "arrival_jitter_seconds": 16.453899999999905,
+        "max_delivery_seconds": 0.08039999999990687,
+        "last_distinct_at": 24422.30000000028
+      }
+    }
+  ]
+}

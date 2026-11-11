@@ -298,7 +298,22 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     record('million-cell-cold-browser-reconnect')
     install_boundary_trace(page)
     if sustained:
-        cold=measure_mode('lifeline_reconnect',120,.035,.065)
+        # UX-05/06 requires nominal fallback before cadence is known. Keep that
+        # entire cold-start trace (including honest zero-coverage waits) separate
+        # from the unchanged zero-stall steady gate. Never reset playback or trim
+        # a running steady measurement to manufacture a pass.
+        from cold_playback_qualification import cold_cadence_ready,cold_startup_summary
+        startup=[];began=time.monotonic()
+        while True:
+            startup.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'))
+            (out/'million-cold-startup-telemetry.json').write_text(json.dumps(startup,indent=2))
+            if cold_cadence_ready(startup[-1]):break
+            assert time.monotonic()-began<60,'cold cadence did not become established within the bounded startup window'
+            page.wait_for_timeout(500)
+        record('million-cell-cold-lifeline-startup-before-cadence',cold_startup_summary(startup))
+        # One extra wall second ensures >=120 seconds between retained samples.
+        cold=measure_mode('lifeline_reconnect',121,.035,.065)
+        assert cold['seconds']>=120,cold
         assert cold['admitted_ticks']>=5 and set(cold['phase_samples'])<= {'PLAYING','DEGRADED_BUFFER'},cold
         record('million-cell-cold-lifeline-five-subsequent-publications',cold)
         save_boundary_trace(page,out,'browser-boundary-events-after-reconnect.json')

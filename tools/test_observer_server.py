@@ -1,5 +1,5 @@
 """HTTP-serving behavior, independent of Chromium's environment navigation policy."""
-import concurrent.futures, hashlib, http.client, http.server, json, tempfile, threading, unittest
+import concurrent.futures, hashlib, http.client, http.server, json, tempfile, threading, time, unittest
 from html.parser import HTMLParser
 from pathlib import Path
 from unittest.mock import patch
@@ -152,13 +152,26 @@ class ProxyDiagnosticTests(unittest.TestCase):
         self.assertEqual(bytes.fromhex(slow['request_body_hex']),body)
         self.assertEqual(slow['response_sha256'],hashlib.sha256(b'reply:'+body).hexdigest())
         self.assertNotIn('Authorization',self.path.read_text());self.assertNotIn('not-recorded',self.path.read_text())
-        fast_end=fast['started_epoch_ms']+fast['finished_ms']
-        self.assertGreater(slow['started_epoch_ms']+slow['upstream_complete_ms'],fast_end)
-        if stage=='headers':self.assertGreater(slow['started_epoch_ms']+slow['upstream_headers_ms'],fast_end)
-        else:self.assertLess(slow['started_epoch_ms']+slow['upstream_headers_ms'],fast['started_epoch_ms'])
+        # The event gates and completed trace order above prove cross-request
+        # causality. Wall-clock origins may step between requests; only each
+        # request's monotonic durations are comparable as timing assertions.
+        for row in rows:
+            self.assertGreaterEqual(row['upstream_headers_ms'],0)
+            self.assertLessEqual(row['upstream_headers_ms'],row['upstream_complete_ms'])
+            self.assertLessEqual(row['upstream_complete_ms'],row['finished_ms'])
         self.assertEqual(self.calls.count(body),1,'proxy must not add retries')
     def test_slow_upstream_headers_do_not_block_other_queries(self):self.delayed('headers')
     def test_slow_upstream_body_is_distinguished_from_header_wait(self):self.delayed('body')
+    def test_clock_step_cannot_relabel_causally_nonblocking_body_delivery(self):
+        # Per-request monotonic durations cannot be added to different wall-clock
+        # origins to establish cross-request order. Preserve the real event gates.
+        class Clock:
+            monotonic=staticmethod(time.monotonic)
+            calls=0
+            def time(clock):
+                clock.calls+=1
+                return time.time()+(1 if clock.calls>1 else 0)
+        with patch.object(serve_observer,'time',Clock()):self.delayed('body')
     def test_upstream_error_is_preserved_without_proxy_retry(self):
         body=b'artifact_bundle unavailable';self.assertEqual(self.post(body),(503,b'reply:'+body));self.wait_trace(1)
         row=json.loads(self.path.read_text());self.assertEqual(row['status'],503)

@@ -9,6 +9,26 @@ import{LIVE_BUFFER_LIMITS}from'../../apps/b2z-observer/model.mjs';
 import{retainLatestVerifiedInterval}from'../../apps/b2z-observer/warm-return.mjs';
 import{elasticPlayback}from'../../apps/b2z-observer/elastic-playback.mjs';
 import{intervals}from'../../tools/fixtures/elastic-intervals.mjs';
+test('UX-05/06 recorded cold Lifeline startup may exhaust before cadence; the subsequent full steady window stays verified and continuous',async()=>{
+ const rows=await intervals(8),s=session(rows.slice(0,1)),clock=s.clock,queue=s.queue,p=elasticPlayback(),packet=s.packet;
+ p.observe({key:'checkpoint',end:0,at:266.2,nominal:.05,ticks:1,deliverySeconds:.04});
+ p.observe({key:'first',end:1,at:4117.3,nominal:.05,ticks:1,deliverySeconds:.04});
+ assert.equal(p.state().samples,1);assert.equal(p.state().expected_period_seconds,null);
+ clock.sample(.009995);let now=4284.8,pace=.05,index=1,preCadenceStalls=0,steadyFrames=0;
+ const arrivals=[24422.3,43979.3,64051.8,84052.2,104078.3,124078.3,144078.3];
+ while(now<145422.3){
+  if(index<=arrivals.length&&now>=arrivals[index-1]){const q=rows[index];clock.append(q.segment.start,q.segment.end);queue.push(q);p.observe({key:String(index),end:index+1,at:arrivals[index-1],nominal:.05,ticks:1,deliverySeconds:.1021});index++;}
+  const dt=Math.min(1/60,(145422.3-now)/1000),target=p.rate({now,nominal:.05,remaining:clock.available-clock.playhead,seconds:dt});
+  pace=approachPresentationPace(pace,target,.05,dt);const t=clock.sample(dt*pace).playhead;
+  while(queue.length&&t>=queue[0].segment.end){const q=queue.shift();q.player.advance(q.segment.end).matches(q.segment.final);}
+  if(queue.length)queue[0].player.advance(t);
+  assert.ok(t<=clock.available);assert.ok(pace>=.025&&pace<=.075);
+  if(p.state().expected_period_seconds===null){assert.equal(target,.05);if(clock.phase==='STALLED'){preCadenceStalls++;assert.equal(t,clock.available);assert.equal(queue.length,0);}}
+  else{steadyFrames++;assert.notEqual(clock.phase,'STALLED','all 120 seconds after observed cadence remain subject to zero-stall qualification');}
+  now+=dt*1000;
+ }
+ assert.ok(preCadenceStalls>0,'reproduces the actual pre-cadence failure of the old unconditional assertion');assert.ok(steadyFrames>7200);assert.ok(clock.playhead>6);assert.equal(s.clock,clock);assert.equal(s.queue,queue);assert.equal(s.packet,packet);
+});
 function session(rows){const clock=new PlayoutClock({start:rows[0].segment.start,target:1,low:.01,min_rate:1,max_rate:1,max_frame_delta:1});for(const q of rows)clock.append(q.segment.start,q.segment.end);return{clock,queue:rows,bytes:rows.reduce((n,q)=>n+q.segment.bytes,0),referenceWorld:rows.at(-1).segment.final,receipts:new Map([[1,'verified']]),packet:Object.freeze({memo:'MOVE 1 0',amount:10000n})};}
 test('UX-04/05 five minutes of hidden arrivals retain the latest entire verified interval',async()=>{const s=session(await intervals()),clock=s.clock,queue=s.queue,world=s.referenceWorld,packet=s.packet,receipts=s.receipts;const before=s.clock.playhead;assert.equal(retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS),true);assert.equal(s.clock,clock);assert.equal(s.queue,queue);assert.equal(queue.length,1);assert.equal(s.clock.available-s.clock.playhead,1);assert.ok(s.clock.playhead>before);assert.equal(s.referenceWorld,world);assert.equal(s.packet,packet);assert.equal(s.receipts,receipts);s.clock.started=true;s.clock.phase='PLAYING';const t=s.clock.sample(.01).playhead;const v=queue[0].player.advance(t);assert.ok(t>queue[0].segment.start);assert.ok(v.balls.size);assert.ok(s.bytes<=LIVE_BUFFER_LIMITS.bytes);});
 test('UX-05 already consumed material is never rewound or looped',async()=>{const s=session(await intervals(1));s.clock.started=true;for(let i=0;i<100;i++)s.clock.sample(.1);const time=s.clock.playhead;retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);assert.equal(s.clock.playhead,time);assert.equal(s.clock.sample(.1).playhead,time);assert.equal(s.clock.state().phase,'STALLED');});
