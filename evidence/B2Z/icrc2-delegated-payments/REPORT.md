@@ -559,3 +559,23 @@ corrected source still requires new hosted ordinary and financial qualification;
 its local source PASS and Clippy fixes do not erase the installed delivery FAIL.
 The independent frontend remains separable and requires no backend activation.
 Neither candidate is approved for production deployment.
+
+## Arrival-jitter corrected frontend freeze
+
+Clean wrapper source: **`9a5cb2be7a9de79aae536df5f01c99fd9da39ce4`**.
+Both complete sets contain 17 actual files (16 public plus consumed policy),
+checked against the builder and full manifest. Only JavaScript and provenance
+differ from the preceding `43ec82b…` freezes. No backend artifact is rebuilt.
+
+| Build | JavaScript SHA-256 | Full file-manifest SHA-256 |
+| --- | --- | --- |
+| Default, auth SDK excluded | `7d410db3507e0e65af1b09a6df0fe2be8eddf8458ad3c10575c0e39c1c353109` | `c43a767cf476024042401793cbbd57c6b3ee4d395c926dde4166755ffd4350cf` |
+| Experimental, explicit flag | `d74b083778646df81332b7651206973a8f950a265b3bedc60e8ca6e633b778b4` | `8ccd4ab6cd859fe6abb2d6ffcb76d157adaa54733ea6dae52cca3a52d2bedd75` |
+
+[Default complete files](frontend-files-arrival-jitter-default.json) and
+[experimental complete files](frontend-files-arrival-jitter-experimental.json),
+with the corresponding `build-manifest-arrival-jitter-*.json`, bind directories
+`.work/icrc2-delegated-payments/arrival-jitter-{default,experimental}/frontend`.
+All prior qualified/failed artifacts remain unchanged. Local source/browser
+closeout follows separately; no published source or old CI result is represented
+as qualification of these new bytes. No production feature activation.
