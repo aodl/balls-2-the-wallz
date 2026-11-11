@@ -1,0 +1,265 @@
+{
+  "source_commit": "746df1193458cad182b4ea7a99bdd3ae6114d564",
+  "run": 43031622594,
+  "status": "FAIL",
+  "failed_test": "million_browser_sustained_normal_and_cold_lifeline",
+  "failed_assertion": "stalled_samples == 0 and resyncs == 0 in measure_mode lifeline_reconnect",
+  "cold_measurement": {
+    "seconds": 119.59530000000001,
+    "backend_ticks_per_second": 0.05016919561220215,
+    "admitted_ticks_per_second": 0.04180766301016846,
+    "displayed_ticks_per_second": 0.043120393697711354,
+    "stalled_samples": 1,
+    "resyncs": 0,
+    "nominal_rate": 0.05,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 0,
+      "max": 2
+    },
+    "buffer_ticks": {
+      "min": 0,
+      "max": 1.8147260816726885
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 57.200000000186265,
+        "max": 228.10000000009313
+      },
+      "verify_ms": {
+        "median": 19.600000000093132,
+        "max": 25.799999999813735
+      },
+      "artifact_ms": {
+        "median": 0.20000000018626451,
+        "max": 0.2999999998137355
+      },
+      "derive_ms": {
+        "median": 3.2000000001862645,
+        "max": 3.3000000002793968
+      },
+      "catchup_ms": {
+        "median": 0,
+        "max": 0
+      }
+    },
+    "max_catchup_segments": 0,
+    "buffer_bytes": {
+      "min": 0,
+      "max": 75814
+    },
+    "buffer_target_ticks": {
+      "min": 1,
+      "max": 1
+    },
+    "distinct_playheads": 233,
+    "certified_publications_per_second": 0.04180766301016846,
+    "authenticated_observation_queries_per_second": 1.6472219226006373,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 0.9900050000001102,
+    "buffer_end": 0.8330085796042113,
+    "admitted_ticks": 5,
+    "displayed_ticks": 5.156996420395899,
+    "phase_samples": {
+      "DEGRADED_BUFFER": 2,
+      "PLAYING": 230,
+      "STALLED": 1
+    }
+  },
+  "normal_900s": {
+    "status": "PASS",
+    "seconds": 900.0473999023437,
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "production_endpoint_tick_bounds": {
+      "start": [
+        108,
+        110
+      ],
+      "end": [
+        1006,
+        1008
+      ]
+    },
+    "produced_ticks_bounds": [
+      896,
+      900
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9955031258322807,
+      0.9999473362154606
+    ],
+    "admitted_ticks": 900,
+    "displayed_ticks": 900.0743437296712,
+    "admitted_ticks_per_second": 0.9999473362154606,
+    "displayed_ticks_per_second": 1.0000299360092928,
+    "buffer_start": 16.643396415305034,
+    "buffer_end": 16.569052685634347,
+    "buffer_change": -0.07434372967068725,
+    "admitted_minus_displayed": -0.07434372967122727,
+    "buffer_conservation_error": 5.400124791776761e-13,
+    "rolling_buffer_minutes": [
+      {
+        "minute": 0,
+        "samples": 116,
+        "start": 16.643396415305034,
+        "end": 17.112890400628714,
+        "mean": 16.41311966693901,
+        "min": 15.631326915405111,
+        "max": 17.112890400628714
+      },
+      {
+        "minute": 1,
+        "samples": 116,
+        "start": 16.59140620602875,
+        "end": 16.906772700893697,
+        "mean": 16.412984012117562,
+        "min": 15.617344029351301,
+        "max": 17.1478679681085
+      },
+      {
+        "minute": 2,
+        "samples": 115,
+        "start": 16.378026050593746,
+        "end": 16.951075296126476,
+        "mean": 16.459154187338573,
+        "min": 15.686441760678377,
+        "max": 17.32052151987844
+      },
+      {
+        "minute": 3,
+        "samples": 116,
+        "start": 16.431893896126496,
+        "end": 15.690825208806018,
+        "mean": 16.422244442750433,
+        "min": 15.690825208806018,
+        "max": 17.173233068144953
+      },
+      {
+        "minute": 4,
+        "samples": 115,
+        "start": 16.162515870805976,
+        "end": 16.250698518625768,
+        "mean": 16.41844514794675,
+        "min": 15.568150467706289,
+        "max": 17.11762416555854
+      },
+      {
+        "minute": 5,
+        "samples": 115,
+        "start": 16.77862128372584,
+        "end": 16.208758259322224,
+        "mean": 16.451222057452732,
+        "min": 15.678915669306718,
+        "max": 17.24816871932586
+      },
+      {
+        "minute": 6,
+        "samples": 116,
+        "start": 16.721809252622222,
+        "end": 16.770554543763126,
+        "mean": 16.45203534296933,
+        "min": 15.738713527768084,
+        "max": 17.209998808322155
+      },
+      {
+        "minute": 7,
+        "samples": 115,
+        "start": 16.322827089163354,
+        "end": 16.05747661943292,
+        "mean": 16.43203993785038,
+        "min": 15.722193208964086,
+        "max": 17.14956557411699
+      },
+      {
+        "minute": 8,
+        "samples": 115,
+        "start": 16.51661430513286,
+        "end": 16.040651778861275,
+        "mean": 16.435590145525108,
+        "min": 15.694725979078498,
+        "max": 17.19235123870908
+      },
+      {
+        "minute": 9,
+        "samples": 116,
+        "start": 16.553736002245046,
+        "end": 16.854991623748106,
+        "mean": 16.460487188315554,
+        "min": 15.707500171970878,
+        "max": 17.13153040627128
+      },
+      {
+        "minute": 10,
+        "samples": 115,
+        "start": 16.329280743747972,
+        "end": 16.836835387794622,
+        "mean": 16.431085100763532,
+        "min": 15.684121739294596,
+        "max": 17.14103257994202
+      },
+      {
+        "minute": 11,
+        "samples": 115,
+        "start": 16.309192911794526,
+        "end": 17.085344478668617,
+        "mean": 16.41736270032958,
+        "min": 15.707394595893334,
+        "max": 17.124104764303752
+      },
+      {
+        "minute": 12,
+        "samples": 115,
+        "start": 16.546085926212527,
+        "end": 16.90876567763894,
+        "mean": 16.439414963071957,
+        "min": 15.672994151126659,
+        "max": 17.198660406026647
+      },
+      {
+        "minute": 13,
+        "samples": 114,
+        "start": 16.25749913723871,
+        "end": 16.9444362006451,
+        "mean": 16.408014329321176,
+        "min": 15.69157427363848,
+        "max": 17.171232237938398
+      },
+      {
+        "minute": 14,
+        "samples": 114,
+        "start": 16.41561983034535,
+        "end": 16.053486700334247,
+        "mean": 16.410371926737792,
+        "min": 15.692229965033903,
+        "max": 17.070953973034193
+      }
+    ],
+    "buffer_regression_ticks_per_second": -5.4355566635661095e-06,
+    "last_three_minus_first_three_minute_mean": -0.00915221575473879,
+    "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+    "backend_observation_age_ms": {
+      "median_upper": 1028.737060546875,
+      "max_upper": 2063.7119140625
+    },
+    "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+    "phases": {
+      "PLAYING": 1729
+    },
+    "resynchronizations": 0,
+    "performance_limited": false,
+    "dense_phase_samples": {
+      "PLAYING": 3600
+    }
+  },
+  "diagnosis": "One sampled zero-coverage wait before the cadence estimator became established. Nominal fallback and endpoint stop match UX-05/06. Existing harness conflated cold-start uncertainty with steady playback. No runtime or payment source change is justified by this trace. Failed result remains FAIL; an untrimmed startup record followed by a full steady window requires new qualification.",
+  "raw_result": ".work/icrc2-delegated-payments/ci-746df11/installed-evidence.zip",
+  "regression_fixture": "tests/fixtures/cold-lifeline-startup-746df11.json"
+}

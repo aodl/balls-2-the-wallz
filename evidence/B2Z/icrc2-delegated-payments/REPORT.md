@@ -2,11 +2,16 @@
 
 **The independent fluid frontend is ready for a separate frontend-only deployment
 approval. The experimental owner-setup defects are corrected and pass local
-qualification; the corrected source still needs hosted CI after publication.**
+qualification. Corrected source/evidence `746df1193458cad182b4ea7a99bdd3ae6114d564`
+is published. Five substantive gates and the financial workflow pass;
+S14/million-cell installed-IC qualification failed a cold-start timing assertion.
+Qualification-only correction **`090cf226e527abfc876d13af825560b45724e77f`**
+passes local checks. Complete source qualification remains blocked until that
+correction is published and passes hosted CI.**
 Real Internet Identity acceptance and a separately authorized state-preserving
 backend upgrade/cutover/activation remain production blockers for delegated
-payments. Neither branch was deployed and no real payment, approval, cycle,
-controller, setting or backend operation occurred.
+payments. No production deployment, real payment/approval, manual cycle operation,
+controller/setting change or paid-backend operation occurred.
 
 ## Independent frontend decision
 
@@ -40,7 +45,13 @@ published `5d46061c5932673d49407707299751c8720132a1`. That baseline passes all s
 jobs in [43010680671](https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680671)
 and the financial job in [43010680594](https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680594);
 [records](owner-review-baseline-ci-5d46061.json). Those successes **do not qualify
-the new correction**. Remote publication remains user-owned under AGENTS.md.
+the new correction**. The owner has now published the correction and evidence
+as `746df1193458cad182b4ea7a99bdd3ae6114d564`. Exact-source
+[verification 43031622594](https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594)
+and [financial qualification 43031622566](https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622566)
+now show **five substantive gates PASS, installed-IC FAIL, financial workflow
+PASS**. [Exact current job/artifact records](hosted-qualification-746df11.json).
+No complete six-gate success is claimed yet.
 
 - Initial setup now contains only approval/grant. Each separate revoke request
   freshly queries allowance and fee, then timestamps its own command. Zero
@@ -80,6 +91,91 @@ retained local media. Original pre-fix failures, the corrected test-harness comp
 error and Python-version setup failure remain recorded, with their classifications.
 Contracts DP-06/12 and UX-07/08/13 and frontend/operator guidance are updated.
 
+## Installed-IC assertion diagnosis and bounded correction
+
+[Published `746df11` remains FAIL](hosted-installed-746df11.json), specifically
+`million_browser_sustained_normal_and_cold_lifeline`. The assertion was one sampled
+`STALLED` frame during cold Lifeline startup, not a missing log or setup failure.
+[Original failure and metrics](hosted-cold-reconnect-failure-746df11.json),
+[passing 900-second Normal result](hosted-normal-746df11.json). At that frame there
+were zero verified ticks remaining, no resync or delivery error, and only one
+cadence sample. A 20.305-second distinct-head gap exceeded the first usable
+20-second interval. Nominal fallback before enough cadence evidence exists and
+stopping at the verified endpoint are required UX-05/06 behavior. No runtime
+change is justified by this evidence.
+
+The [actual pinned-clock/player reproduction](../../../tests/js/elastic-playback.test.mjs)
+preserves the observed cold gap and exercises the subsequent 121 seconds without
+unverified motion or a steady stall. New cold-start classification records **all**
+first-motion-to-cadence samples, permitting only truthful zero-coverage waits
+before cadence exists; rewind, extrapolation, resync, delivery error, available-
+coverage stalls and established-cadence stalls fail. The following complete steady
+window retains every original zero-stall, rate, queue/memory and five-publication
+assertion. It now also explicitly requires at least 120 seconds between samples.
+No clock, queue, buffer threshold, source or gameplay rate is reset or changed.
+The protected Normal analysis file and `measure_mode` AST remain **exactly** their
+frozen identities, with the unchanged 900-second call.
+[Assertion preservation and original failed checks](cold-cadence-assertion-preservation.json).
+
+One [local installed case](cold-cadence-installed-local.json) passes in
+**1,539.435 s**, using the downloaded normal/test-hook modules from this failed CI
+artifact without recompilation. Its [900.531-second Normal analysis](cold-cadence-normal-local.json)
+passes every criterion. [Browser results](cold-cadence-browser-local.json) record
+19.233 seconds of cold cadence acquisition, then **120.362 seconds** of verified
+Lifeline playback: zero stalls/resyncs, five subsequent publications, 0.04322
+shown ticks/s, and 0.464–1.807 ticks buffered. Independent replay passes **1,036
+consecutive publications**. Synthetic low-tier setup remains confined to the
+existing disposable test-hook phases; Normal uses its exact normal module.
+
+Reuse boundary: that full local case executed the identical cold helper bodies
+before their import-only relocation, with a full-span loop measuring 120.362s.
+The final factoring restores the original frozen Normal function and captures
+121 wall seconds plus an explicit >=120s span assertion. The guard and focused
+regressions verify this final factoring; it is not presented as a new complete
+hosted pass. [Exact source/input and scope record](cold-cadence-correction-inputs.json).
+
+Final [local source checks](cold-cadence-source-final.json) pass **1,855 JS / 206
+Python**, no skips. The initial checksum guard failure remains recorded; no
+assertion hashes were relaxed. A later source attempt exposed an unchanged proxy
+test's cross-request wall-clock-plus-monotonic comparison failing by 2.653 ms,
+despite its causal event gates passing. A controlled clock step reproduced it.
+The test now retains those real event/order, finite-timeout, byte-integrity and
+no-retry checks and compares monotonic durations within each request. All 19
+proxy tests pass, including the new deterministic case. The actual host clock
+adjustment was not independently measured, and the proxy implementation did not
+change. Failed/incomplete attempts remain under the linked raw result paths.
+
+Qualification correction source is **`090cf226e527abfc876d13af825560b45724e77f`**.
+It changes tests, cold qualification orchestration and maintained documentation;
+[all frozen application inputs/files still agree](cold-cadence-runtime-preservation.json).
+No application/backend source, dependency, financial protocol or frozen artifact
+was changed or rebuilt. Its exact-source hosted six-gate result is **NOT_RUN**
+until owner publication; the successful financial result on `746df11` retains its
+exact tested scope. Real II acceptance and separate production-upgrade authority
+remain required.
+
+## Published financial qualification
+
+The corrected-source [financial workflow 43031622566](https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622566)
+passes all **nine** selected installed cases, with none omitted, and the complete
+optional UI/immutable-intent/native two-tab journeys.
+[Executed suite](hosted-financial-746df11.json),
+[new owner case](hosted-owner-setup-746df11.json) and
+[UI results](hosted-financial-ui-746df11.json). The owner case passes in **4.085 s**
+on the hosted runner, including real disposable Ledger allowance changes,
+concurrent spend rejection, old timestamp rejection and fresh revocation.
+This supplements rather than substitutes for the distinct 41.492 s local run.
+
+Artifact `13861806485`, ZIP SHA-256
+`1c5793ab7c53040e5bcfa804494c5682deaf4259858292400c16a2c8d9f29797`, was downloaded,
+digest-checked and its actual selected-result records inspected. The mandatory
+hosted financial workflow reproduced the **byte-identical** normal experimental
+backend `19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443`
+(3,677,783 bytes). No local backend rebuild or production installation occurred.
+Raw archive/module retained under `.work/icrc2-delegated-payments/ci-746df11/`.
+Real Internet Identity ceremony, intended-origin principal stability, actual
+wallet/physical-device coverage and production authorization remain separate.
+
 ## Corrected experimental freeze and remaining release boundary
 
 Clean source `15586071fb38033398cd5378398b23616747a811` produced **17 files**:
@@ -111,12 +207,17 @@ expiry/order, source/replay, financial intents/executor and dependencies are
 unchanged. Prior backend/financial results below retain their exact original
 artifacts; the new owner-only Ledger case adds coverage without replacing them.
 
-Remaining work: user publishes the two local commits with the ordinary non-force
-command below; refresh all six substantive gates and the financial workflow for
-that exact source. Independently qualify the real Internet Identity ceremony and
+Remaining qualification: publish and qualify the harness-only cold-start
+measurement correction. Published `746df11` retains its failed installed-IC
+conclusion. Source, Native, Packaged DTR/clean consumers, Wasm and Browser
+HTTP/Web Crypto passed. Independently qualify the real Internet Identity ceremony and
 stable principal on the intended signing origin, then review separate paid-state
 upgrade/cutover/recovery and feature activation authority. No real-wallet,
 physical-phone, hardware performance or production financial pass is claimed.
+
+The owner published `746df11`; do not repeat that push. The new, specifically
+justified qualification correction and its evidence require one ordinary
+non-force publication:
 
 ```sh
 git -C /home/codexdev/src/b2z-icrc2 push origin HEAD:refs/heads/feature/b2z-icrc2-delegated-payments
@@ -657,6 +758,10 @@ No push, force push, deployment, controller/setting update, real allowance or
 financial transfer occurred.
 
 After local review, the ordinary non-force feature publication is:
+
+The owner published `746df11`; do not repeat that push. The new, specifically
+justified qualification correction and its evidence require one ordinary
+non-force publication:
 
 ```sh
 git -C /home/codexdev/src/b2z-icrc2 push origin HEAD:refs/heads/feature/b2z-icrc2-delegated-payments

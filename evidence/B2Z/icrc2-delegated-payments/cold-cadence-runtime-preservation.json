@@ -1,0 +1,14 @@
+{
+  "frontend-files-owner-setup-experimental.json": {
+    "status": "PASS",
+    "source": "15586071fb38033398cd5378398b23616747a811",
+    "maintained_build_inputs_unchanged": 55,
+    "actual_files_unchanged": 17
+  },
+  "frontend-files-arrival-jitter-default.json": {
+    "status": "PASS",
+    "source": "9a5cb2be7a9de79aae536df5f01c99fd9da39ce4",
+    "maintained_build_inputs_unchanged": 49,
+    "actual_files_unchanged": 17
+  }
+}

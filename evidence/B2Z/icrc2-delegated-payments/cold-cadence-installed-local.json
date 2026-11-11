@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "scope": "explicit experimental disposable integration; exact executed test and its result define scope; no production or real II ceremony claim",
+  "test": {
+    "id": "million_browser_sustained_normal_and_cold_lifeline",
+    "command": [
+      "/home/codexdev/src/b2z-icrc2/.work/icrc2-delegated-payments/owner-setup-correction/ledger01/installed-test-harness",
+      "million_browser_sustained_normal_and_cold_lifeline",
+      "--exact",
+      "--ignored",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 1539.435,
+    "timeout_seconds": 2100,
+    "log": "logs/million_browser_sustained_normal_and_cold_lifeline.log",
+    "pocketic_server_exit": null
+  },
+  "artifacts": {
+    "POCKET_IC_BIN": {
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+      "path": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic"
+    },
+    "ICP_LEDGER_WASM": {
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm"
+    },
+    "ICP_INDEX_WASM": {
+      "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ic-icp-index-canister.wasm"
+    }
+  },
+  "harness_sha256": "df3f5a044e17dfd58c9259ca5912d7fcbee19e587a712462c4f5943b2548843f",
+  "backend_modules": {
+    "B2Z_S14_WASM": {
+      "sha256": "1c0dad1205de170c676040283adbd7690c52ef03c9570c0c1f8af8c035c3f392"
+    },
+    "B2Z_S14_TEST_WASM": {
+      "sha256": "4540a05f6be35c2477f80422a606df1b94073a961a9de302a2e23e4432885457"
+    }
+  }
+}

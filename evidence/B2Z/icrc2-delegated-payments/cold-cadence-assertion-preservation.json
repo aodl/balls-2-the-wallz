@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "normal_analysis_sha256": "f1d834cd56148224206ccd160eab17b68404dc216bd1927496600cccaecc7aed",
+  "normal_measure_mode_ast_sha256": "806e047fa47ba3ce1825d69eedf35fdddb74738e4f8948ea565f49e71a21dd25",
+  "assertion_contract_unchanged": true,
+  "normal_900_second_call_unchanged": true,
+  "cold_measurement_wall_seconds": 121,
+  "cold_required_sample_span_seconds": 120,
+  "cold_startup_timeout_seconds": 60,
+  "helpers_sha256": "ea05fc16c50b3e04c3284312ffa846a59dd440f66ced6131f479eb036d5beec6",
+  "installed_execution_reuse": "1539.435s local case used identical cold helper bodies before their import-only relocation, and a full-span sampling loop that recorded 120.3619s. Final code restores the exact frozen measure_mode AST and captures 121 wall seconds plus an explicit >=120s span assertion. Normal execution/analysis, cold helper behavior, runtime/bundles and backend Wasms are unchanged. Final exact-source hosted qualification is still required.",
+  "preserved_failed_checks": [
+    {
+      "path": ".work/icrc2-delegated-payments/cold-cadence-source01/verification.json",
+      "reason": "Source guard caught additions to the immutable Normal analysis file/measure_mode AST. Restored both exactly; did not change assertion hashes."
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/ci-746df11/cold-assertion-before.log",
+      "reason": "New cold-start regression initially failed because the classifier did not exist."
+    },
+    {
+      "path": ".work/icrc2-delegated-payments/cold-cadence-source-final02/verification.json",
+      "reason": "All JS passed, but existing proxy test cross-request wall+monotonic timestamp comparison failed by 2.653ms despite causal event gates succeeding. Exact host clock adjustment was not independently measured. A controlled wall-clock step deterministically reproduces the invalid assertion; tests now retain causal ordering and compare monotonic durations within each request. No server/runtime change."
+    }
+  ],
+  "controlled_clock_scope": "Actual pinned PlayoutClock and canonical SegmentPlayers; not IC certificate or real browser lifecycle evidence.",
+  "proxy_clock_regression": {
+    "before_log": ".work/icrc2-delegated-payments/ci-746df11/proxy-clock-before.log",
+    "before": "FAIL new deterministic clock-step case",
+    "after_log": ".work/icrc2-delegated-payments/ci-746df11/proxy-clock-after.log",
+    "after": "PASS 19 tests, including clock step; same finite request/event timeouts and no-retry assertion"
+  }
+}

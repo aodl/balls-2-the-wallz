@@ -1,0 +1,115 @@
+{
+  "source_commit": "746df1193458cad182b4ea7a99bdd3ae6114d564",
+  "runtime_source": "15586071fb38033398cd5378398b23616747a811",
+  "captured_at": "2026-11-11 14:33:00 UTC",
+  "verification_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594",
+  "financial_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622566",
+  "ordinary_qualification": "FAIL",
+  "informational_inventory_excluded": true,
+  "ordinary_jobs": [
+    {
+      "id": 130559847555,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559847555",
+      "started_at": "2026-11-11T13:42:58Z",
+      "completed_at": "2026-11-11T13:43:25Z"
+    },
+    {
+      "id": 130559847902,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559847902",
+      "started_at": "2026-11-11T13:42:59Z",
+      "completed_at": "2026-11-11T13:47:27Z"
+    },
+    {
+      "id": 130559847960,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559847960",
+      "started_at": "2026-11-11T13:42:59Z",
+      "completed_at": "2026-11-11T14:32:09Z"
+    },
+    {
+      "id": 130559848028,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559848028",
+      "started_at": "2026-11-11T13:42:58Z",
+      "completed_at": "2026-11-11T13:45:32Z"
+    },
+    {
+      "id": 130559848068,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559848068",
+      "started_at": "2026-11-11T13:42:58Z",
+      "completed_at": "2026-11-11T13:45:00Z"
+    },
+    {
+      "id": 130559848136,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559848136",
+      "started_at": "2026-11-11T13:42:59Z",
+      "completed_at": "2026-11-11T13:43:03Z"
+    },
+    {
+      "id": 130559848225,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622594/job/130559848225",
+      "started_at": "2026-11-11T13:42:58Z",
+      "completed_at": "2026-11-11T13:44:01Z"
+    }
+  ],
+  "financial_jobs": [
+    {
+      "id": 130559846746,
+      "name": "Optional ICRC-2 / exact predecessor / replay / UI",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43031622566/job/130559846746",
+      "started_at": "2026-11-11T13:42:58Z",
+      "completed_at": "2026-11-11T13:51:23Z"
+    }
+  ],
+  "financial_artifact": {
+    "id": 13861806485,
+    "name": "delegated-payment-evidence",
+    "size_in_bytes": 7260525,
+    "url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13861806485",
+    "archive_download_url": "https://api.github.com/repos/aodl/balls-2-the-wallz/actions/artifacts/13861806485/zip",
+    "expired": false,
+    "created_at": "2026-11-11T13:51:19Z",
+    "expires_at": "2026-11-25T13:51:16Z",
+    "updated_at": "2026-11-11T13:51:19Z",
+    "digest": "sha256:1c5793ab7c53040e5bcfa804494c5682deaf4259858292400c16a2c8d9f29797",
+    "workflow_run": {
+      "id": 43031622566,
+      "repository_id": 1413439514,
+      "head_repository_id": 1413439514,
+      "head_branch": "feature/b2z-icrc2-delegated-payments",
+      "head_sha": "746df1193458cad182b4ea7a99bdd3ae6114d564"
+    }
+  },
+  "normal_backend": {
+    "sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+    "bytes": 3677783,
+    "byte_identical_to_preceding_qualified_normal": true,
+    "installed_in_production": false
+  },
+  "failure_artifact": {
+    "id": 13863703170,
+    "sha256": "1ce1ca9d9e6ab235456ec2a916791600efcf28ca404b53e84f6c29de6ebeb943",
+    "raw_archive": ".work/icrc2-delegated-payments/ci-746df11/installed-evidence.zip"
+  }
+}

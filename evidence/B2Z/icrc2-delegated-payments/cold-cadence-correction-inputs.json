@@ -1,0 +1,50 @@
+{
+  "correction_source": "090cf226e527abfc876d13af825560b45724e77f",
+  "base_source": "746df1193458cad182b4ea7a99bdd3ae6114d564",
+  "runtime_source": "15586071fb38033398cd5378398b23616747a811",
+  "hosted_correction_status": "NOT_RUN; source not yet published",
+  "input_sha256": {
+    "tools/cold_playback_qualification.py": "ea05fc16c50b3e04c3284312ffa846a59dd440f66ced6131f479eb036d5beec6",
+    "tools/test_cold_playback_qualification.py": "fbf7acceb0f467bd167805fac52e323e369d5bf8505b8989eaa879abb85bcaa3",
+    "tools/test_observer_server.py": "c37450a5dcbf8bd385a4f399bb204364892c663dc2558bbbd9be96b339ea77b1",
+    "tools/verify_s14_deployment.py": "ca865e6936e50f3bad670030e4f9dfa6ad5fdb4b0dc624d744050df1b6e6ddad",
+    "tests/js/elastic-playback.test.mjs": "951e50bad08d242675a99fd76a00b7386a78b2f64fb4fd8e519293e85a2d8619",
+    "tests/fixtures/cold-lifeline-startup-746df11.json": "68c457ed8cdf6f048b3b591ba74957b818c16b531468e009e17549c4996c580a",
+    "docs/specs/B2Z_HUMAN_EXPERIENCE.md": "b1095c4c515d7149e4c569862a0d9165423825fd57915033cd8c8ed690ac1a5a"
+  },
+  "frontend_or_backend_runtime_changes": false,
+  "source_checks": {
+    "status": "PASS",
+    "js": 1855,
+    "python": 206,
+    "skipped": 0
+  },
+  "controlled_clock": {
+    "status": "PASS",
+    "tests": 26,
+    "log": ".work/icrc2-delegated-payments/ci-746df11/cold-clock-final.log"
+  },
+  "cold_classifier": {
+    "status": "PASS",
+    "tests": 6
+  },
+  "proxy_diagnostics": {
+    "status": "PASS",
+    "tests": 19
+  },
+  "frozen_normal_guard": {
+    "status": "PASS",
+    "tests": 4
+  },
+  "local_installed_case": {
+    "status": "PASS",
+    "elapsed_seconds": 1539.435,
+    "normal_seconds": 900.5305998535156,
+    "cold_steady_seconds": 120.3619,
+    "cold_stalled_samples": 0,
+    "cold_resyncs": 0,
+    "cold_subsequent_publications": 5,
+    "independent_replay_segments": 1036,
+    "reuse_boundary": "See cold-cadence-assertion-preservation.json: pure helper relocation and restored frozen measure_mode AST; final cold measurement retains >=120s using 121s wall capture. No repeat 900s measurement was manufactured for packaging."
+  }
+}
