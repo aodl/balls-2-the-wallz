@@ -15,16 +15,16 @@
         0.0
       ],
       "panel": {
-        "height": 357,
-        "content": 357,
+        "height": 362,
+        "content": 362,
         "workspace": {
           "x": 606,
           "y": 334,
           "width": 360,
-          "height": 411,
+          "height": 416,
           "top": 334,
           "right": 966,
-          "bottom": 745,
+          "bottom": 750,
           "left": 606
         }
       },
@@ -109,11 +109,12 @@
               1080.0,
               297.0
             ],
-            "settled_seconds": 7.144528019009158,
+            "transition_wall_seconds": 0.3502521659829654,
+            "journey_seconds_including_layout_checks": 3.365912474982906,
             "toolbar_max_drift": 0.0,
             "panel": {
-              "height": 357,
-              "content": 357
+              "height": 362,
+              "content": 362
             }
           },
           {
@@ -121,11 +122,12 @@
               648.0,
               540.0
             ],
-            "settled_seconds": 5.161136217007879,
+            "transition_wall_seconds": 0.496067458007019,
+            "journey_seconds_including_layout_checks": 2.5929149099974893,
             "toolbar_max_drift": 0.0,
             "panel": {
-              "height": 357,
-              "content": 357
+              "height": 362,
+              "content": 362
             }
           },
           {
@@ -133,11 +135,12 @@
               360.0,
               378.0
             ],
-            "settled_seconds": 6.615711197024211,
+            "transition_wall_seconds": 0.3393505419953726,
+            "journey_seconds_including_layout_checks": 2.43747921299655,
             "toolbar_max_drift": 0.0,
             "panel": {
-              "height": 357,
-              "content": 357
+              "height": 362,
+              "content": 362
             }
           }
         ],
@@ -152,7 +155,7 @@
               430
             ],
             "height": 296,
-            "content": 355
+            "content": 360
           },
           {
             "viewport": [
@@ -160,7 +163,7 @@
               300
             ],
             "height": 166,
-            "content": 355
+            "content": 360
           },
           {
             "viewport": [
@@ -168,7 +171,7 @@
               390
             ],
             "height": 256,
-            "content": 355
+            "content": 360
           }
         ]
       },
@@ -185,7 +188,7 @@
           },
           {
             "at": 90,
-            "height": 286.453125,
+            "height": 290.46875,
             "button": [
               149,
               339
@@ -193,7 +196,7 @@
           },
           {
             "at": 180,
-            "height": 357,
+            "height": 362,
             "button": [
               149,
               339
@@ -215,16 +218,16 @@
         0.0
       ],
       "panel": {
-        "height": 357,
-        "content": 357,
+        "height": 362,
+        "content": 362,
         "workspace": {
           "x": 8,
           "y": 220,
           "width": 360,
-          "height": 411,
+          "height": 416,
           "top": 220,
           "right": 368,
-          "bottom": 631,
+          "bottom": 636,
           "left": 8
         }
       },
@@ -247,11 +250,12 @@
               292.5,
               278.52000000000004
             ],
-            "settled_seconds": 3.603260259027593,
+            "transition_wall_seconds": 0.37701988901244476,
+            "journey_seconds_including_layout_checks": 2.9241223449935205,
             "toolbar_max_drift": 0.0,
             "panel": {
-              "height": 357,
-              "content": 357
+              "height": 362,
+              "content": 362
             }
           },
           {
@@ -259,11 +263,12 @@
               175.5,
               506.4
             ],
-            "settled_seconds": 2.4700380170252174,
+            "transition_wall_seconds": 0.43728517001727596,
+            "journey_seconds_including_layout_checks": 2.0793132120161317,
             "toolbar_max_drift": 0.0,
             "panel": {
-              "height": 357,
-              "content": 357
+              "height": 362,
+              "content": 362
             }
           },
           {
@@ -271,11 +276,12 @@
               97.5,
               354.47999999999996
             ],
-            "settled_seconds": 2.344202231033705,
+            "transition_wall_seconds": 0.7181419529952109,
+            "journey_seconds_including_layout_checks": 3.758344214002136,
             "toolbar_max_drift": 0.0,
             "panel": {
-              "height": 357,
-              "content": 357
+              "height": 362,
+              "content": 362
             }
           }
         ],
@@ -290,7 +296,7 @@
               430
             ],
             "height": 298,
-            "content": 355
+            "content": 360
           },
           {
             "viewport": [
@@ -298,7 +304,7 @@
               300
             ],
             "height": 171,
-            "content": 355
+            "content": 360
           },
           {
             "viewport": [
@@ -306,7 +312,7 @@
               390
             ],
             "height": 256,
-            "content": 355
+            "content": 360
           }
         ]
       },
@@ -323,7 +329,7 @@
           },
           {
             "at": 90,
-            "height": 286.453125,
+            "height": 290.46875,
             "button": [
               63,
               225
@@ -331,7 +337,7 @@
           },
           {
             "at": 180,
-            "height": 357,
+            "height": 362,
             "button": [
               63,
               225
@@ -354,7 +360,7 @@
       ],
       "panel": {
         "height": 245,
-        "content": 356,
+        "content": 361,
         "workspace": {
           "x": 8,
           "y": 220,
@@ -385,11 +391,12 @@
               240.0,
               211.20000000000002
             ],
-            "settled_seconds": 5.594270278990734,
+            "transition_wall_seconds": 0.3763795190025121,
+            "journey_seconds_including_layout_checks": 2.6798110530362464,
             "toolbar_max_drift": 0.0,
             "panel": {
               "height": 245,
-              "content": 356
+              "content": 361
             }
           },
           {
@@ -397,11 +404,12 @@
               144.0,
               384.0
             ],
-            "settled_seconds": 4.275422350037843,
+            "transition_wall_seconds": 0.40940005000447854,
+            "journey_seconds_including_layout_checks": 1.981877492973581,
             "toolbar_max_drift": 0.0,
             "panel": {
               "height": 245,
-              "content": 356
+              "content": 361
             }
           },
           {
@@ -409,11 +417,12 @@
               80.0,
               268.8
             ],
-            "settled_seconds": 2.3619278719997965,
+            "transition_wall_seconds": 0.3911382369697094,
+            "journey_seconds_including_layout_checks": 1.9228710070019588,
             "toolbar_max_drift": 0.0,
             "panel": {
               "height": 245,
-              "content": 356
+              "content": 361
             }
           }
         ],
@@ -428,7 +437,7 @@
               430
             ],
             "height": 298,
-            "content": 356
+            "content": 361
           },
           {
             "viewport": [
@@ -436,7 +445,7 @@
               300
             ],
             "height": 171,
-            "content": 356
+            "content": 361
           },
           {
             "viewport": [
@@ -444,7 +453,7 @@
               390
             ],
             "height": 256,
-            "content": 355
+            "content": 360
           }
         ]
       },
@@ -453,7 +462,7 @@
         "rows": [
           {
             "at": 0,
-            "height": 0,
+            "height": 0.75,
             "button": [
               63,
               225
@@ -461,7 +470,7 @@
           },
           {
             "at": 90,
-            "height": 197.390625,
+            "height": 197.90625,
             "button": [
               63,
               225

@@ -1,0 +1,335 @@
+{
+  "files": [
+    {
+      "file": "after-1440-fire.png",
+      "sha256": "3831751e576eacd8b57c4bffc7d18993e7010596d308b4f7ff43f516825bf32a",
+      "bytes": 353811,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-1440-navigation.png",
+      "sha256": "52f2690c0621cf3318f0bb19b7ca89925178ff3d6f0bbc0fd6e5a164972de944",
+      "bytes": 393313,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-1440-refined-payment.png",
+      "sha256": "1acd73b88e2ec7d2c25ab91706a742548a5e94b0837689a67ff3ab7c76933a37",
+      "bytes": 353754,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-1440-stable-build.png",
+      "sha256": "59edc66d35316a6cc426b1e94a23a11b2ced2361b472e0305ca65cfbe4905c71",
+      "bytes": 370935,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-1440-toolbar.png",
+      "sha256": "a0d5dd1b970d13274798393a5965a0a036ea01785fe133b3274bad1877b816fd",
+      "bytes": 316185,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-320-fire.png",
+      "sha256": "de162ef9772ef1e54cc675517e296323b6745b8657d5106033650ad76423e035",
+      "bytes": 160505,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-320-navigation.png",
+      "sha256": "a9d90c3d2b3650197c442fd62a09edfa07e0590f7d6b4b5b085f551fe4f43636",
+      "bytes": 114648,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-320-refined-payment.png",
+      "sha256": "5e4796a7cdc0e9a2c51c5c59c21b63065d9d46545084b768e88fabbf6a78db69",
+      "bytes": 170064,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-320-stable-build.png",
+      "sha256": "2ea1e2d9d17386dfd0b553deb4a9dea9eea1f5f9fcd845da07f4b2de52666197",
+      "bytes": 189181,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-320-toolbar.png",
+      "sha256": "fd83e132ebc2f3e8f0b5a456e1836ccad778d821e5edbcbf2409761a15276a5d",
+      "bytes": 118730,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-390-fire.png",
+      "sha256": "d121b74a8c08ce272d9ba2c0d91387b374ab32683b6fbde677e208dbcd9a7163",
+      "bytes": 160838,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-390-navigation.png",
+      "sha256": "4747e7cd9efc326ed3818e6c6987c14694d075549e9878f2eb057c6a04c45dad",
+      "bytes": 118496,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-390-refined-payment.png",
+      "sha256": "d121b74a8c08ce272d9ba2c0d91387b374ab32683b6fbde677e208dbcd9a7163",
+      "bytes": 160838,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-390-stable-build.png",
+      "sha256": "101872fa08e497b3dfaa3c4d71749d819603447fdebe16830297cf05818c4b38",
+      "bytes": 178530,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "after-390-toolbar.png",
+      "sha256": "34d1c6ab4b3ed286c80716201c64ad2a245f2cfdc187f64f3b338d27b09e98ec",
+      "bytes": 112752,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-1440-fire.png",
+      "sha256": "8a4b29c7f734c5d34b4fd7c01b02f4a2ffd20da639111353dbdb52c4b6f7ede1",
+      "bytes": 639805,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-1440-toolbar.png",
+      "sha256": "953ede3c55044206dbb2af661a92f9b5a4edafa0b552b72620f77f09720f536d",
+      "bytes": 637151,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-1440.webm",
+      "sha256": "a8787d33cc8e597317882b72c2633ba46df50e74271d104f9a6ada3ffbeef765",
+      "bytes": 1293609,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-320-fire.png",
+      "sha256": "1fe487cd616d9eefa8f4585ecccbf5cd768a6bc845dfc65ff6515fbdf2e3f815",
+      "bytes": 82273,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-320-toolbar.png",
+      "sha256": "eb653bf006877770c84540bad18655ab824888b987c97cc5d1f326c06c7e4802",
+      "bytes": 67261,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-320.webm",
+      "sha256": "aab1cab04ca871a5cc99f3fdf56319b6a1b789bb9dfff2d97302cf588f758188",
+      "bytes": 291860,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-390-fire.png",
+      "sha256": "a4292ce825554a58b8f6ececc2c6f350e9b1b2334ae620a08195dea2d47aa0f4",
+      "bytes": 119576,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-390-toolbar.png",
+      "sha256": "9a2ada262314f365ca1f57f6075e7902fe9d34c1d347edba9634405fcbb26774",
+      "bytes": 90214,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "before-390.webm",
+      "sha256": "54f2c3840d1949513cbfbcfdc9fef1d57bb61f00b7d2a7c05ab56c24abe551e4",
+      "bytes": 368746,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "refinement-1440.webm",
+      "sha256": "38383208459d06412ca02f34ec72f44da18f1ca88d282d675d3d9c629508726e",
+      "bytes": 7782098,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "refinement-320.webm",
+      "sha256": "57271a81203ba8d8b997cb8a9a2eb62b48d317af2f3645339884a37f38bffcc5",
+      "bytes": 1739872,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "refinement-390.webm",
+      "sha256": "f5a8a3a62eb54a3bb1e3b451e27a2023f91b15fcd7dbcb9eb1001f397f622ac6",
+      "bytes": 2372855,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed-0.01-widest.png",
+      "sha256": "5ba70fee4afe1a8214578e39b2f094b4e81dc5b2716d09867bf888e3e8707ff9",
+      "bytes": 40550,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed-0.01-working.png",
+      "sha256": "f2c2035ff09fa1c3fca96468cfcef6aa44fbcf9723e555c1765de5c2899c0bc7",
+      "bytes": 136529,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed-0.05-widest.png",
+      "sha256": "8768793dcd597dfa7528defe1890362c58efcf81916adbacd63506983f347792",
+      "bytes": 40545,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed-0.05-working.png",
+      "sha256": "e58616a4b02145008d73dc35a1e98b0701aabbbe3fee832fb90e9281264229ef",
+      "bytes": 136644,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed-1-widest.png",
+      "sha256": "3db2d1e7f170827ba409deead2842b57f827516fb479ea01cc95ace2c403cdc4",
+      "bytes": 39075,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed-1-working.png",
+      "sha256": "9577f24fc30fc6c17ec17961689502157d28b1ec3ae88b07f7b2b2840b53202d",
+      "bytes": 133461,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-deployed.webm",
+      "sha256": "ea6578e303e039464ad4ab3f2f493811aee0d4e2f472dc62a610dad15963bd34",
+      "bytes": 5063284,
+      "runtime_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined-0.01-widest.png",
+      "sha256": "67a7e5d5a289397bb9557004b26d20c29fb62c1702166030daba08c127315c8f",
+      "bytes": 40125,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined-0.01-working.png",
+      "sha256": "1360b5cd9a15e6c3b0fabfbddd6a3a8df27479390612426a87d532f894d8942f",
+      "bytes": 116980,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined-0.05-widest.png",
+      "sha256": "734b28b0d1deaa4c3ca36f494a50dab0b149070c74fc0601db7fbd80e642a348",
+      "bytes": 39966,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined-0.05-working.png",
+      "sha256": "79473b7a2e21e3a2b0077a0b1ffeceee2830bdcc87df26f2b328b6010ae3b5d7",
+      "bytes": 118848,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined-1-widest.png",
+      "sha256": "475ca4133fa382c421ba81a1780320878881746fc4fa1c449881c7ed0fe3d477",
+      "bytes": 38781,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined-1-working.png",
+      "sha256": "a6bf32d99af4d2c7d90ec393a204c1507f3fed349cd8c72e1665d2d1111e22d1",
+      "bytes": 129433,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    },
+    {
+      "file": "slow-refined.webm",
+      "sha256": "3b5a8a3fe19b55100606921b063243694384ec77c1e2464c62137ad396fe4244",
+      "bytes": 5054489,
+      "runtime_source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+      "environment": "Chromium153/ANGLE SwiftShader; emulated desktop/narrow viewport",
+      "fixture_scope": "Canonical disposable game data; no payments/certification claim from these fixture captures"
+    }
+  ],
+  "actual_application_captures": true,
+  "generated_mockups": false,
+  "browser_hardware_qualified": false
+}

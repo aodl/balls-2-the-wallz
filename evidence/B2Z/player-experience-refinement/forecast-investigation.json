@@ -62,5 +62,14 @@
       "raw_log": ".work/player-refinement/forecast-candidate-isolated.log"
     }
   ],
-  "conclusion": "Isolated passing tests establish no source difference and deadline sensitivity, not a proven explanation of the earlier complete-run failure. One full run after own browser work completes is recorded separately. No application/CI budget or assertion was relaxed."
+  "conclusion": "Isolated passing tests establish no source difference and deadline sensitivity, not a proven explanation of the earlier complete-run failure. One full run after own browser work completes is recorded separately. No application/CI budget or assertion was relaxed.",
+  "final_complete_check": {
+    "source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+    "status": "PASS",
+    "node_tests": 1830,
+    "python_tests": 199,
+    "node_elapsed_seconds": 136.603,
+    "same_application_budgets": true,
+    "own_browser_recording_and_performance_runs_during_check": false
+  }
 }

@@ -1,0 +1,345 @@
+{
+  "status": "MEASURED",
+  "rows": [
+    {
+      "variant": "deployed",
+      "pace_ticks_per_second": 0.01,
+      "startup": "nominal slow startup",
+      "camera": "same native B-key follows the displayed ball at every pace, so pixel samples remain in view",
+      "real_elapsed_seconds": 22.007212369993795,
+      "initial": {
+        "time": 0.009833000000000005,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 578.3686644287109,
+            "y": 453.3119518330077
+          }
+        ]
+      },
+      "sample": {
+        "screen": {
+          "x": 487.3893556922806,
+          "y": 345.71023955164884
+        },
+        "white_pixels": 177,
+        "white_outside_core": 0,
+        "buffer_ratio": 1,
+        "size": 96,
+        "stats": {
+          "time": 0.22431400000000012,
+          "draw_calls": 13,
+          "triangles": 682,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 1,
+          "geometries": 21,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 4
+        },
+        "time": 0.22431400000000012,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 583.6835622558592,
+            "y": 457.38981373632805
+          }
+        ]
+      }
+    },
+    {
+      "variant": "deployed",
+      "pace_ticks_per_second": 0.05,
+      "startup": "nominal slow startup",
+      "camera": "same native B-key follows the displayed ball at every pace, so pixel samples remain in view",
+      "real_elapsed_seconds": 8.01134654902853,
+      "initial": {
+        "time": 0.03583500000000004,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 579.0130010986327,
+            "y": 453.8063199365233
+          }
+        ]
+      },
+      "sample": {
+        "screen": {
+          "x": 488.40110856486166,
+          "y": 350.14125115914356
+        },
+        "white_pixels": 174,
+        "white_outside_core": 3,
+        "buffer_ratio": 1,
+        "size": 96,
+        "stats": {
+          "time": 0.436286147106,
+          "draw_calls": 8,
+          "triangles": 370,
+          "tiles": 1,
+          "pieces": 1,
+          "effects": 3,
+          "geometries": 21,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 4
+        },
+        "time": 0.436286147106,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 588.93629002228,
+            "y": 461.4199755839909
+          }
+        ]
+      }
+    },
+    {
+      "variant": "deployed",
+      "pace_ticks_per_second": 1,
+      "startup": "warm verified resume",
+      "camera": "same native B-key follows the displayed ball at every pace, so pixel samples remain in view",
+      "real_elapsed_seconds": 0.6519776820205152,
+      "initial": {
+        "time": 0.649899999999994,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 594.2296997070312,
+            "y": 465.4813506835935
+          }
+        ]
+      },
+      "sample": {
+        "screen": {
+          "x": 526.9506961774171,
+          "y": 525.4033297544502
+        },
+        "white_pixels": 170,
+        "white_outside_core": 5,
+        "buffer_ratio": 1,
+        "size": 96,
+        "stats": {
+          "time": 1.066599999999991,
+          "draw_calls": 5,
+          "triangles": 236,
+          "tiles": 1,
+          "pieces": 1,
+          "effects": 0,
+          "geometries": 21,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 0
+        },
+        "time": 1.066599999999991,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 604.5556396484371,
+            "y": 473.4039408203123
+          }
+        ]
+      }
+    },
+    {
+      "variant": "refined",
+      "pace_ticks_per_second": 0.01,
+      "startup": "nominal slow startup",
+      "camera": "same native B-key follows the displayed ball at every pace, so pixel samples remain in view",
+      "real_elapsed_seconds": 22.014366203045938,
+      "initial": {
+        "time": 0.009333000000000001,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 578.3562742919921,
+            "y": 453.30244548535165
+          }
+        ]
+      },
+      "sample": {
+        "screen": {
+          "x": 487.3679454311096,
+          "y": 345.6158532370687
+        },
+        "white_pixels": 178,
+        "white_outside_core": 0,
+        "buffer_ratio": 1,
+        "size": 96,
+        "stats": {
+          "time": 0.2268139999999998,
+          "draw_calls": 13,
+          "triangles": 1226,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 1,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 21,
+          "motion": {
+            "balls": 1,
+            "tiles": 1,
+            "pathPoints": 22,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        },
+        "time": 0.2268139999999998,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 583.745512939453,
+            "y": 457.4373454746094
+          }
+        ]
+      }
+    },
+    {
+      "variant": "refined",
+      "pace_ticks_per_second": 0.05,
+      "startup": "nominal slow startup",
+      "camera": "same native B-key follows the displayed ball at every pace, so pixel samples remain in view",
+      "real_elapsed_seconds": 8.01252468500752,
+      "initial": {
+        "time": 0.03332999999999975,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 578.9509265136719,
+            "y": 453.7586931347655
+          }
+        ]
+      },
+      "sample": {
+        "screen": {
+          "x": 488.3724798407208,
+          "y": 350.0157562211946
+        },
+        "white_pixels": 172,
+        "white_outside_core": 1,
+        "buffer_ratio": 1,
+        "size": 96,
+        "stats": {
+          "time": 0.43129819899349986,
+          "draw_calls": 8,
+          "triangles": 374,
+          "tiles": 1,
+          "pieces": 1,
+          "effects": 5,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 4,
+          "motion": {
+            "balls": 1,
+            "tiles": 5,
+            "pathPoints": 6,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        },
+        "time": 0.43129819899349986,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 588.8126873041601,
+            "y": 461.32514124629347
+          }
+        ]
+      }
+    },
+    {
+      "variant": "refined",
+      "pace_ticks_per_second": 1,
+      "startup": "warm verified resume",
+      "camera": "same native B-key follows the displayed ball at every pace, so pixel samples remain in view",
+      "real_elapsed_seconds": 0.6580536409746855,
+      "initial": {
+        "time": 0.516699999999997,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 590.9289672851562,
+            "y": 462.9488596679687
+          }
+        ]
+      },
+      "sample": {
+        "screen": {
+          "x": 522.5844607935542,
+          "y": 503.7318785142211
+        },
+        "white_pixels": 183,
+        "white_outside_core": 12,
+        "buffer_ratio": 1,
+        "size": 96,
+        "stats": {
+          "time": 1.0332999999999957,
+          "draw_calls": 8,
+          "triangles": 304,
+          "tiles": 1,
+          "pieces": 1,
+          "effects": 38,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 1,
+          "motion": {
+            "balls": 1,
+            "tiles": 38,
+            "pathPoints": 1,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        },
+        "time": 1.0332999999999957,
+        "points": [
+          {
+            "id": 1,
+            "owner": 1,
+            "x": 603.7304565429686,
+            "y": 472.77081806640626
+          }
+        ]
+      }
+    }
+  ],
+  "scope": "Matched real wall-clock supported-rate visual samples; no production or hardware claim."
+}

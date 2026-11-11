@@ -3,8 +3,8 @@
 The ordinary frontend correction is implemented and frozen from clean source.
 **Not deployed; not yet eligible for production approval.** All six hosted gates
 are pending: the ordinary non-force Git push failed because this session has no
-GitHub Git credentials. Local complete-source closeout is recorded below, separately
-from focused/browser evidence. No CI result is assumed green.
+GitHub Git credentials. The clean complete local source check passes 1,830 JavaScript + 199 Python tests,
+separately from focused/browser evidence. No CI result is assumed green.
 
 ## Starting identities and boundaries
 
@@ -78,7 +78,7 @@ Baseline Fire toolbar drift measured `[0,27.5,55,82.5,110]`px at desktop; correc
 controls remain stationary through expansion. At 320×640 this replica measured
 186px viewport / 483px content (the review's 71px result was another placement,
 not relabelled reproduced here); the correction measures 245px / about 356px.
-Financial font/hit sizes were preserved, warnings not hidden. Awkward locations,
+Fee/risk text is 14px and targets 44px; warnings are not hidden. Awkward locations,
 actual 300px/430px viewport contraction and landscape receive separate checks.
 
 The old short tail and squared wake fade were real: first corrective captures
@@ -112,17 +112,19 @@ no new on-chain rejection or refund guarantee is claimed.
 ## Final clean artifact and superseded development freezes
 
 [Complete actual-file manifest](frontend-files.json), [build provenance](build-manifest.json).
-Runtime source **`32a5006f1af904f45ef901baec7905de588c4b6f`**;
+Runtime source **`feb2ed663d832895080dcc9e796dc3438ae9b8bd`**;
 JavaScript SHA-256 **`afa45cbc9595a664cc20e2d6d20928fa8c508481d74b0b724cb93748ebd51a95`**;
-complete manifest SHA-256 **`fdfdecd89365d3f1c1967b9af432e1226b903aaf3a4546f1cbf346f769118ff6`**.
-Directory `.work/player-refinement/final-candidate/frontend`, source_dirty=false:
+complete manifest SHA-256 **`42f120d45517748f672a35ae8df2ab2f3cc1c5325b7be772f32f8b227cb78e38`**.
+Directory `.work/player-refinement/reviewed/frontend`, source_dirty=false:
 **16 actual files = 15 public HTTP assets + consumed `.ic-assets.json5`**.
 The local reticle SVG is included. Mainnet root/query verification and CSP remain;
 no delegated payment/authentication feature is in the ordinary input graph.
 
 This freeze supersedes runtime `8650735d255890db0c039dcc5b2205f1a7d38306`
-(manifest `c175a116…`) solely to move the icon hint above the toolbar after actual
-captures showed it covering the prompt. **JavaScript is byte-identical**; only
+(manifest `c175a116…`) to move the icon hint above the toolbar after actual
+captures showed it covering the prompt, then preserve the 14px fee/risk text
+instead of relying on smaller financial type. The intermediate 32a5006 hint-only
+freeze (manifest fdfdecd8…) is also retained, superseded. **JavaScript is byte-identical**; only
 CSS and build provenance differ. The prior shader/depth/motion/performance input
 paths are identical and their evidence is reused with that limited difference.
 Fresh final layout, media, frozen bytes and certified-observation checks are separate.
@@ -139,7 +141,11 @@ events, authenticated endpoints and paid state are unchanged.
 
 ## Tests, input identity and qualification boundary
 
-The final source check is being collected once own browser/video work has ended.
+The [complete final source check](source.json) **passes** on clean committed
+`feb2ed6`: 1,830/1,830 JavaScript tests, 199 Python tests and every other source
+check. The Node suite completes in 136.603s without own browser/video work.
+The queued check that recorded the prior revision was stopped and retained as
+[INCOMPLETE](source-interrupted.json), then run once against this final source.
 The original [complete concurrent failure](source-concurrent-failure.json) remains:
 1828/1830 JavaScript tests passed; two unchanged forecast-cost tests returned
 `hard_timeout` at 2837.676ms and 2431.645ms. Their 2000ms application budget plus
@@ -153,19 +159,21 @@ not substitutes for the final source check or hosted CI.
 
 | Executed regression | Scope and result |
 | --- | --- |
-| `node --test tests/js/player-refinement.test.mjs tests/js/fluid-experience.test.mjs tests/js/player-motion.test.mjs` | 32 PASS at final runtime; pending-target fencing, zoom intent, focus composition, meaningful anchor invalidation, DPR limits, actual-rate paths, stationary expiry and proven fast-frame handling. |
-| `tools/verify_refinement_browser.py --output … --video` | Actual components, native mouse/touch, three awkward locations per viewport, exact target or cancellation, compact panels/copy/Update/Keep, keyboard contraction, forced colours and controlled CSS animation. Final execution recorded separately. |
+| `node --test tests/js/player-refinement.test.mjs tests/js/fluid-experience.test.mjs tests/js/player-motion.test.mjs` | 32 focused PASS; included in the final 1,830-test complete pass; pending-target fencing, zoom intent, focus composition, meaningful anchor invalidation, DPR limits, actual-rate paths, stationary expiry and proven fast-frame handling. |
+| `tools/verify_refinement_browser.py --output … --video` | Actual components, native mouse/touch, three awkward locations per viewport, exact target or cancellation, compact panels/copy/Update/Keep, keyboard contraction, forced colours and controlled CSS animation. [Final populated PASS](browser-acceptance.json) at all three viewports. |
 | `tools/verify_playability_actions.py --output … --no-video` | [PASS desktop/390/320](playability-browser.json), including exact wallet bytes, denied clipboard/manual fallback, hidden heading/Move, seam Build, changing eligibility, touch capture/pinch/cancel and same clock through waiting/resumption. Separate recorded review is retained. |
 | `tools/verify_fluid_browser.py --output … --video` | PASS all three layouts; shared camera/selection/follow/modern handoff regression. |
 | `tools/verify_elastic_browser.py --fixture-dir … --output … --video` | [PASS three layouts](elastic-browser.json), controlled unchanged-head/new-head/empty-coverage return, same clock/queue, immutable instructions. Controlled lifecycle, **not genuine background execution**. |
 | `tools/verify_fluid_depth.py --fixture-dir … --output …` | [16 software-WebGL depth cases PASS](guide-depth.json), eight headings × two zooms plus no-guide/depth-disabled controls. |
-| Maintained tactical seam pixel comparison | [96 comparisons PASS](grid.json), DPR1/1.25/1.5/2 at fractional scales2.73/9.37/48.25/96; actual ownership shader path retained. |
+| Maintained tactical seam pixel comparison | [96 comparisons PASS](grid.json), DPR1/1.25/1.5/2 at fractional scales 2.73/9.37/48.25/96; actual ownership shader path retained. |
 | `tools/check.py browser --output …` | Existing HTTP/CSP/browser-native Web Crypto path PASS; authentication/fail-closed tests retained. |
-| `tools/verify_fluid_frozen.py --assets … --output …` | Exact final loopback assets against real European read-only certified game, anonymous boot, source/destination binding and canonical Fire copying; every POST restricted to query/read_state. Final execution recorded separately. |
+| `tools/verify_fluid_frozen.py --assets … --output …` | Exact final loopback assets against real European read-only certified game, anonymous boot, source/destination binding and canonical Fire copying; every POST restricted to query/read_state. [Final frozen PASS](frozen-browser.json) at all three viewports. |
 
-Commands use Python3.11.14 in `.work/browser-venv`, Node24.15.0, pinned installed
+[Exact executed commands, paths and results](qualification-commands.json) supplement
+the overview above; `source.json` contains every complete-gate subcommand.
+Commands use Python 3.11.14 in `.work/browser-venv`, Node 24.15.0, pinned installed
 lockfiles, `DFX_IDENTITY=codex_local`, and the existing user-scoped browser libraries.
-Browser Chromium153.0.8010.12 / ANGLE Vulkan **SwiftShader**. No security/lifecycle
+Browser Chromium 153.0.8010.12 / ANGLE Vulkan **SwiftShader**. No security/lifecycle
 restriction was disabled. The workflow adds the populated refinement journey and
 its artifacts to the existing Browser gate; no prior gate or assertion was removed.
 
@@ -186,9 +194,15 @@ its prior green run qualifies the deployed old release, not these changes.
 
 ## Layout, financial handoff and accessibility evidence
 
+[Actual populated before/after screenshots and recordings](media/README.md) are
+provided with SHA-256 identities in the [media index](media/index.json). All are application captures,
+not generated concepts. The current ordinary 15-file production set was checked
+again at the end and [still matches](ending-production.json), including the security
+policy. The candidate exists only in the frozen local directory.
+
 Actual header slots remain fixed during 0/90/180ms CSS transition sampling and
 native action switching; all five measured drifts are 0px. Desktop and 390px
-Fire scroll surfaces measure 357px, 320px measures 245px (content about357px).
+Fire scroll surfaces measure 362px; 320px measures 245px (content 361px).
 The original 320px replica measured186px/content483px. Three off-centre cannon
 locations per viewport retain useful composition. Focus uses stricter screen
 bounds and panel obstacles, not visibility alone; rapid1.4× zoom twice reaches94.08
@@ -197,10 +211,10 @@ stays immediate. Build's two proposed sites never move the real-cannon toolbar.
 
 Actual viewport contractions to430px,300px and844×390 landscape retain input focus,
 exact financial values and visible source cannon through the existing explicit
-Locate/accommodation. Minimum measured contracted scroll is around166px; these
+Locate/accommodation. Minimum measured contracted scroll is 166px; these
 are viewport tests, not native software-keyboard/physical-phone claims. One
 `.panel-scroll` owns scrolling. Readability and practical44px targets were kept;
-ordinary important wallet text is14px, amount larger. [Conservative analytical
+ordinary important wallet text is 14px, amount larger. [Conservative analytical
 contrast](contrast.json) over a white backdrop gives7.15:1 primary and4.56:1 secondary
 text, with solid forced-colour/reduced-transparency fallbacks. This is not a
 physical-display calibration or a complete assistive-technology audit.
@@ -215,47 +229,64 @@ Touch/keyboard hints are brief, above the icon strip, and cannot cover the promp
 
 [Matched moving-scene measurements](performance.json) use five-second windows
 without video encoding, identical populated seam and working-scale fixtures at
-0.05 ticks/s. Final hint-only CSS/provenance changes do not alter these measured
-renderer/camera/motion/atlas inputs. An earlier supposed seam benchmark was static;
+0.05 ticks/s. Final comparison is refreshed below against the final warning-font/hint CSS.
+The previous mixed measured renderer/camera/motion/atlas results remain retained. An earlier supposed seam benchmark was static;
 its original results remain development evidence and are **not moving qualification**.
 
 | Scene / viewport | Baseline p50 / p95 ms | Candidate p50 / p95 ms |
 | --- | ---: | ---: |
-| Six-entity seam /1440 | 83.3 /116.7 | 83.3 /100.0 |
-| Six-entity seam /390 | 33.4 /50.1 | 50.0 /150.0 |
-| Six-entity seam /320 | 33.4 /116.7 | 33.3 /33.5 |
-| Moving ball + action /1440 | 99.9 /316.7 | 83.4 /116.7 |
-| Moving ball + action /390 | 33.3 /50.0 | 50.0 /50.1 |
-| Moving ball + action /320 | 33.2 /33.4 | 33.3 /50.1 |
+| Six-entity seam / 1440 | 83.2 / 100.0 | 83.3 / 116.7 |
+| Six-entity seam / 390 | 33.3 / 50.1 | 33.3 / 50.1 |
+| Six-entity seam / 320 | 33.3 / 33.4 | 33.3 / 33.4 |
+| Moving ball + action / 1440 | 83.3 / 100.0 | 83.4 / 116.6 |
+| Moving ball + action / 390 | 33.4 / 133.3 | 50.0 / 50.1 |
+| Moving ball + action / 320 | 16.7 / 33.4 | 33.3 / 50.0 |
 
 These mixed software results **are not a smoothness pass or proof of no regression**.
-The390px seam cost warrants hardware review; no isolated bounded-work defect was
-demonstrated. Earlier working-panel390p95 of216.7ms remains recorded. A bounded
-local blur7/3/0/7 diagnostic gave100.1/133.4/100/100ms, so it did not establish a
+The final desktop and 320px action p95 are higher than the matched baseline;
+no isolated bounded-work defect was demonstrated. The preceding 390px moving
+seam p95 of 150ms versus 50.1ms and working-panel 390px p95 of 216.7ms remain
+recorded in the [prior moving comparison](performance-before-final-css.json) and
+development records. This variation warrants hardware review; no record was
+discarded to present only a favourable run. A bounded
+local blur 7/3/0/7 diagnostic gave 100.1/133.4/100/100ms, so it did not establish a
 reproducible blur-specific cause and no visual identity was removed to chase a pass.
-No claim of hardware-backed60/30fps, physical-phone, native keyboard or actual-wallet
+No claim of hardware-backed 60/30fps, physical-phone, native keyboard or actual-wallet
 coverage is made. No hardware/browser display is available in this environment.
 
-Candidate synthetic pointer-dispatch→next-frame samples are3.3–13.4ms; these exclude
+Candidate synthetic pointer-dispatch→next-frame samples are 2.6–14.7ms; these exclude
 OS/native input and are not Playwright journey latency. Native input→settled camera
-measurements are recorded per composition. Candidate draw calls12(seam)/16(action),
-geometry22/23, one ownership texture4MB, heap~20.5–21.7MB versus~19.3–23.1MB baseline.
-Measured layouts0–2.132ms over a five-second window. Atlas single-cell regression
-still uploads≤3 rows/12KB, not one million cells per frame. Motion samples use3–15
-path points/3–6 cells; hard bounds64points/ball,8192total,4096balls,128wakecells.
+measurements are 0.339–0.718s per composition, including browser dispatch and
+software rendering; they are not merely the eased controller duration. Candidate draw calls 12(seam)/16(action),
+geometry 22/23, one ownership texture 4MB, heap ~19.3–21.7MB versus ~20.5–23.1MB baseline.
+Measured layouts 0–0.213ms over a five-second window. Atlas single-cell regression
+still uploads ≤3 rows/12KB, not one million cells per frame. Motion history is directly counted in the performance JSON; hard bounds 64 points/ball, 8,192 total, 4,096 balls and 128 wake cells.
 The one extra shared destination geometry is bounded. No fullscreen pass or lights.
 
-Real-rate footage is sampled at0.01,0.05 and1ticks/s with actual verified displayed
+[Real-rate footage and measured playheads](motion-visibility.json) are sampled at 0.01, 0.05 and 1 ticks/s with actual verified displayed
 positions and the same fixture. A discovered offscreen Lifeline crop is retained as
 invalid visibility evidence and corrected by following the ball in both variants;
 it is not counted as a zero-tail application failure or a visual pass. Normal
 startup uses the explicit verified warm-return path, not fabricated motion. Sampled
 logical advance is recorded alongside wall time: SwiftShader frame gaps/caps mean
 these are not production delivery-cadence measurements. Controlled tests separately
-exercise canonical31-cell/tick paths, seams/reflections, stop/reduced motion and
-large unchanged-trajectory frames. Wake uses450ms hold+1.75s linear fade; tail retains
-only actual recent travel up to bounded30s while moving, and expires≤700ms after
+exercise canonical 31-cell/tick paths, seams/reflections, stop/reduced motion and
+large unchanged-trajectory frames. Wake uses 450ms hold + 1.75s linear fade; tail retains
+only actual recent travel up to a bounded 30s while moving, and expires ≤700ms after
 stopping. Camera changes cannot refresh either; ownership/minimap data are untouched.
+
+[Offline pixel analysis of actual captures](captured-wake-pixels.json) uses the
+same neutral-luminous mask in both variants, excludes an 8px core and warm follow
+ring, and does not count the saturated aqua ownership colour. At Trickle the
+previous visible wake outside that core is 0 pixels versus 150 in the correction,
+with 95th-radius 22.8px (maximum 24.5px). Lifeline is visible in both (19.0px versus
+15.4px95th-radius); the change does not claim every snapshot is longer. The Normal
+sample changes 0→130 wake pixels, with 33.8px95th-radius including soft edge. These
+are fixture-specific visibility measurements, not general human-perception or
+hardware passes. The stricter white>235 metric alone misses translucent tails,
+so its zeroes remain in the original data rather than being labelled failures.
+Actual footage and image review confirm a restrained travelled streak and a
+darkened current/passed tile; no future line or stationary idle motion is added.
 
 ## Preservation and release continuation
 
@@ -265,7 +296,7 @@ confirms backend `612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e9
 and frontend asset Wasm `04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62`.
 No production frontend publication, backend/state change, controller/setting action,
 financial transaction, allowance or signing activation occurred. Paid autonomous
-state legitimately advances independently. Feature worktree remains clean atbc06b15.
+state legitimately advances independently. Feature worktree remains clean at bc06b15.
 
 Complete source publication with the ordinary **non-force** command, after checking
 that the remote is still an ancestor of this branch:
@@ -282,7 +313,7 @@ hosted conclusions after publication. Evidence-only changes need no runtime rebu
 After six passing gates and **separate explicit release approval**, follow the
 [observer-only operator procedure](../../../docs/operations/S14_OPERATOR.md): verify
 all sixteen bytes against the final manifest, preserve existing staging, stage
-`.work/player-refinement/final-candidate/frontend` as `.work/s14/assets`, and use:
+`.work/player-refinement/reviewed/frontend` as `.work/s14/assets`, and use:
 
 ```sh
 DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_PRESENT=true dfx deploy observer --network ic --no-wallet --no-asset-upgrade
@@ -291,12 +322,12 @@ DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_P
 This command was **not run**. No backend preparer/install/upgrade is part of it.
 Rollback for a later approved release is the retained exact current ordinary
 `.work/fluid-player-experience/frozen-arrival-jitter/frontend` sixteen-file set,
-manifest68116cee…, with actual served fifteen-file copies in`.work/fluid-live/served`.
+manifest 68116cee…, with actual served fifteen-file copies in`.work/fluid-live/served`.
 Verify saved bytes, restage that set and use the same observer-only command under
 bounded rollback authority. The older tactical rollback remains preserved too.
 
 The concrete release blocker is missing exact-source hosted qualification. Mixed
 software performance and unavailable hardware/physical-device/real-wallet/genuine
 rendered-hidden-tab coverage are separately disclosed limits, not manufactured
-passes. No new demonstrated financial, authentication or target-identity defect is
+passes. No demonstrated financial, authentication or target-identity defect is
 being deferred as a future improvement.

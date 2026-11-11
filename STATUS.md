@@ -1,3 +1,22 @@
+# Player-experience refinement — local qualification complete, hosted CI blocked
+
+All 25 UXR findings have implemented corrections with maintained UX-01..13
+regressions and populated before/after review. Clean runtime `feb2ed6` freezes
+16 files / JS `afa45cbc…` / manifest `42f120d4…`. Complete source conformance
+passes 1,830 JavaScript and 199 Python tests. Final desktop/390/320 interaction,
+payment geometry and exact frozen-bundle certified read-only checks pass.
+[Consolidated candidate report](evidence/B2Z/player-experience-refinement/REPORT.md)
+records the original failures, mixed SwiftShader measurements and genuine
+hardware/physical-device/real-wallet/hidden-tab coverage limits.
+
+All six exact-source hosted gates remain NOT_RUN: ordinary non-force Git push has
+no credentials in this session. Do not deploy or treat old CI as qualification.
+The currently served ordinary fluid assets, backend modules/controllers, paid
+state/settings and financial authority remain unchanged; optional ICRC-2 remains
+isolated/disabled. The exact prior fluid rollback set is preserved.
+
+---
+
 # Ordinary fluid frontend — deployed and verified
 
 The European ordinary frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.

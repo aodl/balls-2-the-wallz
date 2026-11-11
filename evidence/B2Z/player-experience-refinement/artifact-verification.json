@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
+  "source_dirty": false,
+  "actual_files": 16,
+  "public_files": 15,
+  "manifest_sha256": "42f120d45517748f672a35ae8df2ab2f3cc1c5325b7be772f32f8b227cb78e38",
+  "javascript_sha256": "afa45cbc9595a664cc20e2d6d20928fa8c508481d74b0b724cb93748ebd51a95",
+  "upload_policy_unchanged_from_deployed": true,
+  "rollback_actual_files": 16,
+  "experimental_payments_absent": true
+}

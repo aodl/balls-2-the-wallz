@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "baseline_commit": "5279625a2ff913f3a8067896c0c00344ac394c10",
-  "runtime_commit": "32a5006f1af904f45ef901baec7905de588c4b6f",
+  "runtime_commit": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
   "git_objects": [
     {
       "path": "canisters/runtime-lab",

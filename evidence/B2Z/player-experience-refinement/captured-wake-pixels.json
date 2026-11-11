@@ -1,0 +1,77 @@
+{
+  "scope": "Offline analysis of actual settled PNG captures; same fixed mask for both variants, not a physical/perceptual pass. Aqua fixture only; exclude 8px core and warm follow ring. White>235 alone misses intentionally translucent tails, so neutral luminous pixels min160/spread45 are recorded too. Camera following keeps crops in frame.",
+  "rows": [
+    {
+      "variant": "deployed",
+      "pace": 0.01,
+      "status": "MEASURED",
+      "core_centroid": [
+        486.85795454545456,
+        345.1306818181818
+      ],
+      "neutral_wake_pixels_outside_8px_core": 0,
+      "radius_p95_px": 0,
+      "max_radius_px": 0
+    },
+    {
+      "variant": "deployed",
+      "pace": 0.05,
+      "status": "MEASURED",
+      "core_centroid": [
+        487.8139534883721,
+        349.33720930232556
+      ],
+      "neutral_wake_pixels_outside_8px_core": 69,
+      "radius_p95_px": 18.95857044150494,
+      "max_radius_px": 20.192318310855246
+    },
+    {
+      "variant": "deployed",
+      "pace": 1,
+      "status": "MEASURED",
+      "core_centroid": [
+        526.4411764705883,
+        524.8529411764706
+      ],
+      "neutral_wake_pixels_outside_8px_core": 0,
+      "radius_p95_px": 0,
+      "max_radius_px": 0
+    },
+    {
+      "variant": "refined",
+      "pace": 0.01,
+      "status": "MEASURED",
+      "core_centroid": [
+        486.8258426966292,
+        345.03932584269666
+      ],
+      "neutral_wake_pixels_outside_8px_core": 150,
+      "radius_p95_px": 22.796322657973246,
+      "max_radius_px": 24.518930333600455
+    },
+    {
+      "variant": "refined",
+      "pace": 0.05,
+      "status": "MEASURED",
+      "core_centroid": [
+        487.7241379310345,
+        349.1666666666667
+      ],
+      "neutral_wake_pixels_outside_8px_core": 56,
+      "radius_p95_px": 15.409370695945995,
+      "max_radius_px": 16.394573449114574
+    },
+    {
+      "variant": "refined",
+      "pace": 1,
+      "status": "MEASURED",
+      "core_centroid": [
+        522.1136363636364,
+        503.21022727272725
+      ],
+      "neutral_wake_pixels_outside_8px_core": 130,
+      "radius_p95_px": 33.76069284621704,
+      "max_radius_px": 35.57962031074264
+    }
+  ]
+}

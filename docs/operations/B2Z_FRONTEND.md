@@ -82,3 +82,8 @@ and authenticated-observer checks. Visual evidence must include awkward populate
 layouts and actual supported slow pace; software DPR/SwiftShader is not physical
 hardware coverage. This new candidate requires its own six-gate qualification and
 separate production decision; do not deploy it as a documentation follow-up.
+
+The [player-refinement candidate record](../../evidence/B2Z/player-experience-refinement/REPORT.md)
+contains all 25 dispositions, exact frozen bytes, executed commands, populated
+media, software performance limits and the still-required hosted qualification.
+Do not substitute it for the currently deployed ordinary asset set.

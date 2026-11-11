@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "32a5006f1af904f45ef901baec7905de588c4b6f",
+  "started_utc": "2026-11-11T21:24:10.912753+00:00",
+  "mode": "source",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "b2z-naming-audit",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/check_b2z_names.py",
+        "--output",
+        ".work/player-refinement/source-uncontended/naming-audit.json"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-naming-audit.log",
+      "elapsed_seconds": 7.455,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "playability-policy",
+      "command": [
+        "node",
+        "tools/generate_playability.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-policy.log",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-state-vectors",
+      "command": [
+        "node",
+        "tools/playability_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-state-vectors.log",
+      "elapsed_seconds": 0.168,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-purchase-vectors",
+      "command": [
+        "node",
+        "tools/purchase_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-purchase-vectors.log",
+      "elapsed_seconds": 0.27,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-lifecycle-vectors",
+      "command": [
+        "node",
+        "tools/lifecycle_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-lifecycle-vectors.log",
+      "elapsed_seconds": 0.167,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-island-vectors",
+      "command": [
+        "node",
+        "tools/island_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-island-vectors.log",
+      "elapsed_seconds": 0.218,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-capture-vectors",
+      "command": [
+        "node",
+        "tools/capture_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-capture-vectors.log",
+      "elapsed_seconds": 0.27,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "playability-rules-vectors",
+      "command": [
+        "node",
+        "tools/rules_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/playability-rules-vectors.log",
+      "elapsed_seconds": 7.413,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "entry-rules-vectors",
+      "command": [
+        "node",
+        "tools/entry_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/entry-rules-vectors.log",
+      "elapsed_seconds": 2.69,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "adjacent-cannon-vectors",
+      "command": [
+        "node",
+        "tools/adjacent_cannon_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/adjacent-cannon-vectors.log",
+      "elapsed_seconds": 1.378,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "observer-recordings",
+      "command": [
+        "node",
+        "tools/build_observer_recordings.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-recordings.log",
+      "elapsed_seconds": 2.536,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "protocol-fixtures",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/reference_fixtures.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/protocol-fixtures.log",
+      "elapsed_seconds": 0.067,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "life-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/life_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/life-reference.log",
+      "elapsed_seconds": 0.118,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "b2z-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/b2z_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-reference.log",
+      "elapsed_seconds": 0.316,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "spawn-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/spawn_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/spawn-reference.log",
+      "elapsed_seconds": 0.47,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "impact-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/impact_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/impact-reference.log",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "b2z-full-traces",
+      "command": [
+        "node",
+        "tools/b2z_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/b2z-full-traces.log",
+      "elapsed_seconds": 0.322,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "numeric-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/numeric_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/numeric-reference.log",
+      "elapsed_seconds": 0.122,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "coordinator-vectors",
+      "command": [
+        "node",
+        "tools/coordinator_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/coordinator-vectors.log",
+      "elapsed_seconds": 0.671,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "observation-v6-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/observation_reference.py",
+        "--version",
+        "6",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-v6-reference.log",
+      "elapsed_seconds": 0.117,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "observation-reference",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/observation_reference.py",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observation-reference.log",
+      "elapsed_seconds": 0.116,
+      "timeout_seconds": 120
+    },
+    {
+      "id": "portable-cursors",
+      "command": [
+        "node",
+        "tools/portable_vectors.mjs",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/portable-cursors.log",
+      "elapsed_seconds": 0.419,
+      "timeout_seconds": 180
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "INCOMPLETE",
+  "reason": "Stopped once: queued wrapper recorded 32a5006 before the final financial-font commit feb2ed6. Not an exact-source qualification claim; no assertion result concealed."
+}

@@ -1,5 +1,5 @@
 {
-  "source_commit": "32a5006f1af904f45ef901baec7905de588c4b6f",
+  "source_commit": "feb2ed663d832895080dcc9e796dc3438ae9b8bd",
   "files": {
     ".ic-assets.json5": {
       "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
@@ -22,7 +22,7 @@
       "role": "public-http-asset"
     },
     "build-manifest.json": {
-      "sha256": "d8b81906753115e4676d03eb49ee59442dfb680f311c4d41af80416eaae340aa",
+      "sha256": "859dbfa4407d34c88ba24601a3550779991307b22fa56ce4efd5e1a00860870d",
       "bytes": 10203,
       "role": "public-http-asset"
     },
@@ -77,8 +77,8 @@
       "role": "public-http-asset"
     },
     "style.css": {
-      "sha256": "2a073f7c5295b1c41880f4ecbf752815f29abaf94d93c4b3c72533c560f84c99",
-      "bytes": 21114,
+      "sha256": "11f89f541744d52ae92001f756f748637ce204cccb6486874ac09e07e5b111d4",
+      "bytes": 21120,
       "role": "public-http-asset"
     }
   }

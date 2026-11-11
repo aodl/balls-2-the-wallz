@@ -1,0 +1,188 @@
+{
+  "working_directory": "/home/codexdev/src/b2z",
+  "environment": {
+    "DFX_IDENTITY": "codex_local",
+    "LD_LIBRARY_PATH": "/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu"
+  },
+  "checks": [
+    {
+      "name": "complete-source",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/check.py",
+        "source",
+        "--output",
+        ".work/player-refinement/source-reviewed"
+      ],
+      "status": "PASS",
+      "source": "feb2ed663d832895080dcc9e796dc3438ae9b8bd"
+    },
+    {
+      "name": "acceptance-reviewed",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_seconds": 132.97191040299367,
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_refinement_browser.py",
+        "--output",
+        ".work/player-refinement/acceptance-reviewed",
+        "--video"
+      ]
+    },
+    {
+      "name": "frozen-reviewed",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_seconds": 22.71231537096901,
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_frozen.py",
+        "--assets",
+        ".work/player-refinement/reviewed/frontend",
+        "--output",
+        ".work/player-refinement/frozen-reviewed"
+      ]
+    },
+    {
+      "name": "real-speed-follow",
+      "status": "PASS",
+      "exit": 0,
+      "elapsed_seconds": 85.28287779103266,
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_refinement_motion.py",
+        "--baseline",
+        ".work/player-refinement/baseline",
+        "--candidate",
+        ".work/player-refinement/acceptance-reviewed",
+        "--output",
+        ".work/player-refinement/real-speed-follow"
+      ]
+    },
+    {
+      "name": "playability-final",
+      "exit": 0,
+      "status": "PASS",
+      "elapsed_seconds": 187.54515953699593,
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_playability_actions.py",
+        "--output",
+        ".work/player-refinement/playability-final",
+        "--no-video"
+      ]
+    },
+    {
+      "name": "elastic-rechecked",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 44.93984519300284,
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_elastic_browser.py",
+        "--fixture-dir",
+        ".work/player-refinement/fluid",
+        "--output",
+        ".work/player-refinement/elastic-rechecked",
+        "--video"
+      ]
+    },
+    {
+      "name": "fluid",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_browser.py",
+        "--output",
+        ".work/player-refinement/fluid",
+        "--video"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 72.471186469018,
+      "log": ".work/player-refinement/fluid.log"
+    },
+    {
+      "name": "tactical",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_tactical_browser.py",
+        "--fixture-dir",
+        ".work/player-refinement/playability",
+        "--output",
+        ".work/player-refinement/tactical"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 50.2819339580019,
+      "log": ".work/player-refinement/tactical.log"
+    },
+    {
+      "name": "browser-http",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/check.py",
+        "browser",
+        "--output",
+        ".work/player-refinement/browser-http"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 19.868819712020922,
+      "log": ".work/player-refinement/browser-http.log"
+    },
+    {
+      "name": "performance-final",
+      "status": "MEASURED",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_performance.py",
+        "--baseline",
+        ".work/player-refinement/baseline",
+        "--candidate",
+        ".work/player-refinement/acceptance-reviewed",
+        "--output",
+        ".work/player-refinement/performance-reviewed"
+      ]
+    },
+    {
+      "name": "guide-depth",
+      "status": "PASS",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_depth.py",
+        "--fixture-dir",
+        ".work/player-refinement/playability",
+        "--output",
+        ".work/player-refinement/depth"
+      ],
+      "input_identity": "Guide geometry/material/depth path unchanged by later Normal-tail and CSS corrections; negative/reference bundles disposable only."
+    },
+    {
+      "name": "grid-pixels",
+      "status": "PASS",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_tactical_grid.py",
+        "--fixture-dir",
+        ".work/player-refinement/playability",
+        "--output",
+        ".work/player-refinement/grid"
+      ],
+      "input_identity": "Same final ownership shader filtering/grid coefficients; later changes are Normal-tail and CSS only."
+    }
+  ],
+  "raw_complete_source_commands_in": "source.json"
+}

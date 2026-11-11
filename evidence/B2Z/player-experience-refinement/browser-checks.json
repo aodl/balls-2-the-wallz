@@ -1,0 +1,48 @@
+[
+  {
+    "name": "acceptance-reviewed",
+    "status": "PASS",
+    "exit": 0,
+    "elapsed_seconds": 132.97191040299367,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_refinement_browser.py",
+      "--output",
+      ".work/player-refinement/acceptance-reviewed",
+      "--video"
+    ]
+  },
+  {
+    "name": "frozen-reviewed",
+    "status": "PASS",
+    "exit": 0,
+    "elapsed_seconds": 22.71231537096901,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_frozen.py",
+      "--assets",
+      ".work/player-refinement/reviewed/frontend",
+      "--output",
+      ".work/player-refinement/frozen-reviewed"
+    ]
+  },
+  {
+    "name": "real-speed-follow",
+    "status": "PASS",
+    "exit": 0,
+    "elapsed_seconds": 85.28287779103266,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_refinement_motion.py",
+      "--baseline",
+      ".work/player-refinement/baseline",
+      "--candidate",
+      ".work/player-refinement/acceptance-reviewed",
+      "--output",
+      ".work/player-refinement/real-speed-follow"
+    ]
+  }
+]

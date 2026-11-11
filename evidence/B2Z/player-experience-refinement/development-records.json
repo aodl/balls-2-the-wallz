@@ -39,6 +39,76 @@
       "path": ".work/player-refinement/superseded-runs.json",
       "sha256": "b2985e79d843d6de71395c1636c380ef800a854801c747656129659da73452ab",
       "bytes": 369
+    },
+    "normal-frame-before.log": {
+      "path": ".work/player-refinement/normal-frame-before.log",
+      "sha256": "b792d9ace0457b27c8a8f06c55cc0f0fa92a05f0932d6b922ff96a38a011e367",
+      "bytes": 2753
+    },
+    "normal-frame-after.log": {
+      "path": ".work/player-refinement/normal-frame-after.log",
+      "sha256": "8c6e67f73a30cc59b9806f2dcc4709fcb8f50fbcb8a7bea6cf5d37f95398be26",
+      "bytes": 5052
+    },
+    "source-release/logs/node-tests.log": {
+      "path": ".work/player-refinement/source-release/logs/node-tests.log",
+      "sha256": "a91fe427740c17d9e8df004beeb32cb049d14385d228489d71e2a82214c1f221",
+      "bytes": 136521
+    },
+    "source-uncontended/verification.json": {
+      "path": ".work/player-refinement/source-uncontended/verification.json",
+      "sha256": "b8081f30c531659aa7fcc227614381a5f9185d2974f11f8cd075576a63f9c77b",
+      "bytes": 7857
+    },
+    "forecast-baseline-isolated.log": {
+      "path": ".work/player-refinement/forecast-baseline-isolated.log",
+      "sha256": "f5409029ea380f5a19879413b95eb2fc417ec0e8b87530834edcad1ff1dceba4",
+      "bytes": 317
+    },
+    "forecast-candidate-isolated.log": {
+      "path": ".work/player-refinement/forecast-candidate-isolated.log",
+      "sha256": "4b4d5be88ca9e1f374ffe3cf0c7bf0e98040d6c1b4f8bcafe6c2b2a973901ad3",
+      "bytes": 318
+    },
+    "playability-rechecked.log": {
+      "path": ".work/player-refinement/playability-rechecked.log",
+      "sha256": "c76c5007452f4f0f0b5b9539134c7d0c7d4003b5f813ab5aaedba3f0ad1bf052",
+      "bytes": 2572
+    },
+    "pinch-diagnostic.log": {
+      "path": ".work/player-refinement/pinch-diagnostic.log",
+      "sha256": "431b2fd9992a35af37d33b0e492e566a298ebf3aadc91d2cdd9b8ff67b4d25af",
+      "bytes": 1584
+    },
+    "pinch-focus-diagnostic.log": {
+      "path": ".work/player-refinement/pinch-focus-diagnostic.log",
+      "sha256": "79bcd7037957b65ce38692b8c00d69a2a2a4c862cf21760d5f74fa9366ae21ab",
+      "bytes": 2484
+    },
+    "action-scroll-before.log": {
+      "path": ".work/player-refinement/action-scroll-before.log",
+      "sha256": "1a77f8059d2cbdba2ff50fed4b0a38b42278c21c760cbeff5299b14961f6e279",
+      "bytes": 58
+    },
+    "browser-rechecked.json": {
+      "path": ".work/player-refinement/browser-rechecked.json",
+      "sha256": "69c152740dd1c5658c2907ae143b70aff178d18858f8cbdbfa3a66fdc5907600",
+      "bytes": 1659
+    },
+    "real-speed-release/results.json": {
+      "path": ".work/player-refinement/real-speed-release/results.json",
+      "sha256": "4c0f967aa2e8847b2ee012c3a61b4f27e59a38d24d0b267758de16dfc4b00fb9",
+      "bytes": 7802
+    },
+    "performance/results.json": {
+      "path": ".work/player-refinement/performance/results.json",
+      "sha256": "8920c4038664819906c3258c0a27ad936043ea5153c6b9dfaba27c6ad5b9c978",
+      "bytes": 16747
+    },
+    "performance-moving/results.json": {
+      "path": ".work/player-refinement/performance-moving/results.json",
+      "sha256": "ff81d11510b6e6801ff016b5ee1530d2609e1e577c8f39c5a143e5131a7b44fb",
+      "bytes": 17818
     }
   },
   "classification": {
@@ -46,6 +116,13 @@
     "npm-test-1.log": "1823/1825 pass; two old motion-lifetime assertions superseded explicitly by UXR-07/08.",
     "refinement-logic-final.log": "14/15; Normal-speed canonical trajectory exposed whole-segment trimming, subsequently corrected.",
     "superseded-runs.json": "Incomplete development run; not qualification.",
-    "publication.log": "BLOCKED: ordinary non-force push has no GitHub Git credentials."
+    "publication.log": "BLOCKED: ordinary non-force push has no GitHub Git credentials.",
+    "source-release/logs/node-tests.log": "Real 1828/1830 broad failure: unchanged forecast work deadlines, outer harness did not expire. Retained alongside clean final 1830/1830 pass; no budgets changed.",
+    "source-uncontended/verification.json": "INCOMPLETE: stopped because wrapper revision predated final financial-font commit; no exact-source pass claimed.",
+    "playability-rechecked.log": "Real touch-camera assertion failure: event targets proved fingers on action/Close UI after keyboard contraction. Corrected explicit Focus/board hit assertions; original memo/selection/cancel checks retained.",
+    "real-speed-release/results.json": "Superseded visual comparison: Lifeline ball left frame. Zero white crop does not establish effect absence. Later fixed by following same displayed ball in both variants, with crop bounds asserted.",
+    "performance/results.json": "Original seam scene was static; not moving-scene qualification. Retained unchanged.",
+    "performance-moving/results.json": "Matched actual moving scene, before final warning-font/hint CSS. Retain all mixed software results.",
+    "action-scroll-before.log": "PASS investigation: explicit action change already reset scroll; no speculative scrolling implementation was added."
   }
 }
