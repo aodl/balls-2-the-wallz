@@ -5,8 +5,9 @@
 passes its eight-case financial workflow and five ordinary gates, but one cold
 Lifeline reconnect sample stalls after the 900-second Normal window passed.
 A small shared jitter-margin correction has a failing-before/passing-after
-actual-clock/player regression and 65 focused passes. Its new source/artifact
-requires qualification; the prior green source is not substituted. No deployment,
+actual-clock/player regression and 65 focused passes. Clean `662f905` passes
+1,814 JS / 199 Python tests and exact desktop/390/320 frozen-browser checks.
+Its new source/artifact still requires hosted qualification; the prior green source is not substituted. No deployment,
 financial action or backend mutation. [Current report](evidence/B2Z/fluid-player-experience/REPORT.md).
 
 Earlier entries retain their historical results.

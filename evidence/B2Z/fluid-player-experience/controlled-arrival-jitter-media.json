@@ -1,0 +1,53 @@
+{
+  "built_at_evidence_source": "cd5254122ebe9b088bf8a60b1b397e5a2e1f6ece",
+  "runtime_source": "662f9052bbb4235b2739df12646de66eca10dfbd",
+  "fixture_bundle_sha256": "a9f4b342d36bf155e9d2d3f1fe0d60bb277c747d90166bd77d9e0bb4b52cdf77",
+  "scope": "Actual component renderer and pinned clock/players; explicit controlled presentation hide/return, not native browser visibility, IC authentication, hardware or production timing. No performance measurement during recording.",
+  "status": "PASS",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      320,
+      640
+    ]
+  ],
+  "media": [
+    {
+      "path": ".work/fluid-player-experience/arrival-jitter-controlled-browser/1440-verified-return.png",
+      "bytes": 401878,
+      "sha256": "5dbc03f60059d8766b9c18b6577f92dafb0665b22d6b324d7c2b856dc82b18c6"
+    },
+    {
+      "path": ".work/fluid-player-experience/arrival-jitter-controlled-browser/320-verified-return.png",
+      "bytes": 53181,
+      "sha256": "b7d300c8932a86d0d68fdcd5b1ec7f26381728c4a6b48ec2b7db22b65cd9b505"
+    },
+    {
+      "path": ".work/fluid-player-experience/arrival-jitter-controlled-browser/390-verified-return.png",
+      "bytes": 72858,
+      "sha256": "201abd495bef85ba1b86a2ed139de934fb9107c9ea244cae0e92b50eecf823fd"
+    },
+    {
+      "path": ".work/fluid-player-experience/arrival-jitter-controlled-browser/video/page@1b1911f1455ce52ef8e9256f018a1ef8.webm",
+      "bytes": 2197018,
+      "sha256": "de41defeda938307ecc4d101b6bd1dfbfd6cf1d10362333b9e5d4eacd598e7ff"
+    },
+    {
+      "path": ".work/fluid-player-experience/arrival-jitter-controlled-browser/video/page@918aa7400e71a9209ca0a1097b9f7ede.webm",
+      "bytes": 1034772,
+      "sha256": "722aa1483bab2c1db01f683115b4207d878e935439f924d1516d2d3549d42131"
+    },
+    {
+      "path": ".work/fluid-player-experience/arrival-jitter-controlled-browser/video/page@fd0b616e60693164784ef77cb1b29e98.webm",
+      "bytes": 666504,
+      "sha256": "a73c912cb70f3e301eb0394624646b3960f11f9cd43a1828c430a13974651820"
+    }
+  ]
+}

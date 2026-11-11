@@ -1,0 +1,9 @@
+{
+  "qualified_source": "a0a59f9a8c48d0e9b459669588076f17587d0ea9",
+  "corrected_runtime_source": "662f9052bbb4235b2739df12646de66eca10dfbd",
+  "changed_maintained_runtime_inputs": [
+    "apps/b2z-observer/elastic-playback.mjs"
+  ],
+  "new_policy_sha256": "4ddab080e901caac23090333872d5722cc3212f4dde06a5b63cb97a3df48131b",
+  "reuse_scope": "Existing populated media and financial/quote/render/component checks have unchanged maintained inputs. New exact frozen browser checks, actual-clock regression and pending exact-source CI qualify the changed playback policy separately."
+}

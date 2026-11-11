@@ -37,6 +37,50 @@ frontend-only release decision. Optional payments remain isolated/disabled.
 results. All preceding failed/incomplete records and physical-device, real-wallet,
 II, software-performance and genuine rendered-hidden-tab limitations remain.
 
+## New local arrival-jitter candidate
+
+Clean runtime source **`662f9052bbb4235b2739df12646de66eca10dfbd`** is frozen at
+`.work/fluid-player-experience/frozen-arrival-jitter/frontend`.
+JavaScript SHA-256: **`79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a`**.
+[Complete sixteen-file manifest](frontend-files-arrival-jitter.json) SHA-256:
+**`68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03`**.
+[Clean build provenance](build-manifest-arrival-jitter.json) records 15 public
+HTTP files plus consumed upload policy. Every actual file matches; only app JS
+and build provenance differ from the six-pass freeze. That prior source/artifact
+remains preserved, not overwritten or claimed equivalent to the new bytes.
+
+The [complete local source run](source-arrival-jitter-verification.json) passes
+**1,814 JS / 199 Python tests**, references, structure and docs, with no skips or
+cancellations. [Actual pinned-clock/player red-green evidence](reconnect-jitter-regression.json)
+retains the corrected-fixture failing STALLED assertion and 65 passing cases.
+[Input provenance](arrival-jitter-input-provenance.json) shows only the elastic
+policy changed among maintained runtime/build/dependency inputs.
+
+[Exact frozen browser](frozen-arrival-jitter-browser.json) passes desktop,
+390×844 and 320×640 with real read-only European certificate verification, source/
+destination binding, every public loopback file/header, exact canonical memo/
+principal copies, Update/Keep and clock/queue preservation. All POSTs are
+query/read_state, never Ledger or gameplay updates. These are software browser
+checks; real II, wallet, phone/hardware and genuine rendered-hidden-tab limits
+remain. Earlier populated media applies to unchanged visual/copy/renderer inputs,
+not as a new installed continuity or performance claim.
+
+The fresh [controlled actual-component return](controlled-arrival-jitter-browser.json)
+passes all three viewports with [source-bound screenshots/recordings](controlled-arrival-jitter-media.json):
+same-head remainder retained, three hidden injected intervals compact to one full
+latest interval, clock/queue/follow/zoom survive, immediate verified progression
+and no return-triggered network requests. This is an explicit fixture suspension,
+not genuine browser hiding, IC authentication or hardware timing. The compiled
+fixture contains the new policy; no performance pass is inferred from recording.
+
+**Whole-source hosted qualification of this follow-up remains NOT_RUN.** Publish
+the reviewed local branches through the ordinary owner route below; obtain all
+six substantive conclusions and the isolated financial workflow. Do not relabel
+the preceding green `a0a59f9` or the old failed `af01692` as this source's pass.
+No runtime rebuild is needed for a later evidence-only update. No deployment is
+authorized by this task. Production paid state, modules/settings/controllers and
+financial authority remain untouched; no automatic recovery/top-up was attempted.
+
 ## Earlier qualification records (preserved, superseded where identified)
 
 # Fluid player experience — published CI follow-up
