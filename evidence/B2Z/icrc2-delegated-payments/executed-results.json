@@ -1,0 +1,61 @@
+{
+  "scope": "reviewed local disposable results; exact executed checks define scope; no production/II/hardware/hosted qualification claim",
+  "rows": [
+    {
+      "case": "actual-ledger-wire03",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/actual-ledger-wire03/results.json",
+      "sha256": "743db99f967f32ecbb249ee96aa021382260ae695bfc98ef3270b2d52eff17fa",
+      "reviewed_result": "actual-ledger-wire03.json"
+    },
+    {
+      "case": "actual-signed-ledger01",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/actual-signed-ledger01/results.json",
+      "sha256": "689c118196c3e3aa0e4e3741e989cf6f9a2611d86fcde847dd41ae12696ca176",
+      "reviewed_result": "actual-signed-ledger01.json"
+    },
+    {
+      "case": "ledger-negatives01",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/ledger-negatives01/results.json",
+      "sha256": "3f38e9822f0506934273b9ca669e950bd6cf33cc14485e9675d2a49ad5100711",
+      "reviewed_result": "ledger-negatives01.json"
+    },
+    {
+      "case": "installed-exact-production-prior01",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/installed-exact-production-prior01/results.json",
+      "sha256": "333f2d6aa8a93bc80f2b41ee8482c353a697b26f87ad128192925737be06baaa",
+      "reviewed_result": "installed-exact-production-prior01.json"
+    },
+    {
+      "case": "empty-cost01",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/empty-cost01/results.json",
+      "sha256": "693e3072f8b6232deee5f37a01756e2628c206067b0b57373a8a6810f37fd9a0",
+      "reviewed_result": "empty-cost01.json"
+    },
+    {
+      "case": "controller-access01",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/controller-access01/results.json",
+      "sha256": "5902367eae7edad8ac7703bde2647b35260e59b4741b467492937591a1315717",
+      "reviewed_result": "controller-access01.json"
+    },
+    {
+      "case": "source-window01",
+      "status": "FAIL",
+      "raw_result": ".work/icrc2-delegated-payments/source-window01/results.json",
+      "sha256": "f4015bbc493efee300eabaf987c3df16fc73899cb361f03c4c8f8080f1334141",
+      "reviewed_result": "source-window01.json"
+    },
+    {
+      "case": "ui-final07",
+      "status": "PASS",
+      "raw_result": ".work/icrc2-delegated-payments/ui-final07/results.json",
+      "sha256": "26c39a0ddb940b72d7caa710697d886e0b820fdbeca5c9c1184816f1332cd73b",
+      "reviewed_result": "ui-final07.json"
+    }
+  ]
+}

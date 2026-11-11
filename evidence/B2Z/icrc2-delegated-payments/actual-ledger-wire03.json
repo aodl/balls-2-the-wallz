@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "explicit experimental disposable integration; exact executed test and its result define scope; no production or real II ceremony claim",
+  "test": {
+    "id": "delegated_payments::icrc2_actual_ledger_index_preserves_funder_spender_memo_and_zero_grant",
+    "command": [
+      "/home/codexdev/src/b2z-icrc2/.work/icrc2-delegated-payments/actual-ledger-wire03/installed-test-harness",
+      "delegated_payments::icrc2_actual_ledger_index_preserves_funder_spender_memo_and_zero_grant",
+      "--exact",
+      "--ignored",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 24.495,
+    "timeout_seconds": 900,
+    "log": "logs/delegated_payments::icrc2_actual_ledger_index_preserves_funder_spender_memo_and_zero_grant.log",
+    "pocketic_server_exit": null
+  },
+  "artifacts": {
+    "POCKET_IC_BIN": {
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+      "path": "/home/codexdev/dtr-s09-artifacts/bin/pocket-ic"
+    },
+    "ICP_LEDGER_WASM": {
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ledger-canister.wasm"
+    },
+    "ICP_INDEX_WASM": {
+      "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+      "path": "/home/codexdev/dtr-s09-artifacts/wasm/ic-icp-index-canister.wasm"
+    }
+  },
+  "harness_sha256": "495e06082c4fb4e1a6749c310cc1c17dc1414564c1f7be63fc912d93a1f7cb12"
+}

@@ -11,6 +11,7 @@ delegated-payments = []
 [lib]
 crate-type = ["cdylib", "rlib"]
 [dependencies]
+binread = "=2.2.0"
 b2z-protocol = { path = "../../crates/b2z-protocol" }
 ic-cdk = "=0.20.3"
 ic-cdk-timers = "=1.0.0"

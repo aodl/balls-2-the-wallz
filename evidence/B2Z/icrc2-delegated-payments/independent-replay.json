@@ -1,0 +1,172 @@
+[
+  {
+    "capture": "allowance-without-game-grant-replay.json",
+    "sha256": "9968b3163a18e052098049d0db651b99962c4754a125ef4aa5c4684cff1d6d4c",
+    "result": {
+      "status": "PASS",
+      "label": "allowance-without-game-grant",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "authorized-fire-replay.json",
+    "sha256": "f5dae3792511503c029a69723f0fa9ba675882763770d70ee8f1417c6c6e889f",
+    "result": {
+      "status": "PASS",
+      "label": "authorized-fire",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "authorized-payment-invalid-target-replay.json",
+    "sha256": "a8feafb9ba0ae0ffbb4f9f4bdfaa06a2435e61620e4ea8d1bc2785d86e6381d1",
+    "result": {
+      "status": "PASS",
+      "label": "authorized-payment-invalid-target",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "cutover-replay.json",
+    "sha256": "74541699673f6549eaf29228c03c1952ec3a608e58e1785fd03acf8e82897b48",
+    "result": {
+      "status": "PASS",
+      "label": "cutover",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 0
+    }
+  },
+  {
+    "capture": "delegated-self-grant-forbidden-replay.json",
+    "sha256": "c3abd37a8f99e6150841783a84641e721c59aa6c542caebbd6c3b6d61af0e9bb",
+    "result": {
+      "status": "PASS",
+      "label": "delegated-self-grant-forbidden",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "direct-join-replay.json",
+    "sha256": "8f10d7b8954c747a5351577c16a0802756b92561e1c0a71dcdd7d9ca2bfced1a",
+    "result": {
+      "status": "PASS",
+      "label": "direct-join",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 0
+    }
+  },
+  {
+    "capture": "expired-game-grant-rejected-replay.json",
+    "sha256": "fd741c9e8cf8f52c2ac0e595c37c62872d3d7cd16b4b5102d37b301e38544467",
+    "result": {
+      "status": "PASS",
+      "label": "expired-game-grant-rejected",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "manual-after-revoke-replay.json",
+    "sha256": "3344594bd2d48b4dfcc8a390352ba1eee322b00680e8619e53251eb5ec5c124f",
+    "result": {
+      "status": "PASS",
+      "label": "manual-after-revoke",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "old-adapter-rejected-delegate-replay.json",
+    "sha256": "21752d60274c24299cbc0759070e37139297f7af31e2a0482e095e18cee20b71",
+    "result": {
+      "status": "PASS",
+      "label": "old-adapter-rejected-delegate",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 0
+    }
+  },
+  {
+    "capture": "owner-grant-replay.json",
+    "sha256": "1a2eca5d0dc606835e8550062d4ac42a8419192c1de4e1ac4414106dd8b92aba",
+    "result": {
+      "status": "PASS",
+      "label": "owner-grant",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "owner-replaces-spender-replay.json",
+    "sha256": "2404763bf515b6805959adeb1d5074e70fe23d2aa4adba71a2938da94cd98698",
+    "result": {
+      "status": "PASS",
+      "label": "owner-replaces-spender",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "owner-restores-spender-replay.json",
+    "sha256": "32336f3e4f5e52619dcf187094d9219213728d146694fd17b28e0935308c3666",
+    "result": {
+      "status": "PASS",
+      "label": "owner-restores-spender",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "owner-revoke-replay.json",
+    "sha256": "c63554c393deb016ab3f6e11126b048c94c1e5e7ab2dbd9b25e65d2c6edbe585",
+    "result": {
+      "status": "PASS",
+      "label": "owner-revoke",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "replaced-spender-rejected-replay.json",
+    "sha256": "17b08271671e3498025d9ccee3c52c16cb9206debd519a526af0da4912bedeea",
+    "result": {
+      "status": "PASS",
+      "label": "replaced-spender-rejected",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "replacement-spender-accepted-replay.json",
+    "sha256": "f760138d308648975636fd7fb2239e4f86014fdda2261e47acbb8e0f97e6c2bf",
+    "result": {
+      "status": "PASS",
+      "label": "replacement-spender-accepted",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "revoked-spender-replay.json",
+    "sha256": "3d54c3a81d8d457b549fd90460f196be8b252005f5548a6c142972dca66b4143",
+    "result": {
+      "status": "PASS",
+      "label": "revoked-spender",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  },
+  {
+    "capture": "unrelated-approved-spender-replay.json",
+    "sha256": "4934167aadf259859c1303426fd8d46847df17f7233400df440e6aa2a488ff91",
+    "result": {
+      "status": "PASS",
+      "label": "unrelated-approved-spender",
+      "scope": "independent JS canonical state/events/scores replay, own cursor recovery and verified-segment presentation; final IC authentication is separate",
+      "source_rows_reencoded": 1
+    }
+  }
+]

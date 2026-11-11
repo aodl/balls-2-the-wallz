@@ -1,19 +1,34 @@
-//! Adapter-5-only check before typed Candid's optional-field compatibility.
-//! A missing wire `spender` must never be silently decoded as direct payment.
-use candid::{IDLArgs, types::value::IDLValue};
-fn field<'a>(v: &'a IDLValue, name: &str) -> Result<&'a IDLValue, String> {
-    let IDLValue::Record(fields) = v else {
-        return Err("AUTH_INDEX_RECORD".into());
-    };
-    fields
-        .iter()
-        .find(|f| f.id.get_id() == candid::idl_hash(name))
-        .map(|f| &f.val)
-        .ok_or_else(|| format!("AUTH_INDEX_MISSING_{name}"))
+//! Adapter-5-only wire schema check before typed Candid optional compatibility.
+//! Validate the small type table once, not an untyped copy of every transaction.
+use binread::BinRead;
+use candid::{
+    binary_parser::Header,
+    types::{Type, TypeEnv, TypeInner},
+};
+use std::io::Cursor;
+fn traced(env: &TypeEnv, ty: &Type) -> Result<Type, String> {
+    let mut ty = ty.clone();
+    for _ in 0..64 {
+        match ty.as_ref() {
+            TypeInner::Var(name) => {
+                ty = env.find_type(name).map_err(|_| "AUTH_INDEX_TYPE")?.clone()
+            }
+            _ => return Ok(ty),
+        }
+    }
+    Err("AUTH_INDEX_TYPE_CYCLE".into())
 }
-fn fields(v: &IDLValue, names: &[&str]) -> Result<(), String> {
-    let IDLValue::Record(actual) = v else {
-        return Err("AUTH_INDEX_RECORD".into());
+fn fields(
+    env: &TypeEnv,
+    ty: &Type,
+    names: &[&str],
+    variant: bool,
+) -> Result<Vec<candid::types::Field>, String> {
+    let ty = traced(env, ty)?;
+    let actual = match ty.as_ref() {
+        TypeInner::Record(v) if !variant => v,
+        TypeInner::Variant(v) if variant => v,
+        _ => return Err("AUTH_INDEX_RECORD".into()),
     };
     let mut expected = names
         .iter()
@@ -25,67 +40,91 @@ fn fields(v: &IDLValue, names: &[&str]) -> Result<(), String> {
     if ids != expected {
         return Err("AUTH_INDEX_RECORD_FIELDS".into());
     }
-    Ok(())
+    Ok(actual.clone())
 }
-pub fn check(bytes: &[u8]) -> Result<(), String> {
+fn field(fields: &[candid::types::Field], name: &str) -> Result<Type, String> {
+    fields
+        .iter()
+        .find(|f| f.id.get_id() == candid::idl_hash(name))
+        .map(|f| f.ty.clone())
+        .ok_or_else(|| format!("AUTH_INDEX_MISSING_{name}"))
+}
+pub fn decode_checked(bytes: &[u8]) -> Result<crate::source::HistoryResult, String> {
     if bytes.len() > 1_048_576 {
         return Err("AUTH_INDEX_REPLY_BOUND".into());
+    }
+    let header =
+        Header::read_args(&mut Cursor::new(bytes), (Some(64),)).map_err(|_| "AUTH_INDEX_HEADER")?;
+    let (env, args) = header.to_types().map_err(|_| "AUTH_INDEX_TYPES")?;
+    if args.len() != 1 {
+        return Err("AUTH_INDEX_ARGUMENTS".into());
+    }
+    let result = fields(&env, &args[0], &["Ok", "Err"], true)?;
+    let history = fields(
+        &env,
+        &field(&result, "Ok")?,
+        &["balance", "transactions", "oldest_tx_id"],
+        false,
+    )?;
+    let transactions = traced(&env, &field(&history, "transactions")?)?;
+    let TypeInner::Vec(row) = transactions.as_ref() else {
+        return Err("AUTH_INDEX_ROWS".into());
+    };
+    let row = fields(&env, row, &["id", "transaction"], false)?;
+    let tx = fields(
+        &env,
+        &field(&row, "transaction")?,
+        &[
+            "memo",
+            "icrc1_memo",
+            "created_at_time",
+            "timestamp",
+            "operation",
+        ],
+        false,
+    )?;
+    let operation = traced(&env, &field(&tx, "operation")?)?;
+    let TypeInner::Variant(operations) = operation.as_ref() else {
+        return Err("AUTH_INDEX_OPERATION".into());
+    };
+    let transfer = traced(&env, &field(operations, "Transfer")?)?;
+    let TypeInner::Record(transfer_fields) = transfer.as_ref() else {
+        return Err("AUTH_INDEX_RECORD".into());
+    };
+    // Check actual type-table presence before serde can supply a missing option.
+    let spender = traced(&env, &field(transfer_fields, "spender")?)?;
+    fields(
+        &env,
+        &transfer,
+        &["from", "to", "amount", "fee", "spender"],
+        false,
+    )?;
+    let TypeInner::Opt(inner) = spender.as_ref() else {
+        return Err("AUTH_INDEX_SPENDER_TYPE".into());
+    };
+    if !matches!(traced(&env, inner)?.as_ref(), TypeInner::Text) {
+        return Err("AUTH_INDEX_SPENDER_TYPE".into());
     }
     let mut config = candid::DecoderConfig::new();
     config.set_decoding_quota(1_000_000);
     config.set_skipping_quota(1_000_000);
-    let args = IDLArgs::from_bytes_with_config(bytes, &config)
-        .map_err(|e| format!("AUTH_INDEX_WIRE: {e}"))?;
-    if args.args.len() != 1 {
-        return Err("AUTH_INDEX_ARGUMENTS".into());
-    }
-    let IDLValue::Variant(result) = &args.args[0] else {
-        return Err("AUTH_INDEX_RESULT".into());
-    };
-    if result.0.id.get_id() == candid::idl_hash("Err") {
-        return Ok(());
-    }
-    if result.0.id.get_id() != candid::idl_hash("Ok") {
-        return Err("AUTH_INDEX_RESULT".into());
-    }
-    fields(&result.0.val, &["balance", "transactions", "oldest_tx_id"])?;
-    let IDLValue::Vec(rows) = field(&result.0.val, "transactions")? else {
-        return Err("AUTH_INDEX_ROWS".into());
-    };
-    if rows.len() > crate::source::PAGE as usize {
+    config.set_max_type_len(64);
+    config.set_full_error_message(false);
+    let mut decoder = candid::de::IDLDeserialize::new_with_config(bytes, &config)
+        .map_err(|_| "AUTH_INDEX_WIRE")?;
+    let result: crate::source::HistoryResult =
+        decoder.get_value().map_err(|_| "AUTH_INDEX_WIRE")?;
+    decoder.done().map_err(|_| "AUTH_INDEX_WIRE")?;
+    if result
+        .as_ref()
+        .is_ok_and(|page| page.transactions.len() > crate::source::PAGE as usize)
+    {
         return Err("AUTH_INDEX_ROWS_BOUND".into());
     }
-    for row in rows {
-        fields(row, &["id", "transaction"])?;
-        let tx = field(row, "transaction")?;
-        fields(
-            tx,
-            &[
-                "memo",
-                "icrc1_memo",
-                "created_at_time",
-                "timestamp",
-                "operation",
-            ],
-        )?;
-        let IDLValue::Variant(operation) = field(tx, "operation")? else {
-            return Err("AUTH_INDEX_OPERATION".into());
-        };
-        if operation.0.id.get_id() == candid::idl_hash("Transfer") {
-            // Check presence before exact shape, preserving the specific ambiguity error.
-            field(&operation.0.val, "spender")?;
-            fields(
-                &operation.0.val,
-                &["from", "to", "amount", "fee", "spender"],
-            )?;
-            match field(&operation.0.val, "spender")? {
-                IDLValue::None => {}
-                IDLValue::Opt(v) if matches!(v.as_ref(), IDLValue::Text(_)) => {}
-                _ => return Err("AUTH_INDEX_SPENDER_TYPE".into()),
-            }
-        }
-    }
-    Ok(())
+    Ok(result)
+}
+pub fn check(bytes: &[u8]) -> Result<(), String> {
+    decode_checked(bytes).map(|_| ())
 }
 #[cfg(test)]
 mod tests {
@@ -148,6 +187,51 @@ mod tests {
             crate::source::Operation::Transfer { spender: None, .. }
         ));
         assert_eq!(check(&wire).unwrap_err(), "AUTH_INDEX_MISSING_spender");
+    }
+    fn page_wire(count: u64) -> Vec<u8> {
+        let response: crate::source::HistoryResult = Ok(crate::source::History {
+            balance: 0,
+            oldest_tx_id: Some(0),
+            transactions: (0..count)
+                .map(|id| crate::source::TransactionWithId {
+                    id,
+                    transaction: crate::source::Transaction {
+                        memo: 0,
+                        icrc1_memo: Some(vec![2; 32]),
+                        created_at_time: None,
+                        timestamp: Some(crate::source::Timestamp {
+                            timestamp_nanos: 1000000000,
+                        }),
+                        operation: crate::source::Operation::Transfer {
+                            from: "a".repeat(64),
+                            to: "b".repeat(64),
+                            amount: crate::source::Tokens { e8s: 0 },
+                            fee: crate::source::Tokens { e8s: 12345 },
+                            spender: None,
+                        },
+                    },
+                })
+                .collect(),
+        });
+        candid::encode_one(response).unwrap()
+    }
+    #[test]
+    fn full_index_page_fits_existing_wire_budget() {
+        check(&page_wire(crate::source::PAGE)).unwrap();
+    }
+    #[test]
+    fn extra_rows_truncation_and_oversized_replies_remain_rejected() {
+        assert_eq!(
+            check(&page_wire(crate::source::PAGE + 1)).unwrap_err(),
+            "AUTH_INDEX_ROWS_BOUND"
+        );
+        let mut wire = page_wire(1);
+        wire.pop();
+        assert!(check(&wire).is_err());
+        assert_eq!(
+            check(&vec![0; 1_048_577]).unwrap_err(),
+            "AUTH_INDEX_REPLY_BOUND"
+        );
     }
     #[test]
     fn explicit_spender_absence_is_accepted() {

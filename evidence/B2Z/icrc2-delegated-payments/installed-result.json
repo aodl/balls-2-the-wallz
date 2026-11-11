@@ -1,0 +1,129 @@
+{
+  "backend": "dfj7p-ut777-77776-qaaba-cai",
+  "cutover": {
+    "artifacts": [
+      {
+        "chunks": [
+          "5267b4ce20a66b7eb15471624577cfcb1001deb1ef2b4fcaeb5eaa991dc19b63"
+        ],
+        "kind": "state",
+        "length": 3529,
+        "sha256": "5267b4ce20a66b7eb15471624577cfcb1001deb1ef2b4fcaeb5eaa991dc19b63"
+      },
+      {
+        "chunks": [
+          "afcc800934ae2c55490beef4844027827d6fc073b3f1afadec5758ba3e7cf1a1"
+        ],
+        "kind": "events",
+        "length": 1452,
+        "sha256": "afcc800934ae2c55490beef4844027827d6fc073b3f1afadec5758ba3e7cf1a1"
+      },
+      {
+        "chunks": [
+          "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89"
+        ],
+        "kind": "scores",
+        "length": 28,
+        "sha256": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89"
+      }
+    ],
+    "chunk_bytes": 16384,
+    "epoch": {
+      "event_hash": "afcc800934ae2c55490beef4844027827d6fc073b3f1afadec5758ba3e7cf1a1",
+      "logical_boundary": {
+        "$integer": "8"
+      },
+      "metadata_hash": "f69c7b900bdf361f692a65e3dbf57934d80348951c06c1caf018fa3f131b4bdd",
+      "new_identity": {
+        "config_hash": "aab55277f70de59625d7802960212826f1cea36a69d8c3571327ff7cf96ceb22",
+        "rules_hash": "8f28e3b0d9b1e8fbcac7b4aff87f15b7a6cb410d0806affc3f19998a91411b86",
+        "schema_hash": "cbf92d335267fc2ad5a73cb78f346399c04d22b59c610bd494497890557c43dc",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "predecessor": {
+        "epoch_hash": "cf499c28a99571a524db041e2f4084ba18005569713b05fdeb8409c3f1feea05",
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        },
+        "logical_end": {
+          "$integer": "8"
+        },
+        "manifest_hash": "0b6e9ce04b43df5db7cdbcc6bd54e5e2e2c4bedfaca9ad394e05b3e5b7397327",
+        "publication_hash": "54ba7bcc3c3e4bf42f050922ffa719d77b3e5efb9488496a7d59100cfc2ff1f9",
+        "segment_id": {
+          "$integer": "9"
+        },
+        "source_cursor": {
+          "$integer": "4"
+        },
+        "state_hash": "aaaee010e12f92f68ba5407ae700dff4a06acb0eba1c27626a1f8175783e28de",
+        "version": 8
+      },
+      "previous_chain_hash": "fa8bc045c500ea370f9312bf03e1ac8f63d14249f4f8bbd42ed2df0204bbf97b",
+      "previous_publication_hex": "",
+      "score_hash": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89",
+      "segment_id": {
+        "$integer": "10"
+      },
+      "source_anchor": "2e26721a158af210313dc2637b35d13ed5e227d5211d8e95953ab36ddee95cb5",
+      "source_cursor": {
+        "$integer": "4"
+      },
+      "state_hash": "5267b4ce20a66b7eb15471624577cfcb1001deb1ef2b4fcaeb5eaa991dc19b63",
+      "transition_hash": "d096ade3b970cd4d26eb966f29822309875012906cd9b63577944a0a4a911087",
+      "transition_index": {
+        "$integer": "5"
+      },
+      "version": 2
+    },
+    "head": {
+      "logical_end": {
+        "$integer": "8"
+      },
+      "manifest_hash": "d096ade3b970cd4d26eb966f29822309875012906cd9b63577944a0a4a911087",
+      "seal": null,
+      "segment_id": {
+        "$integer": "10"
+      },
+      "source_to_exclusive": {
+        "$integer": "4"
+      },
+      "state_hash": "5267b4ce20a66b7eb15471624577cfcb1001deb1ef2b4fcaeb5eaa991dc19b63"
+    },
+    "identity": {
+      "config_hash": "aab55277f70de59625d7802960212826f1cea36a69d8c3571327ff7cf96ceb22",
+      "rules_hash": "8f28e3b0d9b1e8fbcac7b4aff87f15b7a6cb410d0806affc3f19998a91411b86",
+      "schema_hash": "cbf92d335267fc2ad5a73cb78f346399c04d22b59c610bd494497890557c43dc",
+      "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+    },
+    "render_format": null,
+    "version": 8
+  },
+  "feature_wasm_sha256": "cd5c1264a7142872ee363ade46c8296111426bc971888afb9e4934989281d768",
+  "funding": "us466-uw5wk-jq6ob-mnvqz-mwdfl-3d6ru-ktmdr-seaeq-iluja-655mc-aqe",
+  "positions": {
+    "expired": 21,
+    "grant": 6,
+    "invalid_target": 17,
+    "join": 1,
+    "manual": 11,
+    "old_rejected": 3,
+    "paid": 7,
+    "replaced": 15,
+    "replacement": 16,
+    "revoke": 9,
+    "revoked": 10,
+    "self_grant": 12,
+    "unauthorized": 5,
+    "unrelated": 8,
+    "wrong_recipient": 18
+  },
+  "prior_wasm_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "received_e8s": "1000010000",
+  "scope": "actual installed disposable paid B2Z, pinned Ledger/Index, owner grant/revoke, delegated authorization, continued manual play, upgrade preservation; not Internet Identity or production",
+  "spender": "d34b6-awwq5-mcjow-lq47q-k5osw-bq6zx-cfzuf-cfvvp-tgcty-mqlhw-uae",
+  "status": "PASS"
+}

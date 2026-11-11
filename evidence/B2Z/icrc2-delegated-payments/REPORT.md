@@ -227,3 +227,31 @@ executable before launch and record its immutable hash. The maintained installed
 runner now freezes it too and records dirty-source status. The clean Wasm identity
 is independently recorded by the installed case and the final certificate capture.
 The original failed/incomplete records remain available.
+
+## Overnight closeout — bounded wire recovery
+
+Controller-only activation was exercised against the actual feature module:
+prepare, commit and status all reject an unrelated principal before any state
+change (`controller-access01`, PASS, 31.096 s). The final UI/component journeys
+pass at desktop, 390×844 and 320×640 (`ui-final07`), with actual native Web Locks,
+coherent copied replacement, storage denial, fee change, revoked game access and
+unknown-payment recovery. Auth/transport in that UI fixture remain simulated.
+Reviewed [results](executed-results.json), [independent replay](independent-replay.json)
+and [populated media](media/) are retained with their exact scope.
+
+The additional full source-window test **failed** (`source-window01`, 115.627 s):
+a valid 64-record Index page exhausted the generic untyped Candid decoder's
+1,000,000-work quota. A 13,574-byte native fixture reproduces the same quota failure.
+This is a demonstrated adapter-5 defect; it is not an outer timeout or a reason to
+raise safety budgets. The correction checks the bounded wire type table first,
+including actual `Transfer.spender : opt text` presence, then decodes the page once
+with the unchanged typed decoding/skipping quotas. Reply, row and pending bounds
+remain unchanged; missing spender still fails closed. Pinned `binread` 2.2.0 was
+already a Candid dependency; only a direct dependency edge is added, without a
+version update. Native full-page acceptance and missing-spender rejection pass;
+the corrected installed window and exact-module upgrade must be recorded before
+claiming the replacement module qualified. The original failure is preserved.
+
+The independent frontend release branch remains separate. Neither this feature
+nor its backend correction is merged into it. No production mutation or financial
+operation was performed, and no hosted CI pass is assumed while the owner is away.

@@ -1,0 +1,36 @@
+{
+  "grant_cost_limit": "includes existing source discovery, maintenance and one input segment; not a pure authorization-lookup measurement",
+  "grant_source_plus_execution_net_cycles": "294237385",
+  "module_sha256": "cd5c1264a7142872ee363ade46c8296111426bc971888afb9e4934989281d768",
+  "scope": "one bounded 600-second virtual maintenance window per condition; actual PocketIC cycle debit, not physical consensus, populated-game lifetime or isolated instruction cost",
+  "status": "PASS",
+  "treasury_paused": true,
+  "unchanged_source_fallback_seconds": 60,
+  "windows": [
+    {
+      "completed_segments": 0,
+      "index_calls": 10,
+      "label": "same-module-rules7-empty",
+      "net_backend_cycle_debit": "870238675",
+      "state_bytes": 2532,
+      "virtual_elapsed_seconds": 600.00000019
+    },
+    {
+      "completed_segments": 0,
+      "index_calls": 10,
+      "label": "rules8-empty-registry",
+      "net_backend_cycle_debit": "845176393",
+      "state_bytes": 2708,
+      "virtual_elapsed_seconds": 600.00000019
+    },
+    {
+      "completed_segments": 0,
+      "index_calls": 10,
+      "label": "rules8-one-grant-empty",
+      "net_backend_cycle_debit": "910407488",
+      "state_bytes": 2987,
+      "virtual_elapsed_seconds": 600.00000019
+    }
+  ],
+  "workload": "empty world; no simulation segments or extra allowance/expiry polling"
+}

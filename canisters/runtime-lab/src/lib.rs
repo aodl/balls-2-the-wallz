@@ -2077,11 +2077,12 @@ async fn reconcile() -> AppResult<()> {
             ic_cdk::trap("S14 injected B2Z response-handler trap after index await");
         }
         let bytes = response.into_bytes();
-        if r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
-            delegation_wire::check(&bytes)?;
-        }
         let result: source::HistoryResult =
-            candid::decode_one(&bytes).map_err(|e| format!("index response decode: {e}"))?;
+            if r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
+                delegation_wire::decode_checked(&bytes)?
+            } else {
+                candid::decode_one(&bytes).map_err(|e| format!("index response decode: {e}"))?
+            };
         let page = result.map_err(|e| format!("index error: {}", e.message))?;
         finish_page(&lease, Some(page))
     }

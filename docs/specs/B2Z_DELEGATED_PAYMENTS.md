@@ -87,7 +87,11 @@ absent fields from zero/empty. Size is 186–218 bytes. CRCs, lengths, reserved 
 absent-field zeroes, recipient and input-position agreement are checked.
 The official Index wire must actually contain `Transfer.spender`; Candid's
 compatibility rule that fills missing optional fields with `None` is insufficient.
-Check the untyped wire representation before typed decoding on adapter 5.
+Validate its bounded wire type table before typed decoding on adapter 5. The
+actual `Transfer.spender` field must have `opt text` type; missing/ambiguous fields
+fail closed. The page remains capped at 64 records, reply at 1 MiB, and typed
+decoding/skipping at the existing 1,000,000-work quotas. Do not duplicate a full
+untyped traversal or raise the budget to accommodate valid pages.
 
 **DP-08:** Existing adapter 3/4 and `BTZPAY02` bytes retain their interpretation,
 including already rejected delegated payments. A drained authenticated source
