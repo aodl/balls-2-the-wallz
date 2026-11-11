@@ -1,0 +1,10 @@
+{
+  "source": "43ec82bbc12643b474329af9a397b354afba64c3",
+  "command": "node --test --test-concurrency=1 tests/js/delegated-*.test.mjs tests/js/delegation-registry.test.mjs",
+  "status": "PASS",
+  "tests": 38,
+  "skipped": 0,
+  "log": ".work/icrc2-delegated-payments/ci-1f86d9b/focused-after-merge.log",
+  "log_sha256": "b60b37d0ba09bae4d3f868c3ee8a2cc199b7fdfece5368838b05a664a653acdb",
+  "production_operation": false
+}

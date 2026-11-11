@@ -7,7 +7,9 @@ passes Source, Native, Packaged DTR and Browser, but fails Runtime-lab Clippy an
 S14 browser assertions. This is not production qualification. The two Clippy
 configuration guards are corrected locally; default/feature Clippy with
 `-D warnings` and four wire tests pass. The shared S14 verifier correction is
-being qualified on the independent frontend branch before integration here.
+integrated here from frontend corrective source `50f7eda`. All 38 focused payment
+regressions pass after integration. The installed delivery assertion remains FAIL
+locally; no timing gate is waived.
 
 
 **The delegated Ledger → Index → installed-game path works on disposable
@@ -15,7 +17,7 @@ infrastructure, including actual A/S SDK signatures and an upgrade from the exac
 European predecessor.**
 Optional signing/UI is implemented and remains disabled in ordinary production
 builds. Real Internet Identity ceremony, physical-device/real-wallet coverage and
-hosted exact-source qualification remain unexecuted; this is not production
+corrected-source ordinary qualification remain outstanding; this is not production
 activation approval.
 
 Work remains isolated on `feature/b2z-icrc2-delegated-payments`. The fluid/elastic
@@ -452,3 +454,39 @@ exact default and feature-enabled Clippy commands now pass, as do the four wire
 regressions and format check. Corrected source still needs its own hosted run;
 the old failed job is not relabelled. No runtime artifact is rebuilt or replaced
 merely to publish these evidence/configuration changes.
+
+## Integrated corrective frontend freeze (supersedes preceding frontend files)
+
+Clean merged runtime source is **`43ec82bbc12643b474329af9a397b354afba64c3`**.
+It contains the two Clippy guards and the independent frontend correction from
+`50f7eda4ea19206ad37829ce087b415f75e40b98`. No financial/protocol behavior or
+backend interface changed in this follow-up. Both complete sets contain 17 files
+(16 public, one consumed upload policy), using the maintained playability wrapper.
+An earlier direct base-builder invocation under `.work/.../confidence-default`
+produced only its intermediate 11 files; it is not a complete release artifact
+and is not substituted for either final wrapper output.
+
+| Build | JavaScript SHA-256 | Complete manifest SHA-256 |
+| --- | --- | --- |
+| Default, signing excluded | `02dab98f6469cacb53417a855da9b554ec47e10484f76b5564a66946a48ab6ae` | `1a07af0236e881350e74ac2e1060a545b357a9a356a03518fbc2dc9484355e6a` |
+| Experimental, explicit flag | `c48b32087e7d74721ee52718a67bd6a9cbf38d289546573d54e7992eee49629e` | `878822221eeaff59a9ab7b15a3d998445e86e04c81cae6fc737255337ff7101a` |
+
+[Default complete files](frontend-files-confidence-default.json) and
+[experimental complete files](frontend-files-confidence-experimental.json), with
+`build-manifest-confidence-*.json`, bind actual output directories
+`.work/icrc2-delegated-payments/confidence-final-{default,experimental}/frontend`.
+Every actual file equals its manifest, with clean provenance and pinned inputs.
+Only JavaScript and build provenance differ from the respective prior candidate.
+The two backend module identities and their actual executed results above remain
+independently preserved; they are not silently rebuilt or relabelled as this source.
+
+The 38 focused payment tests pass after merging (`focused-after-merge.log`), with
+no skipped/cancelled cases. The shared 24 elastic and 40 buffer/live regressions
+exercise the exact unchanged policy module. The [independent frontend report](../fluid-player-experience/REPORT.md)
+retains the subsequent installed delivery failures, including the single no-video
+diagnostic. The old hosted financial pass does not turn a corrected-source
+ordinary FAIL or missing hosted run into a pass.
+
+Current frontend/backend production modules, controllers, settings and financial
+authority remain untouched. No allowance grant, real transfer, activation or
+production deployment was executed. This remains an isolated, disabled candidate.
