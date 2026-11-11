@@ -1,0 +1,66 @@
+{
+  "status": "INVESTIGATED",
+  "broad_failure": {
+    "source": "54d80b93ad37dacfa75f78ae433172ccf260d3a0",
+    "total_tests": 1830,
+    "pass": 1828,
+    "fail": 2,
+    "node_elapsed_seconds": 503.752,
+    "outer_budget_seconds": 600,
+    "failure_kind": "Application hard_timeout, not outer harness timeout",
+    "tests": [
+      {
+        "name": "cost attribution is bounded, complete and separate from deterministic forecast rows",
+        "elapsed_ms": 2837.67596,
+        "line": 57
+      },
+      {
+        "name": "cache bypass runs fresh work while normal completed-result caching is retained",
+        "elapsed_ms": 2431.644886,
+        "line": 94
+      }
+    ],
+    "application_max_ms": 2000,
+    "worker_hard_allowance_ms": 300,
+    "concurrent_activity": "Own recorded browser journeys and unrelated host workloads were active; no unrelated process was stopped."
+  },
+  "unchanged_inputs": [
+    {
+      "path": "tests/js/b2z-forecast-cost.test.mjs",
+      "before": "be6786d1836f965bdcef2afb48733f723a7520ca",
+      "after": "be6786d1836f965bdcef2afb48733f723a7520ca",
+      "unchanged": true
+    },
+    {
+      "path": "packages/agents/b2z/forecast.mjs",
+      "before": "693ce4057ff68f55b7edd1d71372375274a45376",
+      "after": "693ce4057ff68f55b7edd1d71372375274a45376",
+      "unchanged": true
+    },
+    {
+      "path": "packages/agents/b2z/forecast-worker.mjs",
+      "before": "0bdcf44d6ca38fb530c34382004acf294a22ebe4",
+      "after": "0bdcf44d6ca38fb530c34382004acf294a22ebe4",
+      "unchanged": true
+    }
+  ],
+  "separate_worktree_comparison": [
+    {
+      "variant": "baseline",
+      "command": "node --test tests/js/b2z-forecast-cost.test.mjs",
+      "status": "PASS",
+      "tests": 2,
+      "sha256": "f5409029ea380f5a19879413b95eb2fc417ec0e8b87530834edcad1ff1dceba4",
+      "raw_log": ".work/player-refinement/forecast-baseline-isolated.log"
+    },
+    {
+      "variant": "candidate",
+      "command": "node --test tests/js/b2z-forecast-cost.test.mjs",
+      "status": "PASS",
+      "tests": 2,
+      "sha256": "4b4d5be88ca9e1f374ffe3cf0c7bf0e98040d6c1b4f8bcafe6c2b2a973901ad3",
+      "raw_log": ".work/player-refinement/forecast-candidate-isolated.log"
+    }
+  ],
+  "conclusion": "Isolated passing tests establish no source difference and deadline sensitivity, not a proven explanation of the earlier complete-run failure. One full run after own browser work completes is recorded separately. No application/CI budget or assertion was relaxed."
+}

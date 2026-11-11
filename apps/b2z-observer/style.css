@@ -56,7 +56,7 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 .wallet-fields{margin:7px 0}.wallet-fields>div{grid-template-columns:52px minmax(0,1fr) auto;gap:6px;padding:6px 0}
 .wallet-fields dt{font-size:.78rem}.wallet-fields dd{font-size:.875rem}
 #transfer-amount{font-size:1.2rem;font-weight:750;color:var(--ink)}
-#payment-risk{font-size:.8rem;line-height:1.45;margin:10px 0}
+#payment-risk{font-size:.875rem;line-height:1.45;margin:10px 0}
 #placement-note,#preparation-note,#copy-feedback{font-size:.8rem;line-height:1.4;margin:8px 0}
 .panel[data-expanded=true] #action-view{animation:instrument-in 180ms ease-out}
 @keyframes instrument-in{from{opacity:.1;clip-path:inset(0 0 100%);transform:translateY(-3px)}to{opacity:1;clip-path:inset(0);transform:translateY(0)}}
@@ -105,8 +105,8 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 .wallet-fields dd{font-size:.875rem;overflow-wrap:anywhere;background:#11171d55;border-radius:3px;padding:4px}
 .wallet-fields button{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;padding:8px;background:transparent}
 #transfer-amount{font-size:1.45rem;font-weight:780;background:none}
-#payment-fee{font-size:.8rem;color:var(--quiet);margin:6px 0 2px}
-#payment-risk{font-size:.8rem;line-height:1.4;padding:0;margin:3px 0}
+#payment-fee{font-size:.875rem;color:var(--quiet);margin:6px 0 2px}
+#payment-risk{font-size:.875rem;line-height:1.4;padding:0;margin:3px 0}
 #aim-ring{width:76px;height:76px;border:1px dashed #ffe5b480;filter:drop-shadow(0 1px 1px #000)}
 #aim-handle{background:transparent;border:0;box-shadow:none;color:var(--accent);font-size:20px}
 #aim-handle::before{content:'';position:absolute;width:22px;height:22px;left:11px;top:11px;border:1px solid var(--accent);border-radius:50%;background:#1d252bbb;z-index:-1}

@@ -10,6 +10,8 @@ def verify_refinement(page,width,height,out):
   close();page.evaluate('fixture.render("additional","initial");fixture.select(1);document.dispatchEvent(new CustomEvent("b2z-locate"))');settled(page);page.locator('#'+{'move':'move-action','new':'build-action','fire':'fire-action'}[kind]).click();page.wait_for_timeout(230)
   if kind=='move':action_field(page,'#move-cell').fill('')
   if kind=='new':action_field(page,'#new-cell').select_option('')
+  for selector in ['#payment-risk','#payment-fee','#text-memo','#payment-owner']:
+   assert page.locator(selector).evaluate('(n)=>parseFloat(getComputedStyle(n).fontSize)>=14'),'financial text must retain a readable size'
   if page.locator('#toolbar-hint').is_visible():
    hint=page.locator('#toolbar-hint').bounding_box();header=page.locator('.panel-header').bounding_box();assert hint['y']+hint['height']<=header['y']+1,'icon hint must not obscure the action prompt'
  def open_point(cell):

@@ -1,0 +1,229 @@
+{
+  "status": "PASS",
+  "scope": "Rendered controlled return/retention with actual component fixture. Not genuine tab hiding.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "same_head": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 0.013834000000000006,
+          "available": 1,
+          "buffer": 0.986166,
+          "rate": 1
+        },
+        "renderedAt": 7340.699999988079,
+        "queue": 1,
+        "bytes": 6534,
+        "sameClock": true,
+        "latencyMs": 7.900000035762787
+      },
+      "three_new_intervals": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 3,
+          "available": 4,
+          "buffer": 1,
+          "rate": 1
+        },
+        "renderedAt": 8646.399999976158,
+        "queue": 1,
+        "bytes": 6535,
+        "sameClock": true,
+        "latencyMs": 7.800000011920929
+      },
+      "admissions": [
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 1,
+            "available": 2,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 2,
+            "available": 3,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6535,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 3,
+            "available": 4,
+            "buffer": 1,
+            "rate": 1
+          }
+        }
+      ],
+      "requests_during_controlled_return": 0,
+      "displayed_follow_preserved": true,
+      "zoom": 96,
+      "video": "/home/codexdev/src/b2z/.work/player-refinement/elastic-rechecked/video/page@bac6c3d94dad768ffe91c136e96cdc5e.webm",
+      "scope": "Explicitly paused fixture presentation, injected integrity-checked canonical segments; not IC-certified; not real visibility, certificate, background scheduler, device or production timing evidence."
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "same_head": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 0.012001000000000005,
+          "available": 1,
+          "buffer": 0.987999,
+          "rate": 1
+        },
+        "renderedAt": 4868.200000047684,
+        "queue": 1,
+        "bytes": 6534,
+        "sameClock": true,
+        "latencyMs": 7
+      },
+      "three_new_intervals": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 3,
+          "available": 4,
+          "buffer": 1,
+          "rate": 1
+        },
+        "renderedAt": 5686.300000011921,
+        "queue": 1,
+        "bytes": 6535,
+        "sameClock": true,
+        "latencyMs": 6.399999976158142
+      },
+      "admissions": [
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 1,
+            "available": 2,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 2,
+            "available": 3,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6535,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 3,
+            "available": 4,
+            "buffer": 1,
+            "rate": 1
+          }
+        }
+      ],
+      "requests_during_controlled_return": 0,
+      "displayed_follow_preserved": true,
+      "zoom": 96,
+      "video": "/home/codexdev/src/b2z/.work/player-refinement/elastic-rechecked/video/page@ad8322501b3666bbf4948d4111d1d41a.webm",
+      "scope": "Explicitly paused fixture presentation, injected integrity-checked canonical segments; not IC-certified; not real visibility, certificate, background scheduler, device or production timing evidence."
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "same_head": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 0.009499000000000002,
+          "available": 1,
+          "buffer": 0.990501,
+          "rate": 1
+        },
+        "renderedAt": 4349.699999988079,
+        "queue": 1,
+        "bytes": 6534,
+        "sameClock": true,
+        "latencyMs": 9.300000011920929
+      },
+      "three_new_intervals": {
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 3,
+          "available": 4,
+          "buffer": 1,
+          "rate": 1
+        },
+        "renderedAt": 4996.800000011921,
+        "queue": 1,
+        "bytes": 6535,
+        "sameClock": true,
+        "latencyMs": 4.300000011920929
+      },
+      "admissions": [
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 1,
+            "available": 2,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6534,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 2,
+            "available": 3,
+            "buffer": 1,
+            "rate": 1
+          }
+        },
+        {
+          "queue": 1,
+          "bytes": 6535,
+          "state": {
+            "phase": "PLAYING",
+            "playhead": 3,
+            "available": 4,
+            "buffer": 1,
+            "rate": 1
+          }
+        }
+      ],
+      "requests_during_controlled_return": 0,
+      "displayed_follow_preserved": true,
+      "zoom": 96,
+      "video": "/home/codexdev/src/b2z/.work/player-refinement/elastic-rechecked/video/page@d230e4193ab1ac6bdadd9f4616ecbaeb.webm",
+      "scope": "Explicitly paused fixture presentation, injected integrity-checked canonical segments; not IC-certified; not real visibility, certificate, background scheduler, device or production timing evidence."
+    }
+  ],
+  "video": true
+}

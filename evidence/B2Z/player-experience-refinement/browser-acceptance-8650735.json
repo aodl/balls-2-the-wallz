@@ -1,0 +1,491 @@
+{
+  "status": "PASS",
+  "baseline": false,
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "toolbar_drift": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "panel": {
+        "height": 357,
+        "content": 357,
+        "workspace": {
+          "x": 606,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 966,
+          "bottom": 745,
+          "left": 606
+        }
+      },
+      "errors": [],
+      "move_panel": {
+        "height": 124,
+        "content": 124
+      },
+      "deferred_target": {
+        "original": 452577,
+        "chosen": "",
+        "memo": "MOVE 1 452577"
+      },
+      "minimap": {
+        "width": 164,
+        "height": 95,
+        "css": 164,
+        "dpr": 1
+      },
+      "journeys": {
+        "target_integrity": [
+          {
+            "operation": "pan",
+            "action": "move",
+            "original": 452577,
+            "chosen": "452577",
+            "copyable": true,
+            "memo": "MOVE 1 452577"
+          },
+          {
+            "operation": "zoom",
+            "action": "move",
+            "original": 452577,
+            "chosen": "452577",
+            "copyable": true,
+            "memo": "MOVE 1 452577"
+          },
+          {
+            "operation": "focus",
+            "action": "move",
+            "original": 452577,
+            "chosen": "",
+            "copyable": false,
+            "memo": "MOVE 1 452577"
+          },
+          {
+            "operation": "mode",
+            "action": "move",
+            "original": 452577,
+            "chosen": "",
+            "copyable": true,
+            "memo": "FIRE 1 225 1"
+          },
+          {
+            "operation": "revision",
+            "action": "move",
+            "original": 453579,
+            "chosen": "",
+            "copyable": false,
+            "memo": "FIRE 1 225 1"
+          },
+          {
+            "operation": "removed",
+            "action": "move",
+            "original": 452578,
+            "chosen": "",
+            "copyable": false,
+            "memo": "FIRE 1 225 1"
+          },
+          {
+            "operation": "focus",
+            "action": "new",
+            "original": 452578,
+            "chosen": "",
+            "copyable": false,
+            "memo": "FIRE 1 225 1"
+          }
+        ],
+        "compositions": [
+          {
+            "clicked_at": [
+              1080.0,
+              297.0
+            ],
+            "transition_wall_seconds": 1.1780410460196435,
+            "journey_seconds_including_layout_checks": 5.450141832989175,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 357,
+              "content": 357
+            }
+          },
+          {
+            "clicked_at": [
+              648.0,
+              540.0
+            ],
+            "transition_wall_seconds": 0.4706383439479396,
+            "journey_seconds_including_layout_checks": 3.7355820139637217,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 357,
+              "content": 357
+            }
+          },
+          {
+            "clicked_at": [
+              360.0,
+              378.0
+            ],
+            "transition_wall_seconds": 1.1484374849824235,
+            "journey_seconds_including_layout_checks": 3.95931552402908,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 357,
+              "content": 357
+            }
+          }
+        ],
+        "ball_immediate_follow": true,
+        "max_zoom_follow_preserved": true,
+        "wheel_accumulation_and_reversal": true,
+        "same_clock_queue": true,
+        "contracted_layouts": [
+          {
+            "viewport": [
+              1440,
+              430
+            ],
+            "height": 296,
+            "content": 355
+          },
+          {
+            "viewport": [
+              1440,
+              300
+            ],
+            "height": 166,
+            "content": 355
+          },
+          {
+            "viewport": [
+              844,
+              390
+            ],
+            "height": 256,
+            "content": 355
+          }
+        ]
+      },
+      "controlled_expansion": {
+        "animations": 4,
+        "rows": [
+          {
+            "at": 0,
+            "height": 0,
+            "button": [
+              149,
+              339
+            ]
+          },
+          {
+            "at": 90,
+            "height": 286.453125,
+            "button": [
+              149,
+              339
+            ]
+          },
+          {
+            "at": 180,
+            "height": 357,
+            "button": [
+              149,
+              339
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "toolbar_drift": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "panel": {
+        "height": 357,
+        "content": 357,
+        "workspace": {
+          "x": 8,
+          "y": 220,
+          "width": 360,
+          "height": 411,
+          "top": 220,
+          "right": 368,
+          "bottom": 631,
+          "left": 8
+        }
+      },
+      "errors": [],
+      "move_panel": {
+        "height": 124,
+        "content": 124
+      },
+      "minimap": {
+        "width": 186,
+        "height": 107,
+        "css": 124,
+        "dpr": 1.5
+      },
+      "journeys": {
+        "target_integrity": [],
+        "compositions": [
+          {
+            "clicked_at": [
+              292.5,
+              278.52000000000004
+            ],
+            "transition_wall_seconds": 0.5790158400195651,
+            "journey_seconds_including_layout_checks": 4.172269763017539,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 357,
+              "content": 357
+            }
+          },
+          {
+            "clicked_at": [
+              175.5,
+              506.4
+            ],
+            "transition_wall_seconds": 0.563231743988581,
+            "journey_seconds_including_layout_checks": 3.1581453940016218,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 357,
+              "content": 357
+            }
+          },
+          {
+            "clicked_at": [
+              97.5,
+              354.47999999999996
+            ],
+            "transition_wall_seconds": 0.3168485809583217,
+            "journey_seconds_including_layout_checks": 2.409184082003776,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 357,
+              "content": 357
+            }
+          }
+        ],
+        "ball_immediate_follow": true,
+        "max_zoom_follow_preserved": true,
+        "wheel_accumulation_and_reversal": true,
+        "same_clock_queue": true,
+        "contracted_layouts": [
+          {
+            "viewport": [
+              390,
+              430
+            ],
+            "height": 298,
+            "content": 355
+          },
+          {
+            "viewport": [
+              390,
+              300
+            ],
+            "height": 171,
+            "content": 355
+          },
+          {
+            "viewport": [
+              844,
+              390
+            ],
+            "height": 256,
+            "content": 355
+          }
+        ]
+      },
+      "controlled_expansion": {
+        "animations": 4,
+        "rows": [
+          {
+            "at": 0,
+            "height": 0,
+            "button": [
+              63,
+              225
+            ]
+          },
+          {
+            "at": 90,
+            "height": 286.453125,
+            "button": [
+              63,
+              225
+            ]
+          },
+          {
+            "at": 180,
+            "height": 357,
+            "button": [
+              63,
+              225
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "toolbar_drift": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "panel": {
+        "height": 245,
+        "content": 356,
+        "workspace": {
+          "x": 8,
+          "y": 220,
+          "width": 304,
+          "height": 299,
+          "top": 220,
+          "right": 312,
+          "bottom": 519,
+          "left": 8
+        }
+      },
+      "errors": [],
+      "move_panel": {
+        "height": 124,
+        "content": 124
+      },
+      "minimap": {
+        "width": 248,
+        "height": 143,
+        "css": 124,
+        "dpr": 2
+      },
+      "journeys": {
+        "target_integrity": [],
+        "compositions": [
+          {
+            "clicked_at": [
+              240.0,
+              211.20000000000002
+            ],
+            "transition_wall_seconds": 0.4718159770127386,
+            "journey_seconds_including_layout_checks": 3.4139040259760804,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 245,
+              "content": 356
+            }
+          },
+          {
+            "clicked_at": [
+              144.0,
+              384.0
+            ],
+            "transition_wall_seconds": 0.4688629349693656,
+            "journey_seconds_including_layout_checks": 2.6072688149870373,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 245,
+              "content": 356
+            }
+          },
+          {
+            "clicked_at": [
+              80.0,
+              268.8
+            ],
+            "transition_wall_seconds": 0.42824606300564483,
+            "journey_seconds_including_layout_checks": 2.4133665669942275,
+            "toolbar_max_drift": 0.0,
+            "panel": {
+              "height": 245,
+              "content": 356
+            }
+          }
+        ],
+        "ball_immediate_follow": true,
+        "max_zoom_follow_preserved": true,
+        "wheel_accumulation_and_reversal": true,
+        "same_clock_queue": true,
+        "contracted_layouts": [
+          {
+            "viewport": [
+              320,
+              430
+            ],
+            "height": 298,
+            "content": 356
+          },
+          {
+            "viewport": [
+              320,
+              300
+            ],
+            "height": 171,
+            "content": 356
+          },
+          {
+            "viewport": [
+              844,
+              390
+            ],
+            "height": 256,
+            "content": 355
+          }
+        ]
+      },
+      "controlled_expansion": {
+        "animations": 4,
+        "rows": [
+          {
+            "at": 0,
+            "height": 0,
+            "button": [
+              63,
+              225
+            ]
+          },
+          {
+            "at": 90,
+            "height": 197.390625,
+            "button": [
+              63,
+              225
+            ]
+          },
+          {
+            "at": 180,
+            "height": 245,
+            "button": [
+              63,
+              225
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

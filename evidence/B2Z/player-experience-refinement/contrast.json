@@ -1,0 +1,16 @@
+{
+  "scope": "Analytical maximum-luminance white backdrop with maintained 80% glass; actual flat territory is darker. No claim of physical-display calibration.",
+  "backdrop_rgb": [
+    255,
+    255,
+    255
+  ],
+  "composite_rgb": [
+    77,
+    81,
+    87
+  ],
+  "ordinary_text_contrast": 7.146151687513592,
+  "secondary_text_contrast": 4.5599436480772715,
+  "target": 4.5
+}
