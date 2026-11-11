@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "runtime_source": "15586071fb38033398cd5378398b23616747a811",
+  "source_dirty": false,
+  "complete_manifest_sha256": "87c9eac935fce0148b80c4fb5d1b4a42645b99f03971699e5204c1d8dfa50d56",
+  "file_count": 17,
+  "public_file_count": 16,
+  "javascript": {
+    "sha256": "f9eab78824943e1cbfbf2660fce5cb0b61cc9daf0a5b3474e81db696e1ace950",
+    "bytes": 2221688,
+    "role": "public-http-asset"
+  },
+  "previous_javascript": {
+    "sha256": "d74b083778646df81332b7651206973a8f950a265b3bedc60e8ca6e633b778b4",
+    "bytes": 2215763,
+    "role": "public-http-asset"
+  },
+  "changed_files": [
+    "app.mjs",
+    "build-manifest.json"
+  ],
+  "unchanged_upload_policy": true,
+  "source_input_digests_match_commit": true,
+  "backend_rebuilt": false,
+  "independent_frontend_rebuilt": false,
+  "default_feature_frontend_rebuilt": false
+}
