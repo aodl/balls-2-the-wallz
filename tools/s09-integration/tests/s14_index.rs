@@ -5974,7 +5974,10 @@ fn torus_browser_authenticated_epoch_recovers_and_stales_old_move() {
     let began = std::time::Instant::now();
     let mut prepared = false;
     let mut committed = false;
-    while began.elapsed() < Duration::from_secs(180) {
+    // Outer browser-journey allowance only: bootstrap, animated controls,
+    // 20s verified playback and a proved >16-publication retention gap.
+    // Every browser wait, certificate/continuity assertion and game budget stays.
+    while began.elapsed() < Duration::from_secs(300) {
         if !prepared && out.join("browser-transition-ready").exists() {
             let reply = pic
                 .update_call(

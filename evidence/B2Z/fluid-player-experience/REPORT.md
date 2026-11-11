@@ -8,9 +8,15 @@ JavaScript: `4c0d389331ff1764fc328c04f4c0df0658ba8414666dd9d9aeceb024cd79aced`.
 [Provenance](build-manifest.json) records a clean source and unchanged locked
 dependencies. Actual files and all maintained bundled inputs were checked.
 
-**Not ready for production approval:** hosted exact-source qualification is
-blocked by publication credentials. The local installed million-cell startup
-gate remains unresolved; an unchanged baseline fails the same predicate.
+**Not ready for production approval:** the owner published evidence source
+`67ae8e05e252dc0030183254fb978453a6e3b45a`. [CI run 42920726039](https://github.com/aodl/balls-2-the-wallz/actions/runs/42920726039)
+completed with four substantive passes and two failures, detailed in
+[the exact-source CI record](ci-67ae8e0.json). The corrections concern verification
+code, not these frozen runtime bytes. The corrected complete interface journeys
+and installed payment/reconnect/upgrade browser path pass locally. The local
+installed million-cell startup gate remains unresolved; an unchanged baseline
+fails the same predicate. Hosted qualification of the corrective commit remains
+NOT_RUN; the owner is away and local work continues without requiring a push.
 Rendered native hidden-return and hardware/phone performance are coverage
 limitations, separate from demonstrated application failures. The paid European
 backend and deployed tactical assets remain untouched.
@@ -470,3 +476,36 @@ reported separately; the updated whole suite is not falsely described as one
 1,811-test hosted or clean-source run. [Reviewed conclusions](qualification/release-checks-reviewed.json)
 retain original failures, partial native graphics coverage and nonqualifying
 software performance measurements.
+
+## Published CI follow-up — 2026-11-11
+
+Run **42920726039** is final: Source, Native, Packaged DTR/clean consumers and
+Runtime-lab Wasm PASS; Browser HTTP/Web Crypto and installed-IC qualification FAIL.
+Inventory is informational. [Exact job record and diagnosis](ci-67ae8e0.json).
+No runtime code, frozen file or production canister changed in the correction.
+
+`verify_playability_actions.py` now tests 350 ms tail expiry independently of the
+approved 1,250 ms wake, replacing the obsolete 950 ms shared-effect assumption.
+The full populated UI journey passes at desktop/390/320. The installed verifier
+uses principal/text copy controls and exact UTF-8 bytes, toolbar action state,
+intentional same-cannon draft persistence and the 400 ms placement/double-click
+window. Its complete real disposable payment/reconnect/upgrade path passes,
+including certificate negatives and exact wallet bytes. Eight S14-harness and six
+playability-harness unit tests pass; the integration harness compiles with locks.
+
+The original epoch attempt exhausted the 180-second **outer test** allowance after
+measuring verified new-epoch playback. The corrective allowance is 300 seconds,
+with explicit stage timestamps; all browser waits, authentication, retained-gap,
+continuity and gameplay assertions remain. That local attempt instead times out
+performing the native Update instructions click. It is retained as FAIL. This
+host is also running unrelated work; contention is possible, not a proven cause.
+The corrected million-cell selection passes, but startup remains BUFFERING at
+the 60-second limit: four verified ticks, 17-tick Normal target, authenticated
+heads, no verification error. The earlier unchanged-baseline failure remains
+relevant; neither test is relabelled PASS and no runtime/pacing floor is relaxed.
+
+Raw records are `.work/fluid-player-experience/ci-67ae8e0/`. The downloaded hosted
+installed evidence ZIP hash is verified against the upload digest. The frozen
+sixteen files and complete manifest still match exactly. A later ordinary owner
+push can qualify the corrective verification source; local work continues while
+the owner is away. No CI pass is assumed as an evidentiary fact.

@@ -191,7 +191,9 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     # Move is selected from the cannon context.
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
-    assert action_field(page,'#move-cell').input_value()=='0'
+    # UX-04/12: mouse placement waits for the bounded double-click window.
+    # Assert the committed cell after that window, rather than a scheduler race.
+    wait_until(page,lambda:action_field(page,'#move-cell').input_value()=='0',5000)
     locate_seam_action(page)
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
@@ -288,6 +290,11 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
         assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
 
 def verify_epoch_transition(page,context,out,record,report,save):
+    began=time.monotonic()
+    def progress(stage):
+        report.setdefault('epoch_stages',[]).append({'stage':stage,'elapsed_seconds':round(time.monotonic()-began,3)})
+        print('EPOCH_STAGE',json.dumps(report['epoch_stages'][-1]),flush=True);save()
+    progress('bootstrap')
     wait_until(page,lambda:'16 × 8' in world_text(page),30000)
     choose_action(page,'ball')
     wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
@@ -303,10 +310,10 @@ def verify_epoch_transition(page,context,out,record,report,save):
     wait_until(reconnect,lambda:reconnect.evaluate('Boolean(globalThis.__dtrLive?.connected)') and '16 × 8' in world_text(reconnect),30000)
     reconnect.evaluate('__b2zTools.delivery(true)')
     old_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)')
-    page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n')
+    page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n');progress('old-packet-verified')
     wait_until(page,lambda:'Game paused' in page.locator('#arena-note').text_content(),30000)
     choose_action(page,'move',review=False);assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
-    (out/'browser-fence-seen').write_text('payment preparation held; frozen packet retained\n')
+    (out/'browser-fence-seen').write_text('payment preparation held; frozen packet retained\n');progress('source-fence-verified')
     wait_until(page,lambda:'32 × 32' in world_text(page),60000)
     assert 'wraparound' in world_text(page)
     choose_action(page,'move',review=False)
@@ -316,14 +323,14 @@ def verify_epoch_transition(page,context,out,record,report,save):
     assert page.evaluate('Boolean(__b2zExperience.session.ready)') # saved packet remains in scoped local history
     mapped=(old_cell//16+12)*32+old_cell%16+8
     action_field(page,'#move-cell').fill(str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
-    assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
+    progress('new-epoch-packet-verified');assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
     assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
     page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
     page.locator('[data-copy="text"]').click();wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==f'MOVE {mapped}')
-    # The advanced details remain ordinary visible UI; select their summary if necessary.
-    hex_copy=page.locator('[data-copy="hex"]')
-    if not hex_copy.is_visible():page.locator('details').filter(has=hex_copy).locator('summary').click()
-    hex_copy.click();wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==f'MOVE {mapped}'.encode().hex())
+    # UX-07/08: modern handoff removes hex/legacy controls. Still verify the
+    # exact UTF-8 bytes supplied by the real text-copy path across the epoch.
+    assert page.evaluate('Array.from(new TextEncoder().encode(__copiedText))')==list(f'MOVE {mapped}'.encode())
+    assert page.locator('[data-copy="hex"],[data-copy="recipient"]').count()==0
     page.keyboard.press('Escape');page.screenshot(path=str(out/'transition-desktop.png'))
     for w,h in[(768,1024),(390,844)]:
         page.set_viewport_size({'width':w,'height':h});page.wait_for_timeout(150);r=page.locator('#board').bounding_box();assert r['width']==w and r['height']==h;page.screenshot(path=str(out/f'transition-{w}.png'))
@@ -337,12 +344,12 @@ def verify_epoch_transition(page,context,out,record,report,save):
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
     report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['admitted_ticks']-samples[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['played_ticks']-samples[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
     (out/'epoch-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['epoch_playback']['stalled_samples']==0,report['epoch_playback'];assert samples[-1]['backend_segments']>samples[0]['backend_segments']
-    record('new-epoch-continuous-verified-playback',report['epoch_playback'])
+    record('new-epoch-continuous-verified-playback',report['epoch_playback']);progress('new-epoch-playback-measured')
     # Prove a real gap beyond the sixteen-publication window before reconnecting.
     wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=old_head+17,90000)
     reconnect.bring_to_front();reconnect.evaluate('__b2zTools.delivery(false)')
     wait_until(reconnect,lambda:reconnect.evaluate('globalThis.__dtrLive.resyncs')>=1 and '32 × 32' in world_text(reconnect),30000)
-    new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
+    progress('retained-gap-recovered');new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
     assert reconnect.locator('body').get_attribute('data-phase')!='ERROR';reconnect.close();page.bring_to_front()
     record('old-session-reconnects-across-epoch-after-retained-history-gap',{'old_head':old_head,'new_head':new_head})
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '32 × 32' in world_text(page),30000)
@@ -564,12 +571,12 @@ def main():
             # Observe arguments while still invoking native clipboard writes under
             # an actual click; do not enable clipboard reading in production.
             page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
-            for selector,expected in [('[data-copy="text"]','ANGLE 37.5'),('[data-copy="owner"]',page.locator('#payment-owner').inner_text()),('[data-copy="amount"]','1'),('[data-copy="recipient"]',configuration['recipient']),('[data-copy="hex"]','414e474c452033372e35')]:
-                if any(kind in selector for kind in ['recipient','hex']):page.locator('#transfer-controls details').filter(has=page.locator(selector)).evaluate('(node)=>node.open=true')
+            for selector,expected in [('[data-copy="text"]','ANGLE 37.5'),('[data-copy="owner"]',configuration['canister_id']),('[data-copy="amount"]','1')]:
                 page.locator(selector).click()
                 wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==expected,5000)
-            page.locator('#transfer-controls details').evaluate_all('(ns)=>ns.forEach(n=>n.open=false)')
-            record('exact-authenticated-text-and-UTF8-hex-copy')
+                if selector=='[data-copy="text"]':assert page.evaluate('Array.from(new TextEncoder().encode(__copiedText))')==list(b'ANGLE 37.5')
+            assert page.locator('[data-copy="hex"],[data-copy="recipient"]').count()==0
+            record('exact-authenticated-principal-amount-and-UTF8-text-copy')
             page.evaluate('''()=>{globalThis.__s15Timing=[];setInterval(()=>{const p=globalThis.__dtrLive?.playback;if(p&&globalThis.__s15Timing.length<1200)globalThis.__s15Timing.push({...p,resyncs:globalThis.__dtrLive.resyncs});},250);}''')
             for width,height in [(1440,900),(768,1024),(390,844)]:
                 page.set_viewport_size({'width':width,'height':height});page.evaluate('scrollTo(0,0)')
@@ -627,7 +634,9 @@ def main():
             select_cannon(page);choose_action(page,'ball')
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
-            assert page.locator('#panel-title').inner_text().startswith('Fire')
+            # UX-02/03: the icon toolbar replaces the old action dialog header.
+            assert page.locator('#fire-action').get_attribute('aria-pressed')=='true'
+            assert page.locator('#action-prompt').inner_text()=='Aim & Pay'
             # Player-centred UX-12: display angles are clockwise from screen up.
             # Pointer capture lets the handle aim across the card without panning.
             import math
@@ -667,14 +676,13 @@ def main():
             # A new ball changes the automatic quote from the same verified revision.
             wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='0.4 ICP',15000)
             assert page.locator('[data-copy="text"]').is_enabled()
-            # This historical v3 world has no stored cannon heading. UX-12 uses
-            # the screen-up default, rather than carrying an unrelated earlier
-            # draft through Account/inspection. Screen-up encodes world 225.
+            # UX-04/08: this cannon's intentional draft survives Account and
+            # inspection. It is scoped to this cannon, rather than a new default.
             assert page.evaluate('__b2zExperience.session.referenceWorld.version')==3
             assert page.evaluate('__b2zExperience.session.referenceWorld.cannons[0].heading===undefined')
-            assert page.locator('#angle-degrees').input_value()=='0'
-            assert page.locator('#text-memo').inner_text()=='ANGLE 225',page.locator('#text-memo').inner_text()
-            record('fresh-legacy-action-uses-screen-up-not-an-unrelated-draft')
+            assert page.locator('#angle-degrees').input_value()=='167.15'
+            assert page.locator('#text-memo').inner_text()=='ANGLE 37.5',page.locator('#text-memo').inner_text()
+            record('same-cannon-draft-retains-screen-heading-and-exact-canonical-memo')
             cell=different_owned_cell(page);choose_action(page,'move')
             action_field(page,'#move-cell').fill(str(cell))
             # Move is selected from the cannon context.
@@ -693,7 +701,7 @@ def main():
             # journeys; do not try to click a deliberately hidden legacy action.
             select_cannon(page);assert page.locator('#build-action').is_hidden()
             choose_action(page,'ball')
-            assert page.locator('#angle-degrees').input_value()=='0'
+            assert page.locator('#angle-degrees').input_value()=='167.15'
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             page.locator('#angle-degrees').fill('167.15');review_instructions(page)
             assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
