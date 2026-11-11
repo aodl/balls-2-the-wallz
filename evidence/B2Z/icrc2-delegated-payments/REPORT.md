@@ -490,3 +490,29 @@ ordinary FAIL or missing hosted run into a pass.
 Current frontend/backend production modules, controllers, settings and financial
 authority remain untouched. No allowance grant, real transfer, activation or
 production deployment was executed. This remains an isolated, disabled candidate.
+
+### Complete local source and frozen manual-route closeout
+
+The [complete source gate](source-confidence-verification.json) at evidence/source
+commit **`06929f467f510fdfb8a5c50d30c420de982c02a3`** passes **1,851 JavaScript /
+199 Python tests**, references, structure and documentation, with no skipped or
+cancelled cases. The JavaScript run takes 361.38 seconds inside the existing
+600-second outer allowance. Runtime/build/test inputs equal frozen `43ec82b…`;
+later changes only reconcile reports/manifests/status. No runtime rebuild follows.
+
+The [exact experimental frozen-browser result](frozen-confidence-browser.json)
+passes at 1440×900, 390×844 and 320×640 against the real read-only rules-7 European
+backend. Every public served file and policy header matches, certificates and
+source/destination bind correctly, exact principal/text wallet copies and Update/
+Keep work, and clock/queue identity survives closing the card. All POST requests
+are query/read_state. This tests the manual route with optional code bundled;
+it does not log in, grant an allowance, sign a transfer or activate delegated
+gameplay on production. Current rules-7 admission cannot be mistaken for the
+required authenticated rules-8 grant. Real II and hardware/device/wallet coverage
+remain outstanding, distinct from the passing disposable signed-payment path.
+
+The dedicated financial PASS at `1f86d9b…` remains actual hosted evidence. The
+corrected source still requires new hosted ordinary and financial qualification;
+its local source PASS and Clippy fixes do not erase the installed delivery FAIL.
+The independent frontend remains separable and requires no backend activation.
+Neither candidate is approved for production deployment.

@@ -25,6 +25,10 @@ production is unchanged. A real Internet Identity ceremony and corrected-source
 ordinary qualification remain outstanding. See its [single feature record](evidence/B2Z/icrc2-delegated-payments/REPORT.md)
 and [financial authorization contract](docs/specs/B2Z_DELEGATED_PAYMENTS.md).
 The independent frontend release branch does not contain this feature.
+The integrated local feature source passes 1,851 JS / 199 Python tests; its exact
+experimental frozen manual route passes desktop/390/320 read-only browser checks.
+Corrected-source hosted qualification and separate activation authority remain
+required; no real II or production-spending pass is claimed.
 
 
 # Fluid player experience — source candidate, not deployed
