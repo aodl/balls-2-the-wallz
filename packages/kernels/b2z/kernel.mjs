@@ -1,3 +1,6 @@
+import{decodeDelegatedPayment}from'../../protocol/delegation.mjs';
+import{authorizePayment}from'./delegation-v8.mjs';
+import{decodeV6LedgerMemo,encodeV6Memo}from'../../protocol/memo-v6.mjs';
 import {workV6,captureV6,cleanupV6,finalizeCursorElapsed,validateV6Cursor} from './cursor-v6.mjs';
 import {scoreAreas,V6_POLICY,playerForCannon} from './playability.mjs';
 /** Version 3 reference. Pure logical-time gameplay; no IC calls or presentation authority. */
@@ -6,7 +9,7 @@ import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
-import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
+import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, DELEGATION_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
@@ -118,10 +121,10 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===DELEGATION_IDENTITY.config_hash?DELEGATION_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
     if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    this.world = decodeWorld(state);if(identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...(identity===ENTRY_IDENTITY?{entry_rules:true}:{})};if(this.world.version!==(identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    this.world = decodeWorld(state);if(identity===DELEGATION_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...(identity===ENTRY_IDENTITY||identity===DELEGATION_IDENTITY?{entry_rules:true}:{})};if(this.world.version!==(identity===DELEGATION_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); if(Boolean(this.world.playability?.authorization)!==(identity===DELEGATION_IDENTITY))throw Error('authorization/schema identity'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
         || cmp(sub(this.end, this.start), rat(LIMITS.max_segment_ticks)) > 0
@@ -141,7 +144,7 @@ export class B2zCursor {
   }
   receipt(payment, outcome) {
     const i = this.inputs[this.inputIndex++];
-    this.receipts.push({position: uint(i.position), account: payment.account, amount: payment.amount, ...outcome});
+    this.receipts.push({position: uint(i.position), account: payment.account, amount: payment.amount,...(payment.transfer?{transfer:payment.transfer}:{}),...(payment.spender?{spender:payment.spender}:{}), ...outcome});
     if (outcome.reason === 'ACCEPTED') this.emit(outcome);
   }
   restartSearch() {
@@ -155,7 +158,11 @@ export class B2zCursor {
     this.world.pending = valid;
   }
   work() {
-    if(this.world.version===6&&workV6(this,readPayment))return;
+    if(this.world.version===6&&workV6(this,payload=>{
+      if(!this.world.playability.authorization)return readPayment(payload);
+      const p=decodeDelegatedPayment(payload),decision=authorizePayment(this.world.playability.authorization,p,BigInt(this.inputs[this.inputIndex].position));let memo;try{memo=encodeV6Memo(decodeV6LedgerMemo(p.legacy_memo,p.memo));}catch{memo=new Uint8Array(8);}
+      return{account:p.from,amount:p.amount,memo,decision,transfer:{to:p.to,fee:p.fee,memo:p.memo===null?null:hex(p.memo),created_at_ns:p.created_at_ns,ledger_time_ns:p.ledger_time_ns,raw_digest:p.raw_digest,legacy_memo:p.legacy_memo},...(p.spender?{spender:p.spender}:{})};
+    }))return;
     if (this.phase === 'commands') {
       if (this.inputIndex < this.inputs.length) {
         const i = this.inputs[this.inputIndex], payment = readPayment(i.payload_hex);

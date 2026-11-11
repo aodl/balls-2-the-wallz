@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@dtr/timeline-runtime": "file:vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+    "@icp-sdk/auth": "11.2.0",
     "@icp-sdk/core": "6.1.0",
     "three": "0.187.0"
   },

@@ -27,7 +27,7 @@ fn interval(pic: &PocketIc, id: Principal, seconds: u64) {
     );
 }
 
-fn activate(pic: &PocketIc, id: Principal) -> Vec<serde_json::Value> {
+pub(super) fn activate(pic: &PocketIc, id: Principal) -> Vec<serde_json::Value> {
     let mut epochs = vec![];
     for prefix in ["torus", "million", "playability", "entry"] {
         get_result::<Vec<u8>>(

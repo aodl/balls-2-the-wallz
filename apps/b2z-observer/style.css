@@ -75,3 +75,8 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 /* Keep the account chip intact while long status labels wrap at text zoom. */
 #identify-button{flex-shrink:0}
 #status-button{min-width:44px;overflow-wrap:anywhere;white-space:normal}
+/* Optional signed-payment boundary; absent from ordinary production builds. */
+.payment-setup{margin-block:.75rem;padding:.6rem;border:1px solid var(--border,#626b76);border-radius:6px}
+.payment-setup>summary{cursor:pointer;min-height:44px;display:list-item;padding-block:.5rem}
+.payment-setup input{max-width:100%;box-sizing:border-box}.payment-setup pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.8rem;line-height:1.4;user-select:text}
+.direct-pay-controls{display:grid;gap:.35rem;margin-block-start:.5rem}.direct-pay-controls[hidden]{display:none}.direct-pay-controls button{min-height:44px}.direct-pay-controls p{margin:0;overflow-wrap:anywhere}

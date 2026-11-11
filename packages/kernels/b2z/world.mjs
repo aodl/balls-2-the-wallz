@@ -29,6 +29,9 @@ export const PLAYABILITY_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncod
 // Rules 7 preserve world-schema 6, memo 4, existing economics and event format.
 export const ENTRY_CONFIG=Object.freeze({...PLAYABILITY_CONFIG,...ENTRY_POLICY});
 export const ENTRY_IDENTITY=Object.freeze({...PLAYABILITY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_ENTRY_RULES_07')),config_hash:sha256(encodeCanonical(ENTRY_CONFIG))});
+// Optional rules 8: unchanged simulation/economics; separate source/auth identity.
+export const DELEGATION_CONFIG=Object.freeze({...ENTRY_CONFIG,memo_adapter_version:5,gameplay_delegation_version:1,gameplay_delegation_lifetime_ns:604800000000000n,max_delegation_accounts:1024});
+export const DELEGATION_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_DELEGATED_PAYMENT_RULES_08')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_06_AUTHORIZATION_01')),config_hash:sha256(encodeCanonical(DELEGATION_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

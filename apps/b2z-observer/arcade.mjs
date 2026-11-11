@@ -10,7 +10,7 @@ export function formatIcp(e8s){if(typeof e8s!=='bigint'||e8s<0n)throw Error('exa
 export const transferMemo=degrees=>describeTextMemo('angle',degrees);
 /** UX-08/10: describe the displayed packet, including a retained copied packet. */
 export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Payments and unused ICP are kept; no automatic refunds.';}
-export function createArcade(doc){
+export function createArcade(doc,{signedPayments=false}={}){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let sitesWorld=null,sitesConfig=null,sitesAccount=null,sitesRevision=null,eligibleSites=[];
  let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='0',worldAngle='225',siteKey='',cell=null,packet=null,keepPrevious=false,quote=null,manual=null,busy=false,pending=null,warning='',status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,planningBehind=false,activityKey='',rosterKey='',waitingSince=null;
@@ -109,7 +109,7 @@ export function createArcade(doc){
  $('replace-instructions').onclick=()=>{packet=null;keepPrevious=false;warning='';manual=null;$('manual-copy').hidden=true;text('copy-feedback','');refresh();};
  $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;cell=packet.cell;worldAngle=packet.angle??worldAngle;degrees=displayHeading(worldAngle);$('angle-degrees').value=degrees;$('ball-quantity').value=packet.requested;$('move-cell').value=cell??'';$('new-cell').value=cell??'';refresh();};
  function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account){packet=saved;if(q.cannon!==null&&!refs.some(c=>c.id===q.cannon&&c.account===q.account))warning='The copied target is no longer present. Saved instructions remain in Account.';}activity();return saved;}
- function savedNote(h){return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';}
+ function savedNote(h){if(!signedPayments)return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';return (h.persisted()?'Instructions saved. ':'Instructions kept for this visit only; device storage is unavailable. ')+'Copying does not send a payment.';}
  for(const b of doc.querySelectorAll('[data-copy]'))b.addEventListener('click',async()=>{
   refresh();if($('transfer-controls').disabled)return;const q=packet??quote,h=history,value={amount:formatIcp(BigInt(q.amount)).replace(' ICP',''),owner:q.owner,text:q.memo}[b.dataset.copy];busy=true;refresh();
   try{await navigator.clipboard.writeText(value);freeze(q,h);text('copy-feedback','Copied. '+savedNote(h));}
@@ -156,6 +156,9 @@ export function createArcade(doc){
   openRoster(){if(mine().length===1){api.selectCannon(mine()[0].id);doc.dispatchEvent(new CustomEvent('b2z-locate'));}else{updateRoster();show('roster','My cannons');}},
   openActivity(){api.openAccount();$('saved-list').scrollIntoView({block:'nearest'});},
   openStatus(){show('status','Game status');},openHelp(){show('help','How to play');},
+  // Optional signed-payment boundary reads the same coherent packet. Default
+  // product imports no executor and displays no signing controls.
+  paymentInstructions(){refresh();if(view!=='action'||$('transfer-controls').disabled||$('prepared-card').hidden)return null;return structuredClone(packet??quote);},
   receipts(value){receipts=value;history?.rememberReceipts(value,revision);if(view==='account')activity();},
   preferences(value){if(value){preferences={...preferences,...value};delete preferences.paused;try{storage?.setItem(`B2Z-view-v1:${context}`,JSON.stringify(preferences));}catch{}}return preferences;},
   camera(value){if(value){cameraState=value;persist();}return cameraState;},locate:()=>null

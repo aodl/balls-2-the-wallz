@@ -3,6 +3,7 @@
 pub mod capture_v6;
 mod cursor;
 mod cursor_v6;
+pub mod delegation_v8;
 mod economics_generated;
 pub mod entry_v7;
 pub mod geometry;

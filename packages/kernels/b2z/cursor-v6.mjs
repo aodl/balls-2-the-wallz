@@ -17,8 +17,13 @@ export function workV6(c,readPayment){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
    const p=readPayment(c.inputs[c.inputIndex].payload_hex);
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
+   const payment={account:p.account,amount:p.amount,...(p.transfer?{transfer:p.transfer}:{}),...(p.spender?{spender:p.spender}:{})};
+   if(p.decision&&p.decision!=='gameplay'){
+     c.world.received_e8s+=p.amount;
+     if(['granted','revoked'].includes(p.decision))c.receipt(payment,{reason:p.decision==='granted'?'DELEGATION_GRANTED':'DELEGATION_REVOKED',status:'configured',kind:p.decision==='granted'?'game_access_granted':'game_access_revoked',amount_used:0n,remainder:p.amount});
+     else rejected(c,payment,p.decision);return true;
+   }
    const plan=preparePurchase(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
-   const payment={account:p.account,amount:p.amount};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='move'){
      const cannon=c.world.cannons.find(x=>x.id===plan.cannon),before=cannon.cell;cannon.cell=plan.cell;c.moved.push(cannon.id);
@@ -63,7 +68,7 @@ export function finalizeCursorElapsed(c,observedNs){
   for(const row of e.metadata_delta?.lifecycle??[])if((e.dormant??[]).some(f=>f.cannon===row.cannon&&f.generation===row.generation)){row.dormant_since_ns=observedNs;row.deadline_ns=deadline;}
   for(const f of e.dormant??[])f.deadline_ns=deadline;
  }
- c.emit({kind:'lifecycle_time',previous_elapsed_ns:previous,observed_ns:observedNs,stamped});c.v6.finalized=true;validateWorld(c.world);
+ c.emit({kind:'lifecycle_time',previous_elapsed_ns:previous,observed_ns:observedNs,stamped,...(c.inputs.length&&c.world.playability.authorization?{authorization:c.world.playability.authorization}:{})});c.v6.finalized=true;validateWorld(c.world);
 }
 
 export function validateV6Cursor(c){

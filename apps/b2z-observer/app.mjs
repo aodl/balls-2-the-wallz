@@ -25,7 +25,9 @@ let cycleMonitor=null;
 let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null,lastHud=0;
 let cameraRestored=false;
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
-const arcade=createArcade(document),camera=new Camera();
+const signedPaymentsEnabled=typeof B2Z_DELEGATED_PAYMENTS!=='undefined'&&B2Z_DELEGATED_PAYMENTS;
+const arcade=createArcade(document,{signedPayments:signedPaymentsEnabled}),camera=new Camera();
+let optionalPayments=null;
 const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p,screen)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
  return false;
@@ -262,6 +264,7 @@ async function resyncLive(s,ticket){
   globalThis.__dtrLive.resyncs=s.resyncs;globalThis.__dtrLive.skipped=true;rememberHead(Number(ticket.publication.head.segment_id));
 }
 function updatePlayReference(s,world,events){
+  if(world.playability?.authorization&&world.playability.authorization.recipient!==s.source?.recipient)throw Error('authorization receiver/source binding');
   s.referenceWorld=world;
   if(!s.config)return;
   if(!document.hidden)arcade.render(world,s.config,s.source,s.root);
@@ -349,6 +352,7 @@ function phase(){
   return paused?'PAUSED':idleState(s)&&s.clock.available===s.clock.playhead?'IDLE':s.clock.phase;
 }
 function updateHud(){
+ if(!document.hidden)optionalPayments?.update();
  const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=freshObservation(s,now);
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
  const failure=s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':s?.error?s.failureKind:null;
@@ -447,3 +451,4 @@ try{
 if(deployment===null||deployment.network==='pocketic-local')globalThis.__b2zTools=replayTools({session:()=>session,visible:()=>visible,selection:()=>arcade.selectedCannon(),pause:value=>{paused=Boolean(value);lastFrame=null;},delivery:value=>{deliveryPaused=Boolean(value);},start,local:startLocal,live:startLive,catalog:()=>catalog});
 await bootstrap();
 requestAnimationFrame(frame);
+if(typeof B2Z_DELEGATED_PAYMENTS!=='undefined'&&B2Z_DELEGATED_PAYMENTS)void import('./delegated-payments/ui.mjs').then(({mountPayments})=>{optionalPayments=mountPayments(document,{enabled:true,session:()=>session,arcade,policy:()=>session?.recording?.deployment,localTest:deployment?.network==='pocketic-local'});}).catch(()=>{/* Optional setup failure cannot interrupt observation. */});

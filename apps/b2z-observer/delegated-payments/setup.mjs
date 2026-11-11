@@ -1,0 +1,13 @@
+/** Owner-side setup instructions only. Never executes an approval or payment. */
+import{Principal}from'@icp-sdk/core/principal';import{encodeAuthorization}from'../../../packages/protocol/delegation.mjs';import{explicitFunding}from'./context.mjs';import{ICP_LEDGER}from'./ledger.mjs';
+const nat=n=>{if(typeof n!=='bigint'||n<0n||n>=(1n<<64n))throw Error('SETUP_INTEGER');return String(n);};
+const blob=b=>'blob "'+Array.from(b,v=>'\\'+v.toString(16).padStart(2,'0')).join('')+'"';
+export function ownerSetup({network='ic',ledger=ICP_LEDGER,backend,funding,spender,fee,currentAllowance,allowance,expiresAtNs,createdAtNs}){
+ if(network!=='ic'||ledger!==ICP_LEDGER)throw Error('OWNER_SETUP_NETWORK');funding=explicitFunding(funding);if(Principal.fromText(backend).toText()!==backend)throw Error('OWNER_SETUP_BACKEND');
+ const grant=encodeAuthorization({kind:'grant',spender}),revoke=encodeAuthorization({kind:'revoke'});for(const n of[fee,currentAllowance,allowance,expiresAtNs,createdAtNs])nat(n);if(allowance===0n||expiresAtNs<=createdAtNs||expiresAtNs-createdAtNs>604800000000000n)throw Error('FINITE_SETUP_EXPIRY');
+ const sub=blob(Uint8Array.from(funding.subaccount.match(/../g),h=>parseInt(h,16))),head=`dfx --identity FUNDING_IDENTITY canister --network ic call ${ledger}`,flags=' --candid interfaces/icp-delegated-payments.did';
+ const created=`opt (${createdAtNs} : nat64)`,money=`opt (${fee} : nat)`,payer=`from_subaccount = opt ${sub}`,s=`record { owner = principal "${spender}"; subaccount = null }`,to=`record { owner = principal "${backend}"; subaccount = null }`;
+ const approval=amount=>`(record { ${payer}; spender = ${s}; amount = ${amount} : nat; expected_allowance = opt (${currentAllowance} : nat); expires_at = opt (${expiresAtNs} : nat64); fee = ${money}; memo = null; created_at_time = ${created} })`;
+ const setup=memo=>`(record { ${payer}; to = ${to}; amount = 0 : nat; fee = ${money}; memo = opt ${blob(memo)}; created_at_time = ${created} })`;
+ return{funding_owner:funding.owner,spender,setup_amount_e8s:'0',fee_e8s:String(fee),allowance_e8s:String(allowance),expires_at_ns:String(expiresAtNs),verify_owner:`dfx --identity FUNDING_IDENTITY identity get-principal`,approve:`${head} icrc2_approve '${approval(allowance)}'${flags}`,grant:`${head} icrc1_transfer '${setup(grant)}'${flags}`,revoke_allowance:`${head} icrc2_approve '${approval(0n)}'${flags}`,revoke_game:`${head} icrc1_transfer '${setup(revoke)}'${flags}`,warning:'Each owner operation has its own Ledger fee. Approval is not restricted to B2Z. Verify the selected CLI principal equals the funding owner. Do not blindly retry an uncertain command; keep its original timestamp.'};
+}

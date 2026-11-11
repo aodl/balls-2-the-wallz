@@ -1,3 +1,4 @@
+import{validateAuthorization}from'../../packages/kernels/b2z/delegation-v8.mjs';
 /** V6 presentation facts only. No physics, Ledger admission or action authority. */
 import {V6_POLICY} from '../../packages/kernels/b2z/playability.generated.mjs';
 import {encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
@@ -8,7 +9,7 @@ const ns=n=>check(typeof n==='bigint'&&n>=0n&&n<=18446744073709551615n,'elapsed 
 const same=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);return x.length===y.length&&x.every((v,i)=>v===y[i]);};
 export function trackV6(b){integer(b.id,4294967294,1);integer(b.owner,4294967294,1);for(const k of ['vx','vy'])check(Number.isSafeInteger(b[k])&&Math.abs(b[k])<=65536,'velocity');for(const k of ['x0','y0'])check(typeof b[k]==='bigint'&&b[k]>=-100000000000000n&&b[k]<=100000000000000n,'intercept');check(b.vx||b.vy,'zero velocity');return {id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy};}
 export function validateV6Snapshot(w,ownerAt){
- const s=w.playability;check(s&&w.width===1000&&w.height===1000,'snapshot');ns(s.elapsed_ns);
+ const s=w.playability;check(s&&w.width===1000&&w.height===1000,'snapshot');ns(s.elapsed_ns);if(s.authorization!==undefined)validateAuthorization(s.authorization);
  const bounded=(v,n)=>check(Array.isArray(v)&&v.length<=n,'array bounds');
  bounded(w.cannons,V6_POLICY.max_cannons);bounded(w.balls,V6_POLICY.max_balls);bounded(w.pending,V6_POLICY.max_balls);
  bounded(s.players,V6_POLICY.max_players);bounded(s.territories,V6_POLICY.max_cannons);bounded(s.lifecycle,V6_POLICY.max_cannons);
@@ -75,7 +76,7 @@ export function applyV6Event(view,e){
  }else if(e.kind==='purchase_completed'){
   check(['applied','partially_applied','rejected'].includes(e.status),'purchase status');
  }else if(e.kind==='lifecycle_time'){
-  const s=view.playability;ns(e.previous_elapsed_ns);ns(e.observed_ns);check(s.elapsed_ns===e.previous_elapsed_ns&&e.observed_ns>=s.elapsed_ns,'completion time rollback');check(Array.isArray(e.stamped)&&e.stamped.length<=V6_POLICY.max_cannons,'time fences');
+  const s=view.playability;if(s.authorization!==undefined&&e.authorization!==undefined){validateAuthorization(e.authorization);check(e.authorization.recipient===s.authorization.recipient&&e.authorization.ledger_time_ns>=s.authorization.ledger_time_ns&&(s.authorization.last_position===null||e.authorization.last_position!==null&&e.authorization.last_position>=s.authorization.last_position),'authorization rollback');s.authorization=structuredClone(e.authorization);}else if(s.authorization===undefined)check(e.authorization===undefined,'unexpected authorization state');ns(e.previous_elapsed_ns);ns(e.observed_ns);check(s.elapsed_ns===e.previous_elapsed_ns&&e.observed_ns>=s.elapsed_ns,'completion time rollback');check(Array.isArray(e.stamped)&&e.stamped.length<=V6_POLICY.max_cannons,'time fences');
   for(const f of e.stamped){const l=s.lifecycle.find(l=>l.cannon===f.cannon);check(l&&l.generation===f.generation&&l.deadline_ns===f.deadline_ns&&l.dormant_since_ns===e.observed_ns,'completion fence');}s.elapsed_ns=e.observed_ns;
  }else return false;
  return true;

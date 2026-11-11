@@ -81,3 +81,13 @@ fixed CMC self-top-up route, independently of gameplay and the browser.
 [Policy, recovery and future activation](../operations/PRELAUNCH_SELF_FUNDING.md).
 No player payout or refund feature is added. This task authorizes local
 valueless tests only; value-moving deployment needs separate authorization.
+
+## Optional versioned authorization extension
+
+[DP-01..13](B2Z_DELEGATED_PAYMENTS.md) govern the isolated rules-8 / adapter-5
+feature. Existing direct and rejected-delegate histories retain their old meaning.
+Activation requires the drained authenticated source transition, never a reset.
+The default build exposes no delegated-payment activation methods; compile-time
+`delegated-payments` explicitly enables the separately qualified controller
+procedure. Normal recovery retains already committed versioned state. The game
+continues to accept commands only from actual ICP Ledger transfers.

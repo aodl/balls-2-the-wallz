@@ -8,6 +8,8 @@ try{const v=JSON.parse(storage?.getItem(key));if(Array.isArray(v)&&JSON.stringif
  return {persisted:()=>lastSave,records:()=>records,cachedReceipts:()=>cached,rememberReceipts(rows,snapshot){const merged=new Map(cached.map(r=>[r.position,r]));for(const row of rows)if(!merged.has(String(row.position)))merged.set(String(row.position),JSON.parse(packetKey({...row,snapshot}))); cached=[...merged.values()].slice(-64);try{storage?.setItem(key+':receipts',packetKey(cached));}catch{}},freeze(q){const r=JSON.parse(packetKey({...q,id:`${Date.now()}-${Math.random().toString(36).slice(2)}`,prepared_at:Date.now(),state:'copied'}));records.unshift(r);save();return r;}};
 }
 export function receiptSummary(r){
+ if(r.status==='configured'&&r.reason==='DELEGATION_GRANTED')return 'Game access enabled';
+ if(r.status==='configured'&&r.reason==='DELEGATION_REVOKED')return 'Game access revoked';
  if(r.actual_quantity!==undefined){
   const n=Number(r.actual_quantity),full=n===Number(r.requested_quantity);
   const result=n?(r.new_cannon===true?`Cannon built · ${n} ball${n===1?'':'s'}`:`${n} ball${n===1?'':'s'} launched`):'Action not applied';

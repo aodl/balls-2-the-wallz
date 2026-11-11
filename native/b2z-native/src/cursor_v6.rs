@@ -66,12 +66,67 @@ impl Cursor {
                     self.restart_search()?;
                     return Ok(true);
                 }
-                let payment =
-                    crate::cursor::read_payment(&self.inputs[self.input_index].payload_hex)?;
+                let (payment, authorization) = if self
+                    .world
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .authorization
+                    .is_some()
+                {
+                    let input = &self.inputs[self.input_index];
+                    let p = b2z_protocol::delegation::Payment::decode(&dtr_wire::unhex(
+                        &input.payload_hex,
+                    )?)?;
+                    let decision = self
+                        .world
+                        .playability
+                        .as_mut()
+                        .unwrap()
+                        .authorization
+                        .as_mut()
+                        .unwrap()
+                        .apply(&p, input.position.0.to_u64().ok_or("AUTH_INPUT_POSITION")?)?;
+                    let memo = b2z_protocol::v6::decode_ledger(p.legacy_memo, p.memo.as_deref())
+                        .and_then(b2z_protocol::v6::encode)
+                        .unwrap_or([0; 8]);
+                    (
+                        crate::cursor::Payment {
+                            saved: crate::cursor::PaymentSaved {
+                                account: dtr_wire::hex(&p.from),
+                                amount: Int(p.amount.into()),
+                                spender: p.spender.as_ref().map(|s| dtr_wire::hex(s)),
+                                transfer: Some(
+                                    json!({"to":dtr_wire::hex(&p.to),"fee":Int(p.fee.into()),"memo":p.memo.as_ref().map(|b|dtr_wire::hex(b)),"created_at_ns":p.created_at_ns.map(|n|Int(n.into())),"ledger_time_ns":Int(p.ledger_time_ns.into()),"raw_digest":dtr_wire::hex(&p.raw_digest),"legacy_memo":Int(p.legacy_memo.into())}),
+                                ),
+                            },
+                            memo: memo.to_vec(),
+                        },
+                        Some(decision),
+                    )
+                } else {
+                    (
+                        crate::cursor::read_payment(&self.inputs[self.input_index].payload_hex)?,
+                        None,
+                    )
+                };
                 let amount = payment.saved.amount.0.to_u64().ok_or("PAYMENT_AMOUNT")?;
                 let tally = &self.world.received_e8s.0 + &payment.saved.amount.0;
                 if tally >= BigInt::from(1) << 128usize {
                     return Err("treasury overflow".into());
+                }
+                if let Some(decision) = authorization {
+                    use crate::delegation_v8::Decision;
+                    if decision != Decision::Gameplay {
+                        self.world.received_e8s.0 = tally;
+                        match decision {
+                            Decision::Granted=>self.receipt(&payment.saved,json!({"reason":"DELEGATION_GRANTED","status":"configured","kind":"game_access_granted","amount_used":Int(0.into()),"remainder":payment.saved.amount}))?,
+                            Decision::Revoked=>self.receipt(&payment.saved,json!({"reason":"DELEGATION_REVOKED","status":"configured","kind":"game_access_revoked","amount_used":Int(0.into()),"remainder":payment.saved.amount}))?,
+                            Decision::Rejected(reason)=>self.v6_reject(&payment.saved,reason)?,
+                            Decision::Gameplay=>unreachable!(),
+                        }
+                        return Ok(true);
+                    }
                 }
                 let plan = purchases_v6::prepare(
                     &self.world,
@@ -321,7 +376,13 @@ impl Cursor {
                 }
             }
         }
-        self.emit(json!({"kind":"lifecycle_time","previous_elapsed_ns":previous,"observed_ns":Int(observed_ns.into()),"stamped":stamped}))?;
+        let mut event = json!({"kind":"lifecycle_time","previous_elapsed_ns":previous,"observed_ns":Int(observed_ns.into()),"stamped":stamped});
+        if !self.inputs.is_empty() {
+            if let Some(auth) = &self.world.playability.as_ref().unwrap().authorization {
+                event["authorization"] = serde_json::to_value(auth).map_err(|e| e.to_string())?;
+            }
+        }
+        self.emit(event)?;
         self.v6.as_mut().unwrap().finalized = true;
         self.world.validate()?;
         Ok(())

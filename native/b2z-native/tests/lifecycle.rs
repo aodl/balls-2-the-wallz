@@ -134,6 +134,7 @@ fn maximum_deadline_batch_is_bounded_and_does_not_change_the_paid_clock() {
     w.balls.clear();
     w.pending.clear();
     w.playability = Some(State {
+        authorization: None,
         elapsed_ns: since.clone(),
         next_player_id: 1,
         next_territory_id: MAX_CANNONS as u32 + 1,

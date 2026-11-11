@@ -65,7 +65,13 @@ def main():
     p.add_argument('--pacing-prior-wasm',type=Path,help='Exact installed e1e7 torus module for the pacing-only upgrade')
     p.add_argument('--funding-prior-wasm',type=Path,help='Exact installed 53b219 module for funding state-preserving upgrade')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
-    a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
+    p.add_argument('--delegated-payments',action='store_true',help='Explicit isolated feature build/qualification; never a production activation')
+    p.add_argument('--delegation-prior-wasm',type=Path,help='Explicit normal rules-7 predecessor for the disposable paid upgrade')
+    p.add_argument('--delegation-prior-sha256',help='Independently reviewed SHA-256 of that exact predecessor')
+    a=p.parse_args()
+    if a.delegated_payments and (not a.test_filter or not a.test_filter.startswith('delegated_payments::') or not a.delegation_prior_wasm or not a.delegation_prior_sha256):p.error('delegated qualification needs its explicit test filter and exact predecessor path/hash')
+    if not a.delegated_payments and (a.delegation_prior_wasm or a.delegation_prior_sha256):p.error('delegation predecessor belongs to explicit feature qualification')
+    out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
     lock=tomllib.loads((ROOT/'canisters/runtime-lab/Cargo.lock').read_text())
     host=next(package for package in lock['package'] if package['name']=='dtr-host')
@@ -99,15 +105,17 @@ def main():
     try:
         run('prepare-operator-genesis',['node','tools/prepare_s14_init.mjs','--world-output',str(out/'genesis-world.bin'),'--output',str(out/'example-init.did')],60)
         manifest='canisters/runtime-lab/Cargo.toml';target=ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'
-        for features,name in [([], 'normal'),(['--features','test-hooks'],'test-hooks')]:
+        feature_flags=['--features','delegated-payments'] if a.delegated_payments else []
+        for features,name in [(feature_flags, 'normal'),(['--features','test-hooks,delegated-payments' if a.delegated_payments else 'test-hooks'],'test-hooks')]:
             run('build-'+name,cargo+['build','--manifest-path',manifest,'--release','--target','wasm32-unknown-unknown','--locked','--offline',*features])
             dest=out/(name+'.wasm');shutil.copyfile(target,dest);names=wasm_exports(dest)
             if name=='normal':
                 assert all(not any(x in n for x in ['test_','__canbench','__tracing','ledger_hint','sync_ledger','canister_update apply']) for n in names)
                 assert 'canister_update poke' in names
+                assert ('canister_update prepare_delegation_transition' in names)==a.delegated_payments
             else:assert 'canister_update test_apply' in names
             result['artifacts'].append({'name':name,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'exports':names});save()
-        text=run('host-tests',cargo+['test','--manifest-path',manifest,'--locked','--offline','--','--nocapture'])
+        text=run('host-tests',cargo+['test','--manifest-path',manifest,'--locked','--offline',*feature_flags,'--','--nocapture'])
         candid=text.split('DTR_RUNTIME_CANDID_BEGIN\n',1)[1].split('\nDTR_RUNTIME_CANDID_END',1)[0]+'\n'
         (out/'generated.did').write_text(candid)
         run('build-slow-index-fixture',['cargo','build','--manifest-path','tools/s14-index-fixture/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline'])
@@ -118,6 +126,11 @@ def main():
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
+        if a.delegated_payments:
+            prior_hash=hashlib.sha256(a.delegation_prior_wasm.read_bytes()).hexdigest()
+            if len(a.delegation_prior_sha256)!=64 or prior_hash!=a.delegation_prior_sha256:raise ValueError('delegation predecessor hash mismatch')
+            env.update(B2Z_DELEGATION_WASM=str(out/'normal.wasm'),B2Z_DELEGATION_PRIOR_WASM=str(a.delegation_prior_wasm.resolve()))
+            result['artifacts'].append({'name':'delegation-reviewed-predecessor','path':str(a.delegation_prior_wasm.resolve()),'sha256':prior_hash});save()
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')
             env['B2Z_FUNDING_PRIOR_WASM']=str(a.funding_prior_wasm.resolve())
@@ -183,7 +196,7 @@ def main():
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
         million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect','million_browser_sustained_normal_and_cold_lifeline'}
-        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests)
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=a.delegated_payments or bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests)
         if not a.test_filter:
             installed_suite('installed-million-integration',['million_'],ignored=True)
         if not a.test_filter:

@@ -200,6 +200,7 @@ impl SourceState {
         if ![
             legacy_memo_adapter(),
             b2z_protocol::v6::MEMO_ADAPTER_VERSION,
+            b2z_protocol::delegation::ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -270,6 +271,7 @@ impl SourceState {
         if ![
             legacy_memo_adapter(),
             b2z_protocol::v6::MEMO_ADAPTER_VERSION,
+            b2z_protocol::delegation::ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -322,8 +324,10 @@ impl SourceState {
                 id: tx.id,
                 payload: if self.memo_adapter_version == legacy_memo_adapter() {
                     classify(&tx.transaction, &recipient)?
-                } else {
+                } else if self.memo_adapter_version == b2z_protocol::v6::MEMO_ADAPTER_VERSION {
                     classify_v6(&tx.transaction, &recipient)?
+                } else {
+                    classify_delegation(&tx, &recipient)?
                 },
                 digest: hash(&candid::encode_one(&tx).map_err(|e| e.to_string())?),
             };
@@ -552,6 +556,52 @@ fn classify_with(
         }
     }
 }
+/// Preserve the exact authenticated Index fields. Old classifiers stay unchanged.
+pub fn classify_delegation(
+    row: &TransactionWithId,
+    recipient: &AccountIdentifier,
+) -> Result<Option<String>> {
+    use b2z_protocol::delegation::Payment;
+    let tx = &row.transaction;
+    if let Operation::Transfer {
+        from,
+        to,
+        amount,
+        fee,
+        spender,
+    } = &tx.operation
+    {
+        let from = account(from)?;
+        let to = account(to)?;
+        let spender = spender.as_ref().map(|s| account(s)).transpose()?;
+        if &to != recipient || &from == recipient {
+            return Ok(None);
+        }
+        let timestamp = tx
+            .timestamp
+            .as_ref()
+            .ok_or("AUTH_INDEX_LEDGER_TIMESTAMP_REQUIRED")?
+            .timestamp_nanos;
+        let digest = unhex(&hash(&candid::encode_one(row).map_err(|e| e.to_string())?))?;
+        let p = Payment {
+            from: *from.as_bytes(),
+            spender: spender.map(|s| *s.as_bytes()),
+            to: *to.as_bytes(),
+            amount: amount.e8s,
+            fee: fee.e8s,
+            position: row.id,
+            ledger_time_ns: timestamp,
+            created_at_ns: tx.created_at_time.as_ref().map(|t| t.timestamp_nanos),
+            legacy_memo: tx.memo,
+            memo: tx.icrc1_memo.clone(),
+            raw_digest: digest.try_into().map_err(|_| "AUTH_DIGEST")?,
+        };
+        return Ok(Some(hex(&p.encode()?)));
+    }
+    // Validate all known non-transfer account fields through the existing parser.
+    classify_v6(tx, recipient)
+}
+
 fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
     b2z_protocol::decode_ledger(legacy, blob)
         .map(b2z_protocol::encode)
@@ -849,7 +899,7 @@ mod tests {
         s = serde_json::from_slice(&serde_json::to_vec(&s).unwrap()).unwrap();
         assert_eq!(s.pending.as_ref().unwrap().rows[0].payload, payload);
         assert!(payload.unwrap().ends_with("0000000000000000"));
-        s.memo_adapter_version = 5;
+        s.memo_adapter_version = 6;
         assert!(s.validate().is_err());
         assert!(s.page(page(&[2], Some(1))).is_err());
         for text in [b"ANGLE 37.5".as_slice(), b"MOVE 42".as_slice()] {

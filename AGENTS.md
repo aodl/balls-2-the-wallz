@@ -62,3 +62,12 @@ never consume coverage on an unchanged hidden head, count only distinct advancin
 heads for cadence, and keep latest-head financial authority separate from delayed
 presentation. Run actual pinned-clock/player regressions and label controlled
 lifecycle evidence separately from genuine browser visibility.
+
+## Isolated optional delegated-payment work
+
+The ordinary European frontend remains a manual-payment observer. The explicitly
+requested, disabled-by-default ICRC-2 feature is governed by
+[DP-01..13](docs/specs/B2Z_DELEGATED_PAYMENTS.md), in its separate feature branch.
+An allowance is never gameplay authority; preserve owner-originated grants,
+versioned source/replay identities, immutable intents and exact payment bytes.
+No production upgrade, activation or real allowance/payment is implied.

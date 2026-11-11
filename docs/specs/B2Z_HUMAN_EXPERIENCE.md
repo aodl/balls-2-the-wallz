@@ -712,3 +712,14 @@ A source commit or controller access alone grants no production operation author
 - Record test environments, exact commands/conclusions and concrete release
   blockers in the release report. Temporary task authorization/status belongs in
   that report or operator procedure, not this product contract.
+
+## Optional delegated-payment boundary
+
+The manual release still needs no sign-in and performs no payment. The isolated,
+disabled-by-default optional feature follows [DP-01..13](B2Z_DELEGATED_PAYMENTS.md).
+It extends UX-07/08/09/10/13 only for explicitly authorized signed Ledger
+submission: A remains owner, S is a separately granted spender, G stays certified.
+The cannon icons never spend; final Pay is deliberate. Keep manual instructions,
+coherent copies and the exact Move/Build warning. No frontend gameplay API or
+manual receipt-reporting path is introduced. Unit, actual disposable and real
+Internet Identity/wallet evidence remain distinct.

@@ -135,3 +135,16 @@ coverage precisely. A mobile viewport is not a physical phone.
 The [fresh European installation archive](S14_OPERATOR_FRESH_EUROPE_ARCHIVE.md) and
 [older operator archive](S14_OPERATOR_HISTORICAL.md) are immutable historical
 procedures, not current deployment instructions or authority.
+
+## Isolated optional delegated-payment candidate
+
+See [DP-01..13](../specs/B2Z_DELEGATED_PAYMENTS.md). A future rules-8/adapter-5
+activation is a separate state-preserving backend upgrade and drained transition,
+not this runbook's ordinary frontend asset update. The default module has no
+activation exports; experimental `delegated-payments` builds need independent
+normal/export/Candid, paid-history/pending-input/recovery and actual disposable
+Ledger/Index qualification. Preserve all old publications, financial journals,
+controllers, source fences and current paid world. Never reset for delegation.
+Owner approval/revocation of a Ledger allowance is a separate financial action;
+signing out is not revocation. No live activation/payment/settings authority is
+implied by access to the candidate or by controller access.

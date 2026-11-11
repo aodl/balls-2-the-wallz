@@ -225,6 +225,66 @@ pub fn entry_candidate<K: Kernel>(
     ))
 }
 
+/// Experimental drained authorization cutover; all prior game fields survive.
+#[cfg(feature = "delegated-payments")]
+pub fn delegation_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    _observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    if t.version != 5
+        || t.phase != "ready"
+        || source.pending.is_some()
+        || source.in_flight
+        || !source.binding_checked
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION
+    {
+        return Err("delegation source cutover not drained".into());
+    }
+    let expected = b2z_native::entry_v7::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("delegation requires exact rules-7 predecessor identity".into());
+    }
+    let state = unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&state)?;
+    if old.version != 6
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+        || !old.pending.is_empty()
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+        || h.record.journal.head.seal.is_none()
+        || h.record.journal.stage.is_some()
+        || !h.record.inbox.pending.is_empty()
+        || h.record.inbox.cursor != h.record.inbox.retired_to
+    {
+        return Err("delegation requires committed gameplay/source boundary".into());
+    }
+    let next = b2z_native::delegation_v8::migrate(&old, source.recipient_hex.clone())?;
+    let state = next.encode()?;
+    let mut id = b2z_native::delegation_v8::identity()?;
+    id["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    let metadata = json!({"version":5,"migration":"B2Z_DELEGATED_PAYMENT_RULES_08","old_identity":h.record.journal.identity,"new_identity":identity,"previous_state":hash(&old.encode()?),"new_state":hash(&state),"logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),"ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,"index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,"memo_adapter_before":source.memo_adapter_version,"memo_adapter_after":b2z_protocol::delegation::ADAPTER_VERSION,"receiving_account":source.recipient_hex});
+    Ok((
+        Output {
+            state,
+            events: encode(
+                &json!({"version":6,"receipts":[],"events":[{"kind":"rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+            )?,
+            scores: encode(&json!({"version":6,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 use super::{
     ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
     save_root_only, Root,
@@ -789,6 +849,72 @@ mod tests {
                 entry_candidate(&entry, &ready(4), &source, observed).is_err(),
                 "never reinterpret/repeat a rules-7 activation"
             );
+            #[cfg(feature = "delegated-payments")]
+            {
+                let before = entry.snapshot().unwrap();
+                let mut delegated = Coordinator::restore(
+                    &before,
+                    &hash(&before),
+                    ExplicitClock(observed + 1000000000),
+                )
+                .unwrap();
+                assert!(
+                    delegation_candidate(&delegated, &ready(5), &source, observed).is_err(),
+                    "an epoch checkpoint is not a sealed predecessor"
+                );
+                ordinary(&mut delegated);
+                let authorization_predecessor =
+                    unhex(&delegated.record.journal.head.state_hex).unwrap();
+                let (out, metadata, id) =
+                    delegation_candidate(&delegated, &ready(5), &source, observed).unwrap();
+                let mut changed = World::decode(&out.state).unwrap();
+                let registry = changed
+                    .playability
+                    .as_mut()
+                    .unwrap()
+                    .authorization
+                    .take()
+                    .unwrap();
+                assert!(registry.grants.is_empty());
+                assert_eq!(registry.recipient, source.recipient_hex);
+                assert_eq!(
+                    changed.encode().unwrap(),
+                    authorization_predecessor,
+                    "authorization adds no financial/gameplay changes"
+                );
+                let mut wrong = source.clone();
+                wrong.in_flight = true;
+                assert!(delegation_candidate(&delegated, &ready(5), &wrong, observed).is_err());
+                wrong = source.clone();
+                wrong.pending = Some(pending(100));
+                assert!(delegation_candidate(&delegated, &ready(5), &wrong, observed).is_err());
+                wrong = source.clone();
+                wrong.memo_adapter_version = 3;
+                assert!(delegation_candidate(&delegated, &ready(5), &wrong, observed).is_err());
+                apply_rules(&mut delegated, &out, &metadata, id);
+                assert_eq!(delegated.record.inbox.cursor, old_cursor);
+                assert_eq!(delegated.record.inbox.source_anchor, old_anchor);
+                assert_eq!(
+                    encode(&delegated.record.inbox.pending).unwrap(),
+                    old_pending
+                );
+                assert_eq!(
+                    encode(&delegated.record.inbox.reservation).unwrap(),
+                    old_reservation
+                );
+                let image = delegated.snapshot().unwrap();
+                let restored = Coordinator::restore(
+                    &image,
+                    &hash(&image),
+                    ExplicitClock(observed + 1000000000),
+                )
+                .unwrap();
+                assert_eq!(restored.snapshot().unwrap(), image);
+                assert!(
+                    delegation_candidate(&restored, &ready(5), &source, observed).is_err(),
+                    "no repeated cutover or historical reinterpretation"
+                );
+            }
         }
         ordinary(&mut h);
         record(&h, None);

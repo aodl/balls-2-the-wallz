@@ -74,6 +74,7 @@ fn world(balls: usize) -> World {
     w.credits.clear();
     w.received_e8s = Int(0.into());
     w.playability = Some(v6::State {
+        authorization: None,
         elapsed_ns: Int(0.into()),
         next_player_id: players as u32 + 1,
         next_territory_id: players as u32 + 1,

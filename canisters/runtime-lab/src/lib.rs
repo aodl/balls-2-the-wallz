@@ -1,6 +1,7 @@
 //! Authoritative B2Z host with one account-index adapter and certified observation.
 //! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
+mod delegation_wire;
 mod funding;
 mod health;
 mod operation_kernel;
@@ -165,6 +166,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     entry_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    delegation_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -271,6 +274,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.delegation_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -287,6 +291,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.delegation_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -300,6 +305,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.playability_transition.as_mut()
     } else if flags[3] {
         r.entry_transition.as_mut()
+    } else if flags[4] {
+        r.delegation_transition.as_mut()
     } else {
         None
     })
@@ -313,6 +320,7 @@ fn transition_evidence<'a>(
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.delegation_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -445,6 +453,12 @@ fn root() -> AppResult<Root> {
             return Err("entry transition version".into());
         }
     }
+    if let Some(t) = &r.delegation_transition {
+        t.validate()?;
+        if t.version != 5 {
+            return Err("delegation transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -463,6 +477,15 @@ fn root() -> AppResult<Root> {
     r.source.validate()?;
     let pb = unhex(&r.publication_hex)?;
     let p: Publication = decode(&pb)?;
+    let delegation = b2z_native::delegation_v8::identity()?;
+    let delegated = p.identity.rules_hash == delegation["rules_hash"].as_str().unwrap();
+    if delegated != (r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION)
+        || delegated
+            && (p.identity.config_hash != delegation["config_hash"].as_str().unwrap()
+                || p.identity.schema_hash != delegation["schema_hash"].as_str().unwrap())
+    {
+        return Err("delegation source/rules/schema binding".into());
+    }
     if hash(&pb) != r.publication_hash
         || !matches!(p.version, 6..=9)
         || p.render_format.is_some()
@@ -492,6 +515,7 @@ fn root() -> AppResult<Root> {
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.delegation_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -772,6 +796,7 @@ fn persist_inner(
         million_transition: old.and_then(|r| r.million_transition.clone()),
         playability_transition: old.and_then(|r| r.playability_transition.clone()),
         entry_transition: old.and_then(|r| r.entry_transition.clone()),
+        delegation_transition: old.and_then(|r| r.delegation_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -2051,9 +2076,12 @@ async fn reconcile() -> AppResult<()> {
         if trap_after_reply {
             ic_cdk::trap("S14 injected B2Z response-handler trap after index await");
         }
-        let result: source::HistoryResult = response
-            .candid()
-            .map_err(|e| format!("index response decode: {e}"))?;
+        let bytes = response.into_bytes();
+        if r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
+            delegation_wire::check(&bytes)?;
+        }
+        let result: source::HistoryResult =
+            candid::decode_one(&bytes).map_err(|e| format!("index response decode: {e}"))?;
         let page = result.map_err(|e| format!("index error: {}", e.message))?;
         finish_page(&lease, Some(page))
     }
@@ -2679,6 +2707,144 @@ fn commit_entry_transition(
     request_reconciliation()?;
     encode(&next.entry_transition)
 }
+/// Experimental optional authorization activation at the exact rules-7 predecessor.
+/// The existing fenced source worker obtains its own Ledger/Index watermarks.
+#[cfg(feature = "delegated-payments")]
+#[ic_cdk::update]
+fn prepare_delegation_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if r.source.receiving_subaccount != 0 {
+        return Err("delegation v1 requires default receiving subaccount".into());
+    }
+    if let Some(t) = &r.delegation_transition {
+        return encode(t);
+    }
+    if r.run.running {
+        return Err("pause autonomous gameplay before rules-8 cutover".into());
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let expected = b2z_native::entry_v7::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("delegation requires exact rules-7 predecessor".into());
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 6 || r.source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION {
+        return Err("only current rules-7 world can activate rules-8".into());
+    }
+    if r.source.in_flight
+        || r.source.pending.is_some()
+        || r.source.last_error.is_some()
+        || r.run.last_error.is_some()
+        || r.lifecycle_error.is_some()
+        || r.lifecycle_barrier.is_some()
+    {
+        return Err(
+            "finish existing source reconciliation and recover errors before cutover".into(),
+        );
+    }
+    r.delegation_transition = Some(transition::Transition::delegation());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.delegation_transition)
+}
+#[cfg(feature = "delegated-payments")]
+#[ic_cdk::query]
+fn delegation_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition":r.delegation_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
+    )
+}
+/// Derives the rules-8 metadata once. No caller-supplied world, time or identities.
+#[cfg(feature = "delegated-payments")]
+#[ic_cdk::update]
+fn commit_delegation_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .delegation_transition
+        .as_ref()
+        .ok_or("prepare rules-8 cutover first")?;
+    if t.phase == "complete" {
+        if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
+            return Err("conflicting rules-8 transition retry".into());
+        }
+        let expected = b2z_native::delegation_v8::identity()?;
+        let identity =
+            serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+        if ["rules_hash", "config_hash", "schema_hash"]
+            .iter()
+            .any(|k| identity[*k] != expected[*k])
+        {
+            return Err("completed rules-8 transition has been superseded".into());
+        }
+        return encode(t);
+    }
+    if r.run.running
+        || r.run.last_error.is_some()
+        || r.lifecycle_barrier.is_some()
+        || r.lifecycle_error.is_some()
+    {
+        return Err(
+            "rules-8 activation requires paused error-free autonomous configuration".into(),
+        );
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let (output, metadata, identity) =
+        playability_runtime::delegation_candidate(&h, t, &r.source, ic_cdk::api::time())?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.delegation_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    // Atomic drained cutover: old normalized inputs remain committed under v4.
+    r.source.memo_adapter_version = b2z_protocol::delegation::ADAPTER_VERSION;
+    r.source.requested = true;
+    // Preserve existing lifecycle evidence, deadlines and recovery state.
+    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&next.run);
+    playability_runtime::install(&next)?;
+    request_reconciliation()?;
+    encode(&next.delegation_transition)
+}
 /// Content-addressed application metadata. Hash against the independently
 /// authenticated epoch.metadata_hash; this convenience reply is not certified.
 #[ic_cdk::query]
@@ -2692,6 +2858,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.delegation_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -3169,7 +3336,11 @@ mod tests {
         #[cfg(not(feature = "test-hooks"))]
         candid_parser::utils::service_equal(
             candid_parser::utils::CandidSource::Text(&super::__export_service()),
-            candid_parser::utils::CandidSource::Text(include_str!("../runtime-lab.did")),
+            candid_parser::utils::CandidSource::Text(if cfg!(feature = "delegated-payments") {
+                include_str!("../runtime-lab-delegated-payments.did")
+            } else {
+                include_str!("../runtime-lab.did")
+            }),
         )
         .unwrap();
     }

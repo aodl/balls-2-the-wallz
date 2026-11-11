@@ -46,3 +46,10 @@ Underfunded/invalid/capacity-failed **game** operations retain incoming ICP, wit
 ## Supported paths and gates
 
 Legacy direct-transfer and ICRC-1 direct-transfer are the two targeted paths. S09 executes only legacy direct-transfer against the local upstream artifact, including destination, amount, memo and funding-account validation. No named wallet has been compatibility-certified. Before accepting money, test exact memo preservation, account identity/subaccounts, repeated identical transfers and ledger deduplication, fees, source delivery, and prominent no-refund warnings using test funds. Never experiment with potentially lossy memos using real ICP.
+
+## Optional authorization memos
+
+The isolated rules-8 / source-adapter-5 extension is specified in
+[B2Z delegated payments](B2Z_DELEGATED_PAYMENTS.md). Its domain-separated owner
+grant/revoke bytes are not gameplay commands and are never decoded by historical
+adapters. Existing canonical gameplay memo bytes remain unchanged.

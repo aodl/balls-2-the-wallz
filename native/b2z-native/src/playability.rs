@@ -38,6 +38,8 @@ pub struct Lifecycle {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct State {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub authorization: Option<crate::delegation_v8::Registry>,
     pub next_territory_id: u32,
     pub territories: Vec<crate::territory_v6::Territory>,
     pub elapsed_ns: Int,
@@ -107,6 +109,9 @@ impl State {
     }
     pub fn validate(&self, world: &World) -> Result<()> {
         let now = elapsed(&self.elapsed_ns)?;
+        if let Some(auth) = &self.authorization {
+            auth.validate()?;
+        }
         if self.players.len() > MAX_PLAYERS
             || self.players.windows(2).any(|p| p[0].id >= p[1].id)
             || self
@@ -197,6 +202,7 @@ pub fn migrate(world: &World, observed_ns: u64) -> Result<World> {
     let mut next = world.clone();
     next.version = 6;
     next.playability = Some(State {
+        authorization: None,
         elapsed_ns: Int(observed_ns.into()),
         next_player_id: world.next_cannon_id,
         next_territory_id: world.next_cannon_id,

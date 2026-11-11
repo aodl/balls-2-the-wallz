@@ -24,6 +24,10 @@ pub struct Input {
 pub(crate) struct PaymentSaved {
     pub account: String,
     pub amount: Int,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub spender: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub transfer: Option<Value>,
 }
 pub(crate) struct Payment {
     pub saved: PaymentSaved,
@@ -96,6 +100,8 @@ pub(crate) fn read_payment(s: &str) -> Result<Payment> {
     let amount = u64::from_be_bytes(b[40..48].try_into().map_err(|_| "payment amount")?);
     Ok(Payment {
         saved: PaymentSaved {
+            spender: None,
+            transfer: None,
             account: hex(&b[8..40]),
             amount: Int(BigInt::from(amount)),
         },
@@ -340,16 +346,21 @@ impl Cursor {
         let million = million_identity()?;
         let playability = crate::playability::identity()?;
         let entry = crate::entry_v7::identity()?;
+        let authorization = crate::delegation_v8::identity()?;
+        let is_auth = context.get("config_hash") == authorization.get("config_hash");
         let is_entry = context.get("config_hash") == entry.get("config_hash");
         let is_playability = context.get("config_hash") == playability.get("config_hash");
         let is_million = context.get("config_hash") == million.get("config_hash");
         let is_torus = context.get("config_hash") == torus.get("config_hash");
-        let is_current = is_entry
+        let is_current = is_auth
+            || is_entry
             || is_playability
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_entry {
+        let expected = if is_auth {
+            authorization
+        } else if is_entry {
             entry
         } else if is_playability {
             playability
@@ -369,7 +380,7 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_entry || is_playability {
+            != if is_auth || is_entry || is_playability {
                 6
             } else if is_million {
                 5
@@ -380,6 +391,14 @@ impl Cursor {
             }
         {
             return Err("world/identity mismatch".into());
+        }
+        if world
+            .playability
+            .as_ref()
+            .is_some_and(|s| s.authorization.is_some())
+            != is_auth
+        {
+            return Err("authorization/schema identity".into());
         }
         let start = Rat::integer(context_int(context, "logical_start")?);
         let end = Rat::integer(context_int(context, "logical_end")?);
@@ -405,8 +424,8 @@ impl Cursor {
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
-            v6: (is_entry || is_playability).then(|| crate::cursor_v6::State {
-                entry_rules: is_entry,
+            v6: (is_auth || is_entry || is_playability).then(|| crate::cursor_v6::State {
+                entry_rules: is_auth || is_entry,
                 ..Default::default()
             }),
             join_e8s: is_current.then(|| Int(BigInt::from(JOIN_E8S))),
@@ -458,10 +477,14 @@ impl Cursor {
             .position
             .clone();
         self.input_index += 1;
-        self.receipts.push(merge(
-            json!({"position":pos,"account":p.account,"amount":p.amount}),
-            outcome.clone(),
-        ));
+        let mut record = json!({"position":pos,"account":p.account,"amount":p.amount});
+        if let Some(spender) = &p.spender {
+            record["spender"] = json!(spender);
+        }
+        if let Some(transfer) = &p.transfer {
+            record["transfer"] = transfer.clone();
+        }
+        self.receipts.push(merge(record, outcome.clone()));
         if outcome.get("reason").and_then(Value::as_str) == Some("ACCEPTED") {
             self.emit(outcome)?;
         }

@@ -68,3 +68,13 @@ presentation factor is 0.5–1.5× supported pace; the pinned clock remains the 
 endpoint ceiling. See UX-04/05/06 and `tests/js/elastic-playback.test.mjs`.
 Never quote from the intentionally delayed presentation or treat a copied packet
 as a receipt. Controlled return fixtures are not genuine hidden-tab evidence.
+
+## Optional signing implementation
+
+[Financial authorization contracts](../specs/B2Z_DELEGATED_PAYMENTS.md) govern
+the isolated ICRC-2 implementation. Keep the default manual frontend independent.
+Auth and signed Ledger modules belong behind an explicit compile-time boundary;
+never enable them by a URL/local-storage switch. Memory-only II credentials are
+separate from nonsecret durable payment intents. Require owner grant + allowance,
+latest certified quotes, exact destination and a deliberate final click.
+No production payment or feature enable is part of a frontend source build.

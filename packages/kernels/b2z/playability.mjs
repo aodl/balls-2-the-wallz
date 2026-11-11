@@ -1,3 +1,4 @@
+import{validateAuthorization}from'./delegation-v8.mjs';
 import{pruneEmptyTerritory,territoryBalls,territoryPlayer}from'./territory-v6.mjs';
 /** Rules-v6 state/time helpers. Every clock value is supplied explicitly. */
 import {cloneCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
@@ -15,7 +16,7 @@ export const player=(w,id)=>find(w.playability?.players??[],id,'id');
 export function playerForCannon(w,id){return w.version===6?life(w,id)?.player:w.cannons.find(c=>c.id===id)?.id;}
 export function accountForPlayer(w,id){return w.version===6?player(w,id)?.account:w.cannons.find(c=>c.id===id)?.account;}
 export function validatePlayability(w){
- const s=w.playability;if(!s||Object.keys(s).sort().join(',')!=='elapsed_ns,lifecycle,next_player_id,next_territory_id,players,territories')throw Error('PLAYER_IDENTITY');elapsed(s.elapsed_ns);
+ const s=w.playability;if(!s||!['elapsed_ns,lifecycle,next_player_id,next_territory_id,players,territories','authorization,elapsed_ns,lifecycle,next_player_id,next_territory_id,players,territories'].includes(Object.keys(s).sort().join(',')))throw Error('PLAYER_IDENTITY');elapsed(s.elapsed_ns);if(s.authorization!==undefined)validateAuthorization(s.authorization);
  if(!Array.isArray(s.players)||s.players.length>V6_POLICY.max_players||!ordered(s.players,'id')||!Array.isArray(s.lifecycle)||s.lifecycle.length!==w.cannons.length)throw Error('PLAYER_IDENTITY');
  integer(s.next_player_id,(s.players.at(-1)?.id??0)+1);const accounts=new Set(),retained=new Map(),anchors=new Map(),pools=new Map();
  for(const p of s.players){if(Object.keys(p).sort().join(',')!=='account,id'||!/^[0-9a-f]{64}$/.test(p.account))throw Error('PLAYER_IDENTITY');if(accounts.has(p.account))throw Error('PLAYER_ACCOUNT_CONFLICT');accounts.add(p.account);}
