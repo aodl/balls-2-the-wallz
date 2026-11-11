@@ -1,25 +1,47 @@
 # Fluid player experience — candidate qualification
 
-**Implemented and frozen locally, including the Move/Build warning. Not deployed.**
-The final source is `5c2bb2772dbaad95b50fc77cdabb50ba26e36cee`.
-[Complete sixteen-file manifest](frontend-files.json):
-`f1dc14eaafcb243dc3258c1a07832e34cd26ec526bc8c21a8f422b5ecef999da`.
-JavaScript: `4c0d389331ff1764fc328c04f4c0df0658ba8414666dd9d9aeceb024cd79aced`.
-[Provenance](build-manifest.json) records a clean source and unchanged locked
-dependencies. Actual files and all maintained bundled inputs were checked.
+**Implemented and frozen locally; not deployed or fully release-qualified.** The
+current runtime source is `4dd90b394b2dd32f2218d3887ef14938f91514b7`.
+[Complete sixteen-file replacement manifest](frontend-files-recovery.json):
+`03be346cdae416cfb77b071b16fa14355d07644642953c79e319c800afb2cd1d`.
+JavaScript: `90f34c3d76b3ceb837d8361c259b14018f1d3c6e591f5fee2d49231c9ad6af46`.
+[Clean provenance](build-manifest-recovery.json). The initial `5c2bb277` warning
+candidate and its [original manifest](frontend-files.json)/[provenance](build-manifest.json)
+remain preserved, with JS `4c0d3893…`; the two artifacts are not interchangeable.
+Only the replacement bundle and build provenance differ in the complete file set.
 
-**Not ready for production approval:** the owner published evidence source
-`67ae8e05e252dc0030183254fb978453a6e3b45a`. [CI run 42920726039](https://github.com/aodl/balls-2-the-wallz/actions/runs/42920726039)
-completed with four substantive passes and two failures, detailed in
-[the exact-source CI record](ci-67ae8e0.json). The corrections concern verification
-code, not these frozen runtime bytes. The corrected complete interface journeys
-and installed payment/reconnect/upgrade browser path pass locally. The local
-installed million-cell startup gate remains unresolved; an unchanged baseline
-fails the same predicate. Hosted qualification of the corrective commit remains
-NOT_RUN; the owner is away and local work continues without requiring a push.
-Rendered native hidden-return and hardware/phone performance are coverage
-limitations, separate from demonstrated application failures. The paid European
-backend and deployed tactical assets remain untouched.
+[The full local source gate](source-recovery-verification.json) passes **1,812 JS /
+199 Python tests**, reference outputs, source structure and documentation checks.
+The exact replacement assets pass desktop/390/320 [read-only European browser checks](frozen-recovery-browser.json),
+including real certificate verification, full served loopback file equality,
+principal/text wallet copies, Update/Keep and unchanged clock/queue identity.
+No production frontend publication occurred.
+
+**Not ready for production approval:** published source `67ae8e05e252dc0030183254fb978453a6e3b45a`
+has four substantive passes and two failures in
+[CI run 42920726039](https://github.com/aodl/balls-2-the-wallz/actions/runs/42920726039).
+[Exact job record](ci-67ae8e0.json). Hosted qualification of this replacement remains
+NOT_RUN; no CI pass is assumed while the owner is away. Verification corrections
+pass their focused installed/payment/browser paths. The measured cold recovery
+now gets past startup, but the [90-second Normal continuity assertion still fails](million-recovery-failure.json):
+about 0.846 backend ticks/s versus 0.111 admitted and 0.100 displayed ticks/s,
+47 stalled samples and four resyncs. Fetch peaked at 10.98 seconds and catch-up at
+17.62 seconds. This is a real failed assertion under the captured software/shared
+host conditions, not a hardware pass or proof of a new backend defect. No assertion,
+producer rate, reserve threshold or authentication check was weakened to hide it.
+Rendered native hidden-return and hardware/phone performance remain separate
+coverage limitations.
+
+The [read-only production status](production-readonly-recovery.json), at
+2026-11-11 01:19:28 UTC, confirms backend module
+`612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`, total cycles
+**1,666,517,331,689**, reserved cycles zero. Public status does not provide the SDK's
+in-callback liquid balance; it is not inferred by subtracting reservations again.
+The live source is healthy with no pending record, Trickle **0.01 ticks/s** and
+admission open. Exact rules-7 configuration/source/receiving account remain bound.
+The paid European backend, controllers/settings, financial authority and deployed
+tactical assets remain untouched. The optional delegated-payment implementation
+lives in a separate branch and is absent from this frontend candidate.
 
 ## Implemented contract
 
@@ -532,3 +554,19 @@ old cold-resync discard rule. Twenty-eight focused playback/live tests pass; the
 new installed browser result and new frozen artifact identity must be recorded
 before this replacement is considered qualified. Original frozen `5c2bb277`
 assets and all red/incomplete evidence remain retained.
+
+### Recovery qualification closeout
+
+The recovery policy change has a demonstrated red/green pinned-clock regression
+and 28 focused live/playback passes. The complete source and exact frozen-browser
+checks above pass. Installed startup succeeds where the prior capture stayed
+BUFFERING, but continuous Normal delivery remains FAIL with the recorded latency
+metrics; neither that result nor the earlier epoch native-click timeout is hidden.
+The existing populated captures still apply to unchanged renderer, camera, shell,
+composer, CSS and protocol inputs; only authenticated resync retention changed.
+No hardware or production-cadence guarantee follows from them.
+
+Remote head was read-only rechecked at `67ae8e05…`. No push was repeated. A future
+ordinary owner push must obtain all six substantive gates on the resulting exact
+source; the informational inventory job does not qualify it. Production publication
+and any bounded frontend rollback still require a separate release approval.

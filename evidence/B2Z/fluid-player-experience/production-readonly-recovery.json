@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-11-11T01:19:28.178Z",
+  "scope": "read-only anonymous management status; not SDK in-callback liquid balance or gross cost",
+  "backend": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "total_cycles": "1666517331689",
+  "reserved_cycles": "0",
+  "module_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "canister_version": "57164",
+  "status_visibility": {
+    "public": null
+  }
+}
