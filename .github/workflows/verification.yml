@@ -178,6 +178,8 @@ jobs:
           python -B tools/verify_fluid_browser.py --output .work/ci-fluid-journeys --video
           python -B tools/verify_fluid_depth.py --fixture-dir .work/ci-human-experience --output .work/ci-fluid-depth
           python -B tools/verify_elastic_browser.py --fixture-dir .work/ci-fluid-journeys --output .work/ci-elastic-return --video
+      - name: Player refinement target integrity and panel geometry
+        run: python -B tools/verify_refinement_browser.py --output .work/ci-player-refinement --video
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -196,6 +198,7 @@ jobs:
             .work/ci-fluid-journeys/**
             .work/ci-fluid-depth/**
             .work/ci-elastic-return/**
+            .work/ci-player-refinement/**
           if-no-files-found: warn
           retention-days: 14
 

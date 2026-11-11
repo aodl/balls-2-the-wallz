@@ -12,6 +12,7 @@ export const transferMemo=degrees=>describeTextMemo('angle',degrees);
 export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Payments and unused ICP are kept; no automatic refunds.';}
 export function createArcade(doc){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
+ let intentVersion=0;
  let sitesWorld=null,sitesConfig=null,sitesAccount=null,sitesRevision=null,eligibleSites=[];
  let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='0',worldAngle='225',siteKey='',cell=null,packet=null,keepPrevious=false,quote=null,manual=null,busy=false,pending=null,warning='',status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,planningBehind=false,activityKey='',rosterKey='',waitingSince=null;
  try{storage=globalThis.localStorage;}catch{}
@@ -20,7 +21,7 @@ export function createArcade(doc){
  const emit=()=>{const key=[view,mode,id,$('workspace').hidden,Boolean(warning),Boolean(manual)].join('/');if(key!==overlayKey){overlayKey=key;doc.dispatchEvent(new CustomEvent('b2z-overlay'));}};
  function rememberDraft(){if(view==='action')drafts.set(draftKey(mode),{cell,degrees,worldAngle,quantity:$('ball-quantity').value});}
  function show(name,title){
-  if(name!=='action')rememberDraft();if(!$('workspace').contains(doc.activeElement))opener=doc.activeElement;if(view!==name)doc.querySelector('.panel-body').scrollTop=0;view=name;$('workspace').hidden=false;
+  if(name!=='action')rememberDraft();if(!$('workspace').contains(doc.activeElement))opener=doc.activeElement;if(view!==name)doc.querySelector('.panel-scroll').scrollTop=0;view=name;$('workspace').hidden=false;
   for(const n of doc.querySelectorAll('.panel-view'))n.hidden=n.id!==name+'-view';
   text('panel-title',title);emit();
  }
@@ -45,19 +46,19 @@ export function createArcade(doc){
  }
  function renderPacket(q){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',q.owner);text('text-memo',q.memo);text('paying-account',q.payer??q.account);
-  text('payment-risk',paymentWarning(q));
+  text('payment-risk',paymentWarning(q));$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
  }
  function refresh(){
   $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(warning);
   const c=selected(),own=Boolean(c&&declaration&&c.account===declaration.account);
   $('join-action').hidden=!world||Boolean(declaration&&mine().length);$('centre-cannon').hidden=!mine().length;text('centre-cannon',mine().length===1?'My cannon':'My cannons');
-  $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own||world?.version!==6;$('build-action').disabled=Boolean(own&&world?.version===6&&!buildSites().length);$('build-action').setAttribute('aria-describedby','inspect-note');$('fire-action').setAttribute('aria-label',c?.dormant?'Revive':'Fire');$('fire-action').title=c?.dormant?'Revive':'Fire';
+  $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own||world?.version!==6;$('build-action').disabled=Boolean(own&&world?.version===6&&!buildSites().length);$('build-action').setAttribute('aria-describedby','inspect-note');$('fire-action').setAttribute('aria-label',c?.dormant?'Revive':'Fire');$('fire-action').title=c?.dormant?'Revive':'Fire';$('fire-action').dataset.revive=String(Boolean(c?.dormant));
   $('fire-action').disabled=Boolean(own&&c.next_ball_e8s===null);$('fire-action').setAttribute('aria-describedby','inspect-note');
   $('move-action').disabled=Boolean(c?.dormant);$('move-action').setAttribute('aria-describedby','inspect-note');$('move-action').title=c?.dormant?'Revive the island before moving.':'Move';
   text('cannon-life',c?`${own?'Your cannon':'Opponent cannon'} #${c.id} · ${c.dormant?'Dormant':`Island balls ${c.balls} · ${c.owned_count} tiles`}`:'Cannon no longer present.');text('inspect-note',own&&c.next_ball_e8s===null?'Ball capacity reached.':own&&c?.dormant?'Revive before moving or its on-chain expiry.':own&&world?.version===6&&!buildSites().length?buildReason():'');
-  const cannonContext=Boolean(c&&['inspect','action'].includes(view));$('inspect-note').hidden=!cannonContext;$('workspace').dataset.surface=cannonContext?'context':'global';$('workspace').dataset.expanded=view==='action'?'true':'false';$('workspace').style.setProperty('--tool-count',own?(world?.version===6?5:4):2);$('context-actions').hidden=!cannonContext||!own;
+  const cannonContext=Boolean(c&&['inspect','action'].includes(view));$('inspect-note').hidden=!cannonContext||!$('inspect-note').textContent;$('workspace').dataset.surface=cannonContext?'context':'global';$('workspace').dataset.expanded=view==='action'?'true':'false';$('workspace').style.setProperty('--tool-count',own?(world?.version===6?5:4):2);$('context-actions').hidden=!cannonContext||!own;
   for(const [name,value]of [['fire-action','ball'],['move-action','move'],['build-action','start']]){const active=view==='action'&&mode===value;$(name).setAttribute('aria-pressed',String(active));$(name).setAttribute('aria-expanded',String(active));}
-  $('angle-controls').hidden=mode==='move';$('quantity-controls').hidden=mode!=='ball'||world?.version!==6;$('move-controls').hidden=mode!=='move';$('new-controls').hidden=mode!=='start'||!mine().length||world?.version!==6;
+  text('quantity-label',Number($('ball-quantity').value)>1?'Up to':'Balls');$('angle-controls').hidden=mode==='move';$('quantity-controls').hidden=mode!=='ball'||world?.version!==6;$('move-controls').hidden=mode!=='move';$('new-controls').hidden=mode!=='start'||!mine().length||world?.version!==6;
   if(view==='action'){
    if(mode==='start'&&mine().length&&world?.version===6){const sites=buildSites(),key=sites.join(',')+'/'+cell;if(key!==siteKey){siteKey=key;const choices=[new Option('Choose on the board',''),...sites.map(n=>new Option(`Cell ${n}`,n))];if(cell!==null&&!sites.includes(cell)){const old=new Option(`Cell ${cell} · unavailable`,cell);old.disabled=true;choices.push(old);}$('new-cell').replaceChildren(...choices);$('new-cell').value=cell??'';}}
    text('panel-title',c?`Cannon #${c.id}`:'New cannon');text('action-prompt',mode==='move'?'Choose a Tile & Pay':mode==='start'&&mine().length?'Choose a Tile, Aim & Pay':'Aim & Pay');text('chosen-destination',cell===null?'':`Tile ${cell}`);
@@ -66,7 +67,7 @@ export function createArcade(doc){
    if(!$('prepared-card').hidden)renderPacket(packet??quote);
    $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(quote?.reason)||changed||Boolean(warning);
    text('preparation-note',warning||(!status.canPrepare?status.label:quote?.reason??(keepPrevious&&differs?'Saved quote; the current price or conditions have changed.':'')));
-   text('placement-note',planningBehind?'Preview uses the latest verified position.':mode==='start'?(mine().length?'Choose an empty neighbouring tile. One ball included.':'Automatic first site. One ball included.'):mode==='ball'&&Number($('ball-quantity').value)>1?'Capacity may limit fulfilment.':'');
+   text('placement-note',planningBehind?'Preview uses the latest verified position.':mode==='start'&&!mine().length?'Automatic first site.':'');
   }
   emit();
  }
@@ -89,6 +90,7 @@ export function createArcade(doc){
  function buildReason(){try{quoteV6(world,config,declaration.account,{kind:'new',angle:'0',quantity:1,cell:null});return 'Choose an empty neighbouring tile.';}catch(e){return ({PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',BALL_CAPACITY:'Ball capacity reached.'})[e.message]??(mine().every(c=>c.dormant)?'Revive an island before building.':'No empty eligible neighbour is available.');}}
  function buildSites(){if(world?.version!==6||!declaration)return[];if(sitesWorld===world&&sitesConfig===config&&sitesAccount===declaration.account&&sitesRevision===revision)return eligibleSites;sitesWorld=world;sitesConfig=config;sitesAccount=declaration.account;sitesRevision=revision;eligibleSites=legalAdjacentSites(world,declaration.account).filter(site=>{try{quoteV6(world,config,declaration.account,{kind:'new',angle:'0',quantity:1,cell:site});return true;}catch{return false;}});return eligibleSites;}
  function action(value){
+  intentVersion++;
   if(!declaration){pending=value;api.openAccount();return;}
   if(value!=='start'&&selected()?.account!==declaration.account){if(mine().length===1)id=mine()[0].id;else{api.openRoster();return;}}
   if(view==='action'&&mode===value){rememberDraft();show('inspect',`Cannon #${id}`);refresh();return;}
@@ -99,7 +101,7 @@ export function createArcade(doc){
   $('angle-degrees').value=degrees;$('move-cell').value=value==='move'?cell??'':'';$('new-cell').value=value==='start'?cell??'':'';
   show('action',id===null?'New cannon':`Cannon #${id}`);refresh();
  }
- $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){packet=null;keepPrevious=false;warning='';id=null;mode='inspect';}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
+ $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){intentVersion++;packet=null;keepPrevious=false;warning='';id=null;mode='inspect';}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
  $('change-account').onclick=$('payer-change').onclick=()=>{show('account','Sending account');$('identity-form').hidden=false;$('account-summary').hidden=true;$('sending-account').value=declaration?.display??declaration?.principal??declaration?.account??'';$('identity-subaccount').value='';$('sending-account').focus();};
  $('identity-forget').onclick=()=>{store?.forget();declaration=null;id=null;packet=null;warning='';pending=null;mode='inspect';identityLabel();activity();refresh();};
  $('cycles-display').onclick=()=>api.openStatus();
@@ -140,18 +142,19 @@ export function createArcade(doc){
    if(id!==null&&!refs.some(c=>c.id===id)){id=null;mode='inspect';if(packet)warning='The copied target is no longer present. Saved instructions remain in Account.';else{warning='';text('copy-feedback','');}if(view==='action'||view==='inspect'){show('roster','Choose a cannon');text('roster-note','The selected cannon is no longer present. Choose another.');}}
    updateRoster();activity();refresh();
   },
-  status(input){status=input.resolved??experienceStatus({...input,world});if(!destination)status={...status,canPrepare:false};const now=performance.now();const central=['waiting','catching-up'].includes(status.kind);if(central){waitingSince??=now;}else waitingSince=null;const waiting=central&&now-waitingSince>=500;$('motion-wait').hidden=!waiting;$('motion-wait').dataset.kind=status.kind;text('waiting-label',status.label);text('arena-note',central?(waiting?'Status':'Waiting'):status.label);text('status-explanation',status.detail||status.label);refresh();return{available:status.canPrepare,label:status.label};},
-  action,selectCannon(n){const c=refs.find(c=>c.id===n);if(!c)return false;rememberDraft();id=n;keepPrevious=false;mode='inspect';cell=null;clearDraft();persist();show('inspect',`Cannon #${n}`);refresh();return true;},
-  cancel(){rememberDraft();if(['inspect','action'].includes(view))id=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
+  status(input){status=input.resolved??experienceStatus({...input,world});if(!destination)status={...status,canPrepare:false};const now=performance.now();const central=status.kind==='catching-up';if(central){waitingSince??=now;}else waitingSince=null;const waiting=central&&now-waitingSince>=500;$('motion-wait').hidden=!waiting;$('motion-wait').dataset.kind=status.kind;text('waiting-label',status.label);text('arena-note',status.label);text('status-explanation',status.detail||status.label);refresh();return{available:status.canPrepare,label:status.label};},
+  action,selectCannon(n){intentVersion++;const c=refs.find(c=>c.id===n);if(!c)return false;rememberDraft();id=n;keepPrevious=false;mode='inspect';cell=null;clearDraft();persist();show('inspect',`Cannon #${n}`);refresh();return true;},
+  cancel(){intentVersion++;rememberDraft();if(['inspect','action'].includes(view))id=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
   presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},
-  hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:view==='action'&&mode==='start'&&cell!==null&&buildSites().includes(cell)?{cell}:selected(),
+  hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:selected(),
+  intentContext:()=>[context,world?.version,declaration?.account,id,selected()?.cell,mode,intentVersion].join('/'),revision:()=>revision,
 
   aimAt(dx,dy){if(mode!=='ball'&&mode!=='start')return;degrees=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);worldAngle=null;$('angle-degrees').value=degrees;keepPrevious=false;clearDraft();refresh();},
   adjustAngle(delta){degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;keepPrevious=false;clearDraft();$('angle-degrees').value=degrees;refresh();},
   aim(){if(view!=='action'||!['ball','start'].includes(mode)||mode==='start'&&!mine().length||mode==='start'&&mine().length&&cell===null)return null;const c=cell!==null&&mode==='start'?{id:null,cell}:selected();if(!c||mode==='start'&&mine().length&&!buildSites().includes(cell))return null;try{const m=transferMemo(worldAngle===null?encodedHeading(degrees):worldAngle);return{cannon:c,angle:m.command.value*360/65536,heading:m.command.value};}catch{return null;}},
   moveSelection(){const c=selected();if(view!=='action')return null;if(world?.version===6&&mode==='start'&&mine().length)return{kind:'new',width:world.width,height:world.height,key:revision+'/'+siteKey,cells:buildSites(),cell,anchor:selected()?.cell};return mode==='move'&&c?{key:revision+'/'+id,width:world.width,height:world.height,id,cells:[],legal:n=>world.version===6?legalMoveDestination(world,declaration.account,id,n):n!==c.cell&&c.owns(n),cell,reference:world}:null;},
   chooseCell(n){const selection=api.moveSelection();if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){text('preparation-note',mode==='start'?'Choose an empty eligible neighbouring tile.':n===selected()?.cell?'Choose a different tile.':'That move is unavailable: check ownership, occupancy or dormancy.');return false;}keepPrevious=false;cell=n;$(mode==='move'?'move-cell':'new-cell').value=n;clearDraft();refresh();return true;},
-  selectBall(){rememberDraft();id=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;emit();},
+  selectBall(){intentVersion++;rememberDraft();id=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;emit();},
   openAccount(){identityLabel();activity();updateRoster();show('account','Account');if(!declaration)$('sending-account').focus();},
   openRoster(){if(mine().length===1){api.selectCannon(mine()[0].id);doc.dispatchEvent(new CustomEvent('b2z-locate'));}else{updateRoster();show('roster','My cannons');}},
   openActivity(){api.openAccount();$('saved-list').scrollIntoView({block:'nearest'});},

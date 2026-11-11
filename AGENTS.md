@@ -62,3 +62,10 @@ never consume coverage on an unchanged hidden head, count only distinct advancin
 heads for cadence, and keep latest-head financial authority separate from delayed
 presentation. Run actual pinned-clock/player regressions and label controlled
 lifecycle evidence separately from genuine browser visibility.
+
+Player refinement must preserve immutable canonical placement intent (UXR-01),
+panel-aware useful Focus, accumulated discrete zoom, fixed toolbar rectangles and
+one usable payment scrollport. Use the normative UXR matrix,
+`player-refinement.test.mjs` and populated `verify_refinement_browser.py` journeys;
+review actual-speed trails/wakes, not feature existence. Keep ghost/destination
+identity separate from the selected real cannon and preserve all financial bytes.

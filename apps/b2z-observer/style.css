@@ -75,3 +75,59 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 /* Keep the account chip intact while long status labels wrap at text zoom. */
 #identify-button{flex-shrink:0}
 #status-button{min-width:44px;overflow-wrap:anywhere;white-space:normal}
+
+/* UXR-03..05/09..13/20/24/25: stable toolbar, one usable instrument scroll. */
+:root{--glass:#20262dcc;--glass-edge:#8c989e;--glass-solid:#20262d}
+.panel{overflow:visible;backdrop-filter:blur(7px);background:var(--glass)}
+.panel-header{justify-content:flex-start;gap:4px}
+.panel-header h1{margin-right:auto}
+.panel[data-surface=context]{background:none;border:0;box-shadow:none;backdrop-filter:none;pointer-events:none}
+.panel[data-surface=context] .panel-header{width:calc(12px + var(--tool-count,5)*44px + (var(--tool-count,5) - 1)*4px);background:var(--glass);border:1px solid var(--glass-edge);border-radius:7px 7px 0 0;box-shadow:0 3px 12px #0004;pointer-events:auto;backdrop-filter:blur(7px);position:relative;z-index:1}
+.panel[data-surface=context][data-expanded=false] .panel-header{border-radius:7px}
+.panel .panel-body{padding:0;display:grid;grid-template-rows:1fr;max-height:var(--body-space,460px);overflow:hidden;transition:grid-template-rows 180ms ease,opacity 180ms ease;opacity:1}
+.panel .panel-scroll{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 10px 10px;pointer-events:auto}
+.panel[data-surface=context] .panel-body{background:var(--glass);border-radius:0 7px 7px 7px;backdrop-filter:blur(7px);box-shadow:0 6px 16px #0005}
+.panel[data-surface=context][data-expanded=false] .panel-body{grid-template-rows:0fr;opacity:0;pointer-events:none;box-shadow:none}
+.panel[data-surface=context][data-expanded=false] .panel-scroll{padding-block:0;pointer-events:none}
+.panel[data-expanded=true] #action-view{animation:none}
+#action-prompt{margin:0 0 6px;font-size:.9rem}
+#action-inputs{gap:6px;align-items:center}
+.heading-chip{order:2;max-width:118px;gap:3px}
+.heading-chip input{font-size:.85rem;width:76px;background:#10151b99}
+.quantity-stepper{order:1;display:flex;align-items:center;gap:6px}
+.quantity-stepper>label{font-size:.75rem;max-width:52px;line-height:1.2;margin:0}
+#move-controls,#new-controls{order:3}
+#move-alternative summary,#new-controls summary{display:flex;align-items:center;font-size:.78rem;min-height:44px}
+#placement-note,#preparation-note,#copy-feedback{margin:5px 0;font-size:.8rem}
+.wallet-fields{margin:4px 0}
+.wallet-fields>div{grid-template-columns:44px minmax(0,1fr) 44px;gap:5px;align-items:center;padding:2px 0}
+.wallet-fields dt,.wallet-fields dd{padding:0;line-height:1.3}
+.wallet-fields dd{font-size:.875rem;overflow-wrap:anywhere;background:#11171d55;border-radius:3px;padding:4px}
+.wallet-fields button{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;padding:8px;background:transparent}
+#transfer-amount{font-size:1.45rem;font-weight:780;background:none}
+#payment-fee{font-size:.8rem;color:var(--quiet);margin:6px 0 2px}
+#payment-risk{font-size:.8rem;line-height:1.4;padding:0;margin:3px 0}
+#aim-ring{width:76px;height:76px;border:1px dashed #ffe5b480;filter:drop-shadow(0 1px 1px #000)}
+#aim-handle{background:transparent;border:0;box-shadow:none;color:var(--accent);font-size:20px}
+#aim-handle::before{content:'';position:absolute;width:22px;height:22px;left:11px;top:11px;border:1px solid var(--accent);border-radius:50%;background:#1d252bbb;z-index:-1}
+#fire-action .revive-icon{display:none}#fire-action[data-revive=true]>svg{display:none}#fire-action[data-revive=true]>.revive-icon{display:block}
+/* A touch/keyboard user can inspect a named icon without executing an action. */
+.panel-header button{position:relative}
+
+#motion-wait{font-size:.85rem;gap:7px;top:36%;text-shadow:0 1px 3px #000}
+.spinner{width:24px;height:24px;box-shadow:none;border-width:2px}
+#cycles-display{opacity:.8;font-size:11px}
+@supports not (backdrop-filter:blur(4px)){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:var(--glass-solid)}}
+@media(prefers-reduced-motion:reduce){.panel .panel-body{transition:none}}
+@media(prefers-reduced-transparency:reduce){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:var(--glass-solid);backdrop-filter:none}}
+@media(forced-colors:active){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:Canvas;backdrop-filter:none;color:CanvasText}.wallet-fields dd{background:Canvas}}
+.quantity-stepper>label{max-width:32px}.quantity-stepper input{width:44px}.heading-chip{max-width:90px;gap:0}.heading-chip input{width:72px}.panel-scroll{scrollbar-width:thin}
+#toolbar-hint{position:absolute;left:0;top:52px;max-width:100%;padding:5px 8px;margin:0;background:var(--glass-solid);border:1px solid var(--line);border-radius:4px;font-size:.78rem;z-index:8;pointer-events:none}
+.panel[data-surface=context]>#inspect-note{pointer-events:none;background:var(--glass-solid);padding:4px 8px;margin:0;font-size:.78rem;max-width:260px}
+.panel-scroll{transition:padding-block 180ms ease}
+@media(prefers-reduced-motion:reduce){.panel-scroll{transition:none}}
+.panel-header button:disabled{opacity:1;color:#aab6c1;background:transparent;border-color:transparent}
+/* Give the active payment/precision task priority over secondary chrome when
+   the real visual viewport contracts for a keyboard. Restore it on blur. */
+.short-edit #minimap,.short-edit .camera-controls,.short-edit #cycles-display{visibility:hidden;pointer-events:none}
+#amount-detail{display:block;font-size:.75rem;line-height:1.2;color:var(--quiet)}

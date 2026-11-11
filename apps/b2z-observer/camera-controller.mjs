@@ -1,10 +1,25 @@
 /** UX-04/05/11/12. One presentation owner; no observer, quote or game mutations. */
 const delta=(a,b,size,torus)=>torus?((b-a+size/2)%size+size)%size-size/2:b-a;
 const pose=c=>({x:c.x,y:c.y,scale:c.scale});
-export function focusedOn(camera,cell,{top=0,obstacles=[]}={}){
- if(cell===null||cell===undefined||camera.scale<36)return false;
- const p=camera.cellPoint(cell),{width,height}=camera.viewport,margin=52;
- return p.visible&&p.sx>=margin&&p.sx<=width-margin&&p.sy>=top+margin&&p.sy<=height-100&&!obstacles.some(r=>r&&p.sx+48>r.left&&p.sx-48<r.right&&p.sy+48>r.top&&p.sy-48<r.bottom);
+/** UXR-03/21: one working composition for Focus and its disabled predicate. */
+export function focusComposition(camera,{top=74,expanded=false,obstacles=[]}={}){
+ const {width:w,height:h}=camera.viewport,narrow=w<=700;
+ const sx=narrow?w/2:Math.max(90,(w-380)/2),sy=narrow?Math.min(top+44,h*.27):Math.max(top+80,h*.40);
+ // An ordinary cannon is about .8 projected cells across; favour a readable
+ // 50–64px silhouette without globally changing model size or hitboxes.
+ const scale=Math.min(camera.maxScale,Math.max(camera.fitScale,narrow?64:76,Math.min(88,Math.min(w,h)*.1)));
+ return{sx,sy,scale,top,expanded,obstacles};
+}
+export function focusedOn(camera,cell,options={}){
+ if(cell===null||cell===undefined)return false;
+ const {sx,sy,scale,top,obstacles}=focusComposition(camera,options),p=camera.cellPoint(cell),{width,height}=camera.viewport;
+ const tolerance=Math.min(76,width*.12);
+ return camera.scale>=scale*.92&&p.visible&&Math.abs(p.sx-sx)<=tolerance&&Math.abs(p.sy-sy)<=64&&p.sy>=top+32&&p.sy<=height-70&&!obstacles.some(r=>r&&p.sx+42>r.left&&p.sx-42<r.right&&p.sy+42>r.top&&p.sy-42<r.bottom);
+}
+/** UXR-14: preserve coalesced notch magnitude; fine trackpad deltas stay direct. */
+export function wheelZoom({deltaY,deltaMode=0,ctrlKey=false},height=800){
+ const amount=deltaY*(deltaMode===1?16:deltaMode===2?height:1),n=Math.abs(deltaY);
+ return{factor:Math.exp(-Math.max(-500,Math.min(500,amount))*.002),discrete:deltaMode!==0||(!ctrlKey&&Number.isInteger(deltaY)&&n>=40&&(n%40===0||n%100===0))};
 }
 export class CameraController{
  constructor(camera,{now=()=>performance.now(),reducedMotion=()=>false,onSettled=()=>{}}={}){this.camera=camera;this.now=now;this.reducedMotion=reducedMotion;this.onSettled=onSettled;this.animation=null;this.following=null;this.lastFrame=null;}
@@ -27,14 +42,19 @@ export class CameraController{
  cancel({follow=false}={}){this.sample(this.now());this.animation=null;if(follow)this.stopFollow();}
  manual(){this.cancel({follow:true});}
  stopFollow(){this.following=null;if(this.animation?.owner==='follow-entry')this.animation=null;}
- focus(cell,{sx=this.camera.viewport.width/2,sy=this.camera.viewport.height*.42}={}){
-  const target=this.target(c=>{c.frameCell(cell);c.scale=Math.max(c.scale,48);c.constrain();const p=c.cellPoint(cell);c.pan(sx-p.sx,sy-p.sy);});return this.go(target,{owner:'focus'});
+ focus(cell,options={}){
+  const {sx,sy,scale}=focusComposition(this.camera,options);const target=this.target(c=>{c.frameCell(cell);c.scale=Math.max(c.scale,scale);c.constrain();const p=c.cellPoint(cell);c.pan(sx-p.sx,sy-p.sy);});return this.go(target,{owner:'focus'});
  }
  overview(anchor){return this.go({...anchor,scale:this.camera.fitScale},{owner:'overview'});}
- zoom(factor,sx=this.camera.viewport.width/2,sy=this.camera.viewport.height/2,{keepFollow=true,world=null}={}){
-  this.sample(this.now());const c=this.camera,scale=Math.max(c.fitScale,Math.min(c.maxScale,c.scale*factor));if(Math.abs(scale-c.scale)<1e-10)return false;
-  const p=world??c.world(sx,sy),target=this.target(d=>d.zoom(scale/d.scale,sx,sy));return this.go({...target,scale},{owner:'zoom',keepFollow,anchor:{...p,sx,sy}});
+ zoom(factor,sx=this.camera.viewport.width/2,sy=this.camera.viewport.height/2,{keepFollow=true,world=null,duration}={}){
+  if(!Number.isFinite(factor)||factor<=0)return false;
+  const intended=this.animation?.owner==='zoom'?this.animation.to.scale:this.camera.scale;
+  this.sample(this.now());const c=this.camera,scale=Math.max(c.fitScale,Math.min(c.maxScale,intended*factor));
+  // A maximum-zoom command is a true no-op, including follow/selection state.
+  if(Math.abs(scale-intended)<1e-10)return false;
+  const p=world??c.world(sx,sy),target=this.target(d=>d.zoom(scale/d.scale,sx,sy));return this.go({...target,scale},{owner:'zoom',keepFollow,anchor:{...p,sx,sy},duration});
  }
+
  follow(id,identity,point){
   this.cancel({follow:true});this.following={id,identity,time:null};if(point)this.go({x:point.x,y:point.y,scale:this.camera.scale},{owner:'follow-entry',keepFollow:true,duration:this.reducedMotion()?0:260});
  }

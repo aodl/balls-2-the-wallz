@@ -73,3 +73,12 @@ as a receipt. Controlled return fixtures are not genuine hidden-tab evidence.
 The optional financial feature remains separate. Its source-qualified disposable
 results do not replace [genuine II acceptance](B2Z_II_ACCEPTANCE.md) or authorize
 any new route, origin metadata, backend activation, allowance or transfer.
+
+The player-refinement continuation captures immutable canonical placement targets
+before any double-click delay, accumulates discrete camera destinations, and
+keeps the toolbar fixed above one usable scroll surface. Review the maintained
+UXR-01..25 matrix and run `verify_refinement_browser.py`, existing fluid/payment
+and authenticated-observer checks. Visual evidence must include awkward populated
+layouts and actual supported slow pace; software DPR/SwiftShader is not physical
+hardware coverage. This new candidate requires its own six-gate qualification and
+separate production decision; do not deploy it as a documentation follow-up.

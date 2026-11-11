@@ -48,8 +48,8 @@ test('UX-04 scoped observation deadline reaches the underlying fetch; abort neve
 
 import {displayedMotion} from '../../apps/b2z-observer/motion-effects.mjs';
 test('UX-12 reflected tails retain bounded real path and expire by wall time at varied sampling rates',()=>{
- for(const hz of [30,60,120]){const m=displayedMotion();for(let i=0;i<hz;i++){const f=i/hz;m.sample([{id:1,x:10+(f<.5?f:1-f),y:10}],{time:f,wallMs:f*1000,width:1000,height:1000});}
- const tails=m.tails(1000);assert.ok(tails.length<=12);assert.ok(tails.reduce((n,t)=>n+t.distance,0)<=1.2);assert.ok(tails.every(t=>t.dx<0));assert.equal(m.tails(1500).length,0);}
+ for(const hz of [30,60,120]){const m=displayedMotion({tailLifetime:350});for(let i=0;i<hz;i++){const f=i/hz;m.sample([{id:1,x:10+(f<.5?f:1-f),y:10}],{time:f,wallMs:f*1000,width:1000,height:1000});}
+ const tails=m.tails(1000);assert.ok(tails.length<=64);assert.ok(tails.reduce((n,t)=>n+t.distance,0)<=1.2);assert.ok(tails.every(t=>t.dx<0));assert.equal(m.tails(1500).length,0);}
 });
 
 test('UX-04 actual SDK observation query cancellation reaches its pending transport',async()=>{

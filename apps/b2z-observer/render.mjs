@@ -20,7 +20,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const hoverInk=token('hover','#fff4d9'),chosenInk=token('selected','#f5c77e'),invalidInk=token('invalid','#f3a8a1'),previewInk=token('preview','#ffdf9d'),guideInk=token('guide','#ffedc9'),guideUnderInk=token('guide-under','#101317');
  const cannonBase=token('cannon-base','#303940'),cannonTurret=token('cannon-turret','#424c55'),cannonBarrel=token('cannon-barrel','#65717c');
  const material=new T.MeshLambertMaterial({flatShading:true});
- const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion();let lost=false,terrainKey='',lastView=null,lastDrawKey='',lastStats=null,effectUntil=0,previewKey='',sizeKey='';
+ const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion();let lost=false,terrainKey='',lastView=null,lastDrawKey='',lastStats=null,previewKey='',sizeKey='';
  renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{lost=true;onError('The arena shader could not be compiled.');throw Error('Arena shader compilation failed: '+gl.getShaderInfoLog(vertex)+' '+gl.getShaderInfoLog(fragment)+' '+gl.getProgramInfoLog(program));};
  const groups=[];
  function batch(geometry,max=RENDER_LIMITS.pieces,mat=material){const m=new T.InstancedMesh(geometry,mat,max);m.count=0;m.frustumCulled=false;scene.add(m);groups.push(m);return m;}
@@ -30,14 +30,14 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  float grid=1.-smoothstep(0.,1.,min(min(f.x,1.-f.x)/aa.x,min(f.y,1.-f.y)/aa.y));float fade=smoothstep(1.5,6.,1./max(aa.x,aa.y));
  vec4 edge=vec4(mod(bits,2.),mod(floor(bits/2.),2.),mod(floor(bits/4.),2.),mod(floor(bits/8.),2.));
  float boundary=max(max(edge.x*(1.-smoothstep(0.,1.2,f.x/aa.x)),edge.y*(1.-smoothstep(0.,1.2,(1.-f.x)/aa.x))),max(edge.z*(1.-smoothstep(0.,1.2,f.y/aa.y)),edge.w*(1.-smoothstep(0.,1.2,(1.-f.y)/aa.y))));
- vec3 ink=mix(t.rgb,t.rgb*.57,grid*fade*.65);ink=mix(ink,mix(t.rgb,vec3(.94),.58),boundary*.78);if(topFace<.5)ink*=.65;gl_FragColor=vec4(ink,1.);}`});
+ vec3 ink=mix(t.rgb,t.rgb*.72,grid*fade*.42);ink=mix(ink,mix(t.rgb,vec3(.94),.58),boundary*.78);if(topFace<.5)ink*=.65;gl_FragColor=vec4(ink,1.);}`});
  const tiles=batch(new T.PlaneGeometry(1,1).rotateX(-Math.PI/2),25,groundMaterial),bases=batch(new T.CylinderGeometry(.29,.34,.13,8)),turrets=batch(new T.SphereGeometry(.22,12,8)),barrels=batch(new T.CylinderGeometry(.085,.10,.45,10)),balls=batch(new T.SphereGeometry(.10,12,8),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({color:0xffffff,toneMapped:false}));
  const boundedTiles=batch(new T.BoxGeometry(1,.10,1),1,groundMaterial);
  const glow=batch(new T.PlaneGeometry(1,1),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,vertexShader:'varying vec2 p;void main(){p=uv*2.-1.;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 p;void main(){float a=exp(-dot(p,p)*5.)*.30;gl_FragColor=vec4(1.,1.,1.,a);}'}));
- const tails=batch(new T.ConeGeometry(.075,1,8),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,vertexShader:'attribute float tailAlpha;varying float fade;void main(){fade=tailAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.36*fade);}'} ));
+ const tails=batch(new T.ConeGeometry(.075,1,8),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,vertexShader:'attribute float tailAlpha;varying float fade;void main(){fade=tailAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.50*fade);}'} ));
  tails.geometry.setAttribute('tailAlpha',new T.InstancedBufferAttribute(new Float32Array(RENDER_LIMITS.pieces),1));
- const tailInner=batch(tails.geometry,RENDER_LIMITS.pieces,tails.material.clone());tailInner.material.fragmentShader='varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.92*fade);}';
- const ghostMaterial=new T.MeshBasicMaterial({color:token('ghost','#ffe1a5'),transparent:true,opacity:.45,depthWrite:false,toneMapped:false}),ghostBase=batch(bases.geometry,1,ghostMaterial),ghostTurret=batch(turrets.geometry,1,ghostMaterial),ghostBarrel=batch(barrels.geometry,1,ghostMaterial);
+ const tailInner=batch(tails.geometry,RENDER_LIMITS.pieces,tails.material.clone());tailInner.material.fragmentShader='varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.98*fade);}';
+ const ghostMaterial=new T.MeshBasicMaterial({color:token('ghost','#ffe1a5'),transparent:true,opacity:.60,wireframe:true,depthWrite:false,toneMapped:false}),ghostBase=batch(bases.geometry,1,ghostMaterial),ghostTurret=batch(turrets.geometry,1,ghostMaterial),ghostBarrel=batch(barrels.geometry,1,ghostMaterial);
  const hoverGhost=batch(new T.CylinderGeometry(.29,.34,.13,8),1,new T.MeshBasicMaterial({color:hoverInk,transparent:true,opacity:.22,wireframe:true,depthWrite:false}));
  const shadows=batch(new T.CircleGeometry(.31,16),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'varying vec2 shadowUv; void main(){shadowUv=uv;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 shadowUv; void main(){float a=.26*(1.-smoothstep(.08,.5,length(shadowUv-vec2(.5))));gl_FragColor=vec4(.015,.025,.03,a);}'}));
  const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide}));
@@ -47,6 +47,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const contourUnderlay=batch(new T.RingGeometry(.46,.59,4),8,new T.MeshBasicMaterial({color:guideUnderInk,side:T.DoubleSide,toneMapped:false}));
  const hoverRings=batch(new T.RingGeometry(.48,.53,4),4,new T.MeshBasicMaterial({color:hoverInk,side:T.DoubleSide,toneMapped:false}));
  const chosenRings=batch(new T.RingGeometry(.48,.57,4),3,new T.MeshBasicMaterial({color:chosenInk,side:T.DoubleSide,toneMapped:false}));
+ const destinationRings=batch(new T.RingGeometry(.43,.50,8),3,new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide,toneMapped:false}));
  const invalidRings=batch(new T.RingGeometry(.48,.54,4),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide,toneMapped:false}));
  const crosses=batch(new T.PlaneGeometry(.6,.08),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide}));
  const highlights=batch(new T.PlaneGeometry(.97,.97),RENDER_LIMITS.effects,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'attribute float effectAlpha;varying float fade;void main(){fade=effectAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(0.,0.,0.,.20*fade);}'}));highlights.geometry.setAttribute('effectAlpha',new T.InstancedBufferAttribute(new Float32Array(RENDER_LIMITS.effects),1));
@@ -62,8 +63,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  function draw(v,camera,{time=0,selected=null,selection=null,hover=null,aim=null,followed=null,points=null,reducedMotion=false,wallMs=performance.now()}={}){
   if(lost)return;lastHover=hover;lastFollowed=followed;
   const drawKey=[camera.x,camera.y,camera.scale,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,reducedMotion,devicePixelRatio].join('/');
-  if(lastView===v&&lastDrawKey===drawKey&&wallMs>effectUntil&&!lastStats?.effects&&!lastStats?.tails)return lastStats;
-  if(time!==lastStats?.time)effectUntil=wallMs+1300;lastDrawKey=drawKey;
+  if(lastView===v&&lastDrawKey===drawKey&&!lastStats?.effects&&!lastStats?.tails)return lastStats;
+  lastDrawKey=drawKey;
   const {width,height}=camera.viewport;const dpr=Math.min(devicePixelRatio||1,RENDER_LIMITS.dpr,Math.sqrt(1000000/(width*height))),size=[width,height,dpr].join('/');if(size!==sizeKey){sizeKey=size;renderer.setPixelRatio(dpr);renderer.setSize(width,height,false);}
   guide.material.resolution.set(width,height);guideUnder.material.resolution.set(width,height);
   const halfW=width/camera.scale/2,halfH=height/camera.scale/2;
@@ -80,7 +81,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const nextPreviewKey=[key,selection?.key,selection?.id,selection?.cell,selection?.cells?.join(',')].join('/'),updatePreview=nextPreviewKey!==previewKey;previewKey=nextPreviewKey;
   for(const g of groups)if(g!==tiles&&g!==boundedTiles&&(g!==preview||updatePreview))g.count=0;
   points??=displayedBalls(v,time);
-  const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion});
+  const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale});
   if(updatePreview)previewData=previewCells(v,camera,selection);
   {
    for(const c of v.cannons.values()){
@@ -104,7 +105,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   if(aim&&(aim.cannon.id===null||v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell)){const p=camera.cellPoint(aim.cannon.cell),a=aim.angle*Math.PI/180;instance(ghostBase,p.x,p.y,.09);instance(ghostTurret,p.x,p.y,.24);instance(ghostBarrel,p.x+Math.cos(a)*.29,p.y+Math.sin(a)*.29,.27,1,1,1,null,[0,-a,Math.PI/2]);}
   guide.visible=guideUnder.visible=Boolean(aim);if(aim){const p=camera.cellPoint(aim.cannon.cell),a=Number(aim.angle)*Math.PI/180,dx=Math.cos(a),dy=Math.sin(a),length=Math.min(3.5,110/(camera.scale*Math.hypot((dx-dy)/Math.SQRT2,(dx+dy)/Math.sqrt(6)))),x=p.x+dx*length,y=p.y+dy*length,tip=.20;guideGeometry.setPositions([p.x+dx*.42,.028,p.y+dy*.42,x,.028,y,x+Math.cos(a+2.6)*tip,.028,y+Math.sin(a+2.6)*tip,x,.028,y,x+Math.cos(a-2.6)*tip,.028,y+Math.sin(a-2.6)*tip]);}
   const contour=(cell,mesh)=>{if(cell===null||cell===undefined)return;const p=camera.cellPoint(cell);instance(contourUnderlay,p.x,p.y,.044,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(mesh,p.x,p.y,.045,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);};
-  if(selection){const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?invalidRings:chosenRings);
+  if(selection){const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?invalidRings:destinationRings);
    if(selection.cell!==null&&selection.id!==undefined){const p=camera.cellPoint(selection.cell);instance(ghostBase,p.x,p.y,.09);instance(ghostTurret,p.x,p.y,.24);}
    if(hover?.cell!==null&&hover?.cell!==undefined){contour(hover.cell,hover.kind==='place'?hoverRings:invalidRings);if(hover.kind==='place'&&hover.cell!==selection.cell){const p=camera.cellPoint(hover.cell);instance(hoverGhost,p.x,p.y,.09);}if(hover.kind==='invalid'){const p=camera.cellPoint(hover.cell);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,-Math.PI/4]);}}
   }
@@ -112,7 +113,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   for(const mesh of groups){if((mesh===tiles||mesh===boundedTiles)&&!updateTerrain||mesh===preview&&!updatePreview)continue;if(mesh.count){mesh.instanceMatrix.addUpdateRange(0,mesh.count*16);mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor){mesh.instanceColor.addUpdateRange(0,mesh.count*3);mesh.instanceColor.needsUpdate=true;}}}
   if(tails.count)tails.geometry.attributes.tailAlpha.needsUpdate=true;if(highlights.count)highlights.geometry.attributes.effectAlpha.needsUpdate=true;
   renderer.render(scene,ortho);
-  lastStats={time,draw_calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,tiles:tiles.count,pieces:bases.count+balls.count,effects:effects.length,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,terrain_revision:surfaceData?.revision,terrain_bytes:surfaceData?.rgba.byteLength,terrain_dirty_rows:surfaceData?.dirtyRows.length,preview_cells:previewData.length,tails:tails.count};return lastStats;
+  lastStats={time,draw_calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,tiles:tiles.count,pieces:bases.count+balls.count,effects:effects.length,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,terrain_revision:surfaceData?.revision,terrain_bytes:surfaceData?.rgba.byteLength,terrain_dirty_rows:surfaceData?.dirtyRows.length,preview_cells:previewData.length,tails:tails.count,motion:motion.inspect()};return lastStats;
  }
  return {draw,surface:()=>surfaceData,previews:()=>previewData,inspect(){let span=0;const a=preview.instanceMatrix.array;for(let i=0;i<preview.count;i++)span=Math.max(span,Math.hypot(a[i*16],a[i*16+1],a[i*16+2]),Math.hypot(a[i*16+4],a[i*16+5],a[i*16+6]));return{guideDepth:{test:guide.material.depthTest,write:guide.material.depthWrite,height:.028},selectedContours:chosenRings.count,followed:lastFollowed, surfaceBound:texture?.image.data===surfaceData?.rgba,previewSpan:span,hover:lastHover,barrels:[...barrels.instanceMatrix.array.slice(0,barrels.count*16)],guideEnd:guide.visible?[guideGeometry.attributes.instanceEnd.getX(0),guideGeometry.attributes.instanceEnd.getZ(0)]:null,guide:guide.visible?[guideGeometry.attributes.instanceStart.getX(0),guideGeometry.attributes.instanceStart.getZ(0)]:null,ghost:ghostBase.count?[ghostBase.instanceMatrix.array[12],ghostBase.instanceMatrix.array[14]]:null};},reset(){motion.reset();lastDrawKey='';},dispose(){canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);const disposedGeometry=new Set();for(const m of groups){if(!disposedGeometry.has(m.geometry)){m.geometry.dispose();disposedGeometry.add(m.geometry);}if(m.material!==material)m.material.dispose();m.dispose();}material.dispose();marker.geometry.dispose();marker.material.dispose();guide.geometry.dispose();guide.material.dispose();guideUnder.material.dispose();texture?.dispose();renderer.dispose();}};
 }

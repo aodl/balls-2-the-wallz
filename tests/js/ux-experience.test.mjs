@@ -34,7 +34,7 @@ test('UX-12 effects use displayed displacement, unwrap seams and clear discontin
  const m=displayedMotion({limit:4});const sample=(x,y,time,wallMs=0,more={})=>m.sample([{id:1,x,y}],{width:1000,height:1000,torus:true,time,wallMs,...more});
  assert.equal(sample(999.8,1,0).length,0);assert.equal(sample(999.8,1,.1).length,0);
  const e=sample(.2,1,.2);assert.ok(e.length>0&&e.length<=2);assert.ok(e.every(e=>[1000,1999].includes(e.cell)));
- assert.ok(sample(.2,1,.3,500).length>0,'UX-12 tile wake now lasts 1.25s independently of tails');assert.equal(sample(.2,1,.3,1400).length,0);assert.equal(sample(500,500,.4,600).length,0);
+ assert.ok(sample(.2,1,.3,500).length>0,'UXR-08 tile wake holds then fades independently of tails');assert.equal(sample(.2,1,.3,2300).length,0);assert.equal(sample(500,500,.4,600).length,0);
  m.reset();assert.equal(sample(.5,1,.5,700).length,0);assert.equal(sample(.7,1,.6,800,{reducedMotion:true}).length,0);
 });
 test('UX-06 network failure is reconnecting; verification failure never leaves copying enabled',()=>{

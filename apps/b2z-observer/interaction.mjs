@@ -18,3 +18,11 @@ export function resolveInteraction(camera,cannons,p,selection=null,aim=null,ball
  if(ballHit&&(!best||ballHit.depth>best.depth))return ballHit;
  return best??ballHit??{kind:'camera',cell};
 }
+
+/** UXR-01: pixels are discarded at activation, never reinterpreted later. */
+export function placementIntent(hit,{context,identity,sequence,revision}){
+ return Object.freeze({cell:hit.cell,kind:hit.kind,context,identity,sequence,revision});
+}
+export function samePlacementContext(intent,{context,identity,sequence}){
+ return intent.context===context&&intent.identity===identity&&intent.sequence===sequence;
+}
