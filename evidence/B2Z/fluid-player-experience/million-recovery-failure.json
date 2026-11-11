@@ -1,0 +1,69 @@
+{
+  "status": "FAIL",
+  "scope": "Actual installed disposable Normal scene; cold recovery now starts, sustained continuity still fails in this contended software environment",
+  "measurement": {
+    "seconds": 89.8298,
+    "backend_ticks_per_second": 0.8460444084257117,
+    "admitted_ticks_per_second": 0.11132163268759364,
+    "displayed_ticks_per_second": 0.10018946941883436,
+    "stalled_samples": 47,
+    "resyncs": 4,
+    "nominal_rate": 1,
+    "performance_limited": true,
+    "queue_segments": {
+      "min": 0,
+      "max": 4
+    },
+    "buffer_ticks": {
+      "min": 0,
+      "max": 3.11663563216797
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 1071.699999988079,
+        "max": 10978.5
+      },
+      "verify_ms": {
+        "median": 310.89999997615814,
+        "max": 606.5999999642372
+      },
+      "artifact_ms": {
+        "median": 0.699999988079071,
+        "max": 5182.300000011921
+      },
+      "derive_ms": {
+        "median": 39.200000047683716,
+        "max": 67.19999998807907
+      },
+      "catchup_ms": {
+        "median": 4939.199999988079,
+        "max": 17619.80000001192
+      }
+    },
+    "max_catchup_segments": 20,
+    "buffer_bytes": {
+      "min": 0,
+      "max": 150548
+    },
+    "buffer_target_ticks": {
+      "min": 9.976,
+      "max": 17
+    },
+    "distinct_playheads": 20,
+    "certified_publications_per_second": 0.11132163268759364,
+    "authenticated_observation_queries_per_second": 0.14471812249387173,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 2.3335999999999983,
+    "buffer_end": 0,
+    "admitted_ticks": 10,
+    "displayed_ticks": 9.000000000000007,
+    "phase_samples": {
+      "BUFFERING": 82,
+      "DEGRADED_BUFFER": 5,
+      "PLAYING": 11,
+      "STALLED": 47
+    }
+  },
+  "error": "AssertionError({'seconds': 89.8298, 'backend_ticks_per_second': 0.8460444084257117, 'admitted_ticks_per_second': 0.11132163268759364, 'displayed_ticks_per_second': 0.10018946941883436, 'stalled_samples': 47, 'resyncs': 4, 'nominal_rate': 1, 'performance_limited': True, 'queue_segments': {'min': 0, 'max': 4}, 'buffer_ticks': {'min': 0, 'max': 3.11663563216797}, 'latency_ms': {'fetch_ms': {'median': 1071.699999988079, 'max': 10978.5}, 'verify_ms': {'median': 310.89999997615814, 'max': 606.5999999642372}, 'artifact_ms': {'median': 0.699999988079071, 'max': 5182.300000011921}, 'derive_ms': {'median': 39.200000047683716, 'max': 67.19999998807907}, 'catchup_ms': {'median': 4939.199999988079, 'max': 17619.80000001192}}, 'max_catchup_segments': 20, 'buffer_bytes': {'min': 0, 'max': 150548}, 'buffer_target_ticks': {'min': 9.976, 'max': 17}, 'distinct_playheads': 20, 'certified_publications_per_second': 0.11132163268759364, 'authenticated_observation_queries_per_second': 0.14471812249387173, 'timing_qualification': 'Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.', 'buffer_start': 2.3335999999999983, 'buffer_end': 0, 'admitted_ticks': 10, 'displayed_ticks': 9.000000000000007, 'phase_samples': {'BUFFERING': 82, 'DEGRADED_BUFFER': 5, 'PLAYING': 11, 'STALLED': 47}})",
+  "assertions_preserved": true
+}
