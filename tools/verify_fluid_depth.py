@@ -11,7 +11,7 @@ with sync_playwright()as p:
  b=p.chromium.launch(headless=True,chromium_sandbox=True)
  try:
   for variant in ['normal','no-guide','overdraw']:
-   c=b.new_context(viewport={'width':500,'height':400});page=c.new_page();page.goto(f'http://127.0.0.1:{s.server_port}/{variant}/');page.wait_for_function('()=>!!fixture');page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();page.evaluate('fixture.render("additional","initial");fixture.select(1)');page.locator('#fire-action').click()
+   c=b.new_context(viewport={'width':500,'height':400});page=c.new_page();page.goto(f'http://127.0.0.1:{s.server_port}/{variant}/');page.wait_for_function('()=>!!globalThis.fixture');page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();page.evaluate('fixture.render("additional","initial");fixture.select(1)');page.locator('#fire-action').click()
    for scale in [48,96]:
     for angle in [0,45,90,135,180,225,270,315]:
      page.locator('#angle-degrees').evaluate('(n,a)=>{n.value=String(a);n.dispatchEvent(new Event("input",{bubbles:true}))}',angle);page.evaluate('(scale)=>{fixture.shell.controller.cancel();fixture.camera.scale=scale;const c=fixture.world().cannons.find(c=>c.id===1);fixture.camera.centre(c.cell%1000+.5,Math.floor(c.cell/1000)+.5);fixture.draw()}',scale);pixels[(variant,scale,angle)]=page.evaluate('fixture.depthPixels()')

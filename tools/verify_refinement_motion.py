@@ -12,7 +12,7 @@ with sync_playwright()as pw:
   for label,directory in [('deployed',a.baseline),('refined',a.candidate)]:
    server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=str(directory.absolute())));threading.Thread(target=server.serve_forever,daemon=True).start()
    try:
-    c=b.new_context(viewport={'width':960,'height':700},record_video_dir=str(out/'video'),record_video_size={'width':960,'height':700});page=c.new_page();page.goto(f'http://127.0.0.1:{server.server_port}');page.wait_for_function('()=>!!fixture')
+    c=b.new_context(viewport={'width':960,'height':700},record_video_dir=str(out/'video'),record_video_size={'width':960,'height':700});page=c.new_page();page.goto(f'http://127.0.0.1:{server.server_port}');page.wait_for_function('()=>!!globalThis.fixture')
     for pace,seconds in [(.01,22),(.05,8),(1,.65)]:
      page.evaluate('(pace)=>fixture.motion("idle",pace)',pace);
      if pace>=.5:
