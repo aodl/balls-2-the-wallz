@@ -81,7 +81,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const nextPreviewKey=[key,selection?.key,selection?.id,selection?.cell,selection?.cells?.join(',')].join('/'),updatePreview=nextPreviewKey!==previewKey;previewKey=nextPreviewKey;
   for(const g of groups)if(g!==tiles&&g!==boundedTiles&&(g!==preview||updatePreview))g.count=0;
   points??=displayedBalls(v,time);
-  const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale});
+  const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale,trajectories:v.balls});
   if(updatePreview)previewData=previewCells(v,camera,selection);
   {
    for(const c of v.cannons.values()){

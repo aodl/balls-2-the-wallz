@@ -82,10 +82,10 @@ with sync_playwright() as pw:
    # clock runs at Trickle policy with explicitly accelerated disposable wall time.
    context=browser.new_context(viewport={'width':390,'height':844},**({}if a.no_video else dict(record_video_dir=str(out/'video'),record_video_size={'width':390,'height':844})));page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(origin);page.wait_for_function('()=>!!window.fixture');page.evaluate('fixture.motion("wrap",.01)');page.evaluate('fixture.camera.frameCell(999999);fixture.playbackScale(20);fixture.markClock()')
    page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000)
-   # UX-12 separates the 350ms tail from the approved 1,250ms tile wake.
-   # The former 950ms zero-wake assertion contradicted that contract on fast CI.
-   page.wait_for_timeout(400);assert page.evaluate('fixture.summary().stats.tails')==0
-   page.wait_for_function('()=>!document.getElementById("motion-wait").hidden',timeout=2000);assert page.locator('#waiting-label').inner_text()=='Waiting for next update'
+   # UXR-07/08 separates the 700ms stopped-tail decay from the 2.2s
+   # hold/fade tile wake; UXR-24 keeps routine waiting in compact status.
+   page.wait_for_timeout(900);assert page.evaluate('fixture.summary().stats.tails')==0
+   page.wait_for_function('()=>document.getElementById("arena-note").textContent==="Waiting for next update"',timeout=2000);assert page.locator('#motion-wait').is_hidden()
    page.wait_for_function('()=>fixture.summary().stats.effects===0',timeout=1500);assert page.evaluate('fixture.summary().stats.effects')==0
    start=page.evaluate('fixture.summary().time');page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000)
    page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t+1',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000);page.screenshot(path=str(out/'slow-wait-resume-wrap.png'));rows.append({'status':'PASS','coverage':['Trickle one complete interval starts','waiting has no movement effect','two later canonical publications resume same clock','toroidal rendered travel'],'timing':'20x accelerated disposable wall time at actual 0.01 policy; not production cadence','recording':str(Path(page.video.path()).relative_to(out))if page.video else None});context.close()

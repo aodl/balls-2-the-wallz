@@ -204,7 +204,10 @@ decay without altering ownership/minimap. The tail retains real displayed path
 adaptively (350ms–30s to target about 26 projected pixels (roughly 32px sampled extent, ≤1.2 cells through camera changes)), max 1.2 travelled cells/
 64 points per ball, 8,192 points total and 4,096 balls, with .98 inner/.50 outer opacity. Merge only
 short collinear actual travel, preserve reflection corners, and keep birth time
-so merges cannot refresh arbitrarily old points. When motion stops, no new samples
+so merges cannot refresh arbitrarily old points. A >2-cell frame may retain only
+a suffix of the actual displayed displacement when its verified vx/vy/x0/y0
+trajectory is unchanged; otherwise clear it rather than inventing a reflection
+chord. Tile sampling remains bounded at 32 steps per ball/frame. When motion stops, no new samples
 are generated and all tails expire within 700ms (250ms final fade). Wide-view
 displacement may remain too small; strengthen the steady core rather than invent
 travel. New tests intentionally supersede the former fixed .35s default cap. Reflections/wrap follow actual displayed travel;

@@ -49,7 +49,7 @@ def verify_refinement(page,width,height,out):
  compositions=[]
  for sx,sy in [(width*.75,height*.33),(width*.45,height*.6),(width*.25,height*.42)]:
   close();page.evaluate('fixture.render("additional","initial");fixture.camera.scale=36;const c=fixture.world().cannons.find(c=>c.id===1);fixture.camera.centre(c.cell%1000+.5,Math.floor(c.cell/1000)+.5);fixture.draw()');p=page.evaluate('fixture.point(1)');page.evaluate('([dx,dy])=>{fixture.camera.pan(dx,dy);fixture.draw()}',[sx-p['x'],sy-p['y']]);p=page.evaluate('fixture.point(1)');before=page.evaluate('fixture.summary().camera');started=time.monotonic()
-  (page.touchscreen.tap(p['x'],p['y'])if width<700 else page.mouse.click(p['x'],p['y']));expect(page.locator('#workspace')).to_be_visible();assert page.evaluate('fixture.summary().selected')==1;settled(page);page.wait_for_timeout(200);expect(page.locator('#focus-cannon')).to_be_disabled();assert page.evaluate('fixture.summary().camera')!=before
+  (page.touchscreen.tap(p['x'],p['y'])if width<700 else page.mouse.click(p['x'],p['y']));expect(page.locator('#workspace')).to_be_visible();assert page.evaluate('fixture.summary().selected')==1;settled(page);transition_elapsed=time.monotonic()-started;page.wait_for_timeout(200);expect(page.locator('#focus-cannon')).to_be_disabled();assert page.evaluate('fixture.summary().camera')!=before
   controls=['focus-cannon','fire-action','move-action','build-action','close-panel']
   if not compositions:
    r=page.locator('#fire-action').bounding_box();page.mouse.move(r['x']+22,r['y']+22);page.mouse.down();page.wait_for_timeout(650);page.mouse.up();expect(page.locator('#toolbar-hint')).to_have_text('Fire');assert page.locator('#action-view').is_hidden()
@@ -60,7 +60,7 @@ def verify_refinement(page,width,height,out):
   geom=page.locator('.panel-scroll').evaluate('(n)=>({height:n.clientHeight,content:n.scrollHeight})');assert geom['height']>=240,(width,geom)
   for selector in ['#transfer-amount','#payment-owner','#text-memo','#paying-account','#payment-fee','#payment-risk']:
    page.locator(selector).scroll_into_view_if_needed();assert page.locator(selector).evaluate('(n)=>{const r=n.getBoundingClientRect(),p=document.querySelector(".panel-scroll").getBoundingClientRect();return r.top>=p.top-2&&r.bottom<=p.bottom+2}'),selector
-  payment_warning(page,ORDINARY_PAYMENT_WARNING);compositions.append({'clicked_at':[sx,sy],'settled_seconds':time.monotonic()-started,'toolbar_max_drift':drift,'panel':geom});page.screenshot(path=str(out/f'{width}-refined-payment.png'))
+  payment_warning(page,ORDINARY_PAYMENT_WARNING);compositions.append({'clicked_at':[sx,sy],'transition_wall_seconds':transition_elapsed,'journey_seconds_including_layout_checks':time.monotonic()-started,'toolbar_max_drift':drift,'panel':geom});page.screenshot(path=str(out/f'{width}-refined-payment.png'))
  # Build ghost and toolbar keep distinct identities; no quote or frozen packet
  # follows hover. Two sites change only the preview, not its real-cannon anchor.
  prepare('new');header=page.locator('.panel-header').bounding_box();sites=page.evaluate('fixture.sites()');assert len(sites)>=2

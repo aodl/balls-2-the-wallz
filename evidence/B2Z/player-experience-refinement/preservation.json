@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "baseline_commit": "5279625a2ff913f3a8067896c0c00344ac394c10",
+  "runtime_commit": "23e4ebec619e5a2e8d42982959f6e2a175f121e8",
+  "git_objects": [
+    {
+      "path": "canisters/runtime-lab",
+      "before": "47df2a04197354700e63f2376e5039b01ee72bf2",
+      "after": "47df2a04197354700e63f2376e5039b01ee72bf2",
+      "unchanged": true
+    },
+    {
+      "path": "native",
+      "before": "b4a60d377b208653f0f45e9ae3c035a9fdc2cf52",
+      "after": "b4a60d377b208653f0f45e9ae3c035a9fdc2cf52",
+      "unchanged": true
+    },
+    {
+      "path": "packages",
+      "before": "bf9fd83a7d955074cf7c341353e34953e6d5bfc0",
+      "after": "bf9fd83a7d955074cf7c341353e34953e6d5bfc0",
+      "unchanged": true
+    },
+    {
+      "path": "vendor",
+      "before": "fb56bf8daa8564a116e04225cfed9a87146612b1",
+      "after": "fb56bf8daa8564a116e04225cfed9a87146612b1",
+      "unchanged": true
+    },
+    {
+      "path": "Cargo.lock",
+      "before": "b82571cd610a903a7b144218a2fbcdde66588d69",
+      "after": "b82571cd610a903a7b144218a2fbcdde66588d69",
+      "unchanged": true
+    },
+    {
+      "path": "native/Cargo.lock",
+      "before": "9afd0f403a763cf3685ae68633e40b0821272dc6",
+      "after": "9afd0f403a763cf3685ae68633e40b0821272dc6",
+      "unchanged": true
+    },
+    {
+      "path": "canisters/runtime-lab/Cargo.lock",
+      "before": "2e46f340ee0e7700c07a55b3db35eca78e3628fb",
+      "after": "2e46f340ee0e7700c07a55b3db35eca78e3628fb",
+      "unchanged": true
+    },
+    {
+      "path": "package-lock.json",
+      "before": "29deb8e7e6e56d706dc0c858c87f577a8707d5e7",
+      "after": "29deb8e7e6e56d706dc0c858c87f577a8707d5e7",
+      "unchanged": true
+    }
+  ],
+  "production_mutations": false,
+  "financial_transactions": false,
+  "delegated_payments_enabled": false,
+  "experimental_worktree": "clean bc06b159090fc6bd13871bc98e52d2cf91c39e30"
+}

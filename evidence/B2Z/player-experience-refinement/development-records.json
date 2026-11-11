@@ -1,0 +1,51 @@
+{
+  "records": {
+    "failing-before.log": {
+      "path": ".work/player-refinement/failing-before.log",
+      "sha256": "4d9dd76437cc0d8b15339cb1f9f0588e225e04a91a2f6abe12875b6d0594c811",
+      "bytes": 3960
+    },
+    "npm-test-1.log": {
+      "path": ".work/player-refinement/npm-test-1.log",
+      "sha256": "5f58fde522f5067e94eac240457098b4dcede620d66af9bfc7e79b889fc71e42",
+      "bytes": 135821
+    },
+    "focused-current.log": {
+      "path": ".work/player-refinement/focused-current.log",
+      "sha256": "c72a37445b1f1bd859e24decbc7c4938622777341cb995ed96dbe8e8e6dc9227",
+      "bytes": 4941
+    },
+    "focused-final.log": {
+      "path": ".work/player-refinement/focused-final.log",
+      "sha256": "5fcfc034157d68cfca70b9f08dca7cef83fde3a9e6d58811108eef8b23687a5c",
+      "bytes": 4588
+    },
+    "refinement-logic-final.log": {
+      "path": ".work/player-refinement/refinement-logic-final.log",
+      "sha256": "ba4cb586c8eb08806df39fd31da42e11eda6e7367e08e097fc5cdc198996024a",
+      "bytes": 2638
+    },
+    "source.log": {
+      "path": ".work/player-refinement/source.log",
+      "sha256": "c1643d96ad0463e320b8987824ad68929b76a0357cb9a5d8e4d921b5752d5c00",
+      "bytes": 664
+    },
+    "publication.log": {
+      "path": ".work/player-refinement/publication.log",
+      "sha256": "e7453c6dc500aaaa1021f84f9211ae0f9d8c309ea7dae88221bcde70770438f7",
+      "bytes": 83
+    },
+    "superseded-runs.json": {
+      "path": ".work/player-refinement/superseded-runs.json",
+      "sha256": "b2985e79d843d6de71395c1636c380ef800a854801c747656129659da73452ab",
+      "bytes": 369
+    }
+  },
+  "classification": {
+    "failing-before.log": "Four targeted P1/presentation assertions fail before implementation.",
+    "npm-test-1.log": "1823/1825 pass; two old motion-lifetime assertions superseded explicitly by UXR-07/08.",
+    "refinement-logic-final.log": "14/15; Normal-speed canonical trajectory exposed whole-segment trimming, subsequently corrected.",
+    "superseded-runs.json": "Incomplete development run; not qualification.",
+    "publication.log": "BLOCKED: ordinary non-force push has no GitHub Git credentials."
+  }
+}

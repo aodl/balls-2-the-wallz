@@ -1,0 +1,119 @@
+{
+  "at": "2026-11-11T19:38:10.399507+00:00",
+  "local_source": "5279625a2ff913f3a8067896c0c00344ac394c10",
+  "remote_ordinary": "38e9cfbca9099fab246daf566c4a1f35cc011c95",
+  "remote_feature": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+  "public_assets": [
+    {
+      "path": "agent-api.md",
+      "sha256": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "app.mjs",
+      "sha256": "79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "backend.did",
+      "sha256": "8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "build-manifest.json",
+      "sha256": "c7d4268d5b2df67d134fc6c7870e701d045d45999ed8accd1e5b93f1d32651e1",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "configuration-entry.bin",
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "configuration-legacy.bin",
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "configuration-million.bin",
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "configuration-playability.bin",
+      "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "configuration-torus.bin",
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "configuration.bin",
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "cursors/reticle.svg",
+      "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "deployment.json",
+      "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "icon.svg",
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    },
+    {
+      "path": "index.html",
+      "sha256": "0036b81e790ee99176c2768cbf014bbabcdf7926e95c91b0344c2a7592b60a41",
+      "matches_deployed_manifest": true,
+      "headers": {
+        "ic-certificateexpression": "default_certification(ValidationArgs{certification: Certification{no_request_certification: Empty{}, response_certification: ResponseCertification{certified_response_headers: ResponseHeaderList{headers: [\"content-type\", \"Content-Security-Policy\", \"Permissions-Policy\", \"Referrer-Policy\", \"Set-Cookie\", \"Strict-Transport-Security\", \"X-Content-Type-Options\", \"X-Frame-Options\", \"X-XSS-Protection\"]}}}})",
+        "content-type": "text/html",
+        "permissions-policy": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "x-frame-options": "DENY",
+        "x-content-type-options": "nosniff",
+        "set-cookie": "ic_env=ic%5Froot%5Fkey%3D308182301d060d2b0601040182dc7c0503010201060c2b0601040182dc7c05030201036100814c0e6ec71fab583b08bd81373c255c3c371b2e84863c98a4f1e08b74235d14fb5d9c0cd546d9685f913a0c0b2cc5341583bf4b4392e467db96d65b9bb4cb717112f8472e0d5a4d14505ffd7484b01291091c5f87b98883463f98091a0baaae; SameSite=Lax",
+        "content-security-policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        "referrer-policy": "no-referrer",
+        "x-xss-protection": "1; mode=block",
+        "ic-certificate": "version=2, certificate=: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:, tree=:2dn3gwGCBFggdLd0/sIbMOg6iWOcufI+ON412fqIk3j6Mwff29iXJPODAklodHRwX2V4cHKDAYIEWCDy2QL6YewQQ50u/8ZptEhkcSMiS7reGeJAOfoIHRND9IMBggRYIBcrvv+hI1ttMVTL+HOG6HKdF0R9dDk3LMQRsCilI1ePgwGCBFggOuUSQ7ZaIqDGBHmLh9nQW2Z+Bg2cruGh8OilalLNyOWDAYIEWCA2wFKQHwRRZ/0iErkNn230gHTUfvk0JS3JoQoeSeTPMoMBggRYII4chiapdR5W0Tz65+EhiDRZkVjjYrsIbUJaiElz4ZXUgwGDAkppbmRleC5odG1sgwJDPCQ+gwGDAlggiz+kFAmzwEKaattft3q4pBklAV9GoeJP+ILaQb3u1XqDAkCDAYMCWCCHs0g4UwwlnE0OaFeKdnG9oE+d6/e3VG/tzD/5BbPwoIIDQIMCWCD3BTHiiOnyIKaRNhFy1oYhT1+2Z7XXN22Jl3/6RAxUYIIDQIMCWCDDBoMy8IBJDNmi2bFehizJZSOK1yegP7c07+8OF+qKE4MCQIMBgwJYIMuvAMI/5K7oetz1v9cecBLbU+iHn7sfF0YYg+M9sHEHggNAgwJYIPzHNaEdry7rEcmpTUe7fv3mtzuS3Cd5ooZiYktFCikHggNAggRYINW29sAkUu4AC8aY97t0LvuLggpDswbNgHnXMsM62mFZ:, expr_path=:2dn3g2lodHRwX2V4cHJqaW5kZXguaHRtbGM8JD4=:",
+        "x-cache-ttl": "10",
+        "access-control-expose-headers": "accept-ranges, content-length, content-range, x-request-id, x-ic-canister-id",
+        "access-control-allow-origin": "*",
+        "vary": "origin, access-control-request-method, access-control-request-headers",
+        "content-length": "10465",
+        "x-ic-canister-id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "x-request-id": "01a1cc1e-24f4-71b1-ac44-4db7e05df38c",
+        "date": "Wed, 11 Nov 2026 19:38:10 GMT",
+        "connection": "close"
+      }
+    },
+    {
+      "path": "style.css",
+      "sha256": "25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1",
+      "matches_deployed_manifest": true,
+      "headers": {}
+    }
+  ]
+}
