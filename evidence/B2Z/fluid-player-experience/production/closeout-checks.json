@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-11T18:15:20.767133+00:00",
+  "status": "PASS",
+  "scope": "Evidence-only deployment closeout; no runtime rebuild or new source qualification",
+  "checks": {
+    "documentation_local_links": "353 PASS",
+    "new_deployment_report_local_links": "PASS",
+    "git_diff_whitespace": "PASS",
+    "frozen_and_staged_16_file_identity": "PASS",
+    "saved_actual_served_15_public_files_and_policy": "PASS",
+    "bc06b15_exact_git_object_copy": "10/10 PASS",
+    "production_capture_file_hashes": "15/15 PASS",
+    "feature_worktree": "clean bc06b159090fc6bd13871bc98e52d2cf91c39e30"
+  },
+  "runtime_code_modified": false
+}

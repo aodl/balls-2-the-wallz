@@ -10,8 +10,10 @@ reset, activation or transition sequence against it.
 - Default receiving AccountIdentifier: `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
 
 Asset-only frontend publication requires explicit release-specific owner authority.
-The authorised tactical-polish asset release and its actual served verification are
-recorded in [the current release report](../../evidence/B2Z/tactical-polish/REPORT.md).
+The authorised ordinary fluid-player release and actual served verification are
+recorded in [the current release report](../../evidence/B2Z/fluid-player-experience/REPORT.md).
+The [tactical release](../../evidence/B2Z/tactical-polish/REPORT.md) is its retained
+asset-only rollback set.
 The [preceding player-centred release](../../evidence/B2Z/player-centred-live/REPORT.md)
 remains rollback/history evidence.
 That completed publication does not grant standing authority for future releases. Backend controller access
@@ -25,14 +27,19 @@ Read [STATUS](../../STATUS.md), the [current frontend release report](../../evid
 flows, statuses, handoff, rendering or playback must identify affected UX IDs,
 update intentional contract changes and execute corresponding regressions.
 
-## Fluid-player candidate boundary
+## Deployed ordinary frontend boundary
 
-The fluid-camera/ball-follow/compact-toolbar continuation is a **source candidate**.
-Its maintained implementation is described in the human-experience contract and
-[release record](../../evidence/B2Z/fluid-player-experience/REPORT.md). It does not
-replace the deployed tactical artifact above. Its source publication and CI are
-separate from production approval. A future approval must name the exact complete
-frozen manifest and retain the tactical assets for bounded asset-only rollback.
+The fluid camera/ball-follow/compact-toolbar release uses runtime `662f905…`,
+qualified source `38e9cfb…`, JS `79acf867…` and the exact sixteen-file manifest
+`68116cee…`. It was published with `--no-asset-upgrade`; the backend and asset-
+canister Wasm remain unchanged. Read the release record for full identities and
+current verification. Future publication still needs release-specific authority.
+
+Delegated payments remain absent from this ordinary build and disabled in
+production. The separately source-qualified financial feature does not authorize
+an upgrade or activation. Use the [prepared genuine II acceptance procedure](B2Z_II_ACCEPTANCE.md);
+any auth-only route, origin metadata or additional publication requires its own
+explicit scope. None was added to the deployed frozen asset set.
 
 ## Freeze and qualify
 

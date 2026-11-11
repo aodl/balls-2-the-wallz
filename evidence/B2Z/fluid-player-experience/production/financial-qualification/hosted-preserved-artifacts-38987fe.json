@@ -1,0 +1,30 @@
+{
+  "qualified_source": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+  "status": "PASS",
+  "files": {
+    "evidence/B2Z/icrc2-delegated-payments/frontend-files-owner-setup-experimental.json": {
+      "status": "PASS",
+      "source": "15586071fb38033398cd5378398b23616747a811",
+      "files": 17,
+      "manifest_sha256": "87c9eac935fce0148b80c4fb5d1b4a42645b99f03971699e5204c1d8dfa50d56",
+      "app_sha256": "f9eab78824943e1cbfbf2660fce5cb0b61cc9daf0a5b3474e81db696e1ace950"
+    },
+    "evidence/B2Z/icrc2-delegated-payments/frontend-files-arrival-jitter-default.json": {
+      "status": "PASS",
+      "source": "9a5cb2be7a9de79aae536df5f01c99fd9da39ce4",
+      "files": 17,
+      "manifest_sha256": "c43a767cf476024042401793cbbd57c6b3ee4d395c926dde4166755ffd4350cf",
+      "app_sha256": "7d410db3507e0e65af1b09a6df0fe2be8eddf8458ad3c10575c0e39c1c353109"
+    },
+    "evidence/B2Z/fluid-player-experience/frontend-files-arrival-jitter.json": {
+      "status": "PASS",
+      "source": "662f9052bbb4235b2739df12646de66eca10dfbd",
+      "files": 16,
+      "manifest_sha256": "68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03",
+      "app_sha256": "79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a"
+    }
+  },
+  "runtime_rebuild": false,
+  "backend_rebuild_local": false,
+  "production_modified": false
+}

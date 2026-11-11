@@ -1,3 +1,30 @@
+# Ordinary fluid frontend — deployed and verified
+
+The European ordinary frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Qualified `38e9cfb` passes all six gates in run 43010680568. Exact runtime
+`662f905` / JS `79acf867…` / sixteen-file manifest `68116cee…` was published
+without rebuilding; all fifteen public files and security headers match.
+Desktop/390/320 production camera, toolbar, follow selection, canonical copy,
+selected-tile warning and clock/queue checks pass. Tactical rollback is retained.
+[Actual deployment record](evidence/B2Z/fluid-player-experience/REPORT.md).
+
+Backend module `612ad0d0…`, rules 7/schema 6/epoch 4, paid state, controllers,
+settings and thirteen-node subnet are preserved. Final 11 November 18:04 UTC
+backend total/liquid: 1.423842T / 1.367509T, Trickle 0.01 ticks/s, admission open.
+Existing treasury balance-query deadline warning remains; no financial recovery
+or transfer was attempted. Genuine rendered hidden-tab/hardware/physical-device
+and real-wallet coverage limitations remain explicit.
+
+Delegated payments stay absent/disabled. Qualified financial `38987fe` passes six
+gates and nine disposable cases/UI; local `bc06b15` evidence is consolidated
+without feature-code merging. [Genuine II acceptance procedure](docs/operations/B2Z_II_ACCEPTANCE.md)
+is prepared, not executed. Any auth route/origin metadata/publication and future
+backend upgrade/activation need separate explicit scope.
+
+Earlier entries retain their historical status.
+
+---
+
 # Fluid frontend — six gates passed, awaiting separate release authority
 
 Published `454ec0380d5d76a01c809078b8fe625db98eaeda` passes all six substantive

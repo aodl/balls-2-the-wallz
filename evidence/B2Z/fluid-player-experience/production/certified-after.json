@@ -1,0 +1,127 @@
+{
+  "at": 1794420295485,
+  "proof": {
+    "mode": "certificate-verifier",
+    "network": "ic",
+    "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "version": 8,
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "epoch": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+    "format": null,
+    "head": "6000",
+    "root": "917c2560aae4f46f2da249c821bc71cea3a950b7447d092d873c7b47eedc2bed",
+    "certificate_time_ns": "1794420268235684079"
+  },
+  "identity": {
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "epoch": {
+    "event_hash": "cbcb9d33d28838d46f009064cc76d8dc58d8353f89fd549b7aa38b0abaa705e9",
+    "logical_boundary": "4",
+    "metadata_hash": "f7f9d9984126e2c2f6f61cd01dda10d7c095debefb26bfc0ded5a7974ec9d417",
+    "new_identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "predecessor": {
+      "epoch_hash": "764736e979f1b12632fb2c351866fe75ef0393c7dea62d60314e9daf79251e38",
+      "identity": {
+        "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+        "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "logical_end": "4",
+      "manifest_hash": "e27b17513549896f53d5396543eb679fd32e2ec8053ca99f868cd9525ab5048e",
+      "publication_hash": "10091820944562eba5476f70ebbabd81a8a3538fd783948f2855aefb09048993",
+      "segment_id": "6",
+      "source_cursor": "0",
+      "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+      "version": 8
+    },
+    "previous_chain_hash": "c1370dd01568fb7b2e4a0bab94b5d40d27889741f22683b6f027d144f92380ae",
+    "previous_publication_hex": "",
+    "score_hash": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89",
+    "segment_id": "7",
+    "source_anchor": "0000000000000000000000000000000000000000000000000000000000000000",
+    "source_cursor": "0",
+    "state_hash": "cb649fc92ac24856d16edea37daa8ced323a80abe6b07afc092de1dcda3a35cf",
+    "transition_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+    "transition_index": "4",
+    "version": 2
+  },
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "config": {
+    "annihilation_distance": 64,
+    "annihilation_time_window": [
+      "1",
+      "16"
+    ],
+    "ball_base_e8s": "10000000",
+    "ball_ownership": "funding-player",
+    "ball_price": "island-pool-floor-1-square",
+    "cannon_activity": "connected-island-ball-pool",
+    "cannon_price": "retained-plus-1-square",
+    "capture_resolution": "pair-and-cancel-1",
+    "dormancy_clock": "consensus-observed-ns-1",
+    "dormancy_grace_ns": "86400000000000",
+    "first_spawn": "farthest-cannon-toroidal-euclidean-1",
+    "height": 1000,
+    "join_e8s": "100000000",
+    "lifecycle_input_version": 1,
+    "max_balls": 64,
+    "max_cannons": 128,
+    "max_players": 1024,
+    "max_purchase_balls_per_island": 64,
+    "max_purchase_quantity": 64,
+    "max_retained_per_player": 16,
+    "max_segment_ticks": 64,
+    "max_spawn_searches_per_segment": 8,
+    "memo_adapter_version": 4,
+    "move_e8s": "10000",
+    "move_limit_per_cannon_segment": 1,
+    "ownership": "scaled32-v1",
+    "player_identity": "authenticated-funding-account",
+    "rules_version": 7,
+    "score_area_denominator": 1000000,
+    "score_area_numerator": 1024,
+    "spawn_patch_side": 3,
+    "spawn_preserve_connectivity": true,
+    "spawn_tie_break": "lowest-row-major-cell",
+    "speed": 32000,
+    "topology": "torus",
+    "version": 6,
+    "width": 1000
+  },
+  "world": {
+    "version": 6,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "status": {
+    "kind": "waiting",
+    "label": "Waiting for next update",
+    "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+    "canPrepare": true
+  }
+}

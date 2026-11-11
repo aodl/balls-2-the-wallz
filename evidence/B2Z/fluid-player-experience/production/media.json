@@ -1,0 +1,80 @@
+{
+  "scope": "Actual production UI; public account declaration and clipboard only. Software GPU/emulated viewport, no wallet or transfer.",
+  "files": [
+    {
+      "path": ".work/fluid-live/browser/390-move-warning.png",
+      "bytes": 138612,
+      "sha256": "cf04c52a8cdf0336dbd9f0c414111f6d5ee7d0e637916289a0aa001c3a3f21c0"
+    },
+    {
+      "path": ".work/fluid-live/browser/1440-toolbar.png",
+      "bytes": 648346,
+      "sha256": "80cdedb3f64a21045079bbfe7af4d3f75f5337bface60a9e78584de5eb424b09"
+    },
+    {
+      "path": ".work/fluid-live/browser/1440-following.png",
+      "bytes": 51269,
+      "sha256": "5b1931be3a853921ca6a845dcf60c365c0daebb181f0b9617c618842c0201367"
+    },
+    {
+      "path": ".work/fluid-live/browser/320-move-warning.png",
+      "bytes": 93448,
+      "sha256": "1f70da98a618c727d95b9850b2236229c7dbc2356c7f93b9c12c6fc95bd2f998"
+    },
+    {
+      "path": ".work/fluid-live/browser/320-build-warning.png",
+      "bytes": 93625,
+      "sha256": "519afb42f2a739068ee84d37b1e4b49475fdb458fdf97e1a267112ad5028eee8"
+    },
+    {
+      "path": ".work/fluid-live/browser/320-following.png",
+      "bytes": 29604,
+      "sha256": "4b9b5f01f004bd9703275f76696c0573927a40a661b13f61d1ef581e92b95fc6"
+    },
+    {
+      "path": ".work/fluid-live/browser/1440-build-warning.png",
+      "bytes": 664067,
+      "sha256": "22deb58b45a5c4b70fef85d0710021e0fefa4367cafbe30b3b12ddeae16e1608"
+    },
+    {
+      "path": ".work/fluid-live/browser/320-toolbar.png",
+      "bytes": 69516,
+      "sha256": "d9ba36192465d1579f1196d13a7102660bbc0fe4a8acf2685365a44c72e16c78"
+    },
+    {
+      "path": ".work/fluid-live/browser/390-toolbar.png",
+      "bytes": 88237,
+      "sha256": "33df084a34a2177803e935e21a1f23c9cf20ebffc85a00e36e54da660a9480e3"
+    },
+    {
+      "path": ".work/fluid-live/browser/390-following.png",
+      "bytes": 24562,
+      "sha256": "35a9ea12af4113d987a819c3f0cc95fd320d4c80f8bf109b4eaee370811e4802"
+    },
+    {
+      "path": ".work/fluid-live/browser/1440-move-warning.png",
+      "bytes": 916022,
+      "sha256": "07b1336ea35189f86438d5a0f9893df3af906191172df20ebdaf4fd8f28e905a"
+    },
+    {
+      "path": ".work/fluid-live/browser/390-build-warning.png",
+      "bytes": 129920,
+      "sha256": "e34be99293515d6eb0ca26be88a49078dde6cc0ba84ab81c6349dd0d53673e5c"
+    },
+    {
+      "path": ".work/fluid-live/browser/video/page@214909c9f1f66e9ad26c500312a8f4c0.webm",
+      "bytes": 3711890,
+      "sha256": "f1a47a7c18987d5479b58b1515ac6475acc75a6ddf6bdbed06a1159ece37c8bd"
+    },
+    {
+      "path": ".work/fluid-live/browser/video/page@227681b5a10b422325acf367420abc1b.webm",
+      "bytes": 2383803,
+      "sha256": "06dec8d2fa1ad3a14e0535fedad56c77a9aa45ae2228ad49a8125e1a25c9a2cf"
+    },
+    {
+      "path": ".work/fluid-live/browser/video/page@f4d6b1bbefb27c41235f6c7a4d9d1671.webm",
+      "bytes": 1496811,
+      "sha256": "a9b3ea272a030eabfcca9c0c96138b32b9e9707b1a77cc95ab22b23dbdeffa12"
+    }
+  ]
+}

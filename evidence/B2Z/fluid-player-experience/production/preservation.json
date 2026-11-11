@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "certified_modules_controllers_and_subnet_preserved": true,
+  "settings": {
+    "frontend": {
+      "Controllers": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe",
+      "Memory allocation": "0 Bytes",
+      "Compute allocation": "0 %",
+      "Freezing threshold": "2_592_000 Seconds",
+      "Reserved cycles limit": "5_000_000_000_000 Cycles",
+      "Wasm memory limit": "3_221_225_472 Bytes",
+      "Wasm memory threshold": "0 Bytes",
+      "Module hash": "0x04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "Log visibility": "public"
+    },
+    "backend": {
+      "Controllers": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe",
+      "Memory allocation": "0 Bytes",
+      "Compute allocation": "0 %",
+      "Freezing threshold": "2_592_000 Seconds",
+      "Reserved cycles limit": "5_000_000_000_000 Cycles",
+      "Wasm memory limit": "3_221_225_472 Bytes",
+      "Wasm memory threshold": "0 Bytes",
+      "Module hash": "0x612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "Log visibility": "public"
+    }
+  },
+  "identity": {
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "rules": 7,
+  "schema": 6,
+  "epoch": "4",
+  "source_cursor": "40180669",
+  "pending_source_records": 0,
+  "source_error": [],
+  "treasury_phase": {
+    "Idle": null
+  },
+  "treasury_warning": [
+    "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+  ],
+  "treasury_financial_totals_and_last_success_preserved": true,
+  "received_e8s": "100000000",
+  "world": {
+    "version": 6,
+    "width": 1000,
+    "height": 1000,
+    "cannons": 1,
+    "balls": 1,
+    "received_e8s": "100000000"
+  },
+  "autonomous_segments": {
+    "before": "5992",
+    "after": "5997"
+  },
+  "total_cycles": "1_423_841_960_348",
+  "liquid_cycles": "1_367_509_199_258",
+  "pace": {
+    "admission_open": true,
+    "mode": "Trickle",
+    "nominal_milli": 10,
+    "performance_limited": false,
+    "supported_milli": 10
+  },
+  "liquid_entry_margin_cycles": 117509199258,
+  "liquid_exit_margin_cycles": 367509199258,
+  "reservation_subtracted_again": false,
+  "financial_operations_by_agent": false
+}

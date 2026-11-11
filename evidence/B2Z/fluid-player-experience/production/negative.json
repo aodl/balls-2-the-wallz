@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "scope": "Intentional browser-local config tamper against genuine served app; no server mutation.",
+  "label": "Unable to verify game",
+  "payment_controls_disabled": true,
+  "spinner_hidden": true,
+  "no_production_bytes_modified": true
+}

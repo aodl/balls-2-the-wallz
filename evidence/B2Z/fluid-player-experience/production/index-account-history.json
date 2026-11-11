@@ -1,0 +1,40 @@
+{
+  "Ok": {
+    "balance": "0",
+    "oldest_tx_id": [
+      "40180627"
+    ],
+    "transactions": [
+      {
+        "id": "40180668",
+        "transaction": {
+          "created_at_time": [
+            {
+              "timestamp_nanos": "1794130796502691675"
+            }
+          ],
+          "icrc1_memo": [],
+          "memo": "1347768404",
+          "operation": {
+            "Transfer": {
+              "amount": {
+                "e8s": "99990000"
+              },
+              "fee": {
+                "e8s": "10000"
+              },
+              "from": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+              "spender": [],
+              "to": "01db2df26557f23705b1733728e728d3f44d17e30ffd79ee9886a9642fe59109"
+            }
+          },
+          "timestamp": [
+            {
+              "timestamp_nanos": "1794130797563406670"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

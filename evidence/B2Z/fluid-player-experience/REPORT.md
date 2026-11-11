@@ -1,3 +1,272 @@
+# Fluid player experience — deployed and verified
+
+**The ordinary fluid-player game is live as a controlled prelaunch playtest:**
+https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+The exact frozen assets were published once on 11 November 2026, without rebuilding
+or substituting the experimental signing build. All fifteen public files and the
+consumed upload policy match the approved sixteen-file manifest. Production
+browser checks pass at desktop, 390×844 and 320×640. Backend code, paid state,
+controllers, settings and financial authority are preserved. Delegated payments
+remain absent/disabled. No rollback was required.
+
+## Qualified and served identities
+
+- Runtime/build source: **`662f9052bbb4235b2739df12646de66eca10dfbd`**.
+- Qualified published source: **`38e9cfbca9099fab246daf566c4a1f35cc011c95`**.
+- [CI run 43010680568](https://github.com/aodl/balls-2-the-wallz/actions/runs/43010680568):
+  all six substantive gates PASS; [exact conclusions](production/exact-ci.json).
+- Served JavaScript SHA-256:
+  **`79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a`**.
+- [Complete sixteen-file manifest](frontend-files-arrival-jitter.json) SHA-256:
+  **`68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03`**.
+- The clean existing freeze is
+  `.work/fluid-player-experience/frozen-arrival-jitter/frontend`.
+  All actual frozen and staged bytes were checked before publication. Later
+  evidence-only commits do not replace this runtime identity.
+
+| Substantive release gate | Result |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+The production-inventory job is informational, excluded from qualification.
+No new runtime source, build, push or CI campaign was needed for this deployment.
+
+## Publication, served bytes and security
+
+Verified local aliases are `b2z = s5ir5-gqaaa-aaaas-amyna-cai` and
+`observer = s2jxj-liaaa-aaaas-amynq-cai`. Exact frozen files were copied into
+`.work/s14/assets` after preserving its prior contents. The established asset-only
+route was executed with dfx 0.31.0:
+
+```sh
+DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity \
+NPM_CONFIG_IF_PRESENT=true \
+dfx deploy observer --network ic --no-wallet --no-asset-upgrade
+```
+
+[Publication log](production/frontend-publication.log),
+[staged-file identity](production/staged.json),
+[all returned file hashes/headers](production/served-files.json) and
+[signed post-publication asset inventory](production/inventory-after.json)
+record the result. The generic dfx log includes “Upgraded code”; certified module
+hashes prove the asset-canister Wasm stayed unchanged with `--no-asset-upgrade`.
+Only the observer target was prepared; no backend build/install/update ran.
+
+Every public asset below matches its approved bytes and required headers, checked
+at **2026-11-11 17:59:04 UTC**. Signed inventory contains exactly these fifteen
+keys, with no experimental authentication/metadata route.
+
+| Public path | Actual served SHA-256 | Result |
+| --- | --- | --- |
+| `/agent-api.md` | `ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a` | PASS |
+| `/app.mjs` | `79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a` | PASS |
+| `/backend.did` | `8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be` | PASS |
+| `/build-manifest.json` | `c7d4268d5b2df67d134fc6c7870e701d045d45999ed8accd1e5b93f1d32651e1` | PASS |
+| `/configuration-entry.bin` | `8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80` | PASS |
+| `/configuration-legacy.bin` | `3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622` | PASS |
+| `/configuration-million.bin` | `cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03` | PASS |
+| `/configuration-playability.bin` | `e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68` | PASS |
+| `/configuration-torus.bin` | `6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4` | PASS |
+| `/configuration.bin` | `05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42` | PASS |
+| `/cursors/reticle.svg` | `9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892` | PASS |
+| `/deployment.json` | `b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066` | PASS |
+| `/icon.svg` | `2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888` | PASS |
+| `/index.html` | `0036b81e790ee99176c2768cbf014bbabcdf7926e95c91b0344c2a7592b60a41` | PASS |
+| `/style.css` | `25d0a61f06d0534991d852a43d0e9dec62b1aee361d5d630d552eb0ae857e6d1` | PASS |
+
+The sixteenth file, `.ic-assets.json5`, is consumed by upload, not served as a
+public file. Its SHA-256 is
+`096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c`.
+Its required CSP matched on every public response:
+
+```text
+default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://icp-api.io; img-src 'self'; font-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+```
+
+Permissions-Policy, `Referrer-Policy: no-referrer`, `X-Content-Type-Options: nosniff`,
+HSTS and frame denial are preserved. No remote script/font, weakened verifier,
+Internet Identity origin metadata or auth-capable route was published.
+
+## Read-only production preflight and preservation
+
+[Certified before](production/metadata-before.json), [certified final](production/metadata-final.json)
+and [preservation comparisons](production/preservation.json) establish:
+
+- Backend module unchanged:
+  `612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`.
+- Frontend asset-canister module unchanged:
+  `04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62`.
+- Both controller sets unchanged:
+  `amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae` and
+  `zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe`.
+- Both are certified on subnet
+  `bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe`, **13 nodes**.
+  Allocations, freezing threshold, reservations/settings and visibility remain
+  unchanged; status was read, never configured.
+- Authenticated rules **7**, schema/world version **6**, epoch **4**, 1000×1000
+  torus, one paid cannon/one ball and **100,000,000 e8s** received are preserved.
+  Autonomous segments advance normally (5992 → 5997 in the compared snapshots);
+  identity/configuration/source hashes remain identical. Live motion was not
+  required to be byte-identical to an earlier snapshot.
+- Official Ledger `ryjl3-tyaaa-aaaaa-aaaba-cai` and Index
+  `qhbym-qaaaa-aaaaa-aaafq-cai` remain bound to the backend's default receiving
+  account. [Independent derivation](production/account-derivation.json) agrees
+  with `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
+  Ledger/Index queries both return **0 e8s** balance, with prior treasury transfer
+  40180668 the newest history entry. No unexplained account activity was found.
+- Source binding checked, cursor **40180669**, pending **0**, no source error or
+  reconciliation request. Treasury is **Idle**, neither paused nor halted; prior
+  converted totals and last success remain unchanged.
+
+**Existing operational warning:** treasury retains
+`icrc1_balance_of: CallRejected(... Call deadline has expired.)`.
+This predates publication. It is not relabelled healthy conversion or a new
+frontend defect; no financial recovery, transfer or settings change was attempted.
+
+Final status reads around **18:04:58 UTC** report backend total
+**1,423,841,960,348 cycles**, SDK liquid **1,367,509,199,258 cycles**; frontend
+**1,467,615,981,453 cycles**. Selected/supported pace is **Trickle, 0.01 ticks/s**,
+admission open, running, not performance-limited. Liquid headroom is
+**117,509,199,258** above 1.25T entry and **367,509,199,258** above the 1T exit
+floor. Reservations were not subtracted from liquid again. Event Horizon remains
+disabled and the independent 60-second source fallback is unchanged.
+
+Preflight totals were backend 1,425,954,699,194 / liquid 1,369,621,938,104 and
+frontend 1,472,786,350,933. These balance differences include publication,
+verification and autonomous processing; they are **not** steady/gross execution
+cost, gameplay burn or a lifetime forecast. No additional consumption campaign ran.
+
+## Actual production browser verification
+
+[Executed results](production/browser-results.json) pass at **1440×900**, **390×844**
+and **320×640**, against the served bytes and genuine certified paid world:
+
+- Anonymous observation, restored local account after reload, persistent selected
+  cannon, one-row five-button toolbar and one expandable action section.
+- Smooth Focus/Overview, focused disabled state, pan/zoom and non-repeating camera,
+  shifted diamond minimap navigation; ball-follow selection/stop preserves zoom.
+- Canonical Fire/Move/Build instructions from latest verified state, primary
+  backend principal, exact amount/text memo/payer clipboard values. Screen 45°
+  yields `FIRE 1 255 1`; editing to 90° yields `FIRE 1 315 1` only after explicit
+  Update. Keep restores the prior coherent packet. No payment was sent.
+- Same-cell Move rejected; legal Move and adjacent Build prepared and revalidated.
+  Both selected-destination actions show exactly:
+  **“If another player claims your chosen tile before your action is processed,
+  the action fails and your ICP remains spent.”** Separate wallet-fee wording
+  remains. Fire retains ordinary retention risk. Small panels use one natural
+  scroll; there is no second generic warning, legacy/hex control, manual index,
+  payment-reporting path, sign-in or delegated Pay control.
+- Action collapse/reopen, camera, account and copy interactions retain the **same
+  clock and queue**, never advancing beyond coverage. Clock identity is measured
+  after the explicit account-restoration reload, not across page reconstruction.
+  Certificates continue arriving without refresh, with zero resyncs during each
+  bounded interaction journey. Browser POSTs are query/read_state only.
+- Verified motion was observed at 390×844; desktop/320 correctly showed
+  **Waiting for next update** when no interval remained. At 390 the arriving
+  interval becomes **Slow · delayed**. Ball-follow activation was checked on the
+  actual ball; waiting did not fabricate a moving ball/camera. Existing qualified
+  disposable seam-follow and extended pacing evidence remains applicable to the
+  identical runtime; these short production checks do not replace it.
+- A browser-local optional status-query failure at 320 shows Unavailable while
+  observation and valid preparation continue. A separate
+  [browser-local configuration tamper](production/negative.json) produces
+  **Unable to verify game**, disabled new payment preparation and no misleading
+  waiting spinner. No served configuration or backend was changed for either test.
+
+Raw commands used the existing Python 3.11 browser environment and task scripts
+`.work/fluid-live/smoke.py`, `negative.py`, `observe-before.py`, `observe-after.py`,
+`verify-served.py` plus SDK metadata/inventory and public/controller status reads.
+[Media inventory](production/media.json) preserves actual populated screenshots
+and three recordings, with hashes and retained paths in `.work/fluid-live/browser`.
+Existing qualified media/timing/depth/regression records below remain under their
+original identities, including failed/incomplete historical attempts.
+
+Coverage is **Chromium 153.0.8010.12 / ANGLE SwiftShader**, emulated viewports.
+No hardware-backed performance, physical-phone/native-keyboard or real-wallet
+claim is made. This host has no working rendered headed display/Xvfb path, so
+**genuine hidden-tab execution remains unestablished**. Controlled lifecycle tests
+are retained separately; no visibility spoofing/throttling bypass was used to
+manufacture coverage. No new benchmark or real payment was needed for release.
+
+## Tactical rollback retained
+
+Freshly downloaded pre-publication tactical files matched all fifteen public
+hashes and required headers before upload. Their complete policy-inclusive
+[rollback manifest](production/rollback-manifest.json) is
+`a7eb5d4a57df813a669d0dcdb46978f7984d937678a83935a719f23425c95cc2`;
+JS is `f993f930255435766eeeb65b960d06a189372f6fcd057768458fc33446272fde`.
+Retained set: `.work/fluid-live/rollback/frontend`; original qualified tactical
+freeze also remains intact. Prior staging is `.work/fluid-live/prior-staged-assets`.
+
+If the approved bounded rollback becomes necessary, first check the rollback
+manifest against every actual file and recheck aliases. Replace only
+`.work/s14/assets` with that complete sixteen-file rollback set, preserving the
+fluid staging. Run the exact observer-only `--no-asset-upgrade` command above,
+then verify every public tactical byte/header and both unchanged module hashes.
+No backend deploy, reset, setting update, broad deploy command or runtime rebuild
+belongs in that procedure. Rollback was **not executed** because verification passes.
+
+## Separate delegated-payment closeout and II acceptance
+
+The local evidence-only commit **`bc06b159090fc6bd13871bc98e52d2cf91c39e30`** is
+consolidated byte-for-byte as ten reviewed JSON snapshots with
+[provenance and hashes](production/financial-qualification/provenance.json).
+No experimental code was merged into the ordinary release. The feature worktree
+and original records remain unchanged.
+
+Qualified financial source **`38987fe84813ddb6b8cceef293dd42a98fd64985`** passes
+[all six substantive gates](https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060)
+and [all nine disposable financial cases plus UI](https://github.com/aodl/balls-2-the-wallz/actions/runs/43049099998).
+[Preserved exact conclusions](production/financial-qualification/hosted-qualification-38987fe.json)
+retain runtime `15586071fb38033398cd5378398b23616747a811`, unchanged financial
+backend SHA `19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443`
+(3,677,783 bytes), replay, owner revocation and artifact identities. The actual
+valueless Ledger rejects stale expected allowance and expired creation time;
+fresh-query revocation succeeds, partial/concurrent spending is accounted for and
+final allowance is zero. This is disposable qualification, not mainnet execution.
+Neither the experimental frontend nor backend was installed here.
+
+**Remaining acceptance:** actual Internet Identity ceremony and stable spender on
+the intended signing origin are **NOT_RUN**. The
+[prepared no-spending acceptance procedure](../../../docs/operations/B2Z_II_ACCEPTANCE.md)
+sets out identity comparison, expiry/targets, sign-out/re-sign-in stability,
+cancellation and zero-transfer evidence. An auth-only route, any required origin
+metadata/security-policy change and its publication require separate explicit
+scope. None was created/published by this task. No grant, allowance, ICP/cycles
+operation or payment activation is authorized by that procedure. A future paid-
+backend state-preserving upgrade/cutover/activation still needs separate review
+and authority. Signing out is not either on-chain revocation.
+
+## Completion and evidence publication
+
+There is no remaining ordinary-frontend deployment blocker. The existing treasury
+warning and coverage limitations above remain explicit. Modules, controllers,
+settings, source bindings and financial authority were not changed; paid autonomous
+state continues normally. This is a working controlled playtest, not final device,
+wallet, aesthetic or maximum-population qualification.
+
+[Closeout integrity/documentation checks](production/closeout-checks.json) pass.
+This deployment record, status/operator guidance and II acceptance procedure are
+local evidence/documentation changes only. Repository remote operations remain
+user-owned under AGENTS.md; no push or extra runtime CI was performed. To publish
+the resulting evidence commits (after review), the ordinary non-force continuation is:
+
+```sh
+git -C /home/codexdev/src/b2z push origin release/btz-prelaunch-playability feature/b2z-icrc2-delegated-payments
+```
+
+The feature ref remains local `bc06b15`; this command publishes evidence on the
+independent branches, without merging feature code or rebuilding qualified assets.
+
+---
+
+## Pre-deployment qualification records (historical, retained unchanged)
+
 # Fluid player experience — qualified frontend candidate, not deployed
 
 **Ready for a separate frontend-only controlled-playtest release decision.**

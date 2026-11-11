@@ -1,0 +1,60 @@
+{
+  "source_evidence_commit": "bc06b159090fc6bd13871bc98e52d2cf91c39e30",
+  "qualified_source": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+  "copied_from_exact_git_objects": {
+    "hosted-financial-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-financial-38987fe.json",
+      "sha256": "41be6899dbf024f5cd2fe5bdaa30a1553c7837ad94b72efc9d9732b0a4ab5287",
+      "bytes": 18090
+    },
+    "hosted-financial-ui-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-financial-ui-38987fe.json",
+      "sha256": "f9965af13028390004993ee55568876adca6d5a1f8337f83d218595e7c9feef4",
+      "bytes": 1016
+    },
+    "hosted-installed-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-installed-38987fe.json",
+      "sha256": "8e87d6bf9f94191341a3babcef19740dbdd80d3aecbdca23a5f3a339a804e800",
+      "bytes": 57623
+    },
+    "hosted-million-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-million-38987fe.json",
+      "sha256": "d7247ec568b59a1808788612d284a6e6d220f514ab07f06781dafce2c01615b8",
+      "bytes": 48077
+    },
+    "hosted-normal-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-normal-38987fe.json",
+      "sha256": "51f4afa4b10cf9570780b9b45cda5a359fdd3d5627471f7ba18ac2c00496c9b7",
+      "bytes": 5104
+    },
+    "hosted-owner-setup-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-owner-setup-38987fe.json",
+      "sha256": "43169a6e606a43a12668c6e519fe37cc8d7cdecf4f79e0d29e1e0608c689ff76",
+      "bytes": 659
+    },
+    "hosted-preserved-artifacts-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-preserved-artifacts-38987fe.json",
+      "sha256": "59a36634ed33ff96f2514c331696a63aded80df9d4362868d169eec3ccef9989",
+      "bytes": 1333
+    },
+    "hosted-qualification-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-qualification-38987fe.json",
+      "sha256": "6ddb5c4306a21835c599e5346c106c9dca6947c8a6699af015ea4f4d407fefc5",
+      "bytes": 5315
+    },
+    "hosted-replay-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-replay-38987fe.json",
+      "sha256": "def443478db477e419e82e20ad888a7ba1c77d6c283bf479cb6767257b5ac3de",
+      "bytes": 266
+    },
+    "hosted-source-38987fe.json": {
+      "source": "evidence/B2Z/icrc2-delegated-payments/hosted-source-38987fe.json",
+      "sha256": "5cea2b874cfb03441b0ec5f36110b5a6ab329e8a17fb4019bb0c0e8f76fe4185",
+      "bytes": 17019
+    }
+  },
+  "financial_backend_sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+  "experimental_runtime_source": "15586071fb38033398cd5378398b23616747a811",
+  "deployed": false,
+  "no_feature_code_merged": true
+}

@@ -1,0 +1,417 @@
+{
+  "status": "PASS",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "scope": "Served ordinary fluid frontend; actual certified paid world, public local declaration/copy only.",
+  "qualified_source": "38e9cfbca9099fab246daf566c4a1f35cc011c95",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "initial": {
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "fire": {
+        "amount": "0.1 ICP",
+        "amount_copy": "0.1",
+        "memo": "FIRE 1 255 1",
+        "hex": "464952452031203235352031",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "replaced_fire": {
+        "amount": "0.1 ICP",
+        "amount_copy": "0.1",
+        "memo": "FIRE 1 315 1",
+        "hex": "464952452031203331352031",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "move": {
+        "amount": "0.0001 ICP",
+        "amount_copy": "0.0001",
+        "memo": "MOVE 1 997997",
+        "hex": "4d4f5645203120393937393937",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "build": {
+        "status": "PASS",
+        "cell": 1,
+        "quote": {
+          "amount": "4 ICP",
+          "amount_copy": "4",
+          "memo": "NEW 225 1 1",
+          "hex": "4e45572032323520312031",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        }
+      },
+      "focus_before": [
+        999.2074462460241,
+        1.0390655428691389,
+        2.03646773346401
+      ],
+      "focus_after": [
+        2.305160880536846,
+        2.3238631678973434,
+        46.4759541164567
+      ],
+      "follow_zoom": 2.03646773346401,
+      "follow_start": {
+        "time": 5995,
+        "camera": [
+          10.68534049531354,
+          15.59549674531354
+        ],
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "follow_end": {
+        "time": 5995,
+        "camera": [
+          10.68534049531354,
+          15.59549674531354
+        ],
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "account_restored": true,
+      "same_clock_queue": true,
+      "read_only_posts": true,
+      "errors": [],
+      "final": {
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "certificates": 45,
+        "resyncs": 0
+      },
+      "movement_observed": false,
+      "recording": "video/page@214909c9f1f66e9ad26c500312a8f4c0.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "initial": {
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "fire": {
+        "amount": "0.1 ICP",
+        "amount_copy": "0.1",
+        "memo": "FIRE 1 255 1",
+        "hex": "464952452031203235352031",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "replaced_fire": {
+        "amount": "0.1 ICP",
+        "amount_copy": "0.1",
+        "memo": "FIRE 1 315 1",
+        "hex": "464952452031203331352031",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "move": {
+        "amount": "0.0001 ICP",
+        "amount_copy": "0.0001",
+        "memo": "MOVE 1 997997",
+        "hex": "4d4f5645203120393937393937",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "build": {
+        "status": "PASS",
+        "cell": 1,
+        "quote": {
+          "amount": "4 ICP",
+          "amount_copy": "4",
+          "memo": "NEW 225 1 1",
+          "hex": "4e45572032323520312031",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        }
+      },
+      "focus_before": [
+        999.2074462460241,
+        1.0390655428691389,
+        1.0336847748229683
+      ],
+      "focus_after": [
+        6.04921063099539,
+        6.052198476795979,
+        47.70041614678542
+      ],
+      "follow_zoom": 1.0336847748229683,
+      "follow_start": {
+        "time": 5995,
+        "camera": [
+          10.504232105766391,
+          15.414388355766278
+        ],
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "follow_end": {
+        "time": 5995,
+        "camera": [
+          10.504232105766391,
+          15.414388355766278
+        ],
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5995,
+          "available": 5995,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "account_restored": true,
+      "same_clock_queue": true,
+      "read_only_posts": true,
+      "errors": [],
+      "final": {
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 5995.011333000001,
+          "available": 5996,
+          "buffer": 0.9886669999987134,
+          "rate": 1
+        },
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "certificates": 33,
+        "resyncs": 0
+      },
+      "movement_observed": true,
+      "recording": "video/page@227681b5a10b422325acf367420abc1b.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "initial": {
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5996,
+          "available": 5996,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "fire": {
+        "amount": "0.1 ICP",
+        "amount_copy": "0.1",
+        "memo": "FIRE 1 255 1",
+        "hex": "464952452031203235352031",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "replaced_fire": {
+        "amount": "0.1 ICP",
+        "amount_copy": "0.1",
+        "memo": "FIRE 1 315 1",
+        "hex": "464952452031203331352031",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "move": {
+        "amount": "0.0001 ICP",
+        "amount_copy": "0.0001",
+        "memo": "MOVE 1 997997",
+        "hex": "4d4f5645203120393937393937",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "build": {
+        "status": "PASS",
+        "cell": 1,
+        "quote": {
+          "amount": "4 ICP",
+          "amount_copy": "4",
+          "memo": "NEW 225 1 1",
+          "hex": "4e45572032323520312031",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        }
+      },
+      "focus_before": [
+        999.2074462460241,
+        1.0390655428691389,
+        0.7838367960742887
+      ],
+      "focus_after": [
+        3.3664309505245456,
+        3.40580775128808,
+        43.93628603300744
+      ],
+      "follow_zoom": 0.7838367960742887,
+      "follow_start": {
+        "time": 5996,
+        "camera": [
+          34.1171875,
+          995.2109375
+        ],
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5996,
+          "available": 5996,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "follow_end": {
+        "time": 5996,
+        "camera": [
+          34.1171875,
+          995.2109375
+        ],
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5996,
+          "available": 5996,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "account_restored": true,
+      "same_clock_queue": true,
+      "read_only_posts": true,
+      "errors": [],
+      "final": {
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 5996,
+          "available": 5996,
+          "buffer": 0,
+          "rate": 1
+        },
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "certificates": 21,
+        "resyncs": 0
+      },
+      "movement_observed": false,
+      "recording": "video/page@f4d6b1bbefb27c41235f6c7a4d9d1671.webm"
+    }
+  ],
+  "limits": "Software rendered emulated viewports. No real wallet, transfer, physical phone, hardware performance or genuine hidden-tab claim."
+}

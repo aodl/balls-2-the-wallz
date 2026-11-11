@@ -1,0 +1,136 @@
+{
+  "source_commit": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+  "runtime_source": "15586071fb38033398cd5378398b23616747a811",
+  "qualification_correction_source": "090cf226e527abfc876d13af825560b45724e77f",
+  "verified_at": "2026-11-11 16:28:16 UTC",
+  "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060",
+  "overall_substantive": "PASS",
+  "substantive": {
+    "Packaged DTR and clean consumers": "PASS",
+    "Browser HTTP and Web Crypto": "PASS",
+    "S14 and million-cell installed-IC qualification": "PASS",
+    "Native conformance": "PASS",
+    "Runtime-lab Wasm": "PASS",
+    "Source conformance": "PASS"
+  },
+  "informational_inventory_excluded": true,
+  "jobs": [
+    {
+      "id": 130621007135,
+      "name": "Packaged DTR and clean consumers",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621007135",
+      "started_at": "2026-11-11T15:30:55Z",
+      "completed_at": "2026-11-11T15:31:26Z"
+    },
+    {
+      "id": 130621007723,
+      "name": "Browser HTTP and Web Crypto",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621007723",
+      "started_at": "2026-11-11T15:30:55Z",
+      "completed_at": "2026-11-11T15:35:39Z"
+    },
+    {
+      "id": 130621007783,
+      "name": "BLOCKED production inventory (not a pass)",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621007783",
+      "started_at": "2026-11-11T15:30:56Z",
+      "completed_at": "2026-11-11T15:30:59Z"
+    },
+    {
+      "id": 130621007859,
+      "name": "S14 and million-cell installed-IC qualification",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621007859",
+      "started_at": "2026-11-11T15:30:55Z",
+      "completed_at": "2026-11-11T16:24:47Z"
+    },
+    {
+      "id": 130621007864,
+      "name": "Native conformance",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621007864",
+      "started_at": "2026-11-11T15:30:56Z",
+      "completed_at": "2026-11-11T15:32:22Z"
+    },
+    {
+      "id": 130621007897,
+      "name": "Runtime-lab Wasm",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621007897",
+      "started_at": "2026-11-11T15:30:56Z",
+      "completed_at": "2026-11-11T15:34:02Z"
+    },
+    {
+      "id": 130621009011,
+      "name": "Source conformance",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049100060/job/130621009011",
+      "started_at": "2026-11-11T15:30:57Z",
+      "completed_at": "2026-11-11T15:33:07Z"
+    }
+  ],
+  "financial_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049099998",
+  "financial_jobs": [
+    {
+      "id": 130621010276,
+      "name": "Optional ICRC-2 / exact predecessor / replay / UI",
+      "head_sha": "38987fe84813ddb6b8cceef293dd42a98fd64985",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43049099998/job/130621010276",
+      "started_at": "2026-11-11T15:30:55Z",
+      "completed_at": "2026-11-11T15:39:14Z"
+    }
+  ],
+  "financial_selected_installed_cases": 9,
+  "financial_omitted_cases": [],
+  "financial_ui": "PASS",
+  "artifacts": [
+    {
+      "id": 13868488793,
+      "name": "delegated-payment-evidence",
+      "sha256": "836e08707080ee3af54f23f2cae7fa7832c4418caa1d79fe6ae440eaf1f3c97e"
+    },
+    {
+      "id": 13871658505,
+      "name": "local-ic-evidence",
+      "sha256": "189dd52fa5b432744c17041f9b6d49738d9d761e27e7a9adea1512e818e22810"
+    },
+    {
+      "id": 13869500332,
+      "name": "source-evidence",
+      "sha256": "825ebfe7beaa8521f89dcfebc85a013b408c49bb5315d52fcd9bd72cad01df9c"
+    }
+  ],
+  "normal_experimental_backend": {
+    "sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+    "bytes": 3677783,
+    "byte_identical_to_prior_qualification": true
+  },
+  "ordinary_disposable_modules": {
+    "normal": "1c0dad1205de170c676040283adbd7690c52ef03c9570c0c1f8af8c035c3f392",
+    "test_hooks": "4540a05f6be35c2477f80422a606df1b94073a961a9de302a2e23e4432885457"
+  },
+  "production_modified": false,
+  "remaining_production_requirements": [
+    "Actual Internet Identity ceremony and stable principal on intended origin",
+    "Separately reviewed state-preserving paid-backend upgrade/cutover/activation and explicit authority"
+  ]
+}

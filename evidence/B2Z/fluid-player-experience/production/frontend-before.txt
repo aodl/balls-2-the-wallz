@@ -1,0 +1,19 @@
+Canister status call result for observer.
+Status: Running
+Controllers: amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe
+Memory allocation: 0 Bytes
+Compute allocation: 0 %
+Freezing threshold: 2_592_000 Seconds
+Idle cycles burned per day: 1_161_050_954 Cycles
+Memory Size: 11_627_152 Bytes
+Balance: 1_472_786_350_933 Cycles
+Reserved: 0 Cycles
+Reserved cycles limit: 5_000_000_000_000 Cycles
+Wasm memory limit: 3_221_225_472 Bytes
+Wasm memory threshold: 0 Bytes
+Module hash: 0x04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62
+Number of queries: 442
+Instructions spent in queries: 851_785_038
+Total query request payload size: 196_716 Bytes
+Total query response payload size: 4_171_713 Bytes
+Log visibility: public

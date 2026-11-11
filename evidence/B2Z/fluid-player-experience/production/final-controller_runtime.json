@@ -1,0 +1,23 @@
+{
+  "Ok": {
+    "instruction_yield": "600000000",
+    "liquid_cycles": "1_367_509_199_258",
+    "message_work_limit": "2048",
+    "metrics": {
+      "last_instructions": "219257705",
+      "last_persist_instructions": "49210805",
+      "last_publish_instructions": "25568618",
+      "last_seal_instructions": "33247272",
+      "last_step_instructions": "62640617",
+      "max_actions": 5,
+      "max_instructions": "241291875",
+      "messages": "5997",
+      "persist_instructions": "250773154942",
+      "publish_instructions": "132684645804",
+      "seal_instructions": "159745160448",
+      "step_instructions": "333706384208"
+    },
+    "phase_action_limit": 8,
+    "total_cycles": "1_423_841_960_348"
+  }
+}
