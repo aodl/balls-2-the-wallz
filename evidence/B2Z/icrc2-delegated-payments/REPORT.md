@@ -377,3 +377,39 @@ and separate approval for the exact backend upgrade plus drained authenticated
 cutover and feature-enabled assets. Keep the preserved paid-state recovery path;
 never reset or reinterpret old inputs. Signing out and the two on-chain revocations
 remain distinct. This report authorizes no production operation.
+
+### Clean final frontend freeze
+
+Frozen frontend source is **`ba2edd1ab1c2f499a879cdd7f25c91320fa7e30d`**, clean
+at build time. Each complete set has **17 files: 16 public HTTP assets plus the
+consumed `.ic-assets.json5` upload policy**. All actual file hashes and required
+CSP/security headers match, with no test adapter in production inputs.
+
+| Build | JavaScript SHA-256 | Complete file-manifest SHA-256 |
+| --- | --- | --- |
+| Default, auth SDK excluded | `93c9a9e523102ac3b3519c5db33b8c9a4818379047c9831631ee9acf415ab3a8` | `d42a459404a093ed925f14e9dcfb1da2f5715fff4fe7182dbf016f71497fa362` |
+| Experimental, explicit enable flag | `ef8b4b6535a65404603ef0909478f7332b118271265bb3aad9551595690a6a38` | `3f7ba190ae77794ee1f5fe409894d23dd1b622e43f6f45d3d322391b2ee98e25` |
+
+[Default full manifest](frontend-files-candidate-default.json),
+[experimental full manifest](frontend-files-candidate-experimental.json), and the
+corresponding `build-manifest-candidate-*.json` retain every file/provenance input.
+Directories are `.work/icrc2-delegated-payments/candidate-{default,experimental}/frontend`.
+Raw JS is 1,989,135 / 2,215,461 bytes: optional signing adds 226,326 uncompressed
+bytes. The backend adds 329,162 uncompressed bytes over the exact predecessor.
+No served-mainnet or compressed-wire-size claim follows from these source assets.
+
+The final clean-source browser test bundle reproduces the actual UI08 capture
+bundle **byte-for-byte** (`2540f35d8107655dc8c4632154dc639f9a2a7162b06ae6e824e7f9429bec6221`).
+[Input provenance](ui-input-provenance.json) records its complete source/dependency
+input hashes. This justifies reusing those actual captures after committing,
+without inventing an II ceremony or repeating a performance campaign. Earlier
+freezes/media remain independently identified. The final allowance-label change
+is covered by UI08 and 38 focused tests; the 1,850/199 broad local record precedes
+that final copy change and is not relabelled as a hosted pass for `ba2edd1…`.
+
+Runtime inputs are now frozen. Later report/manifest-only commits do not justify
+rebuilding these artifacts. The final backend remains the independently frozen
+`56829547…` / `d5cbcdd3…` normal feature module. **No production release is
+approved**: exact-source hosted ordinary/financial CI and the separate explicit
+upgrade/activation decision remain required. The main manual-payment frontend
+candidate is separate and remains on its existing release branch.

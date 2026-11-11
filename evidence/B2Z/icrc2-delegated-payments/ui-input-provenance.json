@@ -1,0 +1,661 @@
+{
+  "status": "PASS",
+  "source_commit": "ba2edd1ab1c2f499a879cdd7f25c91320fa7e30d",
+  "test": "ui-release08",
+  "fixture_sha256": "2540f35d8107655dc8c4632154dc639f9a2a7162b06ae6e824e7f9429bec6221",
+  "proof": "Final clean-source test bundle is byte-identical to actual captured UI08 fixture; raw prior results unchanged",
+  "inputs": {
+    "apps/b2z-observer/action-quote-v6.mjs": {
+      "sha256": "61a7caa23058d33e108c65c4217d94851fc528c624304ac1626e931c92a6b0a2",
+      "bytes": 6014
+    },
+    "apps/b2z-observer/arcade.mjs": {
+      "sha256": "b52925e60ad5d18fad9ffd3ace32cb2a10c7469020dc7b5cdc40f382b3203685",
+      "bytes": 26707
+    },
+    "apps/b2z-observer/ball-presentation.mjs": {
+      "sha256": "83ce36fe7af1994a8f6dcca390265a0caed6375c6c544838755cc6095c14c0a2",
+      "bytes": 888
+    },
+    "apps/b2z-observer/camera-controller.mjs": {
+      "sha256": "6f90f03f092d8e1b0418b3efd042630a7f8ab06d83d9b40d722f00e7744620b2",
+      "bytes": 4561
+    },
+    "apps/b2z-observer/camera.mjs": {
+      "sha256": "6014748b92da5d2c1d49b1fb8ded70de4f658d43b459a7df63d04bb17fd81fa3",
+      "bytes": 6334
+    },
+    "apps/b2z-observer/delegated-payments/auth.mjs": {
+      "sha256": "43dcd5b4f5a6eb55811c59364403c5d8c8256e1c4c6add9a82bcb9cfb1fbcbee",
+      "bytes": 1750
+    },
+    "apps/b2z-observer/delegated-payments/context.mjs": {
+      "sha256": "19e248de08772fc0a32cac20a5e1fde24285ac0e8724a82d8080f2e3a43d6e95",
+      "bytes": 6183
+    },
+    "apps/b2z-observer/delegated-payments/intents.mjs": {
+      "sha256": "1a44030b2a003d0dd33f284cb399815727a44d869ea937bca04b85fbbd86b2cd",
+      "bytes": 8635
+    },
+    "apps/b2z-observer/delegated-payments/ledger.mjs": {
+      "sha256": "008b5f223720fb260a681ccd3ed622b48171e824a8d1c565ae8f262f4355d6cb",
+      "bytes": 4698
+    },
+    "apps/b2z-observer/delegated-payments/setup.mjs": {
+      "sha256": "9352a6dadaabfeb941a4c52d7375abee6a31bbd96e6658c10413ea2d5232c86b",
+      "bytes": 2669
+    },
+    "apps/b2z-observer/delegated-payments/ui.mjs": {
+      "sha256": "92dc931491e42547a1feb4bb9ef2502013e5c5b9fc9f967a0e56865afbbd708d",
+      "bytes": 14744
+    },
+    "apps/b2z-observer/elastic-playback.mjs": {
+      "sha256": "fa2f1ca9b700e8854941276ad9b66d79106e34eae2cce0c00762a0e6b77f60c0",
+      "bytes": 2003
+    },
+    "apps/b2z-observer/experience-status.mjs": {
+      "sha256": "c0b4882d2e46ceee2c2ba72dd3e363ed19cd8017e2879448bf8c9364161939c4",
+      "bytes": 3512
+    },
+    "apps/b2z-observer/handoff.mjs": {
+      "sha256": "7e8a136c591f1c616ce617bc9a4f8c24932b62b3635e774de86722b2926bb830",
+      "bytes": 3125
+    },
+    "apps/b2z-observer/headings.mjs": {
+      "sha256": "6efacdc002ee0d6966fb73c1e3be0eef87c42aea5c9a9ee29157b907ceca1c78",
+      "bytes": 965
+    },
+    "apps/b2z-observer/identity.mjs": {
+      "sha256": "02c1b3f5742188ea504f22494f1712025d3b68c3d935a30a32c812ab145a920c",
+      "bytes": 5252
+    },
+    "apps/b2z-observer/interaction.mjs": {
+      "sha256": "40fd5701f1af4ec822d9a19526c8905bbce6879718426494a23ba01eab698400",
+      "bytes": 1773
+    },
+    "apps/b2z-observer/minimap-projection.mjs": {
+      "sha256": "5903a87e4cead8676afa37ee2b6bd99db2f1a2260dbfd7ea0989e53801f611d5",
+      "bytes": 1438
+    },
+    "apps/b2z-observer/minimap.mjs": {
+      "sha256": "425f2cb8af190a87c623fa16226429341eff5bb4415f3c825aaccfa5bcc2f960",
+      "bytes": 4779
+    },
+    "apps/b2z-observer/model-v6.mjs": {
+      "sha256": "c28d6029ce3662c8d7f9064bce5778515670e2538279fa7995f2853cb3a05b4f",
+      "bytes": 11795
+    },
+    "apps/b2z-observer/model.mjs": {
+      "sha256": "06eedcb862f7aa03c2e065248daa93f0bb9bca90e4cef9ec4b74f0b9bcb8f8bc",
+      "bytes": 34341
+    },
+    "apps/b2z-observer/motion-effects.mjs": {
+      "sha256": "9bc3e332b032b630a24d2009c788187d0883409b7a15f04571098168aa78d9f7",
+      "bytes": 2706
+    },
+    "apps/b2z-observer/play-reference.mjs": {
+      "sha256": "b3dc33053a139997a883d76e4c649fad93f80ac0a73cc74af0a9d7513fc30aba",
+      "bytes": 2361
+    },
+    "apps/b2z-observer/player-anchor.mjs": {
+      "sha256": "112a49d9a0022fe055077d147976a223e3d44f695ad26e5b71e02ada7b7fa388",
+      "bytes": 2206
+    },
+    "apps/b2z-observer/public-cycles.mjs": {
+      "sha256": "d64e9b977d537d63575232c6d25e54714953ab26d471afcaafdc05e7be70d217",
+      "bytes": 7812
+    },
+    "apps/b2z-observer/render.mjs": {
+      "sha256": "76508a032eb4052c9ac15af68e24e6e7eb36dc151b36d8f4f8ac7a640fd9e1ad",
+      "bytes": 20387
+    },
+    "apps/b2z-observer/shell.mjs": {
+      "sha256": "3638100682a5295c3d375e0688c0f2b35016accc1432be552216087998b40db2",
+      "bytes": 14628
+    },
+    "apps/b2z-observer/terrain-surface.mjs": {
+      "sha256": "2a7db75d2303fadc486ee6fa86c0bf420a4804e950b1351be88cd24fd2ac4137",
+      "bytes": 4565
+    },
+    "apps/b2z-observer/terrain.mjs": {
+      "sha256": "8687bf629ea3b44dcbbaf04c8f9ba77103bd0434bd73a66117be19f36709f7b8",
+      "bytes": 4249
+    },
+    "apps/b2z-observer/torus-identity.generated.mjs": {
+      "sha256": "4055eabb223fcf40032a7e9a727f56c226aba42348c9f174d235f6c0ec4efcfa",
+      "bytes": 2071
+    },
+    "apps/b2z-observer/warm-return.mjs": {
+      "sha256": "0ba7a847f1ed62e3d1e199c5360f50f1262288e32b12c2c74a9dd14c2ae76ab4",
+      "bytes": 3120
+    },
+    "node_modules/@dfinity/cbor/dist/cbor.mjs": {
+      "sha256": "cb21ea3a724b3946efd805ccc202ea5c984e57a674cc997505e7cbbcb72193e7",
+      "bytes": 6770
+    },
+    "node_modules/@dtr/timeline-runtime/packages/client/playout.mjs": {
+      "sha256": "740adc9112e0b52a16b03c6466372b10f43b1c3a916128dc884bfa4697326b03",
+      "bytes": 2163
+    },
+    "node_modules/@dtr/timeline-runtime/packages/client/verification.mjs": {
+      "sha256": "7023bf35a9fb640cb649315de2a3688445e9ca48738b67e7c5a53eb68c1a3d47",
+      "bytes": 16442
+    },
+    "node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs": {
+      "sha256": "3768a420dc31becc881fdbead97fb04fc1026a46e9b632904f0e28814b8d3510",
+      "bytes": 2497
+    },
+    "node_modules/@dtr/timeline-runtime/packages/protocol/epoch-codec.mjs": {
+      "sha256": "ce00e93d3b2524d125595ca1b56cb1901ba92a671399ea06013cb1adeaaefc02",
+      "bytes": 7076
+    },
+    "node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs": {
+      "sha256": "57e06fcdb1221ac72109e3b80e3782cb2d8c9ecf5e05c7fbaae9a9fa40b3234c",
+      "bytes": 1416
+    },
+    "node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs": {
+      "sha256": "52e670a9b0116ec572c17db9cc7105a7de5ecb6a0d7b885aa968ca402ecc50e1",
+      "bytes": 2504
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/auth-client.js": {
+      "sha256": "fb5a33c8994810d45a8cbda154edef3508c02d5da2fc3715e396db3703697447",
+      "bytes": 73186
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/base64.js": {
+      "sha256": "dd96cd30a3e76a57e760b31ae0b29126284b1288a9cbec24dcf1bb4f0bfaf7fa",
+      "bytes": 945
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/credentials/idb-credential-storage.js": {
+      "sha256": "d92d6ba89c4066926fbc52049c960ba9511e516f740a609ed1aee09eb50eee1a",
+      "bytes": 2415
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/credentials/local-credential-storage.js": {
+      "sha256": "ebe6ea1007176488c0d591c69cc0603f4a3fe4dc52ef28c78eb4e930d2f1cac5",
+      "bytes": 2079
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/credentials/memory-credential-storage.js": {
+      "sha256": "54139fbd33e769999b6e64f53e4ed599b2547ba37e28366c023b39e7f4ef9721",
+      "bytes": 1328
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/credentials/shared-memory-credential-storage.js": {
+      "sha256": "2d203ba445ab05e8d67be235d01898efd49a0751b37744c0ba40f22546826f9e",
+      "bytes": 10575
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/db.js": {
+      "sha256": "8de1cbb67d03e0760194e4def16de2cabe7bb392603ebabe5b7c796879ba9105",
+      "bytes": 4551
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/foreground-refresh.js": {
+      "sha256": "63f93e59624d500be2d4fa742cb152505af791f7ae94f069c3849fd4a9b41d15",
+      "bytes": 4106
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/index.js": {
+      "sha256": "04a96659ba696be7ca2404cf8cdea5e5696a06e791aae6d51982d51625bbce93",
+      "bytes": 1232
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/notification-consent.js": {
+      "sha256": "d51e87d8564d55bca11e3aeea747a894255079392581506a55b8c889e330b2d3",
+      "bytes": 6566
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/session/app-delegation-source.js": {
+      "sha256": "1a47c56cdd44df45febf791c958d2ffb67c16b6848cfdc59d6d9375ce5bb3b06",
+      "bytes": 2439
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/session/app-lock.js": {
+      "sha256": "dd73b5901cef1f3d7595d1298c777d29c49624d391453a79aca2d8c6510e282e",
+      "bytes": 4573
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/session/session-delegation.js": {
+      "sha256": "704e396c44a48fac55dab93d4788086355346bc2ad6e515e122b51627b10143a",
+      "bytes": 4825
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/session/session-identity.js": {
+      "sha256": "e4bffd98934b641158d046d284a5e5721f8d9da258a4cf3c987dd70703b87577",
+      "bytes": 18187
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/session/session-minter.js": {
+      "sha256": "861a4d4d197129d9d217a0d4cdcab030be08398aa2f097f088f325ffa1476a2e",
+      "bytes": 8145
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/slots.js": {
+      "sha256": "18f5d6d3551e34da4f63ef35ebe658340ee26dc5ef3bdc4886cc3dc69da84ca6",
+      "bytes": 2937
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/sso.js": {
+      "sha256": "c4d29a91c252b3cbd46c393a653b71583f09f6a2abfcc5e9f52375109d1ece34",
+      "bytes": 11796
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/state/cookie-state-storage.js": {
+      "sha256": "e9d34c6905ec6aa32c1b77787962b057c33cc10c97254b074267eb5cc027c1f1",
+      "bytes": 13127
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/state/local-state-storage.js": {
+      "sha256": "f62e8b0ae62c2d1a7248486725411c8d982fee547521b1492f83824aa27166ac",
+      "bytes": 8196
+    },
+    "node_modules/@icp-sdk/auth/dist/esm/client/state/memory-state-storage.js": {
+      "sha256": "170b541467afc2e2bff7ead5845dd71314987b062b403179b5df66ee7b1db6b2",
+      "bytes": 2331
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/actor.js": {
+      "sha256": "bbe34a44aa588be52040f01d56ee06e00f3562b0536ed926bf696f37bedc8d84",
+      "bytes": 12994
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/agent/api.js": {
+      "sha256": "99af267bff28357e9ffba1f3426d26ed77fa9e696b1878382d68c0862269dd35",
+      "bytes": 1605
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/expiry.js": {
+      "sha256": "3f626bb453bc575fc959028a2d0400f6d64327389b9d87593c7f7f06055dc756",
+      "bytes": 3664
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/index.js": {
+      "sha256": "efc8449124479d3778b25827b4ebd4cde3a7c594712fbc2ba863c6c31518a2d3",
+      "bytes": 60306
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/transforms.js": {
+      "sha256": "76da3d6fc99cbc8fb7e0c27e09d4b469693d12ef92adde3191b9b15be02dd66a",
+      "bytes": 1785
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/types.js": {
+      "sha256": "0cf0ad77ffe1c13a39348a8718c2555403268c2ed6bb024cabdc282f334ed094",
+      "bytes": 2611
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/agent/index.js": {
+      "sha256": "3cc7e33d690671b37e640c0124a2adca0815a224fd789ace0b87722ffd78bcd7",
+      "bytes": 163
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/auth.js": {
+      "sha256": "645a8b96080c5c2324db9237e54e4ce0d8fd1f1eb79411c431c277e3020b6751",
+      "bytes": 2013
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/canisterStatus/index.js": {
+      "sha256": "6620dff6d4f904993c36a1f2a647887a73b7f81391fdc51580ba7bdd46754c0c",
+      "bytes": 6470
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/cbor.js": {
+      "sha256": "3a6268b9b56c0a182f5a11bace83e378b60bdad7d733be0e81383d8635be808d",
+      "bytes": 2010
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/certificate.js": {
+      "sha256": "d03dc090ef6b211d0c836fae7f3ab339ef995cd13f930a22e2b62a98e5ef491e",
+      "bytes": 29693
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/constants.js": {
+      "sha256": "7a9a90aba719c2bf004d0da0586cde545b53e5ec086acff7a2f1cd13091aff57",
+      "bytes": 916
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/der.js": {
+      "sha256": "0d486ec39ebaadc68c176b382c44fd55dad88976262d47a6adcd1f83f91b81f6",
+      "bytes": 5720
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/errors.js": {
+      "sha256": "11a1734be67860f85d79537d026d1b6f3fd4eb76828c44917ad3d7978d1addae",
+      "bytes": 28542
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/fetch_candid.js": {
+      "sha256": "53a9f2abe93810bf4c7487df77ec556d9d096d2f3ce7f5b836f980cd628dd2ee",
+      "bytes": 1311
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/index.js": {
+      "sha256": "bc8ea0dc55f2f8cdf422e82b37543a82feb3c73cf1b9e012ebec2cde66986a88",
+      "bytes": 5961
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/observable.js": {
+      "sha256": "911d37a8b6e66fba47107ac60d38d2c036e8efb5153fb366fe80c4c37e3cfbae",
+      "bytes": 785
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/polling/backoff.js": {
+      "sha256": "495241a47ffd61190c1e730a1f99f6017c804bec323d4de9970fbe1301c28b7b",
+      "bytes": 2890
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/polling/index.js": {
+      "sha256": "d998be42c06758cdf3d78bd175646d6466158d3c6f76c5961dc9bb16a8fca853",
+      "bytes": 6716
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/polling/strategy.js": {
+      "sha256": "bc67ce49afd99dbaa8fe34eae63143c46738db1ec010166a71b0d03248348398",
+      "bytes": 3527
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/public_key.js": {
+      "sha256": "5a681e7a82b8cc246ccac637a370aa659269d0256d8360cd7fc70c6807bea8ce",
+      "bytes": 1571
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/request_id.js": {
+      "sha256": "e1da3524d3032535d9f9ab58e57a54aaaff0af5163f306e89dbcdf39b8156509",
+      "bytes": 3026
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/subnetStatus/index.js": {
+      "sha256": "3a29331e6b1252f0c8f0d314ec1379bd90d7ab678119a83e4b8e64cf7fb8b5d4",
+      "bytes": 7258
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/bls.js": {
+      "sha256": "f6e3e346b69c7ab0c0878f02ab2702d85722863067de6cea11c177e6a26dfd4a",
+      "bytes": 661
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/buffer.js": {
+      "sha256": "fb620d5411c381465d589195a28752a10828277634e350d528ff7327ea6da233",
+      "bytes": 1391
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/certificateReject.js": {
+      "sha256": "af4063825b236c9d8ff5f6cc6edd8f8d094df4a7b6f7faf022e58b103841cf84",
+      "bytes": 1054
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/createExpirableStore.js": {
+      "sha256": "c3ba88b974dd0fcbfbebcab392dad0120397518768850398f5ca52fdf6da65c2",
+      "bytes": 759
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/expirableStore.js": {
+      "sha256": "26e0df017eb4fbce1af8733fff6dcf196f7fd7cc643fa4fc29837eda20395fb9",
+      "bytes": 470
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/inMemoryExpirableStore.js": {
+      "sha256": "dad3921a75fc83b48e86c71acacb4b9cded13dfd667673e543bcdc5790ce8a9d",
+      "bytes": 1303
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/indexedDBExpirableStore.js": {
+      "sha256": "898c6ccdd62866144e7bf99f5ac45db3c76f11a3373e5c9951a0c682e21ae63b",
+      "bytes": 5190
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/leb.js": {
+      "sha256": "3452c4cd5d887d9755e664ab9309212817907fd079a72e4e81028c9a1c7572f5",
+      "bytes": 466
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/random.js": {
+      "sha256": "d31b9442f78684f2d2c9204326faf37af516744c28279ebfc256ede4733583e1",
+      "bytes": 972
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/readState.js": {
+      "sha256": "414e9b99d107abd864857606940af6909124baaff08c742b976df13fb640aadb",
+      "bytes": 8480
+    },
+    "node_modules/@icp-sdk/core/lib/esm/agent/utils/target.js": {
+      "sha256": "8044e1811f05d0bde12b049a0836cba0703e916e93b53bc1f4101d9fe07cf6a7",
+      "bytes": 740
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/candid-core.js": {
+      "sha256": "7eef65ad08bc25f95ebfe33fd57cc0b8d46b5d0c55b8d167c1e7b441334c3562",
+      "bytes": 6844
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/candid-ui.js": {
+      "sha256": "cb158ac394eeff06a53561a891c07ff61b55ee716b6c702701e9d8f4a209261a",
+      "bytes": 7537
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/idl.js": {
+      "sha256": "944274d5e94c82d980a56de6445fd6fe3370fe298de007eff95255ae054ace5d",
+      "bytes": 74657
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/index.js": {
+      "sha256": "5afdd5d61d251e33cf34295020c646f27900ecec40ae84c01146604e63716dbd",
+      "bytes": 736
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/types.js": {
+      "sha256": "a17c1c795248eda6aaf68d572600a01ecde90f826916f2ccb9b26e0a34a60a4a",
+      "bytes": 105
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/utils/bigint-math.js": {
+      "sha256": "ad04305b07668f9eafae938ab832de560efc01399fb7b6379568150ebd18f1e2",
+      "bytes": 714
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/utils/buffer.js": {
+      "sha256": "c814a66136a3435c71dbbe7c406fe4a497c3fe854b6ea7c357c6764d2f93cd16",
+      "bytes": 5667
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/utils/hash.js": {
+      "sha256": "1767d6e4c6dc351f1177535e6f32e6dc1202ac07cdb480f7d981349d4f0e6c8e",
+      "bytes": 826
+    },
+    "node_modules/@icp-sdk/core/lib/esm/candid/utils/leb128.js": {
+      "sha256": "8092085bb0a9f1763854f86ddc8845d90b215ca4f8d176b6cb8a0c25a20270ba",
+      "bytes": 6465
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/identity/attributes.js": {
+      "sha256": "8292fd26310e15edcfecefce0352214a6739b3373fcf778dad1c172e4fd87fd3",
+      "bytes": 2109
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/identity/delegation.js": {
+      "sha256": "a02c075ea02cf126e897fa6ffa7f90bfc689d33d1799146ed20a4b5781036065",
+      "bytes": 12519
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/identity/ecdsa.js": {
+      "sha256": "fbb9ff813236cdef81a1bf9d7cc6552a1ed7e36d438c02f3ac25ca681bb86b95",
+      "bytes": 4621
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/identity/ed25519.js": {
+      "sha256": "df33577e2fd8926cc272d72272df3ca0224871af45de264a7668e6a6da0321fd",
+      "bytes": 7228
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/identity/partial.js": {
+      "sha256": "7ecb83a42ff7584397801ca25d7720e3c644713fdd81ea414ef544f727a6f613",
+      "bytes": 1454
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/identity/webauthn.js": {
+      "sha256": "91234aaa867d1572116937e9b594d6c3675b3a9ba5dde50dd0a03f241304b595",
+      "bytes": 7622
+    },
+    "node_modules/@icp-sdk/core/lib/esm/identity/index.js": {
+      "sha256": "1c05e466fdbea61fe60141ecad667efb2af6a5b0be42aa2661c9a8d626bd60c4",
+      "bytes": 1923
+    },
+    "node_modules/@icp-sdk/core/lib/esm/principal/index.js": {
+      "sha256": "402ecd6d7dea6ea0941daf430d84cfca2929f70b1dadb6b0c527414c7db0758e",
+      "bytes": 537
+    },
+    "node_modules/@icp-sdk/core/lib/esm/principal/principal.js": {
+      "sha256": "f2476058b971ef379ff4e4a2402bd9390368b6cb26b9882cbc62d16d827bae43",
+      "bytes": 5623
+    },
+    "node_modules/@icp-sdk/core/lib/esm/principal/utils/base32.js": {
+      "sha256": "5c64c033da33776936ab21535a20a1e9ea3ba2bfd776cecaf7bb3634a1d95f66",
+      "bytes": 2524
+    },
+    "node_modules/@icp-sdk/core/lib/esm/principal/utils/getCrc.js": {
+      "sha256": "57973fdf7e719d39d05fc072aadbbf1ca950d3b8fbbd04568a05c33492d6454d",
+      "bytes": 3736
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/index.js": {
+      "sha256": "66fbde35ff2e368e22cb8575fac145e2b4f5be473b7b3d15af98adaa20123d4c",
+      "bytes": 85
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/signer.js": {
+      "sha256": "5087bc415254de86df8f9c4123a8060e4714724591388a44c3f9fae710b4bf8f",
+      "bytes": 27432
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/transport.js": {
+      "sha256": "0929e3e08b4932ae3b388b4e3a98c7ed9b49999ff98dfb7e764a98615b83217e",
+      "bytes": 447
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/heartbeat/client.js": {
+      "sha256": "056d111fb8bfdc0c288f9f02d05491b9eceafe2f44819284e214b415b17952f8",
+      "bytes": 4926
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/heartbeat/server.js": {
+      "sha256": "4e78667e0abecd6f0d1b14cf527b8e6d443b026d2f2a7aee55c475b0ffb4bd25",
+      "bytes": 3395
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/index.js": {
+      "sha256": "a74a4a817ec1b3c260c58e9018845e7928c8495e2a173ae104d44bbf596407dc",
+      "bytes": 458
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/postMessageChannel.js": {
+      "sha256": "6203e3ebddf92e68f204509dace3ade8f3b6a0959acb6edc7a70c6544ced77dd",
+      "bytes": 4064
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/postMessageTransport.js": {
+      "sha256": "d29d90b489016328b9be9ada53f8ab65cfde0a10de5d0b9ed8985d0f88258515",
+      "bytes": 4939
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/urlChannel.js": {
+      "sha256": "ee1e893bda8dd350fbd60b12e7d4386f384a876752959a46c4eec59e43babc36",
+      "bytes": 5050
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/urlFlow.js": {
+      "sha256": "5a348f6ad17f548aad18e472146967a1192662109bd27512d1119e73312c8b88",
+      "bytes": 11811
+    },
+    "node_modules/@icp-sdk/signer/lib/esm/web/urlTransport.js": {
+      "sha256": "7f8ab254da0572c8cf1ebafdc46c6a4dc7ef104b119676d65bcef5162f6f5aff",
+      "bytes": 4010
+    },
+    "node_modules/@noble/curves/abstract/bls.js": {
+      "sha256": "9bc37d55fbf294ef99d944950eb58ab5b0330e27aa9dacf73f557a7b88e8930f",
+      "bytes": 26684
+    },
+    "node_modules/@noble/curves/abstract/curve.js": {
+      "sha256": "dbaeee3b41ff47efb76b78e14170fe4dda7c7ecdc387c402f16c5118e0bac356",
+      "bytes": 35711
+    },
+    "node_modules/@noble/curves/abstract/der.js": {
+      "sha256": "7f80d698611b131368ecf732b8740bb97f72cd42fef77c4b0bb923e2e2d44159",
+      "bytes": 7401
+    },
+    "node_modules/@noble/curves/abstract/edwards.js": {
+      "sha256": "f24a9c221a549a8fff259eb8f245ab0dc17679b13c532c3970d91acc4df9fffd",
+      "bytes": 32323
+    },
+    "node_modules/@noble/curves/abstract/fft.js": {
+      "sha256": "a4b2ff7ca33f4acc85d61f0e83ec3303c3f6b38ecc19b20d0f6462d820e518cf",
+      "bytes": 26024
+    },
+    "node_modules/@noble/curves/abstract/frost.js": {
+      "sha256": "9a95f1fdf7e17b9d93a16049db675ee2967ed2a04cf59b1bd981d4662acbedf5",
+      "bytes": 45399
+    },
+    "node_modules/@noble/curves/abstract/hash-to-curve.js": {
+      "sha256": "e3c97e7d0827b728b14e3311ed11d8e386d8a70d8fc77e0b9fd2a3090f19d955",
+      "bytes": 26273
+    },
+    "node_modules/@noble/curves/abstract/modular.js": {
+      "sha256": "9ced3aa10598277a735e54f7b61d88e929d565da884ba5385f9006ebb3b6aab2",
+      "bytes": 39844
+    },
+    "node_modules/@noble/curves/abstract/montgomery.js": {
+      "sha256": "cdafa8816dad5a24475ec51952c5f71fdd5d1b46880ab982694c4f8ff605fc46",
+      "bytes": 14721
+    },
+    "node_modules/@noble/curves/abstract/oprf.js": {
+      "sha256": "2ca36b3e4930092db1f91559410e86975816c036e248067bc65a8055aa1c504c",
+      "bytes": 18336
+    },
+    "node_modules/@noble/curves/abstract/tower.js": {
+      "sha256": "6e9f7273af53c06f8124c33b89d0d70d7d46e95effbf46d242e580e9c5aa8137",
+      "bytes": 36374
+    },
+    "node_modules/@noble/curves/abstract/weierstrass.js": {
+      "sha256": "d007e949c0d5b912e8c54132983219c8ff8f69bda058a70563b5cc7a8783331c",
+      "bytes": 53654
+    },
+    "node_modules/@noble/curves/bls12-381.js": {
+      "sha256": "eab0e80c31087656d0a0c2024906418e59ab6e2f02c9e5395406602c25351276",
+      "bytes": 35614
+    },
+    "node_modules/@noble/curves/ed25519.js": {
+      "sha256": "e13f6c50c36feb0d18bf7986d5f881bcefb5f1f5b16de3cc5ee7693254c7a0b5",
+      "bytes": 30058
+    },
+    "node_modules/@noble/curves/utils.js": {
+      "sha256": "be9ff86aef76419376e4d66cf01a134f3117f1f8dd62d81f1b79100145503367",
+      "bytes": 23221
+    },
+    "node_modules/@noble/hashes/_md.js": {
+      "sha256": "60cf3010fda89e3e4d3f0e7ff1ce249e9c467f34b4fd41b6fd6101d9f69be763",
+      "bytes": 9175
+    },
+    "node_modules/@noble/hashes/_u64.js": {
+      "sha256": "b09da8c07fe8187c07649494cdb7cd0bcf13df90b506a9473d19e4d5f8c2e102",
+      "bytes": 4794
+    },
+    "node_modules/@noble/hashes/hmac.js": {
+      "sha256": "fec9f8f3aeda785ea2de91cc4c059d54ef98196261c026c43f48341007ae52c9",
+      "bytes": 3118
+    },
+    "node_modules/@noble/hashes/sha2.js": {
+      "sha256": "471746bba6ec4c6238ca41358d1d3b40b6ff31cf3363f0b4d550c649c1a8e83b",
+      "bytes": 18997
+    },
+    "node_modules/@noble/hashes/utils.js": {
+      "sha256": "037ad49adb78168b6b699598fd33f85f7877456b1d28b4d032e2a1a16807947c",
+      "bytes": 26035
+    },
+    "node_modules/idb/build/index.js": {
+      "sha256": "e01b45d2e088a7197e8b41ba9b51a0876969da67cc08e6efbc3d5d7ab6ac836c",
+      "bytes": 11581
+    },
+    "node_modules/three/build/three.core.js": {
+      "sha256": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578",
+      "bytes": 1474799
+    },
+    "node_modules/three/build/three.module.js": {
+      "sha256": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341",
+      "bytes": 658900
+    },
+    "node_modules/three/examples/jsm/lines/Line2.js": {
+      "sha256": "69dd2120d4df14208796acf199f80a64d37e042cfa65dc2b98286694b2954194",
+      "bytes": 1486
+    },
+    "node_modules/three/examples/jsm/lines/LineGeometry.js": {
+      "sha256": "b7ec6b0011e3b09dc72e17cfd8e8945295cb2bc8c8aa9aa19e47119680bdad7e",
+      "bytes": 3479
+    },
+    "node_modules/three/examples/jsm/lines/LineMaterial.js": {
+      "sha256": "5f4ba22891c54d50a51e8bab6c648399e919e6832c0d03060fbe1ec7c771a93f",
+      "bytes": 14529
+    },
+    "node_modules/three/examples/jsm/lines/LineSegments2.js": {
+      "sha256": "fcbc20f576e88343cea12131f49b7003d7ab44ede422fcb694e567456022f7a0",
+      "bytes": 11477
+    },
+    "node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js": {
+      "sha256": "471f0a954a0c9c59d3d151392f424142a9164a722802f63b371971378a84a1b1",
+      "bytes": 6893
+    },
+    "packages/kernels/b2z/animation-projection.mjs": {
+      "sha256": "cc63159ca764a6c6d488313321148333f53bbca9aced0b8470b6a0a8465707ce",
+      "bytes": 2407
+    },
+    "packages/kernels/b2z/delegation-v8.mjs": {
+      "sha256": "cd598a4ba5e02c6e5ac9b431e10090ee4d9e2dae4ed6271de11682e7eb39936e",
+      "bytes": 3080
+    },
+    "packages/kernels/b2z/economics.generated.mjs": {
+      "sha256": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+      "bytes": 365
+    },
+    "packages/kernels/b2z/math.mjs": {
+      "sha256": "494678e83107b4e786cff1fbd9f50bfcedd3389e7a86fbaff5a2e2baeab077d0",
+      "bytes": 2228
+    },
+    "packages/kernels/b2z/playability.generated.mjs": {
+      "sha256": "d53a0da258e489c8034bbb4454ed49969c24f993b9607409b5e498a2bafc8413",
+      "bytes": 297
+    },
+    "packages/kernels/b2z/pricing-v6.mjs": {
+      "sha256": "07d469d8241c5d021b39c7d1a733c99eeb2ab1fe605a484c6881f4401d9ecb28",
+      "bytes": 1565
+    },
+    "packages/protocol/account.mjs": {
+      "sha256": "1063996b023ba9a51848916feb5d68e643d479c1d56bf1967fe982a7e8cce626",
+      "bytes": 829
+    },
+    "packages/protocol/delegation.mjs": {
+      "sha256": "510def83cb140a50c38228182ac54cab42737846ff8a7ebd03848bd32ef15897",
+      "bytes": 3288
+    },
+    "packages/protocol/memo-v6.mjs": {
+      "sha256": "3324b707ca833a3ff4d1a27a03a493330750d13fe05ad14aefb0d6be00011e16",
+      "bytes": 3304
+    },
+    "packages/protocol/memo.mjs": {
+      "sha256": "15bee929a00560d8eff88c4eeca6dfe651b9c0d97064fe2ac58fc8a768a28a09",
+      "bytes": 4712
+    },
+    "tools/fixtures/delegated-payment-ui.mjs": {
+      "sha256": "7fc616987fefd2e01e914d3f649e03d69e9eb895009cec97601bc57f27dadd1b",
+      "bytes": 4056
+    },
+    "tools/fixtures/playability-action-browser.mjs": {
+      "sha256": "aa8d91fbbaa9424f15d39cef20a5df8816d428a4f21dcbd7763c837695147943",
+      "bytes": 14028
+    }
+  }
+}
