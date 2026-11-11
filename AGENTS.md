@@ -69,3 +69,8 @@ one usable payment scrollport. Use the normative UXR matrix,
 `player-refinement.test.mjs` and populated `verify_refinement_browser.py` journeys;
 review actual-speed trails/wakes, not feature existence. Keep ghost/destination
 identity separate from the selected real cannon and preserve all financial bytes.
+
+Final visual closeout additionally uses `verify_visual_closeout.py`: preserve
+mobile source/preview clearance, filled provisional ghosts, modality-aware hints,
+stationary toolbar slots and exact financial content. Compare populated matched
+poses and actual-speed movement; software rendering is not hardware qualification.

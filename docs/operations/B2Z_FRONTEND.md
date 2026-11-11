@@ -91,3 +91,12 @@ Do not substitute it for the currently deployed ordinary asset set.
 Payment-layout qualification waits for the actual panel/body transitions before
 scrolling exact values. Keep controlled intermediate-frame checks separate; do not
 mask an early measurement with a fixed sleep or loosen containment assertions.
+
+
+Final visual closeout must also run `tools/verify_visual_closeout.py` against the
+maintained populated fixture. Preserve the canonical-target, fixed-toolbar and
+payment-scrollport regressions. Review Build source/preview visibility at multiple
+sites and keyboard-contracted viewports, filled ghost material, mouse/keyboard/touch
+hint modality, and matched terrain/object captures. My-cannon navigation is suppressed
+only while a visible selected-cannon context makes it redundant, and restores on
+Close. No UI/material adjustment qualifies a backend upgrade or production deployment.

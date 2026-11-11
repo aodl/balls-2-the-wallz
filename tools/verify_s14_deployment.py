@@ -26,6 +26,10 @@ def review_instructions(page):
         assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled')
         page.locator('#replace-instructions').click()
 def select_cannon(page,cannon=None):
+    selected=page.evaluate('__b2zTools.selection()')
+    if selected is not None and page.locator('#workspace').is_visible() and (cannon is None or selected==cannon):
+        return
+    if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
     page.locator('#centre-cannon').click()
     if page.locator('#roster-view').is_visible():
         if cannon is None:page.locator('#own-cannons button').first.click()
@@ -36,7 +40,8 @@ def choose_action(page,kind,review=True):
     if kind=='start' and page.locator('#join-action').is_visible():page.locator('#join-action').click()
     else:
         cannon=page.evaluate('__b2zTools.selection()');select_cannon(page,cannon)
-        page.locator({'start':'#build-action','ball':'#fire-action','move':'#move-action'}[kind]).click()
+        button=page.locator({'start':'#build-action','ball':'#fire-action','move':'#move-action'}[kind])
+        if button.get_attribute('aria-pressed')!='true':button.click()
     if review:review_instructions(page)
 def different_owned_cell(page):
     return page.evaluate('''()=>{const w=__b2zExperience.session.referenceWorld,id=__b2zTools.selection(),c=w.cannons.find(c=>c.id===id);if(w.version>=5)throw Error('Use canonical compact-world fixture');const n=w.cells.findIndex((owner,n)=>owner===c.id&&n!==c.cell);if(n<0)throw Error('No different owned fixture cell');return n;}''')
@@ -48,10 +53,28 @@ def camera_settled(page):
     page.evaluate('()=>{globalThis.__s14CameraSettle={pose:null,at:performance.now(),frames:0};}')
     page.wait_for_function('()=>{const c=__b2zCamera,p=globalThis.__s14CameraSettle,next=[c.x,c.y,c.scale],now=performance.now();if(!p.pose||next.some((n,i)=>Math.abs(n-p.pose[i])>1e-8)){p.pose=next;p.at=now;p.frames=0;return false;}p.frames++;return p.frames>=3&&now-p.at>=450;}',polling='raf',timeout=8000)
 
+def trace_seam_click(page):
+    page.evaluate('''()=>{globalThis.__s14ClickTrace=[];for(const event of ['pointerdown','pointerup','pointercancel','lostpointercapture','dblclick'])document.addEventListener(event,e=>{if(__s14ClickTrace.length<20)__s14ClickTrace.push({event,target:e.target.id,x:e.clientX,y:e.clientY,cell:__b2zCamera.cell(e.clientX,e.clientY),selected:__b2zTools.selection(),mode:document.querySelector('#move-action').getAttribute('aria-pressed'),card:document.getElementById('workspace').getBoundingClientRect().toJSON()})},{capture:true});}''')
+
+def seam_pointer_target(page,centre,point):
+    # Geometry mutations in this harness are not user input: flush the app's
+    # normal rendered layout before sending a native pointer into the new view.
+    # Otherwise the previous contextual card can still intercept the old pixels.
+    before=page.evaluate('''([centre,point])=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(centre,centre);const p=__b2zCamera.screen(point,point);return{point:p,beforeLayoutTarget:document.elementFromPoint(p.x,p.y)?.id};}''',[centre,point])
+    page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
+    target=before['point']
+    assert page.evaluate('p=>document.elementFromPoint(p.x,p.y)?.id==="board"',target),before
+    assert page.evaluate('p=>__b2zCamera.cell(p.x,p.y)',target)==0,before
+    print('seam-pointer-layout',before,flush=True)
+    return target
+
 def wait_committed_cell(page,cell):
     # This predicate must be read-only. action_field() may press Locate, which
     # intentionally cancels a pending gesture and would erase the test's tap.
-    wait_until(page,lambda:page.locator('#move-cell').input_value()==str(cell),5000)
+    try:wait_until(page,lambda:page.locator('#move-cell').input_value()==str(cell),5000)
+    except Exception:
+        print('seam-click-diagnostic',page.evaluate('({events:globalThis.__s14ClickTrace,phase:document.body.dataset.phase,note:document.getElementById("preparation-note").textContent,cell:document.getElementById("move-cell").value,memo:document.getElementById("text-memo").textContent})'),flush=True)
+        raise
 
 def locate_seam_action(page):
     # UX-03/04/12: panning away hides the anchored card, not the draft.
@@ -88,8 +111,8 @@ def verify_torus_scene(page,context,out,record,report,save):
     page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
     choose_action(page,'move');action_field(page,'#move-cell').fill('1');assert selected_cell(page)!=0
     camera_settled(page)
-    page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
-    point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
+    trace_seam_click(page)
+    point=seam_pointer_target(page,31.8,32.5);page.mouse.click(point['x'],point['y'])
     wait_committed_cell(page,0)
     locate_seam_action(page)
     assert action_field(page,'#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
@@ -204,8 +227,8 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     # Settle the My-cannon animation before arranging the seam test view.
     camera_settled(page)
     assert selected_cell(page)!=0
-    page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
-    point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
+    trace_seam_click(page)
+    point=seam_pointer_target(page,999.8,1000.5);page.mouse.click(point['x'],point['y'])
     # UX-04/12: mouse placement waits for the bounded double-click window.
     # Assert the committed cell after that window, rather than a scheduler race.
     wait_committed_cell(page,0)

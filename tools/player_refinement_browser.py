@@ -56,8 +56,13 @@ def verify_refinement(page,width,height,out):
   (page.touchscreen.tap(p['x'],p['y'])if width<700 else page.mouse.click(p['x'],p['y']));expect(page.locator('#workspace')).to_be_visible();assert page.evaluate('fixture.summary().selected')==1;settled(page);transition_elapsed=time.monotonic()-started;page.wait_for_timeout(200);expect(page.locator('#focus-cannon')).to_be_disabled();assert page.evaluate('fixture.summary().camera')!=before
   controls=['focus-cannon','fire-action','move-action','build-action','close-panel']
   if not compositions:
-   r=page.locator('#fire-action').bounding_box();page.mouse.move(r['x']+22,r['y']+22);page.mouse.down();page.wait_for_timeout(650);page.mouse.up();expect(page.locator('#toolbar-hint')).to_have_text('Fire');assert page.locator('#action-view').is_hidden()
-  beforeboxes=[page.locator('#'+n).bounding_box()for n in controls];page.locator('#fire-action').click();samples=[]
+   if width<700:
+    r=page.locator('#fire-action').bounding_box();cdp=page.context.new_cdp_session(page);cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':r['x']+22,'y':r['y']+22,'id':91}]});page.wait_for_timeout(650);cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+   else:
+    page.locator('#close-panel').focus()
+    for _ in range(3):page.keyboard.press('Shift+Tab')
+   expect(page.locator('#toolbar-hint')).to_have_text('Fire');assert page.locator('#action-view').is_hidden()
+  beforeboxes=[page.locator('#'+n).bounding_box()for n in controls];page.locator('#fire-action').click();expect(page.locator('#toolbar-hint')).to_be_hidden();samples=[]
   for delay in [35,65,150]:
    page.wait_for_timeout(delay);samples.append([page.locator('#'+n).bounding_box()for n in controls])
   drift=max(math.hypot(b['x']-c['x'],b['y']-c['y'])for sample in samples for b,c in zip(sample,beforeboxes));assert drift<=2,(width,drift)

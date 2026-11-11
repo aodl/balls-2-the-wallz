@@ -245,7 +245,7 @@ requirements. Controlled fixtures are not certificate/physical-device evidence.
 | UXR-07/08 | Real .01/.05/1 pace, bounded projected travelled length, hold/fade, stationary expiry, seam/reflection/context reset; before/after actual-speed media. |
 | UXR-09/10/11/12/25 | One prompt, optional precision, compact exact wallet rows/icons, risk/fee preserved at ≥14px, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
 | UXR-18/19 | Meaningful circular anchor invalidation; atlas cache/revision bounds and DPR 1/1.5/2/3 cap, same projected map inverse. |
-| UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, octagonal destination versus source footprint/wire ghost, compact routine Waiting. |
+| UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, octagonal destination versus source footprint/filled translucent ghost, compact routine Waiting. |
 
 Settled financial-readability assertions must wait for the actual finite panel
 layout transitions before scrolling a value into view. Retain exact containment
@@ -393,7 +393,7 @@ round trip. Fire defaults to the selected cannon's direction; Join defaults up.
 Intentional current drafts survive appropriate edits; unrelated contexts do not
 inherit the old hard-coded 37.5°.
 
-A visible 44px aim handle/ring owns a Fire drag from pointer-down; empty-arena drag
+A restrained 22px visual handle with a 44px hit area and 76px ring owns a Fire drag from pointer-down; empty-arena drag
 owns pan. Two pointers transition to camera pinch/pan and cannot finish as a tap.
 Pointer cancellation/lost capture cannot select or prepare another action.
 Fields, cards and minimap never bubble into canvas gestures. Invalid Build/Move
@@ -410,15 +410,12 @@ labelled “Island balls”, not private per-cannon counts. No ordinary orbit or
 Matte shallow tiles, coherent ownership, volumetric bases/turrets/barrels and solid
 spheres with shared lighting/contact shadows. Local aim uses a distinct short
 ground guide. Balls have an unlit, tone-mapping-independent white core, shared soft white glow
-and minimum ~2 CSS-pixel core at wide views. No perpetual bobbing. A tapered,
-low-opacity white tail is at most 1.2 world cells (six normal core diameters),
-derived only from recent displayed displacement and fading over 350 ms. It unwraps
-the short torus path, disappears on stationary frames, and resets at spawn/despawn,
-backward/discontinuous time, resync/source/world change or graphics restoration.
-Reduced motion removes tails/darkening while retaining readable white balls. Passing-tile
-darkening is bounded to 20%, wall-clock fading over 1,250 ms, secondary to ownership and derived from
-displayed world displacement. Stationary balls, camera movement and resync create
-no travel effect. Reset on spawn/discontinuity and suppress with reduced motion.
+and minimum ~2 CSS-pixel core at wide views. No perpetual bobbing. A tapered white tail and bounded darkened-cell wake use only actual displayed
+travel. The authoritative lifetime, point-count, screen-extent and stopped-frame
+budgets are specified in “Depth, effects and concrete implementation budgets”
+above; the former fixed 350ms trail and squared 1,250ms wake are superseded.
+Reset on backward/discontinuous time, resync/source/world change or graphics
+restoration. Reduced motion removes tails/darkening while retaining white cores.
 
 No million-object graph, million-cell per-frame scan, per-ball dynamic shadows or
 unbounded effects. Share geometry/materials, instance visible tiles/entities, use
@@ -481,11 +478,11 @@ JS heap. All geometry/effects are presentation only.
 
 ## Tactical presentation and elastic verified return (UX-02/03/04/05/11/12)
 
-The hierarchy is terrain → solid gunmetal cannon → white ball → temporary warm
-interaction cue. CSS custom properties in `style.css` maintain surfaces, ink,
+The visual priority is luminous moving ball, selected/actively aimed cannon,
+other real cannon, committed preview, meaningful ownership boundary, ordinary grid. CSS custom properties in `style.css` maintain surfaces, ink,
 quiet text, accent, invalid and cannon material tokens; renderer reads its cannon
 colours from those properties. Ownership colours remain the exact atlas palette.
-Cards use near-opaque graphite, an 8px edge, fine highlight and modest local shadow.
+Cards use smoked graphite glass, an 8px corner, fine highlight and modest local shadow.
 Button feedback is 120ms; local aiming is immediate. No full-screen blur/scrim.
 Amount is dominant, but recipient/memo/payer and the fee/retention warning remain
 ordinary accessible content. Important text targets 4.5:1; disabled text remains
@@ -496,7 +493,7 @@ readable. Forced colours uses system pointers; reduced motion removes transition
 | Empty / camera capture | Grab / grabbing, no pretend touch pointer | shell pointer journeys |
 | Displayed cannon | Shared projected base/barrel hit, pointer + footprint contour; opponent inspection only | `interaction.mjs`, tactical tests/browser |
 | Captured aim | Local reticle SVG, 14×14 hotspot, native crosshair fallback; gesture cannot pan | aim/pinch/cancel browser checks |
-| Legal Move/Build hover | Disposable unit-cell contour + wire ghost; never changes quote | shared resolver + tactical browser |
+| Legal Move/Build hover | Disposable unit-cell contour + faint filled ghost; never changes quote | shared resolver + tactical browser |
 | Chosen target | Persistent stronger contour + translucent ghost, never actual relocation | existing canonical selection/quote browser tests |
 | Illegal hover / invalidated target | Cross/negative contour; retain target, block new unsafe copies | canonical revision/invalid-click checks |
 
@@ -524,12 +521,11 @@ uses a separate ghost. Cancel/invalid heading removes the override; verified
 `c.heading` is never written. A 2px light / 4px dark `Line2` guide has stable CSS
 width. Its short ground direction is intent, not collision prediction.
 
-Balls have unlit white cores and batched camera-facing depth-tested halos. Short
-travel history retains at most 12 segments per ball, 1.2 world-cell extent and
-350ms age, merged for tiny collinear samples only within a 50ms bucket; a merge never refreshes the original expiry. Slow travel cannot accumulate a long old tail. Inner/outer tapered streaks follow
-actual displayed travel, with seam unwrapping and discontinuity resets. Passing
-cells receive at most 20% transient black overlay; overlaps do not accumulate in
-the atlas or minimap. Stationary cores can glow, but cannot generate travel.
+Balls have unlit white cores and batched camera-facing depth-tested halos.
+The bounded adaptive real-travel history and held/fading cell wake follow the
+budgets above, with seam unwrapping and discontinuity resets. Overlaps never
+accumulate in the ownership atlas or minimap. Stationary cores can glow, but
+cannot generate travel.
 
 Visible observation is due every 250ms (the worker additionally honours delivery
 backoff); hidden-but-executing checks are due every 15s, operational refresh every
@@ -805,3 +801,51 @@ A source commit or controller access alone grants no production operation author
 - Record test environments, exact commands/conclusions and concrete release
   blockers in the release report. Temporary task authorization/status belongs in
   that report or operator procedure, not this product contract.
+
+
+### Final visual closeout: composition, material and input modality
+
+UX-03/11/12 retain the UXR interaction fixes above. The selected real cannon
+owns the toolbar throughout Fire, Move and Build. While its visible contextual
+strip is open, the redundant **My cannon** navigation is temporarily invisible
+without collapsing its reserved chrome geometry. Close/offscreen navigation restores
+it. A single composition command per action, committed site, viewport contraction
+or explicit Locate keeps the source and preview in the usable narrow-screen band.
+It uses the existing interruptible camera controller; pointer ownership wins,
+angle edits and ordinary publications do not repeatedly recenter. Software-keyboard
+accommodation may be immediate and reduce scale within the non-repeat limits.
+The card retains one usable scrollport and stationary icon slots. Working-space
+Focus checks the actual header safe area as well as the card exclusion.
+
+Build uses a filled, depth-tested, translucent charcoal-blue body and lighter
+barrel, with a soft contact cue; no exposed mesh triangles. The ghost is local,
+provisional and subordinate to the real solid cannon. Selected source has a
+strong dual-tone square footprint; the chosen destination has a dual-tone octagonal
+contour; hover is faint, invalid remains crossed. Avoid duplicate inner markers
+and opaque selected-tile fills beneath the ghost. No world, quote or memo changes.
+Materials/geometries remain shared and are disposed once.
+
+Mouse buttons retain native title hints. A click retaining DOM focus must not
+leave the custom hint visible. Genuine keyboard focus shows a concise timed hint
+with visible focus; activation/focus departure dismisses it. Touch long-press
+(550ms) reveals the name/reason without activating the action, then expires within
+2s. Cancel, view dismissal and mouse departure clear hints. Ordinary taps do not
+leave floating labels; semantic names and 44px targets remain.
+
+The exact ownership atlas/palette is unchanged. A uniform restrained lightness
+factor, quieter zoom-filtered internal lines and shallow repeating edge relief
+give the surface depth without fake ownership edges or noisy per-cell colours.
+Continuous pre-wrap derivatives and separate ownership boundaries remain mandatory.
+No new renderer pass, lights, blur or effects history is introduced. Glass receives
+a restrained inset edge highlight; financial contrast and stable measured geometry
+outrank transparency. Aim guide depth and the 44px interactive handle are retained.
+
+Regressions: `player-refinement.test.mjs` tests bounded composition and toroidal
+source/preview inclusion. `verify_visual_closeout.py` uses real component input at
+1440×900, 390×844 and 320×640, four sites/headings, 430/300px keyboard contractions,
+hint modality, exact payment/warning reachability and toolbar rectangles.
+`verify_refinement_browser.py` retains UXR-01..25, and the existing tactical-grid,
+fluid-depth and actual-speed motion checks protect the physical presentation.
+Matched populated captures and recordings are required; emulated viewport/DPR and
+SwiftShader evidence do not establish physical-device, hardware or genuine hidden-tab
+coverage. All six substantive exact-source release gates remain required.

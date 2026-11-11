@@ -1,3 +1,23 @@
+# Final player-experience visual closeout — local qualification in progress
+
+The ordinary release branch continues from `82425fb`. Its hosted Browser correction
+passed, alongside Source, Native, Packaged DTR and Wasm; installed-IC run 43111462126
+failed three seam-click waits. Those failures remain recorded. Local changed and
+unchanged installed torus journeys pass; this does not replace final hosted gates.
+
+The closeout adds mobile source/Build-preview clearance, a filled translucent ghost,
+input-modality hints and restrained terrain/material hierarchy. It preserves the
+canonical-target, fixed-toolbar, payment and verified-playback contracts. See the
+[visual closeout record](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
+for actual tests, matched captures, final frozen identities and qualification status.
+
+No production deployment, backend build/upgrade, setting/controller change, financial
+operation or delegated-payment activation is part of this closeout. Production still
+serves ordinary fluid JavaScript `79acf867…`; its fifteen public files and security
+headers were rechecked read-only. Publication remains owner-operated under AGENTS.md.
+
+---
+
 # Player-experience refinement — verifier corrected, fresh CI required
 
 Published `37d0eb6` has four passing substantive gates in run 43108214708:

@@ -1,12 +1,12 @@
 /** One local gesture/camera owner. Never touches observation, quotes or clocks. */
 import{resolveInteraction,placementIntent,samePlacementContext}from'./interaction.mjs';
 import{createMinimap}from'./minimap.mjs';
-import{CameraController,focusedOn,wheelZoom}from'./camera-controller.mjs';
+import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-controller.mjs';
 import{playerAnchor}from'./player-anchor.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
- let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null;
+ let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0;
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
  const motion=new CameraController(camera,{reducedMotion,onSettled:save});
@@ -14,24 +14,30 @@ export function createShell(doc,camera,arcade,onPick){
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
  // explicit name/reason. This is local feedback, never a gesture/game command.
- let helpTimer=null,helpHide=null,helpConsumed=false;
+ let helpTimer=null,helpHide=null,helpConsumed=false,keyboardFocus=false;
  const header=card.querySelector('.panel-header'),hint=$('toolbar-hint');
- const clearHelp=e=>{clearTimeout(helpTimer);helpTimer=null;if(e?.type==='pointercancel')helpConsumed=false;};
- const showHelp=b=>{hint.textContent=b.title||b.getAttribute('aria-label');hint.hidden=false;clearTimeout(helpHide);helpHide=setTimeout(()=>{hint.hidden=true;},2500);};
- listen(header,'pointerdown',e=>{const b=e.target.closest('button');if(!b)return;helpConsumed=false;clearHelp();helpTimer=setTimeout(()=>{helpConsumed=true;showHelp(b);},550);});
- for(const event of['pointerup','pointercancel','pointerleave'])listen(header,event,clearHelp);
- listen(header,'click',e=>{if(helpConsumed){e.preventDefault();e.stopImmediatePropagation();helpConsumed=false;}},true);
- listen(header,'focusin',e=>{if(e.target.matches('button'))showHelp(e.target);});
+ const clearHelp=()=>{clearTimeout(helpTimer);helpTimer=null;};
+ const hideHelp=()=>{clearTimeout(helpHide);hint.hidden=true;};
+ const showHelp=b=>{hint.textContent=b.title||b.getAttribute('aria-label');hint.hidden=false;clearTimeout(helpHide);helpHide=setTimeout(hideHelp,2000);};
+ listen(doc,'pointerdown',()=>{keyboardFocus=false;hideHelp();clearHelp();},true);
+ listen(doc,'keydown',()=>{keyboardFocus=true;},true);
+ listen(header,'pointerdown',e=>{const b=e.target.closest('button');helpConsumed=false;if(!b||e.pointerType!=='touch')return;helpTimer=setTimeout(()=>{helpConsumed=true;showHelp(b);},550);});
+ listen(header,'pointerup',clearHelp);
+ listen(header,'pointercancel',()=>{clearHelp();helpConsumed=false;hideHelp();});
+ listen(header,'pointerleave',e=>{clearHelp();if(e.pointerType!=='touch')hideHelp();});
+ listen(header,'click',e=>{if(helpConsumed){e.preventDefault();e.stopImmediatePropagation();helpConsumed=false;}else hideHelp();},true);
+ listen(header,'focusin',e=>{if(keyboardFocus&&e.target.matches('button:focus-visible'))showHelp(e.target);});
+ listen(header,'focusout',hideHelp);
  const pointers=new Map();let origin=null,last=null,owner=null,moved=false,pinched=false,pinch=null,aimOrigin=null;
  const point=e=>{const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};};
  const pair=()=>{const[a,b]=[...pointers.values()];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)};};
  function stopFollowing(){followRebase=false;selectedBall=null;motion.stopFollow();$('stop-follow').hidden=true;}
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
- function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={top:doc.querySelector('.arena-chrome').getBoundingClientRect().bottom+10,mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
+ function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={top:doc.querySelector('.arena-chrome').getBoundingClientRect().bottom+10,headerBottom:doc.querySelector('.arena-header').getBoundingClientRect().bottom,mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  const observer=new ResizeObserver(()=>{layoutDirty=true;});for(const n of [doc.querySelector('.arena-chrome'),card.querySelector('.panel-header'),$('action-view'),$('inspect-view'),$('account-view'),$('status-view'),$('roster-view'),$('minimap'),$('cycles-display')])observer.observe(n);
  const measureChrome=()=>{const chrome=doc.querySelector('.arena-chrome');doc.documentElement.style.setProperty('--chrome-bottom',Math.ceil(chrome.getBoundingClientRect().bottom+12)+'px');layoutDirty=true;};measureChrome();if(globalThis.visualViewport)listen(visualViewport,'resize',measureChrome);
- function locate(){const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;stopFollowing();cancelTap();const m=measure();motion.focus(c.cell,{top:m.top,expanded:arcade.context()==='action'});}
+ function locate(){locateGeneration++;const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;stopFollowing();cancelTap();const m=measure();motion.focus(c.cell,{top:m.top,expanded:arcade.context()==='action'});}
  listen(doc,'b2z-locate',locate);listen(doc,'b2z-precision',()=>{});
  $('locate-context').onclick=$('focus-cannon').onclick=locate;
  $('status-button').onclick=()=>arcade.openStatus();$('help-button').onclick=()=>arcade.openHelp();$('centre-cannon').onclick=()=>arcade.openRoster();
@@ -51,7 +57,7 @@ export function createShell(doc,camera,arcade,onPick){
  function resolve(p){const hit=resolveInteraction(camera,onPick.cannons?.()??lastView?.cannons??new Map(),p,arcade.moveSelection(),arcade.aim(),lastPoints);return hit.kind==='cannon'&&arcade.hasCannon&&!arcade.hasCannon(hit.id)?{kind:'camera',cell:hit.cell}:hit;}
  function activate(hit,p){
   if(hit.kind==='place'||hit.kind==='invalid'){if(hit.cell!==null)arcade.chooseCell(hit.cell);return;}
-  if(hit.kind==='cannon'){stopFollowing();motion.cancel();if(arcade.selectCannon(hit.id)){layoutDirty=true;const m=measure(),c=arcade.anchor?.();if(c&&!focusedOn(camera,c.cell,{top:m.top,obstacles:[m.mini,m.cycles,m.buttons]}))motion.focus(c.cell,{top:m.top});}return;}
+  if(hit.kind==='cannon'){stopFollowing();motion.cancel();if(arcade.selectCannon(hit.id)){layoutDirty=true;const m=measure(),c=arcade.anchor?.();if(c&&!focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,obstacles:[m.mini,m.cycles,m.buttons]}))motion.focus(c.cell,{top:m.top});}return;}
   if(hit.kind==='ball'){if(selectedBall===hit.id&&motion.following)return;stopFollowing();motion.cancel();arcade.selectBall();selectedBall=hit.id;const b=lastPoints.find(b=>b.id===hit.id);motion.follow(hit.id,lastIdentity,b);return;}
   const w=camera.world(p.x,p.y),n=camera.cell(p.x,p.y);if(n!==null)onPick.cell(n,w,p);
  }
@@ -73,7 +79,7 @@ export function createShell(doc,camera,arcade,onPick){
  }
  listen(canvas,'pointermove',e=>{if(e.pointerType!=='touch')pointer=point(e);});
  listen(canvas,'pointerleave',()=>{pointer=null;hover=null;canvas.dataset.cursor='camera';});
- function clearInput(){pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
+ function clearInput(){hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
  listen(doc,'visibilitychange',()=>{if(doc.hidden)clearInput();});listen(doc,'freeze',clearInput);listen(canvas,'webglcontextlost',()=>{clearInput();stopFollowing();});
  listen(canvas,'pointerup',e=>{const isTap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(isTap)tap(p,e.pointerType,e.timeStamp);if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);owner=null;moved=true;pinched=true;pinch=null;cancelTap();};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
@@ -95,24 +101,32 @@ export function createShell(doc,camera,arcade,onPick){
   const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;handle.hidden=ring.hidden=short||!p?.visible;
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);handle.style.left=`${p.sx+dx/d*38-22}px`;handle.style.top=`${p.sy+dy/d*38-22}px`;ring.style.left=`${p.sx-38}px`;ring.style.top=`${p.sy-38}px`;}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
+  doc.documentElement.classList.toggle('cannon-context',Boolean(c&&!card.hidden&&!off));
   const m=measure(),expanded=context==='action';
   const obstacles=[m.mini,m.cycles,m.buttons];if(expanded&&cardBounds)obstacles.push(cardBounds);
-  $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':'Focus cannon';
+  $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':'Focus cannon';
   if(card.hidden||off)return;
   const vv=globalThis.visualViewport,W=Math.min(camera.viewport.width,vv?.width??Infinity),H=Math.min(camera.viewport.height,vv?.height??Infinity),top=m.top,narrow=W<=700,cw=Math.min(360,W-16);
   let x=W-cw-8,y=top,bottom=H-(short?8:72);
   if(at){
-   if(narrow){x=8;y=Math.min(top+96,Math.max(top,H-360));}
-   else{const right=at.sx+76,left=at.sx-76-cw;const side=cardSide==='right'&&right+cw<=W-8?'right':cardSide==='left'&&left>=8?'left':right+cw<=W-8?'right':left>=8?'left':null;cardSide=side;x=side==='right'?right:side==='left'?left:Math.max(8,Math.min(W-cw-8,at.sx-cw/2));y=Math.max(top,Math.min(H-310,at.sy-26));}
+   if(narrow){x=8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));}
+   else{const clearance=Math.ceil(camera.scale/Math.SQRT2+68),right=at.sx+clearance,left=at.sx-clearance-cw;const side=cardSide==='right'&&right+cw<=W-8?'right':cardSide==='left'&&left>=8?'left':right+cw<=W-8?'right':left>=8?'left':null;cardSide=side;x=side==='right'?right:side==='left'?left:Math.max(8,Math.min(W-cw-8,at.sx-cw/2));y=Math.max(top,Math.min(H-310,at.sy-26));}
   }
   for(const obstacle of(short?[]:[m.mini,m.cycles,m.buttons]))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
   // One natural scroll, with useful space even under a contracted keyboard.
   const room=Math.max(96,bottom-y-m.headerHeight),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
   if(next!==positionKey){positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
   cardBounds={left:x,right:x+cw,top:y,bottom:y+m.headerHeight+bodyHeight};
+  const site=aim?.cannon.cell??arcade.moveSelection()?.cell??c?.cell,compose=[context,arcade.mode(),c?.id,c?.cell,site,W,H,short,locateGeneration].join('/');
+  if(compose!==compositionKey){compositionKey=compose;if(narrow&&c&&expanded&&!pointers.size){
+   const intended=motion.animation?.owner==='focus'?Object.assign(Object.create(Object.getPrototypeOf(camera)),camera,motion.animation.to):camera;
+   const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:m.headerBottom+8,bottom:y-6},{interactive:!short&&Boolean(aim)});
+   if(target){if(short){motion.cancel();Object.assign(camera,target);}else motion.go(target,{owner:'composition'});}
+  }}
+
 
  }
- listen(doc,'b2z-overlay',()=>{layoutDirty=true;position();});
+ listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
  return{
   hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
@@ -125,6 +139,6 @@ export function createShell(doc,camera,arcade,onPick){
    if(selectedBall!==null&&!motion.following)selectedBall=null;$('stop-follow').hidden=selectedBall===null;
   },
   update(v,surface){if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall));}},
-  dispose(){disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
+  dispose(){disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }
