@@ -42,6 +42,17 @@ def different_owned_cell(page):
     return page.evaluate('''()=>{const w=__b2zExperience.session.referenceWorld,id=__b2zTools.selection(),c=w.cannons.find(c=>c.id===id);if(w.version>=5)throw Error('Use canonical compact-world fixture');const n=w.cells.findIndex((owner,n)=>owner===c.id&&n!==c.cell);if(n<0)throw Error('No different owned fixture cell');return n;}''')
 def selected_cell(page):
     return page.evaluate('()=>{const id=__b2zTools.selection();return __b2zExperience.session.referenceWorld.cannons.find(c=>c.id===id).cell;}')
+def camera_settled(page):
+    # UX-04/12: Focus/Home are now animated. Do not overwrite their geometry
+    # while their controller is still advancing, or sample a moving wheel anchor.
+    page.evaluate('()=>{globalThis.__s14CameraSettle={pose:null,at:performance.now(),frames:0};}')
+    page.wait_for_function('()=>{const c=__b2zCamera,p=globalThis.__s14CameraSettle,next=[c.x,c.y,c.scale],now=performance.now();if(!p.pose||next.some((n,i)=>Math.abs(n-p.pose[i])>1e-8)){p.pose=next;p.at=now;p.frames=0;return false;}p.frames++;return p.frames>=3&&now-p.at>=450;}',polling='raf',timeout=8000)
+
+def wait_committed_cell(page,cell):
+    # This predicate must be read-only. action_field() may press Locate, which
+    # intentionally cancels a pending gesture and would erase the test's tap.
+    wait_until(page,lambda:page.locator('#move-cell').input_value()==str(cell),5000)
+
 def locate_seam_action(page):
     # UX-03/04/12: panning away hides the anchored card, not the draft.
     # Compare in one JS turn: genuine authenticated recovery between browser
@@ -75,9 +86,11 @@ def verify_torus_scene(page,context,out,record,report,save):
     select_cannon(page);choose_action(page,'ball');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
     page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
-    choose_action(page,'move');action_field(page,'#move-cell').fill('0')
+    choose_action(page,'move');action_field(page,'#move-cell').fill('1');assert selected_cell(page)!=0
+    camera_settled(page)
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(31.8,31.8);}')
     point=page.evaluate('__b2zCamera.screen(32.5,32.5)');page.mouse.click(point['x'],point['y'])
+    wait_committed_cell(page,0)
     locate_seam_action(page)
     assert action_field(page,'#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
@@ -188,12 +201,14 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     select_cannon(page);choose_action(page,'move')
     # Numeric entry and exact board picking avoid 1,000,000 DOM options.
     assert action_field(page,'#move-cell').get_attribute('type')=='number'
-    # Move is selected from the cannon context.
+    # Settle the My-cannon animation before arranging the seam test view.
+    camera_settled(page)
+    assert selected_cell(page)!=0
     page.evaluate('()=>{__b2zCamera.fit();__b2zCamera.zoom(4);__b2zCamera.centre(999.8,999.8);}')
     point=page.evaluate('__b2zCamera.screen(1000.5,1000.5)');page.mouse.click(point['x'],point['y'])
     # UX-04/12: mouse placement waits for the bounded double-click window.
     # Assert the committed cell after that window, rather than a scheduler race.
-    wait_until(page,lambda:action_field(page,'#move-cell').input_value()=='0',5000)
+    wait_committed_cell(page,0)
     locate_seam_action(page)
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
@@ -466,8 +481,12 @@ def main():
             # Keep the original 90-second cases recorded; the 15-minute timing
             # gate retains screenshots, raw wire data and dense telemetry without
             # the extra software screen-capture/GPU/ffmpeg workload on this host.
-            if not (a.million_sustained or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):context_options['record_video_dir']=str(out/'video')
-            report['capture']={'video':not (a.million_sustained or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)),'sandbox':True,'screenshots_and_raw_telemetry':True};save()
+            # Explicit diagnostic override isolates encoding cost without changing
+            # any throughput/continuity assertion or the normal CI capture policy.
+            video_disabled=os.environ.get('S14_BROWSER_NO_VIDEO')=='1'
+            capture_video=not (video_disabled or a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only or a.entry_scene_only)
+            if capture_video:context_options['record_video_dir']=str(out/'video')
+            report['capture']={'video':capture_video,'diagnostic_no_video':video_disabled,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
             context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             if a.playability_scene_only:
                 # Arm before application timers exist. Late clock installation
@@ -594,6 +613,7 @@ def main():
                 page.locator(selector).click();tab_in_modal(page)
                 page.keyboard.press('Escape');assert page.locator('#identify-button'if selector=='#help-button'else selector).evaluate('(e)=>document.activeElement===e')
             page.locator('#fit').click();page.locator('#board').focus();page.keyboard.press('Home')
+            camera_settled(page)
             page.mouse.move(190,300);anchor=page.evaluate('__b2zCamera.world(190,300)')
             page.mouse.wheel(0,-240);page.wait_for_timeout(200)
             actual=page.evaluate('__b2zCamera.world(190,300)');assert abs(actual['x']-anchor['x'])<.001 and abs(actual['y']-anchor['y'])<.001
@@ -820,6 +840,10 @@ def main():
         return 0
     except Exception as error:
         __import__('traceback').print_exc()
+        try:
+            report['interaction_failure']=page.evaluate('''() => ({phase:document.body.dataset.phase,camera:globalThis.__b2zCamera?{x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale}:null,selected:globalThis.__b2zTools?.selection(),move:document.querySelector('#move-cell')?.value,memo:document.querySelector('#text-memo')?.textContent,note:document.querySelector('#preparation-note')?.textContent,action:document.querySelector('#action-prompt')?.textContent,offscreen:document.querySelector('#workspace')?.inert})''')
+            page.screenshot(path=str(out/'exception-browser.png'))
+        except Exception:pass
         report['status']='FAIL';report['error']=repr(error);save();print(report['error'],flush=True);return 1
     finally:
         if wire_capture:

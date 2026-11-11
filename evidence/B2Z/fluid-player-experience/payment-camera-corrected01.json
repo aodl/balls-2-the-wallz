@@ -1,0 +1,55 @@
+{
+  "scope": "Existing compiled S14 test, unchanged backend inputs, fresh pinned disposable PocketIC per named test; not full suite or production deployment",
+  "status": "FAIL",
+  "test": {
+    "id": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+    "command": [
+      "/home/codexdev/src/b2z/.work/fluid-player-experience/ci-07516cd/payment-camera-corrected01/installed-test-harness",
+      "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 101,
+    "status": "FAIL",
+    "elapsed_seconds": 328.23,
+    "timeout_seconds": 900,
+    "log": "logs/deployed_bundle_live_index_payments_reconnect_and_upgrade.log",
+    "pocketic_server_exit": null,
+    "reason": "Expected exactly one passing installed test"
+  },
+  "normal_wasm_sha256": "b14049c0407bbfa5084cc7282b88e7c69631f0deed701142e773788b47479488",
+  "harness_sha256": "113af61605557d5687e817ded263451af19095ab4b21f6cb5a5f79fce380bc5e",
+  "passed_checks": [
+    "real-asset-build-and-mainnet-test-adapter-exclusion",
+    "certified-idle-genesis-allows-transfer-preparation",
+    "B2Z-branding-with-preserved-wire-identity",
+    "certified-backend-receiving-account-and-price-identities",
+    "exact-authenticated-principal-amount-and-UTF8-text-copy",
+    "arena-fills-desktop-tablet-mobile-without-page-content",
+    "UX-03-nonmodal-focus-and-UX-12-anchored-isometric-camera",
+    "fresh-idle-certificates-with-stable-publication-and-copyable-transfer",
+    "first-index-payment-wakes-idle-arena",
+    "UX-12-world-plane-heading-and-keyboard-alternative",
+    "paid-join-ball-fallback-and-legal-move-visible-once-without-refresh",
+    "same-cannon-draft-retains-screen-heading-and-exact-canonical-memo",
+    "action-price-pairing-stable-card-and-visual-owned-move",
+    "aim-survives-certified-state-updates-and-resize"
+  ],
+  "error": "AssertionError(('produced_ticks_per_second', {'seconds': 33.86529999999999, 'produced_ticks_per_second': 0.7086900160341119, 'consumed_ticks_per_second': 0.7907554614002734, 'stalled_samples': 0, 'buffer_min': 5.71842501473742, 'buffer_max': 18.05163550409614, 'fetch_ms_max': 5962.5, 'verification_ms_max': 656, 'artifact_ms_max': 6703.099999964237, 'backend_reported_ticks_per_second': 0.9449200213788157, 'nominal_rate': 1}))",
+  "scene": null,
+  "steady_playback": {
+    "seconds": 33.86529999999999,
+    "produced_ticks_per_second": 0.7086900160341119,
+    "consumed_ticks_per_second": 0.7907554614002734,
+    "stalled_samples": 0,
+    "buffer_min": 5.71842501473742,
+    "buffer_max": 18.05163550409614,
+    "fetch_ms_max": 5962.5,
+    "verification_ms_max": 656,
+    "artifact_ms_max": 6703.099999964237,
+    "backend_reported_ticks_per_second": 0.9449200213788157,
+    "nominal_rate": 1
+  },
+  "interaction_failure": null
+}

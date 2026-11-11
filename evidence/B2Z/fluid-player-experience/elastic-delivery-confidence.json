@@ -1,0 +1,29 @@
+{
+  "scope": "Actual pinned clock and verified segment players; presentation-only controlled timing, not real hidden-browser or installed delivery qualification",
+  "checks": [
+    {
+      "log": ".work/fluid-player-experience/ci-07516cd/elastic-late-before.log",
+      "sha256": "af7fad67241a912900c78542bf10f2fe213c34a2a2ea7bbb42ffe62fa4616988",
+      "tests": 1,
+      "status": "FAIL"
+    },
+    {
+      "log": ".work/fluid-player-experience/ci-07516cd/elastic-late-after.log",
+      "sha256": "653e0d69bca7c9d8e9eae821c7c856461df889e1a39450512bdcf34ec7e68efa",
+      "tests": 24,
+      "status": "PASS"
+    },
+    {
+      "log": ".work/fluid-player-experience/ci-07516cd/related-playback-after.log",
+      "sha256": "478167fce38c0173bbb64084aba8b11c8ebd1770e2bb259b7bf8fa4bf6025ece",
+      "tests": 40,
+      "status": "PASS"
+    }
+  ],
+  "contracts": [
+    "UX-04",
+    "UX-05",
+    "UX-06"
+  ],
+  "production_operation": false
+}

@@ -1,3 +1,23 @@
+# Fluid frontend and isolated optional payments — CI follow-up
+
+Published `07516cd` passes five substantive gates; S14 installed-browser
+qualification fails in run 42974709451. The local verifier now settles deliberate
+camera transitions and uses read-only placement waits before Locate. A small
+elastic-cadence correction has a failing-before/passing-after actual-clock/player
+regression. Subsequent local installed continuity still fails; no release or
+production approval is claimed. [Current report](evidence/B2Z/fluid-player-experience/REPORT.md).
+
+Separately, feature `1f86d9b` passes all eight disposable financial cases and UI
+checks in run 42974709064, including actual SDK signatures, Ledger/Index/game
+processing and exact-European-predecessor preservation. Its ordinary run passes
+four gates, fails Clippy and S14. Two configuration guards fix Clippy locally.
+Optional payments remain isolated/disabled; production stays on the tactical
+frontend and paid rules-7 backend. No live transaction, setting or canister change.
+
+Earlier entries preserve their then-current evidence.
+
+---
+
 # Fluid player experience — source candidate, not deployed
 
 The camera/follow/compact-toolbar continuation is being qualified locally on
