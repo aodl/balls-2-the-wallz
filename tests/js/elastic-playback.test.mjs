@@ -82,3 +82,25 @@ test('UX-05/06 a late Normal head retains cadence confidence for measured delive
  assert.equal(p.state().samples,2);assert.equal(p.state().last_distinct_at,4000);
  assert.equal(p.rate({now:32001,nominal:1,remaining:1,seconds:1,reserveTicks:16}),1);
 });
+
+test('UX-05/06 observed arrival jitter protects a complete slow interval through the recorded reconnect gap',async()=>{
+ const s=session(await intervals(2)),clock=s.clock,packet=s.packet,authority=s.referenceWorld,p=elasticPlayback();
+ // Hosted Lifeline reconnect: established cadence, not a cold estimate. A later
+ // publication took 20.3781s although the median was 20s and delivery work .1985s.
+ const arrivals=[5804.8,25312.3,45339.1,65278.4];
+ for(let i=0;i<arrivals.length;i++)p.observe({key:String(i),end:i+1,at:arrivals[i],nominal:.05,ticks:1,deliverySeconds:.1985});
+ assert.ok(Math.abs(p.state().arrival_jitter_seconds-.5193)<1e-9);
+ clock.sample(.9879614015845);let pace=.05019251296821289;
+ for(let now=65279.7;now<85656.5;){
+  const dt=Math.min(1/60,(85656.5-now)/1000),target=p.rate({now,nominal:.05,remaining:clock.available-clock.playhead,seconds:dt});
+  pace=approachPresentationPace(pace,target,.05,dt);const t=clock.sample(dt*pace).playhead;
+  while(s.queue.length&&t>=s.queue[0].segment.end){const q=s.queue.shift();q.player.advance(q.segment.end).matches(q.segment.final);}
+  if(s.queue.length)s.queue[0].player.advance(t);
+  assert.notEqual(clock.phase,'STALLED','measured arrival jitter must leave usable verified coverage until the next observed publication');now+=dt*1000;
+ }
+ assert.ok(clock.available-clock.playhead>0);assert.ok(clock.playhead>1.9);assert.equal(s.packet,packet);assert.equal(s.referenceWorld,authority);
+ // The bounded window releases old variability instead of keeping a permanent
+ // slowdown. These later timing observations do not append unverified motion.
+ for(let i=0;i<10;i++)p.observe({key:String(4+i),end:5+i,at:85656.5+i*20000,nominal:.05,ticks:1,deliverySeconds:.1});
+ assert.equal(p.state().samples,8);assert.ok(p.state().arrival_jitter_seconds<1e-9);assert.equal(clock.available,2);
+});

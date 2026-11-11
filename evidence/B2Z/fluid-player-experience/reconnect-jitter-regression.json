@@ -1,0 +1,40 @@
+{
+  "hosted_failing_source": "af01692b0ddbecb204927a2b14591b536540581c",
+  "contracts": [
+    "UX-04",
+    "UX-05",
+    "UX-06"
+  ],
+  "recorded_arrivals_ms": [
+    5804.8,
+    25312.3,
+    45339.1,
+    65278.4,
+    85656.5
+  ],
+  "median_period_seconds": 20,
+  "prior_max_delivery_seconds": 0.1985,
+  "observed_prior_arrival_spread_seconds": 0.5193,
+  "late_gap_seconds": 20.3781,
+  "checks": [
+    {
+      "path": ".work/fluid-player-experience/ci-a0a59f9/reconnect-jitter-before.log",
+      "sha256": "acb3f7f081b3329a4b7ca996456a5eba0a03a6d803d8b2cb42e280628c6f0db4",
+      "status": "FAIL",
+      "scope": "Initial fixture playhead-bounds error, not the policy red proof"
+    },
+    {
+      "path": ".work/fluid-player-experience/ci-a0a59f9/reconnect-jitter-before-corrected-fixture.log",
+      "sha256": "3581aeccbb84cbfa7c82951a271e7e6bc7c3180cd06dc08e244257f193c8a7f3",
+      "status": "FAIL",
+      "scope": "Actual STALLED assertion with correct canonical boundary replay"
+    },
+    {
+      "path": ".work/fluid-player-experience/ci-a0a59f9/reconnect-jitter-after-final.log",
+      "sha256": "846190821a41a9c0dfcf5083808e46e7d4a2bbcca822f01488b6b5bcecc1f058",
+      "status": "PASS",
+      "scope": "65 actual-clock, segment-player, buffer, live-delivery and playback regressions, no skipped/cancelled"
+    }
+  ],
+  "production_operation": false
+}

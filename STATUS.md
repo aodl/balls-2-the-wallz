@@ -1,3 +1,18 @@
+# Published frontend passes six gates; local jitter follow-up
+
+`a0a59f9` passes all six substantive jobs in run 42984828168. Its qualified
+`50f7eda` / `03be9e0f…` frontend freeze remains intact. Separately, `af01692`
+passes its eight-case financial workflow and five ordinary gates, but one cold
+Lifeline reconnect sample stalls after the 900-second Normal window passed.
+A small shared jitter-margin correction has a failing-before/passing-after
+actual-clock/player regression and 65 focused passes. Its new source/artifact
+requires qualification; the prior green source is not substituted. No deployment,
+financial action or backend mutation. [Current report](evidence/B2Z/fluid-player-experience/REPORT.md).
+
+Earlier entries retain their historical results.
+
+---
+
 # Fluid frontend and isolated optional payments — CI follow-up
 
 Published `07516cd` passes five substantive gates; S14 installed-browser

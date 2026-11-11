@@ -1,3 +1,44 @@
+# Published frontend qualification and local jitter follow-up
+
+**Published frontend `a0a59f9a8c48d0e9b459669588076f17587d0ea9` passes all six
+substantive jobs** in [run 42984828168](https://github.com/aodl/balls-2-the-wallz/actions/runs/42984828168).
+[Exact job conclusions](hosted-ci-a0a59f9.json), [installed results](hosted-installed-a0a59f9.json),
+and [900-second sustained analysis](hosted-sustained-a0a59f9.json) are retained.
+Inventory remains informational. Runtime source `50f7eda…`, JS `03be9e0f…` and
+complete manifest `c7c8e77d…` below are unchanged and preserved as the qualified
+freeze. No production deployment occurred.
+
+The isolated feature `af01692…` passes all eight disposable financial tests and
+its UI suite, plus five ordinary gates, but its sustained case fails one Lifeline
+reconnect sample after **passing the full 15-minute Normal window**. This is a real
+failed continuity assertion, not a setup or harness-budget failure. Both branches
+share that timing policy. Its observed distinct arrivals (5804.8, 25312.3, 45339.1,
+65278.4, 85656.5 ms) include a 20.3781-second gap, while the median period is 20s
+and measured delivery work peaks at .1985s. The missing margin is arrival jitter,
+not a change to production rate or certificate checks.
+
+The focused actual-clock/verified-player reproduction fails before correction
+and passes after. The first draft fixture incorrectly advanced a player beyond
+its segment; that setup failure is retained separately. The corrected red result
+is explicitly STALLED. The policy now takes the largest of the existing fast-tier
+reserve, observed request duration and the peak-to-peak spread of eight distinct
+head timings, converted at nominal pace. No sum/double subtraction, extra startup
+publication, guessed fixed delay, backend threshold or event-order change. Old
+variability expires from the window. All **65** focused playback cases pass,
+including exact events, packet/latest-authority preservation and endpoint checks.
+The local follow-up changes runtime bytes and therefore needs a new clean freeze
+and exact-source CI; the preceding six-pass result is not relabelled as its pass.
+Recommendation: finish qualification of the narrow correction before a separate
+frontend-only release decision. Optional payments remain isolated/disabled.
+
+[Hosted populated browser evidence](hosted-browser-artifact-a0a59f9.json) preserves
+24 actual PNG/recording files and the [fluid](hosted-fluid-a0a59f9.json),
+[depth](hosted-depth-a0a59f9.json) and [controlled elastic](hosted-elastic-a0a59f9.json)
+results. All preceding failed/incomplete records and physical-device, real-wallet,
+II, software-performance and genuine rendered-hidden-tab limitations remain.
+
+## Earlier qualification records (preserved, superseded where identified)
+
 # Fluid player experience — published CI follow-up
 
 **Not ready for production approval.** Published `07516cd03cebde92de1bc519b0045a64e8f74997`

@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "seconds": 900.3807001953126,
+  "checks": {
+    "rates": true,
+    "no_stall_or_rebuffer": true,
+    "no_resynchronization": true,
+    "normal_not_performance_limited": true,
+    "buffer_accounting": true,
+    "bounded_queue": true,
+    "no_sustained_buffer_deficit": true
+  },
+  "production_endpoint_tick_bounds": {
+    "start": [
+      108,
+      110
+    ],
+    "end": [
+      1008,
+      1011
+    ]
+  },
+  "produced_ticks_bounds": [
+    898,
+    903
+  ],
+  "produced_ticks_per_second_bounds": [
+    0.9973558960173223,
+    1.002909102565303
+  ],
+  "admitted_ticks": 901,
+  "displayed_ticks": 900.4027054338702,
+  "admitted_ticks_per_second": 1.0006878199461107,
+  "displayed_ticks_per_second": 1.0000244399269695,
+  "buffer_start": 16.138358850349064,
+  "buffer_end": 16.735653416473156,
+  "buffer_change": 0.5972945661240914,
+  "admitted_minus_displayed": 0.5972945661297899,
+  "buffer_conservation_error": -5.6985527407960035e-12,
+  "rolling_buffer_minutes": [
+    {
+      "minute": 0,
+      "samples": 116,
+      "start": 16.138358850349064,
+      "end": 16.143333822846273,
+      "mean": 16.407408683060915,
+      "min": 15.659981590864533,
+      "max": 17.159443538290944
+    },
+    {
+      "minute": 1,
+      "samples": 114,
+      "start": 16.666632589246234,
+      "end": 16.729869687478555,
+      "mean": 16.384243121941335,
+      "min": 15.480654170884748,
+      "max": 17.132810435546332
+    },
+    {
+      "minute": 2,
+      "samples": 115,
+      "start": 17.155050605978545,
+      "end": 16.44720780576705,
+      "mean": 16.447865626442944,
+      "min": 15.654493928651078,
+      "max": 17.166036110416997
+    },
+    {
+      "minute": 3,
+      "samples": 115,
+      "start": 16.965535138266887,
+      "end": 16.3554611332695,
+      "mean": 16.420475639395168,
+      "min": 15.639598063718097,
+      "max": 17.123413930160496
+    },
+    {
+      "minute": 4,
+      "samples": 115,
+      "start": 16.709993188969463,
+      "end": 16.448906616961267,
+      "mean": 16.437650900884794,
+      "min": 15.661846619715845,
+      "max": 17.158303686150305
+    },
+    {
+      "minute": 5,
+      "samples": 115,
+      "start": 16.93613236611776,
+      "end": 16.29493207261487,
+      "mean": 16.406766533706925,
+      "min": 15.688223512017544,
+      "max": 17.200131391018886
+    },
+    {
+      "minute": 6,
+      "samples": 115,
+      "start": 16.811751571014895,
+      "end": 16.37253642947286,
+      "mean": 16.46221790192664,
+      "min": 15.704756681958827,
+      "max": 17.17961801416334
+    },
+    {
+      "minute": 7,
+      "samples": 114,
+      "start": 15.799744030672969,
+      "end": 16.49335117193425,
+      "mean": 16.375656566460716,
+      "min": 15.608914019746635,
+      "max": 17.186775638635027
+    },
+    {
+      "minute": 8,
+      "samples": 115,
+      "start": 15.994109584534044,
+      "end": 16.483319986139236,
+      "mean": 16.434239901944576,
+      "min": 15.711590939654116,
+      "max": 17.06276902175432
+    },
+    {
+      "minute": 9,
+      "samples": 115,
+      "start": 16.964364698746067,
+      "end": 16.19144639660942,
+      "mean": 16.41084552999867,
+      "min": 15.667702818245516,
+      "max": 17.10979125284689
+    },
+    {
+      "minute": 10,
+      "samples": 114,
+      "start": 16.65550633929422,
+      "end": 16.18459708740818,
+      "mean": 16.41693997692345,
+      "min": 15.664157972895623,
+      "max": 17.167347460309202
+    },
+    {
+      "minute": 11,
+      "samples": 114,
+      "start": 16.704384278108364,
+      "end": 16.61189108407882,
+      "mean": 16.410567550972928,
+      "min": 15.62991871210886,
+      "max": 17.228633407893085
+    },
+    {
+      "minute": 12,
+      "samples": 115,
+      "start": 17.04362095387887,
+      "end": 16.10608227667376,
+      "mean": 16.41522319907545,
+      "min": 15.63044051077054,
+      "max": 17.16857425777323
+    },
+    {
+      "minute": 13,
+      "samples": 114,
+      "start": 16.630404297873724,
+      "end": 16.423641770556856,
+      "mean": 16.416947169321375,
+      "min": 15.683871360856983,
+      "max": 17.09021349847353
+    },
+    {
+      "minute": 14,
+      "samples": 114,
+      "start": 16.945490912256673,
+      "end": 16.33512535617308,
+      "mean": 16.463427993685944,
+      "min": 15.765831997058285,
+      "max": 17.145366411396708
+    }
+  ],
+  "buffer_regression_ticks_per_second": 1.5812571247887867e-05,
+  "last_three_minus_first_three_minute_mean": 0.018693643545859118,
+  "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+  "backend_observation_age_ms": {
+    "median_upper": 1033.958740234375,
+    "max_upper": 2101.8544921875
+  },
+  "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+  "phases": {
+    "PLAYING": 1721
+  },
+  "resynchronizations": 0,
+  "performance_limited": false,
+  "dense_phase_samples": {
+    "PLAYING": 3602
+  }
+}
