@@ -243,7 +243,7 @@ requirements. Controlled fixtures are not certificate/physical-device evidence.
 | UXR-04/05/13/17 | ≥240px normal action area where needed, fixed toolbar slots through expansion, source anchor independent of Build/Move destination; actual transitional/settled geometry. |
 | UXR-06/14/15/16 | Pending zoom accumulation/reversal/clamp, wheel versus continuous input, immediate ball-follow entry, max-zoom follow no-op; actual input plus intermediate-frame unit tests. |
 | UXR-07/08 | Real .01/.05/1 pace, bounded projected travelled length, hold/fade, stationary expiry, seam/reflection/context reset; before/after actual-speed media. |
-| UXR-09/10/11/12/25 | One prompt, optional precision, compact exact wallet rows/icons, risk/fee preserved, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help. |
+| UXR-09/10/11/12/25 | One prompt, optional precision, compact exact wallet rows/icons, risk/fee preserved, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
 | UXR-18/19 | Meaningful circular anchor invalidation; atlas cache/revision bounds and DPR 1/1.5/2/3 cap, same projected map inverse. |
 | UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, octagonal destination versus source footprint/wire ghost, compact routine Waiting. |
 

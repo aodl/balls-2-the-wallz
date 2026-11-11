@@ -72,9 +72,15 @@ def verify_player_controls(page,width,height):
   page.set_viewport_size({'width':width,'height':height});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=height)
  # A cancelled aim does not turn into a board tap; two fingers own the camera.
  if width<=700:
+  # Finish keyboard accommodation, then explicitly focus the working area.
+  # A pinch starts on the arena, not on the card/Close control below it.
+  page.locator('#angle-degrees').blur()
+  if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
   cdp=page.context.new_cdp_session(page);h=page.locator('#aim-handle').bounding_box();x,y=h['x']+22,h['y']+22;selected=page.evaluate('fixture.summary().selected')
+  assert page.evaluate('([x,y])=>document.elementFromPoint(x,y)===document.getElementById("aim-handle")',[x,y])
+  assert page.evaluate('([x,y])=>document.elementFromPoint(x,y)===document.getElementById("board")',[x+60,y-15])
   cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':11}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-20,'y':y-10,'id':11}]});memo=page.locator('#text-memo').inner_text();cam=page.evaluate('fixture.summary().camera')
-  cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x-20,'y':y-10,'id':11},{'x':x-70,'y':y+70,'id':22}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+10,'y':y-30,'id':11},{'x':x-90,'y':y+90,'id':22}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+  cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x-20,'y':y-10,'id':11},{'x':x+60,'y':y-15,'id':22}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+10,'y':y-30,'id':11},{'x':x+80,'y':y+10,'id':22}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
   assert page.evaluate('fixture.summary().camera')!=cam;assert page.locator('#text-memo').inner_text()==memo;assert page.evaluate('fixture.summary().selected')==selected
   h=page.locator('#aim-handle').bounding_box();cam=page.evaluate('fixture.summary().camera');memo=page.locator('#text-memo').inner_text();cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':h['x']+22,'y':h['y']+22,'id':33}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});assert page.evaluate('fixture.summary().camera')==cam and page.locator('#text-memo').inner_text()==memo
 

@@ -122,7 +122,7 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 @media(prefers-reduced-transparency:reduce){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:var(--glass-solid);backdrop-filter:none}}
 @media(forced-colors:active){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:Canvas;backdrop-filter:none;color:CanvasText}.wallet-fields dd{background:Canvas}}
 .quantity-stepper>label{max-width:32px}.quantity-stepper input{width:44px}.heading-chip{max-width:90px;gap:0}.heading-chip input{width:72px}.panel-scroll{scrollbar-width:thin}
-#toolbar-hint{position:absolute;left:0;top:52px;max-width:100%;padding:5px 8px;margin:0;background:var(--glass-solid);border:1px solid var(--line);border-radius:4px;font-size:.78rem;z-index:8;pointer-events:none}
+#toolbar-hint{position:absolute;left:0;bottom:calc(100% + 4px);max-width:100%;padding:5px 8px;margin:0;background:var(--glass-solid);border:1px solid var(--line);border-radius:4px;font-size:.78rem;z-index:8;pointer-events:none}
 .panel[data-surface=context]>#inspect-note{pointer-events:none;background:var(--glass-solid);padding:4px 8px;margin:0;font-size:.78rem;max-width:260px}
 .panel-scroll{transition:padding-block 180ms ease}
 @media(prefers-reduced-motion:reduce){.panel-scroll{transition:none}}
