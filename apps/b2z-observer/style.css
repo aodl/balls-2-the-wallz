@@ -84,10 +84,10 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 .panel[data-surface=context]{background:none;border:0;box-shadow:none;backdrop-filter:none;pointer-events:none}
 .panel[data-surface=context] .panel-header{width:calc(12px + var(--tool-count,5)*44px + (var(--tool-count,5) - 1)*4px);background:var(--glass);border:1px solid var(--glass-edge);border-radius:7px 7px 0 0;box-shadow:0 3px 12px #0004;pointer-events:auto;backdrop-filter:blur(7px);position:relative;z-index:1}
 .panel[data-surface=context][data-expanded=false] .panel-header{border-radius:7px}
-.panel .panel-body{padding:0;display:grid;grid-template-rows:1fr;max-height:var(--body-space,460px);overflow:hidden;transition:grid-template-rows 180ms ease,opacity 180ms ease;opacity:1}
-.panel .panel-scroll{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 10px 10px;pointer-events:auto}
+.panel .panel-body{padding:0;display:block;flex:none;height:var(--body-height,auto);max-height:var(--body-space,460px);overflow:hidden;transition:height 180ms ease,opacity 180ms ease;opacity:1}
+.panel .panel-scroll{height:100%;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 10px 10px;pointer-events:auto}
 .panel[data-surface=context] .panel-body{background:var(--glass);border-radius:0 7px 7px 7px;backdrop-filter:blur(7px);box-shadow:0 6px 16px #0005}
-.panel[data-surface=context][data-expanded=false] .panel-body{grid-template-rows:0fr;opacity:0;pointer-events:none;box-shadow:none}
+.panel[data-surface=context][data-expanded=false] .panel-body{padding:0;height:0;opacity:0;pointer-events:none;box-shadow:none}
 .panel[data-surface=context][data-expanded=false] .panel-scroll{padding-block:0;pointer-events:none}
 .panel[data-expanded=true] #action-view{animation:none}
 #action-prompt{margin:0 0 6px;font-size:.9rem}
@@ -131,3 +131,5 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
    the real visual viewport contracts for a keyboard. Restore it on blur. */
 .short-edit #minimap,.short-edit .camera-controls,.short-edit #cycles-display{visibility:hidden;pointer-events:none}
 #amount-detail{display:block;font-size:.75rem;line-height:1.2;color:var(--quiet)}
+
+.panel-content{display:flow-root}

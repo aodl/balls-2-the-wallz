@@ -167,7 +167,7 @@ native-copy references are removed, while underlying validation/history bytes st
 
 Smoked glass uses controlled local translucency and 7px blur, with a solid
 unsupported/reduced-transparency/forced-colour fallback. A fixed 44px-slot toolbar
-keeps all control rectangles stationary during expansion. A single grid-row/opacity
+keeps all control rectangles stationary during expansion. A single measured-height/opacity
 transition grows the body beneath it in 180ms; reduced motion skips it. The body
 has one natural scroll, normally ≥240px when content needs it at 320×640. Narrow
 layouts use a stable safe-area position and a useful source-cannon composition;

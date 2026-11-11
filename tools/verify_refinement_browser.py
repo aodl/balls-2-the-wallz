@@ -39,9 +39,9 @@ with sync_playwright()as pw:
     assert max(row['toolbar_drift'])<=2,row
     assert geometry['height']>=min(240,geometry['content']),row
     row['journeys']=verify_refinement(page,w,h,out);assert not errors,errors
-    page.emulate_media(reduced_motion='no-preference');page.evaluate('fixture.select(1)');page.wait_for_timeout(200)
+    page.emulate_media(reduced_motion='no-preference');page.evaluate('fixture.motion("idle",.01)');page.evaluate('fixture.controlledHide();fixture.select(1)');page.wait_for_function('()=>document.querySelector(".panel-body").getBoundingClientRect().height<1',timeout=5000)
     row['controlled_expansion']=page.evaluate('''()=>{document.getElementById('fire-action').click();const body=document.querySelector('.panel-body');getComputedStyle(body).height;const animations=document.getAnimations().filter(a=>a.effect?.target===body||a.effect?.target===document.querySelector('.panel-scroll'));animations.forEach(a=>a.pause());const rows=[0,90,180].map(t=>{animations.forEach(a=>a.currentTime=t);const b=body.getBoundingClientRect(),button=document.getElementById('fire-action').getBoundingClientRect();return{at:t,height:b.height,button:[button.x,button.y]}});animations.forEach(a=>a.finish());return{animations:animations.length,rows}}''')
-    r=row['controlled_expansion']['rows'];assert r[-1]['height']>=r[0]['height'];assert all(v['button']==r[0]['button']for v in r)
+    r=row['controlled_expansion']['rows'];assert row['controlled_expansion']['animations']>0;assert r[0]['height']<2 and r[0]['height']<r[1]['height']<r[-1]['height'];assert all(v['button']==r[0]['button']for v in r)
     (out/'results.json').write_text(json.dumps({'status':'RUNNING','baseline':False,'rows':rows},indent=2)+'\n')
    ctx.close()
  finally:browser.close();server.shutdown()

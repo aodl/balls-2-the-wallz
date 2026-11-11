@@ -28,7 +28,7 @@ export function createShell(doc,camera,arcade,onPick){
  function stopFollowing(){followRebase=false;selectedBall=null;motion.stopFollow();$('stop-follow').hidden=true;}
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
- function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-scroll');layout={top:doc.querySelector('.arena-chrome').getBoundingClientRect().bottom+10,mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),desired:header.offsetHeight+body.scrollHeight+2};return layout;}
+ function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={top:doc.querySelector('.arena-chrome').getBoundingClientRect().bottom+10,mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  const observer=new ResizeObserver(()=>{layoutDirty=true;});for(const n of [doc.querySelector('.arena-chrome'),card.querySelector('.panel-header'),$('action-view'),$('inspect-view'),$('account-view'),$('status-view'),$('roster-view'),$('minimap'),$('cycles-display')])observer.observe(n);
  const measureChrome=()=>{const chrome=doc.querySelector('.arena-chrome');doc.documentElement.style.setProperty('--chrome-bottom',Math.ceil(chrome.getBoundingClientRect().bottom+12)+'px');layoutDirty=true;};measureChrome();if(globalThis.visualViewport)listen(visualViewport,'resize',measureChrome);
  function locate(){const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;stopFollowing();cancelTap();const m=measure();motion.focus(c.cell,{top:m.top,expanded:arcade.context()==='action'});}
@@ -91,7 +91,7 @@ export function createShell(doc,camera,arcade,onPick){
  });
  function position(){
   const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=editing&&height<520;doc.documentElement.classList.toggle('short-edit',short);if(short!==wasShort){wasShort=short;layoutDirty=true;}
-  const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if(editing&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(0,measure().top+(short?26:80)-p.sy);}}}
+  const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if(editing&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}}}
   const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;handle.hidden=ring.hidden=short||!p?.visible;
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);handle.style.left=`${p.sx+dx/d*38-22}px`;handle.style.top=`${p.sy+dy/d*38-22}px`;ring.style.left=`${p.sx-38}px`;ring.style.top=`${p.sy-38}px`;}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
@@ -107,9 +107,9 @@ export function createShell(doc,camera,arcade,onPick){
   }
   for(const obstacle of(short?[]:[m.mini,m.cycles,m.buttons]))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
   // One natural scroll, with useful space even under a contracted keyboard.
-  const room=Math.max(96,bottom-y-54),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room)].join('/');
-  if(next!==positionKey){positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);}
-  cardBounds={left:x,right:x+cw,top:y,bottom:y+54+Math.min(room,Math.max(0,m.desired-54))};
+  const room=Math.max(96,bottom-y-m.headerHeight),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
+  if(next!==positionKey){positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
+  cardBounds={left:x,right:x+cw,top:y,bottom:y+m.headerHeight+bodyHeight};
 
  }
  listen(doc,'b2z-overlay',()=>{layoutDirty=true;position();});

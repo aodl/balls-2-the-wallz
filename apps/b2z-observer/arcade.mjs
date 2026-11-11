@@ -23,7 +23,7 @@ export function createArcade(doc){
  function show(name,title){
   if(name!=='action')rememberDraft();if(!$('workspace').contains(doc.activeElement))opener=doc.activeElement;if(view!==name)doc.querySelector('.panel-scroll').scrollTop=0;view=name;$('workspace').hidden=false;
   for(const n of doc.querySelectorAll('.panel-view'))n.hidden=n.id!==name+'-view';
-  text('panel-title',title);emit();
+  text('panel-title',title);refresh();
  }
  function persist(){if(!declaration||!$('remember-account').checked)return;const saved=store?.write({...declaration,cannon:id,camera:cameraState});text('storage-note',saved?'':'Using this visit only; device storage is unavailable.');}
  function identityLabel(){text('identity-label',declaration?'Account':'Account');$('identity-color').style.background=declaration?accountColor(declaration.account):'transparent';text('account-name',declaration?.display??declaration?.principal??declaration?.account??'');$('identity-form').hidden=Boolean(declaration);$('account-summary').hidden=!declaration;}
