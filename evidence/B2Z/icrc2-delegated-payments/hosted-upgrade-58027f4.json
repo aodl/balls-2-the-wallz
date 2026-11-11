@@ -1,0 +1,129 @@
+{
+  "backend": "dfj7p-ut777-77776-qaaba-cai",
+  "cutover": {
+    "artifacts": [
+      {
+        "chunks": [
+          "fae6f6812f1e5ebf1ebddf5a958e4c74efff09374381845688adbdbcceb4ab6d"
+        ],
+        "kind": "state",
+        "length": 3529,
+        "sha256": "fae6f6812f1e5ebf1ebddf5a958e4c74efff09374381845688adbdbcceb4ab6d"
+      },
+      {
+        "chunks": [
+          "7856087dafdb680a1ebe0c04c432e68f6c3c4d3125a4facd1e0bf9866a3b4dc1"
+        ],
+        "kind": "events",
+        "length": 1452,
+        "sha256": "7856087dafdb680a1ebe0c04c432e68f6c3c4d3125a4facd1e0bf9866a3b4dc1"
+      },
+      {
+        "chunks": [
+          "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89"
+        ],
+        "kind": "scores",
+        "length": 28,
+        "sha256": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89"
+      }
+    ],
+    "chunk_bytes": 16384,
+    "epoch": {
+      "event_hash": "7856087dafdb680a1ebe0c04c432e68f6c3c4d3125a4facd1e0bf9866a3b4dc1",
+      "logical_boundary": {
+        "$integer": "8"
+      },
+      "metadata_hash": "e388b863c399be3af8da08cf1e2d0235c95ae2e1ae83f98a63f7ce4f468a9302",
+      "new_identity": {
+        "config_hash": "aab55277f70de59625d7802960212826f1cea36a69d8c3571327ff7cf96ceb22",
+        "rules_hash": "8f28e3b0d9b1e8fbcac7b4aff87f15b7a6cb410d0806affc3f19998a91411b86",
+        "schema_hash": "cbf92d335267fc2ad5a73cb78f346399c04d22b59c610bd494497890557c43dc",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "predecessor": {
+        "epoch_hash": "28312ab871181ce6e600036ce1daa6b2edab26b3d77607d0e4b29630cfe27e2a",
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        },
+        "logical_end": {
+          "$integer": "8"
+        },
+        "manifest_hash": "a8f4514465e17aecb233b0e04af1dc02652517d58c6cf8284dbf725cd445fd3e",
+        "publication_hash": "e246b042ae10c7b82ad2b0b7d5ab05a4531e4e14e56be8e194fe2f9c494946b1",
+        "segment_id": {
+          "$integer": "9"
+        },
+        "source_cursor": {
+          "$integer": "4"
+        },
+        "state_hash": "615123efea0aa0fec6c003ba527909e70de45aa73586dd749428a9c5157fc6dd",
+        "version": 8
+      },
+      "previous_chain_hash": "18685db1dd609532491c2ff88639c466e152b4bdbcd210854025662176913d1c",
+      "previous_publication_hex": "",
+      "score_hash": "f63c05923ce1541982e6af615d282d989e32252b0083d88ce043b993a14fee89",
+      "segment_id": {
+        "$integer": "10"
+      },
+      "source_anchor": "c4fb5bdb90f3877d99b4059844a87558813f91c16b5d4d970f49600b41f45334",
+      "source_cursor": {
+        "$integer": "4"
+      },
+      "state_hash": "fae6f6812f1e5ebf1ebddf5a958e4c74efff09374381845688adbdbcceb4ab6d",
+      "transition_hash": "58e81689f4d7edfd68904707bc23f5ad082f736fb3f460665df86d12e3aad249",
+      "transition_index": {
+        "$integer": "5"
+      },
+      "version": 2
+    },
+    "head": {
+      "logical_end": {
+        "$integer": "8"
+      },
+      "manifest_hash": "58e81689f4d7edfd68904707bc23f5ad082f736fb3f460665df86d12e3aad249",
+      "seal": null,
+      "segment_id": {
+        "$integer": "10"
+      },
+      "source_to_exclusive": {
+        "$integer": "4"
+      },
+      "state_hash": "fae6f6812f1e5ebf1ebddf5a958e4c74efff09374381845688adbdbcceb4ab6d"
+    },
+    "identity": {
+      "config_hash": "aab55277f70de59625d7802960212826f1cea36a69d8c3571327ff7cf96ceb22",
+      "rules_hash": "8f28e3b0d9b1e8fbcac7b4aff87f15b7a6cb410d0806affc3f19998a91411b86",
+      "schema_hash": "cbf92d335267fc2ad5a73cb78f346399c04d22b59c610bd494497890557c43dc",
+      "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+    },
+    "render_format": null,
+    "version": 8
+  },
+  "feature_wasm_sha256": "19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443",
+  "funding": "us466-uw5wk-jq6ob-mnvqz-mwdfl-3d6ru-ktmdr-seaeq-iluja-655mc-aqe",
+  "positions": {
+    "expired": 21,
+    "grant": 6,
+    "invalid_target": 17,
+    "join": 1,
+    "manual": 11,
+    "old_rejected": 3,
+    "paid": 7,
+    "replaced": 15,
+    "replacement": 16,
+    "revoke": 9,
+    "revoked": 10,
+    "self_grant": 12,
+    "unauthorized": 5,
+    "unrelated": 8,
+    "wrong_recipient": 18
+  },
+  "prior_wasm_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "received_e8s": "1000010000",
+  "scope": "actual installed disposable paid B2Z, pinned Ledger/Index, owner grant/revoke, delegated authorization, continued manual play, upgrade preservation; not Internet Identity or production",
+  "spender": "d34b6-awwq5-mcjow-lq47q-k5osw-bq6zx-cfzuf-cfvvp-tgcty-mqlhw-uae",
+  "status": "PASS"
+}

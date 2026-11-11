@@ -1,4 +1,44 @@
-# Current local jitter follow-up — complete source checks, hosted CI pending
+# Optional payments — six ordinary gates and financial suite passed
+
+Published `58027f4` passes all six ordinary jobs in run 42996637074 and all eight
+disposable financial cases/UI in run 42996637060. Feature backend `19c66e8c…`
+and both 17-file frontend freezes are retained and byte-checked. The full
+900-second Normal window and cold Lifeline reconnect pass without stalls or
+resyncs. [Qualified isolated feature report](evidence/B2Z/icrc2-delegated-payments/REPORT.md).
+
+The independent manual frontend `454ec03` also passes all six gates, with its
+16-file freeze unchanged. Recommend separate exact-artifact frontend-only
+controlled-playtest approval. Optional payments remain disabled by default;
+real II origin/ceremony review and separate backend-upgrade/cutover/activation
+authority are still required for production. No production module/state/settings/
+controller or real-money operation occurred. All earlier failures and coverage
+limitations remain in the reports. Evidence-only updates need no runtime rebuild.
+
+---
+
+# Fluid frontend — six gates passed, awaiting separate release authority
+
+Published `454ec0380d5d76a01c809078b8fe625db98eaeda` passes all six substantive
+jobs in run 42996637314. Frozen runtime `662f905` / JS `79acf867…` / complete
+16-file manifest `68116cee…` remains intact and byte-checked. Normal 900-second
+continuity and cold Lifeline reconnect both pass without stalls/resyncs.
+[Qualified frontend report](evidence/B2Z/fluid-player-experience/REPORT.md).
+
+Isolated optional-payment `58027f4` passes all six ordinary gates and all eight
+disposable financial cases in runs 42996637074 / 42996637060. It stays disabled
+by default, with no production backend upgrade, II activation or real spending.
+
+Recommendation: separate exact-artifact frontend-only controlled-playtest approval.
+Production remains on the tactical release; paid backend/state/settings/controllers
+and financial authority are untouched. Hardware, physical-phone, actual-wallet,
+II ceremony and genuine rendered-hidden-tab limits remain. Later evidence-only
+commits do not replace the qualified runtime or require rebuilding its assets.
+
+Earlier entries retain their historical status.
+
+---
+
+# Earlier local jitter qualification (historical)
 
 Independent source `662f905` passes 1,814 JS / 199 Python tests and exact frozen
 browser checks; its experimental-branch counterpart passes 1,852 JS / 199 Python
@@ -11,6 +51,7 @@ All evidence is preserved. Production and financial authority remain untouched.
 
 [Frontend report](evidence/B2Z/fluid-player-experience/REPORT.md) ·
 [Isolated optional-payment report](evidence/B2Z/icrc2-delegated-payments/REPORT.md).
+
 
 ---
 

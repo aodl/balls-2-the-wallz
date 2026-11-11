@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "scope": "Actual WebGL guide depth comparison; source variants are isolated disposable tests.",
+  "rows": [
+    {
+      "scale": 48,
+      "screen_heading": 0,
+      "solid_interior_pixels": 484,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 68,
+      "outside_body_guide_pixels": 140
+    },
+    {
+      "scale": 48,
+      "screen_heading": 45,
+      "solid_interior_pixels": 496,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 259
+    },
+    {
+      "scale": 48,
+      "screen_heading": 90,
+      "solid_interior_pixels": 512,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 162
+    },
+    {
+      "scale": 48,
+      "screen_heading": 135,
+      "solid_interior_pixels": 442,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 271
+    },
+    {
+      "scale": 48,
+      "screen_heading": 180,
+      "solid_interior_pixels": 438,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 206
+    },
+    {
+      "scale": 48,
+      "screen_heading": 225,
+      "solid_interior_pixels": 442,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 271
+    },
+    {
+      "scale": 48,
+      "screen_heading": 270,
+      "solid_interior_pixels": 512,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 162
+    },
+    {
+      "scale": 48,
+      "screen_heading": 315,
+      "solid_interior_pixels": 496,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 3,
+      "outside_body_guide_pixels": 259
+    },
+    {
+      "scale": 96,
+      "screen_heading": 0,
+      "solid_interior_pixels": 2156,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 128,
+      "outside_body_guide_pixels": 28
+    },
+    {
+      "scale": 96,
+      "screen_heading": 45,
+      "solid_interior_pixels": 2238,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 239
+    },
+    {
+      "scale": 96,
+      "screen_heading": 90,
+      "solid_interior_pixels": 2277,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 53
+    },
+    {
+      "scale": 96,
+      "screen_heading": 135,
+      "solid_interior_pixels": 1990,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 221
+    },
+    {
+      "scale": 96,
+      "screen_heading": 180,
+      "solid_interior_pixels": 1928,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 150
+    },
+    {
+      "scale": 96,
+      "screen_heading": 225,
+      "solid_interior_pixels": 1989,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 263
+    },
+    {
+      "scale": 96,
+      "screen_heading": 270,
+      "solid_interior_pixels": 2277,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 0,
+      "outside_body_guide_pixels": 53
+    },
+    {
+      "scale": 96,
+      "screen_heading": 315,
+      "solid_interior_pixels": 2238,
+      "fixed_overdraw_pixels": 0,
+      "disabled_depth_overdraw_pixels": 2,
+      "outside_body_guide_pixels": 200
+    }
+  ],
+  "limits": "Software WebGL; not physical-GPU/device evidence. Overdraw/no-guide bundles are disposable negative/reference variants."
+}

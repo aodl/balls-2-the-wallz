@@ -1,3 +1,108 @@
+# Optional delegated payments — source-qualified disposable feature, disabled in production
+
+**The complete optional feature works on disposable infrastructure.** Published
+source **`58027f418976df4f39f8e22a27a27f39f213b9ad`** passes all six ordinary
+substantive jobs in [run 42996637074](https://github.com/aodl/balls-2-the-wallz/actions/runs/42996637074),
+and all eight selected financial cases plus UI checks in
+[run 42996637060](https://github.com/aodl/balls-2-the-wallz/actions/runs/42996637060).
+[Exact six-gate conclusions](hosted-ci-58027f4.json),
+[executed financial cases](hosted-financial-58027f4.json) and
+[financial UI results](hosted-financial-ui-58027f4.json). No selected financial
+case is omitted; informational production inventory is excluded.
+
+| Required ordinary gate | Final conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+Actual A/S SDK-signed Ledger payments, official disposable Index wire records,
+owner-only grants/revocation/replacement/expiry, unauthorized-spender rejection,
+exact memo/funding attribution, immutable lost-response Duplicate recovery,
+existing-history replay, exact-European-predecessor upgrade and the 256-record
+pending source window pass. Independent manual payments remain supported.
+[Paid-upgrade results](hosted-upgrade-58027f4.json),
+[source-window results](hosted-source-window-58027f4.json) and
+[bounded empty-operation costs](hosted-empty-cost-58027f4.json) retain their actual
+input/environment limits. These are valueless canisters, not real-wallet spending
+or proof of a real Internet Identity ceremony.
+
+## Frozen identities
+
+Frontend runtime source remains **`9a5cb2be7a9de79aae536df5f01c99fd9da39ce4`**.
+The published qualification source changes evidence only after that freeze;
+maintained runtime/build/dependency inputs agree. Both complete sets were rechecked
+from actual files without rebuilding: 17 files, 16 public plus consumed policy.
+
+| Build | JavaScript SHA-256 | Complete manifest SHA-256 |
+| --- | --- | --- |
+| Default, authentication SDK excluded | `7d410db3507e0e65af1b09a6df0fe2be8eddf8458ad3c10575c0e39c1c353109` | `c43a767cf476024042401793cbbd57c6b3ee4d395c926dde4166755ffd4350cf` |
+| Experimental, explicit enable flag | `d74b083778646df81332b7651206973a8f950a265b3bedc60e8ca6e633b778b4` | `8ccd4ab6cd859fe6abb2d6ffcb76d157adaa54733ea6dae52cca3a52d2bedd75` |
+
+[Default files](frontend-files-arrival-jitter-default.json) and
+[experimental files](frontend-files-arrival-jitter-experimental.json), with their
+clean `build-manifest-arrival-jitter-*.json`, bind existing directories
+`.work/icrc2-delegated-payments/arrival-jitter-{default,experimental}/frontend`.
+The normal feature-enabled backend actually tested in the financial workflow is
+**`19c66e8c17201c98be7849880380088b5c4208b1ebcc9097dccf19e8a626c443`**,
+3,677,783 bytes, **byte-identical** to the preceding `af01692` hosted module.
+[Artifact identities](hosted-identities-58027f4.json) bind artifact 13845080725,
+ZIP `fc253578c83c8377124140df6f4bb9f0cfde053676eebbb25ad04363ac7c0242`,
+cached in `.work/icrc2-delegated-payments/ci-58027f4/`. Earlier local `d5cbcdd3…`
+and hosted `f0913515…` modules remain separate; they are not interchangeable.
+No backend artifact was rebuilt locally or installed merely to update evidence.
+
+## Playback and preservation closeout
+
+[Installed ordinary results](hosted-installed-58027f4.json),
+[complete browser result](hosted-million-58027f4.json) and
+[sustained analysis](hosted-sustained-58027f4.json) pass. Normal spans
+**900.2973 seconds**, with **0.99996 displayed ticks/s**, no stall/rebuffer, no
+resynchronisation and bounded conserved buffer. Cold Lifeline reconnect spans
+**119.8785 seconds**, with **zero stalled samples / zero resyncs**,
+0.05005 admitted and 0.04329 displayed ticks/s at 0.05 nominal. The measured
+conservative rate is intentional verified-only presentation; backend pacing,
+physics, prices, protection/source/treasury floors and financial ordering do not
+change. The prior one-stall failure stays retained, not relabelled or hidden.
+The complete 900-second and zero-stall assertions remain unchanged.
+
+The S14 ZIP artifact 13847845166 is cached locally and verified against SHA-256
+`96815a26adcff7435d7bdde2b1f2efbc736513c05ded5418d82d7551dfeef93d`.
+The local 1,852 JS / 199 Python run, exact frozen manual-route browser checks,
+65 actual-clock/player regressions and controlled return recordings remain under
+their actual source/environment scopes below. No hardware/physical-phone/native
+keyboard performance, real-wallet, live II derivation-origin or genuinely rendered
+hidden-tab qualification is invented. The existing software-renderer limitations
+remain relevant; logical-throughput PASS is not a hardware smoothness claim.
+
+## Production boundary and independent release decision
+
+The feature remains isolated from the independently qualified manual frontend
+`454ec03`, and disabled by default. No paid European backend, canister settings,
+controllers, source cursor, treasury, Ledger account/allowance or real funds were
+modified. No production deployment, activation, transfer or manual recovery ran.
+The existing backend continues rules 7 and the prior tactical frontend remains
+served. Source qualification is not production-upgrade authority.
+
+The manual frontend can receive its own separate asset-only controlled-playtest
+approval using its exact 16-file freeze. Production delegated payments additionally
+require real II ceremony/origin review and **separate explicit approval** for the
+exact state-preserving backend upgrade, drained authenticated versioned cutover
+and compatible feature-enabled assets. Recheck current modules, source/pending
+health, placement, controllers and balances first; preserve paid history and the
+qualified predecessor/recovery route. Never reset, reinitialise or migrate by
+replacement. Ledger allowance and B2Z access remain independently revocable;
+signing out revokes neither. The allowance is not destination restricted.
+
+These final report changes are evidence-only. Do not rebuild artifacts or restart
+a runtime campaign just to publish them. Earlier failed/incomplete/superseded
+evidence and the complete maintained DP-01..13 / UX-01..13 contracts follow.
+
+## Earlier implementation and qualification records (historical)
+
 # Delegated-payment qualification refresh and bounded playback follow-up
 
 **The complete optional signed Ledger → Index → installed-game feature passes

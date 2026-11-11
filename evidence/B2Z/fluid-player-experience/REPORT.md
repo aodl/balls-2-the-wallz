@@ -1,3 +1,94 @@
+# Fluid player experience — qualified frontend candidate, not deployed
+
+**Ready for a separate frontend-only controlled-playtest release decision.**
+Published source **`454ec0380d5d76a01c809078b8fe625db98eaeda`** completes
+[CI run 42996637314](https://github.com/aodl/balls-2-the-wallz/actions/runs/42996637314)
+with all six substantive jobs PASS. [Exact job conclusions](hosted-ci-454ec03.json).
+The informational production-inventory job is excluded. No source push, runtime
+rebuild, production deployment, canister setting/controller change, real allowance
+or ICP/cycles transfer occurred during this qualification refresh.
+
+| Required gate | Final conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+## Exact frozen frontend
+
+Runtime/build source remains **`662f9052bbb4235b2739df12646de66eca10dfbd`**.
+All maintained runtime/build/dependency inputs equal the qualified source; later
+commits reconcile evidence only. The existing directory
+`.work/fluid-player-experience/frozen-arrival-jitter/frontend` is preserved.
+Every actual deployment byte was rechecked, without rebuilding:
+
+- JavaScript SHA-256: **`79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a`**.
+- [Complete 16-file manifest](frontend-files-arrival-jitter.json) SHA-256:
+  **`68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03`**.
+- Fifteen public assets, including the local cursor, plus consumed
+  `.ic-assets.json5`; [clean provenance](build-manifest-arrival-jitter.json).
+- European binding remains backend `s5ir5-gqaaa-aaaas-amyna-cai`, frontend
+  `s2jxj-liaaa-aaaas-amynq-cai`. The live URL remains the prior deployed tactical
+  release: https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/. This candidate is not served
+  there yet. Prior qualified and deployed rollback assets remain intact.
+
+## Final executed evidence
+
+[Installed results](hosted-installed-454ec03.json) and [complete million-cell
+browser result](hosted-million-454ec03.json) pass, including actual source/payment,
+certificate, reconnect, upgrade and camera/selection paths. The
+[continuous Normal analysis](hosted-sustained-454ec03.json) spans **900.2473 seconds**,
+with **0.99970 displayed / 0.99973 admitted ticks/s**, bounded queue, no stall or
+rebuffer, no resynchronisation and no sustained buffer deficit. The cold Lifeline
+reconnect spans **119.8785 seconds**, with **zero stalled samples / zero resyncs**,
+0.05005 admitted and 0.04378 displayed ticks/s at 0.05 nominal. This is intentionally
+elastic presentation, not a producer-rate change or on-chain timing guarantee.
+The earlier failed one-stall capture remains in its original record. No assertion,
+900-second window, protection floor or authentication check was weakened.
+
+The [source-bound browser artifact](hosted-browser-artifact-454ec03.json) retains
+24 populated screenshots/recordings plus [fluid journeys](hosted-fluid-454ec03.json),
+[actual pixel/depth checks](hosted-depth-454ec03.json) and
+[controlled rendered returns](hosted-elastic-454ec03.json), all PASS. The prior
+exact frozen read-only European checks at desktop/390/320 and 1,814 JS / 199 Python
+local source tests remain under their actual inputs. Hosted S14 artifact
+13846199298 is cached at `.work/fluid-player-experience/ci-454ec03/local-ic-evidence.zip`,
+verified SHA-256 `c976414019213e9e2b32b32cc80e4a5a1315bc250ea404d841cb0468d971e627`.
+
+These results qualify their actual disposable/software-rendered environments.
+Native rendered hidden-tab execution, hardware/physical-phone/native-keyboard
+performance, real-wallet entry, human research, receipt-association limits and
+maximum-population qualification remain accurately limited. Existing slow
+SwiftShader measurements are retained; a logical-throughput CI pass is not a
+hardware 60/30-fps claim. No additional benchmark or paid game action was run.
+
+## Release boundary
+
+There is no remaining demonstrated source/CI blocker for this frontend candidate.
+Recommend a separately authorised asset-only controlled playtest of the exact
+freeze above, using the [installed paid-game operator procedure](../../../docs/operations/S14_OPERATOR.md).
+Refresh modules/controllers/placement, source/treasury/pending health and cycles
+immediately before any later publication; do not reuse historical balances as
+current preflight. Preserve the served tactical asset set for the approved bounded
+asset-only rollback. Do not install/upgrade/reset the backend or change its
+Ledger authority, settings, pacing, treasury or paid history.
+
+The isolated optional-payment source `58027f4…` separately passes all six ordinary
+gates and its eight-case financial workflow. It stays disabled by default and
+is absent from this independent frontend. Real II origin/ceremony review and
+separate backend-upgrade/activation authority remain necessary for its production
+use. Neither this qualification nor controller access grants that authority.
+
+This closeout is evidence-only. Qualified source and frozen runtime identities
+above remain distinct from later report commits; do not rebuild assets or demand
+a new runtime campaign merely to publish unchanged evidence. All earlier failed,
+incomplete and superseded records follow unchanged.
+
+## Earlier qualification records (historical)
+
 # Published frontend qualification and local jitter follow-up
 
 **Published frontend `a0a59f9a8c48d0e9b459669588076f17587d0ea9` passes all six
