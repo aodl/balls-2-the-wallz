@@ -88,9 +88,17 @@ contains all 25 dispositions, exact frozen bytes, executed commands, populated
 media, software performance limits and the still-required hosted qualification.
 Do not substitute it for the currently deployed ordinary asset set.
 
-Payment-layout qualification waits for the actual panel/body transitions before
-scrolling exact values. Keep controlled intermediate-frame checks separate; do not
-mask an early measurement with a fixed sleep or loosen containment assertions.
+Payment-layout qualification waits for correct natural-content/body targets, committed
+layout work, completed camera/body transitions and four stable frames before
+scrolling exact values. A completed animation with a stale target is not settled.
+Run `tools/verify_panel_geometry.py --output .work/panel-geometry --video` for the
+same-world Fire/Move/Build readiness matrix (desktop/mobile/contracted/reduced
+motion). It samples every transition frame, exact wallet strings, copy gating,
+scroll/camera/clock identity and pending layout work without invoking layout internals.
+The shared `settled_panel()` helper observes ordinary frames; never replace it with
+a fixed sleep or weaken the 1px geometry check. Content mutations must invalidate
+natural-size caches even when hide/show yields no ResizeObserver size delta.
+Disabled/ARIA readiness writes must not cause an action-content layout transition.
 
 
 Final visual closeout must also run `tools/verify_visual_closeout.py` against the

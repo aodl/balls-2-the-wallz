@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "raw": ".work/panel-closeout/source-py311/verification.json",
+  "python": "3.11.14",
+  "tests_js": 1846,
+  "tests_python": 199,
+  "checks": [
+    {
+      "id": "b2z-naming-audit",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-policy",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-state-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-purchase-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-lifecycle-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-island-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-capture-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "playability-rules-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "entry-rules-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "adjacent-cannon-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "observer-recordings",
+      "status": "PASS"
+    },
+    {
+      "id": "protocol-fixtures",
+      "status": "PASS"
+    },
+    {
+      "id": "life-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "b2z-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "spawn-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "impact-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "b2z-full-traces",
+      "status": "PASS"
+    },
+    {
+      "id": "numeric-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "coordinator-vectors",
+      "status": "PASS"
+    },
+    {
+      "id": "observation-v6-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "observation-reference",
+      "status": "PASS"
+    },
+    {
+      "id": "portable-cursors",
+      "status": "PASS"
+    },
+    {
+      "id": "node-tests",
+      "status": "PASS"
+    },
+    {
+      "id": "source-structure",
+      "status": "PASS"
+    },
+    {
+      "id": "docs-links",
+      "status": "PASS"
+    },
+    {
+      "id": "python-tool-tests",
+      "status": "PASS"
+    }
+  ],
+  "earlier_failed_attempt": ".work/panel-closeout/source/verification.json",
+  "earlier_failure_reason": "Host Python 3.10 cannot import tomllib or use hashlib.file_digest; not a qualified run."
+}

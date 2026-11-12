@@ -1,0 +1,6729 @@
+{
+  "status": "PASS",
+  "runtime_source": "PENDING_COMMIT",
+  "scope": "Natural panel sizing and per-frame status invariants; controlled canonical scene, real DOM/input.",
+  "samples": 2714,
+  "rows": [
+    {
+      "case": "1440-900-motion-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 30517.5,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 392,
+          "top": 334,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "header": {
+          "x": 661,
+          "y": 334,
+          "width": 248,
+          "height": 54,
+          "top": 334,
+          "right": 909,
+          "bottom": 388,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 338,
+          "top": 388,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "439px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "661/334/360/440/338",
+          "compositionKey": "action/start/1/453578/452578/1440/900/false/1",
+          "cardBounds": {
+            "left": 661,
+            "right": 1021,
+            "top": 334.0000000000042,
+            "bottom": 726.0000000000042
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 17,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "91a063deefc52a4d316f37d072a149621b72177057ce072140e57f3b4ce90bb7"
+    },
+    {
+      "case": "1440-900-motion-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 8965,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 416,
+          "top": 334,
+          "right": 1021,
+          "bottom": 750,
+          "left": 661
+        },
+        "header": {
+          "x": 661,
+          "y": 334,
+          "width": 248,
+          "height": 54,
+          "top": 334,
+          "right": 909,
+          "bottom": 388,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 362,
+          "top": 388,
+          "right": 1021,
+          "bottom": 750,
+          "left": 661
+        },
+        "content": {
+          "height": 342.359375,
+          "scrollHeight": 342
+        },
+        "scroll": {
+          "height": 362,
+          "scrollHeight": 362,
+          "top": 0
+        },
+        "target": "362px",
+        "space": "439px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 416,
+          "positionKey": "661/334/360/440/362",
+          "compositionKey": "action/ball/1/453578/453578/1440/900/false/1",
+          "cardBounds": {
+            "left": 661,
+            "right": 1021,
+            "top": 334.0000000000042,
+            "bottom": 750.0000000000042
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 9,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "9dcee9a0056093c8d8c467931e69b2059a731884f190c72d9d7ce30c9f6d38e7"
+    },
+    {
+      "case": "1440-900-motion-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 18300.5,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 392,
+          "top": 334,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "header": {
+          "x": 661,
+          "y": 334,
+          "width": 248,
+          "height": 54,
+          "top": 334,
+          "right": 909,
+          "bottom": 388,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 338,
+          "top": 388,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "439px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "661/334/360/440/338",
+          "compositionKey": "action/move/1/453578/452577/1440/900/false/1",
+          "cardBounds": {
+            "left": 661,
+            "right": 1021,
+            "top": 334.0000000000042,
+            "bottom": 726.0000000000042
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "1a011351616d875efc8505afec2dd62449e5046b2185e893f4ca7b1bd38d4121"
+    },
+    {
+      "case": "1440-900-reduced-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 19069.79999999702,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 392,
+          "top": 334,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "header": {
+          "x": 661,
+          "y": 334,
+          "width": 248,
+          "height": 54,
+          "top": 334,
+          "right": 909,
+          "bottom": 388,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 338,
+          "top": 388,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "439px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 27,
+          "committedRevision": 27,
+          "desired": 392,
+          "positionKey": "661/334/360/440/338",
+          "compositionKey": "action/start/1/453578/452578/1440/900/false/1",
+          "cardBounds": {
+            "left": 661,
+            "right": 1021,
+            "top": 334.0000000000042,
+            "bottom": 726.0000000000042
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 16,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 11,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "512b187b2b730edfaa6865d98976c35850857a44f0e4a859bda0f9dabd263b9c"
+    },
+    {
+      "case": "1440-900-reduced-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 5818.19999999553,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 416,
+          "top": 334,
+          "right": 1021,
+          "bottom": 750,
+          "left": 661
+        },
+        "header": {
+          "x": 661,
+          "y": 334,
+          "width": 248,
+          "height": 54,
+          "top": 334,
+          "right": 909,
+          "bottom": 388,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 362,
+          "top": 388,
+          "right": 1021,
+          "bottom": 750,
+          "left": 661
+        },
+        "content": {
+          "height": 342.359375,
+          "scrollHeight": 342
+        },
+        "scroll": {
+          "height": 362,
+          "scrollHeight": 362,
+          "top": 0
+        },
+        "target": "362px",
+        "space": "439px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 16,
+          "committedRevision": 16,
+          "desired": 416,
+          "positionKey": "661/334/360/440/362",
+          "compositionKey": "action/ball/1/453578/453578/1440/900/false/1",
+          "cardBounds": {
+            "left": 661,
+            "right": 1021,
+            "top": 334.0000000000042,
+            "bottom": 750.0000000000042
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 17,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 10,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 9,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 9,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 11,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 416,
+            "top": 334,
+            "right": 1021,
+            "bottom": 750,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "746a0e121fed4218c80899fb0022d32fadf62fb5c549a833b109f88b4234e460"
+    },
+    {
+      "case": "1440-900-reduced-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 10967.69999999553,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 392,
+          "top": 334,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "header": {
+          "x": 661,
+          "y": 334,
+          "width": 248,
+          "height": 54,
+          "top": 334,
+          "right": 909,
+          "bottom": 388,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 338,
+          "top": 388,
+          "right": 1021,
+          "bottom": 726,
+          "left": 661
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "439px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 22,
+          "committedRevision": 22,
+          "desired": 392,
+          "positionKey": "661/334/360/440/338",
+          "compositionKey": "action/move/1/453578/452577/1440/900/false/1",
+          "cardBounds": {
+            "left": 661,
+            "right": 1021,
+            "top": 334.0000000000042,
+            "bottom": 726.0000000000042
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.2792878051214,
+          453.22587215908857,
+          88
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 15,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 20,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 392,
+            "top": 334,
+            "right": 1021,
+            "bottom": 726,
+            "left": 661
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "7e40d3bef39cd4070a673771641ed294bd9c82a5238e210ee802109c929ad00f"
+    },
+    {
+      "case": "320-300-motion-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 11576.69999999553,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 142,
+          "width": 304,
+          "height": 150,
+          "top": 142,
+          "right": 312,
+          "bottom": 292,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 142,
+          "width": 248,
+          "height": 54,
+          "top": 142,
+          "right": 256,
+          "bottom": 196,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 196,
+          "width": 304,
+          "height": 96,
+          "top": 196,
+          "right": 312,
+          "bottom": 292,
+          "left": 8
+        },
+        "content": {
+          "height": 318.328125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 96,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "96px",
+        "space": "96px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "8/142/304/96/96",
+          "compositionKey": "action/start/1/453578/452578/320/300/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 142,
+            "bottom": 292
+          }
+        },
+        "animations": [],
+        "camera": [
+          579.1742765142299,
+          454.1742765142301,
+          42.195357349288294
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "f395a7900c75a52321e9e62c9ae2c7f3fc09f270b4f60bb65cf82d7cdea6a485"
+    },
+    {
+      "case": "320-300-motion-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 2921.7999999970198,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 142,
+          "width": 304,
+          "height": 150,
+          "top": 142,
+          "right": 312,
+          "bottom": 292,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 142,
+          "width": 248,
+          "height": 54,
+          "top": 142,
+          "right": 256,
+          "bottom": 196,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 196,
+          "width": 304,
+          "height": 96,
+          "top": 196,
+          "right": 312,
+          "bottom": 292,
+          "left": 8
+        },
+        "content": {
+          "height": 342.734375,
+          "scrollHeight": 343
+        },
+        "scroll": {
+          "height": 96,
+          "scrollHeight": 361,
+          "top": 60
+        },
+        "target": "96px",
+        "space": "96px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 417,
+          "positionKey": "8/142/304/96/96",
+          "compositionKey": "action/ball/1/453578/453578/320/300/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 142,
+            "bottom": 292
+          }
+        },
+        "animations": [],
+        "camera": [
+          579.1742765142299,
+          454.1742765142301,
+          42.195357349288294
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 20,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "7825dfc483f675b22ab303993fffc38e4522f9a965748b5a1d01a26c70dd0109"
+    },
+    {
+      "case": "320-300-motion-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 7074.60000000149,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 142,
+          "width": 304,
+          "height": 150,
+          "top": 142,
+          "right": 312,
+          "bottom": 292,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 142,
+          "width": 248,
+          "height": 54,
+          "top": 142,
+          "right": 256,
+          "bottom": 196,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 196,
+          "width": 304,
+          "height": 96,
+          "top": 196,
+          "right": 312,
+          "bottom": 292,
+          "left": 8
+        },
+        "content": {
+          "height": 318.328125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 96,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "96px",
+        "space": "96px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "8/142/304/96/96",
+          "compositionKey": "action/move/1/453578/452577/320/300/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 142,
+            "bottom": 292
+          }
+        },
+        "animations": [],
+        "camera": [
+          579.1742765142299,
+          454.1742765142301,
+          42.195357349288294
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 8,
+          "workspace": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "4a55a086c8f9e71c6e150890493d70833f3d62062501e47066b6fa86e2c8d219"
+    },
+    {
+      "case": "320-640-motion-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 14989,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "content": {
+          "height": 318.328125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 241,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "241px",
+        "space": "241px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "8/221/304/241/241",
+          "compositionKey": "action/start/1/453578/452578/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 516
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.6067226468849,
+          456.6067226468849,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "348f1c9b18fd01e353e3326ff2ad15970f9e9fc9893d0fad41ae3df270994fd1"
+    },
+    {
+      "case": "320-640-motion-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 5694.5,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "content": {
+          "height": 342.734375,
+          "scrollHeight": 343
+        },
+        "scroll": {
+          "height": 241,
+          "scrollHeight": 361,
+          "top": 60
+        },
+        "target": "241px",
+        "space": "241px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 417,
+          "positionKey": "8/221/304/241/241",
+          "compositionKey": "action/ball/1/453578/453578/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 516
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.6575453715564,
+          456.65754537155635,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 10,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 10,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "8eb0ecacf3e7651d3c7f4fa4910c6da249c98eaad618e0e230a972ac9b7a84d7"
+    },
+    {
+      "case": "320-640-motion-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 10407.10000000149,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "content": {
+          "height": 318.328125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 241,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "241px",
+        "space": "241px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "8/221/304/241/241",
+          "compositionKey": "action/move/1/453578/452577/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 516
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.6067226468849,
+          456.6067226468849,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 13,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "7adeded2fd091fab4e171a7f3fd4a742a3c868f594574361c7ce2010f7382bc1"
+    },
+    {
+      "case": "320-640-reduced-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 13151.5,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "content": {
+          "height": 318.328125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 241,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "241px",
+        "space": "241px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "8/221/304/241/241",
+          "compositionKey": "action/start/1/453578/452578/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 516
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.6067226468849,
+          456.6067226468849,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 12,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 13,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "292861c6b480c1b1d8663825427a160d94b1dbb884c0e284214f3faa8de71309"
+    },
+    {
+      "case": "320-640-reduced-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 3762.2000000029802,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "content": {
+          "height": 342.734375,
+          "scrollHeight": 343
+        },
+        "scroll": {
+          "height": 241,
+          "scrollHeight": 361,
+          "top": 60
+        },
+        "target": "241px",
+        "space": "241px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 417,
+          "positionKey": "8/221/304/241/241",
+          "compositionKey": "action/ball/1/453578/453578/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 516
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.6575453715564,
+          456.65754537155635,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "7fe57ef9a63411d22b6035c4306fec89c0d6f60a581b1d823f0b6c3194fa80a6"
+    },
+    {
+      "case": "320-640-reduced-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 8577.40000000596,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "content": {
+          "height": 318.328125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 241,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "241px",
+        "space": "241px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "8/221/304/241/241",
+          "compositionKey": "action/move/1/453578/452577/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 516
+          }
+        },
+        "animations": [],
+        "camera": [
+          581.6067226468849,
+          456.6067226468849,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "d57b76b2eddf5f61d6cb609cb755f1de7422a4fb22617ef7b32ecba572fac3b7"
+    },
+    {
+      "case": "390-430-motion-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 11647.10000000149,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 154,
+          "width": 360,
+          "height": 268,
+          "top": 154,
+          "right": 368,
+          "bottom": 422,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 154,
+          "width": 248,
+          "height": 54,
+          "top": 154,
+          "right": 256,
+          "bottom": 208,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 208,
+          "width": 360,
+          "height": 214,
+          "top": 208,
+          "right": 368,
+          "bottom": 422,
+          "left": 8
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 214,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "214px",
+        "space": "214px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "8/154/360/214/214",
+          "compositionKey": "action/start/1/453578/452578/390/430/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 154,
+            "bottom": 422
+          }
+        },
+        "animations": [],
+        "camera": [
+          580.4214154709557,
+          455.4214154709557,
+          49.32696704212575
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 13,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "3f70a2dbbf9e91b11f8b5c3611c5d58acc40b601e73b3677ab473182e1af5fe0"
+    },
+    {
+      "case": "390-430-motion-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 3244.5,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 154,
+          "width": 360,
+          "height": 268,
+          "top": 154,
+          "right": 368,
+          "bottom": 422,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 154,
+          "width": 248,
+          "height": 54,
+          "top": 154,
+          "right": 256,
+          "bottom": 208,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 208,
+          "width": 360,
+          "height": 214,
+          "top": 208,
+          "right": 368,
+          "bottom": 422,
+          "left": 8
+        },
+        "content": {
+          "height": 342.359375,
+          "scrollHeight": 342
+        },
+        "scroll": {
+          "height": 214,
+          "scrollHeight": 360,
+          "top": 60
+        },
+        "target": "214px",
+        "space": "214px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 416,
+          "positionKey": "8/154/360/214/214",
+          "compositionKey": "action/ball/1/453578/453578/390/430/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 154,
+            "bottom": 422
+          }
+        },
+        "animations": [],
+        "camera": [
+          580.4214154709557,
+          455.4214154709557,
+          49.32696704212575
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "69d75a23cf318fdba8d81135084035f6ead2c1f67f73d9c1c3a8299ccfe1d0fd"
+    },
+    {
+      "case": "390-430-motion-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 7494.9000000059605,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 154,
+          "width": 360,
+          "height": 268,
+          "top": 154,
+          "right": 368,
+          "bottom": 422,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 154,
+          "width": 248,
+          "height": 54,
+          "top": 154,
+          "right": 256,
+          "bottom": 208,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 208,
+          "width": 360,
+          "height": 214,
+          "top": 208,
+          "right": 368,
+          "bottom": 422,
+          "left": 8
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 214,
+          "scrollHeight": 336,
+          "top": 60
+        },
+        "target": "214px",
+        "space": "214px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "8/154/360/214/214",
+          "compositionKey": "action/move/1/453578/452577/390/430/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 154,
+            "bottom": 422
+          }
+        },
+        "animations": [],
+        "camera": [
+          580.4214154709557,
+          455.4214154709557,
+          49.32696704212575
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 15,
+          "workspace": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "ad8c10386d101e56bc369b53195c079cdd89e065513cabeb951644669084ae7f"
+    },
+    {
+      "case": "390-844-motion-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 18264.60000000149,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 392,
+          "top": 221,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 338,
+          "top": 275,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "445px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "8/221/360/445/338",
+          "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 221,
+            "bottom": 613
+          }
+        },
+        "animations": [],
+        "camera": [
+          583.5586597856652,
+          458.5586597856652,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 8,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 10,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "14067eb21dbaa8d6e8410e083860920763a3fa5119f47754f6b9c3939811c5cf"
+    },
+    {
+      "case": "390-844-motion-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 6453.5,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 416,
+          "top": 221,
+          "right": 368,
+          "bottom": 637,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 362,
+          "top": 275,
+          "right": 368,
+          "bottom": 637,
+          "left": 8
+        },
+        "content": {
+          "height": 342.359375,
+          "scrollHeight": 342
+        },
+        "scroll": {
+          "height": 362,
+          "scrollHeight": 362,
+          "top": 0
+        },
+        "target": "362px",
+        "space": "445px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 416,
+          "positionKey": "8/221/360/445/362",
+          "compositionKey": "action/ball/1/453578/453578/390/844/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 221,
+            "bottom": 637
+          }
+        },
+        "animations": [],
+        "camera": [
+          583.6094825103369,
+          458.6094825103369,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 10,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 10,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 13,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 11,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "6c18c14a01154739e0bcf372d9daabcbf1a432dfefa5f06cf64f2f33023f0469"
+    },
+    {
+      "case": "390-844-motion-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 12350.39999999851,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 392,
+          "top": 221,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 338,
+          "top": 275,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "445px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "8/221/360/445/338",
+          "compositionKey": "action/move/1/453578/452577/390/844/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 221,
+            "bottom": 613
+          }
+        },
+        "animations": [],
+        "camera": [
+          583.5586597856652,
+          458.5586597856652,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 8,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 12,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "2e53208f28a5d531d05f62daef6bb2bf0421751b67945191dcd7989a3b52bac9"
+    },
+    {
+      "case": "390-844-reduced-Build-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 13616.39999999851,
+        "action": {
+          "mode": "start",
+          "cell": 452578,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "9 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 225 1 452578",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 392,
+          "top": 221,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 338,
+          "top": 275,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "445px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 28,
+          "committedRevision": 28,
+          "desired": 392,
+          "positionKey": "8/221/360/445/338",
+          "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 221,
+            "bottom": 613
+          }
+        },
+        "animations": [],
+        "camera": [
+          583.5586597856652,
+          458.5586597856652,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 9,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 11,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 13,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 11,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "9395656f9911e04f1a4e5a29294d553d4392d5b62bcbd4fd024b2545dea7077c"
+    },
+    {
+      "case": "390-844-reduced-Fire-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 4126.60000000149,
+        "action": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "1.6 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 225 1",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 416,
+          "top": 221,
+          "right": 368,
+          "bottom": 637,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 362,
+          "top": 275,
+          "right": 368,
+          "bottom": 637,
+          "left": 8
+        },
+        "content": {
+          "height": 342.359375,
+          "scrollHeight": 342
+        },
+        "scroll": {
+          "height": 362,
+          "scrollHeight": 362,
+          "top": 0
+        },
+        "target": "362px",
+        "space": "445px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 17,
+          "committedRevision": 17,
+          "desired": 416,
+          "positionKey": "8/221/360/445/362",
+          "compositionKey": "action/ball/1/453578/453578/390/844/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 221,
+            "bottom": 637
+          }
+        },
+        "animations": [],
+        "camera": [
+          583.6094825103369,
+          458.6094825103369,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Aim & Pay\n\nBalls\n\u2212\n+\nInstructions for your external wallet\nAmount\n1.6 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nFIRE 1 225 1\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nPayments and unused ICP are kept; no automatic refunds."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 18,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 13,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 16,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 14,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 12,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 416,
+            "top": 221,
+            "right": 368,
+            "bottom": 637,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "32fc451fa12503076da243938191fc2654cb1a256346c0c826e1953a7354a477"
+    },
+    {
+      "case": "390-844-reduced-Move-status-geometry",
+      "baseline": {
+        "tag": "baseline",
+        "at": 8566.20000000298,
+        "action": {
+          "mode": "move",
+          "cell": 452577,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "selected": 1,
+        "prepared": true,
+        "disabled": false,
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 452577",
+          "paying-account": "aaaaa-aa",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "workspace": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 392,
+          "top": 221,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "header": {
+          "x": 8,
+          "y": 221,
+          "width": 248,
+          "height": 54,
+          "top": 221,
+          "right": 256,
+          "bottom": 275,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 338,
+          "top": 275,
+          "right": 368,
+          "bottom": 613,
+          "left": 8
+        },
+        "content": {
+          "height": 317.953125,
+          "scrollHeight": 318
+        },
+        "scroll": {
+          "height": 338,
+          "scrollHeight": 338,
+          "top": 0
+        },
+        "target": "338px",
+        "space": "445px",
+        "cache": {
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 23,
+          "committedRevision": 23,
+          "desired": 392,
+          "positionKey": "8/221/360/445/338",
+          "compositionKey": "action/move/1/453578/452577/390/844/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 368,
+            "top": 221,
+            "bottom": 613
+          }
+        },
+        "animations": [],
+        "camera": [
+          583.5586597856652,
+          458.5586597856652,
+          64
+        ],
+        "cameraActive": false,
+        "clock": {
+          "phase": "PLAYING",
+          "playhead": 0,
+          "available": 1,
+          "buffer": 1,
+          "rate": 1
+        },
+        "queue": 1,
+        "time": 0,
+        "sameClock": true,
+        "sameWorld": true,
+        "status": "Live",
+        "bodyText": "Choose a Tile & Pay\n\nInstructions for your external wallet\nAmount\n0.0001 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nMOVE 1 452577\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+      },
+      "states": [
+        {
+          "case": "healthy",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-failure",
+          "disabled": true,
+          "samples": 17,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "status-recovered",
+          "disabled": false,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "delivery-failure",
+          "disabled": true,
+          "samples": 8,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "prolonged-outage",
+          "disabled": true,
+          "samples": 19,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 0
+        },
+        {
+          "case": "recovered",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "long-waiting-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        },
+        {
+          "case": "short-live-label",
+          "disabled": false,
+          "samples": 7,
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392,
+            "top": 221,
+            "right": 368,
+            "bottom": 613,
+            "left": 8
+          },
+          "max_geometry_drift_px": 0,
+          "memo_unchanged": true,
+          "action_unchanged": true,
+          "camera_unchanged": true,
+          "playback_unchanged": true,
+          "max_scroll_drift_px": 0,
+          "cache_invalidations": 1
+        }
+      ],
+      "raw_sha256": "ce73d46641cba16d2edb31fe23e7556149fe4611d041db3c54db7c1f0167fcd8"
+    }
+  ],
+  "limitations": "Emulated viewport/touch and software rendering; fixture status delivery is separate from IC authenticity."
+}

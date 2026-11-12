@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "scope": "Matched populated visual closeout and focused actual-component acceptance.\nUses the maintained canonical fixture bundle, no payment/network execution.\n",
+  "raw": ".work/panel-closeout/visual/results.json",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      320,
+      640
+    ]
+  ]
+}

@@ -1,12 +1,20 @@
-# Human playtest corrections — final frozen frontend candidate
+# Human playtest corrections — release qualification
 
-**Not deployed. Local final acceptance passes; exact-source CI awaits owner publication.**
-Final runtime `777fb421479de79d2071e384abfb231d7a60242f` includes typed IC
-`SysTransient` retry, preserving hard cryptographic/history barriers, and settled
-status-geometry acceptance with enabled→disabled→enabled copying. The paid backend,
-installed frontend, prices, Ledger processing and payment execution were untouched.
-No mainnet transaction, allowance, transfer, settings/controller action, backend
-deployment or ICRC-2 activation occurred.
+**Not deployed. Final panel correction and exact-source qualification are in progress.**
+The published `2fa2673` Browser gate failed the Build readiness geometry check
+(129px → 392px); four other substantive gates passed and installed-IC was still
+running at investigation start and subsequently failed two installed-browser
+timing checks. It is not a fully qualified release.
+
+The [panel closeout](panel-closeout/REPORT.md) records the actual application cache
+cause, deterministic failing regression, narrow correction, per-frame financial/
+copy/camera/clock invariants, desktop/mobile/contracted evidence and current CI
+state. Earlier local results below remain source-specific development evidence;
+the old animation-only settling helper did not detect the stale sizing defect.
+
+The previous runtime freeze `777fb421479de79d2071e384abfb231d7a60242f` remains
+identifiable below. Only shell layout measurement changes in the closeout runtime;
+startup/recovery, paid backend, prices and Ledger processing are preserved.
 
 ## Source and installed baseline
 
@@ -336,7 +344,9 @@ backend/locks verified against the reviewed runtime. This avoids repeated
 unaffected builds and supplies exactly the browser/certificate evidence it
 executes, not new Candid, upgrade, ledger-cost or production-readiness evidence.
 
-Exact-source hosted CI for final runtime `777fb42` awaits owner publication.
+The following describes the earlier `777fb42` freeze, superseded by the
+[panel closeout](panel-closeout/REPORT.md). It was subsequently published as
+`2fa2673`; its Browser gate failed and it is not fully qualified.
 All local final source/SDK, three-viewport interaction, frozen-byte/read-only,
 native visibility and certified startup/recovery checks pass.
 
@@ -350,8 +360,10 @@ correction preserved offscreen/inert/clock assertions and passed the next run.
 The owner then published `6440081` in
 [run 43304092736](https://github.com/aodl/balls-2-the-wallz/actions/runs/43304092736).
 All original Browser journeys, tactical/depth, fluid/elastic, refinement and visual
-closeout passed; the newly added status-geometry journey sampled a still-expanding
-pane as its baseline. Final acceptance explicitly settles the pane, requires a
+closeout passed. The status-geometry failure was initially attributed to an
+unsettled baseline; that explanation was incomplete. The later `2fa2673` failure
+and deterministic reproduction established a stale intermediate-height cache that
+can persist after animations finish (see panel closeout). Earlier acceptance required a
 visible prepared packet and initially enabled Copy controls, and retains every
 per-state geometry assertion. It additionally requires copying to re-enable after
 recovery. The strengthened journey passes at all three sizes. The failed run is
@@ -361,9 +373,10 @@ so a new freeze and exact-source run are required.
 The six substantive jobs are Source conformance, Native conformance, Packaged DTR
 and clean consumers, Runtime-lab Wasm, Browser HTTP and Web Crypto, and S14/million-cell
 installed-IC qualification. Earlier runs and the informational BLOCKED production
-inventory do not substitute for six final-source conclusions. AGENTS.md reserves
-remote Git for the owner; no remote write was performed here. A final-source push
-request is pending. No additional production/deployment authority is implied.
+inventory do not substitute for six final-source conclusions. Remote publication
+was owner-operated during that development stage. The final corrective task now
+explicitly authorizes ordinary source publication for qualification; production
+deployment remains separately owner-approved.
 
 Software WebGL, emulated viewport/touch, and controlled lifecycle input do not
 establish physical-device performance, hardware GPU performance or genuine
@@ -373,7 +386,7 @@ cannot be inferred from JS heap. Persistent-outage tests are real elapsed browse
 faults, not claims about a production subnet-upgrade incident.
 
 A separate owner decision must approve the exact JS/inventory hashes and the six
-exact-source conclusions before publication. Use the established asset-only
+exact-source conclusions before production deployment. Use the established asset-only
 route in S14_OPERATOR; do not rebuild or substitute a later bundle. No deployment
 is authorized by the correction task. After an authorized frontend deployment,
 independently fetch all public bytes/headers and compare the consumed policy.

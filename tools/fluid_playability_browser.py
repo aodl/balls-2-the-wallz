@@ -24,11 +24,26 @@ def payment_warning(page,expected):
 def settled(page):page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
 
 def settled_panel(page):
- # Flush ResizeObserver/style work before reading active layout transitions.
- # A financial field scrolled into a zero-height expanding panel can end up
- # above the final scrollport even though scrolling after expansion is valid.
- page.evaluate('()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))')
- page.wait_for_function('''()=>{const body=document.querySelector('.panel-body'),scroll=document.querySelector('.panel-scroll');return !fixture.shell.controller.active&&!document.getAnimations().some(a=>(a.effect?.target===body||a.effect?.target===scroll)&&!['finished','idle'].includes(a.playState));}''',timeout=8000)
+ # A completed transition can still have an incorrect cached target height.
+ # Observe ordinary frames; never call internal measurement/position routines.
+ page.evaluate("""()=>new Promise((resolve,reject)=>{
+  const started=performance.now();let previous='',stable=0;
+  function sample(){
+   const card=document.getElementById('workspace'),body=card.querySelector('.panel-body'),scroll=card.querySelector('.panel-scroll'),content=card.querySelector('.panel-content'),shell=globalThis.fixture?.shell;
+   const cache=shell?.layoutState?.(),visible=!card.hidden&&!card.inert;
+   const pending=cache&&(cache.dirty||cache.pendingFrame||cache.revision!==cache.committedRevision);
+   const moving=shell?.controller.active||document.getAnimations().some(a=>(a.effect?.target===body||a.effect?.target===scroll)&&!['finished','idle'].includes(a.playState));
+   const target=parseFloat(card.style.getPropertyValue('--body-height')),space=parseFloat(card.style.getPropertyValue('--body-space'));
+   const collapsed=card.dataset.surface==='context'&&card.dataset.expanded==='false';
+   const expected=collapsed?0:Math.min(space,content.scrollHeight+20);
+   const geometry=JSON.stringify([card.getBoundingClientRect().toJSON(),body.getBoundingClientRect().toJSON(),content.scrollHeight,target,space]);
+   const ready=!pending&&!moving&&(!visible||Number.isFinite(target)&&Math.abs(target-expected)<=1);
+   stable=ready&&geometry===previous?stable+1:0;previous=geometry;
+   if(stable>=4)return resolve();
+   if(performance.now()-started>8000)return reject(Error('Panel did not settle: '+JSON.stringify({target,expected,space,cache,geometry,moving})));
+   requestAnimationFrame(sample);
+  }requestAnimationFrame(sample);
+ })""")
 
 
 def wallet_fields_reachable(page,fields):

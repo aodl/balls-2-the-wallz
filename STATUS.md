@@ -1,21 +1,18 @@
-# Human-playtest correction — final freeze; six-gate CI publication pending
+# Human-playtest panel correction — qualification in progress
 
-Final runtime `777fb42` is frozen clean: JS `5695ce6a…`, complete 16-file inventory
-`a99f071e…`. Local final checks pass: 1,846 JS / 199 Python tests, strengthened
-three-viewport interactions/geometry, frozen public bytes and read-only mainnet
-observation, actual native hidden return and certified fixed-H startup plus all
-5/30/90/180-second recovery cases. It adds typed IC `SysTransient` retry while
-keeping all signature/binding/hash/history errors blocking.
+Published `2fa2673` is not fully qualified: run 43317023567 failed Browser on a
+129px → 392px Build panel jump; four substantive gates passed and installed-IC
+later failed two installed-browser timing checks. A stale intermediate content-height
+cache caused the real application defect. The narrow shell invalidation fix and
+stronger non-invasive settling regression pass 24 Fire/Move/Build combinations,
+including mobile, contracted viewports and reduced motion, with zero status drift.
+Copy gating, exact wallet values, camera and playback identity remain preserved.
 
-The [closeout report](evidence/B2Z/human-playtest-corrections/REPORT.md) preserves
-source-specific earlier freezes, CI failures, populated before/after captures,
-recordings, startup/cost measurements, exact hashes and rollback procedure.
-Final source publication remains owner-operated; six exact-source CI conclusions
-are required before a separate deployment decision. No production frontend/backend,
-paid state, prices, Ledger commands or financial operation changed.
-
-Fresh 12 November read-only observations show active Trickle play. The historical
-ReserveProtection record below is not a current operating-state claim.
+See the [panel closeout](evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md)
+for source-specific failure, diagnostics, media and pending exact-source CI.
+No production deployment, backend or financial change is authorized or performed.
+The existing deployed frontend remains the rollback candidate. Prior startup and
+recovery evidence remains in the [full report](evidence/B2Z/human-playtest-corrections/REPORT.md).
 
 ---
 

@@ -3,7 +3,7 @@
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
 from human_input import set_heading,choose_cell,chosen_cell,heading_value
-from fluid_playability_browser import action_field
+from fluid_playability_browser import action_field,settled_panel
 import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
 from contextlib import ExitStack
@@ -688,12 +688,15 @@ def main():
             assert page.locator('#action-prompt').inner_text()=='Aim & Pay'
             # Player-centred UX-12: display angles are clockwise from screen up.
             # Pointer capture lets the handle aim across the card without panning.
+            # Wait for entry composition before constructing a stationary pointer
+            # target; pointer-down deliberately cancels an in-flight camera move.
+            camera_settled(page);settled_panel(page)
             import math
             for angle in [0,37.5,90,135,180,225,270,315,359.99]:
                 origin=page.evaluate('()=>{const w=__b2zExperience.session.referenceWorld,c=w.cannons.find(c=>c.id===__b2zTools.selection());return __b2zCamera.cellPoint(c.cell);}')
                 h=page.locator('#aim-handle').bounding_box();page.mouse.move(h['x']+22,h['y']+22);page.mouse.down();page.mouse.move(origin['sx']+math.sin(math.radians(angle))*90,origin['sy']-math.cos(math.radians(angle))*90,steps=3);page.mouse.up();review_instructions(page)
                 actual=float(heading_value(page));assert abs((actual-angle+180)%360-180)<.03,(angle,actual)
-            # Numeric heading remains the keyboard alternative; empty drag/pinch are camera gestures.
+            # Exact keyboard aiming remains available; empty drag/pinch are camera gestures.
             set_heading(page,'119.99');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 359.99'
             set_heading(page,'167.15');review_instructions(page)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
@@ -772,6 +775,13 @@ def main():
             report['steady_setup']='Fresh certified restart after controlled receipt holds; ordinary production remains running throughout the trace and reconnect.'
             # Inspect sustained populated motion in normal playback, rather than screenshots alone.
             wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
+            # Cold historical playback intentionally begins with one completed
+            # interval, before the ordinary jitter reservoir has accumulated.
+            # Observe that acquisition separately; the unchanged sustained-motion
+            # assertions start only once verified coverage reaches its real target.
+            acquisition_start=page.evaluate('performance.now()')
+            wait_until(page,lambda:page.evaluate('()=>{const p=__dtrLive.playback;return p?.phase==="PLAYING"&&p.buffer_ticks>=p.buffer_target_ticks&&p.presentation_rate>=.99}'),90000)
+            report['steady_acquisition']={'milliseconds':page.evaluate('performance.now()')-acquisition_start,'at_start':page.evaluate('__dtrLive.playback'),'scope':'Natural verified buffering after immediate historical startup; no clock/queue mutation.'}
             trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(45000)
             samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
             steady=[x for x in samples if x['wall_ms']>trace_start+10000]

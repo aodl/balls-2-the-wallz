@@ -38,7 +38,24 @@ export function createShell(doc,camera,arcade,onPick){
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
  function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
- const observer=new ResizeObserver(()=>{layoutDirty=true;});for(const n of [doc.querySelector('.arena-chrome'),card.querySelector('.panel-header'),$('action-view'),$('inspect-view'),$('account-view'),$('status-view'),$('roster-view'),$('minimap'),$('cycles-display'),$('status-button')])observer.observe(n);
+ let layoutFrame=null,layoutRevision=0,committedLayoutRevision=0;
+ function invalidateLayout(){
+  if(disposed)return;layoutDirty=true;layoutRevision++;
+  if(layoutFrame===null)layoutFrame=requestAnimationFrame(()=>{layoutFrame=null;if(!disposed)position();});
+ }
+ const observer=new ResizeObserver(invalidateLayout);for(const n of [doc.querySelector('.arena-chrome'),card.querySelector('.panel-header'),card.querySelector('.panel-content'),$('minimap'),$('cycles-display'),$('status-button')])observer.observe(n);
+ // Content can hide and return to its previous size within one task. In that
+ // case ResizeObserver reports no change, although a synchronous overlay read
+ // may have cached the intermediate height. Invalidate from actual content
+ // mutations too; readiness-only disabled/ARIA writes are not layout changes.
+ const contentObserver=new MutationObserver(records=>{
+  if(records.some(r=>{
+   const node=r.target.nodeType===1?r.target:r.target.parentElement;
+   if(node?.closest('.panel-view')?.hidden)return false;
+   return r.type!=='attributes'||r.oldValue!==r.target.getAttribute(r.attributeName);
+  }))invalidateLayout();
+ });
+ contentObserver.observe(card.querySelector('.panel-content'),{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['hidden','open'],attributeOldValue:true});
  const measureChrome=()=>{const chrome=doc.querySelector('.arena-chrome');doc.documentElement.style.setProperty('--chrome-bottom',Math.ceil(chrome.getBoundingClientRect().bottom+12)+'px');layoutDirty=true;};measureChrome();if(globalThis.visualViewport)listen(visualViewport,'resize',measureChrome);
  function locate(){locateGeneration++;const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;stopFollowing();cancelTap();const m=measure();motion.focus(c.cell,{top:m.top,expanded:arcade.context()==='action'});}
  listen(doc,'b2z-locate',locate);listen(doc,'b2z-precision',()=>{});
@@ -116,7 +133,7 @@ export function createShell(doc,camera,arcade,onPick){
   const m=measure(),expanded=context==='action';
   const obstacles=[m.mini,m.cycles,m.buttons];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':'Focus cannon';
-  if(card.hidden||off){if(card.hidden)narrowPositionKey='';return;}
+  if(card.hidden||off){if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
   const vv=globalThis.visualViewport,W=Math.min(camera.viewport.width,vv?.width??Infinity),H=Math.min(camera.viewport.height,vv?.height??Infinity),top=m.top,narrow=W<=700,cw=Math.min(360,W-16);
   let x=W-cw-8,y=top,bottom=H-(short?8:72);
   if(at){
@@ -140,11 +157,11 @@ export function createShell(doc,camera,arcade,onPick){
    const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:m.headerBottom+8,bottom:y-6},{interactive:!short&&Boolean(aim)});
    if(target){if(short){motion.cancel();Object.assign(camera,target);}else motion.go(target,{owner:'composition'});}
   }}
-
-
+  committedLayoutRevision=layoutRevision;
  }
  listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
  return{
+  layoutState:()=>({dirty:layoutDirty,pendingFrame:layoutFrame!==null,revision:layoutRevision,committedRevision:committedLayoutRevision,desired:layout?.desired,positionKey,compositionKey,cardBounds:cardBounds&&{...cardBounds}}),
   guideObstacles:()=>measure().guideObstacles,hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
    if(disposed||doc.hidden)return;lastView=v;lastTime=time;lastPoints=points;lastIdentity=identity;
@@ -156,6 +173,6 @@ export function createShell(doc,camera,arcade,onPick){
    if(selectedBall!==null&&!motion.following)selectedBall=null;const announcement=selectedBall===null?'':`Following ball ${selectedBall}. Click elsewhere or press Escape to stop.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
   update(v,surface){if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall));}},
-  dispose(){disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
+  dispose(){disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

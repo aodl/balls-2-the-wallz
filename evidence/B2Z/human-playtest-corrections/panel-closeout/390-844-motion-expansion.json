@@ -1,0 +1,798 @@
+[
+  {
+    "tag": "Build-open",
+    "at": 4825.69999999553,
+    "action": {
+      "mode": "start",
+      "cell": null,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": false,
+    "disabled": true,
+    "values": {
+      "transfer-amount": "0.0001 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "MOVE 1 452577",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 54.78125,
+      "scrollHeight": 55
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "75px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 14,
+      "committedRevision": 14,
+      "desired": 129,
+      "positionKey": "8/221/360/445/75",
+      "compositionKey": "action/start/1/453578/453578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 350
+      }
+    },
+    "animations": [
+      {
+        "target": "panel-body",
+        "state": "running",
+        "time": 0
+      }
+    ],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nChoose an empty neighbouring tile."
+  },
+  {
+    "tag": "Build-chosen",
+    "at": 4828.19999999553,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "75px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 14,
+      "committedRevision": 14,
+      "desired": 129,
+      "positionKey": "8/221/360/445/75",
+      "compositionKey": "action/start/1/453578/453578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 350
+      }
+    },
+    "animations": [
+      {
+        "target": "panel-body",
+        "state": "running",
+        "time": 0
+      }
+    ],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  },
+  {
+    "tag": "expansion-frame-1",
+    "at": 4863.79999999702,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "338px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": true,
+      "revision": 15,
+      "committedRevision": 15,
+      "desired": 392,
+      "positionKey": "8/221/360/445/338",
+      "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 613
+      }
+    },
+    "animations": [],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  },
+  {
+    "tag": "expansion-frame-2",
+    "at": 5067.10000000149,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "338px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 15,
+      "committedRevision": 15,
+      "desired": 392,
+      "positionKey": "8/221/360/445/338",
+      "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 613
+      }
+    },
+    "animations": [],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  },
+  {
+    "tag": "expansion-frame-3",
+    "at": 5117.19999999553,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "338px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 15,
+      "committedRevision": 15,
+      "desired": 392,
+      "positionKey": "8/221/360/445/338",
+      "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 613
+      }
+    },
+    "animations": [],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  },
+  {
+    "tag": "expansion-frame-4",
+    "at": 5142.60000000149,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "338px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 15,
+      "committedRevision": 15,
+      "desired": 392,
+      "positionKey": "8/221/360/445/338",
+      "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 613
+      }
+    },
+    "animations": [],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  },
+  {
+    "tag": "expansion-frame-5",
+    "at": 5159.69999999553,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "338px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 15,
+      "committedRevision": 15,
+      "desired": 392,
+      "positionKey": "8/221/360/445/338",
+      "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 613
+      }
+    },
+    "animations": [],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  },
+  {
+    "tag": "expansion-frame-6",
+    "at": 5176.89999999851,
+    "action": {
+      "mode": "start",
+      "cell": 452578,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "selected": 1,
+    "prepared": true,
+    "disabled": false,
+    "values": {
+      "transfer-amount": "9 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 225 1 452578",
+      "paying-account": "aaaaa-aa",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "workspace": {
+      "x": 8,
+      "y": 221,
+      "width": 360,
+      "height": 392,
+      "top": 221,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "header": {
+      "x": 8,
+      "y": 221,
+      "width": 248,
+      "height": 54,
+      "top": 221,
+      "right": 256,
+      "bottom": 275,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 360,
+      "height": 338,
+      "top": 275,
+      "right": 368,
+      "bottom": 613,
+      "left": 8
+    },
+    "content": {
+      "height": 317.953125,
+      "scrollHeight": 318
+    },
+    "scroll": {
+      "height": 338,
+      "scrollHeight": 338,
+      "top": 0
+    },
+    "target": "338px",
+    "space": "445px",
+    "cache": {
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 15,
+      "committedRevision": 15,
+      "desired": 392,
+      "positionKey": "8/221/360/445/338",
+      "compositionKey": "action/start/1/453578/452578/390/844/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 368,
+        "top": 221,
+        "bottom": 613
+      }
+    },
+    "animations": [],
+    "camera": [
+      583.3415695697199,
+      458.3415695697199,
+      64
+    ],
+    "cameraActive": false,
+    "clock": {
+      "phase": "PLAYING",
+      "playhead": 0,
+      "available": 1,
+      "buffer": 1,
+      "rate": 1
+    },
+    "queue": 1,
+    "time": 0,
+    "sameClock": false,
+    "sameWorld": false,
+    "status": "Live",
+    "bodyText": "Choose a Tile, Aim & Pay\n\nInstructions for your external wallet\nAmount\n1 ball\n9 ICP\nTo\ns5ir5-gqaaa-aaaas-amyna-cai\nMemo\nNEW 225 1 452578\nFrom\naaaaa-aa\n\u2197\n\nWallet fee extra.\n\nIf another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+  }
+]

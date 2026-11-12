@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "scope": null,
+  "raw": ".work/panel-closeout/refinement/results.json",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      320,
+      640
+    ]
+  ]
+}

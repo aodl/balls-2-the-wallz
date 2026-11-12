@@ -404,6 +404,18 @@ copied packets retain fixed geometry; stale Copy controls disable without a new
 Reconnecting paragraph. Top status has a fixed-height control; full detail is
 available through it.
 
+UX-03/06/12 sizing uses the natural action-content height and available viewport
+space, never the interpolated height of an expanding body. Content mutations
+(including instructions hidden and restored within one frame) invalidate cached
+measurements and commit on a bounded animation frame even if ResizeObserver sees
+no net size change. Readiness-only disabled/ARIA changes are not layout events.
+Settling requires the intended body target, completed expansion/accommodation and
+stable frames with no pending layout work; a finished transition alone is not
+proof of correct sizing. Status-only transitions preserve action, destination,
+quote bytes, scroll position, camera and panel rectangles throughout the change.
+`verify_panel_geometry.py` exercises Fire/Move/Build at desktop, mobile, contracted
+viewports and reduced motion, recording each frame without forcing private layout.
+
 Public cycles are secondary: **Cycle data temporarily unavailable** when no valid
 sample exists, without zero-second burn estimates or unavailable numeric prose.
 The existing minute-scale monitor retires aborted/deadline operations, fences late

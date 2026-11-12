@@ -7,6 +7,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from fluid_playability_browser import settled_panel,settled,wallet_fields_reachable,TILE_PAYMENT_WARNING,payment_warning
 from human_input import set_heading,choose_cell,chosen_cell
+from panel_geometry_browser import verify_status_geometry
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--fixture-dir',type=Path);p.add_argument('--baseline',action='store_true');p.add_argument('--width',type=int);p.add_argument('--seams-only',action='store_true');a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1];fixture=a.fixture_dir.absolute() if a.fixture_dir else out/'fixture'
 if not a.fixture_dir:
  fixture.mkdir();subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(fixture/'fixture.json')],check=True);subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(fixture/'fixture.mjs')],check=True);(fixture/'index.html').write_text((root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"'));(fixture/'cursors').mkdir()
@@ -72,18 +73,10 @@ with sync_playwright() as pw:
     if not a.baseline:assert len(data['ghostParts']['barrel'])==16 and len(data['ghostParts']['muzzle'])==16;assert page.evaluate('fixture.aim().heading===fixture.command().angle')
    print('previews',w,flush=True);row['build']=poses
    if not a.baseline:
-    # Exact action geometry across real status changes. They affect gating,
-    # not values or body size; the fixture does not synthesize a transaction.
-    settled_panel(page)
-    assert page.locator('#prepared-card').is_visible()
-    assert page.locator('#transfer-controls').evaluate('(n)=>!n.disabled')
-    base=page.locator('#workspace').bounding_box();memo=page.locator('#text-memo').text_content();boxes=[]
-    healthy='({live:true,verified:true,fresh:true,healthy:true,operationalFresh:true,advancing:false,phase:"STALLED",world:fixture.world(),operational:{run:{running:true,last_error:[],pace:{mode:"Normal",nominal_milli:1000,admission_open:true}},source:{binding_checked:true,last_error:[]}}})'
-    for label,override in [('status-failure','operationalFresh:false'),('status-recovered',''),('delivery-failure','deliveryError:"HTTP 503",failureKind:"delivery"'),('prolonged-outage','fresh:false,operationalFresh:false,deliveryError:"HTTP 503",failureKind:"delivery"'),('recovered','')]:
-     page.evaluate('fixture.status({...'+healthy+','+override+'})');page.wait_for_timeout(450);box=page.locator('#workspace').bounding_box();boxes.append({'case':label,'box':box,'copyDisabled':page.locator('#transfer-controls').evaluate('(n)=>n.disabled')});assert all(abs(box[k]-base[k])<=1 for k in base),(label,base,box);assert page.locator('#text-memo').text_content()==memo
-     if override:assert boxes[-1]['copyDisabled']
-     else:assert not boxes[-1]['copyDisabled']
-    print('stable status',w,flush=True);row['panel_geometry']=boxes;page.screenshot(path=str(out/f'{w}-stable-status.png'))
+    geometry=verify_status_geometry(page,out,str(w)+'-Build')
+    row['panel_geometry']=[{'case':r['case'],'box':r['samples'][-1]['workspace'],'copyDisabled':r['disabled']}for r in geometry['transitions']]
+    row['max_panel_drift_px']=geometry['max_drift_px']
+    print('stable status',w,flush=True);page.screenshot(path=str(out/f'{w}-stable-status.png'))
     wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk'])
     # Keyboard board selection commits an immutable canonical cell.
     page.locator('#board').focus();previous=page.evaluate('fixture.proposal().cell');page.keyboard.press('Alt+ArrowRight');page.keyboard.press('Enter');assert page.evaluate('fixture.proposal().cell')in [previous,previous+1]
