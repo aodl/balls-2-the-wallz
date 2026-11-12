@@ -133,14 +133,15 @@ def verify_player_controls(page,width,height):
  close();page.evaluate('fixture.render("additional","initial")');select(1);page.locator('#build-action').click();choose_cell(page,'453579');page.evaluate('fixture.publish("additional","final")');assert chosen_cell(page)=='453579';assert page.locator('#prepared-card').is_hidden();expect(page.locator('#preparation-note')).to_contain_text('eligible')
  assert page.evaluate('fixture.aim()') is None
  close();page.evaluate('fixture.motion("idle",.01)');page.evaluate('fixture.markClock()');start=page.evaluate('fixture.summary().time')
- page.locator('#identify-button').click();close();select(1);page.locator('#fire-action').click();set_heading(page,'45')
+ page.locator('#identify-button').click();close();select(1);page.locator('#fire-action').click();set_heading(page,'45');settled_panel(page)
  # UX-03/04/11: identities survive the click synchronously; reachability follows
- # the deliberate camera transition rather than a teleport.
- immediate=page.evaluate('()=>{fixture.camera.centre(800,800);fixture.draw();const card=document.getElementById("workspace"),wasOffscreen=card.classList.contains("offscreen");document.getElementById("locate-context").click();return{wasOffscreen,visible:!card.hidden&&getComputedStyle(card).visibility!=="hidden",inert:card.inert,sameClock:fixture.sameClock()};}')
+ # the deliberate Locate transition. The fixture move represents manual camera
+ # navigation, so it cancels any unfinished action-entry accommodation first.
+ immediate=page.evaluate('()=>{fixture.shell.controller.manual();fixture.camera.centre(800,800);fixture.draw();const card=document.getElementById("workspace"),wasOffscreen=card.classList.contains("offscreen");document.getElementById("locate-context").click();return{wasOffscreen,visible:!card.hidden&&getComputedStyle(card).visibility!=="hidden",inert:card.inert,sameClock:fixture.sameClock()};}')
  assert immediate['wasOffscreen']and immediate['sameClock'],immediate
  page.wait_for_function('()=>!fixture.shell.controller.active&&!document.getElementById("workspace").inert',timeout=8000);assert page.locator('#workspace').is_visible()
  # Keep the actual pointer path and the original visibility/inertness checks.
- page.evaluate('fixture.camera.centre(800,800);fixture.draw()');assert page.locator('#locate-context').is_visible();page.locator('#locate-context').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
+ page.evaluate('fixture.shell.controller.manual();fixture.camera.centre(800,800);fixture.draw()');assert page.locator('#locate-context').is_visible();page.locator('#locate-context').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
  assert page.locator('#workspace').is_visible();assert not page.locator('#workspace').evaluate('(n)=>n.inert')
  close();page.locator('#minimap').focus();page.keyboard.press('ArrowLeft');page.wait_for_timeout(300);assert page.evaluate('fixture.sameClock()')and page.evaluate('fixture.summary().time')>start
  print('eligibility and clock PASS',width,flush=True)
@@ -148,8 +149,8 @@ def verify_player_controls(page,width,height):
  # The centre state comes from the resolver, and never masks pause/error/idle.
  page.evaluate('fixture.render("idle","initial")')
  base='({phase:"STALLED",live:true,verified:true,fresh:true,healthy:true,operationalFresh:true,advancing:false,operational:{run:{running:true,last_error:[],pace:{mode:"Trickle",supported_milli:10,admission_open:true}},source:{binding_checked:true,last_error:[]}}})'
- # UXR-24 supersedes the permanent central Trickle spinner. Keep the
- # same resolver and strengthen distinct catch-up / protection / error checks.
+ # The current correction restores the central verified-coverage wait spinner.
+ # Keep distinct catch-up / protection / error checks with the same resolver.
  page.evaluate('fixture.status('+base+')');page.wait_for_timeout(550);page.evaluate('fixture.status('+base+')');assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
  page.evaluate('fixture.status({...'+base+',catchingUp:true})');page.wait_for_timeout(550);page.evaluate('fixture.status({...'+base+',catchingUp:true})');assert page.locator('#motion-wait').is_visible();expect(page.locator('#waiting-label')).to_have_text('Catching up with on-chain activity ...')
  page.evaluate('fixture.status({...'+base+',operational:{run:{running:true,pace:{mode:"ReserveProtection",supported_milli:0,admission_open:false}},source:{binding_checked:true,last_error:[]}}})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Game paused · low energy');assert not page.evaluate('fixture.canPay()')
