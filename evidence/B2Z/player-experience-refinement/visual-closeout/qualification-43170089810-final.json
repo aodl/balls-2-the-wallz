@@ -1,0 +1,50 @@
+{
+  "run": 43170089810,
+  "source": "73e468639801c23b15c139c1c72a2133cce86918",
+  "final": true,
+  "jobs": [
+    {
+      "id": 131021047178,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131021047315,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 131021047339,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131021047344,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131021047408,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131021047521,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131021047539,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "failure"
+    }
+  ],
+  "note": "The owner push of d0d613e cancelled this run's unfinished S14 job. Its four passes and Browser failure are historical; S14 cancellation is not a pass. Final qualification is run43172629735."
+}

@@ -1,0 +1,38 @@
+{
+  "apps": {
+    "b0f6c7a": "5920f02c065ae094ec2450f79f86a2ff240e764f",
+    "d0d613e": "5920f02c065ae094ec2450f79f86a2ff240e764f"
+  },
+  "config": {
+    "b0f6c7a": "f8a2aa3126f7eefb6ab9b38d66cd769fd2925738",
+    "d0d613e": "f8a2aa3126f7eefb6ab9b38d66cd769fd2925738"
+  },
+  "packages": {
+    "b0f6c7a": "bf9fd83a7d955074cf7c341353e34953e6d5bfc0",
+    "d0d613e": "bf9fd83a7d955074cf7c341353e34953e6d5bfc0"
+  },
+  "canisters": {
+    "b0f6c7a": "86fb92a41d5f397e739265b61d0a7caa67371250",
+    "d0d613e": "86fb92a41d5f397e739265b61d0a7caa67371250"
+  },
+  "native": {
+    "b0f6c7a": "b4a60d377b208653f0f45e9ae3c035a9fdc2cf52",
+    "d0d613e": "b4a60d377b208653f0f45e9ae3c035a9fdc2cf52"
+  },
+  "Cargo.lock": {
+    "b0f6c7a": "b82571cd610a903a7b144218a2fbcdde66588d69",
+    "d0d613e": "b82571cd610a903a7b144218a2fbcdde66588d69"
+  },
+  "package-lock.json": {
+    "b0f6c7a": "29deb8e7e6e56d706dc0c858c87f577a8707d5e7",
+    "d0d613e": "29deb8e7e6e56d706dc0c858c87f577a8707d5e7"
+  },
+  "tools/build_observer_mainnet.mjs": {
+    "b0f6c7a": "adfacb332e646cb90bec58c3628d05e40670d904",
+    "d0d613e": "adfacb332e646cb90bec58c3628d05e40670d904"
+  },
+  "tools/build_observer_playability.mjs": {
+    "b0f6c7a": "67bda8ce002dd95a9301251a3e0e8639181c9caf",
+    "d0d613e": "67bda8ce002dd95a9301251a3e0e8639181c9caf"
+  }
+}

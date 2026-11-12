@@ -1,0 +1,115 @@
+{
+  "schema": "b2z-frontend-source-qualification-1",
+  "observed_utc": "2026-11-12 07:58:48 UTC",
+  "run": {
+    "id": 43172629735,
+    "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735",
+    "head_sha": "d0d613ecfd4bb6935b2f32e93ea5b690a8b37411",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-11-12T07:04:56Z",
+    "updated_at": "2026-11-12T07:56:22Z"
+  },
+  "runtime_source": "b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0",
+  "qualified_source": "d0d613ecfd4bb6935b2f32e93ea5b690a8b37411",
+  "javascript_sha256": "42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5",
+  "complete_manifest_sha256": "216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2",
+  "substantive_jobs": [
+    {
+      "id": 131029419365,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131029419520,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131029419602,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131029419603,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131029419624,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131029419635,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "informational_jobs": [
+    {
+      "id": 131029419607,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "qualifying": false
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13925332969,
+      "name": "local-ic-evidence",
+      "bytes": 31359271,
+      "digest": "sha256:b987017d8664e1eb5221a9976cfbadbc5f491487aa870ff333176e9ae9b3dff6",
+      "expires_at": "2026-11-26T07:56:16Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735/artifacts/13925332969"
+    },
+    {
+      "id": 13924030049,
+      "name": "browser-evidence",
+      "bytes": 33797884,
+      "digest": "sha256:9956f64ceb81b7954c433d5eac12baeed07f964355256551aa049d072146a7c3",
+      "expires_at": "2026-11-26T07:10:40Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735/artifacts/13924030049"
+    },
+    {
+      "id": 13923295103,
+      "name": "native-evidence",
+      "bytes": 9473,
+      "digest": "sha256:bce05cd474c51d7719b332be36850b502763dc339c3e426aa6857a9eab75fbe9",
+      "expires_at": "2026-11-26T07:06:46Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735/artifacts/13923295103"
+    },
+    {
+      "id": 13922547742,
+      "name": "wasm-evidence",
+      "bytes": 5887,
+      "digest": "sha256:0a108e7c0c0cd23f562b2eff432da41461165960a3276f1c963050bc99bbd673",
+      "expires_at": "2026-11-26T07:07:56Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735/artifacts/13922547742"
+    },
+    {
+      "id": 13922129023,
+      "name": "source-evidence",
+      "bytes": 45060,
+      "digest": "sha256:9aae88d3b6a74d9f4577dff3ee7b4eff3d4d73c5bf844c8532130390c30910e6",
+      "expires_at": "2026-11-26T07:06:58Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735/artifacts/13922129023"
+    },
+    {
+      "id": 13921789708,
+      "name": "package-consumer-evidence",
+      "bytes": 15372,
+      "digest": "sha256:bc802cf26ee36da9a6fe4438b6271636aca870651b4fe0782ff6a1666bd3f82e",
+      "expires_at": "2026-11-26T07:05:47Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735/artifacts/13921789708"
+    }
+  ],
+  "production_deployed": false
+}

@@ -1,25 +1,27 @@
-# Final visual closeout — published CI; verifier correction ready locally
+# Final visual closeout — all six hosted gates pass; awaiting deployment decision
 
-Frozen runtime `b0f6c7a` and all 16 files remain unchanged: JS `42f30ead…`,
-manifest `216fac29…`. The owner published evidence head `73e4686`.
-Run 43170089810 passed Source, Native, Packaged DTR and Wasm; Browser failed a
-390px camera comparison during the intentional Fire-entry transition. S14 is still
-running at the 12 November evidence snapshot; inventory is informational.
+Qualified published source `d0d613ecfd4bb6935b2f32e93ea5b690a8b37411` passes all
+six substantive jobs in run 43172629735 (12 November, completed 07:56:22 UTC).
+Source, Native, Packaged DTR/clean consumers, Wasm, Browser and S14/million-cell
+installed-IC all PASS. Inventory remains informational. Installed checks: 58/58
+PASS, including the three formerly failing seam/browser journeys.
 
-The exact downloaded CI bundle reproduced the premature sample. Verifier-only
-correction `f926baa` waits for real entry settlement before retaining the original
-strict drag/camera assertion, and separately tests interrupting an active camera
-transition through native aim pointer-down. Recorded desktop/390/320 journeys and
-all 199 Python tests pass. No runtime rebuild, assertion weakening or security
-change occurred. The current S14 run remains active; let it finish before another
-owner push, which would cancel it under workflow concurrency.
+The Browser verifier correction passed the actual held-entry and native-interrupt
+guards plus all downstream checks. Prior Browser failures and the cancelled
+predecessor S14 job remain historical evidence, never counted as passes.
 
-[Consolidated visual closeout](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
-retains the original failure, controlled reproduction, exact-source status and
-unchanged artifact/media identities. All six gates must qualify the corrected
-source before deployment approval. No deployment, backend, financial, setting/
-controller operation or ICRC-2 activation is authorized or performed here.
-Physical-phone/hardware/native hidden-tab limitations remain explicit.
+Clean frozen runtime `b0f6c7a`, all 16 files, JS `42f30ead…` and manifest
+`216fac29…` remain unchanged. Runtime/configuration/backend/dependency/builder
+inputs match the qualified source; no rebuild is needed for evidence-only updates.
+[Consolidated release candidate record](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
+contains exact hashes, all six results, artifact identities and populated media.
+
+Ready for a separate exact frontend-assets-only deployment decision and fresh
+operational preflight; no production publication is authorized here. Paid backend,
+financial authority, settings/controllers and production frontend are untouched;
+delegated payments remain isolated/disabled. Hardware/physical-phone/genuine hidden-
+tab limitations are explicit. No further source push or qualification campaign is
+needed for the unchanged runtime. Remote publication remains owner-operated.
 
 ---
 

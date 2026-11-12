@@ -1,16 +1,59 @@
 # Final player-experience visual closeout
 
-The four visual refinements and retained browser regressions pass locally.
-**Hold deployment: hosted Browser failed; its verifier-only correction passes locally.**
-Published `73e4686` is running CI 43170089810. Four substantive jobs passed, Browser
-failed, and S14 is still running at the recorded snapshot below. The correction
-requires a later exact-source run. No production operation is authorized here.
+**All six substantive exact-source CI gates passed.** The candidate is ready for
+a separate frontend-assets-only deployment decision; no deployment is authorized
+or performed by this qualification work.
+
+Qualified source: `d0d613ecfd4bb6935b2f32e93ea5b690a8b37411`.
+Clean frozen runtime: `b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0`.
+The same 16 deployment files, JavaScript `42f30ead…` and complete manifest
+`216fac29…` remain preserved; no rebuild was performed for the verifier correction.
 
 Starting branch: `release/btz-prelaunch-playability`, source and confirmed remote
 `82425fbf02af7602330d0ed6d31dabe7d946ed77`. Previous reviewed `37d0eb6` remains
 historical evidence; its verifier-only correction is preserved.
 
-## Qualification boundary
+## Final hosted qualification — 12 November 2026
+
+[Run 43172629735](https://github.com/aodl/balls-2-the-wallz/actions/runs/43172629735)
+completed **SUCCESS** on the exact published `d0d613e` source, from 07:04:56 to
+07:56:22 UTC. [Final job/artifact identities](qualification-43172629735.json):
+
+| Required substantive gate | Conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+The separate production-inventory job is informational and is **not** counted.
+The Browser job ran the corrected native aiming guards and all downstream
+projection, fluid, elastic, UXR-01..25 and final visual checks; [hosted excerpts](browser-qualified-excerpt.log)
+record their execution. No skipped Browser step is represented as a pass.
+
+The [installed qualification](installed-qualified.json) reports **58/58 checks PASS**,
+including 50 exact installed cases across the existing suites. The three former
+seam-wait failures now pass: torus scene 172.994s; million Normal/cold reconnect
+238.082s; sustained Normal/cold Lifeline 1337.441s. The installed artifact ZIP is
+preserved locally and verified against its published digest `b987017d…` (full hash
+in the job/artifact record). No assertions, workloads or safety budgets changed.
+
+[Runtime-input tree/blob identities](qualified-runtime-inputs.json) prove the
+qualified source has identical application/configuration, dependency, backend,
+native and builder inputs to the clean freeze. Its intervening verifier/guide and
+evidence changes do not require a runtime rebuild. Existing populated captures
+and software measurements therefore retain their explicit input provenance.
+
+The earlier [43170089810 final record](qualification-43170089810-final.json) retains
+four passes, Browser failure and S14 **CANCELLED**, following the owner's newer
+push. That cancelled job supplies no qualification. Run 43172629735 independently
+passed all six; no rerun of a failed job was used to disguise an unexplained failure.
+The former pending snapshots and original failures below are historical, superseded
+by this completed qualification.
+
+## Earlier qualification — historical records retained
 
 [Run 43111462126](https://github.com/aodl/balls-2-the-wallz/actions/runs/43111462126)
 passed Source conformance, Native conformance, Packaged DTR and clean consumers,
@@ -266,7 +309,7 @@ supersedes that pending snapshot. Inventory is informational. No gates, safety
 budgets, certificate checks, financial assertions or runtime fixtures were
 skipped/reclassified to obtain a green result.
 
-## 12 November: published qualification and verifier-only follow-up
+## 12 November: earlier publication and verifier-only correction (historical)
 
 [Run 43170089810](https://github.com/aodl/balls-2-the-wallz/actions/runs/43170089810)
 qualifies the published evidence head `73e4686`, with unchanged runtime `b0f6c7a`.
@@ -330,19 +373,29 @@ DFX_IDENTITY=codex_local LD_LIBRARY_PATH=/home/codexdev/.cache/browser-libs/root
 There is **no new runtime build**: all 16 frozen files and both frozen hashes remain
 identical. Existing populated captures, renderer/physical/motion evidence and
 backend/financial evidence retain their exact runtime inputs. No new production
-or financial action occurred. The running S14 job is left undisturbed. Wait for
-it to conclude before publishing the correction, because the existing workflow
-uses `cancel-in-progress: true`. The correction still requires all six substantive
-exact-source conclusions; four passes on its predecessor do not supply them.
+or financial action occurred. At that snapshot the S14 job was running and no assistant push occurred. The
+owner later published the correction, which cancelled that old job under existing
+workflow concurrency. Its final cancellation and the succeeding complete six-gate
+qualification are recorded above. The original four passes were never substituted
+for qualification of the correction.
 
 ## Release and rollback continuation — not executed
 
 Remote Git remains owner-operated under [AGENTS.md](../../../../AGENTS.md).
-After the current S14 run finishes, publish the final correction/evidence head
-with ordinary non-force push to
-`release/btz-prelaunch-playability`, then inspect all six exact-source conclusions.
-No runtime rebuild is needed for evidence-only commits. Recommendation: **hold
-frontend deployment until all six pass and the owner approves these exact hashes**.
+Qualification is complete on published `d0d613e`; **no further source push, runtime
+rebuild or CI campaign is required for these unchanged runtime inputs**. A later
+local evidence-only commit is separate from that qualified source and freeze.
+The [final read-only production check](production-final-read-only.json), at
+08:00:49 UTC on 12 November, still serves prior fluid JS `79acf867…`; the candidate
+has not been published to production.
+
+Recommendation: approve only the exact frozen 16-file frontend set for a controlled
+prelaunch playtest, with fresh operational preflight and the existing bounded
+asset-only rollback. Production publication still requires separate owner authority.
+
+The only future publication target is frontend `s2jxj-liaaa-aaaas-amynq-cai`,
+https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/. Backend binding remains
+`s5ir5-gqaaa-aaaas-amyna-cai`; no backend or asset-canister Wasm upgrade is proposed.
 
 After separate asset-only approval, follow the [installed-game operator procedure](../../../../docs/operations/S14_OPERATOR.md):
 recheck production identities/health, preserve current served files/staging, verify
@@ -360,5 +413,8 @@ journeys. For an approved rollback, stage the retained ordinary fluid set from
 and use the same asset-only route. Its current served copies are also retained in
 `.work/player-refinement/visual-closeout/production-read-only/served`; previous
 refinement/tactical freezes remain. No automatic backend rollback/reset is permitted.
-The final exact-source CI and owner asset-only approval are the concrete remaining
-release requirements; device/hidden-tab/wallet limits above are coverage limits.
+Exact-source CI is complete. Separate owner asset-only deployment approval and
+fresh production preflight remain; device/hidden-tab/wallet limits above are
+coverage limits. No specifically demonstrated source blocker remains open. No
+backend, paid-state, controller, setting or financial authority was changed, and
+experimental delegated payments remain isolated/disabled in ordinary production.

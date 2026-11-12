@@ -1,0 +1,7 @@
+{
+  "observed_utc": "2026-11-12T08:00:49.104414+00:00",
+  "operation": "read-only production JavaScript GET",
+  "sha256": "79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a",
+  "matches_prior_deployment": true,
+  "candidate_not_published": true
+}
