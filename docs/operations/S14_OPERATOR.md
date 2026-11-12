@@ -27,6 +27,15 @@ input is not native hidden-tab/device evidence. Reuse the established normal
 module for focused frontend experiments when its exact hash/source are proven;
 compilation alone supplies none of the certificate/upgrade/financial evidence.
 
+For native visibility qualification, use `verify_warm_browser.py --cdp` against
+an ordinary disposable Chromium with debugging bound to loopback and its own
+profile. The tool creates actual same-window tabs (Chromium 153's ordinary
+Playwright `new_page()` creates separate windows), checks their window IDs and
+requires real `document.hidden` transitions. CDP `no_defaults` avoids focus
+emulation; do not disable sandboxing, throttling, BFCache or visibility policy.
+Headless native visibility can qualify those observed lifecycle transitions,
+while software rendering remains separate from hardware/device qualification.
+
 Publish source through the owner's ordinary non-force Git operation, then inspect
 the exact source's six conclusions. Freeze the clean frontend once with the
 existing playability builder and verify every asset plus consumed upload policy.
