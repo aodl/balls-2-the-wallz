@@ -127,3 +127,10 @@ test('UX-06 recovered transport cannot clear an earlier certificate blocker',asy
 });
 
 test('180 seconds and repeated transport failure never poison the session; only verified acceptance recovers',async t=>{const f=await fixtures(t),s=session(f.accepted);rememberLiveAcceptance(s,f.accepted);for(let i=0;i<30;i++)assert.equal(liveDeliveryFailure(s,new DOMException('Timed out','TimeoutError'),null,f.accepted,i*6000),false);assert.equal(s.error,null);assert.equal(s.sequence.last,f.accepted);liveDeliverySuccess(s,null,180001);assert.ok(s.deliveryError);liveDeliverySuccess(s,f.accepted,180002);assert.equal(s.deliveryError,null);});
+
+test('actual pinned SDK HTTP/time error codes classify availability without relaxing signature failures',async()=>{
+ const {TransportError,HttpErrorCode,HttpFetchErrorCode,TrustError,CertificateTimeErrorCode,CertificateVerificationErrorCode}=await import('@icp-sdk/core/agent');const {observationFailure}=await import('../../apps/b2z-observer/live-delivery.mjs');
+ for(const status of[408,429,500,502,503,504])assert.equal(observationFailure(TransportError.fromCode(new HttpErrorCode(status,'Unavailable',{},'no optional wording'))),'delivery');
+ assert.equal(observationFailure(TransportError.fromCode(new HttpErrorCode(404,'Not found',{},''))),'verification');assert.equal(observationFailure(TransportError.fromCode(new HttpFetchErrorCode(new DOMException('aborted','AbortError')))),'delivery');
+ const date=new Date();assert.equal(observationFailure(TrustError.fromCode(new CertificateTimeErrorCode(5,date,date,360000,'past'))),'delivery');assert.equal(observationFailure(TrustError.fromCode(new CertificateTimeErrorCode(5,date,date,360000,'future'))),'verification');assert.equal(observationFailure(TrustError.fromCode(new CertificateVerificationErrorCode('invalid signature; HTTP 503 in untrusted text'))),'verification');
+});

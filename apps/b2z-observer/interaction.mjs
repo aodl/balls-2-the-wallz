@@ -2,8 +2,11 @@
 import {heading} from '../../packages/kernels/b2z/math.mjs';
 function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);}
 /** Pointer-down owns the entire gesture. Move never supplies an aim. */
-export function aimingVicinity(camera,aim,p,pointerType='mouse'){
+export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null){
  if(!aim)return false;
+ // An explicitly eligible different Build tile remains a destination target,
+ // including a neighbour whose centre falls inside the generous touch halo.
+ if(selection?.kind==='new'){const cell=camera.cell(p.x,p.y);if(cell!==selection.cell&&selection.cells.includes(cell))return false;}
  const at=camera.cellPoint(aim.cannon.cell);
  const radius=Math.min(pointerType==='touch'?88:76,Math.max(pointerType==='touch'?60:52,camera.scale*.72));
  return at.visible&&Math.hypot(p.x-at.sx,p.y-at.sy)<=radius;

@@ -1,8 +1,16 @@
 /** Diagnostics only: certificate verification and PublicationSequence own trust. */
+import {AgentError,HttpErrorCode,HttpFetchErrorCode,CertificateTimeErrorCode,CertificateOutdatedErrorCode} from '@icp-sdk/core/agent';
 /** A delivery label cannot turn an authentication error into availability. */
 export function observationFailure(error){
+ if(error instanceof AgentError){
+  if(error.hasCode(HttpErrorCode)){const n=error.code.status;return n===408||n===429||n>=500&&n<=599?'delivery':'verification';}
+  if(error.hasCode(HttpFetchErrorCode))return observationFailure(error.code.error);
+  if(error.hasCode(CertificateTimeErrorCode))return error.code.ageType==='past'?'delivery':'verification';
+  if(error.hasCode(CertificateOutdatedErrorCode))return 'delivery';
+  return 'verification'; // Unrecognised SDK trust/protocol errors fail closed.
+ }
  const message=String(error?.message??error);
- if(['AbortError','TimeoutError'].includes(error?.name)||/Certificate is signed more than \d+ minutes in the past\./.test(message))return 'delivery';
+ if(['AbortError','TimeoutError'].includes(error?.name)||/Certificate is signed more than \d+ minutes in the past\.|Certificate is stale \(over \d+ minutes\)/.test(message))return 'delivery';
  if(/certificate|signature|fingerprint|integrity|mismatch|conflict|rollback|not bound|deployment|delegation/i.test(message))return 'verification';
  return ['AbortError','TimeoutError'].includes(error?.name)||/timeout|timed out|failed to fetch|fetch failed|networkerror|network error|temporarily unavailable|replica.*unavailable|download HTTP (?:408|429|5\d\d)|HTTP (?:408|429|5\d\d)/i.test(message)?'delivery':'verification';
 }

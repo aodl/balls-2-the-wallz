@@ -194,10 +194,15 @@ Smoked glass uses controlled local translucency and 7px blur, with a solid
 unsupported/reduced-transparency/forced-colour fallback. A fixed 44px-slot toolbar
 keeps all control rectangles stationary during expansion. A single measured-height/opacity
 transition grows the body beneath it in 180ms; reduced motion skips it. The body
-has one natural scroll, normally ≥240px when content needs it at 320×640. Narrow
+has one natural scroll, normally ≥240px when content needs it at 320×640, capped
+by actual free space and never below the existing 96px usable-scroll minimum.
+When a new narrow-screen selection would put the toolbar over the cannon, place
+the toolbar just below its actual body without moving the camera; keep that row
+fixed through action expansion. A handled touch cannot activate newly revealed
+controls through its later compatibility click. Narrow
 layouts use a stable safe-area position and a useful source-cannon composition;
 keyboard contraction may reduce space but must retain reachable financial fields
-and focus. While a precision input is focused below 520px available height,
+and focus. In an action below 520px available height,
 secondary camera/map/cycles chrome is temporarily suppressed to give that one
 scroll priority; it returns on blur/viewport recovery and remains available in
 ordinary play. Observation is unaffected. No nested sliver, font/hit-target reduction or hidden financial warning
@@ -265,10 +270,10 @@ requirements. Controlled fixtures are not certificate/physical-device evidence.
 | --- | --- |
 | UXR-01 | Frozen canonical placement intent; pan/zoom/Focus/revision/mode/removal/double-click input journeys and exact memo or cancellation. |
 | UXR-02/03/21 | Immediate selection without camera movement, explicit panel-aware Focus, disabled Focus after explicit settling; several cannon locations. |
-| UXR-04/05/13/17 | ≥240px normal action area where needed, fixed toolbar slots through expansion, source anchor independent of Build/Move destination; actual transitional/settled geometry. |
+| UXR-04/05/13/17 | ≥240px normal action area where free space permits, bounded by actual room with the 96px usable-scroll floor; fixed toolbar slots through expansion, source anchor independent of Build/Move destination; actual transitional/settled geometry. |
 | UXR-06/14/15/16 | Pending zoom accumulation/reversal/clamp, wheel versus continuous input, immediate ball-follow entry, max-zoom follow no-op; actual input plus intermediate-frame unit tests. |
 | UXR-07/08 | Real .01/.05/1 pace, bounded projected travelled length, hold/fade, stationary expiry, seam/reflection/context reset; before/after actual-speed media. |
-| UXR-09/10/11/12/25 | One prompt, optional precision, compact exact wallet rows/icons, risk/fee preserved at ≥14px, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
+| UXR-09/10/11/12/25 | One prompt, direct/keyboard aiming and tile selection, compact exact wallet rows/icons, risk/fee preserved at ≥14px, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
 | UXR-18/19 | Meaningful circular anchor invalidation; atlas cache/revision bounds and DPR 1/1.5/2/3 cap, same projected map inverse. |
 | UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, exact square destination footprint, shared warm translucent cannon geometry, prominent truthful routine Waiting. |
 
@@ -376,7 +381,9 @@ waiting use the exact labels above. Temporary delivery says **Temporarily unable
 to reach the game. Retrying automatically.** Retain the trusted scene, remaining
 verified intervals, camera, selection and drafts. Known stale authenticated heads
 stay rejected without lowering the sequence floor. Transport failures retry with
-500ms–30s exponential backoff/jitter and no permanent attempt threshold; hidden
+500ms–30s exponential backoff/jitter and no permanent attempt threshold; the
+application owns read-only retries (SDK transport retries are zero), and failed
+operational queries never retry faster than their normal two-second cadence; hidden
 scheduling remains bounded at 15s observation / 60s operational refresh. Visible
 return initiates an immediate fenced retry. Fresh certificates and successful
 sequence/artifact admission are required for recovery; HTTP success alone is
@@ -445,7 +452,9 @@ Handle arrows adjust one degree, Shift five degrees and Alt 0.01 degree; canvas
 [ / ] also adjust heading. Join's compact direction pad supports the same keys.
 For Move/Build, focus the arena: Alt+arrows traverse canonical cells and Enter
 commits the highlighted cell after current legality checks. Ordinary arrows pan.
-No small-handle discovery or numeric form is required for pointer aiming.
+Canvas bracket keys use the same 1° / Shift 5° / Alt 0.01° adjustment when the
+handle yields in a short viewport. No small-handle discovery or numeric form is
+required for pointer aiming.
 Build requires an explicit eligible site; first Join placement stays automatic.
 A proposal invalidated by a verified revision remains at that canonical cell and
 unavailable, never silently switches to another or to automatic placement.
@@ -606,7 +615,11 @@ and say Waiting for next update. Warm reconstruction occurs before a round trip;
 fresh certificate/operational admission is still required for new instructions.
 An intentional forward skip clears cosmetic history and reacquires a valid followed
 ball through the same short toroidal camera transition, preserving zoom and local
-controls/packets. An uninterrupted cold foreground start retains its established startup buffer.
+controls/packets. Cold foreground startup chooses one complete retained authenticated
+interval within the optional two-second bound and starts through the verified
+resume path, without a compulsory future publication. Later admissions retain
+the established jitter/buffer policy. Missing history chooses the latest snapshot
+once; a late response can never rewind an already displayed world.
 After a newer same-identity snapshot is authenticated, recovery retains useful
 unconsumed verified coverage even before first playback. Otherwise retention
 misses can repeatedly erase the buffer before startup completes. This recovery
@@ -726,13 +739,16 @@ A 12-second request deadline aborts only the dedicated telemetry SDK agent's que
 and certificate-key fetches, including response bodies. SDK retries are disabled
 for this optional read; the monitor owns retry/backoff. The SDK-supported one-target
 memory key cache keeps the default five-minute TTL without waiting on IndexedDB.
-The in-flight slot is released only after settlement. A noncompliant transport
-that ignores cancellation stays Unavailable until settlement or a genuine recovery
-action (reload); hiding/returning cannot falsely claim collection or launch
-unbounded replacements. Stop aborts telemetry and cannot resurrect timers/results.
-Compact labels are only Collecting, Unavailable, Stale or a bounded estimate.
-Reset causes, sample age/window, idle/reserved balances and limitations are details,
-never compact arena copy. These labels are tested at desktop and 320×640.
+The in-flight slot retires at the deadline even if the underlying transport does
+not settle after abort. Late responses cannot publish samples or create a second
+loop. Hiding/resuming generation-fences the old read and schedules one fresh
+bounded attempt; no reload is required. Stop aborts telemetry and cannot resurrect
+timers/results. Without a valid sample the compact display and ordinary error say
+**Cycle data temporarily unavailable**. Valid values use bounded formatting and
+an estimate only after the minimum real sample window. Reset causes, sample
+age/window, idle/reserved values and net/gross caveats belong in advanced
+verification diagnostics and this explanatory contract, never in ordinary errors.
+
 Stale/collecting/unavailable are explicit, never fabricated zero. It cannot block verified observation, essential lab_status or
 payment preparation. The superseded runtime_health frontend meter/await is removed;
 backend endpoints, treasury accounting and pacing are untouched.

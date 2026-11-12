@@ -33,8 +33,11 @@ selection without focus, near-body aiming, outside-zone panning, model matrix
 identity and status-driven panel stability. These development runs do not qualify
 later edits or replace final exact-source acceptance.
 
-The installed normal-module fixed-H test, complete final browser regressions,
-final performance comparisons, immutable clean build and exact-source six-gate CI
-remain pending. Earlier failed development runs remain under their own paths;
+The installed normal-module fixed-H startup/recovery test now passes, including
+real 5/30/90/180-second delivery faults, zero action-panel drift and a wrong-root
+negative control. See `certified-acceptance.json` for the reviewed measurements;
+this development run predates the immutable final freeze. Complete final browser
+regressions, performance comparisons, immutable clean build and exact-source
+six-gate CI remain pending. Earlier failed development runs remain under their own paths;
 none is counted as PASS. Remote publication and production deployment are owner
 operated; this instruction authorizes neither.

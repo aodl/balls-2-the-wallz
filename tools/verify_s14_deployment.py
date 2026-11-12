@@ -532,11 +532,11 @@ def main():
             capture_finalizers.callback(preserve_exception_state)
             posts=[];page.on('request',lambda r:posts.append(r.url) if r.method=='POST' else None)
             query_timings=[]
-            if a.million_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
+            if a.human_corrections_scene_only or a.million_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
                 wire_capture=WireCapture(page,out/'wire-catalogs',
                     max_packets=4096 if a.million_sustained or (a.playability_scene_only or a.entry_scene_only) else 1024,
                     max_bytes=(128 if a.million_sustained or (a.playability_scene_only or a.entry_scene_only) else 64)*1024*1024,
-                    extra_methods=('artifact_bundle','artifact_chunk','retained_artifact_chunk') if (a.playability_scene_only or a.entry_scene_only) else ())
+                    extra_methods=('artifact_bundle','artifact_chunk','retained_artifact_chunk') if (a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only) else ())
                 capture_finalizers.push(wire_capture)
                 def capture_query_timing(request,failed=False):
                     if request.method!='POST' or not request.url.endswith(('/query','/read_state')):return

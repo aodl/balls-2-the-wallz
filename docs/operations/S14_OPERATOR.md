@@ -1,5 +1,46 @@
 # Installed European game — frontend updates
 
+## Human-playtest corrective frontend candidate (12 November 2026)
+
+The current correction is frontend-only and not deployed. Use the maintained
+[UX contract](../specs/B2Z_HUMAN_EXPERIENCE.md) and
+[correction evidence](../../evidence/B2Z/human-playtest-corrections/REPORT.md).
+Keep production backend `s5ir5-gqaaa-aaaas-amyna-cai`, its paid state, source,
+settings, controllers and financial operation untouched. No ICRC-2 activation or
+real payment is part of this qualification.
+
+The runtime must distinguish latest authenticated financial authority from a
+bounded completed historical playback interval. Cold acquisition may add one
+retained-publication request and its state chunks within a two-second optional
+budget. Missing/late history falls back once to the latest snapshot, never rewinds
+an already visible world. Repeated HTTP/availability faults retry automatically;
+invalid signatures, binding, artifact or history conflicts remain blocked. An
+explicit Retry verification establishes a new fully verified chain while retaining
+the previous authenticated sequence floor. Public cycles/status are auxiliary;
+financial freshness gates still apply independently of visible playback.
+
+Before a separate deployment decision, require the fixed-H startup/recovery case
+`playability_installed::human_corrections_certified_startup_and_transient_recovery`,
+`verify_human_corrections.py`, the retained populated browser/clock/memo/hidden-return
+regressions and all six substantive exact-source CI gates. Controlled lifecycle
+input is not native hidden-tab/device evidence. Reuse the established normal
+module for focused frontend experiments when its exact hash/source are proven;
+compilation alone supplies none of the certificate/upgrade/financial evidence.
+
+Publish source through the owner's ordinary non-force Git operation, then inspect
+the exact source's six conclusions. Freeze the clean frontend once with the
+existing playability builder and verify every asset plus consumed upload policy.
+No production assets are authorized by the correction task itself. A later owner
+approval must identify the exact frozen JS/full-manifest hashes. Follow the
+existing asset-only route below; do not rebuild or substitute a newer bundle.
+
+Rollback, if separately authorized, restores the previously approved frontend
+16-file set (runtime `b0f6c7a`, JS `42f30ead…`, complete manifest `216fac29…`) using
+the existing route, followed by independent public-byte/header checks. It never
+reinstalls, resets or upgrades the paid backend. Preserve the prior files/policy
+before publication; do not claim rollback capability from a hash without the bytes.
+
+
 The backend now contains **real paid gameplay and financial state**. This is the
 current procedure. Never run the archived empty-target installation, constructor,
 reset, activation or transition sequence against it.

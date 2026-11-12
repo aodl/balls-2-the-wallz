@@ -25,7 +25,7 @@ let arenaRenderer=null,renderError=null;
 try{arenaRenderer=createArenaRenderer(canvas,{onError(message){renderError=message;$('render-error').hidden=false;$('render-error').textContent=message;},onRestore(){renderError=null;$('render-error').hidden=true;}});}catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='This browser could not start the 3D arena. WebGL 2 is required.';}
 let cycleMonitor=null;
 let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null,lastHud=0;
-let cameraRestored=false;
+let cameraRestored=false,lastDetailsKey='';
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document),camera=new Camera();
 const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p,screen)=>{
@@ -166,7 +166,7 @@ async function acquireLive(s,startupRetries=0){
       const module=await import('./mainnet.mjs');
       if(!s.client){const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
        s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
-       if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s))renderCycleReadout(document,value);}});
+       if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s)){s.publicCycles=value;s.publicCyclesAt=performance.now();renderCycleReadout(document,value);}}});
       }
       void refreshOperational(performance.now());
       ticket=await certifiedTicket(s,await s.client.observation());
@@ -207,7 +207,7 @@ async function acquireLive(s,startupRetries=0){
     const initialSegment=s.startupHistory?.segment,historyFailure=s.startupHistory?.failure;if(s.startupHistory)s.startupHistory=s.startupHistory.diagnostic;resetLiveClock(s,initialSegment?.start??time);
     if(initialSegment){s.clock.append(initialSegment.start,initialSegment.end);s.queue.push({segment:initialSegment,player:new SegmentPlayer(initialSegment)});s.bytes=s.largestSegmentBytes=initialSegment.bytes;resumeVerifiedClock(s);}
     if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(initialSegment?.initial??world);s.ready=true;s.firstWorldAt=performance.now();observePresentation(s,ticket);s.skipped=segment!==null;s.accepted=segment===null?0:1;
-    globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
+    globalThis.__dtrLive={connected:true,startupRetries:s.startupRetries??startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
     if(historyFailure){s.error=historyFailure;s.failureKind='verification';showError(historyFailure);}
   }catch(e){
@@ -215,8 +215,10 @@ async function acquireLive(s,startupRetries=0){
     // A certified genesis can retire before its non-retained state is fetched.
     // Retry only the host's explicit moving-snapshot errors, with a fresh
     // certificate and full source/config/artifact validation on every attempt.
-    if(startupRetries<2&&['stale observation publication','publication unavailable: snapshot resync required'].includes(e?.message)){
-      s.nextDue=performance.now()+250;return;
+    if(['stale observation publication','publication unavailable: snapshot resync required'].includes(e?.message)){
+      s.startupRetries=(s.startupRetries??0)+1;s.retryFailures++;
+      if(s.startupRetries>2){s.deliveryError=String(e.message);s.failureKind='delivery';}
+      s.nextDue=performance.now()+(s.startupRetries<=2?250:deliveryRetryMs(s.retryFailures));return;
     }
     s.failureKind=observationFailure(e);
     if(s.failureKind==='delivery'){s.deliveryError=String(e?.message??e);s.retryFailures++;s.nextDue=performance.now()+deliveryRetryMs(s.retryFailures);}
@@ -298,8 +300,8 @@ function updatePlayReference(s,world,events){
 async function refreshOperational(now){
   const s=session;if(!s||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
   s.statusBusy=true;s.statusDue=now+2000;const generation=s.lifecycleGeneration??0,started=now;
-  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=s.lastPaceStatus=status;s.operationalAt=started;s.statusFailures=0;if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
-  catch{if(active(s)&&(s.lifecycleGeneration??0)===generation){s.statusFailures=(s.statusFailures??0)+1;s.statusDue=performance.now()+deliveryRetryMs(s.statusFailures);}}
+  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=s.lastPaceStatus=status;s.operationalAt=s.lastOperationalAt=started;s.statusFailures=0;if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
+  catch{if(active(s)&&(s.lifecycleGeneration??0)===generation){s.statusFailures=(s.statusFailures??0)+1;s.statusDue=performance.now()+Math.max(2000,deliveryRetryMs(s.statusFailures));}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
@@ -377,11 +379,12 @@ function phase(){
 function updateHud(){
  const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=freshObservation(s,now);
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
- const failure=s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':s?.error?s.failureKind:null;
+ const failure=s?.error?(s.failureKind??observationFailure(s.error)):s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':null;
  const resolved=resolveExperience({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&(s?.mode!=='live'||s.nominalRate>0)&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,catchingUp:s?.catchingUp,deliveryError:s?.deliveryError,renderError,presentationLagSeconds:s?.referenceWorld&&s?.clock&&presentationPace(s)>0?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead)/presentationPace(s):0},now);
  arcade.status({resolved});document.body.dataset.phase=p;$('retry').hidden=!Boolean(bootError||s?.error);$('retry').textContent='Retry verification';
- const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
- const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;
+ const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,cycles:s?.publicCycles,operational_fresh:operationalFresh,operational_age_ms:Number.isFinite(s?.lastOperationalAt??s?.operationalAt)?Math.max(0,now-(s.lastOperationalAt??s.operationalAt)):null,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
+ const detailsKey=[s?.root,p,resolved.kind,resolved.canPrepare,operationalFresh,s?.publicCyclesAt,$('status-view').hidden,$('status-view').hidden?0:Math.floor(now/1000)].join('/');
+ if(detailsKey!==lastDetailsKey){lastDetailsKey=detailsKey;const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;}
  globalThis.__b2zExperience={composer:arcade.proposedAction(),status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};
 }
 function draw(){

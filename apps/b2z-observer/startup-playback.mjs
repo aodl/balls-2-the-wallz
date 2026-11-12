@@ -1,5 +1,5 @@
 /** Cold presentation chooses once, before exposing a world. Never simulates a head. */
-import {ArtifactAssembler,verifyRetainedPredecessor} from '@dtr/timeline-runtime/client/verification';
+import {ArtifactAssembler,verifyRetainedPredecessor} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
 import {prepareDerivedSegment,LIVE_BUFFER_LIMITS} from './model.mjs';
 import {observationFailure} from './live-delivery.mjs';
 export const STARTUP_HISTORY_MS=2000;

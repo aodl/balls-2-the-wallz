@@ -18,7 +18,7 @@ export function mainnetPolicy(value){
 }
 export async function mainnetConnection(policy,{signal}={}){
   policy=mainnetPolicy(policy);
-  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1,fetch:observationFetch(undefined,signal)});
+  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch(undefined,signal)});
   const base=await boundedObservationClient(policy,{signal}),client=artifactDeliveryClient(agent,policy.canister_id,base);
   return {verifyCertificate:certificateVerifier({network:'ic'}),client,readStatus:operationalReader(agent,policy.canister_id),readCycles:publicStatusReader(policy)};
 }
@@ -57,7 +57,7 @@ function artifactDeliveryClient(agent,canisterId,base){
 /** Local acceptance uses the same atomic delivery query with its pinned root. */
 export async function artifactBundleClient({network,rootKey,canister_id,host},base){
  if(network!=='pocketic-local'||!(rootKey instanceof Uint8Array)||rootKey.length<32||rootKey.length>1024)throw new Error('configured local bundle root required');
- const agent=await HttpAgent.create({host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1,fetch:observationFetch()});
+ const agent=await HttpAgent.create({host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch()});
  return artifactDeliveryClient(agent,Principal.fromText(canister_id),await boundedObservationClient({network,rootKey,canister_id,host}));
 }
 /** Operational query only: never authorizes a payment or a game outcome. */
@@ -70,7 +70,7 @@ export function operationalReader(agent,canisterId){
 }
 export async function certifiedSource(policy,ticket){
   policy=mainnetPolicy(policy);
-  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:1,fetch:observationFetch()});
+  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch()});
   const actor=Actor.createActor(({IDL})=>IDL.Service({source_descriptor:IDL.Func([],[IDL.Variant({Ok:IDL.Vec(IDL.Nat8),Err:IDL.Text})],['query'])}),{agent,canisterId:policy.canister_id});
   const result=await actor.source_descriptor();if(!result.Ok)throw new Error('source descriptor unavailable');
   const bytes=Uint8Array.from(result.Ok);

@@ -2,7 +2,8 @@
 import {HttpAgent,Actor} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {Principal} from '@icp-sdk/core/principal';
-import {certificateVerifier,liveClient} from '@dtr/timeline-runtime/client/ic-certificate';
+import {certificateVerifier} from '@dtr/timeline-runtime/client/ic-certificate';
+import {observationFetch} from '../../apps/b2z-observer/bounded-observation.mjs';
 import {verifiedSourceDescriptor,operationalReader,artifactBundleClient} from '../../apps/b2z-observer/mainnet.mjs';
 export function deploymentPolicy(value){
  const endpoint=new URL(value.host);
@@ -11,15 +12,15 @@ export function deploymentPolicy(value){
  return Object.freeze({...value});
 }
 const root=p=>Uint8Array.from(p.root_key_hex.match(/../g),x=>parseInt(x,16));
-export async function deploymentConnection(value){
+export async function deploymentConnection(value,{signal}={}){
  const p=deploymentPolicy(value),rootKey=root(p);
- const agent=await HttpAgent.create({host:p.host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
- const base=await liveClient({...p,rootKey}),client=await artifactBundleClient({...p,rootKey},base);
+ const agent=await HttpAgent.create({host:p.host,rootKey,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch(undefined,signal)});
+ const client=await artifactBundleClient({...p,rootKey});
  return {verifyCertificate:certificateVerifier({network:p.network,rootKey}),client,readStatus:operationalReader(agent,p.canister_id)};
 }
 export async function deploymentSource(value,ticket){
  const p=deploymentPolicy(value);
- const agent=await HttpAgent.create({host:p.host,rootKey:root(p),shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
+ const agent=await HttpAgent.create({host:p.host,rootKey:root(p),shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch()});
  const actor=Actor.createActor(({IDL})=>IDL.Service({source_descriptor:IDL.Func([],[IDL.Variant({Ok:IDL.Vec(IDL.Nat8),Err:IDL.Text})],['query'])}),{agent,canisterId:p.canister_id});
  const reply=await actor.source_descriptor();if(!reply.Ok)throw new Error('source descriptor unavailable');
  return verifiedSourceDescriptor(Uint8Array.from(reply.Ok),ticket,p);

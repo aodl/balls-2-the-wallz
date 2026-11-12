@@ -5,7 +5,7 @@ export function experienceStatus(input={}){
  const source=operational?.source;
  const sourceOk=Boolean(source?.binding_checked&&!source.last_error?.length&&!run?.last_error?.length);
  const canPrepare=Boolean(live&&verified&&fresh&&operationalFresh&&healthy&&sourceOk&&run?.running&&!run?.world_transition&&pace?.admission_open!==false&&!renderError&&!input.deliveryError&&!input.failureKind);
- const out=(kind,label,detail='')=>({kind,label,detail,canPrepare});
+ const out=(kind,label,detail='')=>({kind,label,detail:detail||(!operationalFresh&&verified&&live?'Operational confirmation is temporarily unavailable. Payment instructions are disabled.':''),canPrepare});
  if(renderError)return out('render-error','Arena unavailable','The renderer could not display the verified game.');
  if(input.failureKind==='verification'||phase==='ERROR'&&input.failureKind!=='delivery')return out('verification-error','Unable to verify game data.','Gameplay and payment instructions cannot safely be updated. Retry verification to start a fresh authenticated session; saved instructions are retained.');
  if(input.failureKind==='delivery'||input.deliveryError||live&&verified&&!fresh)return out('reconnecting','Reconnecting','Temporarily unable to reach the game. Retrying automatically.');

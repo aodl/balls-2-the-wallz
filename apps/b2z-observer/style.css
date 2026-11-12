@@ -144,6 +144,6 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 .direction-pad{display:grid;grid-template-columns:repeat(3,44px);gap:3px;align-items:center;text-align:center}.direction-pad button{padding:5px}.direction-pad [aria-pressed=true]{background:#635137;border-color:var(--accent)}#join-direction{grid-column:1/-1}#join-direction legend{font-size:.85rem;color:var(--quiet)}
 
 /* Delivery labels cannot change chrome height or displace an open instrument. */
-#status-button{height:46px;min-height:46px;padding:5px 9px;line-height:17px;display:flex;align-items:center}#arena-note{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+#status-button{height:calc(2.6em + 10px);min-height:44px;padding:5px 9px;line-height:1.15;display:flex;align-items:center}#arena-note{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
 #cycles-display{width:150px;height:48px;min-height:48px;justify-content:center}#cycle-unavailable{white-space:normal;line-height:13px;text-align:left}#cycle-values{display:flex;flex-direction:column;gap:5px}

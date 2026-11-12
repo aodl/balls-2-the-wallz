@@ -6,7 +6,7 @@ from fluid_playability_browser import action_field,payment_warning,TILE_PAYMENT_
 def verify_refinement(page,width,height,out):
  from playwright.sync_api import expect
  def close():
-  if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
+  if page.locator('#workspace').evaluate('(n)=>!n.hidden'):page.keyboard.press('Escape')
  def prepare(kind='move'):
   close();page.evaluate('fixture.render("additional","initial");fixture.select(1);document.dispatchEvent(new CustomEvent("b2z-locate"))');settled(page);page.locator('#'+{'move':'move-action','new':'build-action','fire':'fire-action'}[kind]).click();page.wait_for_timeout(230)
   if kind=='move':choose_cell(page,'')
@@ -49,7 +49,7 @@ def verify_refinement(page,width,height,out):
   for operation in ['pan','zoom','focus','mode','revision','removed']:rows.append(placement(operation));(out/f'{width}-target-integrity.json').write_text(__import__('json').dumps(rows,indent=2)+'\n')
   rows.append(placement('focus','new'))
   prepare('move');sites=page.evaluate('fixture.moveSites(1)');n=next(n for n in sites if open_point(n));p=open_point(n);page.evaluate('window.gestureTrace=[];for(const name of ["pointerdown","pointerup","click","dblclick"])document.getElementById("board").addEventListener(name,e=>gestureTrace.push({name,at:e.timeStamp,now:performance.now(),detail:e.detail,type:e.pointerType,cell:String(fixture.proposal().cell??"")}),true)');page.mouse.dblclick(p['sx'],p['sy'],delay=55);settled(page);(out/f'{width}-double-click.json').write_text(__import__('json').dumps(page.evaluate('gestureTrace'),indent=2)+'\n');assert chosen_cell(page)==''
- # One click immediately selects and usefully focuses a distant cannon. Several
+ # One click selects without camera movement; explicit Focus then reframes. Several
  # positions include the awkward lower/off-centre compositions in the review.
  compositions=[]
  for sx,sy in [(width*.75,height*.33),(width*.45,height*.6),(width*.25,height*.42)]:
@@ -67,7 +67,7 @@ def verify_refinement(page,width,height,out):
   for delay in [35,65,150]:
    page.wait_for_timeout(delay);samples.append([page.locator('#'+n).bounding_box()for n in controls])
   drift=max(math.hypot(b['x']-c['x'],b['y']-c['y'])for sample in samples for b,c in zip(sample,beforeboxes));assert drift<=2,(width,drift)
-  geom=page.locator('.panel-scroll').evaluate('(n)=>({height:n.clientHeight,content:n.scrollHeight})');assert geom['height']>=240,(width,geom)
+  geom=page.locator('.panel-scroll').evaluate('(n)=>({height:n.clientHeight,content:n.scrollHeight})');room=page.locator('#workspace').evaluate('(n)=>parseFloat(n.style.getPropertyValue("--body-space"))');assert geom['height']>=min(240,room),(width,geom,room)
   for selector in ['#transfer-amount','#payment-owner','#text-memo','#paying-account','#payment-fee','#payment-risk']:
    page.locator(selector).scroll_into_view_if_needed();assert page.locator(selector).evaluate('(n)=>{const r=n.getBoundingClientRect(),p=document.querySelector(".panel-scroll").getBoundingClientRect();return r.top>=p.top-2&&r.bottom<=p.bottom+2}'),selector
   payment_warning(page,ORDINARY_PAYMENT_WARNING);compositions.append({'clicked_at':[sx,sy],'transition_wall_seconds':transition_elapsed,'journey_seconds_including_layout_checks':time.monotonic()-started,'toolbar_max_drift':drift,'panel':geom});page.screenshot(path=str(out/f'{width}-refined-payment.png'))

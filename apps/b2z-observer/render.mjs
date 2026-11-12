@@ -38,7 +38,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const tails=batch(new T.ConeGeometry(.075,1,8),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,vertexShader:'attribute float tailAlpha;varying float fade;void main(){fade=tailAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.50*fade);}'} ));
  tails.geometry.setAttribute('tailAlpha',new T.InstancedBufferAttribute(new Float32Array(RENDER_LIMITS.pieces),1));
  const tailInner=batch(tails.geometry,RENDER_LIMITS.pieces,tails.material.clone());tailInner.material.fragmentShader='varying float fade;void main(){gl_FragColor=vec4(1.,1.,1.,.98*fade);}';
- const ghostMaterial=new T.MeshLambertMaterial({color:0xffdf91,emissive:0x271c08,flatShading:true,transparent:true,opacity:.48,depthWrite:false}),ghostBarrelMaterial=ghostMaterial.clone();ghostBarrelMaterial.opacity=.60;
+ const ghostMaterial=new T.MeshLambertMaterial({color:0xffe6a4,emissive:0xffd777,emissiveIntensity:.30,flatShading:true,transparent:true,opacity:.48,depthWrite:false}),ghostBarrelMaterial=ghostMaterial.clone();ghostBarrelMaterial.opacity=.60;
  const ghostBase=batch(bases.geometry,1,ghostMaterial),ghostTurret=batch(turrets.geometry,1,ghostMaterial),ghostBarrel=batch(barrels.geometry,1,ghostBarrelMaterial);
 
  const hoverGhost=batch(new T.CylinderGeometry(.29,.34,.13,8),1,new T.MeshBasicMaterial({color:hoverInk,transparent:true,opacity:.12,depthWrite:false}));
@@ -52,7 +52,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const selectionMaterial=new T.MeshLambertMaterial({color:0xffdb87,emissive:0x302009,transparent:true,opacity:.40,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
  const outlineMaterial=new T.MeshBasicMaterial({color:0x090b0c,side:T.BackSide,transparent:true,opacity:.35,depthWrite:false});
  const highlighted=Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,batch(m.geometry,1,selectionMaterial)]));
- const outlined=Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,batch(m.geometry,2,outlineMaterial)]));
+ const outlined=Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,batch(m.geometry,2,outlineMaterial)]));for(const mesh of Object.values(outlined))mesh.renderOrder=-1;
  /** Every real, selected and provisional part uses these exact physical transforms. */
  function cannon(meshes,x,y,theta,lod=1,palette={},edge=1){
   const put=(part,px,py,z,sx,sy,sz,rotation)=>instance(meshes[part],px,py,z,sx*edge,sy*edge,sz*edge,palette[part],rotation);
@@ -82,7 +82,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const drawKey=[camera.x,camera.y,camera.scale,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
   if(lastView===v&&lastDrawKey===drawKey&&!lastStats?.effects&&!lastStats?.tails)return lastStats;
   lastDrawKey=drawKey;
-  const {width,height}=camera.viewport;const dpr=Math.min(devicePixelRatio||1,RENDER_LIMITS.dpr,Math.sqrt(1000000/(width*height))),size=[width,height,dpr].join('/');if(size!==sizeKey){sizeKey=size;renderer.setPixelRatio(dpr);renderer.setSize(width,height,false);}
+  const {width,height}=camera.viewport,cannonLod=camera.scale<4?Math.min(8,4/camera.scale):1;const dpr=Math.min(devicePixelRatio||1,RENDER_LIMITS.dpr,Math.sqrt(1000000/(width*height))),size=[width,height,dpr].join('/');if(size!==sizeKey){sizeKey=size;renderer.setPixelRatio(dpr);renderer.setSize(width,height,false);}
   guide.material.resolution.set(width,height);guideUnder.material.resolution.set(width,height);
   const halfW=width/camera.scale/2,halfH=height/camera.scale/2;
   Object.assign(ortho,{left:-halfW,right:halfW,top:halfH,bottom:-halfH});ortho.position.set(camera.x+2500,2500,camera.y+2500);ortho.lookAt(camera.x,0,camera.y);ortho.updateProjectionMatrix();ortho.updateMatrixWorld();
@@ -103,7 +103,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   {
    for(const c of v.cannons.values()){
     const position=camera.cellPoint(c.cell),x=position.x,y=position.y;if(!visible(camera,x,y))continue;
-    const tint=v.color(c.id),lod=camera.scale<4?Math.min(8,4/camera.scale):1;
+    const tint=v.color(c.id),lod=cannonLod;
     instance(shadows,x+.06,y+.07,.006,lod,1,lod,null,[-Math.PI/2,0,0]);
     const [dx,dy]=heading(aim?.cannon.id===c.id&&aim.cannon.cell===c.cell?aim.heading:Number.isInteger(c.heading)?c.heading:0),theta=Math.atan2(dy,dx);
     cannon(parts,x,y,theta,lod,{base:cannonBase,turret:cannonTurret,barrel:cannonBarrel,accent:tint});
@@ -118,12 +118,12 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   }
   const markCell=aim&&aim.cannon.id!==null&&v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell?aim.cannon.cell:null;marker.visible=markCell!==null;
   if(marker.visible){const p=camera.cellPoint(markCell);marker.position.set(p.x,.03,p.y);}
-  if(aim&&(aim.cannon.id===null||v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell)){const p=camera.cellPoint(aim.cannon.cell),a=aim.angle*Math.PI/180;cannon(outlined,p.x,p.y,a,1,{},1.07);cannon(provisional,p.x,p.y,a);}
+  if(aim&&(aim.cannon.id===null||v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell)){const p=camera.cellPoint(aim.cannon.cell),a=aim.angle*Math.PI/180;cannon(outlined,p.x,p.y,a,cannonLod,{},1.07);cannon(provisional,p.x,p.y,a,cannonLod);}
 
   guide.visible=guideUnder.visible=Boolean(aim);if(aim){const p=camera.cellPoint(aim.cannon.cell),a=Number(aim.angle)*Math.PI/180,dx=Math.cos(a),dy=Math.sin(a),fullLength=Math.min(3.5,110/(camera.scale*Math.hypot((dx-dy)/Math.SQRT2,(dx+dy)/Math.sqrt(6)))),fraction=guideClearance(camera.screen(p.x,p.y,.028),camera.screen(p.x+dx*fullLength,p.y+dy*fullLength,.028),guideObstacles),length=fullLength*fraction,x=p.x+dx*length,y=p.y+dy*length,tip=Math.min(.20,length*.2);guideGeometry.setPositions([p.x+dx*.42,.028,p.y+dy*.42,x,.028,y,x+Math.cos(a+2.6)*tip,.028,y+Math.sin(a+2.6)*tip,x,.028,y,x+Math.cos(a-2.6)*tip,.028,y+Math.sin(a-2.6)*tip]);}
   const contour=(cell,mesh)=>{if(cell===null||cell===undefined)return;const p=camera.cellPoint(cell);if(mesh===destinationRings){instance(mesh,p.x,p.y,.044,1.025,1,1.025,guideUnderInk,[-Math.PI/2,0,Math.PI/4]);instance(mesh,p.x,p.y,.045,1,1,1,previewInk,[-Math.PI/2,0,Math.PI/4]);}else{instance(contourUnderlay,p.x,p.y,.044,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(mesh,p.x,p.y,.045,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);}};
   if(selection){const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?invalidRings:destinationRings);
-   if(selection.cell!==null&&selection.id!==undefined){const p=camera.cellPoint(selection.cell),c=selection.reference?.cannons.find(c=>c.id===selection.id)??v.cannons.get(selection.id),[dx,dy]=heading(c?.heading??0),a=Math.atan2(dy,dx);cannon(outlined,p.x,p.y,a,1,{},1.07);cannon(provisional,p.x,p.y,a);}
+   if(selection.cell!==null&&selection.id!==undefined){const p=camera.cellPoint(selection.cell),c=selection.reference?.cannons.find(c=>c.id===selection.id)??v.cannons.get(selection.id),[dx,dy]=heading(c?.heading??0),a=Math.atan2(dy,dx);cannon(outlined,p.x,p.y,a,cannonLod,{},1.07);cannon(provisional,p.x,p.y,a,cannonLod);}
    if(hover?.cell!==null&&hover?.cell!==undefined){contour(hover.cell,hover.kind==='place'?hoverRings:invalidRings);if(hover.kind==='place'&&hover.cell!==selection.cell){const p=camera.cellPoint(hover.cell);instance(hoverGhost,p.x,p.y,.09);}if(hover.kind==='invalid'){const p=camera.cellPoint(hover.cell);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,-Math.PI/4]);}}
   }
 

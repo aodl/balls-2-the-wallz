@@ -3,7 +3,7 @@ import{diamondMap}from'./minimap-projection.mjs';
 export function minimapBacking(width,height,dpr=1){const ratio=Math.min(3,Math.max(1,dpr),512/Math.max(width,height),Math.sqrt(262144/(width*height)));return{width:Math.max(1,Math.round(width*ratio)),height:Math.max(1,Math.round(height*ratio))};}
 export function createMinimap(canvas,camera,onNavigate=()=>{},{controller=null,origin=()=>null}={}){
  if(!canvas)return{draw(){},dispose(){}};
- const ctx=canvas.getContext('2d'),image=document.createElement('canvas');let revision=-1,key='',listeners=[],rect=canvas.getBoundingClientRect(),drag=null;
+ const ctx=canvas.getContext('2d'),image=document.createElement('canvas'),rebased=document.createElement('canvas');let revision=-1,key='',cutKey='',listeners=[],rect=canvas.getBoundingClientRect(),drag=null;
  const resize=new ResizeObserver(()=>{rect=canvas.getBoundingClientRect();key='';});resize.observe(canvas);
  const listen=(event,fn)=>{canvas.addEventListener(event,fn);listeners.push(()=>canvas.removeEventListener(event,fn));};
  const currentOrigin=()=>drag?.origin??origin(),transform=()=>diamondMap(camera.width,camera.height,rect.width,rect.height,currentOrigin());
@@ -19,7 +19,12 @@ export function createMinimap(canvas,camera,onNavigate=()=>{},{controller=null,o
   if(revision!==surface.revision){const initial=revision<0||image.width!==v.width||image.height!==v.height;revision=surface.revision;if(initial){image.width=v.width;image.height=v.height;}const paint=image.getContext('2d'),rects=initial?surface.layout.rects:surface.dirtyRows.flatMap(y=>surface.layout.rows[y].map(r=>({x:r.start,y,width:r.end-r.start,height:1})));for(const tile of rects){const n=(tile.y*v.width+tile.x)*4;paint.fillStyle=`rgb(${surface.rgba[n]},${surface.rgba[n+1]},${surface.rgba[n+2]})`;paint.fillRect(tile.x,tile.y,tile.width,tile.height);}}
   const height=Math.max(1,rect.height);if(canvas.width!==backing.width||canvas.height!==backing.height){canvas.width=backing.width;canvas.height=backing.height;}ctx.setTransform(backing.width/size,0,0,backing.height/height,0,0);ctx.clearRect(0,0,size,height);
   const map=diamondMap(v.width,v.height,size,height,anchor),o=map.projectCut(0,0),a=map.projectCut(1,0),b=map.projectCut(0,1);
-  ctx.imageSmoothingEnabled=false;ctx.save();ctx.transform(a.x-o.x,a.y-o.y,b.x-o.x,b.y-o.y,o.x,o.y);for(const p of map.parts())ctx.drawImage(image,p.sx,p.sy,p.width,p.height,p.dx,p.dy,p.width,p.height);ctx.restore();
+  // Join the at-most-four canonical rectangles BEFORE diamond projection.
+  // Projecting each independently antialiases their internal edges and leaves
+  // a visible translucent cross even across a uniformly owned toroidal seam.
+  const cut=[surface.revision,v.width,v.height,map.left,map.top].join('/');
+  if(cut!==cutKey){cutKey=cut;if(rebased.width!==v.width||rebased.height!==v.height){rebased.width=v.width;rebased.height=v.height;}const paint=rebased.getContext('2d');paint.clearRect(0,0,v.width,v.height);paint.imageSmoothingEnabled=false;for(const p of map.parts())paint.drawImage(image,p.sx,p.sy,p.width,p.height,p.dx,p.dy,p.width,p.height);}
+  ctx.imageSmoothingEnabled=false;ctx.save();ctx.transform(a.x-o.x,a.y-o.y,b.x-o.x,b.y-o.y,o.x,o.y);ctx.drawImage(rebased,0,0);ctx.restore();
   ctx.fillStyle='#ffffff16';ctx.strokeStyle='#fff';ctx.lineWidth=1.5;for(const polygon of camera.minimapPolygons(anchor)){ctx.beginPath();polygon.forEach((p,i)=>{const q=map.projectCut(p.x,p.y);i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.closePath();ctx.fill();ctx.stroke();}
   for(const c of v.cannons.values())if(c.id===selected||c.account===account){ctx.beginPath();const p=map.project(c.cell%v.width+.5,Math.floor(c.cell/v.width)+.5);ctx.arc(p.x,p.y,c.id===selected?3.5:2.5,0,Math.PI*2);ctx.fillStyle=c.id===selected?'#fff':v.color(c.id);ctx.fill();ctx.strokeStyle='#172029';ctx.stroke();}
   if(ball){const p=map.project(ball.x,ball.y);ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.strokeStyle='#f5c77e';ctx.stroke();}
