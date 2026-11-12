@@ -1,0 +1,154 @@
+{
+  "timings": {
+    "currentAuthorityAt": 6948.89999999851,
+    "firstVerifiedFrameAt": 8682.60000000149,
+    "operatingStateKnownAt": 8682.60000000149,
+    "firstMotionFrameAt": 12219.60000000149
+  },
+  "samples": [
+    {
+      "at": 8682.60000000149,
+      "time": 7022,
+      "head": "7026",
+      "referenceTime": 7023,
+      "status": "waiting"
+    },
+    {
+      "at": 12219.60000000149,
+      "time": 7022.001833,
+      "head": "7026",
+      "referenceTime": 7023,
+      "status": "slow"
+    },
+    {
+      "at": 12695.89999999851,
+      "time": 7022.0118330000005,
+      "head": "7026",
+      "referenceTime": 7023,
+      "status": "slow"
+    },
+    {
+      "at": 13180.60000000149,
+      "time": 7022.0163330000005,
+      "head": "7026",
+      "referenceTime": 7023,
+      "status": "slow"
+    },
+    {
+      "at": 13859.80000000447,
+      "time": 7022.021000000001,
+      "head": "7026",
+      "referenceTime": 7023,
+      "status": "slow"
+    },
+    {
+      "at": 14163.30000000447,
+      "time": 7022.024833,
+      "head": "7026",
+      "referenceTime": 7023,
+      "status": "slow"
+    }
+  ],
+  "history": {
+    "requests": 2,
+    "bytes": 16114,
+    "outcome": "interval",
+    "elapsedMs": 788.6000000014901
+  },
+  "head": "7026",
+  "root": "2df0ea1de560c4dbaacd5ff7863ee189d7ea6ecfd20b2ef6dcbbf33a124c5cfc",
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": 0,
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "certificateMode": "certificate-verifier",
+  "status": {
+    "kind": "slow",
+    "label": "Slow \u00b7 delayed",
+    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+    "canPrepare": true
+  },
+  "verifiedStateBytes": 12033,
+  "queueBytes": 36076,
+  "resources": [
+    {
+      "name": "style.css",
+      "transferredBytes": 22660,
+      "durationMs": 76
+    },
+    {
+      "name": "app.mjs",
+      "transferredBytes": 2010498,
+      "durationMs": 182.09999999403954
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 942.4000000059605
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 990.2000000029802
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 763.1000000014901
+    },
+    {
+      "name": "read_state",
+      "transferredBytes": 0,
+      "durationMs": 671.6999999955297
+    },
+    {
+      "name": "read_state",
+      "transferredBytes": 0,
+      "durationMs": 435.70000000298023
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 190.10000000149012
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 192.20000000298023
+    },
+    {
+      "name": "configuration-entry.bin",
+      "transferredBytes": 1463,
+      "durationMs": 24.5
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 183.39999999850988
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 310.8999999985099
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 259.90000000596046
+    },
+    {
+      "name": "query",
+      "transferredBytes": 0,
+      "durationMs": 168.5
+    }
+  ],
+  "status_result": "MEASURED",
+  "runtime_source": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+  "qualification": "Exact frozen candidate served from loopback with production headers and read-only actual mainnet backend; production frontend not modified",
+  "read_only_posts": 13,
+  "page_errors": []
+}

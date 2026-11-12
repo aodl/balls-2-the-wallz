@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "runtime_source": "PENDING_COMMIT",
+  "runtime_source": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
   "scope": "Natural panel sizing and per-frame status invariants; controlled canonical scene, real DOM/input.",
   "samples": 2714,
   "rows": [

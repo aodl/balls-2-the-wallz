@@ -44,6 +44,7 @@ def choose_action(page,kind,review=True):
         button=page.locator({'start':'#build-action','ball':'#fire-action','move':'#move-action'}[kind])
         if button.get_attribute('aria-pressed')!='true':button.click()
     if review:review_instructions(page)
+    camera_settled(page);settled_panel(page)
 def different_owned_cell(page):
     return page.evaluate('''()=>{const w=__b2zExperience.session.referenceWorld,id=__b2zTools.selection(),c=w.cannons.find(c=>c.id===id);if(w.version>=5)throw Error('Use canonical compact-world fixture');const n=w.cells.findIndex((owner,n)=>owner===c.id&&n!==c.cell);if(n<0)throw Error('No different owned fixture cell');return n;}''')
 def selected_cell(page):
@@ -692,9 +693,16 @@ def main():
             # target; pointer-down deliberately cancels an in-flight camera move.
             camera_settled(page);settled_panel(page)
             import math
+            report['native_aim_trace']=[]
             for angle in [0,37.5,90,135,180,225,270,315,359.99]:
+                camera_settled(page);settled_panel(page)
                 origin=page.evaluate('()=>{const w=__b2zExperience.session.referenceWorld,c=w.cannons.find(c=>c.id===__b2zTools.selection());return __b2zCamera.cellPoint(c.cell);}')
-                h=page.locator('#aim-handle').bounding_box();page.mouse.move(h['x']+22,h['y']+22);page.mouse.down();page.mouse.move(origin['sx']+math.sin(math.radians(angle))*90,origin['sy']-math.cos(math.radians(angle))*90,steps=3);page.mouse.up();review_instructions(page)
+                pose=lambda:page.evaluate('({camera:[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale],composer:__b2zExperience.composer,memo:document.getElementById("text-memo").textContent,time:__b2zExperience.visibleTime})')
+                trace={'angle':angle,'origin':origin,'before':pose()};h=page.locator('#aim-handle').bounding_box();page.mouse.move(h['x']+22,h['y']+22);page.mouse.down();trace['down']=pose();page.mouse.move(origin['sx']+math.sin(math.radians(angle))*90,origin['sy']-math.cos(math.radians(angle))*90,steps=3);trace['moved']=pose();page.mouse.up();review_instructions(page);trace['after']=pose();report['native_aim_trace'].append(trace)
+                # The memo is synchronous; this diagnostic composer snapshot is
+                # emitted by the 100ms HUD cadence, not by each pointer event.
+                wait_until(page,lambda:abs((float(heading_value(page))-angle+180)%360-180)<.03,5000)
+                trace['published']=pose()
                 actual=float(heading_value(page));assert abs((actual-angle+180)%360-180)<.03,(angle,actual)
             # Exact keyboard aiming remains available; empty drag/pinch are camera gestures.
             set_heading(page,'119.99');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 359.99'
@@ -737,9 +745,10 @@ def main():
             record('same-cannon-draft-retains-screen-heading-and-exact-canonical-memo')
             cell=different_owned_cell(page);choose_action(page,'move')
             choose_cell(page,str(cell))
-            # Move is selected from the cannon context.
-            point=page.evaluate('(cell)=>__b2zCamera.screen(cell%16+.5,Math.floor(cell/16)+.5)',cell)
-            page.mouse.click(point['x'],point['y'])
+            # choose_cell already sends the native arena click. A second click
+            # here was left over from the removed numeric-input helper and can
+            # become a double-click camera gesture rather than tile selection.
+            wait_committed_cell(page,cell)
             assert chosen_cell(page)==str(cell)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#text-memo').inner_text()==f'MOVE {cell}'
@@ -851,12 +860,23 @@ def main():
                     damaged_script=script.replace(configuration['root_key_hex'],mainnet_root)
                     negative.route('**/app.mjs',lambda route:route.fulfill(status=200,content_type='text/javascript',body=damaged_script))
                 negative.goto(url,timeout=30000)
-                try:wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
+                try:
+                    if fault=='unavailable-config':
+                        wait_until(negative,lambda:negative.locator('#arena-note').inner_text()=='Reconnecting',30000)
+                        assert negative.locator('body').get_attribute('data-phase')!='ERROR'
+                    else:wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
                 except Exception:
                     report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#observation-error').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
                 assert negative.locator('#transfer-controls').evaluate('(n)=>n.disabled')
-                assert negative.locator('#arena-note').inner_text()==('Reconnecting'if fault=='unavailable-config'else'Unable to verify game')
+                assert negative.locator('#arena-note').inner_text()==('Reconnecting'if fault=='unavailable-config'else'Unable to verify game data.')
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
+                if fault=='unavailable-config':
+                    # A missing transport response is recoverable, unlike a
+                    # configuration hash mismatch or invalid certificate below.
+                    negative.unroute('**/configuration.bin')
+                    wait_until(negative,lambda:negative.evaluate('Boolean(globalThis.__dtrLive?.connected&&__b2zExperience.session.ready)'),30000)
+                    assert source_value(negative,'recipient')==configuration['recipient']
+                    report['configuration_transport_recovery']='Same page automatically admits fresh authenticated configuration after HTTP 503; unsafe copying disabled throughout the unavailable state.'
                 if fault=='wrong-certificate-root':
                     open_settings(negative)
                     message=negative.locator('#observation-error').inner_text().lower()

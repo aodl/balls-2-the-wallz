@@ -69,10 +69,15 @@ operator procedure document the corrected sizing/settling contract.
 ## Installed-browser qualifier timing
 
 The completed starting run independently failed two installed-browser checks.
-The stationary aim journey computed a target before entry camera accommodation
-settled; pointer-down correctly cancels that movement, making the earlier target
-stale. It now uses the existing camera-settling predicate plus the strengthened
-panel predicate before constructing the target. The exact 0.03° assertion remains.
+The aiming test reads `__b2zExperience.composer`, a HUD snapshot emitted every
+100ms, immediately after a three-step pointer move. Its reported 31.22° is exactly
+the intermediate point toward 37.5°; a later local failure reported the analogous
+262.6° intermediate point toward 270°. The initial camera-only explanation was
+incomplete. The qualifier now traces camera, synchronous memo and HUD composer,
+waits for the diagnostic snapshot to publish the exact final angle, then applies
+the unchanged 0.03° assertion. Incorrect aiming still fails the bounded wait.
+Stationary gesture entry also uses the existing camera/panel settling predicates;
+manual camera interruption remains separately covered by native input tests.
 The fixed-H test waited on a live clock object but immediately read `visibleTime`
 from a HUD snapshot published every 100ms. It now additionally waits for HUD time
 and the actual last-rendered playhead to equal the verified endpoint, then retains
@@ -86,6 +91,21 @@ target with full presentation rate before starting the same 45-second trace.
 Zero-stall, rate and no-resync assertions are unchanged; acquisition is separately
 recorded rather than removed from startup evidence. Full installed reruns are
 pending; final hosted installed-IC must pass independently.
+
+The installed Move journey also retained a second click from the former numeric
+helper: `choose_cell()` now already emits native arena input. The redundant click
+could become a double-click camera gesture. It is replaced by the existing
+read-only canonical-cell commit wait; exact cell/memo/amount assertions remain.
+The shared action-opening helper now observes camera/panel settlement before
+constructing coordinate-based gestures. Dedicated interruption/double-click tests
+continue exercising those interactions without this stationary-entry assumption.
+
+The old unavailable-configuration negative case required permanent ERROR for an
+HTTP 503. It now requires Reconnecting, disabled copies and automatic same-page
+recovery after transport is restored. Tampered configuration and wrong certificate
+root still require ERROR, the exact current verification-failure label, disabled
+copies and no admitted connection. This aligns the qualifier with the required
+transport/integrity distinction, without changing runtime verification.
 
 ## Transition results
 
@@ -151,8 +171,34 @@ input, borderless minimap, tails and visual/performance evidence. Those runtime
 inputs remain unchanged except shell layout measurement; complete final hosted
 qualification must independently pass the installed-IC and browser assertions.
 
-Frozen source/assets and six final hosted conclusions are pending. Local success
-alone does not qualify a release. Preserve the currently deployed b0f6c7a assets
+Runtime source is `ca8b1f821932cd3b2bd164c84b07935453d8fb6a`, frozen with
+`source_dirty=false` under `.work/panel-closeout/frozen/frontend`. Exact identities:
+
+- JavaScript SHA256: `9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c` (2,010,198 bytes; +1,245 versus 777fb42).
+- Build manifest SHA256: `0200b6b608e54fff7845fee671b0d1e786af1a5083af341a276e987e5cdd1be7`.
+- Complete 16-file [inventory](frontend-files.json) SHA256: `f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c`.
+
+Only `app.mjs` and `build-manifest.json` differ from the previous 777fb42 freeze.
+[Build inputs](build-inputs.json) pin all bundle sources, builders, lock and copied
+assets for subsequent qualifier/evidence-only identity checks; do not rebuild or
+substitute the frozen candidate.
+
+The new [certified run](certified-summary.json) passes fixed-H startup, genuine
+elapsed 5/30/90/180-second outages, slow optional status, bounded historical timeout,
+cold-outage recovery and wrong-root signature rejection in 471.132 seconds, using
+the unchanged exact reviewed normal module. This is the named focused frontend
+case, not an inferred full Candid/upgrade/ledger or production qualification.
+
+An additional [frozen read-only smoke](frozen-read-only.json) uses actual mainnet
+certificate verification and only `/query` and `/read_state` requests. H=7026:
+authority 6,948.9ms, first verified frame 8,682.6ms, first observed motion 12,219.6ms;
+optional predecessor acquisition 2 requests / 16,114 bytes / 788.6ms. Operating
+state known at 8,682.6ms. These are one software-browser network sample, not a
+performance comparison or production frontend behaviour claim. The installed
+frontend was independently re-fetched and remains JS `42f30ead…`.
+
+Six final hosted conclusions are pending. Local success alone does not qualify
+a release. Preserve the currently deployed b0f6c7a assets
 (JS `42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5`, complete
 inventory `216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2`)
 for frontend-only rollback using the existing operator procedure. No deployment
