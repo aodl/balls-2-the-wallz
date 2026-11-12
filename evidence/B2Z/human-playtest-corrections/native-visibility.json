@@ -1,0 +1,132 @@
+{
+  "status": "PASS",
+  "actual_hidden_seconds": 35.00432872300007,
+  "return_to_visibility_observation_ms": 227.49074800231028,
+  "return_to_fresh_current_state_ms": 1161.7386229991098,
+  "requests_in_hidden_window": 2,
+  "fetched_encoded_bytes_while_hidden": 65239,
+  "cpu_task_seconds_during_away_and_return": 1.260094,
+  "total_requests": 28,
+  "query_only": true,
+  "automation_defaults_disabled": true,
+  "errors": [],
+  "first_verified_render_submission_ms": 17.099999994039536,
+  "first_verified_frame_latency": null,
+  "frame_limit": "Visibility observation and fresh-state timings are not first rendered-frame timings; graphics availability is recorded separately",
+  "hidden_executing": "Actual document.hidden verified; no spoofed visibility or disabled throttling",
+  "repeated_returns": [
+    {
+      "case": "short",
+      "elapsed_hidden_seconds": 3.0103740220001782,
+      "return_to_visible_observation_ms": 301.12390300200786,
+      "controlled_suspension": false,
+      "retained": {
+        "sameClock": true,
+        "sameQueue": true,
+        "sameSession": true,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 6918.012667000003,
+          "available": 6919,
+          "buffer": 0.9873329999973066,
+          "rate": 1
+        },
+        "events": [
+          {
+            "name": "visibilitychange",
+            "time": 5477.5,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 40620.60000000149,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 41816.10000000149,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 44894.39999999851,
+            "hidden": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "simulated-suspension",
+      "elapsed_hidden_seconds": 8.015791865997016,
+      "return_to_visible_observation_ms": 431.5775260038208,
+      "controlled_suspension": true,
+      "retained": {
+        "sameClock": true,
+        "sameQueue": true,
+        "sameSession": true,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 6918.015667000003,
+          "available": 6919,
+          "buffer": 0.9843329999966954,
+          "rate": 1
+        },
+        "events": [
+          {
+            "name": "visibilitychange",
+            "time": 5477.5,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 40620.60000000149,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 41816.10000000149,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 44894.39999999851,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 45218.30000000447,
+            "hidden": true
+          },
+          {
+            "name": "freeze",
+            "time": 45331.80000000447,
+            "hidden": true
+          },
+          {
+            "name": "resume",
+            "time": 53278.60000000149,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 53338.70000000298,
+            "hidden": false
+          }
+        ]
+      }
+    }
+  ],
+  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "scope": "Actual document.hidden and same-window tab navigation in ordinary headless Chromium, CDP no_defaults; all POSTs read-only; software rendering is not hardware/device evidence",
+  "raw": ".work/human-corrections/native-hidden-cdp/acceptance"
+}

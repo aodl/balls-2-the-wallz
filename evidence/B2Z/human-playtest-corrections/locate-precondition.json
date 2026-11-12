@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "negative_control": {
+        "offscreen": false,
+        "active": true
+      },
+      "manual_setup": {
+        "offscreen": true,
+        "inert": true,
+        "sameClock": true
+      },
+      "native_locate_reachable": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "negative_control": {
+        "offscreen": false,
+        "active": true
+      },
+      "manual_setup": {
+        "offscreen": true,
+        "inert": true,
+        "sameClock": true
+      },
+      "native_locate_reachable": true
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "negative_control": {
+        "offscreen": false,
+        "active": true
+      },
+      "manual_setup": {
+        "offscreen": true,
+        "inert": true,
+        "sameClock": true
+      },
+      "native_locate_reachable": true
+    }
+  ]
+}

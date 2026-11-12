@@ -1,9 +1,9 @@
 {
   "status": "PASS",
   "scope": "Actual pinned disposable PocketIC root and normal-module certificate; frontend-only fixed-H browser acceptance, not production qualification",
-  "raw": ".work/human-corrections/certified-closeout/deployment/human-corrections",
-  "source_commit": "1ccd4b1b6ffe5751730cf0391a2df0bdfc99413b",
-  "source_dirty": true,
+  "raw": ".work/human-corrections/certified-frozen-source/deployment/human-corrections",
+  "source_commit": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "source_dirty": false,
   "startup": {
     "head": "1",
     "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
@@ -14,14 +14,14 @@
       "requests": 2,
       "bytes": 3822,
       "outcome": "interval",
-      "elapsedMs": 458.8999999985099
+      "elapsedMs": 345.70000000298023
     },
-    "verified_world_acquired_ms": 5819.20000000298,
-    "first_visible_frame_ms": 7305.79999999702,
-    "first_sampled_motion_ms": 11206,
+    "verified_world_acquired_ms": 3782.39999999851,
+    "first_visible_frame_ms": 4844.0999999940395,
+    "first_sampled_motion_ms": 6620.5,
     "cold_frames": [
       {
-        "at": 7305.79999999702,
+        "at": 4844.0999999940395,
         "head": "1",
         "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
         "time": 1,
@@ -51,7 +51,7 @@
         ]
       },
       {
-        "at": 11206,
+        "at": 6620.5,
         "head": "1",
         "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
         "time": 1.1333000000000002,
@@ -81,7 +81,7 @@
         ]
       },
       {
-        "at": 11521.39999999851,
+        "at": 6815.89999999851,
         "head": "1",
         "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
         "time": 1.3833000000000002,
@@ -148,7 +148,7 @@
     }
   ],
   "slow_optional_status": {
-    "world_seconds": 3.526086564997968,
+    "world_seconds": 3.3849638079991564,
     "payment_disabled_until_status": true
   },
   "history_deadline": {
@@ -156,9 +156,9 @@
       "requests": 1,
       "bytes": 0,
       "outcome": "deadline",
-      "elapsedMs": 2003.8000000044703
+      "elapsedMs": 2001.5999999940395
     },
-    "verified_world_acquired_ms": 3910.89999999851,
+    "verified_world_acquired_ms": 4839,
     "late_response_no_rewind": true
   },
   "wrong_root": {

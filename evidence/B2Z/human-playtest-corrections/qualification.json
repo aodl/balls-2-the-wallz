@@ -1,0 +1,103 @@
+{
+  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "qualifier_source": "052294d656015a232b3e3f0cf69cda19278b308e",
+  "runtime_inputs_unchanged_since_freeze": true,
+  "tests_js": 1845,
+  "tests_python": 199,
+  "checks": [
+    {
+      "case": "source-exact",
+      "status": "PASS",
+      "raw": ".work/human-corrections/source-exact/verification.json"
+    },
+    {
+      "case": "http-browser",
+      "status": "PASS",
+      "raw": ".work/human-corrections/http-browser/verification.json"
+    },
+    {
+      "case": "wire-capture",
+      "status": "PASS",
+      "raw": ".work/human-corrections/wire-capture/results.json"
+    },
+    {
+      "case": "tactical-journey",
+      "status": "PASS",
+      "raw": ".work/human-corrections/tactical-journey/results.json",
+      "exit_code": 0
+    },
+    {
+      "case": "guide-depth",
+      "status": "PASS",
+      "raw": ".work/human-corrections/guide-depth/results.json"
+    },
+    {
+      "case": "elastic-return",
+      "status": "PASS",
+      "raw": ".work/human-corrections/elastic-return/results.json"
+    },
+    {
+      "case": "native-closeout",
+      "status": "PASS",
+      "raw": ".work/human-corrections/native-closeout/results.json"
+    },
+    {
+      "case": "refinement-closeout",
+      "status": "PASS",
+      "raw": ".work/human-corrections/refinement-closeout/results.json"
+    },
+    {
+      "case": "visual-closeout",
+      "status": "PASS",
+      "raw": ".work/human-corrections/visual-closeout/results.json"
+    },
+    {
+      "case": "playability-ci-correction",
+      "status": "PASS",
+      "raw": ".work/human-corrections/playability-ci-correction/results.json"
+    },
+    {
+      "case": "locate-precondition",
+      "status": "PASS",
+      "raw": ".work/human-corrections/locate-precondition/results.json"
+    },
+    {
+      "case": "frozen-read-only",
+      "status": "PASS",
+      "raw": ".work/human-corrections/frozen-read-only/results.json"
+    },
+    {
+      "case": "terrain-grid-seams",
+      "status": "PASS",
+      "comparisons": 96,
+      "raw": ".work/human-corrections/tactical-grid-closeout/comparisons.json"
+    },
+    {
+      "case": "actual-native-hidden-return",
+      "status": "PASS",
+      "raw": ".work/human-corrections/native-hidden-cdp/acceptance/results.json"
+    },
+    {
+      "case": "certified-frozen-source",
+      "status": "PASS",
+      "raw": ".work/human-corrections/certified-frozen-source/deployment/human-corrections/results.json"
+    },
+    {
+      "case": "certified-timings",
+      "status": "PASS",
+      "raw": ".work/human-corrections/certified-timings/deployment/human-corrections/results.json"
+    },
+    {
+      "case": "status-viewports-mainnet-read-only",
+      "status": "PASS",
+      "raw": ".work/human-corrections/status-viewports-final/results.json"
+    }
+  ],
+  "hosted_ci": "Awaiting owner publication of qualifier correction; first Browser failure retained under 47f563b",
+  "limits": [
+    "Software rendering and emulated viewports/touch do not qualify hardware/physical-device performance",
+    "Original cold Wasm build attempt timed out; focused frontend installed cases reuse exact reviewed module",
+    "Controlled freeze/resume is labelled separately from actual document.hidden evidence"
+  ],
+  "raw_root": ".work/human-corrections"
+}

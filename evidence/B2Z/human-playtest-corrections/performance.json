@@ -1,0 +1,514 @@
+{
+  "status": "MEASURED",
+  "scope": "Software WebGL and emulated viewports; no hardware/physical-phone smoothness claim. Five-second bounded windows, no video encoding. Interaction latency is synthetic pointer dispatch to next render frame, not native input latency.",
+  "fresh_browser_per_viewport": true,
+  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "initial_contended_run": ".work/human-corrections/performance",
+  "raw": ".work/human-corrections/performance-isolated",
+  "rows": [
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.006466579005064,
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "cpu_task_seconds": 4.996471,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.314176,
+      "pointer_to_next_frame_ms": 3.6999999955296516,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 56,
+        "p50": 83.39999999999964,
+        "p95": 133.39999999999964,
+        "draw_p95": 8.5,
+        "render_p95": 8,
+        "shell_p95": 1.4000000059604645,
+        "status_p95": 2.3000000044703484,
+        "heap": 20500000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.004889570001978,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.029446,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.24638000000000004,
+      "pointer_to_next_frame_ms": 4.100000001490116,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 54,
+        "p50": 99.89999999999964,
+        "p95": 116.70000000000073,
+        "draw_p95": 6.600000001490116,
+        "render_p95": 6.200000002980232,
+        "shell_p95": 2.100000001490116,
+        "status_p95": 3.6999999955296516,
+        "heap": 20500000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.004809115998796,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.190496000000003,
+      "layout_seconds": 0.0005760000000000001,
+      "script_seconds": 0.510364,
+      "pointer_to_next_frame_ms": 3.399999998509884,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 46,
+        "p50": 100,
+        "p95": 300,
+        "draw_p95": 8.099999994039536,
+        "render_p95": 6.699999995529652,
+        "shell_p95": 1.5999999940395355,
+        "status_p95": 2.899999998509884,
+        "heap": 20500000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.006840340000053,
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "cpu_task_seconds": 4.951119,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.545812,
+      "pointer_to_next_frame_ms": 4.699999995529652,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 129,
+        "p50": 33.40000000000009,
+        "p95": 50.099999999999454,
+        "draw_p95": 6.800000004470348,
+        "render_p95": 6.5,
+        "shell_p95": 1.2000000029802322,
+        "status_p95": 2,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.008502157004841,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 4.954153,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.768955,
+      "pointer_to_next_frame_ms": 6.5,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 98,
+        "p50": 50,
+        "p95": 66.70000000000073,
+        "draw_p95": 9.399999998509884,
+        "render_p95": 8.299999997019768,
+        "shell_p95": 3.2999999970197678,
+        "status_p95": 3.5999999940395355,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.009775760998309,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 4.989301999999999,
+      "layout_seconds": 0.001229000000000001,
+      "script_seconds": 0.5338149999999997,
+      "pointer_to_next_frame_ms": 5.399999998509884,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 104,
+        "p50": 50,
+        "p95": 66.70000000000073,
+        "draw_p95": 7.4000000059604645,
+        "render_p95": 5.799999997019768,
+        "shell_p95": 2.8000000044703484,
+        "status_p95": 2.7000000029802322,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.005237705001491,
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "cpu_task_seconds": 4.916999,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.67023,
+      "pointer_to_next_frame_ms": 3.0999999940395355,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 166,
+        "p50": 33.30000000000018,
+        "p95": 50,
+        "draw_p95": 6.600000001490116,
+        "render_p95": 6.299999997019768,
+        "shell_p95": 1,
+        "status_p95": 1.1000000014901161,
+        "heap": 21700000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.004136848001508,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 4.999567,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.7299430000000001,
+      "pointer_to_next_frame_ms": 8.899999998509884,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 218,
+        "p50": 16.700000000000728,
+        "p95": 33.399999999999636,
+        "draw_p95": 5.600000001490116,
+        "render_p95": 4.5999999940395355,
+        "shell_p95": 0.8999999985098839,
+        "status_p95": 1.1000000014901161,
+        "heap": 21700000
+      }
+    },
+    {
+      "variant": "baseline-runtime",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.002530112004024,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.002213999999999,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.7504199999999999,
+      "pointer_to_next_frame_ms": 3.100000001490116,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 213,
+        "p50": 16.700000000000728,
+        "p95": 33.400000000001455,
+        "draw_p95": 5.100000001490116,
+        "render_p95": 4.299999997019768,
+        "shell_p95": 1.0999999940395355,
+        "status_p95": 1.1000000014901161,
+        "heap": 21700000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.003889827996318,
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "cpu_task_seconds": 5.022944,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.30296399999999996,
+      "pointer_to_next_frame_ms": 3.600000001490116,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 87,
+        "p50": 66.59999999999945,
+        "p95": 66.70000000000027,
+        "draw_p95": 6.899999998509884,
+        "render_p95": 6.600000001490116,
+        "shell_p95": 0.30000000447034836,
+        "status_p95": 1.3000000044703484,
+        "heap": 20500000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.002970081994135,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.003418999999999,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.3053,
+      "pointer_to_next_frame_ms": 3.6999999955296516,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 76,
+        "p50": 66.69999999999891,
+        "p95": 83.29999999999927,
+        "draw_p95": 7.199999995529652,
+        "render_p95": 5.5999999940395355,
+        "shell_p95": 1,
+        "status_p95": 1.1999999955296516,
+        "heap": 20500000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.0058665739998105,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.064209,
+      "layout_seconds": 0.00017599999999999907,
+      "script_seconds": 0.29595800000000005,
+      "pointer_to_next_frame_ms": 4.100000001490116,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 75,
+        "p50": 66.70000000000073,
+        "p95": 83.40000000000146,
+        "draw_p95": 5.899999998509884,
+        "render_p95": 4.700000002980232,
+        "shell_p95": 1.6000000014901161,
+        "status_p95": 2.399999998509884,
+        "heap": 20500000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.005261011006951,
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "cpu_task_seconds": 5.013372,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.6241749999999999,
+      "pointer_to_next_frame_ms": 2.7000000029802322,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 213,
+        "p50": 16.700000000000273,
+        "p95": 33.40000000000009,
+        "draw_p95": 3.899999998509884,
+        "render_p95": 3.7000000029802322,
+        "shell_p95": 0.29999999701976776,
+        "status_p95": 0.8999999985098839,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.007946402001835,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.019419000000001,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.5860669999999999,
+      "pointer_to_next_frame_ms": 3.399999998509884,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 151,
+        "p50": 33.30000000000109,
+        "p95": 50,
+        "draw_p95": 5.100000001490116,
+        "render_p95": 4.5,
+        "shell_p95": 0.6999999955296516,
+        "status_p95": 2.3000000044703484,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        390,
+        844
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.004316172999097,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 5.013120000000001,
+      "layout_seconds": 0.0004569999999999991,
+      "script_seconds": 0.5446090000000001,
+      "pointer_to_next_frame_ms": 4.700000002980232,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 145,
+        "p50": 33.30000000000109,
+        "p95": 50,
+        "draw_p95": 4.899999998509884,
+        "render_p95": 3.899999998509884,
+        "shell_p95": 1.3999999985098839,
+        "status_p95": 1.6000000014901161,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "six-entity-seam",
+      "elapsed_seconds": 5.002317504004168,
+      "population": {
+        "cannons": 3,
+        "balls": 3
+      },
+      "cpu_task_seconds": 4.962878999999999,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.713674,
+      "pointer_to_next_frame_ms": 3.899999998509884,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 182,
+        "p50": 33.299999999999955,
+        "p95": 33.400000000000546,
+        "draw_p95": 5.799999997019768,
+        "render_p95": 5.5,
+        "shell_p95": 0.20000000298023224,
+        "status_p95": 1.3999999985098839,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "verified-motion-and-panel",
+      "elapsed_seconds": 5.008712334005395,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 4.980568999999999,
+      "layout_seconds": 0.0,
+      "script_seconds": 0.8059299999999999,
+      "pointer_to_next_frame_ms": 15.600000001490116,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 129,
+        "p50": 33.399999999999636,
+        "p95": 66.69999999999891,
+        "draw_p95": 10.5,
+        "render_p95": 9.799999997019768,
+        "shell_p95": 2.8000000044703484,
+        "status_p95": 2.600000001490116,
+        "heap": 23100000
+      }
+    },
+    {
+      "variant": "candidate",
+      "viewport": [
+        320,
+        640
+      ],
+      "scene": "build-preview",
+      "elapsed_seconds": 5.004866237002716,
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "cpu_task_seconds": 4.975325,
+      "layout_seconds": 0.0010439999999999998,
+      "script_seconds": 0.7631590000000004,
+      "pointer_to_next_frame_ms": 4.300000004470348,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "metrics": {
+        "frames": 124,
+        "p50": 33.400000000001455,
+        "p95": 50.100000000000364,
+        "draw_p95": 8.700000002980232,
+        "render_p95": 6.700000002980232,
+        "shell_p95": 3.3000000044703484,
+        "status_p95": 2.7999999970197678,
+        "heap": 23100000
+      }
+    }
+  ]
+}

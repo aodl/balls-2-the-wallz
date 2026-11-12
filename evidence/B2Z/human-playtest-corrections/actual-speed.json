@@ -1,0 +1,79 @@
+{
+  "status": "MEASURED",
+  "scope": "Matched real wall-clock supported-rate visual samples; no production or hardware claim.",
+  "raw": ".work/human-corrections/actual-speed",
+  "rows": [
+    {
+      "variant": "deployed",
+      "pace_ticks_per_second": 0.01,
+      "real_elapsed_seconds": 22.014835928006505,
+      "initial_time": 0.009166,
+      "final_time": 0.1476660000000001,
+      "tail_instances": 20,
+      "white_pixels": 177,
+      "white_outside_core": 0,
+      "pixel_sample_size": 96,
+      "buffer_ratio": 1
+    },
+    {
+      "variant": "deployed",
+      "pace_ticks_per_second": 0.05,
+      "real_elapsed_seconds": 8.01307148199703,
+      "initial_time": 0.04000000000000001,
+      "final_time": 0.34573165613850015,
+      "tail_instances": 4,
+      "white_pixels": 175,
+      "white_outside_core": 0,
+      "pixel_sample_size": 96,
+      "buffer_ratio": 1
+    },
+    {
+      "variant": "deployed",
+      "pace_ticks_per_second": 1,
+      "real_elapsed_seconds": 0.6545692099971347,
+      "initial_time": 0.1666999999999971,
+      "final_time": 0.6666999999999971,
+      "tail_instances": 1,
+      "white_pixels": 172,
+      "white_outside_core": 2,
+      "pixel_sample_size": 96,
+      "buffer_ratio": 1
+    },
+    {
+      "variant": "refined",
+      "pace_ticks_per_second": 0.01,
+      "real_elapsed_seconds": 22.022790408002038,
+      "initial_time": 0.009667000000000002,
+      "final_time": 0.15233300000000016,
+      "tail_instances": 15,
+      "white_pixels": 177,
+      "white_outside_core": 0,
+      "pixel_sample_size": 96,
+      "buffer_ratio": 1
+    },
+    {
+      "variant": "refined",
+      "pace_ticks_per_second": 0.05,
+      "real_elapsed_seconds": 8.012263220000023,
+      "initial_time": 0.04000000000000001,
+      "final_time": 0.30496700000000015,
+      "tail_instances": 3,
+      "white_pixels": 174,
+      "white_outside_core": 0,
+      "pixel_sample_size": 96,
+      "buffer_ratio": 1
+    },
+    {
+      "variant": "refined",
+      "pace_ticks_per_second": 1,
+      "real_elapsed_seconds": 0.6572479379974538,
+      "initial_time": 0.4500999999999985,
+      "final_time": 0.7500999999999984,
+      "tail_instances": 1,
+      "white_pixels": 176,
+      "white_outside_core": 9,
+      "pixel_sample_size": 96,
+      "buffer_ratio": 1
+    }
+  ]
+}

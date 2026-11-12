@@ -1,9 +1,22 @@
-# Human-playtest correction — local implementation, qualification in progress
+# Human-playtest correction — frozen frontend, CI qualifier correction pending
 
-Frontend corrections are being tested on the existing release branch. The new
-[correction report](evidence/B2Z/human-playtest-corrections/REPORT.md) distinguishes
-current read-only production reproduction, development passes and pending gates.
-No production deployment or paid-backend/financial change is authorized or performed.
+Frontend runtime `4c63a3b` is frozen clean (16 files; JS `cd44e2a3…`, complete
+inventory `7380a1bf…`). The [closeout report](evidence/B2Z/human-playtest-corrections/REPORT.md)
+records certified fixed-H startup without H+1, automatic 5/30/90/180-second
+recovery, actual native hidden-tab returns, direct cannon/ball input, stable
+payment geometry, shared previews and populated before/after media. Source
+passes 1,845 JS / 199 Python tests; current functional browser regressions pass.
+
+The owner published `47f563b`; four substantive gates pass, Browser failed its
+Locate fixture setup, and installed-IC qualification is still running. Local
+qualifier correction `052294d` preserves the offscreen/inert/clock assertions,
+changes no frozen frontend input and awaits owner publication for six-gate CI.
+Production deployment remains separately unauthorized.
+
+Fresh read-only 12 November observations show active Trickle play, including
+H=6933 in the exact-candidate loopback startup measurement. The historical
+ReserveProtection block recorded below is not a current operating-state claim.
+No installed frontend/backend, paid state, prices or financial operation changed.
 The prior deployed release and its original qualification remain recorded below.
 
 ---
