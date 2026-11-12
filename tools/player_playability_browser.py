@@ -1,9 +1,40 @@
-from fluid_playability_browser import action_field
+from fluid_playability_browser import action_field,settled_panel
 """Focused player-centred journeys, called by the existing populated browser harness.
 Synthetic snapshots only; no certificate, wallet or physical-device claim.
 """
 import math
 from playwright.sync_api import expect
+
+def verify_aim_entry_settling(page):
+ # UX-04/11: entry composition is allowed to animate before direct aiming.
+ # Hold a real controller transition so a fast CI machine cannot accidentally
+ # qualify an early pose sample. This changes only controlled camera timing.
+ guard=page.evaluate('''()=>{const m=fixture.shell.controller;
+   if(!m.animation)m.go(m.target(c=>c.pan(0,-4)),{owner:'composition',duration:160});
+   const a=m.animation;a.duration=160;a.start=performance.now()+60000;
+   globalThis.aimEntryGuard={released:false,memo:document.getElementById('text-memo').textContent,started:performance.now()};
+   setTimeout(()=>{a.start=performance.now();aimEntryGuard.released=true;},120);
+   return{owner:a.owner,active:m.active};}''')
+ assert guard['active']and guard['owner']=='composition',guard
+ settled_panel(page)
+ result=page.evaluate('''()=>({released:aimEntryGuard.released,active:fixture.shell.controller.active,elapsed_ms:performance.now()-aimEntryGuard.started,memo:document.getElementById('text-memo').textContent,oldMemo:aimEntryGuard.memo})''')
+ assert result['released']and not result['active']and result['elapsed_ms']>=120,result
+ assert result['memo']==result['oldMemo'],result
+ print('aim entry settled',result,flush=True)
+
+def verify_aim_interrupt(page):
+ # A direct gesture cancels an in-progress accommodation from its actual pose.
+ # Compare inside pointer-down after the real shell listener, not before it.
+ page.evaluate('''()=>{const m=fixture.shell.controller;m.go(m.target(c=>c.pan(0,6)),{owner:'composition',duration:1200});
+   globalThis.aimInterrupt=null;document.getElementById('aim-handle').addEventListener('pointerdown',e=>{aimInterrupt={target:e.target.id,camera:fixture.summary().camera,active:m.active};},{once:true});}''')
+ box=page.locator('#aim-handle').bounding_box();p=page.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)')
+ page.mouse.move(box['x']+22,box['y']+22);page.mouse.down();page.mouse.move(p['sx'],p['sy']-60,steps=5);page.mouse.up()
+ down=page.evaluate('aimInterrupt');assert down and down['target']=='aim-handle'and not down['active'],down
+ assert page.evaluate('fixture.summary().camera')==down['camera']
+ page.wait_for_timeout(300)
+ assert page.evaluate('fixture.summary().camera')==down['camera']and not page.evaluate('fixture.shell.controller.active')
+ expect(page.locator('#text-memo')).to_have_text('FIRE 1 225 1')
+ print('aim interrupt held',down,flush=True)
 
 def verify_player_controls(page,width,height):
  def close():
@@ -46,6 +77,10 @@ def verify_player_controls(page,width,height):
  page.evaluate('fixture.render("idle","initial")');gap=page.evaluate('fixture.effectGap()');assert gap['moving']['effects']>0 and gap['moving']['tails']>0;assert gap['stopped']['effects']==0 and gap['stopped']['tails']==0
  page.evaluate('fixture.render("additional","initial")');select(1);page.locator('#fire-action').click()
  print('minimap path PASS',width,flush=True)
+ # Finish the intended entry movement before measuring a stationary drag.
+ # The original exact equality assertion below is retained.
+ if width==390:verify_aim_entry_settling(page)
+ else:settled_panel(page)
  # The real handle owns the drag; the camera does not change.
  handle=page.locator('#aim-handle');box=handle.bounding_box();assert box and box['width']>=44 and box['height']>=44
  assert handle.evaluate('(n)=>{const r=n.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===n}')
@@ -54,6 +89,7 @@ def verify_player_controls(page,width,height):
  page.mouse.move(box['x']+22,box['y']+22);page.mouse.down();page.mouse.move(p['sx'],p['sy']-60,steps=5);page.mouse.up()
  assert page.evaluate('fixture.summary().camera')==before
  expect(page.locator('#text-memo')).to_have_text('FIRE 1 225 1')
+ if width==390:verify_aim_interrupt(page)
  for displayed in ['0','45','90','180','270','359.99']:
   page.locator('#angle-degrees').fill(displayed);expected=page.evaluate('(a)=>fixture.expectedHeading(a)',displayed);assert page.locator('#text-memo').inner_text()==f'FIRE 1 {expected} 1';assert page.evaluate('fixture.aim().heading===fixture.command().angle')
  print('heading and drag PASS',width,flush=True)

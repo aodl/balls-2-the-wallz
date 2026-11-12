@@ -100,3 +100,13 @@ sites and keyboard-contracted viewports, filled ghost material, mouse/keyboard/t
 hint modality, and matched terrain/object captures. My-cannon navigation is suppressed
 only while a visible selected-cannon context makes it redundant, and restores on
 Close. No UI/material adjustment qualifies a backend upgrade or production deployment.
+
+
+Camera ownership assertions must distinguish entry composition from captured input.
+Before comparing a stationary aiming gesture, use the existing finite
+`settled_panel()` predicate (camera plus actual panel transitions), not a fixed
+sleep or an early pose. `player_playability_browser.py` also holds a real camera
+transition to prove this wait, and separately asserts that native aim pointer-down
+cancels an active transition and the camera stays at that captured pose. Keep both
+assertions and exact memo checks; waiting for entry is not permission to weaken
+direct-manipulation ownership or change playback.
