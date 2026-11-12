@@ -1,27 +1,26 @@
-# Final visual closeout — all six hosted gates pass; awaiting deployment decision
+# Final player-experience frontend — deployed and verified; backend protected
 
-Qualified published source `d0d613ecfd4bb6935b2f32e93ea5b690a8b37411` passes all
-six substantive jobs in run 43172629735 (12 November, completed 07:56:22 UTC).
-Source, Native, Packaged DTR/clean consumers, Wasm, Browser and S14/million-cell
-installed-IC all PASS. Inventory remains informational. Installed checks: 58/58
-PASS, including the three formerly failing seam/browser journeys.
+The approved exact frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Qualified `d0d613e` passes all six substantive gates in run 43172629735. Clean runtime
+`b0f6c7a`, served JS `42f30ead…` and complete 16-file manifest `216fac29…` were
+published once via observer-only `--no-asset-upgrade`, with no runtime rebuild.
+All fifteen public served files/security headers, consumed policy and signed asset
+inventory match. Desktop/390/320 actual production checks pass.
 
-The Browser verifier correction passed the actual held-entry and native-interrupt
-guards plus all downstream checks. Prior Browser failures and the cancelled
-predecessor S14 job remain historical evidence, never counted as passes.
+**Active paid playtesting is blocked by pre-existing ReserveProtection, admission
+closed.** Backend final total/liquid: 1,213,988,231,999 / 1,157,655,470,909 cycles;
+nominal/supported pace 0. The existing treasury balance-query deadline warning
+remains. New instruction-copy controls are disabled; local Fire/Move/Build previews
+and navigation work. No funding, recovery, policy change or test payment occurred.
 
-Clean frozen runtime `b0f6c7a`, all 16 files, JS `42f30ead…` and manifest
-`216fac29…` remain unchanged. Runtime/configuration/backend/dependency/builder
-inputs match the qualified source; no rebuild is needed for evidence-only updates.
-[Consolidated release candidate record](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
-contains exact hashes, all six results, artifact identities and populated media.
-
-Ready for a separate exact frontend-assets-only deployment decision and fresh
-operational preflight; no production publication is authorized here. Paid backend,
-financial authority, settings/controllers and production frontend are untouched;
-delegated payments remain isolated/disabled. Hardware/physical-phone/genuine hidden-
-tab limitations are explicit. No further source push or qualification campaign is
-needed for the unchanged runtime. Remote publication remains owner-operated.
+Backend module `612ad0d0…`, frontend Wasm `04e565b3…`, controllers/settings,
+13-node European subnet, certified identity/epoch/config/source, paid state and
+financial authority are preserved. No backend build/upgrade/reset/start/stop or
+ICRC-2 activation occurred. Prior fluid assets and policy are preserved for rollback.
+[Actual release record](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
+contains full served hashes, preservation, media and limitations. Hardware, physical
+phone, real-wallet and genuine hidden-tab coverage are not claimed. No extra runtime
+rebuild or qualification campaign is needed for evidence-only updates.
 
 ---
 

@@ -1,0 +1,389 @@
+{
+  "status": "PASS",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "scope": "Actual served release; anonymous certified observation, local declaration, no payment/update calls.\nProtected admission is verified, not bypassed. Qualified disposable payment evidence remains separate.\n",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "initial": {
+        "status": {
+          "kind": "protection",
+          "label": "Game paused \u00b7 low energy",
+          "detail": "Waiting for sufficient operating resources.",
+          "canPrepare": false
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": "12955c9d0763f333c06f206a32dd29c29eb366982715363f2f30a4a7e6cf9788",
+        "world": {
+          "version": 6,
+          "cannons": 1,
+          "balls": 1
+        },
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 6505,
+          "available": 6505,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "local_account_restored": true,
+      "actions_disabled": {
+        "fire-action": false,
+        "move-action": false,
+        "build-action": false
+      },
+      "payment": {
+        "status": "LOCAL_PREVIEW_VERIFIED_COPIES_BLOCKED_BY_RESERVE_PROTECTION",
+        "new_instruction_copy_disabled": true,
+        "manual_authority_not_bypassed": true,
+        "fire": {
+          "amount": "0.1 ICP",
+          "amount_copy": "0.1",
+          "memo": "FIRE 1 255 1",
+          "hex": "464952452031203235352031",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "amount_copy": "0.0001",
+          "memo": "MOVE 1 997997",
+          "hex": "4d4f5645203120393937393937",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "build": {
+          "status": "LOCAL_PREVIEW_AND_EXACT_PACKET_VERIFIED",
+          "cell": 1,
+          "quote": {
+            "amount": "4 ICP",
+            "amount_copy": "4",
+            "memo": "NEW 225 1 1",
+            "hex": "4e45572032323520312031",
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+          }
+        },
+        "toolbar_drift_px": 0.0,
+        "copy_freeze_replacement_evidence": "Unchanged-runtime qualified CI43172629735; cannot exercise enabled copying while production is protected"
+      },
+      "non_repeat_scale": 2.03646773346401,
+      "follow": {
+        "first": {
+          "time": 6505,
+          "camera": [
+            19.45274068638446,
+            42.47813131138446
+          ],
+          "clock": {
+            "phase": "BUFFERING",
+            "playhead": 6505,
+            "available": 6505,
+            "buffer": 0,
+            "rate": 1
+          }
+        },
+        "last": {
+          "time": 6505,
+          "camera": [
+            19.45274068638446,
+            42.47813131138446
+          ],
+          "clock": {
+            "phase": "BUFFERING",
+            "playhead": 6505,
+            "available": 6505,
+            "buffer": 0,
+            "rate": 1
+          }
+        },
+        "zoom_unchanged": true
+      },
+      "same_clock_queue_session": true,
+      "read_only_requests": true,
+      "no_unverified_motion": true,
+      "telemetry_failure_isolated": false,
+      "recording": "video/page@52a944967b200df94e5d449c4559d774.webm",
+      "errors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "initial": {
+        "status": {
+          "kind": "protection",
+          "label": "Game paused \u00b7 low energy",
+          "detail": "Waiting for sufficient operating resources.",
+          "canPrepare": false
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": "12955c9d0763f333c06f206a32dd29c29eb366982715363f2f30a4a7e6cf9788",
+        "world": {
+          "version": 6,
+          "cannons": 1,
+          "balls": 1
+        },
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 6505,
+          "available": 6505,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "local_account_restored": true,
+      "actions_disabled": {
+        "fire-action": false,
+        "move-action": false,
+        "build-action": false
+      },
+      "payment": {
+        "status": "LOCAL_PREVIEW_VERIFIED_COPIES_BLOCKED_BY_RESERVE_PROTECTION",
+        "new_instruction_copy_disabled": true,
+        "manual_authority_not_bypassed": true,
+        "fire": {
+          "amount": "0.1 ICP",
+          "amount_copy": "0.1",
+          "memo": "FIRE 1 255 1",
+          "hex": "464952452031203235352031",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "amount_copy": "0.0001",
+          "memo": "MOVE 1 997997",
+          "hex": "4d4f5645203120393937393937",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "build": {
+          "status": "LOCAL_PREVIEW_AND_EXACT_PACKET_VERIFIED",
+          "cell": 1,
+          "quote": {
+            "amount": "4 ICP",
+            "amount_copy": "4",
+            "memo": "NEW 225 1 1",
+            "hex": "4e45572032323520312031",
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+          }
+        },
+        "toolbar_drift_px": 0.0,
+        "copy_freeze_replacement_evidence": "Unchanged-runtime qualified CI43172629735; cannot exercise enabled copying while production is protected"
+      },
+      "non_repeat_scale": 1.0336847748229683,
+      "follow": {
+        "first": {
+          "time": 6505,
+          "camera": [
+            19.006466235827247,
+            42.03185686082725
+          ],
+          "clock": {
+            "phase": "BUFFERING",
+            "playhead": 6505,
+            "available": 6505,
+            "buffer": 0,
+            "rate": 1
+          }
+        },
+        "last": {
+          "time": 6505,
+          "camera": [
+            19.006466235827247,
+            42.03185686082725
+          ],
+          "clock": {
+            "phase": "BUFFERING",
+            "playhead": 6505,
+            "available": 6505,
+            "buffer": 0,
+            "rate": 1
+          }
+        },
+        "zoom_unchanged": true
+      },
+      "same_clock_queue_session": true,
+      "read_only_requests": true,
+      "no_unverified_motion": true,
+      "telemetry_failure_isolated": false,
+      "recording": "video/page@05a5fa6961213fda7e4f2378c93a8df7.webm",
+      "errors": []
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "initial": {
+        "status": {
+          "kind": "protection",
+          "label": "Game paused \u00b7 low energy",
+          "detail": "Waiting for sufficient operating resources.",
+          "canPrepare": false
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": "12955c9d0763f333c06f206a32dd29c29eb366982715363f2f30a4a7e6cf9788",
+        "world": {
+          "version": 6,
+          "cannons": 1,
+          "balls": 1
+        },
+        "clock": {
+          "phase": "BUFFERING",
+          "playhead": 6505,
+          "available": 6505,
+          "buffer": 0,
+          "rate": 1
+        }
+      },
+      "local_account_restored": true,
+      "actions_disabled": {
+        "fire-action": false,
+        "move-action": false,
+        "build-action": false
+      },
+      "payment": {
+        "status": "LOCAL_PREVIEW_VERIFIED_COPIES_BLOCKED_BY_RESERVE_PROTECTION",
+        "new_instruction_copy_disabled": true,
+        "manual_authority_not_bypassed": true,
+        "fire": {
+          "amount": "0.1 ICP",
+          "amount_copy": "0.1",
+          "memo": "FIRE 1 255 1",
+          "hex": "464952452031203235352031",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "amount_copy": "0.0001",
+          "memo": "MOVE 1 997997",
+          "hex": "4d4f5645203120393937393937",
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "build": {
+          "status": "LOCAL_PREVIEW_AND_EXACT_PACKET_VERIFIED",
+          "cell": 1,
+          "quote": {
+            "amount": "4 ICP",
+            "amount_copy": "4",
+            "memo": "NEW 225 1 1",
+            "hex": "4e45572032323520312031",
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+            "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "legacy": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+          }
+        },
+        "toolbar_drift_px": 0.0,
+        "copy_freeze_replacement_evidence": "Unchanged-runtime qualified CI43172629735; cannot exercise enabled copying while production is protected"
+      },
+      "non_repeat_scale": 0.7838367960742887,
+      "follow": {
+        "first": {
+          "time": 6505,
+          "camera": [
+            18.7587890625,
+            41.7841796875
+          ],
+          "clock": {
+            "phase": "BUFFERING",
+            "playhead": 6505,
+            "available": 6505,
+            "buffer": 0,
+            "rate": 1
+          }
+        },
+        "last": {
+          "time": 6505,
+          "camera": [
+            18.7587890625,
+            41.7841796875
+          ],
+          "clock": {
+            "phase": "BUFFERING",
+            "playhead": 6505,
+            "available": 6505,
+            "buffer": 0,
+            "rate": 1
+          }
+        },
+        "zoom_unchanged": true
+      },
+      "same_clock_queue_session": true,
+      "read_only_requests": true,
+      "no_unverified_motion": true,
+      "telemetry_failure_isolated": true,
+      "recording": "video/page@16d0ee1b36cde0a3de156bd6af2379c4.webm",
+      "errors": []
+    }
+  ],
+  "limits": "Headless SwiftShader and emulated touch/viewport; no physical-device, real-wallet, hardware-performance or genuine hidden-tab pass. Active paid actions blocked by existing backend protection, not bypassed."
+}

@@ -10,8 +10,10 @@ reset, activation or transition sequence against it.
 - Default receiving AccountIdentifier: `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
 
 Asset-only frontend publication requires explicit release-specific owner authority.
-The authorised ordinary fluid-player release and actual served verification are
-recorded in [the current release report](../../evidence/B2Z/fluid-player-experience/REPORT.md).
+The approved final player-experience release and actual served verification are
+recorded in [the current release report](../../evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md).
+The [preceding ordinary fluid release](../../evidence/B2Z/fluid-player-experience/REPORT.md)
+is the immediate complete asset-only rollback set.
 The [tactical release](../../evidence/B2Z/tactical-polish/REPORT.md) is its retained
 asset-only rollback set.
 The [preceding player-centred release](../../evidence/B2Z/player-centred-live/REPORT.md)
@@ -22,18 +24,24 @@ transition, migration, controller change, ICP/cycle transfer, cycle purchase,
 new canister or former-deployment operation is part of this procedure. Normal
 existing autonomous processing continues. Do not pause gameplay for an asset update.
 
-Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/tactical-polish/REPORT.md) and the normative
+Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md) and the normative
 [human-experience contract](../specs/B2Z_HUMAN_EXPERIENCE.md). Changes to controls,
 flows, statuses, handoff, rendering or playback must identify affected UX IDs,
 update intentional contract changes and execute corresponding regressions.
 
 ## Deployed ordinary frontend boundary
 
-The fluid camera/ball-follow/compact-toolbar release uses runtime `662f905…`,
-qualified source `38e9cfb…`, JS `79acf867…` and the exact sixteen-file manifest
-`68116cee…`. It was published with `--no-asset-upgrade`; the backend and asset-
-canister Wasm remain unchanged. Read the release record for full identities and
-current verification. Future publication still needs release-specific authority.
+The final player-experience release uses clean frozen runtime `b0f6c7a…`, qualified
+source `d0d613e…`, served JS `42f30ead…` and exact sixteen-file manifest `216fac29…`.
+All six substantive gates passed in run 43172629735. It was published on
+12 November 2026 with `--no-asset-upgrade`; backend and frontend asset-canister
+Wasm remain unchanged. All fifteen public files and consumed policy were verified.
+The preceding ordinary fluid set (runtime `662f905…`, JS `79acf867…`, manifest
+`68116cee…`) is preserved for bounded frontend rollback. Read the current release
+record for exact hashes, served checks and actual resource/protection state.
+A correctly protected backend must never be bypassed to make an asset update look
+playable. No funding, treasury recovery or pacing change is implicit in a frontend
+approval. Future publication still needs release-specific owner authority.
 
 Delegated payments remain absent from this ordinary build and disabled in
 production. The separately source-qualified financial feature does not authorize

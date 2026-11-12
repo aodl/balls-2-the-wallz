@@ -1,0 +1,19 @@
+Canister status call result for b2z.
+Status: Running
+Controllers: amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe
+Memory allocation: 0 Bytes
+Compute allocation: 0 %
+Freezing threshold: 2_592_000 Seconds
+Idle cycles burned per day: 1_877_758_703 Cycles
+Memory Size: 39_680_487 Bytes
+Balance: 1_215_084_145_945 Cycles
+Reserved: 0 Cycles
+Reserved cycles limit: 5_000_000_000_000 Cycles
+Wasm memory limit: 3_221_225_472 Bytes
+Wasm memory threshold: 0 Bytes
+Module hash: 0x612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948
+Number of queries: 15_145
+Instructions spent in queries: 156_285_182_599
+Total query request payload size: 96_694 Bytes
+Total query response payload size: 269_944_584 Bytes
+Log visibility: public

@@ -1,13 +1,24 @@
 # Final player-experience visual closeout
 
-**All six substantive exact-source CI gates passed.** The candidate is ready for
-a separate frontend-assets-only deployment decision; no deployment is authorized
-or performed by this qualification work.
+**Deployed and served-byte verified as a controlled frontend release:**
+https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+
+All six substantive exact-source gates passed. The owner then approved this exact
+frontend publication. The frozen 16-file set was published on 12 November using
+only the existing asset route, without rebuilding or upgrading either canister's
+Wasm. All fifteen public files and security headers match; the consumed upload
+policy matches too. Desktop/390/320 production navigation and local previews pass.
+
+**Active paid playtesting is currently blocked by the backend's pre-existing
+Reserve Protection**, with admission closed. Copy controls stay disabled and the
+interface reports “Game paused · low energy”. No top-up, recovery, policy change
+or financial transaction was authorized or performed. The frontend is live; this
+is not a claim that the paid world is advancing.
 
 Qualified source: `d0d613ecfd4bb6935b2f32e93ea5b690a8b37411`.
 Clean frozen runtime: `b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0`.
-The same 16 deployment files, JavaScript `42f30ead…` and complete manifest
-`216fac29…` remain preserved; no rebuild was performed for the verifier correction.
+Served JavaScript: `42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5`.
+Complete 16-file manifest: `216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2`.
 
 Starting branch: `release/btz-prelaunch-playability`, source and confirmed remote
 `82425fbf02af7602330d0ed6d31dabe7d946ed77`. Previous reviewed `37d0eb6` remains
@@ -107,7 +118,7 @@ legacy-address controls, hex-memo controls or transaction-reporting flow were ad
 
 Executed tests, captures, measurements and the clean frozen manifest follow below.
 Historical failed/incomplete evidence stays intact.
-Production still serves the preceding ordinary fluid release: runtime `662f9052…`,
+At the pre-release baseline, production served the preceding ordinary fluid release: runtime `662f9052…`,
 JavaScript `79acf867c1f4de2408c5aab50d457177d9d953048ea86c807db4692cac571e5a`,
 manifest `68116cee…`. [Read-only starting audit](production-start-files.json) matched
 all fifteen public files/security headers and the preserved consumed upload policy.
@@ -138,8 +149,8 @@ kernels, native code, deployment mapping and locks. No dependency/pin/lock, back
 codec or delegated-payment input changed. The later evidence commit does not rebuild
 or replace these runtime artifacts.
 [Comparison with current production](production-candidate-diff.json) changes `app.mjs`, `build-manifest.json`, `index.html`, `style.css`.
-That includes the preceding 25-point refinement which has not yet been deployed;
-the final closeout is not a claim that production already has those controls.
+That comparison includes the preceding 25-point refinement and this final closeout.
+The actual later publication and served-byte verification are recorded below.
 
 The frozen bundle was served locally with its real security policy while querying
 the actual European backend read-only. At all three widths it authenticated state
@@ -148,7 +159,8 @@ file byte-for-byte, and exercised unsigned copy instructions after a **local
 account declaration**, not authenticated ownership. The observed packet was
 `0.1 ICP`, text `FIRE 1 255 1`, exact UTF-8 bytes
 `70 73 82 69 32 49 32 50 53 53 32 49`. There was no Ledger transaction or gameplay
-update. This checks the new frozen bundle; **production still serves the old bytes**.
+update. This was a pre-publication frozen-bundle check; production still served
+the old bytes at that point. The actual subsequent deployment is recorded below.
 
 ## Actual browser and visual evidence
 
@@ -379,42 +391,182 @@ workflow concurrency. Its final cancellation and the succeeding complete six-gat
 qualification are recorded above. The original four passes were never substituted
 for qualification of the correction.
 
-## Release and rollback continuation — not executed
+## Approved frontend publication — 12 November 2026
 
-Remote Git remains owner-operated under [AGENTS.md](../../../../AGENTS.md).
-Qualification is complete on published `d0d613e`; **no further source push, runtime
-rebuild or CI campaign is required for these unchanged runtime inputs**. A later
-local evidence-only commit is separate from that qualified source and freeze.
-The [final read-only production check](production-final-read-only.json), at
-08:00:49 UTC on 12 November, still serves prior fluid JS `79acf867…`; the candidate
-has not been published to production.
+[Deployment summary](production/deployment.json), [exact served files and headers](production/served-files.json),
+[signed asset inventory](production/inventory-after.json),
+[preservation checks](production/preservation.json) and
+[production browser results](production/browser-results.json) record the actual release.
 
-Recommendation: approve only the exact frozen 16-file frontend set for a controlled
-prelaunch playtest, with fresh operational preflight and the existing bounded
-asset-only rollback. Production publication still requires separate owner authority.
+The approved frozen set was staged at **08:22:40 UTC** and every served file was
+verified by **08:23:31 UTC**. Existing staging was retained at
+`.work/player-refinement/visual-closeout/deployment/prior-staged-assets`.
+Fresh prior production files, verified against ordinary fluid manifest `68116cee…`,
+are retained with its consumed policy as a complete 16-file rollback set in
+`.work/player-refinement/visual-closeout/deployment/rollback/frontend`;
+[rollback manifest](production/rollback-manifest.json). No ZIP or replacement build
+was created. The candidate was rechecked before staging and again after publication.
 
-The only future publication target is frontend `s2jxj-liaaa-aaaas-amynq-cai`,
-https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/. Backend binding remains
-`s5ir5-gqaaa-aaaas-amyna-cai`; no backend or asset-canister Wasm upgrade is proposed.
-
-After separate asset-only approval, follow the [installed-game operator procedure](../../../../docs/operations/S14_OPERATOR.md):
-recheck production identities/health, preserve current served files/staging, verify
-all 16 candidate bytes, stage only this frozen set, then use the existing observer-
-only route with `--no-asset-upgrade`. Never name/install/upgrade the backend.
-The established command, only after that approval/preflight, is:
+Executed, with installed DFX 0.31.0 and existing `codex_local` operator:
 
 ```sh
 DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_PRESENT=true dfx deploy observer --network ic --no-wallet --no-asset-upgrade
 ```
 
-Verify all fifteen public served bytes/security headers and bounded production
-journeys. For an approved rollback, stage the retained ordinary fluid set from
-`.work/fluid-player-experience/frozen-arrival-jitter/frontend` (manifest `68116cee…`)
-and use the same asset-only route. Its current served copies are also retained in
-`.work/player-refinement/visual-closeout/production-read-only/served`; previous
-refinement/tactical freezes remain. No automatic backend rollback/reset is permitted.
-Exact-source CI is complete. Separate owner asset-only deployment approval and
-fresh production preflight remain; device/hidden-tab/wallet limits above are
-coverage limits. No specifically demonstrated source blocker remains open. No
-backend, paid-state, controller, setting or financial authority was changed, and
-experimental delegated payments remain isolated/disabled in ordinary production.
+[Publication log](production/frontend-publication.log) names **observer only**.
+The generic log says “Upgraded code”, but the installed frontend Wasm hash is
+unchanged and `--no-asset-upgrade` explicitly skips it. No backend build, install,
+upgrade, reinstall, start/stop, transition or configuration update occurred.
+The existing frontend remains `s2jxj-liaaa-aaaas-amynq-cai`; backend binding remains
+`s5ir5-gqaaa-aaaas-amyna-cai`. No new route, canister, signer or ICRC-2 enablement
+was added. No payment or allowance was submitted, and no ICP/cycles were transferred.
+
+### Actual served identities
+
+All public HTTP files below match the complete approved manifest and the signed
+asset-canister `list` inventory, including byte lengths. Required CSP and security
+headers match on every file. `.ic-assets.json5` is consumed upload configuration,
+not a publicly served sixteenth asset; its staged SHA-256 is also preserved below.
+
+| File | SHA-256 | Result |
+| --- | --- | --- |
+| `.ic-assets.json5` | `096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c` | PASS (consumed policy) |
+| `/agent-api.md` | `ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a` | PASS |
+| `/app.mjs` | `42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5` | PASS |
+| `/backend.did` | `8ad63054b7c84a5a3c99e56eb54721995fcaedce99c324d87437620516c330be` | PASS |
+| `/build-manifest.json` | `de724fcac68fa0fbb5183999cc3a8438b72c82328286b2f4094e4f48e55d7b7a` | PASS |
+| `/configuration-entry.bin` | `8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80` | PASS |
+| `/configuration-legacy.bin` | `3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622` | PASS |
+| `/configuration-million.bin` | `cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03` | PASS |
+| `/configuration-playability.bin` | `e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68` | PASS |
+| `/configuration-torus.bin` | `6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4` | PASS |
+| `/configuration.bin` | `05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42` | PASS |
+| `/cursors/reticle.svg` | `9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892` | PASS |
+| `/deployment.json` | `b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066` | PASS |
+| `/icon.svg` | `2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888` | PASS |
+| `/index.html` | `3b1fd4c34571c874a04c4125884ae90d802ad7c21b1b771932faa9ae5dc299f9` | PASS |
+| `/style.css` | `c965f44bb0d3de4ad2fda61fa63734d8e06dc3766775bc8dc0d001a87cd8274d` | PASS |
+
+### Production preflight and backend preservation
+
+Certified mainnet metadata before/after/final agrees:
+
+- Backend module: `612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`.
+- Frontend asset-canister Wasm: `04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62`.
+- Subnet: `bkfrj-6k62g-dycql-7h53p-atvkj-zg4to-gaogh-netha-ptybj-ntsgw-rqe`, **13 nodes**.
+- Controller sets and inspected allocation/freezing/memory/log settings are unchanged.
+- Backend public status remains public; no setting change was made.
+- Certified rules 7 / world schema 6, configuration identity, epoch and source binding
+  are unchanged. The authenticated head remains 6508, root
+  `12955c9d0763f333c06f206a32dd29c29eb366982715363f2f30a4a7e6cf9788`.
+- Source remains official ICP Ledger `ryjl3-tyaaa-aaaaa-aaaba-cai` and Index
+  `qhbym-qaaaa-aaaaa-aaafq-cai`, default subaccount 0 and receiver
+  `c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde`.
+- Paid received total **100,000,000 e8s**, one cannon/one ball, source cursor
+  **40180669**, run generation 1 and treasury conversion totals/last successful
+  conversion remain preserved. Pending source records are zero; source binding is
+  checked with no source error. No payment, history or world constructor was reset.
+
+Final controller read (near 2026-11-12T08:35:24.150Z): **1,213,988,231,999 total cycles** and
+**1,157,655,470,909 liquid cycles**. Liquid already excludes platform reserves;
+we do not subtract again. Frontend balance: **1,461,716,247,048 cycles**.
+Selected pace is **ReserveProtection**, nominal/supported **0**, admission **closed**.
+Protection was present **before** publication (preflight total 1,216,016,687,031 /
+liquid 1,159,683,925,941); it was not caused or bypassed by this frontend release.
+Balances may legitimately decline through normal autonomous operations and asset
+publication. No manual funding/repricing/threshold change occurred, and this single
+snapshot is not a gross gameplay burn or runway estimate.
+
+The existing treasury warning remains:
+`icrc1_balance_of: CallRejected ... Call deadline has expired.`
+Treasury is not operator-paused/halted and is in Idle phase, with last observed
+receiving balance zero. No recovery action was attempted. Restoring active paid
+play needs a separate owner financial/operational decision; it is outside this
+frontend authorization. Do not send test ICP merely to verify the UI.
+
+### Bounded actual production browser checks
+
+Real served production data at **1440×900, 390×844 and 320×640** passes:
+
+- Anonymous certified observation before Identify; the session uses the actual
+  certificate verifier and correct backend/receiver binding.
+- Public-account **local declaration** and restoration, cannon hover/selection,
+  useful Focus, persistent selected footprint, single-row 44px toolbar slots and
+  temporary My-cannon suppression. This is not authenticated ownership proof.
+- Fire aiming/barrel preview, Move and additional Build local preparation, real
+  eligible sites and exact canonical amount/principal/memo/payer comparisons.
+  Same-cell Move cannot yield a new usable packet. At each width the observed
+  examples are `FIRE 1 255 1` (0.1 ICP), `MOVE 1 997997`, and `NEW 225 1 1`.
+- Exact Move/Build selected-tile warning and separate “Wallet fee extra.” remain
+  readable/reachable through the single scrollport. Fire retains its ordinary
+  no-automatic-refund warning. No legacy-address, hex-memo, signing or manual
+  transaction-index controls exist. The canonical text is complete, not a
+  truncated clipboard value.
+- Local previews remain available under protection, but all new instruction copy
+  controls stay disabled. **Enabled copy/freeze/Update/Keep previous and clipboard
+  fallback cannot be exercised live in this protected state**; their unchanged
+  source-qualified disposable evidence is retained, not bypassed or mislabelled
+  as a live-wallet result.
+- Zero toolbar drift across action switches, clean translucent Build ghost and
+  source/destination distinction; no secondary My-cannon button over the preview.
+- Native pan, accumulated zoom steps, widest non-repeating limit, diamond-centre
+  navigation and actual displayed-ball following with preserved zoom. Account,
+  Help (via Account), open/close and navigation preserve one session/clock/queue.
+- Displayed verified time holds at **6505**, available coverage is exhausted
+  (buffer 0), and a stationary followed ball/camera do not invent travel. The
+  protected status takes priority over a misleading waiting/catch-up spinner.
+  Advancing ball tails/wakes at .01/.05/1 tick/s remain supported by the unchanged
+  runtime's qualified disposable recordings; no production motion was fabricated.
+- A deliberately failed **optional** cycles query in the 320 context reports
+  Unavailable while authenticated observation continues. That screenshot is a
+  browser-local failure probe, not a claim of a production status outage.
+- Separate browser-local configuration-byte tampering produces “Unable to verify
+  game”, disables payment controls and hides the spinner. It never modified served
+  bytes or fell back to unauthenticated observation.
+
+Screens/captures: [desktop Fire](production/media/1440-fire.png),
+[390 Build](production/media/390-build.png), [320 Build/risk scroll view](production/media/320-build.png),
+[320 ball follow](production/media/320-follow.png);
+[desktop recording](production/media/1440-journey.webm),
+[390 recording](production/media/390-journey.webm),
+[320 recording](production/media/320-journey.webm).
+[Capture hashes](production/media-files.json) preserve actual application media.
+Views scrolled to the risk warning intentionally show the bottom of the natural
+scrollport; the same check reaches amount/recipient/memo/payer/fee as well.
+
+Raw work is `.work/player-refinement/visual-closeout/deployment`. Earlier smoke
+attempts are retained honestly: one assumed action **icons** must all be disabled
+instead of checking disabled **copy controls**; another attempted Help without
+opening Account; a third hit a relative/absolute recording-path bookkeeping error
+after the desktop assertions. Those were harness errors. The corrected complete
+production run passes all three widths; no deployed source was edited and no
+product defect was hidden. No rollback was needed.
+
+This is headless Chromium/SwiftShader with emulated viewport/touch, not physical
+phone/native keyboard, hardware performance, real-wallet or genuine rendered
+hidden-tab qualification. The requested human playtest should retain those limits
+and the current backend protection. No unsupported visibility rerun or browser
+anti-throttling flag was used to manufacture coverage.
+
+### Current release and bounded rollback
+
+The exact qualified frontend is now live. A separately approved future rollback
+can stage the freshly preserved ordinary fluid set (manifest `68116cee…`) from
+`.work/player-refinement/visual-closeout/deployment/rollback/frontend` and use the
+same **observer-only, no-asset-upgrade** route, then reverify every served asset and
+both modules. No backend rollback/reset is part of that route. Older tactical and
+player-centred rollback evidence remains untouched.
+
+The active paid-playtest blocker is the **pre-existing Reserve Protection and
+closed admission**, with the existing treasury deadline warning. It requires a
+separate financial/operational decision; no new source defect or asset mismatch
+was demonstrated. The paid world, controllers, source settings and financial
+authority remain unchanged by this work. Delegated payments remain isolated/disabled.
+No new build or six-gate rerun is required merely to publish this evidence-only record.
+
+
+Publication of this evidence record remains owner-operated under AGENTS.md. If
+repository publication is wanted, the ordinary non-force continuation from this
+branch is `git push origin HEAD:release/btz-prelaunch-playability`. This is not a
+request for another runtime build or qualification campaign; the deployed assets
+remain the exact already qualified freeze.

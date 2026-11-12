@@ -1,0 +1,51 @@
+{
+  "status": "DEPLOYED_VERIFIED_BACKEND_PROTECTED",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "publication_window": {
+    "staged_at": "2026-11-12T08:22:40.838942+00:00",
+    "served_verified_at": "2026-11-12T08:23:31.562026+00:00"
+  },
+  "qualified_source": "d0d613ecfd4bb6935b2f32e93ea5b690a8b37411",
+  "runtime_source": "b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0",
+  "ci_run": 43172629735,
+  "substantive_ci": "6/6 PASS",
+  "javascript_sha256": "42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5",
+  "complete_manifest_sha256": "216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2",
+  "public_assets_verified": 15,
+  "consumed_upload_configuration_verified": 1,
+  "runtime_rebuilt": false,
+  "publication_route": "dfx deploy observer --network ic --no-wallet --no-asset-upgrade",
+  "backend_module": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "frontend_module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "module_controllers_settings_subnet_preserved": true,
+  "financial_operations_initiated": false,
+  "backend_mutations_initiated": false,
+  "delegated_payments_enabled": false,
+  "backend_total_cycles": "1213988231999",
+  "backend_liquid_cycles": "1157655470909",
+  "frontend_total_cycles": "1461716247048",
+  "selected_pace": {
+    "admission_open": false,
+    "mode": "ReserveProtection",
+    "nominal_milli": 0,
+    "performance_limited": false,
+    "supported_milli": 0
+  },
+  "treasury_warning": [
+    "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+  ],
+  "active_paid_playtest": "BLOCKED by pre-existing ReserveProtection; no funding/pacing change authorised",
+  "ui_playtest": "Read-only navigation and local previews available; new instruction copying disabled",
+  "browser_viewports": {
+    "[1440, 900]": "PASS",
+    "[390, 844]": "PASS",
+    "[320, 640]": "PASS"
+  },
+  "hidden_tab": "NOT_ESTABLISHED",
+  "hardware_performance": "NOT_MEASURED",
+  "real_wallet": "NOT_TESTED",
+  "rollback_used": false,
+  "rollback_manifest_sha256": "68116ceeb93935b9be851bbe894fdd208cde71c4f4cc2a508d4fb9b524f0cb03",
+  "rollback_assets": ".work/player-refinement/visual-closeout/deployment/rollback/frontend",
+  "operational_read_at": "2026-11-12T08:35:24.150Z"
+}
