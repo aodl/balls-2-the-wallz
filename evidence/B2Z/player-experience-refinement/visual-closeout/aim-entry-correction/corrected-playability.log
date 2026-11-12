@@ -1,0 +1,115 @@
+
+  ...ement/visual-closeout/ci-final/corrected-playability/fixture.mjs  1.4mb ⚠️
+
+⚡ Done in 201ms
+navigate 1440
+loaded
+player controls
+terrain path PASS 1440
+minimap path PASS 1440
+heading and drag PASS 1440
+Move and seam Build PASS 1440
+eligibility and clock PASS 1440
+player controls PASS
+identify
+account click
+account open
+fill account
+save account
+account saved
+wallet fields
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+account click
+account open
+account click
+account open
+PASS 1440x900
+navigate 390
+loaded
+player controls
+terrain path PASS 390
+minimap path PASS 390
+aim entry settled {'released': True, 'active': False, 'elapsed_ms': 323.39999997615814, 'memo': 'FIRE 1 225 1', 'oldMemo': 'FIRE 1 225 1'}
+aim interrupt held {'target': 'aim-handle', 'camera': [583.5960336313856, 458.5960336313856, 64], 'active': False}
+heading and drag PASS 390
+Move and seam Build PASS 390
+eligibility and clock PASS 390
+player controls PASS
+identify
+account click
+account open
+fill account
+save account
+account saved
+wallet fields
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+account click
+account open
+account click
+account open
+PASS 390x844
+navigate 320
+loaded
+player controls
+terrain path PASS 320
+minimap path PASS 320
+heading and drag PASS 320
+Move and seam Build PASS 320
+eligibility and clock PASS 320
+player controls PASS
+identify
+account click
+account open
+fill account
+save account
+account saved
+wallet fields
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+account click
+account open
+account click
+account open
+PASS 320x640
+account click
+account open
+fill account
+save account
+account saved
+account click
+account open
+fill account
+save account
+account saved

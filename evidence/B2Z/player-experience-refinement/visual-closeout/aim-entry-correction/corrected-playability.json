@@ -1,0 +1,239 @@
+{
+  "status": "PASS",
+  "scope": "UX-01..13 populated synthetic UI journeys; real HTTP/WebGL/Web Crypto, no IC or payment claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "metrics": {
+        "frames": 424,
+        "p50": 83.29999999999927,
+        "p95": 150,
+        "draw_p50": 2,
+        "draw_p95": 10.200000047683716,
+        "render_p95": 7.899999976158142,
+        "shell_p95": 3.899999976158142,
+        "status_p95": 2.199999988079071,
+        "heap": 21036397,
+        "stats": {
+          "time": 1,
+          "draw_calls": 17,
+          "triangles": 1006,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 6,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 6,
+          "tails": 0,
+          "motion": {
+            "balls": 4,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "recording": "video/page@4b58b3f70e6ffd3afee43f2e9fad2aac.webm",
+      "player_controls": "PASS",
+      "wallet_expansion": {
+        "finished": true,
+        "elapsed_ms": 392,
+        "animations": 4
+      },
+      "coverage": [
+        "exact renderer ownership and cell previews",
+        "nonrepeating camera and minimap",
+        "screen headings and captured aiming",
+        "Move after hidden invalid heading",
+        "seam Build origin and revised eligibility",
+        "anchored card and viewport focus",
+        "contextual Fire/Revive/Join",
+        "exact coherent bytes",
+        "principal/default/legacy equality",
+        "denied/manual clipboard",
+        "edit and replacement",
+        "history/account scoping",
+        "one panel",
+        "clock/queue identity and progress",
+        "populated WebGL rendering"
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "metrics": {
+        "frames": 503,
+        "p50": 33.29999999999927,
+        "p95": 66.60000000000036,
+        "draw_p50": 1.800000011920929,
+        "draw_p95": 7.199999988079071,
+        "render_p95": 6,
+        "shell_p95": 2.300000011920929,
+        "status_p95": 1.2000000476837158,
+        "heap": 37289761,
+        "stats": {
+          "time": 1,
+          "draw_calls": 7,
+          "triangles": 634,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 6,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 0,
+          "motion": {
+            "balls": 4,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "recording": "video/page@23317d912202928d09cbd1d9c5f251c1.webm",
+      "player_controls": "PASS",
+      "wallet_expansion": {
+        "finished": true,
+        "elapsed_ms": 253.30000001192093,
+        "animations": 4
+      },
+      "coverage": [
+        "exact renderer ownership and cell previews",
+        "nonrepeating camera and minimap",
+        "screen headings and captured aiming",
+        "Move after hidden invalid heading",
+        "seam Build origin and revised eligibility",
+        "anchored card and viewport focus",
+        "contextual Fire/Revive/Join",
+        "exact coherent bytes",
+        "principal/default/legacy equality",
+        "denied/manual clipboard",
+        "edit and replacement",
+        "history/account scoping",
+        "one panel",
+        "clock/queue identity and progress",
+        "populated WebGL rendering"
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "metrics": {
+        "frames": 579,
+        "p50": 16.700000000000045,
+        "p95": 49.899999999999636,
+        "draw_p50": 1.800000011920929,
+        "draw_p95": 6.100000023841858,
+        "render_p95": 5.099999964237213,
+        "shell_p95": 1.300000011920929,
+        "status_p95": 0.9000000357627869,
+        "heap": 44424783,
+        "stats": {
+          "time": 1,
+          "draw_calls": 7,
+          "triangles": 634,
+          "tiles": 1,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 6,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 256,
+          "preview_cells": 0,
+          "tails": 0,
+          "motion": {
+            "balls": 4,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "recording": "video/page@834c01478668c4ab8eeca232d53759a0.webm",
+      "player_controls": "PASS",
+      "wallet_expansion": {
+        "finished": true,
+        "elapsed_ms": 289.5999999642372,
+        "animations": 4
+      },
+      "coverage": [
+        "exact renderer ownership and cell previews",
+        "nonrepeating camera and minimap",
+        "screen headings and captured aiming",
+        "Move after hidden invalid heading",
+        "seam Build origin and revised eligibility",
+        "anchored card and viewport focus",
+        "contextual Fire/Revive/Join",
+        "exact coherent bytes",
+        "principal/default/legacy equality",
+        "denied/manual clipboard",
+        "edit and replacement",
+        "history/account scoping",
+        "one panel",
+        "clock/queue identity and progress",
+        "populated WebGL rendering"
+      ]
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "canonical stored world heading and memo bytes survive reload with new screen display"
+      ]
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "reduced motion continues live motion",
+        "software-keyboard viewport resize",
+        "150% root text-size emulation"
+      ],
+      "native_browser_zoom_shortcut_changed_dpr": false
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "CDP touch drag/pinch cannot select a paid destination",
+        "account caret survives live background updates"
+      ],
+      "qualification": "Emulated touch input; no physical-device claim"
+    },
+    {
+      "status": "PASS",
+      "coverage": [
+        "Trickle one complete interval starts",
+        "waiting has no movement effect",
+        "two later canonical publications resume same clock",
+        "toroidal rendered travel"
+      ],
+      "timing": "20x accelerated disposable wall time at actual 0.01 policy; not production cadence",
+      "recording": "video/page@a6af8e7f9cc5e132efab90ad6fd2214d.webm"
+    }
+  ],
+  "errors": []
+}

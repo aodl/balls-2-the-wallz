@@ -1,0 +1,72 @@
+2026-11-12T06:44:42.8511874Z ##[group]Run python -B tools/verify_playability_actions.py --output .work/ci-human-experience
+2026-11-12T06:44:42.8512595Z [36;1mpython -B tools/verify_playability_actions.py --output .work/ci-human-experience[0m
+2026-11-12T06:44:42.8575830Z shell: /usr/bin/bash -e {0}
+2026-11-12T06:44:42.8576095Z env:
+2026-11-12T06:44:42.8576315Z   CARGO_TERM_COLOR: always
+2026-11-12T06:44:42.8576633Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T06:44:42.8577085Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-12T06:44:42.8577530Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T06:44:42.8577944Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T06:44:42.8578337Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T06:44:42.8578723Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-12T06:44:42.8579062Z ##[endgroup]
+2026-11-12T06:44:43.5332531Z
+2026-11-12T06:44:43.5333792Z   .work/ci-human-experience/fixture.mjs  1.4mb ⚠️
+2026-11-12T06:44:43.5334507Z
+2026-11-12T06:44:43.5334658Z ⚡ Done in 112ms
+2026-11-12T06:44:44.2378956Z navigate 1440
+2026-11-12T06:44:44.3828939Z loaded
+2026-11-12T06:44:44.8778928Z player controls
+2026-11-12T06:44:45.9534653Z terrain path PASS 1440
+2026-11-12T06:44:48.0325855Z minimap path PASS 1440
+2026-11-12T06:44:48.3315075Z heading and drag PASS 1440
+2026-11-12T06:44:50.1739750Z Move and seam Build PASS 1440
+2026-11-12T06:44:54.2868810Z eligibility and clock PASS 1440
+2026-11-12T06:44:56.6484982Z player controls PASS
+2026-11-12T06:44:56.6485900Z identify
+2026-11-12T06:44:56.6513602Z account click
+2026-11-12T06:44:56.7150973Z account open
+2026-11-12T06:44:56.7871801Z fill account
+2026-11-12T06:44:56.8117471Z save account
+2026-11-12T06:44:56.8913504Z account saved
+2026-11-12T06:44:57.2325383Z wallet fields
+2026-11-12T06:44:58.8935741Z account click
+2026-11-12T06:44:58.9576507Z account open
+2026-11-12T06:44:59.0425210Z fill account
+2026-11-12T06:44:59.0525243Z save account
+2026-11-12T06:44:59.1042225Z account saved
+2026-11-12T06:44:59.6486696Z account click
+2026-11-12T06:44:59.7065457Z account open
+2026-11-12T06:44:59.8093620Z fill account
+2026-11-12T06:44:59.8238429Z save account
+2026-11-12T06:44:59.9183227Z account saved
+2026-11-12T06:45:02.4395274Z account click
+2026-11-12T06:45:02.7115454Z account open
+2026-11-12T06:45:03.4947711Z account click
+2026-11-12T06:45:03.7014816Z account open
+2026-11-12T06:45:04.4160395Z account click
+2026-11-12T06:45:04.6289875Z account open
+2026-11-12T06:45:08.9202466Z PASS 1440x900
+2026-11-12T06:45:09.0659106Z navigate 390
+2026-11-12T06:45:09.2004714Z loaded
+2026-11-12T06:45:09.5707971Z player controls
+2026-11-12T06:45:09.9188332Z terrain path PASS 390
+2026-11-12T06:45:11.5741898Z minimap path PASS 390
+2026-11-12T06:45:11.8840508Z Traceback (most recent call last):
+2026-11-12T06:45:11.8841917Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_playability_actions.py", line 43, in <module>
+2026-11-12T06:45:11.8845729Z     print('player controls',flush=True);verify_player_controls(page,width,height);print('player controls PASS',flush=True);print('identify',flush=True);identify(page);close(page);page.evaluate('fixture.render("additional","final")');select(page,2);page.locator('#fire-action').click();page.locator('#ball-quantity').fill('2');page.locator('#angle-degrees').fill('90')
+2026-11-12T06:45:11.8848177Z                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-12T06:45:11.8849575Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/player_playability_browser.py", line 55, in verify_player_controls
+2026-11-12T06:45:11.8850886Z     assert page.evaluate('fixture.summary().camera')==before
+2026-11-12T06:45:11.8851566Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-12T06:45:11.8852074Z AssertionError
+2026-11-12T06:45:11.8852340Z FAILURE []
+2026-11-12T06:45:12.2225469Z Traceback (most recent call last):
+2026-11-12T06:45:12.2227811Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_playability_actions.py", line 43, in <module>
+2026-11-12T06:45:12.2231182Z     print('player controls',flush=True);verify_player_controls(page,width,height);print('player controls PASS',flush=True);print('identify',flush=True);identify(page);close(page);page.evaluate('fixture.render("additional","final")');select(page,2);page.locator('#fire-action').click();page.locator('#ball-quantity').fill('2');page.locator('#angle-degrees').fill('90')
+2026-11-12T06:45:12.2233711Z                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-12T06:45:12.2235489Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/player_playability_browser.py", line 55, in verify_player_controls
+2026-11-12T06:45:12.2236667Z     assert page.evaluate('fixture.summary().camera')==before
+2026-11-12T06:45:12.2237267Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-12T06:45:12.2237704Z AssertionError
+2026-11-12T06:45:12.2483355Z ##[error]Process completed with exit code 1.

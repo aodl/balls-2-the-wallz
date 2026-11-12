@@ -1,25 +1,25 @@
-# Final visual closeout — clean frozen candidate; hosted CI pending
+# Final visual closeout — published CI; verifier correction ready locally
 
-Runtime `b0f6c7a0cb9f3b9f9159d28d8708588fc8bc5af0` is frozen clean: 16 files,
-JS `42f30ead…`, complete manifest `216fac29…`. Only JS/CSS/provenance differ from
-the prior refinement freeze. Mobile preview clearance, filled ghost, modality-aware
-hints and quieter terrain pass actual-component checks; all UXR-01..25 regressions
-remain intact. Source passes 1,833 JS and 199 Python tests; HTTP/Web Crypto, frozen
-read-only production observation, 96 grid and 16 guide-depth cases pass.
+Frozen runtime `b0f6c7a` and all 16 files remain unchanged: JS `42f30ead…`,
+manifest `216fac29…`. The owner published evidence head `73e4686`.
+Run 43170089810 passed Source, Native, Packaged DTR and Wasm; Browser failed a
+390px camera comparison during the intentional Fire-entry transition. S14 is still
+running at the 12 November evidence snapshot; inventory is informational.
 
-The pushed `82425fb` correction passed five hosted gates, including Browser;
-run 43111462126 failed three installed-IC seam-click waits. Local unchanged and
-changed installed torus cases pass, but do not replace final six-gate qualification.
-The final source/evidence must be owner-published, then all six exact-source hosted
-gates must pass before frontend-only approval. No deployment is authorized here.
+The exact downloaded CI bundle reproduced the premature sample. Verifier-only
+correction `f926baa` waits for real entry settlement before retaining the original
+strict drag/camera assertion, and separately tests interrupting an active camera
+transition through native aim pointer-down. Recorded desktop/390/320 journeys and
+all 199 Python tests pass. No runtime rebuild, assertion weakening or security
+change occurred. The current S14 run remains active; let it finish before another
+owner push, which would cancel it under workflow concurrency.
 
 [Consolidated visual closeout](evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md)
-contains matched captures, recordings, measured limitations and artifact identities.
-No hardware/physical-phone or genuine rendered hidden-tab pass is claimed.
-Production still serves ordinary fluid JS `79acf867…`; all fifteen public files
-and security headers were rechecked read-only. No backend build/upgrade, financial,
-setting/controller operation or ICRC-2 activation occurred. Publication remains
-owner-operated under AGENTS.md.
+retains the original failure, controlled reproduction, exact-source status and
+unchanged artifact/media identities. All six gates must qualify the corrected
+source before deployment approval. No deployment, backend, financial, setting/
+controller operation or ICRC-2 activation is authorized or performed here.
+Physical-phone/hardware/native hidden-tab limitations remain explicit.
 
 ---
 

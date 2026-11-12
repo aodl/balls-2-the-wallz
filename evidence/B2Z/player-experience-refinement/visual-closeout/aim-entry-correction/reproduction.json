@@ -1,0 +1,80 @@
+{
+  "status": "REPRODUCED",
+  "scope": "Exact downloaded CI bundle; real native pointer; controlled 1200ms extension of actual mobile Fire-entry transition. Runtime handles aim correctly; premature sample fails.",
+  "rows": [
+    {
+      "settled_first": false,
+      "entry": {
+        "owner": "composition",
+        "from": {
+          "x": 583.3592111584435,
+          "y": 458.3592111584435,
+          "scale": 64
+        },
+        "to": {
+          "x": 583.6271240990604,
+          "y": 458.62712409906044,
+          "scale": 64
+        }
+      },
+      "sample": [
+        583.3824247420498,
+        458.3824247420496,
+        64
+      ],
+      "active_at_sample": true,
+      "pointer_down": {
+        "pose": [
+          583.4626972125511,
+          458.4626972125511,
+          64
+        ],
+        "active": false
+      },
+      "after_drag": [
+        583.4626972125511,
+        458.4626972125511,
+        64
+      ],
+      "old_camera_equality_passed": false,
+      "memo": "FIRE 1 225 1"
+    },
+    {
+      "settled_first": true,
+      "entry": {
+        "owner": "composition",
+        "from": {
+          "x": 583.3592111584435,
+          "y": 458.3592111584435,
+          "scale": 64
+        },
+        "to": {
+          "x": 583.6271240990604,
+          "y": 458.62712409906044,
+          "scale": 64
+        }
+      },
+      "sample": [
+        583.6271240990604,
+        458.62712409906044,
+        64
+      ],
+      "active_at_sample": false,
+      "pointer_down": {
+        "pose": [
+          583.6271240990604,
+          458.62712409906044,
+          64
+        ],
+        "active": false
+      },
+      "after_drag": [
+        583.6271240990604,
+        458.62712409906044,
+        64
+      ],
+      "old_camera_equality_passed": true,
+      "memo": "FIRE 1 225 1"
+    }
+  ]
+}

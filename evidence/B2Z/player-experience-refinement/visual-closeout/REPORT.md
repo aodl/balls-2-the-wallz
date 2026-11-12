@@ -1,9 +1,10 @@
 # Final player-experience visual closeout
 
 The four visual refinements and retained browser regressions pass locally.
-**Hold deployment pending final exact-source hosted qualification.**
-Final exact-source hosted qualification remains pending owner publication. No
-production operation is authorized by this closeout.
+**Hold deployment: hosted Browser failed; its verifier-only correction passes locally.**
+Published `73e4686` is running CI 43170089810. Four substantive jobs passed, Browser
+failed, and S14 is still running at the recorded snapshot below. The correction
+requires a later exact-source run. No production operation is authorized here.
 
 Starting branch: `release/btz-prelaunch-playability`, source and confirmed remote
 `82425fbf02af7602330d0ed6d31dabe7d946ed77`. Previous reviewed `37d0eb6` remains
@@ -259,17 +260,86 @@ coverage. The actual installed 35s return uses controlled visibility and preserv
 one clock/queue/session; existing elastic/pinned-clock tests remain mandatory.
 There is no guarantee of motion after verified coverage is exhausted.
 
-All six final exact-source hosted jobs are **PENDING OWNER PUBLICATION**, not PASS:
-Source; Native; Packaged DTR/clean consumers; Runtime-lab Wasm; Browser HTTP/Web Crypto;
-S14/million-cell installed-IC. The older five passes and local torus slice do not
-qualify the new source or clear the historical installed failure. Inventory remains
-informational. No gates, safety budgets, certificate checks, financial assertions
-or runtime fixtures were skipped/reclassified to obtain a green result.
+At the 11 November freeze, all six hosted jobs were pending. The owner then
+published `73e468639801c23b15c139c1c72a2133cce86918`; the 12 November follow-up below
+supersedes that pending snapshot. Inventory is informational. No gates, safety
+budgets, certificate checks, financial assertions or runtime fixtures were
+skipped/reclassified to obtain a green result.
+
+## 12 November: published qualification and verifier-only follow-up
+
+[Run 43170089810](https://github.com/aodl/balls-2-the-wallz/actions/runs/43170089810)
+qualifies the published evidence head `73e4686`, with unchanged runtime `b0f6c7a`.
+[Observed job metadata](qualification-43170089810.json) is an explicitly **non-final**
+snapshot while S14 continues:
+
+| Substantive job | Published `73e4686` result |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | FAIL |
+| S14 and million-cell installed-IC qualification | RUNNING — not a pass |
+
+The Browser HTTP/Web Crypto substep passed, but the whole Browser job failed in
+`verify_player_controls`, line 55, at 390×844. Its later tactical/fluid/refinement/
+closeout steps were skipped by normal failure propagation and are **not** hosted
+passes. [Original failure log](aim-entry-correction/original-browser-failure.log)
+and [screenshot](aim-entry-correction/original-390-failure.png) remain intact.
+The artifact ZIP was downloaded and verified against SHA-256
+`ab8a925a26b101de2aadb9610985a4d7885758b5a8090143bc35abb38d3e7691`.
+
+The assertion compared a camera sample taken during mobile Fire-entry composition
+with the camera after an aim drag. Native pointer-down correctly samples/cancels
+that transition from its current pose. The transition can advance between the old
+sample and pointer-down without any camera movement caused by aiming.
+
+This was reproduced against the **exact downloaded CI bundle**, whose SHA-256
+`1e68fd0a0c5d5ba85cda958690b4d48951c3ca067b016a08ffe33af3b2a7a0ad`
+identically matches the previously recorded local fixture. A controlled 1200ms
+extension of the actual Fire-entry transition preserves the original failure;
+waiting for entry settlement passes. [Controlled results](aim-entry-correction/reproduction.json):
+the early sample was `[583.3824247420498,458.3824247420496,64]`, pointer-down
+`[583.4626972125511,458.4626972125511,64]`, and the after-drag camera exactly equals
+pointer-down with the controller inactive. Both paths prepare `FIRE 1 225 1`.
+These controlled values demonstrate the mechanism, not unrecorded camera values
+from the original hosted failure.
+
+Correction `f926baa99809e4357a4c488672823faef273c03f` changes only the verifier
+and its maintenance guidance. Before the original **unchanged strict camera-equality
+assertion**, it uses existing `settled_panel()` to await the actual finite camera
+and body transitions. A controlled pending transition proves that wait. A separate
+native-pointer regression deliberately interrupts a 1200ms composition: the real
+handle's pointer-down records cancellation, camera stays exactly at the captured
+pose during the drag and 300ms after release, and the canonical memo remains exact.
+No tolerance, assertion, security policy, rendering behaviour or runtime budget
+was weakened. Controlled timing is confined to test fixtures.
+
+[Corrected recorded playability](aim-entry-correction/corrected-playability.json)
+passes desktop/390/320, including wallet/copy/security and original heading/camera
+assertions. [Executed log](aim-entry-correction/corrected-playability.log) records
+the held entry releasing and settling in 323.4ms, and captured-input cancellation.
+All [199 Python tool tests](aim-entry-correction/python-tests.log) pass; documentation
+links and Python syntax also pass. Browser command:
+
+```sh
+DFX_IDENTITY=codex_local LD_LIBRARY_PATH=/home/codexdev/.cache/browser-libs/root/usr/lib/x86_64-linux-gnu .work/browser-venv/bin/python -B tools/verify_playability_actions.py --output .work/player-refinement/visual-closeout/ci-final/corrected-playability
+```
+
+There is **no new runtime build**: all 16 frozen files and both frozen hashes remain
+identical. Existing populated captures, renderer/physical/motion evidence and
+backend/financial evidence retain their exact runtime inputs. No new production
+or financial action occurred. The running S14 job is left undisturbed. Wait for
+it to conclude before publishing the correction, because the existing workflow
+uses `cancel-in-progress: true`. The correction still requires all six substantive
+exact-source conclusions; four passes on its predecessor do not supply them.
 
 ## Release and rollback continuation — not executed
 
 Remote Git remains owner-operated under [AGENTS.md](../../../../AGENTS.md).
-Publish the final evidence head with ordinary non-force push to
+After the current S14 run finishes, publish the final correction/evidence head
+with ordinary non-force push to
 `release/btz-prelaunch-playability`, then inspect all six exact-source conclusions.
 No runtime rebuild is needed for evidence-only commits. Recommendation: **hold
 frontend deployment until all six pass and the owner approves these exact hashes**.
