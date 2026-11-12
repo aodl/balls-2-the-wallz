@@ -1,9 +1,11 @@
 {
   "status": "PASS",
-  "source_runtime": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
-  "scope": "Real mouse/touch/keyboard events in populated actual components; synthetic canonical scene, no IC authenticity or physical-device claim",
-  "fixture_sha256": "1b5bb10a922c0258532b0950d249159ab102d7c26bbbc79e3f1400ce316f0d50",
-  "runtime_note": "Native fixture predates the one-line contracted-viewport recovery fix; visual-closeout uses the corrected shell and passes all three sizes",
+  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
+  "scope": "Actual mouse/touch/keyboard events in populated canonical components; separate installed case supplies certificate evidence",
+  "fixture_sha256": "08ee6d806ed51c05ed3d7a12f83994ff19d32de468bcf9e0be160d4c8ffc9fd7",
+  "renderer_composer_fixture_equal_to_visual_and_performance_candidate": true,
+  "baseline_settled_and_copy_enabled": true,
+  "recovery_copy_reenabled": true,
   "rows": [
     {
       "viewport": [

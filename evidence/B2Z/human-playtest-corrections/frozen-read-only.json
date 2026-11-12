@@ -2,7 +2,7 @@
   "status": "PASS",
   "scope": "Exact frozen assets on loopback, anonymous/read-only certified European game.",
   "production_frontend_modified": false,
-  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
   "rows": [
     {
       "viewport": [
@@ -45,7 +45,7 @@
             },
             "segment_ticks": 2,
             "publication_ticks": 1,
-            "completed_segments": 6919,
+            "completed_segments": 6956,
             "running": true
           },
           "source": {
@@ -60,14 +60,29 @@
           "width": 1000,
           "height": 1000,
           "time": [
-            6919,
+            6956,
             1
           ]
         }
       },
       "handoff": {
-        "unavailable_reason": "",
-        "scope": "No admission bypass; disposable fixtures qualify payment interactions."
+        "memo": "FIRE 1 255 1",
+        "utf8": [
+          70,
+          73,
+          82,
+          69,
+          32,
+          49,
+          32,
+          50,
+          53,
+          53,
+          32,
+          49
+        ],
+        "amount": "0.1 ICP",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
       },
       "all_posts_read_only": true,
       "asset_bytes_equal_freeze": true,
@@ -114,7 +129,7 @@
             },
             "segment_ticks": 2,
             "publication_ticks": 1,
-            "completed_segments": 6920,
+            "completed_segments": 6957,
             "running": true
           },
           "source": {
@@ -129,7 +144,7 @@
           "width": 1000,
           "height": 1000,
           "time": [
-            6920,
+            6957,
             1
           ]
         }
@@ -198,7 +213,7 @@
             },
             "segment_ticks": 2,
             "publication_ticks": 1,
-            "completed_segments": 6920,
+            "completed_segments": 6957,
             "running": true
           },
           "source": {
@@ -213,7 +228,7 @@
           "width": 1000,
           "height": 1000,
           "time": [
-            6920,
+            6957,
             1
           ]
         }

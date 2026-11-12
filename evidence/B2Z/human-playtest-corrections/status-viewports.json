@@ -9,9 +9,9 @@
       ],
       "status": "PASS",
       "authenticated_before_outage": {
-        "root": "4a8a5f8c60e804cc5285e9688e48d8deecd61d6ee291806e06243ed50f236938",
-        "time": 6936.013667,
-        "available": 6937
+        "root": "7e30a4fca2daf56bc464be709d9a4a617ff5647d0657c96274dd5c6078b8b927",
+        "time": 6963.009166,
+        "available": 6964
       },
       "automatic_same_session_recovery": true,
       "all_posts_read_only": true,
@@ -24,9 +24,9 @@
       ],
       "status": "PASS",
       "authenticated_before_outage": {
-        "root": "4a8a5f8c60e804cc5285e9688e48d8deecd61d6ee291806e06243ed50f236938",
-        "time": 6936.011833000001,
-        "available": 6937
+        "root": "7e30a4fca2daf56bc464be709d9a4a617ff5647d0657c96274dd5c6078b8b927",
+        "time": 6963.005332,
+        "available": 6964
       },
       "automatic_same_session_recovery": true,
       "all_posts_read_only": true,
@@ -39,13 +39,15 @@
       ],
       "status": "PASS",
       "authenticated_before_outage": {
-        "root": "70111f7c6119f1891bec1f82a2d5aaea32988e0f5c5ec7435e7643c26c2437d3",
-        "time": 6936.009499,
-        "available": 6938
+        "root": "7e30a4fca2daf56bc464be709d9a4a617ff5647d0657c96274dd5c6078b8b927",
+        "time": 6963.005333,
+        "available": 6964
       },
       "automatic_same_session_recovery": true,
       "all_posts_read_only": true,
       "errors": []
     }
-  ]
+  ],
+  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
+  "raw": ".work/human-corrections/status-viewports-runtime-final"
 }

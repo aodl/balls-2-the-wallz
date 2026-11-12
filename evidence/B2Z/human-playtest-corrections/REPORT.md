@@ -1,19 +1,12 @@
-# Human playtest corrections — final typed-rejection candidate
+# Human playtest corrections — final frozen frontend candidate
 
-**Not deployed. The final freeze and qualification are in progress.** The final
-runtime additionally retries the SDK's explicit `SysTransient` replica rejection
-(over HTTP 200); other rejection codes and cryptographic failures remain blocked.
-The status-geometry test now settles its pane and verifies both disabled and
-re-enabled copying. Focused SDK tests and the strengthened three-viewport browser
-journey pass. Earlier runtime `4c63a3b` remains an identified predecessor; its
-[committed report/media](https://github.com/aodl/balls-2-the-wallz/tree/64400819327fc877bdea698770df4fef9c6e5483/evidence/B2Z/human-playtest-corrections)
-and [inventory](frontend-files-4c63a3b.json) are preserved. The predecessor hashes
-and measurements below must not be substituted for the forthcoming final freeze.
-
- The paid backend, installed
-frontend, configuration, prices, Ledger processing and payment execution have not
-been changed. No mainnet transaction, allowance, transfer, controller/settings action,
-backend deployment or ICRC-2 activation occurred.
+**Not deployed. Local final acceptance passes; exact-source CI awaits owner publication.**
+Final runtime `777fb421479de79d2071e384abfb231d7a60242f` includes typed IC
+`SysTransient` retry, preserving hard cryptographic/history barriers, and settled
+status-geometry acceptance with enabled→disabled→enabled copying. The paid backend,
+installed frontend, prices, Ledger processing and payment execution were untouched.
+No mainnet transaction, allowance, transfer, settings/controller action, backend
+deployment or ICRC-2 activation occurred.
 
 ## Source and installed baseline
 
@@ -39,35 +32,37 @@ Read-only cold production sessions reproduced the issue at 1440×900, 390×844 a
 seconds. These are fresh 12 November observations, distinct from the earlier
 ReserveProtection evidence. Nothing changed the live operating mode.
 
-Frozen runtime source: **`4c63a3b97eaa222b332bf04671c09ccbfc12213e`**, clean.
-Progress commits `1ccd4b1`, `1dd7fd5` and `4c63a3b` preserve the implementation and
-reviewed corrections. Subsequent evidence-only commits must not be represented
-as rebuilds or substituted for the frozen source.
+Final frozen runtime source: **`777fb421479de79d2071e384abfb231d7a60242f`**, clean.
+The earlier `4c63a3b` freeze and reports/media remain preserved in
+[the committed predecessor evidence](https://github.com/aodl/balls-2-the-wallz/tree/64400819327fc877bdea698770df4fef9c6e5483/evidence/B2Z/human-playtest-corrections)
+and [its inventory](frontend-files-4c63a3b.json). `47f563b` and `6440081` are
+separate superseded qualifier identities. Subsequent evidence-only commits must
+not be represented as rebuilds or substituted for the frozen source.
 
-## Reviewed predecessor frontend artifacts (4c63a3b)
+## Exact final frontend artifacts
 
 The existing playability builder produced
-`.work/human-corrections/frozen/frontend/`, with `source_dirty=false`, ordinary
+`.work/human-corrections/frozen-final/frontend/`, with `source_dirty=false`, ordinary
 mainnet policy, pinned mainnet root and `local_test_only=false`. No builder,
 configuration generator, dependency lock, Candid interface or backend source was
 changed. Its 16 files comprise 15 public assets and the consumed upload policy.
 
-- JS SHA256: `cd44e2a35d2904e5af27ea63f6f6700747a28709b672520c7a1adf7a80de7dc0`.
-- Build-manifest SHA256: `f2c5cb1bd7b4aee57a3b84fc33acedec5b2e778264f2307fe7f8f5106efae790`.
+- JS SHA256: `5695ce6abff67e2f88cf002ce1d676ea998745af1405d35c726e6334902be131`.
+- Build-manifest SHA256: `da75b8111a77aff769e52a691bf36aeba6d85e292c412af7a5c6f150aef6f0e5`.
 - Complete [frontend-files.json](frontend-files.json) SHA256:
-  `7380a1bf7041be0f96288c1f92b19d820377569ab5f0c1f36e0a019003082d18`.
+  `a99f071eb11e3bd22f680e3025c6bdef8f4392d39b4871f7de45dcfab52597e4`.
 
 Only `app.mjs`, `index.html`, `style.css` and provenance `build-manifest.json`
-differ from the installed set. JS grows from 1,993,586 to 2,008,761 bytes
-(+15,175 bytes; 0.76%, before transfer compression).
+differ from the installed set. JS grows from 1,993,586 to 2,008,953 bytes
+(+15,367 bytes; 0.77%, before transfer compression).
 
 Runtime files changed under `apps/b2z-observer/`: `app.mjs`, `arcade.mjs`,
 `bounded-observation.mjs`, `experience-status.mjs`, `guide-clearance.mjs`,
 `index.html`, `interaction.mjs`, `live-delivery.mjs`, `mainnet.mjs`, `minimap.mjs`,
 `public-cycles.mjs`, `render.mjs`, `shell.mjs`, `startup-playback.mjs`, `style.css`.
 Build tooling is unchanged. Regression tools/fixtures and the installed-browser
-case were updated; existing gates remain and the direct-input acceptance was
-added to the Browser gate. UX-01 through UX-13 and the UXR matrix are maintained in
+case were updated; existing gates remain and direct-input acceptance was added
+to the Browser gate. UX-01 through UX-13 and the UXR matrix are maintained in
 [B2Z_HUMAN_EXPERIENCE.md](../../../docs/specs/B2Z_HUMAN_EXPERIENCE.md).
 The [operator procedure](../../../docs/operations/S14_OPERATOR.md) documents the
 frontend-only qualification and exact-artifact publication boundary.
@@ -96,47 +91,49 @@ logical time 1 to 2 while the financial reference remains H/time 2, exhausts onc
 and remains at 2 after every recovery. No H+1 is required.
 
 [Certified measurements](certified-acceptance.json) record the complete PASS
-against clean frozen source. The earlier development summary remains separately
-preserved as [certified-development-1ccd4b1.json](certified-development-1ccd4b1.json).
-The clean run measured two additional historical queries, 3,822 response-content
-bytes and 345.7 ms historical acquisition. The latest reference/world was acquired
-at 3.782 s, the first sampled verified frame at 4.844 s and first sampled changed
-position at 6.621 s. These include software rendering, shader startup and video
-capture; they do not establish physical-device latency or a production speed
-comparison. A complete follow-up fixed-H/outage run also passes; its
-[startup timing summary](startup-timing-acceptance.json) measures current authority
-at 2.884 s, first verified frame and known operating state at 3.619 s, and first
-sampled motion at 5.723 s. Its normal mainnet JS equals the frozen JS byte for
-byte; the raw development-qualifier provenance is retained separately.
-The latest authoritative reference was time 2 in every sampled frame.
-A deliberately held predecessor hit its bounded two-second deadline, exposed the
-trusted latest world and never rewound when the real response arrived late.
-Slow optional operational status did not block the world, and payment preparation
-stayed disabled until status was available. Exact measurements are in the JSON.
+against final clean source. The earlier summaries remain separately source-labelled.
+The final run measured two additional historical queries, 3,822 response-content
+bytes and 271.1 ms acquisition. [Four startup milestones](startup-timing-acceptance.json)
+were: latest authority/world acquired at 3.290 s; first sampled verified frame at
+4.097 s; first sampled changed position at 5.853 s; operating state known at
+4.097 s (paused in this fixed-H fixture). Software rendering, shader startup and
+video capture are included; these are not physical-device timings.
+The latest financial reference was time 2 in every sampled frame. A held
+predecessor hit its bounded two-second deadline, exposed the trusted latest world,
+and never rewound when the real response arrived late. Slow optional operational
+status did not block the world; copying stayed disabled until required readiness.
 
-A separate read-only cold session used the **exact frozen bytes** on loopback
-against the actual mainnet backend. [candidate-mainnet-startup.json](candidate-mainnet-startup.json)
-records H=6933 throughout its sample window, first presentation behind the latest
-financial reference, and an admitted historical interval. Historical acquisition
-added two requests / 16,193 content bytes / 599.3 ms. Latest authority was ready at
-3.389 s, the first verified frame and known operating state at 4.372 s, and first
-sampled motion at 5.794 s. Latest verified state was 12,109 bytes and queued
-interval 36,879 bytes. Seventeen total read-only POSTs include normal observation,
-status/source/certificate work during the observation window; only the two history
-requests are new. This is candidate-on-loopback evidence, **not a deployment**.
-[Actual capture](media/candidate-mainnet-startup.png) and
+A separate isolated read-only cold session used the **exact final frozen bytes**
+on loopback against the actual mainnet backend.
+[candidate-mainnet-startup.json](candidate-mainnet-startup.json) records H=6961
+throughout its sample window, presentation behind the latest financial reference,
+and an authenticated historical interval. History added two requests / 16,155
+response-content bytes / 503.4 ms. Latest authority was acquired at 2.020 s;
+first verified frame and known operating state at 2.508 s; first sampled motion
+at 3.221 s. Latest verified state was 12,109 bytes, queued interval 37,041 bytes.
+Nineteen read-only POSTs include ordinary observation/status/source/certificate
+work during the window; only two history requests are new. Content-byte counts
+exclude HTTP/IC-envelope overhead and are not canister-cycle cost measurements.
+Earlier concurrent captures remain in `.work/` and are not used as an isolated
+latency comparison. This is candidate-on-loopback evidence, **not a deployment**.
+[Capture](media/candidate-mainnet-startup.png) and
 [recording](media/candidate-mainnet-startup.webm).
 
 No recurring backend update or new service is introduced. Observation remains
 single-flight with existing hidden scheduling and verified queue/byte bounds.
-SDK retries are zero so the application owns bounded retry/backoff rather than
-stacking retry loops. Optional status and cycles start independently. Financial
+SDK transport retries are zero so the application owns bounded retry/backoff
+rather than stacking retry loops. The pinned SDK still refreshes cached subnet
+node keys and re-verifies the query reply before surfacing a signature failure;
+that path is independent of the transport retry count. Optional status and cycles start independently. Financial
 freshness, operational confirmation, certified source identity and all quote
 validation remain required even while earlier authenticated motion is shown.
 
 ## Recovery and truthful status
 
-Transport availability is explicitly separate from integrity. Timeouts, lifecycle
+Transport availability is explicitly separate from integrity. Typed SDK
+`SysTransient` rejects retry even when delivered over HTTP 200; other rejection
+codes remain blocking and rejection text cannot downgrade an integrity error.
+Timeouts, lifecycle
 aborts, 408/429/5xx, retryable fetch failures and past/outdated certificates are
 rejected and retried, never accepted as fresh data. Unknown SDK trust errors,
 wrong signatures/roots/bindings, conflicting same-height heads, unauthorized
@@ -156,7 +153,7 @@ observation and operational query attempts.
 
 | Outage | Injected response | Query attempts | Action-panel drift | Recovery |
 | --- | --- | ---: | ---: | --- |
-| 5 seconds | 503 | 6 | 0 px | Automatic; same session |
+| 5 seconds | 503 | 7 | 0 px | Automatic; same session |
 | 30 seconds | 429 | 13 | 0 px | Automatic; same session |
 | 90 seconds | 503 | 17 | 0 px | Automatic; same session |
 | 180 seconds | 503 | 24 | 0 px | Automatic; same session |
@@ -282,7 +279,7 @@ Representative media (all actual browser captures):
 PASS: current direct-input acceptance (all three sizes), UXR refinement (all
 three), focused contraction recheck, visual closeout (all three), 96 GPU grid
 seam comparisons, 16 guide-depth comparisons with a negative control, complete
-source conformance (1,845 JS / 199 Python tests plus structure/documentation),
+source conformance (1,846 JS / 199 Python tests plus structure/documentation),
 HTTP/Web Crypto, lifecycle wire capture with independent replay, tactical
 journeys, elastic return, clean-source installed certified acceptance, and frozen
 read-only mainnet observation (all three sizes). The frozen check fetched every
@@ -293,19 +290,20 @@ bypass was used. See [frozen-read-only.json](frozen-read-only.json).
 
 Genuine native browser visibility also passes. [native-visibility.json](native-visibility.json)
 records ordinary Chromium connected with CDP `no_defaults`, actual same-window
-tabs and real `document.hidden` transitions. A 35.004-second absence made two
-background requests (65,239 encoded bytes), retained session/clock/queue, observed
-visibility return in 227 ms and fresh authenticated state in 1,162 ms. A short
-3-second return and controlled 8-second frozen suspension also passed. The latter
-is labelled controlled; neither is physical-phone/hardware evidence. First warm
-render submission was 17.1 ms, which is explicitly not a measured presented-frame
-latency. The first ordinary Playwright path failed its same-window setup check;
-the maintained CDP path now creates actual tabs and passes without changing any
-security/throttling policy. [Returned scene](media/native-hidden-return.png).
+tabs and real `document.hidden` transitions. A 35.013-second absence made two
+background requests (62,403 encoded bytes), retained session/clock/queue and
+recovered fresh authenticated state in 2,458 ms. Short return and controlled
+frozen suspension also passed. The latter is labelled controlled; neither is
+physical-phone/hardware evidence. Render-submission and visibility-observation
+measurements are explicitly separate from presented-frame latency. The original
+Playwright path failed its same-window setup check; the maintained CDP path now
+creates actual tabs and passes without changing any security/throttling policy.
+[Returned scene](media/native-hidden-return.png).
 
 [Performance measurements](performance.json) repeat the five-second comparisons
 with fresh browser/GPU processes per viewport and no other browser journeys
-running. The earlier contended run remains under `.work/human-corrections/performance/`;
+running. Their renderer/composer fixture SHA256 is byte-identical to the final
+acceptance fixture (`08ee6d80…`); the final SDK rejection change is outside it. The earlier contended run remains under `.work/human-corrections/performance/`;
 it is not used to assert an improvement. These are software WebGL measurements,
 not a performance PASS or hardware qualification.
 
@@ -338,29 +336,34 @@ backend/locks verified against the reviewed runtime. This avoids repeated
 unaffected builds and supplies exactly the browser/certificate evidence it
 executes, not new Candid, upgrade, ledger-cost or production-readiness evidence.
 
-Exact-source hosted CI is in progress. The owner published qualifier
-`47f563b88ee430c3a990715d8e4a1547cbf18511` in
-[run 43299116175](https://github.com/aodl/balls-2-the-wallz/actions/runs/43299116175).
-Source, Native, Packaged DTR/clean consumers and Wasm passed. Browser failed an
-older Locate test setup: direct fixture camera mutation raced unfinished
-composition, so its offscreen premise was false. The runtime was not altered to
-satisfy the test. The setup now settles entry and explicitly takes manual camera
-ownership before its geometric move; the original offscreen/inert/clock checks
-remain. A controlled prior-owner negative test reproduces the old premise failure
-and confirms native Locate at all three sizes. The complete updated action suite
-also passes locally. That failing CI evidence remains tied to `47f563b`.
+Exact-source hosted CI for final runtime `777fb42` awaits owner publication.
+All local final source/SDK, three-viewport interaction, frozen-byte/read-only,
+native visibility and certified startup/recovery checks pass.
 
-Qualifier correction `052294d` adds the setup correction, four startup timing
-milestones and retained installed-browser artifacts. It changes no frozen runtime,
-asset-builder input, lock, configuration or backend. The owner published it with
-the reviewed closeout evidence as **`64400819327fc877bdea698770df4fef9c6e5483`**.
-Its [exact-source run 43304092736](https://github.com/aodl/balls-2-the-wallz/actions/runs/43304092736)
-is in progress; six conclusions remain pending. The six substantive jobs are Source conformance,
-Native conformance, Packaged DTR and clean consumers, Runtime-lab Wasm, Browser
-HTTP and Web Crypto, and S14/million-cell installed-IC qualification. Older green
-runs and the informational BLOCKED production inventory do not substitute for
-those exact-source conclusions. AGENTS.md reserves remote Git operations for the
-owner; no remote write was performed here.
+The owner published earlier qualifier `47f563b` in
+[run 43299116175](https://github.com/aodl/balls-2-the-wallz/actions/runs/43299116175):
+Source, Native, Packaged DTR/consumers and Wasm passed, but the old Locate fixture
+mutation raced unfinished camera composition. Its manual-ownership/settled-entry
+correction preserved offscreen/inert/clock assertions and passed the next run.
+[Source-specific first-run summary](ci-47f563b.json).
+
+The owner then published `6440081` in
+[run 43304092736](https://github.com/aodl/balls-2-the-wallz/actions/runs/43304092736).
+All original Browser journeys, tactical/depth, fluid/elastic, refinement and visual
+closeout passed; the newly added status-geometry journey sampled a still-expanding
+pane as its baseline. Final acceptance explicitly settles the pane, requires a
+visible prepared packet and initially enabled Copy controls, and retains every
+per-state geometry assertion. It additionally requires copying to re-enable after
+recovery. The strengthened journey passes at all three sizes. The failed run is
+not counted as PASS; final typed `SysTransient` retry also changes runtime bytes,
+so a new freeze and exact-source run are required.
+
+The six substantive jobs are Source conformance, Native conformance, Packaged DTR
+and clean consumers, Runtime-lab Wasm, Browser HTTP and Web Crypto, and S14/million-cell
+installed-IC qualification. Earlier runs and the informational BLOCKED production
+inventory do not substitute for six final-source conclusions. AGENTS.md reserves
+remote Git for the owner; no remote write was performed here. A final-source push
+request is pending. No additional production/deployment authority is implied.
 
 Software WebGL, emulated viewport/touch, and controlled lifecycle input do not
 establish physical-device performance, hardware GPU performance or genuine

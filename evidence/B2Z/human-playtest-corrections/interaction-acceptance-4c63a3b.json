@@ -1,0 +1,771 @@
+{
+  "status": "PASS",
+  "source_runtime": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "scope": "Real mouse/touch/keyboard events in populated actual components; synthetic canonical scene, no IC authenticity or physical-device claim",
+  "fixture_sha256": "1b5bb10a922c0258532b0950d249159ab102d7c26bbbc79e3f1400ce316f0d50",
+  "runtime_note": "Native fixture predates the one-line contracted-viewport recovery fix; visual-closeout uses the corrected shell and passes all three sizes",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "near_aim_and_outside_pan": "PASS",
+      "panel_geometry": [
+        {
+          "case": "status-failure",
+          "box": {
+            "x": 611,
+            "y": 364,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "status-recovered",
+          "box": {
+            "x": 611,
+            "y": 364,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": false
+        },
+        {
+          "case": "delivery-failure",
+          "box": {
+            "x": 611,
+            "y": 364,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "prolonged-outage",
+          "box": {
+            "x": 611,
+            "y": 364,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "recovered",
+          "box": {
+            "x": 611,
+            "y": 364,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": false
+        }
+      ],
+      "away_click_stops_follow": "PASS",
+      "selection_camera_before": [
+        578.5,
+        453.5,
+        64
+      ],
+      "selection_camera_after": [
+        578.5,
+        453.5,
+        64
+      ],
+      "selected_bodies": 1,
+      "all_cannon_part_matrices_match": true,
+      "build_headings": [
+        0,
+        45,
+        90,
+        135,
+        180,
+        225,
+        270,
+        315
+      ],
+      "guide_clearance": [
+        {
+          "screenAngle": 0,
+          "end": {
+            "x": 479.9999999999993,
+            "y": 277.9871655430184
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 40960,
+          "memo": "FIRE 1 225 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 45,
+          "end": {
+            "x": 557.7798469621131,
+            "y": 310.2039956621802
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 46421,
+          "memo": "FIRE 1 255 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 90,
+          "end": {
+            "x": 590.0015428837212,
+            "y": 387.9892487945366
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 57344,
+          "memo": "FIRE 1 315 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 135,
+          "end": {
+            "x": 557.7779479937066,
+            "y": 465.77121281713096
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 2731,
+          "memo": "FIRE 1 15 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 180,
+          "end": {
+            "x": 479.9999999999993,
+            "y": 497.9891393062134
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 8192,
+          "memo": "FIRE 1 45 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 225,
+          "end": {
+            "x": 402.22015303788567,
+            "y": 465.77230918705163
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 13653,
+          "memo": "FIRE 1 75 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 270,
+          "end": {
+            "x": 369.99845711627756,
+            "y": 387.98705605469524
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 24576,
+          "memo": "FIRE 1 135 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 315,
+          "end": {
+            "x": 402.2220520062922,
+            "y": 310.20509203210094
+          },
+          "status": {
+            "x": 1252.59375,
+            "y": 13.734375,
+            "width": 52.796875,
+            "height": 46.390625,
+            "top": 13.734375,
+            "right": 1305.390625,
+            "bottom": 60.125,
+            "left": 1252.59375
+          },
+          "heading": 35499,
+          "memo": "FIRE 1 195 1",
+          "collision": false
+        }
+      ],
+      "minimap_seams": [
+        {
+          "bad": 0,
+          "samples": 6310,
+          "minAlpha": 255
+        },
+        {
+          "bad": 0,
+          "samples": 6310,
+          "minAlpha": 255
+        },
+        {
+          "bad": 0,
+          "samples": 6310,
+          "minAlpha": 255
+        },
+        {
+          "bad": 0,
+          "samples": 6310,
+          "minAlpha": 255
+        }
+      ],
+      "touch_near_aim_then_pinch": null,
+      "build_destination_inside_aim_halo": null
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "near_aim_and_outside_pan": "PASS",
+      "panel_geometry": [
+        {
+          "case": "status-failure",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "status-recovered",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": false
+        },
+        {
+          "case": "delivery-failure",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "prolonged-outage",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "recovered",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 392
+          },
+          "copyDisabled": false
+        }
+      ],
+      "away_click_stops_follow": "PASS",
+      "selection_camera_before": [
+        578.5,
+        453.5,
+        64
+      ],
+      "selection_camera_after": [
+        578.5,
+        453.5,
+        64
+      ],
+      "selected_bodies": 1,
+      "all_cannon_part_matrices_match": true,
+      "build_headings": [
+        0,
+        45,
+        90,
+        135,
+        180,
+        225,
+        270,
+        315
+      ],
+      "guide_clearance": [
+        {
+          "screenAngle": 0,
+          "end": {
+            "x": 184.24792839810982,
+            "y": 43.804270308868524
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 40960,
+          "memo": "FIRE 1 225 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 45,
+          "end": {
+            "x": 262.03036486259606,
+            "y": 76.02199745796543
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 46421,
+          "memo": "FIRE 1 255 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 90,
+          "end": {
+            "x": 294.2520607842041,
+            "y": 153.80525719046602
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 57344,
+          "memo": "FIRE 1 315 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 135,
+          "end": {
+            "x": 262.02829326069804,
+            "y": 231.58971296288004
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 2731,
+          "memo": "FIRE 1 15 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 180,
+          "end": {
+            "x": 184.25207160190584,
+            "y": 263.80624407206346
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 8192,
+          "memo": "FIRE 1 45 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 225,
+          "end": {
+            "x": 106.46963513741962,
+            "y": 231.58851692296656
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 13653,
+          "memo": "FIRE 1 75 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 270,
+          "end": {
+            "x": 74.24793921581153,
+            "y": 153.80525719046602
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 24576,
+          "memo": "FIRE 1 135 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 315,
+          "end": {
+            "x": 106.47170673931763,
+            "y": 76.02080141805197
+          },
+          "status": {
+            "x": 228.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 278.46875,
+            "bottom": 56.03125,
+            "left": 228.015625
+          },
+          "heading": 35499,
+          "memo": "FIRE 1 195 1",
+          "collision": false
+        }
+      ],
+      "minimap_seams": null,
+      "touch_near_aim_then_pinch": "PASS (emulated touch, no physical-device claim)",
+      "build_destination_inside_aim_halo": null
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "near_aim_and_outside_pan": "PASS",
+      "panel_geometry": [
+        {
+          "case": "status-failure",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "status-recovered",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295
+          },
+          "copyDisabled": false
+        },
+        {
+          "case": "delivery-failure",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "prolonged-outage",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295
+          },
+          "copyDisabled": true
+        },
+        {
+          "case": "recovered",
+          "box": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295
+          },
+          "copyDisabled": false
+        }
+      ],
+      "away_click_stops_follow": "PASS",
+      "selection_camera_before": [
+        578.5,
+        453.5,
+        64
+      ],
+      "selection_camera_after": [
+        578.5,
+        453.5,
+        64
+      ],
+      "selected_bodies": 1,
+      "all_cannon_part_matrices_match": true,
+      "build_headings": [
+        0,
+        45,
+        90,
+        135,
+        180,
+        225,
+        270,
+        315
+      ],
+      "guide_clearance": [
+        {
+          "screenAngle": 0,
+          "end": {
+            "x": 149.24792839810982,
+            "y": 43.80427030887182
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 40960,
+          "memo": "FIRE 1 225 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 45,
+          "end": {
+            "x": 227.03036486259606,
+            "y": 76.02199745796875
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 46421,
+          "memo": "FIRE 1 255 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 90,
+          "end": {
+            "x": 259.2520607842041,
+            "y": 153.80525719046932
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 57344,
+          "memo": "FIRE 1 315 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 135,
+          "end": {
+            "x": 227.02829326069804,
+            "y": 231.58971296288337
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 2731,
+          "memo": "FIRE 1 15 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 180,
+          "end": {
+            "x": 149.25207160190584,
+            "y": 263.8062440720668
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 8192,
+          "memo": "FIRE 1 45 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 225,
+          "end": {
+            "x": 71.46963513741962,
+            "y": 231.58851692296992
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 13653,
+          "memo": "FIRE 1 75 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 270,
+          "end": {
+            "x": 39.24793921581153,
+            "y": 153.80525719046932
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 24576,
+          "memo": "FIRE 1 135 1",
+          "collision": false
+        },
+        {
+          "screenAngle": 315,
+          "end": {
+            "x": 71.47170673931763,
+            "y": 76.02080141805527
+          },
+          "status": {
+            "x": 158.015625,
+            "y": 12.03125,
+            "width": 50.453125,
+            "height": 44,
+            "top": 12.03125,
+            "right": 208.46875,
+            "bottom": 56.03125,
+            "left": 158.015625
+          },
+          "heading": 35499,
+          "memo": "FIRE 1 195 1",
+          "collision": false
+        }
+      ],
+      "minimap_seams": null,
+      "touch_near_aim_then_pinch": "PASS (emulated touch, no physical-device claim)",
+      "build_destination_inside_aim_halo": null
+    }
+  ]
+}

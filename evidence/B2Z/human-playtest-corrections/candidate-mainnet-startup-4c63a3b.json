@@ -1,0 +1,58 @@
+{
+  "timings": {
+    "currentAuthorityAt": 3388.5,
+    "firstVerifiedFrameAt": 4371.80000000447,
+    "operatingStateKnownAt": 4371.80000000447,
+    "firstMotionFrameAt": 5793.89999999851
+  },
+  "history": {
+    "requests": 2,
+    "bytes": 16193,
+    "outcome": "interval",
+    "elapsedMs": 599.2999999970198
+  },
+  "head": "6933",
+  "root": "147bdff38f23a9f68b5c858ac9e03a8d4df7de99a992db2d63813ee8edba6173",
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": 0,
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "certificateMode": "certificate-verifier",
+  "status": {
+    "kind": "slow",
+    "label": "Slow \u00b7 delayed",
+    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+    "canPrepare": true
+  },
+  "verifiedStateBytes": 12109,
+  "queueBytes": 36879,
+  "status_result": "MEASURED",
+  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "qualification": "Exact frozen candidate served from loopback with production headers and read-only actual mainnet backend; production frontend not modified",
+  "read_only_posts": 17,
+  "page_errors": [],
+  "first_sample": {
+    "at": 4371.80000000447,
+    "time": 6929,
+    "head": "6933",
+    "referenceTime": 6930,
+    "status": "waiting"
+  },
+  "last_sample": {
+    "at": 9823.89999999851,
+    "time": 6929.047665000005,
+    "head": "6933",
+    "referenceTime": 6930,
+    "status": "slow"
+  },
+  "sampled_heads": [
+    "6933"
+  ],
+  "sample_count": 24,
+  "within_verified_coverage": true,
+  "raw": ".work/human-corrections/frozen-startup-cost"
+}

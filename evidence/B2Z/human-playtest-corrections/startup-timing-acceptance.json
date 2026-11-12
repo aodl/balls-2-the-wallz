@@ -1,43 +1,18 @@
 {
   "status": "PASS",
-  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
-  "qualification_source": "47f563b88ee430c3a990715d8e4a1547cbf18511",
-  "qualification_source_dirty": true,
-  "scope": "Additional timing capture in full actual certified fixed-H/outage run; unchanged normal runtime inputs and frozen mainnet JS hash; raw report retains development qualifier provenance",
+  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
+  "source_dirty": false,
   "startup_timings_ms": {
-    "currentAuthorityAt": 2884.39999999851,
-    "firstVerifiedFrameAt": 3619.10000000149,
-    "operatingStateKnownAt": 3619.10000000149,
-    "firstMotionFrameAt": 5722.79999999702
+    "currentAuthorityAt": 3290.10000000149,
+    "firstVerifiedFrameAt": 4096.60000000149,
+    "operatingStateKnownAt": 4096.60000000149,
+    "firstMotionFrameAt": 5853
   },
-  "startup_history": {
+  "history": {
     "requests": 2,
     "bytes": 3822,
     "outcome": "interval",
-    "elapsedMs": 271.8999999985099
+    "elapsedMs": 271.1000000014901
   },
-  "outages": [
-    {
-      "seconds": 5,
-      "requests": 6,
-      "panel_drift_px": 0
-    },
-    {
-      "seconds": 30,
-      "requests": 13,
-      "panel_drift_px": 0
-    },
-    {
-      "seconds": 90,
-      "requests": 18,
-      "panel_drift_px": 0
-    },
-    {
-      "seconds": 180,
-      "requests": 24,
-      "panel_drift_px": 0
-    }
-  ],
-  "wrong_root": "PASS",
-  "raw": ".work/human-corrections/certified-timings/deployment/human-corrections"
+  "raw": ".work/human-corrections/certified-final-admission/deployment/human-corrections"
 }

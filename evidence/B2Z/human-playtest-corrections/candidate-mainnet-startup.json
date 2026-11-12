@@ -1,18 +1,18 @@
 {
   "timings": {
-    "currentAuthorityAt": 3388.5,
-    "firstVerifiedFrameAt": 4371.80000000447,
-    "operatingStateKnownAt": 4371.80000000447,
-    "firstMotionFrameAt": 5793.89999999851
+    "currentAuthorityAt": 2020.1999999955297,
+    "firstVerifiedFrameAt": 2507.89999999851,
+    "operatingStateKnownAt": 2507.89999999851,
+    "firstMotionFrameAt": 3220.6999999955297
   },
   "history": {
     "requests": 2,
-    "bytes": 16193,
+    "bytes": 16155,
     "outcome": "interval",
-    "elapsedMs": 599.2999999970198
+    "elapsedMs": 503.40000000596046
   },
-  "head": "6933",
-  "root": "147bdff38f23a9f68b5c858ac9e03a8d4df7de99a992db2d63813ee8edba6173",
+  "head": "6961",
+  "root": "0145a7c18a2798758df4d81f783b371605fa9be7c208e7e6b4732e3ff4010ce1",
   "source": {
     "network": "ic",
     "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
@@ -29,30 +29,31 @@
     "canPrepare": true
   },
   "verifiedStateBytes": 12109,
-  "queueBytes": 36879,
+  "queueBytes": 37041,
   "status_result": "MEASURED",
-  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
   "qualification": "Exact frozen candidate served from loopback with production headers and read-only actual mainnet backend; production frontend not modified",
-  "read_only_posts": 17,
+  "read_only_posts": 19,
   "page_errors": [],
   "first_sample": {
-    "at": 4371.80000000447,
-    "time": 6929,
-    "head": "6933",
-    "referenceTime": 6930,
+    "at": 2507.89999999851,
+    "time": 6957,
+    "head": "6961",
+    "referenceTime": 6958,
     "status": "waiting"
   },
   "last_sample": {
-    "at": 9823.89999999851,
-    "time": 6929.047665000005,
-    "head": "6933",
-    "referenceTime": 6930,
+    "at": 7984.39999999851,
+    "time": 6957.058166000007,
+    "head": "6961",
+    "referenceTime": 6958,
     "status": "slow"
   },
   "sampled_heads": [
-    "6933"
+    "6961"
   ],
-  "sample_count": 24,
+  "sample_count": 57,
   "within_verified_coverage": true,
-  "raw": ".work/human-corrections/frozen-startup-cost"
+  "raw": ".work/human-corrections/frozen-startup-final-isolated",
+  "measurement_condition": "Isolated browser after functional captures; earlier contended final capture retained in .work/human-corrections/frozen-startup-final"
 }

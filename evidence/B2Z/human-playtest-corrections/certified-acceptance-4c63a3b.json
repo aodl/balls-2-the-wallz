@@ -1,0 +1,173 @@
+{
+  "status": "PASS",
+  "scope": "Actual pinned disposable PocketIC root and normal-module certificate; frontend-only fixed-H browser acceptance, not production qualification",
+  "raw": ".work/human-corrections/certified-frozen-source/deployment/human-corrections",
+  "source_commit": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "source_dirty": false,
+  "startup": {
+    "head": "1",
+    "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+    "reference_time": 2,
+    "initial_presented_time": 1,
+    "head_unchanged_for_entire_test": true,
+    "history": {
+      "requests": 2,
+      "bytes": 3822,
+      "outcome": "interval",
+      "elapsedMs": 345.70000000298023
+    },
+    "verified_world_acquired_ms": 3782.39999999851,
+    "first_visible_frame_ms": 4844.0999999940395,
+    "first_sampled_motion_ms": 6620.5,
+    "cold_frames": [
+      {
+        "at": 4844.0999999940395,
+        "head": "1",
+        "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+        "time": 1,
+        "available": 2,
+        "referenceTime": 2,
+        "balls": [
+          {
+            "id": 1,
+            "x": 4.5,
+            "y": 2.5
+          },
+          {
+            "id": 2,
+            "x": 11.5,
+            "y": 2.5
+          },
+          {
+            "id": 3,
+            "x": 4.5,
+            "y": 6.5
+          },
+          {
+            "id": 4,
+            "x": 11.5,
+            "y": 6.5
+          }
+        ]
+      },
+      {
+        "at": 6620.5,
+        "head": "1",
+        "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+        "time": 1.1333000000000002,
+        "available": 2,
+        "referenceTime": 2,
+        "balls": [
+          {
+            "id": 1,
+            "x": 4.6333,
+            "y": 2.5
+          },
+          {
+            "id": 2,
+            "x": 11.3667,
+            "y": 2.5
+          },
+          {
+            "id": 3,
+            "x": 4.6333,
+            "y": 6.5
+          },
+          {
+            "id": 4,
+            "x": 11.3667,
+            "y": 6.5
+          }
+        ]
+      },
+      {
+        "at": 6815.89999999851,
+        "head": "1",
+        "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+        "time": 1.3833000000000002,
+        "available": 2,
+        "referenceTime": 2,
+        "balls": [
+          {
+            "id": 1,
+            "x": 4.8833,
+            "y": 2.5
+          },
+          {
+            "id": 2,
+            "x": 11.1167,
+            "y": 2.5
+          },
+          {
+            "id": 3,
+            "x": 4.8833,
+            "y": 6.5
+          },
+          {
+            "id": 4,
+            "x": 11.1167,
+            "y": 6.5
+          }
+        ]
+      }
+    ],
+    "endpoint_held": true
+  },
+  "outages": [
+    {
+      "seconds": 5,
+      "http_status": 503,
+      "query_requests": 6,
+      "panel_drift_px": 0,
+      "session_clock_queue_camera_draft_preserved": true,
+      "manual_reload": false
+    },
+    {
+      "seconds": 30,
+      "http_status": 429,
+      "query_requests": 13,
+      "panel_drift_px": 0,
+      "session_clock_queue_camera_draft_preserved": true,
+      "manual_reload": false
+    },
+    {
+      "seconds": 90,
+      "http_status": 503,
+      "query_requests": 17,
+      "panel_drift_px": 0,
+      "session_clock_queue_camera_draft_preserved": true,
+      "manual_reload": false
+    },
+    {
+      "seconds": 180,
+      "http_status": 503,
+      "query_requests": 24,
+      "panel_drift_px": 0,
+      "session_clock_queue_camera_draft_preserved": true,
+      "manual_reload": false
+    }
+  ],
+  "slow_optional_status": {
+    "world_seconds": 3.3849638079991564,
+    "payment_disabled_until_status": true
+  },
+  "history_deadline": {
+    "history": {
+      "requests": 1,
+      "bytes": 0,
+      "outcome": "deadline",
+      "elapsedMs": 2001.5999999940395
+    },
+    "verified_world_acquired_ms": 4839,
+    "late_response_no_rewind": true
+  },
+  "wrong_root": {
+    "status": "PASS",
+    "hard_barrier_survives_network_success": true
+  },
+  "limitations": [
+    "Software rendering and video capture, not hardware performance",
+    "Controlled freeze/resume is separate from genuine browser visibility",
+    "Reuses unchanged reviewed normal Wasm SHA256 74ee4d172801e6d89987950376c4cda2015233ed605c967491e773c5b5a3f510; no new Wasm/Candid/upgrade qualification"
+  ]
+}

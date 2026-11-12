@@ -510,5 +510,8 @@
         "heap": 23100000
       }
     }
-  ]
+  ],
+  "final_runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
+  "final_ui_fixture_sha256": "08ee6d806ed51c05ed3d7a12f83994ff19d32de468bcf9e0be160d4c8ffc9fd7",
+  "scope_note": "Renderer/composer input bytes unchanged; final runtime additionally classifies typed network rejection only"
 }

@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "scope": "Exact frozen assets on loopback with actual mainnet certificates; initial observation held for truthful acquisition capture and browser-local 503 delivery fault; production frontend not modified",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "authenticated_before_outage": {
+        "root": "4a8a5f8c60e804cc5285e9688e48d8deecd61d6ee291806e06243ed50f236938",
+        "time": 6936.013667,
+        "available": 6937
+      },
+      "automatic_same_session_recovery": true,
+      "all_posts_read_only": true,
+      "errors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "authenticated_before_outage": {
+        "root": "4a8a5f8c60e804cc5285e9688e48d8deecd61d6ee291806e06243ed50f236938",
+        "time": 6936.011833000001,
+        "available": 6937
+      },
+      "automatic_same_session_recovery": true,
+      "all_posts_read_only": true,
+      "errors": []
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "authenticated_before_outage": {
+        "root": "70111f7c6119f1891bec1f82a2d5aaea32988e0f5c5ec7435e7643c26c2437d3",
+        "time": 6936.009499,
+        "available": 6938
+      },
+      "automatic_same_session_recovery": true,
+      "all_posts_read_only": true,
+      "errors": []
+    }
+  ],
+  "runtime_source": "4c63a3b97eaa222b332bf04671c09ccbfc12213e"
+}

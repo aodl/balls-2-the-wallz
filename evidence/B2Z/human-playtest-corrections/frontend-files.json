@@ -1,7 +1,7 @@
 {
-  "source_commit": "4c63a3b97eaa222b332bf04671c09ccbfc12213e",
+  "source_commit": "777fb421479de79d2071e384abfb231d7a60242f",
   "source_dirty": false,
-  "build_directory": ".work/human-corrections/frozen/frontend",
+  "build_directory": ".work/human-corrections/frozen-final/frontend",
   "file_count": 16,
   "public_file_count": 15,
   "files": {
@@ -16,8 +16,8 @@
       "role": "public-http-asset"
     },
     "app.mjs": {
-      "sha256": "cd44e2a35d2904e5af27ea63f6f6700747a28709b672520c7a1adf7a80de7dc0",
-      "bytes": 2008761,
+      "sha256": "5695ce6abff67e2f88cf002ce1d676ea998745af1405d35c726e6334902be131",
+      "bytes": 2008953,
       "role": "public-http-asset"
     },
     "backend.did": {
@@ -26,7 +26,7 @@
       "role": "public-http-asset"
     },
     "build-manifest.json": {
-      "sha256": "f2c5cb1bd7b4aee57a3b84fc33acedec5b2e778264f2307fe7f8f5106efae790",
+      "sha256": "da75b8111a77aff769e52a691bf36aeba6d85e292c412af7a5c6f150aef6f0e5",
       "bytes": 10294,
       "role": "public-http-asset"
     },
