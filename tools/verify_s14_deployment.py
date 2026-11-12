@@ -2,6 +2,7 @@
 """Actual deployment bundle against an owned live PocketIC. No wallet/update calls.
 The Rust acceptance harness owns valueless transfers, upgrade and service startup.
 """
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 from fluid_playability_browser import action_field
 import argparse,hashlib,json,os,shutil,signal,subprocess,sys,time
 from pathlib import Path
@@ -71,9 +72,9 @@ def seam_pointer_target(page,centre,point):
 def wait_committed_cell(page,cell):
     # This predicate must be read-only. action_field() may press Locate, which
     # intentionally cancels a pending gesture and would erase the test's tap.
-    try:wait_until(page,lambda:page.locator('#move-cell').input_value()==str(cell),5000)
+    try:wait_until(page,lambda:chosen_cell(page)==str(cell),5000)
     except Exception:
-        print('seam-click-diagnostic',page.evaluate('({events:globalThis.__s14ClickTrace,phase:document.body.dataset.phase,note:document.getElementById("preparation-note").textContent,cell:document.getElementById("move-cell").value,memo:document.getElementById("text-memo").textContent})'),flush=True)
+        print('seam-click-diagnostic',page.evaluate('({events:globalThis.__s14ClickTrace,phase:document.body.dataset.phase,note:document.getElementById("preparation-note").textContent,cell:String(fixture.proposal().cell??""),memo:document.getElementById("text-memo").textContent})'),flush=True)
         raise
 
 def locate_seam_action(page):
@@ -108,14 +109,14 @@ def verify_torus_scene(page,context,out,record,report,save):
     assert 'wraparound' in world_text(page)
     select_cannon(page);choose_action(page,'ball');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#transfer-amount').inner_text()=='0.4 ICP'
-    page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
-    choose_action(page,'move');action_field(page,'#move-cell').fill('1');assert selected_cell(page)!=0
+    set_heading(page,'0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
+    choose_action(page,'move');choose_cell(page,'1');assert selected_cell(page)!=0
     camera_settled(page)
     trace_seam_click(page)
     point=seam_pointer_target(page,31.8,32.5);page.mouse.click(point['x'],point['y'])
     wait_committed_cell(page,0)
     locate_seam_action(page)
-    assert action_field(page,'#move-cell').input_value()=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
+    assert chosen_cell(page)=='0';wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000);assert page.locator('#text-memo').inner_text()=='MOVE 0'
     page.keyboard.press('Escape');assert page.evaluate('__b2zCamera.copies().length')<=25 # UX-12 torus copies remain bounded; persistent minimap supplies the canonical overview
     page.screenshot(path=str(out/'torus-seam-move.png'));record('corner-seam-camera-hit-test-prepares-the-underlying-cell-once')
     # Native touch pan and pinch, preserving the numeric aim alternative.
@@ -223,7 +224,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
     select_cannon(page);choose_action(page,'move')
     # Numeric entry and exact board picking avoid 1,000,000 DOM options.
-    assert action_field(page,'#move-cell').get_attribute('type')=='number'
+    assert page.locator('#move-cell,#new-cell,#angle-degrees').count()==0
     # Settle the My-cannon animation before arranging the seam test view.
     camera_settled(page)
     assert selected_cell(page)!=0
@@ -337,7 +338,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     choose_action(page,'ball')
     wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
     select_cannon(page);choose_action(page,'move')
-    old_cell=different_owned_cell(page);choose_action(page,'move');action_field(page,'#move-cell').fill(str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    old_cell=different_owned_cell(page);choose_action(page,'move');choose_cell(page,str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
     assert source_value(page,'recipient')==report['receiving_account'];assert page.locator('#payment-owner').text_content().startswith(source_value(page,'owner'));assert not page.locator('#payment-address,#hex-memo').count()
     page.locator('[data-copy="text"]').click()
@@ -360,7 +361,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     assert page.locator('#replace-choice').is_visible()
     assert page.evaluate('Boolean(__b2zExperience.session.ready)') # saved packet remains in scoped local history
     mapped=(old_cell//16+12)*32+old_cell%16+8
-    action_field(page,'#move-cell').fill(str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    choose_cell(page,str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     progress('new-epoch-packet-verified');assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
     assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
     page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
@@ -397,7 +398,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--human-corrections-scene-only',action='store_true');p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     if a.million_sustained and not a.million_scene_only:p.error('--million-sustained requires --million-scene-only')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=int(os.environ['S14_QUAL_PROXY_PORT']) if os.environ.get('S14_QUAL_PROXY_PORT') else free_port()
     assert 1<=port<=65535
@@ -420,7 +421,7 @@ def main():
             shutil.copytree(prebuilt/'mainnet-assets',production)
             production_id=json.loads((production/'build-manifest.json').read_text())['deployment']['canister_id']
         else:
-            builder='tools/build_observer_playability.mjs' if (a.playability_scene_only or a.entry_scene_only) else 'tools/build_observer_mainnet.mjs'
+            builder='tools/build_observer_playability.mjs' if (a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only) else 'tools/build_observer_mainnet.mjs'
             subprocess.run(['node',builder,'--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
             # A committed real deployment mapping must never be bypassed to build
             # mainnet assets for a disposable test principal. Production-policy
@@ -508,9 +509,11 @@ def main():
             # any throughput/continuity assertion or the normal CI capture policy.
             video_disabled=os.environ.get('S14_BROWSER_NO_VIDEO')=='1'
             capture_video=not (video_disabled or a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only or a.entry_scene_only)
+            if a.human_corrections_scene_only:capture_video=True
             if capture_video:context_options['record_video_dir']=str(out/'video')
             report['capture']={'video':capture_video,'diagnostic_no_video':video_disabled,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
             context=browser.new_context(**context_options);page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+            if a.human_corrections_scene_only:page.add_init_script("""window.coldSamples=[];function captureCold(){const e=globalThis.__b2zExperience,s=e?.session;if(s?.ready&&coldSamples.length<180)coldSamples.push({at:performance.now(),head:String(s.sequence.last.publication.head.segment_id),root:s.root,time:e.visibleTime,available:s.clock.available,referenceTime:Number(s.referenceWorld.time[0])/Number(s.referenceWorld.time[1]),balls:[...e.visible.balls.values()].map(b=>({id:b.id,x:(Number(b.x0)+b.vx*e.visibleTime)/1024,y:(Number(b.y0)+b.vy*e.visibleTime)/1024}))});if(performance.now()<20000)requestAnimationFrame(captureCold)}requestAnimationFrame(captureCold)""")
             if a.playability_scene_only:
                 # Arm before application timers exist. Late clock installation
                 # resets performance.now(), stranding previously scheduled
@@ -568,9 +571,12 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#observation-error').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.scene_only or a.million_scene_only or a.transition_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
-                if not (a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
-                if a.entry_scene_only:
+            if a.human_corrections_scene_only or a.scene_only or a.million_scene_only or a.transition_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
+                if not (a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
+                if a.human_corrections_scene_only:
+                    from human_corrections_browser import verify_certified_lifecycle
+                    verify_certified_lifecycle(page,context,out,configuration,record,report,save)
+                elif a.entry_scene_only:
                     from entry_browser import verify_entry_scene
                     verify_entry_scene(page,context,out,configuration,record,report,save)
                 elif a.playability_scene_only:
@@ -601,7 +607,7 @@ def main():
             record('certified-backend-receiving-account-and-price-identities')
             page.keyboard.press('Escape');identify_account(page,configuration['payer_account'])
             choose_action(page,'start')
-            page.locator('#angle-degrees').fill('167.15');review_instructions(page)
+            set_heading(page,'167.15');review_instructions(page)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='1 ICP'
             assert page.locator('.hero,footer').count()==0
@@ -660,7 +666,7 @@ def main():
             wait_until(page,lambda:page.evaluate('__b2zExperience.session.referenceWorld.cannons.length')==1,60000)
             wait_until(page,lambda:page.evaluate('initial=>(globalThis.__dtrLive.heads.at(-1)??-1)>initial',initial),15000)
             assert page.evaluate('globalThis.__dtrLive.delivery.blocking') is None
-            assert page.locator('#new-controls').is_hidden()
+            assert page.locator('#new-controls').count()==0
             first_tx=wait_file(page,out/'harness-first-payment',30000)
             receipt_seen=lambda tx:page.evaluate('(id)=>__b2zExperience.session.receipts.has(id)',str(tx))
             wait_until(page,lambda:receipt_seen(first_tx),60000)
@@ -686,10 +692,10 @@ def main():
             for angle in [0,37.5,90,135,180,225,270,315,359.99]:
                 origin=page.evaluate('()=>{const w=__b2zExperience.session.referenceWorld,c=w.cannons.find(c=>c.id===__b2zTools.selection());return __b2zCamera.cellPoint(c.cell);}')
                 h=page.locator('#aim-handle').bounding_box();page.mouse.move(h['x']+22,h['y']+22);page.mouse.down();page.mouse.move(origin['sx']+math.sin(math.radians(angle))*90,origin['sy']-math.cos(math.radians(angle))*90,steps=3);page.mouse.up();review_instructions(page)
-                actual=float(page.locator('#angle-degrees').input_value());assert abs((actual-angle+180)%360-180)<.03,(angle,actual)
+                actual=float(heading_value(page));assert abs((actual-angle+180)%360-180)<.03,(angle,actual)
             # Numeric heading remains the keyboard alternative; empty drag/pinch are camera gestures.
-            page.locator('#angle-degrees').fill('119.99');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 359.99'
-            page.locator('#angle-degrees').fill('167.15');review_instructions(page)
+            set_heading(page,'119.99');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 359.99'
+            set_heading(page,'167.15');review_instructions(page)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             record('UX-12-world-plane-heading-and-keyboard-alternative')
             (out/'browser-first-cannon-seen').write_text('certified join visible\n')
@@ -723,15 +729,15 @@ def main():
             # inspection. It is scoped to this cannon, rather than a new default.
             assert page.evaluate('__b2zExperience.session.referenceWorld.version')==3
             assert page.evaluate('__b2zExperience.session.referenceWorld.cannons[0].heading===undefined')
-            assert page.locator('#angle-degrees').input_value()=='167.15'
+            assert heading_value(page)=='167.15'
             assert page.locator('#text-memo').inner_text()=='ANGLE 37.5',page.locator('#text-memo').inner_text()
             record('same-cannon-draft-retains-screen-heading-and-exact-canonical-memo')
             cell=different_owned_cell(page);choose_action(page,'move')
-            action_field(page,'#move-cell').fill(str(cell))
+            choose_cell(page,str(cell))
             # Move is selected from the cannon context.
             point=page.evaluate('(cell)=>__b2zCamera.screen(cell%16+.5,Math.floor(cell/16)+.5)',cell)
             page.mouse.click(point['x'],point['y'])
-            assert action_field(page,'#move-cell').input_value()==str(cell)
+            assert chosen_cell(page)==str(cell)
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#text-memo').inner_text()==f'MOVE {cell}'
             assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
@@ -744,12 +750,12 @@ def main():
             # journeys; do not try to click a deliberately hidden legacy action.
             select_cannon(page);assert page.locator('#build-action').is_hidden()
             choose_action(page,'ball')
-            assert page.locator('#angle-degrees').input_value()=='167.15'
+            assert heading_value(page)=='167.15'
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
-            page.locator('#angle-degrees').fill('167.15');review_instructions(page)
+            set_heading(page,'167.15');review_instructions(page)
             assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
             page.set_viewport_size({'width':390,'height':844});page.set_viewport_size({'width':1440,'height':900})
-            assert page.locator('#angle-degrees').input_value()=='167.15'
+            assert heading_value(page)=='167.15'
 
             page.keyboard.press('Escape')
             # Receipt setup deliberately holds production at authenticated outcomes.
@@ -759,7 +765,7 @@ def main():
             page.evaluate('()=>{void __b2zTools.restart()}')
             wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected && globalThis.__dtrLive !== globalThis.__beforeSteadyLive)'),30000)
             assert source_value(page,'recipient')==configuration['recipient']
-            assert page.locator('#angle-degrees').input_value()=='167.15'
+            assert heading_value(page)=='167.15'
             assert page.locator('#text-memo').inner_text()=='ANGLE 37.5'
             record('aim-survives-certified-state-updates-and-resize')
             close_settings(page)
@@ -799,9 +805,9 @@ def main():
             target=int(wait_file(page,out/'harness-upgrade-ready',90000))
             wait_until(page,lambda:page.locator('#transfer-controls').evaluate('(node)=>node.disabled') and page.locator('[data-copy="text"]').is_disabled(),20000)
             close_players(page);choose_action(page,'ball')
-            page.locator('#angle-degrees').fill('0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
-            assert not page.locator('#angle-degrees').is_disabled()
-            page.locator('#angle-degrees').fill('167.15')
+            set_heading(page,'0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
+            assert page.locator('#aim-handle').is_enabled()
+            set_heading(page,'167.15')
             record('disconnected-local-aim-with-unavailable-payment-preparation')
             # Negative verification below also covers local aiming before authentication.
             page.keyboard.press('Escape');open_settings(page)

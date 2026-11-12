@@ -2,6 +2,7 @@
 """Matched populated visual closeout and focused actual-component acceptance.
 Uses the maintained canonical fixture bundle, no payment/network execution.
 """
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 import argparse,functools,http.server,json,threading
 from pathlib import Path
 from verify_s14_deployment import seam_pointer_target
@@ -23,16 +24,16 @@ with sync_playwright()as pw:
    def preview_points():
     return page.evaluate('''()=>{const a=fixture.aim();if(!a)return[];const p=fixture.camera.cellPoint(a.cannon.cell),d=a.angle*Math.PI/180;return[[p.x,p.y,.24],[p.x+Math.cos(d)*.50,p.y+Math.sin(d)*.50,.27],[p.x-.22,p.y,.08],[p.x+.22,p.y,.08]].map(([x,y,z])=>{const q=fixture.camera.screen(x,y,z),n=document.elementFromPoint(q.x,q.y);return{x:q.x,y:q.y,target:n?.id??null,board:['board','aim-handle'].includes(n?.id),navigation:(()=>{const nav=document.getElementById('centre-cannon'),r=nav.getBoundingClientRect(),visible=getComputedStyle(nav).visibility!=='hidden'&&!nav.hidden;return visible&&q.x>=r.left&&q.x<=r.right&&q.y>=r.top&&q.y<=r.bottom})()}})}''')
    header=page.locator('.panel-header').bounding_box();page.locator('#fire-action').click();settled_panel(page);match_pose('fire_camera');row['fire_camera']=page.evaluate('fixture.summary().camera');row['mouse_hint_after_activation']=page.locator('#toolbar-hint').is_visible();page.screenshot(path=str(out/f'{w}-fire.png'));wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk']);page.screenshot(path=str(out/f'{w}-payment-warning.png'))
-   page.locator('#build-action').click();p=page.evaluate('fixture.camera.cellPoint(453577)');page.mouse.click(p['sx'],p['sy']);page.wait_for_function('()=>document.getElementById("new-cell").value==="453577"');settled_panel(page);match_pose('build_camera');row['build_camera']=page.evaluate('fixture.summary().camera');row['build_preview_points']=preview_points();row['my_cannon_visible']=page.locator('#centre-cannon').is_visible();row['ghost_style']=page.evaluate('fixture.inspect().ghostStyle??null');page.screenshot(path=str(out/f'{w}-build.png'));payment_warning(page,TILE_PAYMENT_WARNING)
+   page.locator('#build-action').click();p=page.evaluate('fixture.camera.cellPoint(453577)');page.mouse.click(p['sx'],p['sy']);page.wait_for_function('()=>String(fixture.proposal().cell??"")==="453577"');settled_panel(page);match_pose('build_camera');row['build_camera']=page.evaluate('fixture.summary().camera');row['build_preview_points']=preview_points();row['my_cannon_visible']=page.locator('#centre-cannon').is_visible();row['ghost_style']=page.evaluate('fixture.inspect().ghostStyle??null');page.screenshot(path=str(out/f'{w}-build.png'));payment_warning(page,TILE_PAYMENT_WARNING)
    if not a.baseline:
     assert not row['mouse_hint_after_activation'];assert not row['my_cannon_visible'];assert all(p['board']and not p['navigation']for p in row['build_preview_points']),row
     assert row['ghost_style']and row['ghost_style']['wireframe']is False;assert 0<row['ghost_style']['opacity']<1
     for n in page.evaluate('fixture.sites()'):
-     action_field(page,'#new-cell').select_option(str(n));settled_panel(page);assert all(p['board']and not p['navigation']for p in preview_points()),(w,n,preview_points());r=page.locator('.panel-header').bounding_box();assert abs(r['x']-header['x'])<=2 and abs(r['y']-header['y'])<=2
+     choose_cell(page,str(n));settled_panel(page);assert all(p['board']and not p['navigation']for p in preview_points()),(w,n,preview_points());r=page.locator('.panel-header').bounding_box();assert abs(r['x']-header['x'])<=2 and abs(r['y']-header['y'])<=2
     # All four encoded directions keep the touch handle clear of the card.
     aim_positions=[]
     for angle in ['0','90','180','270']:
-     page.locator('#angle-degrees').fill(angle);settled_panel(page);r=page.locator('#aim-handle').bounding_box();point={'x':r['x']+22,'y':r['y']+22};assert page.evaluate('p=>document.elementFromPoint(p.x,p.y)?.id==="aim-handle"',point);assert all(p['board']for p in preview_points());aim_positions.append({'screen_heading':angle,'handle':r,'camera':page.evaluate('fixture.summary().camera')})
+     set_heading(page,angle);settled_panel(page);r=page.locator('#aim-handle').bounding_box();point={'x':r['x']+22,'y':r['y']+22};assert page.evaluate('p=>document.elementFromPoint(p.x,p.y)?.id==="aim-handle"',point);assert all(p['board']for p in preview_points());aim_positions.append({'screen_heading':angle,'handle':r,'camera':page.evaluate('fixture.summary().camera')})
     assert all(p['camera']==aim_positions[0]['camera']for p in aim_positions),'angle edits must not recenter the camera'
     row['aim_directions']=aim_positions
     if w==1440:
@@ -43,8 +44,8 @@ with sync_playwright()as pw:
     contractions=[]
     if w<700:
      for height in [430,300]:
-      page.locator('#angle-degrees').focus();page.locator('#angle-degrees').fill('90');page.set_viewport_size({'width':w,'height':height});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=height);settled_panel(page);points=preview_points();diagnostic=page.evaluate('({scrollX,scrollY,arena:document.getElementById("arena").getBoundingClientRect().toJSON(),card:document.getElementById("workspace").getBoundingClientRect().toJSON(),inline:document.getElementById("workspace").style.cssText})');(out/f'{w}-keyboard-{height}.json').write_text(json.dumps({'points':points,**diagnostic},indent=2));page.screenshot(path=str(out/f'{w}-keyboard-{height}.png'));assert all(p['board']for p in points),(w,height,points,diagnostic);assert page.locator('#angle-degrees').evaluate('(n)=>n===document.activeElement');wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk']);contractions.append({'viewport':[w,height],'preview':points,'scroll_height':page.locator('.panel-scroll').evaluate('(n)=>n.clientHeight')})
-     page.locator('#angle-degrees').blur();page.set_viewport_size({'width':w,'height':h});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=h);settled_panel(page)
+      page.locator('#aim-handle').focus();set_heading(page,'90');page.set_viewport_size({'width':w,'height':height});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=height);settled_panel(page);points=preview_points();diagnostic=page.evaluate('({scrollX,scrollY,arena:document.getElementById("arena").getBoundingClientRect().toJSON(),card:document.getElementById("workspace").getBoundingClientRect().toJSON(),inline:document.getElementById("workspace").style.cssText})');(out/f'{w}-keyboard-{height}.json').write_text(json.dumps({'points':points,**diagnostic},indent=2));page.screenshot(path=str(out/f'{w}-keyboard-{height}.png'));assert all(p['board']for p in points),(w,height,points,diagnostic);assert page.locator('#aim-handle').evaluate('(n)=>n===document.activeElement');wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk']);contractions.append({'viewport':[w,height],'preview':points,'scroll_height':page.locator('.panel-scroll').evaluate('(n)=>n.clientHeight')})
+     page.locator('#aim-handle').blur();page.set_viewport_size({'width':w,'height':h});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=h);settled_panel(page)
      if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();settled_panel(page)
     row['keyboard_viewport_contractions']=contractions
     cdp=c.new_cdp_session(page)

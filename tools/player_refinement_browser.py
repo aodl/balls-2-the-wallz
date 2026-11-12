@@ -1,4 +1,5 @@
 """UXR behaviour near real component paths, canonical fixtures, actual input events."""
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 import math,time
 from fluid_playability_browser import action_field,payment_warning,TILE_PAYMENT_WARNING,ORDINARY_PAYMENT_WARNING,settled
 
@@ -8,8 +9,8 @@ def verify_refinement(page,width,height,out):
   if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
  def prepare(kind='move'):
   close();page.evaluate('fixture.render("additional","initial");fixture.select(1);document.dispatchEvent(new CustomEvent("b2z-locate"))');settled(page);page.locator('#'+{'move':'move-action','new':'build-action','fire':'fire-action'}[kind]).click();page.wait_for_timeout(230)
-  if kind=='move':action_field(page,'#move-cell').fill('')
-  if kind=='new':action_field(page,'#new-cell').select_option('')
+  if kind=='move':choose_cell(page,'')
+  if kind=='new':choose_cell(page,'')
   for selector in ['#payment-risk','#payment-fee','#text-memo','#payment-owner']:
    assert page.locator(selector).evaluate('(n)=>parseFloat(getComputedStyle(n).fontSize)>=14'),'financial text must retain a readable size'
   if page.locator('#toolbar-hint').is_visible():
@@ -20,7 +21,7 @@ def verify_refinement(page,width,height,out):
  def placement(operation,kind='move'):
   prepare(kind)
   if operation=='removed':
-   close();page.evaluate('fixture.publish("additional","final");fixture.select(2);document.dispatchEvent(new CustomEvent("b2z-locate"))');settled(page);page.locator('#move-action').click();action_field(page,'#move-cell').fill('')
+   close();page.evaluate('fixture.publish("additional","final");fixture.select(2);document.dispatchEvent(new CustomEvent("b2z-locate"))');settled(page);page.locator('#move-action').click();choose_cell(page,'')
   sites=page.evaluate(('fixture.moveSites(2)'if operation=='removed'else'fixture.moveSites(1)')if kind=='move'else'fixture.sites()');target=next((n for n in sites if open_point(n)),None);assert target is not None,(width,sites)
   if operation=='revision':target=453579;assert target in sites and open_point(target)
   p=open_point(target)
@@ -36,8 +37,8 @@ def verify_refinement(page,width,height,out):
    'fixture.draw();}),{once:true})',operation)
   page.mouse.click(p['sx'],p['sy']);page.wait_for_timeout(650);settled(page)
   if operation in ['pan','zoom']:
-   page.wait_for_function('(x)=>document.getElementById(x.id).value===String(x.target)',arg={'id':'move-cell'if kind=='move'else'new-cell','target':target},timeout=5000)
-  value=page.locator('#move-cell'if kind=='move'else'#new-cell').input_value();memo=page.locator('#text-memo').text_content();ready=page.locator('#prepared-card').is_visible()and not page.locator('#transfer-controls').evaluate('(n)=>n.disabled')
+   page.wait_for_function('(x)=>String(fixture.proposal().cell??"")===String(x.target)',arg={'id':'move-cell'if kind=='move'else'new-cell','target':target},timeout=5000)
+  value=chosen_cell(page);memo=page.locator('#text-memo').text_content();ready=page.locator('#prepared-card').is_visible()and not page.locator('#transfer-controls').evaluate('(n)=>n.disabled')
   if operation in ['mode','removed','focus']:assert value in ['',str(target)],(operation,target,value,memo)
   else:assert value in ['',str(target)],(operation,target,value,memo)
   if operation in ['revision','removed']:assert not ready,(operation,value,memo)
@@ -47,13 +48,13 @@ def verify_refinement(page,width,height,out):
  if width==1440:
   for operation in ['pan','zoom','focus','mode','revision','removed']:rows.append(placement(operation));(out/f'{width}-target-integrity.json').write_text(__import__('json').dumps(rows,indent=2)+'\n')
   rows.append(placement('focus','new'))
-  prepare('move');sites=page.evaluate('fixture.moveSites(1)');n=next(n for n in sites if open_point(n));p=open_point(n);page.evaluate('window.gestureTrace=[];for(const name of ["pointerdown","pointerup","click","dblclick"])document.getElementById("board").addEventListener(name,e=>gestureTrace.push({name,at:e.timeStamp,now:performance.now(),detail:e.detail,type:e.pointerType,cell:document.getElementById("move-cell").value}),true)');page.mouse.dblclick(p['sx'],p['sy'],delay=55);settled(page);(out/f'{width}-double-click.json').write_text(__import__('json').dumps(page.evaluate('gestureTrace'),indent=2)+'\n');assert page.locator('#move-cell').input_value()==''
+  prepare('move');sites=page.evaluate('fixture.moveSites(1)');n=next(n for n in sites if open_point(n));p=open_point(n);page.evaluate('window.gestureTrace=[];for(const name of ["pointerdown","pointerup","click","dblclick"])document.getElementById("board").addEventListener(name,e=>gestureTrace.push({name,at:e.timeStamp,now:performance.now(),detail:e.detail,type:e.pointerType,cell:String(fixture.proposal().cell??"")}),true)');page.mouse.dblclick(p['sx'],p['sy'],delay=55);settled(page);(out/f'{width}-double-click.json').write_text(__import__('json').dumps(page.evaluate('gestureTrace'),indent=2)+'\n');assert chosen_cell(page)==''
  # One click immediately selects and usefully focuses a distant cannon. Several
  # positions include the awkward lower/off-centre compositions in the review.
  compositions=[]
  for sx,sy in [(width*.75,height*.33),(width*.45,height*.6),(width*.25,height*.42)]:
   close();page.evaluate('fixture.render("additional","initial");fixture.camera.scale=36;const c=fixture.world().cannons.find(c=>c.id===1);fixture.camera.centre(c.cell%1000+.5,Math.floor(c.cell/1000)+.5);fixture.draw()');p=page.evaluate('fixture.point(1)');page.evaluate('([dx,dy])=>{fixture.camera.pan(dx,dy);fixture.draw()}',[sx-p['x'],sy-p['y']]);p=page.evaluate('fixture.point(1)');before=page.evaluate('fixture.summary().camera');started=time.monotonic()
-  (page.touchscreen.tap(p['x'],p['y'])if width<700 else page.mouse.click(p['x'],p['y']));expect(page.locator('#workspace')).to_be_visible();assert page.evaluate('fixture.summary().selected')==1;settled(page);transition_elapsed=time.monotonic()-started;page.wait_for_timeout(200);expect(page.locator('#focus-cannon')).to_be_disabled();assert page.evaluate('fixture.summary().camera')!=before
+  (page.touchscreen.tap(p['x'],p['y'])if width<700 else page.mouse.click(p['x'],p['y']));expect(page.locator('#workspace')).to_be_visible();assert page.evaluate('fixture.summary().selected')==1;settled(page);transition_elapsed=time.monotonic()-started;page.wait_for_timeout(200);assert page.evaluate('fixture.summary().camera')==before;assert not page.evaluate('fixture.shell.controller.active');page.locator('#focus-cannon').click();settled(page);expect(page.locator('#focus-cannon')).to_be_disabled()
   controls=['focus-cannon','fire-action','move-action','build-action','close-panel']
   if not compositions:
    if width<700:
@@ -74,10 +75,10 @@ def verify_refinement(page,width,height,out):
  # follows hover. Two sites change only the preview, not its real-cannon anchor.
  prepare('new');header=page.locator('.panel-header').bounding_box();sites=page.evaluate('fixture.sites()');assert len(sites)>=2
  for n in sites[:2]:
-  action_field(page,'#new-cell').select_option(str(n));page.wait_for_timeout(180);r=page.locator('.panel-header').bounding_box();assert abs(r['x']-header['x'])<=2 and abs(r['y']-header['y'])<=2;assert page.evaluate('fixture.aim().cannon.cell')==n
+  choose_cell(page,str(n));page.wait_for_timeout(180);r=page.locator('.panel-header').bounding_box();assert abs(r['x']-header['x'])<=2 and abs(r['y']-header['y'])<=2;assert page.evaluate('fixture.aim().cannon.cell')==n
  payment_warning(page,TILE_PAYMENT_WARNING);page.screenshot(path=str(out/f'{width}-stable-build.png'))
  # Coherent native clipboard packet survives local action editing/replacement.
- page.locator('[data-copy="text"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Copied.');old=page.locator('#text-memo').text_content();page.locator('#angle-degrees').fill('45');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(old);page.locator('#angle-degrees').fill('90');page.locator('#replace-instructions').click();expect(page.locator('#text-memo')).to_contain_text('NEW 315 1');payment_warning(page,TILE_PAYMENT_WARNING)
+ page.locator('[data-copy="text"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Copied.');old=page.locator('#text-memo').text_content();set_heading(page,'45');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(old);set_heading(page,'90');page.locator('#replace-instructions').click();expect(page.locator('#text-memo')).to_contain_text('NEW 315 1');payment_warning(page,TILE_PAYMENT_WARNING)
  # Immediate ball acquisition, a true max-zoom double-click no-op, then real
  # wheel input and cancellation. Controlled frozen coverage cannot move a ball.
  close();page.evaluate('fixture.motion("wrap",.01)');page.evaluate('fixture.playbackScale(0);fixture.camera.scale=48;const b=fixture.displayedBalls()[0];fixture.camera.centre(b.x,b.y);fixture.draw();fixture.markClock()');p=page.evaluate('()=>{const b=fixture.displayedBalls()[0];return fixture.camera.point(b.x,b.y,.14)}');page.mouse.click(p['sx'],p['sy']);assert page.evaluate('Boolean(fixture.shell.controller.following)');settled(page);assert page.evaluate('fixture.camera.scale')==48
@@ -87,10 +88,10 @@ def verify_refinement(page,width,height,out):
  assert page.evaluate('fixture.sameClock()');page.screenshot(path=str(out/f'{width}-navigation.png'))
  # Ordinary waiting is compact; actual catch-up remains truthful, never a
  # permanent spinner for routine slow production or optional telemetry.
- page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Waiting for next update')
+ page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
  # Explicit panel-aware Focus and precision/caret survive a latest-state refresh.
  prepare('fire');page.evaluate('fixture.camera.pan(Math.min(190,innerWidth*.35),0);fixture.draw()');expect(page.locator('#focus-cannon')).to_be_enabled();page.locator('#focus-cannon').click();settled(page);expect(page.locator('#focus-cannon')).to_be_disabled()
- page.locator('#angle-degrees').focus();page.locator('#angle-degrees').fill('37.25');page.evaluate('fixture.publish("additional","final")');assert page.locator('#angle-degrees').evaluate('(n)=>document.activeElement===n');assert page.locator('#angle-degrees').input_value()=='37.25'
+ page.locator('#ball-quantity').focus();set_heading(page,'37.25');page.evaluate('fixture.publish("additional","final")');assert page.locator('#ball-quantity').evaluate('(n)=>document.activeElement===n');assert heading_value(page)=='37.25'
  # Real viewport contraction (not a native software keyboard claim) and a
  # landscape window retain one scroll and reachable exact financial fields.
  contraction=[]

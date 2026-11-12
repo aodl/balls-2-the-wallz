@@ -2,8 +2,9 @@
 /** A delivery label cannot turn an authentication error into availability. */
 export function observationFailure(error){
  const message=String(error?.message??error);
+ if(['AbortError','TimeoutError'].includes(error?.name)||/Certificate is signed more than \d+ minutes in the past\./.test(message))return 'delivery';
  if(/certificate|signature|fingerprint|integrity|mismatch|conflict|rollback|not bound|deployment|delegation/i.test(message))return 'verification';
- return ['AbortError','TimeoutError'].includes(error?.name)||/failed to fetch|fetch failed|networkerror|network error|download HTTP (?:408|429|5\d\d)|HTTP (?:408|429|5\d\d)/i.test(message)?'delivery':'verification';
+ return ['AbortError','TimeoutError'].includes(error?.name)||/timeout|timed out|failed to fetch|fetch failed|networkerror|network error|temporarily unavailable|replica.*unavailable|download HTTP (?:408|429|5\d\d)|HTTP (?:408|429|5\d\d)/i.test(message)?'delivery':'verification';
 }
 export function liveDeliveryDiagnostics(){return {failures:0,recoveries:0,evicted:0,active:null,blocking:null,history:[],acceptedHeads:[],acceptedEvicted:0};}
 function observation(ticket){
@@ -35,10 +36,10 @@ export function liveDeliveryFailure(s,error,current,accepted,now){
  const unavailable=message==='publication unavailable: snapshot resync required'&&sameContext(rejected,floor)&&rejected.mode==='certificate-verifier'&&rejected.head!==null&&floor.head!==null&&BigInt(rejected.head)>BigInt(floor.head);
  const network=!stale&&!unavailable&&observationFailure(error)==='delivery';
  const event={id:++d.failures,at_ms:now,message,kind:stale?'stale-certified-observation':unavailable?'retained-publication-unavailable':network?'delivery-unavailable':'delivery-or-verification-error',rejected,accepted:floor,resynchronisations:s.resyncs??0,recovered_at_ms:null};
- if(!stale&&!unavailable)d.blocking??=event;
+ if(!stale&&!unavailable&&!network)d.blocking??=event;
  d.active=event;d.history.push(event);if(d.history.length>64){d.history.shift();d.evicted++;}
  s.deliveryError=message;s.retryFailures++;
- return s.retryFailures>=5; // Preserve the existing persistent-failure threshold.
+ return !stale&&!unavailable&&!network; // Integrity fails closed immediately; availability never poisons a session.
 }
 export function liveDeliverySuccess(s,verifiedAccepted,now){
  s.retryFailures=0;
@@ -46,7 +47,7 @@ export function liveDeliverySuccess(s,verifiedAccepted,now){
  // Explicit transport outages recover only from a fresh verified accepted head
  // in this deployment. Existing certificate/conflict/rollback blockers remain.
  const context=event?.rejected??event?.accepted;
- const networkContext=sameContext(ticket,context)||(ticket&&event?.accepted&&known(d,event.accepted)&&sameDeployment(ticket,event.accepted));
+ const networkContext=(!context&&ticket)||sameContext(ticket,context)||(ticket&&event?.accepted&&known(d,event.accepted)&&sameDeployment(ticket,event.accepted));
  if(!s.error&&event?.kind==='delivery-unavailable'&&networkContext&&s.sequence?.last?.root_hash===ticket?.root&&known(d,ticket)&&(!event.rejected||event.rejected.head===null||ticket.head!==null&&BigInt(ticket.head)>=BigInt(event.rejected.head))){
   event.recovered_at_ms=now;d.recoveries++;if(d.blocking===event)d.blocking=null;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;return;
  }
@@ -64,3 +65,6 @@ export function liveDeliverySuccess(s,verifiedAccepted,now){
  event.recovered_at_ms=now;d.recoveries++;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;
  // Keep the original event/context in bounded history, including after recovery.
 }
+
+/** Bounded read-only retry, including long outages. Hidden scheduling remains external. */
+export function deliveryRetryMs(failures,random=Math.random){return Math.min(30000,500*2**Math.min(6,Math.max(0,failures-1)))*(.8+.2*random());}

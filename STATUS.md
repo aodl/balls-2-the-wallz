@@ -1,3 +1,13 @@
+# Human-playtest correction — local implementation, qualification in progress
+
+Frontend corrections are being tested on the existing release branch. The new
+[correction report](evidence/B2Z/human-playtest-corrections/REPORT.md) distinguishes
+current read-only production reproduction, development passes and pending gates.
+No production deployment or paid-backend/financial change is authorized or performed.
+The prior deployed release and its original qualification remain recorded below.
+
+---
+
 # Final player-experience frontend — deployed and verified; backend protected
 
 The approved exact frontend is live at https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.

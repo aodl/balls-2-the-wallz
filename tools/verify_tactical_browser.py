@@ -2,6 +2,7 @@
 """UX-02/04/11/12: bounded real renderer/interaction review; synthetic canonical fixtures.
 Existing fixture bundle required. Not certificate, device, wallet or GPU-hardware evidence.
 """
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 from fluid_playability_browser import action_field
 import argparse,functools,http.server,json,threading,time
 from pathlib import Path
@@ -20,9 +21,9 @@ with sync_playwright() as pw:
    renderer=page.evaluate('()=>{const g=document.querySelector("#board").getContext("webgl2"),e=g.getExtension("WEBGL_debug_renderer_info");return{renderer:e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER),dpr:devicePixelRatio}}')
    page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();page.evaluate('fixture.render("additional","initial");fixture.select(1)');
    if page.locator('#locate-context').is_visible():page.locator('#locate-context').click()
-   page.locator('#fire-action').click();page.locator('#angle-degrees').fill('45');page.wait_for_timeout(100);page.screenshot(path=str(out/f'{width}-aim.png'))
+   page.locator('#fire-action').click();set_heading(page,'45');page.wait_for_timeout(100);page.screenshot(path=str(out/f'{width}-aim.png'))
    if not a.baseline:
-    inspect=page.evaluate('fixture.inspect()');assert inspect['guide']and inspect['guideEnd']and inspect['barrels'];beforebarrel=inspect['barrels'];world=page.evaluate('JSON.stringify(fixture.world(),(_,v)=>typeof v==="bigint"?String(v):v)');page.locator('#angle-degrees').fill('90');page.wait_for_timeout(80);assert page.evaluate('fixture.inspect().barrels')!=beforebarrel;assert page.evaluate('JSON.stringify(fixture.world(),(_,v)=>typeof v==="bigint"?String(v):v)')==world
+    inspect=page.evaluate('fixture.inspect()');assert inspect['guide']and inspect['guideEnd']and inspect['barrels'];beforebarrel=inspect['barrels'];world=page.evaluate('JSON.stringify(fixture.world(),(_,v)=>typeof v==="bigint"?String(v):v)');set_heading(page,'90');page.wait_for_timeout(80);assert page.evaluate('fixture.inspect().barrels')!=beforebarrel;assert page.evaluate('JSON.stringify(fixture.world(),(_,v)=>typeof v==="bigint"?String(v):v)')==world
     handle=page.locator('#aim-handle').bounding_box();page.mouse.move(handle['x']+22,handle['y']+22);page.mouse.down();point=page.evaluate('fixture.point(1)');page.mouse.move(point['x']+60,point['y'],steps=8);page.mouse.up()
     assert 'FIRE 1 315' in page.locator('#text-memo').inner_text()
     page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#move-action').click();chosen=page.locator('#text-memo').text_content();point=page.evaluate('fixture.camera.cellPoint(fixture.world().cannons[0].cell)');page.mouse.move(point['sx'],point['sy']);page.wait_for_timeout(120);assert page.locator('#text-memo').text_content()==chosen;assert page.evaluate('fixture.inspect().hover.kind') in ['place','invalid'];page.screenshot(path=str(out/f'{width}-move.png'))

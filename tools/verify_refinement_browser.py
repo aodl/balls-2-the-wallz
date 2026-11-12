@@ -2,6 +2,7 @@
 """UXR-01..25 actual maintained components, populated canonical local fixtures.
 Baseline mode records defects without claiming conformance. No network/payment API.
 """
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 import argparse,functools,http.server,json,subprocess,threading,traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -32,7 +33,7 @@ with sync_playwright()as pw:
      pt=page.evaluate('(n)=>fixture.camera.cellPoint(n)',n)
      if page.evaluate('p=>document.elementFromPoint(p.sx,p.sy)===document.getElementById("board")',pt):target=n;break
     if target is not None:
-     pt=page.evaluate('(n)=>fixture.camera.cellPoint(n)',target);page.evaluate('document.getElementById("board").addEventListener("pointerup",()=>queueMicrotask(()=>{fixture.camera.pan(64,0);fixture.draw()}),{once:true})');page.mouse.click(pt['sx'],pt['sy']);page.wait_for_timeout(650);row['deferred_target']={'original':target,'chosen':page.locator('#move-cell').input_value(),'memo':page.locator('#text-memo').text_content()}
+     pt=page.evaluate('(n)=>fixture.camera.cellPoint(n)',target);page.evaluate('document.getElementById("board").addEventListener("pointerup",()=>queueMicrotask(()=>{fixture.camera.pan(64,0);fixture.draw()}),{once:true})');page.mouse.click(pt['sx'],pt['sy']);page.wait_for_timeout(650);row['deferred_target']={'original':target,'chosen':chosen_cell(page),'memo':page.locator('#text-memo').text_content()}
    row['minimap']=page.locator('#minimap').evaluate('(n)=>({width:n.width,height:n.height,css:n.getBoundingClientRect().width,dpr:devicePixelRatio})')
    rows.append(row);(out/'results.json').write_text(json.dumps({'baseline':a.baseline,'rows':rows},indent=2)+'\n');print(json.dumps(row),flush=True)
    if not a.baseline:

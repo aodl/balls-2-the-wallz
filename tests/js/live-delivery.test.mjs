@@ -48,11 +48,11 @@ test('authenticated retained catch-up and forward recovery preserve the DTR chai
  s.sequence.accept(predecessor);s.sequence.accept(f.forward);liveDeliverySuccess(s,s.sequence.last,20);
  assert.equal(s.sequence.last.publication.head.segment_id,66543n);assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.history.length,1);
 });
-test('five persistent regressions retain the existing failure threshold and cannot auto-recover',async t=>{
+test('repeated known stale certificates retain the floor and remain automatically recoverable',async t=>{
  const f=await fixtures(t),s=session(f.accepted);
- for(let n=1;n<=5;n++){reject(s,f.rejected,n);assert.equal(Boolean(s.error),n===5);}
+ for(let n=1;n<=5;n++){reject(s,f.rejected,n);assert.equal(Boolean(s.error),false);}
  liveDeliverySuccess(s,f.accepted,99);
- assert.ok(s.error);assert.equal(s.deliveryError,'observation rollback');assert.equal(s.deliveryDiagnostics.recoveries,0);assert.equal(s.sequence.last,f.accepted);
+ assert.equal(s.error,null);assert.equal(s.deliveryError,null);assert.equal(s.deliveryDiagnostics.recoveries,1);assert.equal(s.sequence.last,f.accepted);
  assert.equal(s.deliveryDiagnostics.history.length,5);
 });
 test('same-height conflict stays rejected and is never cleared as a stale recovery',async()=>{
@@ -125,3 +125,5 @@ test('UX-06 recovered transport cannot clear an earlier certificate blocker',asy
  liveDeliveryFailure(s,new TypeError('Failed to fetch'),null,f.accepted,2);liveDeliverySuccess(s,f.accepted,3);
  assert.equal(s.deliveryError,'certificate verification failed');assert.equal(s.deliveryDiagnostics.history[0].recovered_at_ms,null);
 });
+
+test('180 seconds and repeated transport failure never poison the session; only verified acceptance recovers',async t=>{const f=await fixtures(t),s=session(f.accepted);rememberLiveAcceptance(s,f.accepted);for(let i=0;i<30;i++)assert.equal(liveDeliveryFailure(s,new DOMException('Timed out','TimeoutError'),null,f.accepted,i*6000),false);assert.equal(s.error,null);assert.equal(s.sequence.last,f.accepted);liveDeliverySuccess(s,null,180001);assert.ok(s.deliveryError);liveDeliverySuccess(s,f.accepted,180002);assert.equal(s.deliveryError,null);});

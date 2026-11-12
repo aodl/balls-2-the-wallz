@@ -13,16 +13,30 @@ overview, east-facing display-zero and removed-minimap presentation requirements
 Those earlier release artifacts remain historical evidence.
 The financial/game contract remains [B2Z_APPLICATION](B2Z_APPLICATION.md).
 
+The owner's **12 November 2026 human-playtest correction** supersedes conflicting
+older interpretations below. Selection highlights the full cannon and never
+focuses; explicit navigation owns camera changes. Fire/Build accept bounded
+near-cannon click/drag aiming. Ordinary angle/cell inputs and the persistent
+follow dialogue are removed. A conspicuous 52px nonblocking spinner covers cold
+acquisition and genuine catch-up, and truthful waiting when active balls have no
+remaining verified coverage. Transient delivery retries automatically for as long
+as necessary; integrity failures remain blocking. The toroidal minimap has no
+canonical-cut border. Historical captures retain their own source identities.
+
+Latest authenticated world/financial authority, authenticated historical playback,
+missing coverage, delivery interruption, verification failure and optional public
+telemetry are separate states. None is permission to calculate future gameplay.
+
 ## Contracts and regression map
 
 | ID | Required behaviour | Maintained implementation / regression evidence |
 | --- | --- | --- |
 | UX-01 | Arena first; no declaration or compulsory dialog to observe. | `index.html`, `arcade.mjs`; integrated browser journey |
-| UX-02 | Controls serve the current task; secondary detail is progressive. | `arcade.mjs`; contextual action browser matrix |
+| UX-02 | Cannon click selects without camera movement; near-cannon aiming is direct, Move/Build choose tiles on the arena; no ordinary angle/cell fields. | `arcade.mjs`; contextual action browser matrix |
 | UX-03 | One composer, stable toolbar anchored to its selected real cannon; compact global secondary views, no stacked dialogs or duplicate paths. | `shell.mjs`, `index.html`; navigation/focus browser journey and `verify_s14_deployment.py:locate_seam_action` |
-| UX-04 | Navigation never pauses, resets, drains or restarts live playback; return preserves useful verified intervals. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey, `warm-return.mjs` / `elastic-playback.test.mjs` / `tactical-polish.test.mjs`, `verify_warm_browser.py` and installed seam→Locate identity checks |
+| UX-04 | Cold startup plays a bounded retained authenticated interval without H+1; navigation and automatic delivery recovery retain session/clock/queue and useful coverage. | `app.mjs`, `observation-loop.mjs`; `ux-playback.test.mjs`, clock/queue browser journey, `warm-return.mjs` / `elastic-playback.test.mjs` / `tactical-polish.test.mjs`, `verify_warm_browser.py` and installed seam→Locate identity checks |
 | UX-05 | Presentation never exceeds verified coverage. | `model.mjs`, pinned DTR clock; actual-clock, three-publication slow/wrap journey and authenticated delivery regressions |
-| UX-06 | Producer, delivery and presentation states remain distinct. | `experience-status.mjs`; status truth table |
+| UX-06 | Prominent truthful acquisition/waiting feedback; delivery retries automatically, integrity blocks, operational/telemetry queries are independent; payment readiness is separate. | `experience-status.mjs`; status truth table |
 | UX-07 | Verified backend principal/default account is the ordinary destination; historic legacy data remains compatible. | `identity.mjs`, `arcade.mjs`; destination derivation and clipboard bytes |
 | UX-08 | Copies share one frozen amount/recipient/payer/memo/action binding. | `handoff.mjs`, `arcade.mjs`; edit, denial, manual copy and reload regressions |
 | UX-09 | No transaction reporting/index entry; instructions are not payment evidence. | `handoff.mjs`; legacy migration, account history and browser absence assertions |
@@ -96,8 +110,9 @@ Focus uses the same measured working composition as the disabled predicate:
 roughly 64–88 scale according to viewport, a 50–64px physical silhouette, ≤76px
 horizontal and 64px vertical composition tolerances, safe chrome/aim margins and
 actual panel/map/control exclusion. A merely visible cannon 200px off composition
-is not focused. Clicking a cannon selects immediately and focuses only when it
-materially improves composition. Focus/My cannon/Locate retain selection, drafts,
+is not focused. Clicking a cannon selects and highlights immediately, preserving
+centre and zoom and initiating no camera animation. Only explicit Focus or
+intentional navigation reframes it. Focus/My cannon/Locate retain selection, drafts,
 copied packets and clock/queue identity. Layout expansion never re-focuses on
 each publication. Keyboard accommodation may be immediate.
 
@@ -123,8 +138,11 @@ all coordinates/line widths and inverse picking stay in CSS/canonical units.
 `ball-presentation.mjs` supplies displayed positions to renderer, picking and
 following; stationary coverage reuses the cached point array. Following requires
 no account and opens no payment/cannon dialog. Selection highlights a ball and
-shows a temporary Stop following control (also Escape; keyboard B cycles current
-balls, Enter selects the centre object). Initial acquisition pans smoothly without
+announces following through screen-reader status, with no persistent visible
+follow/stop dialogue. Escape stops; keyboard B cycles current balls, and Enter
+selects the centre object. Any arena click away from that ball stops follow
+immediately while preserving the current camera pose and delivering the click
+to its intended action. A repeated click on the same ball preserves follow. Initial acquisition pans smoothly without
 changing zoom. Tracking then uses a 32px deadband and damped correction only when
 the verified playhead changes. It stops at coverage end, resumes with new coverage,
 unwraps seams, and never predicts future motion. Destruction, identity/reset,
@@ -144,8 +162,11 @@ gesture sequence. At commitment revalidate that original cell; never hit-test it
 old pixel. New ownership may invalidate it, never substitute another tile. Touch/keyboard activate immediately; no mandatory double-tap. A pair cancels
 pending placement and replaces follow with 1.65× zoom about the clicked world point.
 At maximum zoom it changes no camera state. Fields, wallet values, buttons and map
-never participate. Empty terrain clicks no longer aim: use the handle/numeric/
-keyboard alternatives. The small contextual delay prevents an attempted zoom from
+never participate. Fire and a valid Build ghost own clicks/drags within their
+bounded screen-space aiming vicinity; outside that vicinity empty terrain pans
+and does not change heading. Move tile selection has priority. Two touches
+cancel aiming and immediately permit pinch/pan. Pointer ownership never changes
+merely because a drag crosses the vicinity boundary. The small contextual delay prevents an attempted zoom from
 first changing a paid destination or memo; it is not a universal selection delay.
 
 ### Toolbar and one progressive instrument section
@@ -158,9 +179,13 @@ disabled actions give concise accessible reasons. Close deselects; collapse reta
 selection/draft. Switching icons replaces one lower section, never a stacked dialog.
 
 Prompts: **Aim & Pay**, **Choose a Tile & Pay**, **Choose a Tile, Aim & Pay**. Pay is
-an external-wallet intention, not a transaction button. Fire has a precise heading
-chip and quantity stepper. Move hides heading and discloses numeric cell entry;
-Build chooses an eligible neighbour and aims its ghost. First Join stays automatic.
+an external-wallet intention, not a transaction button. Fire retains its ball
+quantity stepper. Angle numbers, tile IDs and eligible-site dropdowns are absent
+from the ordinary pane and cannot be hidden payment inputs. Explicit local
+proposal state owns heading/destination/quantity; the memo is the precise readout.
+Build chooses an eligible neighbour and aims its ghost. First Join places
+automatically and retains a compact accessible direction pad, including exact
+keyboard adjustment.
 Only exact amount, principal, canonical text memo, compact payer, Copy controls
 and short fee/retention warning appear in the ordinary handoff. Legacy/hex DOM and
 native-copy references are removed, while underlying validation/history bytes stay.
@@ -177,12 +202,12 @@ secondary camera/map/cycles chrome is temporarily suppressed to give that one
 scroll priority; it returns on blur/viewport recovery and remains available in
 ordinary play. Observation is unaffected. No nested sliver, font/hit-target reduction or hidden financial warning
 is acceptable. Amount/recipient/memo/payer use aligned rows and named copy icons;
-Fire/Build precise heading is secondary to arena aiming, Move coordinates/site
-selection remain optional. Only one prompt, restriction and applicable risk appear. ResizeObservers invalidate content/chrome measurements; camera frames use
+Fire/Build use direct aiming and keyboard alternatives; Move/Build destinations
+are selected on the arena. Only one prompt, restriction and applicable risk appear. ResizeObservers invalidate content/chrome measurements; camera frames use
 cached geometry and side hysteresis, not repeated scroll-size measurement. Focus,
 caret, one natural scroll and keyboard viewport access must survive publications.
 
-UI Move preparation excludes the cannon's own cell, including manual entry:
+UI Move preparation excludes the cannon's own cell, including keyboard selection:
 **Choose a different tile**. Valid cell zero stays legal from elsewhere. Revalidate
 on revisions, never silently replace a target, and retain old copied records as
 history. This safeguard does not change `quoteV6` or the Ledger interpreter:
@@ -239,13 +264,13 @@ requirements. Controlled fixtures are not certificate/physical-device evidence.
 | Findings | Enforced requirement / regression |
 | --- | --- |
 | UXR-01 | Frozen canonical placement intent; pan/zoom/Focus/revision/mode/removal/double-click input journeys and exact memo or cancellation. |
-| UXR-02/03/21 | Immediate selection, useful click-to-focus, actual panel-aware composition, disabled Focus after settling; several cannon locations. |
+| UXR-02/03/21 | Immediate selection without camera movement, explicit panel-aware Focus, disabled Focus after explicit settling; several cannon locations. |
 | UXR-04/05/13/17 | ≥240px normal action area where needed, fixed toolbar slots through expansion, source anchor independent of Build/Move destination; actual transitional/settled geometry. |
 | UXR-06/14/15/16 | Pending zoom accumulation/reversal/clamp, wheel versus continuous input, immediate ball-follow entry, max-zoom follow no-op; actual input plus intermediate-frame unit tests. |
 | UXR-07/08 | Real .01/.05/1 pace, bounded projected travelled length, hold/fade, stationary expiry, seam/reflection/context reset; before/after actual-speed media. |
 | UXR-09/10/11/12/25 | One prompt, optional precision, compact exact wallet rows/icons, risk/fee preserved at ≥14px, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
 | UXR-18/19 | Meaningful circular anchor invalidation; atlas cache/revision bounds and DPR 1/1.5/2/3 cap, same projected map inverse. |
-| UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, octagonal destination versus source footprint/filled translucent ghost, compact routine Waiting. |
+| UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, exact square destination footprint, shared warm translucent cannon geometry, prominent truthful routine Waiting. |
 
 Settled financial-readability assertions must wait for the actual finite panel
 layout transitions before scrolling a value into view. Retain exact containment
@@ -253,10 +278,13 @@ and exact clipboard/amount/memo assertions; a fixed sleep or a relaxed boundary
 is not a replacement. Test expansion separately at controlled intermediate times,
 including a paused transition, so a settled-state check cannot silently run early.
 
-Routine no-coverage Waiting lives in the compact primary status, never a permanent
-central spinner. **Catching up with on-chain activity ...** is reserved for genuine
-catch-up. Failure/protection/operator-stop/idle priorities are unchanged. The
-central catch-up transition is small and nonblocking; cycles remain secondary.
+Routine exhausted coverage with active balls shows a prominent 52px luminous
+spinner and **Waiting for next on-chain update**. Initial acquisition and genuine
+certified backlog reconstruction show **Catching up with on-chain activity ...**.
+Initial feedback is immediate; brief waiting transitions debounce 350ms. Useful
+verified playback removes it promptly. The ring is static under reduced motion,
+nonblocking and has no opaque backdrop, progress percentage or countdown.
+Protection, operator pause, idle and integrity failures use their own status.
 
 Before accepting a frontend change, reviewers must check:
 
@@ -343,22 +371,35 @@ operator stop/transition → source/processing error → protection (Refuelling 
 → empty/dormant idle → presentation resynchronising/waiting → advancing Slow/Live.
 An unchanged head with a fresh valid certificate is not stale. A successful fetch
 alone is not advancing motion. Retained verified motion may finish after a
-producer stop; details explain that distinction. A depleted presentation queue with active balls says **Waiting for next update**,
-with a static ring. Actual authenticated backlog admission/resynchronisation alone
-says **Catching up with on-chain activity ...**, with a spinner. Both debounce
-for 500ms and come from the same resolver; neither hides another failure state. The top control
-becomes Status rather than repeating a competing waiting paragraph. It dismisses
-when verified motion resumes. The indicator has no backdrop and no pointer events;
-reduced motion keeps a static ring. Meaningful visibility changes are announced
-politely, never every frame. Idle, pause/protection, transport, verification and
-graphics failure retain their own truthful explanations and do not show this spinner.
-Explicit transport failures say Reconnecting and can recover only after fresh
-verified accepted history; certificate, conflict and rollback failures remain
-blocking within the session and require a fresh verified reload. Unknown failures
-are verification failures. Display status settles asynchronously after operational queries; browser tests
-must wait for a label consistent with verified presentation, rather than require
-a DOM change in the same task as a rate change. Slow requires advancing coverage;
-it cannot conceal buffering, failed delivery or authentication.
+producer stop; details explain that distinction. Acquisition/catch-up and
+waiting use the exact labels above. Temporary delivery says **Temporarily unable
+to reach the game. Retrying automatically.** Retain the trusted scene, remaining
+verified intervals, camera, selection and drafts. Known stale authenticated heads
+stay rejected without lowering the sequence floor. Transport failures retry with
+500ms–30s exponential backoff/jitter and no permanent attempt threshold; hidden
+scheduling remains bounded at 15s observation / 60s operational refresh. Visible
+return initiates an immediate fenced retry. Fresh certificates and successful
+sequence/artifact admission are required for recovery; HTTP success alone is
+insufficient. Unknown failures, invalid signatures/root/canister/artifact/history
+conflicts remain blocking. **Unable to verify game data.** offers **Retry
+verification**, which starts a new complete authenticated session, never merely
+clears an error flag. An expired certificate is rejected and a fresh one requested;
+future/bad certificates remain untrusted.
+
+A small resolver debounces delivery labels (700ms entry, 1200ms minimum display)
+without delaying financial safety transitions. A missed optional operational query
+retains the previous state and its original age. It never independently announces
+Reconnecting. Preparation still requires operational age <15s, observation age
+<30s, valid binding and open healthy admission. Action rows, draft values and
+copied packets retain fixed geometry; stale Copy controls disable without a new
+Reconnecting paragraph. Top status has a fixed-height control; full detail is
+available through it.
+
+Public cycles are secondary: **Cycle data temporarily unavailable** when no valid
+sample exists, without zero-second burn estimates or unavailable numeric prose.
+The existing minute-scale monitor retires aborted/deadline operations, fences late
+responses, retries with bounded backoff and recovers without refresh. Net/gross,
+credits/refunds/reservations and runway caveats belong in advanced documentation.
 No speculative countdown. Ordinary buffering does not close admission; missing
 verification/configuration/source binding or real admission failure does.
 
@@ -393,19 +434,34 @@ round trip. Fire defaults to the selected cannon's direction; Join defaults up.
 Intentional current drafts survive appropriate edits; unrelated contexts do not
 inherit the old hard-coded 37.5°.
 
-A restrained 22px visual handle with a 44px hit area and 76px ring owns a Fire drag from pointer-down; empty-arena drag
-owns pan. Two pointers transition to camera pinch/pan and cannot finish as a tap.
-Pointer cancellation/lost capture cannot select or prepare another action.
-Fields, cards and minimap never bubble into canvas gestures. Invalid Build/Move
-taps give their reason and are consumed, not reinterpreted as aiming. Numeric
-heading/destination, handle arrow keys and canvas [ / ] provide keyboard alternatives.
-Only inputs relevant to the current action are validated. Build requires an
-explicit eligible site; first Join remains automatic. All owned active anchors'
-canonically eligible orthogonal neighbours remain available, with the selected
-anchor emphasized. Options/highlights are revalidated on verified revisions,
-retaining valid choices and focus, and retaining an explicit unavailable choice
-without silently switching it to automatic placement. Island ball pools are
-labelled “Island balls”, not private per-cannon counts. No ordinary orbit or perspective controls.
+A restrained visual handle retains a 44px hit area. Fire/valid Build aiming also
+owns a bounded 52–76px mouse / 60–88px touch vicinity at pointer-down. Clicking
+sets heading, dragging updates continuously, and leaving that region never
+changes ownership of the gesture. Outside it drags pan. Move always selects tiles;
+inspection selects cannons. Two pointers permit pinch/pan immediately. Cancel,
+freeze/visibility/context loss release input without committing a destination.
+
+Handle arrows adjust one degree, Shift five degrees and Alt 0.01 degree; canvas
+[ / ] also adjust heading. Join's compact direction pad supports the same keys.
+For Move/Build, focus the arena: Alt+arrows traverse canonical cells and Enter
+commits the highlighted cell after current legality checks. Ordinary arrows pan.
+No small-handle discovery or numeric form is required for pointer aiming.
+Build requires an explicit eligible site; first Join placement stays automatic.
+A proposal invalidated by a verified revision remains at that canonical cell and
+unavailable, never silently switches to another or to automatic placement.
+Island ball pools remain “Island balls”.
+
+Real, selected, Move and Build cannon bodies share base/turret/barrel/accent/muzzle
+geometry and transforms. Selection overlays the full verified body in restrained
+warm translucent gold with a dark contour. Ghosts use a more translucent yellow
+material and dark edge. Move retains the source's verified heading; Build follows
+the quantized draft. The destination border traces the canonical square tile,
+projected as a regular diamond. Source and destination stay distinct. The minimap
+retains ownership, viewport/markers and toroidal picking, with no fixed atlas-cut
+outline. Guide clipping uses cached actual UI rectangles only on intersecting
+rays; direction/memo never change. Intermediate grid contrast fades smoothly;
+close tile targeting and genuine ownership boundaries remain legible. The existing
+white-ball speed tails and tile wakes remain unchanged.
 
 Matte shallow tiles, coherent ownership, volumetric bases/turrets/barrels and solid
 spheres with shared lighting/contact shadows. Local aim uses a distinct short
@@ -439,7 +495,7 @@ Financial warnings are explicit exceptions if more information is necessary; nev
 hide them to satisfy a count. Cards are at most 360 CSS px wide, bounded by viewport,
 keyboard/safe-area space and navigation widgets. Financial values remain at least
 14 CSS px and primary controls target 44 px. Critical text has restrained translucent
-backing/contrast, not unreadable text floating directly over territory. During a short keyboard viewport, numeric editing uses one bounded camera
+backing/contrast, not unreadable text floating directly over territory. During a short keyboard viewport, quantity editing uses one bounded camera
 accommodation after resize, while the redundant drag handle/player chooser yield
 space to the focused field; the cannon/guide, minimap and cycles remain visible.
 They restore when space/focus returns. No accommodation runs under an active pointer
@@ -817,11 +873,10 @@ accommodation may be immediate and reduce scale within the non-repeat limits.
 The card retains one usable scrollport and stationary icon slots. Working-space
 Focus checks the actual header safe area as well as the card exclusion.
 
-Build uses a filled, depth-tested, translucent charcoal-blue body and lighter
-barrel, with a soft contact cue; no exposed mesh triangles. The ghost is local,
-provisional and subordinate to the real solid cannon. Selected source has a
-strong dual-tone square footprint; the chosen destination has a dual-tone octagonal
-contour; hover is faint, invalid remains crossed. Avoid duplicate inner markers
+Build and Move use the canonical cannon model in filled, depth-tested warm
+translucent yellow with a dark contour and soft contact cue; no exposed mesh triangles. The ghost is local,
+provisional and subordinate to the real solid cannon. Selection highlights the full source body; the chosen destination has an exact
+square tile contour projected as a regular diamond; hover is faint, invalid remains crossed. Avoid duplicate inner markers
 and opaque selected-tile fills beneath the ghost. No world, quote or memo changes.
 Materials/geometries remain shared and are disposed once.
 

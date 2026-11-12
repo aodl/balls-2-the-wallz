@@ -5,6 +5,7 @@ The normal-rate sample uses real time. Only the separately labelled elapsed
 expiry/reconnect phase uses Playwright's explicit clock to match PocketIC time;
 certificate freshness, query signatures and the sandbox remain enabled.
 """
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 import hashlib
 import json
 import os
@@ -167,7 +168,7 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
         report['checks'].append({'name':'complete-short-normal-sample-with-independent-production-bounds','status':'FAIL','details':result});save()
     identify(configuration['payer_account'])
     choose_action(page,'start')
-    page.locator('#new-cell').select_option(index=1)
+    choose_cell(page,page.evaluate('fixture.sites()[0]'))
     wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),30000)
     assert page.locator('#transfer-amount').inner_text()=='4 ICP'
     (out/'browser-actions-ready').write_text('PASS\n')

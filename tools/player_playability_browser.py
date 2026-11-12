@@ -1,3 +1,4 @@
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 from fluid_playability_browser import action_field,settled_panel
 """Focused player-centred journeys, called by the existing populated browser harness.
 Synthetic snapshots only; no certificate, wallet or physical-device claim.
@@ -91,7 +92,7 @@ def verify_player_controls(page,width,height):
  expect(page.locator('#text-memo')).to_have_text('FIRE 1 225 1')
  if width==390:verify_aim_interrupt(page)
  for displayed in ['0','45','90','180','270','359.99']:
-  page.locator('#angle-degrees').fill(displayed);expected=page.evaluate('(a)=>fixture.expectedHeading(a)',displayed);assert page.locator('#text-memo').inner_text()==f'FIRE 1 {expected} 1';assert page.evaluate('fixture.aim().heading===fixture.command().angle')
+  set_heading(page,displayed);expected=page.evaluate('(a)=>fixture.expectedHeading(a)',displayed);assert page.locator('#text-memo').inner_text()==f'FIRE 1 {expected} 1';assert page.evaluate('fixture.aim().heading===fixture.command().angle')
  print('heading and drag PASS',width,flush=True)
  # Real compact-meter DOM path must never expand with internal reset diagnostics.
  allowed=page.evaluate('fixture.canPay()')
@@ -101,16 +102,16 @@ def verify_player_controls(page,width,height):
   meter=page.locator('#cycles-display').bounding_box();mini=page.locator('#minimap').bounding_box();card=page.locator('#workspace').bounding_box()
   overlap=lambda a,b:a['x']<b['x']+b['width'] and a['x']+a['width']>b['x'] and a['y']<b['y']+b['height'] and a['y']+a['height']>b['y']
   assert not overlap(meter,mini) and not overlap(meter,card);assert meter['x']>=0 and meter['x']+meter['width']<=width
- assert 'diagnostic' in page.locator('#cycle-detail').text_content()
+ assert page.locator('#cycle-detail').text_content()=='Cycle data temporarily unavailable'
  # Keyboard viewport contraction retains an editable heading, then restores space.
  if width<=700:
-  page.locator('#angle-degrees').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('#angle-degrees').scroll_into_view_if_needed();bounds=page.locator('#angle-degrees').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom,card:n.closest("#workspace").style.cssText,short:document.documentElement.className}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds
+  page.locator('#ball-quantity').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('#ball-quantity').scroll_into_view_if_needed();bounds=page.locator('#ball-quantity').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom,card:n.closest("#workspace").style.cssText,short:document.documentElement.className}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds
   page.set_viewport_size({'width':width,'height':height});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=height)
  # A cancelled aim does not turn into a board tap; two fingers own the camera.
  if width<=700:
   # Finish keyboard accommodation, then explicitly focus the working area.
   # A pinch starts on the arena, not on the card/Close control below it.
-  page.locator('#angle-degrees').blur()
+  page.locator('#ball-quantity').blur()
   if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
   cdp=page.context.new_cdp_session(page);h=page.locator('#aim-handle').bounding_box();x,y=h['x']+22,h['y']+22;selected=page.evaluate('fixture.summary().selected')
   assert page.evaluate('([x,y])=>document.elementFromPoint(x,y)===document.getElementById("aim-handle")',[x,y])
@@ -121,18 +122,18 @@ def verify_player_controls(page,width,height):
   h=page.locator('#aim-handle').bounding_box();cam=page.evaluate('fixture.summary().camera');memo=page.locator('#text-memo').inner_text();cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':h['x']+22,'y':h['y']+22,'id':33}]});cdp.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});assert page.evaluate('fixture.summary().camera')==cam and page.locator('#text-memo').inner_text()==memo
 
  page.locator('#aim-handle').focus();page.keyboard.press('ArrowRight');assert page.evaluate('fixture.aim().heading===fixture.command().angle')
- page.locator('#angle-degrees').fill('');assert page.locator('#prepared-card').is_hidden();close();select(1);page.locator('#move-action').click()
- source=page.evaluate('fixture.world().cannons[0].cell');action_field(page,'#move-cell').fill(str(source));assert page.locator('#transfer-controls').evaluate('(n)=>n.disabled');expect(page.locator('#preparation-note')).to_contain_text('different tile');cell=page.evaluate('fixture.moveSites(1)[0]');action_field(page,'#move-cell').fill(str(cell));expect(page.locator('#text-memo')).to_have_text(f'MOVE 1 {cell}');assert page.locator('[data-copy="text"]').is_enabled();page.evaluate('fixture.draw()');assert page.evaluate('fixture.inspect().previewSpan')<=1.00001
+ assert page.locator('#angle-degrees,#move-cell,#new-cell').count()==0;close();select(1);page.locator('#move-action').click()
+ source=page.evaluate('fixture.world().cannons[0].cell');choose_cell(page,str(source));assert page.locator('#transfer-controls').evaluate('(n)=>n.disabled');expect(page.locator('#preparation-note')).to_contain_text('different tile');cell=page.evaluate('fixture.moveSites(1)[0]');choose_cell(page,str(cell));expect(page.locator('#text-memo')).to_have_text(f'MOVE 1 {cell}');assert page.locator('[data-copy="text"]').is_enabled();page.evaluate('fixture.draw()');assert page.evaluate('fixture.inspect().previewSpan')<=1.00001
  close();page.evaluate('fixture.render("wrap","initial")');select(1);page.locator('#build-action').click();assert page.locator('#prepared-card').is_hidden();assert page.locator('#transfer-controls').evaluate('(n)=>n.disabled')
- assert 997 in page.evaluate('fixture.sites()');action_field(page,'#new-cell').select_option('997');expect(page.locator('#text-memo')).to_contain_text(' 997');page.evaluate('fixture.draw()');p=page.evaluate('fixture.camera.cellPoint(997)');drawing=page.evaluate('fixture.inspect()');assert page.evaluate('fixture.aim().cannon.cell')==997
+ assert 997 in page.evaluate('fixture.sites()');choose_cell(page,'997');expect(page.locator('#text-memo')).to_contain_text(' 997');page.evaluate('fixture.draw()');p=page.evaluate('fixture.camera.cellPoint(997)');drawing=page.evaluate('fixture.inspect()');assert page.evaluate('fixture.aim().cannon.cell')==997
  assert drawing['ghost']and abs(drawing['ghost'][0]-p['x'])<.01 and abs(drawing['ghost'][1]-p['y'])<.01
  assert abs(((drawing['guide'][0]-p['x'])**2+(drawing['guide'][1]-p['y'])**2)**.5-.42)<.01,'UX-12 ground guide begins beyond the body at its encoded heading'
  print('Move and seam Build PASS',width,flush=True)
  # A genuine canonical later snapshot occupies the chosen site; no silent fallback.
- close();page.evaluate('fixture.render("additional","initial")');select(1);page.locator('#build-action').click();action_field(page,'#new-cell').select_option('453579');page.evaluate('fixture.publish("additional","final")');assert action_field(page,'#new-cell').input_value()=='453579';assert page.locator('#prepared-card').is_hidden();expect(page.locator('#preparation-note')).to_contain_text('eligible')
- assert page.locator('#new-cell option:checked').is_disabled()
+ close();page.evaluate('fixture.render("additional","initial")');select(1);page.locator('#build-action').click();choose_cell(page,'453579');page.evaluate('fixture.publish("additional","final")');assert chosen_cell(page)=='453579';assert page.locator('#prepared-card').is_hidden();expect(page.locator('#preparation-note')).to_contain_text('eligible')
+ assert page.evaluate('fixture.aim()') is None
  close();page.evaluate('fixture.motion("idle",.01)');page.evaluate('fixture.markClock()');start=page.evaluate('fixture.summary().time')
- page.locator('#identify-button').click();close();select(1);page.locator('#fire-action').click();page.locator('#angle-degrees').fill('45')
+ page.locator('#identify-button').click();close();select(1);page.locator('#fire-action').click();set_heading(page,'45')
  # UX-03/04/11: identities survive the click synchronously; reachability follows
  # the deliberate camera transition rather than a teleport.
  immediate=page.evaluate('()=>{fixture.camera.centre(800,800);fixture.draw();const card=document.getElementById("workspace"),wasOffscreen=card.classList.contains("offscreen");document.getElementById("locate-context").click();return{wasOffscreen,visible:!card.hidden&&getComputedStyle(card).visibility!=="hidden",inert:card.inert,sameClock:fixture.sameClock()};}')
@@ -149,10 +150,10 @@ def verify_player_controls(page,width,height):
  base='({phase:"STALLED",live:true,verified:true,fresh:true,healthy:true,operationalFresh:true,advancing:false,operational:{run:{running:true,last_error:[],pace:{mode:"Trickle",supported_milli:10,admission_open:true}},source:{binding_checked:true,last_error:[]}}})'
  # UXR-24 supersedes the permanent central Trickle spinner. Keep the
  # same resolver and strengthen distinct catch-up / protection / error checks.
- page.evaluate('fixture.status('+base+')');page.wait_for_timeout(550);page.evaluate('fixture.status('+base+')');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Waiting for next update')
+ page.evaluate('fixture.status('+base+')');page.wait_for_timeout(550);page.evaluate('fixture.status('+base+')');assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
  page.evaluate('fixture.status({...'+base+',catchingUp:true})');page.wait_for_timeout(550);page.evaluate('fixture.status({...'+base+',catchingUp:true})');assert page.locator('#motion-wait').is_visible();expect(page.locator('#waiting-label')).to_have_text('Catching up with on-chain activity ...')
  page.evaluate('fixture.status({...'+base+',operational:{run:{running:true,pace:{mode:"ReserveProtection",supported_milli:0,admission_open:false}},source:{binding_checked:true,last_error:[]}}})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Game paused · low energy');assert not page.evaluate('fixture.canPay()')
- page.evaluate('fixture.status({...'+base+',phase:"ERROR",failureKind:"verification"})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Unable to verify game')
+ page.evaluate('fixture.status({...'+base+',phase:"ERROR",failureKind:"verification"})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Unable to verify game data.')
  page.reload();page.wait_for_function('()=>!!window.fixture')
 
 def verify_pan_ownership(page,width,height):
@@ -172,9 +173,9 @@ def verify_saved_world_heading(page):
  page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click()
  page.evaluate('fixture.render("additional","initial");fixture.select(1)')
  if page.locator('#locate-context').is_visible():page.locator('#locate-context').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
- page.locator('#fire-action').click();page.locator('#angle-degrees').fill('167.15');expect(page.locator('#text-memo')).to_have_text('FIRE 1 37.5 1');memo=page.locator('#text-memo').inner_text();hex_value=memo.encode().hex();page.locator('[data-copy="text"]').click();expect(page.locator('#copy-feedback')).to_contain_text('saved')
+ page.locator('#fire-action').click();set_heading(page,'167.15');expect(page.locator('#text-memo')).to_have_text('FIRE 1 37.5 1');memo=page.locator('#text-memo').inner_text();hex_value=memo.encode().hex();page.locator('[data-copy="text"]').click();expect(page.locator('#copy-feedback')).to_contain_text('saved')
  page.reload();page.wait_for_function('()=>!!window.fixture');page.locator('#identify-button').click();page.get_by_text('View saved instructions',exact=True).click()
- expect(page.locator('#text-memo')).to_have_text(memo);assert page.evaluate('fixture.records()[0].hex')==hex_value;assert not page.locator('#hex-memo').count();assert page.locator('#angle-degrees').input_value()=='167.15';expect(page.locator('#preparation-note')).to_contain_text('may no longer apply');assert page.locator('#transfer-controls').evaluate('(n)=>n.disabled')
+ expect(page.locator('#text-memo')).to_have_text(memo);assert page.evaluate('fixture.records()[0].hex')==hex_value;assert not page.locator('#hex-memo').count();assert heading_value(page)=='167.15';expect(page.locator('#preparation-note')).to_contain_text('may no longer apply');assert page.locator('#transfer-controls').evaluate('(n)=>n.disabled')
 
 def capture_player_review(page,width,height,out):
  """Short real rendered journey; canonical synthetic intervals, never a transfer."""
@@ -183,17 +184,17 @@ def capture_player_review(page,width,height,out):
  page.evaluate('fixture.motion("bridge_both",.01)');page.evaluate('fixture.camera.frameCell(fixture.world().cannons[0].cell);fixture.markClock();fixture.cycles("available")')
  page.wait_for_timeout(600);point=page.evaluate('fixture.point(1)');page.mouse.move(point['x'],point['y']);page.wait_for_timeout(350);page.mouse.click(point['x'],point['y']);page.locator('#fire-action').click();page.wait_for_timeout(400)
  handle=page.locator('#aim-handle').bounding_box();origin=page.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)');page.mouse.move(handle['x']+22,handle['y']+22);page.mouse.down();page.mouse.move(origin['sx']+55,origin['sy']-25,steps=8);page.mouse.up()
- page.locator('#angle-degrees').fill('45');page.locator('#ball-quantity').fill('2');page.wait_for_timeout(450)
+ set_heading(page,'45');page.locator('#ball-quantity').fill('2');page.wait_for_timeout(450)
  page.screenshot(path=str(out/f'{width}x{height}-populated.png'))
  for kind in ['amount','owner','text']:page.locator(f'[data-copy="{kind}"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Copied')
- page.locator('#angle-degrees').fill('90');expect(page.locator('#replace-choice')).to_be_visible();page.wait_for_timeout(400);page.locator('#replace-instructions').click();page.locator('[data-copy="text"]').click();expect(page.locator('#text-memo')).to_have_text('FIRE 1 315 2')
+ set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.wait_for_timeout(400);page.locator('#replace-instructions').click();page.locator('[data-copy="text"]').click();expect(page.locator('#text-memo')).to_have_text('FIRE 1 315 2')
  page.locator('#payment-risk').scroll_into_view_if_needed();page.screenshot(path=str(out/f'{width}x{height}-wallet.png'));page.wait_for_timeout(350)
  before=page.evaluate('fixture.summary().time');page.locator('#close-panel').click();point=page.evaluate('fixture.point(1)');page.mouse.click(point['x'],point['y']);page.wait_for_timeout(500);assert page.evaluate('fixture.sameClock()')and page.evaluate('fixture.summary().time')>before
- page.locator('#move-action').click();action_field(page,'#move-cell').fill('101');
+ page.locator('#move-action').click();choose_cell(page,'101');
  if page.locator('#replace-choice').is_visible():page.locator('#replace-instructions').click()
- expect(page.locator('#text-memo')).to_have_text('MOVE 1 101');target=page.evaluate('fixture.camera.cellPoint(101)');page.mouse.move(target['sx'],target['sy']);page.wait_for_timeout(350);page.mouse.click(target['sx'],target['sy']);page.wait_for_timeout(500);page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#build-action').click();site=page.evaluate('fixture.sites()[0]');action_field(page,'#new-cell').select_option(str(site));assert page.evaluate('fixture.aim().cannon.cell')==site;page.wait_for_timeout(700);page.locator('#close-panel').click()
+ expect(page.locator('#text-memo')).to_have_text('MOVE 1 101');target=page.evaluate('fixture.camera.cellPoint(101)');page.mouse.move(target['sx'],target['sy']);page.wait_for_timeout(350);page.mouse.click(target['sx'],target['sy']);page.wait_for_timeout(500);page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#build-action').click();site=page.evaluate('fixture.sites()[0]');choose_cell(page,str(site));assert page.evaluate('fixture.aim().cannon.cell')==site;page.wait_for_timeout(700);page.locator('#close-panel').click()
  mini=page.locator('#minimap').bounding_box();page.mouse.move(mini['x']+mini['width']*.5,mini['y']+mini['height']*.85);page.mouse.down();page.mouse.move(mini['x']+mini['width']*.5,mini['y']+mini['height']*.97,steps=8);page.mouse.up();page.wait_for_timeout(600);assert page.evaluate('fixture.sameClock()')
  # A declared fixture-scene switch supplies a canonical seam trajectory. Acceleration
  # shortens the visual review, not production cadence or verified-coverage limits.
- page.evaluate('fixture.motion("wrap",.01)');page.evaluate('fixture.camera.frameCell(999999);fixture.playbackScale(20);fixture.markClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=15000);page.wait_for_function('()=>document.getElementById("arena-note").textContent==="Waiting for next update"',timeout=3000);assert page.locator('#motion-wait').is_hidden();page.wait_for_timeout(700);page.screenshot(path=str(out/f'{width}x{height}-waiting.png'));previous=page.evaluate('fixture.summary().time');page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t+.05',arg=previous);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>document.getElementById("motion-wait").hidden');page.wait_for_timeout(800)
+ page.evaluate('fixture.motion("wrap",.01)');page.evaluate('fixture.camera.frameCell(999999);fixture.playbackScale(20);fixture.markClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=15000);page.wait_for_function('()=>document.getElementById("arena-note").textContent==="Waiting for next on-chain update"',timeout=3000);page.wait_for_timeout(400);assert page.locator('#motion-wait').is_visible();page.wait_for_timeout(700);page.screenshot(path=str(out/f'{width}x{height}-waiting.png'));previous=page.evaluate('fixture.summary().time');page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t+.05',arg=previous);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>document.getElementById("motion-wait").hidden');page.wait_for_timeout(800)
  return{'viewport':[width,height],'status':'PASS','screenshots':[f'{width}x{height}-populated.png',f'{width}x{height}-wallet.png',f'{width}x{height}-waiting.png'],'scope':'Actual application renderer/composer with synthetic canonical fixtures; seam waiting/resume at 20x disposable wall time; no IC certificate, transfer or physical-device claim.'}

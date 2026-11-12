@@ -6,10 +6,10 @@ const base={verified:true,fresh:true,operationalFresh:true,healthy:true,advancin
 const status=override=>experienceStatus({...base,...override});
 test('UX-06 precedence distinguishes producer, verification, delivery and presentation',()=>{
  assert.equal(status({live:false}).label,'Replay · offline');assert.match(status({live:false}).detail,/not IC-certified/);assert.equal(status({live:false,trust:'certificate'}).label,'Verified recording');
- assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Waiting for next update');
+ assert.equal(status({}).label,'Live');assert.equal(status({advancing:false}).label,'Waiting for next on-chain update');
  const slow={...base.operational,run:{...base.operational.run,pace:{mode:'Trickle',supported_milli:10,admission_open:true}}};
- assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Waiting for next update');
- assert.equal(status({operational:slow,phase:'ERROR'}).label,'Unable to verify game');
+ assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Waiting for next on-chain update');
+ assert.equal(status({operational:slow,phase:'ERROR'}).label,'Unable to verify game data.');
  assert.equal(status({operational:slow,fresh:false}).label,'Reconnecting');
  const protectedRun={...slow,run:{...slow.run,pace:{mode:'ReserveProtection',admission_open:false}}};
  assert.equal(status({operational:protectedRun}).label,'Game paused · low energy');assert.equal(status({operational:protectedRun,fundingActive:true}).label,'Refuelling');
@@ -39,7 +39,17 @@ test('UX-12 effects use displayed displacement, unwrap seams and clear discontin
 });
 test('UX-06 network failure is reconnecting; verification failure never leaves copying enabled',()=>{
  assert.equal(status({phase:'ERROR',failureKind:'delivery',deliveryError:'Failed to fetch'}).label,'Reconnecting');
- assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).label,'Unable to verify game');
+ assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).label,'Unable to verify game data.');
  assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).canPrepare,false);
  assert.equal(status({phase:'PLAYING',failureKind:'delivery',deliveryError:'Failed to fetch'}).canPrepare,false);
+});
+
+test('UX-06 optional operational loss never masquerades as delivery; readiness changes without label flicker',async()=>{
+ const {experienceResolver}=await import('../../apps/b2z-observer/experience-status.mjs'),resolve=experienceResolver();
+ assert.equal(resolve(base,0).label,'Live');assert.equal(resolve({...base,operationalFresh:false},100).label,'Live');assert.equal(resolve({...base,operationalFresh:false},100).canPrepare,false);
+ const failed={...base,deliveryError:'HTTP 503',failureKind:'delivery'};assert.equal(resolve(failed,200).label,'Live');assert.equal(resolve(failed,200).canPrepare,false);assert.equal(resolve(failed,901).label,'Reconnecting');assert.equal(resolve(base,1000).label,'Reconnecting');assert.equal(resolve(base,2200).label,'Live');assert.equal(resolve({...base,failureKind:'verification'},2201).kind,'verification-error');
+});
+
+test('observation transport retires an ignored abort and fences its late response',async()=>{
+ const {observationFetch}=await import('../../apps/b2z-observer/bounded-observation.mjs');const abort=new AbortController();let release;const request=observationFetch(()=>new Promise(r=>release=r),abort.signal,1000)('/query');await Promise.resolve();abort.abort(new DOMException('Page frozen','AbortError'));await assert.rejects(request,{name:'AbortError'});release(new Response('late'));await new Promise(r=>setImmediate(r));
 });

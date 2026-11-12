@@ -872,3 +872,64 @@ fn paid_island_upgrade_rehearsal() {
         &serde_json::json!({"status":"PASS","scope":"Normal-Wasm installed paid v5 preservation, unfinished operation, pending treasury recovery, v6 wall-pair death/island dormancy and one explicitly virtual 24h expiry. Browser/wire qualification is separate.","normal_module_sha256":dtr_wire::hash(&module),"predecessor_sha256":dtr_wire::hash(&old),"publications":publications.len(),"remaining_cannons":final_world.cannons.len(),"remaining_balls":final_world.balls.len(),"source_cursor":status(&pic,id).source.admitted_to_exclusive,"deadline_ns":deadline.to_string(),"canonical_inputs":payments}),
     );
 }
+
+/// Frontend-only qualification on a disposable normal-module game. Publication H
+/// remains fixed while the browser plays its retained interval and recovers reads.
+#[test]
+fn human_corrections_certified_startup_and_transient_recovery() {
+    let initial = controls(true).encode().unwrap();
+    let (mut pic, id, ledger, payer) = arena_setup_world(bytes("B2Z_S14_WASM"), initial);
+    one_tick(&pic, id);
+    one_tick(&pic, id);
+    let before = observe(&pic, id).0.publication;
+    let out =
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("human-corrections");
+    std::fs::create_dir_all(&out).unwrap();
+    let configuration = serde_json::json!({"network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),"payer_account":AccountIdentifier::new(&payer,&DEFAULT_SUBACCOUNT).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap())});
+    save(&out, "configuration.json", &configuration);
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let gateway = pic.make_live(None);
+    let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut browser = OwnedBrowser(
+        std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "-B",
+                "tools/verify_s14_deployment.py",
+                "--human-corrections-scene-only",
+                "--configuration",
+                out.join("configuration.json").to_str().unwrap(),
+                "--gateway",
+                gateway.as_str(),
+                "--output",
+                out.to_str().unwrap(),
+            ])
+            .stdout(log.try_clone().unwrap())
+            .stderr(log)
+            .spawn()
+            .unwrap(),
+    );
+    let began = std::time::Instant::now();
+    while began.elapsed() < Duration::from_secs(720) {
+        if let Some(code) = browser.0.try_wait().unwrap() {
+            assert!(
+                code.success(),
+                "human corrections browser: {}",
+                out.join("browser.log").display()
+            );
+            break;
+        }
+        std::thread::sleep(Duration::from_secs(1));
+    }
+    assert!(
+        out.join("browser-complete").exists(),
+        "human corrections browser deadline"
+    );
+    assert_eq!(
+        observe(&pic, id).0.publication,
+        before,
+        "H+1 must never be needed or produced"
+    );
+    pic.stop_live();
+}

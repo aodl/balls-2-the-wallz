@@ -1,3 +1,4 @@
+import {observationFailure} from './live-delivery.mjs';
 import {boundedObservationClient,observationFetch} from './bounded-observation.mjs';
 import {publicStatusReader} from './public-cycles.mjs';
 import {CONFIGURATION_ASSETS} from './configuration.generated.mjs';
@@ -32,7 +33,7 @@ function artifactDeliveryClient(agent,canisterId,base){
  return Object.freeze({...base,
   observation:async()=>{
    let failure;
-   for(let attempt=0;atomicAvailable&&attempt<2;attempt++){
+   for(let attempt=0;atomicAvailable&&attempt<1;attempt++){
     try{
      const result=await actor.observation_bundle();
      if(!result.Ok){failure=new Error(String(result.Err??'observation bundle unavailable'));break;}
@@ -41,7 +42,10 @@ function artifactDeliveryClient(agent,canisterId,base){
      return observation;
     }catch(error){failure=error;}
    }
-   if(failure)atomicAvailable=false;
+   if(failure){
+    if(observationFailure(failure)==='delivery'||/signature|certificate|integrity|mismatch/i.test(String(failure?.message??failure)))throw failure;
+    atomicAvailable=false;
+   }
    const observation=await base.observation();cached={publication:await sha256Web(observation.publication),failure:failure??new Error('atomic artifact bundle unavailable')};return observation;
   },
   bundle:async(segment,publication)=>{

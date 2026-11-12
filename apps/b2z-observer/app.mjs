@@ -1,9 +1,10 @@
+import {startupPlayback} from './startup-playback.mjs';
 import {elasticPlayback} from './elastic-playback.mjs';
 import {publicCycleMonitor,renderCycleReadout} from './public-cycles.mjs';
 import {replayTools} from './replay-tools.mjs';
 import {recentPresentationPoint,retainLatestVerifiedInterval,bridgeVerifiedPresentation,resumeVerifiedClock,assertForwardPresentation,canRetainAcrossResync,freshObservation,operationalReplyCurrent} from './warm-return.mjs';
 import {observationLoop} from './observation-loop.mjs';
-import {experienceStatus} from './experience-status.mjs';
+import {experienceResolver} from './experience-status.mjs';
 import {Camera} from './camera.mjs';
 import {ballPresentation} from './ball-presentation.mjs';
 const ballPoints=ballPresentation();
@@ -17,7 +18,8 @@ import {B2zView,SegmentPlayer,CheckpointPlayer,prepareCheckpoint,snapshot,prepar
 import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mjs';
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {idleArena} from './play-reference.mjs';
-import {observationFailure,liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance} from './live-delivery.mjs';
+import {observationFailure,liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance,deliveryRetryMs} from './live-delivery.mjs';
+const resolveExperience=experienceResolver();
 const $=id=>document.getElementById(id),canvas=$('board');
 let arenaRenderer=null,renderError=null;
 try{arenaRenderer=createArenaRenderer(canvas,{onError(message){renderError=message;$('render-error').hidden=false;$('render-error').textContent=message;},onRestore(){renderError=null;$('render-error').hidden=true;}});}catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='This browser could not start the 3D arena. WebGL 2 is required.';}
@@ -117,7 +119,13 @@ async function liveArtifacts(s,ticket){
         return [descriptor.kind,await assembler.finish()];
       }));
       s.artifactMs=performance.now()-started;s.bundleUsed=true;s.bundleError=null;return Object.fromEntries(entries);
-    }catch(error){s.bundleFallbacks=(s.bundleFallbacks??0)+1;s.bundleError=String(error?.message??error).slice(0,160);}
+    }catch(error){
+      // An unavailable optional query can use the existing chunk ABI. Invalid
+      // returned bytes must never be erased by a successful second download.
+      if(/integrity|shape|mismatch|signature|certificate/i.test(String(error?.message??error)))throw error;
+      s.bundleFallbacks=(s.bundleFallbacks??0)+1;s.bundleError=String(error?.message??error).slice(0,160);
+      if(observationFailure(error)==='delivery')throw error;
+    }
   }
   const results=await Promise.allSettled(['state','events','scores'].map(async(kind,kindIndex)=>{
     const assembler=new ArtifactAssembler(ticket,kind);
@@ -143,25 +151,28 @@ function resetLiveClock(s,time){
   s.queue=[];s.bytes=0;s.largestSegmentBytes=0;s.idleDrain=false;s.elastic=elasticPlayback();delete s.presentationFence;s.presentationSkip=false;visibleTime=time;
   s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),min_rate:1,max_rate:1,max_frame_delta:1});
 }
-async function startLive(recording,startupRetries=0){
+async function startLive(recording,startupRetries=0,verificationFloor=null){
   cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
     sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1}),
-    client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};
-  session=s;visible=null;visibleTime=0;lastFrame=null;
+    verificationFloor,client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};
+  session=s;visible=null;visibleTime=0;lastFrame=null;updateHud();
+  return acquireLive(s,startupRetries);
+}
+async function acquireLive(s,startupRetries=0){
+  s.busy=true;const recording=s.recording;
   try{
     let ticket;
     if(recording.deployment){
       const module=await import('./mainnet.mjs');
-      const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
-      s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
-      const initialStarted=performance.now();const initial=await Promise.allSettled([s.client.observation(),s.readStatus()]);
-      if(initial[0].status==='rejected')throw initial[0].reason;
-      if(initial[1].status==='fulfilled'&&performance.now()-initialStarted<15000){s.operational=s.lastPaceStatus=initial[1].value;s.operationalAt=initialStarted;s.statusDue=s.operationalAt+2000;}
-      ticket=await certifiedTicket(s,initial[0].value);
+      if(!s.client){const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
+       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
+       if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s))renderCycleReadout(document,value);}});
+      }
+      void refreshOperational(performance.now());
+      ticket=await certifiedTicket(s,await s.client.observation());
       const source=await deploymentSource(recording.deployment,ticket);
       const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
       s.config=config;s.source=source;
-      if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s))renderCycleReadout(document,value);}});
     }else{
       const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));
       if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
@@ -181,22 +192,36 @@ async function startLive(recording,startupRetries=0){
       // Genesis is not in the retained segment API. A live harness starts before
       // segment zero; reject a server that cannot provide this explicit anchor.
       state=await assembler.finish();
-    }else {const artifacts=await liveArtifacts(s,ticket);state=artifacts.state;events=artifacts.events;}
-    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
+    }else {
+      const artifacts=liveArtifacts(s,ticket),history=startupPlayback(ticket,artifacts,s.client,{signal:s.abort.signal});
+      // Both promises are joined even if a required artifact fails first.
+      const results=await Promise.allSettled([artifacts,history]);
+      for(const result of results)if(result.status==='rejected')throw result.reason;
+      ({state,events}=results[0].value);s.startupHistory=results[1].value;
+    }
+    if(!active(s))return;
+    const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);
+    if(s.verificationFloor){const floor=new PublicationSequence();floor.accept(s.verificationFloor);if(ticket.root_hash===s.verificationFloor.root_hash)floor.accept(ticket);else floor.resync(ticket);}
+    s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
-    resetLiveClock(s,time);if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(world);s.ready=true;observePresentation(s,ticket);s.skipped=segment!==null;s.accepted=segment===null?0:1;
+    const initialSegment=s.startupHistory?.segment,historyFailure=s.startupHistory?.failure;if(s.startupHistory)s.startupHistory=s.startupHistory.diagnostic;resetLiveClock(s,initialSegment?.start??time);
+    if(initialSegment){s.clock.append(initialSegment.start,initialSegment.end);s.queue.push({segment:initialSegment,player:new SegmentPlayer(initialSegment)});s.bytes=s.largestSegmentBytes=initialSegment.bytes;resumeVerifiedClock(s);}
+    if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(initialSegment?.initial??world);s.ready=true;s.firstWorldAt=performance.now();observePresentation(s,ticket);s.skipped=segment!==null;s.accepted=segment===null?0:1;
     globalThis.__dtrLive={connected:true,startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
+    if(historyFailure){s.error=historyFailure;s.failureKind='verification';showError(historyFailure);}
   }catch(e){
     if(!active(s))return;
     // A certified genesis can retire before its non-retained state is fetched.
     // Retry only the host's explicit moving-snapshot errors, with a fresh
     // certificate and full source/config/artifact validation on every attempt.
     if(startupRetries<2&&['stale observation publication','publication unavailable: snapshot resync required'].includes(e?.message)){
-      await startLive(recording,startupRetries+1);return;
+      s.nextDue=performance.now()+250;return;
     }
-    s.error=e;s.failureKind=observationFailure(e);showError(e);
-  }finally{s.busy=false;updateHud();draw();}
+    s.failureKind=observationFailure(e);
+    if(s.failureKind==='delivery'){s.deliveryError=String(e?.message??e);s.retryFailures++;s.nextDue=performance.now()+deliveryRetryMs(s.retryFailures);}
+    else{s.error=e;showError(e);}
+  }finally{s.busy=false;if(active(s)){if(s.ready&&!s.error){s.failureKind=null;s.deliveryError=null;s.retryFailures=0;}updateHud();draw();}}
 }
 async function epochConfiguration(s,ticket){
   const prior=s.sequence.last?.publication;
@@ -271,10 +296,10 @@ function updatePlayReference(s,world,events){
   if(!document.hidden)arcade.receipts([...s.receipts.values()]);
 }
 async function refreshOperational(now){
-  const s=session;if(!s?.ready||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
+  const s=session;if(!s||s.error||!s.readStatus||s.statusBusy||deliveryPaused||now<(s.statusDue??0))return;
   s.statusBusy=true;s.statusDue=now+2000;const generation=s.lifecycleGeneration??0,started=now;
-  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=s.lastPaceStatus=status;s.operationalAt=started;if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
-  catch{if(active(s)&&(s.lifecycleGeneration??0)===generation){s.operational=null;}}
+  try{const status=await s.readStatus();if(active(s)&&operationalReplyCurrent(s,generation,started,performance.now())){s.operational=s.lastPaceStatus=status;s.operationalAt=started;s.statusFailures=0;if(!s.idleDrain)Object.assign(s.clock,liveSessionBufferPolicy(s));}else if(active(s))s.statusDue=0;}
+  catch{if(active(s)&&(s.lifecycleGeneration??0)===generation){s.statusFailures=(s.statusFailures??0)+1;s.statusDue=performance.now()+deliveryRetryMs(s.statusFailures);}}
   finally{s.statusBusy=false;}
 }
 async function pumpLive(now,s){
@@ -320,12 +345,13 @@ async function pumpLive(now,s){
     liveDeliverySuccess(s,s.sequence.last.root_hash===current.root_hash?s.sequence.last:null,performance.now());s.nextDue=performance.now()+(deferred?250:0);
   }catch(e){
     if(!active(s))return;
-    if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;s.failureKind=observationFailure(e);showError(e);}else s.nextDue=performance.now()+Math.min(8000,250*2**s.retryFailures);
+    if(liveDeliveryFailure(s,e,observed,acceptedBefore,performance.now())){s.error=e;s.failureKind=observationFailure(e);showError(e);}else s.nextDue=performance.now()+deliveryRetryMs(s.retryFailures);
   }finally{s.busy=false;s.catchingUp=false;if(active(s)&&!document.hidden){warmPresentation(s);if(observed&&s.sequence.last.root_hash===observed.root_hash)s.warmRecovery=false;updateHud();}}
 }
 async function pump(now){
-  const s=session;if(!s?.ready||s.busy||s.error||deliveryPaused)return;
-  if(s.mode==='live')return pumpLive(now,s);
+  const s=session;if(!s||s.busy||s.error||deliveryPaused)return;
+  if(s.mode==='live')return s.ready?pumpLive(now,s):now>=s.nextDue?acquireLive(s):undefined;
+  if(!s.ready)return;
   if(s.entry>=s.recording.roots.length||now<s.nextDue||s.queue.length>=4||s.clock.state().buffer>=12)return;
   s.busy=true;
   try{
@@ -352,11 +378,11 @@ function updateHud(){
  const s=session,p=phase(),now=performance.now(),operationalFresh=now-(s?.operationalAt??-Infinity)<15000,fresh=freshObservation(s,now);
  const healthy=Boolean(s?.operational?.run.running&&!s.operational.run.world_transition&&s.operational.source.binding_checked&&!s.operational.run.last_error.length&&!s.operational.source.last_error.length&&s.operational.run.pace?.admission_open!==false);
  const failure=s?.deliveryDiagnostics?.blocking?.kind==='delivery-or-verification-error'?'verification':s?.deliveryError?'delivery':s?.error?s.failureKind:null;
- const resolved=experienceStatus({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&(s?.mode!=='live'||s.nominalRate>0)&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,catchingUp:s?.catchingUp,deliveryError:s?.deliveryError,renderError,presentationLagSeconds:s?.referenceWorld&&s?.clock&&presentationPace(s)>0?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead)/presentationPace(s):0});
- arcade.status({resolved});document.body.dataset.phase=p;$('retry').hidden=failure==='verification'||!Boolean(bootError||s?.error);
+ const resolved=resolveExperience({failureKind:failure,trust:s?.mode==='local'?'certificate':'content',phase:p,live:s?.mode==='live',verified:Boolean(s?.ready&&!s.error),fresh,operationalFresh,healthy,operational:s?.operational,world:s?.referenceWorld??visible,advancing:!paused&&(s?.mode!=='live'||s.nominalRate>0)&&s?.clock?.started&&s?.clock?.available>s?.clock?.playhead,resynchronising:s?.returning,catchingUp:s?.catchingUp,deliveryError:s?.deliveryError,renderError,presentationLagSeconds:s?.referenceWorld&&s?.clock&&presentationPace(s)>0?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead)/presentationPace(s):0},now);
+ arcade.status({resolved});document.body.dataset.phase=p;$('retry').hidden=!Boolean(bootError||s?.error);$('retry').textContent='Retry verification';
  const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;
- globalThis.__b2zExperience={status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};
+ globalThis.__b2zExperience={composer:arcade.proposedAction(),status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};
 }
 function draw(){
  if(document.hidden||!arenaRenderer||!visible)return;
@@ -365,7 +391,7 @@ function draw(){
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
  arcade.presentation(v);const points=ballPoints.get(v,visibleTime);shell.advance(v,visibleTime,performance.now(),JSON.stringify(session?.sequence.last?.publication.identity??{}),points);
- try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,points,followed:shell.followedBall(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
+ try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,points,followed:shell.followedBall(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),guideObstacles:shell.guideObstacles(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
  shell.update(v,arenaRenderer.surface());
  canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
@@ -410,7 +436,7 @@ function frame(now){
   }
   draw();if(now-lastHud>100){updateHud();lastHud=now;}requestAnimationFrame(frame);
 }
-$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;if(!s.ready){void (s.mode==='live'?startLive(s.recording):s.mode==='local'?startLocal(s.recording):start(s.recording));return;}s.error=null;s.retryFailures=0;s.nextDue=0;updateHud();});
+$('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;void(s.mode==='live'?startLive(s.recording,0,s.sequence.last??s.verificationFloor):s.mode==='local'?startLocal(s.recording):start(s.recording));});
 const observations=observationLoop({work:pump,refresh:refreshOperational,onReturn(gap){lastFrame=null;const s=session;if(s){s.nextDue=0;s.statusDue=0;s.lifecycleGeneration=(s.lifecycleGeneration??0)+1;s.operationalAt=-Infinity;s.warmRecovery=true;s.returnStartedAt=performance.now();s.firstWarmRenderAt=null;warmPresentation(s);if(s.referenceWorld){arcade.render(s.referenceWorld,s.config,s.source,s.root);arcade.receipts([...(s.receipts?.values()??[])]);}updateHud();draw();}}});
 document.addEventListener('visibilitychange',()=>{observations.visibility();cycleMonitor?.visibility();});
 document.addEventListener('freeze',()=>observations.suspend());
@@ -445,5 +471,5 @@ try{
 }catch(e){bootError=e;showError(e);updateHud();}
 }
 if(deployment===null||deployment.network==='pocketic-local')globalThis.__b2zTools=replayTools({session:()=>session,visible:()=>visible,selection:()=>arcade.selectedCannon(),pause:value=>{paused=Boolean(value);lastFrame=null;},delivery:value=>{deliveryPaused=Boolean(value);},start,local:startLocal,live:startLive,catalog:()=>catalog});
+updateHud();requestAnimationFrame(frame);
 await bootstrap();
-requestAnimationFrame(frame);

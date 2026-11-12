@@ -1,4 +1,5 @@
 """Focused read-only rules-7 handoff and first join on the owned disposable IC."""
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 import json,re,time
 from browser_observer import wait_until,wait_file
 
@@ -15,7 +16,7 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==7,90000)
     wait_until(page,lambda:page.locator('[data-copy="amount"]').is_enabled(),30000)
     assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')==camera
-    page.locator('#angle-degrees').fill('0');assert page.locator('#quantity-controls').is_hidden()
+    set_heading(page,'0');assert page.locator('#quantity-controls').is_hidden()
     wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='1 ICP'and page.locator('#text-memo').inner_text()=='NEW 0 1',15000)
     page.screenshot(path=str(out/'before-join-desktop.png'))
     (out/'browser-entry-ready').write_text('verified rules-7 quote from occupied world\n')

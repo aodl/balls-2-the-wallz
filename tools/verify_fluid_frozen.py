@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Exact frozen assets on loopback, anonymous/read-only certified European game."""
+from human_input import set_heading,choose_cell,chosen_cell,heading_value
 import argparse,functools,hashlib,http.server,json,threading,traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
@@ -19,9 +20,9 @@ with sync_playwright()as pw:
     sender=world['cannons'][0]['account'];page.locator('#identify-button').click();page.locator('#sending-account').fill(sender);page.locator('#identity-save').click();page.locator('#close-panel').click();page.locator('#centre-cannon').click()
     if page.locator('#roster-view').is_visible():page.locator('#own-cannons button').first.click()
     if page.locator('#locate-context').is_visible():page.locator('#locate-context').click()
-    page.locator('#fire-action').click();page.locator('#angle-degrees').fill('45');page.wait_for_timeout(1000)
+    page.locator('#fire-action').click();set_heading(page,'45');page.wait_for_timeout(1000)
     if not page.locator('#transfer-controls').evaluate('(n)=>n.disabled'):
-     memo=page.locator('#text-memo').inner_text();assert memo==f'FIRE {world["cannons"][0]["id"]} 255 1';assert page.locator('#payment-owner').inner_text()==world['source']['owner'];assert page.locator('#paying-account').inner_text()==sender;expect(page.locator('#payment-risk')).to_contain_text('no automatic refunds');page.locator('[data-copy="text"]').click();page.wait_for_function('(m)=>copied.at(-1)===m',arg=memo);page.locator('#angle-degrees').fill('90');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(memo);handoff={'memo':memo,'utf8':list(memo.encode()),'amount':page.locator('#transfer-amount').inner_text(),'payer':sender}
+     memo=page.locator('#text-memo').inner_text();assert memo==f'FIRE {world["cannons"][0]["id"]} 255 1';assert page.locator('#payment-owner').inner_text()==world['source']['owner'];assert page.locator('#paying-account').inner_text()==sender;expect(page.locator('#payment-risk')).to_contain_text('no automatic refunds');page.locator('[data-copy="text"]').click();page.wait_for_function('(m)=>copied.at(-1)===m',arg=memo);set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(memo);handoff={'memo':memo,'utf8':list(memo.encode()),'amount':page.locator('#transfer-amount').inner_text(),'payer':sender}
     else:handoff={'unavailable_reason':page.locator('#preparation-note').inner_text(),'scope':'No admission bypass; disposable fixtures qualify payment interactions.'}
     page.screenshot(path=str(out/f'{w}-verified.png'));assert page.evaluate('()=>{const c=__b2zExperience.clock,q=__b2zExperience.queue;document.getElementById("close-panel").click();return c===__b2zExperience.clock&&q===__b2zExperience.queue}')
    assert all(u.endswith(('/query','/read_state'))for u in posts),posts;assert not errors,errors;files={}

@@ -4,7 +4,13 @@ import {Actor,HttpAgent} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {certificateRoot} from '@dtr/timeline-runtime/client/ic-certificate';
 export function observationFetch(fetch=globalThis.fetch.bind(globalThis),signal,timeout=10000){
- return (input,init={})=>fetch(input,{...init,signal:AbortSignal.any([AbortSignal.timeout(timeout),...(signal?[signal]:[]),...(init.signal?[init.signal]:[])])});
+ return (input,init={})=>{
+  const scoped=AbortSignal.any([AbortSignal.timeout(timeout),...(signal?[signal]:[]),...(init.signal?[init.signal]:[])]);
+  scoped.throwIfAborted();
+  return new Promise((resolve,reject)=>{const abort=()=>reject(scoped.reason);scoped.addEventListener('abort',abort,{once:true});
+   Promise.resolve().then(()=>fetch(input,{...init,signal:scoped})).then(value=>{scoped.throwIfAborted();resolve(value);},reject).catch(reject).finally(()=>scoped.removeEventListener('abort',abort));
+  });
+ };
 }
 export const observationInterface=()=>{const result=ok=>IDL.Variant({Ok:ok,Err:IDL.Text}),observation=IDL.Record({publication:IDL.Vec(IDL.Nat8),certificate:IDL.Opt(IDL.Vec(IDL.Nat8))});return IDL.Service({observation:IDL.Func([],[result(observation)],['query']),artifact_chunk:IDL.Func([IDL.Text,IDL.Nat8,IDL.Nat16],[result(IDL.Vec(IDL.Nat8))],['query']),retained_publication:IDL.Func([IDL.Nat64],[result(IDL.Vec(IDL.Nat8))],['query']),retained_artifact_chunk:IDL.Func([IDL.Nat64,IDL.Text,IDL.Nat8,IDL.Nat16],[result(IDL.Vec(IDL.Nat8))],['query'])});};
 export async function boundedObservationClient(policy,{signal,fetch}={}){
