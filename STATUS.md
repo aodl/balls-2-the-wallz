@@ -1,23 +1,22 @@
-# Human-playtest correction — frozen frontend, CI qualifier correction pending
+# Human-playtest correction — final typed-rejection freeze in progress
 
-Frontend runtime `4c63a3b` is frozen clean (16 files; JS `cd44e2a3…`, complete
-inventory `7380a1bf…`). The [closeout report](evidence/B2Z/human-playtest-corrections/REPORT.md)
-records certified fixed-H startup without H+1, automatic 5/30/90/180-second
-recovery, actual native hidden-tab returns, direct cannon/ball input, stable
-payment geometry, shared previews and populated before/after media. Source
-passes 1,845 JS / 199 Python tests; current functional browser regressions pass.
+The final runtime adds explicit retry of SDK `SysTransient` replica rejections
+without downgrading other reject codes or certificate/history failures. Focused
+SDK tests pass (18/18), and the strengthened native browser acceptance passes all
+three sizes, including enabled→disabled→enabled copying with stable geometry.
+A new clean final freeze and six-gate qualification are being prepared.
 
-The owner published `47f563b`; four substantive gates pass, Browser failed its
-Locate fixture setup, and installed-IC qualification is still running. Local
-qualifier correction `052294d` preserves the offscreen/inert/clock assertions,
-changes no frozen frontend input and awaits owner publication for six-gate CI.
-Production deployment remains separately unauthorized.
+The [closeout report](evidence/B2Z/human-playtest-corrections/REPORT.md) preserves
+prior `4c63a3b` artifacts, certified fixed-H/startup/recovery evidence, actual native
+hidden returns and exact-candidate mainnet read-only measurements. Earlier
+qualifiers `47f563b` and `6440081` retain their separate Browser setup failures.
+The final renderer/composer inputs remain unchanged; new tests settle the pane
+before comparing connectivity geometry. No production frontend/backend, paid
+state, prices, Ledger commands or financial operation changed.
 
-Fresh read-only 12 November observations show active Trickle play, including
-H=6933 in the exact-candidate loopback startup measurement. The historical
-ReserveProtection block recorded below is not a current operating-state claim.
-No installed frontend/backend, paid state, prices or financial operation changed.
-The prior deployed release and its original qualification remain recorded below.
+Fresh read-only 12 November observations show active Trickle play; the historical
+ReserveProtection record below is not a current operating-state claim. Production
+deployment remains separately unauthorized.
 
 ---
 

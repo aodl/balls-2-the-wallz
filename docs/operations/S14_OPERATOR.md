@@ -13,7 +13,8 @@ The runtime must distinguish latest authenticated financial authority from a
 bounded completed historical playback interval. Cold acquisition may add one
 retained-publication request and its state chunks within a two-second optional
 budget. Missing/late history falls back once to the latest snapshot, never rewinds
-an already visible world. Repeated HTTP/availability faults retry automatically;
+an already visible world. Repeated HTTP/availability faults and typed SDK
+`SysTransient` replica rejections retry automatically;
 invalid signatures, binding, artifact or history conflicts remain blocked. An
 explicit Retry verification establishes a new fully verified chain while retaining
 the previous authenticated sequence floor. Public cycles/status are auxiliary;

@@ -134,3 +134,19 @@ test('actual pinned SDK HTTP/time error codes classify availability without rela
  assert.equal(observationFailure(TransportError.fromCode(new HttpErrorCode(404,'Not found',{},''))),'verification');assert.equal(observationFailure(TransportError.fromCode(new HttpFetchErrorCode(new DOMException('aborted','AbortError')))),'delivery');
  const date=new Date();assert.equal(observationFailure(TrustError.fromCode(new CertificateTimeErrorCode(5,date,date,360000,'past'))),'delivery');assert.equal(observationFailure(TrustError.fromCode(new CertificateTimeErrorCode(5,date,date,360000,'future'))),'verification');assert.equal(observationFailure(TrustError.fromCode(new CertificateVerificationErrorCode('invalid signature; HTTP 503 in untrusted text'))),'verification');
 });
+
+test('pinned SDK SysTransient rejections retry without weakening the certificate or accepted-head barrier',async t=>{
+ const {RejectError,CertifiedRejectErrorCode,UncertifiedRejectErrorCode,ReplicaRejectCode,TrustError,CertificateVerificationErrorCode}=await import('@icp-sdk/core/agent');const {observationFailure}=await import('../../apps/b2z-observer/live-delivery.mjs');
+ const f=await fixtures(t),s=session(f.accepted);rememberLiveAcceptance(s,f.accepted);
+ for(const Code of[CertifiedRejectErrorCode,UncertifiedRejectErrorCode]){
+  const transient=RejectError.fromCode(new Code(Uint8Array.of(1),ReplicaRejectCode.SysTransient,'Temporarily unavailable','test',[]));
+  assert.equal(observationFailure(transient),'delivery');
+  for(let i=0;i<8;i++)assert.equal(liveDeliveryFailure(s,transient,null,f.accepted,i),false);
+  assert.equal(s.sequence.last,f.accepted);liveDeliverySuccess(s,null,9);assert.ok(s.deliveryError);
+  liveDeliverySuccess(s,f.accepted,10);assert.equal(s.deliveryError,null);
+  for(const code of[ReplicaRejectCode.SysFatal,ReplicaRejectCode.DestinationInvalid,ReplicaRejectCode.CanisterReject,ReplicaRejectCode.CanisterError])assert.equal(observationFailure(RejectError.fromCode(new Code(Uint8Array.of(1),code,'SysTransient; HTTP 503','test',[]))),'verification');
+ }
+ const bad=TrustError.fromCode(new CertificateVerificationErrorCode('invalid signature; SysTransient'));
+ assert.equal(observationFailure(bad),'verification');assert.equal(liveDeliveryFailure(s,bad,null,f.accepted,11),true);s.error=bad;
+ liveDeliveryFailure(s,RejectError.fromCode(new UncertifiedRejectErrorCode(Uint8Array.of(1),ReplicaRejectCode.SysTransient,'retry','test',[])),null,f.accepted,12);liveDeliverySuccess(s,f.accepted,13);assert.equal(s.deliveryDiagnostics.blocking.recovered_at_ms,null);assert.equal(s.sequence.last,f.accepted);
+});

@@ -382,7 +382,9 @@ to reach the game. Retrying automatically.** Retain the trusted scene, remaining
 verified intervals, camera, selection and drafts. Known stale authenticated heads
 stay rejected without lowering the sequence floor. Transport failures retry with
 500ms–30s exponential backoff/jitter and no permanent attempt threshold; the
-application owns read-only retries (SDK transport retries are zero), and failed
+application owns read-only retries (SDK transport retries are zero). Typed SDK
+`SysTransient` replica rejections also retry, even over HTTP 200; arbitrary reject
+text cannot downgrade a signature, binding or history failure. Failed
 operational queries never retry faster than their normal two-second cadence; hidden
 scheduling remains bounded at 15s observation / 60s operational refresh. Visible
 return initiates an immediate fenced retry. Fresh certificates and successful

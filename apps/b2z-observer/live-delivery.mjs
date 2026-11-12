@@ -1,10 +1,11 @@
 /** Diagnostics only: certificate verification and PublicationSequence own trust. */
-import {AgentError,HttpErrorCode,HttpFetchErrorCode,CertificateTimeErrorCode,CertificateOutdatedErrorCode} from '@icp-sdk/core/agent';
+import {AgentError,HttpErrorCode,HttpFetchErrorCode,CertificateTimeErrorCode,CertificateOutdatedErrorCode,CertifiedRejectErrorCode,UncertifiedRejectErrorCode,ReplicaRejectCode} from '@icp-sdk/core/agent';
 /** A delivery label cannot turn an authentication error into availability. */
 export function observationFailure(error){
  if(error instanceof AgentError){
   if(error.hasCode(HttpErrorCode)){const n=error.code.status;return n===408||n===429||n>=500&&n<=599?'delivery':'verification';}
   if(error.hasCode(HttpFetchErrorCode))return observationFailure(error.code.error);
+  if(error.hasCode(CertifiedRejectErrorCode)||error.hasCode(UncertifiedRejectErrorCode))return error.code.rejectCode===ReplicaRejectCode.SysTransient?'delivery':'verification';
   if(error.hasCode(CertificateTimeErrorCode))return error.code.ageType==='past'?'delivery':'verification';
   if(error.hasCode(CertificateOutdatedErrorCode))return 'delivery';
   return 'verification'; // Unrecognised SDK trust/protocol errors fail closed.

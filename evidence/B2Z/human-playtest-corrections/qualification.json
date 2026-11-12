@@ -93,11 +93,17 @@
       "raw": ".work/human-corrections/status-viewports-final/results.json"
     }
   ],
-  "hosted_ci": "Awaiting owner publication of qualifier correction; first Browser failure retained under 47f563b",
+  "hosted_ci": {
+    "run_id": 43304092736,
+    "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43304092736",
+    "status": "IN_PROGRESS",
+    "six_gate_complete": false
+  },
   "limits": [
     "Software rendering and emulated viewports/touch do not qualify hardware/physical-device performance",
     "Original cold Wasm build attempt timed out; focused frontend installed cases reuse exact reviewed module",
     "Controlled freeze/resume is labelled separately from actual document.hidden evidence"
   ],
-  "raw_root": ".work/human-corrections"
+  "raw_root": ".work/human-corrections",
+  "published_qualification_source": "64400819327fc877bdea698770df4fef9c6e5483"
 }

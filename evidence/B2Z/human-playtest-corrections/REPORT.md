@@ -1,8 +1,18 @@
-# Human playtest corrections — frozen frontend candidate
+# Human playtest corrections — final typed-rejection candidate
 
-**Not deployed. Final qualification is in progress.** The paid backend, installed
+**Not deployed. The final freeze and qualification are in progress.** The final
+runtime additionally retries the SDK's explicit `SysTransient` replica rejection
+(over HTTP 200); other rejection codes and cryptographic failures remain blocked.
+The status-geometry test now settles its pane and verifies both disabled and
+re-enabled copying. Focused SDK tests and the strengthened three-viewport browser
+journey pass. Earlier runtime `4c63a3b` remains an identified predecessor; its
+[committed report/media](https://github.com/aodl/balls-2-the-wallz/tree/64400819327fc877bdea698770df4fef9c6e5483/evidence/B2Z/human-playtest-corrections)
+and [inventory](frontend-files-4c63a3b.json) are preserved. The predecessor hashes
+and measurements below must not be substituted for the forthcoming final freeze.
+
+ The paid backend, installed
 frontend, configuration, prices, Ledger processing and payment execution have not
-been changed. No transaction, allowance, transfer, controller/settings action,
+been changed. No mainnet transaction, allowance, transfer, controller/settings action,
 backend deployment or ICRC-2 activation occurred.
 
 ## Source and installed baseline
@@ -34,7 +44,7 @@ Progress commits `1ccd4b1`, `1dd7fd5` and `4c63a3b` preserve the implementation 
 reviewed corrections. Subsequent evidence-only commits must not be represented
 as rebuilds or substituted for the frozen source.
 
-## Exact frontend artifacts
+## Reviewed predecessor frontend artifacts (4c63a3b)
 
 The existing playability builder produced
 `.work/human-corrections/frozen/frontend/`, with `source_dirty=false`, ordinary
@@ -342,8 +352,10 @@ also passes locally. That failing CI evidence remains tied to `47f563b`.
 
 Qualifier correction `052294d` adds the setup correction, four startup timing
 milestones and retained installed-browser artifacts. It changes no frozen runtime,
-asset-builder input, lock, configuration or backend. Its owner publication and
-six conclusions remain pending. The six substantive jobs are Source conformance,
+asset-builder input, lock, configuration or backend. The owner published it with
+the reviewed closeout evidence as **`64400819327fc877bdea698770df4fef9c6e5483`**.
+Its [exact-source run 43304092736](https://github.com/aodl/balls-2-the-wallz/actions/runs/43304092736)
+is in progress; six conclusions remain pending. The six substantive jobs are Source conformance,
 Native conformance, Packaged DTR and clean consumers, Runtime-lab Wasm, Browser
 HTTP and Web Crypto, and S14/million-cell installed-IC qualification. Older green
 runs and the informational BLOCKED production inventory do not substitute for

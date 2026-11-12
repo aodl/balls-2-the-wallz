@@ -74,11 +74,15 @@ with sync_playwright() as pw:
    if not a.baseline:
     # Exact action geometry across real status changes. They affect gating,
     # not values or body size; the fixture does not synthesize a transaction.
+    settled_panel(page)
+    assert page.locator('#prepared-card').is_visible()
+    assert page.locator('#transfer-controls').evaluate('(n)=>!n.disabled')
     base=page.locator('#workspace').bounding_box();memo=page.locator('#text-memo').text_content();boxes=[]
     healthy='({live:true,verified:true,fresh:true,healthy:true,operationalFresh:true,advancing:false,phase:"STALLED",world:fixture.world(),operational:{run:{running:true,last_error:[],pace:{mode:"Normal",nominal_milli:1000,admission_open:true}},source:{binding_checked:true,last_error:[]}}})'
     for label,override in [('status-failure','operationalFresh:false'),('status-recovered',''),('delivery-failure','deliveryError:"HTTP 503",failureKind:"delivery"'),('prolonged-outage','fresh:false,operationalFresh:false,deliveryError:"HTTP 503",failureKind:"delivery"'),('recovered','')]:
      page.evaluate('fixture.status({...'+healthy+','+override+'})');page.wait_for_timeout(450);box=page.locator('#workspace').bounding_box();boxes.append({'case':label,'box':box,'copyDisabled':page.locator('#transfer-controls').evaluate('(n)=>n.disabled')});assert all(abs(box[k]-base[k])<=1 for k in base),(label,base,box);assert page.locator('#text-memo').text_content()==memo
      if override:assert boxes[-1]['copyDisabled']
+     else:assert not boxes[-1]['copyDisabled']
     print('stable status',w,flush=True);row['panel_geometry']=boxes;page.screenshot(path=str(out/f'{w}-stable-status.png'))
     wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk'])
     # Keyboard board selection commits an immutable canonical cell.
