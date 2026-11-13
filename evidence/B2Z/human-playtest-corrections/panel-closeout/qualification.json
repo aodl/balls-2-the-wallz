@@ -1,0 +1,37 @@
+{
+  "status": "PENDING_SOURCE_PUBLICATION_AND_SIX_HOSTED_GATES",
+  "release_qualified": false,
+  "runtime_source": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+  "previous_qualifier_source": "ea27cbb343224190db3bc49c71537e8c0a32dea2",
+  "published_qualification_source": null,
+  "starting_remote_source": "2fa267328173e9c979096f6a56bd2a5a802003b0",
+  "starting_run": 43317023567,
+  "starting_run_results": "ci-starting.json",
+  "local_status": "PASS",
+  "local_complete_source": {
+    "tests_js": 1846,
+    "tests_python": 199,
+    "raw": ".work/panel-closeout/source-release/verification.json"
+  },
+  "panel_matrix": {
+    "contexts": 8,
+    "actions": 3,
+    "state_applications": 192,
+    "samples": 2714,
+    "max_drift_px": 0
+  },
+  "normal_mainnet_read_only": {
+    "head": "7054",
+    "samples": 153,
+    "max_drift_px": 0,
+    "status_copy_transition": "enabled -> disabled -> enabled",
+    "posts_read_only": true
+  },
+  "frozen_javascript_sha256": "9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c",
+  "complete_inventory_sha256": "f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c",
+  "build_manifest_sha256": "0200b6b608e54fff7845fee671b0d1e786af1a5083af341a276e987e5cdd1be7",
+  "hosted_six_gate_complete": false,
+  "publication_blocker": "Normal HTTPS push lacks Git credentials; normal SSH push rejects public key. Owner normal non-force branch push requested. GitHub connector cannot publish existing local commit objects preserving their identities.",
+  "production_deployed": false,
+  "backend_or_financial_changes": false
+}

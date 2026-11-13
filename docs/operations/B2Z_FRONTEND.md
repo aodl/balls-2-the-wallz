@@ -118,3 +118,14 @@ transition to prove this wait, and separately asserts that native aim pointer-do
 cancels an active transition and the camera stays at that captured pose. Keep both
 assertions and exact memo checks; waiting for entry is not permission to weaken
 direct-manipulation ownership or change playback.
+
+Installed-browser qualification distinguishes immediate historical startup from
+steady motion with the existing presentation reserve. Wait on observed verified
+coverage (`clock target - publication interval`) before the unchanged sustained
+rate/zero-stall trace; record acquisition separately. Native aim changes its memo
+synchronously, while `__b2zExperience.composer` is a 100ms diagnostic snapshot:
+wait for the snapshot before exact-angle assertions. Shared canonical-cell helpers
+must settle Home navigation, check the actual DOM hit target and use the existing
+keyboard path for an occluded tile, preserving the requested cell. Configuration
+HTTP unavailability must recover on the same page; configuration-hash and certificate
+failures must remain hard errors with disabled copying.

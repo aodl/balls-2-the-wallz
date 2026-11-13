@@ -1,6 +1,6 @@
 # Human playtest corrections — release qualification
 
-**Not deployed. Final panel correction and exact-source qualification are in progress.**
+**Not deployed. The final panel correction passes local acceptance; exact-source hosted qualification is blocked on publication.**
 The published `2fa2673` Browser gate failed the Build readiness geometry check
 (129px → 392px); four other substantive gates passed and installed-IC was still
 running at investigation start and subsequently failed two installed-browser

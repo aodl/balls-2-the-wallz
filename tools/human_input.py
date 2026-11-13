@@ -29,5 +29,22 @@ def choose_cell(page,value):
   return page.evaluate('(v)=>fixture.choose(v)',value)
  point=page.evaluate('(v)=>__b2zCamera.cellPoint(v)',value)
  if not point['visible']:
-  page.locator('#board').focus();page.keyboard.press('Home');page.wait_for_timeout(250);point=page.evaluate('(v)=>__b2zCamera.cellPoint(v)',value)
- page.mouse.click(point['sx'],point['sy']);page.wait_for_timeout(450)
+  page.locator('#board').focus();page.keyboard.press('Home')
+  # Home is an animated navigation gesture. Capture the canonical target only
+  # after its ordinary frames settle, not at an arbitrary point in that motion.
+  page.evaluate('''()=>new Promise((resolve,reject)=>{const start=performance.now();let previous='',stableAt=start,frames=0;function sample(){const c=__b2zCamera,pose=JSON.stringify([c.x,c.y,c.scale]),now=performance.now();if(pose!==previous){previous=pose;stableAt=now;frames=0;}else frames++;if(frames>=4&&now-stableAt>=450)return resolve();if(now-start>8000)return reject(Error('Home camera did not settle'));requestAnimationFrame(sample)}requestAnimationFrame(sample)})''')
+  point=page.evaluate('(v)=>__b2zCamera.cellPoint(v)',value)
+ if not point['visible']or not page.evaluate('(p)=>document.elementFromPoint(p.sx,p.sy)?.id==="board"',point):
+  # An anchored payment pane can cover the requested tile. Preserve that exact
+  # canonical target and use the supported keyboard alternative, rather than
+  # clicking through UI or silently substituting another legal destination.
+  base=page.evaluate('()=>{const w=__b2zExperience.session.referenceWorld;return{width:w.width,height:w.height,cell:__b2zExperience.composer.cell??w.cannons.find(c=>c.id===__b2zTools.selection()).cell}}')
+  page.locator('#board').focus();page.keyboard.press('ArrowLeft') # clear prior keyboard hover without committing a target
+  dx=(value%base['width']-base['cell']%base['width']+base['width']//2)%base['width']-base['width']//2
+  dy=(value//base['width']-base['cell']//base['width']+base['height']//2)%base['height']-base['height']//2
+  if not dx and not dy:page.keyboard.press('Alt+ArrowLeft');page.keyboard.press('Alt+ArrowRight')
+  for count,positive,negative in [(dx,'Right','Left'),(dy,'Down','Up')]:
+   for _ in range(abs(count)):page.keyboard.press('Alt+Arrow'+(positive if count>0 else negative))
+  page.keyboard.press('Enter');page.wait_for_timeout(450);return {'input':'keyboard','cell':value}
+ assert page.evaluate('(p)=>__b2zCamera.cell(p.sx,p.sy)',point)==value,point
+ page.mouse.click(point['sx'],point['sy']);page.wait_for_timeout(450);return {'input':'pointer','cell':value,'point':point}

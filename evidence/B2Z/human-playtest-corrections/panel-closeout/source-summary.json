@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "raw": ".work/panel-closeout/source-py311/verification.json",
+  "raw": ".work/panel-closeout/source-release/verification.json",
   "python": "3.11.14",
   "tests_js": 1846,
   "tests_python": 199,
@@ -111,5 +111,5 @@
     }
   ],
   "earlier_failed_attempt": ".work/panel-closeout/source/verification.json",
-  "earlier_failure_reason": "Host Python 3.10 cannot import tomllib or use hashlib.file_digest; not a qualified run."
+  "earlier_failure_reason": "Host Python 3.10 lacks required tomllib/file_digest. Superseded by complete Python 3.11 run, not relabelled green."
 }

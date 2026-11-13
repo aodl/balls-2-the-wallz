@@ -86,11 +86,16 @@ trust admission, aiming math or the no-H+1 requirement. The corrected exact aimi
 first broader local run then failed sustained-motion assertions because it sampled
 the immediate one-interval startup before the ordinary verified jitter reservoir
 was filled. Its failure remains under `installed-general/`. The benchmark now
-waits, bounded to 90 seconds, for natural coverage to reach the existing buffer
-target with full presentation rate before starting the same 45-second trace.
+waits, bounded to 90 seconds, for natural coverage to reach the existing
+presentation reserve (`clock target - publication interval`) before starting the
+same 45-second trace. The clock target also includes the interval spent between
+arrivals; requiring the entire target or an instantaneous rate alongside it was
+an excessive new qualifier condition. Acquisition telemetry is retained on both
+success and timeout.
 Zero-stall, rate and no-resync assertions are unchanged; acquisition is separately
-recorded rather than removed from startup evidence. Full installed reruns are
-pending; final hosted installed-IC must pass independently.
+recorded rather than removed from startup evidence. The final named installed-browser rerun passes (416.464 seconds); the separate
+certified lifecycle case passes (471.132 seconds). The complete hosted installed-IC
+gate must still pass independently.
 
 The installed Move journey also retained a second click from the former numeric
 helper: `choose_cell()` now already emits native arena input. The redundant click
@@ -154,12 +159,59 @@ source attempt used host Python 3.10 and failed its Python-3.11-only tools; it i
 retained separately from the corrected complete Python 3.11 run. Earlier failing evidence remains
 associated with its original source; it is not relabelled PASS.
 
+Home navigation in the old shared helper used a fixed 250ms delay before
+constructing a pointer target. The helper now waits for a stable camera, verifies
+inverse canonical picking and checks the real DOM hit target. If the payment pane
+covers that exact requested tile, it uses the existing Alt-arrow/Enter keyboard
+selection without replacing the target or mutating hidden state. Normal-pointer
+and keyboard paths remain native input. Failed diagnostics now read the actual
+application composer rather than referencing a missing fixture global.
+
+## Normal frontend lifecycle comparison
+
+A [normal production-bundle session](normal-status-read-only.json) served the
+frozen bytes from loopback with production security policy and actual mainnet
+certificate/artifact verification. Only read-only operational requests were given
+controlled HTTP 503 responses; game observation continued normally. There was no
+private layout call, forced sizing, clock mutation or mocked game state.
+
+At H=7054, all 153 samples preserve rectangle **(661,334,360,435)**, exact memo
+`FIRE 1 248.89 1`, 0.1 ICP amount, recipient, public sending account, fee/warning,
+camera and the same live session/clock objects. Expired operational confirmation
+disables copying; restored real confirmation re-enables it. Clock remains bounded
+by verified coverage. Maximum geometry drift: **0px**. Five operational requests
+failed during the fault; all 78 browser POSTs were `/query` or `/read_state`.
+
+The synchronous pointer-event trace also reproduces the original aim sampling
+issue in the normal app: the memo progressed to `FIRE 1 248.89 1` (screen 37.5°)
+while the diagnostic HUD still reported **31.22°**, with unchanged camera. Waiting
+for that diagnostic snapshot fixes the test without delaying the actual local aim.
+[Healthy](media/normal-healthy.png), [disabled](media/normal-operational-unavailable.png),
+[recovered](media/normal-recovered.png), [recording](media/normal-status-read-only.webm).
+This is a frozen candidate on loopback against the actual backend, not a claim
+that these frontend bytes were deployed. No payment/gameplay command was sent.
+
 ## Local complete checks
 
 Python 3.11 complete source verification passes **1,846 JS / 199 Python** tests
 and all source/fixture/link checks. The focused panel matrix, three-viewport
 human-input, refinement, visual closeout and fluid suites pass. Reviewed scope
 summaries are adjacent to this report; complete raw logs remain under `.work/`.
+The [installed browser summary](installed-browser-summary.json) records all 20
+passing named journey checks. Sustained motion: zero stalled samples, production
+0.9761, consumption 0.9805 and backend progress 0.9187 ticks/second, all within the
+original bounds. Verified-reserve acquisition took 79,048.3ms in this controlled
+post-receipt restart; this is separate from immediate historical startup visibility.
+No-resync and rate assertions are unchanged. These are software-browser/disposable
+producer observations, not production capacity or physical-device performance.
+
+Intermediate dirty-worktree qualifier attempts are retained as FAIL under
+`installed-general*`, `installed-exact-source`, `installed-current-qualification`
+and `installed-release-qualification`. They exposed stale HUD samples, target
+occlusion, obsolete transport failure expectations and overly strict new setup
+predicates. They are not final-source CI conclusions and are not relabelled PASS.
+A complete final-source rerun passes under `source-release/` (1,846 JS / 199 Python);
+final qualifier input hashes are in [qualifier-inputs.json](qualifier-inputs.json).
 
 ## Preserved authority and release boundary
 
@@ -198,7 +250,12 @@ performance comparison or production frontend behaviour claim. The installed
 frontend was independently re-fetched and remains JS `42f30ead…`.
 
 Six final hosted conclusions are pending. Local success alone does not qualify
-a release. Preserve the currently deployed b0f6c7a assets
+a release. Normal HTTPS publication failed because no Git username/credentials
+were available; ordinary SSH publication failed with public-key authentication.
+The owner has been asked to push this branch with the normal non-force procedure.
+No remote history was rewritten and no remote commit was manufactured to replace
+the frozen source identity. Source publication is authorized; credentials are the
+external dependency. The latest starting remote remains 2fa2673 until that push. Preserve the currently deployed b0f6c7a assets
 (JS `42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5`, complete
 inventory `216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2`)
 for frontend-only rollback using the existing operator procedure. No deployment

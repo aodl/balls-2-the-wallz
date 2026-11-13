@@ -1,18 +1,22 @@
-# Human-playtest panel correction — qualification in progress
+# Human-playtest panel correction — local PASS; hosted qualification pending
 
-Published `2fa2673` is not fully qualified: run 43317023567 failed Browser on a
-129px → 392px Build panel jump; four substantive gates passed and installed-IC
-later failed two installed-browser timing checks. A stale intermediate content-height
-cache caused the real application defect. The narrow shell invalidation fix and
-stronger non-invasive settling regression pass 24 Fire/Move/Build combinations,
-including mobile, contracted viewports and reduced motion, with zero status drift.
-Copy gating, exact wallet values, camera and playback identity remain preserved.
+Frozen runtime `ca8b1f8` fixes the real intermediate-height cache defect behind
+the Build 129px → 392px jump. Final local source passes 1,846 JS / 199 Python;
+24 Fire/Move/Build contexts and a real read-only mainnet operational-expiry/recovery
+session show zero panel drift with correct disabled copying. Both named installed
+browser cases pass, including fixed-H startup, timed recovery and integrity barriers.
 
-See the [panel closeout](evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md)
-for source-specific failure, diagnostics, media and pending exact-source CI.
-No production deployment, backend or financial change is authorized or performed.
-The existing deployed frontend remains the rollback candidate. Prior startup and
-recovery evidence remains in the [full report](evidence/B2Z/human-playtest-corrections/REPORT.md).
+JavaScript `9d45b940…`, complete 16-file inventory `f85e3ddf…`; assets are frozen
+clean and runtime/build/dependency inputs remain unchanged by qualifier updates.
+Published 2fa2673 is still unqualified: run 43317023567 finished with four substantive
+PASS and Browser/installed-IC FAIL. The revised source has no hosted qualification
+yet. HTTPS/SSH Git authentication failed; the owner has been asked for a normal
+non-force branch push. The six final-source gates remain required.
+
+[Closeout, diagnostics and media](evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md).
+No production deployment, backend, financial or ICRC-2 change occurred. Existing
+deployed frontend assets remain the rollback candidate. The [full earlier report](evidence/B2Z/human-playtest-corrections/REPORT.md)
+retains source-specific startup/recovery and visual evidence.
 
 ---
 
