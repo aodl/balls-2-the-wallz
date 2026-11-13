@@ -1,14 +1,19 @@
-# Optional audio integration — local candidate in progress; not deployed
+# Optional audio integration — local candidate; not deployed or release-qualified
 
-The approved handoff's lossless assets are verified and integrated through the
-maintained frontend wrapper. Audio remains opt-in presentation only, with no
-backend, financial or gameplay-authority changes. Focused deterministic/audio
-checks pass; native/browser, installed-IC, asset/policy, lifecycle and complete
-regression qualification are still in progress. Earlier deployment qualification
-below applies only to its original bytes. No mainnet action or remote publication
-is authorized for this audio candidate.
+Approved lossless audio and opt-in controls are implemented. Actual browser
+playback/cues, native48/44.1 output comparisons, three-loop music and all eight
+panel cases pass in their recorded scopes. Optional cache recovery is bounded.
+Final full local source passes (1907 Node /201 Python), and the focused certified
+startup/outage case and complete local asset-service rehearsal pass. Hardware
+performance/listening and platform qualifications have remaining failures or limits; six hosted gates have not run. No mainnet action,
+remote publication, backend or paid-state change was performed.
 
-[Audio contract](docs/specs/B2Z_AUDIO.md) / [checkpoint evidence](evidence/B2Z/audio-integration/REPORT.md).
+Frozen runtime source `a2aa9a2`, JS `8e008b16…`, complete74 inventory `31ff97ab…`.
+Later qualification/report commits preserve those application assets. The earlier
+production evidence below continues to refer only to its original bytes.
+
+[Audio contract](docs/specs/B2Z_AUDIO.md) / [evidence and limitations](evidence/B2Z/audio-integration/REPORT.md)
+/ [QA matrix](evidence/B2Z/audio-integration/QA.md).
 
 ---
 

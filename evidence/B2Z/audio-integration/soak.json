@@ -1,0 +1,77 @@
+{
+  "scope": "Native realtime music, unchanged b876ba7 runtime, before combined script native-probe deadline failure",
+  "elapsed_seconds": 1230,
+  "state": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 2,
+    "lastError": "",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": true,
+      "effects": false,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 0,
+    "music": {
+      "starts": 156,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "buffers": 3,
+      "phase": 59345408
+    },
+    "loader": {
+      "fetches": 158,
+      "cacheHits": 0,
+      "decodes": 157,
+      "maxFetches": 1,
+      "maxEncoded": 8324060,
+      "maxDecodes": 1,
+      "cacheDisabled": true,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 128945,
+      "lateFrames": 342,
+      "disabled": 128945,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 64475,
+      "maxFrameMs": 53.70000000298023,
+      "inspectionLimit": 16,
+      "flushP95": 0.10000000894069672,
+      "flushP99": 0.10000000894069672
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "managed_PCMScope": "App-managed buffers/nodes; excludes browser/OS/CacheStorage internal memory"
+}

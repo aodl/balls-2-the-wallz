@@ -14,11 +14,12 @@ def run(name,args,timeout=180):
  return (out/(name+'.log')).read_text()
 try:
  run('start',['start','--background','--host',f'127.0.0.1:{port}']);run('baseline-deploy',['deploy','observer','--network','local','--no-wallet'],300);canister=run('id',['canister','id','observer','--network','local']).strip();report['canister']=canister
- report['baseline_status']=run('baseline-status',['canister','status','observer','--network','local']);config['canisters']['observer']['source']=['assets'];(out/'dfx.json').write_text(json.dumps(config,indent=2));began=time.monotonic();run('deploy',['deploy','observer','--network','local','--no-wallet','--no-asset-upgrade'],300);report['upload_seconds']=time.monotonic()-began
- report['after_status']=run('after-status',['canister','status','observer','--network','local']);began=time.monotonic();report['repeat_sync_log']=run('repeat-sync',['deploy','observer','--network','local','--no-wallet','--no-asset-upgrade'],300);report['repeat_sync_seconds']=time.monotonic()-began
- assert 'Uploading asset' not in report['repeat_sync_log'],'Unchanged content uploaded again'
+ report['baseline_status']=run('baseline-status',['canister','status','observer','--network','local']);config['canisters']['observer']['source']=['assets'];(out/'dfx.json').write_text(json.dumps(config,indent=2));began=time.monotonic();run('deploy',['deploy','observer','--network','local','--no-wallet','--no-asset-upgrade'],600);report['upload_seconds']=time.monotonic()-began
+ report['after_status']=run('after-status',['canister','status','observer','--network','local']);report['before_repeat_inventory']=json.loads(run('before-repeat-inventory',['canister','call','observer','list','(record {})','--query','--network','local','--output','json']));began=time.monotonic();report['repeat_sync_log']=run('repeat-sync',['deploy','observer','--network','local','--no-wallet','--no-asset-upgrade'],600);report['repeat_sync_seconds']=time.monotonic()-began
+
 
  report['inventory']=json.loads(run('inventory',['canister','call','observer','list','(record {})','--query','--network','local','--output','json']))
+ assert report['inventory']==report['before_repeat_inventory'],'Unchanged sync modified asset content/properties'
  files=report['inventory'];
  if isinstance(files,list)and len(files)==1 and isinstance(files[0],list):files=files[0]
  matched=0
@@ -27,10 +28,12 @@ try:
    assert [e['content_encoding']for e in f['encodings']]==['identity'],f;assert f['content_type']=='audio/flac',f;matched+=1
  assert matched==57,matched
  rows=[]
- for name in ['audio/b2z-v1/manifest.json',*[str(p.relative_to(assets))for p in assets.rglob('*.flac')]]:
+ public=sorted(p.relative_to(assets).as_posix()for p in assets.rglob('*')if p.is_file()and p.name!='.ic-assets.json5')
+ assert {'/'+name for name in public}=={f['key']for f in files}
+ for name in public:
   with urllib.request.urlopen(f'http://127.0.0.1:{port}/'+name+'?canisterId='+canister,timeout=30)as response:
    data=response.read();headers=dict(response.headers);mime=response.headers.get_content_type()
-  assert data==(assets/name).read_bytes();assert headers.get('IC-Certificate')or headers.get('ic-certificate');assert headers.get('X-Content-Type-Options',headers.get('x-content-type-options'))=='nosniff';assert mime==('audio/flac'if name.endswith('.flac')else'application/json')
+  assert data==(assets/name).read_bytes();assert headers.get('IC-Certificate')or headers.get('ic-certificate');assert headers.get('X-Content-Type-Options',headers.get('x-content-type-options'))=='nosniff';assert not name.endswith('.flac')or mime=='audio/flac';assert not name.endswith('.json')or mime=='application/json';assert not name.endswith('.mjs')or'javascript'in mime
   if name.endswith('.flac'):assert 'immutable'in headers.get('Cache-Control',headers.get('cache-control',''))
   rows.append({'file':name,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'mime':mime})
  report.update(status='PASS',files=rows,flac_identity_encodings=matched);run('status',['canister','status','observer','--network','local'])
@@ -39,4 +42,4 @@ finally:
  (out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
  try:run('stop',['stop'],60)
  except Exception:pass
-print('PASS local asset canister: all57 FLACs identity-only and58 served hashes/MIME/security headers')
+print('PASS local asset canister: all57 FLACs identity-only; complete public inventory, repeat identity and served hashes/security headers')

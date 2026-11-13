@@ -27,7 +27,9 @@ hashed FLACs have identity encoding, audio/flac MIME and immutable one-year cach
 policy; the manifest revalidates and is pinned in code/build metadata. No CDN,
 lossy fallback, duplicate master, decoder download or service worker. Cache hits
 and streaming responses are bounded and SHA-checked before decode. CacheStorage
-is optional, bounded to 90 MiB; failure cannot block game observation.
+is optional, bounded to 90 MiB; failure cannot block game observation. One stalled
+optional lookup disables subsequent cache work for that loader. Clear uses a 1.5s
+deadline and reports unavailable storage honestly, touching only audio cache names.
 
 ## Event truth, continuity and view
 

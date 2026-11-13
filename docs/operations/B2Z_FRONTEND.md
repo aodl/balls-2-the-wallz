@@ -138,3 +138,27 @@ exercises actual game modules, native FLAC and security headers on loopback;
 is silent until an explicit gesture, never submits commands, and cannot gate
 financial readiness. New audio artifacts require new exact-source qualification
 and separate production authorization; the previous deployed asset set is rollback.
+
+### Audio candidate qualification and release boundary
+
+The local candidate and exact inventory are recorded in
+[evidence/B2Z/audio-integration/REPORT.md](../../evidence/B2Z/audio-integration/REPORT.md).
+It is not deployed or fully release-qualified. Do not use the old six-gate result
+for its new JavaScript or audio payload. All mainnet actions and remote publication
+need separate authorization; keep the existing deployed assets for rollback.
+
+Use the hash-locked `tools/audio-requirements.txt` alongside browser requirements
+in a user-scoped qualification environment. The maintained native/integrated runner
+is `tools/verify_audio_browser.py --output <fresh-directory>`; the full realtime
+soak adds `--soak-seconds 1230`. `--native-only` and `--cuts-only` are explicit codec
+subscopes, not replacements for the integrated journey. `--controls-only` isolates
+native controls/lifecycle while keeping the actual displayed-cue requirement.
+The pinned certified journey uses `B2Z_AUDIO_QUAL=1` and the existing S14 runner.
+Run actual standard source/installed/browser gates as well; preserve any failures.
+The workflow includes these audio checks but has not yet been remotely executed.
+
+No build operation uploads audio. The wrapper copies only approved hashed files;
+FLAC has identity encoding and immutable cache, manifest revalidation, with unchanged
+hardened headers on all three exact rules. Confirm actual local asset-service
+encodings, bytes, headers, storage and unchanged sync before a future release.
+Cache clearing is presentation-only and cannot touch identity or wallet drafts.

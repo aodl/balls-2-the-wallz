@@ -1,0 +1,177 @@
+[
+  {
+    "run": "native-final",
+    "overall": "PASS",
+    "browser": "153.0.8010.12",
+    "error": null,
+    "core48_verified": 51,
+    "output_comparison": {
+      "cuts48": {
+        "rate": 48000,
+        "region": "wrap",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 1125120,
+        "coreFrames": 1121280
+      },
+      "cuts441": {
+        "rate": 44100,
+        "region": "wrap",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+        "frames": 1033704,
+        "coreFrames": 1121280
+      },
+      "transition48": {
+        "rate": 48000,
+        "region": "transition",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 3.637978807091713e-12,
+        "frames": 1155840,
+        "coreFrames": 1152000
+      },
+      "transition441": {
+        "rate": 44100,
+        "region": "transition",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+        "frames": 1061928,
+        "coreFrames": 1152000
+      }
+    }
+  },
+  {
+    "run": "native-captures",
+    "overall": "PASS",
+    "browser": "153.0.8010.12",
+    "error": null,
+    "core48_verified": 0,
+    "output_comparison": {
+      "cuts48": {
+        "rate": 48000,
+        "region": "wrap",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 1125120,
+        "coreFrames": 1121280,
+        "canSuspend": true
+      },
+      "cuts441": {
+        "rate": 44100,
+        "region": "wrap",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+        "frames": 1033704,
+        "coreFrames": 1121280,
+        "canSuspend": true
+      },
+      "transition48": {
+        "rate": 48000,
+        "region": "transition",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 3.637978807091713e-12,
+        "frames": 1155840,
+        "coreFrames": 1152000,
+        "canSuspend": true
+      },
+      "transition441": {
+        "rate": 44100,
+        "region": "transition",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+        "frames": 1061928,
+        "coreFrames": 1152000,
+        "canSuspend": true
+      },
+      "transitionEnd48": {
+        "rate": 48000,
+        "region": "transition-end",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 1.8189894035458565e-12,
+        "frames": 1155840,
+        "coreFrames": 1152000,
+        "canSuspend": true
+      },
+      "transitionEnd441": {
+        "rate": 44100,
+        "region": "transition-end",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+        "frames": 1061928,
+        "coreFrames": 1152000,
+        "canSuspend": true
+      }
+    }
+  },
+  {
+    "run": "firefox-native-final",
+    "overall": "FAIL",
+    "browser": "155.0",
+    "error": "Page.evaluate: ctx.suspend is not a function\nrenderedCuts@http://127.0.0.1:40161/probe.mjs:437:26\nasync*@debugger eval code line 311 > eval:1:31\nevaluate@debugger eval code:318:18\n@debugger eval code:1:44\n@debugger eval code:1:62\n",
+    "core48_verified": 51,
+    "output_comparison": {}
+  },
+  {
+    "run": "firefox-native-cuts",
+    "overall": "PASS",
+    "browser": "155.0",
+    "error": null,
+    "core48_verified": 0,
+    "output_comparison": {
+      "cuts48": {
+        "rate": 48000,
+        "region": "wrap",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 741120,
+        "coreFrames": 737280,
+        "canSuspend": false
+      },
+      "cuts441": {
+        "rate": 44100,
+        "region": "wrap",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 680904,
+        "coreFrames": 737280,
+        "canSuspend": false
+      },
+      "transition48": {
+        "rate": 48000,
+        "region": "transition",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 771840,
+        "coreFrames": 768000,
+        "canSuspend": false
+      },
+      "transition441": {
+        "rate": 44100,
+        "region": "transition",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 709128,
+        "coreFrames": 768000,
+        "canSuspend": false
+      },
+      "transitionEnd48": {
+        "rate": 48000,
+        "region": "transition-end",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 771840,
+        "coreFrames": 768000,
+        "canSuspend": false
+      },
+      "transitionEnd441": {
+        "rate": 44100,
+        "region": "transition-end",
+        "errorSamples": 0,
+        "maxErrorAfterInitialFade": 0,
+        "frames": 709128,
+        "coreFrames": 768000,
+        "canSuspend": false
+      }
+    }
+  }
+]

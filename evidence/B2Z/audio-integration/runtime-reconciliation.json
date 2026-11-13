@@ -1,0 +1,91 @@
+{
+  "baseline": "b876ba7",
+  "final_runtime": "a2aa9a25c14b711e853857b013bbf0e4855ce8de",
+  "reviewed_change_scope": "Only bounded optional cache lookup/Clear failure handling and truthful Clear result; scheduler, codec/guard arguments, event adapter, model, renderer, shell, composer and layout unchanged. Final61 tests and final native controls exercise changed paths.",
+  "files": [
+    {
+      "file": "apps/b2z-observer/audio-policy.mjs",
+      "b876_sha256": "8527272183adf82b21f34848e47f386715a850052e6c738bb4a7c7343b17a2e1",
+      "final_sha256": "8527272183adf82b21f34848e47f386715a850052e6c738bb4a7c7343b17a2e1",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/audio-events.mjs",
+      "b876_sha256": "794241e56617eb7a9708d16304404fffc3d7f3be236f8b43841977ffa28afd25",
+      "final_sha256": "794241e56617eb7a9708d16304404fffc3d7f3be236f8b43841977ffa28afd25",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/audio-visibility.mjs",
+      "b876_sha256": "06a4d273b5faf43c252b2a4ad6e510633467eacd35f8f16863722f0df1bbfe6b",
+      "final_sha256": "06a4d273b5faf43c252b2a4ad6e510633467eacd35f8f16863722f0df1bbfe6b",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/audio-loader.mjs",
+      "b876_sha256": "08bff3ba20bd1ce93b0e68f8dcd1a15f222ca5e7da2bacae5e21f16ee068b960",
+      "final_sha256": "fb05ac8c02941fe3673c6b4cca4c13ea0d026b368ff0b3792b799a0ce0c67251",
+      "unchanged": false
+    },
+    {
+      "file": "apps/b2z-observer/audio-music.mjs",
+      "b876_sha256": "55943d5a298ba2e486b8bb97c219d407a862658dcde8f3f7f223a201d43cb44a",
+      "final_sha256": "55943d5a298ba2e486b8bb97c219d407a862658dcde8f3f7f223a201d43cb44a",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/audio-engine.mjs",
+      "b876_sha256": "43410eeeb9f7f6dac00aa9a3e8c85a4b16234a5daa002839fd877023b75d9579",
+      "final_sha256": "41a3dedd83e7433bdd86673283e1fcc36d7a8a31eb9fe2c253ee6702d53c74cc",
+      "unchanged": false
+    },
+    {
+      "file": "apps/b2z-observer/audio-ui.mjs",
+      "b876_sha256": "57ad5b437119fce2075ecf5014ea55ff1581161027985cdcdb583407832975f7",
+      "final_sha256": "fa6f1f52511e634f67314870fdd03e4726a3deb70c54433fb2a6001eb853101d",
+      "unchanged": false
+    },
+    {
+      "file": "apps/b2z-observer/app.mjs",
+      "b876_sha256": "52123035c73509c2076ffc811db41a61dbcce2f7342ec6267b5e49eeeb9c64f5",
+      "final_sha256": "52123035c73509c2076ffc811db41a61dbcce2f7342ec6267b5e49eeeb9c64f5",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/model.mjs",
+      "b876_sha256": "7891b1fd656240110def29392aa47ee6f9598b3cf8a00544239b6e2f9d10336d",
+      "final_sha256": "7891b1fd656240110def29392aa47ee6f9598b3cf8a00544239b6e2f9d10336d",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/render.mjs",
+      "b876_sha256": "130b0065cad95b2f1fe45efeb623c13a962a513dbe069346323f60fb0d9efacf",
+      "final_sha256": "130b0065cad95b2f1fe45efeb623c13a962a513dbe069346323f60fb0d9efacf",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/shell.mjs",
+      "b876_sha256": "6076b953e7607bb20e0e30ace93357ff8dd545b0cae8a94cba9fe484b87b59bd",
+      "final_sha256": "6076b953e7607bb20e0e30ace93357ff8dd545b0cae8a94cba9fe484b87b59bd",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/style.css",
+      "b876_sha256": "cb157bbecd3f8de92e9e5a03b31111eba8cf48583ee121d9e179b1354d3211e7",
+      "final_sha256": "cb157bbecd3f8de92e9e5a03b31111eba8cf48583ee121d9e179b1354d3211e7",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/index.html",
+      "b876_sha256": "e9efded739ffdd76fc16e761f0ecf86204c81deaa7a2e439cbf7321f6e4eab40",
+      "final_sha256": "e9efded739ffdd76fc16e761f0ecf86204c81deaa7a2e439cbf7321f6e4eab40",
+      "unchanged": true
+    },
+    {
+      "file": "apps/b2z-observer/arcade.mjs",
+      "b876_sha256": "bccedf37f43535a50b1ccd87a7178747c62d28b60a3a3bc3de7ed2608b4bdaec",
+      "final_sha256": "bccedf37f43535a50b1ccd87a7178747c62d28b60a3a3bc3de7ed2608b4bdaec",
+      "unchanged": true
+    }
+  ]
+}

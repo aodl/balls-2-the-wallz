@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "identical_payloads": 73,
+  "build_manifest_provenance_diff": {
+    "source_dirty": [
+      false,
+      true
+    ]
+  }
+}
