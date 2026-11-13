@@ -1,0 +1,1688 @@
+{
+  "scope": "Actual game modules, native Web Audio/FLAC, production-equivalent headers. No IC network.",
+  "mode": "integrated-app",
+  "checks": [
+    {
+      "id": "L01",
+      "status": "PASS",
+      "observation": "Actual game boot silent; zero audio requests/context before gesture"
+    },
+    {
+      "id": "B04/M02",
+      "status": "PASS",
+      "observation": "Native gesture-started FLAC music under unchanged autoplay=() and exact CSP"
+    }
+  ],
+  "errors": [],
+  "controlled_native_decode_delay_ms": 0,
+  "initial_simultaneous_enable": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 2,
+    "lastError": "",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": true,
+      "effects": true,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 4,
+    "music": {
+      "starts": 2,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "buffers": 3,
+      "phase": 138496
+    },
+    "loader": {
+      "fetches": 8,
+      "cacheHits": 0,
+      "decodes": 7,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 233,
+      "lateFrames": 4,
+      "disabled": 194,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 140,
+      "maxFrameMs": 5.5,
+      "inspectionLimit": 30,
+      "flushP95": 0.3999999910593033,
+      "flushP99": 5.0999999940395355
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "initial": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 3,
+    "lastError": "",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": true,
+      "effects": false,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 4,
+    "music": {
+      "starts": 2,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "buffers": 3,
+      "phase": 190976
+    },
+    "loader": {
+      "fetches": 8,
+      "cacheHits": 0,
+      "decodes": 7,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 266,
+      "lateFrames": 4,
+      "disabled": 216,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 162,
+      "maxFrameMs": 5.5,
+      "inspectionLimit": 30,
+      "flushP95": 0.20000000298023224,
+      "flushP99": 5.0999999940395355
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "muted": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 4,
+    "lastError": "",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": true,
+      "effects": false,
+      "mute": true,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 4,
+    "music": {
+      "starts": 2,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": false,
+      "nodes": 0,
+      "buffers": 0,
+      "phase": 209792
+    },
+    "loader": {
+      "fetches": 8,
+      "cacheHits": 0,
+      "decodes": 7,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 324,
+      "lateFrames": 4,
+      "disabled": 274,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 191,
+      "maxFrameMs": 5.5,
+      "inspectionLimit": 22,
+      "flushP95": 0.20000000298023224,
+      "flushP99": 5.0999999940395355
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "effects_only": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 7,
+    "lastError": "",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": false,
+      "effects": true,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 4,
+    "music": {
+      "starts": 2,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": false,
+      "nodes": 0,
+      "buffers": 0,
+      "phase": 209792
+    },
+    "loader": {
+      "fetches": 8,
+      "cacheHits": 0,
+      "decodes": 7,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 451,
+      "lateFrames": 4,
+      "disabled": 396,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 257,
+      "maxFrameMs": 7.799999997019768,
+      "inspectionLimit": 16,
+      "flushP95": 0.5999999940395355,
+      "flushP99": 5.0999999940395355
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "effect_attempts": [
+    {
+      "attempt": 1,
+      "outcome": "actual displayed native cue"
+    }
+  ],
+  "displayed_effects": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 7,
+    "lastError": "",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": false,
+      "effects": true,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 1,
+    "fxBuffers": 4,
+    "music": {
+      "starts": 2,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": false,
+      "nodes": 0,
+      "buffers": 0,
+      "phase": 209792
+    },
+    "loader": {
+      "fetches": 8,
+      "cacheHits": 0,
+      "decodes": 7,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 1,
+      "retained": 1,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 569,
+      "lateFrames": 4,
+      "disabled": 399,
+      "inspected": 2,
+      "classified": 2
+    },
+    "seen": 2,
+    "cooldowns": 1,
+    "stats": {
+      "inspections": 2,
+      "candidates": 2,
+      "eligible": 2,
+      "starts": 2,
+      "dropped": 0,
+      "maxVoices": 1,
+      "frames": 375,
+      "maxFrameMs": 11.299999997019768,
+      "inspectionLimit": 16,
+      "flushP95": 1,
+      "flushP99": 7.799999997019768
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "covered_tail_stop": {
+    "wall_ms": 254.31793299503624,
+    "ramp_seconds": 0.06,
+    "scope": "Opaque audio popover covers the ripple; wall delay includes RAF scheduling, no hardware latency claim"
+  },
+  "lifecycle": {
+    "saved_enabled_reload_silent": "PASS",
+    "warm_cache": {
+      "fetches": 0,
+      "cacheHits": 5,
+      "decodes": 4,
+      "maxFetches": 1,
+      "maxEncoded": 754705,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "two_visible_tabs_deliberate_ownership": "PASS",
+    "controlled_freeze_resume_with_native_context": "PASS",
+    "controlled_BFCache_events_keep_mute": "PASS",
+    "native_BFCache_restore": "NOT_RUN",
+    "physical_device_interruption": "NOT_RUN"
+  },
+  "controls_layout": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "popover": {
+        "x": 16,
+        "y": 243.625,
+        "width": 280,
+        "height": 470.375
+      },
+      "keyboard_did_not_move_camera": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "popover": {
+        "x": 100,
+        "y": 118,
+        "width": 280,
+        "height": 470.375
+      },
+      "keyboard_did_not_move_camera": true
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "popover": {
+        "x": 30,
+        "y": 118,
+        "width": 280,
+        "height": 470.375
+      },
+      "keyboard_did_not_move_camera": true
+    }
+  ],
+  "chromium_protocol_freeze_resume": {
+    "status": "BLOCKED",
+    "reason": "Page.wait_for_function: Timeout 10000ms exceeded.",
+    "events": [],
+    "scope": "Protocol did not dispatch lifecycle events on this visible headless page; no actual freeze assertion qualified"
+  },
+  "actual_game_frame_spacing_ms": [
+    {
+      "enabled": false,
+      "frames": 66,
+      "over33ms": 37,
+      "over50ms": 19,
+      "p50": 33.400000000001455,
+      "p95": 183.3000000000029,
+      "p99": 200,
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 3,
+        "lastError": "",
+        "unlocked": false,
+        "hidden": false,
+        "settings": {
+          "music": false,
+          "effects": true,
+          "mute": true,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 0,
+          "underruns": 0,
+          "maxBuffers": 0,
+          "maxNodes": 0,
+          "maxDecoded": 0,
+          "active": false,
+          "nodes": 0,
+          "buffers": 0,
+          "phase": 0
+        },
+        "loader": {
+          "fetches": 0,
+          "cacheHits": 5,
+          "decodes": 4,
+          "maxFetches": 1,
+          "maxEncoded": 754705,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 1921,
+          "lateFrames": 11,
+          "disabled": 1817,
+          "inspected": 2,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 2,
+          "candidates": 1,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 1,
+          "maxVoices": 0,
+          "frames": 1019,
+          "maxFrameMs": 20.099999994039536,
+          "inspectionLimit": 16,
+          "flushP95": 0.10000000894069672,
+          "flushP99": 2.7000000029802322
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      }
+    },
+    {
+      "enabled": true,
+      "frames": 85,
+      "over33ms": 40,
+      "over50ms": 24,
+      "p50": 33.30000000000291,
+      "p95": 116.79999999999563,
+      "p99": 150,
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 4,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": false,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 0,
+          "underruns": 0,
+          "maxBuffers": 0,
+          "maxNodes": 0,
+          "maxDecoded": 0,
+          "active": false,
+          "nodes": 0,
+          "buffers": 0,
+          "phase": 0
+        },
+        "loader": {
+          "fetches": 0,
+          "cacheHits": 5,
+          "decodes": 4,
+          "maxFetches": 1,
+          "maxEncoded": 754705,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 2037,
+          "lateFrames": 12,
+          "disabled": 1842,
+          "inspected": 3,
+          "classified": 2
+        },
+        "seen": 1,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 3,
+          "candidates": 1,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 1,
+          "maxVoices": 0,
+          "frames": 1124,
+          "maxFrameMs": 20.099999994039536,
+          "inspectionLimit": 16,
+          "flushP95": 0.19999998807907104,
+          "flushP99": 3
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      }
+    }
+  ],
+  "audio_hash_rejection": {
+    "contextState": "running",
+    "loading": true,
+    "gameReady": true,
+    "generation": 2,
+    "lastError": "Audio hash",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": false,
+      "effects": true,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 0,
+    "music": {
+      "starts": 0,
+      "underruns": 0,
+      "maxBuffers": 0,
+      "maxNodes": 0,
+      "maxDecoded": 0,
+      "active": false,
+      "nodes": 0,
+      "buffers": 0,
+      "phase": 0
+    },
+    "loader": {
+      "fetches": 3,
+      "cacheHits": 0,
+      "decodes": 0,
+      "maxFetches": 1,
+      "maxEncoded": 530545,
+      "maxDecodes": 0,
+      "cacheDisabled": false,
+      "encoded": 530545,
+      "pending": 1,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 125,
+      "lateFrames": 4,
+      "disabled": 125,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 67,
+      "maxFrameMs": 0.7999999970197678,
+      "inspectionLimit": 128,
+      "flushP95": 0.10000000894069672,
+      "flushP99": 0.7999999970197678
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "audio_hash_retry": "PASS",
+  "native_webgl_context_loss_restore": "PASS (software renderer; no old cue)",
+  "slow_optional_audio": {
+    "scope": "Actual browser pinned recording verified while FLAC requests held; not IC network priority qualification",
+    "held_requests": 1,
+    "before": {
+      "contextState": "running",
+      "loading": true,
+      "gameReady": true,
+      "generation": 5,
+      "lastError": "Audio hash",
+      "unlocked": true,
+      "hidden": false,
+      "settings": {
+        "music": true,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 0,
+        "underruns": 0,
+        "maxBuffers": 0,
+        "maxNodes": 0,
+        "maxDecoded": 0,
+        "active": false,
+        "nodes": 0,
+        "buffers": 0,
+        "phase": 0
+      },
+      "loader": {
+        "fetches": 10,
+        "cacheHits": 0,
+        "decodes": 4,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 6773340,
+        "pending": 1,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 305,
+        "lateFrames": 8,
+        "disabled": 243,
+        "inspected": 0,
+        "classified": 0
+      },
+      "seen": 0,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 0,
+        "candidates": 0,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 0,
+        "maxVoices": 0,
+        "frames": 188,
+        "maxFrameMs": 4.700000002980232,
+        "inspectionLimit": 72,
+        "flushP95": 0.20000000298023224,
+        "flushP99": 3.2000000029802322
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "after": {
+      "contextState": "running",
+      "loading": true,
+      "gameReady": true,
+      "generation": 5,
+      "lastError": "Audio hash",
+      "unlocked": true,
+      "hidden": false,
+      "settings": {
+        "music": true,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 0,
+        "underruns": 0,
+        "maxBuffers": 0,
+        "maxNodes": 0,
+        "maxDecoded": 0,
+        "active": false,
+        "nodes": 0,
+        "buffers": 0,
+        "phase": 0
+      },
+      "loader": {
+        "fetches": 10,
+        "cacheHits": 0,
+        "decodes": 4,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 6773340,
+        "pending": 1,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 314,
+        "lateFrames": 8,
+        "disabled": 248,
+        "inspected": 0,
+        "classified": 0
+      },
+      "seen": 0,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 0,
+        "candidates": 0,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 0,
+        "maxVoices": 0,
+        "frames": 197,
+        "maxFrameMs": 4.700000002980232,
+        "inspectionLimit": 72,
+        "flushP95": 0.20000000298023224,
+        "flushP99": 3.2000000029802322
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "world_ready": true
+  },
+  "native_follow_pan": {
+    "poses": [
+      {
+        "camera": [
+          4.881196550738572,
+          2.298959936920106,
+          49.638896039295645
+        ],
+        "voices": 1,
+        "time": 3.563156011400001
+      },
+      {
+        "camera": [
+          4.939760253980043,
+          2.018078938227959,
+          49.638896039295645
+        ],
+        "voices": 1,
+        "time": 3.7176560114000012
+      },
+      {
+        "camera": [
+          4.999473556631436,
+          1.731684274714731,
+          49.638896039295645
+        ],
+        "voices": 1,
+        "time": 3.7176560114000012
+      },
+      {
+        "camera": [
+          5,
+          1.7291593671195362,
+          49.638896039295645
+        ],
+        "voices": 1,
+        "time": 4.009455011400003
+      },
+      {
+        "camera": [
+          5,
+          1.7291593671195362,
+          49.638896039295645
+        ],
+        "voices": 1,
+        "time": 4.198254011400002
+      },
+      {
+        "camera": [
+          5,
+          1.7291593671195362,
+          49.638896039295645
+        ],
+        "voices": 1,
+        "time": 4.369955011400003
+      },
+      {
+        "camera": [
+          5,
+          1.7291593671195362,
+          49.638896039295645
+        ],
+        "voices": 0,
+        "time": 4.541553011400001
+      },
+      {
+        "camera": [
+          5,
+          1.7291593671195362,
+          49.638896039295645
+        ],
+        "voices": 0,
+        "time": 4.747656011400002
+      }
+    ],
+    "pans": [
+      {
+        "id": 1,
+        "value": 0.10737831890583038,
+        "time": 4.952,
+        "method": "setValueAtTime"
+      },
+      {
+        "id": 1,
+        "value": 0.06766328605700621,
+        "time": 5.012,
+        "method": "linearRampToValueAtTime"
+      },
+      {
+        "id": 1,
+        "value": 0.06766328605700621,
+        "time": 5.050666666666666,
+        "method": "setValueAtTime"
+      },
+      {
+        "id": 1,
+        "value": 0.027168654015745475,
+        "time": 5.110666666666666,
+        "method": "linearRampToValueAtTime"
+      },
+      {
+        "id": 1,
+        "value": 0.027168654015745475,
+        "time": 5.221333333333333,
+        "method": "setValueAtTime"
+      },
+      {
+        "id": 1,
+        "value": 0.026811645952985685,
+        "time": 5.2813333333333325,
+        "method": "linearRampToValueAtTime"
+      }
+    ],
+    "audio": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 2,
+      "lastError": "",
+      "unlocked": true,
+      "hidden": false,
+      "settings": {
+        "music": false,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 0,
+        "underruns": 0,
+        "maxBuffers": 0,
+        "maxNodes": 0,
+        "maxDecoded": 0,
+        "active": false,
+        "nodes": 0,
+        "buffers": 0,
+        "phase": 0
+      },
+      "loader": {
+        "fetches": 5,
+        "cacheHits": 0,
+        "decodes": 4,
+        "maxFetches": 1,
+        "maxEncoded": 754705,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 121,
+        "lateFrames": 3,
+        "disabled": 59,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 1,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 1,
+        "starts": 1,
+        "dropped": 0,
+        "maxVoices": 1,
+        "frames": 120,
+        "maxFrameMs": 13.5,
+        "inspectionLimit": 22,
+        "flushP95": 0.4000000059604645,
+        "flushP99": 13.099999994039536
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "followAtCue": "Following ball 1. Click elsewhere or press Escape to stop.",
+    "follow": "",
+    "native_pan_values": [
+      0.026811645952985685,
+      0.027168654015745475,
+      0.06766328605700621,
+      0.10737831890583038
+    ],
+    "status": "PASS",
+    "scope": "Native controls/cache/context and explicitly controlled lifecycle; no IC calls. Native actual-game keyboard B follow, then controlled DOM-key navigation tween; parameter logging is test-only, not a frame-performance benchmark."
+  },
+  "native48": {
+    "rate": 48000,
+    "rows": [
+      {
+        "index": 0,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "92b77b7d8208a01f091afe96cde344846e1304bbc263068ecda7e4acf4a5be14",
+        "expected": "92b77b7d8208a01f091afe96cde344846e1304bbc263068ecda7e4acf4a5be14"
+      },
+      {
+        "index": 1,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "324069ad6dccbf1f452aeb7bc815f892a06f15f2925dc6caf582360959e769c6",
+        "expected": "324069ad6dccbf1f452aeb7bc815f892a06f15f2925dc6caf582360959e769c6"
+      },
+      {
+        "index": 2,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "8b101ae50c820037ade265605e6df9cb912bee21415e74c0e13877d6d5644762",
+        "expected": "8b101ae50c820037ade265605e6df9cb912bee21415e74c0e13877d6d5644762"
+      },
+      {
+        "index": 3,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "caba07bc1aa68cbd41ba776abf5823b182d63c7cb634a835c92a334ea28618fe",
+        "expected": "caba07bc1aa68cbd41ba776abf5823b182d63c7cb634a835c92a334ea28618fe"
+      },
+      {
+        "index": 4,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "30c1cbe5241a34b9391656bbd3d2645dc1163f227984a0c995d0e68d228e21c6",
+        "expected": "30c1cbe5241a34b9391656bbd3d2645dc1163f227984a0c995d0e68d228e21c6"
+      },
+      {
+        "index": 5,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "610aa4061dcdb12a8d808c11071c56eaabd9842f9a14f4a050b8b00e57e67ae7",
+        "expected": "610aa4061dcdb12a8d808c11071c56eaabd9842f9a14f4a050b8b00e57e67ae7"
+      },
+      {
+        "index": 6,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "f4d08eec46c2d335123cb73a89d0278f28399831c9e6f665f6fb8958277f4b5e",
+        "expected": "f4d08eec46c2d335123cb73a89d0278f28399831c9e6f665f6fb8958277f4b5e"
+      },
+      {
+        "index": 7,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "f19e7de6f8f7c58e0b515d6e37093f9ff79f0e34ad157e121e1a203f557eae11",
+        "expected": "f19e7de6f8f7c58e0b515d6e37093f9ff79f0e34ad157e121e1a203f557eae11"
+      },
+      {
+        "index": 8,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "77fb59af5d6aad811a5c31cbf63d4a9bf05529a38cd7363f72d59f70b8ea1b5b",
+        "expected": "77fb59af5d6aad811a5c31cbf63d4a9bf05529a38cd7363f72d59f70b8ea1b5b"
+      },
+      {
+        "index": 9,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "f111ce620e6defc976e3a9f17043284512099cff82dea5b18c69dcccd272b97c",
+        "expected": "f111ce620e6defc976e3a9f17043284512099cff82dea5b18c69dcccd272b97c"
+      },
+      {
+        "index": 10,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "b1dfc343355e1141c22fa770746bdda774856bd99f5a1f0b4e052253e736170d",
+        "expected": "b1dfc343355e1141c22fa770746bdda774856bd99f5a1f0b4e052253e736170d"
+      },
+      {
+        "index": 11,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "9834514b448c9ff80c14a7dbe2820d0aaf74f4faab55e1c4eae064f470988909",
+        "expected": "9834514b448c9ff80c14a7dbe2820d0aaf74f4faab55e1c4eae064f470988909"
+      },
+      {
+        "index": 12,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "8f8be17cb8d51abe641d9d9c048f39177bceb8714b4df5f8db2e182bb00c7136",
+        "expected": "8f8be17cb8d51abe641d9d9c048f39177bceb8714b4df5f8db2e182bb00c7136"
+      },
+      {
+        "index": 13,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "c7822ad2fb4aa1ae6a8542cb38ae19a5d0492c78643fa994fbfa0d829947e091",
+        "expected": "c7822ad2fb4aa1ae6a8542cb38ae19a5d0492c78643fa994fbfa0d829947e091"
+      },
+      {
+        "index": 14,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "1a1868bb54832ee641917812cef0fa1fbde2385ae3c3ecbef2f69d6eea8003d7",
+        "expected": "1a1868bb54832ee641917812cef0fa1fbde2385ae3c3ecbef2f69d6eea8003d7"
+      },
+      {
+        "index": 15,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "174cc8a4f0ccabfd6be799aa94556cbef1e23b5695f5ade747c3deb5d4ca8961",
+        "expected": "174cc8a4f0ccabfd6be799aa94556cbef1e23b5695f5ade747c3deb5d4ca8961"
+      },
+      {
+        "index": 16,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "a332836ac9a6bde9b0a17d9323f7bf3063d7a54b0e2629092cc8842833eba78a",
+        "expected": "a332836ac9a6bde9b0a17d9323f7bf3063d7a54b0e2629092cc8842833eba78a"
+      },
+      {
+        "index": 17,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "87434e73912956df9bf57d2aa2fa1925bd81d30460df327132a80b25bab9e25d",
+        "expected": "87434e73912956df9bf57d2aa2fa1925bd81d30460df327132a80b25bab9e25d"
+      },
+      {
+        "index": 18,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "1827624699d6fa432a76286764ea33f88bd4b6cfe104d0d5da758714ab79293e",
+        "expected": "1827624699d6fa432a76286764ea33f88bd4b6cfe104d0d5da758714ab79293e"
+      },
+      {
+        "index": 19,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "b7b23ad401959fc765af3dfd108eb8379590a550e15712bce6b1b764672a50a2",
+        "expected": "b7b23ad401959fc765af3dfd108eb8379590a550e15712bce6b1b764672a50a2"
+      },
+      {
+        "index": 20,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "c18e59ae1f78103f878fbeb811d30d7a0beca060b5162b51a9e421624d34c1a2",
+        "expected": "c18e59ae1f78103f878fbeb811d30d7a0beca060b5162b51a9e421624d34c1a2"
+      },
+      {
+        "index": 21,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "f66c08089294ab2e562deae1e5a48fc26cd6c632d13bdca18bc6e57de817090f",
+        "expected": "f66c08089294ab2e562deae1e5a48fc26cd6c632d13bdca18bc6e57de817090f"
+      },
+      {
+        "index": 22,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "e98da9fbc2ef2b2270b3cff441108990fc2f908c4ffbfb900ef768213aa8242f",
+        "expected": "e98da9fbc2ef2b2270b3cff441108990fc2f908c4ffbfb900ef768213aa8242f"
+      },
+      {
+        "index": 23,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "b95db316f8c55f5037e09fc3e8b36ccfbbe8b755d610b4ce3fa5672415516c2a",
+        "expected": "b95db316f8c55f5037e09fc3e8b36ccfbbe8b755d610b4ce3fa5672415516c2a"
+      },
+      {
+        "index": 24,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "40816cdba8e42e20bb3f34ca763d23910f199e19e34c3c89f69736f9056fdb93",
+        "expected": "40816cdba8e42e20bb3f34ca763d23910f199e19e34c3c89f69736f9056fdb93"
+      },
+      {
+        "index": 25,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "8d3572c06da206d3cebf603ef3949b4b9e13f1f7258b2471b245c22995e72975",
+        "expected": "8d3572c06da206d3cebf603ef3949b4b9e13f1f7258b2471b245c22995e72975"
+      },
+      {
+        "index": 26,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "7251760c8b4818278e1d69d55b62a9c1863c95d01206f06e54e689a041adfd5c",
+        "expected": "7251760c8b4818278e1d69d55b62a9c1863c95d01206f06e54e689a041adfd5c"
+      },
+      {
+        "index": 27,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "13ef2c01e33a7a25325cc157eedb5c71a6cfb4f804a19dac2c308f40f7aa211b",
+        "expected": "13ef2c01e33a7a25325cc157eedb5c71a6cfb4f804a19dac2c308f40f7aa211b"
+      },
+      {
+        "index": 28,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "91f93ed54fc6e67e2a77ca564d544c34eb1a504ae752aa165af0ceb1db0527c0",
+        "expected": "91f93ed54fc6e67e2a77ca564d544c34eb1a504ae752aa165af0ceb1db0527c0"
+      },
+      {
+        "index": 29,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "024b249aab69b12cbd42af8fc6b86c3b304fb4dffbccf7987dff8b5e8fe2aa29",
+        "expected": "024b249aab69b12cbd42af8fc6b86c3b304fb4dffbccf7987dff8b5e8fe2aa29"
+      },
+      {
+        "index": 30,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "746be7e149f44eeecac04746c100241c5a4e22a5573bc80b5c06c70966ac61bb",
+        "expected": "746be7e149f44eeecac04746c100241c5a4e22a5573bc80b5c06c70966ac61bb"
+      },
+      {
+        "index": 31,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "04be8970fd127c4a8567f714c682cbfd0b21709844787578327bb76feb424aa9",
+        "expected": "04be8970fd127c4a8567f714c682cbfd0b21709844787578327bb76feb424aa9"
+      },
+      {
+        "index": 32,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "6730fd31c3f855db927675ef4bcf1d341dbe3e457e06af5c9e760328aecf5fd7",
+        "expected": "6730fd31c3f855db927675ef4bcf1d341dbe3e457e06af5c9e760328aecf5fd7"
+      },
+      {
+        "index": 33,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "8db94604866ebfc5f3e750ec36c19aa7db37f20767e522d8cf19c085e240bf71",
+        "expected": "8db94604866ebfc5f3e750ec36c19aa7db37f20767e522d8cf19c085e240bf71"
+      },
+      {
+        "index": 34,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "ab6d066869b3542ba5af79cff630725a39b2d8fab67b1a97314fcce3c842ca7d",
+        "expected": "ab6d066869b3542ba5af79cff630725a39b2d8fab67b1a97314fcce3c842ca7d"
+      },
+      {
+        "index": 35,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "d419950e9e345dcd0e93ba7c36b963caffc11fe090c0b212b08d25e96fe23b19",
+        "expected": "d419950e9e345dcd0e93ba7c36b963caffc11fe090c0b212b08d25e96fe23b19"
+      },
+      {
+        "index": 36,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "3a7dbbcc49c4e4c16ae152a4e6d8ff485ef576672f1997139bf7bfb50755d5fa",
+        "expected": "3a7dbbcc49c4e4c16ae152a4e6d8ff485ef576672f1997139bf7bfb50755d5fa"
+      },
+      {
+        "index": 37,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "96fa562a0e35f311c85f620681be4c14380d26b10e3d2fee3ee1ce7db02962d7",
+        "expected": "96fa562a0e35f311c85f620681be4c14380d26b10e3d2fee3ee1ce7db02962d7"
+      },
+      {
+        "index": 38,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "483e91ee98ca5b57249004849beab4124854031e0305239452917dbaacd7efed",
+        "expected": "483e91ee98ca5b57249004849beab4124854031e0305239452917dbaacd7efed"
+      },
+      {
+        "index": 39,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "5f7ad8f79494e64dc3d4a51b9ed5b4f9a597fa5e4b905d6bd251c042c96c7671",
+        "expected": "5f7ad8f79494e64dc3d4a51b9ed5b4f9a597fa5e4b905d6bd251c042c96c7671"
+      },
+      {
+        "index": 40,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "563bd471c311aabbe1f7cb313acdc1d0b91a080c1b5f3c96fe6a019f6cdc2d9c",
+        "expected": "563bd471c311aabbe1f7cb313acdc1d0b91a080c1b5f3c96fe6a019f6cdc2d9c"
+      },
+      {
+        "index": 41,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "256ead181fbeb14758053a6387db28d88f5d5608df509bd94dc4ea11b576aeb1",
+        "expected": "256ead181fbeb14758053a6387db28d88f5d5608df509bd94dc4ea11b576aeb1"
+      },
+      {
+        "index": 42,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "26803eb13d060ef98bbb881541b6c39e5abc8934aca9878a5f44301223715d08",
+        "expected": "26803eb13d060ef98bbb881541b6c39e5abc8934aca9878a5f44301223715d08"
+      },
+      {
+        "index": 43,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "851f1cc4839ba495c3d46c26668166938a664c9f6d9f8e148c14a259f4621871",
+        "expected": "851f1cc4839ba495c3d46c26668166938a664c9f6d9f8e148c14a259f4621871"
+      },
+      {
+        "index": 44,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "7c5896202fb9266b14fc25ae259ac488fdd3c632ab7b4186c20bca59bef73549",
+        "expected": "7c5896202fb9266b14fc25ae259ac488fdd3c632ab7b4186c20bca59bef73549"
+      },
+      {
+        "index": 45,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "d9c6a52fbe7742f7af7beb65e428fbba03dd95c52c34421e8c018844be3d113e",
+        "expected": "d9c6a52fbe7742f7af7beb65e428fbba03dd95c52c34421e8c018844be3d113e"
+      },
+      {
+        "index": 46,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "2a45612e729095b7fe0e3767132ba5c622164ffd6449fc27e4aa2c2a1d1f3a49",
+        "expected": "2a45612e729095b7fe0e3767132ba5c622164ffd6449fc27e4aa2c2a1d1f3a49"
+      },
+      {
+        "index": 47,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "c50d316e1283961b3f54b331e063650dcec299fd10f7f53e2c0a15e9e5524600",
+        "expected": "c50d316e1283961b3f54b331e063650dcec299fd10f7f53e2c0a15e9e5524600"
+      },
+      {
+        "index": 48,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "97e99eadbb8f2f4c5857338601c61a74e3614cf09069e07bd7b7c263b6e9f4f7",
+        "expected": "97e99eadbb8f2f4c5857338601c61a74e3614cf09069e07bd7b7c263b6e9f4f7"
+      },
+      {
+        "index": 49,
+        "rate": 48000,
+        "frames": 384000,
+        "sha256": "83a8b4208da42af0ce169955cd06eb6506fac19d7b44c02029e3a145fac4f5b6",
+        "expected": "83a8b4208da42af0ce169955cd06eb6506fac19d7b44c02029e3a145fac4f5b6"
+      },
+      {
+        "index": 50,
+        "rate": 48000,
+        "frames": 353280,
+        "sha256": "7de7a8204fcfc2c9d6b3e5c0a5ae7dd3815ad84b18f86cd386e24826d4d153c6",
+        "expected": "7de7a8204fcfc2c9d6b3e5c0a5ae7dd3815ad84b18f86cd386e24826d4d153c6"
+      }
+    ],
+    "stats": {
+      "fetches": 51,
+      "cacheHits": 1,
+      "decodes": 51,
+      "maxFetches": 1,
+      "maxEncoded": 8324060,
+      "maxDecodes": 1
+    }
+  },
+  "cuts48": {
+    "rate": 48000,
+    "region": "wrap",
+    "canSuspend": true,
+    "frames": 1125120,
+    "coreFrames": 1121280,
+    "starts": [
+      {
+        "args": [
+          0.08,
+          0.05,
+          7.36
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          7.44,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          15.44,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      }
+    ],
+    "maxErrorAfterInitialFade": 0,
+    "errorSamples": 0,
+    "peak": 0.6135423183441162,
+    "scheduler": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9085440
+    }
+  },
+  "cuts441": {
+    "rate": 44100,
+    "region": "wrap",
+    "canSuspend": true,
+    "frames": 1033704,
+    "coreFrames": 1121280,
+    "starts": [
+      {
+        "args": [
+          0.08,
+          0.05,
+          7.36
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          7.44,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          15.44,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      }
+    ],
+    "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+    "errorSamples": 0,
+    "peak": 0.6137910485267639,
+    "scheduler": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 8347224
+    }
+  },
+  "transition48": {
+    "rate": 48000,
+    "region": "transition",
+    "canSuspend": true,
+    "frames": 1155840,
+    "coreFrames": 1152000,
+    "starts": [
+      {
+        "args": [
+          0.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          8.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          16.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      }
+    ],
+    "maxErrorAfterInitialFade": 3.637978807091713e-12,
+    "errorSamples": 0,
+    "peak": 0.6635764837265015,
+    "scheduler": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200
+    }
+  },
+  "transition441": {
+    "rate": 44100,
+    "region": "transition",
+    "canSuspend": true,
+    "frames": 1061928,
+    "coreFrames": 1152000,
+    "starts": [
+      {
+        "args": [
+          0.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          8.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          16.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      }
+    ],
+    "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+    "errorSamples": 0,
+    "peak": 0.6634756326675415,
+    "scheduler": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 8573016
+    }
+  },
+  "transitionEnd48": {
+    "rate": 48000,
+    "region": "transition-end",
+    "canSuspend": true,
+    "frames": 1155840,
+    "coreFrames": 1152000,
+    "starts": [
+      {
+        "args": [
+          0.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          8.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          16.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      }
+    ],
+    "maxErrorAfterInitialFade": 1.8189894035458565e-12,
+    "errorSamples": 0,
+    "peak": 0.4965531826019287,
+    "scheduler": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200
+    }
+  },
+  "transitionEnd441": {
+    "rate": 44100,
+    "region": "transition-end",
+    "canSuspend": true,
+    "frames": 1061928,
+    "coreFrames": 1152000,
+    "starts": [
+      {
+        "args": [
+          0.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          8.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      },
+      {
+        "args": [
+          16.08,
+          0.05,
+          8
+        ],
+        "rate": 1,
+        "detune": 0
+      }
+    ],
+    "maxErrorAfterInitialFade": 2.9802322387695312e-08,
+    "errorSamples": 0,
+    "peak": 0.4968055486679077,
+    "scheduler": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 8573016
+    }
+  },
+  "status": "PASS",
+  "browser": "153.0.8010.12",
+  "audio_requests": 18
+}

@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "frozen_js": "cba3eb98c63bb513494500de7f1b79550a1ba4332ee50181529839c6252eed0e",
+  "native_fixture_js": "732c4031b9f01676183f0f6916cbea7830246f246e05188c7bf48102a394ae36",
+  "only_difference": "trusted deployment binding ic/https://icp-api.io/s5ir5-gqaaa-aaaas-amyna-cai versus null offline binding; all other JavaScript bytes equal",
+  "scope": "Offline native fixture integration, not an installed-IC or mainnet observation"
+}

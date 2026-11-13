@@ -1,0 +1,112 @@
+{
+  "scope": "Actual Chromium native follow/navigation probe, 1ms sampled stack residency. timeDeltas include scheduling delay; these weights are not exact CPU durations or a sub-ms budget proof. Native decoder worker CPU and hardware latency are not measured. QA inspect/prototype telemetry adds test-only work. Separate from A/B benchmark.",
+  "profile_sha256": "8d1330562cc8cc1a2cb6228f8e874483dd2ac7441c3369f7a3cc00508e5c493a",
+  "sample_count": 3015,
+  "profile_elapsed_ms": 7617.892,
+  "sampled_audio_functions": [
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "inspect",
+      "weighted_sample_ms": 37.316
+    },
+    {
+      "module": "apps/b2z-observer/audio-loader.mjs",
+      "function": "",
+      "weighted_sample_ms": 36.36
+    },
+    {
+      "module": "apps/b2z-observer/audio-policy.mjs",
+      "function": "viewportGain",
+      "weighted_sample_ms": 25.978
+    },
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "levels",
+      "weighted_sample_ms": 15.769
+    },
+    {
+      "module": "apps/b2z-observer/audio-loader.mjs",
+      "function": "bytes",
+      "weighted_sample_ms": 8.125
+    },
+    {
+      "module": "apps/b2z-observer/audio-loader.mjs",
+      "function": "manifest",
+      "weighted_sample_ms": 7.965
+    },
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "load",
+      "weighted_sample_ms": 5.233
+    },
+    {
+      "module": "apps/b2z-observer/audio-visibility.mjs",
+      "function": "audioPose",
+      "weighted_sample_ms": 4.911
+    },
+    {
+      "module": "apps/b2z-observer/audio-policy.mjs",
+      "function": "accept",
+      "weighted_sample_ms": 2.693
+    },
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "flush",
+      "weighted_sample_ms": 2.346
+    },
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "ramp",
+      "weighted_sample_ms": 1.8090000000000002
+    },
+    {
+      "module": "apps/b2z-observer/audio-events.mjs",
+      "function": "begin",
+      "weighted_sample_ms": 1.737
+    },
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "",
+      "weighted_sample_ms": 1.264
+    },
+    {
+      "module": "apps/b2z-observer/audio-loader.mjs",
+      "function": "boundedBytes",
+      "weighted_sample_ms": 1.088
+    },
+    {
+      "module": "apps/b2z-observer/audio-engine.mjs",
+      "function": "begin",
+      "weighted_sample_ms": 0.987
+    }
+  ],
+  "weighted_sample_ms_by_module": {
+    "browser/native/idle/initialization": 6689.186000000011,
+    "node_modules/three/build/three.module.js": 316.03599999999994,
+    "node_modules/three/build/three.core.js": 94.99800000000002,
+    "apps/b2z-observer/shell.mjs": 86.914,
+    "apps/b2z-observer/app.mjs": 82.248,
+    "apps/b2z-observer/audio-engine.mjs": 64.724,
+    "apps/b2z-observer/audio-loader.mjs": 53.53800000000001,
+    "apps/b2z-observer/render.mjs": 41.243,
+    "apps/b2z-observer/audio-policy.mjs": 28.671,
+    "apps/b2z-observer/camera.mjs": 25.094,
+    "node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs": 20.078000000000003,
+    "apps/b2z-observer/arcade.mjs": 18.985,
+    "node_modules/@noble/hashes/_md.js": 16.232,
+    "node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs": 15.482,
+    "apps/b2z-observer/model.mjs": 13.084,
+    "apps/b2z-observer/motion-effects.mjs": 6.8870000000000005,
+    "packages/kernels/b2z/math.mjs": 6.665,
+    "apps/b2z-observer/minimap.mjs": 4.919,
+    "apps/b2z-observer/audio-visibility.mjs": 4.911,
+    "apps/b2z-observer/ball-presentation.mjs": 4.880000000000001,
+    "node_modules/@dtr/timeline-runtime/packages/client/playout.mjs": 4.695,
+    "node_modules/@noble/hashes/sha2.js": 4.126,
+    "apps/b2z-observer/transport.mjs": 3.4530000000000003,
+    "apps/b2z-observer/identity.mjs": 2.546,
+    "apps/b2z-observer/observation-loop.mjs": 2.517,
+    "apps/b2z-observer/camera-controller.mjs": 2.405,
+    "apps/b2z-observer/audio-events.mjs": 1.737
+  }
+}

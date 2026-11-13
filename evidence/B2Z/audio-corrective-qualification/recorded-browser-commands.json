@@ -1,0 +1,91 @@
+[
+  {
+    "command": [
+      "tools/verify_audio_browser.py",
+      "--output",
+      ".work/audio-corrective/native-confirm"
+    ],
+    "exit_code": 0,
+    "seconds": 170.96444509799767
+  },
+  {
+    "command": [
+      "tools/verify_audio_browser.py",
+      "--controls-only",
+      "--decode-delay-ms",
+      "500",
+      "--output",
+      ".work/audio-corrective/activation-confirm"
+    ],
+    "exit_code": 0,
+    "seconds": 138.15492415700282
+  },
+  {
+    "command": [
+      "tools/verify_audio_occlusion.py",
+      "--fixture-dir",
+      ".work/audio-corrective/native-confirm/assets",
+      "--policy-dir",
+      ".work/audio-corrective/native-confirm/policy-build",
+      "--output",
+      ".work/audio-corrective/occlusion-final"
+    ],
+    "exit_code": 0,
+    "seconds": 39.8087997679977
+  },
+  {
+    "command": [
+      "tools/verify_playability_actions.py",
+      "--output",
+      ".work/audio-corrective/recorded-ordinary"
+    ],
+    "exit_code": 0,
+    "seconds": 602.7963855159906
+  },
+  {
+    "command": [
+      "tools/verify_fluid_browser.py",
+      "--output",
+      ".work/audio-corrective/recorded-fluid",
+      "--video"
+    ],
+    "exit_code": 0,
+    "seconds": 163.3205317319953
+  },
+  {
+    "command": [
+      "tools/verify_elastic_browser.py",
+      "--fixture-dir",
+      ".work/audio-corrective/recorded-fluid",
+      "--output",
+      ".work/audio-corrective/recorded-elastic",
+      "--video"
+    ],
+    "exit_code": 0,
+    "seconds": 57.98309380401042
+  },
+  {
+    "command": [
+      "tools/verify_visual_closeout.py",
+      "--fixture-dir",
+      ".work/audio-corrective/recorded-final",
+      "--output",
+      ".work/audio-corrective/recorded-visual",
+      "--video"
+    ],
+    "exit_code": 0,
+    "seconds": 64.25572636499419
+  },
+  {
+    "command": [
+      "tools/verify_panel_geometry.py",
+      "--fixture-dir",
+      ".work/audio-corrective/sequential/corrections/fixture",
+      "--output",
+      ".work/audio-corrective/recorded-panels",
+      "--video"
+    ],
+    "exit_code": 0,
+    "seconds": 272.52305343600165
+  }
+]

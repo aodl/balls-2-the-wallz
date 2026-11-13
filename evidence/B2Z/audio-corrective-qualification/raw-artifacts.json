@@ -1,0 +1,140 @@
+{
+  "scope": "Selected raw known test artifacts; excludes browser profiles, caches, credentials, dependency/build trees and identity material",
+  "files": [
+    {
+      "path": ".work/audio-corrective/ci-latest.json",
+      "bytes": 1160,
+      "sha256": "fbc177864bf7235ca449e49ef9e3af9a78cd7a1666b4a43befeb5d36687a9f1b"
+    },
+    {
+      "path": ".work/audio-corrective/hosted-failure-excerpt.log",
+      "bytes": 1293,
+      "sha256": "0a0c95305aef57a9277814b59141e2c1045b1dfe375c7632b97c267a484b2964"
+    },
+    {
+      "path": ".work/audio-corrective/activation-before.log",
+      "bytes": 1335,
+      "sha256": "392fe767e76796b1c1e9e133ad88778ac55d0fb133e97a8d26eb9d6d5b1f8b3e"
+    },
+    {
+      "path": ".work/audio-corrective/focused-final.log",
+      "bytes": 5163,
+      "sha256": "f22d26252b46b511dfb94b0452e14b729605d81231e43402ec66f1e85ccbf862"
+    },
+    {
+      "path": ".work/audio-corrective/profile.json",
+      "bytes": 6879,
+      "sha256": "5cd461346bad8c4d1f7f2c4d59c651071381b88456e8796489ed7385f1e3b83f"
+    },
+    {
+      "path": ".work/audio-corrective/isolate.json",
+      "bytes": 9665,
+      "sha256": "31ab20120e3676178e77a6c5c6cad61d4db6ed0e5a1d78cb9cbec162d449ea82"
+    },
+    {
+      "path": ".work/audio-corrective/performance-final.json",
+      "bytes": 13685,
+      "sha256": "986d88f6eefaf80966dc07ecd513b2bd1bd2ab397cb8b5a87243db0028fe8630"
+    },
+    {
+      "path": ".work/audio-corrective/sequential/performance.json",
+      "bytes": 13815,
+      "sha256": "e151f1be04a33366dbdf0d3bda6dbc47273855246563e7e42fe2889e0959f1ee"
+    },
+    {
+      "path": ".work/audio-corrective/controls-trace/trace.zip",
+      "bytes": 24293063,
+      "sha256": "b0b6c4ee82a7305573b2ead0f8660907093d53a65238a0e5a590ab94fc5be010"
+    },
+    {
+      "path": ".work/audio-corrective/native-confirm/native-follow.cpuprofile",
+      "bytes": 99135,
+      "sha256": "8d1330562cc8cc1a2cb6228f8e874483dd2ac7441c3369f7a3cc00508e5c493a"
+    },
+    {
+      "path": ".work/audio-corrective/sequential/audio/running.json",
+      "bytes": 157248,
+      "sha256": "5ce5a707033aaf0ed77004fdf4df079a12bf14633f5f3d98e8b91224eca09346"
+    },
+    {
+      "path": ".work/audio-corrective/sequential/audio/results.json",
+      "bytes": 195724,
+      "sha256": "c58bbc6d6c4deb3af0ec1d4beeed342684b13dbb1f04730e922285cdef80f99b"
+    },
+    {
+      "path": ".work/audio-corrective/source-final/verification.json",
+      "bytes": 14245,
+      "sha256": "40c97066a387753b0b4f5bfbaed94a6032cadd9de12b8ee3c76337b60cbdad58"
+    },
+    {
+      "path": ".work/audio-corrective/source-final/logs/node-tests.log",
+      "bytes": 82716,
+      "sha256": "7d9ea57f8feed7db077c4c16e7eb23636d7f04f615323f89050dfb0da3044828"
+    },
+    {
+      "path": ".work/audio-corrective/sequential/source/verification.json",
+      "bytes": 14194,
+      "sha256": "b233786dd4021d77b3ef6c7c524db2afc86ad04227a0eaba240ac0ffd160da04"
+    },
+    {
+      "path": ".work/audio-corrective/sequential/source/logs/node-tests.log",
+      "bytes": 140034,
+      "sha256": "e8ee8d8b7fa8f162ad8f24f93aade12368f82d16fad21a7becd244aa6bd1dc09"
+    },
+    {
+      "path": ".work/audio-corrective/source-closeout/verification.json",
+      "bytes": 14275,
+      "sha256": "97dee8c0fda8ec3c8ddd742e9c5c3e1434bd6ef97a140efec317d6e96cddf990"
+    },
+    {
+      "path": ".work/audio-corrective/source-closeout/logs/node-tests.log",
+      "bytes": 141072,
+      "sha256": "eb3bd13092072ce831602836df7d3a9a5eb9d3bb452d94b07b01f0341eb38d6d"
+    },
+    {
+      "path": ".work/audio-corrective/post-commands.json",
+      "bytes": 2060,
+      "sha256": "f2a1c2585747158a6bf70f46de36ed7a5c2fd07077d7d108dfdc549a4b784418"
+    },
+    {
+      "path": ".work/audio-corrective/explicit-page-close.log",
+      "bytes": 478,
+      "sha256": "7add87c0e4b7ff8ac8b537e4b31ae01ae37f4497f3f314a100739fc67415be5c"
+    },
+    {
+      "path": ".work/audio-corrective/recorded-final.log",
+      "bytes": 1220,
+      "sha256": "f9933dba38aa5e74e6bec0a5788d573c49c10e111d9f0fba3ad115a3d32b9ad8"
+    },
+    {
+      "path": ".work/audio-corrective/cleanup-confirm.log",
+      "bytes": 360,
+      "sha256": "ea8486852f1a3e65dd081236d81087b6d813b44ee7c2f81ff08279b6bc2106f5"
+    },
+    {
+      "path": ".work/audio-corrective/native-visibility-diagnostic/results.json",
+      "bytes": 8251,
+      "sha256": "5d1a8d7617148370e22292f8d5090c4dcb26be580384bf22d2b12fb144e678ed"
+    },
+    {
+      "path": ".work/audio-corrective/native-visibility-repeat/results.json",
+      "bytes": 8050,
+      "sha256": "61fd2311807ea3bc683ba26f890688ea9d0634e0492f8901e0fa274abd43624b"
+    },
+    {
+      "path": ".work/audio-corrective/recorded-final/video/page@0670c9797408d04cffd9ec2ec9d860be.webm",
+      "bytes": 9084673,
+      "sha256": "1137535d76b2b6631f4e0bcec2ac2bb19f9799c4724607f78196154dec559c7d"
+    },
+    {
+      "path": ".work/audio-corrective/recorded-final/video/page@f773fdb96a58dc6cce02e6f9c5e33733.webm",
+      "bytes": 1716184,
+      "sha256": "2a73201cc38e24701aed59c68e5fdbfac829bf2f1d6e6abed99189fb111ed73d"
+    },
+    {
+      "path": ".work/audio-corrective/recorded-final/video/page@1e4a5d203d5a6f134b35cb062a9ae29d.webm",
+      "bytes": 2155159,
+      "sha256": "249ee575447d233f70eb512fdba8f37bebfc9929aaba8481df003b6844ab523b"
+    }
+  ]
+}

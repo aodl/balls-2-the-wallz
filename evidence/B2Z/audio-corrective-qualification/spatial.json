@@ -1,0 +1,683 @@
+{
+  "status": "PASS",
+  "scope": "Actual DOM/renderer/Camera audibility geometry. Controlled fixture; no sound/IC authenticity claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 1400,
+        "height": 840,
+        "top": 30,
+        "right": 1420,
+        "bottom": 870,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 1400,
+        "height": 840,
+        "top": 30,
+        "right": 1420,
+        "bottom": 870,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 1400,
+        "height": 840,
+        "top": 30,
+        "right": 1420,
+        "bottom": 870,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 1400,
+        "height": 840,
+        "top": 30,
+        "right": 1420,
+        "bottom": 870,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 3,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 1400,
+        "height": 840,
+        "top": 30,
+        "right": 1420,
+        "bottom": 870,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 1400,
+        "height": 840,
+        "top": 30,
+        "right": 1420,
+        "bottom": 870,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 1,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 350,
+        "height": 784,
+        "top": 30,
+        "right": 370,
+        "bottom": 814,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 350,
+        "height": 784,
+        "top": 30,
+        "right": 370,
+        "bottom": 814,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 2,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 350,
+        "height": 784,
+        "top": 30,
+        "right": 370,
+        "bottom": 814,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 350,
+        "height": 784,
+        "top": 30,
+        "right": 370,
+        "bottom": 814,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 350,
+        "height": 784,
+        "top": 30,
+        "right": 370,
+        "bottom": 814,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 350,
+        "height": 784,
+        "top": 30,
+        "right": 370,
+        "bottom": 814,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "dpr": 1,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 280,
+        "height": 580,
+        "top": 30,
+        "right": 300,
+        "bottom": 610,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 280,
+        "height": 580,
+        "top": 30,
+        "right": 300,
+        "bottom": 610,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "dpr": 2,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 280,
+        "height": 580,
+        "top": 30,
+        "right": 300,
+        "bottom": 610,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 280,
+        "height": 580,
+        "top": 30,
+        "right": 300,
+        "bottom": 610,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "dpr": 3,
+      "zoom_gain": [
+        {
+          "cellPx": 12,
+          "gain": 0
+        },
+        {
+          "cellPx": 20,
+          "gain": 0.19825072886297376
+        },
+        {
+          "cellPx": 30,
+          "gain": 0.708454810495627
+        },
+        {
+          "cellPx": 40,
+          "gain": 1
+        }
+      ],
+      "offset_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 280,
+        "height": 580,
+        "top": 30,
+        "right": 300,
+        "bottom": 610,
+        "left": 20
+      },
+      "scrolled_canvas": {
+        "x": 20,
+        "y": 30,
+        "width": 280,
+        "height": 580,
+        "top": 30,
+        "right": 300,
+        "bottom": 610,
+        "left": 20
+      },
+      "occlusion_nodes": [
+        {
+          "selector": ".arena-chrome",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#minimap",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#workspace",
+          "source_plain_eligible": true,
+          "source_masked": true
+        },
+        {
+          "selector": "#audio-popover",
+          "source_plain_eligible": true,
+          "source_masked": true
+        }
+      ],
+      "seam_pan_pose_samples": 6
+    }
+  ],
+  "multi_segment_native_frame": {
+    "scope": "Offline canonical kernel outputs; roots are fixture publication bindings, not IC certificates",
+    "nativeRAFCallbacks": 1,
+    "events": 8,
+    "indices": [
+      4,
+      4
+    ],
+    "roots": [
+      "ea35e8a3557a5a5a3bf6d80780a71dd73f1e8aca24703721d074e398db36e3f5",
+      "81d26cbc44c028e77f1beb6379c8022e67d4bf3a99497a5153097ecb554cf88e"
+    ],
+    "cues": [
+      {
+        "kind": "cannon",
+        "entity": 1,
+        "x": 578.5,
+        "y": 453.5,
+        "width": 1000,
+        "height": 1000,
+        "torus": true,
+        "time": 0,
+        "key": "offline-publication-fixture/same-rules/ea35e8a3557a5a5a3bf6d80780a71dd73f1e8aca24703721d074e398db36e3f5/0/0/cannon/1",
+        "volley": "1/0/1"
+      },
+      {
+        "kind": "cannon",
+        "entity": 1,
+        "x": 578.5,
+        "y": 453.5,
+        "width": 1000,
+        "height": 1000,
+        "torus": true,
+        "time": 0,
+        "key": "offline-publication-fixture/same-rules/ea35e8a3557a5a5a3bf6d80780a71dd73f1e8aca24703721d074e398db36e3f5/0/1/cannon/1",
+        "volley": "1/0/1"
+      },
+      {
+        "kind": "cannon",
+        "entity": 1,
+        "x": 578.5,
+        "y": 453.5,
+        "width": 1000,
+        "height": 1000,
+        "torus": true,
+        "time": 1,
+        "key": "offline-publication-fixture/same-rules/81d26cbc44c028e77f1beb6379c8022e67d4bf3a99497a5153097ecb554cf88e/1/0/cannon/1",
+        "volley": "1/1/1"
+      },
+      {
+        "kind": "cannon",
+        "entity": 1,
+        "x": 578.5,
+        "y": 453.5,
+        "width": 1000,
+        "height": 1000,
+        "torus": true,
+        "time": 1,
+        "key": "offline-publication-fixture/same-rules/81d26cbc44c028e77f1beb6379c8022e67d4bf3a99497a5153097ecb554cf88e/1/1/cannon/1",
+        "volley": "1/1/1"
+      }
+    ],
+    "latestAuthorityRoot": "81d26cbc44c028e77f1beb6379c8022e67d4bf3a99497a5153097ecb554cf88e",
+    "offOnEndpointEquality": true
+  }
+}

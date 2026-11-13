@@ -1,0 +1,350 @@
+{
+  "scope": "Ordinary sandboxed Chromium, real same-window tab visibility/freeze/BFCache.\nOffline pinned game content only; no IC, physical OS/device or output-route claim.\n",
+  "status": "PASS",
+  "windows": [
+    {
+      "windowId": 746333529,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 780,
+        "height": 580,
+        "windowState": "normal"
+      }
+    },
+    {
+      "windowId": 746333529,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 780,
+        "height": 580,
+        "windowState": "normal"
+      }
+    }
+  ],
+  "native_hidden_freeze_return": {
+    "status": "PASS",
+    "before": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 2,
+      "lastError": "",
+      "unlocked": true,
+      "hidden": false,
+      "settings": {
+        "music": true,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 2,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": true,
+        "nodes": 2,
+        "buffers": 3,
+        "phase": 234239.99999999994
+      },
+      "loader": {
+        "fetches": 8,
+        "cacheHits": 0,
+        "decodes": 7,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 216,
+        "lateFrames": 9,
+        "disabled": 175,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 1,
+        "maxVoices": 0,
+        "frames": 133,
+        "maxFrameMs": 11.099999994039536,
+        "inspectionLimit": 22,
+        "flushP95": 1.7999999970197678,
+        "flushP99": 7.700000002980232
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "hidden": {
+      "contextState": "suspended",
+      "loading": false,
+      "gameReady": true,
+      "generation": 4,
+      "lastError": "",
+      "unlocked": true,
+      "hidden": true,
+      "settings": {
+        "music": true,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 2,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": false,
+        "nodes": 0,
+        "buffers": 0,
+        "phase": 260224
+      },
+      "loader": {
+        "fetches": 8,
+        "cacheHits": 0,
+        "decodes": 7,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 218,
+        "lateFrames": 9,
+        "disabled": 175,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 1,
+        "maxVoices": 0,
+        "frames": 135,
+        "maxFrameMs": 11.099999994039536,
+        "inspectionLimit": 22,
+        "flushP95": 1.7999999970197678,
+        "flushP99": 7.700000002980232
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "after": {
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 9,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": true,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 4,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "buffers": 2,
+          "phase": 271359.99999999994
+        },
+        "loader": {
+          "fetches": 11,
+          "cacheHits": 1,
+          "decodes": 9,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": true,
+          "encoded": 6178445,
+          "pending": 1,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 230,
+          "lateFrames": 13,
+          "disabled": 175,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 1,
+          "maxVoices": 0,
+          "frames": 147,
+          "maxFrameMs": 40.70000000298023,
+          "inspectionLimit": 16,
+          "flushP95": 1.7999999970197678,
+          "flushP99": 11.099999994039536
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "events": [
+        {
+          "name": "pageshow",
+          "persisted": false,
+          "at": 1660.5
+        },
+        {
+          "name": "visibilitychange",
+          "hidden": true,
+          "at": 15652.29999999702
+        },
+        {
+          "name": "freeze",
+          "hidden": true,
+          "at": 17148.29999999702
+        },
+        {
+          "name": "resume",
+          "hidden": true,
+          "at": 18408.20000000298
+        },
+        {
+          "name": "visibilitychange",
+          "hidden": false,
+          "at": 18797.10000000894
+        }
+      ],
+      "sameSession": true,
+      "sameClock": true,
+      "sameQueue": true,
+      "clock": {
+        "phase": "PLAYING",
+        "playhead": 12.478051867400001,
+        "available": 24,
+        "buffer": 11.521948132599999,
+        "rate": 1.03
+      },
+      "gameError": null
+    },
+    "recovery": "automatic"
+  },
+  "actual_BFCache": {
+    "status": "PASS",
+    "restored": true,
+    "events": [
+      {
+        "name": "pageshow",
+        "persisted": false,
+        "at": 1660.5
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": true,
+        "at": 15652.29999999702
+      },
+      {
+        "name": "freeze",
+        "hidden": true,
+        "at": 17148.29999999702
+      },
+      {
+        "name": "resume",
+        "hidden": true,
+        "at": 18408.20000000298
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": false,
+        "at": 18797.10000000894
+      },
+      {
+        "name": "pagehide",
+        "persisted": true,
+        "at": 28924.40000000596
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": true,
+        "at": 28972
+      },
+      {
+        "name": "freeze",
+        "hidden": true,
+        "at": 29196.20000000298
+      },
+      {
+        "name": "resume",
+        "hidden": true,
+        "at": 29745.5
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": false,
+        "at": 29779.10000000894
+      },
+      {
+        "name": "pageshow",
+        "persisted": true,
+        "at": 29834
+      }
+    ],
+    "same_marker": true,
+    "notRestoredReasons": null
+  },
+  "browser": "153.0.8010.12"
+}

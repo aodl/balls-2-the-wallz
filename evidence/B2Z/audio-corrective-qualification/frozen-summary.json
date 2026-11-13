@@ -1,0 +1,13 @@
+{
+  "runtime_source": "5a66aaf6bd8f83f8bf444ef5ea031ed34f3e260e",
+  "source_dirty": false,
+  "file_count": 74,
+  "bytes": 76234102,
+  "javascript_sha256": "cba3eb98c63bb513494500de7f1b79550a1ba4332ee50181529839c6252eed0e",
+  "inventory_sha256": "b4abc541bf7277dbae865f4269d1abd12cc4d6e0bcba39bcf2b21a875c1ae72f",
+  "changed_from_original": [
+    "app.mjs",
+    "build-manifest.json",
+    "style.css"
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "viewport": [
+    390,
+    430
+  ],
+  "point": {
+    "x": 335.6032969982042,
+    "y": 109.96455129206956
+  },
+  "hit": [
+    {
+      "id": "board",
+      "tag": "CANVAS",
+      "class": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 430,
+        "top": 0,
+        "right": 390,
+        "bottom": 430,
+        "left": 0
+      }
+    },
+    {
+      "id": "arena",
+      "tag": "MAIN",
+      "class": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 430,
+        "top": 0,
+        "right": 390,
+        "bottom": 430,
+        "left": 0
+      }
+    },
+    {
+      "id": "",
+      "tag": "BODY",
+      "class": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 430,
+        "top": 0,
+        "right": 390,
+        "bottom": 430,
+        "left": 0
+      }
+    },
+    {
+      "id": "",
+      "tag": "HTML",
+      "class": "cannon-context short-edit",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 430,
+        "top": 0,
+        "right": 390,
+        "bottom": 430,
+        "left": 0
+      }
+    }
+  ],
+  "camera": [
+    578.9080584781082,
+    456.6849024140895,
+    71.60758548678098
+  ],
+  "layout": {
+    "dirty": false,
+    "pendingFrame": false,
+    "revision": 58,
+    "committedRevision": 58,
+    "desired": 416,
+    "positionKey": "8/154/360/214/214",
+    "compositionKey": "action/ball/1/453578/453578/390/430/true/7",
+    "cardBounds": {
+      "left": 8,
+      "right": 368,
+      "top": 154,
+      "bottom": 422
+    }
+  },
+  "workspace": {
+    "x": 8,
+    "y": 154,
+    "width": 360,
+    "height": 268,
+    "top": 154,
+    "right": 368,
+    "bottom": 422,
+    "left": 8
+  },
+  "audio": null,
+  "scroll": {
+    "top": 146,
+    "height": 214
+  },
+  "active": false,
+  "animations": []
+}

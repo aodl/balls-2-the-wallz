@@ -1,24 +1,29 @@
-# Audio corrective qualification — local candidate; NOT release-qualified
+# Audio correction — local candidate; NOT release-qualified
 
-The published starting source is `c2818281219bcfb9979a32ff0d4e5ffbf658e4dc`.
-Its completed hosted run 43458352816 has four substantive PASS and two FAIL:
-Browser (contracted selected-source occlusion) and installed-IC (Music/FX enable
-timeout). The informational inventory guard is excluded. Earlier statements that
-nothing was published or that these gates had not run are superseded.
+Tested qualifier source `db73806436d124cfb6707873d54004e575a794ae`; frozen
+application runtime `5a66aaf6bd8f83f8bf444ef5ea031ed34f3e260e`.
+JS `cba3eb98…`, complete74-file inventory `b4abc541…`. Approved audio/manifest,
+build/dependency/security inputs and paid backend remain unchanged.
 
-This local pass corrects contracted audio-control occlusion and independent-lane
-activation/native-decoder recovery. It preserves approved audio hashes, gameplay,
-verification and financial inputs. Targeted native browser and regression checks
-are being recorded separately from physical listening/hardware qualification.
-No publication, canister installation, deployment or financial operation is
-permitted by this pass. Exact final results and remaining release prerequisites
-belong in [corrective closeout](evidence/B2Z/audio-corrective-qualification/REPORT.md).
-[Audio contract](docs/specs/B2Z_AUDIO.md), [original candidate evidence](evidence/B2Z/audio-integration/REPORT.md)
-and [manual acceptance](evidence/B2Z/audio-corrective-qualification/MANUAL_ACCEPTANCE.md).
+Final local source passes1908 Node/201 Python. All complete local Browser gate
+steps, recorded interaction/status matrices, native audio/core/transition checks,
+real tab hide/freeze/BFCache and three music loops pass in their stated scopes.
+Recorded panel drift is0px across2379 sampled states. Original failures and
+verification-tool cleanup/synchronization corrections are retained in the report.
 
-The original runtime `a2aa9a2` / JS `8e008b16…` / inventory `31ff97ab…` remains
-historical evidence, not qualification of the corrected runtime. The previous
-production frontend/rollback assets remain unchanged.
+P09 still misses p99 (2.4021ms vs2ms). Representative hardware, physical listening/
+routes/devices, commercial-use rights, production costs and all six exact-source
+hosted gates remain release prerequisites. No push, canister installation,
+deployment, mainnet or financial action occurred in this corrective pass.
+
+Published branch remains c281828. Its completed hosted run43458352816 has four
+substantive PASS/two FAIL; those results do not qualify corrected bytes. The
+informational inventory guard is excluded. No production audio release is claimed.
+
+[Corrective report](evidence/B2Z/audio-corrective-qualification/REPORT.md) /
+[QA matrix](evidence/B2Z/audio-corrective-qualification/QA.md) /
+[manual acceptance](evidence/B2Z/audio-corrective-qualification/MANUAL_ACCEPTANCE.md).
+The existing deployed pre-audio frontend/rollback remains separate below.
 
 ---
 

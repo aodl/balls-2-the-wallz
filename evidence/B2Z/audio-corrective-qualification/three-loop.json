@@ -1,0 +1,18 @@
+{
+  "scope": "Actual corrected game AudioContext music across three loops; virtual audio output, not physical listening. Recorded command later interrupted during context-only video cleanup; corrected cleanup and default full command separately pass.",
+  "requested_soak_seconds": 1230,
+  "samples": 82,
+  "music": {
+    "starts": 157,
+    "underruns": 0,
+    "maxBuffers": 3,
+    "maxNodes": 2,
+    "maxDecoded": 9331200,
+    "active": true,
+    "nodes": 2,
+    "buffers": 3,
+    "phase": 59546368
+  },
+  "sample_rate": 48000,
+  "raw_snapshot_sha256": "5ce5a707033aaf0ed77004fdf4df079a12bf14633f5f3d98e8b91224eca09346"
+}

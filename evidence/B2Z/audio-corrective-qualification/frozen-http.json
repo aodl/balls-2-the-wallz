@@ -1,0 +1,5 @@
+{
+  "status": "PASS",
+  "scope": "Local static HTTP; security headers from frozen upload policy; not an asset-canister installation or IC certificate check",
+  "public_files": 73
+}

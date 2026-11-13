@@ -1,0 +1,350 @@
+{
+  "scope": "Ordinary sandboxed Chromium, real same-window tab visibility/freeze/BFCache.\nOffline pinned game content only; no IC, physical OS/device or output-route claim.\n",
+  "status": "FAIL",
+  "windows": [
+    {
+      "windowId": 179613497,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 780,
+        "height": 580,
+        "windowState": "normal"
+      }
+    },
+    {
+      "windowId": 179613497,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 780,
+        "height": 580,
+        "windowState": "normal"
+      }
+    }
+  ],
+  "native_hidden_freeze_return": {
+    "status": "PASS",
+    "before": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 1,
+      "lastError": "",
+      "unlocked": true,
+      "hidden": false,
+      "settings": {
+        "music": true,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 2,
+        "underruns": 0,
+        "maxBuffers": 2,
+        "maxNodes": 2,
+        "maxDecoded": 6220800,
+        "active": true,
+        "nodes": 2,
+        "buffers": 2,
+        "phase": 2944.000000000017
+      },
+      "loader": {
+        "fetches": 8,
+        "cacheHits": 0,
+        "decodes": 7,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": true,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 1
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 142,
+        "lateFrames": 6,
+        "disabled": 124,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 1,
+        "maxVoices": 0,
+        "frames": 84,
+        "maxFrameMs": 6.799999997019768,
+        "inspectionLimit": 22,
+        "flushP95": 3.5999999940395355,
+        "flushP99": 6.799999997019768
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "hidden": {
+      "contextState": "suspended",
+      "loading": false,
+      "gameReady": true,
+      "generation": 3,
+      "lastError": "",
+      "unlocked": true,
+      "hidden": true,
+      "settings": {
+        "music": true,
+        "effects": true,
+        "mute": false,
+        "musicVolume": 0.72,
+        "effectsVolume": 0.58,
+        "adaptive": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 4,
+      "music": {
+        "starts": 2,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": false,
+        "nodes": 0,
+        "buffers": 0,
+        "phase": 16384
+      },
+      "loader": {
+        "fetches": 8,
+        "cacheHits": 0,
+        "decodes": 7,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": true,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 144,
+        "lateFrames": 6,
+        "disabled": 124,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 1,
+        "maxVoices": 0,
+        "frames": 86,
+        "maxFrameMs": 6.799999997019768,
+        "inspectionLimit": 22,
+        "flushP95": 3.5999999940395355,
+        "flushP99": 6.799999997019768
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "after": {
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 8,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": true,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 4,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "buffers": 2,
+          "phase": 20351.99999999999
+        },
+        "loader": {
+          "fetches": 12,
+          "cacheHits": 0,
+          "decodes": 9,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": true,
+          "encoded": 6178445,
+          "pending": 1,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 153,
+          "lateFrames": 9,
+          "disabled": 124,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 1,
+          "maxVoices": 0,
+          "frames": 95,
+          "maxFrameMs": 6.799999997019768,
+          "inspectionLimit": 22,
+          "flushP95": 3.5999999940395355,
+          "flushP99": 6.799999997019768
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "events": [
+        {
+          "name": "pageshow",
+          "persisted": false,
+          "at": 1623
+        },
+        {
+          "name": "visibilitychange",
+          "hidden": true,
+          "at": 8847.89999999106
+        },
+        {
+          "name": "freeze",
+          "hidden": true,
+          "at": 9300.79999999702
+        },
+        {
+          "name": "resume",
+          "hidden": true,
+          "at": 10526.79999999702
+        },
+        {
+          "name": "visibilitychange",
+          "hidden": false,
+          "at": 10636.39999999106
+        }
+      ],
+      "sameSession": true,
+      "sameClock": true,
+      "sameQueue": true,
+      "clock": {
+        "phase": "PLAYING",
+        "playhead": 5.3928164228,
+        "available": 24,
+        "buffer": 18.6071835772,
+        "rate": 1.03
+      },
+      "gameError": null
+    },
+    "recovery": "automatic"
+  },
+  "failure_observation": {
+    "url": "http://127.0.0.1:35107/?recording=audio-wall",
+    "events": [
+      {
+        "name": "pageshow",
+        "persisted": false,
+        "at": 1623
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": true,
+        "at": 8847.89999999106
+      },
+      {
+        "name": "freeze",
+        "hidden": true,
+        "at": 9300.79999999702
+      },
+      {
+        "name": "resume",
+        "hidden": true,
+        "at": 10526.79999999702
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": false,
+        "at": 10636.39999999106
+      },
+      {
+        "name": "pagehide",
+        "persisted": true,
+        "at": 15402
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": true,
+        "at": 15413.89999999106
+      },
+      {
+        "name": "freeze",
+        "hidden": true,
+        "at": 15549.5
+      },
+      {
+        "name": "resume",
+        "hidden": true,
+        "at": 15787.89999999106
+      },
+      {
+        "name": "visibilitychange",
+        "hidden": false,
+        "at": 15797.09999999404
+      },
+      {
+        "name": "pageshow",
+        "persisted": true,
+        "at": 15819.89999999106
+      }
+    ],
+    "ready": true,
+    "mute": true,
+    "same_marker": "c1281d60-1b2e-45f3-8235-762d310b70f4"
+  },
+  "error": "Page.go_back: Timeout 30000ms exceeded.\nCall log:\n  - waiting for navigation until \"domcontentloaded\"\n    - navigated to \"http://127.0.0.1:35107/?recording=audio-wall\"\n"
+}

@@ -1,0 +1,390 @@
+{
+  "scope": "Native effect-tail suppression by actual UI nodes in controlled overlap poses.\nUses retained offline game assets, not IC certificates or a physical output route.\n",
+  "rows": [
+    {
+      "selector": ".arena-chrome",
+      "point": {
+        "x": 319.6514368998601,
+        "y": 447.7633533063005
+      },
+      "rect": {
+        "x": 239.640625,
+        "y": 367.75,
+        "width": 160,
+        "height": 160,
+        "top": 367.75,
+        "right": 399.640625,
+        "bottom": 527.75,
+        "left": 239.640625
+      },
+      "stops": [
+        {
+          "at": 5.272,
+          "when": 5.337000000000001
+        }
+      ],
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": false,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 1,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 0,
+          "underruns": 0,
+          "maxBuffers": 0,
+          "maxNodes": 0,
+          "maxDecoded": 0,
+          "active": false,
+          "nodes": 0,
+          "buffers": 0,
+          "phase": 0
+        },
+        "loader": {
+          "fetches": 5,
+          "cacheHits": 0,
+          "decodes": 4,
+          "maxFetches": 1,
+          "maxEncoded": 754705,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 157,
+          "lateFrames": 3,
+          "disabled": 59,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 154,
+          "maxFrameMs": 14.400000005960464,
+          "inspectionLimit": 54,
+          "flushP95": 0.20000000298023224,
+          "flushP99": 13.400000005960464
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "gameError": null
+    },
+    {
+      "selector": "#minimap",
+      "point": {
+        "x": 317.8951631349001,
+        "y": 446.7493681753302
+      },
+      "rect": {
+        "x": 237.890625,
+        "y": 366.734375,
+        "width": 160,
+        "height": 160,
+        "top": 366.734375,
+        "right": 397.890625,
+        "bottom": 526.734375,
+        "left": 237.890625
+      },
+      "stops": [
+        {
+          "at": 5.602666666666667,
+          "when": 5.667666666666667
+        }
+      ],
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": false,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 1,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 0,
+          "underruns": 0,
+          "maxBuffers": 0,
+          "maxNodes": 0,
+          "maxDecoded": 0,
+          "active": false,
+          "nodes": 0,
+          "buffers": 0,
+          "phase": 0
+        },
+        "loader": {
+          "fetches": 5,
+          "cacheHits": 0,
+          "decodes": 4,
+          "maxFetches": 1,
+          "maxEncoded": 754705,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 142,
+          "lateFrames": 1,
+          "disabled": 47,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 141,
+          "maxFrameMs": 3.1000000089406967,
+          "inspectionLimit": 96,
+          "flushP95": 0.20000000298023224,
+          "flushP99": 1.5
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "gameError": null
+    },
+    {
+      "selector": "#workspace",
+      "point": {
+        "x": 318.09376397526,
+        "y": 446.86403042397325
+      },
+      "rect": {
+        "x": 238.09375,
+        "y": 366.859375,
+        "width": 160,
+        "height": 160,
+        "top": 366.859375,
+        "right": 398.09375,
+        "bottom": 526.859375,
+        "left": 238.09375
+      },
+      "stops": [
+        {
+          "at": 4.290666666666667,
+          "when": 4.355666666666667
+        }
+      ],
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": false,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 1,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 0,
+          "underruns": 0,
+          "maxBuffers": 0,
+          "maxNodes": 0,
+          "maxDecoded": 0,
+          "active": false,
+          "nodes": 0,
+          "buffers": 0,
+          "phase": 0
+        },
+        "loader": {
+          "fetches": 5,
+          "cacheHits": 0,
+          "decodes": 4,
+          "maxFetches": 1,
+          "maxEncoded": 754705,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 149,
+          "lateFrames": 1,
+          "disabled": 37,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 148,
+          "maxFrameMs": 4.0999999940395355,
+          "inspectionLimit": 72,
+          "flushP95": 0.20000000298023224,
+          "flushP99": 3.3999999910593033
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "gameError": null
+    },
+    {
+      "selector": "#audio-popover",
+      "point": {
+        "x": 320.81397541440003,
+        "y": 448.4345452306134
+      },
+      "rect": {
+        "x": 240.8125,
+        "y": 368.421875,
+        "width": 160,
+        "height": 160,
+        "top": 368.421875,
+        "right": 400.8125,
+        "bottom": 528.421875,
+        "left": 240.8125
+      },
+      "stops": [
+        {
+          "at": 5.272,
+          "when": 5.337000000000001
+        }
+      ],
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "hidden": false,
+        "settings": {
+          "music": false,
+          "effects": true,
+          "mute": false,
+          "musicVolume": 0.72,
+          "effectsVolume": 0.58,
+          "adaptive": true
+        },
+        "activeVoices": 1,
+        "fxBuffers": 4,
+        "music": {
+          "starts": 0,
+          "underruns": 0,
+          "maxBuffers": 0,
+          "maxNodes": 0,
+          "maxDecoded": 0,
+          "active": false,
+          "nodes": 0,
+          "buffers": 0,
+          "phase": 0
+        },
+        "loader": {
+          "fetches": 5,
+          "cacheHits": 0,
+          "decodes": 4,
+          "maxFetches": 1,
+          "maxEncoded": 754705,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 155,
+          "lateFrames": 1,
+          "disabled": 54,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 154,
+          "maxFrameMs": 13.599999994039536,
+          "inspectionLimit": 22,
+          "flushP95": 0.3999999910593033,
+          "flushP99": 10.099999994039536
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "gameError": null
+    }
+  ],
+  "status": "PASS"
+}
